@@ -1,13 +1,11 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.Color;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class MessageWindowManager extends JFrame{
+public class ScreenManager extends JFrame{
 
 	private int curMsgCount = 0;
 	private final int MAX_MSG_COUNT = 10;
@@ -15,8 +13,9 @@ public class MessageWindowManager extends JFrame{
 	public REFERENCE_GUI ref = new REFERENCE_GUI();
 	
 	public JButton closeButton = new JButton();
+	public MenuBar menuBar = new MenuBar();
 	
-	public MessageWindowManager(){
+	public ScreenManager(){
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
@@ -26,7 +25,9 @@ public class MessageWindowManager extends JFrame{
 		this.setVisible(true);
 		
 		//TEMP Close Button
-		this.add(closeButton);	
+		
+		//this.add(closeButton);	
+		this.add(menuBar);
 		int closeButtonSize = 20;
 		int closeButtonOffset = 5;
 		closeButton.setBounds(5, ref.screenHeight-closeButtonSize-50, closeButtonSize, closeButtonSize);
@@ -53,9 +54,8 @@ public class MessageWindowManager extends JFrame{
 			MessageWindow newMsg = new MessageWindow(trade);
 			this.add(newMsg);
 			newMsg.orderIndex = curMsgCount;
-			final int index = curMsgCount;
 			newMsg.buttonClose.addMouseListener(new java.awt.event.MouseAdapter() {
-			    public void mouseClicked(java.awt.event.MouseEvent evt) {removeWindow(index);refresh();}
+			    public void mouseClicked(java.awt.event.MouseEvent evt) {removeWindow(newMsg.orderIndex);refresh();}
 			});
 			System.out.println("Message Index : " + msgIndex);
 			msgPanel[msgIndex] = newMsg;
