@@ -16,7 +16,7 @@ public class MenuBar extends JPanel{
 		final int buttonSize = 30;
 		final int buttonCount = 5;
 		final int offsetX = 10;
-		final int offsetY = 10;
+		final int offsetY = 30;
 
 		JButton exitButton = new JButton();
 		JButton button1 = new JButton();
