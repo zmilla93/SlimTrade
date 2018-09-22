@@ -1,99 +1,63 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MessageWindow extends JPanel{
 
-	private REFERENCE_GUI ref = new REFERENCE_GUI();
-	public int orderIndex;
-	public boolean managerVisiblity;
+	REF_MSG_WINDOW ref = new REF_MSG_WINDOW();
 	
-	//Panels
-	JPanel panelBorder = new JPanel();
-	JPanel panelBorder2 = new JPanel();
-	JPanel panelPlayerName = new JPanel();
-	JPanel panelItem = new JPanel();
-	JPanel panelPrice = new JPanel();
-	//Labels
-	JLabel labelPlayerName = new JLabel();
-	JLabel labelItem = new JLabel();
-	JLabel labelPrice = new JLabel();
-	//Buttons
-	JButton buttonClose = new JButton();
-	JButton buttonExpand = new JButton();
-	JButton buttonInvite = new JButton();
-	JButton buttonTrade = new JButton();
-	JButton buttonThank = new JButton();
-	JButton buttonKick = new JButton();
+	JPanel topPanel = new JPanel();
+	JPanel bottomPanel = new JPanel();
 	
-	public MessageWindow(TradeOffer trade){
-		//TEMP?
-		ref.setMessageColor(trade.offerType);
-
-		this.setLayout(null);
-		this.setBounds(0, 0, ref.msgWidth+ref.borderWidthLeft+ref.borderWidthRight, ref.msgHeight+ref.borderWidthTop+ref.borderWidthBottom);
- 		this.setBackground(ref.borderColor1);
- 		
-		//Name Panel
-		this.panelPlayerName.add(labelPlayerName);
-		this.add(panelPlayerName);
-		panelPlayerName.setBounds(0+ref.borderWidthLeft, 0+ref.borderWidthTop, ref.playerNameWidth, ref.playerNameHeight);
-		panelPlayerName.setBackground(ref.nameBgColor);
-		panelPlayerName.setLayout(null);
-		//Name Label
-		labelPlayerName.setBounds(0,0, ref.playerNameWidth, ref.playerNameHeight);
-		labelPlayerName.setText("<html>&nbsp;<font style=\"color:" + ref.defaultTextColor + ";\">" + trade.playerName + "</font></html>");
-		//Item Panel
-		this.panelItem.add(labelItem);
-		this.add(panelItem);
-		panelItem.setBounds(0+ref.borderWidthLeft, 0+ref.playerNameHeight+ref.borderWidthTop, ref.itemWidth, ref.itemHeight);
-		panelItem.setBackground(ref.itemBgColor);
-		panelItem.setLayout(null);
-		//Item Label
-		labelItem.setBounds(0,0, ref.itemWidth, ref.itemHeight);
-		labelItem.setBackground(Color.orange);
-		if(trade.itemQuant>0){
-			labelItem.setText("<html>&nbsp;<font style=\"color:" + ref.defaultTextColor + ";\">" + trade.itemQuant + " "+ trade.item + "</font></html>");
-		}else{
-			labelItem.setText("<html>&nbsp;<font style=\"color:" + ref.defaultTextColor + ";\">" + trade.item + "</font></html>");
-		}
+	JPanel namePanel = new JPanel();
+	JPanel itemPanel = new JPanel();
+	JPanel offerPanel = new JPanel();
+	
+	JButton expandButton = new JButton();
+	JButton closeButton = new JButton();
+	
+	public MessageWindow(){
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
+		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
+		this.setPreferredSize(new Dimension(ref.totalWidth, ref.totalHeight));
+		//this.setSize(ref.totalWidth, ref.totalHeight);
 		
-		//Price Panel
-		this.panelPrice.add(labelPrice);
-		this.add(panelPrice);
-		panelPrice.setBounds(0+ref.playerNameWidth+ref.borderWidthLeft, 0+ref.borderWidthTop, ref.priceWidth, ref.priceHeight);
-		panelPrice.setBackground(ref.priceBgColor);
-		panelPrice.setLayout(null);
-		//Price Label
-		labelPrice.setBounds(0,0, ref.priceWidth, ref.priceHeight);
-		labelPrice.setText("<html>&nbsp;<font style=\"color:" + ref.defaultTextColor + ";\">" + trade.priceQuant + " " + trade.price + "</font></html>");
-		this.setVisible(true);
+		topPanel.setSize(ref.totalWidth, ref.totalHeight/2);
+		bottomPanel.setSize(ref.totalWidth, ref.totalHeight/2);
+		topPanel.setBackground(Color.yellow);
+		bottomPanel.setBackground(Color.green);
 		
-		//Top Row of Buttons
-		this.add(buttonClose);
-		buttonClose.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth, 0+ref.borderWidthTop, ref.buttonWidth, ref.buttonHeight);
-		this.add(buttonExpand);
-		buttonExpand.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth*2, 0+ref.borderWidthTop, ref.buttonWidth, ref.buttonHeight);
-		//Bottom Row of Buttons
-		this.add(buttonInvite);
-		buttonInvite.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth*4, 0+ref.borderWidthTop+ref.buttonHeight, ref.buttonWidth, ref.buttonHeight);
-		this.add(buttonTrade);
-		buttonTrade.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth*3, 0+ref.borderWidthTop+ref.buttonHeight, ref.buttonWidth, ref.buttonHeight);
-		this.add(buttonThank);
-		buttonThank.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth*2, 0+ref.borderWidthTop+ref.buttonHeight, ref.buttonWidth, ref.buttonHeight);
-		this.add(buttonKick);
-		buttonKick.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth, 0+ref.borderWidthTop+ref.buttonHeight, ref.buttonWidth, ref.buttonHeight);
+		//namePanel.setSize((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
+		namePanel.setMaximumSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		namePanel.setBackground(Color.blue);
+		topPanel.add(namePanel);
+		offerPanel.setMaximumSize(new Dimension((int) (ref.offerWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		offerPanel.setBackground(Color.green);
+		topPanel.add(offerPanel);
 		
-		//Button Actions
-		/*
-		buttonClose.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {}
-		});
-		*/
+		expandButton.setPreferredSize(new Dimension(ref.buttonWidth, ref.buttonHeight));
+		expandButton.setMaximumSize(new Dimension(ref.buttonWidth, ref.buttonHeight));
+		closeButton.setPreferredSize(new Dimension(ref.buttonWidth, ref.buttonHeight));
+		closeButton.setMaximumSize(new Dimension(ref.buttonWidth, ref.buttonHeight));
+		topPanel.add(expandButton);
+		topPanel.add(closeButton);
 		
+		itemPanel.setPreferredSize(new Dimension(ref.itemWidth, ref.itemHeight));
+		itemPanel.setMaximumSize(new Dimension(ref.itemWidth, ref.itemHeight));
+		itemPanel.setBackground(Color.orange);
+		bottomPanel.add(itemPanel);
+		
+		this.add(topPanel);
+		this.add(bottomPanel);
+		
+		//this.setLayout();
 	}
+	
 }
