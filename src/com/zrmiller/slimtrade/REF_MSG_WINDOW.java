@@ -26,7 +26,7 @@ public class REF_MSG_WINDOW {
 
 		//BUTTONS
 		final int buttonCountRow1 = 2;
-		final int buttonCountRow2 = 0;
+		final int buttonCountRow2 = 4;
 		
 		//PANELS
 		final int buttonWidth = msgHeight/2;

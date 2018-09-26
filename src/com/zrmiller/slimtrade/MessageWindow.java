@@ -27,6 +27,11 @@ public class MessageWindow extends JPanel{
 	JButton expandButton = new JButton();
 	JButton closeButton = new JButton();
 	
+	JButton b1 = new JButton();
+	JButton b2 = new JButton();
+	JButton b3 = new JButton();
+	JButton b4 = new JButton();
+	
 	public MessageWindow(TradeOffer trade){
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
@@ -41,9 +46,10 @@ public class MessageWindow extends JPanel{
 		
 		
 		//TODO: replace new Dimensions with a variable
+		Dimension d = new Dimension();
 		//NAME
 		namePanel.setMinimumSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
-		namePanel.setPreferredSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		//namePanel.setPreferredSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		namePanel.setMaximumSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		namePanel.setBackground(Color.blue);
 		nameLabel.setText(trade.name);
@@ -53,7 +59,7 @@ public class MessageWindow extends JPanel{
 		//Price
 		pricePanel.setLayout(new FlowLayout());
 		pricePanel.setMinimumSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
-		pricePanel.setPreferredSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		//pricePanel.setPreferredSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		pricePanel.setMaximumSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		pricePanel.setBackground(Color.green);
 		priceLabel.setText("TEST");
@@ -61,17 +67,29 @@ public class MessageWindow extends JPanel{
 		topPanel.add(pricePanel);
 		
 		//Item
+		itemPanel.setMinimumSize(new Dimension(ref.itemWidth, ref.itemHeight));
 		itemPanel.setMaximumSize(new Dimension(ref.itemWidth, ref.itemHeight));
 		itemPanel.setBackground(Color.orange);
 		itemLabel.setText(trade.item);
 		itemPanel.add(itemLabel);
 		bottomPanel.add(itemPanel);
 		
-		//Buttons
-		expandButton.setMaximumSize(new Dimension(ref.buttonWidth, ref.buttonHeight));
-		closeButton.setMaximumSize(new Dimension(ref.buttonWidth, ref.buttonHeight));
+		d = new Dimension(ref.buttonWidth, ref.buttonHeight);
+		//Buttons Row 1
+		expandButton.setMaximumSize(d);
+		closeButton.setMaximumSize(d);
 		topPanel.add(expandButton);
 		topPanel.add(closeButton);
+		
+		//Buttons Row 2
+		b1.setMaximumSize(d);
+		b2.setMaximumSize(d);
+		b3.setMaximumSize(d);
+		b4.setMaximumSize(d);
+		bottomPanel.add(b1);
+		bottomPanel.add(b2);
+		bottomPanel.add(b3);
+		bottomPanel.add(b4);
 		
 		this.add(topPanel);
 		this.add(bottomPanel);
