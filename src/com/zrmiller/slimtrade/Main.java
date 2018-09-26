@@ -13,14 +13,13 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException, IOException, AWTException {
 		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();		
 		ChatParser parser = new ChatParser();
 		long st = System.nanoTime();
 		parser.update();
 		long et = System.nanoTime();
 		System.out.println("Program launched in " + (et-st)/1000000 + " miliseconds.");
-		TradeOffer t = new TradeOffer("in", "PLAYERNAME", "ITEM", 0, "CHAOS", 24);
+		
 
 		//Screen Frame + Screen Panel
 		JFrame screenFrame = new JFrame();
@@ -35,7 +34,7 @@ public class Main {
 		//Screen Components
 		MenuBar menuBar = new MenuBar();
 		MessageManager msgManager = new MessageManager();
-		msgManager.setLocation(500, 0);
+		//msgManager.setLocation(500, 0);
 		screen.add(menuBar);
 		screen.add(msgManager);
 
@@ -43,6 +42,7 @@ public class Main {
 		screenFrame.setVisible(true);
 		
 		//Global Buttons
+		TradeOffer t = new TradeOffer("in", "PLAYERNAME", "ITEM", 0, "CHAOS", 24);
 		menuBar.plusButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {msgManager.addMessage(t);}
 		});

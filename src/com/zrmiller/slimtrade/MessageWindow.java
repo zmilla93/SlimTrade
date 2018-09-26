@@ -16,6 +16,7 @@ public class MessageWindow extends JPanel{
 	
 	JPanel topPanel = new JPanel();
 	JPanel bottomPanel = new JPanel();
+	JPanel container = new JPanel();
 	
 	JPanel namePanel = new JPanel();
 	JLabel nameLabel = new JLabel();
@@ -33,49 +34,60 @@ public class MessageWindow extends JPanel{
 	JButton b4 = new JButton();
 	
 	public MessageWindow(TradeOffer trade){
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
-		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
-		//Temp fix for ugly white margin is to reduce max size
-		this.setMaximumSize(new Dimension(ref.totalWidth, ref.totalHeight));
+
+		this.setLayout(null);
+		this.setBackground(Color.magenta);
+		this.add(container);
+		Dimension d;
 		
+		//Container
+		d = new Dimension(ref.totalWidth, ref.totalHeight);
+		container.setMinimumSize(d);
+		container.setMaximumSize(d);
+		container.add(topPanel);
+		container.add(bottomPanel);
+		container.setBackground(Color.pink);
+		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+		container.setBounds(0, 0, ref.totalWidth, ref.totalHeight);
+		
+		//Row Panels
 		topPanel.setSize(ref.totalWidth, ref.totalHeight/2);
-		bottomPanel.setSize(ref.totalWidth, ref.totalHeight/2);
 		topPanel.setBackground(Color.red);
+		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
+		bottomPanel.setSize(ref.totalWidth, ref.totalHeight/2);
 		bottomPanel.setBackground(Color.red);
+		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
 		
-		
-		//TODO: replace new Dimensions with a variable
-		Dimension d = new Dimension();
 		//NAME
-		namePanel.setMinimumSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
-		//namePanel.setPreferredSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
-		namePanel.setMaximumSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		d = new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
+		namePanel.setMinimumSize(d);
+		namePanel.setMaximumSize(d);
 		namePanel.setBackground(Color.blue);
 		nameLabel.setText(trade.name);
 		namePanel.add(nameLabel);
 		topPanel.add(namePanel);
 		
 		//Price
+		d = new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
 		pricePanel.setLayout(new FlowLayout());
-		pricePanel.setMinimumSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
-		//pricePanel.setPreferredSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
-		pricePanel.setMaximumSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		pricePanel.setMinimumSize(d);
+		pricePanel.setMaximumSize(d);
 		pricePanel.setBackground(Color.green);
 		priceLabel.setText(trade.price);
 		pricePanel.add(priceLabel);
 		topPanel.add(pricePanel);
 		
 		//Item
-		itemPanel.setMinimumSize(new Dimension(ref.itemWidth, ref.itemHeight));
-		itemPanel.setMaximumSize(new Dimension(ref.itemWidth, ref.itemHeight));
+		d = new Dimension(ref.itemWidth, ref.itemHeight);
+		itemPanel.setMinimumSize(d);
+		itemPanel.setMaximumSize(d);
 		itemPanel.setBackground(Color.orange);
 		itemLabel.setText(trade.item);
 		itemPanel.add(itemLabel);
 		bottomPanel.add(itemPanel);
 		
-		d = new Dimension(ref.buttonWidth, ref.buttonHeight);
 		//Buttons Row 1
+		d = new Dimension(ref.buttonWidth, ref.buttonHeight);
 		expandButton.setMaximumSize(d);
 		closeButton.setMaximumSize(d);
 		topPanel.add(expandButton);
@@ -90,11 +102,6 @@ public class MessageWindow extends JPanel{
 		bottomPanel.add(b2);
 		bottomPanel.add(b3);
 		bottomPanel.add(b4);
-		
-		this.add(topPanel);
-		this.add(bottomPanel);
-		//this.setLayout();
-		//System.out.println("WIDTH : " + ref.totalWidth);
 	}
 	
 }
