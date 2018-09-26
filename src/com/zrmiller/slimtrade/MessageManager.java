@@ -13,7 +13,8 @@ public class MessageManager extends JPanel{
 	
 	public MessageManager(){
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		this.setBackground(Color.red);
+		//this.setBackground(new Color(1.0f, 1.0f, 1.0f, 0f));
+		this.setBackground(Color.cyan);
 		refresh();
 	}
 	
@@ -25,7 +26,7 @@ public class MessageManager extends JPanel{
 	}
 	
 	public void addMessage(TradeOffer trade){
-		MessageWindow msg = new MessageWindow();
+		MessageWindow msg = new MessageWindow(trade);
 		add(msg);
 		msg.closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {removeMessage(msg);}

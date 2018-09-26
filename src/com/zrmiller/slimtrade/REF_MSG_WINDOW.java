@@ -12,14 +12,15 @@ public class REF_MSG_WINDOW {
 		final int offsetY = 0;
 		
 		//BORDERS
-		final int borderWidthTop = 4;
-		final int borderWidthLeft = 4;
-		final int borderWidthRight = 4;
-		final int borderWidthBottom = 4;
+		final int borderWidthTop = 0;
+		final int borderWidthLeft = 0;
+		final int borderWidthRight = 0;
+		final int borderWidthBottom = 0;
 		
 		//PANELS
-		final int msgWidth = 400;
-		final int msgHeight = 44;
+		final int msgWidth = 700;
+		//final int msgHeight = 44;
+		final int msgHeight = 60;
 		final int totalWidth = msgWidth+borderWidthLeft+borderWidthRight;
 		final int totalHeight = msgHeight+borderWidthTop+borderWidthBottom;
 
@@ -32,7 +33,7 @@ public class REF_MSG_WINDOW {
 		final int buttonHeight = msgHeight/2;
 		final double itemWidthPercent = 1;
 		//BUG: Math is inaccurate without 0.005 buffer
-		final double nameWidthPercent = 0.705;
+		final double nameWidthPercent = 0.7;
 		final double priceWidthPercent = 0.3;
 		final int nameWidth = (int) ((msgWidth-buttonWidth*buttonCountRow1)*nameWidthPercent);
 		final int itemWidth = (int) ((msgWidth-buttonWidth*buttonCountRow2)*itemWidthPercent);
