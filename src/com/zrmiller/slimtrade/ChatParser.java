@@ -61,13 +61,26 @@ public class ChatParser {
 					if(msg.group(7)!=null){
 						f2 = Float.parseFloat(msg.group(7));
 					}
-					tradeHistory[tradeHistoryIndex] = new TradeOffer(msg.group(1), msg.group(2), msg.group(5), f1, msg.group(8), f2);
+					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(msg.group(1)), msg.group(2), msg.group(5), f1, msg.group(8), f2);
 					if (tradeHistoryIndex<MAX_TRADE_HISTORY-1) tradeHistoryIndex++; else tradeHistoryIndex=0;
 				}else{
 				}
 			}
 		}
 		return update;
+	}
+	
+	public MessageType getMsgType(String s){
+		MessageType t = MessageType.UNKNOWN;
+		switch(s.toLowerCase()){
+		case "to":
+			t = MessageType.OUTGOING_TRADE;
+			break;
+		case "from":
+			t = MessageType.INCOMING_TRADE;
+			break;
+		}
+		return t;
 	}
 	
 	public int getFixedIndex(int unsafeIndex){

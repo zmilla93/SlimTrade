@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class MessageWindow extends JPanel{
@@ -17,6 +19,7 @@ public class MessageWindow extends JPanel{
 	JPanel topPanel = new JPanel();
 	JPanel bottomPanel = new JPanel();
 	JPanel msgContainer = new JPanel();
+	JPanel borderPanel = new JPanel();
 	
 	JPanel namePanel = new JPanel();
 	JLabel nameLabel = new JLabel();
@@ -28,63 +31,81 @@ public class MessageWindow extends JPanel{
 	JButton expandButton = new JButton();
 	JButton closeButton = new JButton();
 	
-	JButton b1 = new JButton();
-	JButton b2 = new JButton();
-	JButton b3 = new JButton();
-	JButton b4 = new JButton();
+	JButton inviteButton = new JButton();
+	JButton tpToPlayerButton = new JButton();
+	JButton tradeButton = new JButton();
+	JButton thankButton = new JButton();
+	JButton kickButton = new JButton();
+	JButton leaveButton = new JButton();
+	JButton tpHomeButton = new JButton();
 	
 	public MessageWindow(TradeOffer trade){
+		ref.setMessageType(trade.msgType);
+		System.out.println(ref.nameWidth + ref.priceWidth + ref.buttonWidth*ref.buttonCountRow1);
 		Dimension d = new Dimension(ref.totalWidth, ref.totalHeight);
 		this.setLayout(null);
 		this.setBackground(Color.magenta);
-		this.add(msgContainer);
+		this.add(borderPanel);
 		this.setMinimumSize(d);
 		this.setMaximumSize(d);
 		
+		//Border
+		borderPanel.setBounds(0, 0, ref.totalWidth, ref.totalHeight);
+		borderPanel.setLayout(null);
+		//borderPanel.setMinimumSize(d);
+		//borderPanel.setMaximumSize(d);
+		borderPanel.add(msgContainer);
+		borderPanel.setBackground(ref.borderColor1);
 		
-		//msgmsgContainer
-		d = new Dimension(ref.totalWidth, ref.totalHeight);
+		//Message Container
+		d = new Dimension(ref.msgWidth, ref.msgHeight);
 		msgContainer.setMinimumSize(d);
 		msgContainer.setMaximumSize(d);
 		msgContainer.add(topPanel);
 		msgContainer.add(bottomPanel);
-		msgContainer.setBackground(Color.pink);
+		msgContainer.setBackground(Color.red);
 		msgContainer.setLayout(new BoxLayout(msgContainer, BoxLayout.PAGE_AXIS));
 		msgContainer.setBounds(ref.borderWidthLeft, ref.borderWidthTop, ref.msgWidth, ref.msgHeight);
 		
 		//Row Panels
-		topPanel.setSize(ref.totalWidth, ref.totalHeight/2);
+		topPanel.setSize(ref.msgWidth, ref.msgHeight/2);
 		topPanel.setBackground(Color.red);
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
-		bottomPanel.setSize(ref.totalWidth, ref.totalHeight/2);
+		bottomPanel.setSize(ref.msgWidth, ref.msgHeight/2);
 		bottomPanel.setBackground(Color.red);
 		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
 		
 		//NAME
 		d = new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
+		namePanel.setLayout(null);
 		namePanel.setMinimumSize(d);
 		namePanel.setMaximumSize(d);
-		namePanel.setBackground(Color.blue);
+		namePanel.setBackground(ref.nameBgColor);
 		nameLabel.setText(trade.name);
+		
+		nameLabel.setBounds(ref.labelBufferX, 0, ref.nameWidth, ref.nameHeight);
 		namePanel.add(nameLabel);
 		topPanel.add(namePanel);
 		
 		//Price
 		d = new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
-		pricePanel.setLayout(new FlowLayout());
+		pricePanel.setLayout(null);
 		pricePanel.setMinimumSize(d);
 		pricePanel.setMaximumSize(d);
-		pricePanel.setBackground(Color.green);
+		pricePanel.setBackground(ref.priceBgColor);
 		priceLabel.setText(trade.price);
+		priceLabel.setBounds(ref.labelBufferX, 0, ref.priceWidth, ref.priceHeight);
 		pricePanel.add(priceLabel);
 		topPanel.add(pricePanel);
 		
 		//Item
 		d = new Dimension(ref.itemWidth, ref.itemHeight);
+		itemPanel.setLayout(null);
 		itemPanel.setMinimumSize(d);
 		itemPanel.setMaximumSize(d);
-		itemPanel.setBackground(Color.orange);
+		itemPanel.setBackground(ref.itemBgColor);
 		itemLabel.setText(trade.item);
+		itemLabel.setBounds(ref.labelBufferX, 0, ref.itemWidth, ref.itemHeight);
 		itemPanel.add(itemLabel);
 		bottomPanel.add(itemPanel);
 		
@@ -96,14 +117,45 @@ public class MessageWindow extends JPanel{
 		topPanel.add(closeButton);
 		
 		//Buttons Row 2
-		b1.setMaximumSize(d);
-		b2.setMaximumSize(d);
-		b3.setMaximumSize(d);
-		b4.setMaximumSize(d);
-		bottomPanel.add(b1);
-		bottomPanel.add(b2);
-		bottomPanel.add(b3);
-		bottomPanel.add(b4);
+		inviteButton.setMaximumSize(d);
+		tpToPlayerButton.setMaximumSize(d);
+		tradeButton.setMaximumSize(d);
+		thankButton.setMaximumSize(d);
+		kickButton.setMaximumSize(d);
+		leaveButton.setMaximumSize(d);
+		tpHomeButton.setMaximumSize(d);
+		switch(trade.msgType){
+		case INCOMING_TRADE:
+			bottomPanel.add(inviteButton);
+			bottomPanel.add(tradeButton);
+			bottomPanel.add(thankButton);
+			bottomPanel.add(kickButton);
+			break;
+		case OUTGOING_TRADE:
+			bottomPanel.add(tpToPlayerButton);
+			bottomPanel.add(tradeButton);
+			bottomPanel.add(thankButton);
+			bottomPanel.add(leaveButton);
+			bottomPanel.add(tpHomeButton);
+			break;
+		default:
+			break;
+		}
+		
+		
+		//Local Mouse Events
+		Border b = BorderFactory.createLineBorder(Color.red);
+		Border off = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {itemPanel.setBorder(b);}
+		});
+		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseExited(java.awt.event.MouseEvent evt) {itemPanel.setBorder(off);}
+		});
+		
+		//BUTTONS
+		
+		
 	}
 	
 }

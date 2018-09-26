@@ -42,15 +42,16 @@ public class Main {
 		screenFrame.setVisible(true);
 		
 		//Global Buttons
-		TradeOffer t = new TradeOffer("in", "PLAYERNAME", "ITEM", 0, "CHAOS", 24);
+		TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "PLAYERNAME", "ITEM", 0, "CHAOS", 24);
 		menuBar.plusButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {msgManager.addMessage(t);}
 		});
 		
 		//SET TO 1 TO RUN CHAT SCANNER
-		/*
+		
 		boolean scanChat = true;
-		while(){
+		/*
+		while(scanChat){
 			//System.out.println("Update");
 			int i = parser.update();
 			while(i>0){
@@ -60,6 +61,7 @@ public class Main {
 			Thread.sleep(500);
 		}
 		*/
+		
 		
 	}
 }

@@ -13,6 +13,7 @@ public class MessageManager extends JPanel{
 	
 	public MessageManager(){
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLocation(ref.offsetX, ref.offsetY);
 		//this.setBackground(new Color(1.0f, 1.0f, 1.0f, 0f));
 		this.setBackground(Color.cyan);
 		refresh();
