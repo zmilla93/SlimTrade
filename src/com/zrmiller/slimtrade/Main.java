@@ -1,6 +1,7 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -19,14 +20,16 @@ public class Main {
 		parser.update();
 		long et = System.nanoTime();
 		System.out.println("Program launched in " + (et-st)/1000000 + " miliseconds.");
-		
+		TradeOffer t = new TradeOffer("in", "PLAYERNAME", "ITEM", 0, "CHAOS", 24);
 
 		//Screen Frame + Screen Panel
 		JFrame screenFrame = new JFrame();
+		
 		screenFrame.setLayout(null);
 		screenFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		screenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screenFrame.setUndecorated(true);
+		screenFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.2f));
 		Container screen = screenFrame.getContentPane();
 		
 		//Screen Components
@@ -41,7 +44,7 @@ public class Main {
 		
 		//Global Buttons
 		menuBar.plusButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {msgManager.addMessage();}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {msgManager.addMessage(t);}
 		});
 		
 		//SET TO 1 TO RUN CHAT SCANNER

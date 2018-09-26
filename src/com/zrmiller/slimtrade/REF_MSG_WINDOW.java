@@ -25,7 +25,7 @@ public class REF_MSG_WINDOW {
 
 		//BUTTONS
 		final int buttonCountRow1 = 2;
-		final int buttonCountRow2 = 4;
+		final int buttonCountRow2 = 0;
 		
 		//PANELS
 		final int buttonWidth = msgHeight/2;
@@ -33,13 +33,13 @@ public class REF_MSG_WINDOW {
 		final double itemWidthPercent = 1;
 		//BUG: Math is inaccurate without 0.005 buffer
 		final double nameWidthPercent = 0.705;
-		final double offerWidthPercent = 0.3;
+		final double priceWidthPercent = 0.3;
 		final int nameWidth = (int) ((msgWidth-buttonWidth*buttonCountRow1)*nameWidthPercent);
 		final int itemWidth = (int) ((msgWidth-buttonWidth*buttonCountRow2)*itemWidthPercent);
-		final int priceWidth = (int) ((msgWidth-buttonWidth*buttonCountRow1)*offerWidthPercent);
+		final int priceWidth = (int) ((msgWidth-buttonWidth*buttonCountRow1)*priceWidthPercent);
 		final int nameHeight = msgHeight/2;
 		final int itemHeight = msgHeight/2;
-		final int offerHeight = msgHeight/2;
+		final int priceHeight = msgHeight/2;
 		
 		//SCREEN SIZE
 		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

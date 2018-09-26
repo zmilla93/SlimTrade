@@ -34,11 +34,10 @@ public class MessageWindow extends JPanel{
 		topPanel.setBackground(Color.yellow);
 		bottomPanel.setBackground(Color.green);
 		
-		//namePanel.setSize((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
 		namePanel.setMaximumSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		namePanel.setBackground(Color.blue);
 		topPanel.add(namePanel);
-		offerPanel.setMaximumSize(new Dimension((int) (ref.offerWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		offerPanel.setMaximumSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		offerPanel.setBackground(Color.green);
 		topPanel.add(offerPanel);
 		

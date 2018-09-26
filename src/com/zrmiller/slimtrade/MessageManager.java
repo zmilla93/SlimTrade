@@ -8,21 +8,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class MessageManager extends JPanel{
 	
-	int buttonCountRow1 = 1;
-	int buttonCountRow2 = 1;
-	
-	//Sizes
-	int messageWidth = 400;
-	int messageHeight = 40;
-	
-	int buttonWidth = messageHeight/2;
-	int buttonHeight = buttonWidth;
-	
-	//SET THESE
-	double nameWidthPercent = 0.7;
-	int nameWidth = (int) (nameWidthPercent*(messageWidth-(buttonWidth*buttonCountRow1)));
-	
-	//Internal
+	REF_MSG_WINDOW ref = new REF_MSG_WINDOW();
 	int messageCount = 0;
 	
 	public MessageManager(){
@@ -32,12 +18,13 @@ public class MessageManager extends JPanel{
 	}
 	
 	public void refresh(){
-		this.setSize(messageWidth,messageHeight*messageCount);
+		//Change to totalheight when border is added
+		this.setSize(ref.msgWidth,ref.msgHeight*messageCount);
 		this.revalidate();
 		this.repaint();
 	}
 	
-	public void addMessage(){
+	public void addMessage(TradeOffer trade){
 		MessageWindow msg = new MessageWindow();
 		add(msg);
 		msg.closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
