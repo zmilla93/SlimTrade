@@ -2,10 +2,11 @@ package com.zrmiller.slimtrade;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -111,6 +112,11 @@ public class MessageWindow extends JPanel{
 		
 		//Buttons Row 1
 		d = new Dimension(ref.buttonWidth, ref.buttonHeight);
+		int buttonBuffer = -8;
+		//ImageIcon Close = new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth, ref.buttonHeight, Image.SCALE_DEFAULT);
+		//Image closeIcon = new ImageIcon(this.getClass().getResource("/close.png")).getImage().getScaledInstance(ref.buttonWidth+buttonBuffer, ref.buttonHeight+buttonBuffer, Image.SCALE_SMOOTH);
+		//closeButton.setIcon(new ImageIcon(closeIcon));
+		//closeButton.setBorder(null);
 		expandButton.setMaximumSize(d);
 		closeButton.setMaximumSize(d);
 		topPanel.add(expandButton);
@@ -118,6 +124,9 @@ public class MessageWindow extends JPanel{
 		
 		//Buttons Row 2
 		inviteButton.setMaximumSize(d);
+		//Image inviteIcon = new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth+buttonBuffer, ref.buttonHeight+buttonBuffer, Image.SCALE_SMOOTH);
+		//inviteButton.setIcon(new ImageIcon(inviteIcon));
+		
 		tpToPlayerButton.setMaximumSize(d);
 		tradeButton.setMaximumSize(d);
 		thankButton.setMaximumSize(d);

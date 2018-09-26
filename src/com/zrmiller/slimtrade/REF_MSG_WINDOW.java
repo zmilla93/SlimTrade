@@ -19,8 +19,8 @@ public class REF_MSG_WINDOW {
 		final int borderWidthBottom = 2;
 		
 		//PANELS
-		final int msgWidth = 400;
-		final int msgHeight = 60;
+		final int msgWidth = 380;
+		final int msgHeight = 50;
 		final int totalWidth = msgWidth+borderWidthLeft+borderWidthRight;
 		final int totalHeight = msgHeight+borderWidthTop+borderWidthBottom;
 
@@ -60,12 +60,11 @@ public class REF_MSG_WINDOW {
 		//OUTGOING TRADE
 		public REF_MSG_WINDOW(){
 			//Fix rounding error. Better way to do?
-			System.out.println(nameWidth + priceWidth + (buttonWidth*buttonCountRow1));
 			while(nameWidth + priceWidth + (buttonWidth*buttonCountRow1) < msgWidth){
 				this.nameWidth++;
-				System.out.println("Inc");
+				System.out.println("nameWidth++");
 			}
-			System.out.println(nameWidth + priceWidth + (buttonWidth*buttonCountRow1));
+			System.out.println("FIN");
 		}
 		
 		//COLORS
