@@ -62,7 +62,7 @@ public class MessageWindow extends JPanel{
 		//pricePanel.setPreferredSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		pricePanel.setMaximumSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		pricePanel.setBackground(Color.green);
-		priceLabel.setText("TEST");
+		priceLabel.setText(trade.price);
 		pricePanel.add(priceLabel);
 		topPanel.add(pricePanel);
 		
@@ -94,7 +94,7 @@ public class MessageWindow extends JPanel{
 		this.add(topPanel);
 		this.add(bottomPanel);
 		//this.setLayout();
-		System.out.println("WIDTH : " + ref.totalWidth);
+		//System.out.println("WIDTH : " + ref.totalWidth);
 	}
 	
 }
