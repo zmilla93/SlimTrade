@@ -12,10 +12,10 @@ public class REF_MSG_WINDOW {
 		final int offsetY = 0;
 		
 		//BORDERS
-		final int borderWidthTop = 0;
-		final int borderWidthLeft = 0;
-		final int borderWidthRight = 0;
-		final int borderWidthBottom = 0;
+		final int borderWidthTop = 2;
+		final int borderWidthLeft = 2;
+		final int borderWidthRight = 2;
+		final int borderWidthBottom = 2;
 		
 		//PANELS
 		final int msgWidth = 700;

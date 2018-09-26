@@ -16,7 +16,7 @@ public class MessageWindow extends JPanel{
 	
 	JPanel topPanel = new JPanel();
 	JPanel bottomPanel = new JPanel();
-	JPanel container = new JPanel();
+	JPanel msgContainer = new JPanel();
 	
 	JPanel namePanel = new JPanel();
 	JLabel nameLabel = new JLabel();
@@ -34,21 +34,23 @@ public class MessageWindow extends JPanel{
 	JButton b4 = new JButton();
 	
 	public MessageWindow(TradeOffer trade){
-
+		Dimension d = new Dimension(ref.totalWidth, ref.totalHeight);
 		this.setLayout(null);
 		this.setBackground(Color.magenta);
-		this.add(container);
-		Dimension d;
+		this.add(msgContainer);
+		this.setMinimumSize(d);
+		this.setMaximumSize(d);
 		
-		//Container
+		
+		//msgmsgContainer
 		d = new Dimension(ref.totalWidth, ref.totalHeight);
-		container.setMinimumSize(d);
-		container.setMaximumSize(d);
-		container.add(topPanel);
-		container.add(bottomPanel);
-		container.setBackground(Color.pink);
-		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
-		container.setBounds(0, 0, ref.totalWidth, ref.totalHeight);
+		msgContainer.setMinimumSize(d);
+		msgContainer.setMaximumSize(d);
+		msgContainer.add(topPanel);
+		msgContainer.add(bottomPanel);
+		msgContainer.setBackground(Color.pink);
+		msgContainer.setLayout(new BoxLayout(msgContainer, BoxLayout.PAGE_AXIS));
+		msgContainer.setBounds(ref.borderWidthLeft, ref.borderWidthTop, ref.msgWidth, ref.msgHeight);
 		
 		//Row Panels
 		topPanel.setSize(ref.totalWidth, ref.totalHeight/2);

@@ -19,8 +19,7 @@ public class MessageManager extends JPanel{
 	}
 	
 	public void refresh(){
-		//Change to totalheight when border is added
-		this.setSize(ref.msgWidth,ref.msgHeight*messageCount);
+		this.setSize(ref.totalWidth,ref.totalHeight*messageCount);
 		this.revalidate();
 		this.repaint();
 	}
