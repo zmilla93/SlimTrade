@@ -31,15 +31,19 @@ public class MessageWindow extends JPanel{
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
 		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
-		//Temp fix for ugly white margin
-		this.setMaximumSize(new Dimension(ref.totalWidth-5, ref.totalHeight));
+		//Temp fix for ugly white margin is to reduce max size
+		this.setMaximumSize(new Dimension(ref.totalWidth, ref.totalHeight));
 		
 		topPanel.setSize(ref.totalWidth, ref.totalHeight/2);
 		bottomPanel.setSize(ref.totalWidth, ref.totalHeight/2);
 		topPanel.setBackground(Color.red);
 		bottomPanel.setBackground(Color.red);
 		
+		
+		//TODO: replace new Dimensions with a variable
 		//NAME
+		namePanel.setMinimumSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		namePanel.setPreferredSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		namePanel.setMaximumSize(new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		namePanel.setBackground(Color.blue);
 		nameLabel.setText(trade.name);
@@ -48,6 +52,8 @@ public class MessageWindow extends JPanel{
 		
 		//Price
 		pricePanel.setLayout(new FlowLayout());
+		pricePanel.setMinimumSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
+		pricePanel.setPreferredSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		pricePanel.setMaximumSize(new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight));
 		pricePanel.setBackground(Color.green);
 		priceLabel.setText("TEST");
