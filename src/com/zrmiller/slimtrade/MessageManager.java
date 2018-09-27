@@ -114,8 +114,8 @@ public class MessageManager extends JPanel{
 	private void hideItemOutline(){
 		System.out.println("Hiding item outline...");
 		stashPane.setVisible(false);
-		outlinePane.revalidate();
-		outlinePane.repaint();
+		//outlinePane.revalidate();
+		//outlinePane.repaint();
 	}
 	
 	private void pasteIntoPOE(String s){

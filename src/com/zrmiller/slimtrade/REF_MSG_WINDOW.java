@@ -37,11 +37,11 @@ public class REF_MSG_WINDOW {
 		final double nameWidthPercent = 0.7;
 		final double priceWidthPercent = 0.3;
 		double nWidth = (double)(msgWidth-buttonWidth*buttonCountRow1)*nameWidthPercent;
-		double iWidth = (double)(msgWidth-buttonWidth*buttonCountRow2)*itemWidthPercent;
 		double pWidth =	(double)(msgWidth-buttonWidth*buttonCountRow1)*priceWidthPercent;
+		double iWidth = (double)(msgWidth-buttonWidth*buttonCountRow2)*itemWidthPercent;
 		int nameWidth = (int) nWidth;
-		int itemWidth = (int) iWidth;
 		final int priceWidth = (int) pWidth;
+		int itemWidth = (int) iWidth;
 		//final int priceWidth = msgWidth-nameWidth-(buttonWidth*buttonCountRow1);
 		final int nameHeight = msgHeight/2;
 		final int itemHeight = msgHeight/2;
@@ -84,15 +84,15 @@ public class REF_MSG_WINDOW {
 				this.buttonCountRow2 = 4;
 				nameBgColor = new Color(200, 200, 200);
 				itemBgColor = new Color(150, 150, 150);
-				priceBgColor = new Color(120, 120, 120);
+				priceBgColor = new Color(50, 200, 50);
 				defaultTextColor = "#FFFF00";
-				borderColor1 = Color.orange;
+				borderColor1 = Color.lightGray;
 				break;
 			case OUTGOING_TRADE:
 				this.buttonCountRow2 = 5;
 				nameBgColor = new Color(200, 200, 200);
 				itemBgColor = new Color(150, 150, 150);
-				priceBgColor = new Color(120, 120, 120);
+				priceBgColor = new Color(200, 50, 50);
 				defaultTextColor = "#FFFF00";
 				borderColor1 = Color.black;
 				break;

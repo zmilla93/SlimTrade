@@ -58,12 +58,21 @@ public class Main {
 				double y = (int)(Math.random()*((max-min)+1))+min;
 				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "", "PLAYERNAME", "ITEM", 0, "alch", 2, "STASHTABNAME", (int)x, (int)y);
 				msgManager.addMessage(t);
-				t = new TradeOffer(MessageType.OUTGOING_TRADE, "",  "PLAYERNAME", "ITEM", 0, "CHAOSMONEY", 10, "STASHTABNAME", (int)x, (int)y);
+				//2nd msg
+				x = (int)(Math.random()*((max-min)+1))+min;
+				y = (int)(Math.random()*((max-min)+1))+min;
+				t = new TradeOffer(MessageType.OUTGOING_TRADE, "",  "PLAYERNAME", "APPRENTICE_CARTOGRAPHERS_SEXTANT", 14, "CHAOSMONEY", 10, "STASHTABNAME", (int)x, (int)y);
 				msgManager.addMessage(t);
-				t = new TradeOffer(MessageType.INCOMING_TRADE, "",  "PLAYERNAME", "exITEM", 5, "chaos", 500, "STASHTABNAME", (int)x, (int)y);
+				//3rd msg
+				t = new TradeOffer(MessageType.INCOMING_TRADE, "",  "PLAYERNAME", "exITEM", 5, "exchaos", 500, "STASHTABNAME", (int)x, (int)y);
 				msgManager.addMessage(t);
+				x = (int)(Math.random()*((max-min)+1))+min;
+				y = (int)(Math.random()*((max-min)+1))+min;
+				//4th msg
 				t = new TradeOffer(MessageType.OUTGOING_TRADE, "",  "PLAYERNAME", "alch", 5000, "chaos", 5, "STASHTABNAME", (int)x, (int)y);
 				msgManager.addMessage(t);
+				x = (int)(Math.random()*((max-min)+1))+min;
+				y = (int)(Math.random()*((max-min)+1))+min;
 				}
 		});
 		
