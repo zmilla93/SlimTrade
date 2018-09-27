@@ -11,6 +11,8 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.zrmiller.slimtrade.datatypes.MessageType;
+
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException, IOException, AWTException {
@@ -54,9 +56,9 @@ public class Main {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		    	double x = (int)(Math.random()*((max-min)+1))+min;
 				double y = (int)(Math.random()*((max-min)+1))+min;
-				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "PLAYERNAME", "ITEM", 0, "CHAOS", 24, "STASHTABNAME", (int)x, (int)y);
+				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "", "PLAYERNAME", "ITEM", 0, "alch", 24, "STASHTABNAME", (int)x, (int)y);
 				msgManager.addMessage(t);
-				t = new TradeOffer(MessageType.OUTGOING_TRADE, "PLAYERNAME", "ITEM", 0, "CHAOS", 24, "STASHTABNAME", (int)x, (int)y);
+				t = new TradeOffer(MessageType.OUTGOING_TRADE, "",  "PLAYERNAME", "ITEM", 0, "sadfs", 24, "STASHTABNAME", (int)x, (int)y);
 				msgManager.addMessage(t);
 				}
 		});

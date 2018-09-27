@@ -78,17 +78,21 @@ public class MessageWindow extends JPanel{
 		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
 		
 		//NAME
+		String s;
+		String path;
 		d = new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
 		namePanel.setLayout(null);
 		namePanel.setMinimumSize(d);
 		namePanel.setMaximumSize(d);
 		namePanel.setBackground(ref.nameBgColor);
-		nameLabel.setText(trade.name);
+		nameLabel.setText(trade.guild + trade.name);
 		nameLabel.setBounds(ref.labelBufferX, 0, ref.nameWidth, ref.nameHeight);
 		namePanel.add(nameLabel);
 		topPanel.add(namePanel);
 		
 		//Price
+		//TODO: move currency offset
+		int currencyIconOffset = 15;
 		d = new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
 		pricePanel.setLayout(null);
 		pricePanel.setMinimumSize(d);
@@ -97,6 +101,15 @@ public class MessageWindow extends JPanel{
 		priceLabel.setText(trade.price);
 		priceLabel.setBounds(ref.labelBufferX, 0, ref.priceWidth, ref.priceHeight);
 		pricePanel.add(priceLabel);
+		if(this.getClass().getResource("/" + trade.price + ".png") != null){
+			priceLabel.setText(Float.toString(trade.priceQuant).replaceAll("\\.?0*$", ""));
+			JLabel priceIcon = new JLabel();
+			priceIcon.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/" + trade.price + ".png")).getImage().getScaledInstance(ref.buttonWidth, ref.buttonHeight, Image.SCALE_SMOOTH)));
+			priceIcon.setBounds(ref.labelBufferX+currencyIconOffset, 0, ref.priceWidth, ref.priceHeight);
+			pricePanel.add(priceIcon);
+		}else{
+			priceLabel.setText(Float.toString(trade.priceQuant).replaceAll("\\.?0*$", "") + " " + trade.price);
+		}
 		topPanel.add(pricePanel);
 		
 		//Item
@@ -136,15 +149,21 @@ public class MessageWindow extends JPanel{
 		kickButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/leave.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
 		tpHomeButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/home.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
 		
+//		inviteButton.setMinimumSize(d);
+//		tpToPlayerButton.setMinimumSize(d);
+//		tradeButton.setMinimumSize(d);
+//		thankButton.setMinimumSize(d);
+//		kickButton.setMinimumSize(d);
+//		leaveButton.setMinimumSize(d);
+//		tpHomeButton.setMinimumSize(d);
+		
 		inviteButton.setMaximumSize(d);
 		tpToPlayerButton.setMaximumSize(d);
-		tpToPlayerButton.setMinimumSize(d);
 		tradeButton.setMaximumSize(d);
 		thankButton.setMaximumSize(d);
 		kickButton.setMaximumSize(d);
 		leaveButton.setMaximumSize(d);
 		tpHomeButton.setMaximumSize(d);
-		tpHomeButton.setMinimumSize(d);
 		
 		inviteButton.setBorder(buttonBorder);
 		tpToPlayerButton.setBorder(buttonBorder);

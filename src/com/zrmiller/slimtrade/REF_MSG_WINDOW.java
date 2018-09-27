@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import com.zrmiller.slimtrade.datatypes.MessageType;
+
 public class REF_MSG_WINDOW {
 		//SETTINGS
 	

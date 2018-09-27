@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade;
+package com.zrmiller.slimtrade.datatypes;
 
 public enum MessageType {
 

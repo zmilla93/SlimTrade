@@ -85,10 +85,10 @@ public class MessageManager extends JPanel{
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("@" + trade.name + " " + thankMsg);}
 		});
 		msg.kickButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/kick" + trade.name);}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/kick " + trade.name);}
 		});
 		msg.leaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/kick" + " " + user);}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/kick " + user);}
 		});
 		msg.tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/hideout");}

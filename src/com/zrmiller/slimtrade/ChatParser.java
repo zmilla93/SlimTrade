@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.zrmiller.slimtrade.datatypes.MessageType;
+
 public class ChatParser {
 	FileReader fr;
 	BufferedReader br;
@@ -19,7 +21,7 @@ public class ChatParser {
 	public TradeOffer[] tradeHistory = new TradeOffer[MAX_TRADE_HISTORY];
 	
 	
-	private final static String tradeMessageMatchString = ".+@(To|From) (.+): Hi, (I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \")?((.+)\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?";
+	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?(.+): (Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \")?((.+)\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?";
 
 	public ChatParser(){
 		this.msgPattern = Pattern.compile(tradeMessageMatchString);
@@ -53,23 +55,24 @@ public class ChatParser {
 					//System.out.println("MATCH");
 					//System.out.println("PARSING ::: " + msg.group(1));
 					update++;
+					//TODO: could move int fixing to TradeOffer class
 					float f1 = 0; 
 					float f2 = 0;
-					if(msg.group(4)!=null){
-						f1 = Float.parseFloat(msg.group(4));
+					if(msg.group(6)!=null){
+						f1 = Float.parseFloat(msg.group(6));
 					}
-					if(msg.group(7)!=null){
-						f2 = Float.parseFloat(msg.group(7));
+					if(msg.group(9)!=null){
+						f2 = Float.parseFloat(msg.group(9));
 					}
 					int i1 = 0;
 					int i2 = 0;
 					if(msg.group(14)!=null){
-						i1 = Integer.parseInt(msg.group(14));
+						i1 = Integer.parseInt(msg.group(16));
 					}
 					if(msg.group(16)!=null){
-						i2 = Integer.parseInt(msg.group(16));
+						i2 = Integer.parseInt(msg.group(18));
 					}
-					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(msg.group(1)), msg.group(2), msg.group(5), f1, msg.group(8), f2, msg.group(12), i1, i2);
+					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(msg.group(1)), msg.group(2),  msg.group(3), msg.group(7), f1, msg.group(10), f2, msg.group(14), i1, i2);
 					if (tradeHistoryIndex<MAX_TRADE_HISTORY-1) tradeHistoryIndex++; else tradeHistoryIndex=0;
 				}else{
 				}
