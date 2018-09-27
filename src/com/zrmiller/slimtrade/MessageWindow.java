@@ -1,99 +1,191 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class MessageWindow extends JPanel{
 
-	private REFERENCE_GUI ref = new REFERENCE_GUI();
-	public int orderIndex;
-	public boolean managerVisiblity;
+	REF_MSG_WINDOW ref = new REF_MSG_WINDOW();
 	
-	//Panels
-	JPanel panelBorder = new JPanel();
-	JPanel panelBorder2 = new JPanel();
-	JPanel panelPlayerName = new JPanel();
-	JPanel panelItem = new JPanel();
-	JPanel panelPrice = new JPanel();
-	//Labels
-	JLabel labelPlayerName = new JLabel();
-	JLabel labelItem = new JLabel();
-	JLabel labelPrice = new JLabel();
-	//Buttons
-	JButton buttonClose = new JButton();
-	JButton buttonExpand = new JButton();
-	JButton buttonInvite = new JButton();
-	JButton buttonTrade = new JButton();
-	JButton buttonThank = new JButton();
-	JButton buttonKick = new JButton();
+	JPanel topPanel = new JPanel();
+	JPanel bottomPanel = new JPanel();
+	JPanel msgContainer = new JPanel();
+	JPanel borderPanel = new JPanel();
+	
+	JPanel namePanel = new JPanel();
+	JLabel nameLabel = new JLabel();
+	JPanel itemPanel = new JPanel();
+	JLabel itemLabel = new JLabel();
+	JPanel pricePanel = new JPanel();
+	JLabel priceLabel = new JLabel();
+	
+	JButton expandButton = new JButton();
+	JButton closeButton = new JButton();
+	
+	JButton inviteButton = new JButton();
+	JButton tpToPlayerButton = new JButton();
+	JButton tradeButton = new JButton();
+	JButton thankButton = new JButton();
+	JButton kickButton = new JButton();
+	JButton leaveButton = new JButton();
+	JButton tpHomeButton = new JButton();
 	
 	public MessageWindow(TradeOffer trade){
-		//TEMP?
-		ref.setMessageColor(trade.offerType);
-
+		ref.setMessageType(trade.msgType);
+		System.out.println(ref.nameWidth + ref.priceWidth + ref.buttonWidth*ref.buttonCountRow1);
+		Dimension d = new Dimension(ref.totalWidth, ref.totalHeight);
 		this.setLayout(null);
-		this.setBounds(0, 0, ref.msgWidth+ref.borderWidthLeft+ref.borderWidthRight, ref.msgHeight+ref.borderWidthTop+ref.borderWidthBottom);
- 		this.setBackground(ref.borderColor1);
- 		
-		//Name Panel
-		this.panelPlayerName.add(labelPlayerName);
-		this.add(panelPlayerName);
-		panelPlayerName.setBounds(0+ref.borderWidthLeft, 0+ref.borderWidthTop, ref.playerNameWidth, ref.playerNameHeight);
-		panelPlayerName.setBackground(ref.nameBgColor);
-		panelPlayerName.setLayout(null);
-		//Name Label
-		labelPlayerName.setBounds(0,0, ref.playerNameWidth, ref.playerNameHeight);
-		labelPlayerName.setText("<html>&nbsp;<font style=\"color:" + ref.defaultTextColor + ";\">" + trade.playerName + "</font></html>");
-		//Item Panel
-		this.panelItem.add(labelItem);
-		this.add(panelItem);
-		panelItem.setBounds(0+ref.borderWidthLeft, 0+ref.playerNameHeight+ref.borderWidthTop, ref.itemWidth, ref.itemHeight);
-		panelItem.setBackground(ref.itemBgColor);
-		panelItem.setLayout(null);
-		//Item Label
-		labelItem.setBounds(0,0, ref.itemWidth, ref.itemHeight);
-		labelItem.setBackground(Color.orange);
-		if(trade.itemQuant>0){
-			labelItem.setText("<html>&nbsp;<font style=\"color:" + ref.defaultTextColor + ";\">" + trade.itemQuant + " "+ trade.item + "</font></html>");
-		}else{
-			labelItem.setText("<html>&nbsp;<font style=\"color:" + ref.defaultTextColor + ";\">" + trade.item + "</font></html>");
+		this.setBackground(Color.magenta);
+		this.add(borderPanel);
+		this.setMinimumSize(d);
+		this.setMaximumSize(d);
+		
+		//Border
+		borderPanel.setBounds(0, 0, ref.totalWidth, ref.totalHeight);
+		borderPanel.setLayout(null);
+		//borderPanel.setMinimumSize(d);
+		//borderPanel.setMaximumSize(d);
+		borderPanel.add(msgContainer);
+		borderPanel.setBackground(ref.borderColor1);
+		
+		//Message Container
+		d = new Dimension(ref.msgWidth, ref.msgHeight);
+		msgContainer.setMinimumSize(d);
+		msgContainer.setMaximumSize(d);
+		msgContainer.add(topPanel);
+		msgContainer.add(bottomPanel);
+		msgContainer.setBackground(Color.red);
+		msgContainer.setLayout(new BoxLayout(msgContainer, BoxLayout.PAGE_AXIS));
+		msgContainer.setBounds(ref.borderWidthLeft, ref.borderWidthTop, ref.msgWidth, ref.msgHeight);
+		
+		//Row Panels
+		topPanel.setSize(ref.msgWidth, ref.msgHeight/2);
+		topPanel.setBackground(Color.red);
+		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
+		bottomPanel.setSize(ref.msgWidth, ref.msgHeight/2);
+		bottomPanel.setBackground(Color.red);
+		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
+		
+		//NAME
+		d = new Dimension((int) (ref.nameWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
+		namePanel.setLayout(null);
+		namePanel.setMinimumSize(d);
+		namePanel.setMaximumSize(d);
+		namePanel.setBackground(ref.nameBgColor);
+		nameLabel.setText(trade.name);
+		nameLabel.setBounds(ref.labelBufferX, 0, ref.nameWidth, ref.nameHeight);
+		namePanel.add(nameLabel);
+		topPanel.add(namePanel);
+		
+		//Price
+		d = new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
+		pricePanel.setLayout(null);
+		pricePanel.setMinimumSize(d);
+		pricePanel.setMaximumSize(d);
+		pricePanel.setBackground(ref.priceBgColor);
+		priceLabel.setText(trade.price);
+		priceLabel.setBounds(ref.labelBufferX, 0, ref.priceWidth, ref.priceHeight);
+		pricePanel.add(priceLabel);
+		topPanel.add(pricePanel);
+		
+		//Item
+		d = new Dimension(ref.itemWidth, ref.itemHeight);
+		itemPanel.setLayout(null);
+		itemPanel.setMinimumSize(d);
+		itemPanel.setMaximumSize(d);
+		itemPanel.setBackground(ref.itemBgColor);
+		itemLabel.setText(trade.item);
+		itemLabel.setBounds(ref.labelBufferX, 0, ref.itemWidth, ref.itemHeight);
+		itemPanel.add(itemLabel);
+		bottomPanel.add(itemPanel);
+		
+		//Buttons Row 1
+		Border buttonBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED);
+		//Border buttonBorder = null;
+		d = new Dimension(ref.buttonWidth, ref.buttonHeight);
+		int buttonBuffer = -10;
+		//ImageIcon Close = new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth, ref.buttonHeight, Image.SCALE_DEFAULT);
+		Image closeIcon = new ImageIcon(this.getClass().getResource("/close.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH);
+		closeButton.setIcon(new ImageIcon(closeIcon));
+		//closeButton.setBorder(null);
+		expandButton.setMaximumSize(d);
+		closeButton.setMaximumSize(d);
+		expandButton.setBorder(buttonBorder);
+		closeButton.setBorder(buttonBorder);
+		topPanel.add(expandButton);
+		topPanel.add(closeButton);
+		
+		//Buttons Row 2
+			
+		inviteButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		tpToPlayerButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/warp.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		tradeButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/cart.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		thankButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/happy.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		leaveButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/leave.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		kickButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/leave.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		tpHomeButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/home.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		
+		inviteButton.setMaximumSize(d);
+		tpToPlayerButton.setMaximumSize(d);
+		tpToPlayerButton.setMinimumSize(d);
+		tradeButton.setMaximumSize(d);
+		thankButton.setMaximumSize(d);
+		kickButton.setMaximumSize(d);
+		leaveButton.setMaximumSize(d);
+		tpHomeButton.setMaximumSize(d);
+		tpHomeButton.setMinimumSize(d);
+		
+		inviteButton.setBorder(buttonBorder);
+		tpToPlayerButton.setBorder(buttonBorder);
+		tradeButton.setBorder(buttonBorder);
+		thankButton.setBorder(buttonBorder);
+		kickButton.setBorder(buttonBorder);
+		leaveButton.setBorder(buttonBorder);
+		tpHomeButton.setBorder(buttonBorder);
+		
+		switch(trade.msgType){
+		case INCOMING_TRADE:
+			bottomPanel.add(inviteButton);
+			bottomPanel.add(tradeButton);
+			bottomPanel.add(thankButton);
+			bottomPanel.add(kickButton);
+			break;
+		case OUTGOING_TRADE:
+			bottomPanel.add(tpToPlayerButton);
+			bottomPanel.add(tradeButton);
+			bottomPanel.add(thankButton);
+			bottomPanel.add(leaveButton);
+			bottomPanel.add(tpHomeButton);
+			break;
+		default:
+			break;
 		}
 		
-		//Price Panel
-		this.panelPrice.add(labelPrice);
-		this.add(panelPrice);
-		panelPrice.setBounds(0+ref.playerNameWidth+ref.borderWidthLeft, 0+ref.borderWidthTop, ref.priceWidth, ref.priceHeight);
-		panelPrice.setBackground(ref.priceBgColor);
-		panelPrice.setLayout(null);
-		//Price Label
-		labelPrice.setBounds(0,0, ref.priceWidth, ref.priceHeight);
-		labelPrice.setText("<html>&nbsp;<font style=\"color:" + ref.defaultTextColor + ";\">" + trade.priceQuant + " " + trade.price + "</font></html>");
-		this.setVisible(true);
 		
-		//Top Row of Buttons
-		this.add(buttonClose);
-		buttonClose.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth, 0+ref.borderWidthTop, ref.buttonWidth, ref.buttonHeight);
-		this.add(buttonExpand);
-		buttonExpand.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth*2, 0+ref.borderWidthTop, ref.buttonWidth, ref.buttonHeight);
-		//Bottom Row of Buttons
-		this.add(buttonInvite);
-		buttonInvite.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth*4, 0+ref.borderWidthTop+ref.buttonHeight, ref.buttonWidth, ref.buttonHeight);
-		this.add(buttonTrade);
-		buttonTrade.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth*3, 0+ref.borderWidthTop+ref.buttonHeight, ref.buttonWidth, ref.buttonHeight);
-		this.add(buttonThank);
-		buttonThank.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth*2, 0+ref.borderWidthTop+ref.buttonHeight, ref.buttonWidth, ref.buttonHeight);
-		this.add(buttonKick);
-		buttonKick.setBounds(ref.msgWidth+ref.borderWidthLeft-ref.buttonWidth, 0+ref.borderWidthTop+ref.buttonHeight, ref.buttonWidth, ref.buttonHeight);
-		
-		//Button Actions
-		/*
-		buttonClose.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {}
+		//Local Mouse Events
+		Border b = BorderFactory.createLineBorder(Color.red);
+		Border off = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {itemPanel.setBorder(b);}
 		});
-		*/
+		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseExited(java.awt.event.MouseEvent evt) {itemPanel.setBorder(off);}
+		});
+		
+		//BUTTONS
+		
 		
 	}
+	
 }
