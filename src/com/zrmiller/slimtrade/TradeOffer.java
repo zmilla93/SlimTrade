@@ -20,7 +20,7 @@ public class TradeOffer {
 		this.guild = fixGuild(guild);
 		this.msgType = msgType;
 		this.name = name;
-		this.item = item;
+		this.item = fixCurrency(item);
 		this.itemQuant = itemQuant;
 		this.price = fixCurrency(price);
 		this.priceQuant = priceQuant;

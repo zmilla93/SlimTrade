@@ -93,7 +93,7 @@ public class MessageWindow extends JPanel{
 		//Price
 		//TODO: move currency offset
 		//int currencyIconOffset = 20;
-		int currencyIconOffset = 5+(Float.toString(trade.priceQuant).length())*5;
+		System.out.println(trade.priceQuant);
 		d = new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
 		pricePanel.setLayout(null);
 		pricePanel.setMinimumSize(d);
@@ -101,16 +101,18 @@ public class MessageWindow extends JPanel{
 		pricePanel.setBackground(ref.priceBgColor);
 		priceLabel.setText(trade.price);
 		priceLabel.setBounds(ref.labelBufferX, 0, ref.priceWidth, ref.priceHeight);
-		pricePanel.add(priceLabel);
+		String priceQuantString = Float.toString(trade.priceQuant).replaceAll("\\.?0*$", "");
+		int priceIconOffset = 10+((priceQuantString.length())-1)*7;
 		if(this.getClass().getResource("/" + trade.price + ".png") != null){
-			priceLabel.setText(Float.toString(trade.priceQuant).replaceAll("\\.?0*$", ""));
+			priceLabel.setText(priceQuantString);
 			JLabel priceIcon = new JLabel();
 			priceIcon.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/" + trade.price + ".png")).getImage().getScaledInstance(ref.buttonWidth, ref.buttonHeight, Image.SCALE_SMOOTH)));
-			priceIcon.setBounds(ref.labelBufferX+currencyIconOffset, 0, ref.priceWidth, ref.priceHeight);
+			priceIcon.setBounds(ref.labelBufferX+priceIconOffset, 0, ref.priceWidth, ref.priceHeight);
 			pricePanel.add(priceIcon);
 		}else{
-			priceLabel.setText(Float.toString(trade.priceQuant).replaceAll("\\.?0*$", "") + " " + trade.price);
+			priceLabel.setText(priceQuantString + " " + trade.price);
 		}
+		pricePanel.add(priceLabel);
 		topPanel.add(pricePanel);
 		
 		//Item
@@ -119,8 +121,23 @@ public class MessageWindow extends JPanel{
 		itemPanel.setMinimumSize(d);
 		itemPanel.setMaximumSize(d);
 		itemPanel.setBackground(ref.itemBgColor);
-		itemLabel.setText(trade.item);
 		itemLabel.setBounds(ref.labelBufferX, 0, ref.itemWidth, ref.itemHeight);
+		String itemQuantString = Float.toString(trade.itemQuant).replaceAll("\\.?0*$", "");
+		int itemIconOffset = 10+((itemQuantString.length())-1)*7;
+		if(this.getClass().getResource("/" + trade.item + ".png") != null){
+			itemLabel.setText(itemQuantString);
+			JLabel itemIcon = new JLabel();
+			itemIcon.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/" + trade.item + ".png")).getImage().getScaledInstance(ref.buttonWidth, ref.buttonHeight, Image.SCALE_SMOOTH)));
+			itemIcon.setBounds(ref.labelBufferX+itemIconOffset, 0, ref.priceWidth, ref.priceHeight);
+			itemPanel.add(itemIcon);
+		}else{
+			if(trade.itemQuant>0){
+				itemLabel.setText(itemQuantString + " " + trade.item);
+			}else{
+				itemLabel.setText(trade.item);
+			}
+			
+		}
 		itemPanel.add(itemLabel);
 		bottomPanel.add(itemPanel);
 		
