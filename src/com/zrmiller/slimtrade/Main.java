@@ -58,7 +58,7 @@ public class Main {
 				double y = (int)(Math.random()*((max-min)+1))+min;
 				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "", "PLAYERNAME", "ITEM", 0, "alch", 24, "STASHTABNAME", (int)x, (int)y);
 				msgManager.addMessage(t);
-				t = new TradeOffer(MessageType.OUTGOING_TRADE, "",  "PLAYERNAME", "ITEM", 0, "sadfs", 24, "STASHTABNAME", (int)x, (int)y);
+				t = new TradeOffer(MessageType.OUTGOING_TRADE, "",  "PLAYERNAME", "ITEM", 0, "CHAOSMONEY", 1000, "STASHTABNAME", (int)x, (int)y);
 				msgManager.addMessage(t);
 				}
 		});

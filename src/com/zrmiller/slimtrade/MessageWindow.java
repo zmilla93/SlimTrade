@@ -92,7 +92,8 @@ public class MessageWindow extends JPanel{
 		
 		//Price
 		//TODO: move currency offset
-		int currencyIconOffset = 15;
+		//int currencyIconOffset = 20;
+		int currencyIconOffset = 5+(Float.toString(trade.priceQuant).length())*5;
 		d = new Dimension((int) (ref.priceWidthPercent*(ref.msgWidth-(ref.buttonWidth*ref.buttonCountRow1))), ref.nameHeight);
 		pricePanel.setLayout(null);
 		pricePanel.setMinimumSize(d);
