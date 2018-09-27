@@ -8,8 +8,8 @@ public class REF_MSG_WINDOW {
 		//SETTINGS
 	
 		//OFFSETS
-		final int offsetX = 200;
-		final int offsetY = 5;
+		final int offsetX = 1255;
+		final int offsetY = 4;
 		final int labelBufferX = 5;
 		
 		//BORDERS
@@ -34,9 +34,12 @@ public class REF_MSG_WINDOW {
 		final double itemWidthPercent = 1;
 		final double nameWidthPercent = 0.7;
 		final double priceWidthPercent = 0.3;
-		int nameWidth = (int) ((msgWidth-buttonWidth*buttonCountRow1)*nameWidthPercent);
-		final int itemWidth = (int) ((msgWidth-buttonWidth*buttonCountRow2)*itemWidthPercent);
-		final int priceWidth = (int) ((msgWidth-buttonWidth*buttonCountRow1)*priceWidthPercent);
+		double nWidth = (double)(msgWidth-buttonWidth*buttonCountRow1)*nameWidthPercent;
+		double iWidth = (double)(msgWidth-buttonWidth*buttonCountRow2)*itemWidthPercent;
+		double pWidth =	(double)(msgWidth-buttonWidth*buttonCountRow1)*priceWidthPercent;
+		int nameWidth = (int) nWidth;
+		int itemWidth = (int) iWidth;
+		final int priceWidth = (int) pWidth;
 		//final int priceWidth = msgWidth-nameWidth-(buttonWidth*buttonCountRow1);
 		final int nameHeight = msgHeight/2;
 		final int itemHeight = msgHeight/2;
@@ -64,7 +67,12 @@ public class REF_MSG_WINDOW {
 				this.nameWidth++;
 				System.out.println("nameWidth++");
 			}
-			System.out.println("FIN");
+			System.out.println("NAME FIXED");
+			while(itemWidth + (buttonWidth*buttonCountRow2) < msgWidth){
+				this.itemWidth++;
+				System.out.println("itemWidth++");
+			}
+			System.out.println("ITEM FIXED");
 		}
 		
 		//COLORS

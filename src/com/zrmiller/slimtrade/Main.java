@@ -45,11 +45,21 @@ public class Main {
 		screenFrame.setVisible(true);
 		
 		//Global Buttons
-		TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "PLAYERNAME", "ITEM", 0, "CHAOS", 24, "STASHTABNAME", 1, 1);
+		int min = 1;
+		int max = 12;
+		//double x = (int)(Math.random()*((max-min)+1))+min;
+		//double y = (int)(Math.random()*((max-min)+1))+min;
+		//TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "PLAYERNAME", "ITEM", 0, "CHAOS", 24, "STASHTABNAME", (int)x, (int)y);
 		menuBar.plusButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {msgManager.addMessage(t);}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	double x = (int)(Math.random()*((max-min)+1))+min;
+				double y = (int)(Math.random()*((max-min)+1))+min;
+				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "PLAYERNAME", "ITEM", 0, "CHAOS", 24, "STASHTABNAME", (int)x, (int)y);
+				msgManager.addMessage(t);
+				t = new TradeOffer(MessageType.OUTGOING_TRADE, "PLAYERNAME", "ITEM", 0, "CHAOS", 24, "STASHTABNAME", (int)x, (int)y);
+				msgManager.addMessage(t);
+				}
 		});
-		
 		
 		//SET TO 1 TO RUN CHAT SCANNER
 		
@@ -65,9 +75,5 @@ public class Main {
 			}			
 			Thread.sleep(500);
 		}
-		
-		
-		
-		
 	}
 }

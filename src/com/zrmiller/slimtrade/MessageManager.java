@@ -38,7 +38,9 @@ public class MessageManager extends JPanel{
 		stashPane.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {System.out.println(evt.getXOnScreen() + " : " + evt.getYOnScreen());}
 		});
-		outlinePane.setBackground(new Color(1.0f, 1.0f, 1.0f, 1f));
+		//outlinePane.setBackground(new Color(1.0f, 1.0f, 1.0f, 1f));
+		outlinePane.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.5f));
+		outlinePane.setBorder(BorderFactory.createLineBorder(Color.red));
 		stashPane.add(outlinePane);
 		frame.add(stashPane);
 		
@@ -73,6 +75,9 @@ public class MessageManager extends JPanel{
 		msg.inviteButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/invite " + trade.name);}
 		});
+		msg.tpToPlayerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/hideout " + trade.name);}
+		});
 		msg.tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/tradewith " + trade.name);}
 		});
@@ -84,6 +89,9 @@ public class MessageManager extends JPanel{
 		});
 		msg.leaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/kick" + " " + user);}
+		});
+		msg.tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/hideout");}
 		});
 		
 		messageCount++;
@@ -97,24 +105,17 @@ public class MessageManager extends JPanel{
 	
 	private void outlineItem(int x, int y){
 		System.out.println("Showing item outline...");
-		stashPane.setVisible(true);
-		outlinePane.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.5f));
-		outlinePane.setBorder(BorderFactory.createLineBorder(Color.red));
 		double width = ((double)stashPane.getWidth()/12);
 		double height = ((double)stashPane.getHeight()/12);
 		outlinePane.setBounds((int)(width*(x-1)), (int)(height*(y-1)), (int)width, (int)height);
+		stashPane.setVisible(true);
 	}
 	
 	private void hideItemOutline(){
 		System.out.println("Hiding item outline...");
-		//stashPane.remove(outlinePane);
 		stashPane.setVisible(false);
-		//outlinePane.setBorder(BorderFactory.createEmptyBorder());
-		//outlinePane.setVisible(false);
-		//outlinePane.setBackground(Color.green);
-		//outlinePane.setLocation(0, 0);
-		//stashPane.revalidate();
-		//stashPane.repaint();
+		outlinePane.revalidate();
+		outlinePane.repaint();
 	}
 	
 	private void pasteIntoPOE(String s){
@@ -129,8 +130,8 @@ public class MessageManager extends JPanel{
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
-        //robot.keyPress(KeyEvent.VK_ENTER);
-        //robot.keyRelease(KeyEvent.VK_ENTER);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
 	}
 
 	 private void focusPOE() {
