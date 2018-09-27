@@ -61,7 +61,15 @@ public class ChatParser {
 					if(msg.group(7)!=null){
 						f2 = Float.parseFloat(msg.group(7));
 					}
-					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(msg.group(1)), msg.group(2), msg.group(5), f1, msg.group(8), f2);
+					int i1 = 0;
+					int i2 = 0;
+					if(msg.group(14)!=null){
+						i1 = Integer.parseInt(msg.group(14));
+					}
+					if(msg.group(16)!=null){
+						i2 = Integer.parseInt(msg.group(16));
+					}
+					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(msg.group(1)), msg.group(2), msg.group(5), f1, msg.group(8), f2, msg.group(12), i1, i2);
 					if (tradeHistoryIndex<MAX_TRADE_HISTORY-1) tradeHistoryIndex++; else tradeHistoryIndex=0;
 				}else{
 				}

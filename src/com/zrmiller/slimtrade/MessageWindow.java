@@ -132,14 +132,19 @@ public class MessageWindow extends JPanel{
 		inviteButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
 		tradeButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/cart.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
 		thankButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/happy.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		leaveButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/leave.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		kickButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/leave.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
 		
-		inviteButton.setMaximumSize(d);	
+		inviteButton.setMaximumSize(d);
 		tpToPlayerButton.setMaximumSize(d);
+		tpToPlayerButton.setMinimumSize(d);
 		tradeButton.setMaximumSize(d);
 		thankButton.setMaximumSize(d);
 		kickButton.setMaximumSize(d);
 		leaveButton.setMaximumSize(d);
 		tpHomeButton.setMaximumSize(d);
+		tpHomeButton.setMinimumSize(d);
+		
 		inviteButton.setBorder(buttonBorder);
 		tpToPlayerButton.setBorder(buttonBorder);
 		tradeButton.setBorder(buttonBorder);
