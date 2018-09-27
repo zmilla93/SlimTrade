@@ -84,7 +84,6 @@ public class MessageWindow extends JPanel{
 		namePanel.setMaximumSize(d);
 		namePanel.setBackground(ref.nameBgColor);
 		nameLabel.setText(trade.name);
-		
 		nameLabel.setBounds(ref.labelBufferX, 0, ref.nameWidth, ref.nameHeight);
 		namePanel.add(nameLabel);
 		topPanel.add(namePanel);
