@@ -131,6 +131,7 @@ public class MessageWindow extends JPanel{
 			
 		inviteButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
 		tradeButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/cart.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		thankButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/happy.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
 		
 		inviteButton.setMaximumSize(d);	
 		tpToPlayerButton.setMaximumSize(d);
