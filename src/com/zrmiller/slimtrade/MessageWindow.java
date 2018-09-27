@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
@@ -111,28 +112,41 @@ public class MessageWindow extends JPanel{
 		bottomPanel.add(itemPanel);
 		
 		//Buttons Row 1
+		Border buttonBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED);
+		//Border buttonBorder = null;
 		d = new Dimension(ref.buttonWidth, ref.buttonHeight);
-		int buttonBuffer = -8;
+		int buttonBuffer = -10;
 		//ImageIcon Close = new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth, ref.buttonHeight, Image.SCALE_DEFAULT);
-		//Image closeIcon = new ImageIcon(this.getClass().getResource("/close.png")).getImage().getScaledInstance(ref.buttonWidth+buttonBuffer, ref.buttonHeight+buttonBuffer, Image.SCALE_SMOOTH);
-		//closeButton.setIcon(new ImageIcon(closeIcon));
+		Image closeIcon = new ImageIcon(this.getClass().getResource("/close.png")).getImage().getScaledInstance(ref.buttonWidth, ref.buttonHeight, Image.SCALE_SMOOTH);
+		closeButton.setIcon(new ImageIcon(closeIcon));
 		//closeButton.setBorder(null);
 		expandButton.setMaximumSize(d);
 		closeButton.setMaximumSize(d);
+		expandButton.setBorder(buttonBorder);
+		closeButton.setBorder(buttonBorder);
 		topPanel.add(expandButton);
 		topPanel.add(closeButton);
 		
 		//Buttons Row 2
-		inviteButton.setMaximumSize(d);
-		//Image inviteIcon = new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth+buttonBuffer, ref.buttonHeight+buttonBuffer, Image.SCALE_SMOOTH);
-		//inviteButton.setIcon(new ImageIcon(inviteIcon));
+			
+		inviteButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/invite.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
+		tradeButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/cart.png")).getImage().getScaledInstance(ref.buttonWidth-10, ref.buttonHeight-10, Image.SCALE_SMOOTH)));
 		
+		inviteButton.setMaximumSize(d);	
 		tpToPlayerButton.setMaximumSize(d);
 		tradeButton.setMaximumSize(d);
 		thankButton.setMaximumSize(d);
 		kickButton.setMaximumSize(d);
 		leaveButton.setMaximumSize(d);
 		tpHomeButton.setMaximumSize(d);
+		inviteButton.setBorder(buttonBorder);
+		tpToPlayerButton.setBorder(buttonBorder);
+		tradeButton.setBorder(buttonBorder);
+		thankButton.setBorder(buttonBorder);
+		kickButton.setBorder(buttonBorder);
+		leaveButton.setBorder(buttonBorder);
+		tpHomeButton.setBorder(buttonBorder);
+		
 		switch(trade.msgType){
 		case INCOMING_TRADE:
 			bottomPanel.add(inviteButton);

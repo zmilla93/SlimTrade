@@ -42,7 +42,7 @@ public class MenuBar extends JPanel{
 		//Exit Button
 		exitButton.setPreferredSize(dim);
 		exitButton.setMaximumSize(dim);
-		//exitButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/close.png")).getImage().getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH)));
+		exitButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/close.png")).getImage().getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH)));
 		System.out.println();
 		this.add(exitButton);
 		exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
