@@ -2,6 +2,7 @@ package com.zrmiller.slimtrade;
 
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Robot;
@@ -43,8 +44,10 @@ public class Main {
 		screen.add(menuBar);
 		screen.add(msgManager);
 
+		screenFrame.pack();
 		//Once everything else is done, show screen overlay
 		screenFrame.setVisible(true);
+		
 		
 		//Global Buttons
 		int min = 1;
@@ -82,12 +85,15 @@ public class Main {
 		
 		while(scanChat){
 			//System.out.println("Update");
-			int i = parser.update();
-			while(i>0){
-				msgManager.addMessage(parser.tradeHistory[parser.getFixedIndex(0-i)]);
-				//msgManager.addMessage(trade);
-				i--;
-			}			
+			boolean update = parser.update();
+			if(update){
+				while(parser.messageQueue>0){
+					msgManager.addMessage(parser.tradeHistory[parser.getFixedIndex(0-parser.messageQueue)]);
+					parser.messageQueue--;
+				}
+				update = false;
+			}
+					
 			Thread.sleep(500);
 		}
 	}

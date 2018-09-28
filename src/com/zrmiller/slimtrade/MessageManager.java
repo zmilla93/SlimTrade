@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -73,30 +74,35 @@ public class MessageManager extends JPanel{
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {removeMessage(msg);}
 		});
 		msg.inviteButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/invite " + trade.name);}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {buttonMutual(msg.inviteButton);pasteIntoPOE("/invite " + trade.name);}
 		});
 		msg.tpToPlayerButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/hideout " + trade.name);}
+			public void mouseClicked(java.awt.event.MouseEvent evt) {buttonMutual(msg.tpToPlayerButton);pasteIntoPOE("/hideout " + trade.name);}
 		});
 		msg.tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/tradewith " + trade.name);}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {buttonMutual(msg.tradeButton);pasteIntoPOE("/tradewith " + trade.name);}
 		});
 		msg.thankButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("@" + trade.name + " " + thankMsg);}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {buttonMutual(msg.thankButton);pasteIntoPOE("@" + trade.name + " " + thankMsg);}
 		});
 		msg.kickButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/kick " + trade.name);}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {buttonMutual(msg.kickButton);pasteIntoPOE("/kick " + trade.name);}
 		});
 		msg.leaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/kick " + user);}
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {buttonMutual(msg.leaveButton);pasteIntoPOE("/kick " + user);}
 		});
 		msg.tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {focusPOE();pasteIntoPOE("/hideout");}
+			public void mouseClicked(java.awt.event.MouseEvent evt) {buttonMutual(msg.tpHomeButton);pasteIntoPOE("/hideout");}
 		});
-		
 		messageCount++;
 		refresh();
 	}
+	
+	private void buttonMutual(JButton b){
+		b.setBackground(ref.buttonCompleteColor);
+		focusPOE();
+	}
+	
 	private void removeMessage(MessageWindow m){
 		messageCount--;
 		remove(m);
