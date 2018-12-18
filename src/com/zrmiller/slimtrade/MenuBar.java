@@ -36,6 +36,7 @@ public class MenuBar extends JPanel{
 		//Plus Button
 		plusButton.setPreferredSize(dim);
 		plusButton.setMaximumSize(dim);
+		System.out.println(this.getClass().getResource("/plus.png"));
 		plusButton.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/plus.png")).getImage().getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH)));
 		this.add(plusButton);
 		

@@ -34,6 +34,7 @@ public class Main {
 		screenFrame.setUndecorated(true);
 		screenFrame.setBackground(new Color(1.0f,1.0f,1.0f,0f));
 		screenFrame.setAlwaysOnTop(true);
+		screenFrame.pack();
 		Container screen = screenFrame.getContentPane();
 		
 		//Screen Components
