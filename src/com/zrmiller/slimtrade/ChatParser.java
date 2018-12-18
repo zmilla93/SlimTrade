@@ -14,19 +14,20 @@ public class ChatParser {
 	int curLineCount = 0;
 	int totalLineCount = 0;
 	String curLine;
-	private Pattern msgPattern;
-	private Matcher msg;
+	//TODO: should these be trade or message variables? chat scanner?
 	public int tradeHistoryIndex = 0;
 	final public int MAX_TRADE_HISTORY = 50;
 	public TradeOffer[] tradeHistory = new TradeOffer[MAX_TRADE_HISTORY];
+	public int messageQueue = 0;
+	public String[] playerJoinedArea = new String[20];
+	public int playerJoinedQueue = 0;
 	
+	//REGEX
+	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): (Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \")?((.+)\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?";
+	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 	
-	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?(.+): (Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \")?((.+)\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?";
-
 	public ChatParser(){
-		this.msgPattern = Pattern.compile(tradeMessageMatchString);
-		//String t = "ASDFASDASDF@To ShootyMcArrowShooter: Hi, I would like to buy your Queen of the Forest Destiny Leather listed for 40 chaos in Delve (stash tab \"b/o 5 234SADFDS_$#%_D\"; position: left 1, top 10)";
-		//System.out.println("T: " + Pattern.matches(msg, t));
+		
 	}
 	
 	public void init() throws IOException{
@@ -38,43 +39,46 @@ public class ChatParser {
 		}
 	}
 
-	public int update() throws IOException{
+	public boolean update() throws IOException{
 		fr = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
 		br = new BufferedReader(fr);
 		br.mark(9999999);
 		curLineCount=0;
-		int update = 0;
+		boolean update = false;
 		while((curLine = br.readLine()) != null){
 			curLineCount++;
 			if (curLineCount>totalLineCount){
-				//System.out.println("PARSING : " + curLine);
 				totalLineCount++;
-				msgPattern = Pattern.compile(tradeMessageMatchString);
-				msg = msgPattern.matcher(curLine);
-				if(msg.matches()){
-					//System.out.println("MATCH");
-					//System.out.println("PARSING ::: " + msg.group(1));
-					update++;
+				Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
+				Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
+				if(tradeMsgMatcher.matches()){
+					update = true;
+					messageQueue++;
 					//TODO: could move int fixing to TradeOffer class
 					float f1 = 0; 
 					float f2 = 0;
-					if(msg.group(6)!=null){
-						f1 = Float.parseFloat(msg.group(6));
+					if(tradeMsgMatcher.group(6)!=null){
+						f1 = Float.parseFloat(tradeMsgMatcher.group(6));
 					}
-					if(msg.group(9)!=null){
-						f2 = Float.parseFloat(msg.group(9));
+					if(tradeMsgMatcher.group(9)!=null){
+						f2 = Float.parseFloat(tradeMsgMatcher.group(9));
 					}
 					int i1 = 0;
 					int i2 = 0;
-					if(msg.group(14)!=null){
-						i1 = Integer.parseInt(msg.group(16));
+					if(tradeMsgMatcher.group(14)!=null){
+						i1 = Integer.parseInt(tradeMsgMatcher.group(16));
 					}
-					if(msg.group(16)!=null){
-						i2 = Integer.parseInt(msg.group(18));
+					if(tradeMsgMatcher.group(16)!=null){
+						i2 = Integer.parseInt(tradeMsgMatcher.group(18));
 					}
-					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(msg.group(1)), msg.group(2),  msg.group(3), msg.group(7), f1, msg.group(10), f2, msg.group(14), i1, i2);
+					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),  tradeMsgMatcher.group(3), tradeMsgMatcher.group(7), f1, tradeMsgMatcher.group(10), f2, tradeMsgMatcher.group(14), i1, i2);
 					if (tradeHistoryIndex<MAX_TRADE_HISTORY-1) tradeHistoryIndex++; else tradeHistoryIndex=0;
-				}else{
+				}
+				else if(joinAreaMatcher.matches()){
+					//update = true;
+					//playerJoinedArea[playerJoinedQueue] = joinAreaMatcher.group(1);
+					//playerJoinedQueue++;
+					//System.out.println("PLAYER JOINED : " + joinAreaMatcher.group(1));
 				}
 			}
 		}

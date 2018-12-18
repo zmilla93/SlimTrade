@@ -53,14 +53,14 @@ public class REF_MSG_WINDOW {
 		final int screenHeight = (int) Math.round(screenSize.getHeight());
 		
 		//COLORS
-		
-		//INCOMING TRADE
 		Color nameBgColor;
 		Color itemBgColor;
 		Color priceBgColor;
 		String defaultTextColor;
 		Color borderColor1;
-		//Color borderColor2 = Color.white;
+		
+		//MUTUAL COLORS
+		Color buttonCompleteColor = new Color(50,200,50);
 		
 		//OUTGOING TRADE
 		public REF_MSG_WINDOW(){

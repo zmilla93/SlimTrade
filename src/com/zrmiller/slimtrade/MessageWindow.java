@@ -210,6 +210,7 @@ public class MessageWindow extends JPanel{
 		}
 		
 		
+		
 		//Local Mouse Events
 		Border b = BorderFactory.createLineBorder(Color.red);
 		Border off = BorderFactory.createEmptyBorder(1, 1, 1, 1);
