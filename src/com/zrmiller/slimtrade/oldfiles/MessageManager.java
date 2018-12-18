@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade;
+package com.zrmiller.slimtrade.oldfiles;
 
 import java.awt.AWTException;
 import java.awt.Color;

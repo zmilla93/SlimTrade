@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade;
+package com.zrmiller.slimtrade.oldfiles;
 
 import java.awt.Color;
 import java.awt.Dimension;

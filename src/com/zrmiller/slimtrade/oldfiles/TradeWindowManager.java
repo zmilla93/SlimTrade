@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade;
+package com.zrmiller.slimtrade.oldfiles;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
