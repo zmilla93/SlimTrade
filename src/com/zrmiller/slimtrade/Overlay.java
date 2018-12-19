@@ -13,13 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.buttons.MenuButton;
-import com.zrmiller.slimtrade.datatypes.CurrencyType;
-import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.panels.CharacterPanel;
 import com.zrmiller.slimtrade.panels.HistoryPanel;
 import com.zrmiller.slimtrade.panels.Menubar;
-import com.zrmiller.slimtrade.panels.MoveablePanel;
 import com.zrmiller.slimtrade.panels.OptionPanel;
+import com.zrmiller.slimtrade.panels.StashOverlay;
 
 public class Overlay {
 
@@ -71,10 +69,6 @@ public class Overlay {
 			}
 		});
 		
-		//Message Manager
-		MessageManager msgManager = new MessageManager();
-		//screenContainer.add(msgManager);
-		
 		//Menu Bar Show Button
 		menubarShowButton = new JButton();
 		menubarShowButton.setBounds(0, (int)(screenSize.getHeight()-MenuButton.height), MenuButton.height, MenuButton.height);
@@ -86,11 +80,10 @@ public class Overlay {
 		});
 		screenContainer.add(menubarShowButton);
 		
-		//Menu Bar
+		//Menu Bar+
 		menubar = new Menubar();
 		screenContainer.add(menubar);
 		
-		//Options Panel
 		optionPanel = new OptionPanel();
 		screenContainer.add(optionPanel);
 		
@@ -101,6 +94,14 @@ public class Overlay {
 		centerFrame(historyPanel);
 		screenContainer.add(historyPanel);
 		
+		StashOverlay stashOverlay = new StashOverlay();
+		screenContainer.add(stashOverlay);
+		
+		//Message Manager - SHOULD ALWAYS BE LAST
+		MessageManager msgManager = new MessageManager();
+		screenContainer.add(msgManager);
+		
+		//Finish
 		screenFrame.pack();
 		screenFrame.setVisible(true);
 	}

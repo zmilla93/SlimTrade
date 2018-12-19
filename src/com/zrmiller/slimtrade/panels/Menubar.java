@@ -19,10 +19,9 @@ public class Menubar extends JPanel{
 	private int spacerHeight = (int)(MenuButton.height*0.8);
 	private int totalHeight = MenuButton.height*buttonCount+spacerHeight*spacerCount;
 	
-	//TODO : FIX
-	
 	public Menubar(){
-		this.setVisible(false);
+		//TODO:Toggle off
+//		this.setVisible(false);
 		this.setBounds(0, Overlay.screenHeight-totalHeight, MenuButton.width, totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0,0));
 		

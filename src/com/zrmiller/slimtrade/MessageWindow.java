@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.datatypes.CurrencyType;
+import com.zrmiller.slimtrade.panels.BasicButton;
 
 public class MessageWindow extends JPanel{
 	
@@ -24,7 +25,7 @@ public class MessageWindow extends JPanel{
 	public static int totalHeight = height+borderThickness*4;
 	
 	private TradeOffer trade;
-
+	
 	public MessageWindow(TradeOffer trade){
 		this.trade = trade;
 		/*
@@ -100,7 +101,7 @@ public class MessageWindow extends JPanel{
 		button2.setPreferredSize(new Dimension(rowHeight, rowHeight));
 		topButtonPanel.add(button2);
 		
-		closeButton = new JButton();
+		closeButton = new BasicButton(rowHeight, rowHeight);
 		closeButton.setPreferredSize(new Dimension(rowHeight, rowHeight));
 		topButtonPanel.add(closeButton);
 		
@@ -142,10 +143,8 @@ public class MessageWindow extends JPanel{
 		JButton button6 = new JButton();
 		button6.setPreferredSize(new Dimension(rowHeight, rowHeight));
 		centerButtonPanel.add(button6);
-	}
+
 	
-	public JButton getCloseButton(){
-		return this.closeButton;
 	}
-	
+
 }

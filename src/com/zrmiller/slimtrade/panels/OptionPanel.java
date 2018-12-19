@@ -2,6 +2,7 @@ package com.zrmiller.slimtrade.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -28,20 +29,17 @@ public class OptionPanel extends JPanel{
 		this.setVisible(false);
 		//this.setPreferredSize(new Dimension(width, minHeight));
 		
-		JPanel titlebar = new JPanel(Overlay.flowCenter);
-		//JLabel titlebarLabel = new JLabel();
-		Border titlebarBorder = BorderFactory.createRaisedSoftBevelBorder();
-		titlebar.setPreferredSize(new Dimension(width-rowHeight, rowHeight));
-		titlebar.setMaximumSize(new Dimension(width-rowHeight, rowHeight));
-		titlebar.setBorder(titlebarBorder);
+//		JPanel titlebar = new JPanel(Overlay.flowCenter);
+//		//JLabel titlebarLabel = new JLabel();
+//		Border titlebarBorder = BorderFactory.createRaisedSoftBevelBorder();
+//		titlebar.setPreferredSize(new Dimension(width-rowHeight, rowHeight));
+//		titlebar.setMaximumSize(new Dimension(width-rowHeight, rowHeight));
+//		titlebar.setBorder(titlebarBorder);
 		//titlebar.add(titlebarLabel);
+		//this.add(titlebar);
+		BasicTitlebar titlebar = new BasicTitlebar("Options", this,  width);
 		this.add(titlebar);
-		
-		closeButton = new JButton();
-		closeButton.setLayout(null);
-		closeButton.setPreferredSize(new Dimension(rowHeight, rowHeight));
-		this.add(closeButton);
-		this.add(new SpacerPanel(width, 10));
+		this.add(new BasicPanel(width,10));
 		
 		//TOGGLES
 		JPanel toggleHeader = new JPanel(Overlay.flowCenter);
