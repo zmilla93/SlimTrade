@@ -5,50 +5,54 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.zrmiller.slimtrade.datatypes.CurrencyType;
 
 public class MessageWindow extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	//private final int borderX, borderY;
+	JButton closeButton;
+	
+	private static int width = 400;
+	private static int height= 40;
+	private static int borderThickness = 2;
+	private int rowHeight = height/2;
+	public static int totalWidth = width+borderThickness*4;
+	public static int totalHeight = height+borderThickness*4;
+	
+	private TradeOffer trade;
 
-	public MessageWindow(){
-		
+	public MessageWindow(TradeOffer trade){
+		this.trade = trade;
 		/*
 		 * TODO : Optimize
 		 * Size Variables
 		 * 
 		 */
 		
-		//MESSAGE WINDOW
-		int width = 400;
-		int height = 50;
-		int borderThickness = 1;
-		int rowHeight = height/2;
-		
 		/*
 		 * Basic Settings
 		 */
 		
 		this.setLayout(new BorderLayout());
-		this.setBounds(600, 450, width+borderThickness*8, height+borderThickness*8);
+		this.setPreferredSize(new Dimension(totalWidth, totalHeight));
 		
 		/*
 		 * BORDER PANELS
 		 */
 		
 		JPanel bgOuter = new JPanel();
-		//bgOuter.setLayout(new BorderLayout());
-		bgOuter.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
-		bgOuter.setPreferredSize(new Dimension(width+borderThickness*4, height+borderThickness*4));
-		bgOuter.setBackground(Color.CYAN);
+		bgOuter.setLayout(new FlowLayout(FlowLayout.CENTER, borderThickness, borderThickness));
+		bgOuter.setPreferredSize(new Dimension(width+borderThickness*2, height+borderThickness*2));
+		bgOuter.setBackground(Color.RED);
 		
 		JPanel bgInner = new JPanel();
-		//bgInner.setLayout(new BorderLayout());
-		bgInner.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
-		bgInner.setPreferredSize(new Dimension(width+borderThickness*4, height+borderThickness*4));
-		bgInner.setBackground(Color.BLUE);
+		bgInner.setLayout(new FlowLayout(FlowLayout.CENTER, borderThickness, borderThickness));
+		bgInner.setPreferredSize(new Dimension(width+borderThickness*2, height+borderThickness*2));
+		bgInner.setBackground(Color.GREEN);
 		bgOuter.add(bgInner, BorderLayout.CENTER);
 		
 		JPanel container = new JPanel();
@@ -67,30 +71,38 @@ public class MessageWindow extends JPanel{
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		topPanel.setPreferredSize(new Dimension(width, rowHeight));
 		topPanel.setBackground(Color.CYAN);
-		//this.add(topPanel, BorderLayout.PAGE_START);
+		container.add(topPanel, BorderLayout.PAGE_START);
 		
 		JPanel namePanel = new JPanel();
-		namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JLabel nameLabel = new JLabel("GENERIC_NAME");
-		nameLabel.setAlignmentY(CENTER_ALIGNMENT);
+		//TODO : MODIFY TO CENTER TEXT VERITCALLY
+		namePanel.setLayout(new FlowLayout(FlowLayout.LEFT, borderThickness, borderThickness));
+		JLabel nameLabel = new JLabel(trade.playerName);
 		namePanel.setPreferredSize(new Dimension((int)(width*0.4), rowHeight));
+		nameLabel.setPreferredSize(new Dimension((int)(width*0.4), rowHeight));
 		namePanel.setBackground(Color.YELLOW);
 		namePanel.add(nameLabel);
 		topPanel.add(namePanel);
 		
 		JPanel pricePanel = new JPanel();
-		JLabel priceLabel = new JLabel("PRICE");
+		JLabel priceLabel = new JLabel(trade.priceType.toString());
 		pricePanel.setPreferredSize(new Dimension((int)(width*0.4), rowHeight));
 		pricePanel.setBackground(Color.ORANGE);
 		pricePanel.add(priceLabel);
 		topPanel.add(pricePanel);
 		
 		JPanel topButtonPanel = new JPanel();
+		topButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		topButtonPanel.setPreferredSize(new Dimension((int)(width*0.2), rowHeight));
-		topButtonPanel.setBackground(Color.blue);
+		topButtonPanel.setBackground(Color.BLUE);
 		topPanel.add(topButtonPanel);
 		
+		JButton button2 = new JButton();
+		button2.setPreferredSize(new Dimension(rowHeight, rowHeight));
+		topButtonPanel.add(button2);
 		
+		closeButton = new JButton();
+		closeButton.setPreferredSize(new Dimension(rowHeight, rowHeight));
+		topButtonPanel.add(closeButton);
 		
 		/*
 		 * CENTER PANEL
@@ -100,36 +112,40 @@ public class MessageWindow extends JPanel{
 		centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		centerPanel.setPreferredSize(new Dimension(width,rowHeight));
 		centerPanel.setBackground(Color.RED);
-		//this.add(centerPanel, BorderLayout.CENTER);
+		container.add(centerPanel, BorderLayout.CENTER);
 		
 		JPanel itemPanel = new JPanel();
-		JLabel itemLabel = new JLabel();
+		JLabel itemLabel = new JLabel(trade.itemName);
 		itemPanel.setPreferredSize(new Dimension((int)(width*0.8), rowHeight));
 		itemPanel.setBackground(Color.GRAY);
 		itemPanel.add(itemLabel);
 		centerPanel.add(itemPanel);
 		
 		JPanel centerButtonPanel = new JPanel();
+		centerButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		centerButtonPanel.setPreferredSize(new Dimension((int)(width*0.2), rowHeight));
 		centerButtonPanel.setBackground(Color.MAGENTA);
 		centerPanel.add(centerButtonPanel);
 		
+		JButton button3 = new JButton();
+		button3.setPreferredSize(new Dimension(rowHeight, rowHeight));
+		centerButtonPanel.add(button3);
 		
-		/*
-		 * BOTTOM PANEL - UNUSED
-		 */
+		JButton button4 = new JButton();
+		button4.setPreferredSize(new Dimension(rowHeight, rowHeight));
+		centerButtonPanel.add(button4);
 		
-		JPanel bottomPanel = new JPanel();
-		bottomPanel.setPreferredSize(new Dimension(0,0));;
-		bottomPanel.setBackground(Color.cyan);
-		//this.add(bottomPanel, BorderLayout.PAGE_END);
+		JButton button5 = new JButton();
+		button5.setPreferredSize(new Dimension(rowHeight, rowHeight));
+		centerButtonPanel.add(button5);
 		
-		
-		
-		/*
-		 * SHOW MESSAGE WINDOW
-		 */
-		this.setVisible(true);
+		JButton button6 = new JButton();
+		button6.setPreferredSize(new Dimension(rowHeight, rowHeight));
+		centerButtonPanel.add(button6);
+	}
+	
+	public JButton getCloseButton(){
+		return this.closeButton;
 	}
 	
 }

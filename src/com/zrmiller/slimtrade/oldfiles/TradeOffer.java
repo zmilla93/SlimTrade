@@ -4,7 +4,6 @@ import com.zrmiller.slimtrade.datatypes.MessageType;
 
 public class TradeOffer {
 	
-
 	MessageType msgType;
 	String guild;
 	String name;
