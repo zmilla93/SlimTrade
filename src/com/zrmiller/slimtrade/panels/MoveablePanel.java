@@ -1,11 +1,11 @@
-package com.zrmiler.slimtrade.panels;
+package com.zrmiller.slimtrade.panels;
 
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import com.zrmiler.slimtrade.MessageWindow;
-import com.zrmiler.slimtrade.TradeOffer;
+import com.zrmiller.slimtrade.MessageWindow;
+import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.datatypes.CurrencyType;
 import com.zrmiller.slimtrade.datatypes.MessageType;
 

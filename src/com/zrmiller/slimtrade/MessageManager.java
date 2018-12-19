@@ -1,4 +1,4 @@
-package com.zrmiler.slimtrade;
+package com.zrmiller.slimtrade;
 
 import java.awt.Color;
 import java.awt.FlowLayout;

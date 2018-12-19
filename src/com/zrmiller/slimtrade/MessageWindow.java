@@ -1,4 +1,4 @@
-package com.zrmiler.slimtrade;
+package com.zrmiller.slimtrade;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

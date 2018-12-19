@@ -1,10 +1,13 @@
-package com.zrmiler.slimtrade;
+package com.zrmiller.slimtrade;
+
+import java.io.Serializable;
 
 import com.zrmiller.slimtrade.datatypes.CurrencyType;
 import com.zrmiller.slimtrade.datatypes.MessageType;
 
-public class TradeOffer {
+public class TradeOffer implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	MessageType msgType;
 	String playerName;
 	String itemName;
