@@ -9,7 +9,7 @@ import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.datatypes.CurrencyType;
 import com.zrmiller.slimtrade.datatypes.MessageType;
 
-public class MoveablePanel extends JPanel{
+public class BasicMoveablePanel extends JPanel{
 	
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class MoveablePanel extends JPanel{
 	private int offsetX = 0;
 	private int offsetY = 0;
 	
-	public MoveablePanel(){
+	public BasicMoveablePanel(){
 		this.setSize(MessageWindow.totalWidth, MessageWindow.totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		MessageWindow msg = new MessageWindow(new TradeOffer(MessageType.INCOMING_TRADE, "PLAYER_NAME", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5));

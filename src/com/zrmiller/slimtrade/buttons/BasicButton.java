@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade.panels;
+package com.zrmiller.slimtrade.buttons;
 
 import java.awt.Color;
 import java.awt.Dimension;

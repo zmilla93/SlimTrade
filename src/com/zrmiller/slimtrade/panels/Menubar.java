@@ -29,8 +29,8 @@ public class Menubar extends JPanel{
 		this.add(optionsButton);
 		MenuButton historyButton = new MenuButton("History");
 		this.add(historyButton);
-		MenuButton resizeButton = new MenuButton("Resize");
-		this.add(resizeButton);
+		MenuButton stashButton = new MenuButton("Stash");
+		this.add(stashButton);
 		MenuButton characterButton = new MenuButton("Character");
 		this.add(characterButton);
 		this.add(new BasicPanel(MenuButton.width, spacerHeight));
@@ -40,6 +40,7 @@ public class Menubar extends JPanel{
 		MenuButton minimizeButton = new MenuButton("Minimize");
 		this.add(minimizeButton);
 		
+		//OPTIONS
 		optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		    	if(Overlay.optionPanel.isVisible()){
@@ -51,6 +52,19 @@ public class Menubar extends JPanel{
 		    }
 		});
 		
+		//STASH
+		stashButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	if(Overlay.stashWindow.isVisible()){
+		    		Overlay.stashWindow.setVisible(false);
+		    	}else{
+		    		Overlay.hideAllTempFrames();
+		    		Overlay.stashWindow.setVisible(true);
+		    	}
+		    }
+		});
+		
+		//HISTORY
 		historyButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		    	if(Overlay.historyPanel.isVisible()){
@@ -62,6 +76,7 @@ public class Menubar extends JPanel{
 		    }
 		});
 		
+		//CHARACTER
 		characterButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		    	if(Overlay.characterPanel.isVisible()){
@@ -73,6 +88,7 @@ public class Menubar extends JPanel{
 		    }
 		});
 		
+		//QUIT PROGRAM
 		quitButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.exit(0);

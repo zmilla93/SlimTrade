@@ -11,7 +11,7 @@ import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.Overlay;
 
-public class OptionPanel extends JPanel{
+public class OptionWindow extends BasicMenuWindow{
 	
 	private static final long serialVersionUID = 1L;
 	public static int width = 400;
@@ -21,7 +21,8 @@ public class OptionPanel extends JPanel{
 	
 	//TODO : cleanup size variables for better resizing
 	
-	public OptionPanel(){
+	public OptionWindow(){
+		super("Options", width, minHeight);
 		//TODO : FIX CENTERING
 		this.setLayout(Overlay.flowCenter);
 		this.setBounds(Overlay.screenWidth/2-width/2, Overlay.screenHeight/2-minHeight/2, width, minHeight);

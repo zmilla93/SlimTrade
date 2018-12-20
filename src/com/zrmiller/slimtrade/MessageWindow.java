@@ -9,8 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.zrmiller.slimtrade.datatypes.CurrencyType;
-import com.zrmiller.slimtrade.panels.BasicButton;
+import com.zrmiller.slimtrade.buttons.BasicButton;
 
 public class MessageWindow extends JPanel{
 	

@@ -22,7 +22,12 @@ public class BasicPanel extends JPanel{
 	
 	public BasicPanel(int width, int height, Color color){
 		this.setPreferredSize(new Dimension(width, height));
-		this.setBackground(color);
+		if(color == null){
+			this.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		}else{
+			this.setBackground(color);
+		}
+		
 	}
 	
 	public static void setPanelSize(int width, int height){

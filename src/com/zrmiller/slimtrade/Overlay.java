@@ -7,17 +7,19 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.buttons.MenuButton;
-import com.zrmiller.slimtrade.panels.CharacterPanel;
-import com.zrmiller.slimtrade.panels.HistoryPanel;
+import com.zrmiller.slimtrade.panels.CharacterWindow;
+import com.zrmiller.slimtrade.panels.HistoryWindow;
+import com.zrmiller.slimtrade.panels.BasicMenuWindow;
+import com.zrmiller.slimtrade.panels.OptionWindow;
+import com.zrmiller.slimtrade.panels.StashWindow;
 import com.zrmiller.slimtrade.panels.Menubar;
-import com.zrmiller.slimtrade.panels.OptionPanel;
-import com.zrmiller.slimtrade.panels.StashOverlay;
 
 public class Overlay {
 
@@ -30,12 +32,13 @@ public class Overlay {
 	public static FlowLayout flowRight;
 	
 	//PANELS
-	public static CharacterPanel characterPanel;
-	public static HistoryPanel historyPanel;
+	public static CharacterWindow characterPanel;
+	public static HistoryWindow historyPanel;
 	public static Menubar menubar;
 	public static JButton menubarShowButton;
 	public static MessageManager messageManager;
-	public static OptionPanel optionPanel;
+	public static OptionWindow optionPanel;
+	public static StashWindow stashWindow;
 	
 	public Overlay(){
 		
@@ -60,20 +63,24 @@ public class Overlay {
 		//TEMP VIEWABLE FRAME
 		
 		//TEMP EXIT BUTTON IN UPPER LEFT CORNER
-		JButton TEMPEXITBUTTON = new JButton();
-		TEMPEXITBUTTON.setBounds(0, 0, 20, 20);
-		screenContainer.add(TEMPEXITBUTTON);
-		TEMPEXITBUTTON.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				screenFrame.dispose();
-			}
-		});
+//		JButton TEMPEXITBUTTON = new JButton();
+//		TEMPEXITBUTTON.setBounds(0, 0, 20, 20);
+//		screenContainer.add(TEMPEXITBUTTON);
+//		TEMPEXITBUTTON.addActionListener(new ActionListener(){
+//			public void actionPerformed(ActionEvent e){
+//				screenFrame.dispose();
+//			}
+//		});
 		
 		//Menu Bar Show Button
 		menubarShowButton = new JButton();
 		menubarShowButton.setBounds(0, (int)(screenSize.getHeight()-MenuButton.height), MenuButton.height, MenuButton.height);
 		menubarShowButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {
+//		    	if(e.getButton() == MouseEvent.BUTTON3){
+//		    		System.out.println("!");
+//		    		System.exit(0);
+//		    	}
 		    	menubarShowButton.setVisible(false);
 		    	Overlay.menubar.setVisible(true);
 		    }
@@ -84,18 +91,18 @@ public class Overlay {
 		menubar = new Menubar();
 		screenContainer.add(menubar);
 		
-		optionPanel = new OptionPanel();
+		optionPanel = new OptionWindow();
 		screenContainer.add(optionPanel);
 		
-		characterPanel = new CharacterPanel();
+		characterPanel = new CharacterWindow();
 		screenContainer.add(characterPanel);
 		
-		historyPanel = new HistoryPanel();
+		historyPanel = new HistoryWindow();
 		centerFrame(historyPanel);
 		screenContainer.add(historyPanel);
 		
-		StashOverlay stashOverlay = new StashOverlay();
-		screenContainer.add(stashOverlay);
+		stashWindow = new StashWindow();
+		screenContainer.add(stashWindow);
 		
 		//Message Manager - SHOULD ALWAYS BE LAST
 		MessageManager msgManager = new MessageManager();
@@ -110,6 +117,7 @@ public class Overlay {
 		Overlay.characterPanel.setVisible(false);
 		Overlay.historyPanel.setVisible(false);
 		Overlay.optionPanel.setVisible(false);
+		Overlay.stashWindow.setVisible(false);
 	}
 	
 	public static void centerFrame(JPanel panel){
