@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade.panels;
+package com.zrmiller.slimtrade.windows;
 
 import java.awt.Dimension;
 

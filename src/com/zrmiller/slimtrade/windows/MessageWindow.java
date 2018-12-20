@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade;
+package com.zrmiller.slimtrade.windows;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,12 +9,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicButton;
 
 public class MessageWindow extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	JButton closeButton;
+	public JButton closeButton;
 	
 	private static int width = 400;
 	private static int height= 40;

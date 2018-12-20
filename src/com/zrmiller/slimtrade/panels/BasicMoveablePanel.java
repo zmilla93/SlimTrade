@@ -4,10 +4,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import com.zrmiller.slimtrade.MessageWindow;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.datatypes.CurrencyType;
 import com.zrmiller.slimtrade.datatypes.MessageType;
+import com.zrmiller.slimtrade.windows.MessageWindow;
 
 public class BasicMoveablePanel extends JPanel{
 	

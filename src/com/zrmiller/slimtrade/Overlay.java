@@ -5,21 +5,20 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.buttons.MenuButton;
-import com.zrmiller.slimtrade.panels.CharacterWindow;
-import com.zrmiller.slimtrade.panels.HistoryWindow;
-import com.zrmiller.slimtrade.panels.BasicMenuWindow;
-import com.zrmiller.slimtrade.panels.OptionWindow;
-import com.zrmiller.slimtrade.panels.StashWindow;
-import com.zrmiller.slimtrade.panels.Menubar;
+import com.zrmiller.slimtrade.windows.CharacterWindow;
+import com.zrmiller.slimtrade.windows.HistoryWindow;
+import com.zrmiller.slimtrade.windows.MenubarWindow;
+import com.zrmiller.slimtrade.windows.OptionWindow;
+import com.zrmiller.slimtrade.windows.StashWindow;
 
 public class Overlay {
 
@@ -34,7 +33,7 @@ public class Overlay {
 	//PANELS
 	public static CharacterWindow characterPanel;
 	public static HistoryWindow historyPanel;
-	public static Menubar menubar;
+	public static MenubarWindow menubar;
 	public static JButton menubarShowButton;
 	public static MessageManager messageManager;
 	public static OptionWindow optionPanel;
@@ -62,33 +61,36 @@ public class Overlay {
 		
 		//TEMP VIEWABLE FRAME
 		
-		//TEMP EXIT BUTTON IN UPPER LEFT CORNER
-//		JButton TEMPEXITBUTTON = new JButton();
-//		TEMPEXITBUTTON.setBounds(0, 0, 20, 20);
-//		screenContainer.add(TEMPEXITBUTTON);
-//		TEMPEXITBUTTON.addActionListener(new ActionListener(){
-//			public void actionPerformed(ActionEvent e){
-//				screenFrame.dispose();
-//			}
-//		});
-		
 		//Menu Bar Show Button
 		menubarShowButton = new JButton();
 		menubarShowButton.setBounds(0, (int)(screenSize.getHeight()-MenuButton.height), MenuButton.height, MenuButton.height);
 		menubarShowButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {
-//		    	if(e.getButton() == MouseEvent.BUTTON3){
-//		    		System.out.println("!");
-//		    		System.exit(0);
-//		    	}
 		    	menubarShowButton.setVisible(false);
 		    	Overlay.menubar.setVisible(true);
 		    }
 		});
 		screenContainer.add(menubarShowButton);
 		
+		
+		try {
+			FileInputStream in = new FileInputStream("userPreferences.txt");
+			ObjectInputStream userPref = new ObjectInputStream(in);
+			String s = (String) userPref.readObject();
+			s = (String) userPref.readObject();
+			s = (String) userPref.readObject();
+			System.out.println(s);
+			userPref.close();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		//Menu Bar+
-		menubar = new Menubar();
+		menubar = new MenubarWindow();
 		screenContainer.add(menubar);
 		
 		optionPanel = new OptionWindow();

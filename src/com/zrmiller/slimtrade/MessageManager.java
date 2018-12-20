@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.datatypes.CurrencyType;
 import com.zrmiller.slimtrade.datatypes.MessageType;
+import com.zrmiller.slimtrade.windows.MessageWindow;
 
 public class MessageManager extends JPanel{
 

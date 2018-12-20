@@ -8,12 +8,12 @@ import com.zrmiller.slimtrade.datatypes.MessageType;
 public class TradeOffer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	MessageType msgType;
-	String playerName;
-	String itemName;
-	Double itemCount;
-	CurrencyType priceType;
-	Double currencyCount;
+	public MessageType msgType;
+	public String playerName;
+	public String itemName;
+	public Double itemCount;
+	public CurrencyType priceType;
+	public Double currencyCount;
 	
 	public TradeOffer(MessageType msgType, String playerName, String itemName, Double itemCount, CurrencyType priceType, Double currencyCount){
 		this.msgType = msgType;

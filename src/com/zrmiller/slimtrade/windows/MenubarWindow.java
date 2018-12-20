@@ -1,15 +1,19 @@
-package com.zrmiller.slimtrade.panels;
+package com.zrmiller.slimtrade.windows;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.buttons.MenuButton;
+import com.zrmiller.slimtrade.panels.BasicPanel;
 
-public class Menubar extends JPanel{
+public class MenubarWindow extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -19,7 +23,7 @@ public class Menubar extends JPanel{
 	private int spacerHeight = (int)(MenuButton.height*0.8);
 	private int totalHeight = MenuButton.height*buttonCount+spacerHeight*spacerCount;
 	
-	public Menubar(){
+	public MenubarWindow(){
 		//TODO:Toggle off
 //		this.setVisible(false);
 		this.setBounds(0, Overlay.screenHeight-totalHeight, MenuButton.width, totalHeight);
@@ -91,6 +95,19 @@ public class Menubar extends JPanel{
 		//QUIT PROGRAM
 		quitButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				try {
+					FileOutputStream out = new FileOutputStream("userPreferences.txt");
+					ObjectOutputStream userPref = new ObjectOutputStream(out);
+					String test1 = "Hello 1";
+					String test2 = "Hello 2";
+					String test3 = "Hello 3";
+					userPref.writeObject(test1);
+					userPref.writeObject(test2);
+					userPref.writeObject(test3);
+					userPref.close();
+				} catch (IOException err) {
+					err.printStackTrace();
+				}
 				System.exit(0);
 			}
 		});

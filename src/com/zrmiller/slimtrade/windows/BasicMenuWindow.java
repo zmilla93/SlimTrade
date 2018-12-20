@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade.panels;
+package com.zrmiller.slimtrade.windows;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,32 +8,38 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.panels.BasicPanel;
 
 public class BasicMenuWindow extends JPanel{
-	private static final long serialVersionUID = 1L;
-
-	//THIS
-	private int width;
 	
+	private static final long serialVersionUID = 1L;
 	
 	//TITLEBAR
-	private int minimumWidth = 100;
-	private int titlebarHeight = 20;
-	private String title = "";
-	public JPanel titlebar;
+	private JPanel titlebar;
 	private JPanel titlebarPanel;
 	private JLabel titlebarLabel;
+	public int titlebarHeight = 20;
+	private String title = "";
 	private JButton closeButton;
-	private Color defaultTitlebarColor = Color.LIGHT_GRAY;
-	private Color clear = new Color(1.0f,1.0f,1.0f,0.0f);
-	private int offsetX = 0;
-	private int offsetY = 0;
-	private JPanel visibilityPanel;
-	private int snapSize = 10;
-	
 	//CONTENT PANEL
 	public JPanel container;
+	private int width;
 	private int height;
+	//THIS
+	private int minimumWidth = 100;
+	private int minimumHeight = titlebarHeight*2;
+	private JPanel visibilityPanel;
+	//MOVING
+	private int offsetX = 0;
+	private int offsetY = 0;
+	//RESIZING
+	private int snapSize = 1;
+	
+	//TEMP
+	//TODO : move/remove these
+	private Color defaultTitlebarColor = Color.LIGHT_GRAY;
+	private Color clear = new Color(1.0f,1.0f,1.0f,0.0f);
+	//
 	
 	public BasicMenuWindow(int width, int height){
 		this.titlebarHeight = 0;
@@ -53,7 +59,7 @@ public class BasicMenuWindow extends JPanel{
 	private void buildMenu(){
 		this.setLayout(Overlay.flowLeft);
 		this.setPreferredSize(new Dimension(width, height+titlebarHeight));
-		this.setMinimumSize(new Dimension(minimumWidth, titlebarHeight*2));
+		this.setMinimumSize(new Dimension(minimumWidth, minimumHeight));
 		this.setBounds(0, 0, width, height+titlebarHeight);
 		this.setBackground(clear);
 		buildTitlebar();
@@ -104,6 +110,40 @@ public class BasicMenuWindow extends JPanel{
 		});
 	}
 	
+	public void setSnapSize(int size){
+		this.snapSize = size;
+	}
+	
+	public int getTitlebarHeight(){
+		return this.titlebar.getHeight();
+	}
+	
+	public void resizeWindow(int width, int height){
+		if(width<this.getMinimumSize().getWidth() || height < this.getMinimumSize().getHeight()){
+			return;
+		}
+//		int w = width > 0 ? width : container.getWidth();
+//		int h = height > 0 ? height : container.getHeight();
+		int w = width;
+		int h = height;
+		while((double)(w%snapSize) != 0){
+			w--;
+		}
+		while(h%snapSize != 0){
+			h--;
+		}
+		Dimension size = new Dimension(w, h);
+//		this.setSize(size);
+		this.setSize(new Dimension(w, h+titlebar.getHeight()));
+		this.setPreferredSize(new Dimension(w, h+titlebar.getHeight()));
+		titlebar.setPreferredSize(new Dimension(w, titlebar.getHeight()));
+		titlebarPanel.setPreferredSize(new Dimension(w-titlebar.getHeight(), titlebar.getHeight()));
+//		closeButton.setPreferredSize(new Dimension(titlebar.getHeight(), titlebar.getHeight()));
+		container.setPreferredSize(new Dimension(w, h));
+		this.setVisible(false);
+		this.setVisible(true);
+	}
+	
 	private int getPosX(){
 		return this.getX();
 	}
@@ -116,32 +156,7 @@ public class BasicMenuWindow extends JPanel{
 		this.setLocation(posX, posY);
 	}
 	
-	public void resizeWindow(int width, int height){
-		if(width<this.getMinimumSize().getWidth() || height < this.getMinimumSize().getHeight()){
-			return;
-		}
-		int w = width;
-		int h = height;
-		System.out.println(width + " : " + w);
-		System.out.println(width + " : " + w);
-		while((double)(w%snapSize) != 0){
-			w--;
-		}
-		while(h%snapSize != 0){
-			h--;
-		}
-		Dimension size = new Dimension(w, h);
-		this.setSize(size);
-		titlebar.setPreferredSize(new Dimension(w, titlebar.getHeight()));
-		titlebarPanel.setPreferredSize(new Dimension(w-titlebar.getHeight(), titlebar.getHeight()));
-		closeButton.setPreferredSize(new Dimension(titlebar.getHeight(), titlebar.getHeight()));
-		container.setPreferredSize(new Dimension(w, h-titlebar.getHeight()));
-		this.setVisible(false);
-		this.setVisible(true);
-	}
 	
-	public void setSnapSize(int size){
-		this.snapSize = size;
-	}
+	
 	
 }

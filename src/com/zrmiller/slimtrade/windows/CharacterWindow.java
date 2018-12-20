@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade.panels;
+package com.zrmiller.slimtrade.windows;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.panels.BasicPanel;
 
 public class CharacterWindow extends BasicMenuWindow{
 

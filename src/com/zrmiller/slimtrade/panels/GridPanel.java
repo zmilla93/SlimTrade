@@ -39,6 +39,10 @@ public class GridPanel extends JPanel{
 		}
 	}
 	
+	public void setLineColor(Color color){
+		this.lineColor = color;
+	}
+	
 	public void resizeGrid(int width, int height){
 		this.width = width;
 		this.height = height;

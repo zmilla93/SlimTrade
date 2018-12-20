@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade.panels;
+package com.zrmiller.slimtrade.windows;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.panels.BasicPanel;
+import com.zrmiller.slimtrade.panels.BasicTitlebar;
 
 public class OptionWindow extends BasicMenuWindow{
 	
@@ -28,16 +30,7 @@ public class OptionWindow extends BasicMenuWindow{
 		this.setBounds(Overlay.screenWidth/2-width/2, Overlay.screenHeight/2-minHeight/2, width, minHeight);
 		this.setMinimumSize(new Dimension(width, minHeight));
 		this.setVisible(false);
-		//this.setPreferredSize(new Dimension(width, minHeight));
 		
-//		JPanel titlebar = new JPanel(Overlay.flowCenter);
-//		//JLabel titlebarLabel = new JLabel();
-//		Border titlebarBorder = BorderFactory.createRaisedSoftBevelBorder();
-//		titlebar.setPreferredSize(new Dimension(width-rowHeight, rowHeight));
-//		titlebar.setMaximumSize(new Dimension(width-rowHeight, rowHeight));
-//		titlebar.setBorder(titlebarBorder);
-		//titlebar.add(titlebarLabel);
-		//this.add(titlebar);
 		BasicTitlebar titlebar = new BasicTitlebar("Options", this,  width);
 		this.add(titlebar);
 		this.add(new BasicPanel(width,10));
@@ -50,7 +43,6 @@ public class OptionWindow extends BasicMenuWindow{
 		toggleHeader.setBorder(toggleBorder);
 		toggleHeader.add(toggleLabel);
 		this.add(toggleHeader);
-		this.add(new SpacerPanel(width, 10));
 		
 		int toggleCount = 2;
 		double toggleWidth = 0.6;
@@ -60,7 +52,6 @@ public class OptionWindow extends BasicMenuWindow{
 		//toggleFold.setMinimumSize(new Dimension(width, (int)(rowHeight*toggleCount)));
 		toggleFold.setBackground(Color.red);
 		this.add(toggleFold);
-		this.add(new SpacerPanel(width, 10));
 		
 		JPanel dndContainer = new JPanel(Overlay.flowLeft);
 		dndContainer.setPreferredSize(new Dimension((int)(width*toggleWidth), rowHeight));
