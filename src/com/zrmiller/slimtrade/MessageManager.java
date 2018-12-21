@@ -1,9 +1,8 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
@@ -17,14 +16,17 @@ public class MessageManager extends JPanel{
 
 	public MessageManager(){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setBounds(1000, 5, MessageWindow.totalWidth, MessageWindow.totalHeight*4);
+		this.setBounds(1000, 5, 0, 0);
 		this.setBackground(Color.YELLOW);
-		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
-		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
+//		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
+//		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
 //		this.setVisible(true);
 	}
 	
 	private void refresh(){
+		Dimension d = new Dimension(MessageWindow.totalWidth, MessageWindow.totalHeight*this.getComponentCount());
+		this.setPreferredSize(d);
+		this.setSize(d);
 		this.revalidate();
 		this.repaint();
 	}
@@ -38,6 +40,7 @@ public class MessageManager extends JPanel{
 		    }
 		});
 		this.add(msg);
+		refresh();
 	}
 	
 }

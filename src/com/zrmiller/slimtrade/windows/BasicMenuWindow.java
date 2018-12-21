@@ -106,8 +106,13 @@ public class BasicMenuWindow extends JPanel{
 		titlebarPanel.addMouseMotionListener(new java.awt.event.MouseAdapter() {
 		    public void mouseDragged(java.awt.event.MouseEvent e) {
 		    	moveBox(e.getXOnScreen()-offsetX, e.getYOnScreen()-offsetY);
+		    	onMenubarRelease();
 		    }
 		});
+	}
+	
+	private void onMenubarRelease(){
+		
 	}
 	
 	public void setSnapSize(int size){

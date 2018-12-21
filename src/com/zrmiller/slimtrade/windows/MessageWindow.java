@@ -4,50 +4,56 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicButton;
+import com.zrmiller.slimtrade.panels.StashHelper;
 
 public class MessageWindow extends JPanel{
 	
+	//GLOBAL
 	private static final long serialVersionUID = 1L;
-	public JButton closeButton;
-	
 	private static int width = 400;
 	private static int height= 40;
 	private static int borderThickness = 2;
 	private int rowHeight = height/2;
 	public static int totalWidth = width+borderThickness*4;
 	public static int totalHeight = height+borderThickness*4;
-	
+	public JButton closeButton;
 	private TradeOffer trade;
+	
+	//ITEM HIGHLIGHTER + TIMER
+	private StashHelper stashHelper = new StashHelper();
+	private JPanel itemHighlighter;
+	private ActionListener hideHighlighter = new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent e){
+			itemHighlighter.setVisible(false);
+			highlighterTimer.stop();
+		}
+	};
+	private Timer highlighterTimer = new Timer(2500, hideHighlighter);
+	
 	
 	public MessageWindow(TradeOffer trade){
 		this.trade = trade;
-		/*
-		 * TODO : Optimize
-		 * Size Variables
-		 * 
-		 */
-		
-		/*
-		 * Basic Settings
-		 */
-		
+		 // TODO : Optimize
+		 // Size Variables
+		 
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(totalWidth, totalHeight));
 		
-		/*
-		 * BORDER PANELS
-		 */
-		
+		//BORDER
 		JPanel bgOuter = new JPanel();
 		bgOuter.setLayout(new FlowLayout(FlowLayout.CENTER, borderThickness, borderThickness));
 		bgOuter.setPreferredSize(new Dimension(width+borderThickness*2, height+borderThickness*2));
@@ -67,10 +73,7 @@ public class MessageWindow extends JPanel{
 		
 		this.add(bgOuter);
 		
-		/*
-		 * TOP PANEL
-		 */
-		
+		//TOP PANEL
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		topPanel.setPreferredSize(new Dimension(width, rowHeight));
@@ -118,11 +121,11 @@ public class MessageWindow extends JPanel{
 		centerPanel.setBackground(Color.RED);
 		container.add(centerPanel, BorderLayout.CENTER);
 		
-		JPanel itemPanel = new JPanel(Overlay.flowCenter);
+		JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		JLabel itemLabel = new JLabel(trade.itemName);
 		itemPanel.setPreferredSize(new Dimension((int)(width*0.8), rowHeight));
 		itemPanel.setBackground(Color.GRAY);
-		itemPanel.add(itemLabel);
+		itemPanel.add(itemLabel, BorderLayout.CENTER);
 		centerPanel.add(itemPanel);
 		
 		JPanel centerButtonPanel = new JPanel();
@@ -147,26 +150,63 @@ public class MessageWindow extends JPanel{
 		button6.setPreferredSize(new Dimension(rowHeight, rowHeight));
 		centerButtonPanel.add(button6);
 		
-		Border hoverBorder = BorderFactory.createRaisedSoftBevelBorder();
+		Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+		Border hoverBorder = BorderFactory.createLineBorder(Color.RED);
 		
-		//PANEL ACTION HANDLER
+//		itemHighlighter.setSize(Overlay.stashWindow.grid.getWidth()/12, Overlay.stashWindow.grid.getWidth()/12);
+		itemHighlighter = new JPanel();
+		itemHighlighter.setVisible(false);
+		double cellWidth = (double)StashWindow.grid.getWidth()/12;
+		double cellHeight = (double)StashWindow.grid.getHeight()/12;
+		itemHighlighter.setPreferredSize(new Dimension((int)cellWidth, (int)cellHeight));
+		itemHighlighter.setBounds((int)(Overlay.stashWindow.grid.getLocationOnScreen().x+((trade.stashtabX-1)*cellWidth)), (int)(Overlay.stashWindow.grid.getLocationOnScreen().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
+		itemHighlighter.setBackground(Color.blue);
+		Overlay.screenContainer.add(itemHighlighter);
+//		Overlay.screenContainer.revalidate();
+//		Overlay.screenContainer.repaint();
+		
+//		itemHighlighter.setBounds(Overlay.stashWindow.grid.getX()*(trade.stashtabX-1), Overlay.stashWindow.grid.getX()*(trade.stashtabY-1), Overlay.stashWindow.grid.getWidth()/12, Overlay.stashWindow.grid.getWidth()/12);
+//		itemHighlighter.setBounds(0, 0, Overlay.stashWindow.grid.getWidth()/12, Overlay.stashWindow.grid.getWidth()/12);
+
+//		BasicPanel stashHelper = new BasicPanel(80, 20, Color.green);
+//		stashHelper.setBounds(0, 0, 80, 20);
+//		stashHelper.add(new JLabel("NAME"));
+//		Overlay.screenContainer.add(stashHelper);
+//		stashHelper.setSize(new Dimension(80, 20));
+//		stashHelper.setLocation(0, 0);
+//		
+		//Item Panel Actions
 		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	itemPanel.setBorder(hoverBorder);
 		    }
 		});
 		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				itemPanel.setBorder(blankBorder);
+			}
+		});
+		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(Overlay.optionPanel.isVisible()){
-		    		Overlay.optionPanel.setVisible(false);
-		    	}else{
-		    		Overlay.hideAllTempFrames();
-		    		Overlay.optionPanel.setVisible(true);
-		    	}
+		    	Overlay.stashHelperContainer.add(stashHelper);
+		    	Overlay.stashHelperContainer.refresh();
 		    }
 		});
-
-	
+		
+		//Stash Helper
+		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent e) {
+		    	highlighterTimer.stop();
+		    	itemHighlighter.setVisible(true);
+		    }
+		});
+		
+		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseExited(java.awt.event.MouseEvent e) {
+				highlighterTimer.restart();
+			}
+		});
+		
 	}
 
 }

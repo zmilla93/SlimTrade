@@ -1,6 +1,7 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.buttons.MenuButton;
+import com.zrmiller.slimtrade.panels.GridPanel;
+import com.zrmiller.slimtrade.panels.StashHelperContainer;
 import com.zrmiller.slimtrade.windows.CharacterWindow;
 import com.zrmiller.slimtrade.windows.HistoryWindow;
 import com.zrmiller.slimtrade.windows.MenubarWindow;
@@ -33,6 +36,7 @@ public class Overlay {
 	public static FlowLayout flowRight;
 	
 	//PANELS
+	public static Container screenContainer;
 	public static CharacterWindow characterPanel;
 	public static HistoryWindow historyPanel;
 	public static MenubarWindow menubar;
@@ -40,9 +44,12 @@ public class Overlay {
 	public static MessageManager messageManager;
 	public static OptionWindow optionPanel;
 	public static StashWindow stashWindow;
+	public static GridPanel stashGrid;
+	public static StashHelperContainer stashHelperContainer;
 	
 	public Overlay(){
 		
+		//TODO : Doublecheck all statics
 		//Initialize Pseudo Constants
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = screenSize.width;
@@ -59,7 +66,7 @@ public class Overlay {
 		screenFrame.setUndecorated(true);
 		screenFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		screenFrame.setAlwaysOnTop(true);
-		Container screenContainer = screenFrame.getContentPane();
+		screenContainer = screenFrame.getContentPane();
 		
 		//TEMP VIEWABLE FRAME
 		
@@ -104,6 +111,13 @@ public class Overlay {
 		centerFrame(historyPanel);
 		screenContainer.add(historyPanel);
 		
+//		//TODO : Move/Cleanup
+//		stashHelper = new BasicPanel(10,10, Color.green);
+//		stashHelper.setLayout(flowLeft);
+//		stashHelper.setBounds(0,0,10,10);
+		stashHelperContainer = new StashHelperContainer();
+		screenContainer.add(stashHelperContainer);
+		
 		File stashFile = new File("stash.pref");
 		if(stashFile.exists()){
 			try {
@@ -125,13 +139,25 @@ public class Overlay {
 		stashWindow = new StashWindow();
 		screenContainer.add(stashWindow);
 		
+		stashHelperContainer.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseExited(java.awt.event.MouseEvent e) {
+		    	for (Component c : stashHelperContainer.getComponents()){
+//		    		c.setVisible(false);
+		    	}
+		    }
+		});
+		
+//		stashHelper.setLocation(stashWindow.getLocation().x, stashWindow.getLocation().y-50);
+		
+		
 		//Message Manager - SHOULD ALWAYS BE LAST
-		MessageManager msgManager = new MessageManager();
-		screenContainer.add(msgManager);
+		messageManager = new MessageManager();
+		screenContainer.add(messageManager);
 		
 		//Finish
 		screenFrame.pack();
 		screenFrame.setVisible(true);
+		stashHelperContainer.updateBounds();
 	}
 	
 	public static void hideAllTempFrames(){
