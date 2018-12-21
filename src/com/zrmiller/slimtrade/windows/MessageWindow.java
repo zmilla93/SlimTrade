@@ -197,6 +197,9 @@ public class MessageWindow extends JPanel{
 		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent e) {
 		    	highlighterTimer.stop();
+		    	double cellWidth = (double)StashWindow.grid.getWidth()/12;
+				double cellHeight = (double)StashWindow.grid.getHeight()/12;
+				itemHighlighter.setBounds((int)(Overlay.stashWindow.grid.getLocationOnScreen().x+((trade.stashtabX-1)*cellWidth)), (int)(Overlay.stashWindow.grid.getLocationOnScreen().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
 		    	itemHighlighter.setVisible(true);
 		    }
 		});

@@ -50,6 +50,8 @@ public class Overlay {
 	public Overlay(){
 		
 		//TODO : Doublecheck all statics
+		//TODO : disallow windows going off screen
+		//TODO : Update grid/window stuff again... avoiding bugs this time?
 		//Initialize Pseudo Constants
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = screenSize.width;
