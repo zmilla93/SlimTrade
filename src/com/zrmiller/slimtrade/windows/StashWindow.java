@@ -21,12 +21,20 @@ import com.zrmiller.slimtrade.panels.GridPanel;
 public class StashWindow extends BasicMenuWindow{
 
 	private static final long serialVersionUID = 1L;
+	//STATICS
+	private static Point windowPos = new Point(0, 0);
+//	private static int windowWidth = 250;
+//	private static int windowHeight = 250;
+	private static Dimension windowSize;
+	private static Point gridPos;
+	private static int gridWidth;
+	private static int gridHeight;
+	private static Dimension gridSize;
 	
 	//SIZES
-	private static Point defaultPos = new Point(0, 0);
-	private static int windowWidth = 250;
-	private static int windowHeight = 250;
-	private static int infoPanelHeight = 32;
+	
+	
+	private int infoPanelHeight = 32;
 	private int buttonWidth = 80;
 	private int buttonHeight = 20;
 	private int buttonSpacingX = 20;
@@ -44,32 +52,34 @@ public class StashWindow extends BasicMenuWindow{
 	private BasicPanel bottomContainer;
 	
 	//GRID
+	//todo remove static
 	public static GridPanel grid;
 	private int bufferThin = 5;
 	private int bufferThick = 12;
-	private Point gridPos;
-	private static int gridWidth;
-	private static int gridHeight;
+	
+
 //	private static int width = gridWidth+bufferThin+bufferThick;
 //	private static int height = gridHeight+bufferThin+bufferThick+infoPanelHeight;
 	
 	//TODO : Add saving
 	//TODO : right and bottom edges of grids don't shows
 	//TODO : Snap to min/max sizes
+	//TODO : Hide stash overlay then fix
 
 	public StashWindow(){
-		super("Stash Overlay", windowWidth, windowHeight);
-		this.setLocation(defaultPos);
+		super("Stash Overlay", windowSize.width, windowSize.height);
+//		this.setVisible(false);
+		this.setLocation(windowPos);
 		this.setMinimumSize(new Dimension(200,200));
 		this.setSnapSize(snapSize);
-		gridWidth = windowWidth-bufferThin-bufferThick;
-		gridHeight = windowHeight-bufferThin-bufferThick-infoPanelHeight;
+		gridWidth = windowSize.width-bufferThin-bufferThick;
+		gridHeight = windowSize.height-bufferThin-bufferThick-infoPanelHeight;
 //		this.isOptimizedDrawingEnabled();
 		
 		container.setLayout(new BorderLayout());
 		//TODO : Move clear background to BasicMenuWindow?
 		container.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		container.setBounds(0, 0, windowWidth, windowHeight);
+		container.setBounds(0, 0, windowSize.width, windowSize.height);
 		
 		grid = new GridPanel(gridWidth, gridHeight);
 		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.3f));
@@ -94,7 +104,7 @@ public class StashWindow extends BasicMenuWindow{
 		BasicPanel botLeftSpacer = new BasicPanel(bufferThin, bufferThick);
 		BasicPanel bottomPullBar = new BasicPanel(gridWidth, bufferThick);
 		BasicPanel botRightSpacer = new BasicPanel(bufferThick, bufferThick);
-		BasicPanel infoPanel = new BasicPanel(windowWidth, infoPanelHeight);
+		BasicPanel infoPanel = new BasicPanel(windowSize.width, infoPanelHeight);
 		infoPanel.setLayout(new FlowLayout(FlowLayout.CENTER, buttonSpacingX, buttonMarginTop));
 		JButton resetButton = new JButton("Reset");
 		infoPanel.add(resetButton);
@@ -105,7 +115,7 @@ public class StashWindow extends BasicMenuWindow{
 		
 		infoPanel.add(saveButton);
 		
-		bottomContainer = new BasicPanel(windowWidth, bufferThick+infoPanelHeight);
+		bottomContainer = new BasicPanel(windowSize.width, bufferThick+infoPanelHeight);
 		
 //		bottomPullBar.setBackground(Color.YELLOW);
 		bottomPullBar.setBorder(b);
@@ -133,7 +143,6 @@ public class StashWindow extends BasicMenuWindow{
 		    public void mouseDragged(java.awt.event.MouseEvent e) {
 		    	int dis = startingX-e.getXOnScreen();
 		    	resizeStashWindow(startingContainerWidth-dis, startingContainerHeight);
-//		    	adjustSize(dis, 0);
 		    }
 		});
 		
@@ -151,7 +160,8 @@ public class StashWindow extends BasicMenuWindow{
 		bottomPullBar.addMouseMotionListener(new java.awt.event.MouseAdapter() {
 		    public void mouseDragged(java.awt.event.MouseEvent e) {
 		    	int dis = startingY-e.getYOnScreen();
-		    	adjustSize(0, dis);
+//		    	adjustSize(0, dis);
+		    	resizeStashWindow(startingContainerWidth, startingContainerHeight-dis);
 		    }
 		});
 		
@@ -166,11 +176,13 @@ public class StashWindow extends BasicMenuWindow{
 		saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				try {
+					saveDataLocally();
 					ObjectOutputStream stash = new ObjectOutputStream(new FileOutputStream("stash.pref"));
-					stash.writeObject(getWindowLocation());
-					stash.writeObject(getWindowSize());
+					stash.writeObject(StashWindow.windowPos);
+					stash.writeObject(StashWindow.windowSize);
+					stash.writeObject(StashWindow.gridPos);
+					stash.writeObject(StashWindow.gridSize);
 					stash.close();
-					saveLocalInfo();
 					Overlay.stashHelperContainer.updateBounds();
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -179,27 +191,73 @@ public class StashWindow extends BasicMenuWindow{
 		});
 	}
 	
-	private void saveLocalInfo(){
-		StashWindow.windowWidth = container.getWidth();
-		StashWindow.windowHeight = container.getHeight();
-		StashWindow.defaultPos = this.getLocation();
+	//Set Window Defaults
+	public static void setDefaultWinPos(Point pos){
+		StashWindow.windowPos = pos;
+	}
+	
+	public static void setDefaultWinSize(Dimension size){
+		StashWindow.windowSize = size;
+	}
+	
+//	public static void setDefaultWindowSize(int width, int height){
+//		StashWindow.windowSize = new Dimension(width, height);
+//	}
+	
+	//Get Window Data
+	public static Point getWinPos(){
+		return StashWindow.windowPos;
+	}
+	
+	public static Dimension getWinSize(){
+		return StashWindow.windowSize;
+	}
+	
+//	private Dimension getCurrentWindowSize(){
+//		return container.getSize();
+//	}
+	
+	//Set Grid Defaults
+	public static void setDefaultGridPos(Point pos){
+		StashWindow.gridPos = pos;
+	}
+	
+	public static void setDefaultGridSize(Dimension size){
+		StashWindow.gridSize = size;
+	}
+	
+//	public void setDefaultGridSize(int width, int height){
+//		StashWindow.gridSize = new Dimension(width, height);
+//	}
+	
+	public static Point getGridPos(){
+		return StashWindow.gridPos;
+	}
+	
+	public static Dimension getGridSize(){
+		return StashWindow.gridSize;
+	}
+	
+	
+	
+	private void saveDataLocally(){
+		setDefaultWinPos(this.getLocation());
+		setDefaultWinSize(container.getSize());
+		setDefaultGridPos(grid.getLocation());
+		setDefaultGridSize(grid.getSize());
 	}
 	
 	public void reset(){
-		this.setLocation(defaultPos);
-		this.resizeStashWindow(windowWidth, windowHeight);
+		this.setLocation(windowPos);
+		this.resizeStashWindow(windowSize.width, windowSize.height);
 	}
 	
 	private Point getWindowLocation(){
 		return this.getLocation();
 	}
 	
-	public static void setDefaultPosition(Point p){
-		StashWindow.defaultPos = p;
-	}
-	
-	private Dimension getWindowSize(){
-		return container.getSize();
+	public static void setwindowPosition(Point p){
+		StashWindow.windowPos = p;
 	}
 	
 	public void refresh(){
@@ -213,19 +271,14 @@ public class StashWindow extends BasicMenuWindow{
 //		StashWindow.gridHeight = height;
 //	}
 	
-	public static void setDefaultSize(int width, int height){
-		StashWindow.windowWidth = width;
-		StashWindow.windowHeight = height;
-	}
-	
-	private void setWindowSize(int width, int height){
-		if(startingContainerWidth-width<this.getMinimumSize().getWidth() || startingContainerHeight-height<this.getMinimumSize().getHeight()){
-			return;
-		}
-		gridWidth = width-bufferThin-bufferThick;
-		gridHeight = height-bufferThin-bufferThick-infoPanelHeight;
-		grid.resizeGrid(gridWidth, gridHeight);
-	}
+//	private void setWindowSize(int width, int height){
+//		if(startingContainerWidth-width<this.getMinimumSize().getWidth() || startingContainerHeight-height<this.getMinimumSize().getHeight()){
+//			return;
+//		}
+//		gridWidth = width-bufferThin-bufferThick;
+//		gridHeight = height-bufferThin-bufferThick-infoPanelHeight;
+//		grid.resizeGrid(gridWidth, gridHeight);
+//	}
 	
 	//TODO : Add snapsize?
 	public void adjustSize(int w, int h){

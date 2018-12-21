@@ -52,6 +52,7 @@ public class Overlay {
 		//TODO : Doublecheck all statics
 		//TODO : disallow windows going off screen
 		//TODO : Update grid/window stuff again... avoiding bugs this time?
+		//TODO : Change naming from window to container for BasicMenuPanels
 		//Initialize Pseudo Constants
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = screenSize.width;
@@ -126,9 +127,13 @@ public class Overlay {
 				ObjectInputStream stash = new ObjectInputStream(new FileInputStream("stash.pref"));
 				Point winPos = (Point) stash.readObject();
 				Dimension winSize = (Dimension) stash.readObject();
-				StashWindow.setDefaultPosition(winPos);
-				StashWindow.setDefaultSize(winSize.width, winSize.height);
+				Point gridPos = (Point) stash.readObject();
+				Dimension gridSize = (Dimension) stash.readObject();
 				stash.close();
+				StashWindow.setDefaultWinPos(winPos);
+				StashWindow.setDefaultWinSize(winSize);
+				StashWindow.setDefaultGridPos(gridPos);
+				StashWindow.setDefaultGridSize(gridSize);
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
