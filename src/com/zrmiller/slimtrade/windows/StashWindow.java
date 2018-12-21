@@ -53,7 +53,7 @@ public class StashWindow extends BasicMenuWindow{
 	
 	//GRID
 	//todo remove static
-	public static GridPanel grid;
+	private GridPanel grid;
 	private int bufferThin = 5;
 	private int bufferThick = 12;
 	
@@ -241,9 +241,9 @@ public class StashWindow extends BasicMenuWindow{
 	
 	
 	private void saveDataLocally(){
-		setDefaultWinPos(this.getLocation());
+		setDefaultWinPos(this.getLocationOnScreen());
 		setDefaultWinSize(container.getSize());
-		setDefaultGridPos(grid.getLocation());
+		setDefaultGridPos(grid.getLocationOnScreen());
 		setDefaultGridSize(grid.getSize());
 	}
 	

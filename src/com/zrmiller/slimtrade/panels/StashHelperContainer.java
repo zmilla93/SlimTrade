@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.windows.StashWindow;
 
 public class StashHelperContainer extends JPanel{
 	
@@ -22,9 +23,9 @@ public class StashHelperContainer extends JPanel{
 	
 	public void updateBounds(){
 //		Point stashPos = Overlay.stashWindow.LocationOnScreen();
-		int posX = Overlay.stashWindow.grid.getLocationOnScreen().x-spacingX;
-		int posY = Overlay.stashWindow.getLocation().y-height-offsetY;
-		int width = Overlay.stashWindow.grid.getWidth()+spacingX;
+		int posX = StashWindow.getGridPos().x-spacingX;
+		int posY = StashWindow.getWinPos().y-height-offsetY;
+		int width = StashWindow.getGridSize().width+spacingX;
 		this.setBounds(posX, posY, width, height);
 	}
 	

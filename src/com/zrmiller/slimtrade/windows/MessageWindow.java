@@ -156,10 +156,10 @@ public class MessageWindow extends JPanel{
 //		itemHighlighter.setSize(Overlay.stashWindow.grid.getWidth()/12, Overlay.stashWindow.grid.getWidth()/12);
 		itemHighlighter = new JPanel();
 		itemHighlighter.setVisible(false);
-		double cellWidth = (double)StashWindow.grid.getWidth()/12;
-		double cellHeight = (double)StashWindow.grid.getHeight()/12;
+		double cellWidth = (double)StashWindow.getGridSize().width/12;
+		double cellHeight = (double)StashWindow.getGridSize().height/12;
 		itemHighlighter.setPreferredSize(new Dimension((int)cellWidth, (int)cellHeight));
-		itemHighlighter.setBounds((int)(Overlay.stashWindow.grid.getLocationOnScreen().x+((trade.stashtabX-1)*cellWidth)), (int)(Overlay.stashWindow.grid.getLocationOnScreen().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
+		itemHighlighter.setBounds((int)(StashWindow.getWinPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
 		itemHighlighter.setBackground(Color.blue);
 		Overlay.screenContainer.add(itemHighlighter);
 //		Overlay.screenContainer.revalidate();
@@ -197,9 +197,9 @@ public class MessageWindow extends JPanel{
 		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent e) {
 		    	highlighterTimer.stop();
-		    	double cellWidth = (double)StashWindow.grid.getWidth()/12;
-				double cellHeight = (double)StashWindow.grid.getHeight()/12;
-				itemHighlighter.setBounds((int)(Overlay.stashWindow.grid.getLocationOnScreen().x+((trade.stashtabX-1)*cellWidth)), (int)(Overlay.stashWindow.grid.getLocationOnScreen().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
+		    	double cellWidth = (double)StashWindow.getGridSize().width/12;
+				double cellHeight = (double)StashWindow.getGridSize().height/12;
+				itemHighlighter.setBounds((int)(StashWindow.getGridPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
 		    	itemHighlighter.setVisible(true);
 		    }
 		});
