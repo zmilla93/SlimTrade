@@ -23,8 +23,8 @@ public class BasicMenuWindow extends JPanel{
 	private JButton closeButton;
 	//CONTENT PANEL
 	public JPanel container;
-	private int width;
-	private int height;
+	private int containerWidth;
+	private int containerHeight;
 	//THIS
 	private int minimumWidth = 100;
 	private int minimumHeight = titlebarHeight*2;
@@ -41,31 +41,31 @@ public class BasicMenuWindow extends JPanel{
 	private Color clear = new Color(1.0f,1.0f,1.0f,0.0f);
 	//
 	
-	public BasicMenuWindow(int width, int height){
+	public BasicMenuWindow(int containerWidth, int containerHeight){
 		this.titlebarHeight = 0;
-		this.width = width;
-		this.height = height;
+		this.containerWidth = containerWidth;
+		this.containerHeight = containerHeight;
 		buildMenu();
 	}
 	
-	public BasicMenuWindow(String title, int width, int height){
+	public BasicMenuWindow(String title, int containerWidth, int containerHeight){
 		this.setBackground(Color.RED);
 		this.title = title;
-		this.width = width;
-		this.height = height;
+		this.containerWidth = containerWidth;
+		this.containerHeight = containerHeight;
 		buildMenu();
 	}
 	
 	private void buildMenu(){
 		this.setLayout(Overlay.flowLeft);
-		this.setPreferredSize(new Dimension(width, height+titlebarHeight));
+		this.setPreferredSize(new Dimension(containerWidth, containerHeight+titlebarHeight));
 		this.setMinimumSize(new Dimension(minimumWidth, minimumHeight));
-		this.setBounds(0, 0, width, height+titlebarHeight);
+		this.setBounds(0, 0, containerWidth, containerHeight+titlebarHeight);
 		this.setBackground(clear);
 		buildTitlebar();
 		this.add(titlebar);
 		container = new JPanel();
-		container.setPreferredSize(new Dimension(width, height));
+		container.setPreferredSize(new Dimension(containerWidth, containerHeight));
 		container.setBackground(Color.RED);
 		this.add(container);
 		visibilityPanel = this;
@@ -74,10 +74,10 @@ public class BasicMenuWindow extends JPanel{
 	private void buildTitlebar(){
 		titlebar = new JPanel();
 		titlebar.setLayout(Overlay.flowLeft);
-		titlebar.setPreferredSize(new Dimension(width, titlebarHeight));
+		titlebar.setPreferredSize(new Dimension(containerWidth, titlebarHeight));
 		titlebarPanel = new JPanel();
 		titlebarPanel.setLayout(Overlay.flowLeft);
-		titlebarPanel.setPreferredSize(new Dimension(width-titlebarHeight, titlebarHeight));
+		titlebarPanel.setPreferredSize(new Dimension(containerWidth-titlebarHeight, titlebarHeight));
 		titlebarLabel = new JLabel(title);
 		closeButton = new JButton();
 		closeButton.setPreferredSize(new Dimension(titlebarHeight, titlebarHeight));

@@ -51,8 +51,7 @@ public class Overlay {
 		
 		//TODO : Doublecheck all statics
 		//TODO : disallow windows going off screen
-		//TODO : Update grid/window stuff again... avoiding bugs this time?
-		//TODO : Change naming from window to container for BasicMenuPanels
+		
 		//Initialize Pseudo Constants
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = screenSize.width;
@@ -84,22 +83,6 @@ public class Overlay {
 		});
 		screenContainer.add(menubarShowButton);
 		
-//		try {
-//			FileInputStream in = new FileInputStream("userPreferences.txt");
-//			ObjectInputStream userPref = new ObjectInputStream(in);
-//			String s = (String) userPref.readObject();
-//			s = (String) userPref.readObject();
-//			s = (String) userPref.readObject();
-//			System.out.println(s);
-//			userPref.close();
-//		} catch (ClassNotFoundException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-		
 		//Menu Bar+
 		menubar = new MenubarWindow();
 		screenContainer.add(menubar);
@@ -114,48 +97,33 @@ public class Overlay {
 		centerFrame(historyPanel);
 		screenContainer.add(historyPanel);
 		
-//		//TODO : Move/Cleanup
-//		stashHelper = new BasicPanel(10,10, Color.green);
-//		stashHelper.setLayout(flowLeft);
-//		stashHelper.setBounds(0,0,10,10);
 		stashHelperContainer = new StashHelperContainer();
 		screenContainer.add(stashHelperContainer);
 		
+		//TODO : Move Loading once more is added
+		//Load Stash Settings
 		File stashFile = new File("stash.pref");
 		if(stashFile.exists()){
 			try {
 				ObjectInputStream stash = new ObjectInputStream(new FileInputStream("stash.pref"));
 				Point winPos = (Point) stash.readObject();
-				Dimension winSize = (Dimension) stash.readObject();
+				Dimension containerSize = (Dimension) stash.readObject();
 				Point gridPos = (Point) stash.readObject();
 				Dimension gridSize = (Dimension) stash.readObject();
 				stash.close();
 				StashWindow.setDefaultWinPos(winPos);
-				StashWindow.setDefaultWinSize(winSize);
+				StashWindow.setDefaultContainerSize(containerSize);
 				StashWindow.setDefaultGridPos(gridPos);
 				StashWindow.setDefaultGridSize(gridSize);
 			} catch (IOException e2) {
-				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 		
 		stashWindow = new StashWindow();
 		screenContainer.add(stashWindow);
-		
-		stashHelperContainer.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseExited(java.awt.event.MouseEvent e) {
-		    	for (Component c : stashHelperContainer.getComponents()){
-//		    		c.setVisible(false);
-		    	}
-		    }
-		});
-		
-//		stashHelper.setLocation(stashWindow.getLocation().x, stashWindow.getLocation().y-50);
-		
 		
 		//Message Manager - SHOULD ALWAYS BE LAST
 		messageManager = new MessageManager();
