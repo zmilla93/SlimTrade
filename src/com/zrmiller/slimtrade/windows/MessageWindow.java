@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
+import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicButton;
 
@@ -115,7 +118,7 @@ public class MessageWindow extends JPanel{
 		centerPanel.setBackground(Color.RED);
 		container.add(centerPanel, BorderLayout.CENTER);
 		
-		JPanel itemPanel = new JPanel();
+		JPanel itemPanel = new JPanel(Overlay.flowCenter);
 		JLabel itemLabel = new JLabel(trade.itemName);
 		itemPanel.setPreferredSize(new Dimension((int)(width*0.8), rowHeight));
 		itemPanel.setBackground(Color.GRAY);
@@ -143,6 +146,25 @@ public class MessageWindow extends JPanel{
 		JButton button6 = new JButton();
 		button6.setPreferredSize(new Dimension(rowHeight, rowHeight));
 		centerButtonPanel.add(button6);
+		
+		Border hoverBorder = BorderFactory.createRaisedSoftBevelBorder();
+		
+		//PANEL ACTION HANDLER
+		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	itemPanel.setBorder(hoverBorder);
+		    }
+		});
+		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	if(Overlay.optionPanel.isVisible()){
+		    		Overlay.optionPanel.setVisible(false);
+		    	}else{
+		    		Overlay.hideAllTempFrames();
+		    		Overlay.optionPanel.setVisible(true);
+		    	}
+		    }
+		});
 
 	
 	}

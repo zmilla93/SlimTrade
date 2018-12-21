@@ -21,7 +21,7 @@ public class BasicMoveablePanel extends JPanel{
 	public BasicMoveablePanel(){
 		this.setSize(MessageWindow.totalWidth, MessageWindow.totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		MessageWindow msg = new MessageWindow(new TradeOffer(MessageType.INCOMING_TRADE, "PLAYER_NAME", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5));
+//		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
 		//this.add(msg);
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {

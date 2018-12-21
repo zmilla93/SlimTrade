@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -72,22 +74,21 @@ public class Overlay {
 		});
 		screenContainer.add(menubarShowButton);
 		
-		
-		try {
-			FileInputStream in = new FileInputStream("userPreferences.txt");
-			ObjectInputStream userPref = new ObjectInputStream(in);
-			String s = (String) userPref.readObject();
-			s = (String) userPref.readObject();
-			s = (String) userPref.readObject();
-			System.out.println(s);
-			userPref.close();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			FileInputStream in = new FileInputStream("userPreferences.txt");
+//			ObjectInputStream userPref = new ObjectInputStream(in);
+//			String s = (String) userPref.readObject();
+//			s = (String) userPref.readObject();
+//			s = (String) userPref.readObject();
+//			System.out.println(s);
+//			userPref.close();
+//		} catch (ClassNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 		//Menu Bar+
 		menubar = new MenubarWindow();
@@ -102,6 +103,24 @@ public class Overlay {
 		historyPanel = new HistoryWindow();
 		centerFrame(historyPanel);
 		screenContainer.add(historyPanel);
+		
+		File stashFile = new File("stash.pref");
+		if(stashFile.exists()){
+			try {
+				ObjectInputStream stash = new ObjectInputStream(new FileInputStream("stash.pref"));
+				Point winPos = (Point) stash.readObject();
+				Dimension winSize = (Dimension) stash.readObject();
+				StashWindow.setDefaultPosition(winPos);
+				StashWindow.setDefaultSize(winSize.width, winSize.height);
+				stash.close();
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		
 		stashWindow = new StashWindow();
 		screenContainer.add(stashWindow);

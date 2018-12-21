@@ -14,14 +14,20 @@ public class TradeOffer implements Serializable{
 	public Double itemCount;
 	public CurrencyType priceType;
 	public Double currencyCount;
+	public String stashtabName;
+	public int stashtabX;
+	public int stashtabY;
 	
-	public TradeOffer(MessageType msgType, String playerName, String itemName, Double itemCount, CurrencyType priceType, Double currencyCount){
+	public TradeOffer(MessageType msgType, String playerName, String itemName, Double itemCount, CurrencyType priceType, Double currencyCount, String stashtabName, int stashtabX, int stashtabY){
 		this.msgType = msgType;
 		this.playerName = playerName;
 		this.itemName = itemName;
 		this.itemCount = itemCount;
 		this.priceType = priceType;
 		this.currencyCount = currencyCount;
+		this.stashtabName = stashtabName;
+		this.stashtabX = stashtabX;
+		this.stashtabY = stashtabY;
 	}
 	
 	
