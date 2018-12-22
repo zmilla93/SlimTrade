@@ -10,6 +10,7 @@ import com.zrmiller.slimtrade.panels.BasicPanel;
 
 public class CharacterWindow extends BasicMenuWindow{
 
+	private static final long serialVersionUID = 1L;
 	private static int width = 200;
 	private static int height = 100;
 	private int rowHeight = 25;
@@ -23,16 +24,7 @@ public class CharacterWindow extends BasicMenuWindow{
 		this.setLayout(Overlay.flowCenter);
 		this.setBounds(Overlay.screenWidth/2-width/2, Overlay.screenHeight/2-rowHeight/2, width, totalHeight);
 		this.setPreferredSize(new Dimension(width, totalHeight));
-		
-		BasicPanel.setPanelSize(width, rowHeight);
-		
-		BasicPanel titlebar = new BasicPanel();
-		//titlebar.setPreferredSize(prefDimension);
-		titlebar.setBackground(Color.yellow);
-		this.add(titlebar);
-		
 		BasicPanel leaguePanel = new BasicPanel();
-		//titlebar.setPreferredSize(prefDimension);
 		leaguePanel.setBackground(Color.green);
 		this.add(leaguePanel);
 		

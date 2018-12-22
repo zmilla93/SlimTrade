@@ -3,6 +3,7 @@ package com.zrmiller.slimtrade.buttons;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -21,15 +22,18 @@ public class BasicButton extends JPanel{
 	public static int width;
 	public static int height;
 	public static int borderThickness = 1;
-	public static Color bgColor;
-	public static Color bgColor_hover;
-	public static Color borderColor;
-	public static Color borderColor_hover;
+	public Color bgColor;
+	public Color bgColor_hover;
+	public Color borderColor;
+	public Color borderColor_hover;
 	private Border border = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 	private Border border_hover = BorderFactory.createLineBorder(Color.BLACK);
 
-	public BasicButton(){
+	public BasicButton(String imgPath, int width, int height){
+		BasicButton.width = width;
+		BasicButton.height = height;
 		buildButton();
+		this.setCustomIcon(imgPath);
 	}
 	
 	public BasicButton(String imgPath){
@@ -40,29 +44,43 @@ public class BasicButton extends JPanel{
 	private void buildButton(){
 		this.setLayout(Overlay.flowCenter);
 		this.setPreferredSize(new Dimension(width, height));
-		this.setBackground(Color.LIGHT_GRAY);
+		this.setBackground(this.bgColor);
 		this.setBorder(border);
+		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent e) {
-				setActiveBorder(border_hover);
+				setColorHover();
 			}
 		});
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseExited(java.awt.event.MouseEvent e) {
-				setActiveBorder(border);
+				setColorDefault();
 			}
 		});
 	}
 	
-	private void setActiveBorder(Border border){
-		this.setBorder(border);
+	public void updateBorderPreset(){
+		for(Object l : this.listenerList.getListenerList()){
+			this.removeMouseListener((MouseListener) l);
+		}
+		this.buildButton();
+	}
+	
+	public void setColorDefault(){
+		this.setBackground(this.bgColor);
+		this.setBorder(this.border);
+	}
+	
+	private void setColorHover(){
+		this.setBackground(this.bgColor_hover);
+		this.setBorder(this.border_hover);
 	}
 	
 	public void setBorderPresets(Border border, Border border_hover){
 		this.border = border;
 		this.border_hover = border_hover;
-		this.setActiveBorder(border);
+		setColorDefault();
 	}
 	
 	public void setCustomIcon(String imgPath){

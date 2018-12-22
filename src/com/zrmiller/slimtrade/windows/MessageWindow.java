@@ -3,6 +3,7 @@ package com.zrmiller.slimtrade.windows;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
@@ -135,20 +136,21 @@ public class MessageWindow extends JPanel{
 		topPanel.setBackground(Color.CYAN);
 		container.add(topPanel, BorderLayout.PAGE_START);
 		
+		
 		//NAME
-		namePanel = new JPanel(panelFlow);		
+		namePanel = new JPanel(panelFlow);
 		nameLabel = new JLabel(trade.playerName);
 		namePanel.setPreferredSize(new Dimension((int)(width*nameWidthMult), rowHeight));
 		namePanel.add(nameLabel);
 		topPanel.add(namePanel);
 		//PRICE
-		pricePanel = new JPanel();
+		pricePanel = new JPanel(panelFlow);
 		priceLabel = new JLabel(trade.priceType.toString());
 		pricePanel.setPreferredSize(new Dimension((int)(width*priceWidthMult), rowHeight));
 		pricePanel.add(priceLabel);
 		topPanel.add(pricePanel);
 		//TOP BUTTON PANEL
-		topButtonPanel = new JPanel();
+		topButtonPanel = new JPanel(panelFlow);
 		topButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		topButtonPanel.setPreferredSize(new Dimension((int)(width*buttonTopMult), rowHeight));
 		topPanel.add(topButtonPanel);
@@ -173,25 +175,24 @@ public class MessageWindow extends JPanel{
 		centerButtonPanel.setPreferredSize(new Dimension((int)(width*buttonBotMult), rowHeight));
 		centerPanel.add(centerButtonPanel);
 		
+		//TODO : Could move these to delaraction if width/height default is dealt with
 		//Buttons
 		BasicButton.width = rowHeight;
 		BasicButton.height = rowHeight;
 		//Row 1
-		callbackButton = new BasicButton();
-		waitButton = new BasicButton();
-		stillInterestedButton = new BasicButton();
-		repeatMessageButton = new BasicButton();
+		callbackButton = new BasicButton("/phone.png");
+		waitButton = new BasicButton("/watch.png");
+		stillInterestedButton = new BasicButton("/refresh1.png");
+		repeatMessageButton = new BasicButton("/refresh1.png");
 		closeButton = new BasicButton("/close.png");
 		//Row 2
 		inviteToPartyButton = new BasicButton("/invite.png");
 		tpToHideoutButton = new BasicButton("/warp.png");
-		tradeButton = new BasicButton("/cart.png");
+		tradeButton = new BasicButton("/cart2.png");
 		thankButton = new BasicButton("/happy.png");
 		kickButton = new BasicButton("/leave.png");
 		leavePartyButton = new BasicButton("/leave.png");
 		tpHomeButton = new BasicButton("/home.png");
-		
-		
 		
 		switch(trade.msgType){
 		case INCOMING_TRADE:
@@ -233,7 +234,7 @@ public class MessageWindow extends JPanel{
 		itemHighlighter.setPreferredSize(new Dimension((int)cellWidth, (int)cellHeight));
 		itemHighlighter.setBounds((int)(StashWindow.getWinPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
 		itemHighlighter.setBackground(Color.blue);
-		Overlay.screenContainer.add(itemHighlighter);
+		Overlay.optionContainer.add(itemHighlighter);
 //		Overlay.screenContainer.revalidate();
 //		Overlay.screenContainer.repaint();
 //		
@@ -248,8 +249,18 @@ public class MessageWindow extends JPanel{
 		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseExited(java.awt.event.MouseEvent evt) {
 				itemPanel.setBorder(blankBorder);
+//				Overlay.fixPanelLayering();
 			}
 		});
+		
+		//TODO : Deal with panel layering issue, this is one solution
+		itemPanel.addMouseMotionListener(new java.awt.event.MouseAdapter() {
+			public void mouseMoved(java.awt.event.MouseEvent evt) {
+//				Overlay.fixPanelLayering();
+			}
+		});
+		
+		
 		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		    	Overlay.stashHelperContainer.add(stashHelper);
@@ -276,16 +287,46 @@ public class MessageWindow extends JPanel{
 		
 	}
 	
+	private void updateButton(BasicButton button){
+		button.bgColor = ColorManager.MsgWindow.buttonBG;
+		button.bgColor_hover = ColorManager.MsgWindow.buttonBG_hover;
+		button.updateBorderPreset();
+	}
+	
 	public void updateColor(){
+		//Panels
 		this.borderOuter.setBackground(ColorManager.MsgWindow.borderOuter);
 		this.borderInner.setBackground(ColorManager.MsgWindow.borderInner);
+		this.namePanel.setBackground(ColorManager.MsgWindow.nameBG);
 		this.nameLabel.setForeground(ColorManager.MsgWindow.text);
 		this.priceLabel.setForeground(ColorManager.MsgWindow.text);
-		this.itemLabel.setForeground(ColorManager.MsgWindow.text);
-
-		this.namePanel.setBackground(ColorManager.MsgWindow.nameBG);
-		this.pricePanel.setBackground(ColorManager.MsgWindow.priceBG);
 		this.itemPanel.setBackground(ColorManager.MsgWindow.itemBG);
+		this.itemLabel.setForeground(ColorManager.MsgWindow.text);
+		//Buttons
+		updateButton(callbackButton);
+		updateButton(waitButton);
+		updateButton(stillInterestedButton);
+		updateButton(repeatMessageButton);
+		updateButton(closeButton);
+		updateButton(inviteToPartyButton);
+		updateButton(tpToHideoutButton);
+		updateButton(tradeButton);
+		updateButton(thankButton);
+		updateButton(kickButton);
+		updateButton(leavePartyButton);
+		//Row 2
+
+		//Message Type Specific
+		switch(trade.msgType){
+		case INCOMING_TRADE:
+			this.pricePanel.setBackground(ColorManager.MsgWindow.priceBG_in);
+			break;
+		case OUTGOING_TRADE:
+			this.pricePanel.setBackground(ColorManager.MsgWindow.priceBG_out);
+			break;
+		default:
+			break;
+		}
 		
 //		this.closeButton.setBorderPresets(ColorManager.MsgWindow.buttonBorder, ColorManager.MsgWindow.buttonBorder_hover);
 		

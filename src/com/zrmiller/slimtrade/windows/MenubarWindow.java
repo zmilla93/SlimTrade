@@ -22,7 +22,7 @@ public class MenubarWindow extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	private MenuButton quitButton;
-	private int buttonCount = 6;
+	private int buttonCount = 7;
 	private int spacerCount = 2;
 	private int spacerHeight = (int)(MenuButton.height*0.8);
 	private int totalHeight = MenuButton.height*buttonCount+spacerHeight*spacerCount;
@@ -39,8 +39,10 @@ public class MenubarWindow extends JPanel{
 		this.add(historyButton);
 		MenuButton stashButton = new MenuButton("Stash");
 		this.add(stashButton);
-		MenuButton characterButton = new MenuButton("TEST");
+		MenuButton characterButton = new MenuButton("Character");
 		this.add(characterButton);
+		MenuButton testButton = new MenuButton("TEST");
+		this.add(testButton);
 		this.add(new BasicPanel(MenuButton.width, spacerHeight));
 		quitButton = new MenuButton("Quit");
 		this.add(quitButton);
@@ -51,11 +53,11 @@ public class MenubarWindow extends JPanel{
 		//OPTIONS
 		optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(Overlay.optionPanel.isVisible()){
-		    		Overlay.optionPanel.setVisible(false);
+		    	if(Overlay.optionWindow.isVisible()){
+		    		Overlay.optionWindow.setVisible(false);
 		    	}else{
 		    		Overlay.hideAllTempFrames();
-		    		Overlay.optionPanel.setVisible(true);
+		    		Overlay.optionWindow.setVisible(true);
 		    	}
 		    }
 		});
@@ -75,11 +77,11 @@ public class MenubarWindow extends JPanel{
 		//HISTORY
 		historyButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(Overlay.historyPanel.isVisible()){
-		    		Overlay.historyPanel.setVisible(false);
+		    	if(Overlay.historyWindow.isVisible()){
+		    		Overlay.historyWindow.setVisible(false);
 		    	}else{
 		    		Overlay.hideAllTempFrames();
-		    		Overlay.historyPanel.setVisible(true);
+		    		Overlay.historyWindow.setVisible(true);
 		    	}
 		    }
 		});
@@ -87,16 +89,22 @@ public class MenubarWindow extends JPanel{
 		//CHARACTER
 		characterButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	Random rng = new Random();
-		    	TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", rng.nextInt(12)+1, rng.nextInt(12)+1);
-		    	Overlay.messageManager.addMessage(t);
-//		    	if(Overlay.characterPanel.isVisible()){
-//		    		Overlay.characterPanel.setVisible(false);
-//		    	}else{
-//		    		Overlay.hideAllTempFrames();
-//		    		Overlay.characterPanel.setVisible(true);
-//		    	}
+		    	if(Overlay.characterWindow.isVisible()){
+		    		Overlay.characterWindow.setVisible(false);
+		    	}else{
+		    		Overlay.hideAllTempFrames();
+		    		Overlay.characterWindow.setVisible(true);
+		    	}
 		    }
+		});
+		
+		//TEST
+		testButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				Random rng = new Random();
+				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", rng.nextInt(12)+1, rng.nextInt(12)+1);
+				Overlay.messageManager.addMessage(t);
+			}
 		});
 		
 		//QUIT PROGRAM
@@ -121,7 +129,7 @@ public class MenubarWindow extends JPanel{
 		
 		minimizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {
-		    	Overlay.menubar.setVisible(false);
+		    	Overlay.menubarWindow.setVisible(false);
 		    	Overlay.menubarShowButton.setVisible(true);
 		    	
 		    }

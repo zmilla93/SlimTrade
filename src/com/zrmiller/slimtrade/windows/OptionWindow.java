@@ -83,4 +83,9 @@ public class OptionWindow extends BasicMenuWindow{
 		return closeButton;
 	}
 	
+	public void refresh(){
+		this.revalidate();
+		this.repaint();
+	}
+	
 }

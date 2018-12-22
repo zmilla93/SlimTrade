@@ -33,6 +33,8 @@ public class MessageManager extends JPanel{
 		this.repaint();
 	}
 	
+	//TODO : This may be causing a memory leak...
+	//Should move messages to another spot in memory and limit how much can be used
 	public void addMessage(TradeOffer trade){
 		MessageWindow msg = new MessageWindow(trade);
 		BasicPanel buffer = new BasicPanel(MessageWindow.totalWidth, msgGapSize, ColorManager.CLEAR);

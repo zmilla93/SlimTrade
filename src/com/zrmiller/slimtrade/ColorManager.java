@@ -26,8 +26,13 @@ public class ColorManager {
 		public static Border buttonBorder;
 		public static Border buttonBorder_hover;
 		public static Color nameBG;
-		public static Color priceBG;
+		public static Color priceBG_in;
+		public static Color priceBG_out;
 		public static Color itemBG;
+	}
+	
+	public static class GenericWindow{
+		
 	}
 	
 	public static void setMessageTheme(){
@@ -37,12 +42,13 @@ public class ColorManager {
 //		MsgWindow.panelBorder_hover = new Color();
 		MsgWindow.text = Color.WHITE;
 //		MsgWindow.text_hover = new Color();
-//		MsgWindow.buttonBG = new Color();
-//		MsgWindow.buttonBG_hover = new Color();
+		MsgWindow.buttonBG = Color.LIGHT_GRAY;
+		MsgWindow.buttonBG_hover = Color.WHITE;
 //		MsgWindow.buttonBorder = new Color();
 //		MsgWindow.buttonBorder_hover = new Color();
 		MsgWindow.nameBG = Color.GRAY;
-		MsgWindow.priceBG = Color.LIGHT_GRAY;
+		MsgWindow.priceBG_in = new Color(0, 100, 0);
+		MsgWindow.priceBG_out = new Color(100, 0, 0);
 		MsgWindow.itemBG = Color.DARK_GRAY;
 		MsgWindow.buttonBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 		MsgWindow.buttonBorder_hover = BorderFactory.createLineBorder(Color.BLACK);

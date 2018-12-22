@@ -3,12 +3,12 @@ package com.zrmiller.slimtrade.windows;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.buttons.BasicButton;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 
 public class BasicMenuWindow extends JPanel{
@@ -21,7 +21,7 @@ public class BasicMenuWindow extends JPanel{
 	private JLabel titlebarLabel;
 	public int titlebarHeight = 20;
 	private String title = "";
-	private JButton closeButton;
+	private BasicButton closeButton;
 	//CONTENT PANEL
 	public JPanel container;
 	private int containerWidth;
@@ -80,7 +80,9 @@ public class BasicMenuWindow extends JPanel{
 		titlebarPanel.setLayout(Overlay.flowLeft);
 		titlebarPanel.setPreferredSize(new Dimension(containerWidth-titlebarHeight, titlebarHeight));
 		titlebarLabel = new JLabel(title);
-		closeButton = new JButton();
+//		BasicButton.width = this.titlebarHeight;
+//		BasicButton.height = this.titlebarHeight;
+		closeButton = new BasicButton("/close.png", this.titlebarHeight, this.titlebarHeight);
 		closeButton.setPreferredSize(new Dimension(titlebarHeight, titlebarHeight));
 		titlebarPanel.add(new BasicPanel(5, titlebarHeight, ColorManager.CLEAR));
 		titlebarPanel.add(titlebarLabel);

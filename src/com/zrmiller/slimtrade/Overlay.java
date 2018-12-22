@@ -1,10 +1,10 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
@@ -13,14 +13,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.zrmiller.slimtrade.buttons.BasicButton;
 import com.zrmiller.slimtrade.buttons.CloseButton;
 import com.zrmiller.slimtrade.buttons.MenuButton;
 import com.zrmiller.slimtrade.panels.BasicPanel;
@@ -43,13 +40,15 @@ public class Overlay {
 	public static FlowLayout flowRight;
 	
 	//PANELS
-	public static Container screenContainer;
-	public static CharacterWindow characterPanel;
-	public static HistoryWindow historyPanel;
-	public static MenubarWindow menubar;
+	public static Container menubarContainer;
+	public static Container optionContainer;
+	public static Container messageManagerContainer;
+	public static CharacterWindow characterWindow;
+	public static HistoryWindow historyWindow;
+	public static MenubarWindow menubarWindow;
 	public static JButton menubarShowButton;
 	public static MessageManager messageManager;
-	public static OptionWindow optionPanel;
+	public static OptionWindow optionWindow;
 	public static StashWindow stashWindow;
 	public static GridPanel stashGrid;
 	public static StashHelperContainer stashHelperContainer;
@@ -70,63 +69,59 @@ public class Overlay {
 		flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 0);
 		flowRight = new FlowLayout(FlowLayout.RIGHT, 0, 0);
 		
+		JFrame menubarFrame = new JFrame();
+		menubarFrame.setLayout(null);
+		menubarFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		menubarFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menubarFrame.setUndecorated(true);
+		menubarFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		menubarFrame.setAlwaysOnTop(true);
+		menubarFrame.setType(JFrame.Type.UTILITY);
+		menubarContainer = menubarFrame.getContentPane();
+		
+		JFrame optionFrame = new JFrame();
+		optionFrame.setLayout(null);
+		optionFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		optionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		optionFrame.setUndecorated(true);
+		optionFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		optionFrame.setAlwaysOnTop(true);
+		optionFrame.setType(JFrame.Type.UTILITY);
+		optionContainer = optionFrame.getContentPane();
+		
 		//Initialize Screen Frame
-		JFrame screenFrame = new JFrame();
-		screenFrame.setLayout(null);
-		screenFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		screenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		screenFrame.setUndecorated(true);
-		screenFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		screenFrame.setAlwaysOnTop(true);
-		screenContainer = screenFrame.getContentPane();
+		JFrame messageManagerFrame = new JFrame();
+		messageManagerFrame.setLayout(null);
+		messageManagerFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		messageManagerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		messageManagerFrame.setUndecorated(true);
+		messageManagerFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		messageManagerFrame.setAlwaysOnTop(true);
+//		screenFrame.setType(JFrame.Type.UTILITY);
+		messageManagerContainer = messageManagerFrame.getContentPane();
 		
-		//TEMP VIEWABLE FRAME
-		
-		
-		
-		
-		
-		
-		
+		/*
+		 * TESTING
+		 */
 		
 		BasicPanel p = new BasicPanel(400,400, Color.GRAY, new FlowLayout(FlowLayout.CENTER, 10, 10));
-		p.setBounds(0, 0, 400, 400);
+		p.setBounds(800, 0, 400, 400);
 		int bSize = 20;
 		CloseButton.width = bSize;
 		CloseButton.height = bSize;
 		CloseButton b = new CloseButton();
 		b.setCustomIcon("/alch.png");
 		b.setLayout(Overlay.flowCenter);
-		p.add(b);
-//		JLabel priceIcon = new JLabel();
-//		priceIcon.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/close.png")).getImage().getScaledInstance((int)(bSize), (int)(bSize), Image.SCALE_SMOOTH)));
-//		priceIcon.setBounds(0, 0, bSize, bSize);
-//		priceIcon.setPreferredSize(new Dimension(bSize, bSize));
-//		b.add(priceIcon);
-		
+		p.add(b);		
 		
 		Border b1 = BorderFactory.createEmptyBorder();
 //		Border b1 = BorderFactory.createLineBorder(Color.BLACK);
 		Border b2 = BorderFactory.createLineBorder(Color.RED);
-//		b.setBorderPresets(b1, b2);
-		
-//		pbut.add(priceIcon);
 //		screenContainer.add(p);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		/*
+		 * END TESTING
+		 */
 		
 		//Menu Bar Show Button
 		menubarShowButton = new JButton();
@@ -134,27 +129,27 @@ public class Overlay {
 		menubarShowButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {
 		    	menubarShowButton.setVisible(false);
-		    	Overlay.menubar.setVisible(true);
+		    	Overlay.menubarWindow.setVisible(true);
 		    }
 		});
-		screenContainer.add(menubarShowButton);
+		menubarContainer.add(menubarShowButton);
 		
 		//Menu Bar+
-		menubar = new MenubarWindow();
-		screenContainer.add(menubar);
+		menubarWindow = new MenubarWindow();
+		menubarContainer.add(menubarWindow);
 		
-		optionPanel = new OptionWindow();
-		screenContainer.add(optionPanel);
+		optionWindow = new OptionWindow();
+		optionContainer.add(optionWindow);
 		
-		characterPanel = new CharacterWindow();
-		screenContainer.add(characterPanel);
+		characterWindow = new CharacterWindow();
+		optionContainer.add(characterWindow);
 		
-		historyPanel = new HistoryWindow();
-		centerFrame(historyPanel);
-		screenContainer.add(historyPanel);
+		historyWindow = new HistoryWindow();
+		centerFrame(historyWindow);
+		optionContainer.add(historyWindow);
 		
 		stashHelperContainer = new StashHelperContainer();
-		screenContainer.add(stashHelperContainer);
+		optionContainer.add(stashHelperContainer);
 		
 		//TODO : Move Loading once more is added
 		//Load Stash Settings
@@ -179,27 +174,44 @@ public class Overlay {
 		}
 		
 		stashWindow = new StashWindow();
-		screenContainer.add(stashWindow);
+		optionContainer.add(stashWindow);
 		
 		//Message Manager - SHOULD ALWAYS BE LAST
 		messageManager = new MessageManager();
-		screenContainer.add(messageManager);
+		messageManagerContainer.add(messageManager);
 		
 		//Finish
-		screenFrame.pack();
-		screenFrame.setVisible(true);
+		menubarFrame.pack();
+		menubarFrame.setVisible(true);
+		optionFrame.pack();
+		optionFrame.setVisible(true);
+		messageManagerFrame.pack();
+		messageManagerFrame.setVisible(true);
 		stashHelperContainer.updateBounds();
 	}
 	
+	//TODO : This is a temp fix for laying. A better solution would be layered panels
+	public static void fixPanelLayering(){
+		Component[] renderFrames = {optionWindow, stashWindow, characterWindow, historyWindow, menubarWindow};
+		for(Component c : renderFrames){
+			if(c.isVisible()){
+				c.revalidate();
+				c.repaint();
+			}
+		}
+	}
+	
+	public void centerFrame(JPanel panel){
+		panel.setLocation(screenWidth/2-panel.getWidth()/2, screenHeight/2-panel.getHeight()/2);
+	}
+	
 	public static void hideAllTempFrames(){
-		Overlay.characterPanel.setVisible(false);
-		Overlay.historyPanel.setVisible(false);
-		Overlay.optionPanel.setVisible(false);
+		Overlay.characterWindow.setVisible(false);
+		Overlay.historyWindow.setVisible(false);
+		Overlay.optionWindow.setVisible(false);
 		Overlay.stashWindow.setVisible(false);
 	}
 	
-	public static void centerFrame(JPanel panel){
-		panel.setLocation(screenWidth/2-panel.getWidth()/2, screenHeight/2-panel.getHeight()/2);
-	}
+
 	
 }
