@@ -2,6 +2,7 @@ package com.zrmiller.slimtrade.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
@@ -22,12 +23,18 @@ public class BasicPanel extends JPanel{
 	
 	public BasicPanel(int width, int height, Color color){
 		this.setPreferredSize(new Dimension(width, height));
-		if(color == null){
-			this.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		}else{
-			this.setBackground(color);
-		}
-		
+		this.setBackground(color);
+	}
+	
+	public BasicPanel(int width, int height, LayoutManager layout){
+		this.setLayout(layout);
+		this.setPreferredSize(new Dimension(width, height));
+	}
+	
+	public BasicPanel(int width, int height, Color color, LayoutManager layout){
+		this.setLayout(layout);
+		this.setPreferredSize(new Dimension(width, height));
+		this.setBackground(color);
 	}
 	
 	public static void setPanelSize(int width, int height){

@@ -1,10 +1,10 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
@@ -12,11 +12,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
+import com.zrmiller.slimtrade.buttons.BasicButton;
+import com.zrmiller.slimtrade.buttons.CloseButton;
 import com.zrmiller.slimtrade.buttons.MenuButton;
+import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.GridPanel;
 import com.zrmiller.slimtrade.panels.StashHelperContainer;
 import com.zrmiller.slimtrade.windows.CharacterWindow;
@@ -51,6 +58,9 @@ public class Overlay {
 		
 		//TODO : Doublecheck all statics
 		//TODO : disallow windows going off screen
+		//TODO : null deleted panels
+		
+		ColorManager.setMessageTheme();
 		
 		//Initialize Pseudo Constants
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -71,6 +81,52 @@ public class Overlay {
 		screenContainer = screenFrame.getContentPane();
 		
 		//TEMP VIEWABLE FRAME
+		
+		
+		
+		
+		
+		
+		
+		
+		BasicPanel p = new BasicPanel(400,400, Color.GRAY, new FlowLayout(FlowLayout.CENTER, 10, 10));
+		p.setBounds(0, 0, 400, 400);
+		int bSize = 20;
+		CloseButton.width = bSize;
+		CloseButton.height = bSize;
+		CloseButton b = new CloseButton();
+		b.setCustomIcon("/alch.png");
+		b.setLayout(Overlay.flowCenter);
+		p.add(b);
+//		JLabel priceIcon = new JLabel();
+//		priceIcon.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/close.png")).getImage().getScaledInstance((int)(bSize), (int)(bSize), Image.SCALE_SMOOTH)));
+//		priceIcon.setBounds(0, 0, bSize, bSize);
+//		priceIcon.setPreferredSize(new Dimension(bSize, bSize));
+//		b.add(priceIcon);
+		
+		
+		Border b1 = BorderFactory.createEmptyBorder();
+//		Border b1 = BorderFactory.createLineBorder(Color.BLACK);
+		Border b2 = BorderFactory.createLineBorder(Color.RED);
+//		b.setBorderPresets(b1, b2);
+		
+//		pbut.add(priceIcon);
+//		screenContainer.add(p);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		//Menu Bar Show Button
 		menubarShowButton = new JButton();

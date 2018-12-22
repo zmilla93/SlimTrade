@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 
@@ -81,7 +82,7 @@ public class BasicMenuWindow extends JPanel{
 		titlebarLabel = new JLabel(title);
 		closeButton = new JButton();
 		closeButton.setPreferredSize(new Dimension(titlebarHeight, titlebarHeight));
-		titlebarPanel.add(new BasicPanel(5, titlebarHeight, null));
+		titlebarPanel.add(new BasicPanel(5, titlebarHeight, ColorManager.CLEAR));
 		titlebarPanel.add(titlebarLabel);
 		titlebarPanel.setBackground(defaultTitlebarColor);
 		titlebar.add(titlebarPanel);

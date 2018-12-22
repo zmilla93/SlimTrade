@@ -22,7 +22,6 @@ public class StashHelperContainer extends JPanel{
 	}
 	
 	public void updateBounds(){
-//		Point stashPos = Overlay.stashWindow.LocationOnScreen();
 		int posX = StashWindow.getGridPos().x-spacingX;
 		int posY = StashWindow.getWinPos().y-height-offsetY;
 		int width = StashWindow.getGridSize().width+spacingX;

@@ -51,7 +51,7 @@ public class StashWindow extends BasicMenuWindow{
 	//TODO : right and bottom edges of grids don't shows
 	public StashWindow(){
 		super("Stash Overlay", containerSize.width, containerSize.height);
-		this.setVisible(true);
+		this.setVisible(false);
 		this.setLocation(windowPos);
 		this.setMinimumSize(new Dimension(200,200));
 		this.setSnapSize(snapSize);
