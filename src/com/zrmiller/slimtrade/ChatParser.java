@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade.oldfiles;
+package com.zrmiller.slimtrade;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.zrmiller.slimtrade.datatypes.CurrencyType;
 import com.zrmiller.slimtrade.datatypes.MessageType;
 
 public class ChatParser {
@@ -32,9 +33,7 @@ public class ChatParser {
 	
 	//TODO : Move path to options
 	public void init() throws IOException{
-		fileReader = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-//		br = new BufferedReader(fr);
-//		br.mark(9999999);
+//		fileReader = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
 		//TODO : Init history
 		while((curLine = bufferedReader.readLine()) != null){
 			
@@ -42,7 +41,7 @@ public class ChatParser {
 	}
 
 	public boolean update() throws IOException{
-//		fr = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+		fileReader = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
 		bufferedReader = new BufferedReader(fileReader);
 		curLineCount=0;
 		boolean update = false;
@@ -56,13 +55,13 @@ public class ChatParser {
 					update = true;
 					messageQueue++;
 					//TODO: could move int fixing to TradeOffer class
-					float f1 = 0; 
-					float f2 = 0;
+					Double f1 = 0.0; 
+					Double f2 = 0.0;
 					if(tradeMsgMatcher.group(6)!=null){
-						f1 = Float.parseFloat(tradeMsgMatcher.group(6));
+						f1 = Double.parseDouble(tradeMsgMatcher.group(6));
 					}
 					if(tradeMsgMatcher.group(9)!=null){
-						f2 = Float.parseFloat(tradeMsgMatcher.group(9));
+						f2 = Double.parseDouble(tradeMsgMatcher.group(9));
 					}
 					int i1 = 0;
 					int i2 = 0;
@@ -72,8 +71,21 @@ public class ChatParser {
 					if(tradeMsgMatcher.group(16)!=null){
 						i2 = Integer.parseInt(tradeMsgMatcher.group(18));
 					}
-					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),  tradeMsgMatcher.group(3), tradeMsgMatcher.group(7), f1, tradeMsgMatcher.group(10), f2, tradeMsgMatcher.group(14), i1, i2);
-					if (tradeHistoryIndex<MAX_TRADE_HISTORY-1) tradeHistoryIndex++; else tradeHistoryIndex=0;
+					TradeOffer trade = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
+							tradeMsgMatcher.group(3), tradeMsgMatcher.group(7), f1, tradeMsgMatcher.group(10), f2, 
+							tradeMsgMatcher.group(14), i1, i2);
+//					System.out.println("===TRADE OFFER===");
+//					System.out.println(tradeMsgMatcher.group(1));
+//					System.out.println(tradeMsgMatcher.group(2));
+//					System.out.println(tradeMsgMatcher.group(3));
+//					System.out.println(tradeMsgMatcher.group(7));
+//					System.out.println(f1);
+//					System.out.println(tradeMsgMatcher.group(10));
+//					System.out.println(f2);
+//					System.out.println(tradeMsgMatcher.group(14));
+//					System.out.println(i1);
+//					System.out.println(i2);
+//					System.out.println(curLine);					
 				}
 				else if(joinAreaMatcher.matches()){
 					//update = true;

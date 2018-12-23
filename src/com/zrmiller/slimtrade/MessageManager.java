@@ -20,8 +20,8 @@ public class MessageManager extends JPanel{
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setBounds(1000, 5, 0, 0);
 		this.setBackground(ColorManager.CLEAR);
-		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
-		this.addMessage(new TradeOffer(MessageType.OUTGOING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
+		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, null, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
+		this.addMessage(new TradeOffer(MessageType.OUTGOING_TRADE, null, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
 //		this.setVisible(true);
 	}
 	

@@ -52,6 +52,7 @@ public class Overlay {
 	public static StashWindow stashWindow;
 	public static GridPanel stashGrid;
 	public static StashHelperContainer stashHelperContainer;
+	public static TradeHistory tradeHistory;
 	
 	public Overlay(){
 		
@@ -189,6 +190,16 @@ public class Overlay {
 		
 		stashWindow = new StashWindow();
 		optionContainer.add(stashWindow);
+		
+		//CHAT
+		tradeHistory = new TradeHistory();
+		ChatParser parser = new ChatParser();
+		try {
+			parser.update();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		//Message Manager - SHOULD ALWAYS BE LAST
 		messageManager = new MessageManager();
