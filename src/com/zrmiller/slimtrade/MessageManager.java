@@ -14,7 +14,7 @@ public class MessageManager extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
-	private int msgGapSize = 5;
+	private int msgGapSize = 1;
 	
 	public MessageManager(){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));

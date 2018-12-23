@@ -13,7 +13,7 @@ import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.Overlay;
 
-public class BasicButton extends JPanel{
+public class BasicIconButton extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,14 +29,14 @@ public class BasicButton extends JPanel{
 	private Border border = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 	private Border border_hover = BorderFactory.createLineBorder(Color.BLACK);
 
-	public BasicButton(String imgPath, int width, int height){
-		BasicButton.width = width;
-		BasicButton.height = height;
+	public BasicIconButton(String imgPath, int width, int height){
+		BasicIconButton.width = width;
+		BasicIconButton.height = height;
 		buildButton();
 		this.setCustomIcon(imgPath);
 	}
 	
-	public BasicButton(String imgPath){
+	public BasicIconButton(String imgPath){
 		buildButton();
 		this.setCustomIcon(imgPath);
 	}

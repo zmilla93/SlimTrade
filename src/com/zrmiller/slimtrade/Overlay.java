@@ -143,6 +143,20 @@ public class Overlay {
 		
 		characterWindow = new CharacterWindow();
 		optionContainer.add(characterWindow);
+		File charFile = new File("char.pref");
+		if(charFile.exists()){
+			try {
+				ObjectInputStream charInput = new ObjectInputStream(new FileInputStream("char.pref"));
+				String character = (String)charInput.readObject();
+				String league = (String)charInput.readObject();
+				characterWindow.setCharacter(character, league);
+				charInput.close();
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+		}
 		
 		historyWindow = new HistoryWindow();
 		centerFrame(historyWindow);
@@ -181,6 +195,8 @@ public class Overlay {
 		messageManagerContainer.add(messageManager);
 		
 		//Finish
+//		characterWindow.setVisible(true);
+		
 		menubarFrame.pack();
 		menubarFrame.setVisible(true);
 		optionFrame.pack();
@@ -201,7 +217,7 @@ public class Overlay {
 		}
 	}
 	
-	public void centerFrame(JPanel panel){
+	public static void centerFrame(JPanel panel){
 		panel.setLocation(screenWidth/2-panel.getWidth()/2, screenHeight/2-panel.getHeight()/2);
 	}
 	

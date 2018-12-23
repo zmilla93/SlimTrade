@@ -21,11 +21,19 @@ public class MenubarWindow extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private MenuButton quitButton;
+	
 	private int buttonCount = 7;
 	private int spacerCount = 2;
 	private int spacerHeight = (int)(MenuButton.height*0.8);
 	private int totalHeight = MenuButton.height*buttonCount+spacerHeight*spacerCount;
+	
+	private MenuButton optionsButton;
+	private MenuButton historyButton;
+	private MenuButton stashButton;
+	private MenuButton characterButton;
+	private MenuButton testButton;
+	private MenuButton quitButton;
+	private MenuButton minimizeButton;
 	
 	public MenubarWindow(){
 		//TODO:Toggle off
@@ -33,21 +41,21 @@ public class MenubarWindow extends JPanel{
 		this.setBounds(0, Overlay.screenHeight-totalHeight, MenuButton.width, totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0,0));
 		
-		MenuButton optionsButton = new MenuButton("Options");
+		optionsButton = new MenuButton("Options");
 		this.add(optionsButton);
-		MenuButton historyButton = new MenuButton("History");
+		historyButton = new MenuButton("History");
 		this.add(historyButton);
-		MenuButton stashButton = new MenuButton("Stash");
+		stashButton = new MenuButton("Stash");
 		this.add(stashButton);
-		MenuButton characterButton = new MenuButton("Character");
+		characterButton = new MenuButton("Character");
 		this.add(characterButton);
-		MenuButton testButton = new MenuButton("TEST");
+		testButton = new MenuButton("TEST");
 		this.add(testButton);
 		this.add(new BasicPanel(MenuButton.width, spacerHeight));
 		quitButton = new MenuButton("Quit");
 		this.add(quitButton);
 		this.add(new BasicPanel(MenuButton.width, spacerHeight));
-		MenuButton minimizeButton = new MenuButton("Minimize");
+		minimizeButton = new MenuButton("Minimize");
 		this.add(minimizeButton);
 		
 		//OPTIONS
@@ -135,6 +143,10 @@ public class MenubarWindow extends JPanel{
 		    }
 		});
 		
+	}
+	
+	public void updateCharacterButton(String s){
+		characterButton.setText(s);
 	}
 	
 }

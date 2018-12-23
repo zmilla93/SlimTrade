@@ -1,14 +1,19 @@
 
 package com.zrmiller.slimtrade.windows;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -16,16 +21,21 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 
+import com.sun.jna.Native;
+import com.sun.jna.platform.win32.User32;
 import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.TradeOffer;
-import com.zrmiller.slimtrade.buttons.BasicButton;
+import com.zrmiller.slimtrade.buttons.BasicIconButton;
 import com.zrmiller.slimtrade.panels.StashHelper;
+
+//TODO : Refocus POE on all clicks
 
 public class MessageWindow extends JPanel{
 	
 	//GLOBAL
 	private static final long serialVersionUID = 1L;
+	Robot robot;
 	private static int width = 400;
 	private static int height= 40;
 	private static int borderThickness = 2;
@@ -50,19 +60,19 @@ public class MessageWindow extends JPanel{
 	private JLabel itemLabel = new JLabel();
 	
 	//Buttons Top	
-	public BasicButton callbackButton;
-	public BasicButton waitButton;
-	public BasicButton stillInterestedButton;
-	public BasicButton repeatMessageButton;
-	public BasicButton closeButton;
+	public BasicIconButton callbackButton;
+	public BasicIconButton waitButton;
+	public BasicIconButton stillInterestedButton;
+	public BasicIconButton repeatMessageButton;
+	public BasicIconButton closeButton;
 	//Buttons Bottom
-	private BasicButton inviteToPartyButton;
-	private BasicButton tpToHideoutButton;
-	private BasicButton tradeButton;
-	private BasicButton thankButton;
-	private BasicButton leavePartyButton;
-	private BasicButton kickButton;
-	private BasicButton tpHomeButton;
+	private BasicIconButton inviteToPartyButton;
+	private BasicIconButton tpToHideoutButton;
+	private BasicIconButton tradeButton;
+	private BasicIconButton thankButton;
+	private BasicIconButton leavePartyButton;
+	private BasicIconButton kickButton;
+	private BasicIconButton tpHomeButton;
 	
 	//ITEM HIGHLIGHTER + TIMER
 	private StashHelper stashHelper = new StashHelper();
@@ -78,6 +88,12 @@ public class MessageWindow extends JPanel{
 	
 	
 	public MessageWindow(TradeOffer trade){
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		this.trade = trade;
 		 // TODO : Optimize
 		 // Size Variables
@@ -125,8 +141,8 @@ public class MessageWindow extends JPanel{
 		
 		this.add(borderOuter);
 		
-		BasicButton.width = height/2;
-		BasicButton.height = height/2;
+		BasicIconButton.width = height/2;
+		BasicIconButton.height = height/2;
 		
 		//TOP PANEL
 		LayoutManager panelFlow = new FlowLayout(FlowLayout.CENTER, 0, 1);
@@ -177,51 +193,69 @@ public class MessageWindow extends JPanel{
 		
 		//TODO : Could move these to delaraction if width/height default is dealt with
 		//Buttons
-		BasicButton.width = rowHeight;
-		BasicButton.height = rowHeight;
+		BasicIconButton.width = rowHeight;
+		BasicIconButton.height = rowHeight;
 		//Row 1
-		callbackButton = new BasicButton("/phone.png");
-		waitButton = new BasicButton("/watch.png");
-		stillInterestedButton = new BasicButton("/refresh1.png");
-		repeatMessageButton = new BasicButton("/refresh1.png");
-		closeButton = new BasicButton("/close.png");
+		callbackButton = new BasicIconButton("/phone.png");
+		waitButton = new BasicIconButton("/clock1.png");
+		stillInterestedButton = new BasicIconButton("/refresh1.png");
+		repeatMessageButton = new BasicIconButton("/refresh1.png");
+		closeButton = new BasicIconButton("/close.png");
 		//Row 2
-		inviteToPartyButton = new BasicButton("/invite.png");
-		tpToHideoutButton = new BasicButton("/warp.png");
-		tradeButton = new BasicButton("/cart2.png");
-		thankButton = new BasicButton("/happy.png");
-		kickButton = new BasicButton("/leave.png");
-		leavePartyButton = new BasicButton("/leave.png");
-		tpHomeButton = new BasicButton("/home.png");
+		inviteToPartyButton = new BasicIconButton("/invite.png");
+		tpToHideoutButton = new BasicIconButton("/warp.png");
+		tradeButton = new BasicIconButton("/cart2.png");
+		thankButton = new BasicIconButton("/thumb1.png");
+		kickButton = new BasicIconButton("/leave.png");
+		leavePartyButton = new BasicIconButton("/leave.png");
+		tpHomeButton = new BasicIconButton("/home.png");
 		
 		switch(trade.msgType){
 		case INCOMING_TRADE:
+			//TOP BUTTONS
 			topButtonPanel.add(callbackButton);
 			topButtonPanel.add(waitButton);
 			topButtonPanel.add(stillInterestedButton);
 			topButtonPanel.add(closeButton);
 			//
+			callbackButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {;}});
+			waitButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("@" + trade.playerName + " one minute");}});
+			stillInterestedButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("");}});
+			//BUTTOM BUTTONS
 			centerButtonPanel.add(inviteToPartyButton);
 			centerButtonPanel.add(tradeButton);
 			centerButtonPanel.add(thankButton);
 			centerButtonPanel.add(kickButton);
+			//
+			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/invite " + trade.playerName);}});
+			kickButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/kick " + trade.playerName);}});
 			break;
 		case OUTGOING_TRADE:
+			//TOP BUTTONS
 			topButtonPanel.add(repeatMessageButton);
 			topButtonPanel.add(closeButton);
 			//
+			repeatMessageButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("");}});
+			//BOTTOM BUTTONS
 			centerButtonPanel.add(tpToHideoutButton);
 			centerButtonPanel.add(tradeButton);
 			centerButtonPanel.add(thankButton);
 			centerButtonPanel.add(leavePartyButton);
 			centerButtonPanel.add(tpHomeButton);
+			//
+			tpToHideoutButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/hideout " + trade.playerName);}});
+			leavePartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/kick " + Overlay.characterWindow.getCharacterName());}});
+			tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/hideout");}});
 			break;
 		case CHAT_SCANNER:
 			break;
 		case UNKNOWN:
 			break;
 		}
-		
+		//MUTUAL BUTTONS
+		System.out.println(trade.playerName);
+		tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/tradewith " + trade.playerName);}});
+		thankButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("@" + trade.playerName + " thanks");}});
 		
 		Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 		Border hoverBorder = BorderFactory.createLineBorder(Color.RED);
@@ -240,6 +274,12 @@ public class MessageWindow extends JPanel{
 //		
 		updateColor();
 		
+
+		
+		
+		
+		
+		
 		//Item Panel Actions
 		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -249,17 +289,8 @@ public class MessageWindow extends JPanel{
 		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseExited(java.awt.event.MouseEvent evt) {
 				itemPanel.setBorder(blankBorder);
-//				Overlay.fixPanelLayering();
 			}
 		});
-		
-		//TODO : Deal with panel layering issue, this is one solution
-		itemPanel.addMouseMotionListener(new java.awt.event.MouseAdapter() {
-			public void mouseMoved(java.awt.event.MouseEvent evt) {
-//				Overlay.fixPanelLayering();
-			}
-		});
-		
 		
 		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -287,7 +318,7 @@ public class MessageWindow extends JPanel{
 		
 	}
 	
-	private void updateButton(BasicButton button){
+	private void updateButton(BasicIconButton button){
 		button.bgColor = ColorManager.MsgWindow.buttonBG;
 		button.bgColor_hover = ColorManager.MsgWindow.buttonBG_hover;
 		button.updateBorderPreset();
@@ -332,6 +363,38 @@ public class MessageWindow extends JPanel{
 		
 //		Border buttonBorder = BorderFactory.createLineBorder(Color.black);
 //		this.closeButton.setBorder(buttonBorder);
+	}
+	
+	 private void focusPoe() {
+        User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
+            char[] className = new char[512];
+            User32.INSTANCE.GetClassName(hWnd, className, 512);
+            String wText = Native.toString(className);
+            if (wText.isEmpty()) {
+                return true;
+            }
+            if (wText.equals("POEWindowClass")) {
+                User32.INSTANCE.SetForegroundWindow(hWnd);
+                return false;
+            }
+            return true;
+        }, null);
+    }
+	 
+	private void pasteIntoPoe(String s){
+		//Move object creation?
+		StringSelection pasteString = new StringSelection(s);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(pasteString, null);
+		this.focusPoe();
+		robot.keyPress(KeyEvent.VK_ENTER);
+	    robot.keyRelease(KeyEvent.VK_ENTER);
+	    robot.keyPress(KeyEvent.VK_CONTROL);
+	    robot.keyPress(KeyEvent.VK_V);
+	    robot.keyRelease(KeyEvent.VK_V);
+	    robot.keyRelease(KeyEvent.VK_CONTROL);
+	    robot.keyPress(KeyEvent.VK_ENTER);
+	    robot.keyRelease(KeyEvent.VK_ENTER);
 	}
 
 }
