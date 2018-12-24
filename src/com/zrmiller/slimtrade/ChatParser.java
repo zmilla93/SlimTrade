@@ -1,17 +1,21 @@
 package com.zrmiller.slimtrade;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.zrmiller.slimtrade.datatypes.CurrencyType;
+import javax.swing.Timer;
+
 import com.zrmiller.slimtrade.datatypes.MessageType;
 
 public class ChatParser {
-	FileReader fileReader;
-	BufferedReader bufferedReader;
+	private FileReader fileReader;
+	private BufferedReader bufferedReader;
 	int curLineCount = 0;
 	int totalLineCount = 0;
 	String curLine;
@@ -22,9 +26,17 @@ public class ChatParser {
 	public int messageQueue = 0;
 	public String[] playerJoinedArea = new String[20];
 	public int playerJoinedQueue = 0;
+	private ActionListener updateAction = new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent e){
+			update();
+		}
+	};
+	private Timer updateTimer = new Timer(1000, updateAction);
 	
 	//REGEX
-	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): (Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \")?((.+)\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?";
+	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
+//	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): (Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?.*";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 	
 	public ChatParser(){
@@ -32,68 +44,71 @@ public class ChatParser {
 	}
 	
 	//TODO : Move path to options
-	public void init() throws IOException{
-//		fileReader = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-		//TODO : Init history
-		while((curLine = bufferedReader.readLine()) != null){
-			
+	public void init(){
+		try {
+			fileReader = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+			bufferedReader = new BufferedReader(fileReader);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		//TODO : Init history
+		try {
+			while((curLine = bufferedReader.readLine()) != null){
+				totalLineCount++;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		updateTimer.start();
 	}
 
-	public boolean update() throws IOException{
-		fileReader = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-		bufferedReader = new BufferedReader(fileReader);
-		curLineCount=0;
+	public boolean update(){
 		boolean update = false;
-		while((curLine = bufferedReader.readLine()) != null){
-			curLineCount++;
-			if (curLineCount>totalLineCount){
-				totalLineCount++;
-				Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
-				Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
-				if(tradeMsgMatcher.matches()){
-					update = true;
-					messageQueue++;
-					//TODO: could move int fixing to TradeOffer class
-					Double f1 = 0.0; 
-					Double f2 = 0.0;
-					if(tradeMsgMatcher.group(6)!=null){
-						f1 = Double.parseDouble(tradeMsgMatcher.group(6));
+		try {
+			fileReader = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+			bufferedReader = new BufferedReader(fileReader);
+			curLineCount=0;
+			while((curLine = bufferedReader.readLine()) != null){
+				curLineCount++;
+				if (curLineCount>totalLineCount){
+					totalLineCount++;
+					Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
+					Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
+					if(tradeMsgMatcher.matches()){
+						update = true;
+						messageQueue++;
+						//TODO: could move int fixing to TradeOffer class
+						Double f1 = 0.0; 
+						Double f2 = 0.0;
+						if(tradeMsgMatcher.group(7)!=null){
+							f1 = Double.parseDouble(tradeMsgMatcher.group(7));
+						}
+						if(tradeMsgMatcher.group(10)!=null){
+							f2 = Double.parseDouble(tradeMsgMatcher.group(10));
+						}
+						int i1 = 0;
+						int i2 = 0;
+						if(tradeMsgMatcher.group(15)!=null){
+							i1 = Integer.parseInt(tradeMsgMatcher.group(17));
+						}
+						if(tradeMsgMatcher.group(17)!=null){
+							i2 = Integer.parseInt(tradeMsgMatcher.group(19));
+						}
+						TradeOffer trade = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
+								tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, tradeMsgMatcher.group(11), f2, 
+								tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
+						Overlay.messageManager.addMessage(trade);
+					}else if(joinAreaMatcher.matches()){
+						//update = true;
+						//playerJoinedArea[playerJoinedQueue] = joinAreaMatcher.group(1);
+						//playerJoinedQueue++;
+						//System.out.println("PLAYER JOINED : " + joinAreaMatcher.group(1));
 					}
-					if(tradeMsgMatcher.group(9)!=null){
-						f2 = Double.parseDouble(tradeMsgMatcher.group(9));
-					}
-					int i1 = 0;
-					int i2 = 0;
-					if(tradeMsgMatcher.group(14)!=null){
-						i1 = Integer.parseInt(tradeMsgMatcher.group(16));
-					}
-					if(tradeMsgMatcher.group(16)!=null){
-						i2 = Integer.parseInt(tradeMsgMatcher.group(18));
-					}
-					TradeOffer trade = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
-							tradeMsgMatcher.group(3), tradeMsgMatcher.group(7), f1, tradeMsgMatcher.group(10), f2, 
-							tradeMsgMatcher.group(14), i1, i2);
-//					System.out.println("===TRADE OFFER===");
-//					System.out.println(tradeMsgMatcher.group(1));
-//					System.out.println(tradeMsgMatcher.group(2));
-//					System.out.println(tradeMsgMatcher.group(3));
-//					System.out.println(tradeMsgMatcher.group(7));
-//					System.out.println(f1);
-//					System.out.println(tradeMsgMatcher.group(10));
-//					System.out.println(f2);
-//					System.out.println(tradeMsgMatcher.group(14));
-//					System.out.println(i1);
-//					System.out.println(i2);
-//					System.out.println(curLine);					
-				}
-				else if(joinAreaMatcher.matches()){
-					//update = true;
-					//playerJoinedArea[playerJoinedQueue] = joinAreaMatcher.group(1);
-					//playerJoinedQueue++;
-					//System.out.println("PLAYER JOINED : " + joinAreaMatcher.group(1));
 				}
 			}
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
 		}
 		return update;
 	}

@@ -19,8 +19,9 @@ public class TradeOffer implements Serializable{
 	public String stashtabName;
 	public int stashtabX;
 	public int stashtabY;
+	public String sentMessage = "";
 	
-	public TradeOffer(MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, CurrencyType priceType, Double priceCount, String stashtabName, int stashtabX, int stashtabY){
+	public TradeOffer(MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, CurrencyType priceType, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String sentMessage){
 		this.msgType = msgType;
 		this.guildName = guildName;
 		this.playerName = playerName;
@@ -31,9 +32,10 @@ public class TradeOffer implements Serializable{
 		this.stashtabName = stashtabName;
 		this.stashtabX = stashtabX;
 		this.stashtabY = stashtabY;
+		this.sentMessage = sentMessage;
 	}
 	
-	public TradeOffer(MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY){
+	public TradeOffer(MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String sentMessage){
 		this.msgType = msgType;
 		this.guildName = guildName;
 		this.playerName = playerName;
@@ -44,6 +46,7 @@ public class TradeOffer implements Serializable{
 		this.stashtabName = stashtabName;
 		this.stashtabX = stashtabX;
 		this.stashtabY = stashtabY;
+		this.sentMessage = sentMessage;
 	}
 	
 	

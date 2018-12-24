@@ -14,6 +14,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -27,6 +28,7 @@ import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicIconButton;
+import com.zrmiller.slimtrade.panels.BasicIcon;
 import com.zrmiller.slimtrade.panels.StashHelper;
 
 //TODO : Refocus POE on all clicks
@@ -53,10 +55,12 @@ public class MessageWindow extends JPanel{
 	private JPanel namePanel = new JPanel();
 	private JLabel nameLabel = new JLabel();
 	private JPanel pricePanel = new JPanel();
-	private JLabel priceLabel = new JLabel();
+	private JLabel priceCountLabel = new JLabel();
+	private JLabel priceTypeLabel = new JLabel();
 	private JPanel topButtonPanel = new JPanel();
 	private JPanel bottomPanel = new JPanel();
 	private JPanel itemPanel = new JPanel();
+	private JLabel itemCountLabel = new JLabel();
 	private JLabel itemLabel = new JLabel();
 	
 	//Buttons Top	
@@ -161,9 +165,19 @@ public class MessageWindow extends JPanel{
 		topPanel.add(namePanel);
 		//PRICE
 		pricePanel = new JPanel(panelFlow);
-		priceLabel = new JLabel(trade.priceType.toString());
+		priceCountLabel = new JLabel(trade.priceCount.toString().replaceAll("[.]0", "") + " ");
+		pricePanel.add(priceCountLabel);
+		BasicIcon.width = rowHeight;
+		BasicIcon.height = rowHeight;
+		BasicIcon priceIcon;
+		if(this.getClass().getResource("/" + trade.priceTypeString + ".png") != null){
+			priceIcon = new BasicIcon("/" + trade.priceTypeString + ".png");
+			pricePanel.add(priceIcon);
+		}else{
+			priceTypeLabel = new JLabel(" " + trade.priceTypeString);
+		}
 		pricePanel.setPreferredSize(new Dimension((int)(width*priceWidthMult), rowHeight));
-		pricePanel.add(priceLabel);
+		pricePanel.add(priceTypeLabel);
 		topPanel.add(pricePanel);
 		//TOP BUTTON PANEL
 		topButtonPanel = new JPanel(panelFlow);
@@ -179,11 +193,25 @@ public class MessageWindow extends JPanel{
 		centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		centerPanel.setPreferredSize(new Dimension(width,rowHeight));
 		container.add(centerPanel, BorderLayout.CENTER);
-		
 		itemPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		itemLabel = new JLabel(trade.itemName);
+		if(trade.itemCount>0){
+			itemCountLabel = new JLabel(trade.itemCount.toString().replaceAll("[.]0", "") + " ");
+			itemPanel.add(itemCountLabel);
+		}
+		BasicIcon.width = rowHeight;
+		BasicIcon.height = rowHeight;
+		BasicIcon itemIcon;
+		if(this.getClass().getResource("/" + trade.itemName + ".png") != null){
+			itemIcon = new BasicIcon("/" + trade.itemName + ".png");
+			itemPanel.add(itemIcon, BorderLayout.CENTER);
+		}else{
+			itemLabel = new JLabel(trade.itemName);
+			itemPanel.add(itemLabel, BorderLayout.CENTER);
+		}
+		
+//		itemLabel = new JLabel(trade.itemName);
 		itemPanel.setPreferredSize(new Dimension((int)(width*itemWidthMult), rowHeight));
-		itemPanel.add(itemLabel, BorderLayout.CENTER);
+//		itemPanel.add(itemLabel, BorderLayout.CENTER);
 		centerPanel.add(itemPanel);
 		
 		JPanel centerButtonPanel = new JPanel();
@@ -219,8 +247,23 @@ public class MessageWindow extends JPanel{
 			topButtonPanel.add(closeButton);
 			//
 			callbackButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {;}});
-			waitButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("@" + trade.playerName + " one minute");}});
-			stillInterestedButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("");}});
+			waitButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				if(evt.getButton() == MouseEvent.BUTTON1){
+					pasteIntoPoe("@" + trade.playerName + " one sec");
+				}else if(evt.getButton() == MouseEvent.BUTTON3){
+					pasteIntoPoe("@" + trade.playerName + " one minute");
+				}
+			}});
+			stillInterestedButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				String item = trade.itemCount == 0 ? trade.itemName : trade.itemCount.toString().replaceAll("[.]0", "") + " " + trade.itemName;
+				//.replaceAll("[.]0", "")
+//				String price = trade.itemCount == 0 ? trade.itemName : trade.itemCount + " " + trade.itemName;
+				pasteIntoPoe("Hi, are you still interested in my " + item + " for " + trade.priceCount.toString().replaceAll("[.]0", "") + " " + trade.priceTypeString + "?");
+			}});
+			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				if(evt.getButton() == MouseEvent.BUTTON3){pasteIntoPoe("@" + trade.playerName + " sold, sorry");}
+			}});
+			
 			//BUTTOM BUTTONS
 			centerButtonPanel.add(inviteToPartyButton);
 			centerButtonPanel.add(tradeButton);
@@ -235,7 +278,7 @@ public class MessageWindow extends JPanel{
 			topButtonPanel.add(repeatMessageButton);
 			topButtonPanel.add(closeButton);
 			//
-			repeatMessageButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("");}});
+			repeatMessageButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe(trade.sentMessage);}});
 			//BOTTOM BUTTONS
 			centerButtonPanel.add(tpToHideoutButton);
 			centerButtonPanel.add(tradeButton);
@@ -330,8 +373,10 @@ public class MessageWindow extends JPanel{
 		this.borderInner.setBackground(ColorManager.MsgWindow.borderInner);
 		this.namePanel.setBackground(ColorManager.MsgWindow.nameBG);
 		this.nameLabel.setForeground(ColorManager.MsgWindow.text);
-		this.priceLabel.setForeground(ColorManager.MsgWindow.text);
+		this.priceCountLabel.setForeground(ColorManager.MsgWindow.text);
+		this.priceTypeLabel.setForeground(ColorManager.MsgWindow.text);
 		this.itemPanel.setBackground(ColorManager.MsgWindow.itemBG);
+		this.itemCountLabel.setForeground(ColorManager.MsgWindow.text);
 		this.itemLabel.setForeground(ColorManager.MsgWindow.text);
 		//Buttons
 		updateButton(callbackButton);

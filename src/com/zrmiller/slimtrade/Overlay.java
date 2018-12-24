@@ -194,12 +194,8 @@ public class Overlay {
 		//CHAT
 		tradeHistory = new TradeHistory();
 		ChatParser parser = new ChatParser();
-		try {
-			parser.update();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		parser.init();
+//		parser.update();
 		
 		//Message Manager - SHOULD ALWAYS BE LAST
 		messageManager = new MessageManager();
