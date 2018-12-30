@@ -60,7 +60,7 @@ public class StashWindow extends BasicMenuWindow{
 		StashWindow.setDefaultGridSize(new Dimension(gridWidth, gridHeight));
 		container.setLayout(new BorderLayout());
 		//TODO : Move clear background to BasicMenuWindow?
-		container.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		container.setBackground(new Color(1.0f,1.0f,1.0f,0.2f));
 		container.setBounds(0, 0, containerSize.width, containerSize.height);
 		
 		grid = new GridPanel(gridWidth, gridHeight);
@@ -82,6 +82,7 @@ public class StashWindow extends BasicMenuWindow{
 		
 		//BOTTOM
 		BasicPanel bottomPullBar = new BasicPanel(gridWidth, bufferThick);
+		bottomPullBar.setBackground(Color.YELLOW);
 		BasicPanel infoPanel = new BasicPanel(containerSize.width, infoPanelHeight);
 		infoPanel.setLayout(new FlowLayout(FlowLayout.CENTER, buttonSpacingX, buttonMarginTop));
 		JButton resetButton = new JButton("Reset");
@@ -157,6 +158,18 @@ public class StashWindow extends BasicMenuWindow{
 				}
 		    }
 		});
+		
+		//TODO : Better way to implement extension of buttons from parent BasicMenuWindow?
+		this.getCloseButton().addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				reset();
+				hideStashWindow();
+		    }
+		});
+	}
+	
+	private void hideStashWindow(){
+		this.setVisible(false);
 	}
 	
 	//WINDOW GETTERS/SETTERS

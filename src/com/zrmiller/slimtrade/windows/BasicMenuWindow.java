@@ -164,7 +164,9 @@ public class BasicMenuWindow extends JPanel{
 		this.setLocation(posX, posY);
 	}
 	
-	
+	public BasicIconButton getCloseButton(){
+		return this.closeButton;
+	}
 	
 	
 }

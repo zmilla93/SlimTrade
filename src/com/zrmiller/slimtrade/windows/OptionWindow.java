@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.buttons.BasicIconButton;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.BasicTitlebar;
 
@@ -77,10 +78,6 @@ public class OptionWindow extends BasicMenuWindow{
 		//this.add(toggleFold);
 		//toggleFold.setPreferredSize(preferredSize);
 		
-	}
-	
-	public JButton getCloseButton(){
-		return closeButton;
 	}
 	
 	public void refresh(){

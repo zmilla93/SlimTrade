@@ -280,13 +280,21 @@ public class MessageWindow extends JPanel{
 			centerButtonPanel.add(thankButton);
 			centerButtonPanel.add(kickButton);
 			//
-			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/invite " + trade.playerName);}});
+			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+					PoeInterface.paste("/invite " + trade.playerName);
+					stashHelper.setVisible(true);
+				}});
 			kickButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/kick " + trade.playerName);}});
 			
 			//STASH HELPER
 			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
 			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName);
+			stashHelper.setVisible(false);
+			Overlay.stashHelperContainer.add(stashHelper);
+//	    	Overlay.stashHelperContainer.refresh();
+			
+			
 			//Item Panel Actions
 			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			    public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -300,8 +308,7 @@ public class MessageWindow extends JPanel{
 			});
 			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			    public void mouseClicked(java.awt.event.MouseEvent evt) {
-			    	Overlay.stashHelperContainer.add(stashHelper);
-			    	Overlay.stashHelperContainer.refresh();
+			    	stashHelper.setVisible(true);
 			    }
 			});
 			break;
@@ -369,6 +376,7 @@ public class MessageWindow extends JPanel{
 		
 	}
 	
+	//TODO : Naming conventions? updatePresetColors?
 	private void updateButton(BasicIconButton button){
 		button.bgColor = ColorManager.MsgWindow.buttonBG;
 		button.bgColor_hover = ColorManager.MsgWindow.buttonBG_hover;
