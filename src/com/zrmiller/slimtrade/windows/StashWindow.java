@@ -104,7 +104,7 @@ public class StashWindow extends BasicMenuWindow{
 		//Width Adjust
 		rightPullBar.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent e) {
-		    	startingX = e.getXOnScreen();
+				startingX = e.getXOnScreen();
 		    	startingContainerWidth = container.getWidth();
 		    	startingContainerHeight = container.getHeight();
 		    }

@@ -42,7 +42,7 @@ public class Overlay {
 	//PANELS
 	public static Container menubarContainer;
 	public static Container optionContainer;
-	public static Container messageManagerContainer;
+	public static Container messageContainer;
 	public static CharacterWindow characterWindow;
 	public static HistoryWindow historyWindow;
 	public static MenubarWindow menubarWindow;
@@ -77,7 +77,7 @@ public class Overlay {
 		menubarFrame.setUndecorated(true);
 		menubarFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		menubarFrame.setAlwaysOnTop(true);
-		menubarFrame.setType(JFrame.Type.UTILITY);
+//		menubarFrame.setType(JFrame.Type.UTILITY);
 		menubarContainer = menubarFrame.getContentPane();
 		
 		JFrame optionFrame = new JFrame();
@@ -87,7 +87,7 @@ public class Overlay {
 		optionFrame.setUndecorated(true);
 		optionFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		optionFrame.setAlwaysOnTop(true);
-		optionFrame.setType(JFrame.Type.UTILITY);
+//		optionFrame.setType(JFrame.Type.UTILITY);
 		optionContainer = optionFrame.getContentPane();
 		
 		//Initialize Screen Frame
@@ -99,7 +99,7 @@ public class Overlay {
 		messageManagerFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		messageManagerFrame.setAlwaysOnTop(true);
 //		screenFrame.setType(JFrame.Type.UTILITY);
-		messageManagerContainer = messageManagerFrame.getContentPane();
+		messageContainer = messageManagerFrame.getContentPane();
 		
 		/*
 		 * TESTING
@@ -123,6 +123,8 @@ public class Overlay {
 		/*
 		 * END TESTING
 		 */
+		
+		//TODO : Organize by frames
 		
 		//Menu Bar Show Button
 		menubarShowButton = new JButton();
@@ -164,7 +166,7 @@ public class Overlay {
 		optionContainer.add(historyWindow);
 		
 		stashHelperContainer = new StashHelperContainer();
-		optionContainer.add(stashHelperContainer);
+		messageContainer.add(stashHelperContainer);
 		
 		//TODO : Move Loading once more is added
 		//Load Stash Settings
@@ -199,8 +201,8 @@ public class Overlay {
 		
 		//Message Manager - SHOULD ALWAYS BE LAST
 		messageManager = new MessageManager();
-		messageManagerContainer.add(messageManager);
-		
+		messageContainer.add(messageManager);
+
 		//Finish
 //		characterWindow.setVisible(true);
 		
@@ -213,17 +215,6 @@ public class Overlay {
 		stashHelperContainer.updateBounds();
 	}
 	
-	//TODO : This is a temp fix for laying. A better solution would be layered panels
-	public static void fixPanelLayering(){
-		Component[] renderFrames = {optionWindow, stashWindow, characterWindow, historyWindow, menubarWindow};
-		for(Component c : renderFrames){
-			if(c.isVisible()){
-				c.revalidate();
-				c.repaint();
-			}
-		}
-	}
-	
 	public static void centerFrame(JPanel panel){
 		panel.setLocation(screenWidth/2-panel.getWidth()/2, screenHeight/2-panel.getHeight()/2);
 	}
@@ -234,7 +225,5 @@ public class Overlay {
 		Overlay.optionWindow.setVisible(false);
 		Overlay.stashWindow.setVisible(false);
 	}
-	
-
 	
 }

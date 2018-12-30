@@ -110,8 +110,8 @@ public class MenubarWindow extends JPanel{
 		testButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				Random rng = new Random();
-//				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, null, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", rng.nextInt(12)+1, rng.nextInt(12)+1);
-//				Overlay.messageManager.addMessage(t);
+				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, null, "StabbyMcDaggerCloud", "ITEM_NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASH_TAB", rng.nextInt(12)+1, rng.nextInt(12)+1, "");
+				Overlay.messageManager.addMessage(t);
 			}
 		});
 		

@@ -30,7 +30,7 @@ public class MessageManager extends JPanel{
 			e.printStackTrace();
 		}
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setBounds(1000, 5, 0, 0);
+		this.setBounds(1230, 2, 0, 0);
 		this.setBackground(ColorManager.CLEAR);
 //		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, null, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
 //		this.addMessage(new TradeOffer(MessageType.OUTGOING_TRADE, null, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
@@ -52,46 +52,27 @@ public class MessageManager extends JPanel{
 		BasicPanel buffer = new BasicPanel(MessageWindow.totalWidth, msgGapSize, ColorManager.CLEAR);
 		msg.closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	//Hide
+		    	msg.stashHelper.itemHighlighter.setVisible(false);
+		    	msg.stashHelper.setVisible(false);
+		    	//Remove
+		    	Overlay.messageContainer.remove(msg.stashHelper.itemHighlighter);
+		    	Overlay.stashHelperContainer.remove(msg.stashHelper);
+		    	//Refresh
+		    	Overlay.stashHelperContainer.revalidate();
+		    	Overlay.stashHelperContainer.repaint();
+		    	Overlay.messageContainer.revalidate();
+		    	Overlay.messageContainer.repaint();
+		    	//Focus
 		    	remove(msg);
 		    	remove(buffer);
-		    	refresh();
-		    	focusPoe();
+		    	PoeInterface.focus();
+		    	
+		    	
 		    }
 		});
 		this.add(msg);
 		this.add(buffer);
 		refresh();
-	}
-	
-	 private void focusPoe() {
-	        User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
-	            char[] className = new char[512];
-	            User32.INSTANCE.GetClassName(hWnd, className, 512);
-	            String wText = Native.toString(className);
-	            if (wText.isEmpty()) {
-	                return true;
-	            }
-	            if (wText.equals("POEWindowClass")) {
-	                User32.INSTANCE.SetForegroundWindow(hWnd);
-	                return false;
-	            }
-	            return true;
-	        }, null);
-	    }
-		
-	 private void pasteIntoPoe(String s){
-		//Move object creation?
-		StringSelection pasteString = new StringSelection(s);
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		clipboard.setContents(pasteString, null);
-		this.focusPoe();
-		robot.keyPress(KeyEvent.VK_ENTER);
-	    robot.keyRelease(KeyEvent.VK_ENTER);
-	    robot.keyPress(KeyEvent.VK_CONTROL);
-	    robot.keyPress(KeyEvent.VK_V);
-	    robot.keyRelease(KeyEvent.VK_V);
-	    robot.keyRelease(KeyEvent.VK_CONTROL);
-	    robot.keyPress(KeyEvent.VK_ENTER);
-	    robot.keyRelease(KeyEvent.VK_ENTER);
 	}
 }

@@ -15,10 +15,12 @@ public class BasicPanel extends JPanel{
 	
 	public BasicPanel(){
 		this.setPreferredSize(new Dimension(rowWidth, rowHeight));
+		this.setBackground(new Color(1.0F, 1.0F, 1.0F, 0.0F));
 	}
 	
 	public BasicPanel(int width, int height){
 		this.setPreferredSize(new Dimension(width, height));
+		this.setBackground(new Color(1.0F, 1.0F, 1.0F, 0.0F));
 	}
 	
 	public BasicPanel(int width, int height, Color color){
@@ -29,6 +31,7 @@ public class BasicPanel extends JPanel{
 	public BasicPanel(int width, int height, LayoutManager layout){
 		this.setLayout(layout);
 		this.setPreferredSize(new Dimension(width, height));
+		this.setBackground(new Color(1.0F, 1.0F, 1.0F, 0.0F));
 	}
 	
 	public BasicPanel(int width, int height, Color color, LayoutManager layout){

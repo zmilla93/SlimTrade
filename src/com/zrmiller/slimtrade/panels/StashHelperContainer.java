@@ -1,11 +1,10 @@
 package com.zrmiller.slimtrade.panels;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.windows.StashWindow;
 
 public class StashHelperContainer extends JPanel{
@@ -16,7 +15,7 @@ public class StashHelperContainer extends JPanel{
 	private int spacingX = 5;
 	
 	public StashHelperContainer(){
-		this.setBackground(Color.RED);
+		this.setBackground(ColorManager.CLEAR);
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
 	}

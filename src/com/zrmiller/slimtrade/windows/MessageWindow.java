@@ -26,6 +26,7 @@ import com.sun.jna.Native;
 import com.sun.jna.platform.win32.User32;
 import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.PoeInterface;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicIconButton;
 import com.zrmiller.slimtrade.panels.BasicIcon;
@@ -79,16 +80,16 @@ public class MessageWindow extends JPanel{
 	private BasicIconButton tpHomeButton;
 	
 	//ITEM HIGHLIGHTER + TIMER
-	private StashHelper stashHelper = new StashHelper();
-	private JPanel itemHighlighter;
-	private ActionListener hideHighlighter = new ActionListener(){
-		@Override
-		public void actionPerformed(ActionEvent e){
-			itemHighlighter.setVisible(false);
-			highlighterTimer.stop();
-		}
-	};
-	private Timer highlighterTimer = new Timer(2500, hideHighlighter);
+	public StashHelper stashHelper;
+//	private JPanel itemHighlighter;
+//	private ActionListener hideHighlighter = new ActionListener(){
+//		@Override
+//		public void actionPerformed(ActionEvent e){
+//			itemHighlighter.setVisible(false);
+//			highlighterTimer.stop();
+//		}
+//	};
+//	private Timer highlighterTimer = new Timer(2500, hideHighlighter);
 	
 	
 	public MessageWindow(TradeOffer trade){
@@ -249,19 +250,28 @@ public class MessageWindow extends JPanel{
 			callbackButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {;}});
 			waitButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				if(evt.getButton() == MouseEvent.BUTTON1){
-					pasteIntoPoe("@" + trade.playerName + " one sec");
+					PoeInterface.paste("@" + trade.playerName + " one sec");
 				}else if(evt.getButton() == MouseEvent.BUTTON3){
-					pasteIntoPoe("@" + trade.playerName + " one minute");
+					PoeInterface.paste("@" + trade.playerName + " one minute");
 				}
 			}});
 			stillInterestedButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				String item = trade.itemCount == 0 ? trade.itemName : trade.itemCount.toString().replaceAll("[.]0", "") + " " + trade.itemName;
 				//.replaceAll("[.]0", "")
 //				String price = trade.itemCount == 0 ? trade.itemName : trade.itemCount + " " + trade.itemName;
-				pasteIntoPoe("Hi, are you still interested in my " + item + " for " + trade.priceCount.toString().replaceAll("[.]0", "") + " " + trade.priceTypeString + "?");
+				PoeInterface.paste("Hi, are you still interested in my " + item + " for " + trade.priceCount.toString().replaceAll("[.]0", "") + " " + trade.priceTypeString + "?");
 			}});
 			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
-				if(evt.getButton() == MouseEvent.BUTTON3){pasteIntoPoe("@" + trade.playerName + " sold, sorry");}
+				if(evt.getButton() == MouseEvent.BUTTON1){
+					System.out.println("!!!");
+					stashHelper.itemHighlighter.setVisible(false);
+			    	Overlay.messageContainer.remove(stashHelper.itemHighlighter);
+			    	Overlay.stashHelperContainer.remove(stashHelper);
+			    	Overlay.stashHelperContainer.refresh();
+				}
+			}});
+			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				if(evt.getButton() == MouseEvent.BUTTON3){PoeInterface.paste("@" + trade.playerName + " sold, sorry");}
 			}});
 			
 			//BUTTOM BUTTONS
@@ -270,15 +280,37 @@ public class MessageWindow extends JPanel{
 			centerButtonPanel.add(thankButton);
 			centerButtonPanel.add(kickButton);
 			//
-			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/invite " + trade.playerName);}});
-			kickButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/kick " + trade.playerName);}});
+			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/invite " + trade.playerName);}});
+			kickButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/kick " + trade.playerName);}});
+			
+			//STASH HELPER
+			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
+			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName);
+			//Item Panel Actions
+			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+			    public void mouseEntered(java.awt.event.MouseEvent evt) {
+			    	itemPanel.setBorder(hoverBorder);
+			    }
+			});
+			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseExited(java.awt.event.MouseEvent evt) {
+					itemPanel.setBorder(blankBorder);
+				}
+			});
+			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+			    public void mouseClicked(java.awt.event.MouseEvent evt) {
+			    	Overlay.stashHelperContainer.add(stashHelper);
+			    	Overlay.stashHelperContainer.refresh();
+			    }
+			});
 			break;
 		case OUTGOING_TRADE:
 			//TOP BUTTONS
 			topButtonPanel.add(repeatMessageButton);
 			topButtonPanel.add(closeButton);
 			//
-			repeatMessageButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe(trade.sentMessage);}});
+			repeatMessageButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste(trade.sentMessage);}});
 			//BOTTOM BUTTONS
 			centerButtonPanel.add(tpToHideoutButton);
 			centerButtonPanel.add(tradeButton);
@@ -286,9 +318,9 @@ public class MessageWindow extends JPanel{
 			centerButtonPanel.add(leavePartyButton);
 			centerButtonPanel.add(tpHomeButton);
 			//
-			tpToHideoutButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/hideout " + trade.playerName);}});
-			leavePartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/kick " + Overlay.characterWindow.getCharacterName());}});
-			tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/hideout");}});
+			tpToHideoutButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/hideout " + trade.playerName);}});
+			leavePartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/kick " + Overlay.characterWindow.getCharacterName());}});
+			tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/hideout");}});
 			break;
 		case CHAT_SCANNER:
 			break;
@@ -296,68 +328,44 @@ public class MessageWindow extends JPanel{
 			break;
 		}
 		//MUTUAL BUTTONS
-		System.out.println(trade.playerName);
-		tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("/tradewith " + trade.playerName);}});
-		thankButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {pasteIntoPoe("@" + trade.playerName + " thanks");}});
-		
-		Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
-		Border hoverBorder = BorderFactory.createLineBorder(Color.RED);
+		tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/tradewith " + trade.playerName);}});
+		thankButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("@" + trade.playerName + " thanks");}});
 		
 //		itemHighlighter.setSize(Overlay.stashWindow.grid.getWidth()/12, Overlay.stashWindow.grid.getWidth()/12);
-		itemHighlighter = new JPanel();
-		itemHighlighter.setVisible(false);
-		double cellWidth = (double)StashWindow.getGridSize().width/12;
-		double cellHeight = (double)StashWindow.getGridSize().height/12;
-		itemHighlighter.setPreferredSize(new Dimension((int)cellWidth, (int)cellHeight));
-		itemHighlighter.setBounds((int)(StashWindow.getWinPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
-		itemHighlighter.setBackground(Color.blue);
-		Overlay.optionContainer.add(itemHighlighter);
+//		itemHighlighter = new JPanel();
+//		itemHighlighter.setVisible(false);
+//		double cellWidth = (double)StashWindow.getGridSize().width/12;
+//		double cellHeight = (double)StashWindow.getGridSize().height/12;
+//		itemHighlighter.setPreferredSize(new Dimension((int)cellWidth, (int)cellHeight));
+//		itemHighlighter.setBounds((int)(StashWindow.getWinPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
+//		itemHighlighter.setBackground(Color.blue);
+//		Overlay.optionContainer.add(itemHighlighter);
 //		Overlay.screenContainer.revalidate();
 //		Overlay.screenContainer.repaint();
-//		
+
 		updateColor();
 		
 
 		
 		
-		
-		
-		
-		//Item Panel Actions
-		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	itemPanel.setBorder(hoverBorder);
-		    }
-		});
-		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseExited(java.awt.event.MouseEvent evt) {
-				itemPanel.setBorder(blankBorder);
-			}
-		});
-		
-		itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	Overlay.stashHelperContainer.add(stashHelper);
-		    	Overlay.stashHelperContainer.refresh();
-		    }
-		});
+
 		
 		//Stash Helper
-		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent e) {
-		    	highlighterTimer.stop();
-		    	double cellWidth = (double)StashWindow.getGridSize().width/12;
-				double cellHeight = (double)StashWindow.getGridSize().height/12;
-				itemHighlighter.setBounds((int)(StashWindow.getGridPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
-		    	itemHighlighter.setVisible(true);
-		    }
-		});
+//		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
+//		    public void mouseEntered(java.awt.event.MouseEvent e) {
+//		    	highlighterTimer.stop();
+//		    	double cellWidth = (double)StashWindow.getGridSize().width/12;
+//				double cellHeight = (double)StashWindow.getGridSize().height/12;
+//				itemHighlighter.setBounds((int)(StashWindow.getGridPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
+//		    	itemHighlighter.setVisible(true);
+//		    }
+//		});
 		
-		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseExited(java.awt.event.MouseEvent e) {
-				highlighterTimer.restart();
-			}
-		});
+//		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
+//			public void mouseExited(java.awt.event.MouseEvent e) {
+//				highlighterTimer.restart();
+//			}
+//		});
 		
 	}
 	
@@ -408,38 +416,6 @@ public class MessageWindow extends JPanel{
 		
 //		Border buttonBorder = BorderFactory.createLineBorder(Color.black);
 //		this.closeButton.setBorder(buttonBorder);
-	}
-	
-	 private void focusPoe() {
-        User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
-            char[] className = new char[512];
-            User32.INSTANCE.GetClassName(hWnd, className, 512);
-            String wText = Native.toString(className);
-            if (wText.isEmpty()) {
-                return true;
-            }
-            if (wText.equals("POEWindowClass")) {
-                User32.INSTANCE.SetForegroundWindow(hWnd);
-                return false;
-            }
-            return true;
-        }, null);
-    }
-	 
-	private void pasteIntoPoe(String s){
-		//Move object creation?
-		StringSelection pasteString = new StringSelection(s);
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		clipboard.setContents(pasteString, null);
-		this.focusPoe();
-		robot.keyPress(KeyEvent.VK_ENTER);
-	    robot.keyRelease(KeyEvent.VK_ENTER);
-	    robot.keyPress(KeyEvent.VK_CONTROL);
-	    robot.keyPress(KeyEvent.VK_V);
-	    robot.keyRelease(KeyEvent.VK_V);
-	    robot.keyRelease(KeyEvent.VK_CONTROL);
-	    robot.keyPress(KeyEvent.VK_ENTER);
-	    robot.keyRelease(KeyEvent.VK_ENTER);
 	}
 
 }
