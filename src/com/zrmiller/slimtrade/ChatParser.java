@@ -35,7 +35,7 @@ public class ChatParser {
 	private Timer updateTimer = new Timer(500, updateAction);
 	
 	//REGEX
-	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) ([\\w\\s]+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
+	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (.+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 	
 	public ChatParser(){

@@ -1,7 +1,6 @@
 package com.zrmiller.slimtrade;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -76,9 +75,11 @@ public class Overlay {
 		menubarFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menubarFrame.setUndecorated(true);
 		menubarFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+//		menubarFrame.setOpacity(0.0f);
 		menubarFrame.setAlwaysOnTop(true);
-		menubarFrame.setType(JFrame.Type.UTILITY);
+//		menubarFrame.setType(JFrame.Type.UTILITY);
 		menubarContainer = menubarFrame.getContentPane();
+//		System.out.println(menubarContainer.isOpaque());
 		
 		JFrame optionFrame = new JFrame();
 		optionFrame.setLayout(null);
@@ -86,8 +87,9 @@ public class Overlay {
 		optionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		optionFrame.setUndecorated(true);
 		optionFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+//		optionFrame.setOpacity(0f);
 		optionFrame.setAlwaysOnTop(true);
-		optionFrame.setType(JFrame.Type.UTILITY);
+//		optionFrame.setType(JFrame.Type.UTILITY);
 		optionContainer = optionFrame.getContentPane();
 		
 		//Initialize Screen Frame
@@ -97,8 +99,9 @@ public class Overlay {
 		messageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		messageFrame.setUndecorated(true);
 		messageFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+//		messageFrame.setOpacity(0f);
 		messageFrame.setAlwaysOnTop(true);
-		messageFrame.setType(JFrame.Type.UTILITY);
+//		messageFrame.setType(JFrame.Type.UTILITY);
 		messageContainer = messageFrame.getContentPane();
 		
 		/*
