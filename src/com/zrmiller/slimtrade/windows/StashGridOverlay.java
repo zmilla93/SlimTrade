@@ -18,7 +18,7 @@ import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.GridPanel;
 
-public class StashWindow extends BasicMenuWindow{
+public class StashGridOverlay extends BasicMenuWindow{
 
 	private static final long serialVersionUID = 1L;
 	//STATICS
@@ -49,7 +49,7 @@ public class StashWindow extends BasicMenuWindow{
 	private int bufferThick = 12;
 	
 	//TODO : right and bottom edges of grids don't shows
-	public StashWindow(){
+	public StashGridOverlay(){
 		super("Stash Overlay", containerSize.width, containerSize.height);
 		this.setVisible(false);
 		this.setLocation(windowPos);
@@ -57,14 +57,14 @@ public class StashWindow extends BasicMenuWindow{
 		this.setSnapSize(snapSize);
 		gridWidth = containerSize.width-bufferThin-bufferThick;
 		gridHeight = containerSize.height-bufferThin-bufferThick-infoPanelHeight;
-		StashWindow.setDefaultGridSize(new Dimension(gridWidth, gridHeight));
+		StashGridOverlay.setDefaultGridSize(new Dimension(gridWidth, gridHeight));
 		container.setLayout(new BorderLayout());
 		//TODO : Move clear background to BasicMenuWindow?
-		container.setBackground(new Color(1.0f,1.0f,1.0f,0.2f));
+		container.setBackground(new Color(1.0f,1.0f,1.0f,0.25f));
 		container.setBounds(0, 0, containerSize.width, containerSize.height);
 		
 		grid = new GridPanel(gridWidth, gridHeight);
-		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.3f));
+		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		grid.setLineColor(Color.GREEN);
 		container.add(grid, BorderLayout.CENTER);
 		
@@ -75,14 +75,14 @@ public class StashWindow extends BasicMenuWindow{
 		container.add(leftSpacer, BorderLayout.LINE_START);
 		
 		BasicPanel rightPullBar = new BasicPanel(bufferThick, gridHeight);
-		rightPullBar.setBackground(Color.YELLOW);
+		rightPullBar.setBackground(Color.DARK_GRAY);
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED);
 		rightPullBar.setBorder(b);
 		container.add(rightPullBar, BorderLayout.LINE_END);
 		
 		//BOTTOM
 		BasicPanel bottomPullBar = new BasicPanel(gridWidth, bufferThick);
-		bottomPullBar.setBackground(Color.YELLOW);
+		bottomPullBar.setBackground(Color.DARK_GRAY);
 		BasicPanel infoPanel = new BasicPanel(containerSize.width, infoPanelHeight);
 		infoPanel.setLayout(new FlowLayout(FlowLayout.CENTER, buttonSpacingX, buttonMarginTop));
 		JButton resetButton = new JButton("Reset");
@@ -134,9 +134,10 @@ public class StashWindow extends BasicMenuWindow{
 		    }
 		});
 		
-		//Save Button
+		//Reset Button
 		resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				
 				reset();
 			}
 		});
@@ -147,10 +148,10 @@ public class StashWindow extends BasicMenuWindow{
 				try {
 					saveDataLocally();
 					ObjectOutputStream stash = new ObjectOutputStream(new FileOutputStream("stash.pref"));
-					stash.writeObject(StashWindow.windowPos);
-					stash.writeObject(StashWindow.containerSize);
-					stash.writeObject(StashWindow.gridPos);
-					stash.writeObject(StashWindow.gridSize);
+					stash.writeObject(StashGridOverlay.windowPos);
+					stash.writeObject(StashGridOverlay.containerSize);
+					stash.writeObject(StashGridOverlay.gridPos);
+					stash.writeObject(StashGridOverlay.gridSize);
 					stash.close();
 					Overlay.stashHelperContainer.updateBounds();
 				} catch (IOException e1) {
@@ -174,36 +175,36 @@ public class StashWindow extends BasicMenuWindow{
 	
 	//WINDOW GETTERS/SETTERS
 	public static void setDefaultWinPos(Point pos){
-		StashWindow.windowPos = pos;
+		StashGridOverlay.windowPos = pos;
 	}
 	
 	public static void setDefaultContainerSize(Dimension size){
-		StashWindow.containerSize = size;
+		StashGridOverlay.containerSize = size;
 	}
 	
 	public static Point getWinPos(){
-		return StashWindow.windowPos;
+		return StashGridOverlay.windowPos;
 	}
 	
 	public static Dimension getContainerSize(){
-		return StashWindow.containerSize;
+		return StashGridOverlay.containerSize;
 	}
 	
 	//GRID GETTERS/SETTERS
 	public static void setDefaultGridPos(Point pos){
-		StashWindow.gridPos = pos;
+		StashGridOverlay.gridPos = pos;
 	}
 	
 	public static void setDefaultGridSize(Dimension size){
-		StashWindow.gridSize = size;
+		StashGridOverlay.gridSize = size;
 	}
 	
 	public static Point getGridPos(){
-		return StashWindow.gridPos;
+		return StashGridOverlay.gridPos;
 	}
 	
 	public static Dimension getGridSize(){
-		return StashWindow.gridSize;
+		return StashGridOverlay.gridSize;
 	}
 	
 	private void saveDataLocally(){
@@ -223,7 +224,7 @@ public class StashWindow extends BasicMenuWindow{
 	}
 	
 	public static void setwindowPosition(Point p){
-		StashWindow.windowPos = p;
+		StashGridOverlay.windowPos = p;
 	}
 	
 	public void refresh(){

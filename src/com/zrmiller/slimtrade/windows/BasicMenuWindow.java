@@ -93,9 +93,6 @@ public class BasicMenuWindow extends JPanel{
 		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {
 		    	visibilityPanel.setVisible(false);
-//		    	Overlay.hideAllTempFrames();
-//		    	Overlay.menubar.setVisible(false);
-//		    	Overlay.menubarShowButton.setVisible(true);
 		    }
 		});
 		

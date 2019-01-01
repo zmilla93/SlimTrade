@@ -32,8 +32,10 @@ public class OptionWindow extends BasicMenuWindow{
 		this.setMinimumSize(new Dimension(width, minHeight));
 		this.setVisible(false);
 		
-		BasicTitlebar titlebar = new BasicTitlebar("Options", this,  width);
-		this.add(titlebar);
+		JLabel lol = new JLabel("LOL YOU THOUGHT THERE WOULD BE OPTIONS?");
+		container.add(lol);
+//		BasicTitlebar titlebar = new BasicTitlebar("Options", this,  width);
+//		this.add(titlebar);
 		this.add(new BasicPanel(width,10));
 		
 		//TOGGLES

@@ -1,11 +1,12 @@
 package com.zrmiller.slimtrade.panels;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.ColorManager;
-import com.zrmiller.slimtrade.windows.StashWindow;
+import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
 public class StashHelperContainer extends JPanel{
 	
@@ -21,9 +22,9 @@ public class StashHelperContainer extends JPanel{
 	}
 	
 	public void updateBounds(){
-		int posX = StashWindow.getGridPos().x-spacingX;
-		int posY = StashWindow.getWinPos().y-height-offsetY;
-		int width = StashWindow.getGridSize().width+spacingX;
+		int posX = StashGridOverlay.getGridPos().x-spacingX;
+		int posY = StashGridOverlay.getWinPos().y-height-offsetY;
+		int width = StashGridOverlay.getGridSize().width+spacingX;
 		this.setBounds(posX, posY, width, height);
 	}
 	

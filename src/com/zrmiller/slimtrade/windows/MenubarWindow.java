@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.MenuButton;
-import com.zrmiller.slimtrade.datatypes.CurrencyType;
 import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 
@@ -73,11 +72,11 @@ public class MenubarWindow extends JPanel{
 		//STASH
 		stashButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(Overlay.stashWindow.isVisible()){
-		    		Overlay.stashWindow.setVisible(false);
+		    	if(Overlay.stashGridOverlay.isVisible()){
+		    		Overlay.stashGridOverlay.setVisible(false);
 		    	}else{
 		    		Overlay.hideAllTempFrames();
-		    		Overlay.stashWindow.setVisible(true);
+		    		Overlay.stashGridOverlay.setVisible(true);
 		    	}
 		    }
 		});
@@ -110,8 +109,11 @@ public class MenubarWindow extends JPanel{
 		testButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				Random rng = new Random();
-				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, null, "StabbyMcDaggerCloud", "ITEM_NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASH_TAB", rng.nextInt(12)+1, rng.nextInt(12)+1, "");
+				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12)+1, rng.nextInt(12)+1, "");
+				TradeOffer t2 = new TradeOffer(MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12)+1, rng.nextInt(12)+1, "");
+				TradeOffer t3 = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "BLANK STASH ITEM", 3.5, "chaos", 3.5, "STASH_TAB", 0, 0, "");
 				Overlay.messageManager.addMessage(t);
+				Overlay.messageManager.addMessage(t2);
 			}
 		});
 		

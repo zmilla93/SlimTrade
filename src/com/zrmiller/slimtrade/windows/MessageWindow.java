@@ -8,32 +8,23 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import javax.swing.border.Border;
 
-import com.sun.jna.Native;
-import com.sun.jna.platform.win32.User32;
 import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.PoeInterface;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicIconButton;
+import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.panels.BasicIcon;
 import com.zrmiller.slimtrade.panels.StashHelper;
 
 //TODO : Refocus POE on all clicks
-
 public class MessageWindow extends JPanel{
 	
 	//GLOBAL
@@ -45,7 +36,6 @@ public class MessageWindow extends JPanel{
 	private int rowHeight = height/2;
 	public static int totalWidth = width+borderThickness*4;
 	public static int totalHeight = height+borderThickness*4;
-	
 	private TradeOffer trade;
 	
 	//Panels
@@ -63,6 +53,7 @@ public class MessageWindow extends JPanel{
 	private JPanel itemPanel = new JPanel();
 	private JLabel itemCountLabel = new JLabel();
 	private JLabel itemLabel = new JLabel();
+	public StashHelper stashHelper;
 	
 	//Buttons Top	
 	public BasicIconButton callbackButton;
@@ -79,24 +70,13 @@ public class MessageWindow extends JPanel{
 	private BasicIconButton kickButton;
 	private BasicIconButton tpHomeButton;
 	
-	//ITEM HIGHLIGHTER + TIMER
-	public StashHelper stashHelper;
-//	private JPanel itemHighlighter;
-//	private ActionListener hideHighlighter = new ActionListener(){
-//		@Override
-//		public void actionPerformed(ActionEvent e){
-//			itemHighlighter.setVisible(false);
-//			highlighterTimer.stop();
-//		}
-//	};
-//	private Timer highlighterTimer = new Timer(2500, hideHighlighter);
+	
 	
 	
 	public MessageWindow(TradeOffer trade){
 		try {
 			robot = new Robot();
 		} catch (AWTException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		this.trade = trade;
@@ -112,6 +92,8 @@ public class MessageWindow extends JPanel{
 		double buttonTopMult = 0;
 		double buttonBotMult = 0;
 		
+		//TODO : Work out the math so that changing size of window guarantees simple ratios
+		//Currently buttons are 0.05 mult
 		switch(trade.msgType){
 		case INCOMING_TRADE:
 			nameWidthMult = 0.5;
@@ -123,15 +105,15 @@ public class MessageWindow extends JPanel{
 		case OUTGOING_TRADE:
 			nameWidthMult = 0.55;
 			priceWidthMult = 0.35;
-			itemWidthMult = 0.8;
+			itemWidthMult = 0.75;
 			buttonTopMult = 0.1;
-			buttonBotMult = 0.2;
+			buttonBotMult = 0.25;
 			break;
 		default:
 			break;
 		}
 		
-		//BORDER
+		//MESSAGE WINDOW BORDER
 		borderOuter.setLayout(new FlowLayout(FlowLayout.CENTER, borderThickness, borderThickness));
 		borderOuter.setPreferredSize(new Dimension(width+borderThickness*2, height+borderThickness*2));
 		
@@ -143,7 +125,6 @@ public class MessageWindow extends JPanel{
 		container.setLayout(new BorderLayout());
 		container.setPreferredSize(new Dimension(width, height));
 		borderInner.add(container, BorderLayout.CENTER);
-		
 		this.add(borderOuter);
 		
 		BasicIconButton.width = height/2;
@@ -187,13 +168,13 @@ public class MessageWindow extends JPanel{
 		topPanel.add(topButtonPanel);
 		
 		/*
-		 * CENTER PANEL
+		 * BOTTOM PANEL
 		 */
 		
-		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		centerPanel.setPreferredSize(new Dimension(width,rowHeight));
-		container.add(centerPanel, BorderLayout.CENTER);
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		bottomPanel.setPreferredSize(new Dimension(width,rowHeight));
+		container.add(bottomPanel, BorderLayout.CENTER);
 		itemPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		if(trade.itemCount>0){
 			itemCountLabel = new JLabel(trade.itemCount.toString().replaceAll("[.]0", "") + " ");
@@ -210,15 +191,13 @@ public class MessageWindow extends JPanel{
 			itemPanel.add(itemLabel, BorderLayout.CENTER);
 		}
 		
-//		itemLabel = new JLabel(trade.itemName);
 		itemPanel.setPreferredSize(new Dimension((int)(width*itemWidthMult), rowHeight));
-//		itemPanel.add(itemLabel, BorderLayout.CENTER);
-		centerPanel.add(itemPanel);
+		bottomPanel.add(itemPanel);
 		
-		JPanel centerButtonPanel = new JPanel();
-		centerButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
-		centerButtonPanel.setPreferredSize(new Dimension((int)(width*buttonBotMult), rowHeight));
-		centerPanel.add(centerButtonPanel);
+		JPanel bottomButtonPanel = new JPanel();
+		bottomButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+		bottomButtonPanel.setPreferredSize(new Dimension((int)(width*buttonBotMult), rowHeight));
+		bottomPanel.add(bottomButtonPanel);
 		
 		//TODO : Could move these to delaraction if width/height default is dealt with
 		//Buttons
@@ -237,7 +216,9 @@ public class MessageWindow extends JPanel{
 		thankButton = new BasicIconButton("/thumb1.png");
 		kickButton = new BasicIconButton("/leave.png");
 		leavePartyButton = new BasicIconButton("/leave.png");
-		tpHomeButton = new BasicIconButton("/home.png");
+		tpHomeButton = new BasicIconButton("/home2.png");
+		
+		
 		
 		switch(trade.msgType){
 		case INCOMING_TRADE:
@@ -257,42 +238,64 @@ public class MessageWindow extends JPanel{
 			}});
 			stillInterestedButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				String item = trade.itemCount == 0 ? trade.itemName : trade.itemCount.toString().replaceAll("[.]0", "") + " " + trade.itemName;
-				//.replaceAll("[.]0", "")
-//				String price = trade.itemCount == 0 ? trade.itemName : trade.itemCount + " " + trade.itemName;
-				PoeInterface.paste("Hi, are you still interested in my " + item + " for " + trade.priceCount.toString().replaceAll("[.]0", "") + " " + trade.priceTypeString + "?");
+				PoeInterface.paste("@" + trade.playerName + " Hi, are you still interested in my " + item + " for " + trade.priceCount.toString().replaceAll("[.]0", "") + " " + trade.priceTypeString + "?");
 			}});
 			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				if(evt.getButton() == MouseEvent.BUTTON1){
-					System.out.println("!!!");
 					stashHelper.itemHighlighter.setVisible(false);
 			    	Overlay.messageContainer.remove(stashHelper.itemHighlighter);
 			    	Overlay.stashHelperContainer.remove(stashHelper);
 			    	Overlay.stashHelperContainer.refresh();
+				}else if(evt.getButton() == MouseEvent.BUTTON3){
+					//TODO : Having two actions causes 2nd action to be performed twice?
+					//Probably has to do with the clipboard. should combine paste then kick into one method
+//					System.out.println("?????????");
+//					PoeInterface.paste("/kick " + trade.playerName);
+					PoeInterface.paste("@" + trade.playerName + " sold, sorry");
 				}
 			}});
-			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
-				if(evt.getButton() == MouseEvent.BUTTON3){PoeInterface.paste("@" + trade.playerName + " sold, sorry");}
-			}});
+//			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+//				if(evt.getButton() == MouseEvent.BUTTON3){
+//					PoeInterface.paste("@" + trade.playerName + " sold, sorry");
+//					PoeInterface.paste("/kick " + trade.playerName);
+//				}
+//			}});
 			
 			//BUTTOM BUTTONS
-			centerButtonPanel.add(inviteToPartyButton);
-			centerButtonPanel.add(tradeButton);
-			centerButtonPanel.add(thankButton);
-			centerButtonPanel.add(kickButton);
+			bottomButtonPanel.add(inviteToPartyButton);
+			bottomButtonPanel.add(tradeButton);
+			bottomButtonPanel.add(thankButton);
+			bottomButtonPanel.add(kickButton);
+			inviteToPartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
 			//
 			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste("/invite " + trade.playerName);
-					stashHelper.setVisible(true);
-				}});
-			kickButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/kick " + trade.playerName);}});
+				PoeInterface.paste("/invite " + trade.playerName);
+				stashHelper.setVisible(true);
+				inviteToPartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
+				tradeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+			}});
+			tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				PoeInterface.paste("/tradewith " + trade.playerName);
+				tradeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
+				thankButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+			}});
+			thankButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				PoeInterface.paste("@" + trade.playerName + " thanks");
+				thankButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
+				kickButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+			}});
+			kickButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				PoeInterface.paste("/kick " + trade.playerName);
+				kickButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
+				closeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+			}});
 			
 			//STASH HELPER
 			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
-			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName);
+			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName, trade.priceTypeString, trade.priceCount);
 			stashHelper.setVisible(false);
 			Overlay.stashHelperContainer.add(stashHelper);
-//	    	Overlay.stashHelperContainer.refresh();
 			
 			
 			//Item Panel Actions
@@ -319,61 +322,46 @@ public class MessageWindow extends JPanel{
 			//
 			repeatMessageButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste(trade.sentMessage);}});
 			//BOTTOM BUTTONS
-			centerButtonPanel.add(tpToHideoutButton);
-			centerButtonPanel.add(tradeButton);
-			centerButtonPanel.add(thankButton);
-			centerButtonPanel.add(leavePartyButton);
-			centerButtonPanel.add(tpHomeButton);
+			bottomButtonPanel.add(tpToHideoutButton);
+			bottomButtonPanel.add(tradeButton);
+			bottomButtonPanel.add(thankButton);
+			bottomButtonPanel.add(leavePartyButton);
+			bottomButtonPanel.add(tpHomeButton);
+			tpToHideoutButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
 			//
-			tpToHideoutButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/hideout " + trade.playerName);}});
-			leavePartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/kick " + Overlay.characterWindow.getCharacterName());}});
-			tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/hideout");}});
+			tpToHideoutButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				PoeInterface.paste("/hideout " + trade.playerName);
+				tpToHideoutButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
+				thankButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+			}});
+			tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/tradewith " + trade.playerName);}});
+			thankButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				PoeInterface.paste("@" + trade.playerName + " thanks");
+				thankButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
+				leavePartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+			}});
+			leavePartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				PoeInterface.paste("/kick " + Overlay.characterWindow.getCharacterName());
+				leavePartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
+				tpHomeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+			}});
+			tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				PoeInterface.paste("/hideout");
+				tpHomeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
+				closeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+			}});
+//			tradeButton.bgColor = ColorManager.MsgWindow.buttonBG_completed;
 			break;
 		case CHAT_SCANNER:
 			break;
 		case UNKNOWN:
 			break;
 		}
-		//MUTUAL BUTTONS
-		tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("/tradewith " + trade.playerName);}});
-		thankButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {PoeInterface.paste("@" + trade.playerName + " thanks");}});
-		
-//		itemHighlighter.setSize(Overlay.stashWindow.grid.getWidth()/12, Overlay.stashWindow.grid.getWidth()/12);
-//		itemHighlighter = new JPanel();
-//		itemHighlighter.setVisible(false);
-//		double cellWidth = (double)StashWindow.getGridSize().width/12;
-//		double cellHeight = (double)StashWindow.getGridSize().height/12;
-//		itemHighlighter.setPreferredSize(new Dimension((int)cellWidth, (int)cellHeight));
-//		itemHighlighter.setBounds((int)(StashWindow.getWinPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
-//		itemHighlighter.setBackground(Color.blue);
-//		Overlay.optionContainer.add(itemHighlighter);
-//		Overlay.screenContainer.revalidate();
-//		Overlay.screenContainer.repaint();
-
+//		container.addMouseListener(new java.awt.event.MouseAdapter() {public void mousePressed(java.awt.event.MouseEvent evt) {
+//			System.out.println("!!!!!");
+//		}});
 		updateColor();
-		
 
-		
-		
-
-		
-		//Stash Helper
-//		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
-//		    public void mouseEntered(java.awt.event.MouseEvent e) {
-//		    	highlighterTimer.stop();
-//		    	double cellWidth = (double)StashWindow.getGridSize().width/12;
-//				double cellHeight = (double)StashWindow.getGridSize().height/12;
-//				itemHighlighter.setBounds((int)(StashWindow.getGridPos().x+((trade.stashtabX-1)*cellWidth)), (int)(StashWindow.getGridPos().y+((trade.stashtabY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
-//		    	itemHighlighter.setVisible(true);
-//		    }
-//		});
-		
-//		stashHelper.addMouseListener(new java.awt.event.MouseAdapter() {
-//			public void mouseExited(java.awt.event.MouseEvent e) {
-//				highlighterTimer.restart();
-//			}
-//		});
-		
 	}
 	
 	//TODO : Naming conventions? updatePresetColors?
@@ -406,24 +394,27 @@ public class MessageWindow extends JPanel{
 		updateButton(thankButton);
 		updateButton(kickButton);
 		updateButton(leavePartyButton);
+		updateButton(tpHomeButton);
 		//Row 2
 
 		//Message Type Specific
 		switch(trade.msgType){
 		case INCOMING_TRADE:
-			this.pricePanel.setBackground(ColorManager.MsgWindow.priceBG_in);
+			pricePanel.setBackground(ColorManager.MsgWindow.priceBG_in);
 			break;
 		case OUTGOING_TRADE:
-			this.pricePanel.setBackground(ColorManager.MsgWindow.priceBG_out);
+			pricePanel.setBackground(ColorManager.MsgWindow.priceBG_out);
+//			tradeButton.bgColor = ColorManager.MsgWindow.buttonBG_completed;
+//			tradeButton.setBackground(ColorManager.MsgWindow.buttonBG_completed);
 			break;
 		default:
 			break;
 		}
 		
-//		this.closeButton.setBorderPresets(ColorManager.MsgWindow.buttonBorder, ColorManager.MsgWindow.buttonBorder_hover);
-		
-//		Border buttonBorder = BorderFactory.createLineBorder(Color.black);
-//		this.closeButton.setBorder(buttonBorder);
+	}
+	
+	public MessageType getMessageType(){
+		return this.trade.msgType;
 	}
 
 }

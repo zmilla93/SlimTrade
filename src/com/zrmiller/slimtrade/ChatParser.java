@@ -32,11 +32,10 @@ public class ChatParser {
 			update();
 		}
 	};
-	private Timer updateTimer = new Timer(1000, updateAction);
+	private Timer updateTimer = new Timer(500, updateAction);
 	
 	//REGEX
-	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
-//	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): (Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (\\w+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?.*";
+	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) ([\\w\\s]+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 	
 	public ChatParser(){
@@ -96,14 +95,10 @@ public class ChatParser {
 							i2 = Integer.parseInt(tradeMsgMatcher.group(19));
 						}
 						TradeOffer trade = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
-								tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, tradeMsgMatcher.group(11), f2, 
+								tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(11)), f2, 
 								tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
 						Overlay.messageManager.addMessage(trade);
 					}else if(joinAreaMatcher.matches()){
-						//update = true;
-						//playerJoinedArea[playerJoinedQueue] = joinAreaMatcher.group(1);
-						//playerJoinedQueue++;
-						//System.out.println("PLAYER JOINED : " + joinAreaMatcher.group(1));
 					}
 				}
 			}
@@ -114,24 +109,24 @@ public class ChatParser {
 	}
 	
 	public MessageType getMsgType(String s){
-		MessageType t = MessageType.UNKNOWN;
+		MessageType type = MessageType.UNKNOWN;
 		switch(s.toLowerCase()){
 		case "to":
-			t = MessageType.OUTGOING_TRADE;
+			type = MessageType.OUTGOING_TRADE;
 			break;
 		case "from":
-			t = MessageType.INCOMING_TRADE;
+			type = MessageType.INCOMING_TRADE;
 			break;
 		}
-		return t;
+		return type;
 	}
 	
-	public int getFixedIndex(int unsafeIndex){
-		int r = this.tradeHistoryIndex+unsafeIndex;
-		if (r<0){r=r+this.MAX_TRADE_HISTORY;}
-		if (r>this.MAX_TRADE_HISTORY){r=0;}
-		return r;
-	}
+//	public int getFixedIndex(int unsafeIndex){
+//		int r = this.tradeHistoryIndex+unsafeIndex;
+//		if (r<0){r=r+this.MAX_TRADE_HISTORY;}
+//		if (r>this.MAX_TRADE_HISTORY){r=0;}
+//		return r;
+//	}
 	
 	public void refresh(){
 		this.totalLineCount=0;

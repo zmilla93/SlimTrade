@@ -8,7 +8,7 @@ import javax.swing.border.Border;
 
 public class ColorManager {
 	
-	private Hashtable<String, Color> color = new Hashtable<String, Color>();
+//	private Hashtable<String, Color> color = new Hashtable<String, Color>();
 	
 	public static Color CLEAR = new Color(1.0F, 1.0F, 1.0F, 0.0F);
 	
@@ -21,9 +21,11 @@ public class ColorManager {
 		public static Color text;
 		public static Color text_hover;
 		public static Color buttonBG;
+		public static Color buttonBG_next;
+		public static Color buttonBG_completed;
 		public static Color buttonBG_hover;
-//		public static Color buttonBorder;
 		public static Border buttonBorder;
+		public static Border buttonBorder_next;
 		public static Border buttonBorder_hover;
 		public static Color nameBG;
 		public static Color priceBG_in;
@@ -40,9 +42,14 @@ public class ColorManager {
 		MsgWindow.borderInner = new Color(102, 53, 0);
 //		MsgWindow.panelBorder = new Color();
 //		MsgWindow.panelBorder_hover = new Color();
+		
 		MsgWindow.text = Color.WHITE;
+//		MsgWindow.text = new Color(197,179,88);
+		
 //		MsgWindow.text_hover = new Color();
 		MsgWindow.buttonBG = Color.LIGHT_GRAY;
+		MsgWindow.buttonBG_next = Color.WHITE;
+		MsgWindow.buttonBG_completed = Color.DARK_GRAY;
 		MsgWindow.buttonBG_hover = Color.WHITE;
 //		MsgWindow.buttonBorder = new Color();
 //		MsgWindow.buttonBorder_hover = new Color();
@@ -51,6 +58,7 @@ public class ColorManager {
 		MsgWindow.priceBG_out = new Color(100, 0, 0);
 		MsgWindow.itemBG = Color.DARK_GRAY;
 		MsgWindow.buttonBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+		MsgWindow.buttonBorder_next = BorderFactory.createLineBorder(Color.GREEN);
 		MsgWindow.buttonBorder_hover = BorderFactory.createLineBorder(Color.BLACK);
 	}
 

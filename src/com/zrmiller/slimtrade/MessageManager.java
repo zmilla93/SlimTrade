@@ -4,16 +4,14 @@ import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 
-import com.sun.jna.Native;
-import com.sun.jna.platform.win32.User32;
+import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.windows.MessageWindow;
 
@@ -48,24 +46,36 @@ public class MessageManager extends JPanel{
 	//TODO : This may be causing a memory leak...
 	//Should move messages to another spot in memory and limit how much can be used
 	public void addMessage(TradeOffer trade){
+		File ping = new File("audio/ping.wav");
+		try {
+			AudioManager.playSound(ping);
+		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException | InterruptedException e) {
+			e.printStackTrace();
+		}
 		MessageWindow msg = new MessageWindow(trade);
 		BasicPanel buffer = new BasicPanel(MessageWindow.totalWidth, msgGapSize, ColorManager.CLEAR);
 		msg.closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	//Hide
-		    	msg.stashHelper.itemHighlighter.setVisible(false);
-		    	msg.stashHelper.setVisible(false);
-		    	//Remove
-		    	Overlay.messageContainer.remove(msg.stashHelper.itemHighlighter);
-		    	Overlay.stashHelperContainer.remove(msg.stashHelper);
-		    	//Refresh
-		    	Overlay.stashHelperContainer.revalidate();
-		    	Overlay.stashHelperContainer.repaint();
-		    	Overlay.messageContainer.revalidate();
-		    	Overlay.messageContainer.repaint();
+		    	if(msg.getMessageType() == MessageType.INCOMING_TRADE){
+		    		
+		    		//Hide
+	//		    	msg.stashHelper.itemHighlighter.setVisible(false);
+	//		    	msg.stashHelper.setVisible(false);
+			    	//Remove
+		    		Overlay.messageContainer.remove(msg.stashHelper.itemHighlighter);
+			    	Overlay.stashHelperContainer.remove(msg.stashHelper);
+			    	//Refresh
+			    	Overlay.stashHelperContainer.revalidate();
+			    	Overlay.stashHelperContainer.repaint();
+			    	Overlay.messageContainer.revalidate();
+			    	Overlay.messageContainer.repaint();
+		    	}
+		    	
+		    	
 		    	//Focus
 		    	remove(msg);
 		    	remove(buffer);
+		    	refresh();
 		    	PoeInterface.focus();
 		    	
 		    	
@@ -75,4 +85,5 @@ public class MessageManager extends JPanel{
 		this.add(buffer);
 		refresh();
 	}
+	
 }

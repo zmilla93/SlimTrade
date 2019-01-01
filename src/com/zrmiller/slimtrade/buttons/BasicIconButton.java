@@ -83,6 +83,16 @@ public class BasicIconButton extends JPanel{
 		setColorDefault();
 	}
 	
+	public void setBorderPresetDefault(Border border){
+		this.border = border;
+		setColorDefault();
+	}
+	
+	public void setBorderPresetHover(Border border){
+		this.border_hover = border;
+		setColorDefault();
+	}
+	
 	public void setCustomIcon(String imgPath){
 		JLabel closeIcon = new JLabel();
 		double imgWidth = width*imgScaling;

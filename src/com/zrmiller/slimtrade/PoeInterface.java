@@ -16,6 +16,7 @@ public class PoeInterface extends Robot{
 	private static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 	private static Robot robot;
 	
+	
 	public PoeInterface() throws AWTException{
 		try {
 			robot = new Robot();
@@ -38,6 +39,22 @@ public class PoeInterface extends Robot{
 	    robot.keyRelease(KeyEvent.VK_ENTER);
 	}
 	
+	public static void paste(String s, boolean focus){
+		pasteString = new StringSelection(s);
+		clipboard.setContents(pasteString, null);
+		if(focus){
+			PoeInterface.focus();
+		}
+		robot.keyPress(KeyEvent.VK_ENTER);
+	    robot.keyRelease(KeyEvent.VK_ENTER);
+	    robot.keyPress(KeyEvent.VK_CONTROL);
+	    robot.keyPress(KeyEvent.VK_V);
+	    robot.keyRelease(KeyEvent.VK_V);
+	    robot.keyRelease(KeyEvent.VK_CONTROL);
+	    robot.keyPress(KeyEvent.VK_ENTER);
+	    robot.keyRelease(KeyEvent.VK_ENTER);
+	}
+	
 	public static void findInStash(String s){
 		pasteString = new StringSelection(s);
 		clipboard.setContents(pasteString, null);
@@ -50,6 +67,7 @@ public class PoeInterface extends Robot{
 		robot.keyRelease(KeyEvent.VK_CONTROL);
 	}
 	
+	//TODO: modify to remove lambda? or store it somewhere else if it will actually be reused
 	public static void focus() {
 		User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
 			char[] className = new char[512];

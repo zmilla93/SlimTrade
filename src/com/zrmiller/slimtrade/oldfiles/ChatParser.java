@@ -72,6 +72,9 @@ public class ChatParser {
 					if(tradeMsgMatcher.group(16)!=null){
 						i2 = Integer.parseInt(tradeMsgMatcher.group(18));
 					}
+					System.out.println(tradeMsgMatcher.group(7));
+					System.out.println(tradeMsgMatcher.group(10));
+					System.out.println(tradeMsgMatcher.group(14));
 					tradeHistory[tradeHistoryIndex] = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),  tradeMsgMatcher.group(3), tradeMsgMatcher.group(7), f1, tradeMsgMatcher.group(10), f2, tradeMsgMatcher.group(14), i1, i2);
 					if (tradeHistoryIndex<MAX_TRADE_HISTORY-1) tradeHistoryIndex++; else tradeHistoryIndex=0;
 				}

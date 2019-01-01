@@ -27,7 +27,7 @@ import com.zrmiller.slimtrade.windows.CharacterWindow;
 import com.zrmiller.slimtrade.windows.HistoryWindow;
 import com.zrmiller.slimtrade.windows.MenubarWindow;
 import com.zrmiller.slimtrade.windows.OptionWindow;
-import com.zrmiller.slimtrade.windows.StashWindow;
+import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
 public class Overlay {
 
@@ -49,7 +49,7 @@ public class Overlay {
 	public static JButton menubarShowButton;
 	public static MessageManager messageManager;
 	public static OptionWindow optionWindow;
-	public static StashWindow stashWindow;
+	public static StashGridOverlay stashGridOverlay;
 	public static GridPanel stashGrid;
 	public static StashHelperContainer stashHelperContainer;
 	public static TradeHistory tradeHistory;
@@ -77,7 +77,7 @@ public class Overlay {
 		menubarFrame.setUndecorated(true);
 		menubarFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		menubarFrame.setAlwaysOnTop(true);
-//		menubarFrame.setType(JFrame.Type.UTILITY);
+		menubarFrame.setType(JFrame.Type.UTILITY);
 		menubarContainer = menubarFrame.getContentPane();
 		
 		JFrame optionFrame = new JFrame();
@@ -87,19 +87,19 @@ public class Overlay {
 		optionFrame.setUndecorated(true);
 		optionFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		optionFrame.setAlwaysOnTop(true);
-//		optionFrame.setType(JFrame.Type.UTILITY);
+		optionFrame.setType(JFrame.Type.UTILITY);
 		optionContainer = optionFrame.getContentPane();
 		
 		//Initialize Screen Frame
-		JFrame messageManagerFrame = new JFrame();
-		messageManagerFrame.setLayout(null);
-		messageManagerFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		messageManagerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		messageManagerFrame.setUndecorated(true);
-		messageManagerFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		messageManagerFrame.setAlwaysOnTop(true);
-//		screenFrame.setType(JFrame.Type.UTILITY);
-		messageContainer = messageManagerFrame.getContentPane();
+		JFrame messageFrame = new JFrame();
+		messageFrame.setLayout(null);
+		messageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		messageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		messageFrame.setUndecorated(true);
+		messageFrame.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		messageFrame.setAlwaysOnTop(true);
+		messageFrame.setType(JFrame.Type.UTILITY);
+		messageContainer = messageFrame.getContentPane();
 		
 		/*
 		 * TESTING
@@ -179,10 +179,10 @@ public class Overlay {
 				Point gridPos = (Point) stash.readObject();
 				Dimension gridSize = (Dimension) stash.readObject();
 				stash.close();
-				StashWindow.setDefaultWinPos(winPos);
-				StashWindow.setDefaultContainerSize(containerSize);
-				StashWindow.setDefaultGridPos(gridPos);
-				StashWindow.setDefaultGridSize(gridSize);
+				StashGridOverlay.setDefaultWinPos(winPos);
+				StashGridOverlay.setDefaultContainerSize(containerSize);
+				StashGridOverlay.setDefaultGridPos(gridPos);
+				StashGridOverlay.setDefaultGridSize(gridSize);
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			} catch (ClassNotFoundException e1) {
@@ -190,8 +190,8 @@ public class Overlay {
 			}
 		}
 		
-		stashWindow = new StashWindow();
-		optionContainer.add(stashWindow);
+		stashGridOverlay = new StashGridOverlay();
+		optionContainer.add(stashGridOverlay);
 		
 		//CHAT
 		tradeHistory = new TradeHistory();
@@ -204,15 +204,51 @@ public class Overlay {
 		messageContainer.add(messageManager);
 
 		//Finish
-//		characterWindow.setVisible(true);
 		
 		menubarFrame.pack();
 		menubarFrame.setVisible(true);
 		optionFrame.pack();
 		optionFrame.setVisible(true);
-		messageManagerFrame.pack();
-		messageManagerFrame.setVisible(true);
+		messageFrame.pack();
+		messageFrame.setVisible(true);
 		stashHelperContainer.updateBounds();
+		
+		
+		//Temp Testing
+		JFrame debugFrame = new JFrame("SlimTrade Debugger");
+		debugFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Container debugContainer = debugFrame.getContentPane();
+		JButton fixButton = new JButton("Plz Fix");
+		fixButton.setFocusable(false);
+		debugContainer.add(fixButton);
+
+		fixButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseClicked(java.awt.event.MouseEvent e) {
+		    	//OFF
+		    	Overlay.menubarContainer.setVisible(false);
+		    	Overlay.messageContainer.setVisible(false);
+		    	Overlay.optionContainer.setVisible(false);
+		    	Overlay.stashHelperContainer.setVisible(false);
+		    	menubarFrame.setAlwaysOnTop(false);
+		    	messageFrame.setAlwaysOnTop(false);
+		    	optionFrame.setAlwaysOnTop(false);
+		    	
+		    	//ON
+		    	Overlay.menubarContainer.setVisible(true);
+		    	Overlay.messageContainer.setVisible(true);
+		    	Overlay.optionContainer.setVisible(true);
+		    	Overlay.stashHelperContainer.setVisible(true);
+		    	menubarFrame.setAlwaysOnTop(true);
+		    	messageFrame.setAlwaysOnTop(true);
+		    	optionFrame.setAlwaysOnTop(true);
+		    	System.out.println("Fixed!");
+		    }
+		});
+		
+		debugFrame.setBounds(0,0, 400,200);
+		debugFrame.setVisible(true);
+		
+		
 	}
 	
 	public static void centerFrame(JPanel panel){
@@ -223,7 +259,7 @@ public class Overlay {
 		Overlay.characterWindow.setVisible(false);
 		Overlay.historyWindow.setVisible(false);
 		Overlay.optionWindow.setVisible(false);
-		Overlay.stashWindow.setVisible(false);
+		Overlay.stashGridOverlay.setVisible(false);
 	}
 	
 }
