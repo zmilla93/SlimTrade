@@ -22,6 +22,9 @@ import com.zrmiller.slimtrade.buttons.MenuButton;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.GridPanel;
 import com.zrmiller.slimtrade.panels.StashHelperContainer;
+import com.zrmiller.slimtrade.windows.BasicMovableDialog;
+import com.zrmiller.slimtrade.windows.BasicWindowDialog;
+import com.zrmiller.slimtrade.windows.BasicWindowDialog;
 import com.zrmiller.slimtrade.windows.CharacterWindow;
 import com.zrmiller.slimtrade.windows.HistoryWindow;
 import com.zrmiller.slimtrade.windows.MenubarWindow;
@@ -52,7 +55,7 @@ public class Overlay {
 	public static GridPanel stashGrid;
 	public static StashHelperContainer stashHelperContainer;
 	public static TradeHistory tradeHistory;
-	
+
 	public Overlay(){
 		
 		//TODO : Doublecheck all statics
@@ -68,6 +71,32 @@ public class Overlay {
 		flowLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
 		flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 0);
 		flowRight = new FlowLayout(FlowLayout.RIGHT, 0, 0);
+		
+		
+		
+		
+		
+		
+//		BasicMovableDialog mover = new BasicMovableDialog();
+//		mover.setSize(400,400);
+//		mover.setVisible(true);
+//		
+//		BasicWindowDialog tester = new BasicWindowDialog();
+//		BasicWindowDialog tester = new BasicWindowDialog();
+//		tester.setLocation(200, 200);
+//		tester.setVisible(true);
+//		tester.revalidate();
+//		tester.repaint();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		JFrame menubarFrame = new JFrame();
 		menubarFrame.setLayout(null);
@@ -244,7 +273,6 @@ public class Overlay {
 		    	menubarFrame.setAlwaysOnTop(true);
 		    	messageFrame.setAlwaysOnTop(true);
 		    	optionFrame.setAlwaysOnTop(true);
-		    	System.out.println("Fixed!");
 		    }
 		});
 		
