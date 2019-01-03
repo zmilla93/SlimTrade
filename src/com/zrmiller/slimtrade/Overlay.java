@@ -77,23 +77,17 @@ public class Overlay {
 		
 		
 		
-//		BasicMovableDialog mover = new BasicMovableDialog();
-//		mover.setSize(400,400);
-//		mover.setVisible(true);
-//		
-//		BasicWindowDialog tester = new BasicWindowDialog();
-//		BasicWindowDialog tester = new BasicWindowDialog();
-//		tester.setLocation(200, 200);
-//		tester.setVisible(true);
-//		tester.revalidate();
-//		tester.repaint();
+		BasicMovableDialog mover = new BasicMovableDialog();
+		mover.setScreenLock(false);
+		mover.setSize(400,400);
+		mover.setVisible(true);
 		
-		
-		
-		
-		
-		
-		
+		BasicWindowDialog tester = new BasicWindowDialog();
+		tester.setScreenLock(false);
+		tester.setLocation(200, 200);
+		tester.setVisible(true);
+		tester.revalidate();
+		tester.repaint();
 		
 		
 		
