@@ -9,13 +9,13 @@ import java.io.IOException;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.panels.BasicPanel;
+import com.zrmiller.slimtrade.windows.BasicDialog;
 import com.zrmiller.slimtrade.windows.MessageWindow;
 
-public class MessageManager extends JPanel{
+public class MessageManager extends BasicDialog{
 
 	private static final long serialVersionUID = 1L;
 	private int msgGapSize = 1;

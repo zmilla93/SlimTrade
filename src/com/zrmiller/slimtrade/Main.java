@@ -1,7 +1,5 @@
 package com.zrmiller.slimtrade;
 
-import java.awt.AWTException;
-
 import com.zrmiller.slimtrade.windows.FrameManager;
 
 public class Main {	
@@ -20,10 +18,6 @@ public class Main {
 		
 		
 //		Overlay overlay = new Overlay();
-		
-		
-		
-		
 		
 		
 		//EXAMPLE AUDIO CODE

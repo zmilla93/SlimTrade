@@ -5,12 +5,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.buttons.IconButton;
 
-public class BasicWindowDialog extends BasicMovableDialog {
+public class BasicWindowDialog extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -24,12 +25,12 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	//INTERNAL
 	
 	public BasicWindowDialog(){
-		super(menubarPanel);
+//		super(menubarPanel);
 		buildDialog("");
 	}
 	
 	public BasicWindowDialog(String title){
-		super(menubarPanel);
+//		super(menubarPanel);
 		buildDialog(title);
 	}
 	
@@ -52,7 +53,7 @@ public class BasicWindowDialog extends BasicMovableDialog {
 		menubarContainer.add(menubarPanel);
 		menubarContainer.add(closeButton);
 		this.add(menubarContainer);
-		moverPanel = menubarPanel;
+//		moverPanel = menubarPanel;
 		
 		
 		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {

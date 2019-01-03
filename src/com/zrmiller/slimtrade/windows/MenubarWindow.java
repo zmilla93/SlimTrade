@@ -1,6 +1,5 @@
 package com.zrmiller.slimtrade.windows;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
@@ -8,18 +7,16 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Random;
 
-import javax.swing.JPanel;
-
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.TradeOffer;
+import com.zrmiller.slimtrade.TradeUtility;
 import com.zrmiller.slimtrade.buttons.MenuButton;
 import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 
-public class MenubarWindow extends JPanel{
+public class MenubarWindow extends BasicDialog{
 	
 	private static final long serialVersionUID = 1L;
-	
 	
 	private int buttonCount = 7;
 	private int spacerCount = 2;
@@ -37,8 +34,10 @@ public class MenubarWindow extends JPanel{
 	public MenubarWindow(){
 		//TODO:Toggle off
 //		this.setVisible(false);
-		this.setBounds(0, Overlay.screenHeight-totalHeight, MenuButton.width, totalHeight);
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0,0));
+		
+		this.setBounds(0,TradeUtility.screenSize.height-totalHeight, MenuButton.width, totalHeight);
+		
+//		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0,0));
 		
 		optionsButton = new MenuButton("Options");
 		this.add(optionsButton);
