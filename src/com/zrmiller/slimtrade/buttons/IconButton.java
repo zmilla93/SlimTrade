@@ -2,6 +2,7 @@ package com.zrmiller.slimtrade.buttons;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.MouseListener;
 
@@ -27,6 +28,7 @@ public class IconButton extends JPanel{
 	public Color borderColor;
 	public Color borderColor_hover;
 	private Border border = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+//	private Border border = BorderFactory.createEmptyBorder();
 	private Border border_hover = BorderFactory.createLineBorder(Color.BLACK);
 
 	public IconButton(String imgPath, int width, int height){
@@ -42,7 +44,7 @@ public class IconButton extends JPanel{
 	}
 	
 	private void buildButton(){
-		this.setLayout(Overlay.flowCenter);
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setBackground(this.bgColor);
 		this.setBorder(border);

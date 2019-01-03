@@ -14,7 +14,7 @@ public class BasicMovableDialog extends BasicDialog {
 	
 	private int offsetX;
 	private int offsetY;
-	private boolean lockToScreen = true;
+	private boolean screenLock = false;
 	private boolean mouseDown = false;
 	public JPanel moverPanel;
 	
@@ -49,8 +49,8 @@ public class BasicMovableDialog extends BasicDialog {
 		});
 	}
 	
-	public void setScreenLock(boolean lock){
-		lockToScreen = lock;
+	public void setScreenLock(boolean state){
+		screenLock = state;
 	}
 	
 	private void moveWindow(Point p){
@@ -71,7 +71,7 @@ public class BasicMovableDialog extends BasicDialog {
 				while(mouseDown){
 					int targetX = MouseInfo.getPointerInfo().getLocation().x-offsetX;
 					int targetY = MouseInfo.getPointerInfo().getLocation().y-offsetY;
-					if(lockToScreen){
+					if(screenLock){
 						if(targetX<0) targetX = 0;
 						if(targetX>TradeUtility.screenSize.width-getDialogWidth()) targetX = TradeUtility.screenSize.width-getDialogWidth();
 						if(targetY<0) targetY = 0;
