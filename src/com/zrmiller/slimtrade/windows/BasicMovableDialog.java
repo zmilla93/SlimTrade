@@ -49,6 +49,10 @@ public class BasicMovableDialog extends BasicDialog {
 		});
 	}
 	
+	public void setScreenLock(boolean lock){
+		lockToScreen = lock;
+	}
+	
 	private void moveWindow(Point p){
 		this.setLocation(p);
 	}
