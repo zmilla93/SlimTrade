@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade.windows;
+package com.zrmiller.slimtrade.dialog;
 
 import javax.swing.JFrame;
 
@@ -10,7 +10,7 @@ public class BasicDialog extends JFrame{
 		this.setUndecorated(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setAlwaysOnTop(true);
-		this.setType(JFrame.Type.UTILITY);
+//		this.setType(JFrame.Type.UTILITY);
 	}
 	
 	public void forceToTop(){

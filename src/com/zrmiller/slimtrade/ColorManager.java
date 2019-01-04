@@ -7,9 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 public class ColorManager {
-	
-//	private Hashtable<String, Color> color = new Hashtable<String, Color>();
-	
+		
 	public static Color CLEAR = new Color(1.0F, 1.0F, 1.0F, 0.0F);
 	
 	

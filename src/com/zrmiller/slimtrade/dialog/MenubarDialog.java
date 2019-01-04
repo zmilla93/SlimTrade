@@ -1,5 +1,6 @@
-package com.zrmiller.slimtrade.windows;
+package com.zrmiller.slimtrade.dialog;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
@@ -13,10 +14,9 @@ import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.TradeUtility;
 import com.zrmiller.slimtrade.buttons.MenuButton;
 import com.zrmiller.slimtrade.datatypes.MessageType;
-import com.zrmiller.slimtrade.dialog.BasicMovableDialog;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 
-public class MenubarWindow extends BasicMovableDialog{
+public class MenubarDialog extends BasicDialog{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -33,13 +33,12 @@ public class MenubarWindow extends BasicMovableDialog{
 	private MenuButton quitButton;
 	private MenuButton minimizeButton;
 	
-	public MenubarWindow(){
+	public MenubarDialog(){
 		//TODO:Toggle off
 //		this.setVisible(false);
 		
 		this.setBounds(0,TradeUtility.screenSize.height-totalHeight, MenuButton.width, totalHeight);
-		
-//		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0,0));
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
 		optionsButton = new MenuButton("Options");
 		this.add(optionsButton);
@@ -73,11 +72,11 @@ public class MenubarWindow extends BasicMovableDialog{
 		//STASH
 		stashButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(Overlay.stashGridOverlay.isVisible()){
-		    		Overlay.stashGridOverlay.setVisible(false);
+		    	if(FrameManager.stashGridOverlay.isVisible()){
+		    		FrameManager.stashGridOverlay.setVisible(false);
 		    	}else{
-		    		Overlay.hideAllTempFrames();
-		    		Overlay.stashGridOverlay.setVisible(true);
+		    		FrameManager.hideAllFrames();
+		    		FrameManager.stashGridOverlay.setVisible(true);
 		    	}
 		    }
 		});
@@ -109,13 +108,19 @@ public class MenubarWindow extends BasicMovableDialog{
 		//TEST
 		testButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				System.out.println("Test!");
 				Random rng = new Random();
 				TradeOffer t = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12)+1, rng.nextInt(12)+1, "");
 				TradeOffer t2 = new TradeOffer(MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12)+1, rng.nextInt(12)+1, "");
 				TradeOffer t3 = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "BLANK STASH ITEM", 3.5, "chaos", 3.5, "STASH_TAB", 0, 0, "");
 				FrameManager.messageManager.addMessage(t);
 				FrameManager.messageManager.addMessage(t2);
+//				int i = 0;
+//				for(i=0;i<20;i++){
+//					FrameManager.messageManager.addMessage(t);
+//				}
+//				for(i=0;i<20;i++){
+//					FrameManager.messageManager.removeMessage(i);
+//				}
 			}
 		});
 		

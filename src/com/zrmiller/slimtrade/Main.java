@@ -1,20 +1,19 @@
 package com.zrmiller.slimtrade;
 
-import com.zrmiller.slimtrade.windows.FrameManager;
+import java.awt.AWTException;
 
 public class Main {	
 	
 	public static void main(String[] args) {
 		//Creates Robot
 		
-//		try {
-//			PoeInterface poe = new PoeInterface();
-//		} catch (AWTException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			PoeInterface poe = new PoeInterface();
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
 		
 		FrameManager frameManager = new FrameManager();
-		
 		
 		
 //		Overlay overlay = new Overlay();

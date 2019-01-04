@@ -1,26 +1,30 @@
-package com.zrmiller.slimtrade.windows;
+package com.zrmiller.slimtrade.dialog;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JFrame;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.buttons.IconButton;
 
-public class BasicWindowDialog extends JFrame {
+public class BasicWindowDialog extends BasicMovableDialog {
 
 	private static final long serialVersionUID = 1L;
-	
-	private int defaultWidth = 400;
-	private int defaultHeight = 800;
-	private int buttonSize = 20;
+
+	private static int defaultWidth = 400;
+	private static int defaultHeight = 800;
+	private static int buttonSize = 20;
 	private static int titleOffset = 5;
 	
-	private static JPanel menubarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
+//	private static JPanel menubarPanel;
+	
+	public IconButton closeButton = new IconButton("/close.png", buttonSize, buttonSize);
+	
+	
 	
 	//INTERNAL
 	
@@ -35,26 +39,26 @@ public class BasicWindowDialog extends JFrame {
 	}
 	
 	private void buildDialog(String title){
-		
+		this.getContentPane().setBackground(Color.YELLOW);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		this.setSize(new Dimension(defaultWidth, defaultHeight));
+		this.setSize(defaultWidth, defaultHeight);
 		
-		JPanel menubarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0 , 0));
-		menubarContainer.setPreferredSize(new Dimension(defaultWidth, buttonSize));
-		menubarContainer.setBackground(Color.LIGHT_GRAY);
 		JLabel titleLabel = new JLabel(title);
-		menubarPanel.add(titleLabel);
-
+		
+		JPanel menubarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
 		menubarPanel.setPreferredSize(new Dimension(defaultWidth-buttonSize, buttonSize));
-		menubarPanel.setBackground(Color.GRAY);
+		menubarPanel.setBackground(Color.RED);
 		
-		IconButton closeButton = new IconButton("/close.png", buttonSize, buttonSize);
+		JPanel menubarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		menubarContainer.setPreferredSize(new Dimension(defaultWidth, buttonSize));
+		menubarContainer.setBackground(Color.green);
 		
+		menubarPanel.add(titleLabel);
 		menubarContainer.add(menubarPanel);
 		menubarContainer.add(closeButton);
 		this.add(menubarContainer);
-//		moverPanel = menubarPanel;
-		
+
+		createListeners(menubarPanel);
 		
 		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseReleased(java.awt.event.MouseEvent e) {

@@ -15,11 +15,13 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.GridPanel;
 
-public class StashGridOverlay extends BasicMenuWindow{
 
+public class StashGridOverlay extends BasicWindowDialog{
+	
 	private static final long serialVersionUID = 1L;
 	//STATICS
 	private static Point windowPos = new Point(0, 0);
@@ -50,35 +52,35 @@ public class StashGridOverlay extends BasicMenuWindow{
 	
 	//TODO : right and bottom edges of grids don't shows
 	public StashGridOverlay(){
-		super("Stash Overlay", containerSize.width, containerSize.height);
+		super("Stash Overlay");
 		this.setVisible(false);
 		this.setLocation(windowPos);
 		this.setMinimumSize(new Dimension(200,200));
-		this.setSnapSize(snapSize);
+//		this.setSnapSize(snapSize);
 		gridWidth = containerSize.width-bufferThin-bufferThick;
 		gridHeight = containerSize.height-bufferThin-bufferThick-infoPanelHeight;
 		StashGridOverlay.setDefaultGridSize(new Dimension(gridWidth, gridHeight));
-		container.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout());
 		//TODO : Move clear background to BasicMenuWindow?
-		container.setBackground(new Color(1.0f,1.0f,1.0f,0.25f));
-		container.setBounds(0, 0, containerSize.width, containerSize.height);
+		this.setBackground(new Color(1.0f,1.0f,1.0f,0.25f));
+		this.setBounds(0, 0, containerSize.width, containerSize.height);
 		
 		grid = new GridPanel(gridWidth, gridHeight);
 		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		grid.setLineColor(Color.GREEN);
-		container.add(grid, BorderLayout.CENTER);
+		this.add(grid, BorderLayout.CENTER);
 		
 		BasicPanel topSpacer = new BasicPanel(gridWidth+bufferThick+bufferThin, bufferThin);
-		container.add(topSpacer, BorderLayout.PAGE_START);
+		this.add(topSpacer, BorderLayout.PAGE_START);
 		
 		BasicPanel leftSpacer = new BasicPanel(bufferThin, gridHeight);
-		container.add(leftSpacer, BorderLayout.LINE_START);
+		this.add(leftSpacer, BorderLayout.LINE_START);
 		
 		BasicPanel rightPullBar = new BasicPanel(bufferThick, gridHeight);
 		rightPullBar.setBackground(Color.DARK_GRAY);
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED);
 		rightPullBar.setBorder(b);
-		container.add(rightPullBar, BorderLayout.LINE_END);
+		this.add(rightPullBar, BorderLayout.LINE_END);
 		
 		//BOTTOM
 		BasicPanel bottomPullBar = new BasicPanel(gridWidth, bufferThick);
@@ -100,14 +102,14 @@ public class StashGridOverlay extends BasicMenuWindow{
 		bottomContainer.setLayout(new BorderLayout());
 		bottomContainer.add(bottomPullBar, BorderLayout.PAGE_START);
 		bottomContainer.add(infoPanel, BorderLayout.PAGE_END);
-		container.add(bottomContainer, BorderLayout.PAGE_END);
+		this.add(bottomContainer, BorderLayout.PAGE_END);
 		
 		//Width Adjust
 		rightPullBar.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				startingX = e.getXOnScreen();
-		    	startingContainerWidth = container.getWidth();
-		    	startingContainerHeight = container.getHeight();
+		    	startingContainerWidth = getContainerWidth();
+		    	startingContainerHeight = getContainerHeight();
 		    }
 		});
 		
@@ -122,8 +124,8 @@ public class StashGridOverlay extends BasicMenuWindow{
 		bottomPullBar.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent e) {
 		    	startingY = e.getYOnScreen();
-		    	startingContainerWidth = container.getWidth();
-		    	startingContainerHeight = container.getHeight();
+		    	startingContainerWidth = getContainerWidth();
+		    	startingContainerHeight = getContainerHeight();
 		    }
 		});
 		
@@ -161,12 +163,20 @@ public class StashGridOverlay extends BasicMenuWindow{
 		});
 		
 		//TODO : Better way to implement extension of buttons from parent BasicMenuWindow?
-		this.getCloseButton().addMouseListener(new java.awt.event.MouseAdapter() {
+		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				reset();
 				hideStashWindow();
 		    }
 		});
+	}
+	
+	private int getContainerWidth(){
+		return this.getWidth();
+	}
+	
+	private int getContainerHeight(){
+		return this.getHeight();
 	}
 	
 	private void hideStashWindow(){
@@ -209,7 +219,7 @@ public class StashGridOverlay extends BasicMenuWindow{
 	
 	private void saveDataLocally(){
 		setDefaultWinPos(this.getLocationOnScreen());
-		setDefaultContainerSize(container.getSize());
+		setDefaultContainerSize(this.getSize());
 		setDefaultGridPos(grid.getLocationOnScreen());
 		setDefaultGridSize(grid.getSize());
 	}
@@ -237,7 +247,8 @@ public class StashGridOverlay extends BasicMenuWindow{
 		int h = height<this.getMinimumSize().height ? this.getMinimumSize().height : height;
 		int gridWidth = w-bufferThin-bufferThick;
 		int gridHeight = h-bufferThin-bufferThick-infoPanelHeight;
-		this.resizeWindow(w, h);
+		//HMMMMMMMMMMMM
+//		this.resizeWindow(w, h);
 		grid.resizeGrid(gridWidth, gridHeight);
 	}
 }

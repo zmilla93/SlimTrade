@@ -4,7 +4,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import com.zrmiller.slimtrade.windows.MessageWindow;
+import com.zrmiller.slimtrade.windows.MessagePanel;
 
 public class BasicMoveablePanel extends JPanel{
 	
@@ -16,7 +16,7 @@ public class BasicMoveablePanel extends JPanel{
 	private int offsetY = 0;
 	
 	public BasicMoveablePanel(){
-		this.setSize(MessageWindow.totalWidth, MessageWindow.totalHeight);
+		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 //		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
 		//this.add(msg);

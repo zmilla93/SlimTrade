@@ -3,12 +3,10 @@ package com.zrmiller.slimtrade.panels;
 import java.awt.Color;
 import java.awt.FlowLayout;
 
-import javax.swing.JPanel;
-
-import com.zrmiller.slimtrade.ColorManager;
+import com.zrmiller.slimtrade.dialog.BasicDialog;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
-public class StashHelperContainer extends JPanel{
+public class StashHelperContainer extends BasicDialog{
 	
 	private static final long serialVersionUID = 1L;
 	public static int height = StashHelper.height;
@@ -16,7 +14,7 @@ public class StashHelperContainer extends JPanel{
 	private int spacingX = 5;
 	
 	public StashHelperContainer(){
-		this.setBackground(ColorManager.CLEAR);
+		this.setBackground(Color.YELLOW);
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
 	}

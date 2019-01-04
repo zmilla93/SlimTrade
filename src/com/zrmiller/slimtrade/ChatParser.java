@@ -97,7 +97,7 @@ public class ChatParser {
 						TradeOffer trade = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
 								tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(11)), f2, 
 								tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
-						Overlay.messageManager.addMessage(trade);
+						FrameManager.messageManager.addMessage(trade);
 					}else if(joinAreaMatcher.matches()){
 					}
 				}

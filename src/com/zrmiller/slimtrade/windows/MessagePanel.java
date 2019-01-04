@@ -25,7 +25,7 @@ import com.zrmiller.slimtrade.panels.BasicIcon;
 import com.zrmiller.slimtrade.panels.StashHelper;
 
 //TODO : Refocus POE on all clicks
-public class MessageWindow extends JPanel{
+public class MessagePanel extends JPanel{
 	
 	//GLOBAL
 	private static final long serialVersionUID = 1L;
@@ -73,7 +73,9 @@ public class MessageWindow extends JPanel{
 	
 	
 	
-	public MessageWindow(TradeOffer trade){
+	public MessagePanel(TradeOffer trade){
+		
+		FlowLayout flowLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
 		try {
 			robot = new Robot();
 		} catch (AWTException e1) {
@@ -133,9 +135,8 @@ public class MessageWindow extends JPanel{
 		//TOP PANEL
 		LayoutManager panelFlow = new FlowLayout(FlowLayout.CENTER, 0, 1);
 		JPanel topPanel = new JPanel();
-		topPanel.setLayout(Overlay.flowCenter);
+		topPanel.setLayout(flowLeft);
 		topPanel.setPreferredSize(new Dimension(width, rowHeight));
-		topPanel.setBackground(Color.CYAN);
 		container.add(topPanel, BorderLayout.PAGE_START);
 		
 		
@@ -242,14 +243,11 @@ public class MessageWindow extends JPanel{
 			}});
 			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				if(evt.getButton() == MouseEvent.BUTTON1){
-					stashHelper.itemHighlighter.setVisible(false);
-			    	Overlay.messageContainer.remove(stashHelper.itemHighlighter);
-			    	Overlay.stashHelperContainer.remove(stashHelper);
-			    	Overlay.stashHelperContainer.refresh();
+					//Reenable refresh later
+//			    	Overlay.stashHelperContainer.refresh();
 				}else if(evt.getButton() == MouseEvent.BUTTON3){
 					//TODO : Having two actions causes 2nd action to be performed twice?
 					//Probably has to do with the clipboard. should combine paste then kick into one method
-//					System.out.println("?????????");
 //					PoeInterface.paste("/kick " + trade.playerName);
 					PoeInterface.paste("@" + trade.playerName + " sold, sorry");
 				}
@@ -270,7 +268,7 @@ public class MessageWindow extends JPanel{
 			//
 			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				PoeInterface.paste("/invite " + trade.playerName);
-				stashHelper.setVisible(true);
+//				stashHelper.setVisible(true);
 				inviteToPartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
 				tradeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
 			}});
@@ -293,9 +291,9 @@ public class MessageWindow extends JPanel{
 			//STASH HELPER
 			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
-			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName, trade.priceTypeString, trade.priceCount);
-			stashHelper.setVisible(false);
-			Overlay.stashHelperContainer.add(stashHelper);
+//			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName, trade.priceTypeString, trade.priceCount);
+//			stashHelper.setVisible(false);
+//			Overlay.stashHelperContainer.add(stashHelper);
 			
 			
 			//Item Panel Actions
@@ -311,7 +309,7 @@ public class MessageWindow extends JPanel{
 			});
 			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			    public void mouseClicked(java.awt.event.MouseEvent evt) {
-			    	stashHelper.setVisible(true);
+//			    	stashHelper.setVisible(true);
 			    }
 			});
 			break;
@@ -363,7 +361,7 @@ public class MessageWindow extends JPanel{
 		updateColor();
 
 	}
-	
+
 	//TODO : Naming conventions? updatePresetColors?
 	private void updateButton(BasicIconButton button){
 		button.bgColor = ColorManager.MsgWindow.buttonBG;
@@ -373,6 +371,7 @@ public class MessageWindow extends JPanel{
 	
 	public void updateColor(){
 		//Panels
+//		System.out.println(ColorManager.MsgWindow.borderOuter);
 		this.borderOuter.setBackground(ColorManager.MsgWindow.borderOuter);
 		this.borderInner.setBackground(ColorManager.MsgWindow.borderInner);
 		this.namePanel.setBackground(ColorManager.MsgWindow.nameBG);

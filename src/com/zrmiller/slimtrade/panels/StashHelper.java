@@ -15,9 +15,10 @@ import javax.swing.Timer;
 
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.PoeInterface;
+import com.zrmiller.slimtrade.dialog.BasicDialog;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
-public class StashHelper extends JPanel{
+public class StashHelper extends BasicDialog{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -43,7 +44,7 @@ public class StashHelper extends JPanel{
 	public StashHelper(int x, int y, String stashtab, String itemName, String priceType, double priceCount){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, borderThickness));
 		this.setPreferredSize(new Dimension(width, height));
-		this.setBorder(BorderFactory.createLineBorder(Color.WHITE, borderThickness, true));
+//		this.setBorder(BorderFactory.createLineBorder(Color.WHITE, borderThickness, true));
 		BasicPanel stashPanel = new BasicPanel(width, height/3, Overlay.flowCenter);
 		String fixedStashtabName = stashtab == null ? "(~price " + Double.toString(priceCount).replaceAll("[.]0", "") + " " + priceType + ")" : stashtab;
 		JLabel stashLabel = new JLabel(fixedStashtabName);

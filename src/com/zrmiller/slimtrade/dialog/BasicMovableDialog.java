@@ -1,4 +1,4 @@
-package com.zrmiller.slimtrade.windows;
+package com.zrmiller.slimtrade.dialog;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -19,17 +19,15 @@ public class BasicMovableDialog extends BasicDialog {
 	public JPanel moverPanel;
 	
 	public BasicMovableDialog(){
-		moverPanel = (JPanel) this.getContentPane();
-		createListeners();
+		
 	}
 	
 	public BasicMovableDialog(JPanel mover){
-		moverPanel = mover;
-		createListeners();
+		createListeners(mover);
 	}
 	
-	private void createListeners(){
-		moverPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+	public void createListeners(JPanel p){
+		p.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mousePressed(java.awt.event.MouseEvent e) {
 		    	if(e.getButton() == MouseEvent.BUTTON1){
 		    		offsetX = e.getX();
@@ -40,7 +38,7 @@ public class BasicMovableDialog extends BasicDialog {
 		    }
 		});
 		
-		moverPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+		p.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseReleased(java.awt.event.MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1){
 					mouseDown = false;

@@ -19,12 +19,11 @@ import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.buttons.CloseButton;
 import com.zrmiller.slimtrade.buttons.MenuButton;
+import com.zrmiller.slimtrade.dialog.BasicMovableDialog;
+import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.GridPanel;
 import com.zrmiller.slimtrade.panels.StashHelperContainer;
-import com.zrmiller.slimtrade.windows.BasicMovableDialog;
-import com.zrmiller.slimtrade.windows.BasicWindowDialog;
-import com.zrmiller.slimtrade.windows.BasicWindowDialog;
 import com.zrmiller.slimtrade.windows.CharacterWindow;
 import com.zrmiller.slimtrade.windows.HistoryWindow;
 import com.zrmiller.slimtrade.windows.MenubarWindow;
@@ -49,7 +48,7 @@ public class Overlay {
 	public static HistoryWindow historyWindow;
 	public static MenubarWindow menubarWindow;
 	public static JButton menubarShowButton;
-	public static MessageManager messageManager;
+//	public static MessageManager messageManager;
 	public static OptionWindow optionWindow;
 	public static StashGridOverlay stashGridOverlay;
 	public static GridPanel stashGrid;
@@ -228,8 +227,8 @@ public class Overlay {
 //		parser.update();
 		
 		//Message Manager - SHOULD ALWAYS BE LAST
-		messageManager = new MessageManager();
-		messageContainer.add(messageManager);
+//		messageManager = new MessageManager();
+//		messageContainer.add(messageManager);
 
 		//Finish
 		
