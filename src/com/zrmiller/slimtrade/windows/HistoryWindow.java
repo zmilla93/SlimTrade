@@ -1,22 +1,19 @@
 package com.zrmiller.slimtrade.windows;
 
-import java.awt.Dimension;
-
-import javax.swing.JPanel;
 import javax.swing.JTable;
-
-import com.zrmiller.slimtrade.Overlay;
 
 public class HistoryWindow extends BasicMenuWindow{
 
+	private static final long serialVersionUID = 1L;
 	public static int width = 400;
 	public static int height = 400;
 	
-	public HistoryWindow(){
+	public HistoryWindow(String title){
 		super("History", width, height);
 		this.setVisible(false);
-		container.setPreferredSize(new Dimension(width, height));
-		container.setBounds(0, 0, width, height);
+//		this.setSize(width, height);
+//		container.setPreferredSize(new Dimension(width, height));
+//		this.setBounds(0, 0, width, height);
 		String[] columnNames = {"One", "Two"};
 		Object[][] data = {
 				{"F", "L"},

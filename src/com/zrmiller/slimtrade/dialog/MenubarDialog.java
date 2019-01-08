@@ -84,11 +84,11 @@ public class MenubarDialog extends BasicDialog{
 		//HISTORY
 		historyButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(Overlay.historyWindow.isVisible()){
-		    		Overlay.historyWindow.setVisible(false);
+		    	if(FrameManager.historyWindow.isVisible()){
+		    		FrameManager.historyWindow.setVisible(false);
 		    	}else{
-		    		Overlay.hideAllTempFrames();
-		    		Overlay.historyWindow.setVisible(true);
+		    		FrameManager.hideAllFrames();
+		    		FrameManager.historyWindow.setVisible(true);
 		    	}
 		    }
 		});
@@ -146,9 +146,8 @@ public class MenubarDialog extends BasicDialog{
 		
 		minimizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {
-		    	Overlay.menubarWindow.setVisible(false);
-		    	Overlay.menubarShowButton.setVisible(true);
-		    	
+		    	FrameManager.menubar.setVisible(false);
+		    	FrameManager.menubarToggle.setVisible(true);
 		    }
 		});
 		

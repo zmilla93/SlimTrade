@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.FrameManager;
 import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.GridPanel;
@@ -25,9 +25,10 @@ public class StashGridOverlay extends BasicWindowDialog{
 	private static final long serialVersionUID = 1L;
 	//STATICS
 	private static Point windowPos = new Point(0, 0);
-	private static Dimension containerSize = new Dimension(400,400);
+	private static Dimension windowSize = new Dimension(400,400);
 	private static Point gridPos = new Point(0, 0);
 	private static Dimension gridSize;
+	
 	private static int gridWidth;
 	private static int gridHeight;
 	
@@ -40,7 +41,6 @@ public class StashGridOverlay extends BasicWindowDialog{
 	private int buttonMarginTop = (infoPanelHeight-buttonHeight)/2;
 
 	//RESIZING
-	private int snapSize = 1;
 	private int startingX;
 	private int startingY;
 	private int startingContainerWidth;
@@ -51,20 +51,21 @@ public class StashGridOverlay extends BasicWindowDialog{
 	private int bufferThin = 5;
 	private int bufferThick = 12;
 	
-	//TODO : right and bottom edges of grids don't shows
-	public StashGridOverlay(){
+	//TODO : Improve naming conventions
+	//TODO : Get rid of all the getters and setters and have methods automatically update these instead
+	public StashGridOverlay(Point winPos, int winWidth, int winHeight){
 		super("Stash Overlay");
 		this.setVisible(false);
-		this.setLocation(windowPos);
+		this.setLocation(winPos);
 		this.setMinimumSize(new Dimension(minSize, minSize));
-//		this.setSnapSize(snapSize);
-		gridWidth = containerSize.width-bufferThin-bufferThick;
-		gridHeight = containerSize.height-bufferThin-bufferThick-infoPanelHeight;
-		StashGridOverlay.setDefaultGridSize(new Dimension(gridWidth, gridHeight));
+		gridWidth = winWidth-bufferThin-bufferThick;
+		gridHeight = winHeight-bufferThin-bufferThick-infoPanelHeight;
+//		StashGridOverlay.setDefaultGridSize(new Dimension(gridWidth, gridHeight));
+		
 		container.setLayout(new BorderLayout());
 		//TODO : Move clear background to BasicMenuWindow?
 		container.setBackground(new Color(1.0f,1.0f,1.0f,0.25f));
-		container.setBounds(0, 0, containerSize.width, containerSize.height);
+		container.setBounds(winPos.x, winPos.y, winWidth, winHeight);
 		
 		grid = new GridPanel(gridWidth, gridHeight);
 		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
@@ -86,7 +87,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 		//BOTTOM
 		BasicPanel bottomPullBar = new BasicPanel(gridWidth, bufferThick);
 		bottomPullBar.setBackground(Color.DARK_GRAY);
-		BasicPanel infoPanel = new BasicPanel(containerSize.width, infoPanelHeight);
+		BasicPanel infoPanel = new BasicPanel(winWidth, infoPanelHeight);
 		infoPanel.setLayout(new FlowLayout(FlowLayout.CENTER, buttonSpacingX, buttonMarginTop));
 		JButton resetButton = new JButton("Reset");
 		infoPanel.add(resetButton);
@@ -97,15 +98,18 @@ public class StashGridOverlay extends BasicWindowDialog{
 		
 		infoPanel.add(saveButton);
 		
-		BasicPanel bottomContainer = new BasicPanel(containerSize.width, bufferThick+infoPanelHeight);
+		BasicPanel bottomContainer = new BasicPanel(winWidth, bufferThick+infoPanelHeight);
 		bottomPullBar.setBorder(b);
-		
 		bottomContainer.setLayout(new BorderLayout());
 		bottomContainer.add(bottomPullBar, BorderLayout.PAGE_START);
 		bottomContainer.add(infoPanel, BorderLayout.PAGE_END);
 		container.add(bottomContainer, BorderLayout.PAGE_END);
 		
-		this.resizeStashWindow(minSize*2, minSize*2);
+//		this.resizeStashWindow(minSize*2, minSize*2);
+
+		this.resizeStashWindow(winWidth, winHeight);
+//		saveDataLocally();
+		FrameManager.stashHelperContainer.updateBounds(winPos.x, winPos.y, winWidth);
 		
 		//Width Adjust
 		rightPullBar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,13 +156,13 @@ public class StashGridOverlay extends BasicWindowDialog{
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				try {
 					saveDataLocally();
-					ObjectOutputStream stash = new ObjectOutputStream(new FileOutputStream("stash.pref"));
-					stash.writeObject(StashGridOverlay.windowPos);
-					stash.writeObject(StashGridOverlay.containerSize);
-					stash.writeObject(StashGridOverlay.gridPos);
-					stash.writeObject(StashGridOverlay.gridSize);
-					stash.close();
-					Overlay.stashHelperContainer.updateBounds();
+					ObjectOutputStream stashFile = new ObjectOutputStream(new FileOutputStream("stash.pref"));
+					stashFile.writeObject(StashGridOverlay.windowPos);
+					stashFile.writeObject(StashGridOverlay.windowSize);
+					stashFile.writeObject(StashGridOverlay.gridPos);
+					stashFile.writeObject(StashGridOverlay.gridSize);
+					stashFile.close();
+					FrameManager.stashHelperContainer.updateBounds();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -191,16 +195,16 @@ public class StashGridOverlay extends BasicWindowDialog{
 		StashGridOverlay.windowPos = pos;
 	}
 	
-	public static void setDefaultContainerSize(Dimension size){
-		StashGridOverlay.containerSize = size;
+	public static void setDefaultWinSize(Dimension size){
+		StashGridOverlay.windowSize = size;
 	}
 	
 	public static Point getWinPos(){
 		return StashGridOverlay.windowPos;
 	}
 	
-	public static Dimension getContainerSize(){
-		return StashGridOverlay.containerSize;
+	public static Dimension getwindowSize(){
+		return StashGridOverlay.windowSize;
 	}
 	
 	//GRID GETTERS/SETTERS
@@ -222,23 +226,15 @@ public class StashGridOverlay extends BasicWindowDialog{
 	
 	private void saveDataLocally(){
 		setDefaultWinPos(this.getLocationOnScreen());
-		setDefaultContainerSize(this.getSize());
+		setDefaultWinSize(new Dimension(this.getSize().width, this.getSize().height-BasicMenuWindow.titlebarHeight));
 		setDefaultGridPos(grid.getLocationOnScreen());
 		setDefaultGridSize(grid.getSize());
 	}
 	
 	public void reset(){
 		this.setLocation(windowPos);
-		this.resizeStashWindow(containerSize.width, containerSize.height);
+		this.resizeStashWindow(windowSize.width, windowSize.height);
 	}
-	
-//	private Point getWindowLocation(){
-//		return this.getLocation();
-//	}
-	
-//	public static void setwindowPosition(Point p){
-//		StashGridOverlay.windowPos = p;
-//	}
 	
 	public void refresh(){
 		this.revalidate();
@@ -250,12 +246,10 @@ public class StashGridOverlay extends BasicWindowDialog{
 		int h = height<this.getMinimumSize().height ? this.getMinimumSize().height : height;
 		int gridWidth = w-bufferThin-bufferThick;
 		int gridHeight = h-bufferThin-bufferThick-infoPanelHeight;
-		//HMMMMMMMMMMMM
-//		this.setWidth(w);
-//		this.setHeight(h);
+		grid.resizeGrid(gridWidth, gridHeight);
 		this.resizeWindow(w, h);
 		this.revalidate();
 		this.repaint();
-		grid.resizeGrid(gridWidth, gridHeight);
+		
 	}
 }

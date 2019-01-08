@@ -19,7 +19,7 @@ public class BasicMenuWindow extends JPanel{
 	private JPanel titlebar;
 	private JPanel titlebarPanel;
 	private JLabel titlebarLabel;
-	public int titlebarHeight = 20;
+	public static int titlebarHeight = 20;
 	private String title = "";
 	private BasicIconButton closeButton;
 	//CONTENT PANEL

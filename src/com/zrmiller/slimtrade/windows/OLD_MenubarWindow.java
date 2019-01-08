@@ -16,7 +16,7 @@ import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.dialog.BasicMovableDialog;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 
-public class MenubarWindow extends BasicMovableDialog{
+public class OLD_MenubarWindow extends BasicMovableDialog{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -33,7 +33,7 @@ public class MenubarWindow extends BasicMovableDialog{
 	private MenuButton quitButton;
 	private MenuButton minimizeButton;
 	
-	public MenubarWindow(){
+	public OLD_MenubarWindow(){
 		//TODO:Toggle off
 //		this.setVisible(false);
 		

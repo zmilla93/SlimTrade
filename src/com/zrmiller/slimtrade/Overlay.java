@@ -26,7 +26,7 @@ import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.GridPanel;
 import com.zrmiller.slimtrade.windows.CharacterWindow;
 import com.zrmiller.slimtrade.windows.HistoryWindow;
-import com.zrmiller.slimtrade.windows.MenubarWindow;
+import com.zrmiller.slimtrade.windows.OLD_MenubarWindow;
 import com.zrmiller.slimtrade.windows.OptionWindow;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
@@ -46,7 +46,7 @@ public class Overlay {
 	public static Container messageContainer;
 	public static CharacterWindow characterWindow;
 	public static HistoryWindow historyWindow;
-	public static MenubarWindow menubarWindow;
+	public static OLD_MenubarWindow menubarWindow;
 	public static JButton menubarShowButton;
 //	public static MessageManager messageManager;
 	public static OptionWindow optionWindow;
@@ -165,7 +165,7 @@ public class Overlay {
 		menubarContainer.add(menubarShowButton);
 		
 		//Menu Bar+
-		menubarWindow = new MenubarWindow();
+		menubarWindow = new OLD_MenubarWindow();
 		menubarContainer.add(menubarWindow);
 		
 		optionWindow = new OptionWindow();
@@ -188,7 +188,7 @@ public class Overlay {
 			}
 		}
 		
-		historyWindow = new HistoryWindow();
+		historyWindow = new HistoryWindow("History");
 		centerFrame(historyWindow);
 		optionContainer.add(historyWindow);
 		
@@ -207,7 +207,7 @@ public class Overlay {
 				Dimension gridSize = (Dimension) stash.readObject();
 				stash.close();
 				StashGridOverlay.setDefaultWinPos(winPos);
-				StashGridOverlay.setDefaultContainerSize(containerSize);
+				StashGridOverlay.setDefaultWinSize(containerSize);
 				StashGridOverlay.setDefaultGridPos(gridPos);
 				StashGridOverlay.setDefaultGridSize(gridSize);
 			} catch (IOException e2) {
@@ -217,7 +217,7 @@ public class Overlay {
 			}
 		}
 		
-		stashGridOverlay = new StashGridOverlay();
+//		stashGridOverlay = new StashGridOverlay();
 		optionContainer.add(stashGridOverlay);
 		
 		//CHAT
