@@ -2,6 +2,8 @@ package com.zrmiller.slimtrade;
 
 import java.awt.AWTException;
 
+import com.zrmiller.slimtrade.dialog.BasicMovableDialog;
+
 public class Main {	
 	
 	public static void main(String[] args) {
@@ -15,7 +17,7 @@ public class Main {
 		
 		FrameManager frameManager = new FrameManager();
 		
-		
+
 //		Overlay overlay = new Overlay();
 		
 		

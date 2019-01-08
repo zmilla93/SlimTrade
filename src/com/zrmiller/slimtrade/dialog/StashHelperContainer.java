@@ -1,9 +1,8 @@
-package com.zrmiller.slimtrade.panels;
+package com.zrmiller.slimtrade.dialog;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
 
-import com.zrmiller.slimtrade.dialog.BasicDialog;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
 public class StashHelperContainer extends BasicDialog{

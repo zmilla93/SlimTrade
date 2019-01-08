@@ -19,7 +19,7 @@ public class BasicMovableDialog extends BasicDialog {
 	public JPanel moverPanel;
 	
 	public BasicMovableDialog(){
-		
+		createListeners((JPanel) this.getContentPane());
 	}
 	
 	public BasicMovableDialog(JPanel mover){
@@ -76,7 +76,7 @@ public class BasicMovableDialog extends BasicDialog {
 						if(targetY>TradeUtility.screenSize.height-getDialogHeight()) targetY = TradeUtility.screenSize.height-getDialogHeight();
 					}
 					moveWindow(new Point(targetX, targetY));
-					MouseInfo.getPointerInfo().getLocation();
+//					MouseInfo.getPointerInfo().getLocation();
 				}
 			}
 		}.start();

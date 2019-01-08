@@ -1,6 +1,7 @@
 package com.zrmiller.slimtrade.windows;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -10,8 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 
-public class CharacterWindow extends BasicMenuWindow{
+public class CharacterWindow extends BasicWindowDialog{
 
 	private static final long serialVersionUID = 1L;
 	private static int width = 300;
@@ -26,8 +28,10 @@ public class CharacterWindow extends BasicMenuWindow{
 	JButton saveButton = new JButton("Save");
 	
 	public CharacterWindow(){
-		super("Character", width, height);
-		Overlay.centerFrame(this);
+//		super("Character", width, height);
+		super("Character");
+//		Overlay.centerFrame(this);
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setMinimumSize(new Dimension(10, 10));
 		this.setVisible(false);
 		

@@ -21,8 +21,8 @@ import com.zrmiller.slimtrade.PoeInterface;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicIconButton;
 import com.zrmiller.slimtrade.datatypes.MessageType;
+import com.zrmiller.slimtrade.dialog.StashHelper;
 import com.zrmiller.slimtrade.panels.BasicIcon;
-import com.zrmiller.slimtrade.panels.StashHelper;
 
 //TODO : Refocus POE on all clicks
 public class MessagePanel extends JPanel{

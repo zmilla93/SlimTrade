@@ -60,11 +60,11 @@ public class MenubarDialog extends BasicDialog{
 		//OPTIONS
 		optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(Overlay.optionWindow.isVisible()){
-		    		Overlay.optionWindow.setVisible(false);
+		    	if(FrameManager.optionWindow.isVisible()){
+		    		FrameManager.optionWindow.setVisible(false);
 		    	}else{
-		    		Overlay.hideAllTempFrames();
-		    		Overlay.optionWindow.setVisible(true);
+		    		FrameManager.hideAllFrames();
+		    		FrameManager.optionWindow.setVisible(true);
 		    	}
 		    }
 		});
@@ -72,11 +72,11 @@ public class MenubarDialog extends BasicDialog{
 		//STASH
 		stashButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(FrameManager.stashGridOverlay.isVisible()){
-		    		FrameManager.stashGridOverlay.setVisible(false);
+		    	if(FrameManager.stashOverlay.isVisible()){
+		    		FrameManager.stashOverlay.setVisible(false);
 		    	}else{
 		    		FrameManager.hideAllFrames();
-		    		FrameManager.stashGridOverlay.setVisible(true);
+		    		FrameManager.stashOverlay.setVisible(true);
 		    	}
 		    }
 		});
@@ -96,11 +96,11 @@ public class MenubarDialog extends BasicDialog{
 		//CHARACTER
 		characterButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(Overlay.characterWindow.isVisible()){
-		    		Overlay.characterWindow.setVisible(false);
+		    	if(FrameManager.characterWindow.isVisible()){
+		    		FrameManager.characterWindow.setVisible(false);
 		    	}else{
-		    		Overlay.hideAllTempFrames();
-		    		Overlay.characterWindow.setVisible(true);
+		    		FrameManager.hideAllFrames();
+		    		FrameManager.characterWindow.setVisible(true);
 		    	}
 		    }
 		});
