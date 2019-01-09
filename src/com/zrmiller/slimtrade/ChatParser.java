@@ -108,6 +108,7 @@ public class ChatParser {
 								tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(11)), f2, 
 								tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
 						FrameManager.messageManager.addMessage(trade);
+						FrameManager.forceAllToTop();
 					}else if(joinAreaMatcher.matches()){
 					}
 				}

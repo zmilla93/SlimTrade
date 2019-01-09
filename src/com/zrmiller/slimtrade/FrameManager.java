@@ -33,7 +33,7 @@ public class FrameManager {
 	
 	
 	public FrameManager(){
-		
+		stashHelperContainer = new StashHelperContainer();
 		//TODO : Revisit saving/loading once 
 		File stashFile = new File("stash.pref");
 		if(stashFile.exists()){
@@ -50,6 +50,7 @@ public class FrameManager {
 				StashGridOverlay.setDefaultGridPos(gridPos);
 				StashGridOverlay.setDefaultGridSize(gridSize);
 				stashOverlay = new StashGridOverlay(winPos, winSize.width, winSize.height);
+				stashHelperContainer.updateBounds();
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			} catch (ClassNotFoundException e1) {
@@ -59,8 +60,8 @@ public class FrameManager {
 		}else{
 			stashOverlay = new StashGridOverlay(new Point(0, 0), 200, 400);
 		}
-		stashHelperContainer = new StashHelperContainer();
-		stashHelperContainer.updateBounds();
+		
+//		stashHelperContainer.updateBounds();
 //		StashHelper.updateCellSize(StashGridOverlay.gridWidth, StashGridOverlay.gridHeight);
 		stashHelperContainer.setVisible(true);
 		
@@ -105,6 +106,16 @@ public class FrameManager {
 		historyWindow.setVisible(false);
 		optionWindow.setVisible(false);
 		stashOverlay.setVisible(false);
+	}
+	
+	public static void forceAllToTop(){
+		if(menubarToggle.isVisible()){
+			menubarToggle.forceToTop();
+		}
+		if(menubar.isVisible()){
+			menubar.forceToTop();
+		}
+		messageManager.forceToTop();
 	}
 	
 }
