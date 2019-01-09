@@ -245,7 +245,7 @@ public class MessagePanel extends JPanel{
 			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				if(evt.getButton() == MouseEvent.BUTTON1){
 					//Reenable refresh later
-//			    	Overlay.stashHelperContainer.refresh();
+//			    	FrameManager.stashHelperContainer.refresh();
 				}else if(evt.getButton() == MouseEvent.BUTTON3){
 					//TODO : Having two actions causes 2nd action to be performed twice?
 					//Probably has to do with the clipboard. should combine paste then kick into one method

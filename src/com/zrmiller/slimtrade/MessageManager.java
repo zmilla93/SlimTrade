@@ -10,6 +10,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Box;
 
+import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.dialog.BasicDialog;
 import com.zrmiller.slimtrade.windows.MessagePanel;
 
@@ -35,6 +36,8 @@ public class MessageManager extends BasicDialog {
 		this.setVisible(true);
 	}
 	
+	
+	//TODO : Clean up stash helper removal
 	public void addMessage(TradeOffer trade){
 		if(messageCount==maxMessageCount){
 			return;
@@ -64,6 +67,10 @@ public class MessageManager extends BasicDialog {
 	}
 	
 	private void removeMessage(int i){
+		if(messages[i].getMessageType() == MessageType.INCOMING_TRADE){
+			FrameManager.stashHelperContainer.remove(messages[i].stashHelper);
+			FrameManager.stashHelperContainer.refresh();
+		}
 		this.remove(messages[i]);
 		this.remove(rigidAreas[i]);
 		this.revalidate();
