@@ -32,6 +32,7 @@ public class MessageManager extends BasicDialog {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setBounds(1400, 0, 500, 400);
 		this.setBackground(ColorManager.CLEAR);
+		this.setVisible(true);
 	}
 	
 	public void addMessage(TradeOffer trade){

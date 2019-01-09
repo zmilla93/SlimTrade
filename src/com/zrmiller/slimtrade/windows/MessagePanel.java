@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.ColorManager;
+import com.zrmiller.slimtrade.FrameManager;
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.PoeInterface;
 import com.zrmiller.slimtrade.TradeOffer;
@@ -291,9 +292,9 @@ public class MessagePanel extends JPanel{
 			//STASH HELPER
 			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
-//			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName, trade.priceTypeString, trade.priceCount);
+			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName, trade.priceTypeString, trade.priceCount);
 //			stashHelper.setVisible(false);
-//			Overlay.stashHelperContainer.add(stashHelper);
+			FrameManager.stashHelperContainer.add(stashHelper);
 			
 			
 			//Item Panel Actions
@@ -309,7 +310,7 @@ public class MessagePanel extends JPanel{
 			});
 			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			    public void mouseClicked(java.awt.event.MouseEvent evt) {
-//			    	stashHelper.setVisible(true);
+			    	stashHelper.setVisible(true);
 			    }
 			});
 			break;

@@ -18,7 +18,7 @@ import com.zrmiller.slimtrade.PoeInterface;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
-public class StashHelper extends BasicDialog{
+public class StashHelper extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -30,6 +30,9 @@ public class StashHelper extends BasicDialog{
 	private int borderThickness = 2;
 	private String stashtab;
 	private String itemName;
+	
+	private static double cellWidth;
+	private static double cellHeight;
 	
 	public JPanel itemHighlighter;
 	private ActionListener hideHighlighter = new ActionListener(){
@@ -67,8 +70,8 @@ public class StashHelper extends BasicDialog{
 		int r = rand.nextInt(255)+1;
 		int g = rand.nextInt(255)+1;
 		int b = rand.nextInt(255)+1;
-		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
-		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
+//		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
+//		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
 		this.setBackground(new Color(r,g,b));
 		itemHighlighter = new JPanel();
 		itemHighlighter.setVisible(false);
@@ -77,7 +80,8 @@ public class StashHelper extends BasicDialog{
 		itemHighlighter.setBounds(0-(int)cellWidth*2, 0, (int)cellWidth, (int)cellHeight);
 		updateItemHighlighterPos();
 		itemHighlighter.setPreferredSize(new Dimension((int)cellWidth, (int)cellHeight));
-		Overlay.messageContainer.add(itemHighlighter);
+//		itemHighlighter.setVisible(true);
+//		FrameManager.messageContainer.add(itemHighlighter);
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent e) {
@@ -106,6 +110,12 @@ public class StashHelper extends BasicDialog{
 		});
 	}
 	
+	//TODO : Avoid using statics here?
+	public static void updateCellSize(double cellWidth, double cellHeight){
+		StashHelper.cellWidth = cellWidth;
+		StashHelper.cellHeight = cellHeight;
+	}
+	
 	private void hideStashHelper(){
 		this.setVisible(false);
 		itemHighlighter.setVisible(false);
@@ -115,8 +125,8 @@ public class StashHelper extends BasicDialog{
 		if(x==0 && y==0){
 			return;
 		}
-		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
-		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
+//		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
+//		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
 		itemHighlighter.setLocation((int)(StashGridOverlay.getGridPos().x+((x-1)*cellWidth)), (int)(StashGridOverlay.getGridPos().y+((y-1)*cellHeight)));
 	}
 	

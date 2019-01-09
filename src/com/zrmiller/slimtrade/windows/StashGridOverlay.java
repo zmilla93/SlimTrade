@@ -29,8 +29,9 @@ public class StashGridOverlay extends BasicWindowDialog{
 	private static Point gridPos = new Point(0, 0);
 	private static Dimension gridSize;
 	
-	private static int gridWidth;
-	private static int gridHeight;
+	//TODO : Clean up grid calculations
+	public static int gridWidth;
+	public static int gridHeight;
 	
 	//SIZES
 	private final int minSize = 200;
@@ -109,7 +110,9 @@ public class StashGridOverlay extends BasicWindowDialog{
 
 		this.resizeStashWindow(winWidth, winHeight);
 //		saveDataLocally();
-		FrameManager.stashHelperContainer.updateBounds(winPos.x, winPos.y, winWidth);
+//		FrameManager.debug.log("WinX : " + winPos.x + "", winPos.y + "", winWidth + "");
+//		FrameManager.stashHelperContainer.updateBounds(winPos.x, winPos.y, winWidth);
+//		FrameManager.stashHelperContainer.updateBounds();
 		
 		//Width Adjust
 		rightPullBar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -244,12 +247,11 @@ public class StashGridOverlay extends BasicWindowDialog{
 	public void resizeStashWindow(int width, int height){
 		int w = width<this.getMinimumSize().width ? this.getMinimumSize().width : width;
 		int h = height<this.getMinimumSize().height ? this.getMinimumSize().height : height;
-		int gridWidth = w-bufferThin-bufferThick;
-		int gridHeight = h-bufferThin-bufferThick-infoPanelHeight;
+		gridWidth = w-bufferThin-bufferThick;
+		gridHeight = h-bufferThin-bufferThick-infoPanelHeight;
 		grid.resizeGrid(gridWidth, gridHeight);
 		this.resizeWindow(w, h);
 		this.revalidate();
 		this.repaint();
-		
 	}
 }

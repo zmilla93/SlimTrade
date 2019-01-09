@@ -1,6 +1,7 @@
 package com.zrmiller.slimtrade.dialog;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
@@ -16,6 +17,11 @@ public class StashHelperContainer extends BasicDialog{
 		this.getContentPane().setBackground(Color.YELLOW);
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
+//		JPanel t = new JPanel();
+		StashHelper t = new StashHelper(1, 1, "ddd", "ddd", "ddd", 3.3);
+		t.setPreferredSize(new Dimension(100, 20));
+		t.setBackground(Color.BLUE);
+		this.getContentPane().add(t);
 	}
 	
 	public void updateBounds(){
@@ -36,6 +42,10 @@ public class StashHelperContainer extends BasicDialog{
 		int y = posY-height-offsetY;
 		int w = width+spacingX;
 		this.setBounds(x, y, w, height);
+	}
+	
+	public void updateCellSize(int cellWidth, int cellHeight){
+		
 	}
 	
 	public void refresh(){
