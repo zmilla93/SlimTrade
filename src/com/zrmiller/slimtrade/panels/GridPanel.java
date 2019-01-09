@@ -6,6 +6,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import com.zrmiller.slimtrade.ColorManager;
+
 public class GridPanel extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
@@ -21,6 +23,7 @@ public class GridPanel extends JPanel{
 	}
 	
 	public GridPanel(int width, int height){
+		this.setBackground(ColorManager.CLEAR);
 		this.width = width;
 		this.height = height;
 		this.gridCellWidth = (double)width/12;

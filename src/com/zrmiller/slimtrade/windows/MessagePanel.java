@@ -269,7 +269,7 @@ public class MessagePanel extends JPanel{
 			//
 			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				PoeInterface.paste("/invite " + trade.playerName);
-//				stashHelper.setVisible(true);
+				stashHelper.setVisible(true);
 				inviteToPartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
 				tradeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
 			}});
@@ -293,9 +293,8 @@ public class MessagePanel extends JPanel{
 			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
 			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName, trade.priceTypeString, trade.priceCount);
-//			stashHelper.setVisible(false);
-			FrameManager.stashHelperContainer.add(stashHelper);
-			
+			stashHelper.setVisible(false);
+			FrameManager.stashHelperContainer.getContentPane().add(stashHelper);
 			
 			//Item Panel Actions
 			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -311,6 +310,7 @@ public class MessagePanel extends JPanel{
 			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			    public void mouseClicked(java.awt.event.MouseEvent evt) {
 			    	stashHelper.setVisible(true);
+			    	FrameManager.stashHelperContainer.refresh();
 			    }
 			});
 			break;

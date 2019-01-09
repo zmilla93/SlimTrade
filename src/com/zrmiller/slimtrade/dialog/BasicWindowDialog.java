@@ -43,7 +43,7 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	}
 	
 	private void buildDialog(String title){
-		this.getContentPane().setBackground(Color.YELLOW);
+		this.getContentPane().setBackground(Color.CYAN);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.setSize(defaultWidth, defaultHeight+buttonSize);
 		

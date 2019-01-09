@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
 public class StashHelperContainer extends BasicDialog{
@@ -14,14 +15,9 @@ public class StashHelperContainer extends BasicDialog{
 	private int spacingX = 5;
 	
 	public StashHelperContainer(){
-		this.getContentPane().setBackground(Color.YELLOW);
+		this.setBackground(ColorManager.CLEAR);
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
-//		JPanel t = new JPanel();
-		StashHelper t = new StashHelper(1, 1, "ddd", "ddd", "ddd", 3.3);
-		t.setPreferredSize(new Dimension(100, 20));
-		t.setBackground(Color.BLUE);
-		this.getContentPane().add(t);
 	}
 	
 	public void updateBounds(){
@@ -30,25 +26,21 @@ public class StashHelperContainer extends BasicDialog{
 		int width = StashGridOverlay.getGridSize().width+spacingX;
 		this.setBounds(posX, posY, width, height);
 	}
-	
-	/**
-	 * Position coordinates and width should the window pos/size of stash overlay
-	 * @param posX
-	 * @param posY
-	 * @param width
-	 */
-	public void updateBounds(int posX, int posY, int width){
-		int x = posX-spacingX;
-		int y = posY-height-offsetY;
-		int w = width+spacingX;
-		this.setBounds(x, y, w, height);
-	}
+
+//	public void updateBounds(int posX, int posY, int width){
+//		int x = posX-spacingX;
+//		int y = posY-height-offsetY;
+//		int w = width+spacingX;
+//		this.setBounds(x, y, w, height);
+//	}
 	
 	public void updateCellSize(int cellWidth, int cellHeight){
 		
 	}
 	
 	public void refresh(){
+//		this.getContentPane().revalidate();
+//		this.getContentPane().repaint();
 		this.revalidate();
 		this.repaint();
 	}

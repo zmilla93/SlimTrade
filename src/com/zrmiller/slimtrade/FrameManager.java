@@ -61,7 +61,7 @@ public class FrameManager {
 		}
 		stashHelperContainer = new StashHelperContainer();
 		stashHelperContainer.updateBounds();
-		StashHelper.updateCellSize(StashGridOverlay.gridWidth, StashGridOverlay.gridHeight);
+//		StashHelper.updateCellSize(StashGridOverlay.gridWidth, StashGridOverlay.gridHeight);
 		stashHelperContainer.setVisible(true);
 		
 		File charFile = new File("char.pref");

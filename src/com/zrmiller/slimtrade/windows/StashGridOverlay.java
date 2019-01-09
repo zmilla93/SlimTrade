@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.FrameManager;
 import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 import com.zrmiller.slimtrade.panels.BasicPanel;
@@ -59,6 +60,10 @@ public class StashGridOverlay extends BasicWindowDialog{
 		this.setVisible(false);
 		this.setLocation(winPos);
 		this.setMinimumSize(new Dimension(minSize, minSize));
+		this.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.1f));
+//		this.getContentPane().setBackground(ColorManager.CLEAR);
+//		container.setBackground(Color.blue);
+		this.repaint();
 		gridWidth = winWidth-bufferThin-bufferThick;
 		gridHeight = winHeight-bufferThin-bufferThick-infoPanelHeight;
 //		StashGridOverlay.setDefaultGridSize(new Dimension(gridWidth, gridHeight));
