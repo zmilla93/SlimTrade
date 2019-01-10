@@ -2,14 +2,9 @@ package com.zrmiller.slimtrade;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 
 import com.zrmiller.slimtrade.buttons.MenubarToggleButton;
 import com.zrmiller.slimtrade.datatypes.MessageType;
-import com.zrmiller.slimtrade.debug.Debug;
 import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 import com.zrmiller.slimtrade.dialog.ItemHighlighter;
 import com.zrmiller.slimtrade.dialog.MenubarDialog;
@@ -29,10 +24,6 @@ public class FrameManager {
 	public static StashHelperContainer stashHelperContainer;
 	public static StashGridOverlay stashOverlay;
 	public static CharacterWindow characterWindow = new CharacterWindow();
-	
-	
-	
-	
 	
 	public FrameManager(){
 		
