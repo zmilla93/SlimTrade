@@ -17,6 +17,7 @@ import javax.swing.border.Border;
 import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.FrameManager;
 import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
+import com.zrmiller.slimtrade.dialog.ItemHighlighter;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.panels.GridPanel;
 
@@ -31,8 +32,8 @@ public class StashGridOverlay extends BasicWindowDialog{
 	private static Dimension gridSize;
 	
 	//TODO : Clean up grid calculations
-	public static int gridWidth;
-	public static int gridHeight;
+	public static double gridWidth;
+	public static double gridHeight;
 	
 	//SIZES
 	private final int minSize = 200;
@@ -73,25 +74,25 @@ public class StashGridOverlay extends BasicWindowDialog{
 		container.setBackground(new Color(1.0f,1.0f,1.0f,0.25f));
 		container.setBounds(winPos.x, winPos.y, winWidth, winHeight);
 		
-		grid = new GridPanel(gridWidth, gridHeight);
+		grid = new GridPanel((int)gridWidth, (int)gridHeight);
 		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		grid.setLineColor(Color.GREEN);
 		container.add(grid, BorderLayout.CENTER);
 		
-		BasicPanel topSpacer = new BasicPanel(gridWidth+bufferThick+bufferThin, bufferThin);
+		BasicPanel topSpacer = new BasicPanel((int)gridWidth+bufferThick+bufferThin, bufferThin);
 		container.add(topSpacer, BorderLayout.PAGE_START);
 		
-		BasicPanel leftSpacer = new BasicPanel(bufferThin, gridHeight);
+		BasicPanel leftSpacer = new BasicPanel(bufferThin, (int)gridHeight);
 		container.add(leftSpacer, BorderLayout.LINE_START);
 		
-		BasicPanel rightPullBar = new BasicPanel(bufferThick, gridHeight);
+		BasicPanel rightPullBar = new BasicPanel(bufferThick, (int)gridHeight);
 		rightPullBar.setBackground(Color.DARK_GRAY);
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED);
 		rightPullBar.setBorder(b);
 		container.add(rightPullBar, BorderLayout.LINE_END);
 		
 		//BOTTOM
-		BasicPanel bottomPullBar = new BasicPanel(gridWidth, bufferThick);
+		BasicPanel bottomPullBar = new BasicPanel((int)gridWidth, bufferThick);
 		bottomPullBar.setBackground(Color.DARK_GRAY);
 		BasicPanel infoPanel = new BasicPanel(winWidth, infoPanelHeight);
 		infoPanel.setLayout(new FlowLayout(FlowLayout.CENTER, buttonSpacingX, buttonMarginTop));
@@ -162,22 +163,13 @@ public class StashGridOverlay extends BasicWindowDialog{
 		//Save Button
 		saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				try {
-					saveDataLocally();
-					ObjectOutputStream stashFile = new ObjectOutputStream(new FileOutputStream("stash.pref"));
-					stashFile.writeObject(StashGridOverlay.windowPos);
-					stashFile.writeObject(StashGridOverlay.windowSize);
-					stashFile.writeObject(StashGridOverlay.gridPos);
-					stashFile.writeObject(StashGridOverlay.gridSize);
-					stashFile.close();
-					FrameManager.stashHelperContainer.updateBounds();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				saveDataLocally();
+				FrameManager.fileManager.saveStashData(windowPos.x, windowPos.y, windowSize.width, windowSize.height, gridPos.x, gridPos.y, gridSize.width, gridSize.height);
+				FrameManager.stashHelperContainer.updateBounds();
+				ItemHighlighter.saveGridInfo(gridPos.x, gridPos.y, (gridSize.width/12.0), (gridSize.height/12.0));
 		    }
 		});
 		
-		//TODO : Better way to implement extension of buttons from parent BasicMenuWindow?
 		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				reset();
@@ -237,6 +229,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 		setDefaultWinSize(new Dimension(this.getSize().width, this.getSize().height-BasicMenuWindow.titlebarHeight));
 		setDefaultGridPos(grid.getLocationOnScreen());
 		setDefaultGridSize(grid.getSize());
+//		ItemHighlighter
 	}
 	
 	public void reset(){
@@ -254,7 +247,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 		int h = height<this.getMinimumSize().height ? this.getMinimumSize().height : height;
 		gridWidth = w-bufferThin-bufferThick;
 		gridHeight = h-bufferThin-bufferThick-infoPanelHeight;
-		grid.resizeGrid(gridWidth, gridHeight);
+		grid.resizeGrid((int)gridWidth, (int)gridHeight);
 		this.resizeWindow(w, h);
 		this.revalidate();
 		this.repaint();

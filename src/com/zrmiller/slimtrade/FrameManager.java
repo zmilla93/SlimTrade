@@ -11,14 +11,15 @@ import com.zrmiller.slimtrade.buttons.MenubarToggleButton;
 import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.debug.Debug;
 import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
+import com.zrmiller.slimtrade.dialog.ItemHighlighter;
 import com.zrmiller.slimtrade.dialog.MenubarDialog;
-import com.zrmiller.slimtrade.dialog.StashHelper;
 import com.zrmiller.slimtrade.dialog.StashHelperContainer;
 import com.zrmiller.slimtrade.windows.CharacterWindow;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
 public class FrameManager {
 
+	public static Debug debug = new Debug();
 	
 	public static BasicWindowDialog optionWindow = new BasicWindowDialog("Options");	
 	public static BasicWindowDialog historyWindow = new BasicWindowDialog("History");	
@@ -29,11 +30,19 @@ public class FrameManager {
 	public static StashGridOverlay stashOverlay;
 	public static CharacterWindow characterWindow = new CharacterWindow();
 	
-	public static Debug debug = new Debug();
+	public static ExternalFileManager fileManager = new ExternalFileManager();
+	
+	
 	
 	
 	public FrameManager(){
+		
 		stashHelperContainer = new StashHelperContainer();
+		fileManager.saveCharacterData("CoolKid", "Betrayal");
+		
+		
+		System.out.println(fileManager.getCharacterData()[1]);
+		
 		//TODO : Revisit saving/loading once 
 		File stashFile = new File("stash.pref");
 		if(stashFile.exists()){
@@ -56,10 +65,10 @@ public class FrameManager {
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
 			}
-			
 		}else{
 			stashOverlay = new StashGridOverlay(new Point(0, 0), 200, 400);
 		}
+//		ItemHighlighter.saveGridInfo(100, 100, 50, 50);
 		
 //		stashHelperContainer.updateBounds();
 //		StashHelper.updateCellSize(StashGridOverlay.gridWidth, StashGridOverlay.gridHeight);

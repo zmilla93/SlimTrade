@@ -20,7 +20,7 @@ public class MenubarDialog extends BasicDialog{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int buttonCount = 7;
+	private int buttonCount = 9;
 	private int spacerCount = 2;
 	private int spacerHeight = (int)(MenuButton.height*0.8);
 	private int totalHeight = MenuButton.height*buttonCount+spacerHeight*spacerCount;
@@ -30,6 +30,8 @@ public class MenubarDialog extends BasicDialog{
 	private MenuButton stashButton;
 	private MenuButton characterButton;
 	private MenuButton testButton;
+	private MenuButton clearButton;
+	private MenuButton refreshButton;
 	private MenuButton quitButton;
 	private MenuButton minimizeButton;
 	
@@ -50,6 +52,10 @@ public class MenubarDialog extends BasicDialog{
 		this.add(characterButton);
 		testButton = new MenuButton("TEST");
 		this.add(testButton);
+		clearButton = new MenuButton("Clear Debug");
+		this.add(clearButton);
+		refreshButton = new MenuButton("Refresh");
+		this.add(refreshButton);
 		this.add(new BasicPanel(MenuButton.width, spacerHeight));
 		quitButton = new MenuButton("Quit");
 		this.add(quitButton);
@@ -121,6 +127,19 @@ public class MenubarDialog extends BasicDialog{
 //				for(i=0;i<20;i++){
 //					FrameManager.messageManager.removeMessage(i);
 //				}
+			}
+		});
+		
+		
+		clearButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				FrameManager.debug.clearLog();
+			}
+		});
+		
+		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				FrameManager.forceAllToTop();
 			}
 		});
 		

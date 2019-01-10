@@ -51,7 +51,7 @@ public class MessagePanel extends JPanel{
 	private JLabel priceTypeLabel = new JLabel();
 	private JPanel topButtonPanel = new JPanel();
 	private JPanel bottomPanel = new JPanel();
-	private JPanel itemPanel = new JPanel();
+	public JPanel itemPanel = new JPanel();
 	private JLabel itemCountLabel = new JLabel();
 	private JLabel itemLabel = new JLabel();
 	public StashHelper stashHelper;
@@ -63,7 +63,7 @@ public class MessagePanel extends JPanel{
 	public BasicIconButton repeatMessageButton;
 	public BasicIconButton closeButton;
 	//Buttons Bottom
-	private BasicIconButton inviteToPartyButton;
+	public BasicIconButton inviteToPartyButton;
 	private BasicIconButton tpToHideoutButton;
 	private BasicIconButton tradeButton;
 	private BasicIconButton thankButton;
@@ -268,10 +268,15 @@ public class MessagePanel extends JPanel{
 			inviteToPartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
 			//
 			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
-				PoeInterface.paste("/invite " + trade.playerName);
+				FrameManager.stashHelperContainer.add(stashHelper);
 				stashHelper.setVisible(true);
+				FrameManager.stashHelperContainer.refresh();
+				PoeInterface.paste("/invite " + trade.playerName);
+				
 				inviteToPartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
 				tradeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
+				
+				
 			}});
 			tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 				PoeInterface.paste("/tradewith " + trade.playerName);
@@ -292,7 +297,7 @@ public class MessagePanel extends JPanel{
 			//STASH HELPER
 			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
-			stashHelper = new StashHelper(trade.stashtabX, trade.stashtabY,  trade.stashtabName, trade.itemName, trade.priceTypeString, trade.priceCount);
+			stashHelper = new StashHelper(trade);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.getContentPane().add(stashHelper);
 			
@@ -309,6 +314,7 @@ public class MessagePanel extends JPanel{
 			});
 			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			    public void mouseClicked(java.awt.event.MouseEvent evt) {
+			    	FrameManager.stashHelperContainer.add(stashHelper);
 			    	stashHelper.setVisible(true);
 			    	FrameManager.stashHelperContainer.refresh();
 			    }

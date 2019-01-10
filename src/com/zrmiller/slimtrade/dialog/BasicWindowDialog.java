@@ -33,12 +33,12 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	//INTERNAL
 	
 	public BasicWindowDialog(){
-//		super(menubarPanel);
+		super(false);
 		buildDialog("");
 	}
 	
 	public BasicWindowDialog(String title){
-//		super(menubarPanel);
+		super(false);
 		buildDialog(title);
 	}
 	
@@ -46,6 +46,8 @@ public class BasicWindowDialog extends BasicMovableDialog {
 		this.getContentPane().setBackground(Color.CYAN);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.setSize(defaultWidth, defaultHeight+buttonSize);
+		this.createListeners(menubarPanel);
+//		moverPanel = menubarPanel;
 		
 		JLabel titleLabel = new JLabel(title);
 		

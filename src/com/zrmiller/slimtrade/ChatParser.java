@@ -81,6 +81,7 @@ public class ChatParser {
 			while((curLine = bufferedReader.readLine()) != null){
 				curLineCount++;
 				if (curLineCount>totalLineCount){
+					FrameManager.debug.log(curLine);
 					totalLineCount++;
 					Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
 					Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);

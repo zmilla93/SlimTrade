@@ -1,17 +1,18 @@
 package com.zrmiller.slimtrade;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.io.File;
-import java.io.IOException;
+import java.awt.Point;
+import java.util.Random;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Box;
 
 import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.dialog.BasicDialog;
+import com.zrmiller.slimtrade.dialog.ItemHighlighter;
+import com.zrmiller.slimtrade.dialog.StashHelper;
 import com.zrmiller.slimtrade.windows.MessagePanel;
 
 
@@ -25,6 +26,13 @@ public class MessageManager extends BasicDialog {
 	private int messageCount = 0;
 	private MessagePanel[] messages = new MessagePanel[maxMessageCount];
 	private Component[] rigidAreas = new Component[maxMessageCount];
+	private StashHelper[] stashHelpers = new StashHelper[maxMessageCount];
+	private ItemHighlighter[] itemHighlighters = new ItemHighlighter[maxMessageCount];
+	
+	private Point gridPos;
+	private int gridWidth;
+	private int gridHeight;
+//	private ItemHighlighter[] rigidAreas = new Component[maxMessageCount];
 	
 	
 	public MessageManager(){
@@ -48,18 +56,33 @@ public class MessageManager extends BasicDialog {
 //		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException | InterruptedException e) {
 //			e.printStackTrace();
 //		}
+		Random rand = new Random();
+		int r = rand.nextInt(255)+1;
+		int g = rand.nextInt(255)+1;
+		int b = rand.nextInt(255)+1;
+		Color color = new Color(r, g, b);
 		int i = 0;
 		while(messages[i]!=null){
 			i++;
 		}
 		messages[i] = new MessagePanel(trade);
 		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, gap));
+//		stashHelpers[i] = new StashHelper(trade, color);
+//		FrameManager.stashHelperContainer.add(stashHelpers[i]);
+//		itemHighlighters[i] = new ItemHighlighter(color);
 		int closeIndex = i;
 		messages[i].closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		    	removeMessage(closeIndex);
 		    }
 		});
+//		messages[i].inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+//			stashHelpers[closeIndex].setVisible(true);
+//		}});
+//		messages[i].itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+//			stashHelpers[closeIndex].setVisible(true);
+//			FrameManager.stashHelperContainer.refresh();
+//		}});
 		this.add(messages[i]);
 		this.add(rigidAreas[i]);
 		messageCount++;
@@ -68,7 +91,7 @@ public class MessageManager extends BasicDialog {
 	
 	private void removeMessage(int i){
 		if(messages[i].getMessageType() == MessageType.INCOMING_TRADE){
-			FrameManager.stashHelperContainer.remove(messages[i].stashHelper);
+//			FrameManager.stashHelperContainer.remove(messages[i].stashHelper);
 			FrameManager.stashHelperContainer.refresh();
 		}
 		this.remove(messages[i]);

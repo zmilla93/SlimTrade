@@ -10,9 +10,11 @@ public class BasicDialog extends JFrame{
 		this.setUndecorated(true);
 		this.setAlwaysOnTop(true);
 		this.setType(JFrame.Type.UTILITY);
+		this.pack();
 	}
 	
 	public void forceToTop(){
+		this.forceToTop();
 		this.setAlwaysOnTop(false);
 		this.setAlwaysOnTop(true);
 	}

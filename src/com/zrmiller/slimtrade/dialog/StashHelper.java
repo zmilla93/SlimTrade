@@ -17,6 +17,7 @@ import javax.swing.Timer;
 
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.PoeInterface;
+import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.debug.Debug;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
@@ -37,7 +38,7 @@ public class StashHelper extends JPanel{
 //	private static double cellWidth;
 //	private static double cellHeight;
 	
-	public BasicDialog itemHighlighter;
+	public ItemHighlighter itemHighlighter;
 	private ActionListener hideHighlighter = new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent e){
@@ -47,12 +48,12 @@ public class StashHelper extends JPanel{
 	};
 	private Timer highlighterTimer = new Timer(2000, hideHighlighter);
 	
-	public StashHelper(int x, int y, String stashtab, String itemName, String priceType, double priceCount){
+	public StashHelper(TradeOffer trade){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, borderThickness));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setBorder(BorderFactory.createLineBorder(Color.WHITE, borderThickness, true));
 		BasicPanel stashPanel = new BasicPanel(width, height/3, new FlowLayout(FlowLayout.CENTER, 0, 0));
-		String fixedStashtabName = stashtab == null ? "(~price " + Double.toString(priceCount).replaceAll("[.]0", "") + " " + priceType + ")" : stashtab;
+		String fixedStashtabName = stashtab == null ? "(~price " + Double.toString(trade.priceCount).replaceAll("[.]0", "") + " " + trade.priceTypeString + ")" : stashtab;
 		JLabel stashLabel = new JLabel(fixedStashtabName);
 		stashLabel.setForeground(Color.WHITE);
 		stashPanel.add(stashLabel);
@@ -61,40 +62,32 @@ public class StashHelper extends JPanel{
 		JLabel itemLabel = new JLabel(itemName);
 		itemLabel.setForeground(Color.WHITE);
 		itemPanel.add(itemLabel);
-//		this.add(stashLabel);
-//		this.add(itemLabel);
 		this.add(stashPanel);
 		this.add(itemPanel);
 		this.add(new BasicPanel(width, borderThickness));
 		
 		//ITEM HIGHLIGHTER
-		this.x = x;
-		this.y = y;
-		this.stashtab = stashtab;
-		this.itemName = itemName;
+		this.x = trade.stashtabX;
+		this.y = trade.stashtabY;
+		this.stashtab = trade.stashtabName;
+		this.itemName = trade.itemName;
 		Random rand = new Random();
 		int r = rand.nextInt(255)+1;
 		int g = rand.nextInt(255)+1;
 		int b = rand.nextInt(255)+1;
-		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
-		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
-		this.setBackground(new Color(r,g,b));
-		itemHighlighter = new BasicDialog();
-		itemHighlighter.setVisible(false);
-		itemHighlighter.setBackground(new Color(1F, 1F, 1F, 0F));
-		((JComponent) itemHighlighter.getContentPane()).setBorder(BorderFactory.createLineBorder(new Color(r, g, b), 4, false));
-		itemHighlighter.setBounds(0-(int)cellWidth*2, 0, (int)cellWidth, (int)cellHeight);
-		updateItemHighlighterPos();
-		itemHighlighter.setSize(new Dimension((int)cellWidth, (int)cellHeight));
-		itemHighlighter.setVisible(false);
-//		FrameManager.messageContainer.add(itemHighlighter);
+		Color color = new Color(r,g,b);
+//		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
+//		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
+		this.setBackground(color);
+		itemHighlighter = new ItemHighlighter(trade.stashtabX, trade.stashtabY, color);
 		
 		this.repaint();
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent e) {
-		    	updateItemHighlighterPos();
+//		    	updateItemHighlighterPos();
 		    	highlighterTimer.stop();
+		    	itemHighlighter.refresh();
 		    	itemHighlighter.setVisible(true);
 		    	itemHighlighter.repaint();
 		    }
@@ -123,14 +116,13 @@ public class StashHelper extends JPanel{
 		itemHighlighter.setVisible(false);
 	}
 	
-	public void updateItemHighlighterPos(){
-		if(x==0 && y==0){
-			return;
-		}
-		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
-		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
-		itemHighlighter.setLocation((int)(StashGridOverlay.getGridPos().x+((x-1)*cellWidth)), (int)(StashGridOverlay.getGridPos().y+((y-1)*cellHeight)));
-		
-	}
+//	public void updateItemHighlighterPos(){
+//		if(x==0 && y==0){
+//			return;
+//		}
+//		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
+//		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
+//		itemHighlighter.setLocation((int)(StashGridOverlay.getGridPos().x+((x-1)*cellWidth)), (int)(StashGridOverlay.getGridPos().y+((y-1)*cellHeight)));
+//	}
 	
 }
