@@ -3,7 +3,6 @@ package com.zrmiller.slimtrade;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class ChatParser {
 	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (.+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 	
-	private final String clientLogPath = "C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
+	private String clientLogPath;
 	
 	public ChatParser(){
 		
@@ -52,6 +51,12 @@ public class ChatParser {
 //		
 //		FrameManager.debug.log("Directory Exists : " + dir.exists());
 //		FrameManager.debug.log("Log File Exists : " + f.exists());
+		if(FrameManager.fileManager.validClientPath){
+			clientLogPath = FrameManager.fileManager.clientPath;
+		}else{
+			FrameManager.debug.log("[ERROR] No valid client file path found");
+			return;
+		}
 		try {
 //			fileReader = new FileReader("C:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
 			fileReader = new FileReader(clientLogPath);
