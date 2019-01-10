@@ -20,6 +20,7 @@ public class GridPanel extends JPanel{
 	private Color lineColor = Color.RED;
 	
 	public GridPanel(){
+		this.setBackground(ColorManager.CLEAR);
 	}
 	
 	public GridPanel(int width, int height){

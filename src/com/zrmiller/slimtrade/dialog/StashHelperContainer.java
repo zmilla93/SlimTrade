@@ -1,7 +1,5 @@
 package com.zrmiller.slimtrade.dialog;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import com.zrmiller.slimtrade.ColorManager;
@@ -18,6 +16,7 @@ public class StashHelperContainer extends BasicDialog{
 		this.setBackground(ColorManager.CLEAR);
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
+		this.setVisible(true);
 	}
 	
 	public void updateBounds(){
@@ -27,12 +26,12 @@ public class StashHelperContainer extends BasicDialog{
 		this.setBounds(posX, posY, width, height);
 	}
 
-//	public void updateBounds(int posX, int posY, int width){
-//		int x = posX-spacingX;
-//		int y = posY-height-offsetY;
-//		int w = width+spacingX;
-//		this.setBounds(x, y, w, height);
-//	}
+	public void updateBounds(int posX, int posY, int width){
+		int x = posX-spacingX;
+		int y = posY-height-offsetY;
+		int w = width+spacingX;
+		this.setBounds(x, y, w, height);
+	}
 	
 	public void updateCellSize(int cellWidth, int cellHeight){
 		

@@ -38,57 +38,52 @@ public class FrameManager {
 	public FrameManager(){
 		
 		stashHelperContainer = new StashHelperContainer();
-		fileManager.saveCharacterData("CoolKid", "Betrayal");
-		
-		
-		System.out.println(fileManager.getCharacterData()[1]);
+	
 		
 		//TODO : Revisit saving/loading once 
-		File stashFile = new File("stash.pref");
-		if(stashFile.exists()){
-			System.out.println("Loading stash...");
-			try {
-				ObjectInputStream stash = new ObjectInputStream(new FileInputStream("stash.pref"));
-				Point winPos = (Point) stash.readObject();
-				Dimension winSize = (Dimension) stash.readObject();
-				Point gridPos = (Point) stash.readObject();
-				Dimension gridSize = (Dimension) stash.readObject();
-				stash.close();
-				StashGridOverlay.setDefaultWinPos(winPos);
-				StashGridOverlay.setDefaultWinSize(winSize);
-				StashGridOverlay.setDefaultGridPos(gridPos);
-				StashGridOverlay.setDefaultGridSize(gridSize);
-				stashOverlay = new StashGridOverlay(winPos, winSize.width, winSize.height);
-				stashHelperContainer.updateBounds();
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			}
+		if(fileManager.hasStashData){
+			int[] stashData = fileManager.getStashData();
+			stashOverlay = new StashGridOverlay(new Point(stashData[0], stashData[1]), stashData[2], stashData[3]);
+			StashGridOverlay.setDefaultGridPos(new Point(stashData[4], stashData[5]));
+			StashGridOverlay.setDefaultGridSize(new Dimension(stashData[6], stashData[7]));
+//			stashOverlay.setDefaultGrid
+			ItemHighlighter.saveGridInfo(stashData[4], stashData[5], (double)(stashData[6]/12.0), (double)(stashData[7]/12.0));
+			stashHelperContainer.updateBounds();
 		}else{
-			stashOverlay = new StashGridOverlay(new Point(0, 0), 200, 400);
+			stashOverlay = new StashGridOverlay(new Point(0,0), 400, 400);
+			stashHelperContainer.updateBounds(0, 0, 0);
 		}
+		
+		
+		
+//		stashHelperContainer.setVisible(true);
+		
 //		ItemHighlighter.saveGridInfo(100, 100, 50, 50);
 		
 //		stashHelperContainer.updateBounds();
 //		StashHelper.updateCellSize(StashGridOverlay.gridWidth, StashGridOverlay.gridHeight);
-		stashHelperContainer.setVisible(true);
 		
-		File charFile = new File("char.pref");
-		if(charFile.exists()){
-			System.out.println("Loading character...");
-			try {
-				ObjectInputStream charInput = new ObjectInputStream(new FileInputStream("char.pref"));
-				String character = (String)charInput.readObject();
-				String league = (String)charInput.readObject();
-				characterWindow.setCharacter(character, league);
-				charInput.close();
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			}
+		if(fileManager.hasCharacterData){
+			String[] chracterData = new String[2];
+			chracterData = fileManager.getCharacterData();
+			characterWindow.setCharacter(chracterData[0], chracterData[1]);
 		}
+		
+//		File charFile = new File("char.pref");
+//		if(charFile.exists()){
+//			System.out.println("Loading character...");
+//			try {
+//				ObjectInputStream charInput = new ObjectInputStream(new FileInputStream("char.pref"));
+//				String character = (String)charInput.readObject();
+//				String league = (String)charInput.readObject();
+//				characterWindow.setCharacter(character, league);
+//				charInput.close();
+//			} catch (IOException e2) {
+//				e2.printStackTrace();
+//			} catch (ClassNotFoundException e1) {
+//				e1.printStackTrace();
+//			}
+//		}
 		
 		TradeOffer trade1 = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls#1", "ITEM_NAME", 7.5, "chaos", 3.5, "STASH_TAB", 1, 1, "");
 		TradeOffer trade2 = new TradeOffer(MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls#2", "ITEM_NAME", 2.0, "chaos", 750.0, "STASH_TAB", 1, 1, "");

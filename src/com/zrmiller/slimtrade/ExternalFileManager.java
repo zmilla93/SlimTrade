@@ -54,6 +54,7 @@ public class ExternalFileManager {
 			if(localDirectory.exists() && localDirectory.isDirectory()){
 				validSaveDirectory = true;
 				File saveDirectory = new File(drive + ":/Users/" + user + "/AppData/Local/SlimTrade");
+				savePath = saveDirectory.getPath();
 				if(!saveDirectory.exists()){
 					saveDirectory.mkdirs();
 					FrameManager.debug.log("No save directory found.\nCreating new save directory at " + saveDirectory.getPath());
@@ -64,7 +65,7 @@ public class ExternalFileManager {
 					file = new File(savePath + stashStub);
 					if(file.exists()) hasStashData = true;
 				}
-				savePath = saveDirectory.getPath();
+				
 			}
 		}
 		//TODO : Switch to something viewable by user later on
@@ -144,7 +145,7 @@ public class ExternalFileManager {
 		}
 		int[] data = new int[8];
 		try {
-			fr = new FileReader(savePath + characterStub);
+			fr = new FileReader(savePath + stashStub);
 			br = new BufferedReader(fr);
 			json = new JSONObject(br.readLine());
 			data[0] = json.getInt("windowX");

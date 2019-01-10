@@ -14,9 +14,9 @@ public class BasicDialog extends JFrame{
 	}
 	
 	public void forceToTop(){
-		this.forceToTop();
 		this.setAlwaysOnTop(false);
 		this.setAlwaysOnTop(true);
+		this.toFront();
 	}
 	
 }

@@ -59,7 +59,7 @@ public class StashHelper extends JPanel{
 		stashPanel.add(stashLabel);
 		
 		BasicPanel itemPanel = new BasicPanel(width, height/3, new FlowLayout(FlowLayout.CENTER, 0, 0));
-		JLabel itemLabel = new JLabel(itemName);
+		JLabel itemLabel = new JLabel(trade.itemName);
 		itemLabel.setForeground(Color.WHITE);
 		itemPanel.add(itemLabel);
 		this.add(stashPanel);

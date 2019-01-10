@@ -12,7 +12,7 @@ public class Debug extends JFrame{
 
 	public Debug(){
 		this.setTitle("SlimTrade Debugger");
-		this.setBounds(0, 0, 400, 400);
+		this.setBounds(0, 0, 800, 400);
 		this.setVisible(true);
 		logScrollPane = new JScrollPane(logTextArea);
 		this.add(logScrollPane);

@@ -91,7 +91,8 @@ public class MessageManager extends BasicDialog {
 	
 	private void removeMessage(int i){
 		if(messages[i].getMessageType() == MessageType.INCOMING_TRADE){
-//			FrameManager.stashHelperContainer.remove(messages[i].stashHelper);
+			//TODO : Destory item highlighter
+			FrameManager.stashHelperContainer.remove(messages[i].stashHelper);
 			FrameManager.stashHelperContainer.refresh();
 		}
 		this.remove(messages[i]);

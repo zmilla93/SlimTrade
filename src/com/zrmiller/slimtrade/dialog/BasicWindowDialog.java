@@ -17,7 +17,7 @@ public class BasicWindowDialog extends BasicMovableDialog {
 
 	private static int defaultWidth = 400;
 	private static int defaultHeight = 800;
-	private static int buttonSize = 20;
+	public static int menubarHeight = 20;
 	private static int titleOffset = 5;
 	
 	public Container container = new JPanel();
@@ -26,7 +26,7 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	
 //	private static JPanel menubarPanel;
 	
-	public IconButton closeButton = new IconButton("/close.png", buttonSize, buttonSize);
+	public IconButton closeButton = new IconButton("/close.png", menubarHeight, menubarHeight);
 	
 	
 	
@@ -45,18 +45,18 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	private void buildDialog(String title){
 		this.getContentPane().setBackground(Color.CYAN);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		this.setSize(defaultWidth, defaultHeight+buttonSize);
+		this.setSize(defaultWidth, defaultHeight+menubarHeight);
 		this.createListeners(menubarPanel);
 //		moverPanel = menubarPanel;
 		
 		JLabel titleLabel = new JLabel(title);
 		
 //		JPanel menubarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
-		menubarPanel.setPreferredSize(new Dimension(defaultWidth-buttonSize, buttonSize));
+		menubarPanel.setPreferredSize(new Dimension(defaultWidth-menubarHeight, menubarHeight));
 		menubarPanel.setBackground(Color.RED);
 		
 //		JPanel menubarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		menubarContainer.setPreferredSize(new Dimension(defaultWidth, buttonSize));
+		menubarContainer.setPreferredSize(new Dimension(defaultWidth, menubarHeight));
 		menubarContainer.setBackground(Color.green);
 		
 		menubarPanel.add(titleLabel);
@@ -79,10 +79,10 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	}
 	
 	public void resizeWindow(int width, int height){
-		this.setSize(width, height+buttonSize);
+		this.setSize(width, height+menubarHeight);
 		container.setPreferredSize(new Dimension(width, height));
-		menubarContainer.setPreferredSize(new Dimension(width, buttonSize));
-		menubarPanel.setPreferredSize(new Dimension(width-buttonSize, buttonSize));
+		menubarContainer.setPreferredSize(new Dimension(width, menubarHeight));
+		menubarPanel.setPreferredSize(new Dimension(width-menubarHeight, menubarHeight));
 		this.revalidate();
 		this.repaint();
 	}
