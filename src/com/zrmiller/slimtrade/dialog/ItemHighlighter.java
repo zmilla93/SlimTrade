@@ -41,7 +41,7 @@ public class ItemHighlighter extends BasicDialog{
 	}
 	
 	public void destroy(){
-		this.destroy();
+		this.dispose();
 	}
 	
 }

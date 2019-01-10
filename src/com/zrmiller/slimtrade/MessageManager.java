@@ -67,31 +67,24 @@ public class MessageManager extends BasicDialog {
 		}
 		messages[i] = new MessagePanel(trade);
 		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, gap));
-//		stashHelpers[i] = new StashHelper(trade, color);
-//		FrameManager.stashHelperContainer.add(stashHelpers[i]);
-//		itemHighlighters[i] = new ItemHighlighter(color);
 		int closeIndex = i;
 		messages[i].closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		    	removeMessage(closeIndex);
 		    }
 		});
-//		messages[i].inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
-//			stashHelpers[closeIndex].setVisible(true);
-//		}});
-//		messages[i].itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
-//			stashHelpers[closeIndex].setVisible(true);
-//			FrameManager.stashHelperContainer.refresh();
 //		}});
 		this.add(messages[i]);
 		this.add(rigidAreas[i]);
 		messageCount++;
 		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight*messageCount+gap*messageCount);
+		FrameManager.forceAllToTop();
 	}
 	
 	private void removeMessage(int i){
 		if(messages[i].getMessageType() == MessageType.INCOMING_TRADE){
-			//TODO : Destroy item highlighter
+//			messages[i].stashHelper.highlighterTimer.stop();
+			messages[i].stashHelper.itemHighlighter.destroy();
 			FrameManager.stashHelperContainer.remove(messages[i].stashHelper);
 			FrameManager.stashHelperContainer.refresh();
 		}

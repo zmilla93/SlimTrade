@@ -2,14 +2,13 @@ package com.zrmiller.slimtrade.buttons;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
-import com.zrmiller.slimtrade.Overlay;
 
 public class CloseButton extends JPanel{
 
@@ -29,7 +28,7 @@ public class CloseButton extends JPanel{
 
 	
 	public CloseButton(){
-		this.setLayout(Overlay.flowCenter);
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setBackground(Color.LIGHT_GRAY);
 		

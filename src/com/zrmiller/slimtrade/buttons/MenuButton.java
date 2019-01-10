@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.zrmiller.slimtrade.Overlay;
-
 public class MenuButton extends JButton{
 	
 	private static final long serialVersionUID = 1L;

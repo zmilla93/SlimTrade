@@ -2,6 +2,7 @@ package com.zrmiller.slimtrade.windows;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -9,10 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.zrmiller.slimtrade.Overlay;
-import com.zrmiller.slimtrade.buttons.BasicIconButton;
+import com.zrmiller.slimtrade.TradeUtility;
 import com.zrmiller.slimtrade.panels.BasicPanel;
-import com.zrmiller.slimtrade.panels.BasicTitlebar;
 
 public class OptionWindow extends BasicMenuWindow{
 	
@@ -27,8 +26,8 @@ public class OptionWindow extends BasicMenuWindow{
 	public OptionWindow(){
 		super("Options", width, minHeight);
 		//TODO : FIX CENTERING
-		this.setLayout(Overlay.flowCenter);
-		this.setBounds(Overlay.screenWidth/2-width/2, Overlay.screenHeight/2-minHeight/2, width, minHeight);
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));;
+		this.setBounds(TradeUtility.screenSize.width/2-width/2, TradeUtility.screenSize.height/2-minHeight/2, width, minHeight);
 		this.setMinimumSize(new Dimension(width, minHeight));
 		this.setVisible(false);
 		
@@ -39,7 +38,7 @@ public class OptionWindow extends BasicMenuWindow{
 		this.add(new BasicPanel(width,10));
 		
 		//TOGGLES
-		JPanel toggleHeader = new JPanel(Overlay.flowCenter);
+		JPanel toggleHeader = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		JLabel toggleLabel = new JLabel("Toggle");
 		Border toggleBorder = BorderFactory.createRaisedSoftBevelBorder();
 		toggleHeader.setPreferredSize(new Dimension((int)(width), rowHeight));
@@ -50,18 +49,18 @@ public class OptionWindow extends BasicMenuWindow{
 		int toggleCount = 2;
 		double toggleWidth = 0.6;
 		
-		JPanel toggleFold= new JPanel(Overlay.flowCenter);
+		JPanel toggleFold= new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		toggleFold.setPreferredSize(new Dimension(width, (int)(rowHeight*toggleCount)));
 		//toggleFold.setMinimumSize(new Dimension(width, (int)(rowHeight*toggleCount)));
 		toggleFold.setBackground(Color.red);
 		this.add(toggleFold);
 		
-		JPanel dndContainer = new JPanel(Overlay.flowLeft);
+		JPanel dndContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		dndContainer.setPreferredSize(new Dimension((int)(width*toggleWidth), rowHeight));
 		dndContainer.setBackground(Color.green);
 		toggleFold.add(dndContainer);
 		
-		JPanel saveOutgoing = new JPanel(Overlay.flowLeft);
+		JPanel saveOutgoing = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		saveOutgoing.setPreferredSize(new Dimension((int)(width*toggleWidth), rowHeight));
 		saveOutgoing.setBackground(Color.yellow);
 		toggleFold.add(saveOutgoing);

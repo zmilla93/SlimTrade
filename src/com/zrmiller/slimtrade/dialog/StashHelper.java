@@ -9,18 +9,13 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.PoeInterface;
 import com.zrmiller.slimtrade.TradeOffer;
-import com.zrmiller.slimtrade.debug.Debug;
 import com.zrmiller.slimtrade.panels.BasicPanel;
-import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
 public class StashHelper extends JPanel{
 	
@@ -46,7 +41,7 @@ public class StashHelper extends JPanel{
 			highlighterTimer.stop();
 		}
 	};
-	private Timer highlighterTimer = new Timer(2000, hideHighlighter);
+	public Timer highlighterTimer = new Timer(2000, hideHighlighter);
 	
 	public StashHelper(TradeOffer trade){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, borderThickness));

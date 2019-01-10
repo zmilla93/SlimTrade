@@ -2,12 +2,13 @@ package com.zrmiller.slimtrade.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.FrameManager;
 
 public class BasicTitlebar extends JPanel{
 
@@ -42,10 +43,10 @@ public class BasicTitlebar extends JPanel{
 	}
 	
 	private void createTitlepanel(){
-		this.setLayout(Overlay.flowCenter);
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setPreferredSize(new Dimension(width, height));
 		panel = new JPanel();
-		panel.setLayout(Overlay.flowLeft);
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		panel.setPreferredSize(new Dimension(width-height, height));
 		label = new JLabel(title);
 		//label.setPreferredSize(new Dimension(panelWidth, height));
@@ -60,7 +61,7 @@ public class BasicTitlebar extends JPanel{
 		
 		button.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {
-		    	Overlay.hideAllTempFrames();
+		    	FrameManager.hideAllFrames();
 		    }
 		});
 		

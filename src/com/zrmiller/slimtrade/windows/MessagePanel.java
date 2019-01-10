@@ -17,7 +17,6 @@ import javax.swing.border.Border;
 
 import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.FrameManager;
-import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.PoeInterface;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicIconButton;
@@ -346,7 +345,7 @@ public class MessagePanel extends JPanel{
 				leavePartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
 			}});
 			leavePartyButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
-				PoeInterface.paste("/kick " + Overlay.characterWindow.getCharacterName());
+				PoeInterface.paste("/kick " + FrameManager.characterWindow.getCharacterName());
 				leavePartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
 				tpHomeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
 			}});

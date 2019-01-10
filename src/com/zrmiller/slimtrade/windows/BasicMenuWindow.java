@@ -2,12 +2,12 @@ package com.zrmiller.slimtrade.windows;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.zrmiller.slimtrade.ColorManager;
-import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.buttons.BasicIconButton;
 import com.zrmiller.slimtrade.panels.BasicPanel;
 
@@ -58,7 +58,7 @@ public class BasicMenuWindow extends JPanel{
 	}
 	
 	private void buildMenu(){
-		this.setLayout(Overlay.flowLeft);
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.setPreferredSize(new Dimension(containerWidth, containerHeight+titlebarHeight));
 		this.setMinimumSize(new Dimension(minimumWidth, minimumHeight));
 		this.setBounds(0, 0, containerWidth, containerHeight+titlebarHeight);
@@ -74,10 +74,10 @@ public class BasicMenuWindow extends JPanel{
 	
 	private void buildTitlebar(){
 		titlebar = new JPanel();
-		titlebar.setLayout(Overlay.flowLeft);
+		titlebar.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		titlebar.setPreferredSize(new Dimension(containerWidth, titlebarHeight));
 		titlebarPanel = new JPanel();
-		titlebarPanel.setLayout(Overlay.flowLeft);
+		titlebarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		titlebarPanel.setPreferredSize(new Dimension(containerWidth-titlebarHeight, titlebarHeight));
 		titlebarLabel = new JLabel(title);
 //		BasicButton.width = this.titlebarHeight;

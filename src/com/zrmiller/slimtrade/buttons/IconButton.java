@@ -12,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.zrmiller.slimtrade.Overlay;
-
 public class IconButton extends JPanel{
 
 	private static final long serialVersionUID = 1L;

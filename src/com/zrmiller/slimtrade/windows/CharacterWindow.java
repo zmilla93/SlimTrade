@@ -2,17 +2,12 @@ package com.zrmiller.slimtrade.windows;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import com.zrmiller.slimtrade.FrameManager;
 import com.zrmiller.slimtrade.Main;
-import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 
 public class CharacterWindow extends BasicWindowDialog{
@@ -38,7 +33,7 @@ public class CharacterWindow extends BasicWindowDialog{
 		this.setVisible(false);
 		
 		//Character
-		characterInput.setLayout(Overlay.flowCenter);
+		characterInput.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		characterInput.setHorizontalAlignment(JTextField.CENTER);
 		container.add(characterInput);
 		
