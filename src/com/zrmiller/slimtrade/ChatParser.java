@@ -51,10 +51,10 @@ public class ChatParser {
 //		
 //		FrameManager.debug.log("Directory Exists : " + dir.exists());
 //		FrameManager.debug.log("Log File Exists : " + f.exists());
-		if(FrameManager.fileManager.validClientPath){
-			clientLogPath = FrameManager.fileManager.clientPath;
+		if(Main.fileManager.validClientPath){
+			clientLogPath = Main.fileManager.clientPath;
 		}else{
-			FrameManager.debug.log("[ERROR] No valid client file path found");
+			Main.debug.log("[ERROR] No valid client file path found");
 			return;
 		}
 		try {
@@ -63,7 +63,7 @@ public class ChatParser {
 			bufferedReader = new BufferedReader(fileReader);
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
-			FrameManager.debug.log("CHAT PARSER FAILED TO LAUNCH");
+			Main.debug.log("CHAT PARSER FAILED TO LAUNCH");
 			e1.printStackTrace();
 		}
 		//TODO : Init history
@@ -86,7 +86,7 @@ public class ChatParser {
 			while((curLine = bufferedReader.readLine()) != null){
 				curLineCount++;
 				if (curLineCount>totalLineCount){
-					FrameManager.debug.log(curLine);
+					Main.debug.log(curLine);
 					totalLineCount++;
 					Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
 					Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);

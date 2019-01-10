@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.Random;
 
 import com.zrmiller.slimtrade.FrameManager;
-import com.zrmiller.slimtrade.Overlay;
+import com.zrmiller.slimtrade.Main;
 import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.TradeUtility;
 import com.zrmiller.slimtrade.buttons.MenuButton;
@@ -133,7 +133,7 @@ public class MenubarDialog extends BasicDialog{
 		
 		clearButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				FrameManager.debug.clearLog();
+				Main.debug.clearLog();
 			}
 		});
 		

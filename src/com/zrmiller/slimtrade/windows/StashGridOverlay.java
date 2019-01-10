@@ -5,17 +5,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-import com.zrmiller.slimtrade.ColorManager;
 import com.zrmiller.slimtrade.FrameManager;
+import com.zrmiller.slimtrade.Main;
 import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 import com.zrmiller.slimtrade.dialog.ItemHighlighter;
 import com.zrmiller.slimtrade.panels.BasicPanel;
@@ -162,7 +159,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 		saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				saveDataLocally();
-				FrameManager.fileManager.saveStashData(windowPos.x, windowPos.y, windowSize.width, windowSize.height, gridPos.x, gridPos.y, gridSize.width, gridSize.height);
+				Main.fileManager.saveStashData(windowPos.x, windowPos.y, windowSize.width, windowSize.height, gridPos.x, gridPos.y, gridSize.width, gridSize.height);
 				FrameManager.stashHelperContainer.updateBounds();
 				ItemHighlighter.saveGridInfo(gridPos.x, gridPos.y, (gridSize.width/12.0), (gridSize.height/12.0));
 		    }

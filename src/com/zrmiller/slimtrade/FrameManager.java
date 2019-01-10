@@ -19,7 +19,7 @@ import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
 public class FrameManager {
 
-	public static Debug debug = new Debug();
+//	public static Debug debug = new Debug();
 	
 	public static BasicWindowDialog optionWindow = new BasicWindowDialog("Options");	
 	public static BasicWindowDialog historyWindow = new BasicWindowDialog("History");	
@@ -30,7 +30,6 @@ public class FrameManager {
 	public static StashGridOverlay stashOverlay;
 	public static CharacterWindow characterWindow = new CharacterWindow();
 	
-	public static ExternalFileManager fileManager = new ExternalFileManager();
 	
 	
 	
@@ -41,8 +40,8 @@ public class FrameManager {
 	
 		
 		//TODO : Revisit saving/loading once 
-		if(fileManager.hasStashData){
-			int[] stashData = fileManager.getStashData();
+		if(Main.fileManager.hasStashData){
+			int[] stashData = Main.fileManager.getStashData();
 			stashOverlay = new StashGridOverlay(new Point(stashData[0], stashData[1]), stashData[2], stashData[3]);
 			StashGridOverlay.setDefaultGridPos(new Point(stashData[4], stashData[5]));
 			StashGridOverlay.setDefaultGridSize(new Dimension(stashData[6], stashData[7]));
@@ -63,9 +62,9 @@ public class FrameManager {
 //		stashHelperContainer.updateBounds();
 //		StashHelper.updateCellSize(StashGridOverlay.gridWidth, StashGridOverlay.gridHeight);
 		
-		if(fileManager.hasCharacterData){
+		if(Main.fileManager.hasCharacterData){
 			String[] chracterData = new String[2];
-			chracterData = fileManager.getCharacterData();
+			chracterData = Main.fileManager.getCharacterData();
 			characterWindow.setCharacter(chracterData[0], chracterData[1]);
 		}
 		

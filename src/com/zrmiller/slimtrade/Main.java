@@ -2,18 +2,23 @@ package com.zrmiller.slimtrade;
 
 import java.awt.AWTException;
 
-import com.zrmiller.slimtrade.dialog.BasicMovableDialog;
+import com.zrmiller.slimtrade.debug.Debug;
 
 public class Main {	
 	
+	public static Debug debug = new Debug();
+	public static ExternalFileManager fileManager = new ExternalFileManager();
+	
+	
+	
 	public static void main(String[] args) {
-		//Creates Robot
 		
 		try {
 			PoeInterface poe = new PoeInterface();
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
+		
 		
 		FrameManager frameManager = new FrameManager();
 		

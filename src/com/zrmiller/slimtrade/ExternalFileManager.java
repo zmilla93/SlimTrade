@@ -41,12 +41,12 @@ public class ExternalFileManager {
 			if(clientFile.exists() && clientFile.isFile()){
 				validClientPath = true;
 				clientPath = drive + clientPathStub;
-				FrameManager.debug.log("Valid client path found on " + drive + " drive.");
+				Main.debug.log("Valid client path found on " + drive + " drive.");
 			}
 		}
 		//TODO : Switch to something viewable by user later on
 		if(!validClientPath){
-			FrameManager.debug.log("Could not find client path.");
+			Main.debug.log("Could not find client path.");
 		}
 
 		for(String drive : commonDrives){
@@ -57,22 +57,17 @@ public class ExternalFileManager {
 				savePath = saveDirectory.getPath();
 				if(!saveDirectory.exists()){
 					saveDirectory.mkdirs();
-					FrameManager.debug.log("No save directory found.\nCreating new save directory at " + saveDirectory.getPath());
+					Main.debug.log("No save directory found.\nCreating new save directory at " + saveDirectory.getPath());
 				}else{
-					FrameManager.debug.log("Save directory found!");
+					Main.debug.log("Save directory found!");
 					file = new File(savePath + characterStub);
 					if(file.exists()) hasCharacterData = true;
 					file = new File(savePath + stashStub);
 					if(file.exists()) hasStashData = true;
 				}
-				
 			}
 		}
-		//TODO : Switch to something viewable by user later on
-		if(!validClientPath){
-			FrameManager.debug.log("Could not find client path.");
-		}
-		
+
 		
 		//TODO : Support for other operating systems
 		

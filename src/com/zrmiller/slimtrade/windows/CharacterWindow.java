@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import com.zrmiller.slimtrade.FrameManager;
+import com.zrmiller.slimtrade.Main;
 import com.zrmiller.slimtrade.Overlay;
 import com.zrmiller.slimtrade.dialog.BasicWindowDialog;
 
@@ -53,7 +54,7 @@ public class CharacterWindow extends BasicWindowDialog{
 		
 		saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	FrameManager.fileManager.saveCharacterData(characterInput.getText(), leagueSelect.getSelectedItem().toString());			
+		    	Main.fileManager.saveCharacterData(characterInput.getText(), leagueSelect.getSelectedItem().toString());			
 		    }
 		});
 	}
