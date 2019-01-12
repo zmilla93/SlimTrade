@@ -9,8 +9,7 @@ public class Main {
 	public static Debug debug = new Debug();
 	public static ExternalFileManager fileManager = new ExternalFileManager();
 	
-	
-	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
 		try {
@@ -19,12 +18,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		
-		FrameManager frameManager = new FrameManager();
-		
-
-//		Overlay overlay = new Overlay();
-		
+		FrameManager frameManager = new FrameManager();		
 		
 		//EXAMPLE AUDIO CODE
 //		File ping = new File("audio/ping.wav");

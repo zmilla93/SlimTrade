@@ -43,7 +43,7 @@ public class StashHelper extends JPanel{
 	};
 	public Timer highlighterTimer = new Timer(2000, hideHighlighter);
 	
-	public StashHelper(TradeOffer trade){
+	public StashHelper(TradeOffer trade, Color color){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, borderThickness));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setBorder(BorderFactory.createLineBorder(Color.WHITE, borderThickness, true));
@@ -66,11 +66,11 @@ public class StashHelper extends JPanel{
 		this.y = trade.stashtabY;
 		this.stashtab = trade.stashtabName;
 		this.itemName = trade.itemName;
-		Random rand = new Random();
-		int r = rand.nextInt(255)+1;
-		int g = rand.nextInt(255)+1;
-		int b = rand.nextInt(255)+1;
-		Color color = new Color(r,g,b);
+//		Random rand = new Random();
+//		int r = rand.nextInt(255)+1;
+//		int g = rand.nextInt(255)+1;
+//		int b = rand.nextInt(255)+1;
+//		Color color = new Color(r,g,b);
 //		double cellWidth = (double)StashGridOverlay.getGridSize().width/12;
 //		double cellHeight = (double)StashGridOverlay.getGridSize().height/12;
 		this.setBackground(color);

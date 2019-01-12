@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.awt.Robot;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -69,8 +70,7 @@ public class MessagePanel extends JPanel{
 	private BasicIconButton kickButton;
 	private BasicIconButton tpHomeButton;
 	
-	
-	
+	private Color color;	
 	
 	public MessagePanel(TradeOffer trade){
 		
@@ -113,6 +113,12 @@ public class MessagePanel extends JPanel{
 		default:
 			break;
 		}
+		
+		Random rand = new Random();
+		int r = rand.nextInt(200);
+		int g = rand.nextInt(200);
+		int b = rand.nextInt(200);
+		color = new Color(r,g,b);
 		
 		//MESSAGE WINDOW BORDER
 		borderOuter.setLayout(new FlowLayout(FlowLayout.CENTER, borderThickness, borderThickness));
@@ -295,7 +301,7 @@ public class MessagePanel extends JPanel{
 			//STASH HELPER
 			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
-			stashHelper = new StashHelper(trade);
+			stashHelper = new StashHelper(trade, color);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.getContentPane().add(stashHelper);
 			
@@ -405,6 +411,9 @@ public class MessagePanel extends JPanel{
 		switch(trade.msgType){
 		case INCOMING_TRADE:
 			pricePanel.setBackground(ColorManager.MsgWindow.priceBG_in);
+//			itemCountLabel.setForeground(color);
+//			itemLabel.setForeground(color);
+			this.borderInner.setBackground(color);
 			break;
 		case OUTGOING_TRADE:
 			pricePanel.setBackground(ColorManager.MsgWindow.priceBG_out);

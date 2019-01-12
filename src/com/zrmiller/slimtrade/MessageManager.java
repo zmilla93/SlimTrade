@@ -70,7 +70,7 @@ public class MessageManager extends BasicDialog {
 		this.add(messages[i]);
 		this.add(rigidAreas[i]);
 		messageCount++;
-		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight*messageCount+gap*messageCount);
+		refresh();
 		FrameManager.forceAllToTop();
 	}
 	
@@ -83,11 +83,16 @@ public class MessageManager extends BasicDialog {
 		}
 		this.remove(messages[i]);
 		this.remove(rigidAreas[i]);
-		this.revalidate();
-		this.repaint();
 		messages[i] = null;
 		rigidAreas[i] = null;
 		messageCount--;
+		refresh();
+	}
+	
+	private void refresh(){
+		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight*messageCount+gap*messageCount);
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public boolean isDuplicateTrade(TradeOffer trade){
