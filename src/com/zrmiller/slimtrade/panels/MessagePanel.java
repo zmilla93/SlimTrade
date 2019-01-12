@@ -1,5 +1,5 @@
 
-package com.zrmiller.slimtrade.windows;
+package com.zrmiller.slimtrade.panels;
 
 import java.awt.AWTException;
 import java.awt.BorderLayout;
@@ -22,7 +22,6 @@ import com.zrmiller.slimtrade.TradeOffer;
 import com.zrmiller.slimtrade.buttons.BasicIconButton;
 import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.dialog.StashHelper;
-import com.zrmiller.slimtrade.panels.BasicIcon;
 
 //TODO : Refocus POE on all clicks
 public class MessagePanel extends JPanel{
@@ -36,7 +35,7 @@ public class MessagePanel extends JPanel{
 	private int rowHeight = height/2;
 	public static int totalWidth = width+borderThickness*4;
 	public static int totalHeight = height+borderThickness*4;
-	private TradeOffer trade;
+	public TradeOffer trade;
 	
 	//Panels
 	private JPanel borderOuter = new JPanel();

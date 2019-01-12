@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
+import java.util.Objects;
 import java.util.Random;
 
 import javax.swing.Box;
@@ -13,7 +14,7 @@ import com.zrmiller.slimtrade.datatypes.MessageType;
 import com.zrmiller.slimtrade.dialog.BasicDialog;
 import com.zrmiller.slimtrade.dialog.ItemHighlighter;
 import com.zrmiller.slimtrade.dialog.StashHelper;
-import com.zrmiller.slimtrade.windows.MessagePanel;
+import com.zrmiller.slimtrade.panels.MessagePanel;
 
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
@@ -26,14 +27,6 @@ public class MessageManager extends BasicDialog {
 	private int messageCount = 0;
 	private MessagePanel[] messages = new MessagePanel[maxMessageCount];
 	private Component[] rigidAreas = new Component[maxMessageCount];
-	private StashHelper[] stashHelpers = new StashHelper[maxMessageCount];
-	private ItemHighlighter[] itemHighlighters = new ItemHighlighter[maxMessageCount];
-	
-	private Point gridPos;
-	private int gridWidth;
-	private int gridHeight;
-//	private ItemHighlighter[] rigidAreas = new Component[maxMessageCount];
-	
 	
 	public MessageManager(){
 		//TODO : Get default theme, or move setMessageTheme
@@ -95,6 +88,17 @@ public class MessageManager extends BasicDialog {
 		messages[i] = null;
 		rigidAreas[i] = null;
 		messageCount--;
+	}
+	
+	public boolean isDuplicateTrade(TradeOffer trade){
+		for(MessagePanel msg : messages){
+			if(msg != null){
+				if(TradeUtility.isDuplicateTrade(msg.trade, trade)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 }

@@ -10,6 +10,7 @@ import com.zrmiller.slimtrade.dialog.ItemHighlighter;
 import com.zrmiller.slimtrade.dialog.MenubarDialog;
 import com.zrmiller.slimtrade.dialog.StashHelperContainer;
 import com.zrmiller.slimtrade.windows.CharacterWindow;
+import com.zrmiller.slimtrade.windows.HistoryWindow;
 import com.zrmiller.slimtrade.windows.StashGridOverlay;
 
 public class FrameManager {
@@ -17,7 +18,7 @@ public class FrameManager {
 //	public static Debug debug = new Debug();
 	
 	public static BasicWindowDialog optionWindow = new BasicWindowDialog("Options");	
-	public static BasicWindowDialog historyWindow = new BasicWindowDialog("History");	
+	public static HistoryWindow historyWindow = new HistoryWindow("History");	
 	public static MenubarDialog menubar = new MenubarDialog();
 	public static MenubarToggleButton menubarToggle = new MenubarToggleButton();
 	public static MessageManager messageManager = new MessageManager();

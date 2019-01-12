@@ -23,7 +23,7 @@ public class ChatParser {
 	public int tradeHistoryIndex = 0;
 	final public int MAX_TRADE_HISTORY = 50;
 	public TradeOffer[] tradeHistory = new TradeOffer[MAX_TRADE_HISTORY];
-	public int messageQueue = 0;
+//	public int messageQueue = 0;
 	public String[] playerJoinedArea = new String[20];
 	public int playerJoinedQueue = 0;
 	private ActionListener updateAction = new ActionListener(){
@@ -35,7 +35,7 @@ public class ChatParser {
 	private Timer updateTimer = new Timer(500, updateAction);
 	
 	//REGEX
-	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?([A-z_]+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (.+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
+	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?(.+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (.+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 	
 	private String clientLogPath;
@@ -46,15 +46,13 @@ public class ChatParser {
 	
 	//TODO : Move path to options
 	public void init(){
-//		File dir = new File("D:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-//		File f = new File("D:/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-//		
-//		FrameManager.debug.log("Directory Exists : " + dir.exists());
-//		FrameManager.debug.log("Log File Exists : " + f.exists());
+		Main.debug.log("Launching chat parser...");
+		int msgCount = 0;
+		updateTimer.stop();
 		if(Main.fileManager.validClientPath){
 			clientLogPath = Main.fileManager.clientPath;
 		}else{
-			Main.debug.log("[ERROR] No valid client file path found");
+			Main.debug.log("[ERROR] No valid client file path found.");
 			return;
 		}
 		try {
@@ -63,22 +61,31 @@ public class ChatParser {
 			bufferedReader = new BufferedReader(fileReader);
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
-			Main.debug.log("CHAT PARSER FAILED TO LAUNCH");
+			Main.debug.log("[ERROR] Chat parser failed to launch.");
 			e1.printStackTrace();
 		}
 		//TODO : Init history
 		try {
 			while((curLine = bufferedReader.readLine()) != null){
+				if (curLine.contains("@")){
+					TradeOffer trade = getTradeOffer(curLine);
+					if(trade != null){
+//						FrameManager.historyWindow.addTrade(trade);
+					}
+					msgCount++;
+				}
 				totalLineCount++;
 			}
+			Main.debug.log(msgCount + " whisper messages found.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		updateTimer.start();
+		Main.debug.log(totalLineCount + " total lines found.");
+		Main.debug.log("Chat parser sucessfully launched.");
 	}
 
-	public boolean update(){
-		boolean update = false;
+	private void update(){
 		try {
 			fileReader = new FileReader(clientLogPath);
 			bufferedReader = new BufferedReader(fileReader);
@@ -86,45 +93,59 @@ public class ChatParser {
 			while((curLine = bufferedReader.readLine()) != null){
 				curLineCount++;
 				if (curLineCount>totalLineCount){
-					Main.debug.log(curLine);
 					totalLineCount++;
-					Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
-					Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
-					if(tradeMsgMatcher.matches()){
-						update = true;
-						messageQueue++;
-						//TODO: could move int fixing to TradeOffer class
-						Double f1 = 0.0; 
-						Double f2 = 0.0;
-						if(tradeMsgMatcher.group(7)!=null){
-							f1 = Double.parseDouble(tradeMsgMatcher.group(7));
+					if(curLine.contains("@")){
+						Main.debug.log(curLine);
+						TradeOffer trade = getTradeOffer(curLine);
+						if(trade != null && !FrameManager.messageManager.isDuplicateTrade(trade)){
+							FrameManager.messageManager.addMessage(trade);
 						}
-						if(tradeMsgMatcher.group(10)!=null){
-							f2 = Double.parseDouble(tradeMsgMatcher.group(10));
-						}
-						int i1 = 0;
-						int i2 = 0;
-						if(tradeMsgMatcher.group(15)!=null){
-							i1 = Integer.parseInt(tradeMsgMatcher.group(17));
-						}
-						if(tradeMsgMatcher.group(17)!=null){
-							i2 = Integer.parseInt(tradeMsgMatcher.group(19));
-						}
-						TradeOffer trade = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
-								tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(11)), f2, 
-								tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
-						FrameManager.messageManager.addMessage(trade);
-					}else if(joinAreaMatcher.matches()){
+					}else{
+						Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
 					}
 				}
 			}
+			bufferedReader.close();
+			fileReader.close();
 		} catch (NumberFormatException | IOException e) {
+			updateTimer.stop();
+			Main.debug.log("[ERROR] Exception encountered while attempting to update parser.");
+			Main.debug.log("Parser disabled.");
 			e.printStackTrace();
 		}
-		return update;
 	}
 	
-	public MessageType getMsgType(String s){
+	private TradeOffer getTradeOffer(String text){
+		Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
+		TradeOffer trade = null;
+		if(tradeMsgMatcher.matches()){
+			//TODO: could move int fixing to TradeOffer class
+			Double f1 = 0.0; 
+			Double f2 = 0.0;
+			if(tradeMsgMatcher.group(7)!=null){
+				f1 = Double.parseDouble(tradeMsgMatcher.group(7));
+			}
+			if(tradeMsgMatcher.group(10)!=null){
+				f2 = Double.parseDouble(tradeMsgMatcher.group(10));
+			}
+			int i1 = 0;
+			int i2 = 0;
+			if(tradeMsgMatcher.group(15)!=null){
+				i1 = Integer.parseInt(tradeMsgMatcher.group(17));
+			}
+			if(tradeMsgMatcher.group(17)!=null){
+				i2 = Integer.parseInt(tradeMsgMatcher.group(19));
+			}
+			trade = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
+					tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(11)), f2, 
+					tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
+			return trade;
+		}else{
+			return null;
+		}
+	}
+	
+	private MessageType getMsgType(String s){
 		MessageType type = MessageType.UNKNOWN;
 		switch(s.toLowerCase()){
 		case "to":
@@ -137,14 +158,4 @@ public class ChatParser {
 		return type;
 	}
 	
-//	public int getFixedIndex(int unsafeIndex){
-//		int r = this.tradeHistoryIndex+unsafeIndex;
-//		if (r<0){r=r+this.MAX_TRADE_HISTORY;}
-//		if (r>this.MAX_TRADE_HISTORY){r=0;}
-//		return r;
-//	}
-	
-	public void refresh(){
-		this.totalLineCount=0;
-	}
 }

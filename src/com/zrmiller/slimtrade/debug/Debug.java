@@ -3,6 +3,7 @@ package com.zrmiller.slimtrade.debug;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
 public class Debug extends JFrame{
 
@@ -16,6 +17,7 @@ public class Debug extends JFrame{
 		this.setVisible(true);
 		logScrollPane = new JScrollPane(logTextArea);
 		this.add(logScrollPane);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
 	public void log(String... text){

@@ -23,7 +23,8 @@ public class ExternalFileManager {
 	//Paths
 	private String characterStub = "/character.json";
 	private String stashStub = "/stash.json";
-	private String clientPathStub =  ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
+	private String clientSteamStub =  ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
+	private String clientStandAloneStub =  ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
 	private String[] commonDrives = {"C", "D", "E", "F"};
 	private String user = System.getProperty("user.name");
 	
@@ -36,12 +37,23 @@ public class ExternalFileManager {
 	
 	public ExternalFileManager(){
 		//WINDOWS
+		//TODO : 	Inform user of which path is chosen
+		//			Warn user if multiple valid paths are found
+		//			Add support for 32 bit client
 		for(String drive : commonDrives){
-			File clientFile = new File(drive + clientPathStub);
+			File clientFile = new File(drive + clientSteamStub);
 			if(clientFile.exists() && clientFile.isFile()){
 				validClientPath = true;
-				clientPath = drive + clientPathStub;
-				Main.debug.log("Valid client path found on " + drive + " drive.");
+				clientPath = drive + clientSteamStub;
+				Main.debug.log("Valid client path found on " + drive + " drive. (Steam)");
+			}
+		}
+		for(String drive : commonDrives){
+			File clientFile = new File(drive + clientStandAloneStub);
+			if(clientFile.exists() && clientFile.isFile()){
+				validClientPath = true;
+				clientPath = drive + clientStandAloneStub;
+				Main.debug.log("Valid client path found on " + drive + " drive. (Stand Alone)");
 			}
 		}
 		//TODO : Switch to something viewable by user later on
@@ -59,7 +71,7 @@ public class ExternalFileManager {
 					saveDirectory.mkdirs();
 					Main.debug.log("No save directory found.\nCreating new save directory at " + saveDirectory.getPath());
 				}else{
-					Main.debug.log("Save directory found!");
+					Main.debug.log("Previous save directory found.");
 					file = new File(savePath + characterStub);
 					if(file.exists()) hasCharacterData = true;
 					file = new File(savePath + stashStub);

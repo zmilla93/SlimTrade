@@ -4,8 +4,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import com.zrmiller.slimtrade.windows.MessagePanel;
-
 public class BasicMoveablePanel extends JPanel{
 	
 	/**
