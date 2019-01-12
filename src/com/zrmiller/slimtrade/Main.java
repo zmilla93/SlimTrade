@@ -14,10 +14,6 @@ public class Main {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		JDialog d = new JDialog();
-		d.setSize(500, 500);
-		d.setVisible(true);
-		
 		try {
 			PoeInterface poe = new PoeInterface();
 		} catch (AWTException e) {

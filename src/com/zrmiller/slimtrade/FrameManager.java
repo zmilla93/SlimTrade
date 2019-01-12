@@ -72,12 +72,15 @@ public class FrameManager {
 	
 	public static void forceAllToTop(){
 		if(menubarToggle.isVisible()){
-			menubarToggle.forceToTop();
+			
 		}
 		if(menubar.isVisible()){
-			menubar.forceToTop();
+			
 		}
+		menubarToggle.forceToTop();
+		menubar.forceToTop();
 		messageManager.forceToTop();
+		stashHelperContainer.forceToTop();
 		PoeInterface.focus();
 	}
 	
