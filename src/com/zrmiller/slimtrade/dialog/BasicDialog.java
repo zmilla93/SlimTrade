@@ -1,8 +1,9 @@
 package com.zrmiller.slimtrade.dialog;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-public class BasicDialog extends JFrame{
+public class BasicDialog extends JDialog{
 
 	private static final long serialVersionUID = 1L;
 	

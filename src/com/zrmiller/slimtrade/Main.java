@@ -2,15 +2,21 @@ package com.zrmiller.slimtrade;
 
 import java.awt.AWTException;
 
-import com.zrmiller.slimtrade.debug.Debug;
+import javax.swing.JDialog;
+
+import com.zrmiller.slimtrade.debug.Debugger;
 
 public class Main {	
 	
-	public static Debug debug = new Debug();
+	public static Debugger debug = new Debugger();
 	public static ExternalFileManager fileManager = new ExternalFileManager();
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		
+		JDialog d = new JDialog();
+		d.setSize(500, 500);
+		d.setVisible(true);
 		
 		try {
 			PoeInterface poe = new PoeInterface();

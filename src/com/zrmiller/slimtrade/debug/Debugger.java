@@ -5,13 +5,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
-public class Debug extends JFrame{
+public class Debugger extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JScrollPane logScrollPane;
 	private JTextArea logTextArea = new JTextArea();
 
-	public Debug(){
+	public Debugger(){
 		this.setTitle("SlimTrade Debugger");
 		this.setBounds(0, 0, 800, 400);
 		this.setVisible(true);
