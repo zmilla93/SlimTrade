@@ -7,6 +7,8 @@ public class BasicDialog extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	public BasicDialog(){
+		this.setTitle("SlimTrade Window");
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setAlwaysOnTop(true);
 		this.setType(JFrame.Type.UTILITY);

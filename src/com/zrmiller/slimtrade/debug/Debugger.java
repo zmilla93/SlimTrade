@@ -1,9 +1,14 @@
 package com.zrmiller.slimtrade.debug;
 
+import java.awt.Dimension;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.WindowConstants;
+
+import com.zrmiller.slimtrade.FrameManager;
 
 public class Debugger extends JFrame{
 
@@ -13,11 +18,25 @@ public class Debugger extends JFrame{
 
 	public Debugger(){
 		this.setTitle("SlimTrade Debugger");
-		this.setBounds(0, 0, 800, 400);
+		this.setBounds(0, 0, 800, 500);
 		this.setVisible(true);
+//		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
+		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		logScrollPane = new JScrollPane(logTextArea);
+		logScrollPane.setPreferredSize(new Dimension(750, 400));
 		this.add(logScrollPane);
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		JButton refreshButton = new JButton("Refresh");
+		refreshButton.setAlignmentX(CENTER_ALIGNMENT);
+		this.add(refreshButton);
+		
+		refreshButton.addMouseListener(new java.awt.event.MouseAdapter(){
+			public void mouseClicked(java.awt.event.MouseEvent e){
+				FrameManager.forceAllToTop();
+			}
+		});
+		
 	}
 	
 	public void log(String... text){

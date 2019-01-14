@@ -6,7 +6,9 @@ import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Locale;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import com.zrmiller.slimtrade.FrameManager;
 import com.zrmiller.slimtrade.Main;
@@ -38,30 +40,31 @@ public class MenubarDialog extends BasicDialog{
 	public MenubarDialog(){
 		//TODO:Toggle off
 //		this.setVisible(false);
-		
 		this.setBounds(0,TradeUtility.screenSize.height-totalHeight, MenuButton.width, totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
-		optionsButton = new MenuButton("Options");
+		optionsButton = new MenuButton("");
 		this.add(optionsButton);
-		historyButton = new MenuButton("History");
+		historyButton = new MenuButton("");
 		this.add(historyButton);
-		stashButton = new MenuButton("Stash");
+		stashButton = new MenuButton("");
 		this.add(stashButton);
-		characterButton = new MenuButton("Character");
+		characterButton = new MenuButton("");
 		this.add(characterButton);
-		testButton = new MenuButton("TEST");
+		testButton = new MenuButton("");
 		this.add(testButton);
-		clearButton = new MenuButton("Clear Debug");
+		clearButton = new MenuButton("");
 		this.add(clearButton);
-		refreshButton = new MenuButton("Refresh");
+		refreshButton = new MenuButton("");
 		this.add(refreshButton);
 		this.add(new BasicPanel(MenuButton.width, spacerHeight));
-		quitButton = new MenuButton("Quit");
+		quitButton = new MenuButton("");
 		this.add(quitButton);
 		this.add(new BasicPanel(MenuButton.width, spacerHeight));
-		minimizeButton = new MenuButton("Minimize");
+		minimizeButton = new MenuButton("");
 		this.add(minimizeButton);
+		
+		this.refreshButtonText();
 		
 		//OPTIONS
 		optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -140,6 +143,9 @@ public class MenubarDialog extends BasicDialog{
 		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				FrameManager.forceAllToTop();
+				Locale swede = new Locale("sv", "SE");
+				Locale.setDefault(swede);
+				refreshButtonText();
 			}
 		});
 		
@@ -172,8 +178,17 @@ public class MenubarDialog extends BasicDialog{
 		
 	}
 	
-	public void updateCharacterButton(String s){
-		characterButton.setText(s);
+	private void refreshButtonText(){
+		ResourceBundle lang = ResourceBundle.getBundle("lang");
+		optionsButton.setText(lang.getString("optionsButton"));
+		historyButton.setText(lang.getString("historyButton"));
+		stashButton.setText(lang.getString("stashButton"));
+		characterButton.setText(lang.getString("characterButton"));
+		testButton.setText(lang.getString("testButton"));
+		clearButton.setText(lang.getString("clearDebugButton"));
+		refreshButton.setText(lang.getString("refreshButton"));
+		quitButton.setText(lang.getString("quitButton"));
+		minimizeButton.setText(lang.getString("minimizeButton"));
 	}
 	
 }
