@@ -158,8 +158,8 @@ public class MessagePanel extends JPanel{
 		BasicIcon.width = rowHeight;
 		BasicIcon.height = rowHeight;
 		BasicIcon priceIcon;
-		if(this.getClass().getResource("/" + trade.priceTypeString + ".png") != null){
-			priceIcon = new BasicIcon("/" + trade.priceTypeString + ".png");
+		if(this.getClass().getResource("/resources/currency/" + trade.priceTypeString + ".png") != null){
+			priceIcon = new BasicIcon("/resources/currency/" + trade.priceTypeString + ".png");
 			pricePanel.add(priceIcon);
 		}else{
 			priceTypeLabel = new JLabel(" " + trade.priceTypeString);
@@ -189,8 +189,8 @@ public class MessagePanel extends JPanel{
 		BasicIcon.width = rowHeight;
 		BasicIcon.height = rowHeight;
 		BasicIcon itemIcon;
-		if(this.getClass().getResource("/" + trade.itemName + ".png") != null){
-			itemIcon = new BasicIcon("/" + trade.itemName + ".png");
+		if(this.getClass().getResource("/resources/items/" + trade.itemName + ".png") != null){
+			itemIcon = new BasicIcon("/resources/items/" + trade.itemName + ".png");
 			itemPanel.add(itemIcon, BorderLayout.CENTER);
 		}else{
 			itemLabel = new JLabel(trade.itemName);
@@ -210,19 +210,19 @@ public class MessagePanel extends JPanel{
 		BasicIconButton.width = rowHeight;
 		BasicIconButton.height = rowHeight;
 		//Row 1
-		callbackButton = new BasicIconButton("/phone.png");
-		waitButton = new BasicIconButton("/clock1.png");
-		stillInterestedButton = new BasicIconButton("/refresh1.png");
-		repeatMessageButton = new BasicIconButton("/refresh1.png");
-		closeButton = new BasicIconButton("/close.png");
+		callbackButton = new BasicIconButton("/resources/icons/phone.png");
+		waitButton = new BasicIconButton("/resources/icons/clock1.png");
+		stillInterestedButton = new BasicIconButton("/resources/icons/refresh1.png");
+		repeatMessageButton = new BasicIconButton("/resources/icons/refresh1.png");
+		closeButton = new BasicIconButton("/resources/icons/close.png");
 		//Row 2
-		inviteToPartyButton = new BasicIconButton("/invite.png");
-		tpToHideoutButton = new BasicIconButton("/warp.png");
-		tradeButton = new BasicIconButton("/cart2.png");
-		thankButton = new BasicIconButton("/thumb1.png");
-		kickButton = new BasicIconButton("/leave.png");
-		leavePartyButton = new BasicIconButton("/leave.png");
-		tpHomeButton = new BasicIconButton("/home2.png");
+		inviteToPartyButton = new BasicIconButton("/resources/icons/invite.png");
+		tpToHideoutButton = new BasicIconButton("/resources/icons/warp.png");
+		tradeButton = new BasicIconButton("/resources/icons/cart2.png");
+		thankButton = new BasicIconButton("/resources/icons/thumb1.png");
+		kickButton = new BasicIconButton("/resources/icons/leave.png");
+		leavePartyButton = new BasicIconButton("/resources/icons/leave.png");
+		tpHomeButton = new BasicIconButton("/resources/icons/home2.png");
 		
 		
 		
