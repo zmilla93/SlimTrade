@@ -2,7 +2,11 @@ package com.zrmiller.slimtrade;
 
 import java.awt.AWTException;
 import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeHookException;
 
 import com.zrmiller.slimtrade.debug.Debugger;
 
@@ -14,30 +18,34 @@ public class Main {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		Locale swede = new Locale("sv", "SE");
-//		Locale.setDefault(swede);
+		//JNativeHook Setup
+		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+		logger.setLevel(Level.WARNING);
+		logger.setUseParentHandlers(false);
+		try {
+			GlobalScreen.registerNativeHook();
+		} catch (NativeHookException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		GlobalMouseListener globalMouse = new GlobalMouseListener();
+		GlobalKeyboardListener globalKeyboard = new GlobalKeyboardListener();
+		GlobalScreen.addNativeMouseListener(globalMouse);
+		GlobalScreen.addNativeKeyListener(globalKeyboard);
 		
+		//Locale
 		debug.log("Default Localization : " + Locale.getDefault());
+		Locale.setDefault(Locale.US);
 		
+		//POE Interface
 		try {
 			PoeInterface poe = new PoeInterface();
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
 		
+		//Frame Manager
 		FrameManager frameManager = new FrameManager();
-		System.out.println("закос_ютубер");
-		
-		//Locale Testing
-		
-	
-		//EXAMPLE AUDIO CODE
-//		File ping = new File("audio/ping.wav");
-//		try {
-//			AudioManager.playSound(ping);
-//		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException | InterruptedException e) {
-//			e.printStackTrace();
-//		}
 		
 	}
 	

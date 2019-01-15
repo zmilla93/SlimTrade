@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.zrmiller.slimtrade.FrameManager;
 import com.zrmiller.slimtrade.buttons.IconButton;
 
 public class BasicWindowDialog extends BasicMovableDialog {

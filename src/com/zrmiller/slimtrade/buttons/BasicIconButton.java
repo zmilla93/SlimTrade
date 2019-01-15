@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.zrmiller.slimtrade.PoeInterface;
+
 public class BasicIconButton extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -57,6 +59,14 @@ public class BasicIconButton extends JPanel{
 				setColorDefault();
 			}
 		});
+		
+		this.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mousePressed(java.awt.event.MouseEvent e) {
+				PoeInterface.focus();
+			}
+		});
+		
+		
 	}
 	
 	public void updateBorderPreset(){

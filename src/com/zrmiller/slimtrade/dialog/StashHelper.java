@@ -72,6 +72,7 @@ public class StashHelper extends JPanel{
 		    	itemHighlighter.refresh();
 		    	itemHighlighter.setVisible(true);
 		    	itemHighlighter.repaint();
+		    	PoeInterface.focus();
 		    }
 		});
 		

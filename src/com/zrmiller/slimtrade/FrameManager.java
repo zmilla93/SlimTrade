@@ -70,6 +70,10 @@ public class FrameManager {
 		stashOverlay.setVisible(false);
 	}
 	
+	public static void centerFrame(BasicWindowDialog window){
+		window.setLocation((TradeUtility.screenSize.width/2)-(window.getWidth()/2), (TradeUtility.screenSize.height/2)-(window.getHeight()/2));
+	}
+	
 	public static void forceAllToTop(){
 		if(menubarToggle.isVisible()){
 			

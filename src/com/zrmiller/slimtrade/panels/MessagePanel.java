@@ -115,9 +115,9 @@ public class MessagePanel extends JPanel{
 		}
 		
 		Random rand = new Random();
-		int r = rand.nextInt(200);
-		int g = rand.nextInt(200);
-		int b = rand.nextInt(200);
+		int r = rand.nextInt(150)+50;
+		int g = rand.nextInt(150)+50;
+		int b = rand.nextInt(150)+50;
 		color = new Color(r,g,b);
 		
 		//MESSAGE WINDOW BORDER
