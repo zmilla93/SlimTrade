@@ -10,53 +10,89 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import main.java.com.slimtrade.buttons.BasicIconButton;
+import main.java.com.slimtrade.core.ColorManager;
+import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.core.PoeInterface;
+import main.java.com.slimtrade.core.TradeOffer;
+
 public class HistoryRowPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private int totalWidth = 600;
-	private int innerWidth = 500;
+	private int totalWidth = 750;
 	private int height = 25;
 	
-	private double nameWidthPercent = 0.4;
-	private double itemWidthPercent = 0.4;
+	private double timeWidthPercent = 0.2;
+	private double nameWidthPercent = 0.3;
+	private double itemWidthPercent = 0.3;
 	private double priceWidthPercent = 0.2;
+	public BasicIconButton refreshButton = new BasicIconButton("/resources/icons/refresh1.png", height, height);
+
+	private TradeOffer localTrade;
 	
-	public HistoryRowPanel(String name, String item, String priceType, double priceQuantity){
+	Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
+	Border borderHover = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+	
+	public HistoryRowPanel(TradeOffer trade){
 		
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setPreferredSize(new Dimension(totalWidth, height));
 		this.setBackground(Color.green);
 		
-		Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
-		JPanel sizeContainer = new JPanel();
+		
+		JPanel buttonPanel = new JPanel();
+		JPanel timePanel = new JPanel();
 		JPanel namePanel = new JPanel();
 		JPanel itemPanel = new JPanel();
 		JPanel pricePanel = new JPanel();
 		
-		sizeContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		int remainingWidth = totalWidth-height;
+		buttonPanel.setPreferredSize(new Dimension(height, height));
+		timePanel.setPreferredSize(new Dimension((int)(remainingWidth*timeWidthPercent), height));
+		namePanel.setPreferredSize(new Dimension((int)(remainingWidth*nameWidthPercent), height));
+		itemPanel.setPreferredSize(new Dimension((int)(remainingWidth*itemWidthPercent), height));
+		pricePanel.setPreferredSize(new Dimension((int)(remainingWidth*priceWidthPercent), height));
 		
-		sizeContainer.setPreferredSize(new Dimension(innerWidth, height));
-		namePanel.setPreferredSize(new Dimension((int)(innerWidth*nameWidthPercent), height));
-		itemPanel.setPreferredSize(new Dimension((int)(innerWidth*itemWidthPercent), height));
-		pricePanel.setPreferredSize(new Dimension((int)(innerWidth*priceWidthPercent), height));
-		
+		refreshButton.setBorder(border);
+		buttonPanel.setBorder(border);
+		timePanel.setBorder(border);
 		namePanel.setBorder(border);
 		itemPanel.setBorder(border);
 		pricePanel.setBorder(border);
 		
-		JLabel nameLabel = new JLabel(name);
-		JLabel itemLabel = new JLabel(item);
-		JLabel priceLabel = new JLabel("PRICE");
+		refreshButton.setBackground(Color.LIGHT_GRAY);
+		JLabel timeLabel = new JLabel(trade.date);
+		JLabel nameLabel = new JLabel(trade.playerName);
+		JLabel itemLabel = new JLabel(trade.itemCount + " " + trade.itemName);
+		JLabel priceLabel = new JLabel(trade.priceCount + " " + trade.priceTypeString);
 		
+		timePanel.add(timeLabel);
 		namePanel.add(nameLabel);
 		itemPanel.add(itemLabel);
 		pricePanel.add(priceLabel);
 		
-		sizeContainer.add(namePanel);
-		sizeContainer.add(itemPanel);
-		sizeContainer.add(pricePanel);
-		this.add(sizeContainer);
-	}
+		this.add(refreshButton);
+		this.add(timePanel);
+		this.add(namePanel);
+		this.add(itemPanel);
+		this.add(pricePanel);
+		
+		this.localTrade = trade;
+		
+		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+			FrameManager.messageManager.addMessage(localTrade);
+		}});
+		
+		updateColor();
 
+	}
+	
+	public void updateColor(){
+//		refreshButton.bgColor = ColorManager.GenericWindow.buttonBG;
+//		refreshButton.bgColor_hover = ColorManager.GenericWindow.buttonBG_hover;
+		refreshButton.setColorPresets(ColorManager.GenericWindow.buttonBG, ColorManager.GenericWindow.buttonBG_hover);
+		refreshButton.setBorderPresets(border, border);
+		refreshButton.updateColorPresets();
+	}
 }

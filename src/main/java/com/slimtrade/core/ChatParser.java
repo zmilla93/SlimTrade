@@ -61,7 +61,6 @@ public class ChatParser {
 			fileReader = new FileReader(clientLogPath);
 			bufferedReader = new BufferedReader(fileReader);
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			Main.debug.log("[ERROR] Chat parser failed to launch.");
 			e1.printStackTrace();
 		}
@@ -71,12 +70,13 @@ public class ChatParser {
 				if (curLine.contains("@")){
 					TradeOffer trade = getTradeOffer(curLine);
 					if(trade != null){
-//						FrameManager.historyWindow.addTrade(trade);
+						FrameManager.historyWindow.addTrade(trade, false);
 					}
 					msgCount++;
 				}
 				totalLineCount++;
 			}
+			FrameManager.historyWindow.buildHistory();
 			Main.debug.log(msgCount + " whisper messages found.");
 		} catch (IOException e) {
 			e.printStackTrace();

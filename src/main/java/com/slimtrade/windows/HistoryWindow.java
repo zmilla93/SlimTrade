@@ -9,17 +9,22 @@ import javax.swing.JScrollPane;
 
 import main.java.com.slimtrade.core.FrameManager;
 import main.java.com.slimtrade.core.TradeOffer;
+import main.java.com.slimtrade.core.TradeUtility;
 import main.java.com.slimtrade.dialog.BasicWindowDialog;
-import main.java.com.slimtrade.panels.HistoryRowPanelAlt;
+import main.java.com.slimtrade.panels.HistoryRowPanel;
 
 public class HistoryWindow extends BasicWindowDialog{
 
 	private static final long serialVersionUID = 1L;
 	public static int width = 800;
 	public static int height = 400;
-	private int maxTrades = 50;
-	private ArrayList<TradeOffer> tradesIncoming = new ArrayList<TradeOffer>();
-	private ArrayList<TradeOffer> tradesOutgoing = new ArrayList<TradeOffer>();
+	private int maxTrades = 20;
+	private ArrayList<TradeOffer> incomingTrades = new ArrayList<TradeOffer>();
+	private ArrayList<HistoryRowPanel> incomingTradeRows = new ArrayList<HistoryRowPanel>();
+	
+	
+	private ArrayList<TradeOffer> outgoingTrades = new ArrayList<TradeOffer>();
+	
 	
 	JPanel historyContainer = new JPanel();
 	
@@ -39,22 +44,39 @@ public class HistoryWindow extends BasicWindowDialog{
 
 		
 		FrameManager.centerFrame(this);
-//		this.setVisible(true);
+		this.setVisible(true);
 	}
 	
-	public void addTrade(TradeOffer trade){
+	public void addTrade(TradeOffer trade, boolean update){
 		switch(trade.msgType){
 		case INCOMING_TRADE:
-			tradesIncoming.add(trade);
-			HistoryRowPanelAlt row = new HistoryRowPanelAlt(trade.date, trade.time, trade.playerName, trade.itemName, trade.priceTypeString, trade.priceCount);
-//			row.setAlignmentX(CENTER_ALIGNMENT);
-			historyContainer.add(row);
+			for(TradeOffer savedTrade : incomingTrades){
+				if(TradeUtility.isDuplicateTrade(trade, savedTrade)){
+					return;
+				}
+			}
+			if(incomingTrades.size() > maxTrades){
+//				historyContainer.remove(incomingTradeRows.get(0));
+//				incomingTradeRows.remove(0);
+				incomingTrades.remove(0);
+			}
+			incomingTrades.add(trade);
+//			HistoryRowPanel row = new HistoryRowPanel(trade.date, trade.time, trade.playerName, trade.itemName, trade.priceTypeString, trade.priceCount);
+//			historyContainer.add(row);
 			break;
 		case OUTGOING_TRADE:
-			tradesOutgoing.add(trade);
 			break;
 		default:
 			break;
+		}
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void buildHistory(){
+		for(TradeOffer trade : incomingTrades){
+			HistoryRowPanel row = new HistoryRowPanel(trade);
+			historyContainer.add(row);
 		}
 		this.revalidate();
 		this.repaint();
