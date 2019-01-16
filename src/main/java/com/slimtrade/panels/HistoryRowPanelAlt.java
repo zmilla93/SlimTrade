@@ -29,7 +29,7 @@ public class HistoryRowPanelAlt extends JPanel{
 	Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
 	Border borderHover = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 	
-	public HistoryRowPanelAlt(String name, String item, String priceType, double priceQuantity){
+	public HistoryRowPanelAlt(String date, String time, String name, String item, String priceType, double priceQuantity){
 		
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setPreferredSize(new Dimension(totalWidth, height));
@@ -57,10 +57,10 @@ public class HistoryRowPanelAlt extends JPanel{
 		pricePanel.setBorder(border);
 		
 		refreshButton.setBackground(Color.LIGHT_GRAY);
-		JLabel timeLabel = new JLabel("TIMESTAMP");
+		JLabel timeLabel = new JLabel(date);
 		JLabel nameLabel = new JLabel(name);
 		JLabel itemLabel = new JLabel(item);
-		JLabel priceLabel = new JLabel("PRICE");
+		JLabel priceLabel = new JLabel(priceQuantity + " " + priceType);
 		
 		timePanel.add(timeLabel);
 		namePanel.add(nameLabel);

@@ -71,7 +71,7 @@ public class ChatParser {
 				if (curLine.contains("@")){
 					TradeOffer trade = getTradeOffer(curLine);
 					if(trade != null){
-						FrameManager.historyWindow.addTrade(trade);
+//						FrameManager.historyWindow.addTrade(trade);
 					}
 					msgCount++;
 				}
@@ -121,29 +121,39 @@ public class ChatParser {
 		TradeOffer trade = null;
 		if(tradeMsgMatcher.matches()){
 			//TODO: could move int fixing to TradeOffer class
-			//TEST
-
-			//TEST END
+			//DEBUG
+//			for(int i = 0;i<24;i++){
+//				System.out.println("GROUP #" + i + " : " + tradeMsgMatcher.group(i));
+//			}
+			//DEBUG END
 			Double f1 = 0.0; 
 			Double f2 = 0.0;
-			if(tradeMsgMatcher.group(7)!=null){
-				f1 = Double.parseDouble(tradeMsgMatcher.group(7));
+			//Item Count
+			if(tradeMsgMatcher.group(9)!=null){
+				f1 = Double.parseDouble(tradeMsgMatcher.group(9));
 			}
-			if(tradeMsgMatcher.group(10)!=null){
-				f2 = Double.parseDouble(tradeMsgMatcher.group(10));
+			//Price Count
+			if(tradeMsgMatcher.group(12)!=null){
+				f2 = Double.parseDouble(tradeMsgMatcher.group(12));
 			}
 			int i1 = 0;
 			int i2 = 0;
-			if(tradeMsgMatcher.group(15)!=null){
-				i1 = Integer.parseInt(tradeMsgMatcher.group(17));
+			//Stashtab X
+			if(tradeMsgMatcher.group(20)!=null){
+				i1 = Integer.parseInt(tradeMsgMatcher.group(20));
 			}
-			if(tradeMsgMatcher.group(17)!=null){
-				i2 = Integer.parseInt(tradeMsgMatcher.group(19));
+			//Stashtab Y
+			if(tradeMsgMatcher.group(22)!=null){
+				i2 = Integer.parseInt(tradeMsgMatcher.group(22));
 			}
-//			trade = new TradeOffer(
-//					getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
-//					tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(11)), f2, 
-//					tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
+//(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage){
+			trade = new TradeOffer(
+					tradeMsgMatcher.group(2), tradeMsgMatcher.group(3),
+					getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5),
+					tradeMsgMatcher.group(6), tradeMsgMatcher.group(10), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(13)), f2, 
+					tradeMsgMatcher.group(18), i1, i2, tradeMsgMatcher.group(23), text);
+//			System.out.println(trade.date);
+//			System.out.println(text);
 			return trade;
 		}else{
 			return null;

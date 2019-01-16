@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -40,16 +39,14 @@ public class HistoryWindow extends BasicWindowDialog{
 
 		
 		FrameManager.centerFrame(this);
-//		historyContainer.revalidate();
-//		historyContainer.repaint();
-		this.setVisible(true);
+//		this.setVisible(true);
 	}
 	
 	public void addTrade(TradeOffer trade){
 		switch(trade.msgType){
 		case INCOMING_TRADE:
 			tradesIncoming.add(trade);
-			HistoryRowPanelAlt row = new HistoryRowPanelAlt(trade.playerName, trade.itemName, trade.priceTypeString, trade.priceCount);
+			HistoryRowPanelAlt row = new HistoryRowPanelAlt(trade.date, trade.time, trade.playerName, trade.itemName, trade.priceTypeString, trade.priceCount);
 //			row.setAlignmentX(CENTER_ALIGNMENT);
 			historyContainer.add(row);
 			break;

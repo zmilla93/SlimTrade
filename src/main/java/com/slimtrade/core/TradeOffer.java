@@ -7,6 +7,8 @@ import main.java.com.slimtrade.datatypes.MessageType;
 public class TradeOffer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	public String date;
+	public String time;
 	public MessageType msgType;
 	public String guildName;
 	public String playerName;
@@ -17,9 +19,12 @@ public class TradeOffer implements Serializable{
 	public String stashtabName;
 	public int stashtabX;
 	public int stashtabY;
-	public String sentMessage = "";
+	public String bonusText;
+	public String sentMessage;
 	
-	public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String sentMessage){
+	public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage){
+		this.date = date;
+		this.time = time;
 		this.msgType = msgType;
 		this.guildName = guildName;
 		this.playerName = playerName;
@@ -30,6 +35,7 @@ public class TradeOffer implements Serializable{
 		this.stashtabName = stashtabName;
 		this.stashtabX = stashtabX;
 		this.stashtabY = stashtabY;
+		this.bonusText = bonusText;
 		this.sentMessage = sentMessage;
 	}
 	
