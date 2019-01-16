@@ -2,7 +2,7 @@ package main.java.com.slimtrade.dialog;
 
 import java.awt.FlowLayout;
 
-import main.java.com.slimtrade.ColorManager;
+import main.java.com.slimtrade.core.ColorManager;
 import main.java.com.slimtrade.windows.StashGridOverlay;
 
 public class StashHelperContainer extends BasicDialog{

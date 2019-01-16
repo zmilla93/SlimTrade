@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import main.java.com.slimtrade.PoeInterface;
-import main.java.com.slimtrade.TradeOffer;
+import main.java.com.slimtrade.core.PoeInterface;
+import main.java.com.slimtrade.core.TradeOffer;
 import main.java.com.slimtrade.panels.BasicPanel;
 
 public class StashHelper extends JPanel{

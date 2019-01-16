@@ -1,19 +1,17 @@
 package main.java.com.slimtrade.windows;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.plaf.ColorUIResource;
 
-import main.java.com.slimtrade.FrameManager;
-import main.java.com.slimtrade.TradeOffer;
+import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.core.TradeOffer;
 import main.java.com.slimtrade.dialog.BasicWindowDialog;
-import main.java.com.slimtrade.panels.HistoryRowPanel;
+import main.java.com.slimtrade.panels.HistoryRowPanelAlt;
 
 public class HistoryWindow extends BasicWindowDialog{
 
@@ -29,10 +27,11 @@ public class HistoryWindow extends BasicWindowDialog{
 	public HistoryWindow(String title){
 		super("History");
 		this.resizeWindow(width, height);
-
-		UIManager.put("ScrollBar.track", new ColorUIResource(Color.GREEN));
 		
+
 		container.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		historyContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+//		historyContainer.setLayout(new BoxLayout(historyContainer, BoxLayout.PAGE_AXIS));
 		historyContainer.setPreferredSize(new Dimension((int)(width*0.9), height*4));
 		
 		JScrollPane scrollPane = new JScrollPane(historyContainer);
@@ -41,6 +40,8 @@ public class HistoryWindow extends BasicWindowDialog{
 
 		
 		FrameManager.centerFrame(this);
+//		historyContainer.revalidate();
+//		historyContainer.repaint();
 		this.setVisible(true);
 	}
 	
@@ -48,7 +49,7 @@ public class HistoryWindow extends BasicWindowDialog{
 		switch(trade.msgType){
 		case INCOMING_TRADE:
 			tradesIncoming.add(trade);
-			HistoryRowPanel row = new HistoryRowPanel(trade.playerName, trade.itemName, trade.priceTypeString, trade.priceCount);
+			HistoryRowPanelAlt row = new HistoryRowPanelAlt(trade.playerName, trade.itemName, trade.priceTypeString, trade.priceCount);
 //			row.setAlignmentX(CENTER_ALIGNMENT);
 			historyContainer.add(row);
 			break;
@@ -58,6 +59,8 @@ public class HistoryWindow extends BasicWindowDialog{
 		default:
 			break;
 		}
+		this.revalidate();
+		this.repaint();
 	}
 	
 }

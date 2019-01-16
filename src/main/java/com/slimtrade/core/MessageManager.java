@@ -1,4 +1,4 @@
-package main.java.com.slimtrade;
+package main.java.com.slimtrade.core;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -30,7 +30,7 @@ public class MessageManager extends BasicDialog {
 	
 	public MessageManager(){
 		//TODO : Get default theme, or move setMessageTheme
-		ColorManager.setMessageTheme();
+//		ColorManager.setMessageTheme();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setBounds(1400, 0, 500, 400);
 		this.setBackground(ColorManager.CLEAR);

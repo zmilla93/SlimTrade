@@ -1,4 +1,4 @@
-package main.java.com.slimtrade;
+package main.java.com.slimtrade.core;
 
 import java.io.File;
 import java.io.IOException;

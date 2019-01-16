@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.FrameManager;
+import main.java.com.slimtrade.core.FrameManager;
 
 public class BasicTitlebar extends JPanel{
 

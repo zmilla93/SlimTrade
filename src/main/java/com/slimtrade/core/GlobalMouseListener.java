@@ -1,4 +1,4 @@
-package main.java.com.slimtrade;
+package main.java.com.slimtrade.core;
 
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;

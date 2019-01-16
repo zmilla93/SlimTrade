@@ -7,8 +7,8 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.ColorManager;
 import main.java.com.slimtrade.buttons.BasicIconButton;
+import main.java.com.slimtrade.core.ColorManager;
 import main.java.com.slimtrade.panels.BasicPanel;
 
 public class BasicMenuWindow extends JPanel{

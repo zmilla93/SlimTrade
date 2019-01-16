@@ -5,26 +5,21 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MenuButton extends JButton{
+public class MenubarButton extends JButton{
 	
 	private static final long serialVersionUID = 1L;
 	public static int width = 140;
 	public static int height= 22;
-	private JPanel togglePanel;
 	
-	public MenuButton(){
-		this.setSize(width, height);
+	public MenubarButton(){
+		this.setPreferredSize(new Dimension(width, height));
+		this.setFocusable(false);
 	}
 	
-	public MenuButton(String text){
+	public MenubarButton(String text){
 		this.setText(text);
 		this.setPreferredSize(new Dimension(width, height));
+		this.setFocusable(false);
 	}
-	
-	public MenuButton(String text, JPanel panel){
-		this.setText(text);
-		this.setPreferredSize(new Dimension(width, height));
-		this.togglePanel = panel;
-	}
-	
+
 }

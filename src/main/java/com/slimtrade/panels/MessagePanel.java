@@ -16,11 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.ColorManager;
-import main.java.com.slimtrade.FrameManager;
-import main.java.com.slimtrade.PoeInterface;
-import main.java.com.slimtrade.TradeOffer;
 import main.java.com.slimtrade.buttons.BasicIconButton;
+import main.java.com.slimtrade.core.ColorManager;
+import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.core.PoeInterface;
+import main.java.com.slimtrade.core.TradeOffer;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.dialog.StashHelper;
 
@@ -377,7 +377,7 @@ public class MessagePanel extends JPanel{
 	private void updateButton(BasicIconButton button){
 		button.bgColor = ColorManager.MsgWindow.buttonBG;
 		button.bgColor_hover = ColorManager.MsgWindow.buttonBG_hover;
-		button.updateBorderPreset();
+		button.updateColorPresets();
 	}
 	
 	public void updateColor(){

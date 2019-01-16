@@ -1,4 +1,4 @@
-package main.java.com.slimtrade;
+package main.java.com.slimtrade.core;
 
 import java.awt.AWTException;
 import java.util.Locale;

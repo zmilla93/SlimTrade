@@ -1,4 +1,4 @@
-package main.java.com.slimtrade;
+package main.java.com.slimtrade.core;
 
 import java.io.Serializable;
 
@@ -19,7 +19,7 @@ public class TradeOffer implements Serializable{
 	public int stashtabY;
 	public String sentMessage = "";
 	
-	public TradeOffer(MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String sentMessage){
+	public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String sentMessage){
 		this.msgType = msgType;
 		this.guildName = guildName;
 		this.playerName = playerName;

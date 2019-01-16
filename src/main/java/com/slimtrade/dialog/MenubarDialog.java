@@ -10,11 +10,11 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import main.java.com.slimtrade.FrameManager;
-import main.java.com.slimtrade.Main;
-import main.java.com.slimtrade.TradeOffer;
-import main.java.com.slimtrade.TradeUtility;
-import main.java.com.slimtrade.buttons.MenuButton;
+import main.java.com.slimtrade.buttons.MenubarButton;
+import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.TradeOffer;
+import main.java.com.slimtrade.core.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.panels.BasicPanel;
 
@@ -24,44 +24,42 @@ public class MenubarDialog extends BasicDialog{
 	
 	private int buttonCount = 9;
 	private int spacerCount = 2;
-	private int spacerHeight = (int)(MenuButton.height*0.8);
-	private int totalHeight = MenuButton.height*buttonCount+spacerHeight*spacerCount;
+	private int spacerHeight = (int)(MenubarButton.height*0.8);
+	private int totalHeight = MenubarButton.height*buttonCount+spacerHeight*spacerCount;
 	
-	private MenuButton optionsButton;
-	private MenuButton historyButton;
-	private MenuButton stashButton;
-	private MenuButton characterButton;
-	private MenuButton testButton;
-	private MenuButton clearButton;
-	private MenuButton refreshButton;
-	private MenuButton quitButton;
-	private MenuButton minimizeButton;
+	private MenubarButton optionsButton;
+	private MenubarButton historyButton;
+	private MenubarButton stashButton;
+	private MenubarButton characterButton;
+	private MenubarButton testButton;
+	private MenubarButton clearButton;
+	private MenubarButton refreshButton;
+	private MenubarButton quitButton;
+	private MenubarButton minimizeButton;
 	
 	public MenubarDialog(){
-		//TODO:Toggle off
-//		this.setVisible(false);
-		this.setBounds(0,TradeUtility.screenSize.height-totalHeight, MenuButton.width, totalHeight);
+		this.setBounds(0,TradeUtility.screenSize.height-totalHeight, MenubarButton.width, totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
-		optionsButton = new MenuButton("");
+		optionsButton = new MenubarButton("");
 		this.add(optionsButton);
-		historyButton = new MenuButton("");
+		historyButton = new MenubarButton("");
 		this.add(historyButton);
-		stashButton = new MenuButton("");
+		stashButton = new MenubarButton("");
 		this.add(stashButton);
-		characterButton = new MenuButton("");
+		characterButton = new MenubarButton("");
 		this.add(characterButton);
-		testButton = new MenuButton("");
+		testButton = new MenubarButton("");
 		this.add(testButton);
-		clearButton = new MenuButton("");
+		clearButton = new MenubarButton("");
 		this.add(clearButton);
-		refreshButton = new MenuButton("");
+		refreshButton = new MenubarButton("");
 		this.add(refreshButton);
-		this.add(new BasicPanel(MenuButton.width, spacerHeight));
-		quitButton = new MenuButton("");
+		this.add(new BasicPanel(MenubarButton.width, spacerHeight));
+		quitButton = new MenubarButton("");
 		this.add(quitButton);
-		this.add(new BasicPanel(MenuButton.width, spacerHeight));
-		minimizeButton = new MenuButton("");
+		this.add(new BasicPanel(MenubarButton.width, spacerHeight));
+		minimizeButton = new MenubarButton("");
 		this.add(minimizeButton);
 		
 		this.refreshButtonText();
@@ -123,13 +121,6 @@ public class MenubarDialog extends BasicDialog{
 				TradeOffer t3 = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "BLANK STASH ITEM", 3.5, "chaos", 3.5, "STASH_TAB", 0, 0, "");
 				FrameManager.messageManager.addMessage(t);
 				FrameManager.messageManager.addMessage(t2);
-//				int i = 0;
-//				for(i=0;i<20;i++){
-//					FrameManager.messageManager.addMessage(t);
-//				}
-//				for(i=0;i<20;i++){
-//					FrameManager.messageManager.removeMessage(i);
-//				}
 			}
 		});
 		
@@ -143,9 +134,9 @@ public class MenubarDialog extends BasicDialog{
 		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				FrameManager.forceAllToTop();
-				Locale swede = new Locale("sv", "SE");
-				Locale.setDefault(swede);
-				refreshButtonText();
+//				Locale swede = new Locale("sv", "SE");
+//				Locale.setDefault(swede);
+//				refreshButtonText();
 			}
 		});
 		

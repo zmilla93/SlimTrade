@@ -11,8 +11,8 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.FrameManager;
-import main.java.com.slimtrade.Main;
+import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.dialog.BasicWindowDialog;
 import main.java.com.slimtrade.dialog.ItemHighlighter;
 import main.java.com.slimtrade.panels.BasicPanel;

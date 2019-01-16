@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.PoeInterface;
+import main.java.com.slimtrade.core.PoeInterface;
 
 public class BasicIconButton extends JPanel{
 
@@ -23,40 +23,49 @@ public class BasicIconButton extends JPanel{
 	public static int width;
 	public static int height;
 	public static int borderThickness = 1;
+	
 	public Color bgColor;
 	public Color bgColor_hover;
 	public Color borderColor;
 	public Color borderColor_hover;
+	
 	private Border border = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 	private Border border_hover = BorderFactory.createLineBorder(Color.BLACK);
+	
+	private int curWidth;
+	private int curHeight;
 
-	public BasicIconButton(String imgPath, int width, int height){
-		BasicIconButton.width = width;
-		BasicIconButton.height = height;
-		buildButton();
+	public BasicIconButton(String imgPath, int w, int h){
+//		BasicIconButton.width = width;
+//		BasicIconButton.height = height;
+		curWidth = w;
+		curHeight = h;
+		buildButton(w, h);
 		this.setCustomIcon(imgPath);
 	}
 	
 	public BasicIconButton(String imgPath){
-		buildButton();
+		curWidth = width;
+		curHeight = height;
+		buildButton(width, height);
 		this.setCustomIcon(imgPath);
 	}
 	
-	private void buildButton(){
+	private void buildButton(int w, int h){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setPreferredSize(new Dimension(width, height));
+		this.setPreferredSize(new Dimension(w, h));
 		this.setBackground(this.bgColor);
 		this.setBorder(border);
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent e) {
-				setColorHover();
+				applyColorHover();
 			}
 		});
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseExited(java.awt.event.MouseEvent e) {
-				setColorDefault();
+				applyColorDefault();
 			}
 		});
 		
@@ -69,19 +78,24 @@ public class BasicIconButton extends JPanel{
 		
 	}
 	
-	public void updateBorderPreset(){
+	public void updateColorPresets(){
 		for(Object l : this.listenerList.getListenerList()){
 			this.removeMouseListener((MouseListener) l);
 		}
-		this.buildButton();
+		this.buildButton(curWidth, curHeight);
 	}
 	
-	public void setColorDefault(){
+	public void setColorPresets(Color colorDefault, Color colorHover){
+		this.bgColor = colorDefault;
+		this.bgColor_hover = colorHover;
+	}
+	
+	public void applyColorDefault(){
 		this.setBackground(this.bgColor);
 		this.setBorder(this.border);
 	}
 	
-	private void setColorHover(){
+	private void applyColorHover(){
 		this.setBackground(this.bgColor_hover);
 		this.setBorder(this.border_hover);
 	}
@@ -89,23 +103,20 @@ public class BasicIconButton extends JPanel{
 	public void setBorderPresets(Border border, Border border_hover){
 		this.border = border;
 		this.border_hover = border_hover;
-		setColorDefault();
 	}
 	
 	public void setBorderPresetDefault(Border border){
 		this.border = border;
-		setColorDefault();
 	}
 	
 	public void setBorderPresetHover(Border border){
 		this.border_hover = border;
-		setColorDefault();
 	}
 	
 	public void setCustomIcon(String imgPath){
 		JLabel closeIcon = new JLabel();
-		double imgWidth = width*imgScaling;
-		double imgHeight = height*imgScaling;
+		double imgWidth = curWidth*imgScaling;
+		double imgHeight = curHeight*imgScaling;
 		closeIcon.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource(imgPath)).getImage().getScaledInstance((int)(imgWidth), (int)(imgHeight), Image.SCALE_SMOOTH)));
 		closeIcon.setBounds(0, 0, (int)imgWidth, (int)imgHeight);
 		closeIcon.setPreferredSize(new Dimension((int)imgWidth, (int)imgHeight));

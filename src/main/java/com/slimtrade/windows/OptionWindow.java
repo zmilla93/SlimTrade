@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.TradeUtility;
+import main.java.com.slimtrade.core.TradeUtility;
 import main.java.com.slimtrade.panels.BasicPanel;
 
 public class OptionWindow extends BasicMenuWindow{

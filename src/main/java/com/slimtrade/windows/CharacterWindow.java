@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import main.java.com.slimtrade.Main;
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.dialog.BasicWindowDialog;
 
 public class CharacterWindow extends BasicWindowDialog{

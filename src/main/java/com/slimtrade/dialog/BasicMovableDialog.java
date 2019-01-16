@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.TradeUtility;
+import main.java.com.slimtrade.core.TradeUtility;
 
 public class BasicMovableDialog extends BasicDialog {
 

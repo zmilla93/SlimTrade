@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.ColorManager;
+import main.java.com.slimtrade.core.ColorManager;
 
 public class GridPanel extends JPanel{
 	

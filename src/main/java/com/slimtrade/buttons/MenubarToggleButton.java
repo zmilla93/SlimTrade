@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 
-import main.java.com.slimtrade.FrameManager;
-import main.java.com.slimtrade.TradeUtility;
+import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.core.TradeUtility;
 import main.java.com.slimtrade.dialog.BasicDialog;
 
 public class MenubarToggleButton extends BasicDialog{

@@ -1,4 +1,4 @@
-package main.java.com.slimtrade;
+package main.java.com.slimtrade.core;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -28,6 +28,8 @@ public class FrameManager {
 	
 	public FrameManager(){
 		
+		ColorManager.setMessageTheme();
+		
 		stashHelperContainer = new StashHelperContainer();
 
 		if(Main.fileManager.hasStashData){
@@ -48,8 +50,8 @@ public class FrameManager {
 			characterWindow.setCharacter(chracterData[0], chracterData[1]);
 		}
 
-		TradeOffer trade1 = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls#1", "ITEM_NAME", 7.5, "chaos", 3.5, "STASH_TAB", 1, 1, "");
-		TradeOffer trade2 = new TradeOffer(MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls#2", "ITEM_NAME", 2.0, "chaos", 750.0, "STASH_TAB", 1, 1, "");
+//		TradeOffer trade1 = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls#1", "ITEM_NAME", 7.5, "chaos", 3.5, "STASH_TAB", 1, 1, "");
+//		TradeOffer trade2 = new TradeOffer(MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls#2", "ITEM_NAME", 2.0, "chaos", 750.0, "STASH_TAB", 1, 1, "");
 
 		menubar.setVisible(true);
 		

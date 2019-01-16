@@ -1,4 +1,4 @@
-package main.java.com.slimtrade;
+package main.java.com.slimtrade.core;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +35,8 @@ public class ChatParser {
 	private Timer updateTimer = new Timer(500, updateAction);
 	
 	//REGEX
-	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?(.+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (.+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
+//	private final static String tradeMessageMatchString = ".+@(To|From) (<.+> )?(.+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+) (.+) in (\\w+)( [(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?[.]?([.]*))";
+	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): (Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?([\\w\\s]+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 	
 	private String clientLogPath;
@@ -70,7 +71,7 @@ public class ChatParser {
 				if (curLine.contains("@")){
 					TradeOffer trade = getTradeOffer(curLine);
 					if(trade != null){
-//						FrameManager.historyWindow.addTrade(trade);
+						FrameManager.historyWindow.addTrade(trade);
 					}
 					msgCount++;
 				}
@@ -120,6 +121,9 @@ public class ChatParser {
 		TradeOffer trade = null;
 		if(tradeMsgMatcher.matches()){
 			//TODO: could move int fixing to TradeOffer class
+			//TEST
+
+			//TEST END
 			Double f1 = 0.0; 
 			Double f2 = 0.0;
 			if(tradeMsgMatcher.group(7)!=null){
@@ -136,9 +140,10 @@ public class ChatParser {
 			if(tradeMsgMatcher.group(17)!=null){
 				i2 = Integer.parseInt(tradeMsgMatcher.group(19));
 			}
-			trade = new TradeOffer(getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
-					tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(11)), f2, 
-					tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
+//			trade = new TradeOffer(
+//					getMsgType(tradeMsgMatcher.group(1)), tradeMsgMatcher.group(2),
+//					tradeMsgMatcher.group(3), tradeMsgMatcher.group(8), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(11)), f2, 
+//					tradeMsgMatcher.group(15), i1, i2, tradeMsgMatcher.group(4));
 			return trade;
 		}else{
 			return null;
