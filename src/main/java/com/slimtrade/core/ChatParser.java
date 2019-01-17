@@ -70,7 +70,7 @@ public class ChatParser {
 				if (curLine.contains("@")){
 					TradeOffer trade = getTradeOffer(curLine);
 					if(trade != null){
-						FrameManager.historyWindow.addTrade(trade, false);
+						FrameManager.historyWindow.addTradeData(trade);
 					}
 					msgCount++;
 				}
@@ -150,7 +150,7 @@ public class ChatParser {
 			trade = new TradeOffer(
 					tradeMsgMatcher.group(2), tradeMsgMatcher.group(3),
 					getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5),
-					tradeMsgMatcher.group(6), tradeMsgMatcher.group(10), f1, TradeUtility.fixCurrencyString(tradeMsgMatcher.group(13)), f2, 
+					tradeMsgMatcher.group(6), tradeMsgMatcher.group(10), f1, TradeUtility.fixedCurrencyString(tradeMsgMatcher.group(13)), f2, 
 					tradeMsgMatcher.group(18), i1, i2, tradeMsgMatcher.group(23), text);
 //			System.out.println(trade.date);
 //			System.out.println(text);

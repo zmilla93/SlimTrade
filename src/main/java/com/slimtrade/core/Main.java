@@ -25,7 +25,6 @@ public class Main {
 		try {
 			GlobalScreen.registerNativeHook();
 		} catch (NativeHookException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		GlobalMouseListener globalMouse = new GlobalMouseListener();

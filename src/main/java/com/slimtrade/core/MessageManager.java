@@ -13,8 +13,8 @@ import javax.swing.Box;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.dialog.BasicDialog;
 import main.java.com.slimtrade.dialog.ItemHighlighter;
-import main.java.com.slimtrade.dialog.StashHelper;
 import main.java.com.slimtrade.panels.MessagePanel;
+import main.java.com.slimtrade.panels.StashHelper;
 
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
@@ -71,7 +71,7 @@ public class MessageManager extends BasicDialog {
 		this.add(rigidAreas[i]);
 		messageCount++;
 		refresh();
-		FrameManager.forceAllToTop();
+//		FrameManager.forceAllToTop();
 	}
 	
 	private void removeMessage(int i){

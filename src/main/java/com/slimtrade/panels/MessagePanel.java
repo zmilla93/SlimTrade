@@ -22,7 +22,6 @@ import main.java.com.slimtrade.core.FrameManager;
 import main.java.com.slimtrade.core.PoeInterface;
 import main.java.com.slimtrade.core.TradeOffer;
 import main.java.com.slimtrade.datatypes.MessageType;
-import main.java.com.slimtrade.dialog.StashHelper;
 
 //TODO : Refocus POE on all clicks
 public class MessagePanel extends JPanel{

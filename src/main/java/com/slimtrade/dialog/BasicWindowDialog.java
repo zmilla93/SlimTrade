@@ -6,11 +6,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import main.java.com.slimtrade.buttons.IconButton;
-import main.java.com.slimtrade.core.FrameManager;
 
 public class BasicWindowDialog extends BasicMovableDialog {
 
@@ -44,11 +45,15 @@ public class BasicWindowDialog extends BasicMovableDialog {
 		buildDialog(title);
 	}
 	
+	//TODO : Add support for window borders
 	private void buildDialog(String title){
 		this.getContentPane().setBackground(Color.CYAN);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.setSize(defaultWidth, defaultHeight+menubarHeight);
 		this.createListeners(menubarPanel);
+		
+//		Border border = BorderFactory.createLineBorder(Color.BLUE, 3);
+//		this.getRootPane().setBorder(border);
 //		moverPanel = menubarPanel;
 		
 		JLabel titleLabel = new JLabel(title);

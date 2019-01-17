@@ -69,11 +69,11 @@ public class BasicIconButton extends JPanel{
 			}
 		});
 		
-		this.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mousePressed(java.awt.event.MouseEvent e) {
-				PoeInterface.focus();
-			}
-		});
+//		this.addMouseListener(new java.awt.event.MouseAdapter() {
+//			public void mousePressed(java.awt.event.MouseEvent e) {
+//				PoeInterface.focus();
+//			}
+//		});
 		
 		
 	}

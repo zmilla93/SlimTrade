@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
@@ -13,20 +15,21 @@ import javax.swing.border.Border;
 import main.java.com.slimtrade.buttons.BasicIconButton;
 import main.java.com.slimtrade.core.ColorManager;
 import main.java.com.slimtrade.core.FrameManager;
-import main.java.com.slimtrade.core.PoeInterface;
 import main.java.com.slimtrade.core.TradeOffer;
+import main.java.com.slimtrade.core.TradeUtility;
+import main.java.com.slimtrade.windows.HistoryWindow;
 
 public class HistoryRowPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private int totalWidth = 750;
-	private int height = 25;
+	private int width = (int)(HistoryWindow.width*0.9);
+	public static final int height = 25;
 	
-	private double timeWidthPercent = 0.2;
-	private double nameWidthPercent = 0.3;
-	private double itemWidthPercent = 0.3;
-	private double priceWidthPercent = 0.2;
+	private double timeWidthPercent = 0.15;
+	private double nameWidthPercent = 0.35;
+	private double itemWidthPercent = 0.35;
+	private double priceWidthPercent = 0.15;
 	public BasicIconButton refreshButton = new BasicIconButton("/resources/icons/refresh1.png", height, height);
 
 	private TradeOffer localTrade;
@@ -36,36 +39,41 @@ public class HistoryRowPanel extends JPanel{
 	
 	public HistoryRowPanel(TradeOffer trade){
 		
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setPreferredSize(new Dimension(totalWidth, height));
+		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		this.setPreferredSize(new Dimension(width, height));
+		this.setMaximumSize(new Dimension(width, height));
 		this.setBackground(Color.green);
 		
-		
-		JPanel buttonPanel = new JPanel();
 		JPanel timePanel = new JPanel();
 		JPanel namePanel = new JPanel();
 		JPanel itemPanel = new JPanel();
 		JPanel pricePanel = new JPanel();
 		
-		int remainingWidth = totalWidth-height;
-		buttonPanel.setPreferredSize(new Dimension(height, height));
+		FlowLayout flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 2);
+		timePanel.setLayout(flowCenter);
+		namePanel.setLayout(flowCenter);
+		itemPanel.setLayout(flowCenter);
+		pricePanel.setLayout(flowCenter);
+		
+		int remainingWidth = width-height;
 		timePanel.setPreferredSize(new Dimension((int)(remainingWidth*timeWidthPercent), height));
 		namePanel.setPreferredSize(new Dimension((int)(remainingWidth*nameWidthPercent), height));
 		itemPanel.setPreferredSize(new Dimension((int)(remainingWidth*itemWidthPercent), height));
 		pricePanel.setPreferredSize(new Dimension((int)(remainingWidth*priceWidthPercent), height));
 		
-		refreshButton.setBorder(border);
-		buttonPanel.setBorder(border);
 		timePanel.setBorder(border);
 		namePanel.setBorder(border);
 		itemPanel.setBorder(border);
 		pricePanel.setBorder(border);
 		
-		refreshButton.setBackground(Color.LIGHT_GRAY);
+//		String fixedItemName = trade.itemCount == 0 ? trade.itemName : trade.itemCount.toString().replaceAll("\\.0", "") + " " + trade.itemName;
+		
 		JLabel timeLabel = new JLabel(trade.date);
 		JLabel nameLabel = new JLabel(trade.playerName);
-		JLabel itemLabel = new JLabel(trade.itemCount + " " + trade.itemName);
+		JLabel itemLabel = new JLabel(TradeUtility.fixedItemName(trade.itemName, trade.itemCount, true));
 		JLabel priceLabel = new JLabel(trade.priceCount + " " + trade.priceTypeString);
+		
+//		timeLabel.setVerticalAlignment(Alignment.CENTER);
 		
 		timePanel.add(timeLabel);
 		namePanel.add(nameLabel);

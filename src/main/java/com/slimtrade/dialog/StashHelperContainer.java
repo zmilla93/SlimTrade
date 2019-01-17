@@ -3,6 +3,7 @@ package main.java.com.slimtrade.dialog;
 import java.awt.FlowLayout;
 
 import main.java.com.slimtrade.core.ColorManager;
+import main.java.com.slimtrade.panels.StashHelper;
 import main.java.com.slimtrade.windows.StashGridOverlay;
 
 public class StashHelperContainer extends BasicDialog{
@@ -17,6 +18,8 @@ public class StashHelperContainer extends BasicDialog{
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
 		this.setVisible(true);
+//		this.setFocusableWindowState(true);
+		
 	}
 	
 	public void updateBounds(){

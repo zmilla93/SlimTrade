@@ -39,20 +39,48 @@ public class PoeInterface extends Robot{
 	    robot.keyRelease(KeyEvent.VK_ENTER);
 	}
 	
+	//TODO : Figure out why this bugs out without delay.
+	//Somehow related to stashHelperContainer - this.setFocusableWindowState(false);
 	public static void findInStash(String s){
-		pasteString = new StringSelection(s);
-		clipboard.setContents(pasteString, null);
-		PoeInterface.focus();
-		robot.keyPress(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_F);
-		robot.keyRelease(KeyEvent.VK_F);
-		robot.keyPress(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_CONTROL);
+		new Thread(){
+			public void run(){
+				pasteString = new StringSelection(s);
+				clipboard.setContents(pasteString, null);
+				focus();
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_F);
+				robot.keyRelease(KeyEvent.VK_F);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				try {
+					Thread.sleep(150);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+			}
+		}.start();
+		
+		
+		//TODO : FIX THIS
+//		try {
+//			Thread.sleep(200);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		robot.keyPress(KeyEvent.VK_CONTROL);
+//		
+//		robot.keyRelease(KeyEvent.VK_CONTROL);
+		
 	}
 	
 	//TODO: modify to remove lambda? or store it somewhere else if it will actually be reused
 	public static void focus() {
+		System.out.println("Focusing POE...");
 		User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
 			char[] className = new char[512];
 			User32.INSTANCE.GetClassName(hWnd, className, 512);

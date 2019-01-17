@@ -78,7 +78,6 @@ public class BasicMovableDialog extends BasicDialog {
 						if(targetY>TradeUtility.screenSize.height-getDialogHeight()) targetY = TradeUtility.screenSize.height-getDialogHeight();
 					}
 					moveWindow(new Point(targetX, targetY));
-//					MouseInfo.getPointerInfo().getLocation();
 				}
 			}
 		}.start();

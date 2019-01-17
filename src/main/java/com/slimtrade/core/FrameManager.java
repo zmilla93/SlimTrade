@@ -1,10 +1,10 @@
 package main.java.com.slimtrade.core;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Point;
 
 import main.java.com.slimtrade.buttons.MenubarToggleButton;
-import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.dialog.BasicWindowDialog;
 import main.java.com.slimtrade.dialog.ItemHighlighter;
 import main.java.com.slimtrade.dialog.MenubarDialog;
@@ -17,6 +17,10 @@ public class FrameManager {
 
 //	public static Debug debug = new Debug();
 	
+//	public static FlowLayout flowLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
+//	public static FlowLayout flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 0);
+//	public static FlowLayout flowRight = new FlowLayout(FlowLayout.RIGHT, 0, 0);
+	
 	public static BasicWindowDialog optionWindow = new BasicWindowDialog("Options");	
 	public static HistoryWindow historyWindow = new HistoryWindow("History");	
 	public static MenubarDialog menubar = new MenubarDialog();
@@ -27,6 +31,7 @@ public class FrameManager {
 	public static CharacterWindow characterWindow = new CharacterWindow();
 	
 	public FrameManager(){
+
 		
 		ColorManager.setMessageTheme();
 		

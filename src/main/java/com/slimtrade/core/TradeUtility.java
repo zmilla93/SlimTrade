@@ -7,7 +7,7 @@ public class TradeUtility {
 	
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	public static String fixCurrencyString(String inputString){
+	public static String fixedCurrencyString(String inputString){
 		String[] currency = {"alch", "chaos", "ex"};
 		String fixedString = inputString.replaceAll("\\s", "").replaceAll("(?i)(orb|of)", "");
 		for(String s : currency){
@@ -16,6 +16,15 @@ public class TradeUtility {
 			}
 		}
 		return inputString;
+	}
+	
+	public static String fixedItemName(String item, double count, boolean paren){
+		String fixedNum = count == 0? "" : String.valueOf(count).toString().replaceAll("\\.0", "");
+		if(!fixedNum.equals("") && paren){
+			fixedNum = "(" + fixedNum + ")";
+		}
+		String fixedString = fixedNum.equals("") ? item : fixedNum + " " + item;
+		return fixedString;
 	}
 	
 	public static boolean isDuplicateTrade(TradeOffer trade1, TradeOffer trade2){
