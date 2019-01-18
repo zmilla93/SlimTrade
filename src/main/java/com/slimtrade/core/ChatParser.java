@@ -147,7 +147,6 @@ public class ChatParser {
 			if(tradeMsgMatcher.group(22)!=null){
 				i2 = Integer.parseInt(tradeMsgMatcher.group(22));
 			}
-//(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage){
 			trade = new TradeOffer(
 					tradeMsgMatcher.group(2), tradeMsgMatcher.group(3),
 					getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5),
