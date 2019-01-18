@@ -3,6 +3,9 @@ package main.java.com.slimtrade.core;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
+import com.sun.jna.Native;
+import com.sun.jna.PointerType;
+
 public class GlobalKeyboardListener implements NativeKeyListener{
 
 	@Override
@@ -14,7 +17,7 @@ public class GlobalKeyboardListener implements NativeKeyListener{
 
 	@Override
 	public void nativeKeyReleased(NativeKeyEvent e) {
-		
+
 	}
 
 	@Override

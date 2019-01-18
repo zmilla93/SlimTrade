@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.windows;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -21,11 +22,12 @@ public class HistoryWindow extends BasicWindowDialog{
 	public static int width = 900;
 	public static int height = 400;
 	private int maxTrades = 40;
-	private ArrayList<TradeOffer> incomingTrades = new ArrayList<TradeOffer>();
-	private ArrayList<HistoryRowPanel> incomingTradeRows = new ArrayList<HistoryRowPanel>();
-	private ArrayList<TradeOffer> outgoingTrades = new ArrayList<TradeOffer>();
+	private ArrayList<TradeOffer> incomingTradeData = new ArrayList<TradeOffer>();
+	private ArrayList<HistoryRowPanel> incomingTradePanels = new ArrayList<HistoryRowPanel>();
+	private ArrayList<TradeOffer> outgoingTradeData = new ArrayList<TradeOffer>();
 	
 	JPanel headerPanel = new JPanel();
+//	JPanel columnLabelPanel = new HistoryRowPanel(null);
 	JPanel historyContainer = new JPanel();
 	
 	public HistoryWindow(String title){
@@ -45,8 +47,10 @@ public class HistoryWindow extends BasicWindowDialog{
 		historyContainer.setLayout(new BoxLayout(historyContainer, BoxLayout.PAGE_AXIS));
 		historyContainer.setPreferredSize(new Dimension((int)(width*0.9), HistoryRowPanel.height*maxTrades));
 		
+		//Move to CustomScrollPane
 		JScrollPane scrollPane = new JScrollPane(historyContainer);
 		scrollPane.setPreferredSize(new Dimension(width, height));
+		scrollPane.getVerticalScrollBar().setUnitIncrement(8);
 		
 		container.add(headerPanel);
 		container.add(scrollPane);
@@ -56,22 +60,54 @@ public class HistoryWindow extends BasicWindowDialog{
 		this.setVisible(true);
 	}
 	
-	public void addTradeData(TradeOffer trade){
-		
+	public void addNewRow(TradeOffer trade){
 		switch(trade.msgType){
 		case INCOMING_TRADE:
 			int i = 0;
-			for(TradeOffer savedTrade : incomingTrades){
+			for(TradeOffer savedTrade : incomingTradeData){
 				if(TradeUtility.isDuplicateTrade(trade, savedTrade)){
-					incomingTrades.remove(i);
+					incomingTradeData.remove(i);
 					break;
 				}
 				i++;
 			}
-			if(incomingTrades.size() == maxTrades){
-				incomingTrades.remove(0);
+			break;
+		case OUTGOING_TRADE:
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void addTrade(TradeOffer trade, boolean updateUI){
+		switch(trade.msgType){
+		case INCOMING_TRADE:
+			int i = 0;
+			for(TradeOffer savedTrade : incomingTradeData){
+				if(TradeUtility.isDuplicateTrade(trade, savedTrade)){
+					incomingTradeData.remove(i);
+					if(updateUI){
+						historyContainer.remove(incomingTradePanels.get(i));
+						incomingTradePanels.remove(i);
+					}
+					break;
+				}
+				i++;
 			}
-			incomingTrades.add(trade);
+			if(incomingTradeData.size() == maxTrades){
+				incomingTradeData.remove(0);
+				if(updateUI){
+					historyContainer.remove(incomingTradePanels.get(0));
+					incomingTradePanels.remove(0);
+				}
+			}
+			incomingTradeData.add(trade);
+			if(updateUI){
+				incomingTradePanels.add(new HistoryRowPanel(trade));
+				historyContainer.add(incomingTradePanels.get(incomingTradePanels.size()-1));
+				this.revalidate();
+				this.repaint();
+			}
 			break;
 		case OUTGOING_TRADE:
 			break;
@@ -81,9 +117,9 @@ public class HistoryWindow extends BasicWindowDialog{
 	}
 	
 	public void buildHistory(){
-		for(TradeOffer trade : incomingTrades){
-			HistoryRowPanel row = new HistoryRowPanel(trade);
-			historyContainer.add(row);
+		for(TradeOffer trade : incomingTradeData){
+			incomingTradePanels.add(new HistoryRowPanel(trade));
+			historyContainer.add(incomingTradePanels.get(incomingTradePanels.size()-1));
 		}
 		this.revalidate();
 		this.repaint();

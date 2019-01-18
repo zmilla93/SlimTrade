@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core;
+package main.java.com.slimtrade.dialog;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -10,9 +10,11 @@ import java.util.Random;
 
 import javax.swing.Box;
 
+import main.java.com.slimtrade.core.ColorManager;
+import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.core.TradeOffer;
+import main.java.com.slimtrade.core.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
-import main.java.com.slimtrade.dialog.BasicDialog;
-import main.java.com.slimtrade.dialog.ItemHighlighter;
 import main.java.com.slimtrade.panels.MessagePanel;
 import main.java.com.slimtrade.panels.StashHelper;
 
@@ -71,7 +73,7 @@ public class MessageManager extends BasicDialog {
 		this.add(rigidAreas[i]);
 		messageCount++;
 		refresh();
-//		FrameManager.forceAllToTop();
+		FrameManager.forceAllToTop();
 	}
 	
 	private void removeMessage(int i){

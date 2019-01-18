@@ -8,6 +8,7 @@ import main.java.com.slimtrade.buttons.MenubarToggleButton;
 import main.java.com.slimtrade.dialog.BasicWindowDialog;
 import main.java.com.slimtrade.dialog.ItemHighlighter;
 import main.java.com.slimtrade.dialog.MenubarDialog;
+import main.java.com.slimtrade.dialog.MessageManager;
 import main.java.com.slimtrade.dialog.StashHelperContainer;
 import main.java.com.slimtrade.windows.CharacterWindow;
 import main.java.com.slimtrade.windows.HistoryWindow;
