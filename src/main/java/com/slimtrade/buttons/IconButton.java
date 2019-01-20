@@ -21,12 +21,11 @@ public class IconButton extends JPanel{
 	public static int width;
 	public static int height;
 	public static int borderThickness = 1;
-	public Color bgColor;
-	public Color bgColor_hover;
-	public Color borderColor;
-	public Color borderColor_hover;
+	private Color bgColor;
+	private Color bgColor_hover;
+	private Color borderColor;
+	private Color borderColor_hover;
 	private Border border = BorderFactory.createEmptyBorder(1, 1, 1, 1);
-//	private Border border = BorderFactory.createEmptyBorder();
 	private Border border_hover = BorderFactory.createLineBorder(Color.BLACK);
 
 	public IconButton(String imgPath, int width, int height){
@@ -77,21 +76,21 @@ public class IconButton extends JPanel{
 		this.setBorder(this.border_hover);
 	}
 	
-	public void setBorderPresets(Border border, Border border_hover){
-		this.border = border;
-		this.border_hover = border_hover;
-		setColorDefault();
-	}
+//	public void saveBorderPresets(Border border, Border border_hover){
+//		this.border = border;
+//		this.border_hover = border_hover;
+//		setColorDefault();
+//	}
 	
-	public void setBorderPresetDefault(Border border){
-		this.border = border;
-		setColorDefault();
-	}
+//	public void setBorderPresetDefault(Border border){
+//		this.border = border;
+//		setColorDefault();
+//	}
 	
-	public void setBorderPresetHover(Border border){
-		this.border_hover = border;
-		setColorDefault();
-	}
+//	public void setBorderPresetHover(Border border){
+//		this.border_hover = border;
+//		setColorDefault();
+//	}
 	
 	public void setCustomIcon(String imgPath){
 		JLabel closeIcon = new JLabel();

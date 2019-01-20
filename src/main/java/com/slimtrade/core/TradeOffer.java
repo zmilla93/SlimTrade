@@ -22,6 +22,23 @@ public class TradeOffer implements Serializable{
 	public String bonusText;
 	public String sentMessage;
 	
+	public TradeOffer(String date, MessageType msgType, String playerName, String itemName, String priceTypeString){
+		this.date = date;
+		this.time = null;
+		this.msgType = msgType;
+		this.guildName = null;
+		this.playerName = playerName;
+		this.itemName = itemName;
+		this.itemCount = 0.0;
+		this.priceTypeString = priceTypeString;
+		this.priceCount = 0.0;
+		this.stashtabName = null;
+		this.stashtabX = 0;
+		this.stashtabY = 0;
+		this.bonusText = null;
+		this.sentMessage = null;
+	}
+	
 	public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, Double itemCount, String priceTypeString, Double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage){
 		this.date = date;
 		this.time = time;

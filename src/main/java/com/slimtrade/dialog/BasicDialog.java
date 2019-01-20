@@ -14,6 +14,7 @@ public class BasicDialog extends JDialog{
 		this.setUndecorated(true);
 		this.setAlwaysOnTop(true);
 		this.setType(JDialog.Type.UTILITY);
+		this.setComponentZOrder(this.getContentPane(), 0);
 		this.pack();
 	}
 	

@@ -38,6 +38,15 @@ public class ColorManager {
 		public static Border buttonBorder_hover;
 	}
 	
+	public static class HistoryWindow{
+		public static Color buttonBG_active;
+		public static Color buttonBG_inactive;
+		public static Color buttonBG_hover;
+		public static Border buttonBorder_active;
+		public static Border buttonBorder_inactive;
+		public static Border buttonBorder_hover;
+	}
+	
 	public static void setMessageTheme(){
 		MsgWindow.borderOuter = new Color(40, 20, 0);
 		MsgWindow.borderInner = new Color(102, 53, 0);
@@ -66,6 +75,13 @@ public class ColorManager {
 		GenericWindow.buttonBG_hover = Color.WHITE;
 		GenericWindow.buttonBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 		GenericWindow.buttonBorder_hover = BorderFactory.createLineBorder(Color.BLACK);
+		
+		HistoryWindow.buttonBG_active = Color.LIGHT_GRAY;
+		HistoryWindow.buttonBG_inactive = Color.GRAY;
+		HistoryWindow.buttonBG_hover = Color.WHITE;
+		HistoryWindow.buttonBorder_active = BorderFactory.createLoweredSoftBevelBorder();
+		HistoryWindow.buttonBorder_inactive = BorderFactory.createRaisedSoftBevelBorder();
+//		HistoryWindow.buttonBorder_active = BorderFactory.createLoweredSoftBevelBorder();
 	}
 
 }

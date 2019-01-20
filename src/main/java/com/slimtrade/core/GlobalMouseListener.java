@@ -28,12 +28,15 @@ public class GlobalMouseListener implements NativeMouseInputListener{
 		byte[] windowText = new byte[512];
 		PointerType hwnd = User32.INSTANCE.GetForegroundWindow();
 		User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
-		String curWindow = Native.toString(windowText);
-		if(lastWindow != null && !lastWindow.equals(curWindow) && curWindow.equals("Path of Exile")){
+		String curWindowTitle = Native.toString(windowText);
+		if(curWindowTitle.equals("Path of Exile")){
 			FrameManager.forceAllToTop();
-			System.out.println("REFRESH");
 		}
-		lastWindow = curWindow;
+//		if(lastWindow != null && !lastWindow.equals(curWindow) && curWindow.equals("Path of Exile")){
+//			FrameManager.forceAllToTop();
+//			System.out.println("REFRESH");
+//		}
+//		lastWindow = curWindow;
 	}
 
 	@Override

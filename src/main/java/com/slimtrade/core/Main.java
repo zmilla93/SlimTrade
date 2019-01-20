@@ -45,6 +45,9 @@ public class Main {
 			e.printStackTrace();
 		}
 		
+		//Initialize Color Manager
+		ColorManager.setMessageTheme();
+		
 		//Frame Manager
 		FrameManager frameManager = new FrameManager();
 		

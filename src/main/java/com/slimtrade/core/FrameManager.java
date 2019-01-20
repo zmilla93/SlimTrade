@@ -32,9 +32,6 @@ public class FrameManager {
 	public static CharacterWindow characterWindow = new CharacterWindow();
 	
 	public FrameManager(){
-
-		
-		ColorManager.setMessageTheme();
 		
 		stashHelperContainer = new StashHelperContainer();
 

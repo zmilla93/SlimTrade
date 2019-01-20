@@ -39,7 +39,8 @@ public class HistoryRowPanel extends JPanel{
 	
 	public HistoryRowPanel(TradeOffer trade){
 		
-		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		//TODO : Could change to grid layout for better spacing
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setMaximumSize(new Dimension(width, height));
 		this.setBackground(Color.green);
@@ -92,13 +93,13 @@ public class HistoryRowPanel extends JPanel{
 			FrameManager.messageManager.addMessage(localTrade);
 		}});
 		
+		
+		
 		updateColor();
 
 	}
 	
 	public void updateColor(){
-//		refreshButton.bgColor = ColorManager.GenericWindow.buttonBG;
-//		refreshButton.bgColor_hover = ColorManager.GenericWindow.buttonBG_hover;
 		refreshButton.setColorPresets(ColorManager.GenericWindow.buttonBG, ColorManager.GenericWindow.buttonBG_hover);
 		refreshButton.setBorderPresets(border, border);
 		refreshButton.updateColorPresets();
