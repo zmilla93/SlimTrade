@@ -3,18 +3,20 @@ package main.java.com.slimtrade.windows;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+import main.java.com.slimtrade.core.FrameManager;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.dialog.BasicWindowDialog;
 
 public class CharacterWindow extends BasicWindowDialog{
 
 	private static final long serialVersionUID = 1L;
-	private static int width = 300;
-	private static int height = 100;
+	private static int width = 400;
+	private static int height = 150;
 	private String activeCharacter = "";
 	private String activeLeague = "";
 //	private int rowHeight = 25;
@@ -29,8 +31,10 @@ public class CharacterWindow extends BasicWindowDialog{
 		super("Character");
 //		Overlay.centerFrame(this);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+//		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		this.setMinimumSize(new Dimension(10, 10));
-		this.setVisible(false);
+		this.setSize(width, height);
+//		this.setVisible(false);
 		
 		//Character
 		characterInput.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -46,6 +50,8 @@ public class CharacterWindow extends BasicWindowDialog{
 		//Save Button
 		saveButton.setFocusable(false);
 		container.add(saveButton);
+		
+		FrameManager.centerFrame(this);
 		
 		saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {

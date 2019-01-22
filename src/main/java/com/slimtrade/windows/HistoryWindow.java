@@ -43,11 +43,10 @@ public class HistoryWindow extends BasicWindowDialog{
 		
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		selectionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 8));
+		
 		CustomButton incomingButton = new CustomButton("Incoming", buttonWidth, buttonHeight);
 		CustomButton outgoingButton = new CustomButton("Outgoing", buttonWidth, buttonHeight);
 		CustomButton savedButton = new CustomButton("Saved", buttonWidth, buttonHeight);
-		
-//		incomingButton.setBorder(BorderFactory.createLineBorder(Color.blue));
 		
 		selectionPanel.add(incomingButton);
 		selectionPanel.add(outgoingButton);

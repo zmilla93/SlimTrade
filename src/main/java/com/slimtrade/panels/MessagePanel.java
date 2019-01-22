@@ -8,12 +8,17 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 
 import main.java.com.slimtrade.buttons.BasicIconButton;
@@ -52,6 +57,8 @@ public class MessagePanel extends JPanel{
 	public JPanel itemPanel = new JPanel();
 	private JLabel itemCountLabel = new JLabel();
 	private JLabel itemLabel = new JLabel();
+	private JPanel timerPanel = new JPanel();
+	private JLabel timerLabel = new JLabel();
 	public StashHelper stashHelper;
 	
 	//Buttons Top	
@@ -69,8 +76,37 @@ public class MessagePanel extends JPanel{
 	private BasicIconButton kickButton;
 	private BasicIconButton tpHomeButton;
 	
+	//Timers
+//	private JLabel secondsLabel;
+//	private JLabel minutesLanel;
+	private int seconds = 0;
+	private int minutes = 1;
+	private ActionListener secondsTimerAction = new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent e){
+			seconds++;
+			if(seconds==60){
+				secondsTimer.stop();
+				minutesTimer.start();
+				timerLabel.setText("1m");
+			}else{
+				timerLabel.setText(seconds + "s");
+			}
+		}
+	};
+	private ActionListener minutesTimerAction = new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent e){
+			minutes++;
+			timerLabel.setText(minutes + "m");
+		}
+	};
+	private Timer secondsTimer = new Timer(1000, secondsTimerAction);
+	private Timer minutesTimer = new Timer(60000, minutesTimerAction);
+	
 	private Color color;	
 	
+	//TODO : Switch layouts to BoderLayout + setHorizontalAlignment = SwingConstants.CENTER
 	public MessagePanel(TradeOffer trade){
 		
 		FlowLayout flowLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
@@ -88,6 +124,7 @@ public class MessagePanel extends JPanel{
 		
 		double nameWidthMult = 0;
 		double priceWidthMult = 0;
+		double timerWidthMult = 0;
 		double itemWidthMult = 0;
 		double buttonTopMult = 0;
 		double buttonBotMult = 0;
@@ -98,14 +135,16 @@ public class MessagePanel extends JPanel{
 		case INCOMING_TRADE:
 			nameWidthMult = 0.5;
 			priceWidthMult = 0.3;
-			itemWidthMult = 0.8;
+			timerWidthMult = 0.1;
+			itemWidthMult = 0.7;
 			buttonTopMult = 0.2;
 			buttonBotMult = 0.2;
 			break;
 		case OUTGOING_TRADE:
 			nameWidthMult = 0.55;
 			priceWidthMult = 0.35;
-			itemWidthMult = 0.75;
+			timerWidthMult = 0.1;
+			itemWidthMult = 0.65;
 			buttonTopMult = 0.1;
 			buttonBotMult = 0.25;
 			break;
@@ -180,6 +219,14 @@ public class MessagePanel extends JPanel{
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		bottomPanel.setPreferredSize(new Dimension(width,rowHeight));
 		container.add(bottomPanel, BorderLayout.CENTER);
+		
+		timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		timerLabel.setText("0s");
+		timerPanel.setPreferredSize(new Dimension((int)(width*timerWidthMult), rowHeight));
+		timerPanel.setLayout(new BorderLayout());
+		timerPanel.add(timerLabel, BorderLayout.CENTER);
+		bottomPanel.add(timerPanel);
+		
 		itemPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		if(trade.itemCount>0){
 			itemCountLabel = new JLabel(trade.itemCount.toString().replaceAll("[.]0", "") + " ");
@@ -246,22 +293,14 @@ public class MessagePanel extends JPanel{
 				PoeInterface.paste("@" + trade.playerName + " Hi, are you still interested in my " + item + " for " + trade.priceCount.toString().replaceAll("[.]0", "") + " " + trade.priceTypeString + "?");
 			}});
 			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+				secondsTimer.stop();
+				minutesTimer.stop();
 				if(evt.getButton() == MouseEvent.BUTTON1){
-					//Reenable refresh later
-//			    	FrameManager.stashHelperContainer.refresh();
+
 				}else if(evt.getButton() == MouseEvent.BUTTON3){
-					//TODO : Having two actions causes 2nd action to be performed twice?
-					//Probably has to do with the clipboard. should combine paste then kick into one method
-//					PoeInterface.paste("/kick " + trade.playerName);
-					PoeInterface.paste("@" + trade.playerName + " sold, sorry");
+					PoeInterface.paste("@" + trade.playerName + " sold");
 				}
 			}});
-//			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
-//				if(evt.getButton() == MouseEvent.BUTTON3){
-//					PoeInterface.paste("@" + trade.playerName + " sold, sorry");
-//					PoeInterface.paste("/kick " + trade.playerName);
-//				}
-//			}});
 			
 			//BUTTOM BUTTONS
 			bottomButtonPanel.add(inviteToPartyButton);
@@ -368,6 +407,7 @@ public class MessagePanel extends JPanel{
 //		container.addMouseListener(new java.awt.event.MouseAdapter() {public void mousePressed(java.awt.event.MouseEvent evt) {
 //			System.out.println("!!!!!");
 //		}});
+		secondsTimer.start();
 		updateColor();
 
 	}
@@ -388,6 +428,9 @@ public class MessagePanel extends JPanel{
 		this.nameLabel.setForeground(ColorManager.MsgWindow.text);
 		this.priceCountLabel.setForeground(ColorManager.MsgWindow.text);
 		this.priceTypeLabel.setForeground(ColorManager.MsgWindow.text);
+		//TODO : Give timer panel it's own color?
+		this.timerPanel.setBackground(ColorManager.MsgWindow.itemBG);
+		this.timerLabel.setForeground(ColorManager.MsgWindow.text);
 		this.itemPanel.setBackground(ColorManager.MsgWindow.itemBG);
 		this.itemCountLabel.setForeground(ColorManager.MsgWindow.text);
 		this.itemLabel.setForeground(ColorManager.MsgWindow.text);

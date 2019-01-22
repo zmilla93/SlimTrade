@@ -40,7 +40,8 @@ public class HistoryRowPanel extends JPanel{
 	public HistoryRowPanel(TradeOffer trade){
 		
 		//TODO : Could change to grid layout for better spacing
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+//		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setMaximumSize(new Dimension(width, height));
 		this.setBackground(Color.green);
@@ -50,6 +51,7 @@ public class HistoryRowPanel extends JPanel{
 		JPanel itemPanel = new JPanel();
 		JPanel pricePanel = new JPanel();
 		
+		//TODO : Change flow layout to better center
 		FlowLayout flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 2);
 		timePanel.setLayout(flowCenter);
 		namePanel.setLayout(flowCenter);

@@ -27,14 +27,12 @@ public class FrameManager {
 	public static MenubarDialog menubar = new MenubarDialog();
 	public static MenubarToggleButton menubarToggle = new MenubarToggleButton();
 	public static MessageManager messageManager = new MessageManager();
-	public static StashHelperContainer stashHelperContainer;
+	public static StashHelperContainer stashHelperContainer = new StashHelperContainer();
 	public static StashGridOverlay stashOverlay;
 	public static CharacterWindow characterWindow = new CharacterWindow();
 	
 	public FrameManager(){
 		
-		stashHelperContainer = new StashHelperContainer();
-
 		if(Main.fileManager.hasStashData){
 			int[] stashData = Main.fileManager.getStashData();
 			stashOverlay = new StashGridOverlay(new Point(stashData[0], stashData[1]), stashData[2], stashData[3]);
