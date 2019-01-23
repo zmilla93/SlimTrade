@@ -37,7 +37,7 @@ public class HistoryWindow extends BasicWindowDialog{
 	JPanel outgoingContainer = new JPanel();
 	JPanel savedContainer = new JPanel();
 	
-	public HistoryWindow(String title){
+	public HistoryWindow(){
 		super("History");
 		this.resizeWindow(width, height);
 		

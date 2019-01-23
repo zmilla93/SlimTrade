@@ -107,6 +107,7 @@ public class MessagePanel extends JPanel{
 	private Color color;	
 	
 	//TODO : Switch layouts to BoderLayout + setHorizontalAlignment = SwingConstants.CENTER
+	//TODO : Add close function for all cleanup actions
 	public MessagePanel(TradeOffer trade){
 		
 		FlowLayout flowLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);

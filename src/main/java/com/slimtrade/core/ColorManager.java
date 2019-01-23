@@ -32,6 +32,9 @@ public class ColorManager {
 	}
 	
 	public static class GenericWindow{
+		public static Color titlebarBG;
+		public static Color titlebarText;
+		public static Color closeButtonBG;
 		public static Color buttonBG;
 		public static Color buttonBG_hover;
 		public static Border buttonBorder;
@@ -70,7 +73,10 @@ public class ColorManager {
 		MsgWindow.buttonBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 		MsgWindow.buttonBorder_next = BorderFactory.createLineBorder(Color.GREEN);
 		MsgWindow.buttonBorder_hover = BorderFactory.createLineBorder(Color.BLACK);
-		
+				
+		GenericWindow.titlebarBG = Color.LIGHT_GRAY;
+		GenericWindow.closeButtonBG = Color.LIGHT_GRAY;
+		GenericWindow.titlebarText = Color.WHITE;
 		GenericWindow.buttonBG = Color.LIGHT_GRAY;
 		GenericWindow.buttonBG_hover = Color.WHITE;
 		GenericWindow.buttonBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);

@@ -15,8 +15,8 @@ public class BasicIcon extends JPanel{
 	
 	//Static
 	public static double imgScaling = 1;
-	public static int width;
-	public static int height;
+	public static int width = 20;
+	public static int height = 20;
 	public Color bgColor;
 
 	public BasicIcon(String imgPath, int width, int height){

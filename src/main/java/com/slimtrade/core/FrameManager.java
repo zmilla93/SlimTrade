@@ -1,8 +1,9 @@
 package main.java.com.slimtrade.core;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Point;
+
+import javax.swing.JFrame;
 
 import main.java.com.slimtrade.buttons.MenubarToggleButton;
 import main.java.com.slimtrade.dialog.BasicWindowDialog;
@@ -10,8 +11,10 @@ import main.java.com.slimtrade.dialog.ItemHighlighter;
 import main.java.com.slimtrade.dialog.MenubarDialog;
 import main.java.com.slimtrade.dialog.MessageManager;
 import main.java.com.slimtrade.dialog.StashHelperContainer;
+import main.java.com.slimtrade.panels.options.ButtonOptionPanel;
 import main.java.com.slimtrade.windows.CharacterWindow;
 import main.java.com.slimtrade.windows.HistoryWindow;
+import main.java.com.slimtrade.windows.OptionsWindow;
 import main.java.com.slimtrade.windows.StashGridOverlay;
 
 public class FrameManager {
@@ -22,8 +25,8 @@ public class FrameManager {
 //	public static FlowLayout flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 0);
 //	public static FlowLayout flowRight = new FlowLayout(FlowLayout.RIGHT, 0, 0);
 	
-	public static BasicWindowDialog optionWindow = new BasicWindowDialog("Options");	
-	public static HistoryWindow historyWindow = new HistoryWindow("History");	
+	public static OptionsWindow optionsWindow = new OptionsWindow();	
+	public static HistoryWindow historyWindow = new HistoryWindow();	
 	public static MenubarDialog menubar = new MenubarDialog();
 	public static MenubarToggleButton menubarToggle = new MenubarToggleButton();
 	public static MessageManager messageManager = new MessageManager();
@@ -69,7 +72,7 @@ public class FrameManager {
 	public static void hideAllFrames(){
 		characterWindow.setVisible(false);
 		historyWindow.setVisible(false);
-		optionWindow.setVisible(false);
+		optionsWindow.setVisible(false);
 		stashOverlay.setVisible(false);
 	}
 	
@@ -88,7 +91,7 @@ public class FrameManager {
 		menubar.forceToTop();
 		messageManager.forceToTop();
 		stashHelperContainer.forceToTop();
-		PoeInterface.focus();
+//		PoeInterface.focus();
 	}
 	
 }

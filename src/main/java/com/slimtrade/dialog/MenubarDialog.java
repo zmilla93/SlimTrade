@@ -40,7 +40,6 @@ public class MenubarDialog extends BasicDialog{
 	public MenubarDialog(){
 		this.setBounds(0,TradeUtility.screenSize.height-totalHeight, MenubarButton.width, totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		
 		optionsButton = new MenubarButton("");
 		this.add(optionsButton);
 		historyButton = new MenubarButton("");
@@ -67,11 +66,11 @@ public class MenubarDialog extends BasicDialog{
 		//OPTIONS
 		optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(FrameManager.optionWindow.isVisible()){
-		    		FrameManager.optionWindow.setVisible(false);
+		    	if(FrameManager.optionsWindow.isVisible()){
+		    		FrameManager.optionsWindow.setVisible(false);
 		    	}else{
 		    		FrameManager.hideAllFrames();
-		    		FrameManager.optionWindow.setVisible(true);
+		    		FrameManager.optionsWindow.setVisible(true);
 		    	}
 		    }
 		});
@@ -166,7 +165,6 @@ public class MenubarDialog extends BasicDialog{
 		    	FrameManager.menubarToggle.setVisible(true);
 		    }
 		});
-		
 	}
 	
 	private void refreshButtonText(){

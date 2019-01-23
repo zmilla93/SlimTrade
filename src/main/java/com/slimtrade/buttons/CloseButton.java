@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import main.java.com.slimtrade.core.ColorManager;
+
 public class CloseButton extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +32,7 @@ public class CloseButton extends JPanel{
 	public CloseButton(){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setPreferredSize(new Dimension(width, height));
-		this.setBackground(Color.LIGHT_GRAY);
+		this.setBackground(Color.RED);
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent e) {

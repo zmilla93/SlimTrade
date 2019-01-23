@@ -13,8 +13,8 @@ public class BasicDialog extends JDialog{
 		this.setFocusableWindowState(false);
 		this.setUndecorated(true);
 		this.setAlwaysOnTop(true);
+		this.setModal(false);
 		this.setType(JDialog.Type.UTILITY);
-		this.setComponentZOrder(this.getContentPane(), 0);
 		this.pack();
 	}
 	

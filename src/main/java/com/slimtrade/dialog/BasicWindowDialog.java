@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import main.java.com.slimtrade.buttons.IconButton;
+import main.java.com.slimtrade.core.ColorManager;
 
 public class BasicWindowDialog extends BasicMovableDialog {
 
@@ -19,17 +20,14 @@ public class BasicWindowDialog extends BasicMovableDialog {
 
 	private static int defaultWidth = 400;
 	private static int defaultHeight = 800;
-	public static int menubarHeight = 20;
+	public static int titlebarHeight = 20;
 	private static int titleOffset = 5;
 	
 	public Container container = new JPanel();
-	private JPanel menubarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-	private JPanel menubarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
+	private JPanel titlebarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+	private JPanel titlebarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
 	
-//	private static JPanel menubarPanel;
-	
-//	public IconButton closeButton = new IconButton("/close.png", menubarHeight, menubarHeight);
-	public IconButton closeButton = new IconButton("/resources/icons/rad.png", menubarHeight, menubarHeight);
+	public IconButton closeButton = new IconButton("/resources/icons/close.png", titlebarHeight, titlebarHeight);
 	
 	
 	
@@ -47,10 +45,11 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	
 	//TODO : Add support for window borders
 	private void buildDialog(String title){
-		this.getContentPane().setBackground(Color.CYAN);
-		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		this.setSize(defaultWidth, defaultHeight+menubarHeight);
-		this.createListeners(menubarPanel);
+		this.setFocusableWindowState(true);
+		this.getContentPane().setBackground(Color.RED);
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		this.setSize(defaultWidth, defaultHeight+titlebarHeight);
+		this.createListeners(titlebarPanel);
 		
 //		Border border = BorderFactory.createLineBorder(Color.BLUE, 3);
 //		this.getRootPane().setBorder(border);
@@ -59,19 +58,19 @@ public class BasicWindowDialog extends BasicMovableDialog {
 		JLabel titleLabel = new JLabel(title);
 		
 //		JPanel menubarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
-		menubarPanel.setPreferredSize(new Dimension(defaultWidth-menubarHeight, menubarHeight));
-		menubarPanel.setBackground(Color.RED);
+		titlebarPanel.setPreferredSize(new Dimension(defaultWidth-titlebarHeight, titlebarHeight));
+		titlebarPanel.setBackground(ColorManager.GenericWindow.titlebarBG);
 		
 //		JPanel menubarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		menubarContainer.setPreferredSize(new Dimension(defaultWidth, menubarHeight));
-		menubarContainer.setBackground(Color.green);
+		titlebarContainer.setPreferredSize(new Dimension(defaultWidth, titlebarHeight));
+		titlebarContainer.setBackground(ColorManager.GenericWindow.closeButtonBG);
 		
-		menubarPanel.add(titleLabel);
-		menubarContainer.add(menubarPanel);
-		menubarContainer.add(closeButton);
-		this.add(menubarContainer);
+		titlebarPanel.add(titleLabel);
+		titlebarContainer.add(titlebarPanel);
+		titlebarContainer.add(closeButton);
+		this.add(titlebarContainer);
 
-		createListeners(menubarPanel);
+		createListeners(titlebarPanel);
 		
 		container.setPreferredSize(new Dimension(defaultWidth, defaultHeight));
 		this.add(container);
@@ -86,10 +85,10 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	}
 	
 	public void resizeWindow(int width, int height){
-		this.setSize(width, height+menubarHeight);
+		this.setSize(width, height+titlebarHeight);
 		container.setPreferredSize(new Dimension(width, height));
-		menubarContainer.setPreferredSize(new Dimension(width, menubarHeight));
-		menubarPanel.setPreferredSize(new Dimension(width-menubarHeight, menubarHeight));
+		titlebarContainer.setPreferredSize(new Dimension(width, titlebarHeight));
+		titlebarPanel.setPreferredSize(new Dimension(width-titlebarHeight, titlebarHeight));
 		this.revalidate();
 		this.repaint();
 	}

@@ -71,7 +71,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 		grid = new GridPanel();
 		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		grid.setLineColor(Color.GREEN);
-		gridPos.setLocation(winPos.x+bufferThin, winPos.y+bufferThin+BasicWindowDialog.menubarHeight);
+		gridPos.setLocation(winPos.x+bufferThin, winPos.y+bufferThin+BasicWindowDialog.titlebarHeight);
 		container.add(grid, BorderLayout.CENTER);
 		
 		BasicPanel topSpacer = new BasicPanel((int)0+bufferThick+bufferThin, bufferThin);
@@ -221,7 +221,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 	
 	private void saveDataLocally(){
 		setDefaultWinPos(this.getLocationOnScreen());
-		setDefaultWinSize(new Dimension(this.getSize().width, this.getSize().height-BasicMenuWindow.titlebarHeight));
+		setDefaultWinSize(new Dimension(this.getSize().width, this.getSize().height-BasicWindowDialog.titlebarHeight));
 		setDefaultGridPos(grid.getLocationOnScreen());
 		setDefaultGridSize(grid.getSize());
 //		ItemHighlighter

@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.buttons;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,9 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-
-import main.java.com.slimtrade.core.PoeInterface;
 
 public class BasicIconButton extends JPanel{
 
@@ -20,8 +20,8 @@ public class BasicIconButton extends JPanel{
 	
 	//Static
 	public static double imgScaling = 0.9;
-	public static int width;
-	public static int height;
+	public static int width = 20;
+	public static int height = 20;
 	public static int borderThickness = 1;
 	
 	public Color bgColor;
@@ -53,6 +53,7 @@ public class BasicIconButton extends JPanel{
 	
 	private void buildButton(int w, int h){
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+//		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(w, h));
 		this.setBackground(this.bgColor);
 		this.setBorder(border);
@@ -67,14 +68,7 @@ public class BasicIconButton extends JPanel{
 			public void mouseExited(java.awt.event.MouseEvent e) {
 				applyColorDefault();
 			}
-		});
-		
-//		this.addMouseListener(new java.awt.event.MouseAdapter() {
-//			public void mousePressed(java.awt.event.MouseEvent e) {
-//				PoeInterface.focus();
-//			}
-//		});
-		
+		});		
 		
 	}
 	
@@ -120,7 +114,9 @@ public class BasicIconButton extends JPanel{
 		closeIcon.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource(imgPath)).getImage().getScaledInstance((int)(imgWidth), (int)(imgHeight), Image.SCALE_SMOOTH)));
 		closeIcon.setBounds(0, 0, (int)imgWidth, (int)imgHeight);
 		closeIcon.setPreferredSize(new Dimension((int)imgWidth, (int)imgHeight));
-		this.add(closeIcon);
+		closeIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		closeIcon.setVerticalAlignment(SwingConstants.CENTER);
+		this.add(closeIcon, BorderLayout.CENTER);
 	}
 	
 }

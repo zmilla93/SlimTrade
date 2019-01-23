@@ -40,7 +40,6 @@ public class Debugger extends JFrame{
 	}
 	
 	public void log(String... text){
-//		System.out.println("TEXT : " + logTextArea.getText());
 		if(!logTextArea.getText().equals("")){
 						for(int i = 0;i<text.length;i++){
 				logTextArea.setText(logTextArea.getText() + "\n" + text[i]);

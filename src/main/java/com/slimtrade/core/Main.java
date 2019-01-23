@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -49,7 +50,12 @@ public class Main {
 		ColorManager.setMessageTheme();
 		
 		//Frame Manager
-		FrameManager frameManager = new FrameManager();
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run(){
+				FrameManager frameManager = new FrameManager();
+			}
+		});
+		
 		
 	}
 	
