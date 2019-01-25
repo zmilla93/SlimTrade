@@ -422,7 +422,6 @@ public class MessagePanel extends JPanel{
 	
 	public void updateColor(){
 		//Panels
-//		System.out.println(ColorManager.MsgWindow.borderOuter);
 		this.borderOuter.setBackground(ColorManager.MsgWindow.borderOuter);
 		this.borderInner.setBackground(ColorManager.MsgWindow.borderInner);
 		this.namePanel.setBackground(ColorManager.MsgWindow.nameBG);

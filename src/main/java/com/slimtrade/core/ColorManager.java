@@ -79,8 +79,8 @@ public class ColorManager {
 		GenericWindow.titlebarText = Color.WHITE;
 		GenericWindow.buttonBG = Color.LIGHT_GRAY;
 		GenericWindow.buttonBG_hover = Color.WHITE;
-		GenericWindow.buttonBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
-		GenericWindow.buttonBorder_hover = BorderFactory.createLineBorder(Color.BLACK);
+		GenericWindow.buttonBorder = BorderFactory.createRaisedSoftBevelBorder();
+		GenericWindow.buttonBorder_hover = BorderFactory.createRaisedSoftBevelBorder();
 		
 		HistoryWindow.buttonBG_active = Color.LIGHT_GRAY;
 		HistoryWindow.buttonBG_inactive = Color.GRAY;

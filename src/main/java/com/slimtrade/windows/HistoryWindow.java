@@ -9,16 +9,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import main.java.com.slimtrade.buttons.CustomButton;
+import main.java.com.slimtrade.buttons.SelectorButton;
 import main.java.com.slimtrade.core.FrameManager;
 import main.java.com.slimtrade.core.TradeOffer;
 import main.java.com.slimtrade.core.TradeUtility;
 import main.java.com.slimtrade.datatypes.ButtonState;
 import main.java.com.slimtrade.datatypes.MessageType;
-import main.java.com.slimtrade.dialog.BasicWindowDialog;
 import main.java.com.slimtrade.panels.HistoryRowPanel;
 
-public class HistoryWindow extends BasicWindowDialog{
+public class HistoryWindow extends UNUSED_BasicWindowDialogBorder{
 
 	private static final long serialVersionUID = 1L;
 	public static int width = 900;
@@ -44,9 +43,9 @@ public class HistoryWindow extends BasicWindowDialog{
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		selectionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 8));
 		
-		CustomButton incomingButton = new CustomButton("Incoming", buttonWidth, buttonHeight);
-		CustomButton outgoingButton = new CustomButton("Outgoing", buttonWidth, buttonHeight);
-		CustomButton savedButton = new CustomButton("Saved", buttonWidth, buttonHeight);
+		SelectorButton incomingButton = new SelectorButton("Incoming", buttonWidth, buttonHeight);
+		SelectorButton outgoingButton = new SelectorButton("Outgoing", buttonWidth, buttonHeight);
+		SelectorButton savedButton = new SelectorButton("Saved", buttonWidth, buttonHeight);
 		
 		selectionPanel.add(incomingButton);
 		selectionPanel.add(outgoingButton);

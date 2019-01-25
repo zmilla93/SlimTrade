@@ -9,30 +9,21 @@ import javax.swing.JPanel;
 import main.java.com.slimtrade.core.ColorManager;
 import main.java.com.slimtrade.datatypes.ButtonState;
 
-public class CustomButton extends JPanel{
+public class SelectorButton extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	public ButtonState state = ButtonState.INACTIVE;
-	private int width = 100;
-	private int height = 20;
 
-	public CustomButton(String text){
-		buildButton(text);
-	}
-	
-	public CustomButton(String text, int width, int height){
-		this.width = width;
-		this.height = height;
-		buildButton(text);
-	}
-	
-	private void buildButton(String text){
-		JLabel buttonName = new JLabel(text);
+	public SelectorButton(String name, int width, int height){
+		JLabel buttonName = new JLabel(name);
+		
+//		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(width, height));
-//		this.setMaximumSize(new Dimension(width, height));
 		this.add(buttonName, BorderLayout.CENTER);
 		buttonName.setHorizontalAlignment(JLabel.CENTER);
+//		this.setBackground(Color.green);
+//		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.gray));
 		updateColor();
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -42,15 +33,27 @@ public class CustomButton extends JPanel{
 		this.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseExited(java.awt.event.MouseEvent evt) {
 			updateColor();
 		}});
+		
+		this.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
+			state = ButtonState.ACTIVE;
+			updateColor();
+		}});
+		
+//		this.revalidate();
+//		this.repaint();
 	}
 	
 	public void updateColor(int ... i){
 		if(i.length>0){
-			this.setBackground(ColorManager.GenericWindow.buttonBG_hover);
-			this.setBorder(ColorManager.GenericWindow.buttonBorder_hover);
+			this.setBackground(ColorManager.HistoryWindow.buttonBG_hover);
 		}else{
-			this.setBackground(ColorManager.GenericWindow.buttonBG);
-			this.setBorder(ColorManager.GenericWindow.buttonBorder);
+			if(state == ButtonState.ACTIVE){
+				this.setBackground(ColorManager.HistoryWindow.buttonBG_active);
+				this.setBorder(ColorManager.HistoryWindow.buttonBorder_active);
+			}else if (state == ButtonState.INACTIVE){
+				this.setBackground(ColorManager.HistoryWindow.buttonBG_inactive);
+				this.setBorder(ColorManager.HistoryWindow.buttonBorder_inactive);
+			}
 		}
 		this.revalidate();
 		this.repaint();
@@ -60,7 +63,5 @@ public class CustomButton extends JPanel{
 		this.state = state;
 		updateColor();
 	}
-	
-
 	
 }

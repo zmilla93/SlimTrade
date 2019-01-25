@@ -16,7 +16,6 @@ import javax.swing.event.DocumentListener;
 
 import main.java.com.slimtrade.core.FrameManager;
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.dialog.BasicWindowDialog;
 
 public class CharacterWindow extends BasicWindowDialog{
 

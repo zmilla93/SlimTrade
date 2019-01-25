@@ -5,7 +5,6 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.jnativehook.GlobalScreen;
@@ -20,6 +19,10 @@ public class Main {
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		
+		
+//		BasicWindowDialogBorder wind = new BasicWindowDialogBorder("COOL");
+//		wind.setVisible(true);
 		
 		//JNativeHook Setup
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -49,9 +52,28 @@ public class Main {
 		//Initialize Color Manager
 		ColorManager.setMessageTheme();
 		
+//		SaveManager saveManager = new SaveManager();
+//		saveManager.saveString("test", "RAD");
+//		saveManager.saveString("test", "RAD1");
+//		saveManager.saveString("test", "RAD2");
+//		saveManager.saveString("test1", "RAD");
+//		saveManager.saveInt("int", 2);
+//		saveManager.saveDouble("double", 2.5);
+//		saveManager.test();
+		
+//		System.out.println(saveManager.getNestedString("Sub", "test"));
+		
+		
+		
+//		System.out.println(saveManager.getInt("int"));
+//		System.out.println(saveManager.getDouble("double"));
+		
+		
+//		System.out.println(Thread.currentThread());
 		//Frame Manager
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
+				SaveManager saveManager = new SaveManager();
 				FrameManager frameManager = new FrameManager();
 			}
 		});

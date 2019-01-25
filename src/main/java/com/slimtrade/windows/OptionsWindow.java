@@ -10,7 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import main.java.com.slimtrade.core.FrameManager;
-import main.java.com.slimtrade.dialog.BasicWindowDialog;
 import main.java.com.slimtrade.panels.BufferPanel;
 import main.java.com.slimtrade.panels.options.ButtonOptionPanel;
 import main.java.com.slimtrade.panels.options.OptionContentPanel;
@@ -76,7 +75,7 @@ public class OptionsWindow extends BasicWindowDialog{
 		container.add(scrollPane);
 
 		FrameManager.centerFrame(this);
-		this.setVisible(true);
+//		this.setVisible(true);
 	}
 	
 	private void linkToggle(JPanel title, JPanel content){

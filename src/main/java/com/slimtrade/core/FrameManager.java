@@ -3,15 +3,13 @@ package main.java.com.slimtrade.core;
 import java.awt.Dimension;
 import java.awt.Point;
 
-import javax.swing.JFrame;
-
 import main.java.com.slimtrade.buttons.MenubarToggleButton;
-import main.java.com.slimtrade.dialog.BasicWindowDialog;
 import main.java.com.slimtrade.dialog.ItemHighlighter;
 import main.java.com.slimtrade.dialog.MenubarDialog;
 import main.java.com.slimtrade.dialog.MessageManager;
 import main.java.com.slimtrade.dialog.StashHelperContainer;
-import main.java.com.slimtrade.panels.options.ButtonOptionPanel;
+import main.java.com.slimtrade.windows.BasicWindowDialog;
+import main.java.com.slimtrade.windows.UNUSED_BasicWindowDialogBorder;
 import main.java.com.slimtrade.windows.CharacterWindow;
 import main.java.com.slimtrade.windows.HistoryWindow;
 import main.java.com.slimtrade.windows.OptionsWindow;
@@ -77,6 +75,10 @@ public class FrameManager {
 	}
 	
 	public static void centerFrame(BasicWindowDialog window){
+		window.setLocation((TradeUtility.screenSize.width/2)-(window.getWidth()/2), (TradeUtility.screenSize.height/2)-(window.getHeight()/2));
+	}
+	
+	public static void centerFrame(UNUSED_BasicWindowDialogBorder window){
 		window.setLocation((TradeUtility.screenSize.width/2)-(window.getWidth()/2), (TradeUtility.screenSize.height/2)-(window.getHeight()/2));
 	}
 	
