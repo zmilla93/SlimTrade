@@ -3,6 +3,7 @@ package main.java.com.slimtrade.windows;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -24,6 +25,9 @@ public class OptionsWindow extends BasicWindowDialog{
 	public static int rowHeight = 25;
 	private int bufferHeight = 10;
 	
+	private GridBagConstraints gc = new GridBagConstraints();
+	private OptionContentPanel buttonPanel = new OptionContentPanel(contentWidth, 600);
+	
 	private JPanel optionsContainer = new JPanel();
 	//TODO : cleanup size variables for better resizing
 	
@@ -35,6 +39,7 @@ public class OptionsWindow extends BasicWindowDialog{
 		JScrollPane scrollPane = new JScrollPane(optionsContainer);
 		container.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
+		//Switch to gridbaglayout
 		optionsContainer.setLayout(new BoxLayout(optionsContainer, BoxLayout.PAGE_AXIS));
 		optionsContainer.setMaximumSize(new Dimension(contentWidth, height));
 		
@@ -42,22 +47,36 @@ public class OptionsWindow extends BasicWindowDialog{
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(8);
 		
-		//Toggle Panels
-		
-		//Basic
-		this.addBuffer();
+		this.addContainerBuffer();
 		
 		//Buttons
 		OptionTitlePanel buttonTitle = new OptionTitlePanel("Buttons");
-		OptionContentPanel buttonPanel = new OptionContentPanel(contentWidth, 600);
-		buttonPanel.add(new ButtonOptionPanel());
+		
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.weightx = 1;
+		//TODO : Callback button
+		buttonPanel.add(new ButtonOptionPanel("Wait Button", "/resources/icons/clock1.png", ""), gc);
+		this.addButtonBuffer();
+		//TODO : Refresh Button
+		buttonPanel.add(new ButtonOptionPanel("Close Button", "/resources/icons/close.png", ""), gc);
+		this.addButtonBuffer();
+		//TODO : Warp Button
+		buttonPanel.add(new ButtonOptionPanel("Invite Button", "/resources/icons/invite.png", ""), gc);
+		this.addButtonBuffer();
+		buttonPanel.add(new ButtonOptionPanel("Trade Button", "/resources/icons/cart.png", ""), gc);
+		this.addButtonBuffer();
+		buttonPanel.add(new ButtonOptionPanel("Thank Button", "/resources/icons/thumb1.png", ""), gc);
+		this.addButtonBuffer();
+		//TODO : Leave/Kick Button
+		//TODO : Home Button
 		linkToggle(buttonTitle, buttonPanel);
 		buttonPanel.revalidate();
 		buttonPanel.repaint();
 		optionsContainer.add(buttonTitle);
 		optionsContainer.add(buttonPanel);
 		
-		this.addBuffer();
+		this.addContainerBuffer();
 		
 		//Sweet
 		OptionTitlePanel sweetTitle = new OptionTitlePanel("Test Title");
@@ -66,8 +85,6 @@ public class OptionsWindow extends BasicWindowDialog{
 		linkToggle(sweetTitle, sweetPanel);
 		optionsContainer.add(sweetTitle);
 		optionsContainer.add(sweetPanel);
-		
-		this.addBuffer();
 		
 //		optionsContainer.add(new ButtonOptionPanel());
 
@@ -90,8 +107,14 @@ public class OptionsWindow extends BasicWindowDialog{
 		});
 	}
 	
-	private void addBuffer(){
-		optionsContainer.add(new BufferPanel(contentWidth, bufferHeight));
+	private void addContainerBuffer(){
+		optionsContainer.add(new BufferPanel(0, bufferHeight));
+	}
+	
+	private void addButtonBuffer(){
+		gc.gridy++;
+		buttonPanel.add(new BufferPanel(0, bufferHeight), gc);
+		gc.gridy++;
 	}
 	
 	

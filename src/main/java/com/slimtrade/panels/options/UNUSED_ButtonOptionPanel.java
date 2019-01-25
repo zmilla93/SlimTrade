@@ -16,10 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import main.java.com.slimtrade.panels.BasicIcon;
-import main.java.com.slimtrade.panels.BufferPanel;
 import main.java.com.slimtrade.windows.OptionsWindow;
 
-public class ButtonOptionPanel extends JPanel {
+public class UNUSED_ButtonOptionPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int width = OptionsWindow.contentWidth;
@@ -31,26 +30,22 @@ public class ButtonOptionPanel extends JPanel {
 	private JCheckBox enableCheckbox = new JCheckBox("Enable");
 	private JCheckBox secondaryCheckbox = new JCheckBox("Secondary Macro");
 	
-//	JPanel clickPanel2 = new JPanel();
-//	JPanel clickPanel1 = new JPanel();
-	JPanel clickPanel = new JPanel();
+	JPanel clickPanel2 = new JPanel();
+	JPanel clickPanel1 = new JPanel();
 	JPanel iconPanel = new JPanel();
 	
 	private JLabel clickLabel = new JLabel("Message");
-	private JLabel clickLabelLMB = new JLabel("Left Mouse");
-	private JLabel clickLabelRMB = new JLabel("Right Mouse");
-	
-	private JTextField clickTextFieldLMB = new JTextField(30);
-	private JTextField clickTextFieldRMB = new JTextField(30);
+	private JLabel clickLMB = new JLabel("Left Mouse");
+	JLabel clickRMB = new JLabel("Right Mouse");
 	
 	
-	public ButtonOptionPanel(String title, String iconPath, String saveKey){
+	public UNUSED_ButtonOptionPanel(){
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setMinimumSize(new Dimension(600, 100));
 		this.setPreferredSize(null);
 		
 		Border baseBorder = BorderFactory.createLineBorder(Color.BLACK);
-		Border titleBorder = BorderFactory.createTitledBorder(baseBorder, title);
+		Border titleBorder = BorderFactory.createTitledBorder(baseBorder, "Thank Button");
 		this.setBorder(titleBorder);
 		
 		enableCheckbox.setFocusable(false);
@@ -59,8 +54,15 @@ public class ButtonOptionPanel extends JPanel {
 		JPanel checkboxPanel = new JPanel();
 		checkboxPanel.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
-
-		BasicIcon buttonIcon = new BasicIcon(iconPath);
+		
+//		enableCheckbox.setBackground(Color.yellow);
+//		enableCheckbox.setSelected(true);
+		
+//		secondaryCheckbox.setBackground(Color.green);
+//		secondaryCheckbox.setSelected(false);
+		
+		//TODO : Add icon selector?
+		BasicIcon buttonIcon = new BasicIcon("/resources/icons/thumb1.png");
 		JLabel iconLabel = new JLabel("Icon");
 		iconPanel.add(buttonIcon);
 		iconPanel.add(iconLabel);
@@ -75,31 +77,31 @@ public class ButtonOptionPanel extends JPanel {
 		gc.gridx = 2;
 		checkboxPanel.add(iconPanel, gc);
 
-//		gc.weightx = 0;
-//		gc.weighty = 1;
+		gc.weightx = 0.1;
+		gc.weighty = 0.9;
 		gc.gridx = 0;
 		gc.gridy = 0;
-		clickPanel.setLayout(new GridBagLayout());
-
-		
-		clickPanel.add(clickLabel, gc);
-		clickPanel.add(clickLabelLMB, gc);
-		gc.gridx++;
-		clickPanel.add(new BufferPanel(10, 0));
-		gc.gridx++;
-		clickPanel.add(clickTextFieldLMB, gc);
+		gc.anchor = GridBagConstraints.LINE_END;
+		clickPanel1.setLayout(new GridBagLayout());
+		JTextField clickTextField1 = new JTextField(30);
+		clickPanel1.add(clickLabel, gc);
+		clickPanel1.add(clickLMB, gc);
+		gc.anchor = GridBagConstraints.LINE_START;
+		gc.gridx = 1;
+		clickPanel1.add(clickTextField1, gc);
 		
 		gc.gridx = 0;
-		gc.gridy = 1;
-
-		clickPanel.add(clickLabelRMB, gc);
-		gc.gridx++;
-		clickPanel.add(new BufferPanel(10, 0));
-		gc.gridx++;
-		clickPanel.add(clickTextFieldRMB, gc);
+		gc.anchor = GridBagConstraints.LINE_END;
+		clickPanel2.setLayout(new GridBagLayout());
+		JTextField clickTextField2 = new JTextField(30);
+		clickPanel2.add(clickRMB, gc);
+		gc.gridx = 1;
+		gc.anchor = GridBagConstraints.LINE_START;
+		clickPanel2.add(clickTextField2, gc);
 		
 		this.add(checkboxPanel);
-		this.add(clickPanel);
+		this.add(clickPanel1);
+		this.add(clickPanel2);
 		
 		updateView();
 		
@@ -120,26 +122,24 @@ public class ButtonOptionPanel extends JPanel {
 			//Enabled
 			secondaryCheckbox.setVisible(true);
 			iconPanel.setVisible(true);
-			clickPanel.setVisible(true);
+			clickPanel1.setVisible(true);
 			if(secondaryCheckbox.isSelected()){
 				//Secondary Enabled
 				clickLabel.setVisible(false);
-				clickLabelLMB.setVisible(true);
-				clickLabelRMB.setVisible(true);
-				clickTextFieldRMB.setVisible(true);
+				clickLMB.setVisible(true);
+				clickPanel2.setVisible(true);
 			}else{
 				//Single Button
-				clickLabelLMB.setVisible(false);
-				clickLabelRMB.setVisible(false);
-				clickTextFieldRMB.setVisible(false);
-//				clickTextField
+				clickLMB.setVisible(false);
 				clickLabel.setVisible(true);
-				
+				clickPanel1.setVisible(true);
+				clickPanel2.setVisible(false);
 			}
 		}else{
 			//Disabled
 			iconPanel.setVisible(false);
-			clickPanel.setVisible(false);
+			clickPanel1.setVisible(false);
+			clickPanel2.setVisible(false);
 			secondaryCheckbox.setVisible(false);
 			
 		}
