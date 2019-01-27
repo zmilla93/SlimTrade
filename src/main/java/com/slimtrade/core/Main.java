@@ -23,6 +23,8 @@ public class Main {
 		
 //		BasicWindowDialogBorder wind = new BasicWindowDialogBorder("COOL");
 //		wind.setVisible(true);
+		System.out.println(System.getProperty("file.encoding"));
+
 		
 		//JNativeHook Setup
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -48,6 +50,8 @@ public class Main {
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
+		
+		
 		
 		//Initialize Color Manager
 		ColorManager.setMessageTheme();
