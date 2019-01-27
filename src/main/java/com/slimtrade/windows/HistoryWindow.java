@@ -17,7 +17,7 @@ import main.java.com.slimtrade.datatypes.ButtonState;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.panels.HistoryRowPanel;
 
-public class HistoryWindow extends UNUSED_BasicWindowDialogBorder{
+public class HistoryWindow extends BasicWindowDialog{
 
 	private static final long serialVersionUID = 1L;
 	public static int width = 900;

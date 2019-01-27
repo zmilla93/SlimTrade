@@ -11,6 +11,7 @@ public class OptionContentPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	public OptionContentPanel(int width, int height){
 		this.setBackground(Color.YELLOW);
 //		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -22,6 +23,10 @@ public class OptionContentPanel extends JPanel{
 		this.setVisible(false);
 		this.revalidate();
 		this.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+	}
+	
+	public void addPanel(JPanel panel){
+		
 	}
 
 }

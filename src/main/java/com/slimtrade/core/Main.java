@@ -67,8 +67,6 @@ public class Main {
 		
 //		System.out.println(saveManager.getInt("int"));
 //		System.out.println(saveManager.getDouble("double"));
-		
-		
 //		System.out.println(Thread.currentThread());
 		//Frame Manager
 		SwingUtilities.invokeLater(new Runnable(){

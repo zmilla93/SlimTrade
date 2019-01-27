@@ -3,10 +3,11 @@ package main.java.com.slimtrade.panels;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
@@ -90,6 +91,17 @@ public class HistoryRowPanel extends JPanel{
 		this.add(pricePanel);
 		
 		this.localTrade = trade;
+		
+		timePanel.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseEntered(java.awt.event.MouseEvent evt) {
+			LocalTime fixedTime = LocalTime.parse(trade.time);
+			DateTimeFormatter f = DateTimeFormatter.ofPattern("hh:mm a");
+			String s = fixedTime.format(f);
+			timeLabel.setText(s.replaceAll("\\A0", ""));
+		}});
+		
+		timePanel.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseExited(java.awt.event.MouseEvent evt) {
+			timeLabel.setText(trade.date);
+		}});
 		
 		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {public void mouseClicked(java.awt.event.MouseEvent evt) {
 			FrameManager.messageManager.addMessage(localTrade);
