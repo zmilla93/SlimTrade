@@ -3,6 +3,8 @@ package main.java.com.slimtrade.core;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import main.java.com.slimtrade.datatypes.CurrencyType;
+
 public class TradeUtility {
 	
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -17,6 +19,21 @@ public class TradeUtility {
 		}
 		return inputString;
 	}
+
+	//TODO : Could remove empty string check
+	public static CurrencyType getCurrencyType(String inputString){
+		for(CurrencyType type : CurrencyType.values()){
+			for(String tag : type.getTags()){
+				if(tag == ""){
+					break;
+				}
+				if(inputString.contains(tag)){
+					return type;
+				}
+			}
+		}
+		return null;
+	}
 	
 	public static String fixedItemName(String item, double count, boolean paren){
 		String fixedNum = count == 0? "" : String.valueOf(count).toString().replaceAll("\\.0", "");
@@ -27,6 +44,7 @@ public class TradeUtility {
 		return fixedString;
 	}
 	
+	//TODO : check more stuff?
 	public static boolean isDuplicateTrade(TradeOffer trade1, TradeOffer trade2){
 		final int checkCount = 6;
 		int check = 0;

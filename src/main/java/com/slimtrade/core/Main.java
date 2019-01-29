@@ -21,8 +21,11 @@ public class Main {
 	public static void main(String[] args) {
 		
 		
-//		BasicWindowDialogBorder wind = new BasicWindowDialogBorder("COOL");
-//		wind.setVisible(true);
+		System.out.println(TradeUtility.getCurrencyType("test"));
+		System.out.println(TradeUtility.getCurrencyType("alch"));
+		System.out.println(TradeUtility.getCurrencyType("chaos"));
+		
+		
 		System.out.println(System.getProperty("file.encoding"));
 
 		
@@ -66,8 +69,6 @@ public class Main {
 //		saveManager.test();
 		
 //		System.out.println(saveManager.getNestedString("Sub", "test"));
-		
-		
 		
 //		System.out.println(saveManager.getInt("int"));
 //		System.out.println(saveManager.getDouble("double"));
