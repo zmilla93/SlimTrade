@@ -197,11 +197,15 @@ public class MessagePanel extends JPanel{
 		BasicIcon.width = rowHeight;
 		BasicIcon.height = rowHeight;
 		BasicIcon priceIcon;
+		
 		if(this.getClass().getResource("/resources/currency/" + trade.priceTypeString + ".png") != null){
+			System.out.println("icon found");
 			priceIcon = new BasicIcon("/resources/currency/" + trade.priceTypeString + ".png");
 			pricePanel.add(priceIcon);
 		}else{
+			System.out.println("no icon found for " + trade.priceTypeString);
 			priceTypeLabel = new JLabel(" " + trade.priceTypeString);
+//			priceTypeLabel = new JLabel("hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
 		}
 		pricePanel.setPreferredSize(new Dimension((int)(width*priceWidthMult), rowHeight));
 		pricePanel.add(priceTypeLabel);
