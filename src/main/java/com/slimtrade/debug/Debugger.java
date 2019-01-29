@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.gui.FrameManager;
 
 public class Debugger extends JFrame{
 

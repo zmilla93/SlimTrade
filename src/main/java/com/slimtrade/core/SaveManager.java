@@ -9,7 +9,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import main.java.com.slimtrade.windows.BasicInfoDialog;
+import main.java.com.slimtrade.gui.windows.InfoDialog;
 
 public class SaveManager {
 
@@ -34,7 +34,6 @@ public class SaveManager {
 	private BufferedReader br;
 	
 	public SaveManager(){
-		System.out.println("init save manager");
 		//Steam Path
 		for(String drive : commonDrives){
 			File clientFile = new File(drive + steamStub);
@@ -76,14 +75,13 @@ public class SaveManager {
 		
 		if(clientConflict){
 			System.err.println("Conflict");
-			BasicInfoDialog conflictDialog = new BasicInfoDialog("SlimTrade - Warning");
+			InfoDialog conflictDialog = new InfoDialog("SlimTrade - Warning");
 			conflictDialog.addSectionHeader("Multiple Client Paths Found");
 			conflictDialog.addText("Client.txt files found for both STEAM and STANDALONE versions of POE.");
 			conflictDialog.addText("Please manually select a valid path in the options menu.");
 			conflictDialog.finalizeDialog();
 		}else if(!validClientPath){
-			System.err.println("No client path");
-			BasicInfoDialog conflictDialog = new BasicInfoDialog("SlimTrade - Warning");
+			InfoDialog conflictDialog = new InfoDialog("SlimTrade - Warning");
 			conflictDialog.addSectionHeader("No Client Path Found");
 			conflictDialog.addText("Unable to find a valid path for POE's client.txt file.");
 			conflictDialog.addText("Please manually select a valid path in the options menu.");
@@ -99,7 +97,6 @@ public class SaveManager {
 			
 			conflictDialog.finalizeDialog();
 		}
-		System.out.println("init finished");
 	}
 	
 	private void initSaveData(){
