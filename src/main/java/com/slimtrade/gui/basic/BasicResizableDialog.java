@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.core.ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.buttons.IconButton_REMOVE;
 
 public class BasicResizableDialog extends BasicMovableDialog {

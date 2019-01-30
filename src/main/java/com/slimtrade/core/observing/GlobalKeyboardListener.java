@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core;
+package main.java.com.slimtrade.core.observing;
 
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;

@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core;
+package main.java.com.slimtrade.core.observing;
 
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;
@@ -6,61 +6,51 @@ import org.jnativehook.mouse.NativeMouseInputListener;
 import com.sun.jna.Native;
 import com.sun.jna.PointerType;
 
+import main.java.com.slimtrade.core.utility.User32;
 import main.java.com.slimtrade.datatypes.WindowType;
 import main.java.com.slimtrade.gui.FrameManager;
 
-public class GlobalMouseListener implements NativeMouseInputListener{
+public class GlobalMouseListener implements NativeMouseInputListener {
 
-//	private WindowType lastWindow = null;
+	// private WindowType lastWindow = null;
 	private String lastWindow;
-	
-	@Override
+
 	public void nativeMouseClicked(NativeMouseEvent e) {
-		
+
 	}
 
-	@Override
 	public void nativeMousePressed(NativeMouseEvent e) {
 
 	}
 
-	@Override
-	public void nativeMouseReleased(NativeMouseEvent e) {		
+	public void nativeMouseReleased(NativeMouseEvent e) {
 		byte[] windowText = new byte[512];
 		PointerType hwnd = User32.INSTANCE.GetForegroundWindow();
 		User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 		String curWindowTitle = Native.toString(windowText);
-		if(curWindowTitle.equals("Path of Exile")){
+		if (curWindowTitle.equals("Path of Exile")) {
 			FrameManager.forceAllToTop();
 		}
-//		if(lastWindow != null && !lastWindow.equals(curWindow) && curWindow.equals("Path of Exile")){
-//			FrameManager.forceAllToTop();
-//			System.out.println("REFRESH");
-//		}
-//		lastWindow = curWindow;
+		// System.out.println(curWindowTitle);
 	}
 
-	@Override
 	public void nativeMouseDragged(NativeMouseEvent e) {
-		
+
 	}
 
-	@Override
-	public void nativeMouseMoved(NativeMouseEvent e) {	
-		
+	public void nativeMouseMoved(NativeMouseEvent e) {
+
 	}
-	
-	private WindowType getWindowType(String win){
-		if(win.equals("Path of Exile")){
+
+	private WindowType getWindowType(String win) {
+		if (win.equals("Path of Exile")) {
 			return WindowType.POE;
-		}else if(win.contains("SlimTrade")){
+		} else if (win.contains("SlimTrade")) {
 			return WindowType.SLIMTRADE;
-		}else{
+		} else {
 			return WindowType.OTHER;
 		}
-		
+
 	}
 
-
 }
-

@@ -2,7 +2,7 @@ package main.java.com.slimtrade.gui.frames;
 
 import java.awt.FlowLayout;
 
-import main.java.com.slimtrade.core.ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.panels.StashHelper;
 import main.java.com.slimtrade.gui.windows.StashGridOverlay;

@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core;
+package main.java.com.slimtrade.core.utility;
 
 import com.sun.jna.Native;
 import com.sun.jna.PointerType;

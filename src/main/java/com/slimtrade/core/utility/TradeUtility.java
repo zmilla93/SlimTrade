@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core;
+package main.java.com.slimtrade.core.utility;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;

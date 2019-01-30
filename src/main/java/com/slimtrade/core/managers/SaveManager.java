@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core;
+package main.java.com.slimtrade.core.managers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,8 +23,8 @@ public class SaveManager {
 	private String saveStub = "/settings.json";
 	private String steamStub =  ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
 	private String standAloneStub =  ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
-//	private String[] commonDrives = {"C", "D", "E", "F", "G", "H"};
-	private String[] commonDrives = {"H"};
+	private String[] commonDrives = {"C", "D", "E", "F", "G", "H"};
+//	private String[] commonDrives = {"H"};
 	private String user = System.getProperty("user.name");
 	
 	private JSONObject saveData;

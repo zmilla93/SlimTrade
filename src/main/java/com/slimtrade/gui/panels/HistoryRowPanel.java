@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.core.ColorManager;
-import main.java.com.slimtrade.core.TradeOffer;
-import main.java.com.slimtrade.core.TradeUtility;
+import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
 import main.java.com.slimtrade.gui.windows.HistoryWindow;

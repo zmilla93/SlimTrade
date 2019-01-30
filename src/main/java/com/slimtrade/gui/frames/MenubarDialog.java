@@ -11,8 +11,8 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.TradeOffer;
-import main.java.com.slimtrade.core.TradeUtility;
+import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;

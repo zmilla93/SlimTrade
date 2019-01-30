@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.core.ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
 import main.java.com.slimtrade.gui.buttons.IconButton_REMOVE;
 

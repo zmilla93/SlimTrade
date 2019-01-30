@@ -18,9 +18,7 @@ public class IconButton extends JButton {
 
 	private static final long serialVersionUID = -6435841710429512781L;
 	private final int SIZE = 30;
-	
-//	private MouseClickState clickState;
-//	private MouseHoverState hoverState;
+	private final double ICON_SCALE = 0.9;
 
 	private Color colorDefault = Color.GRAY;
 	private Color colorHover = Color.LIGHT_GRAY;
@@ -33,12 +31,12 @@ public class IconButton extends JButton {
 	public IconButton(String path) {
 		buildButton(path, SIZE);
 	}
-	
+
 	public IconButton(String path, int size) {
 		buildButton(path, size);
 	}
-	
-	private void buildButton(String path, int size){
+
+	private void buildButton(String path, int size) {
 		this.setPreferredSize(new Dimension(size, size));
 		this.setContentAreaFilled(false);
 		this.setFocusable(false);
@@ -46,7 +44,8 @@ public class IconButton extends JButton {
 
 		Image img = null;
 		try {
-			img = ImageIO.read(this.getClass().getResource(path)).getScaledInstance(size, size, Image.SCALE_SMOOTH);
+			img = ImageIO.read(this.getClass().getResource(path)).getScaledInstance((int) (size * ICON_SCALE),
+					(int) (size * ICON_SCALE), Image.SCALE_SMOOTH);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -79,20 +78,4 @@ public class IconButton extends JButton {
 		super.paintComponent(g);
 	}
 
-//	public MouseClickState getClickState() {
-//		return clickState;
-//	}
-//
-//	public void setClickState(MouseClickState clickState) {
-//		this.clickState = clickState;
-//	}
-//
-//	public MouseHoverState getHoverState() {
-//		return hoverState;
-//	}
-//
-//	public void setHoverState(MouseHoverState hoverState) {
-//		this.hoverState = hoverState;
-//	}
-	
 }

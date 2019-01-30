@@ -5,7 +5,7 @@ import java.awt.Point;
 
 import main.java.com.slimtrade.core.ChatParser;
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.TradeUtility;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
 import main.java.com.slimtrade.gui.buttons.MenubarToggleButton;
 import main.java.com.slimtrade.gui.frames.ItemHighlighter;

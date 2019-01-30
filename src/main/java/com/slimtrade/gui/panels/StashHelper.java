@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import main.java.com.slimtrade.core.PoeInterface;
-import main.java.com.slimtrade.core.TradeOffer;
+import main.java.com.slimtrade.core.managers.PoeInterface;
+import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
 import main.java.com.slimtrade.gui.frames.ItemHighlighter;
 

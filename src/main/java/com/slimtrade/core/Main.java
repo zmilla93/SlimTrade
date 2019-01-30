@@ -10,6 +10,13 @@ import javax.swing.SwingUtilities;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
+import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.ExternalFileManager;
+import main.java.com.slimtrade.core.managers.PoeInterface;
+import main.java.com.slimtrade.core.managers.SaveManager;
+import main.java.com.slimtrade.core.observing.EventManager;
+import main.java.com.slimtrade.core.observing.GlobalKeyboardListener;
+import main.java.com.slimtrade.core.observing.GlobalMouseListener;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 
@@ -17,7 +24,8 @@ public class Main {
 
 	public static Debugger debug = new Debugger();
 	public static ExternalFileManager fileManager = new ExternalFileManager();
-
+	public static EventManager eventManager = new EventManager();
+	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
@@ -47,6 +55,8 @@ public class Main {
 		}
 
 		// Initialize Color Manager
+		
+		
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {

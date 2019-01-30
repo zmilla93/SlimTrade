@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 
-import main.java.com.slimtrade.core.TradeUtility;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 

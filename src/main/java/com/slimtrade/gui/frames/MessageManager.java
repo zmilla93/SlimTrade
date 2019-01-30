@@ -4,20 +4,18 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Point;
-import java.util.Objects;
 import java.util.Random;
 
 import javax.swing.Box;
 
-import main.java.com.slimtrade.core.ColorManager;
-import main.java.com.slimtrade.core.TradeOffer;
-import main.java.com.slimtrade.core.TradeUtility;
+import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.panels.MessagePanel;
-import main.java.com.slimtrade.gui.panels.StashHelper;
+import main.java.com.slimtrade.gui.panels.MessagePanelReworked;
 
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
@@ -28,14 +26,14 @@ public class MessageManager extends BasicDialog {
 	private final int gap = 1;
 	private final int maxMessageCount = 20;
 	private int messageCount = 0;
-	private MessagePanel[] messages = new MessagePanel[maxMessageCount];
+	private MessagePanelReworked[] messages = new MessagePanelReworked[maxMessageCount];
 	private Component[] rigidAreas = new Component[maxMessageCount];
 	
 	public MessageManager(){
 		//TODO : Get default theme, or move setMessageTheme
 //		ColorManager.setMessageTheme();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setBounds(1400, 0, 500, 400);
+		this.setBounds(600, 0, 500, 400);
 		this.setBackground(ColorManager.CLEAR);
 		this.setVisible(true);
 	}
@@ -61,7 +59,7 @@ public class MessageManager extends BasicDialog {
 		while(messages[i]!=null){
 			i++;
 		}
-		messages[i] = new MessagePanel(trade);
+		messages[i] = new MessagePanelReworked(trade);
 		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, gap));
 		int closeIndex = i;
 		messages[i].closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,13 +91,13 @@ public class MessageManager extends BasicDialog {
 	}
 	
 	private void refresh(){
-		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight*messageCount+gap*messageCount);
+		this.setSize(MessagePanelReworked.totalWidth, MessagePanelReworked.totalHeight*messageCount+gap*messageCount);
 		this.revalidate();
 		this.repaint();
 	}
 	
 	public boolean isDuplicateTrade(TradeOffer trade){
-		for(MessagePanel msg : messages){
+		for(MessagePanelReworked msg : messages){
 			if(msg != null){
 				if(TradeUtility.isDuplicateTrade(msg.trade, trade)){
 					return true;

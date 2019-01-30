@@ -9,8 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import main.java.com.slimtrade.core.TradeOffer;
-import main.java.com.slimtrade.core.TradeUtility;
+import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.datatypes.ButtonState;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;

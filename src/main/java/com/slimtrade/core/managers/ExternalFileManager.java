@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core;
+package main.java.com.slimtrade.core.managers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import main.java.com.slimtrade.core.Main;
 
 
 public class ExternalFileManager {

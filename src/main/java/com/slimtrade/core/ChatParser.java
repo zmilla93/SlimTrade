@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.Timer;
 
+import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 
