@@ -5,26 +5,25 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
-import main.java.com.slimtrade.core.managers.PoeInterface;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
-import main.java.com.slimtrade.core.observing.EventType;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.TradeOffer;
@@ -36,15 +35,16 @@ import main.java.com.slimtrade.gui.buttons.IconButton;
 public class MessagePanelReworked extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<PoeInteractionListener> poeInteractionListeners = new ArrayList<PoeInteractionListener>();
+	private final PoeInteractionListener poeInteractionListener = Main.eventManager;
 	
-	private static int height = 50;
-	private static int width = height*10;
-	private static int borderThickness = 2;
-	private int rowHeight = height / 2;
+	private final static int height = 40;
+	private final static int width = height*10;
+	private final static int borderThickness = 2;
 	public static final int totalWidth = width + borderThickness * 4;
 	public static final int totalHeight = height + borderThickness * 4;
-	public TradeOffer trade;
+	private final int rowHeight = height / 2;
+	
+	public final TradeOffer trade;
 
 	private JPanel borderOuter = new JPanel();
 	private JPanel borderInner = new JPanel();
@@ -66,19 +66,24 @@ public class MessagePanelReworked extends JPanel {
 	public StashHelper stashHelper;
 
 	// Buttons Top
-	public BasicIconButton_REMOVE callbackButton;
-	public BasicIconButton_REMOVE waitButton;
-	public BasicIconButton_REMOVE stillInterestedButton;
-	public BasicIconButton_REMOVE repeatMessageButton;
-	public BasicIconButton_REMOVE closeButton;
+	
+	private IconButton callbackButton = new IconButton("/resources/icons/phone.png", rowHeight);
+	private IconButton waitButton = new IconButton("/resources/icons/clock1.png", rowHeight);
+	private IconButton stillInterestedButton = new IconButton("/resources/icons/refresh1.png", rowHeight);
+	private IconButton repeatMessageButton = new IconButton("/resources/icons/refresh1.png", rowHeight);
+	private IconButton closeButton = new IconButton("/resources/icons/close.png", rowHeight);
+	// Row 2
+	private IconButton inviteToPartyButton = new IconButton("/resources/icons/invite.png", rowHeight);
+	private IconButton tpToHideoutButton = new IconButton("/resources/icons/cart2.png", rowHeight);
+	// tradeButton = new
+	// BasicIconButton_REMOVE("/resources/icons/cart2.png");
+	private IconButton tradeButton = new IconButton("/resources/icons/cart2.png", rowHeight);
+	private IconButton thankButton = new IconButton("/resources/icons/thumb1.png", rowHeight);
+	private IconButton kickButton = new IconButton("/resources/icons/leave.png", rowHeight);
+	private IconButton leavePartyButton = new IconButton("/resources/icons/leave.png", rowHeight);
+	private IconButton tpHomeButton = new IconButton("/resources/icons/home2.png", rowHeight);
 	// Buttons Bottom
-	public BasicIconButton_REMOVE inviteToPartyButton;
-	private BasicIconButton_REMOVE tpToHideoutButton;
-	private IconButton tradeButton;
-	private BasicIconButton_REMOVE thankButton;
-	private BasicIconButton_REMOVE leavePartyButton;
-	private BasicIconButton_REMOVE kickButton;
-	private BasicIconButton_REMOVE tpHomeButton;
+
 
 	// Timers
 	private int seconds = 0;
@@ -117,6 +122,8 @@ public class MessagePanelReworked extends JPanel {
 
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(totalWidth, totalHeight));
+		
+		GridBagConstraints gcCenter = new GridBagConstraints();
 
 		double nameWidthMult = 0;
 		double priceWidthMult = 0;
@@ -171,22 +178,25 @@ public class MessagePanelReworked extends JPanel {
 
 		// TOP PANEL
 		LayoutManager panelFlow = new FlowLayout(FlowLayout.CENTER, 0, 1);
-		topPanel.setLayout(flowLeft);
+		LayoutManager flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 0);
+		topPanel.setLayout(flowCenter);
 		topPanel.setPreferredSize(new Dimension(width, rowHeight));
 		container.add(topPanel, BorderLayout.PAGE_START);
 
+		GridBagLayout gridBag = new GridBagLayout();
+		
 		// NAME
 //		namePanel = new JPanel(panelFlow);
-		namePanel.setLayout(panelFlow);
+		namePanel.setLayout(gridBag);
 		nameLabel = new JLabel(trade.playerName);
 		namePanel.setPreferredSize(new Dimension((int) (width * nameWidthMult), rowHeight));
-		namePanel.add(nameLabel);
+		namePanel.add(nameLabel, gcCenter);
 		topPanel.add(namePanel);
 		// PRICE
 //		pricePanel = new JPanel(panelFlow);
-		pricePanel.setLayout(panelFlow);
+		pricePanel.setLayout(gridBag);
 		priceCountLabel = new JLabel(trade.priceCount.toString().replaceAll("[.]0", "") + " ");
-		pricePanel.add(priceCountLabel);
+		pricePanel.add(priceCountLabel, gcCenter);
 		BasicIcon_REMOVE.width = rowHeight;
 		BasicIcon_REMOVE.height = rowHeight;
 		BasicIcon_REMOVE priceIcon;
@@ -197,7 +207,7 @@ public class MessagePanelReworked extends JPanel {
 			priceTypeLabel = new JLabel(" " + trade.priceTypeString);
 		}
 		pricePanel.setPreferredSize(new Dimension((int) (width * priceWidthMult), rowHeight));
-		pricePanel.add(priceTypeLabel);
+		pricePanel.add(priceTypeLabel, gcCenter);
 		topPanel.add(pricePanel);
 		// TOP BUTTON PANEL
 //		topButtonPanel = new JPanel(panelFlow);
@@ -209,31 +219,34 @@ public class MessagePanelReworked extends JPanel {
 		/*
 		 * BOTTOM PANEL
 		 */
-		bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		bottomPanel.setLayout(flowCenter);
 		bottomPanel.setPreferredSize(new Dimension(width, rowHeight));
 		container.add(bottomPanel, BorderLayout.CENTER);
 
-		timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//		timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		timerLabel.setText("0s");
 		timerPanel.setPreferredSize(new Dimension((int) (width * timerWidthMult), rowHeight));
-		timerPanel.setLayout(new BorderLayout());
-		timerPanel.add(timerLabel, BorderLayout.CENTER);
+		timerPanel.setLayout(gridBag);
+		timerPanel.add(timerLabel, gcCenter);
 		bottomPanel.add(timerPanel);
 
-		itemPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		itemPanel.setLayout(gridBag);
+		GridBagConstraints gcItem = new GridBagConstraints();
+		gcItem.gridx = 0;
 		if (trade.itemCount > 0) {
 			itemCountLabel = new JLabel(trade.itemCount.toString().replaceAll("[.]0", "") + " ");
-			itemPanel.add(itemCountLabel);
+			itemPanel.add(itemCountLabel, gcItem);
 		}
+		gcItem.gridx = 1;
 		BasicIcon_REMOVE.width = rowHeight;
 		BasicIcon_REMOVE.height = rowHeight;
 		BasicIcon_REMOVE itemIcon;
 		if (this.getClass().getResource("/resources/items/" + trade.itemName + ".png") != null) {
 			itemIcon = new BasicIcon_REMOVE("/resources/items/" + trade.itemName + ".png");
-			itemPanel.add(itemIcon, BorderLayout.CENTER);
+			itemPanel.add(itemIcon, gcItem);
 		} else {
 			itemLabel = new JLabel(trade.itemName);
-			itemPanel.add(itemLabel, BorderLayout.CENTER);
+			itemPanel.add(itemLabel, gcItem);
 		}
 
 		itemPanel.setPreferredSize(new Dimension((int) (width * itemWidthMult), rowHeight));
@@ -244,119 +257,26 @@ public class MessagePanelReworked extends JPanel {
 		bottomButtonPanel.setPreferredSize(new Dimension((int) (width * buttonBotMult), rowHeight));
 		bottomPanel.add(bottomButtonPanel);
 
-		// TODO : Could move these to delaraction if width/height default is
-		// dealt with
-		// Buttons
-		BasicIconButton_REMOVE.width = rowHeight;
-		BasicIconButton_REMOVE.height = rowHeight;
-		// Row 1
-		callbackButton = new BasicIconButton_REMOVE("/resources/icons/phone.png");
-		waitButton = new BasicIconButton_REMOVE("/resources/icons/clock1.png");
-		stillInterestedButton = new BasicIconButton_REMOVE("/resources/icons/refresh1.png");
-		repeatMessageButton = new BasicIconButton_REMOVE("/resources/icons/refresh1.png");
-		closeButton = new BasicIconButton_REMOVE("/resources/icons/close.png");
-		// Row 2
-		inviteToPartyButton = new BasicIconButton_REMOVE("/resources/icons/invite.png");
-		tpToHideoutButton = new BasicIconButton_REMOVE("/resources/icons/cart2.png");
-		// tradeButton = new
-		// BasicIconButton_REMOVE("/resources/icons/cart2.png");
-		tradeButton = new IconButton("/resources/icons/cart2.png", rowHeight);
-		thankButton = new BasicIconButton_REMOVE("/resources/icons/thumb1.png");
-		kickButton = new BasicIconButton_REMOVE("/resources/icons/leave.png");
-		leavePartyButton = new BasicIconButton_REMOVE("/resources/icons/leave.png");
-		tpHomeButton = new BasicIconButton_REMOVE("/resources/icons/home2.png");
 
 		switch (trade.msgType) {
 		case INCOMING_TRADE:
-			// TOP BUTTONS
+			//TOP BUTTONS
 			topButtonPanel.add(callbackButton);
 			topButtonPanel.add(waitButton);
 			topButtonPanel.add(stillInterestedButton);
 			topButtonPanel.add(closeButton);
-			//
-			callbackButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					;
-				}
-			});
-			waitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					if (evt.getButton() == MouseEvent.BUTTON1) {
-						PoeInterface.paste("@" + trade.playerName + " one sec");
-					} else if (evt.getButton() == MouseEvent.BUTTON3) {
-						PoeInterface.paste("@" + trade.playerName + " one minute");
-					}
-				}
-			});
-			stillInterestedButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					String item = trade.itemCount == 0 ? trade.itemName
-							: trade.itemCount.toString().replaceAll("[.]0", "") + " " + trade.itemName;
-					PoeInterface.paste("@" + trade.playerName + " Hi, are you still interested in my " + item + " for "
-							+ trade.priceCount.toString().replaceAll("[.]0", "") + " " + trade.priceTypeString + "?");
-				}
-			});
-			closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					secondsTimer.stop();
-					minutesTimer.stop();
-					if (evt.getButton() == MouseEvent.BUTTON1) {
-
-					} else if (evt.getButton() == MouseEvent.BUTTON3) {
-						PoeInterface.paste("@" + trade.playerName + " sold");
-					}
-				}
-			});
-
 			// BUTTOM BUTTONS
 			bottomButtonPanel.add(inviteToPartyButton);
 			bottomButtonPanel.add(tradeButton);
 			bottomButtonPanel.add(thankButton);
 			bottomButtonPanel.add(kickButton);
-			inviteToPartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
 			//
-			inviteToPartyButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					FrameManager.stashHelperContainer.add(stashHelper);
-					stashHelper.setVisible(true);
-					FrameManager.stashHelperContainer.refresh();
-					PoeInterface.paste("/invite " + trade.playerName);
-
-					inviteToPartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
-					// tradeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
-
-				}
-			});
-			
 			
 			
 			//TESTING BUTTON
-			this.addPoeInteractionListener(Main.eventManager);
-			tradeButton.addMouseListener(new AdvancedMouseAdapter() {
-				public void click(MouseEvent e){
-					for(PoeInteractionListener l : poeInteractionListeners){
-						l.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), ButtonType.TRADE, trade));
-					}
-				}
-			});
-			
-			
-			
-			
-			thankButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste("@" + trade.playerName + " thanks");
-					thankButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
-					kickButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
-				}
-			});
-			kickButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste("/kick " + trade.playerName);
-					kickButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
-					closeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
-				}
-			});
+//			this.addPoeInteractionListener(Main.eventManager);
+			this.registerButton(tradeButton, ButtonType.TRADE);
+
 
 			// STASH HELPER
 			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
@@ -364,78 +284,17 @@ public class MessagePanelReworked extends JPanel {
 			stashHelper = new StashHelper(trade, color);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.getContentPane().add(stashHelper);
-
-			// Item Panel Actions
-			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseEntered(java.awt.event.MouseEvent evt) {
-					itemPanel.setBorder(hoverBorder);
-				}
-			});
-			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseExited(java.awt.event.MouseEvent evt) {
-					itemPanel.setBorder(blankBorder);
-				}
-			});
-			itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					FrameManager.stashHelperContainer.add(stashHelper);
-					stashHelper.setVisible(true);
-					FrameManager.stashHelperContainer.refresh();
-				}
-			});
 			break;
 		case OUTGOING_TRADE:
 			// TOP BUTTONS
 			topButtonPanel.add(repeatMessageButton);
 			topButtonPanel.add(closeButton);
-			//
-			repeatMessageButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste(trade.sentMessage);
-				}
-			});
 			// BOTTOM BUTTONS
 			bottomButtonPanel.add(tpToHideoutButton);
 			bottomButtonPanel.add(tradeButton);
 			bottomButtonPanel.add(thankButton);
 			bottomButtonPanel.add(leavePartyButton);
 			bottomButtonPanel.add(tpHomeButton);
-			tpToHideoutButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
-			//
-			tpToHideoutButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste("/hideout " + trade.playerName);
-					tpToHideoutButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
-					thankButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
-				}
-			});
-			tradeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste("/tradewith " + trade.playerName);
-				}
-			});
-			thankButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste("@" + trade.playerName + " thanks");
-					thankButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
-					leavePartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
-				}
-			});
-			leavePartyButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste("/kick " + FrameManager.characterWindow.getCharacterName());
-					leavePartyButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
-					tpHomeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
-				}
-			});
-			tpHomeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					PoeInterface.paste("/hideout");
-					tpHomeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder);
-					closeButton.setBorderPresetDefault(ColorManager.MsgWindow.buttonBorder_next);
-				}
-			});
-			// tradeButton.bgColor = ColorManager.MsgWindow.buttonBG_completed;
 			break;
 		case CHAT_SCANNER:
 			break;
@@ -473,18 +332,6 @@ public class MessagePanelReworked extends JPanel {
 		this.itemCountLabel.setForeground(ColorManager.MsgWindow.text);
 		this.itemLabel.setForeground(ColorManager.MsgWindow.text);
 		// Buttons
-		updateButton(callbackButton);
-		updateButton(waitButton);
-		updateButton(stillInterestedButton);
-		updateButton(repeatMessageButton);
-		updateButton(closeButton);
-		updateButton(inviteToPartyButton);
-		updateButton(tpToHideoutButton);
-		// updateButton(tradeButton);
-		updateButton(thankButton);
-		updateButton(kickButton);
-		updateButton(leavePartyButton);
-		updateButton(tpHomeButton);
 		// Row 2
 
 		// Message Type Specific
@@ -505,17 +352,22 @@ public class MessagePanelReworked extends JPanel {
 		}
 
 	}
+	
+	private void registerButton(JButton button, ButtonType type){
+		button.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e){
+				poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade));
+			}
+		});
+	}
+	
+	public JButton getCloseButton(){
+		return this.closeButton;
+	}
 
 	public MessageType getMessageType() {
 		return this.trade.msgType;
 	}
 	
-	public void addPoeInteractionListener(PoeInteractionListener listener){
-		poeInteractionListeners.add(listener);
-	}
-	
-	public void removePoeInteractionListener(PoeInteractionListener listener){
-		poeInteractionListeners.remove(listener);
-	}
 
 }

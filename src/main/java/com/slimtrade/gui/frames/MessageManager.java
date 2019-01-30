@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.Box;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
@@ -62,8 +64,8 @@ public class MessageManager extends BasicDialog {
 		messages[i] = new MessagePanelReworked(trade);
 		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, gap));
 		int closeIndex = i;
-		messages[i].closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		messages[i].getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
+		    public void click(MouseEvent e) {
 		    	removeMessage(closeIndex);
 		    }
 		});
