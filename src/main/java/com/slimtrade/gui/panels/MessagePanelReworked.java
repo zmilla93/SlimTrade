@@ -36,14 +36,14 @@ public class MessagePanelReworked extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final PoeInteractionListener poeInteractionListener = Main.eventManager;
-	
-	private final static int height = 40;
-	private final static int width = height*10;
+
+	private final static int height = 100;
+	private final static int width = height * 10;
 	private final static int borderThickness = 2;
 	public static final int totalWidth = width + borderThickness * 4;
 	public static final int totalHeight = height + borderThickness * 4;
 	private final int rowHeight = height / 2;
-	
+
 	public final TradeOffer trade;
 
 	private JPanel borderOuter = new JPanel();
@@ -65,25 +65,35 @@ public class MessagePanelReworked extends JPanel {
 	private JLabel timerLabel = new JLabel();
 	public StashHelper stashHelper;
 
-	// Buttons Top
-	
+	// Top Row Buttons
 	private IconButton callbackButton = new IconButton("/resources/icons/phone.png", rowHeight);
 	private IconButton waitButton = new IconButton("/resources/icons/clock1.png", rowHeight);
 	private IconButton stillInterestedButton = new IconButton("/resources/icons/refresh1.png", rowHeight);
 	private IconButton repeatMessageButton = new IconButton("/resources/icons/refresh1.png", rowHeight);
 	private IconButton closeButton = new IconButton("/resources/icons/close.png", rowHeight);
-	// Row 2
+	// Bottom Row Buttons
 	private IconButton inviteToPartyButton = new IconButton("/resources/icons/invite.png", rowHeight);
 	private IconButton tpToHideoutButton = new IconButton("/resources/icons/cart2.png", rowHeight);
-	// tradeButton = new
-	// BasicIconButton_REMOVE("/resources/icons/cart2.png");
 	private IconButton tradeButton = new IconButton("/resources/icons/cart2.png", rowHeight);
 	private IconButton thankButton = new IconButton("/resources/icons/thumb1.png", rowHeight);
 	private IconButton kickButton = new IconButton("/resources/icons/leave.png", rowHeight);
 	private IconButton leavePartyButton = new IconButton("/resources/icons/leave.png", rowHeight);
 	private IconButton tpHomeButton = new IconButton("/resources/icons/home2.png", rowHeight);
-	// Buttons Bottom
 
+	// // Top Row Buttons
+	// private IconButton callbackButton;
+	// private IconButton waitButton;
+	// private IconButton stillInterestedButton;
+	// private IconButton repeatMessageButton;
+	// private IconButton closeButton;
+	// // Bottom Row Buttons
+	// private IconButton inviteToPartyButton;
+	// private IconButton tpToHideoutButton;
+	// private IconButton tradeButton;
+	// private IconButton thankButton;
+	// private IconButton kickButton;
+	// private IconButton leavePartyButton;
+	// private IconButton tpHomeButton;
 
 	// Timers
 	private int seconds = 0;
@@ -116,14 +126,13 @@ public class MessagePanelReworked extends JPanel {
 	// Alternatively use gridbaglayout
 	// TODO : Add close function for all cleanup actions
 	public MessagePanelReworked(TradeOffer trade) {
-
-		FlowLayout flowLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
-		this.trade = trade;
-
-		this.setLayout(new BorderLayout());
+		GridBagLayout gridbag = new GridBagLayout();
+		GridBagConstraints gcCenter = new GridBagConstraints();
+		
+		this.setLayout(gridbag);
 		this.setPreferredSize(new Dimension(totalWidth, totalHeight));
 		
-		GridBagConstraints gcCenter = new GridBagConstraints();
+		this.trade = trade;
 
 		double nameWidthMult = 0;
 		double priceWidthMult = 0;
@@ -160,41 +169,41 @@ public class MessagePanelReworked extends JPanel {
 		int b = rand.nextInt(150) + 50;
 		color = new Color(r, g, b);
 
+		//TODO : Could use this instead of borderOuter, as they are same size
 		// MESSAGE WINDOW BORDER
-		borderOuter.setLayout(new FlowLayout(FlowLayout.CENTER, borderThickness, borderThickness));
-		borderOuter.setPreferredSize(new Dimension(width + borderThickness * 2, height + borderThickness * 2));
+		borderOuter.setLayout(gridbag);
+		borderOuter.setPreferredSize(new Dimension(totalWidth, totalHeight));
 
-		borderInner.setLayout(new FlowLayout(FlowLayout.CENTER, borderThickness, borderThickness));
+		borderInner.setLayout(gridbag);
 		borderInner.setPreferredSize(new Dimension(width + borderThickness * 2, height + borderThickness * 2));
-		borderOuter.add(borderInner, BorderLayout.CENTER);
+		borderOuter.add(borderInner, gcCenter);
 
 		container.setLayout(new BorderLayout());
 		container.setPreferredSize(new Dimension(width, height));
-		borderInner.add(container, BorderLayout.CENTER);
-		this.add(borderOuter);
+		borderInner.add(container, gcCenter);
+		this.add(borderOuter, gcCenter);
 
 		BasicIconButton_REMOVE.width = height / 2;
 		BasicIconButton_REMOVE.height = height / 2;
 
 		// TOP PANEL
-		LayoutManager panelFlow = new FlowLayout(FlowLayout.CENTER, 0, 1);
 		LayoutManager flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 0);
 		topPanel.setLayout(flowCenter);
 		topPanel.setPreferredSize(new Dimension(width, rowHeight));
 		container.add(topPanel, BorderLayout.PAGE_START);
 
-		GridBagLayout gridBag = new GridBagLayout();
 		
+
 		// NAME
-//		namePanel = new JPanel(panelFlow);
-		namePanel.setLayout(gridBag);
+		// namePanel = new JPanel(panelFlow);
+		namePanel.setLayout(gridbag);
 		nameLabel = new JLabel(trade.playerName);
 		namePanel.setPreferredSize(new Dimension((int) (width * nameWidthMult), rowHeight));
 		namePanel.add(nameLabel, gcCenter);
 		topPanel.add(namePanel);
 		// PRICE
-//		pricePanel = new JPanel(panelFlow);
-		pricePanel.setLayout(gridBag);
+		// pricePanel = new JPanel(panelFlow);
+		pricePanel.setLayout(gridbag);
 		priceCountLabel = new JLabel(trade.priceCount.toString().replaceAll("[.]0", "") + " ");
 		pricePanel.add(priceCountLabel, gcCenter);
 		BasicIcon_REMOVE.width = rowHeight;
@@ -210,8 +219,9 @@ public class MessagePanelReworked extends JPanel {
 		pricePanel.add(priceTypeLabel, gcCenter);
 		topPanel.add(pricePanel);
 		// TOP BUTTON PANEL
-//		topButtonPanel = new JPanel(panelFlow);
-		topButtonPanel.setLayout(panelFlow);;
+		// topButtonPanel = new JPanel(panelFlow);
+		topButtonPanel.setLayout(flowCenter);
+		;
 		topButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		topButtonPanel.setPreferredSize(new Dimension((int) (width * buttonTopMult), rowHeight));
 		topPanel.add(topButtonPanel);
@@ -223,14 +233,14 @@ public class MessagePanelReworked extends JPanel {
 		bottomPanel.setPreferredSize(new Dimension(width, rowHeight));
 		container.add(bottomPanel, BorderLayout.CENTER);
 
-//		timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		// timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		timerLabel.setText("0s");
 		timerPanel.setPreferredSize(new Dimension((int) (width * timerWidthMult), rowHeight));
-		timerPanel.setLayout(gridBag);
+		timerPanel.setLayout(gridbag);
 		timerPanel.add(timerLabel, gcCenter);
 		bottomPanel.add(timerPanel);
 
-		itemPanel.setLayout(gridBag);
+		itemPanel.setLayout(gridbag);
 		GridBagConstraints gcItem = new GridBagConstraints();
 		gcItem.gridx = 0;
 		if (trade.itemCount > 0) {
@@ -252,15 +262,13 @@ public class MessagePanelReworked extends JPanel {
 		itemPanel.setPreferredSize(new Dimension((int) (width * itemWidthMult), rowHeight));
 		bottomPanel.add(itemPanel);
 
-		
 		bottomButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		bottomButtonPanel.setPreferredSize(new Dimension((int) (width * buttonBotMult), rowHeight));
 		bottomPanel.add(bottomButtonPanel);
 
-
 		switch (trade.msgType) {
 		case INCOMING_TRADE:
-			//TOP BUTTONS
+			// TOP BUTTONS
 			topButtonPanel.add(callbackButton);
 			topButtonPanel.add(waitButton);
 			topButtonPanel.add(stillInterestedButton);
@@ -270,17 +278,8 @@ public class MessagePanelReworked extends JPanel {
 			bottomButtonPanel.add(tradeButton);
 			bottomButtonPanel.add(thankButton);
 			bottomButtonPanel.add(kickButton);
-			//
 			
-			
-			//TESTING BUTTON
-//			this.addPoeInteractionListener(Main.eventManager);
-			this.registerButton(tradeButton, ButtonType.TRADE);
-
-
 			// STASH HELPER
-			Border blankBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
-			Border hoverBorder = BorderFactory.createLineBorder(Color.BLACK);
 			stashHelper = new StashHelper(trade, color);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.getContentPane().add(stashHelper);
@@ -301,20 +300,8 @@ public class MessagePanelReworked extends JPanel {
 		case UNKNOWN:
 			break;
 		}
-		// container.addMouseListener(new java.awt.event.MouseAdapter() {public
-		// void mousePressed(java.awt.event.MouseEvent evt) {
-		// System.out.println("!!!!!");
-		// }});
 		secondsTimer.start();
 		updateColor();
-
-	}
-
-	// TODO : Naming conventions? updatePresetColors?
-	private void updateButton(BasicIconButton_REMOVE button) {
-		button.bgColor = ColorManager.MsgWindow.buttonBG;
-		button.bgColor_hover = ColorManager.MsgWindow.buttonBG_hover;
-		button.updateColorPresets();
 	}
 
 	public void updateColor() {
@@ -352,22 +339,21 @@ public class MessagePanelReworked extends JPanel {
 		}
 
 	}
-	
-	private void registerButton(JButton button, ButtonType type){
+
+	private void registerButton(JButton button, ButtonType type) {
 		button.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent e){
+			public void click(MouseEvent e) {
 				poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade));
 			}
 		});
 	}
-	
-	public JButton getCloseButton(){
+
+	public JButton getCloseButton() {
 		return this.closeButton;
 	}
 
 	public MessageType getMessageType() {
 		return this.trade.msgType;
 	}
-	
 
 }

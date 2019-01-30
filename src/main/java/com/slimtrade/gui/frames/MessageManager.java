@@ -46,17 +46,6 @@ public class MessageManager extends BasicDialog {
 		if(messageCount==maxMessageCount){
 			return;
 		}
-//		File ping = new File("audio/ping.wav");
-//		try {
-//			AudioManager.playSound(ping);
-//		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException | InterruptedException e) {
-//			e.printStackTrace();
-//		}
-		Random rand = new Random();
-		int r = rand.nextInt(255)+1;
-		int g = rand.nextInt(255)+1;
-		int b = rand.nextInt(255)+1;
-		Color color = new Color(r, g, b);
 		int i = 0;
 		while(messages[i]!=null){
 			i++;
@@ -69,7 +58,6 @@ public class MessageManager extends BasicDialog {
 		    	removeMessage(closeIndex);
 		    }
 		});
-//		}});
 		this.add(messages[i]);
 		this.add(rigidAreas[i]);
 		messageCount++;

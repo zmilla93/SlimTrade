@@ -6,9 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -42,14 +40,10 @@ public class IconButton extends JButton {
 		this.setFocusable(false);
 		this.setBorder(borderDefault);
 
-		Image img = null;
-		try {
-			img = ImageIO.read(this.getClass().getResource(path)).getScaledInstance((int) (size * ICON_SCALE),
-					(int) (size * ICON_SCALE), Image.SCALE_SMOOTH);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.setIcon(new ImageIcon(img));
+		int imageSize = (int)(size*ICON_SCALE);
+		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
+		this.setIcon(new ImageIcon(image));
+
 
 		final IconButton localButton = this;
 		this.addMouseListener(new MouseAdapter() {
