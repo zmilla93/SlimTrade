@@ -3,8 +3,8 @@ package main.java.com.slimtrade.gui;
 import java.awt.Dimension;
 import java.awt.Point;
 
-import main.java.com.slimtrade.core.ChatParser;
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
 import main.java.com.slimtrade.gui.buttons.MenubarToggleButton;

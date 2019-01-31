@@ -19,6 +19,7 @@ public class StashHelperContainer extends BasicDialog{
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
 		this.setVisible(true);
+//		this.setFocusable(true);
 //		this.setFocusableWindowState(true);
 		
 	}
@@ -42,8 +43,6 @@ public class StashHelperContainer extends BasicDialog{
 	}
 	
 	public void refresh(){
-//		this.getContentPane().revalidate();
-//		this.getContentPane().repaint();
 		this.revalidate();
 		this.repaint();
 	}

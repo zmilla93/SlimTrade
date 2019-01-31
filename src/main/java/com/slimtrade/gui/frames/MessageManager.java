@@ -16,7 +16,7 @@ import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.panels.MessagePanel;
+import main.java.com.slimtrade.gui.panels.MessagePanel_OLD;
 import main.java.com.slimtrade.gui.panels.MessagePanelReworked;
 
 
@@ -51,7 +51,7 @@ public class MessageManager extends BasicDialog {
 			i++;
 		}
 		messages[i] = new MessagePanelReworked(trade);
-		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, gap));
+		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel_OLD.totalWidth, gap));
 		int closeIndex = i;
 		messages[i].getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
 		    public void click(MouseEvent e) {

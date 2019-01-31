@@ -16,7 +16,7 @@ public class IconButton extends JButton {
 
 	private static final long serialVersionUID = -6435841710429512781L;
 	private final int SIZE = 30;
-	private final double ICON_SCALE = 0.9;
+	private final double IMAGE_SCALE = 0.9;
 
 	private Color colorDefault = Color.GRAY;
 	private Color colorHover = Color.LIGHT_GRAY;
@@ -40,7 +40,7 @@ public class IconButton extends JButton {
 		this.setFocusable(false);
 		this.setBorder(borderDefault);
 
-		int imageSize = (int)(size*ICON_SCALE);
+		int imageSize = (int)(size*IMAGE_SCALE);
 		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
 		this.setIcon(new ImageIcon(image));
 

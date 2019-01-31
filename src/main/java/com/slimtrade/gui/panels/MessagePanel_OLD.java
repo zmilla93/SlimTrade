@@ -22,14 +22,14 @@ import javax.swing.Timer;
 import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
-import main.java.com.slimtrade.core.managers.PoeInterface;
+import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
 
 //TODO : Refocus POE on all clicks
-public class MessagePanel extends JPanel{
+public class MessagePanel_OLD extends JPanel{
 	
 	//GLOBAL
 	private static final long serialVersionUID = 1L;
@@ -109,7 +109,7 @@ public class MessagePanel extends JPanel{
 	//TODO :	Switch layouts to BoderLayout + setHorizontalAlignment = SwingConstants.CENTER
 	//			Alternatively use gridbaglayout
 	//TODO :	Add close function for all cleanup actions
-	public MessagePanel(TradeOffer trade){
+	public MessagePanel_OLD(TradeOffer trade){
 		
 		FlowLayout flowLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
 		try {

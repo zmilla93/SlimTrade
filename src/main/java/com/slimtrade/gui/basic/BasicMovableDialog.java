@@ -2,6 +2,7 @@ package main.java.com.slimtrade.gui.basic;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -12,11 +13,11 @@ public class BasicMovableDialog extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int offsetX;
-	private int offsetY;
-	private boolean screenLock = false;
-	private boolean mouseDown = false;
-	public JPanel moverPanel;
+	protected int offsetX;
+	protected int offsetY;
+	protected boolean screenLock = false;
+	protected boolean mouseDown = false;
+//	private JPanel moverPanel;
 	
 	public BasicMovableDialog(){
 		createListeners((JPanel) this.getContentPane());
@@ -29,8 +30,8 @@ public class BasicMovableDialog extends BasicDialog {
 	}
 	
 	public void createListeners(JPanel p){
-		p.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mousePressed(java.awt.event.MouseEvent e) {
+		p.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent e) {
 		    	if(e.getButton() == MouseEvent.BUTTON1){
 		    		offsetX = e.getX();
 		    		offsetY = e.getY();
@@ -40,8 +41,8 @@ public class BasicMovableDialog extends BasicDialog {
 		    }
 		});
 		
-		p.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseReleased(java.awt.event.MouseEvent e) {
+		p.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1){
 					mouseDown = false;
 				}

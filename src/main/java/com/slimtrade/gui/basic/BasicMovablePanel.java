@@ -4,9 +4,9 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.gui.panels.MessagePanel;
+import main.java.com.slimtrade.gui.panels.MessagePanel_OLD;
 
-public class BasicMoveablePanel extends JPanel{
+public class BasicMovablePanel extends JPanel{
 	
 	/**
 	 * 
@@ -15,8 +15,8 @@ public class BasicMoveablePanel extends JPanel{
 	private int offsetX = 0;
 	private int offsetY = 0;
 	
-	public BasicMoveablePanel(){
-		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight);
+	public BasicMovablePanel(){
+		this.setSize(MessagePanel_OLD.totalWidth, MessagePanel_OLD.totalHeight);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 //		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
 		//this.add(msg);

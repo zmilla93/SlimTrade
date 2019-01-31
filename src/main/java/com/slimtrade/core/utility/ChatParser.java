@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core;
+package main.java.com.slimtrade.core.utility;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +11,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.Timer;
 
-import main.java.com.slimtrade.core.utility.TradeOffer;
-import main.java.com.slimtrade.core.utility.TradeUtility;
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 
@@ -38,7 +37,7 @@ public class ChatParser {
 	private Timer updateTimer = new Timer(500, updateAction);
 
 	// REGEX
-	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): (Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?";
+	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
 	private String clientLogPath;
@@ -73,7 +72,7 @@ public class ChatParser {
 				if (curLine.contains("@")) {
 					TradeOffer trade = getTradeOffer(curLine);
 					if (trade != null) {
-						FrameManager.historyWindow.addTrade(trade, false);
+						 FrameManager.historyWindow.addTrade(trade, false);
 					}
 					msgCount++;
 				}
@@ -90,6 +89,7 @@ public class ChatParser {
 	}
 
 	private void update() {
+		long start = System.currentTimeMillis();
 		try {
 			fileReader = new FileReader(clientLogPath);
 			bufferedReader = new BufferedReader(fileReader);
@@ -118,6 +118,8 @@ public class ChatParser {
 			Main.debug.log("Parser disabled.");
 			e.printStackTrace();
 		}
+		long end = System.currentTimeMillis();
+		// System.out.println("PARSER UPDATE TIME : " + (end-start));
 	}
 
 	private TradeOffer getTradeOffer(String text) {
@@ -126,38 +128,47 @@ public class ChatParser {
 		if (tradeMsgMatcher.matches()) {
 			// TODO: could move int fixing to TradeOffer class
 			// DEBUG
-			// for(int i = 0;i<24;i++){
-			// System.out.println("GROUP #" + i + " : " +
-			// tradeMsgMatcher.group(i));
-			// }
-
+//			System.out.println("NEW TRADE OFFER");
+//			for (int i = 0; i < 24; i++) {
+//				System.out.println("GROUP #" + i + " : " + tradeMsgMatcher.group(i));
+//			}
+//			System.out.println("");
 			// DEBUG END
-			Double f1 = 0.0;
-			Double f2 = 0.0;
-			// Item Count
-			if (tradeMsgMatcher.group(9) != null) {
-				f1 = Double.parseDouble(tradeMsgMatcher.group(9));
-			}
-			// Price Count
-			if (tradeMsgMatcher.group(12) != null) {
-				f2 = Double.parseDouble(tradeMsgMatcher.group(12));
-			}
-			int i1 = 0;
-			int i2 = 0;
-			// Stashtab X
-			if (tradeMsgMatcher.group(20) != null) {
-				i1 = Integer.parseInt(tradeMsgMatcher.group(20));
-			}
-			// Stashtab Y
-			if (tradeMsgMatcher.group(22) != null) {
-				i2 = Integer.parseInt(tradeMsgMatcher.group(22));
-			}
-			trade = new TradeOffer(tradeMsgMatcher.group(2), tradeMsgMatcher.group(3),
-					getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5), tradeMsgMatcher.group(6),
-					tradeMsgMatcher.group(10), f1, TradeUtility.fixedCurrencyString(tradeMsgMatcher.group(13)), f2,
-					tradeMsgMatcher.group(18), i1, i2, tradeMsgMatcher.group(23), text);
-			// System.out.println(trade.date);
-			// System.out.println(text);
+
+//			date, time, MessageType msgType, guildName, playerName
+//			itemName, Double itemCount, priceTypeString, Double priceCount
+//			stashtabName, int stashtabX, int stashtabY, bonusText, sentMessage
+			
+			 Double f1 = 0.0;
+			 Double f2 = 0.0;
+			 // Item Count
+			 if (tradeMsgMatcher.group(10) != null) {
+			 f1 = Double.parseDouble(tradeMsgMatcher.group(10));
+			 }
+			 // Price Count
+			 if (tradeMsgMatcher.group(13) != null) {
+			 f2 = Double.parseDouble(tradeMsgMatcher.group(13));
+			 }
+			 int i1 = 0;
+			 int i2 = 0;
+			 // Stashtab X
+			 if (tradeMsgMatcher.group(21) != null) {
+			 i1 = Integer.parseInt(tradeMsgMatcher.group(21));
+			 }
+			 // Stashtab Y
+			 if (tradeMsgMatcher.group(23) != null) {
+			 i2 = Integer.parseInt(tradeMsgMatcher.group(23));
+			 }
+			 trade = new TradeOffer(tradeMsgMatcher.group(2),
+			 tradeMsgMatcher.group(3),
+			 getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5),
+			 tradeMsgMatcher.group(6),
+			 tradeMsgMatcher.group(11), f1,
+			 TradeUtility.getFixedCurrencyString(tradeMsgMatcher.group(14)),
+			 f2,
+			 tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24),
+			 tradeMsgMatcher.group(7));
+
 			return trade;
 		} else {
 			return null;

@@ -74,7 +74,7 @@ public class HistoryRowPanel extends JPanel{
 		
 		JLabel timeLabel = new JLabel(trade.date);
 		JLabel nameLabel = new JLabel(trade.playerName);
-		JLabel itemLabel = new JLabel(TradeUtility.fixedItemName(trade.itemName, trade.itemCount, true));
+		JLabel itemLabel = new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
 		JLabel priceLabel = new JLabel(trade.priceCount + " " + trade.priceTypeString);
 		
 //		timeLabel.setVerticalAlignment(Alignment.CENTER);

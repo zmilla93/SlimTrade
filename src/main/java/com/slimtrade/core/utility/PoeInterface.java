@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core.managers;
+package main.java.com.slimtrade.core.utility;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -44,9 +44,10 @@ public class PoeInterface extends Robot {
 	public static void findInStash(String s) {
 		new Thread() {
 			public void run() {
+				focus();
 				pasteString = new StringSelection(s);
 				clipboard.setContents(pasteString, null);
-				focus();
+				
 				robot.keyPress(KeyEvent.VK_CONTROL);
 				robot.keyPress(KeyEvent.VK_F);
 				robot.keyRelease(KeyEvent.VK_F);
@@ -62,7 +63,6 @@ public class PoeInterface extends Robot {
 				robot.keyRelease(KeyEvent.VK_CONTROL);
 			}
 		}.start();
-
 	}
 
 	// TODO: modify to remove lambda? or store it somewhere else if it will

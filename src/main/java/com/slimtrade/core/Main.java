@@ -12,13 +12,14 @@ import org.jnativehook.NativeHookException;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.ExternalFileManager;
-import main.java.com.slimtrade.core.managers.PoeInterface;
 import main.java.com.slimtrade.core.managers.SaveManager;
 import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.core.observing.GlobalKeyboardListener;
 import main.java.com.slimtrade.core.observing.GlobalMouseListener;
+import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.basic.ResizableDialog;
 
 public class Main {
 
@@ -28,7 +29,7 @@ public class Main {
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-
+		
 		// JNativeHook Setup
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
 		logger.setLevel(Level.WARNING);
@@ -63,6 +64,10 @@ public class Main {
 				ColorManager.setMessageTheme();
 				SaveManager saveManager = new SaveManager();
 				FrameManager frameManager = new FrameManager();
+				
+				ResizableDialog d = new ResizableDialog();
+				d.setSize(400, 400);
+				d.setVisible(true);
 			}
 		});
 
