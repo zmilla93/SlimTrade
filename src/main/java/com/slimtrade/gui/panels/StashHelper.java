@@ -21,7 +21,7 @@ import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
-import main.java.com.slimtrade.gui.dialogs.ItemHighlighter;
+import main.java.com.slimtrade.gui.messaging.ItemHighlighter;
 
 public class StashHelper extends JPanel {
 

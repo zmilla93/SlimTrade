@@ -1,5 +1,7 @@
 package main.java.com.slimtrade.core.observing;
 
+import java.awt.event.MouseEvent;
+
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.PoeInterface;
@@ -51,8 +53,14 @@ public class EventManager implements PoeInteractionListener {
 			PoeInterface.paste("/tradewith " + trade.playerName);
 			break;
 		case WAIT:
+			if(mouseButton == MouseEvent.BUTTON1){
+				PoeInterface.paste("@" + trade.playerName + " one sec");
+			}else if (mouseButton == MouseEvent.BUTTON3){
+				PoeInterface.paste("@" + trade.playerName + " one min");
+			}
 			break;
 		case WARP:
+			PoeInterface.paste("/hideout " + trade.playerName);
 			break;
 		default:
 			break;

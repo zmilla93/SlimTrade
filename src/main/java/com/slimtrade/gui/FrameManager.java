@@ -8,14 +8,14 @@ import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.buttons.MenubarToggleButton;
-import main.java.com.slimtrade.gui.dialogs.CharacterWindow;
-import main.java.com.slimtrade.gui.dialogs.HistoryWindow;
-import main.java.com.slimtrade.gui.dialogs.ItemHighlighter;
-import main.java.com.slimtrade.gui.dialogs.MenubarDialog;
-import main.java.com.slimtrade.gui.dialogs.MessageManager;
-import main.java.com.slimtrade.gui.dialogs.StashGridOverlay;
-import main.java.com.slimtrade.gui.dialogs.StashHelperContainer;
+import main.java.com.slimtrade.gui.messaging.ItemHighlighter;
+import main.java.com.slimtrade.gui.messaging.MessageManager;
+import main.java.com.slimtrade.gui.messaging.StashHelperContainer;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
+import main.java.com.slimtrade.gui.windows.CharacterWindow;
+import main.java.com.slimtrade.gui.windows.HistoryWindow;
+import main.java.com.slimtrade.gui.windows.MenubarDialog;
+import main.java.com.slimtrade.gui.windows.StashGridOverlay;
 
 public class FrameManager {
 

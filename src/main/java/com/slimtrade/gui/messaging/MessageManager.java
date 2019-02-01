@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.dialogs;
+package main.java.com.slimtrade.gui.messaging;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -15,7 +15,6 @@ import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.panels.MessagePanel;
 
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
@@ -34,7 +33,7 @@ public class MessageManager extends BasicDialog {
 		//TODO : Get default theme, or move setMessageTheme
 //		ColorManager.setMessageTheme();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setBounds(900, 0, 500, 400);
+		this.setBounds(1200, 0, 500, 400);
 		this.setBackground(ColorManager.CLEAR);
 		this.setVisible(true);
 	}

@@ -2,7 +2,7 @@ package main.java.com.slimtrade.gui.basic;
 
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.datatypes.MessageType;
-import main.java.com.slimtrade.gui.panels.MessagePanel;
+import main.java.com.slimtrade.gui.messaging.MessagePanel;
 
 public class MessagePanelResizer extends ResizableDialog {
 

@@ -1,5 +1,5 @@
 
-package main.java.com.slimtrade.gui.panels;
+package main.java.com.slimtrade.gui.messaging;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,6 +31,9 @@ import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.panels.BasicIcon_REMOVE;
+import main.java.com.slimtrade.gui.panels.IconPanel;
+import main.java.com.slimtrade.gui.panels.StashHelper;
 
 public class MessagePanel extends JPanel {
 
@@ -112,8 +115,6 @@ public class MessagePanel extends JPanel {
 	// Alternatively use gridbaglayout
 	// TODO : Add close function for all cleanup actions
 	public MessagePanel(TradeOffer trade) {
-		System.out.println(totalWidth);
-		System.out.println(totalHeight);
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints gcCenter = new GridBagConstraints();
 

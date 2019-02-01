@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.dialogs;
+package main.java.com.slimtrade.gui.windows;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,8 +22,8 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
 import main.java.com.slimtrade.gui.buttons.MenubarButton;
+import main.java.com.slimtrade.gui.messaging.MessagePanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
-import main.java.com.slimtrade.gui.panels.MessagePanel;
 
 public class OverlayManager {
 

@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.gui.panels.MessagePanel_OLD;
+import main.java.com.slimtrade.gui.messaging.MessagePanel_OLD;
 
 public class BasicMovablePanel extends JPanel{
 	

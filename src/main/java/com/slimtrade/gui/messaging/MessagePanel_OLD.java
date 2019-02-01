@@ -1,5 +1,5 @@
 
-package main.java.com.slimtrade.gui.panels;
+package main.java.com.slimtrade.gui.messaging;
 
 import java.awt.AWTException;
 import java.awt.BorderLayout;
@@ -27,6 +27,8 @@ import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
+import main.java.com.slimtrade.gui.panels.BasicIcon_REMOVE;
+import main.java.com.slimtrade.gui.panels.StashHelper;
 
 //TODO : Refocus POE on all clicks
 public class MessagePanel_OLD extends JPanel{

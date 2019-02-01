@@ -21,7 +21,7 @@ import main.java.com.slimtrade.core.observing.GlobalMouseListener;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.dialogs.OverlayManager;
+import main.java.com.slimtrade.gui.windows.OverlayManager;
 
 public class Main {
 
