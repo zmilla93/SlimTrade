@@ -21,7 +21,7 @@ import main.java.com.slimtrade.core.observing.GlobalMouseListener;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.dialogs.ResizeOverlay;
+import main.java.com.slimtrade.gui.dialogs.OverlayManager;
 
 public class Main {
 
@@ -79,47 +79,9 @@ public class Main {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//				saveManager.saveArray("Parent", arrMain);
 				
-//				JSONObject arr = saveManager.getArray("Parent");
-//				try {
-//					JSONObject subArr = (JSONObject) arr.get("Array1");
-//					System.out.println(subArr.get("nest2"));
-//					System.out.println(arr.get("Array1"));
-//				} catch (JSONException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				
-//				saveManager.saveStringProper("basic str", "baaaasic");
-//				saveManager.saveStringProper("arr", "arr2", "value");
-//				saveManager.saveStringProper("arr", "arr2", "arr3", "value");
-//				saveManager.saveString("t1", "testvalue");
-//				
-//				saveManager.saveString("Arr", "key2", "vaal2");
-//				saveManager.saveStringProper("ARR1", "ARR2", "KEY", "VALUE");
-//				saveManager.saveString("arr", "nest1", "nest2", "key", "value");
-//				
-//				saveManager.saveInteger(1123, "int test");
-//				saveManager.saveInteger(345, "int array", "nest1", "nest2");
-				
-//				saveManager.saveDouble(345.345, "basic double");
-//				saveManager.saveDouble(123.123, "arr double", "nest1", "nest2", "nest3");
-				
-//				System.out.println(saveManager.getInteger("int test"));
-//				System.out.println(saveManager.getInteger("int array", "int test"));
-//				System.out.println(saveManager.getDouble("basic double"));
-//				System.out.println(saveManager.getDouble("arr double", "nest1", "nest2", "nest3"));
-				
-				
-//				saveManager.saveStringProper("ARR1", "ARR2", "KEY2", "VALUE2");
-				
-//				System.out.println(saveManager.getStringProper("Parent", "Array1", "nest1"));
-//				System.out.println(saveManager.getStringProper("Parent", "String1"));
-//				System.out.println(saveManager.getStringProper("t1"));
-				
-				ResizeOverlay r = new ResizeOverlay();
-				r.show();
+//				OverlayManager r = new OverlayManager();
+//				r.show();
 				
 			}
 		});

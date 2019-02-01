@@ -3,11 +3,14 @@ package main.java.com.slimtrade.gui.basic;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 
 public class BasicTitlebar extends JPanel{
@@ -59,21 +62,21 @@ public class BasicTitlebar extends JPanel{
 		this.add(panel);
 		this.add(button);
 		
-		button.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent e) {
+		button.addMouseListener(new AdvancedMouseAdapter() {
+		    public void click(MouseEvent e) {
 		    	FrameManager.hideAllFrames();
 		    }
 		});
 		
-		panel.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mousePressed(java.awt.event.MouseEvent e) {
+		panel.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
 		    	offsetX = e.getXOnScreen()-getPosX();
 		    	offsetY = e.getYOnScreen()-getPosY();
 		    }
 		});
 		
-		panel.addMouseMotionListener(new java.awt.event.MouseAdapter() {
-		    public void mouseDragged(java.awt.event.MouseEvent e) {
+		panel.addMouseMotionListener(new MouseAdapter() {
+		    public void mouseDragged(MouseEvent e) {
 		    	moveBox(e.getXOnScreen()-offsetX, e.getYOnScreen()-offsetY);
 		    }
 		});

@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
 import main.java.com.slimtrade.gui.buttons.CustomButton_REWORK;
@@ -43,8 +45,8 @@ public class InfoDialog extends BasicWindowDialog {
 		this.addBuffer();
 		CustomButton_REWORK closeButton = new CustomButton_REWORK("Accept");
 		buttonPanel.add(closeButton);
-		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
+		closeButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent evt) {
 				destroy();
 			}
 		});

@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +25,7 @@ import main.java.com.slimtrade.gui.buttons.MenubarButton;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.panels.MessagePanel;
 
-public class ResizeOverlay {
+public class OverlayManager {
 
 	LayoutManager gridbag = new GridBagLayout();
 
@@ -61,13 +60,12 @@ public class ResizeOverlay {
 	GridBagConstraints gcLeft = new GridBagConstraints();
 	GridBagConstraints gcRight = new GridBagConstraints();
 	
-	public ResizeOverlay() {
+	public OverlayManager() {
 
-		// expandButton.setBorderPainted(false);
 		menubarExpandButton.setBackground(Color.LIGHT_GRAY);
 		menubarExpandButton.setBorder(borderNW);
 
-		helpDialog.setSize(600, 200);
+		helpDialog.setSize(500, 150);
 		menubarDialog.setSize(MenubarDialog.TOTAL_WIDTH, MenubarDialog.TOTAL_HEIGHT);
 		messageDialog.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight);
 		menubarPanelTop.setPreferredSize(new Dimension(0, MENUBAR_BUTTON_SIZE));
@@ -80,11 +78,13 @@ public class ResizeOverlay {
 		menubarPanelTop.setLayout(gridbag);
 		menubarPanelBottom.setLayout(gridbag);
 
-		helpDialog.setBackground(new Color(0, 255, 0, 200));
+		helpDialog.getContentPane().setBackground(Color.LIGHT_GRAY);
 		menubarDialog.setBackground(tempBGColor);
 		messageDialog.setBackground(tempBGColor);
-		menubarPanelTop.setBackground(ColorManager.CLEAR);
-		menubarPanelBottom.setBackground(ColorManager.CLEAR);
+		menubarPanelTop.setOpaque(false);
+		menubarPanelBottom.setOpaque(false);
+//		menubarPanelTop.setBackground(ColorManager.CLEAR);
+//		menubarPanelBottom.setBackground(ColorManager.CLEAR);
 
 		menubarDialog.getRootPane().setBorder(borderDefault);
 		messageDialog.getRootPane().setBorder(borderDefault);
@@ -122,6 +122,7 @@ public class ResizeOverlay {
 		// Options
 		GridBagConstraints gcOptions = new GridBagConstraints();
 		JPanel optionsPanel = new JPanel();
+		optionsPanel.setOpaque(false);
 		optionsPanel.setLayout(gridbag);
 		gcOptions.gridx = 0;
 		gcOptions.gridy = 0;
@@ -157,13 +158,13 @@ public class ResizeOverlay {
 
 		helpDialog.add(help1, gcHelp);
 		gcHelp.gridy++;
-		helpDialog.add(new BufferPanel(0, 20), gcHelp);
+		helpDialog.add(new BufferPanel(0, 15), gcHelp);
 		gcHelp.gridy++;
 		helpDialog.add(help2, gcHelp);
 		gcHelp.gridy++;
 		helpDialog.add(help3, gcHelp);
 		gcHelp.gridy++;
-		helpDialog.add(new BufferPanel(0, 20), gcHelp);
+		helpDialog.add(new BufferPanel(0, 15), gcHelp);
 		gcHelp.gridy++;
 		helpDialog.add(optionsPanel, gcHelp);
 

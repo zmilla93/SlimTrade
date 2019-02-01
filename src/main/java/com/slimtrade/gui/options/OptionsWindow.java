@@ -1,21 +1,20 @@
-package main.java.com.slimtrade.gui.dialogs;
+package main.java.com.slimtrade.gui.options;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
-import main.java.com.slimtrade.gui.panels.options.ButtonOptionPanel;
-import main.java.com.slimtrade.gui.panels.options.OptionContentPanel;
-import main.java.com.slimtrade.gui.panels.options.OptionTitlePanel;
 
 public class OptionsWindow extends BasicWindowDialog{
 	
@@ -97,8 +96,8 @@ public class OptionsWindow extends BasicWindowDialog{
 	}
 	
 	private void linkToggle(JPanel title, JPanel content){
-		title.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
+		title.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent evt) {
 				if(content.isVisible()){
 					content.setVisible(false);
 				}else{

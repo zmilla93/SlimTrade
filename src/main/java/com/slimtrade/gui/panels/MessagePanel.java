@@ -37,12 +37,12 @@ public class MessagePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final PoeInteractionListener poeInteractionListener = Main.eventManager;
 
-	private final static int height = 40;
-	private final static int width = height * 10;
-	private final static int borderThickness = 2;
-	public static final int totalWidth = width + borderThickness * 4;
-	public static final int totalHeight = height + borderThickness * 4;
-	private final int rowHeight = height / 2;
+	public static int height = 40;
+	private static int width = height * 10;
+	private static int borderThickness = 2;
+	public static int totalWidth = width + borderThickness * 4;
+	public static int totalHeight = height + borderThickness * 4;
+	private int rowHeight = height / 2;
 
 	public final TradeOffer trade;
 
@@ -112,6 +112,8 @@ public class MessagePanel extends JPanel {
 	// Alternatively use gridbaglayout
 	// TODO : Add close function for all cleanup actions
 	public MessagePanel(TradeOffer trade) {
+		System.out.println(totalWidth);
+		System.out.println(totalHeight);
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints gcCenter = new GridBagConstraints();
 
@@ -333,6 +335,22 @@ public class MessagePanel extends JPanel {
 
 	}
 
+	public JButton getCloseButton() {
+		return this.closeButton;
+	}
+
+	public MessageType getMessageType() {
+		return this.trade.msgType;
+	}
+	
+	//TODO : Do this a cleaner way
+	public static void setDefaultHeight(int height){
+		MessagePanel.height = height;
+		MessagePanel.width = height * 10;
+		MessagePanel.totalWidth = width + borderThickness * 4;
+		MessagePanel.totalHeight = height + borderThickness * 4;
+	}
+	
 	private void registerPoeInteractionButton(JButton button, ButtonType type) {
 		button.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
@@ -341,12 +359,6 @@ public class MessagePanel extends JPanel {
 		});
 	}
 
-	public JButton getCloseButton() {
-		return this.closeButton;
-	}
 
-	public MessageType getMessageType() {
-		return this.trade.msgType;
-	}
 
 }

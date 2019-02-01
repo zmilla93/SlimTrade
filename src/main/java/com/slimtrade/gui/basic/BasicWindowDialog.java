@@ -6,13 +6,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.buttons.IconButton_REMOVE;
 
 public class BasicWindowDialog extends BasicMovableDialog {
@@ -64,8 +62,8 @@ public class BasicWindowDialog extends BasicMovableDialog {
 		this.getContentPane().add(container);
 		createListeners(titlebarPanel);
 		
-		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent e) {
+		closeButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1){
 					hideWindow();
 				}

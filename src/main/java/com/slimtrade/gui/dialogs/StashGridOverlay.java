@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -12,6 +14,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
@@ -114,49 +117,50 @@ public class StashGridOverlay extends BasicWindowDialog{
 //		FrameManager.stashHelperContainer.updateBounds(winPos.x, winPos.y, winWidth);
 //		FrameManager.stashHelperContainer.updateBounds();
 		
+		
+		//TODO : Could change to threading
 		//Width Adjust
-		rightPullBar.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mousePressed(java.awt.event.MouseEvent e) {
+		rightPullBar.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
 				startingX = e.getXOnScreen();
 		    	startingContainerWidth = getContainerWidth();
 		    	startingContainerHeight = getContainerHeight();
 		    }
 		});
 		
-		rightPullBar.addMouseMotionListener(new java.awt.event.MouseAdapter() {
-		    public void mouseDragged(java.awt.event.MouseEvent e) {
+		rightPullBar.addMouseMotionListener(new MouseAdapter() {
+		    public void mouseDragged(MouseEvent e) {
 		    	int dis = startingX-e.getXOnScreen();
 		    	resizeStashWindow(startingContainerWidth-dis, startingContainerHeight);
 		    }
 		});
 		
 		//Height Adjust
-		bottomPullBar.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mousePressed(java.awt.event.MouseEvent e) {
+		bottomPullBar.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
 		    	startingY = e.getYOnScreen();
 		    	startingContainerWidth = getContainerWidth();
 		    	startingContainerHeight = getContainerHeight();
 		    }
 		});
 		
-		bottomPullBar.addMouseMotionListener(new java.awt.event.MouseAdapter() {
-		    public void mouseDragged(java.awt.event.MouseEvent e) {
+		bottomPullBar.addMouseMotionListener(new MouseAdapter() {
+		    public void mouseDragged(MouseEvent e) {
 		    	int dis = startingY-e.getYOnScreen();
 		    	resizeStashWindow(startingContainerWidth, startingContainerHeight-dis);
 		    }
 		});
 		
 		//Reset Button
-		resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent e) {
-				
+		resetButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
 				reset();
 			}
 		});
 		
 		//Save Button
-		saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent e) {
+		saveButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
 				saveDataLocally();
 				Main.fileManager.saveStashData(windowPos.x, windowPos.y, windowSize.width, windowSize.height, gridPos.x, gridPos.y, gridSize.width, gridSize.height);
 				FrameManager.stashHelperContainer.updateBounds();
@@ -164,8 +168,8 @@ public class StashGridOverlay extends BasicWindowDialog{
 		    }
 		});
 		
-		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent e) {
+		closeButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
 				reset();
 				hideStashWindow();
 		    }

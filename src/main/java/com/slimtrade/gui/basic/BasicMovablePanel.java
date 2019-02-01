@@ -1,6 +1,8 @@
 package main.java.com.slimtrade.gui.basic;
 
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
@@ -21,15 +23,15 @@ public class BasicMovablePanel extends JPanel{
 //		this.addMessage(new TradeOffer(MessageType.INCOMING_TRADE, "StabbyMcDaggerCloud", "ITEM NAME", 3.5, CurrencyType.CHAOS_ORB, 3.5, "STASHTAB", 1, 1));
 		//this.add(msg);
 		
-		this.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mousePressed(java.awt.event.MouseEvent e) {
+		this.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
 		    	offsetX = e.getXOnScreen()-getPosX();
 		    	offsetY = e.getYOnScreen()-getPosY();
 		    }
 		});
 		
-		this.addMouseMotionListener(new java.awt.event.MouseAdapter() {
-		    public void mouseDragged(java.awt.event.MouseEvent e) {
+		this.addMouseMotionListener(new MouseAdapter() {
+		    public void mouseDragged(MouseEvent e) {
 		    	moveBox(e.getXOnScreen()-offsetX, e.getYOnScreen()-offsetY);
 		    }
 		});

@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 
@@ -15,7 +16,6 @@ import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.panels.MessagePanel;
-import main.java.com.slimtrade.gui.panels.MessagePanel_OLD;
 
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
@@ -28,12 +28,13 @@ public class MessageManager extends BasicDialog {
 	private int messageCount = 0;
 	private MessagePanel[] messages = new MessagePanel[maxMessageCount];
 	private Component[] rigidAreas = new Component[maxMessageCount];
+	private ArrayList<TradeOffer> trades = new ArrayList<TradeOffer>();
 	
 	public MessageManager(){
 		//TODO : Get default theme, or move setMessageTheme
 //		ColorManager.setMessageTheme();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setBounds(600, 0, 500, 400);
+		this.setBounds(900, 0, 500, 400);
 		this.setBackground(ColorManager.CLEAR);
 		this.setVisible(true);
 	}
@@ -49,7 +50,7 @@ public class MessageManager extends BasicDialog {
 			i++;
 		}
 		messages[i] = new MessagePanel(trade);
-		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel_OLD.totalWidth, buffer));
+		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, buffer));
 		int closeIndex = i;
 		messages[i].getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
 		    public void click(MouseEvent e) {
@@ -93,6 +94,20 @@ public class MessageManager extends BasicDialog {
 			}
 		}
 		return false;
+	}
+	
+	public void rebuild(){
+		for(int i=0;i<maxMessageCount;i++){
+			if(messages[i] != null){
+				trades.add(messages[i].trade);
+				this.removeMessage(i);
+			}
+		}
+		this.refresh();
+		for(TradeOffer t : trades){
+			this.addMessage(t);
+		}
+		trades.clear();
 	}
 	
 }

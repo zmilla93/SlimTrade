@@ -1,11 +1,11 @@
 package main.java.com.slimtrade.gui.dialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,6 +15,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
 
@@ -82,8 +83,8 @@ public class CharacterWindow extends BasicWindowDialog{
 		    }
 		});
 		
-		saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		saveButton.addMouseListener(new AdvancedMouseAdapter() {
+		    public void click(MouseEvent evt) {
 		    	Main.fileManager.saveCharacterData(characterInput.getText(), leagueSelect.getSelectedItem().toString());			
 		    }
 		});

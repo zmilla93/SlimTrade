@@ -1,6 +1,7 @@
 package main.java.com.slimtrade.debug;
 
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -8,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 
 public class Debugger extends JFrame {
@@ -31,8 +33,8 @@ public class Debugger extends JFrame {
 		refreshButton.setAlignmentX(CENTER_ALIGNMENT);
 		this.add(refreshButton);
 
-		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent e) {
+		refreshButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
 				FrameManager.forceAllToTop();
 			}
 		});

@@ -13,9 +13,9 @@ import main.java.com.slimtrade.gui.dialogs.HistoryWindow;
 import main.java.com.slimtrade.gui.dialogs.ItemHighlighter;
 import main.java.com.slimtrade.gui.dialogs.MenubarDialog;
 import main.java.com.slimtrade.gui.dialogs.MessageManager;
-import main.java.com.slimtrade.gui.dialogs.OptionsWindow;
 import main.java.com.slimtrade.gui.dialogs.StashGridOverlay;
 import main.java.com.slimtrade.gui.dialogs.StashHelperContainer;
+import main.java.com.slimtrade.gui.options.OptionsWindow;
 
 public class FrameManager {
 

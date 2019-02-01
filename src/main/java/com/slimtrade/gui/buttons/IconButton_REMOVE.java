@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
@@ -46,14 +48,14 @@ public class IconButton_REMOVE extends JPanel{
 		this.setBackground(this.bgColor);
 		this.setBorder(border);
 		
-		this.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent e) {
+		this.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
 				setColorHover();
 			}
 		});
 		
-		this.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseExited(java.awt.event.MouseEvent e) {
+		this.addMouseListener(new MouseAdapter() {
+			public void mouseExited(MouseEvent e) {
 				setColorDefault();
 			}
 		});

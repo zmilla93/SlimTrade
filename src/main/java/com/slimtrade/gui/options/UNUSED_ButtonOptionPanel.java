@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.panels.options;
+package main.java.com.slimtrade.gui.options;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.gui.dialogs.OptionsWindow;
 import main.java.com.slimtrade.gui.panels.BasicIcon_REMOVE;
 
 public class UNUSED_ButtonOptionPanel extends JPanel {

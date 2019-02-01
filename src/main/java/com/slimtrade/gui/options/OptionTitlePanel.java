@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.panels.options;
+package main.java.com.slimtrade.gui.options;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,8 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-
-import main.java.com.slimtrade.gui.dialogs.OptionsWindow;
 
 public class OptionTitlePanel extends JPanel{
 
