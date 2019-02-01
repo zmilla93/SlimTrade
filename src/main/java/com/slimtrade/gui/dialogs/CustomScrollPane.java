@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.frames;
+package main.java.com.slimtrade.gui.dialogs;
 
 import java.awt.Color;
 

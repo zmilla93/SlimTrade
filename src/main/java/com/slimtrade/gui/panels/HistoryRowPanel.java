@@ -18,7 +18,7 @@ import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
-import main.java.com.slimtrade.gui.windows.HistoryWindow;
+import main.java.com.slimtrade.gui.dialogs.HistoryWindow;
 
 public class HistoryRowPanel extends JPanel{
 

@@ -1,10 +1,9 @@
 package main.java.com.slimtrade.gui.buttons;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-
-import main.java.com.slimtrade.core.utility.TradeUtility;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 
@@ -14,13 +13,14 @@ public class MenubarToggleButton extends BasicDialog{
 	private int size = 20;
 	
 	public MenubarToggleButton(){
-		this.setBounds(0, TradeUtility.screenSize.height-size, size, size);
+//		this.setBounds(0, TradeUtility.screenSize.height-size, size, size);
+		this.setBounds(0, 0, size, size);
 		this.setBackground(Color.RED);
-		JButton showMenubarButton = new JButton();
+		IconButton showMenubarButton = new IconButton("/resources/icons/arrow_up_black.png", size);
 		this.add(showMenubarButton);
 		
-		showMenubarButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent e) {
+		showMenubarButton.addMouseListener(new AdvancedMouseAdapter() {
+		    public void click(MouseEvent e) {
 		    	FrameManager.menubarToggle.setVisible(false);
 		    	FrameManager.menubar.setVisible(true);
 		    }

@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.frames;
+package main.java.com.slimtrade.gui.dialogs;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -23,10 +23,12 @@ public class MenubarDialog extends BasicDialog{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int buttonCount = 9;
-	private int spacerCount = 2;
-	private int spacerHeight = (int)(MenubarButton.height*0.8);
-	private int totalHeight = MenubarButton.height*buttonCount+spacerHeight*spacerCount;
+	private static int buttonCount = 9;
+	private static int spacerCount = 2;
+	private static int spacerHeight = (int)(MenubarButton.height*0.8);
+	
+	public static final int TOTAL_WIDTH = MenubarButton.width;
+	public static final int TOTAL_HEIGHT = MenubarButton.height*buttonCount+spacerHeight*spacerCount;
 	
 	private MenubarButton optionsButton;
 	private MenubarButton historyButton;
@@ -39,7 +41,7 @@ public class MenubarDialog extends BasicDialog{
 	private MenubarButton minimizeButton;
 	
 	public MenubarDialog(){
-		this.setBounds(0,TradeUtility.screenSize.height-totalHeight, MenubarButton.width, totalHeight);
+		this.setBounds(0,TradeUtility.screenSize.height-TOTAL_HEIGHT, MenubarButton.width, TOTAL_HEIGHT);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		optionsButton = new MenubarButton("");
 		this.add(optionsButton);

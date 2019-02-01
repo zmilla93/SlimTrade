@@ -17,7 +17,7 @@ public class BasicMovableDialog extends BasicDialog {
 	protected int offsetY;
 	protected boolean screenLock = false;
 	protected boolean mouseDown = false;
-//	private JPanel moverPanel;
+	private int borderOffset = 0;
 	
 	public BasicMovableDialog(){
 		createListeners((JPanel) this.getContentPane());
@@ -50,8 +50,34 @@ public class BasicMovableDialog extends BasicDialog {
 		});
 	}
 	
+	//TODO : Make this function cleaner, then use it for runWindowMover
+	public void forceOntoScreen(int x, int y){
+		int targetX = x;
+		int targetY = y;
+		if(targetX<0) targetX = 0;
+		if(targetX>TradeUtility.screenSize.width-getDialogWidth()) targetX = TradeUtility.screenSize.width-getDialogWidth();
+		if(targetY<0) targetY = 0;
+		if(targetY>TradeUtility.screenSize.height-getDialogHeight()) targetY = TradeUtility.screenSize.height-getDialogHeight();
+		moveWindow(new Point(targetX, targetY));
+	}
+	
 	public void setScreenLock(boolean state){
 		screenLock = state;
+	}
+	
+	public void toggleScreenLock(){
+		screenLock = !screenLock;
+		if(screenLock){
+			forceOntoScreen(this.getX(), this.getY());
+		}
+	}
+	
+	public void setBorderOffset(int borderOffset){
+		this.borderOffset = borderOffset;
+	}
+	
+	public boolean getScreenLock(){
+		return screenLock;
 	}
 	
 	private void moveWindow(Point p){
@@ -70,8 +96,8 @@ public class BasicMovableDialog extends BasicDialog {
 		new Thread(){
 			public void run(){
 				while(mouseDown){
-					int targetX = MouseInfo.getPointerInfo().getLocation().x-offsetX;
-					int targetY = MouseInfo.getPointerInfo().getLocation().y-offsetY;
+					int targetX = MouseInfo.getPointerInfo().getLocation().x-offsetX-borderOffset;
+					int targetY = MouseInfo.getPointerInfo().getLocation().y-offsetY-borderOffset;
 					if(screenLock){
 						if(targetX<0) targetX = 0;
 						if(targetX>TradeUtility.screenSize.width-getDialogWidth()) targetX = TradeUtility.screenSize.width-getDialogWidth();

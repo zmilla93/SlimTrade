@@ -15,9 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import main.java.com.slimtrade.gui.dialogs.OptionsWindow;
 import main.java.com.slimtrade.gui.panels.BasicIcon_REMOVE;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
-import main.java.com.slimtrade.gui.windows.OptionsWindow;
 
 public class ButtonOptionPanel extends JPanel {
 

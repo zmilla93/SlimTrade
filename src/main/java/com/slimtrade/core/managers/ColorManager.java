@@ -9,7 +9,7 @@ import javax.swing.border.Border;
 public class ColorManager {
 		
 	public static Color CLEAR = new Color(1.0F, 1.0F, 1.0F, 0.0F);
-	
+	public static Color CLEAR_CLICKABLE = new Color(1.0f, 1.0f, 1.0f, 0.002f);
 	
 	public static class MsgWindow{
 		public static Color borderOuter;

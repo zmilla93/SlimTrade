@@ -5,11 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import main.java.com.slimtrade.gui.windows.InfoDialog;
+import main.java.com.slimtrade.gui.dialogs.InfoDialog;
 
 public class SaveManager {
 
@@ -17,36 +18,36 @@ public class SaveManager {
 	public boolean validSaveDirectory = false;
 	public String clientPathString;
 	public String savePathString;
-	
+
 	private boolean clientConflict = false;
-	
+
 	private String saveStub = "/settings.json";
-	private String steamStub =  ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
-	private String standAloneStub =  ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
-	private String[] commonDrives = {"C", "D", "E", "F", "G", "H"};
-//	private String[] commonDrives = {"H"};
+	private String steamStub = ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
+	private String standAloneStub = ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
+	private String[] commonDrives = { "C", "D", "E", "F", "G", "H" };
+	// private String[] commonDrives = {"H"};
 	private String user = System.getProperty("user.name");
-	
+
 	private JSONObject saveData;
-	
+
 	private FileWriter fw;
 	private FileReader fr;
 	private BufferedReader br;
-	
-	public SaveManager(){
-		//Steam Path
-		for(String drive : commonDrives){
+
+	public SaveManager() {
+		// Steam Path
+		for (String drive : commonDrives) {
 			File clientFile = new File(drive + steamStub);
-			if(clientFile.exists() && clientFile.isFile()){
+			if (clientFile.exists() && clientFile.isFile()) {
 				clientPathString = clientFile.getPath();
 				validClientPath = true;
 			}
 		}
-		//StandAlone Path
-		for(String drive : commonDrives){
+		// StandAlone Path
+		for (String drive : commonDrives) {
 			File clientFile = new File(drive + standAloneStub);
-			if(clientFile.exists() && clientFile.isFile()){
-				if(validClientPath){
+			if (clientFile.exists() && clientFile.isFile()) {
+				if (validClientPath) {
 					clientPathString = null;
 					validClientPath = false;
 					clientConflict = true;
@@ -55,32 +56,32 @@ public class SaveManager {
 				validClientPath = true;
 			}
 		}
-		//Save Directory
-		for(String drive : commonDrives){
+		// Save Directory
+		for (String drive : commonDrives) {
 			File localDirectory = new File(drive + ":/Users/" + user + "/AppData/Local");
-			if(localDirectory.exists() && localDirectory.isDirectory()){
+			if (localDirectory.exists() && localDirectory.isDirectory()) {
 				validSaveDirectory = true;
 				File saveDirectory = new File(drive + ":/Users/" + user + "/AppData/Local/SlimTrade");
 				savePathString = saveDirectory.getPath() + saveStub;
-				if(!saveDirectory.exists()){
+				if (!saveDirectory.exists()) {
 					saveDirectory.mkdir();
-				}else{
-					
+				} else {
+
 				}
 				initSaveData();
-			}else{
-				//TODO : Prompt user to set a save directory
+			} else {
+				// TODO : Prompt user to set a save directory
 			}
 		}
-		
-		if(clientConflict){
+
+		if (clientConflict) {
 			System.err.println("Conflict");
 			InfoDialog conflictDialog = new InfoDialog("SlimTrade - Warning");
 			conflictDialog.addSectionHeader("Multiple Client Paths Found");
 			conflictDialog.addText("Client.txt files found for both STEAM and STANDALONE versions of POE.");
 			conflictDialog.addText("Please manually select a valid path in the options menu.");
 			conflictDialog.finalizeDialog();
-		}else if(!validClientPath){
+		} else if (!validClientPath) {
 			InfoDialog conflictDialog = new InfoDialog("SlimTrade - Warning");
 			conflictDialog.addSectionHeader("No Client Path Found");
 			conflictDialog.addText("Unable to find a valid path for POE's client.txt file.");
@@ -91,17 +92,17 @@ public class SaveManager {
 			conflictDialog.addText("Client.txt files found for both STEAM and STANDALONE versions of POE.");
 			conflictDialog.addText("Please manually select a valid path in the options menu.");
 			conflictDialog.addBuffer();
-			
+
 			conflictDialog.addSectionHeader("SlimTrade will not function properly until all issues are resolved.");
 			conflictDialog.addBuffer();
-			
+
 			conflictDialog.finalizeDialog();
 		}
 	}
-	
-	private void initSaveData(){
+
+	private void initSaveData() {
 		File save = new File(savePathString);
-		if(!save.exists()){
+		if (!save.exists()) {
 			try {
 				fw = new FileWriter(save);
 				JSONObject json = new JSONObject();
@@ -112,9 +113,9 @@ public class SaveManager {
 			}
 		}
 	}
-	
-	private void refreshSaveData(){
-		if(!validSaveDirectory){
+
+	private void refreshSaveData() {
+		if (!validSaveDirectory) {
 			return;
 		}
 		FileReader fr;
@@ -126,15 +127,160 @@ public class SaveManager {
 			saveData = new JSONObject(br.readLine());
 			br.close();
 		} catch (JSONException | IOException e) {
-			//TODO : Show user an error here in case they manually corrupt the settings.json file
-			//Or just deal with file corruption automatically
+			// TODO : Show user an error here in case they manually corrupt the
+			// settings.json file
+			// Or just deal with file corruption automatically
 			System.err.println("JSON File Corrupted");
 			e.printStackTrace();
 		}
 	}
-	
-	public void saveString(String key, String value){
-		if(!validSaveDirectory){
+
+	public void saveStringProper(String... strings) {
+		if (!validSaveDirectory) {
+			return;
+		}
+		refreshSaveData();
+		String key = strings[strings.length - 2];
+		String value = strings[strings.length - 1];
+		ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
+		if (strings.length > 2) {
+			try {
+				if (saveData.has(strings[0])) {
+					arr.add((JSONObject) saveData.get(strings[0]));
+					for (int i = 1; i < strings.length - 2; i++) {
+						if (arr.get(i - 1).has(strings[i])) {
+							arr.add(arr.get(i - 1).getJSONObject(strings[i]));
+						} else {
+							arr.add(new JSONObject());
+						}
+					}
+				} else {
+					for (int i = 0; i < strings.length - 2; i++) {
+						arr.add(new JSONObject());
+					}
+				}
+				System.out.println("Looping...");
+				System.out.println(arr.get(strings.length - 3));
+				arr.get(strings.length - 3).put(key, value);
+				for (int i = strings.length - 3; i > 2; i--) {
+					System.out.println(arr.get(i));
+					System.out.println(strings[i]);
+					arr.get(i - 1).put(strings[i], arr.get(i));
+				}
+				saveData.put(strings[0], arr.get(0));
+
+				System.out.println("FINAL : " + arr.get(0));
+				System.out.println("KEY : " + strings[0]);
+				// System.out.println(strings.length);
+
+				// for(JSONObject o : arr){
+				// System.out.println("OBJECT : " + o);
+				// }
+
+				// JSONObject arr1 = new JSONObject();
+				// if (saveData.has(strings[0])) {
+				// arr1 = (JSONObject) saveData.get(strings[0]);
+				// }
+				// JSONObject arr2 = new JSONObject();
+				// if (arr1.has(strings[1])) {
+				// arr2 = (JSONObject) arr1.get(strings[1]);
+				// }
+				// arr2.put(key, value);
+				// arr1.put(strings[1], arr2);
+				// saveData.put(strings[0], arr1);
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				saveData.put(strings[0], strings[1]);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			fw = new FileWriter(savePathString);
+			fw.write(saveData.toString());
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public String getStringProper(String... strings) {
+		if (!validSaveDirectory) {
+			return null;
+		}
+		refreshSaveData();
+		String key = strings[strings.length - 1];
+		String value = null;
+		JSONObject curArr = null;
+		if (strings.length > 1) {
+			try {
+				curArr = saveData.getJSONObject(strings[0]);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			for (int i = 1; i < strings.length - 1; i++) {
+				try {
+					curArr = curArr.getJSONObject(strings[i]);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			try {
+				value = curArr.getString(key);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				value = saveData.getString(key);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return value;
+	}
+
+	public void saveArray(String key, JSONObject value) {
+		if (!validSaveDirectory) {
+			return;
+		}
+		refreshSaveData();
+		try {
+			saveData.put(key, value);
+			fw = new FileWriter(savePathString);
+			fw.write(saveData.toString());
+			fw.close();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public JSONObject getArray(String key) {
+		if (!validSaveDirectory) {
+			return null;
+		}
+		refreshSaveData();
+		JSONObject arr = null;
+		try {
+			arr = (JSONObject) saveData.get(key);
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return arr;
+	}
+
+	public void saveString(String key, String value) {
+		if (!validSaveDirectory) {
 			return;
 		}
 		refreshSaveData();
@@ -147,9 +293,9 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public void saveInt(String key, int value){
-		if(!validSaveDirectory){
+
+	public void saveInt(String key, int value) {
+		if (!validSaveDirectory) {
 			return;
 		}
 		refreshSaveData();
@@ -162,9 +308,9 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public void saveDouble(String key, double value){
-		if(!validSaveDirectory){
+
+	public void saveDouble(String key, double value) {
+		if (!validSaveDirectory) {
 			return;
 		}
 		refreshSaveData();
@@ -177,9 +323,9 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public void test(){
-		if(!validSaveDirectory){
+
+	public void test() {
+		if (!validSaveDirectory) {
 			return;
 		}
 		JSONObject subArr = new JSONObject();
@@ -196,9 +342,9 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public String getNestedString(String array, String key){
-		if(!validSaveDirectory){
+
+	public String getNestedString(String array, String key) {
+		if (!validSaveDirectory) {
 			return null;
 		}
 		refreshSaveData();
@@ -211,9 +357,9 @@ public class SaveManager {
 		}
 		return value;
 	}
-	
-	public String getString(String key){
-		if(!validSaveDirectory){
+
+	public String getString(String key) {
+		if (!validSaveDirectory) {
 			return null;
 		}
 		refreshSaveData();
@@ -225,9 +371,9 @@ public class SaveManager {
 		}
 		return value;
 	}
-	
-	public int getInt(String key){
-		if(!validSaveDirectory){
+
+	public int getInt(String key) {
+		if (!validSaveDirectory) {
 			return -1;
 		}
 		refreshSaveData();
@@ -239,9 +385,9 @@ public class SaveManager {
 		}
 		return value;
 	}
-	
-	public Double getDouble(String key){
-		if(!validSaveDirectory){
+
+	public Double getDouble(String key) {
+		if (!validSaveDirectory) {
 			return null;
 		}
 		refreshSaveData();
@@ -253,5 +399,5 @@ public class SaveManager {
 		}
 		return value;
 	}
-	
+
 }

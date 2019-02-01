@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.windows;
+package main.java.com.slimtrade.gui.dialogs;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -72,8 +72,8 @@ public class HistoryWindow extends BasicWindowDialog{
 		//TEMP
 		JLabel temp = new JLabel("NOT IMPLEMENTED");
 		savedContainer.add(temp);
-		TradeOffer dummyTrade = new TradeOffer("Timestamp", MessageType.INCOMING_TRADE, "Player Name", "Item Name","Price");
-		HistoryRowPanel columnLabel = new HistoryRowPanel(dummyTrade);
+//		TradeOffer dummyTrade = new TradeOffer("Timestamp", MessageType.INCOMING_TRADE, "Player Name", "Item Name","Price");
+//		HistoryRowPanel columnLabel = new HistoryRowPanel(dummyTrade);
 		
 		
 		container.add(selectionPanel);
@@ -203,7 +203,7 @@ public class HistoryWindow extends BasicWindowDialog{
 	}
 	
 	public void buildHistory(){
-		TradeOffer dummyTrade = new TradeOffer("Timestamp", MessageType.INCOMING_TRADE, "Player Name", "Item Name","Price");
+//		TradeOffer dummyTrade = new TradeOffer("Timestamp", MessageType.INCOMING_TRADE, "Player Name", "Item Name","Price");
 //		addTrade(dummyTrade, false);
 		for(TradeOffer trade : incomingTradeData){
 			incomingTradePanels.add(new HistoryRowPanel(trade));

@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.windows;
+package main.java.com.slimtrade.gui.dialogs;
 
 import java.awt.Color;
 import java.awt.Dimension;

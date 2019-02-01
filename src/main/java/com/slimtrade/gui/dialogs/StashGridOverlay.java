@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.windows;
+package main.java.com.slimtrade.gui.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,6 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
-import main.java.com.slimtrade.gui.frames.ItemHighlighter;
 import main.java.com.slimtrade.gui.panels.GridPanel;
 
 

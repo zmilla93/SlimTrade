@@ -32,7 +32,7 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 
-public class MessagePanelReworked extends JPanel {
+public class MessagePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final PoeInteractionListener poeInteractionListener = Main.eventManager;
@@ -111,7 +111,7 @@ public class MessagePanelReworked extends JPanel {
 	// SwingConstants.CENTER
 	// Alternatively use gridbaglayout
 	// TODO : Add close function for all cleanup actions
-	public MessagePanelReworked(TradeOffer trade) {
+	public MessagePanel(TradeOffer trade) {
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints gcCenter = new GridBagConstraints();
 

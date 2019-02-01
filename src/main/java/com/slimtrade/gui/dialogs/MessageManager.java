@@ -1,11 +1,9 @@
-package main.java.com.slimtrade.gui.frames;
+package main.java.com.slimtrade.gui.dialogs;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
 import javax.swing.Box;
 
@@ -16,8 +14,8 @@ import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
+import main.java.com.slimtrade.gui.panels.MessagePanel;
 import main.java.com.slimtrade.gui.panels.MessagePanel_OLD;
-import main.java.com.slimtrade.gui.panels.MessagePanelReworked;
 
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
@@ -25,10 +23,10 @@ public class MessageManager extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 	
-	private final int gap = 1;
+	public static final int buffer = 1;
 	private final int maxMessageCount = 20;
 	private int messageCount = 0;
-	private MessagePanelReworked[] messages = new MessagePanelReworked[maxMessageCount];
+	private MessagePanel[] messages = new MessagePanel[maxMessageCount];
 	private Component[] rigidAreas = new Component[maxMessageCount];
 	
 	public MessageManager(){
@@ -50,8 +48,8 @@ public class MessageManager extends BasicDialog {
 		while(messages[i]!=null){
 			i++;
 		}
-		messages[i] = new MessagePanelReworked(trade);
-		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel_OLD.totalWidth, gap));
+		messages[i] = new MessagePanel(trade);
+		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel_OLD.totalWidth, buffer));
 		int closeIndex = i;
 		messages[i].getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
 		    public void click(MouseEvent e) {
@@ -81,13 +79,13 @@ public class MessageManager extends BasicDialog {
 	}
 	
 	private void refresh(){
-		this.setSize(MessagePanelReworked.totalWidth, MessagePanelReworked.totalHeight*messageCount+gap*messageCount);
+		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight*messageCount+buffer*messageCount);
 		this.revalidate();
 		this.repaint();
 	}
 	
 	public boolean isDuplicateTrade(TradeOffer trade){
-		for(MessagePanelReworked msg : messages){
+		for(MessagePanel msg : messages){
 			if(msg != null){
 				if(TradeUtility.isDuplicateTrade(msg.trade, trade)){
 					return true;

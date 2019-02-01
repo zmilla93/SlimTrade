@@ -6,17 +6,16 @@ import java.awt.Point;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
+import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.buttons.MenubarToggleButton;
-import main.java.com.slimtrade.gui.frames.ItemHighlighter;
-import main.java.com.slimtrade.gui.frames.MenubarDialog;
-import main.java.com.slimtrade.gui.frames.MessageManager;
-import main.java.com.slimtrade.gui.frames.StashHelperContainer;
-import main.java.com.slimtrade.gui.unused.UNUSED_BasicWindowDialogBorder;
-import main.java.com.slimtrade.gui.windows.CharacterWindow;
-import main.java.com.slimtrade.gui.windows.HistoryWindow;
-import main.java.com.slimtrade.gui.windows.OptionsWindow;
-import main.java.com.slimtrade.gui.windows.StashGridOverlay;
+import main.java.com.slimtrade.gui.dialogs.CharacterWindow;
+import main.java.com.slimtrade.gui.dialogs.HistoryWindow;
+import main.java.com.slimtrade.gui.dialogs.ItemHighlighter;
+import main.java.com.slimtrade.gui.dialogs.MenubarDialog;
+import main.java.com.slimtrade.gui.dialogs.MessageManager;
+import main.java.com.slimtrade.gui.dialogs.OptionsWindow;
+import main.java.com.slimtrade.gui.dialogs.StashGridOverlay;
+import main.java.com.slimtrade.gui.dialogs.StashHelperContainer;
 
 public class FrameManager {
 
@@ -77,13 +76,13 @@ public class FrameManager {
 		stashOverlay.setVisible(false);
 	}
 	
-	public static void centerFrame(BasicWindowDialog window){
+	public static void centerFrame(BasicDialog window){
 		window.setLocation((TradeUtility.screenSize.width/2)-(window.getWidth()/2), (TradeUtility.screenSize.height/2)-(window.getHeight()/2));
 	}
 	
-	public static void centerFrame(UNUSED_BasicWindowDialogBorder window){
-		window.setLocation((TradeUtility.screenSize.width/2)-(window.getWidth()/2), (TradeUtility.screenSize.height/2)-(window.getHeight()/2));
-	}
+//	public static void centerFrame(UNUSED_BasicWindowDialogBorder window){
+//		window.setLocation((TradeUtility.screenSize.width/2)-(window.getWidth()/2), (TradeUtility.screenSize.height/2)-(window.getHeight()/2));
+//	}
 	
 	public static void forceAllToTop(){
 		if(menubarToggle.isVisible()){

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
-import main.java.com.slimtrade.gui.windows.OptionsWindow;
+import main.java.com.slimtrade.gui.dialogs.OptionsWindow;
 
 public class OptionTitlePanel extends JPanel{
 
