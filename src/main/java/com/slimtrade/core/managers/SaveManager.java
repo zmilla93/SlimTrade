@@ -121,7 +121,7 @@ public class SaveManager {
 		FileReader fr;
 		BufferedReader br;
 		try {
-			System.out.println(savePathString);
+			// System.out.println(savePathString);
 			fr = new FileReader(savePathString);
 			br = new BufferedReader(fr);
 			saveData = new JSONObject(br.readLine());
@@ -131,6 +131,76 @@ public class SaveManager {
 			// settings.json file
 			// Or just deal with file corruption automatically
 			System.err.println("JSON File Corrupted");
+			e.printStackTrace();
+		}
+	}
+
+	public void saveString(String value, String... keys) {
+		if (!validSaveDirectory) {
+			return;
+		}
+		refreshSaveData();
+		ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
+		String key = keys[keys.length - 1];
+		JSONObject activeArr;
+		if (keys.length > 1) {
+			// Get existing arrays, or build new ones
+			activeArr = saveData;
+			for (int i = 0; i < keys.length - 1; i++) {
+				if (activeArr.has(keys[i])) {
+					try {
+						arr.add(activeArr.getJSONObject(keys[i]));
+						activeArr = activeArr.getJSONObject(keys[i]);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				} else {
+					arr.add(new JSONObject());
+				}
+				System.out.println(keys[i]);
+			}
+			try {
+				arr.get(arr.size() - 1).put(key, value);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			for (int i = keys.length - 2; i >= 1; i--) {
+				System.out.println(arr.get(i));
+				try {
+					arr.get(i - 1).put(keys[i], arr.get(i));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// System.out.println(keys[i]);
+			}
+			// System.out.println("Saved Arrays : ");
+			for (JSONObject o : arr) {
+				System.out.println(o);
+			}
+			System.out.println("FINAL ARRAY : ");
+			System.out.println(arr.get(0));
+			try {
+				saveData.put(keys[0], arr.get(0));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		} else {
+			try {
+				saveData.put(key, value);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			fw = new FileWriter(savePathString);
+			fw.write(saveData.toString());
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -171,23 +241,6 @@ public class SaveManager {
 
 				System.out.println("FINAL : " + arr.get(0));
 				System.out.println("KEY : " + strings[0]);
-				// System.out.println(strings.length);
-
-				// for(JSONObject o : arr){
-				// System.out.println("OBJECT : " + o);
-				// }
-
-				// JSONObject arr1 = new JSONObject();
-				// if (saveData.has(strings[0])) {
-				// arr1 = (JSONObject) saveData.get(strings[0]);
-				// }
-				// JSONObject arr2 = new JSONObject();
-				// if (arr1.has(strings[1])) {
-				// arr2 = (JSONObject) arr1.get(strings[1]);
-				// }
-				// arr2.put(key, value);
-				// arr1.put(strings[1], arr2);
-				// saveData.put(strings[0], arr1);
 
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -279,20 +332,20 @@ public class SaveManager {
 		return arr;
 	}
 
-	public void saveString(String key, String value) {
-		if (!validSaveDirectory) {
-			return;
-		}
-		refreshSaveData();
-		try {
-			saveData.put(key, value);
-			fw = new FileWriter(savePathString);
-			fw.write(saveData.toString());
-			fw.close();
-		} catch (JSONException | IOException e) {
-			e.printStackTrace();
-		}
-	}
+	// public void saveString(String key, String value) {
+	// if (!validSaveDirectory) {
+	// return;
+	// }
+	// refreshSaveData();
+	// try {
+	// saveData.put(key, value);
+	// fw = new FileWriter(savePathString);
+	// fw.write(saveData.toString());
+	// fw.close();
+	// } catch (JSONException | IOException e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	public void saveInt(String key, int value) {
 		if (!validSaveDirectory) {
@@ -322,6 +375,33 @@ public class SaveManager {
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void exampleArray() {
+		if (!validSaveDirectory) {
+			return;
+		}
+		refreshSaveData();
+		JSONObject arr1 = new JSONObject();
+		JSONObject arr2 = new JSONObject();
+		JSONObject arr3 = new JSONObject();
+		JSONObject arr4 = new JSONObject();
+		JSONObject arr5 = new JSONObject();
+		try {
+			arr5.put("Example Key", "Example Value");
+			arr4.put("Array4", arr5);
+			arr3.put("Array3", arr4);
+			arr2.put("Array2", arr3);
+			arr1.put("Array1", arr2);
+			saveData.put("Example Nest", arr1);
+			fw = new FileWriter(savePathString);
+			fw.write(saveData.toString());
+			fw.close();
+		} catch (JSONException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void test() {
@@ -358,19 +438,19 @@ public class SaveManager {
 		return value;
 	}
 
-	public String getString(String key) {
-		if (!validSaveDirectory) {
-			return null;
-		}
-		refreshSaveData();
-		String value = null;
-		try {
-			value = saveData.getString(key);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return value;
-	}
+	// public String getString(String key) {
+	// if (!validSaveDirectory) {
+	// return null;
+	// }
+	// refreshSaveData();
+	// String value = null;
+	// try {
+	// value = saveData.getString(key);
+	// } catch (JSONException e) {
+	// e.printStackTrace();
+	// }
+	// return value;
+	// }
 
 	public int getInt(String key) {
 		if (!validSaveDirectory) {

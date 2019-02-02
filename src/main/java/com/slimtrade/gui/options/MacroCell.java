@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 import main.java.com.slimtrade.gui.panels.BasicIcon_REMOVE;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class ButtonOptionPanel extends JPanel {
+public class MacroCell extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int width = OptionsWindow.contentWidth;
@@ -42,8 +42,10 @@ public class ButtonOptionPanel extends JPanel {
 	private JTextField clickTextFieldLMB = new JTextField(30);
 	private JTextField clickTextFieldRMB = new JTextField(30);
 	
+	private MacroPanel parent;
 	
-	public ButtonOptionPanel(String title, String iconPath, String saveKey){
+	public MacroCell(String title, String iconPath, String saveKey, MacroPanel parent){
+		this.parent = parent;
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setMinimumSize(new Dimension(600, 100));
 		this.setPreferredSize(null);
@@ -114,6 +116,10 @@ public class ButtonOptionPanel extends JPanel {
 		});
 	}
 	
+	public void setParent(MacroPanel parent){
+		this.parent = parent;
+	}
+	
 	public void updateView(){
 		if(enableCheckbox.isSelected()){
 			//Enabled
@@ -147,6 +153,7 @@ public class ButtonOptionPanel extends JPanel {
 		}else{
 			this.setPreferredSize(null);
 		}
+		parent.autoResize();
 		this.revalidate();
 		this.repaint();
 	}

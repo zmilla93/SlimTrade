@@ -28,7 +28,7 @@ public class Main {
 	public static Debugger debug = new Debugger();
 	public static ExternalFileManager fileManager = new ExternalFileManager();
 	public static EventManager eventManager = new EventManager();
-	
+
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
@@ -65,21 +65,30 @@ public class Main {
 				SaveManager saveManager = new SaveManager();
 				FrameManager frameManager = new FrameManager();
 				
+//				saveManager.exampleArray();
 				
-				JSONObject arrMain = new JSONObject();
-				JSONObject arrNested = new JSONObject();
 				
-				saveManager.saveString("t1", "test value");
-				try {
-					arrMain.put("String1", "simple string");
-					arrNested.put("nest1", "COOL!");
-					arrNested.put("nest2", "RAD!");
-					arrMain.put("Array1", arrNested);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				saveManager.saveString("String!", "Example Nest", "Array1", "Array2", "final key");
+				saveManager.saveString("nested string", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "final key");
+				saveManager.saveString("String!", "key1", "key2", "key3", "key4");
 				
+				saveManager.saveString("simple value", "simple key");
+//				saveManager.saveString("whoa", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
+				
+//				JSONObject arrMain = new JSONObject();
+//				JSONObject arrNested = new JSONObject();
+//				
+//				saveManager.saveString("t1", "test value");
+//				try {
+//					arrMain.put("String1", "simple string");
+//					arrNested.put("nest1", "COOL!");
+//					arrNested.put("nest2", "RAD!");
+//					arrMain.put("Array1", arrNested);
+//				} catch (JSONException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
 //				OverlayManager r = new OverlayManager();
 //				r.show();
 				
