@@ -18,6 +18,9 @@ public class Debugger extends JFrame {
 	private JScrollPane logScrollPane;
 	private JTextArea logTextArea = new JTextArea();
 
+	private static long start;
+	private static long end;
+	
 	public Debugger() {
 		this.setTitle("SlimTrade Debugger");
 		this.setBounds(0, 0, 800, 500);
@@ -71,6 +74,15 @@ public class Debugger extends JFrame {
 		for (int i = 0; i < num.length; i++) {
 			System.out.println(num[i]);
 		}
+	}
+	
+	//Benchmarking has 1 millisecond of variance
+	public static void benchmarkStart(){
+		start = System.currentTimeMillis();
+	}
+	
+	public static long benchmark(){
+		return System.currentTimeMillis()-start;
 	}
 
 }

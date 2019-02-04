@@ -1,16 +1,17 @@
 package main.java.com.slimtrade.core;
 
 import java.awt.AWTException;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.ExternalFileManager;
@@ -18,19 +19,31 @@ import main.java.com.slimtrade.core.managers.SaveManager;
 import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.core.observing.GlobalKeyboardListener;
 import main.java.com.slimtrade.core.observing.GlobalMouseListener;
+import main.java.com.slimtrade.core.utility.ChatParser;
+import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.windows.OverlayManager;
+import main.java.com.slimtrade.gui.basic.BasicDialog;
 
 public class Main {
 
+	//TODO : move to invoke later?
 	public static Debugger debug = new Debugger();
 	public static ExternalFileManager fileManager = new ExternalFileManager();
 	public static EventManager eventManager = new EventManager();
+	public static SaveManager saveManager = new SaveManager();
+	public static ChatParser chatParser = new ChatParser();
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		
+		BasicDialog load = new BasicDialog();
+		load.setLayout(new GridBagLayout());
+		load.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());
+		load.setSize(200, 80);
+		FrameManager.centerFrame(load);
+		load.setVisible(true);
 		
 		// JNativeHook Setup
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -62,17 +75,26 @@ public class Main {
 					e.printStackTrace();
 				}
 				ColorManager.setMessageTheme();
-				SaveManager saveManager = new SaveManager();
+//				SaveManager saveManager = new SaveManager();
 				FrameManager frameManager = new FrameManager();
+				chatParser.init();
+				FileMonitor fileMonitor = new FileMonitor();
 				
 //				saveManager.exampleArray();
 				
 				
 //				saveManager.saveString("String!", "Example Nest", "Array1", "Array2", "final key");
-				saveManager.saveString("nested string", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "final key");
-				saveManager.saveString("String!", "key1", "key2", "key3", "key4");
+//				saveManager.saveString("4", "Stash Overlay", "x");
+//				saveManager.saveString("4", "Stash Overlay", "y");
+//				saveManager.saveString("400", "Stash Overlay", "size", "width");
+//				saveManager.saveString("600", "Stash Overlay", "size", "height");
+//				saveManager.saveString("what", "Stash Overlay");
+				saveManager.putString("green", "Stash Overlay", "color");
+				saveManager.putString("40", "Stash Overlay", "size", "width");
+				saveManager.putString("4564560", "Stash Overlay", "size", "height");
 				
-				saveManager.saveString("simple value", "simple key");
+				
+				saveManager.putString("simple value", "simple key");
 //				saveManager.saveString("whoa", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
 				
 //				JSONObject arrMain = new JSONObject();
@@ -94,6 +116,8 @@ public class Main {
 				
 			}
 		});
+		
+		load.dispose();
 
 	}
 

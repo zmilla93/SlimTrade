@@ -60,8 +60,8 @@ public class FrameManager {
 		menubar.setVisible(true);
 		
 		
-		ChatParser parser = new ChatParser();
-		parser.init();
+//		ChatParser parser = new ChatParser();
+//		parser.init();
 		
 //		stashOverlay.setVisible(true);
 //		stashHelperContainer.setBackground(Color.yellow);

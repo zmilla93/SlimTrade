@@ -13,6 +13,7 @@ import javax.swing.Timer;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.datatypes.MessageType;
+import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 
 public class ChatParser {
@@ -31,7 +32,10 @@ public class ChatParser {
 	private ActionListener updateAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			update();
+			Debugger.benchmarkStart();
+//			update();
+			procUpdate();
+			System.out.println(Debugger.benchmark());
 		}
 	};
 	private Timer updateTimer = new Timer(500, updateAction);
@@ -88,8 +92,20 @@ public class ChatParser {
 		Main.debug.log("Chat parser sucessfully launched.");
 	}
 
-	private void update() {
+	private void procUpdate(){
+		try {
+			fileReader = new FileReader(clientLogPath);
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void update() {
+		System.out.println("Updating chat parser");
 		long start = System.currentTimeMillis();
+//		Debugger.benchmarkStart();
 		try {
 			fileReader = new FileReader(clientLogPath);
 			bufferedReader = new BufferedReader(fileReader);
@@ -118,15 +134,15 @@ public class ChatParser {
 			Main.debug.log("Parser disabled.");
 			e.printStackTrace();
 		}
-		long end = System.currentTimeMillis();
-		// System.out.println("PARSER UPDATE TIME : " + (end-start));
+//		long end = System.currentTimeMillis();
+//		 System.out.println("PARSER UPDATE TIME : " + (end-start));
+//		 System.out.println(end-start-Debugger.benchmark());
 	}
 
 	private TradeOffer getTradeOffer(String text) {
 		Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
 		TradeOffer trade = null;
 		if (tradeMsgMatcher.matches()) {
-			// TODO: could move int fixing to TradeOffer class
 			// DEBUG
 //			System.out.println("NEW TRADE OFFER");
 //			for (int i = 0; i < 24; i++) {

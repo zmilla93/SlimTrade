@@ -6,10 +6,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.dialogs.InfoDialog;
 
 public class SaveManager {
@@ -111,6 +114,8 @@ public class SaveManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else{
+			refreshSaveData();
 		}
 	}
 
@@ -118,28 +123,33 @@ public class SaveManager {
 		if (!validSaveDirectory) {
 			return;
 		}
-		FileReader fr;
-		BufferedReader br;
 		try {
 			// System.out.println(savePathString);
 			fr = new FileReader(savePathString);
 			br = new BufferedReader(fr);
-			saveData = new JSONObject(br.readLine());
+			if(!br.ready()){
+				saveData = new JSONObject();
+			}else{
+				saveData = new JSONObject(br.readLine());
+			}
 			br.close();
 		} catch (JSONException | IOException e) {
-			// TODO : Show user an error here in case they manually corrupt the
-			// settings.json file
-			// Or just deal with file corruption automatically
-			System.err.println("JSON File Corrupted");
-			e.printStackTrace();
+			System.err.println("JSON File Corrupted. Deleting old save data.");
+			saveData = new JSONObject();
+			try {
+				br.close();
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 
-	public void saveString(String value, String... keys) {
+	public void putString(String value, String... keys) {
 		if (!validSaveDirectory) {
 			return;
 		}
-		refreshSaveData();
+		Logger log = Logger.getAnonymousLogger();
+//		refreshSaveData();
 		ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
 		String key = keys[keys.length - 1];
 		JSONObject activeArr;
@@ -152,34 +162,40 @@ public class SaveManager {
 						arr.add(activeArr.getJSONObject(keys[i]));
 						activeArr = activeArr.getJSONObject(keys[i]);
 					} catch (JSONException e) {
-						e.printStackTrace();
+						class Local {};
+						System.err.println(this.getClass() + " : " + Local.class.getEnclosingMethod().getName() + "\n" +
+								"\tError while trying to save \"" + key + "\" : \"" + value + "\"\n" +
+								"\tArray key expected : \"" + keys[i] + "\"\n" + 
+								"\t" + activeArr + "\n");
+						return;
 					}
 				} else {
 					arr.add(new JSONObject());
 				}
 				System.out.println(keys[i]);
 			}
+			// Add Final value to deepest nested array
 			try {
 				arr.get(arr.size() - 1).put(key, value);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+			// Rebuild into single array
 			for (int i = keys.length - 2; i >= 1; i--) {
-				System.out.println(arr.get(i));
+				// System.out.println(arr.get(i));
 				try {
 					arr.get(i - 1).put(keys[i], arr.get(i));
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// System.out.println(keys[i]);
 			}
-			// System.out.println("Saved Arrays : ");
 			for (JSONObject o : arr) {
 				System.out.println(o);
 			}
 			System.out.println("FINAL ARRAY : ");
 			System.out.println(arr.get(0));
+			// Add final array to existing data
 			try {
 				saveData.put(keys[0], arr.get(0));
 			} catch (JSONException e1) {
@@ -188,13 +204,14 @@ public class SaveManager {
 			}
 
 		} else {
+			// Single key handling
 			try {
 				saveData.put(key, value);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		// Save data to disk
 		try {
 			fw = new FileWriter(savePathString);
 			fw.write(saveData.toString());
@@ -203,6 +220,19 @@ public class SaveManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String getString(String... keys){
+		if(!validSaveDirectory){
+			return null;
+		}
+		if(keys.length>1){
+			
+		}{
+			
+		}
+		
+		return null;
 	}
 
 	public void saveStringProper(String... strings) {
@@ -478,6 +508,14 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 		return value;
+	}
+	
+	public String getClientPath(){
+		if(validClientPath){
+			return clientPathString;
+		}else{
+			return null;
+		}
 	}
 
 }
