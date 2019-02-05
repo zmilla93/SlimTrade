@@ -15,6 +15,7 @@ public class FileMonitor {
 
 	private WatchService watcher;
 	private WatchKey clientKey;
+	private Thread monitor;
 
 	public FileMonitor() {
 
@@ -27,7 +28,7 @@ public class FileMonitor {
 		// System.out.println(Main.saveManager.getClientPath());
 		Path dir = Paths.get(Main.saveManager.getClientPath());
 		Path testDir = Paths.get("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile\\logs");
-		System.out.println(dir.toString());
+//		System.out.println(dir.toString());
 		try {
 			clientKey = testDir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
 		} catch (IOException e) {
@@ -35,62 +36,37 @@ public class FileMonitor {
 			e.printStackTrace();
 		}
 
-		System.out.println("Staring watch thread...");
-
 		startMonitor();
 
-		// new Thread(new Runnable() {
-		// public void run() {
-		// while (true) {
-		// WatchKey key;
-		// System.out.println("Checking...");
-		// try {
-		// System.out.println("taking...");
-		// key = watcher.take();
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// System.out.println("Checking 2...");
-		//// key.reset();
-		// boolean valid = key.reset();
-		// System.out.println(valid);
-		// try {
-		// Thread.sleep(1000);
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		//
-		// }
-		// }).start();
 	}
 
-	void startMonitor() {
+	public void startMonitor() {
 		Path dir = Paths.get(Main.saveManager.getClientPath());
 		Path testDir = Paths.get("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile\\logs");
-		System.out.println(dir.toString());
+//		System.out.println(dir.toString());
 		try {
 			clientKey = testDir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Staring watch thread...");
-		new Thread(new Runnable() {
+//		System.out.println("Staring watch thread...");
+		monitor = new Thread(new Runnable() {
 			public void run() {
 				while (true) {
 					WatchKey key;
 					try {
 						key = watcher.take();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						continue;
+						try {
+							watcher.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						break;
 					}
 					for (WatchEvent<?> event : key.pollEvents()) {
-						System.out.println(event.kind());
+//						System.out.println(event.kind());
 						Main.chatParser.update();
 						if (event.kind() == StandardWatchEventKinds.OVERFLOW) {
 							System.out.println("Overflow");
@@ -102,10 +78,23 @@ public class FileMonitor {
 					System.out.println(valid);
 				}
 			}
-		}).start();
-
+		});
+		monitor.start();
 		
-
-
 	}
+	
+	public void stopMonitor(){
+		monitor.interrupt();
+		try {
+			
+			monitor.join();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 }

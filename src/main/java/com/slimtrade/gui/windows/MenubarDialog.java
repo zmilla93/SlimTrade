@@ -144,19 +144,6 @@ public class MenubarDialog extends BasicDialog {
 		// QUIT PROGRAM
 		quitButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
-				try {
-					FileOutputStream out = new FileOutputStream("userPreferences.txt");
-					ObjectOutputStream userPref = new ObjectOutputStream(out);
-					String test1 = "Hello 1";
-					String test2 = "Hello 2";
-					String test3 = "Hello 3";
-					userPref.writeObject(test1);
-					userPref.writeObject(test2);
-					userPref.writeObject(test3);
-					userPref.close();
-				} catch (IOException err) {
-					err.printStackTrace();
-				}
 				System.exit(0);
 			}
 		});

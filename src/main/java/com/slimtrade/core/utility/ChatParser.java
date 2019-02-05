@@ -32,10 +32,10 @@ public class ChatParser {
 	private ActionListener updateAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Debugger.benchmarkStart();
+//			Debugger.benchmarkStart();
 //			update();
 			procUpdate();
-			System.out.println(Debugger.benchmark());
+//			System.out.println(Debugger.benchmark());
 		}
 	};
 	private Timer updateTimer = new Timer(500, updateAction);

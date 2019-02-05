@@ -34,6 +34,7 @@ public class Main {
 	public static EventManager eventManager = new EventManager();
 	public static SaveManager saveManager = new SaveManager();
 	public static ChatParser chatParser = new ChatParser();
+	public static FileMonitor fileMonitor;
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
@@ -77,25 +78,43 @@ public class Main {
 				ColorManager.setMessageTheme();
 //				SaveManager saveManager = new SaveManager();
 				FrameManager frameManager = new FrameManager();
+				
+				//TODO : Reenable
+				System.out.println("WARNING : Chat Parser Disabled - Reenable in Main");
 				chatParser.init();
-				FileMonitor fileMonitor = new FileMonitor();
+				fileMonitor = new FileMonitor();
 				
 //				saveManager.exampleArray();
 				
+//				saveManager
 				
-//				saveManager.saveString("String!", "Example Nest", "Array1", "Array2", "final key");
-//				saveManager.saveString("4", "Stash Overlay", "x");
-//				saveManager.saveString("4", "Stash Overlay", "y");
-//				saveManager.saveString("400", "Stash Overlay", "size", "width");
-//				saveManager.saveString("600", "Stash Overlay", "size", "height");
-//				saveManager.saveString("what", "Stash Overlay");
+//				saveManager.putString("corrupt", "Stash Overlay");
 				saveManager.putString("green", "Stash Overlay", "color");
 				saveManager.putString("40", "Stash Overlay", "size", "width");
 				saveManager.putString("4564560", "Stash Overlay", "size", "height");
 				
 				
 				saveManager.putString("simple value", "simple key");
-//				saveManager.saveString("whoa", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
+//				saveManager.putString("what");
+				System.out.println("VALUE : " + saveManager.getString("Stash Overlay", "size", "height"));
+				
+				saveManager.putInt(123, "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
+				saveManager.putInt(23, "simple key");
+				
+//				System.out.println("VALUE : " + saveManager.getString("Stash Overlay", "asdf", "what"));
+//				System.out.println("VALUE : " + saveManager.getString("Stash Overlay", "size", "what"));
+//				System.out.println("VALUE : " + saveManager.getString("Stash Overlay", "size"));
+				
+				
+				
+				System.out.println("VALUE : " + saveManager.getInt("simple key"));
+				
+//				saveManager.putString("whoa", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
+				int s = saveManager.getInt("Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
+				System.out.println("NEST : " + s);
+				
+				saveManager.saveToDisk();
+//				saveManager.putString("whoa", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
 				
 //				JSONObject arrMain = new JSONObject();
 //				JSONObject arrNested = new JSONObject();
@@ -117,8 +136,19 @@ public class Main {
 			}
 		});
 		
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+	        public void run() {
+	            closeProgram();
+	        }
+	    }));
+		
 		load.dispose();
 
+	}
+	
+	public static void closeProgram(){
+		System.out.println("Exiting program.");
+		fileMonitor.stopMonitor();
 	}
 
 }
