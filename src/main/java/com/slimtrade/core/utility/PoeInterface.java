@@ -52,11 +52,11 @@ public class PoeInterface extends Robot {
 				robot.keyPress(KeyEvent.VK_F);
 				robot.keyRelease(KeyEvent.VK_F);
 				robot.keyRelease(KeyEvent.VK_CONTROL);
-//				try {
-//					Thread.sleep(150);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
+				try {
+					Thread.sleep(150);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				robot.keyPress(KeyEvent.VK_CONTROL);
 				robot.keyPress(KeyEvent.VK_V);
 				robot.keyRelease(KeyEvent.VK_V);

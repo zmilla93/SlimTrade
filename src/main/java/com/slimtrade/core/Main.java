@@ -25,7 +25,6 @@ import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.windows.OverlayManager;
 
 public class Main {
 
@@ -36,7 +35,6 @@ public class Main {
 	public static SaveManager saveManager = new SaveManager();
 	public static ChatParser chatParser = new ChatParser();
 	public static FileMonitor fileMonitor;
-	
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
@@ -62,23 +60,26 @@ public class Main {
 		GlobalKeyboardListener globalKeyboard = new GlobalKeyboardListener();
 		GlobalScreen.addNativeMouseListener(globalMouse);
 		GlobalScreen.addNativeKeyListener(globalKeyboard);
-
+		
 		// Locale
-		debug.log("Default Localization : " + Locale.getDefault());
-		Locale.setDefault(Locale.US);
+//		debug.log("Default Localization : " + Locale.getDefault());
+//		Locale.setDefault(Locale.US);
 
+//		ColorManager.setMessageTheme();
+		
 		// POE Interface
 
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				
+				Locale.setDefault(Locale.US);
+				ColorManager.setMessageTheme();
 				try {
 					PoeInterface poe = new PoeInterface();
 				} catch (AWTException e) {
 					e.printStackTrace();
 				}
-				ColorManager.setMessageTheme();
+				
 //				SaveManager saveManager = new SaveManager();
 				FrameManager frameManager = new FrameManager();
 				
@@ -106,13 +107,19 @@ public class Main {
 //				System.out.println("VALUE : " + saveManager.getString("Stash Overlay", "size", "what"));
 //				System.out.println("VALUE : " + saveManager.getString("Stash Overlay", "size"));
 				
-				
+				String[] arr = new String[4];
+				String[] arr2 = {"34", "test"};
+				saveManager.putString("value", new String[]{"key 1", "key 2"});
 				
 				System.out.println("VALUE : " + saveManager.getInt("simple key"));
 				
 //				saveManager.putString("whoa", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
 				int s = saveManager.getInt("Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
 				System.out.println("NEST : " + s);
+				
+				System.out.println(saveManager.hasValue("Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key"));
+				
+				saveManager.putStringDefault("default387435", "defkey1", "defkey2", "defkey3");
 				
 				saveManager.saveToDisk();
 //				saveManager.putString("whoa", "Example Nest", "Array1", "Array2", "Array3", "Array4", "Array5", "cool key");
@@ -149,6 +156,11 @@ public class Main {
 	}
 	
 	public static void closeProgram(){
+		try {
+			GlobalScreen.unregisterNativeHook();
+		} catch (NativeHookException e) {
+			e.printStackTrace();
+		}
 		fileMonitor.stopMonitor();
 		System.out.println("SlimTrade Terminated");
 	}

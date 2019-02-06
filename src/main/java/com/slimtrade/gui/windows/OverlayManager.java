@@ -287,8 +287,8 @@ public class OverlayManager {
 		helpDialog.setVisible(false);
 		menubarDialog.setVisible(false);
 		messageDialog.setVisible(false);
-		FrameManager.menubar.refresh();
-		FrameManager.menubarToggle.refresh();
+		FrameManager.menubar.refreshVisibility();
+		FrameManager.menubarToggle.refreshVisibility();
 		FrameManager.optionsWindow.setVisible(true);
 	}
 

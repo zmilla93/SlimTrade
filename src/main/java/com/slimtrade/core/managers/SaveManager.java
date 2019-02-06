@@ -266,7 +266,7 @@ public class SaveManager {
 		}
 		return value;
 	}
-	
+
 	public void putInt(Integer value, String... keys) {
 		class Local {
 		}
@@ -287,7 +287,7 @@ public class SaveManager {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 		} else if (keys.length > 1) {
 			// Get existing arrays, or create new ones
 			activeArr = saveData;
@@ -327,7 +327,7 @@ public class SaveManager {
 		}
 		hasUnsavedChanges = true;
 	}
-	
+
 	public Integer getInt(String... keys) {
 		class Local {
 		}
@@ -357,7 +357,7 @@ public class SaveManager {
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-					
+
 				} else {
 					StringBuilder chain = new StringBuilder();
 					for (String s : keys) {
@@ -379,20 +379,44 @@ public class SaveManager {
 		}
 		return value;
 	}
+
+	public boolean hasValue(String... keys) {
+		JSONObject curArr = saveData;
+		for (int i = 0; i < keys.length; i++) {
+			if(curArr.has(keys[i])){
+				try {
+					curArr = curArr.getJSONObject(keys[i]);
+				} catch (JSONException e) {
+					if(curArr.has(keys[i])){
+						continue;
+					}
+				}
+			}else{
+				return false;
+			}
+		}
+		return true;
+	}
 	
-	public void snapshot(){
+	public void putStringDefault(String value, String... keys){
+		if(!hasValue(keys)){
+			putString(value, keys);
+		}
+	}
+
+	public void snapshot() {
 		this.saveDataSnapshot = saveData;
 	}
-	
-	public void reloadSnapshot(){
+
+	public void reloadSnapshot() {
 		this.saveData = saveDataSnapshot;
 	}
-	
-	public boolean hasUnsavedChanges(){
+
+	public boolean hasUnsavedChanges() {
 		return hasUnsavedChanges;
 	}
-	
-	public String getClientPath(){
+
+	public String getClientPath() {
 		return this.clientPathString;
 	}
 

@@ -166,7 +166,7 @@ public class MenubarDialog extends BasicDialog {
 		this.visible = false;
 	}
 	
-	public void refresh(){
+	public void refreshVisibility(){
 		this.setVisible(visible);
 	}
 

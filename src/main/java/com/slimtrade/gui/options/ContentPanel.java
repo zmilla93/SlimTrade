@@ -23,8 +23,8 @@ public class ContentPanel extends JPanel {
 		// this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setLayout(new GridBagLayout());
 		Dimension size = new Dimension(width, height);
-		// this.setPreferredSize(size);
-		// this.setMinimumSize(new Dimension(width, 100));
+//		 this.setPreferredSize(size);
+//		 this.setMinimumSize(new Dimension(width, height));
 		// this.setMaximumSize(size);
 		this.setVisible(false);
 		// this.revalidate();
