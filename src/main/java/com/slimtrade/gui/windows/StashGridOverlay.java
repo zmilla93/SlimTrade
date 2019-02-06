@@ -173,6 +173,9 @@ public class StashGridOverlay extends BasicWindowDialog{
 			public void click(MouseEvent e) {
 				reset();
 				hideStashWindow();
+				FrameManager.menubar.refresh();
+				FrameManager.menubarToggle.refresh();
+				FrameManager.optionsWindow.setVisible(true);
 		    }
 		});
 	}

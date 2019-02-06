@@ -4,17 +4,17 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.buttons.MenubarToggleButton;
+import main.java.com.slimtrade.gui.menubar.MenubarDialog;
+import main.java.com.slimtrade.gui.menubar.MenubarToggleButton;
 import main.java.com.slimtrade.gui.messaging.ItemHighlighter;
 import main.java.com.slimtrade.gui.messaging.MessageManager;
 import main.java.com.slimtrade.gui.messaging.StashHelperContainer;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
 import main.java.com.slimtrade.gui.windows.CharacterWindow;
 import main.java.com.slimtrade.gui.windows.HistoryWindow;
-import main.java.com.slimtrade.gui.windows.MenubarDialog;
+import main.java.com.slimtrade.gui.windows.OverlayManager;
 import main.java.com.slimtrade.gui.windows.StashGridOverlay;
 
 public class FrameManager {
@@ -33,6 +33,7 @@ public class FrameManager {
 	public static StashHelperContainer stashHelperContainer = new StashHelperContainer();
 	public static StashGridOverlay stashOverlay;
 	public static CharacterWindow characterWindow = new CharacterWindow();
+	public static OverlayManager overlayManager = new OverlayManager();
 	
 	public FrameManager(){
 		
@@ -53,23 +54,12 @@ public class FrameManager {
 			chracterData = Main.fileManager.getCharacterData();
 			characterWindow.setCharacter(chracterData[0], chracterData[1]);
 		}
-
-//		TradeOffer trade1 = new TradeOffer(MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls#1", "ITEM_NAME", 7.5, "chaos", 3.5, "STASH_TAB", 1, 1, "");
-//		TradeOffer trade2 = new TradeOffer(MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls#2", "ITEM_NAME", 2.0, "chaos", 750.0, "STASH_TAB", 1, 1, "");
-
-		menubar.setVisible(true);
 		
-		
-//		ChatParser parser = new ChatParser();
-//		parser.init();
-		
-//		stashOverlay.setVisible(true);
-//		stashHelperContainer.setBackground(Color.yellow);
-//		stashHelperContainer.setVisible(true);
+		menubar.showDialog();
 		
 	}
 	
-	public static void hideAllFrames(){
+	public static void hideMenuFrames(){
 		characterWindow.setVisible(false);
 		historyWindow.setVisible(false);
 		optionsWindow.setVisible(false);

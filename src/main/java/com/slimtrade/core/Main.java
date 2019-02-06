@@ -25,6 +25,7 @@ import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
+import main.java.com.slimtrade.gui.windows.OverlayManager;
 
 public class Main {
 
@@ -35,16 +36,18 @@ public class Main {
 	public static SaveManager saveManager = new SaveManager();
 	public static ChatParser chatParser = new ChatParser();
 	public static FileMonitor fileMonitor;
+	
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		BasicDialog load = new BasicDialog();
-		load.setLayout(new GridBagLayout());
-		load.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());
-		load.setSize(200, 80);
-		FrameManager.centerFrame(load);
-		load.setVisible(true);
+		//Move to independent file, make static to load faster
+		BasicDialog loadWindow = new BasicDialog();
+		loadWindow.setLayout(new GridBagLayout());
+		loadWindow.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());
+		loadWindow.setSize(200, 80);
+		FrameManager.centerFrame(loadWindow);
+		loadWindow.setVisible(true);
 		
 		// JNativeHook Setup
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -79,8 +82,6 @@ public class Main {
 //				SaveManager saveManager = new SaveManager();
 				FrameManager frameManager = new FrameManager();
 				
-				//TODO : Reenable
-				System.out.println("WARNING : Chat Parser Disabled - Reenable in Main");
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 				
@@ -129,7 +130,8 @@ public class Main {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
-//				
+				
+				//TODO : overlay manager
 //				OverlayManager r = new OverlayManager();
 //				r.show();
 				
@@ -142,13 +144,13 @@ public class Main {
 	        }
 	    }));
 		
-		load.dispose();
+		loadWindow.dispose();
 
 	}
 	
 	public static void closeProgram(){
-		System.out.println("Exiting program.");
 		fileMonitor.stopMonitor();
+		System.out.println("SlimTrade Terminated");
 	}
 
 }

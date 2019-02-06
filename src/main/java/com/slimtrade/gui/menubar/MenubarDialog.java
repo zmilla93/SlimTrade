@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.windows;
+package main.java.com.slimtrade.gui.menubar;
 
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
@@ -16,7 +16,6 @@ import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
-import main.java.com.slimtrade.gui.buttons.MenubarButton;
 
 public class MenubarDialog extends BasicDialog {
 
@@ -38,6 +37,7 @@ public class MenubarDialog extends BasicDialog {
 	private MenubarButton refreshButton;
 	private MenubarButton quitButton;
 	private MenubarButton minimizeButton;
+	private boolean visible = false;
 
 	public MenubarDialog() {
 		this.setBounds(0, TradeUtility.screenSize.height - TOTAL_HEIGHT, MenubarButton.width, TOTAL_HEIGHT);
@@ -71,7 +71,7 @@ public class MenubarDialog extends BasicDialog {
 				if (FrameManager.optionsWindow.isVisible()) {
 					FrameManager.optionsWindow.setVisible(false);
 				} else {
-					FrameManager.hideAllFrames();
+					FrameManager.hideMenuFrames();
 					FrameManager.optionsWindow.setVisible(true);
 				}
 			}
@@ -83,7 +83,7 @@ public class MenubarDialog extends BasicDialog {
 				if (FrameManager.stashOverlay.isVisible()) {
 					FrameManager.stashOverlay.setVisible(false);
 				} else {
-					FrameManager.hideAllFrames();
+					FrameManager.hideMenuFrames();
 					FrameManager.stashOverlay.setVisible(true);
 				}
 			}
@@ -95,7 +95,7 @@ public class MenubarDialog extends BasicDialog {
 				if (FrameManager.historyWindow.isVisible()) {
 					FrameManager.historyWindow.setVisible(false);
 				} else {
-					FrameManager.hideAllFrames();
+					FrameManager.hideMenuFrames();
 					FrameManager.historyWindow.setVisible(true);
 				}
 			}
@@ -107,7 +107,7 @@ public class MenubarDialog extends BasicDialog {
 				if (FrameManager.characterWindow.isVisible()) {
 					FrameManager.characterWindow.setVisible(false);
 				} else {
-					FrameManager.hideAllFrames();
+					FrameManager.hideMenuFrames();
 					FrameManager.characterWindow.setVisible(true);
 				}
 			}
@@ -150,10 +150,24 @@ public class MenubarDialog extends BasicDialog {
 
 		minimizeButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
-				FrameManager.menubar.setVisible(false);
-				FrameManager.menubarToggle.setVisible(true);
+				FrameManager.menubar.hideDialog();
+				FrameManager.menubarToggle.showDialog();
 			}
 		});
+	}
+	
+	public void showDialog(){
+		this.setVisible(true);
+		this.visible = true;
+	}
+	
+	public void hideDialog(){
+		this.setVisible(false);
+		this.visible = false;
+	}
+	
+	public void refresh(){
+		this.setVisible(visible);
 	}
 
 	private void refreshButtonText() {

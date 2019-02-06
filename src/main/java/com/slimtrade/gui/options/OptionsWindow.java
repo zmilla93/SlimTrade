@@ -49,10 +49,8 @@ public class OptionsWindow extends BasicWindowDialog {
 		scrollPane.getVerticalScrollBar().setUnitIncrement(8);
 
 		this.addContainerBuffer();
-
 		
-		
-		
+		//BASICS
 		OptionTitlePanel basicsTitle = new OptionTitlePanel("Basics");
 		BasicsPanel basicsPanel = new BasicsPanel(contentWidth, height);
 		
@@ -61,7 +59,7 @@ public class OptionsWindow extends BasicWindowDialog {
 		linkToggle(basicsTitle, basicsPanel);
 		this.addContainerBuffer();
 		
-		// Buttons
+		// MACRO BUTTONS
 		
 		OptionTitlePanel macroTitle = new OptionTitlePanel("Button Macros");
 		MacroPanel macroPanel = new MacroPanel(contentWidth, 600);
@@ -108,7 +106,7 @@ public class OptionsWindow extends BasicWindowDialog {
 		container.add(scrollPane);
 
 		FrameManager.centerFrame(this);
-//		this.setVisible(true);
+		this.setVisible(true);
 	}
 
 	private void linkToggle(JPanel title, JPanel content) {

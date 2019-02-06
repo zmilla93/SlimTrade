@@ -64,7 +64,7 @@ public class BasicTitlebar extends JPanel{
 		
 		button.addMouseListener(new AdvancedMouseAdapter() {
 		    public void click(MouseEvent e) {
-		    	FrameManager.hideAllFrames();
+		    	FrameManager.hideMenuFrames();
 		    }
 		});
 		

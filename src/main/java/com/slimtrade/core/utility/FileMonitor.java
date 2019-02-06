@@ -60,16 +60,15 @@ public class FileMonitor {
 					} catch (InterruptedException e) {
 						try {
 							watcher.close();
-						} catch (IOException e1) {
-							e1.printStackTrace();
+						} catch (IOException e2) {
+							e2.printStackTrace();
 						}
 						break;
 					}
 					for (WatchEvent<?> event : key.pollEvents()) {
-//						System.out.println(event.kind());
 						Main.chatParser.update();
 						if (event.kind() == StandardWatchEventKinds.OVERFLOW) {
-							System.out.println("Overflow");
+							System.err.println("Overflow");
 							continue;
 						}
 					}
@@ -86,11 +85,8 @@ public class FileMonitor {
 	public void stopMonitor(){
 		monitor.interrupt();
 		try {
-			
 			monitor.join();
-			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

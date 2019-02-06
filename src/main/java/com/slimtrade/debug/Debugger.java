@@ -41,6 +41,9 @@ public class Debugger extends JFrame {
 				FrameManager.forceAllToTop();
 			}
 		});
+		
+		this.revalidate();
+		this.repaint();
 
 	}
 
@@ -49,7 +52,6 @@ public class Debugger extends JFrame {
 			for (int i = 0; i < text.length; i++) {
 				logTextArea.setText(logTextArea.getText() + "\n" + text[i]);
 			}
-
 		} else {
 			logTextArea.setText(text[0]);
 			if (text.length > 1) {

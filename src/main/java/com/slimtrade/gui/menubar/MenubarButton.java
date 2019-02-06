@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.buttons;
+package main.java.com.slimtrade.gui.menubar;
 
 import java.awt.Dimension;
 

@@ -14,6 +14,7 @@ public class MacroPanel extends ContentPanel {
 		gc.gridx = 0;
 		gc.gridy = 0;
 
+		this.addBufferY(bufferSize, gc);
 		this.add(new MacroCell("Wait Button", "/resources/icons/clock1.png", "", this), gc);
 		this.addBufferY(bufferSize, gc);
 		// TODO : Refresh Button

@@ -3,6 +3,7 @@ package main.java.com.slimtrade.gui.windows;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
@@ -11,17 +12,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
-import main.java.com.slimtrade.gui.buttons.MenubarButton;
+import main.java.com.slimtrade.gui.menubar.MenubarButton;
+import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 import main.java.com.slimtrade.gui.messaging.MessagePanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
@@ -35,6 +37,8 @@ public class OverlayManager {
 	private JPanel menubarExpandButton = new JPanel();
 	private JPanel menubarPanelTop = new JPanel();
 	private JPanel menubarPanelBottom = new JPanel();
+	private JButton cancelButton = new JButton("Cancel");
+	private JButton saveButton = new JButton("Save");
 
 	private final int BORDER_SIZE = 2;
 	private final int MENUBAR_BUTTON_SIZE = MenubarButton.height - BORDER_SIZE * 2;
@@ -131,8 +135,6 @@ public class OverlayManager {
 		JLabel msgPanelExpandLabel = new JLabel("Message Panel Grow Direction");
 		int bufferSize = 10;
 		
-//		JComboBox<String> menubarCombo = new JComboBox<String>();
-//		JComboBox<String> msgPanelCombo = new JComboBox<String>();
 		menubarCombo.addItem("Top Left");
 		menubarCombo.addItem("Top Right");
 		menubarCombo.addItem("Bottom Left");
@@ -142,6 +144,14 @@ public class OverlayManager {
 		msgPanelCombo.addItem("Downwards");
 		Dimension panelSize = menubarCombo.getPreferredSize();
 		msgPanelCombo.setPreferredSize(panelSize);
+		
+		//CANCEL + SAVE BUTTONS
+		JPanel closePanel = new JPanel();
+		closePanel.setOpaque(false);
+		closePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		closePanel.add(cancelButton);
+		closePanel.add(new BufferPanel(20, 0));
+		closePanel.add(saveButton);
 				
 		optionsPanel.add(menubarButtonLabel, gcOptions);
 		gcOptions.gridx = 1;
@@ -156,6 +166,8 @@ public class OverlayManager {
 		gcOptions.gridx = 2;
 		optionsPanel.add(msgPanelCombo, gcOptions);
 
+		
+		//BUILD HELP DIALOG
 		helpDialog.add(help1, gcHelp);
 		gcHelp.gridy++;
 		helpDialog.add(new BufferPanel(0, 15), gcHelp);
@@ -167,6 +179,15 @@ public class OverlayManager {
 		helpDialog.add(new BufferPanel(0, 15), gcHelp);
 		gcHelp.gridy++;
 		helpDialog.add(optionsPanel, gcHelp);
+		gcHelp.gridy++;
+		helpDialog.add(new BufferPanel(0, 15), gcHelp);
+		gcHelp.gridy++;
+		helpDialog.add(closePanel, gcHelp);
+		
+		System.out.println(helpDialog.getPreferredSize());
+		Dimension pref = helpDialog.getPreferredSize();
+		//TODO : Set buffer
+		helpDialog.setSize(pref.width+20, pref.height+20);
 
 		menubarDialog.getContentPane().addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
@@ -198,6 +219,19 @@ public class OverlayManager {
 		menubarCombo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				updateMenubarButton();
+			}
+		});
+		
+		cancelButton.addMouseListener(new AdvancedMouseAdapter(){
+			public void click(MouseEvent e){
+				hideDialog();
+			}
+		});
+		
+		saveButton.addMouseListener(new AdvancedMouseAdapter(){
+			public void click(MouseEvent e){
+				//TODO : Add saving
+				hideDialog();
 			}
 		});
 
@@ -243,16 +277,19 @@ public class OverlayManager {
 		menubarDialog.repaint();
 	}
 
-	public void show() {
+	public void showDialog() {
 		helpDialog.setVisible(true);
 		menubarDialog.setVisible(true);
 		messageDialog.setVisible(true);
 	}
 
-	public void hide() {
+	public void hideDialog() {
 		helpDialog.setVisible(false);
 		menubarDialog.setVisible(false);
 		messageDialog.setVisible(false);
+		FrameManager.menubar.refresh();
+		FrameManager.menubarToggle.refresh();
+		FrameManager.optionsWindow.setVisible(true);
 	}
 
 }

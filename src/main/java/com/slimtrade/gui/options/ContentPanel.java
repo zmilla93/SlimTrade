@@ -25,20 +25,20 @@ public class ContentPanel extends JPanel {
 		Dimension size = new Dimension(width, height);
 		// this.setPreferredSize(size);
 		// this.setMinimumSize(new Dimension(width, 100));
-//		this.setMaximumSize(size);
+		// this.setMaximumSize(size);
 		this.setVisible(false);
 		// this.revalidate();
 		this.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
 	}
 
-	protected void autoResize(){
+	protected void autoResize() {
 		Dimension size = this.getPreferredSize();
-//		size.width = size.width+widthBuffer;
-		size.width = OptionsWindow.contentWidth;
-		size.height = size.height+heightBuffer;
+		size.width = size.width + widthBuffer;
+		// size.width = OptionsWindow.contentWidth;
+		size.height = size.height + heightBuffer;
 		this.setMaximumSize(size);
 	}
-	
+
 	protected void addPair(Component c1, Component c2, GridBagConstraints gc) {
 		this.add(c1, gc);
 		gc.gridx++;
@@ -46,7 +46,7 @@ public class ContentPanel extends JPanel {
 		gc.gridx = 0;
 		gc.gridy++;
 	}
-	
+
 	protected void addPair(Component c1, Component c2, int buffer, GridBagConstraints gc) {
 		this.add(c1, gc);
 		gc.gridx++;
@@ -56,7 +56,7 @@ public class ContentPanel extends JPanel {
 		gc.gridx = 0;
 		gc.gridy++;
 	}
-	
+
 	protected void addPair(Component c1, Component c2, int bufferX, int bufferY, GridBagConstraints gc) {
 		this.add(c1, gc);
 		gc.gridx++;
@@ -68,7 +68,7 @@ public class ContentPanel extends JPanel {
 		this.add(new BufferPanel(0, bufferY), gc);
 		gc.gridy++;
 	}
-	
+
 	protected void addPairPanel(Component c1, Component c2, int bufferX, int bufferY, GridBagConstraints gc) {
 		GridBagConstraints gcCenter = new GridBagConstraints();
 		JPanel p1 = new JPanel(new GridBagLayout());
@@ -92,8 +92,8 @@ public class ContentPanel extends JPanel {
 		this.add(new BufferPanel(0, bufferY), gc);
 		gc.gridy++;
 	}
-	
-	protected void addBufferY(int buffer, GridBagConstraints gc){
+
+	protected void addBufferY(int buffer, GridBagConstraints gc) {
 		gc.gridy++;
 		this.add(new BufferPanel(0, buffer), gc);
 		gc.gridy++;
