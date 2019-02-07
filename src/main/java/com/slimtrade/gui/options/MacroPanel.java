@@ -45,20 +45,20 @@ public class MacroPanel extends ContentPanel {
 
 		// INBUILT MACROS
 		inviteCell = new InbuiltMacroCell("Invite Button", "/resources/icons/invite.png", this);
-		inviteCell.addText("Invites a player to your party");
+//		inviteCell.addText("Invites a player to your party");
 		
 		warpCell = new InbuiltMacroCell("Warp Button", "/resources/icons/warp.png", this);
-		warpCell.addText("Warps you to another player's hideout");
+//		warpCell.addText("Warps you to another player's hideout");
 		
 		tradeCell = new InbuiltMacroCell("Trade Button", "/resources/icons/cart.png", this);
-		tradeCell.addText("Trades with a player");
+//		tradeCell.addText("Trades with a player");
 		
 		kickLeaveCell = new InbuiltMacroCell("Kick/Leave Button", "/resources/icons/leave.png", this);
-		kickLeaveCell.addText("Incoming Trade : Kicks a player from your party");
-		kickLeaveCell.addText("Outgoing Trade : Leaves the current party");
+//		kickLeaveCell.addText("Incoming Trade : Kicks a player from your party");
+//		kickLeaveCell.addText("Outgoing Trade : Leaves the current party");
 		
 		homeCell = new InbuiltMacroCell("Home Button", "/resources/icons/home2.png", this);
-		homeCell.addText("Warps you to your hideout");
+//		homeCell.addText("Warps you to your hideout");
 		
 		closeCell = new InbuiltMacroCell("Close Button", "/resources/icons/close.png", this);
 		closeCell.addText("Closes the respective trade message");

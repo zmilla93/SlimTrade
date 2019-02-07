@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.datatypes;
+package main.java.com.slimtrade.enums;
 
 import java.util.ArrayList;
 

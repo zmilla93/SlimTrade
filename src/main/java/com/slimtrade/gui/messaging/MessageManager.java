@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 import javax.swing.Box;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.datatypes.MessageType;
+import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 
@@ -32,7 +33,7 @@ public class MessageManager extends BasicDialog {
 		// TODO : Get default theme, or move setMessageTheme
 		// ColorManager.setMessageTheme();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setBounds(1200, 0, 500, 400);
+		this.setBounds(1220, 0, 500, 400);
 		this.setBackground(ColorManager.CLEAR);
 		this.setVisible(true);
 	}
@@ -89,7 +90,8 @@ public class MessageManager extends BasicDialog {
 		}
 	}
 
-	private void refresh() {
+	//TODO : Move resize to another funciton to be more consistent with refresh function?
+	public void refresh() {
 		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight * messageCount + buffer * messageCount);
 		this.revalidate();
 		this.repaint();
@@ -118,6 +120,10 @@ public class MessageManager extends BasicDialog {
 			this.addMessage(t);
 		}
 		trades.clear();
+	}
+	
+	public void updateLocation(){
+		this.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));
 	}
 
 }

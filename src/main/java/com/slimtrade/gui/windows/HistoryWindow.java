@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.datatypes.ButtonState;
+import main.java.com.slimtrade.enums.ButtonState;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
 import main.java.com.slimtrade.gui.buttons.SelectorButton;
@@ -129,11 +129,6 @@ public class HistoryWindow extends BasicWindowDialog {
 
 		// addTrade(dummyTrade, false);
 
-	}
-
-	private void refresh() {
-		this.revalidate();
-		this.repaint();
 	}
 
 	// TODO : outgoing trades don't reorder as they should

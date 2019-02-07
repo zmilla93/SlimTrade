@@ -175,6 +175,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 				hideStashWindow();
 				FrameManager.menubar.refreshVisibility();
 				FrameManager.menubarToggle.refreshVisibility();
+				FrameManager.messageManager.setVisible(true);
 				FrameManager.optionsWindow.setVisible(true);
 		    }
 		});

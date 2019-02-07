@@ -50,9 +50,6 @@ public class BasicWindowDialog extends BasicMovableDialog {
 		titlebarPanel.setPreferredSize(new Dimension(defaultWidth-titlebarHeight, titlebarHeight));
 		titlebarPanel.setBackground(ColorManager.GenericWindow.titlebarBG);
 		
-		System.out.println(title + " COLOR : " + ColorManager.GenericWindow.titlebarBG);
-//		System.out.println(ColorManager.GenericWindow.titlebarBG);
-		
 		titlebarContainer.setPreferredSize(new Dimension(defaultWidth, titlebarHeight));
 		titlebarContainer.setBackground(ColorManager.GenericWindow.closeButtonBG);
 		

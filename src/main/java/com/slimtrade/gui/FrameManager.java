@@ -5,10 +5,11 @@ import java.awt.Point;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.SaveManager;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
-import main.java.com.slimtrade.gui.menubar.MenubarToggleButton;
+import main.java.com.slimtrade.gui.menubar.MenubarExpandButton;
 import main.java.com.slimtrade.gui.messaging.ItemHighlighter;
 import main.java.com.slimtrade.gui.messaging.MessageManager;
 import main.java.com.slimtrade.gui.messaging.StashHelperContainer;
@@ -20,19 +21,10 @@ import main.java.com.slimtrade.gui.windows.StashGridOverlay;
 
 public class FrameManager {
 
-	// public static Debug debug = new Debug();
-
-	// public static FlowLayout flowLeft = new FlowLayout(FlowLayout.LEFT, 0,
-	// 0);
-	// public static FlowLayout flowCenter = new FlowLayout(FlowLayout.CENTER,
-	// 0, 0);
-	// public static FlowLayout flowRight = new FlowLayout(FlowLayout.RIGHT, 0,
-	// 0);
-
 	public static OptionsWindow optionsWindow;
 	public static HistoryWindow historyWindow;
 	public static MenubarDialog menubar;
-	public static MenubarToggleButton menubarToggle;
+	public static MenubarExpandButton menubarToggle;
 	public static MessageManager messageManager;
 	public static StashHelperContainer stashHelperContainer;
 	public static StashGridOverlay stashOverlay;
@@ -44,7 +36,7 @@ public class FrameManager {
 		optionsWindow = new OptionsWindow();
 		historyWindow = new HistoryWindow();
 		menubar = new MenubarDialog();
-		menubarToggle = new MenubarToggleButton();
+		menubarToggle = new MenubarExpandButton();
 		messageManager = new MessageManager();
 		stashHelperContainer = new StashHelperContainer();
 		characterWindow = new CharacterWindow();
@@ -72,6 +64,10 @@ public class FrameManager {
 
 		// LOAD DATA
 
+		menubar.updateLocation();
+		menubarToggle.updateLocation();
+		menubar.reorder();
+		messageManager.updateLocation();
 		menubar.showDialog();
 
 	}

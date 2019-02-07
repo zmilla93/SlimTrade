@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 import javax.swing.Timer;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.debug.Debugger;
+import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 
 public class ChatParser {

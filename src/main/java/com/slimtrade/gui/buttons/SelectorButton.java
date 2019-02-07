@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
-import main.java.com.slimtrade.datatypes.ButtonState;
+import main.java.com.slimtrade.enums.ButtonState;
 
 public class SelectorButton extends JPanel {
 

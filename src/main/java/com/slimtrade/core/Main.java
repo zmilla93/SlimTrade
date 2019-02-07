@@ -22,9 +22,11 @@ import main.java.com.slimtrade.core.observing.GlobalMouseListener;
 import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
+import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 
 public class Main {
 
@@ -44,6 +46,7 @@ public class Main {
 		loadWindow.setLayout(new GridBagLayout());
 		loadWindow.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());
 		loadWindow.setSize(200, 80);
+//		loadWindow.setSize(418, 169);
 		FrameManager.centerFrame(loadWindow);
 		loadWindow.setVisible(true);
 
@@ -71,6 +74,7 @@ public class Main {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+//				Locale swede = new Locale("sv", "SE");
 				Locale.setDefault(Locale.US);
 
 				// SAVE MANAGER DEFAULTS
@@ -85,8 +89,17 @@ public class Main {
 				saveManager.putBoolDefault(true, "macroButtons", "thankButton", "enabled");
 				saveManager.putBoolDefault(false, "macroButtons", "thankButton", "secondaryEnabled");
 				saveManager.putStringDefault("thanks", "macroButtons", "thankButton", "textLMB");
+				saveManager.putStringDefault("", "macroButtons", "thankButton", "textRMB");
 				
-				saveManager.saveToDisk();
+				//Overlay
+				saveManager.putIntDefault(0, "overlayManager", "menubar", "x");
+				saveManager.putIntDefault(TradeUtility.screenSize.height-MenubarDialog.TOTAL_HEIGHT, "overlayManager", "menubar", "y");
+				saveManager.putIntDefault(1220, "overlayManager", "messageManager", "x");
+				saveManager.putIntDefault(0, "overlayManager", "messageManager", "y");
+				
+				saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
+				
+//				saveManager.saveToDisk();
 
 				// ColorManager.setMessageTheme();
 				try {
@@ -115,6 +128,7 @@ public class Main {
 	}
 
 	public static void closeProgram() {
+		saveManager.saveToDisk();
 		try {
 			GlobalScreen.unregisterNativeHook();
 		} catch (NativeHookException e) {

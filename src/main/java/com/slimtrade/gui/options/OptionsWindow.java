@@ -129,7 +129,7 @@ public class OptionsWindow extends BasicWindowDialog {
 		saveButton.addMouseListener(new AdvancedMouseAdapter(){
 			public void click(MouseEvent e){
 				macroPanel.saveAll();
-				Main.saveManager.saveToDisk();
+//				Main.saveManager.saveToDisk();
 			}
 		});
 		
@@ -141,6 +141,8 @@ public class OptionsWindow extends BasicWindowDialog {
 		
 		//TODO : Temp
 		macroPanel.setVisible(true);
+		
+		
 		
 		this.setVisible(true);
 	}

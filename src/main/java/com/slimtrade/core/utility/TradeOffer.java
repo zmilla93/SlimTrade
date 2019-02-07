@@ -2,7 +2,7 @@ package main.java.com.slimtrade.core.utility;
 
 import java.io.Serializable;
 
-import main.java.com.slimtrade.datatypes.MessageType;
+import main.java.com.slimtrade.enums.MessageType;
 
 public class TradeOffer implements Serializable{
 

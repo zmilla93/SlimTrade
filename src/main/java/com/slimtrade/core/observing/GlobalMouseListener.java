@@ -7,7 +7,7 @@ import com.sun.jna.Native;
 import com.sun.jna.PointerType;
 
 import main.java.com.slimtrade.core.utility.User32;
-import main.java.com.slimtrade.datatypes.WindowType;
+import main.java.com.slimtrade.enums.WindowType;
 import main.java.com.slimtrade.gui.FrameManager;
 
 public class GlobalMouseListener implements NativeMouseInputListener {

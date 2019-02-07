@@ -96,6 +96,7 @@ public class BasicsPanel extends ContentPanel {
 				FrameManager.hideMenuFrames();
 				FrameManager.menubar.setVisible(false);
 				FrameManager.menubarToggle.setVisible(false);
+				FrameManager.messageManager.setVisible(false);
 				FrameManager.stashOverlay.setVisible(true);
 			}
 		});
@@ -106,6 +107,7 @@ public class BasicsPanel extends ContentPanel {
 				FrameManager.hideMenuFrames();
 				FrameManager.menubar.setVisible(false);
 				FrameManager.menubarToggle.setVisible(false);
+				FrameManager.messageManager.setVisible(false);
 				FrameManager.overlayManager.showDialog();
 			}
 		});

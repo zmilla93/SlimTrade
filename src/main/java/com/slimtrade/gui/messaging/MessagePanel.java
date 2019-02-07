@@ -27,7 +27,7 @@ import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
-import main.java.com.slimtrade.datatypes.MessageType;
+import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
 import main.java.com.slimtrade.gui.buttons.IconButton;

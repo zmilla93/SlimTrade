@@ -3,21 +3,23 @@ package main.java.com.slimtrade.core.utility;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import main.java.com.slimtrade.datatypes.CurrencyType;
+import main.java.com.slimtrade.enums.CurrencyType;
+import main.java.com.slimtrade.enums.ExpandDirection;
+import main.java.com.slimtrade.enums.MenubarButtonLocation;
 
 public class TradeUtility {
 
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-	public static String getFixedCurrencyString(String inputString) {
+	public static String getFixedCurrencyString(String input) {
 		String[] currency = { "alch", "chaos", "ex" };
-		String fixedString = inputString.replaceAll("\\s", "").replaceAll("(?i)(orb|of)", "");
+		String fixedString = input.replaceAll("\\s", "").replaceAll("(?i)(orb|of)", "");
 		for (String s : currency) {
 			if (fixedString.toLowerCase().matches(s + ".*")) {
 				return s;
 			}
 		}
-		return inputString;
+		return input;
 	}
 
 	public static String getFixedItemName(String item, double count, boolean paren) {
@@ -35,15 +37,33 @@ public class TradeUtility {
 	}
 
 	// TODO : Could remove empty string check
-	public static CurrencyType getCurrencyType(String inputString) {
+	public static CurrencyType getCurrencyType(String input) {
 		for (CurrencyType type : CurrencyType.values()) {
 			for (String tag : type.getTags()) {
 				if (tag == "") {
 					break;
 				}
-				if (inputString.contains(tag)) {
+				if (input.contains(tag)) {
 					return type;
 				}
+			}
+		}
+		return null;
+	}
+	
+	public static ExpandDirection getExpandDirection(String input){
+		for(ExpandDirection dir : ExpandDirection.values()){
+			if(dir.toString().equals(input)){
+				return dir;
+			}
+		}
+		return null;
+	}
+	
+	public static MenubarButtonLocation getMenubarButtonLocation(String input){
+		for(MenubarButtonLocation location : MenubarButtonLocation.values()){
+			if(location.getText().equals(input)){
+				return location;
 			}
 		}
 		return null;

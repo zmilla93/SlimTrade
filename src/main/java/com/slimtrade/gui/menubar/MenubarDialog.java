@@ -1,10 +1,10 @@
 package main.java.com.slimtrade.gui.menubar;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -12,7 +12,8 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.datatypes.MessageType;
+import main.java.com.slimtrade.enums.ExpandDirection;
+import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
@@ -23,10 +24,10 @@ public class MenubarDialog extends BasicDialog {
 
 	private static int buttonCount = 9;
 	private static int spacerCount = 2;
-	private static int spacerHeight = (int) (MenubarButton.height * 0.8);
+	private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.8);
 
-	public static final int TOTAL_WIDTH = MenubarButton.width;
-	public static final int TOTAL_HEIGHT = MenubarButton.height * buttonCount + spacerHeight * spacerCount;
+	public static final int TOTAL_WIDTH = MenubarButton.WIDTH;
+	public static final int TOTAL_HEIGHT = MenubarButton.HEIGHT * buttonCount + spacerHeight * spacerCount;
 
 	private MenubarButton optionsButton;
 	private MenubarButton historyButton;
@@ -38,31 +39,43 @@ public class MenubarDialog extends BasicDialog {
 	private MenubarButton quitButton;
 	private MenubarButton minimizeButton;
 	private boolean visible = false;
+	private boolean order = false;
+//	private ArrayList<Component> componentList = new ArrayList<Component>();
+	
+	private ExpandDirection expandDirection = ExpandDirection.DOWN;
 
 	public MenubarDialog() {
-		this.setBounds(0, TradeUtility.screenSize.height - TOTAL_HEIGHT, MenubarButton.width, TOTAL_HEIGHT);
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		//TODO : Modify constructor
+		Container container = this.getContentPane();
+		
+		this.setBounds(0, TradeUtility.screenSize.height - TOTAL_HEIGHT, MenubarButton.WIDTH, TOTAL_HEIGHT);
+		container.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+//		c.setLayout(new BoxLayout(c, BoxLayout.PAGE_AXIS));
 		optionsButton = new MenubarButton("");
-		this.add(optionsButton);
+		container.add(optionsButton);
 		historyButton = new MenubarButton("");
-		this.add(historyButton);
+		container.add(historyButton);
 		stashButton = new MenubarButton("");
-		this.add(stashButton);
+		container.add(stashButton);
 		characterButton = new MenubarButton("");
-		this.add(characterButton);
+		container.add(characterButton);
 		testButton = new MenubarButton("");
-		this.add(testButton);
+		container.add(testButton);
 		clearButton = new MenubarButton("");
-		this.add(clearButton);
+		container.add(clearButton);
 		refreshButton = new MenubarButton("");
-		this.add(refreshButton);
-		this.add(new BasicPanel(MenubarButton.width, spacerHeight));
+		container.add(refreshButton);
+		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
 		quitButton = new MenubarButton("");
-		this.add(quitButton);
-		this.add(new BasicPanel(MenubarButton.width, spacerHeight));
+		container.add(quitButton);
+		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
 		minimizeButton = new MenubarButton("");
-		this.add(minimizeButton);
-
+		container.add(minimizeButton);
+		
+//		for(Component c : container.getComponents()){
+//			componentList.add(c);
+//		}
+		
 		this.refreshButtonText();
 
 		// OPTIONS
@@ -135,9 +148,6 @@ public class MenubarDialog extends BasicDialog {
 		refreshButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
 				FrameManager.forceAllToTop();
-				// Locale swede = new Locale("sv", "SE");
-				// Locale.setDefault(swede);
-				// refreshButtonText();
 			}
 		});
 
@@ -148,10 +158,12 @@ public class MenubarDialog extends BasicDialog {
 			}
 		});
 
+		//TODO : Is there a way to avoid calling refresh here?
 		minimizeButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
-				FrameManager.menubar.hideDialog();
 				FrameManager.menubarToggle.showDialog();
+				FrameManager.menubar.hideDialog();
+				FrameManager.menubarToggle.refresh();
 			}
 		});
 	}
@@ -164,7 +176,7 @@ public class MenubarDialog extends BasicDialog {
 	public void hideDialog(){
 		this.setVisible(false);
 		this.visible = false;
-	}
+	}	
 	
 	public void refreshVisibility(){
 		this.setVisible(visible);
@@ -181,6 +193,67 @@ public class MenubarDialog extends BasicDialog {
 		refreshButton.setText(lang.getString("refreshButton"));
 		quitButton.setText(lang.getString("quitButton"));
 		minimizeButton.setText(lang.getString("minimizeButton"));
+	}
+	
+	public void updateLocation(){
+		this.setLocation(Main.saveManager.getInt("overlayManager", "menubar", "x"), Main.saveManager.getInt("overlayManager", "menubar", "y"));
+		
+	}
+	
+//	public void setOrder(ExpandDirection dir){
+//		Container container = this.getContentPane();
+//		switch(dir){
+//		case DOWN:
+//			for(Component c : componentList){
+//				container.add(c);
+//			}
+//			break;
+//		case UP:
+//			for(Component c : componentList){
+//				container.add(c, 0);
+//			}
+//			break;
+//		default:
+//			break;
+//		}
+//		this.revalidate();
+//		this.repaint();
+//	}
+	
+//	public void reorder(ExpandDirection dir){
+//		if(dir == this.expandDirection){
+//			return;
+//		}else{
+//			this.expandDirection = dir;
+//			Container container = this.getContentPane();
+//			ArrayList<Component> cList = new ArrayList<Component>();
+//			for(Component c : container.getComponents()){
+//				container.add(c, 0);
+//			}
+//		}		
+//		this.revalidate();
+//		this.repaint();
+//	}
+	
+	public void reorder(){
+		ExpandDirection dir;
+		if(Main.saveManager.getString("overlayManager", "menubar", "buttonLocation").contains("Top")){
+			dir = ExpandDirection.UP;
+		}else{
+			dir = ExpandDirection.DOWN;
+		}
+		if(dir == this.expandDirection){
+			return;
+		}else{
+			this.expandDirection = dir;
+			Container container = this.getContentPane();
+			ArrayList<Component> cList = new ArrayList<Component>();
+			for(Component c : container.getComponents()){
+				container.add(c, 0);
+			}
+		}		
+		this.revalidate();
+		this.repaint();
 	}
 
 }

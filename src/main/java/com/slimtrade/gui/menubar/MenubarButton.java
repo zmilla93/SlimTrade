@@ -8,17 +8,17 @@ import javax.swing.JPanel;
 public class MenubarButton extends JButton{
 	
 	private static final long serialVersionUID = 1L;
-	public static int width = 140;
-	public static int height= 22;
+	public static int WIDTH = 140;
+	public static int HEIGHT= 22;
 	
 	public MenubarButton(){
-		this.setPreferredSize(new Dimension(width, height));
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setFocusable(false);
 	}
 	
 	public MenubarButton(String text){
 		this.setText(text);
-		this.setPreferredSize(new Dimension(width, height));
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setFocusable(false);
 	}
 

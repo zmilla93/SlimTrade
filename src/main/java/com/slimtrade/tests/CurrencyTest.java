@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.datatypes.CurrencyType;
+import main.java.com.slimtrade.enums.CurrencyType;
 
 public class CurrencyTest {
 

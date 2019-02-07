@@ -18,7 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.enums.ExpandDirection;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
@@ -41,7 +43,7 @@ public class OverlayManager {
 	private JButton saveButton = new JButton("Save");
 
 	private final int BORDER_SIZE = 2;
-	private final int MENUBAR_BUTTON_SIZE = MenubarButton.height - BORDER_SIZE * 2;
+	private final int MENUBAR_BUTTON_SIZE = MenubarButton.HEIGHT - BORDER_SIZE * 2;
 
 	Border borderDefault = BorderFactory.createMatteBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, Color.BLACK);
 	Border borderScreenLock = BorderFactory.createMatteBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, Color.RED);
@@ -60,10 +62,13 @@ public class OverlayManager {
 
 	JComboBox<String> menubarCombo = new JComboBox<String>();
 	JComboBox<String> msgPanelCombo = new JComboBox<String>();
-	
+
 	GridBagConstraints gcLeft = new GridBagConstraints();
 	GridBagConstraints gcRight = new GridBagConstraints();
-	
+
+	private String oldMenubarCombo;
+	private String oldMsgPanelCombo;
+
 	public OverlayManager() {
 
 		menubarExpandButton.setBackground(Color.LIGHT_GRAY);
@@ -76,6 +81,9 @@ public class OverlayManager {
 		menubarPanelBottom.setPreferredSize(new Dimension(0, MENUBAR_BUTTON_SIZE));
 		menubarExpandButton.setPreferredSize(new Dimension(MENUBAR_BUTTON_SIZE, MENUBAR_BUTTON_SIZE));
 
+		menubarDialog.setLocation(Main.saveManager.getInt("overlayManager", "menubar", "x"), Main.saveManager.getInt("overlayManager", "menubar", "y"));
+		messageDialog.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));
+
 		helpDialog.setLayout(gridbag);
 		menubarDialog.setLayout(new BorderLayout());
 		messageDialog.setLayout(gridbag);
@@ -87,8 +95,8 @@ public class OverlayManager {
 		messageDialog.setBackground(tempBGColor);
 		menubarPanelTop.setOpaque(false);
 		menubarPanelBottom.setOpaque(false);
-//		menubarPanelTop.setBackground(ColorManager.CLEAR);
-//		menubarPanelBottom.setBackground(ColorManager.CLEAR);
+		// menubarPanelTop.setBackground(ColorManager.CLEAR);
+		// menubarPanelBottom.setBackground(ColorManager.CLEAR);
 
 		menubarDialog.getRootPane().setBorder(borderDefault);
 		messageDialog.getRootPane().setBorder(borderDefault);
@@ -98,8 +106,7 @@ public class OverlayManager {
 
 		GridBagConstraints gcCenter = new GridBagConstraints();
 
-
-		////HERE
+		//// HERE
 		gcLeft.weightx = 1;
 		gcRight.weightx = 1;
 		gcLeft.anchor = GridBagConstraints.WEST;
@@ -130,29 +137,31 @@ public class OverlayManager {
 		optionsPanel.setLayout(gridbag);
 		gcOptions.gridx = 0;
 		gcOptions.gridy = 0;
-		
+
 		JLabel menubarButtonLabel = new JLabel("Menubar Expand Button");
 		JLabel msgPanelExpandLabel = new JLabel("Message Panel Grow Direction");
 		int bufferSize = 10;
-		
+
 		menubarCombo.addItem("Top Left");
 		menubarCombo.addItem("Top Right");
 		menubarCombo.addItem("Bottom Left");
 		menubarCombo.addItem("Bottom Right");
-		
+		menubarCombo.setSelectedItem(Main.saveManager.getString("overlayManager", "menubar", "buttonLocation"));
+		updateMenubarButton();
+
 		msgPanelCombo.addItem("Upwards");
 		msgPanelCombo.addItem("Downwards");
 		Dimension panelSize = menubarCombo.getPreferredSize();
 		msgPanelCombo.setPreferredSize(panelSize);
-		
-		//CANCEL + SAVE BUTTONS
+
+		// CANCEL + SAVE BUTTONS
 		JPanel closePanel = new JPanel();
 		closePanel.setOpaque(false);
 		closePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		closePanel.add(cancelButton);
 		closePanel.add(new BufferPanel(20, 0));
 		closePanel.add(saveButton);
-				
+
 		optionsPanel.add(menubarButtonLabel, gcOptions);
 		gcOptions.gridx = 1;
 		optionsPanel.add(new BufferPanel(bufferSize, 0), gcOptions);
@@ -166,8 +175,7 @@ public class OverlayManager {
 		gcOptions.gridx = 2;
 		optionsPanel.add(msgPanelCombo, gcOptions);
 
-		
-		//BUILD HELP DIALOG
+		// BUILD HELP DIALOG
 		helpDialog.add(help1, gcHelp);
 		gcHelp.gridy++;
 		helpDialog.add(new BufferPanel(0, 15), gcHelp);
@@ -183,11 +191,11 @@ public class OverlayManager {
 		helpDialog.add(new BufferPanel(0, 15), gcHelp);
 		gcHelp.gridy++;
 		helpDialog.add(closePanel, gcHelp);
-		
-		System.out.println(helpDialog.getPreferredSize());
+
+		// TODO : Set buffer
 		Dimension pref = helpDialog.getPreferredSize();
-		//TODO : Set buffer
-		helpDialog.setSize(pref.width+20, pref.height+20);
+		helpDialog.setSize(pref.width + 20, pref.height + 20);
+		FrameManager.centerFrame(helpDialog);
 
 		menubarDialog.getContentPane().addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
@@ -215,60 +223,77 @@ public class OverlayManager {
 				}
 			}
 		});
-		
-		menubarCombo.addActionListener(new ActionListener(){
+
+		menubarCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				updateMenubarButton();
 			}
 		});
-		
-		cancelButton.addMouseListener(new AdvancedMouseAdapter(){
-			public void click(MouseEvent e){
-				hideDialog();
-			}
-		});
-		
-		saveButton.addMouseListener(new AdvancedMouseAdapter(){
-			public void click(MouseEvent e){
-				//TODO : Add saving
+
+		cancelButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
+				menubarDialog.setLocation(Main.saveManager.getInt("overlayManager", "menubar", "x"), Main.saveManager.getInt("overlayManager", "menubar", "y"));
+				messageDialog.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));
+				menubarCombo.setSelectedItem(oldMenubarCombo);
+				msgPanelCombo.setSelectedItem(oldMsgPanelCombo);
+				updateMenubarButton();
 				hideDialog();
 			}
 		});
 
-		FrameManager.centerFrame(helpDialog);
+		// TODO : Cleanup
+		saveButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
+				// Save
+				Main.saveManager.putInt(menubarDialog.getX(), "overlayManager", "menubar", "x");
+				Main.saveManager.putInt(menubarDialog.getY(), "overlayManager", "menubar", "y");
+				Main.saveManager.putInt(messageDialog.getX(), "overlayManager", "messageManager", "x");
+				Main.saveManager.putInt(messageDialog.getY(), "overlayManager", "messageManager", "y");
+				Main.saveManager.putString(menubarCombo.getSelectedItem().toString(), "overlayManager", "menubar", "buttonLocation");
+				Main.saveManager.saveToDisk();
+
+				// Update UI
+				FrameManager.menubar.setLocation(menubarDialog.getLocation());
+				FrameManager.messageManager.setLocation(messageDialog.getLocation());
+				FrameManager.menubarToggle.updateLocation();
+				FrameManager.menubar.reorder();
+
+				hideDialog();
+			}
+		});
 	}
-	
-	private void updateMenubarButton(){
-		String sel = (String)menubarCombo.getSelectedItem();
-		switch(sel){
+
+	private void updateMenubarButton() {
+		String sel = (String) menubarCombo.getSelectedItem();
+		switch (sel) {
 		case "Top Left":
-			if(menubarDialog.getScreenLock()){
+			if (menubarDialog.getScreenLock()) {
 				menubarExpandButton.setBorder(borderNWLock);
-			}else{
+			} else {
 				menubarExpandButton.setBorder(borderNW);
 			}
 			menubarPanelTop.add(menubarExpandButton, gcLeft);
 			break;
 		case "Top Right":
-			if(menubarDialog.getScreenLock()){
+			if (menubarDialog.getScreenLock()) {
 				menubarExpandButton.setBorder(borderNELock);
-			}else{
+			} else {
 				menubarExpandButton.setBorder(borderNE);
 			}
 			menubarPanelTop.add(menubarExpandButton, gcRight);
 			break;
 		case "Bottom Left":
-			if(menubarDialog.getScreenLock()){
+			if (menubarDialog.getScreenLock()) {
 				menubarExpandButton.setBorder(borderSWLock);
-			}else{
+			} else {
 				menubarExpandButton.setBorder(borderSW);
 			}
 			menubarPanelBottom.add(menubarExpandButton, gcLeft);
 			break;
 		case "Bottom Right":
-			if(menubarDialog.getScreenLock()){
+			if (menubarDialog.getScreenLock()) {
 				menubarExpandButton.setBorder(borderSELock);
-			}else{
+			} else {
 				menubarExpandButton.setBorder(borderSE);
 			}
 			menubarPanelBottom.add(menubarExpandButton, gcRight);
@@ -278,6 +303,8 @@ public class OverlayManager {
 	}
 
 	public void showDialog() {
+		oldMenubarCombo = menubarCombo.getSelectedItem().toString();
+		oldMsgPanelCombo = msgPanelCombo.getSelectedItem().toString();
 		helpDialog.setVisible(true);
 		menubarDialog.setVisible(true);
 		messageDialog.setVisible(true);
@@ -290,6 +317,7 @@ public class OverlayManager {
 		FrameManager.menubar.refreshVisibility();
 		FrameManager.menubarToggle.refreshVisibility();
 		FrameManager.optionsWindow.setVisible(true);
+		FrameManager.messageManager.setVisible(true);
 	}
 
 }

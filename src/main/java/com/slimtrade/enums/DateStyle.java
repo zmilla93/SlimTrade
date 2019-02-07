@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.options;
+package main.java.com.slimtrade.enums;
 
 public enum DateStyle {
 

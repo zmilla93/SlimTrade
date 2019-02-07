@@ -24,7 +24,7 @@ import javax.swing.border.Border;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
-import main.java.com.slimtrade.datatypes.MessageType;
+import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
 import main.java.com.slimtrade.gui.panels.BasicIcon_REMOVE;

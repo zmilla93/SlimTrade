@@ -7,7 +7,7 @@ import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.datatypes.MessageType;
+import main.java.com.slimtrade.enums.MessageType;
 
 public class EventManager implements PoeInteractionListener {
 
