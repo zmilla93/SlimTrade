@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
@@ -28,18 +29,29 @@ public class FrameManager {
 	// public static FlowLayout flowRight = new FlowLayout(FlowLayout.RIGHT, 0,
 	// 0);
 
-	public static OptionsWindow optionsWindow = new OptionsWindow();
-	public static HistoryWindow historyWindow = new HistoryWindow();
-	public static MenubarDialog menubar = new MenubarDialog();
-	public static MenubarToggleButton menubarToggle = new MenubarToggleButton();
-	public static MessageManager messageManager = new MessageManager();
-	public static StashHelperContainer stashHelperContainer = new StashHelperContainer();
+	public static OptionsWindow optionsWindow;
+	public static HistoryWindow historyWindow;
+	public static MenubarDialog menubar;
+	public static MenubarToggleButton menubarToggle;
+	public static MessageManager messageManager;
+	public static StashHelperContainer stashHelperContainer;
 	public static StashGridOverlay stashOverlay;
-	public static CharacterWindow characterWindow = new CharacterWindow();
-	public static OverlayManager overlayManager = new OverlayManager();
+	public static CharacterWindow characterWindow;
+	public static OverlayManager overlayManager;
 
 	public FrameManager() {
 
+		optionsWindow = new OptionsWindow();
+		historyWindow = new HistoryWindow();
+		menubar = new MenubarDialog();
+		menubarToggle = new MenubarToggleButton();
+		messageManager = new MessageManager();
+		stashHelperContainer = new StashHelperContainer();
+		characterWindow = new CharacterWindow();
+		overlayManager = new OverlayManager();
+		
+//		ColorManager.setMessageTheme();
+		
 		if (Main.fileManager.hasStashData) {
 			int[] stashData = Main.fileManager.getStashData();
 			stashOverlay = new StashGridOverlay(new Point(stashData[0], stashData[1]), stashData[2], stashData[3]);
@@ -74,11 +86,6 @@ public class FrameManager {
 	public static void centerFrame(BasicDialog window) {
 		window.setLocation((TradeUtility.screenSize.width / 2) - (window.getWidth() / 2), (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2));
 	}
-
-	// public static void centerFrame(UNUSED_BasicWindowDialogBorder window){
-	// window.setLocation((TradeUtility.screenSize.width/2)-(window.getWidth()/2),
-	// (TradeUtility.screenSize.height/2)-(window.getHeight()/2));
-	// }
 
 	public static void forceAllToTop() {
 		if (menubarToggle.isVisible()) {

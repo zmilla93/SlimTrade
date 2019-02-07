@@ -155,15 +155,15 @@ public class ChatParser {
 //			itemName, Double itemCount, priceTypeString, Double priceCount
 //			stashtabName, int stashtabX, int stashtabY, bonusText, sentMessage
 			
-			 Double f1 = 0.0;
-			 Double f2 = 0.0;
+			 double d1 = 0.0;
+			 double d2 = 0.0;
 			 // Item Count
 			 if (tradeMsgMatcher.group(10) != null) {
-			 f1 = Double.parseDouble(tradeMsgMatcher.group(10));
+			 d1 = Double.parseDouble(tradeMsgMatcher.group(10));
 			 }
 			 // Price Count
 			 if (tradeMsgMatcher.group(13) != null) {
-			 f2 = Double.parseDouble(tradeMsgMatcher.group(13));
+			 d2 = Double.parseDouble(tradeMsgMatcher.group(13));
 			 }
 			 int i1 = 0;
 			 int i2 = 0;
@@ -179,9 +179,9 @@ public class ChatParser {
 			 tradeMsgMatcher.group(3),
 			 getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5),
 			 tradeMsgMatcher.group(6),
-			 tradeMsgMatcher.group(11), f1,
+			 tradeMsgMatcher.group(11), d1,
 			 TradeUtility.getFixedCurrencyString(tradeMsgMatcher.group(14)),
-			 f2,
+			 d2,
 			 tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24),
 			 tradeMsgMatcher.group(7));
 

@@ -24,7 +24,8 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 	}
 
 	public void nativeMouseReleased(NativeMouseEvent e) {
-//		System.out.println("Click");
+		// System.out.println("Click");
+		//TODO : Adding check for slimtrade messes with drop downs
 		byte[] windowText = new byte[512];
 		PointerType hwnd = User32.INSTANCE.GetForegroundWindow();
 		User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);

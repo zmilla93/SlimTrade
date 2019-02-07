@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
-import main.java.com.slimtrade.gui.buttons.IconButton_REMOVE;
+import main.java.com.slimtrade.gui.buttons.IconButton;
 
 public class BasicWindowDialog extends BasicMovableDialog {
 
@@ -25,7 +25,9 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	public Container container = new JPanel();
 	public JPanel titlebarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	public JPanel titlebarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
-	public IconButton_REMOVE closeButton = new IconButton_REMOVE("/resources/icons/close.png", titlebarHeight, titlebarHeight);
+//	public IconButton_REMOVE closeButton = new IconButton_REMOVE("/resources/icons/close.png", titlebarHeight, titlebarHeight);
+	public IconButton closeButton = new IconButton("/resources/icons/close.png", titlebarHeight);
+	
 	
 	public BasicWindowDialog(){
 		super(false);
@@ -41,12 +43,15 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	//TODO : Center titlebar text
 	private void buildDialog(String title){
 		this.setFocusableWindowState(true);
-		this.getContentPane().setBackground(Color.RED);
+		this.getContentPane().setBackground(Color.GREEN);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setSize(defaultWidth, defaultHeight+titlebarHeight);
 		
 		titlebarPanel.setPreferredSize(new Dimension(defaultWidth-titlebarHeight, titlebarHeight));
 		titlebarPanel.setBackground(ColorManager.GenericWindow.titlebarBG);
+		
+		System.out.println(title + " COLOR : " + ColorManager.GenericWindow.titlebarBG);
+//		System.out.println(ColorManager.GenericWindow.titlebarBG);
 		
 		titlebarContainer.setPreferredSize(new Dimension(defaultWidth, titlebarHeight));
 		titlebarContainer.setBackground(ColorManager.GenericWindow.closeButtonBG);

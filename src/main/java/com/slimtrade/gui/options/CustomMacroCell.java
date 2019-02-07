@@ -15,14 +15,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.gui.panels.BasicIcon_REMOVE;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class MacroCell extends JPanel {
+public class CustomMacroCell extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int width = OptionsWindow.contentWidth;
 	private int rowHeight = OptionsWindow.rowHeight;
+	
+	private String saveKey;
 	
 	private int minWidth = 150;
 	private int minHeight = 60;
@@ -44,8 +47,9 @@ public class MacroCell extends JPanel {
 	
 	private MacroPanel parent;
 	
-	public MacroCell(String title, String iconPath, String saveKey, MacroPanel parent){
+	public CustomMacroCell(String title, String iconPath, String saveKey, MacroPanel parent){
 		this.parent = parent;
+		this.saveKey = saveKey;
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setMinimumSize(new Dimension(600, 100));
 		this.setPreferredSize(null);
@@ -75,7 +79,7 @@ public class MacroCell extends JPanel {
 		checkboxPanel.add(secondaryCheckbox, gc);
 		gc.gridx = 2;
 		checkboxPanel.add(iconPanel, gc);
-
+		
 //		gc.weightx = 0;
 //		gc.weighty = 1;
 		gc.gridx = 0;
@@ -101,6 +105,7 @@ public class MacroCell extends JPanel {
 		
 		this.add(checkboxPanel);
 		this.add(clickPanel);
+	
 		
 		updateView();
 		
@@ -114,6 +119,21 @@ public class MacroCell extends JPanel {
 				updateView();
 			}
 		});
+	}
+	
+	public void applySavedSettings(){
+		enableCheckbox.setSelected(Main.saveManager.getBool("macroButtons", this.saveKey, "enabled"));
+		secondaryCheckbox.setSelected(Main.saveManager.getBool("macroButtons", this.saveKey, "secondaryEnabled"));
+		clickTextFieldLMB.setText(Main.saveManager.getString("macroButtons", this.saveKey, "textLMB"));
+		clickTextFieldRMB.setText(Main.saveManager.getString("macroButtons", this.saveKey, "textRMB"));
+		updateView();
+	}
+	
+	public void saveSettings(){
+		Main.saveManager.putBool(enableCheckbox.isSelected(), "macroButtons", this.saveKey, "enabled");
+		Main.saveManager.putBool(secondaryCheckbox.isSelected(), "macroButtons", this.saveKey, "secondaryEnabled");
+		Main.saveManager.putString(clickTextFieldLMB.getText(), "macroButtons", this.saveKey, "textLMB");
+		Main.saveManager.putString(clickTextFieldRMB.getText(), "macroButtons", this.saveKey, "textRMB");
 	}
 	
 	public void setParent(MacroPanel parent){
@@ -148,6 +168,7 @@ public class MacroCell extends JPanel {
 			secondaryCheckbox.setVisible(false);
 			
 		}
+		this.setPreferredSize(null);
 		if(this.getPreferredSize().width < minWidth){
 			this.setPreferredSize(new Dimension(minWidth, minHeight));
 		}else{

@@ -49,7 +49,7 @@ public class CharacterWindow extends BasicWindowDialog{
 		characterInput.setHorizontalAlignment(JTextField.CENTER);
 		
 		//League
-		leagueSelect.setFocusable(false);
+//		leagueSelect.setFocusable(false);
 		leagueSelect.setSelectedItem("Betrayal");
 
 		//Save Button

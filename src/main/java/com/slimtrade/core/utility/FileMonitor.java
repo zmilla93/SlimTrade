@@ -73,8 +73,6 @@ public class FileMonitor {
 						}
 					}
 					key.reset();
-					boolean valid = key.reset();
-					System.out.println(valid);
 				}
 			}
 		});

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
@@ -51,11 +52,12 @@ public class OptionsWindow extends BasicWindowDialog {
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-		
+
 		// Switch to gridbaglayout
 		optionsContainer.setLayout(new BoxLayout(optionsContainer, BoxLayout.PAGE_AXIS));
-//		optionsContainer.setMaximumSize(new Dimension(contentWidth, height));
-//		optionsContainer.setPreferredSize(new Dimension(contentWidth, height));
+		// optionsContainer.setMaximumSize(new Dimension(contentWidth, height));
+		// optionsContainer.setPreferredSize(new Dimension(contentWidth,
+		// height));
 
 		// TEMP SIZE
 		scrollPane.setPreferredSize(new Dimension(width, (int) (height * 0.9)));
@@ -95,6 +97,14 @@ public class OptionsWindow extends BasicWindowDialog {
 
 		this.addOptionBuffer();
 
+		// Ending Button Panel
+		JPanel endPanel = new JPanel();
+		endPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		endPanel.setOpaque(false);
+		endPanel.add(resetButton);
+		endPanel.add(new BufferPanel(30, 0));
+		endPanel.add(saveButton);
+
 		// optionsConta
 
 		// optionsContainer.add(new ButtonOptionPanel());
@@ -102,18 +112,37 @@ public class OptionsWindow extends BasicWindowDialog {
 		// Container Stuff
 		container.add(scrollPane, gc);
 		gc.gridy++;
-		
-		container.add(resetButton, gc);
+		container.add(new BufferPanel(0, 10), gc);
 		gc.gridy++;
-		container.add(saveButton, gc);
+		container.add(endPanel, gc);
 
 		// TEMP RESIZING
+		// TODO : Cleanup
 		Dimension cur = this.getSize();
 		Dimension pref = this.getPreferredSize();
 		this.setSize(cur.width, pref.height);
 
+		macroPanel.resetAll();
+		
 		FrameManager.centerFrame(this);
-//		this.setVisible(true);
+		
+		saveButton.addMouseListener(new AdvancedMouseAdapter(){
+			public void click(MouseEvent e){
+				macroPanel.saveAll();
+				Main.saveManager.saveToDisk();
+			}
+		});
+		
+		resetButton.addMouseListener(new AdvancedMouseAdapter(){
+			public void click(MouseEvent e){
+				macroPanel.resetAll();
+			}
+		});
+		
+		//TODO : Temp
+		macroPanel.setVisible(true);
+		
+		this.setVisible(true);
 	}
 
 	private void linkToggle(JPanel title, JPanel content) {

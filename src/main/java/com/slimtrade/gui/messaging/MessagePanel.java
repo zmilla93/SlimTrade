@@ -11,14 +11,13 @@ import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Random;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
@@ -26,6 +25,7 @@ import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
+import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.datatypes.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
@@ -53,7 +53,7 @@ public class MessagePanel extends JPanel {
 	private JPanel borderInner = new JPanel();
 	private JPanel container = new JPanel();
 	private JPanel topPanel = new JPanel();
-	private JPanel namePanel = new JPanel();
+	private JPanel namePanel = new NameClickPanel();
 	private JLabel nameLabel = new JLabel();
 	private JPanel pricePanel = new JPanel();
 	private JLabel priceCountLabel = new JLabel();
@@ -61,7 +61,7 @@ public class MessagePanel extends JPanel {
 	private JPanel topButtonPanel = new JPanel();
 	private JPanel bottomButtonPanel = new JPanel();
 	private JPanel bottomPanel = new JPanel();
-	private JPanel itemPanel = new JPanel();
+	private JPanel itemPanel = new ItemClickPanel();
 	private JLabel itemCountLabel = new JLabel();
 	private JLabel itemLabel = new JLabel();
 	private JPanel timerPanel = new JPanel();
@@ -281,6 +281,12 @@ public class MessagePanel extends JPanel {
 					stashHelper.setVisible(true);
 				}
 			});
+			
+			itemPanel.addMouseListener(new AdvancedMouseAdapter(){
+				public void click(MouseEvent e){
+					stashHelper.setVisible(true);
+				}
+			});
 
 			break;
 		case OUTGOING_TRADE:
@@ -293,12 +299,27 @@ public class MessagePanel extends JPanel {
 			bottomButtonPanel.add(thankButton);
 			bottomButtonPanel.add(leavePartyButton);
 			bottomButtonPanel.add(tpHomeButton);
+			
+			for(MouseListener l : itemPanel.getMouseListeners()){
+				itemPanel.removeMouseListener(l);
+			}
 			break;
 		case CHAT_SCANNER:
 			break;
 		case UNKNOWN:
 			break;
 		}
+		
+		//TODO : Move to event handler?
+		namePanel.addMouseListener(new AdvancedMouseAdapter(){
+			public void click(MouseEvent e){
+				if(e.getButton() == MouseEvent.BUTTON1){
+					PoeInterface.paste("/whois " + trade.playerName);
+				}else if(e.getButton() == MouseEvent.BUTTON3){
+					PoeInterface.paste("@" + trade.playerName + " ", false);
+				}
+			}
+		});
 
 		secondsTimer.start();
 		updateColor();
@@ -359,7 +380,5 @@ public class MessagePanel extends JPanel {
 			}
 		});
 	}
-
-
 
 }

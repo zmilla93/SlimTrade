@@ -35,7 +35,7 @@ public class ContentPanel extends JPanel {
 		Dimension size = this.getPreferredSize();
 		size.width = size.width + widthBuffer;
 		// size.width = OptionsWindow.contentWidth;
-		size.height = size.height + heightBuffer;
+//		size.height = size.height + heightBuffer;
 		this.setMaximumSize(size);
 	}
 

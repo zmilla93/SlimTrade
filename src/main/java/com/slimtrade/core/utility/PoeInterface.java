@@ -24,7 +24,7 @@ public class PoeInterface extends Robot {
 		}
 	}
 
-	public static void paste(String s) {
+	public static void paste(String s, boolean... send) {
 		pasteString = new StringSelection(s);
 		clipboard.setContents(pasteString, null);
 		PoeInterface.focus();
@@ -34,8 +34,10 @@ public class PoeInterface extends Robot {
 		robot.keyPress(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_ENTER);
-		robot.keyRelease(KeyEvent.VK_ENTER);
+		if (send.length == 0 || send[0] == true) {
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+		}
 	}
 
 	// TODO : Figure out why this bugs out without delay.
@@ -47,7 +49,7 @@ public class PoeInterface extends Robot {
 				focus();
 				pasteString = new StringSelection(s);
 				clipboard.setContents(pasteString, null);
-				
+
 				robot.keyPress(KeyEvent.VK_CONTROL);
 				robot.keyPress(KeyEvent.VK_F);
 				robot.keyRelease(KeyEvent.VK_F);

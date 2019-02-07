@@ -281,7 +281,6 @@ public class SaveManager {
 		String key = keys[keys.length - 1];
 		JSONObject activeArr;
 		if (keys.length == 1) {
-			// Single key handling
 			try {
 				saveData.put(key, value);
 			} catch (JSONException e) {
@@ -380,27 +379,151 @@ public class SaveManager {
 		return value;
 	}
 
+	public void putBool(boolean value, String... keys) {
+		class Local {
+		}
+		;
+		if (!validSaveDirectory) {
+			return;
+		} else if (keys.length == 0) {
+			System.err.println(this.getClass() + " : " + Local.class.getEnclosingMethod().getName() + "\n" + "\tKey excepted, no key given for value \"" + value + "\"\n");
+			return;
+		}
+		ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
+		String key = keys[keys.length - 1];
+		JSONObject activeArr;
+		if (keys.length == 1) {
+			try {
+				saveData.put(key, value);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+		} else if (keys.length > 1) {
+			// Get existing arrays, or create new ones
+			activeArr = saveData;
+			for (int i = 0; i < keys.length - 1; i++) {
+				if (activeArr.has(keys[i])) {
+					try {
+						arr.add(activeArr.getJSONObject(keys[i]));
+						activeArr = activeArr.getJSONObject(keys[i]);
+					} catch (JSONException e) {
+						// class Local {};
+						System.err.println(this.getClass() + " : " + Local.class.getEnclosingMethod().getName() + "\n" + "\tError while trying to save \"" + key + "\" : \"" + value + "\"\n" + "\tArray key expected : \"" + keys[i] + "\"\n" + "\t" + activeArr + "\n");
+						return;
+					}
+				} else {
+					arr.add(new JSONObject());
+				}
+			}
+			// Add Final value to deepest nested array
+			try {
+				arr.get(arr.size() - 1).put(key, value);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			// Rebuild into single array
+			for (int i = keys.length - 2; i >= 1; i--) {
+				try {
+					arr.get(i - 1).put(keys[i], arr.get(i));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			try {
+				saveData.put(keys[0], arr.get(0));
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+		}
+		hasUnsavedChanges = true;
+	}
+
+	public boolean getBool(String... keys) {
+		class Local {
+		}
+		;
+		if (!validSaveDirectory) {
+			return false;
+		} else if (keys.length == 0) {
+			System.err.println(this.getClass() + " : " + Local.class.getEnclosingMethod().getName() + "\n" + "\tKey excepted, no key given\n");
+			return false;
+		}
+		String key = keys[keys.length - 1];
+		boolean value = false;
+		JSONObject activeArr = saveData;
+		if (keys.length == 1) {
+			if (saveData.has(key)) {
+				try {
+					value = saveData.getBoolean(key);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		} else if (keys.length > 1) {
+			for (int i = 0; i < keys.length - 1; i++) {
+				if (activeArr.has(keys[i])) {
+					try {
+						activeArr = activeArr.getJSONObject(keys[i]);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+
+				} else {
+					StringBuilder chain = new StringBuilder();
+					for (String s : keys) {
+						chain.append("\"" + s + "\" ");
+					}
+					System.err.println(this.getClass() + " : " + Local.class.getEnclosingMethod().getName() + "\n" + "\tInvalid key within chain received \"" + keys[i] + "\"\n\tIn chain " + chain + "\n");
+					return false;
+				}
+			}
+			try {
+				value = activeArr.getBoolean(key);
+			} catch (JSONException e) {
+				StringBuilder chain = new StringBuilder();
+				for (String s : keys) {
+					chain.append("\"" + s + "\" ");
+				}
+				System.err.println(this.getClass() + " : " + Local.class.getEnclosingMethod().getName() + "\n" + "\tInvalid final key received \"" + key + "\"\n\tIn chain " + chain + "\n");
+			}
+		}
+		return value;
+	}
+
 	public boolean hasValue(String... keys) {
 		JSONObject curArr = saveData;
 		for (int i = 0; i < keys.length; i++) {
-			if(curArr.has(keys[i])){
+			if (curArr.has(keys[i])) {
 				try {
 					curArr = curArr.getJSONObject(keys[i]);
 				} catch (JSONException e) {
-					if(curArr.has(keys[i])){
+					if (curArr.has(keys[i])) {
 						continue;
 					}
 				}
-			}else{
+			} else {
 				return false;
 			}
 		}
 		return true;
 	}
-	
-	public void putStringDefault(String value, String... keys){
-		if(!hasValue(keys)){
+
+	public void putStringDefault(String value, String... keys) {
+		if (!hasValue(keys)) {
 			putString(value, keys);
+		}
+	}
+	
+	public void putIntDefault(int value, String... keys) {
+		if (!hasValue(keys)) {
+			putInt(value, keys);
+		}
+	}
+	
+	public void putBoolDefault(boolean value, String... keys) {
+		if (!hasValue(keys)) {
+			putBool(value, keys);
 		}
 	}
 
