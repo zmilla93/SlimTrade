@@ -14,53 +14,49 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
 	// private WindowType lastWindow = null;
 	private String lastWindow;
+	private Runnable refreshRunner = new Runnable() {
+		public void run() {
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			PointerType hwnd = null;
+			byte[] windowText = new byte[512];
+			int i = 0;
+			do {
+				hwnd = User32.INSTANCE.GetForegroundWindow();
+				if(hwnd!=null){
+					break;
+				}else{
+					i++;
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			} while (true);
+//			System.out.println("TIME : " + i);
+			User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+			String curWindowTitle = Native.toString(windowText);
+//			System.out.println("PRESSED : " + curWindowTitle);
+			if (curWindowTitle.equals("Path of Exile") || curWindowTitle.matches("SlimTrade*+")) {
+				FrameManager.forceAllToTop();
+			}
+		}
+	};
 
 	public void nativeMouseClicked(NativeMouseEvent e) {
 
 	}
 
 	public void nativeMousePressed(NativeMouseEvent e) {
-		//TODO : move to independent thread
-		try {
-			Thread.sleep(1);
-		} catch (InterruptedException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		PointerType hwnd = null;
-		byte[] windowText = new byte[512];
-		int i = 0;
-		do{
-//			byte[] windowText = new byte[512];
-			hwnd = User32.INSTANCE.GetForegroundWindow();
-			i++;
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}while(hwnd == null);
-		System.out.println("TIME : " + i);
-		User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
-		String curWindowTitle = Native.toString(windowText);
-		System.out.println("PRESSED : "  + curWindowTitle);
-		if (curWindowTitle.equals("Path of Exile")) {
-			FrameManager.forceAllToTop();
-		}
+		new Thread(refreshRunner).start();
 	}
 
 	public void nativeMouseReleased(NativeMouseEvent e) {
-		// System.out.println("Click");
-		// TODO : Adding check for slimtrade messes with drop downs
-//		byte[] windowText = new byte[512];
-//		PointerType hwnd = User32.INSTANCE.GetForegroundWindow();
-//		User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
-//		String curWindowTitle = Native.toString(windowText);
-//		if (curWindowTitle.equals("Path of Exile")) {
-//			FrameManager.forceAllToTop();
-//		}
-		// System.out.println(curWindowTitle);
+
 	}
 
 	public void nativeMouseDragged(NativeMouseEvent e) {

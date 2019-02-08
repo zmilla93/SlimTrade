@@ -14,6 +14,7 @@ import main.java.com.slimtrade.gui.messaging.StashHelperContainer;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
 import main.java.com.slimtrade.gui.stashtab.StashTabWindow;
 import main.java.com.slimtrade.gui.windows.CharacterWindow;
+import main.java.com.slimtrade.gui.windows.ChatScannerWindow;
 import main.java.com.slimtrade.gui.windows.HistoryWindow;
 import main.java.com.slimtrade.gui.windows.OverlayManager;
 import main.java.com.slimtrade.gui.windows.StashGridOverlay;
@@ -30,6 +31,7 @@ public class FrameManager {
 	public static CharacterWindow characterWindow;
 	public static OverlayManager overlayManager;
 	public static StashTabWindow stashTabWindow;
+	public static ChatScannerWindow chatScannerWindow;
 
 	public FrameManager() {
 
@@ -42,8 +44,10 @@ public class FrameManager {
 		characterWindow = new CharacterWindow();
 		overlayManager = new OverlayManager();
 		stashTabWindow = new StashTabWindow();
+		chatScannerWindow = new ChatScannerWindow();
 		//TODO : temp
-		stashTabWindow.setVisible(true);
+//		stashTabWindow.setVisible(true);
+		chatScannerWindow.setVisible(true);
 		
 //		ColorManager.setMessageTheme();
 		

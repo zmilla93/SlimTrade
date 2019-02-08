@@ -45,6 +45,7 @@ public class CharacterWindow extends AbstractWindowDialog{
 		JPanel savePanel = new JPanel();
 		
 		//Character
+		characterInput.setFocusable(true);
 		characterInput.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		characterInput.setHorizontalAlignment(JTextField.CENTER);
 		

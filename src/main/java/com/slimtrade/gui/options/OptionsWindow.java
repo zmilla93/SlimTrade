@@ -43,7 +43,8 @@ public class OptionsWindow extends AbstractWindowDialog {
 	public OptionsWindow() {
 		super("Options");
 		this.resizeWindow(width, height);
-
+		this.setFocusableWindowState(true);
+		
 		// JPanel optionsContainer = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(optionsContainer);
 

@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.core.utility.PoeInterface;
+import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 
 public abstract class AbstractWindowDialog extends BasicMovableDialog {
@@ -42,7 +44,7 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 	//TODO : Add support for window borders
 	//TODO : Center titlebar text
 	private void buildDialog(String title){
-		this.setFocusableWindowState(true);
+//		this.setFocusableWindowState(true);
 		this.getContentPane().setBackground(Color.GREEN);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setSize(defaultWidth, defaultHeight+titlebarHeight);
@@ -64,10 +66,13 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 		this.getContentPane().add(container);
 		createListeners(titlebarPanel);
 		
+		//TODO : Cleanup
 		closeButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1){
 					hideWindow();
+					PoeInterface.focus();
+					FrameManager.forceAllToTop();
 				}
 			}
 		});
@@ -81,6 +86,15 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 		this.revalidate();
 		this.repaint();
 	}
+	
+//	public void resizeWindow(Dimension size){
+//		this.setSize(size.width, size.height+titlebarHeight);
+//		container.setPreferredSize(new Dimension(size.width, size.height));
+//		titlebarContainer.setPreferredSize(new Dimension(size.width, titlebarHeight));
+//		titlebarPanel.setPreferredSize(new Dimension(size.width-titlebarHeight, titlebarHeight));
+//		this.revalidate();
+//		this.repaint();
+//	}
 	
 	private void hideWindow(){
 		this.setVisible(false);
