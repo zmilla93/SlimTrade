@@ -16,7 +16,7 @@ public class IconButton extends JButton {
 
 	private static final long serialVersionUID = -6435841710429512781L;
 	private final int SIZE = 30;
-	private final double IMAGE_SCALE = 0.9;
+	private final double IMAGE_SCALE = 0.94;
 
 	private Color colorDefault = Color.GRAY;
 	private Color colorHover = Color.LIGHT_GRAY;

@@ -17,12 +17,12 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
-import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
+import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 import main.java.com.slimtrade.gui.messaging.ItemHighlighter;
 import main.java.com.slimtrade.gui.panels.GridPanel;
 
 
-public class StashGridOverlay extends BasicWindowDialog{
+public class StashGridOverlay extends AbstractWindowDialog{
 	
 	private static final long serialVersionUID = 1L;
 	//STATICS
@@ -74,7 +74,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 		grid = new GridPanel();
 		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		grid.setLineColor(Color.GREEN);
-		gridPos.setLocation(winPos.x+bufferThin, winPos.y+bufferThin+BasicWindowDialog.titlebarHeight);
+		gridPos.setLocation(winPos.x+bufferThin, winPos.y+bufferThin+AbstractWindowDialog.titlebarHeight);
 		container.add(grid, BorderLayout.CENTER);
 		
 		BasicPanel topSpacer = new BasicPanel((int)0+bufferThick+bufferThin, bufferThin);
@@ -229,7 +229,7 @@ public class StashGridOverlay extends BasicWindowDialog{
 	
 	private void saveDataLocally(){
 		setDefaultWinPos(this.getLocationOnScreen());
-		setDefaultWinSize(new Dimension(this.getSize().width, this.getSize().height-BasicWindowDialog.titlebarHeight));
+		setDefaultWinSize(new Dimension(this.getSize().width, this.getSize().height-AbstractWindowDialog.titlebarHeight));
 		setDefaultGridPos(grid.getLocationOnScreen());
 		setDefaultGridSize(grid.getSize());
 //		ItemHighlighter

@@ -16,11 +16,11 @@ import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.ButtonState;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
+import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 import main.java.com.slimtrade.gui.buttons.SelectorButton;
 import main.java.com.slimtrade.gui.panels.HistoryRowPanel;
 
-public class HistoryWindow extends BasicWindowDialog {
+public class HistoryWindow extends AbstractWindowDialog {
 
 	private static final long serialVersionUID = 1L;
 	public static int width = 900;

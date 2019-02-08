@@ -13,7 +13,7 @@ import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 
-public class BasicWindowDialog extends BasicMovableDialog {
+public abstract class AbstractWindowDialog extends BasicMovableDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,14 +29,14 @@ public class BasicWindowDialog extends BasicMovableDialog {
 	public IconButton closeButton = new IconButton("/resources/icons/close.png", titlebarHeight);
 	
 	
-	public BasicWindowDialog(){
+	public AbstractWindowDialog(){
 		super(false);
-		buildDialog("");
+		buildDialog("SlimTrade");
 	}
 	
-	public BasicWindowDialog(String title){
+	public AbstractWindowDialog(String title){
 		super(false);
-		buildDialog(title);
+		buildDialog("SlimTrade - " + title);
 	}
 	
 	//TODO : Add support for window borders

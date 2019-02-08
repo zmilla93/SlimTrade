@@ -17,9 +17,9 @@ import javax.swing.event.DocumentListener;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
+import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 
-public class CharacterWindow extends BasicWindowDialog{
+public class CharacterWindow extends AbstractWindowDialog{
 
 	private static final long serialVersionUID = 1L;
 	private static int width = 400;

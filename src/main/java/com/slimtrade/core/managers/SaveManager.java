@@ -490,8 +490,29 @@ public class SaveManager {
 		}
 		return value;
 	}
+	
+	public void deleteArray(String... keys){
+		JSONObject curArr = saveData;
+		for(int i = 0; i<keys.length-1; i++){
+			if(curArr.has(keys[i])){
+				try {
+					curArr = curArr.getJSONObject(keys[i]);
+				} catch (JSONException e) {
+					if(curArr.has(keys[i])){
+						System.out.println("value");
+						curArr.remove(keys[i]);
+						return;
+					}
+				}
+			}else{
+				return;
+			}
+		}
+		curArr.remove(keys[keys.length-1]);
+		System.out.println(curArr);
+	}
 
-	public boolean hasValue(String... keys) {
+	public boolean hasEntry(String... keys) {
 		JSONObject curArr = saveData;
 		for (int i = 0; i < keys.length; i++) {
 			if (curArr.has(keys[i])) {
@@ -510,19 +531,19 @@ public class SaveManager {
 	}
 
 	public void putStringDefault(String value, String... keys) {
-		if (!hasValue(keys)) {
+		if (!hasEntry(keys)) {
 			putString(value, keys);
 		}
 	}
 	
 	public void putIntDefault(int value, String... keys) {
-		if (!hasValue(keys)) {
+		if (!hasEntry(keys)) {
 			putInt(value, keys);
 		}
 	}
 	
 	public void putBoolDefault(boolean value, String... keys) {
-		if (!hasValue(keys)) {
+		if (!hasEntry(keys)) {
 			putBool(value, keys);
 		}
 	}

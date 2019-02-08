@@ -99,7 +99,10 @@ public class Main {
 				
 				saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
 				
-//				saveManager.saveToDisk();
+//				saveManager.deleteArray("overlayManager");
+//				saveManager.deleteArray("overlayManager", "menubar", "y");
+				
+				saveManager.saveToDisk();
 
 				// ColorManager.setMessageTheme();
 				try {

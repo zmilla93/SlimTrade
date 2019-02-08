@@ -13,12 +13,12 @@ import javax.swing.SwingConstants;
 
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.basic.BasicWindowDialog;
+import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 import main.java.com.slimtrade.gui.buttons.CustomButton_REWORK;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 //TODO : Improve resizing functions and buffer areas
-public class InfoDialog extends BasicWindowDialog {
+public class InfoDialog extends AbstractWindowDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel infoLabel = new JLabel();
