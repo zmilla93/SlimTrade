@@ -11,7 +11,10 @@ import java.util.regex.Pattern;
 
 import javax.swing.Timer;
 
-import main.java.com.slimtrade.datatypes.MessageType;
+import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.core.utility.TradeUtility;
+import main.java.com.slimtrade.enums.MessageType;
+import main.java.com.slimtrade.gui.FrameManager;
 
 public class ChatParser {
 	private FileReader fileReader;
@@ -150,7 +153,7 @@ public class ChatParser {
 			trade = new TradeOffer(
 					tradeMsgMatcher.group(2), tradeMsgMatcher.group(3),
 					getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5),
-					tradeMsgMatcher.group(6), tradeMsgMatcher.group(10), f1, TradeUtility.fixedCurrencyString(tradeMsgMatcher.group(13)), f2, 
+					tradeMsgMatcher.group(6), tradeMsgMatcher.group(10), f1, TradeUtility.getFixedCurrencyString(tradeMsgMatcher.group(13)), f2, 
 					tradeMsgMatcher.group(18), i1, i2, tradeMsgMatcher.group(23), text);
 //			System.out.println(trade.date);
 //			System.out.println(text);

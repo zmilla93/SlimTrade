@@ -9,8 +9,6 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import main.java.com.slimtrade.windows.BasicInfoDialog;
-
 public class SaveManager {
 
 	public boolean validClientPath = false;
@@ -75,29 +73,29 @@ public class SaveManager {
 		}
 		
 		if(clientConflict){
-			System.err.println("Conflict");
-			BasicInfoDialog conflictDialog = new BasicInfoDialog("SlimTrade - Warning");
-			conflictDialog.addSectionHeader("Multiple Client Paths Found");
-			conflictDialog.addText("Client.txt files found for both STEAM and STANDALONE versions of POE.");
-			conflictDialog.addText("Please manually select a valid path in the options menu.");
-			conflictDialog.finalizeDialog();
+//			System.err.println("Conflict");
+//			BasicInfoDialog conflictDialog = new BasicInfoDialog("SlimTrade - Warning");
+//			conflictDialog.addSectionHeader("Multiple Client Paths Found");
+//			conflictDialog.addText("Client.txt files found for both STEAM and STANDALONE versions of POE.");
+//			conflictDialog.addText("Please manually select a valid path in the options menu.");
+//			conflictDialog.finalizeDialog();
 		}else if(!validClientPath){
-			System.err.println("No client path");
-			BasicInfoDialog conflictDialog = new BasicInfoDialog("SlimTrade - Warning");
-			conflictDialog.addSectionHeader("No Client Path Found");
-			conflictDialog.addText("Unable to find a valid path for POE's client.txt file.");
-			conflictDialog.addText("Please manually select a valid path in the options menu.");
-			conflictDialog.addBuffer();
-
-			conflictDialog.addSectionHeader("Multiple Client Paths Found");
-			conflictDialog.addText("Client.txt files found for both STEAM and STANDALONE versions of POE.");
-			conflictDialog.addText("Please manually select a valid path in the options menu.");
-			conflictDialog.addBuffer();
-			
-			conflictDialog.addSectionHeader("SlimTrade will not function properly until all issues are resolved.");
-			conflictDialog.addBuffer();
-			
-			conflictDialog.finalizeDialog();
+//			System.err.println("No client path");
+//			BasicInfoDialog conflictDialog = new BasicInfoDialog("SlimTrade - Warning");
+//			conflictDialog.addSectionHeader("No Client Path Found");
+//			conflictDialog.addText("Unable to find a valid path for POE's client.txt file.");
+//			conflictDialog.addText("Please manually select a valid path in the options menu.");
+//			conflictDialog.addBuffer();
+//
+//			conflictDialog.addSectionHeader("Multiple Client Paths Found");
+//			conflictDialog.addText("Client.txt files found for both STEAM and STANDALONE versions of POE.");
+//			conflictDialog.addText("Please manually select a valid path in the options menu.");
+//			conflictDialog.addBuffer();
+//			
+//			conflictDialog.addSectionHeader("SlimTrade will not function properly until all issues are resolved.");
+//			conflictDialog.addBuffer();
+//			
+//			conflictDialog.finalizeDialog();
 		}
 		System.out.println("init finished");
 	}
