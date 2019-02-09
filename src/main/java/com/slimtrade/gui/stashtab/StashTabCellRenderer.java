@@ -5,11 +5,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-class StashTabCellRenderer extends JButton implements ListCellRenderer<Object> {
+class StashTabCellRenderer extends JPanel implements ListCellRenderer<Object> {
 
 	private static final long serialVersionUID = 1L;
 

@@ -52,7 +52,7 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 		helpLabelUpper.add(new JLabel("Search is not case sensitive."));
 		helpLabelUpper.add(new JLabel("A red outline indicates unsaved changes."));
 		
-		searchArea = new JTextArea(10, 20);
+		searchArea = new JTextArea(10, 30);
 		searchScrollPane = new JScrollPane(searchArea);
 		
 		JPanel helpPanelLower = new JPanel(new GridBagLayout());
@@ -117,7 +117,7 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 		saveButton.addMouseListener(new AdvancedMouseAdapter(){
 			public void click(MouseEvent e){
 				savedText = searchArea.getText();
-//				System.out.println(savedText);
+				//TODO Remove empty strings
 				String[] terms = savedText.split("\n|,|;");
 				
 				for(int i = 0;i<terms.length;i++){

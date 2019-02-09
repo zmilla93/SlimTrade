@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -46,7 +48,7 @@ public class Main {
 		loadWindow.setLayout(new GridBagLayout());
 		loadWindow.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());
 		loadWindow.setSize(200, 80);
-//		loadWindow.setSize(418, 169);
+		// loadWindow.setSize(418, 169);
 		FrameManager.centerFrame(loadWindow);
 		loadWindow.setVisible(true);
 
@@ -74,34 +76,43 @@ public class Main {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-//				Locale swede = new Locale("sv", "SE");
+				// Locale swede = new Locale("sv", "SE");
 				Locale.setDefault(Locale.US);
-
+				try {
+					// Set cross-platform Java L&F (also called "Metal")
+//					 UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//					UIManager.setLookAndFeel(UIManager.());
+				} catch (UnsupportedLookAndFeelException e) {
+				} catch (ClassNotFoundException e) {
+				} catch (InstantiationException e) {
+				} catch (IllegalAccessException e) {
+				}
 				// SAVE MANAGER DEFAULTS
-				
+
 				// Wait Button
 				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "enabled");
 				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "secondaryEnabled");
 				saveManager.putStringDefault("one sec", "macroButtons", "waitButton", "textLMB");
 				saveManager.putStringDefault("one min", "macroButtons", "waitButton", "textRMB");
 
-				//Thank Button
+				// Thank Button
 				saveManager.putBoolDefault(true, "macroButtons", "thankButton", "enabled");
 				saveManager.putBoolDefault(false, "macroButtons", "thankButton", "secondaryEnabled");
 				saveManager.putStringDefault("thanks", "macroButtons", "thankButton", "textLMB");
 				saveManager.putStringDefault("", "macroButtons", "thankButton", "textRMB");
-				
-				//Overlay
+
+				// Overlay
 				saveManager.putIntDefault(0, "overlayManager", "menubar", "x");
-				saveManager.putIntDefault(TradeUtility.screenSize.height-MenubarDialog.TOTAL_HEIGHT, "overlayManager", "menubar", "y");
+				saveManager.putIntDefault(TradeUtility.screenSize.height - MenubarDialog.TOTAL_HEIGHT, "overlayManager", "menubar", "y");
 				saveManager.putIntDefault(1220, "overlayManager", "messageManager", "x");
 				saveManager.putIntDefault(0, "overlayManager", "messageManager", "y");
-				
+
 				saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
-				
-//				saveManager.deleteArray("overlayManager");
-//				saveManager.deleteArray("overlayManager", "menubar", "y");
-				
+
+				// saveManager.deleteArray("overlayManager");
+				// saveManager.deleteArray("overlayManager", "menubar", "y");
+
 				saveManager.saveToDisk();
 
 				// ColorManager.setMessageTheme();

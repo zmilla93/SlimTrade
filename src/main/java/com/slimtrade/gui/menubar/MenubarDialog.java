@@ -22,22 +22,22 @@ public class MenubarDialog extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	private static int buttonCount = 9;
+	private static int buttonCount = 8;
 	private static int spacerCount = 2;
 	private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.8);
 
 	public static final int TOTAL_WIDTH = MenubarButton.WIDTH;
 	public static final int TOTAL_HEIGHT = MenubarButton.HEIGHT * buttonCount + spacerHeight * spacerCount;
-
-	private MenubarButton optionsButton;
+	
 	private MenubarButton historyButton;
-	private MenubarButton stashButton;
+	private MenubarButton stashTabButton;
+	private MenubarButton chatScannerButton;
 	private MenubarButton characterButton;
 	private MenubarButton testButton;
-	private MenubarButton clearButton;
-	private MenubarButton refreshButton;
+	private MenubarButton optionsButton;
 	private MenubarButton quitButton;
 	private MenubarButton minimizeButton;
+	
 	private boolean visible = false;
 	private boolean order = false;
 //	private ArrayList<Component> componentList = new ArrayList<Component>();
@@ -45,63 +45,40 @@ public class MenubarDialog extends BasicDialog {
 	private ExpandDirection expandDirection = ExpandDirection.DOWN;
 
 	public MenubarDialog() {
-		//TODO : Modify constructor
+		//TODO : Modify constructor of menubar buttons
 		Container container = this.getContentPane();
 		
+		//TODO : Switch to gridbag
 		this.setBounds(0, TradeUtility.screenSize.height - TOTAL_HEIGHT, MenubarButton.WIDTH, TOTAL_HEIGHT);
 		container.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-//		c.setLayout(new BoxLayout(c, BoxLayout.PAGE_AXIS));
-		optionsButton = new MenubarButton("");
-		container.add(optionsButton);
+		
+		
+		//TODO : Update Locale
 		historyButton = new MenubarButton("");
-		container.add(historyButton);
-		stashButton = new MenubarButton("");
-		container.add(stashButton);
+		stashTabButton = new MenubarButton("");
 		characterButton = new MenubarButton("");
-		container.add(characterButton);
+		chatScannerButton = new MenubarButton("Chat Scanner");
 		testButton = new MenubarButton("");
-		container.add(testButton);
-		clearButton = new MenubarButton("");
-		container.add(clearButton);
-		refreshButton = new MenubarButton("");
-		container.add(refreshButton);
-		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
+		optionsButton = new MenubarButton("");
 		quitButton = new MenubarButton("");
+		minimizeButton = new MenubarButton("");
+		
+		
+		container.add(historyButton);
+		container.add(stashTabButton);
+		container.add(characterButton);
+		container.add(chatScannerButton);
+		container.add(testButton);
+		container.add(optionsButton);
+		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
 		container.add(quitButton);
 		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
-		minimizeButton = new MenubarButton("");
 		container.add(minimizeButton);
-		
-//		for(Component c : container.getComponents()){
-//			componentList.add(c);
-//		}
 		
 		this.refreshButtonText();
 
-		// OPTIONS
-		optionsButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent evt) {
-				if (FrameManager.optionsWindow.isVisible()) {
-					FrameManager.optionsWindow.setVisible(false);
-				} else {
-					FrameManager.hideMenuFrames();
-					FrameManager.optionsWindow.setVisible(true);
-				}
-			}
-		});
-
-		// STASH
-		stashButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent evt) {
-				if (FrameManager.stashOverlay.isVisible()) {
-					FrameManager.stashOverlay.setVisible(false);
-				} else {
-					FrameManager.hideMenuFrames();
-					FrameManager.stashOverlay.setVisible(true);
-				}
-			}
-		});
-
+		//TODO : Move button actions
+		
 		// HISTORY
 		historyButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
@@ -113,7 +90,19 @@ public class MenubarDialog extends BasicDialog {
 				}
 			}
 		});
-
+		
+		// STASH
+		stashTabButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent evt) {
+				if (FrameManager.stashTabWindow.isVisible()) {
+					FrameManager.stashTabWindow.setVisible(false);
+				} else {
+					FrameManager.hideMenuFrames();
+					FrameManager.stashTabWindow.setVisible(true);
+				}
+			}
+		});
+		
 		// CHARACTER
 		characterButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
@@ -122,6 +111,18 @@ public class MenubarDialog extends BasicDialog {
 				} else {
 					FrameManager.hideMenuFrames();
 					FrameManager.characterWindow.setVisible(true);
+				}
+			}
+		});
+		
+		// Chat Scanner
+		chatScannerButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent evt) {
+				if (FrameManager.chatScannerWindow.isVisible()) {
+					FrameManager.chatScannerWindow.setVisible(false);
+				} else {
+					FrameManager.hideMenuFrames();
+					FrameManager.chatScannerWindow.setVisible(true);
 				}
 			}
 		});
@@ -136,20 +137,32 @@ public class MenubarDialog extends BasicDialog {
 				FrameManager.messageManager.addMessage(t2);
 			}
 		});
-
-		clearButton.addMouseListener(new AdvancedMouseAdapter() {
+		
+		// OPTIONS
+		optionsButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
-//				MessagePanel.setDefaultHeight(60);
-//				FrameManager.messageManager.rebuild();
-				Main.debug.clearLog();
+				if (FrameManager.optionsWindow.isVisible()) {
+					FrameManager.optionsWindow.setVisible(false);
+				} else {
+					FrameManager.hideMenuFrames();
+					FrameManager.optionsWindow.setVisible(true);
+				}
 			}
 		});
 
-		refreshButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent evt) {
-				FrameManager.forceAllToTop();
-			}
-		});
+//		clearButton.addMouseListener(new AdvancedMouseAdapter() {
+//			public void click(MouseEvent evt) {
+////				MessagePanel.setDefaultHeight(60);
+////				FrameManager.messageManager.rebuild();
+//				Main.debug.clearLog();
+//			}
+//		});
+
+//		refreshButton.addMouseListener(new AdvancedMouseAdapter() {
+//			public void click(MouseEvent evt) {
+//				FrameManager.forceAllToTop();
+//			}
+//		});
 
 		// QUIT PROGRAM
 		quitButton.addMouseListener(new AdvancedMouseAdapter() {
@@ -186,11 +199,11 @@ public class MenubarDialog extends BasicDialog {
 		ResourceBundle lang = ResourceBundle.getBundle("lang");
 		optionsButton.setText(lang.getString("optionsButton"));
 		historyButton.setText(lang.getString("historyButton"));
-		stashButton.setText(lang.getString("stashButton"));
+		stashTabButton.setText(lang.getString("stashButton"));
 		characterButton.setText(lang.getString("characterButton"));
 		testButton.setText(lang.getString("testButton"));
-		clearButton.setText(lang.getString("clearDebugButton"));
-		refreshButton.setText(lang.getString("refreshButton"));
+//		clearButton.setText(lang.getString("clearDebugButton"));
+//		refreshButton.setText(lang.getString("refreshButton"));
 		quitButton.setText(lang.getString("quitButton"));
 		minimizeButton.setText(lang.getString("minimizeButton"));
 	}

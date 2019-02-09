@@ -34,11 +34,11 @@ public class StashTabRow extends JPanel {
 		
 		int stashTextWidth = 250;
 		JPanel stashTabTextPanel = new JPanel(new GridBagLayout());
-		stashTabTextPanel.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT+1));
+		stashTabTextPanel.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT));
 		stashTabTextPanel.setBackground(Color.green);
 		JTextField stashTabText = new LimitTextField(31);
 		stashTabText.setHorizontalAlignment(JTextField.CENTER);
-		stashTabText.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT+1));
+		stashTabText.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT));
 		stashTabTextPanel.add(stashTabText, new GridBagConstraints());
 		
 		JComboBox<String> typeCombo = new JComboBox<String>();

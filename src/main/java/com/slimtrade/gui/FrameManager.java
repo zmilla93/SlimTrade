@@ -46,8 +46,8 @@ public class FrameManager {
 		stashTabWindow = new StashTabWindow();
 		chatScannerWindow = new ChatScannerWindow();
 		//TODO : temp
-//		stashTabWindow.setVisible(true);
-		chatScannerWindow.setVisible(true);
+		stashTabWindow.setVisible(true);
+//		chatScannerWindow.setVisible(true);
 		
 //		ColorManager.setMessageTheme();
 		
@@ -80,10 +80,12 @@ public class FrameManager {
 	}
 
 	public static void hideMenuFrames() {
-		characterWindow.setVisible(false);
 		historyWindow.setVisible(false);
+		stashTabWindow.setVisible(false);
+		chatScannerWindow.setVisible(false);
+		characterWindow.setVisible(false);
 		optionsWindow.setVisible(false);
-		stashOverlay.setVisible(false);
+		
 	}
 
 	public static void centerFrame(BasicDialog window) {

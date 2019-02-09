@@ -12,7 +12,7 @@ public class StashTabWindow extends AbstractWindowDialog {
 
 	public StashTabWindow(){
 		super("Stash Tab Manager");
-//		this.resizeWindow(400, 400);
+		this.setFocusableWindowState(true);
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		container.add(new StashTabRow());
 		container.add(new StashTabRow());
