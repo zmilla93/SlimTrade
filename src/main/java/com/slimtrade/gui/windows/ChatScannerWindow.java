@@ -47,7 +47,7 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 		
 		JPanel helpPanelUpper = new JPanel(new GridBagLayout());
 		ArrayList<JLabel> helpLabelUpper = new ArrayList<JLabel>();
-		helpLabelUpper.add(new JLabel("Enter words or phrases you would like to scan chat for."));
+		helpLabelUpper.add(new JLabel("Enter words or phrases you would like to scan for."));
 		helpLabelUpper.add(new JLabel("Seperate phrases with a comma, semicolon, or line break."));
 		helpLabelUpper.add(new JLabel("Search is not case sensitive."));
 		helpLabelUpper.add(new JLabel("A red outline indicates unsaved changes."));
@@ -57,13 +57,13 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 		
 		JPanel helpPanelLower = new JPanel(new GridBagLayout());
 		ArrayList<JLabel> helpLabelLower = new ArrayList<JLabel>();
-		helpLabelLower.add(new JLabel("Right clicking \"Chat Scanner\" in the menubar toggles searching"));
+		helpLabelLower.add(new JLabel("Right clicking \"Chat Scanner\" in the menubar toggles searching."));
 		helpLabelLower.add(new JLabel("A green button indicates the search is running."));
 		
 		searchArea.setLineWrap(true);
 		searchArea.setWrapStyleWord(true);
 		
-		System.out.println(searchScrollPane.getBorder());
+//		System.out.println(searchScrollPane.getBorder());
 		searchScrollPane.setBorder(defaultBorder);
 //		searchScrollPane.setBorder(BorderFactory.createEmptyBorder());
 		
@@ -155,7 +155,7 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 		
 		container.setPreferredSize(null);
 		Dimension size = container.getPreferredSize();
-		System.out.println(size);
+//		System.out.println(size);
 		this.resizeWindow(size.width+bufferWidth, size.height+bufferHeight);
 		FrameManager.centerFrame(this);
 //		this.revalidate();

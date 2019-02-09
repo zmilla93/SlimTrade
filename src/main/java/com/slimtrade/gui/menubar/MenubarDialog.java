@@ -26,8 +26,8 @@ public class MenubarDialog extends BasicDialog {
 	private static int spacerCount = 2;
 	private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.8);
 
-	public static final int TOTAL_WIDTH = MenubarButton.WIDTH;
-	public static final int TOTAL_HEIGHT = MenubarButton.HEIGHT * buttonCount + spacerHeight * spacerCount;
+	public static final int WIDTH = MenubarButton.WIDTH;
+	public static final int HEIGHT = (MenubarButton.HEIGHT * buttonCount) + (spacerHeight * spacerCount);
 	
 	private MenubarButton historyButton;
 	private MenubarButton stashTabButton;
@@ -49,15 +49,15 @@ public class MenubarDialog extends BasicDialog {
 		Container container = this.getContentPane();
 		
 		//TODO : Switch to gridbag
-		this.setBounds(0, TradeUtility.screenSize.height - TOTAL_HEIGHT, MenubarButton.WIDTH, TOTAL_HEIGHT);
+		this.setBounds(0, TradeUtility.screenSize.height - HEIGHT, WIDTH, HEIGHT);
 		container.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
 		
 		//TODO : Update Locale
 		historyButton = new MenubarButton("");
 		stashTabButton = new MenubarButton("");
-		characterButton = new MenubarButton("");
 		chatScannerButton = new MenubarButton("Chat Scanner");
+		characterButton = new MenubarButton("");
 		testButton = new MenubarButton("");
 		optionsButton = new MenubarButton("");
 		quitButton = new MenubarButton("");
@@ -66,8 +66,8 @@ public class MenubarDialog extends BasicDialog {
 		
 		container.add(historyButton);
 		container.add(stashTabButton);
-		container.add(characterButton);
 		container.add(chatScannerButton);
+		container.add(characterButton);
 		container.add(testButton);
 		container.add(optionsButton);
 		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
@@ -103,18 +103,6 @@ public class MenubarDialog extends BasicDialog {
 			}
 		});
 		
-		// CHARACTER
-		characterButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent evt) {
-				if (FrameManager.characterWindow.isVisible()) {
-					FrameManager.characterWindow.setVisible(false);
-				} else {
-					FrameManager.hideMenuFrames();
-					FrameManager.characterWindow.setVisible(true);
-				}
-			}
-		});
-		
 		// Chat Scanner
 		chatScannerButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
@@ -123,6 +111,18 @@ public class MenubarDialog extends BasicDialog {
 				} else {
 					FrameManager.hideMenuFrames();
 					FrameManager.chatScannerWindow.setVisible(true);
+				}
+			}
+		});
+		
+		// CHARACTER
+		characterButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent evt) {
+				if (FrameManager.characterWindow.isVisible()) {
+					FrameManager.characterWindow.setVisible(false);
+				} else {
+					FrameManager.hideMenuFrames();
+					FrameManager.characterWindow.setVisible(true);
 				}
 			}
 		});

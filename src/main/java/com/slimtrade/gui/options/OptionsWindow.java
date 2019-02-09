@@ -44,7 +44,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 		super("Options");
 		this.resizeWindow(width, height);
 		this.setFocusableWindowState(true);
-		
+
 		// JPanel optionsContainer = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(optionsContainer);
 
@@ -54,11 +54,8 @@ public class OptionsWindow extends AbstractWindowDialog {
 		gc.gridx = 0;
 		gc.gridy = 0;
 
-		// Switch to gridbaglayout
+		// TODO : Switch to gridbaglayout
 		optionsContainer.setLayout(new BoxLayout(optionsContainer, BoxLayout.PAGE_AXIS));
-		// optionsContainer.setMaximumSize(new Dimension(contentWidth, height));
-		// optionsContainer.setPreferredSize(new Dimension(contentWidth,
-		// height));
 
 		// TEMP SIZE
 		scrollPane.setPreferredSize(new Dimension(width, (int) (height * 0.9)));
@@ -71,7 +68,6 @@ public class OptionsWindow extends AbstractWindowDialog {
 		// BASICS
 		OptionTitlePanel basicsTitle = new OptionTitlePanel("Basics");
 		BasicsPanel basicsPanel = new BasicsPanel(contentWidth, height);
-
 		optionsContainer.add(basicsTitle);
 		optionsContainer.add(basicsPanel);
 		linkToggle(basicsTitle, basicsPanel);
@@ -82,9 +78,16 @@ public class OptionsWindow extends AbstractWindowDialog {
 		OptionTitlePanel macroTitle = new OptionTitlePanel("Button Macros");
 		MacroPanel macroPanel = new MacroPanel(contentWidth, 600);
 		linkToggle(macroTitle, macroPanel);
-
 		optionsContainer.add(macroTitle);
 		optionsContainer.add(macroPanel);
+		this.addOptionBuffer();
+
+		// Audio Panel
+		OptionTitlePanel audioTitle = new OptionTitlePanel("Audio");
+		AudioPanel audioPanel = new AudioPanel();
+		linkToggle(audioTitle, audioPanel);
+		optionsContainer.add(audioTitle);
+		optionsContainer.add(audioPanel);
 		this.addOptionBuffer();
 
 		// Sweet
@@ -124,27 +127,26 @@ public class OptionsWindow extends AbstractWindowDialog {
 		this.setSize(cur.width, pref.height);
 
 		macroPanel.resetAll();
-		
+
 		FrameManager.centerFrame(this);
-		
-		saveButton.addMouseListener(new AdvancedMouseAdapter(){
-			public void click(MouseEvent e){
+
+		saveButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
 				macroPanel.saveAll();
-//				Main.saveManager.saveToDisk();
+				// Main.saveManager.saveToDisk();
 			}
 		});
-		
-		resetButton.addMouseListener(new AdvancedMouseAdapter(){
-			public void click(MouseEvent e){
+
+		resetButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
 				macroPanel.resetAll();
 			}
 		});
-		
-		//TODO : Temp
-		macroPanel.setVisible(true);
-		
-		
-		
+
+		// TODO : Temp
+//		macroPanel.setVisible(true);
+		audioPanel.setVisible(true);
+
 		this.setVisible(true);
 	}
 

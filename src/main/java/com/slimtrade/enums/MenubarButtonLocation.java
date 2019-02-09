@@ -7,8 +7,8 @@ public enum MenubarButtonLocation {
 
 	NW("Top Left", 0, 0),
 	NE("Top Right", MenubarButton.WIDTH-MenubarButton.HEIGHT, 0),
-	SW("Bottom Left", 0, MenubarDialog.TOTAL_HEIGHT-MenubarButton.HEIGHT),
-	SE("Bottom Right", MenubarButton.WIDTH-MenubarButton.HEIGHT, MenubarDialog.TOTAL_HEIGHT-MenubarButton.HEIGHT);
+	SW("Bottom Left", 0, MenubarDialog.HEIGHT-MenubarButton.HEIGHT),
+	SE("Bottom Right", MenubarButton.WIDTH-MenubarButton.HEIGHT, MenubarDialog.HEIGHT-MenubarButton.HEIGHT);
 	
 	String displayText;
 	int modX;

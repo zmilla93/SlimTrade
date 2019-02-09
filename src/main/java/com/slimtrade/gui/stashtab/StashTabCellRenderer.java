@@ -29,7 +29,6 @@ class StashTabCellRenderer extends JPanel implements ListCellRenderer<Object> {
 
 	public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 		active = true;
-//		System.out.println(index);
 		if (isSelected) {
 			this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.WHITE));
 		}else{

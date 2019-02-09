@@ -75,7 +75,7 @@ public class OverlayManager {
 		menubarExpandButton.setBorder(borderNW);
 
 		helpDialog.setSize(500, 150);
-		menubarDialog.setSize(MenubarDialog.TOTAL_WIDTH, MenubarDialog.TOTAL_HEIGHT);
+		menubarDialog.setSize(MenubarDialog.WIDTH, MenubarDialog.HEIGHT);
 		messageDialog.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight);
 		menubarPanelTop.setPreferredSize(new Dimension(0, MENUBAR_BUTTON_SIZE));
 		menubarPanelBottom.setPreferredSize(new Dimension(0, MENUBAR_BUTTON_SIZE));

@@ -46,7 +46,7 @@ public class FrameManager {
 		stashTabWindow = new StashTabWindow();
 		chatScannerWindow = new ChatScannerWindow();
 		//TODO : temp
-		stashTabWindow.setVisible(true);
+//		stashTabWindow.setVisible(true);
 //		chatScannerWindow.setVisible(true);
 		
 //		ColorManager.setMessageTheme();

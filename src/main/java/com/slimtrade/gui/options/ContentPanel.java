@@ -34,11 +34,10 @@ public class ContentPanel extends JPanel {
 	protected void autoResize() {
 		Dimension size = this.getPreferredSize();
 		size.width = size.width + widthBuffer;
-		// size.width = OptionsWindow.contentWidth;
-//		size.height = size.height + heightBuffer;
 		this.setMaximumSize(size);
 	}
 
+	//TODO : Move of this can be removed...
 	protected void addPair(Component c1, Component c2, GridBagConstraints gc) {
 		this.add(c1, gc);
 		gc.gridx++;

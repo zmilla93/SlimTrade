@@ -8,8 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JLabel;
+import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.jnativehook.GlobalScreen;
@@ -42,6 +44,13 @@ public class Main {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+
+		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 
 		// Move to independent file, make static to load faster
 		BasicDialog loadWindow = new BasicDialog();
@@ -78,16 +87,6 @@ public class Main {
 			public void run() {
 				// Locale swede = new Locale("sv", "SE");
 				Locale.setDefault(Locale.US);
-				try {
-					// Set cross-platform Java L&F (also called "Metal")
-//					 UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//					UIManager.setLookAndFeel(UIManager.());
-				} catch (UnsupportedLookAndFeelException e) {
-				} catch (ClassNotFoundException e) {
-				} catch (InstantiationException e) {
-				} catch (IllegalAccessException e) {
-				}
 				// SAVE MANAGER DEFAULTS
 
 				// Wait Button
@@ -104,7 +103,7 @@ public class Main {
 
 				// Overlay
 				saveManager.putIntDefault(0, "overlayManager", "menubar", "x");
-				saveManager.putIntDefault(TradeUtility.screenSize.height - MenubarDialog.TOTAL_HEIGHT, "overlayManager", "menubar", "y");
+				saveManager.putIntDefault(TradeUtility.screenSize.height - MenubarDialog.HEIGHT, "overlayManager", "menubar", "y");
 				saveManager.putIntDefault(1220, "overlayManager", "messageManager", "x");
 				saveManager.putIntDefault(0, "overlayManager", "messageManager", "y");
 

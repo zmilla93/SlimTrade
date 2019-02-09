@@ -42,7 +42,7 @@ public class StashTabRow extends JPanel {
 		stashTabTextPanel.add(stashTabText, new GridBagConstraints());
 		
 		JComboBox<String> typeCombo = new JComboBox<String>();
-		System.out.println(typeCombo.getPreferredSize());
+//		System.out.println(typeCombo.getPreferredSize());
 //		typeCombo.setPreferredSize(new Dimension(30, ROW_HEIGHT));
 		typeCombo.addItem("Normal");
 		typeCombo.addItem("Quad");
