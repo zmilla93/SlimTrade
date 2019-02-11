@@ -52,7 +52,36 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 	}
 
 	public void nativeMousePressed(NativeMouseEvent e) {
-		new Thread(refreshRunner).start();
+//		new Thread(refreshRunner).start();
+		
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		PointerType hwnd = null;
+		byte[] windowText = new byte[512];
+		int i = 0;
+		do {
+			hwnd = User32.INSTANCE.GetForegroundWindow();
+			if(hwnd!=null){
+				break;
+			}else{
+				i++;
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+		} while (true);
+//		System.out.println("TIME : " + i);
+		User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+		String curWindowTitle = Native.toString(windowText);
+//		System.out.println("PRESSED : " + curWindowTitle);
+		if (curWindowTitle.equals("Path of Exile") || curWindowTitle.matches("SlimTrade*+")) {
+			FrameManager.forceAllToTop();
+		}
 	}
 
 	public void nativeMouseReleased(NativeMouseEvent e) {

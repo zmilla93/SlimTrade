@@ -96,6 +96,8 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 //		this.repaint();
 //	}
 	
+//	public void addRow();
+	
 	private void hideWindow(){
 		this.setVisible(false);
 	}

@@ -22,7 +22,7 @@ public class IconButton extends JButton {
 	private Color colorHover = Color.LIGHT_GRAY;
 	private Color colorPressed = Color.WHITE;
 
-	private Border borderDefault = BorderFactory.createEmptyBorder();
+	private Border borderDefault = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 	private Border borderHover = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
 	private Border borderPressed = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.RED);
 

@@ -63,6 +63,7 @@ public class MenubarDialog extends BasicDialog {
 		quitButton = new MenubarButton("");
 		minimizeButton = new MenubarButton("");
 		
+		testButton.setToolTipText("This is a test.");
 		
 		container.add(historyButton);
 		container.add(stashTabButton);

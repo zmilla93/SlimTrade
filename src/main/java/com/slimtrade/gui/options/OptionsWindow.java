@@ -1,6 +1,5 @@
 package main.java.com.slimtrade.gui.options;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -13,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
@@ -22,9 +20,9 @@ import main.java.com.slimtrade.gui.panels.BufferPanel;
 public class OptionsWindow extends AbstractWindowDialog {
 
 	private static final long serialVersionUID = 1L;
-	public static int width = 800;
-	public final static int contentWidth = (int) (width * 0.95);
-	public static int height = 800;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
+	public final static int contentWidth = (int) (WIDTH * 0.95);
 	public static int rowHeight = 25;
 	private int bufferHeight = 10;
 
@@ -42,7 +40,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 
 	public OptionsWindow() {
 		super("Options");
-		this.resizeWindow(width, height);
+//		this.resizeWindow(WIDTH, HEIGHT);
 		this.setFocusableWindowState(true);
 
 		// JPanel optionsContainer = new JPanel();
@@ -58,7 +56,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 		optionsContainer.setLayout(new BoxLayout(optionsContainer, BoxLayout.PAGE_AXIS));
 
 		// TEMP SIZE
-		scrollPane.setPreferredSize(new Dimension(width, (int) (height * 0.9)));
+		scrollPane.setPreferredSize(new Dimension(WIDTH, (int) (HEIGHT * 0.9)));
 		// scrollPane.setPreferredSize(new Dimension(width, height));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(8);
@@ -67,7 +65,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 
 		// BASICS
 		OptionTitlePanel basicsTitle = new OptionTitlePanel("Basics");
-		BasicsPanel basicsPanel = new BasicsPanel(contentWidth, height);
+		BasicsPanel basicsPanel = new BasicsPanel(contentWidth, HEIGHT);
 		optionsContainer.add(basicsTitle);
 		optionsContainer.add(basicsPanel);
 		linkToggle(basicsTitle, basicsPanel);
@@ -90,15 +88,19 @@ public class OptionsWindow extends AbstractWindowDialog {
 		optionsContainer.add(audioPanel);
 		this.addOptionBuffer();
 
-		// Sweet
-		OptionTitlePanel sweetTitle = new OptionTitlePanel("Test Title");
-		ContentPanel sweetPanel = new ContentPanel(contentWidth, 900);
-		sweetPanel.setPreferredSize(new Dimension(contentWidth, 900));
-		sweetPanel.setBackground(Color.green);
-		linkToggle(sweetTitle, sweetPanel);
-		optionsContainer.add(sweetTitle);
-		optionsContainer.add(sweetPanel);
-
+		// Advanced Panel
+		OptionTitlePanel advancedTitle = new OptionTitlePanel("Advanced");
+		AdvancedPanel advancedPanel = new AdvancedPanel();
+		linkToggle(advancedTitle, advancedPanel);
+		optionsContainer.add(advancedTitle);
+		optionsContainer.add(advancedPanel);
+		this.addOptionBuffer();
+		
+		OptionTitlePanel contactTitle = new OptionTitlePanel("Contact");
+		ContactPanel contactPanel = new ContactPanel();
+		linkToggle(contactTitle, contactPanel);
+		optionsContainer.add(contactTitle);
+		optionsContainer.add(contactPanel);
 		this.addOptionBuffer();
 
 		// Ending Button Panel
@@ -122,9 +124,13 @@ public class OptionsWindow extends AbstractWindowDialog {
 
 		// TEMP RESIZING
 		// TODO : Cleanup
-		Dimension cur = this.getSize();
-		Dimension pref = this.getPreferredSize();
-		this.setSize(cur.width, pref.height);
+//		Dimension cur = this.getSize();
+//		this.setPreferredSize(null);
+//		Dimension pref = this.getPreferredSize();
+//		this.setSize(cur.width, pref.height);
+//		this.setPreferredSize(null);
+//		System.out.println(this.getPreferredSize());
+		this.resizeWindow(WIDTH, HEIGHT);
 
 		macroPanel.resetAll();
 

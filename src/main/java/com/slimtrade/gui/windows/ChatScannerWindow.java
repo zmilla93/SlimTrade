@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
@@ -34,9 +37,12 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 	private Border unsavedBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.RED);
 	private Border defaultBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
 
+	private JButton searchButton;
+	
 	private int bufferWidth = 40;
 	private int bufferHeight = 20;
 	private int rowBuffer = 10;
+	private boolean running = false;
 	
 	public ChatScannerWindow(){
 		super("Chat Scanner");
@@ -70,7 +76,11 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 		JPanel buttonPanel = new JPanel();
 		JButton clearButton = new JButton("Clear");
 		JButton saveButton = new JButton("Save");
-		JButton searchButton = new JButton("Search");
+		searchButton = new JButton("Search");
+		
+		clearButton.setFocusable(false);
+		saveButton.setFocusable(false);
+		searchButton.setFocusable(false);
 		
 		gc.gridx=0;
 		gc.gridy=0;
@@ -124,10 +134,23 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 					String s = terms[i].trim();
 					terms[i] = s.replaceAll("\\s+", " ");
 				}
+				//save terms to file here
+				for(int i = 0;i<terms.length;i++){
+					terms[i] = terms[i].toLowerCase();
+				}
 				for(String s : terms){
 					System.out.println("TERM : " + s + ";");
 				}
+				Main.chatParser.setSearchTerms(terms);
 				validateSearchBorder();
+			}
+		});
+		
+		searchButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				running = !running;
+				Main.chatParser.setChatScannerRunning(running);
+				updateSearchButton();
 			}
 		});
 		
@@ -171,6 +194,14 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 			searchScrollPane.setBorder(defaultBorder);
 		}else{
 			searchScrollPane.setBorder(unsavedBorder);
+		}
+	}
+	
+	private void updateSearchButton(){
+		if(running){
+			searchButton.setBackground(Color.GREEN);
+		}else{
+			searchButton.setBackground(null);
 		}
 	}
 	

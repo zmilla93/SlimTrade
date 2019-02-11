@@ -1,6 +1,6 @@
 package main.java.com.slimtrade.enums;
 
-public enum StashType {
+public enum StashTabType {
 
 	NORMAL, QUAD, CURRENCY, MAP
 	

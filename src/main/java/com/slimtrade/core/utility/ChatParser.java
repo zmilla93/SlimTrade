@@ -44,6 +44,9 @@ public class ChatParser {
 	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
+	private String[] searchTerms;
+	private boolean chatScannerRunning = false;
+	
 	private String clientLogPath;
 
 	public ChatParser() {
@@ -120,6 +123,13 @@ public class ChatParser {
 						if (trade != null && !FrameManager.messageManager.isDuplicateTrade(trade)) {
 							FrameManager.messageManager.addMessage(trade);
 							FrameManager.historyWindow.addTrade(trade, true);
+						}
+					} else if(chatScannerRunning) {
+						for(String s : searchTerms){
+							if(curLine.toLowerCase().contains(s)){
+								System.out.println("Chat Scanner found term!");
+								return;
+							}
 						}
 					} else {
 						Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
@@ -202,6 +212,14 @@ public class ChatParser {
 			break;
 		}
 		return type;
+	}
+	
+	public void setChatScannerRunning(boolean state){
+		chatScannerRunning = state;
+	}
+	
+	public void setSearchTerms(String[] searchTerms){
+		this.searchTerms = searchTerms;
 	}
 
 }
