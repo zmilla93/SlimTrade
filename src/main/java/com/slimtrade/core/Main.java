@@ -7,11 +7,10 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.jnativehook.GlobalScreen;
@@ -29,8 +28,10 @@ import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
+import main.java.com.slimtrade.gui.messaging.TradePanelA;
 
 public class Main {
 
@@ -89,6 +90,8 @@ public class Main {
 				Locale.setDefault(Locale.US);
 				// SAVE MANAGER DEFAULTS
 
+				ImagePreloader imagePreloader = new ImagePreloader();
+				
 				// Wait Button
 				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "enabled");
 				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "secondaryEnabled");
@@ -126,6 +129,20 @@ public class Main {
 
 				chatParser.init();
 				fileMonitor = new FileMonitor();
+				
+				
+				//TEMP
+				JFrame tempFrame = new JFrame();
+				tempFrame.setLayout(new GridBagLayout());
+				tempFrame.setSize(800, 900);
+				
+				
+				TradePanelA msgPanel = new TradePanelA();
+				tempFrame.add(msgPanel);
+				
+//				tempFrame.pack();
+				tempFrame.setVisible(true);
+				
 
 			}
 		});

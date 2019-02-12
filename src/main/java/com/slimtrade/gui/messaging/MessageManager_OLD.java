@@ -18,18 +18,18 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
-public class MessageManager extends BasicDialog {
+public class MessageManager_OLD extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final int buffer = 1;
 	private final int maxMessageCount = 20;
 	private int messageCount = 0;
-	private AbstractMessagePanel[] messages = new AbstractMessagePanel[maxMessageCount];
+	private MessagePanel[] messages = new MessagePanel[maxMessageCount];
 	private Component[] rigidAreas = new Component[maxMessageCount];
 	private ArrayList<TradeOffer> trades = new ArrayList<TradeOffer>();
 
-	public MessageManager() {
+	public MessageManager_OLD() {
 		// TODO : Get default theme, or move setMessageTheme
 		// ColorManager.setMessageTheme();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -47,7 +47,7 @@ public class MessageManager extends BasicDialog {
 		while (messages[i] != null) {
 			i++;
 		}
-		messages[i] = new TradePanelA();
+		messages[i] = new MessagePanel(trade);
 		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, buffer));
 		final int closeIndex = i;
 		messages[i].getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
@@ -70,9 +70,8 @@ public class MessageManager extends BasicDialog {
 	private void removeMessage(int i) {
 		if (messages[i].getMessageType() == MessageType.INCOMING_TRADE) {
 			// messages[i].stashHelper.highlighterTimer.stop();
-//			messages[i].stashHelper.itemHighlighter.destroy();
-			TradePanelA t = (TradePanelA)messages[i];
-			FrameManager.stashHelperContainer.remove(t.getStashHelper());
+			messages[i].stashHelper.itemHighlighter.destroy();
+			FrameManager.stashHelperContainer.remove(messages[i].stashHelper);
 			FrameManager.stashHelperContainer.refresh();
 		}
 		this.remove(messages[i]);
@@ -99,10 +98,9 @@ public class MessageManager extends BasicDialog {
 	}
 
 	public boolean isDuplicateTrade(TradeOffer trade) {
-		for (AbstractMessagePanel msg : messages) {
-			if (msg != null && msg instanceof TradePanelA) {
-				TradePanelA t = (TradePanelA)msg;
-				if (TradeUtility.isDuplicateTrade(t.getTrade(), trade)) {
+		for (MessagePanel msg : messages) {
+			if (msg != null) {
+				if (TradeUtility.isDuplicateTrade(msg.trade, trade)) {
 					return true;
 				}
 			}
@@ -110,19 +108,19 @@ public class MessageManager extends BasicDialog {
 		return false;
 	}
 
-//	public void rebuild() {
-//		for (int i = 0; i < maxMessageCount; i++) {
-//			if (messages[i] != null) {
-//				trades.add(messages[i].trade);
-//				this.removeMessage(i);
-//			}
-//		}
-//		this.refresh();
-//		for (TradeOffer t : trades) {
-//			this.addMessage(t);
-//		}
-//		trades.clear();
-//	}
+	public void rebuild() {
+		for (int i = 0; i < maxMessageCount; i++) {
+			if (messages[i] != null) {
+				trades.add(messages[i].trade);
+				this.removeMessage(i);
+			}
+		}
+		this.refresh();
+		for (TradeOffer t : trades) {
+			this.addMessage(t);
+		}
+		trades.clear();
+	}
 	
 	public void updateLocation(){
 		this.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));

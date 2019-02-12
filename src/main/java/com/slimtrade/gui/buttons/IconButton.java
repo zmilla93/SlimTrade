@@ -12,10 +12,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 
+import main.java.com.slimtrade.gui.ImagePreloader;
+
 public class IconButton extends JButton {
 
 	private static final long serialVersionUID = -6435841710429512781L;
-	private final int SIZE = 30;
+	private final int DEFAULT_SIZE = 30;
 	private final double IMAGE_SCALE = 0.94;
 
 	private Color colorDefault = Color.GRAY;
@@ -26,25 +28,37 @@ public class IconButton extends JButton {
 	private Border borderHover = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
 	private Border borderPressed = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.RED);
 
+	private Image image;
+	
 	public IconButton(String path) {
-		buildButton(path, SIZE);
+		getNewImage(path, DEFAULT_SIZE);
+		buildButton(image, DEFAULT_SIZE);
 	}
 
 	public IconButton(String path, int size) {
-		buildButton(path, size);
+		getNewImage(path, size);
+		buildButton(image, size);
+	}
+	
+	public IconButton(Image image, int size){
+		buildButton(image, size);
 	}
 
-	private void buildButton(String path, int size) {
+	private void getNewImage(String path, int size) {
+		System.out.println("NEW IMAGE");
+		int imageSize = (int)(size*IMAGE_SCALE);
+		image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
+//		this.setPreferredSize(new Dimension(size, size));
+		
+	}
+	
+	private void buildButton(Image image, int size){
+//		image = ImagePreloader.rad;
 		this.setPreferredSize(new Dimension(size, size));
 		this.setContentAreaFilled(false);
 		this.setFocusable(false);
 		this.setBorder(borderDefault);
-
-		int imageSize = (int)(size*IMAGE_SCALE);
-		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
 		this.setIcon(new ImageIcon(image));
-
-
 		final IconButton localButton = this;
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -55,6 +69,10 @@ public class IconButton extends JButton {
 				localButton.getModel().setPressed(false);
 			}
 		});
+	}
+	
+	private void buildMutual(){
+		
 	}
 
 	protected void paintComponent(Graphics g) {
