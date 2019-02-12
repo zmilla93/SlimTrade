@@ -2,6 +2,7 @@ package main.java.com.slimtrade.gui.stashtab;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +10,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
@@ -19,6 +21,7 @@ public class StashTabWindow extends AbstractWindowDialog {
 	
 	JPanel rowContainer;
 	GridBagConstraints gcRow;
+	int rowBuffer = 5;
 	
 	public StashTabWindow(){
 		super("Stash Tab Manager");
@@ -31,10 +34,39 @@ public class StashTabWindow extends AbstractWindowDialog {
 		gc.gridy = 0;
 		gcRow.gridx = 0;
 		gcRow.gridy = 0;
-		gcRow.insets = new Insets(0, 0, 5, 0);
+//		gcRow.weightx = 1;
+//		gcRow.weighty = 1;
+//		gcRow.gridheight = 1;
+		gcRow.anchor = GridBagConstraints.PAGE_START;
+		gcRow.insets = new Insets(0, 0, rowBuffer, 0);
 		
 		rowContainer = new JPanel(new GridBagLayout());
 		rowContainer.setBackground(Color.RED);
+		
+		//TEMP
+		addNewRow();
+		addNewRow();
+		addNewRow();
+		
+		JScrollPane rowScrollPane = new JScrollPane(rowContainer);
+		StashTabRow dummyRow = new StashTabRow();
+//		rowContainer.revalidate();
+		Dimension scrollPaneSize = dummyRow.getPreferredSize();
+		scrollPaneSize.width+= 25;
+		scrollPaneSize.height = scrollPaneSize.height*10 + rowBuffer*10;
+		
+		System.out.println("PANE " + scrollPaneSize);
+//		rowContainer.setMinimumSize(dummyRow.getPreferredSize());
+//		rowScrollPane.setMinimumSize(scrollPaneSize);
+		rowScrollPane.setPreferredSize(scrollPaneSize);
+		
+//		rowContainer.revalidate();
+//		rowScrollPane.revalidate();
+		
+		rowScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		rowScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		System.out.println(dummyRow.getPreferredSize());
+//		rowScrollPane.revalidate();
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		JButton addButton = new JButton("Add");
@@ -44,17 +76,9 @@ public class StashTabWindow extends AbstractWindowDialog {
 		buttonPanel.add(saveButton);
 		buttonPanel.add(revertButton);
 		
-		addNewRow();
-		addNewRow();
-		addNewRow();
-//		rowContainer.add();
-//		gcRow.gridy++;
-//		rowContainer.add(new StashTabRow(), gcRow);
-//		gcRow.gridy++;
-//		rowContainer.add(new StashTabRow(), gcRow);
-//		gcRow.gridy++;
 		
-		container.add(rowContainer, gc);
+		
+		container.add(rowScrollPane, gc);
 		gc.gridy++;
 		container.add(buttonPanel, gc);
 		
@@ -87,9 +111,19 @@ public class StashTabWindow extends AbstractWindowDialog {
 			}
 		});
 		
+		//TEMP
+//		addNewRow();
+//		addNewRow();
+//		addNewRow();
+//		container.setPreferredSize(null);
+//		Dimension windowSize = container.getPreferredSize();
+//		System.out.println(windowSize);
+//		this.resizeWindow(windowSize.width, windowSize.height);
+		this.autoReisize();
 		this.setVisible(true);
 	}
 	
+	//TODO : this
 	private void addSavedRow(){
 		
 	}

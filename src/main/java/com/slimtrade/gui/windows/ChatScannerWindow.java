@@ -156,7 +156,6 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 		
 		searchArea.getDocument().addDocumentListener(new DocumentListener(){
 			public void changedUpdate(DocumentEvent e) {
-//				validateSearchBorder();
 			}
 
 			public void insertUpdate(DocumentEvent e) {

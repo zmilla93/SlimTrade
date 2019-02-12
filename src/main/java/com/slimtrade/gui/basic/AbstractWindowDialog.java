@@ -24,6 +24,9 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 	public static int titlebarHeight = 20;
 	private static int titleOffset = 5;
 	
+	private int bufferWidth = 20;
+	private int bufferHeight = 20;
+	
 	public Container container = new JPanel();
 	public JPanel titlebarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	public JPanel titlebarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
@@ -87,6 +90,23 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 		this.repaint();
 	}
 	
+	public void resizeWindow(Dimension size){
+		this.setSize(size.width, size.height+titlebarHeight);
+		container.setPreferredSize(new Dimension(size.width, size.height));
+		titlebarContainer.setPreferredSize(new Dimension(size.width, titlebarHeight));
+		titlebarPanel.setPreferredSize(new Dimension(size.width-titlebarHeight, titlebarHeight));
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void autoReisize(){
+		container.setPreferredSize(null);
+		Dimension size = container.getPreferredSize();
+		size.width += bufferWidth;
+		size.height += bufferHeight;
+		this.resizeWindow(size);
+	}
+	
 //	public void resizeWindow(Dimension size){
 //		this.setSize(size.width, size.height+titlebarHeight);
 //		container.setPreferredSize(new Dimension(size.width, size.height));
@@ -101,6 +121,15 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 	private void hideWindow(){
 		this.setVisible(false);
 	}
+
+	public void setBufferWidth(int bufferWidth) {
+		this.bufferWidth = bufferWidth;
+	}
+
+	public void setBufferHeight(int bufferHeight) {
+		this.bufferHeight = bufferHeight;
+	}
+	
 	
 	
 }
