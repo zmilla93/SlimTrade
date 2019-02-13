@@ -45,7 +45,7 @@ public class IconButton extends JButton {
 	}
 
 	private void getNewImage(String path, int size) {
-		System.out.println("NEW IMAGE");
+//		System.out.println("NEW IMAGE");
 		int imageSize = (int)(size*IMAGE_SCALE);
 		image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
 //		this.setPreferredSize(new Dimension(size, size));

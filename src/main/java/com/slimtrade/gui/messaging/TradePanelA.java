@@ -3,27 +3,24 @@ package main.java.com.slimtrade.gui.messaging;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.utility.TradeOffer;
-import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.StashHelper;
 
 public class TradePanelA extends AbstractMessagePanel {
-
+	 
 	private static final long serialVersionUID = 1L;
 
-	private JPanel namePanel = new JPanel(new GridBagLayout());
-	private JPanel pricePanel = new JPanel(new GridBagLayout());
-	private JPanel itemPanel = new JPanel(new GridBagLayout());
-	protected JPanel topPanel = new JPanel();
-	protected JPanel bottomPanel = new JPanel();
+	private JPanel namePanel = new JPanel(gb);
+	private JPanel pricePanel = new JPanel(gb);
+	private JPanel itemPanel = new JPanel(gb);
+	protected JPanel topPanel = new JPanel(gb);
+	protected JPanel bottomPanel = new JPanel(gb);
 	
 	private JLabel nameLabel = new JLabel("NAME");
 	private JLabel priceLabel = new JLabel("PRICE");
@@ -38,36 +35,61 @@ public class TradePanelA extends AbstractMessagePanel {
 	private int buttonCountTop;
 	private int buttonCountBottom;
 	
-	public TradePanelA() {
-		topPanel.setLayout(gb);
-		bottomPanel.setLayout(gb);
-		
-		minHeight = 40;
+	public TradePanelA(int size){
+		super(size);
+		buildPanel(size, true);
+	}
+	
+	public TradePanelA(int size, boolean makeListeners){
+		super(size);
+		buildPanel(size, makeListeners);
+	}
+	
+	private void buildPanel(int size, boolean makeListeners) {
+		//TODO : move size stuff to super
+		if(size%2!=0){
+			size++;
+		}
+		//Sizing
+//		topPanel.setLayout(gb);
+//		bottomPanel.setLayout(gb);
+		minHeight = size;
 		maxHeight = 100;
-		messageHeight = 40;
+		messageHeight = size;
 		messageWidth = messageHeight * 10;
 		borderSize = 2;
 		rowHeight = messageHeight/2;
 		totalWidth = messageWidth + (borderSize * 4);
 		totalHeight = messageHeight + (borderSize * 4);
 		
+		double bottomButtonWeight = 1*0.005;
+		double itemWeight = 1-bottomButtonWeight-timerWeight;
+		
 		this.setPreferredSize(new Dimension(totalWidth, totalHeight));
 		borderPanel.setPreferredSize(new Dimension(messageWidth + borderSize * 2, messageHeight + borderSize * 2));
 		container.setPreferredSize(new Dimension(messageWidth, messageHeight));
-		Dimension size = new Dimension(messageWidth, rowHeight);
-		topPanel.setPreferredSize(size);
-		bottomPanel.setPreferredSize(size);
+		Dimension s = new Dimension(messageWidth, rowHeight);
+		topPanel.setPreferredSize(s);
+		bottomPanel.setPreferredSize(s);
 		
+		//Color
 		namePanel.setBackground(Color.LIGHT_GRAY);
 		pricePanel.setBackground(Color.GRAY);
 		itemPanel.setBackground(Color.DARK_GRAY);
 		buttonPanelTop.setBackground(Color.ORANGE);
 		buttonPanelBottom.setBackground(Color.YELLOW);
-
-		namePanel.setPreferredSize(new Dimension(40, rowHeight));
-		pricePanel.setPreferredSize(new Dimension(40, rowHeight));
-		itemPanel.setPreferredSize(new Dimension(40, rowHeight));
+		
 		this.setButtonCount(3, 5);
+//		int nameWidth = (int)(messageWidth-buttonPanelTop.getWidth()*0.7);
+//		int currencyWidth = messageWidth-nameWidth-buttonPanelTop.getWidth();
+//		
+//		namePanel.setPreferredSize(new Dimension(nameWidth, rowHeight));
+//		namePanel.setMinimumSize(new Dimension(nameWidth, rowHeight));
+//		pricePanel.setPreferredSize(new Dimension(currencyWidth, rowHeight));
+//		pricePanel.setMinimumSize(new Dimension(currencyWidth, rowHeight));
+//		itemPanel.setPreferredSize(new Dimension(40, rowHeight));
+		
+//		System.out.println(nameWidth + " : "  + currencyWidth + " :" + buttonPanelTop.getWidth());
 		
 		this.setBackground(Color.BLACK);
 		borderPanel.setBackground(Color.CYAN);
@@ -84,42 +106,41 @@ public class TradePanelA extends AbstractMessagePanel {
 		
 		
 		
-		gc.fill = GridBagConstraints.BOTH;
-		gc.weightx = 0.7;
+//		gc.fill = GridBagConstraints.BOTH;
+//		gc.weightx = 0.7;
 
 		// TOP PANEL
 		topPanel.add(namePanel, gc);
 		gc.gridx++;
-		gc.weightx = 0.3;
 		topPanel.add(pricePanel, gc);
 		gc.gridx++;
-		gc.fill = GridBagConstraints.NONE;
-		gc.weightx = 0.0;
 		topPanel.add(buttonPanelTop, gc);
 
 		// BOTTOM PANEL
-		gc.fill = GridBagConstraints.BOTH;
-		gc.weightx = 1;
 		gc.gridx = 0;
 		gc.gridy = 0;
-//		gc.gridwidth = 1;
+		bottomPanel.add(timerPanel, gc);
+		gc.gridx++;
 		bottomPanel.add(itemPanel, gc);
-		gc.fill = GridBagConstraints.NONE;
-		gc.weightx = 0.0;
 		gc.gridx++;
 		bottomPanel.add(buttonPanelBottom, gc);
 		
-		buttonPanelTop.add(new IconButton(ImagePreloader.rad, 20));
-		buttonPanelTop.add(new IconButton(ImagePreloader.rad, 20));
-		buttonPanelTop.add(new IconButton(ImagePreloader.rad, 20));
+		buttonPanelTop.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+		buttonPanelTop.add(new IconButton("/resources/icons/thumb1.png", rowHeight));
+		this.setCloseButton(rowHeight, true);
+		buttonPanelTop.add(closeButton);
 		
-//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb1.png", 20));
-//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", 20));
-//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", 20));
-//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", 20));
-//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", 20));
-		buttonPanelBottom.add(new IconButton(ImagePreloader.rad, 20));
+		buttonPanelBottom.add(new IconButton("/resources/icons/thumb1.png", rowHeight));
+		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+//		buttonPanelBottom.add(new IconButton(ImagePreloader.rad, 20));
 
+		namePanel.add(nameLabel);
+		pricePanel.add(priceLabel);
+		itemPanel.add(itemLabel);
+		
 		this.revalidate();
 		this.repaint();
 	}
@@ -127,10 +148,30 @@ public class TradePanelA extends AbstractMessagePanel {
 	public void setButtonCount(int top, int bottom){
 		this.buttonCountTop = top;
 		this.buttonCountBottom = bottom;
-		buttonPanelTop.setPreferredSize(new Dimension(rowHeight*top, rowHeight));
-		buttonPanelTop.setMaximumSize(new Dimension(rowHeight*top, rowHeight));
-		buttonPanelBottom.setPreferredSize(new Dimension(rowHeight*bottom, rowHeight));
-		buttonPanelBottom.setMaximumSize(new Dimension(rowHeight*bottom, rowHeight));
+		Dimension sizeTop = new Dimension(rowHeight*top, rowHeight);
+		Dimension sizeBottom= new Dimension(rowHeight*bottom, rowHeight);
+		buttonPanelTop.setPreferredSize(sizeTop);
+		buttonPanelTop.setMinimumSize(sizeTop);
+		buttonPanelBottom.setPreferredSize(sizeBottom);
+		buttonPanelBottom.setMaximumSize(sizeBottom);
+		int nameWidth = (int)((messageWidth-sizeTop.width)*0.7);
+		int priceWidth = messageWidth-nameWidth-sizeTop.width;
+		int timerWidth = (int)(messageWidth*timerWeight);
+		System.out.println("TIMER WIDTH : " + timerWidth);
+		int itemWidth = messageWidth-timerWidth-sizeBottom.width;
+		
+		namePanel.setPreferredSize(new Dimension(nameWidth, rowHeight));
+//		namePanel.setMinimumSize(new Dimension(nameWidth, rowHeight));
+		pricePanel.setPreferredSize(new Dimension(priceWidth, rowHeight));
+//		pricePanel.setMinimumSize(new Dimension(priceWidth, rowHeight));
+		timerPanel.setPreferredSize(new Dimension(timerWidth, rowHeight));
+		itemPanel.setPreferredSize(new Dimension(itemWidth, rowHeight));
+		
+		
+		System.out.println("\nNAME\t\tPRICE\t\tBUTTONS");
+		System.out.println(messageWidth);
+		System.out.println(nameWidth + "\t\t"  + priceWidth + "\t\t" + sizeTop.width);
+		System.out.println(nameWidth + priceWidth+ sizeTop.width + "\n");
 	}
 	
 	public JButton getCloseButton(){

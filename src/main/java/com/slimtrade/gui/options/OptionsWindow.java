@@ -153,7 +153,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 //		macroPanel.setVisible(true);
 		audioPanel.setVisible(true);
 
-		this.setVisible(true);
+//		this.setVisible(true);
 	}
 
 	private void linkToggle(JPanel title, JPanel content) {

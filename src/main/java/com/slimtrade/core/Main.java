@@ -1,17 +1,28 @@
 package main.java.com.slimtrade.core;
 
 import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -42,10 +53,10 @@ public class Main {
 	public static SaveManager saveManager = new SaveManager();
 	public static ChatParser chatParser = new ChatParser();
 	public static FileMonitor fileMonitor;
+	public static Logger logger;
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-
 		try {
 //			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -134,11 +145,66 @@ public class Main {
 				//TEMP
 				JFrame tempFrame = new JFrame();
 				tempFrame.setLayout(new GridBagLayout());
-				tempFrame.setSize(800, 900);
+				JPanel cont = new JPanel(new GridBagLayout());
+				cont.setPreferredSize(new Dimension(1100,700));
+				cont.setBackground(Color.LIGHT_GRAY);
+				GridBagConstraints gc = new GridBagConstraints();
+				
+				tempFrame.add(cont);
+				tempFrame.setSize(1200, 900);
+				gc.gridx = 0;
+				gc.gridy = 0;
+				for(int i = 30;i<40; i+=2){
+					TradePanelA msgPanel = new TradePanelA(i);
+					msgPanel.getCloseButton().addActionListener(new ActionListener(){
+						public void actionPerformed(ActionEvent arg0) {
+							
+							cont.remove(msgPanel);
+							cont.revalidate();
+							cont.repaint();
+						}
+					});
+					gc.gridy++;
+					cont.add(msgPanel, gc);
+				}
+//				for(AncestorListener l : cont.listener()){
+//					System.out.println("!");
+//				}
 				
 				
-				TradePanelA msgPanel = new TradePanelA();
-				tempFrame.add(msgPanel);
+//				
+				
+				//TODO : Move to overlay manager
+				JSlider slider = new JSlider();
+				slider.setMinorTickSpacing(2);
+				slider.setMajorTickSpacing(10);
+				slider.setMinimum(0);
+				slider.setMaximum(40);
+				slider.setPaintTicks(true);
+				slider.setSnapToTicks(true);
+				slider.addChangeListener(new ChangeListener(){
+					public void stateChanged(ChangeEvent arg0) {
+						for(Component c : cont.getComponents()){
+							cont.remove(c);
+						}
+						int value = slider.getValue();
+						System.out.println(value);
+						gc.gridx = 0;
+						gc.gridy = 0;
+						cont.add(new TradePanelA(40+value, false), gc);
+						cont.revalidate();
+						cont.repaint();
+					}
+				});
+				gc.gridy = 1;
+				tempFrame.add(slider, gc);
+				
+				JButton b = new JButton();
+				
+				
+//				tempFrame.revalidate();
+//				tempFrame.repaint();
+				
 				
 //				tempFrame.pack();
 				tempFrame.setVisible(true);

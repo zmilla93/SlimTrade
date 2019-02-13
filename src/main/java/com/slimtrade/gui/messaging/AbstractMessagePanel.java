@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.gui.messaging;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -26,6 +27,7 @@ public class AbstractMessagePanel extends JPanel {
 	protected int rowHeight;
 	protected int totalWidth;
 	protected int totalHeight;
+	protected final double timerWeight = 0.1;
 	
 	protected static GridBagLayout gb = new GridBagLayout();
 	protected GridBagConstraints gc = new GridBagConstraints();
@@ -33,15 +35,26 @@ public class AbstractMessagePanel extends JPanel {
 	// Panels
 	protected JPanel borderPanel = new JPanel();
 	protected JPanel container = new JPanel();
+	protected JPanel timerPanel = new JPanel();
+	protected IconButton closeButton;
+	
+	protected Font font;
 
-	protected JButton closeButton = new IconButton(ImagePreloader.close, rowHeight);
-
-	public AbstractMessagePanel() {
+	public AbstractMessagePanel(int height) {
 		this.setLayout(gb);
 		borderPanel.setLayout(gb);
 		container.setLayout(gb);
 		gc.gridx = 0;
 		gc.gridy = 0;
+		resizeFont(height);
+	}
+	
+	public void setCloseButton(int size){
+		this.closeButton = new IconButton(ImagePreloader.close, size);
+	}
+	
+	public void setCloseButton(int size, boolean forceNew){
+		this.closeButton = new IconButton("/resources/icons/close.png", size);
 	}
 
 	public JButton getCloseButton() {
@@ -54,6 +67,11 @@ public class AbstractMessagePanel extends JPanel {
 
 	public void setMessageType(MessageType messageType) {
 		this.messageType = messageType;
+	}
+	
+	public void resizeFont(int size){
+		
+//		Font newFont = new Font(Font.);
 	}
 
 
