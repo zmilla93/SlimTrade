@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.gui.messaging;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -7,6 +8,7 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.gui.buttons.IconButton;
@@ -16,9 +18,9 @@ public class TradePanelA extends AbstractMessagePanel {
 	 
 	private static final long serialVersionUID = 1L;
 
-	private JPanel namePanel = new JPanel(gb);
+	private JPanel namePanel = new NameClickPanel();
 	private JPanel pricePanel = new JPanel(gb);
-	private JPanel itemPanel = new JPanel(gb);
+	private JPanel itemPanel = new ItemClickPanel();
 	protected JPanel topPanel = new JPanel(gb);
 	protected JPanel bottomPanel = new JPanel(gb);
 	
@@ -50,6 +52,11 @@ public class TradePanelA extends AbstractMessagePanel {
 		if(size%2!=0){
 			size++;
 		}
+		nameLabel.setLayout(gb);
+		
+//		nameLabel
+		
+		
 		//Sizing
 //		topPanel.setLayout(gb);
 //		bottomPanel.setLayout(gb);
@@ -61,6 +68,40 @@ public class TradePanelA extends AbstractMessagePanel {
 		rowHeight = messageHeight/2;
 		totalWidth = messageWidth + (borderSize * 4);
 		totalHeight = messageHeight + (borderSize * 4);
+		
+		
+//		nameLabel.setVerticalAlignment(JLabel.CENTER);
+//		nameLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+		
+		
+		refreshFont(rowHeight);
+		
+		nameLabel.setFont(font);
+		priceLabel.setFont(font);
+		itemLabel.setFont(font);
+		
+		
+		///NAME TESTING
+		namePanel.setLayout(new BorderLayout());
+		namePanel.add(nameLabel, BorderLayout.CENTER);
+		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nameLabel.setVerticalAlignment(SwingConstants.CENTER);
+		
+		pricePanel.setLayout(new BorderLayout());
+		itemPanel.setLayout(new BorderLayout());
+		
+		nameLabel.setPreferredSize(new Dimension(messageWidth, rowHeight/2));
+		nameLabel.setMaximumSize(new Dimension(messageWidth, rowHeight/2));
+		
+		
+		pricePanel.add(priceLabel, BorderLayout.CENTER);
+		priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		itemPanel.add(itemLabel, BorderLayout.CENTER);
+		itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		
+		nameLabel.revalidate();
+		nameLabel.repaint();
 		
 		double bottomButtonWeight = 1*0.005;
 		double itemWeight = 1-bottomButtonWeight-timerWeight;
@@ -74,22 +115,14 @@ public class TradePanelA extends AbstractMessagePanel {
 		
 		//Color
 		namePanel.setBackground(Color.LIGHT_GRAY);
+		nameLabel.setOpaque(true);;
+		nameLabel.setBackground(Color.green);
 		pricePanel.setBackground(Color.GRAY);
 		itemPanel.setBackground(Color.DARK_GRAY);
 		buttonPanelTop.setBackground(Color.ORANGE);
 		buttonPanelBottom.setBackground(Color.YELLOW);
 		
 		this.setButtonCount(3, 5);
-//		int nameWidth = (int)(messageWidth-buttonPanelTop.getWidth()*0.7);
-//		int currencyWidth = messageWidth-nameWidth-buttonPanelTop.getWidth();
-//		
-//		namePanel.setPreferredSize(new Dimension(nameWidth, rowHeight));
-//		namePanel.setMinimumSize(new Dimension(nameWidth, rowHeight));
-//		pricePanel.setPreferredSize(new Dimension(currencyWidth, rowHeight));
-//		pricePanel.setMinimumSize(new Dimension(currencyWidth, rowHeight));
-//		itemPanel.setPreferredSize(new Dimension(40, rowHeight));
-		
-//		System.out.println(nameWidth + " : "  + currencyWidth + " :" + buttonPanelTop.getWidth());
 		
 		this.setBackground(Color.BLACK);
 		borderPanel.setBackground(Color.CYAN);
@@ -137,9 +170,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
 //		buttonPanelBottom.add(new IconButton(ImagePreloader.rad, 20));
 
-		namePanel.add(nameLabel);
-		pricePanel.add(priceLabel);
-		itemPanel.add(itemLabel);
+		
 		
 		this.revalidate();
 		this.repaint();
@@ -157,7 +188,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		int nameWidth = (int)((messageWidth-sizeTop.width)*0.7);
 		int priceWidth = messageWidth-nameWidth-sizeTop.width;
 		int timerWidth = (int)(messageWidth*timerWeight);
-		System.out.println("TIMER WIDTH : " + timerWidth);
+//		System.out.println("TIMER WIDTH : " + timerWidth);
 		int itemWidth = messageWidth-timerWidth-sizeBottom.width;
 		
 		namePanel.setPreferredSize(new Dimension(nameWidth, rowHeight));
@@ -167,11 +198,11 @@ public class TradePanelA extends AbstractMessagePanel {
 		timerPanel.setPreferredSize(new Dimension(timerWidth, rowHeight));
 		itemPanel.setPreferredSize(new Dimension(itemWidth, rowHeight));
 		
-		
-		System.out.println("\nNAME\t\tPRICE\t\tBUTTONS");
-		System.out.println(messageWidth);
-		System.out.println(nameWidth + "\t\t"  + priceWidth + "\t\t" + sizeTop.width);
-		System.out.println(nameWidth + priceWidth+ sizeTop.width + "\n");
+//		DEBUG
+//		System.out.println("\nNAME\t\tPRICE\t\tBUTTONS");
+//		System.out.println(messageWidth);
+//		System.out.println(nameWidth + "\t\t"  + priceWidth + "\t\t" + sizeTop.width);
+//		System.out.println(nameWidth + priceWidth+ sizeTop.width + "\n");
 	}
 	
 	public JButton getCloseButton(){

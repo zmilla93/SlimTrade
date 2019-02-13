@@ -4,6 +4,8 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -58,7 +60,7 @@ public class Main {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		try {
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
@@ -102,7 +104,7 @@ public class Main {
 				// SAVE MANAGER DEFAULTS
 
 				ImagePreloader imagePreloader = new ImagePreloader();
-				
+
 				// Wait Button
 				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "enabled");
 				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "secondaryEnabled");
@@ -140,25 +142,24 @@ public class Main {
 
 				chatParser.init();
 				fileMonitor = new FileMonitor();
-				
-				
-				//TEMP
+
+				// TEMP
 				JFrame tempFrame = new JFrame();
 				tempFrame.setLayout(new GridBagLayout());
 				JPanel cont = new JPanel(new GridBagLayout());
-				cont.setPreferredSize(new Dimension(1100,700));
+				cont.setPreferredSize(new Dimension(1100, 700));
 				cont.setBackground(Color.LIGHT_GRAY);
 				GridBagConstraints gc = new GridBagConstraints();
-				
+
 				tempFrame.add(cont);
 				tempFrame.setSize(1200, 900);
 				gc.gridx = 0;
 				gc.gridy = 0;
-				for(int i = 30;i<40; i+=2){
+				for (int i = 30; i < 40; i += 2) {
 					TradePanelA msgPanel = new TradePanelA(i);
-					msgPanel.getCloseButton().addActionListener(new ActionListener(){
+					msgPanel.getCloseButton().addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							
+
 							cont.remove(msgPanel);
 							cont.revalidate();
 							cont.repaint();
@@ -167,48 +168,50 @@ public class Main {
 					gc.gridy++;
 					cont.add(msgPanel, gc);
 				}
-//				for(AncestorListener l : cont.listener()){
-//					System.out.println("!");
-//				}
-				
-				
-//				
-				
-				//TODO : Move to overlay manager
+				// for(AncestorListener l : cont.listener()){
+				// System.out.println("!");
+				// }
+
+				//
+
+				// TODO : Move to overlay manager
 				JSlider slider = new JSlider();
-				slider.setMinorTickSpacing(2);
+				slider.setMinorTickSpacing(1);
 				slider.setMajorTickSpacing(10);
 				slider.setMinimum(0);
-				slider.setMaximum(40);
+				slider.setMaximum(20);
 				slider.setPaintTicks(true);
 				slider.setSnapToTicks(true);
-				slider.addChangeListener(new ChangeListener(){
+				slider.addChangeListener(new ChangeListener() {
 					public void stateChanged(ChangeEvent arg0) {
-						for(Component c : cont.getComponents()){
+						for (Component c : cont.getComponents()) {
 							cont.remove(c);
 						}
 						int value = slider.getValue();
-						System.out.println(value);
+						// System.out.println(value);
 						gc.gridx = 0;
 						gc.gridy = 0;
-						cont.add(new TradePanelA(40+value, false), gc);
+						cont.add(new TradePanelA(30 + value), gc);
 						cont.revalidate();
 						cont.repaint();
 					}
 				});
 				gc.gridy = 1;
 				tempFrame.add(slider, gc);
-				
+
 				JButton b = new JButton();
-				
-				
-//				tempFrame.revalidate();
-//				tempFrame.repaint();
-				
-				
-//				tempFrame.pack();
+
+				// tempFrame.revalidate();
+				// tempFrame.repaint();
+				String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+				for (int i = 0; i < fonts.length; i++) {
+					System.out.println(i + "\t" + fonts[i]);
+				}
+				// GraphicsEnviroment.getGraphicsEnviroment() ge = new
+				// GraphicsEnviroment.ge
+
+				// tempFrame.pack();
 				tempFrame.setVisible(true);
-				
 
 			}
 		});

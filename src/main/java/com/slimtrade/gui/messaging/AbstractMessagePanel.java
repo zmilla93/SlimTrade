@@ -1,6 +1,7 @@
 package main.java.com.slimtrade.gui.messaging;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -46,7 +47,6 @@ public class AbstractMessagePanel extends JPanel {
 		container.setLayout(gb);
 		gc.gridx = 0;
 		gc.gridy = 0;
-		resizeFont(height);
 	}
 	
 	public void setCloseButton(int size){
@@ -69,9 +69,15 @@ public class AbstractMessagePanel extends JPanel {
 		this.messageType = messageType;
 	}
 	
-	public void resizeFont(int size){
-		
-//		Font newFont = new Font(Font.);
+	//TODO : More fonts
+	public void refreshFont(int size){
+//		Font f = this.getFont();
+		int i = size;
+		if(i%2!=0){
+			i--;
+		}
+//		System.out.println("FONT SIZE : " + i);
+		font = new Font("Serif", Font.PLAIN, i);
 	}
 
 
