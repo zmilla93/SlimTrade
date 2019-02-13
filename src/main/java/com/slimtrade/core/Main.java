@@ -4,7 +4,6 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,7 +21,6 @@ import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.AncestorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -44,6 +42,7 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
+import main.java.com.slimtrade.gui.messaging.AbstractMessagePanel;
 import main.java.com.slimtrade.gui.messaging.TradePanelA;
 
 public class Main {
@@ -166,6 +165,7 @@ public class Main {
 						}
 					});
 					gc.gridy++;
+					msgPanel.startTimer();
 					cont.add(msgPanel, gc);
 				}
 				// for(AncestorListener l : cont.listener()){
@@ -182,23 +182,32 @@ public class Main {
 				slider.setMaximum(20);
 				slider.setPaintTicks(true);
 				slider.setSnapToTicks(true);
+				AbstractMessagePanel trade = new TradePanelA(40);
 				slider.addChangeListener(new ChangeListener() {
 					public void stateChanged(ChangeEvent arg0) {
 						for (Component c : cont.getComponents()) {
-							cont.remove(c);
+							AbstractMessagePanel m = (AbstractMessagePanel)c;
+							m.stopTimer();
+							cont.remove(m);
+							m = null;
 						}
 						int value = slider.getValue();
 						// System.out.println(value);
 						gc.gridx = 0;
 						gc.gridy = 0;
+						trade.resizeMessage(30+value);
 						cont.add(new TradePanelA(30 + value), gc);
 						cont.revalidate();
 						cont.repaint();
 					}
 				});
-				gc.gridy = 1;
+				
+				gc.gridy++;
+				tempFrame.add(trade, gc);
+				gc.gridy++;
 				tempFrame.add(slider, gc);
-
+				
+				
 				JButton b = new JButton();
 
 				// tempFrame.revalidate();
