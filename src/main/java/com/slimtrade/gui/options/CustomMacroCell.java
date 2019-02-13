@@ -23,7 +23,7 @@ public class CustomMacroCell extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int width = OptionsWindow.contentWidth;
-	private int rowHeight = OptionsWindow.rowHeight;
+	private int rowHeight = OptionsWindow.ROW_HEIGHT;
 	
 	private String saveKey;
 	

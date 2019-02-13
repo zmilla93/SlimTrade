@@ -38,17 +38,18 @@ public class TradePanelA extends AbstractMessagePanel {
 	private int buttonCountTop;
 	private int buttonCountBottom;
 
-	public TradePanelA(int size) {
+	//TODO Listeners?
+	public TradePanelA(TradeOffer trade, int size) {
 		super(size);
-		buildPanel(size, true);
+		buildPanel(trade, size, true);
 	}
 
-	public TradePanelA(int size, boolean makeListeners) {
+	public TradePanelA(TradeOffer trade, int size, boolean makeListeners) {
 		super(size);
-		buildPanel(size, makeListeners);
+		buildPanel(trade, size, makeListeners);
 	}
 
-	private void buildPanel(int size, boolean makeListeners) {
+	private void buildPanel(TradeOffer trade, int size, boolean makeListeners) {
 		// TODO : move size stuff to super
 		calculateSizes(size);
 		
@@ -150,11 +151,9 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	protected void resizeButtons(int top, int bottom) {
 		for(Component c : buttonPanelTop.getComponents()){
-			System.out.println("RE<");
 			buttonPanelTop.remove(c);
 		}
 		for(Component c : buttonPanelBottom.getComponents()){
-			System.out.println("RE<");
 			buttonPanelBottom.remove(c);
 		}
 		buttonPanelTop.add(new IconButton("/resources/icons/thumb2.png", rowHeight));

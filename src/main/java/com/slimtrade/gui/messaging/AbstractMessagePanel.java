@@ -48,11 +48,11 @@ public class AbstractMessagePanel extends JPanel {
 	protected Font font;
 	private int second = 0;
 	private int minute = 1;
+	//TODO minute timer
 	private Timer secondTimer = new Timer(1000, new ActionListener(){
 		public void actionPerformed(ActionEvent arg0) {
 			second++;
 			timerLabel.setText(second + "s");
-			System.out.println("TICK");
 		}
 	});
 

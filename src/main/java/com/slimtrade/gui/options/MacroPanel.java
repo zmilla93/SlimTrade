@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-public class MacroPanel extends ContentPanel {
+public class MacroPanel extends ContentPanel_REMOVE {
 
 	// private final int bufferSize = 10;
 	private static final long serialVersionUID = 1L;

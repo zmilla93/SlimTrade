@@ -12,13 +12,13 @@ import javax.swing.JPanel;
 
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class ContentPanel extends JPanel {
+public class ContentPanel_REMOVE extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int widthBuffer = 20;
 	private int heightBuffer = 20;
 
-	public ContentPanel(int width, int height) {
+	public ContentPanel_REMOVE(int width, int height) {
 		this.setBackground(Color.YELLOW);
 		// this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setLayout(new GridBagLayout());

@@ -15,6 +15,7 @@ import javax.swing.ScrollPaneConstants;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
+import main.java.com.slimtrade.gui.options.customizer.MessageCustomizerPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class OptionsWindow extends AbstractWindowDialog {
@@ -23,7 +24,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	public final static int contentWidth = (int) (WIDTH * 0.95);
-	public static int rowHeight = 25;
+	public static final int ROW_HEIGHT = 25;
 	private int bufferHeight = 10;
 
 	// private GridBagConstraints gc = new GridBagConstraints();
@@ -78,6 +79,14 @@ public class OptionsWindow extends AbstractWindowDialog {
 		linkToggle(macroTitle, macroPanel);
 		optionsContainer.add(macroTitle);
 		optionsContainer.add(macroPanel);
+		this.addOptionBuffer();
+		
+		//Message Customizer
+		OptionTitlePanel customizerTitle = new OptionTitlePanel("Message Customizer");
+		MessageCustomizerPanel customizerPanel = new MessageCustomizerPanel();
+		linkToggle(customizerTitle, customizerPanel);
+		optionsContainer.add(customizerTitle);
+		optionsContainer.add(customizerPanel);
 		this.addOptionBuffer();
 
 		// Audio Panel
@@ -151,9 +160,10 @@ public class OptionsWindow extends AbstractWindowDialog {
 
 		// TODO : Temp
 //		macroPanel.setVisible(true);
-		audioPanel.setVisible(true);
+//		audioPanel.setVisible(true);
+		customizerPanel.setVisible(true);
 
-//		this.setVisible(true);
+		this.setVisible(true);
 	}
 
 	private void linkToggle(JPanel title, JPanel content) {

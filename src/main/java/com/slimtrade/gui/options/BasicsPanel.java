@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 
-public class BasicsPanel extends ContentPanel {
+public class BasicsPanel extends ContentPanel_REMOVE {
 
 	private static final long serialVersionUID = 1L;
 	private int bufferX = 30;

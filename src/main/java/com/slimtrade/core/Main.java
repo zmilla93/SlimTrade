@@ -143,84 +143,77 @@ public class Main {
 				fileMonitor = new FileMonitor();
 
 				// TEMP
-				JFrame tempFrame = new JFrame();
-				tempFrame.setLayout(new GridBagLayout());
-				JPanel cont = new JPanel(new GridBagLayout());
-				cont.setPreferredSize(new Dimension(1100, 700));
-				cont.setBackground(Color.LIGHT_GRAY);
-				GridBagConstraints gc = new GridBagConstraints();
-
-				tempFrame.add(cont);
-				tempFrame.setSize(1200, 900);
-				gc.gridx = 0;
-				gc.gridy = 0;
-				for (int i = 30; i < 40; i += 2) {
-					TradePanelA msgPanel = new TradePanelA(i);
-					msgPanel.getCloseButton().addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-
-							cont.remove(msgPanel);
-							cont.revalidate();
-							cont.repaint();
-						}
-					});
-					gc.gridy++;
-					msgPanel.startTimer();
-					cont.add(msgPanel, gc);
-				}
-				// for(AncestorListener l : cont.listener()){
-				// System.out.println("!");
-				// }
-
-				//
-
-				// TODO : Move to overlay manager
-				JSlider slider = new JSlider();
-				slider.setMinorTickSpacing(1);
-				slider.setMajorTickSpacing(10);
-				slider.setMinimum(0);
-				slider.setMaximum(20);
-				slider.setPaintTicks(true);
-				slider.setSnapToTicks(true);
-				AbstractMessagePanel trade = new TradePanelA(40);
-				slider.addChangeListener(new ChangeListener() {
-					public void stateChanged(ChangeEvent arg0) {
-						for (Component c : cont.getComponents()) {
-							AbstractMessagePanel m = (AbstractMessagePanel)c;
-							m.stopTimer();
-							cont.remove(m);
-							m = null;
-						}
-						int value = slider.getValue();
-						// System.out.println(value);
-						gc.gridx = 0;
-						gc.gridy = 0;
-						trade.resizeMessage(30+value);
-						cont.add(new TradePanelA(30 + value), gc);
-						cont.revalidate();
-						cont.repaint();
-					}
-				});
-				
-				gc.gridy++;
-				tempFrame.add(trade, gc);
-				gc.gridy++;
-				tempFrame.add(slider, gc);
-				
-				
-				JButton b = new JButton();
+//				JFrame tempFrame = new JFrame();
+//				tempFrame.setLayout(new GridBagLayout());
+//				JPanel cont = new JPanel(new GridBagLayout());
+//				cont.setPreferredSize(new Dimension(1100, 700));
+//				cont.setBackground(Color.LIGHT_GRAY);
+//				GridBagConstraints gc = new GridBagConstraints();
+//
+//				tempFrame.add(cont);
+//				tempFrame.setSize(1200, 900);
+//				gc.gridx = 0;
+//				gc.gridy = 0;
+//				for (int i = 30; i < 40; i += 2) {
+//					TradePanelA msgPanel = new TradePanelA(i);
+//					msgPanel.getCloseButton().addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent arg0) {
+//
+//							cont.remove(msgPanel);
+//							cont.revalidate();
+//							cont.repaint();
+//						}
+//					});
+//					gc.gridy++;
+//					msgPanel.startTimer();
+//					cont.add(msgPanel, gc);
+//				}
+//				// TODO : Move to overlay manager
+//				JSlider slider = new JSlider();
+//				slider.setMinorTickSpacing(1);
+//				slider.setMajorTickSpacing(10);
+//				slider.setMinimum(0);
+//				slider.setMaximum(20);
+//				slider.setPaintTicks(true);
+//				slider.setSnapToTicks(true);
+//				AbstractMessagePanel trade = new TradePanelA(40);
+//				slider.addChangeListener(new ChangeListener() {
+//					public void stateChanged(ChangeEvent arg0) {
+//						for (Component c : cont.getComponents()) {
+//							AbstractMessagePanel m = (AbstractMessagePanel)c;
+//							m.stopTimer();
+//							cont.remove(m);
+//							m = null;
+//						}
+//						int value = slider.getValue();
+//						// System.out.println(value);
+//						gc.gridx = 0;
+//						gc.gridy = 0;
+//						trade.resizeMessage(30+value);
+//						cont.add(new TradePanelA(30 + value), gc);
+//						cont.revalidate();
+//						cont.repaint();
+//					}
+//				});
+//				
+//				gc.gridy++;
+//				tempFrame.add(trade, gc);
+//				gc.gridy++;
+//				tempFrame.add(slider, gc);
+//				tempFrame.setVisible(true);
 
 				// tempFrame.revalidate();
 				// tempFrame.repaint();
+				
+				
 				String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 				for (int i = 0; i < fonts.length; i++) {
 					System.out.println(i + "\t" + fonts[i]);
 				}
 				// GraphicsEnviroment.getGraphicsEnviroment() ge = new
 				// GraphicsEnviroment.ge
-
 				// tempFrame.pack();
-				tempFrame.setVisible(true);
+//				
 
 			}
 		});
