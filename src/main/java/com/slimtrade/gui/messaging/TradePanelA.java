@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.enums.MessageType;
+import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.StashHelper;
 
@@ -37,6 +39,18 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private int buttonCountTop;
 	private int buttonCountBottom;
+	
+	private IconButton callbackButton;
+	private IconButton waitButton;
+	private IconButton refreshButton;
+	private IconButton inviteButton;
+	private IconButton warpButton;
+	private IconButton tradeButton;
+	private IconButton thankButton;
+	private IconButton leaveButton;
+	private IconButton kickButton;
+	private IconButton homeButton;
+	
 
 	//TODO Listeners?
 	public TradePanelA(TradeOffer trade, int size) {
@@ -47,11 +61,31 @@ public class TradePanelA extends AbstractMessagePanel {
 	public TradePanelA(TradeOffer trade, int size, boolean makeListeners) {
 		super(size);
 		buildPanel(trade, size, makeListeners);
+//		j=new JButton();
 	}
 
 	private void buildPanel(TradeOffer trade, int size, boolean makeListeners) {
 		// TODO : move size stuff to super
+		this.setMessageType(trade.msgType);
+		switch(trade.msgType){
+		case CHAT_SCANNER:
+			break;
+		case INCOMING_TRADE:
+			buttonCountTop = 4;
+			buttonCountBottom = 4;
+			break;
+		case OUTGOING_TRADE:
+			buttonCountTop = 2;
+			buttonCountBottom = 4;
+			break;
+		case UNKNOWN:
+			break;
+		default:
+			break;
+		}
 		calculateSizes(size);
+		refreshButtons(buttonCountTop, buttonCountBottom, this.getMessageType());
+		resizeFrames(buttonCountTop, buttonCountBottom);
 		
 		namePanel.setLayout(new BorderLayout());
 		namePanel.add(nameLabel, BorderLayout.CENTER);
@@ -80,8 +114,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		buttonPanelBottom.setBackground(Color.YELLOW);
 
 //		this.setButtonCount(3, 5);
-		resizeFrames(3, 5);
-		resizeButtons(3, 5);
+		
 		this.setBackground(Color.BLACK);
 		borderPanel.setBackground(Color.CYAN);
 		container.setBackground(Color.BLACK);
@@ -127,7 +160,7 @@ public class TradePanelA extends AbstractMessagePanel {
 	public void resizeMessage(int size){
 		calculateSizes(size);
 		resizeFrames(3, 5);
-		resizeButtons(3, 5);
+		refreshButtons(3, 5, this.getMessageType());
 		this.revalidate();
 		this.repaint();
 	}
@@ -149,23 +182,65 @@ public class TradePanelA extends AbstractMessagePanel {
 		itemLabel.setFont(font);
 	}
 
-	protected void resizeButtons(int top, int bottom) {
+	protected void refreshButtons(int top, int bottom, MessageType type) {
 		for(Component c : buttonPanelTop.getComponents()){
 			buttonPanelTop.remove(c);
+			c = null;
 		}
 		for(Component c : buttonPanelBottom.getComponents()){
 			buttonPanelBottom.remove(c);
+			c = null;
 		}
-		buttonPanelTop.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
-		buttonPanelTop.add(new IconButton("/resources/icons/thumb1.png", rowHeight));
-		this.setCloseButton(rowHeight, true);
+		switch(type){
+		case CHAT_SCANNER:
+			break;
+		case INCOMING_TRADE:
+			callbackButton = new IconButton(ImagePreloader.callback, rowHeight);
+			waitButton = new IconButton(ImagePreloader.wait, rowHeight);
+			refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
+			inviteButton = new IconButton(ImagePreloader.invite, rowHeight);
+			tradeButton = new IconButton(ImagePreloader.trade, rowHeight);
+			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
+			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
+			buttonPanelTop.add(callbackButton);
+			buttonPanelTop.add(waitButton);
+			buttonPanelTop.add(refreshButton);
+			
+			buttonPanelBottom.add(inviteButton);
+			buttonPanelBottom.add(tradeButton);
+			buttonPanelBottom.add(thankButton);
+			buttonPanelBottom.add(kickButton);
+			
+			break;
+		case OUTGOING_TRADE:
+			refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
+			warpButton = new IconButton(ImagePreloader.warp, rowHeight);
+			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
+			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
+			homeButton = new IconButton(ImagePreloader.home, rowHeight);
+			
+			buttonPanelTop.add(refreshButton);
+			
+			buttonPanelBottom.add(warpButton);
+			buttonPanelBottom.add(thankButton);
+			buttonPanelBottom.add(kickButton);
+			buttonPanelBottom.add(homeButton);
+			break;
+		case UNKNOWN:
+			break;
+		default:
+			break;
+		}
+		
+		//TODO : update force
+		this.setCloseButton(rowHeight);
 		buttonPanelTop.add(closeButton);
 
-		buttonPanelBottom.add(new IconButton("/resources/icons/thumb1.png", rowHeight));
-		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
-		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
-		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
-		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb1.png", rowHeight));
+//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
+//		buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png", rowHeight));
 	}
 
 	protected void resizeFrames(int top, int bottom) {
@@ -192,7 +267,6 @@ public class TradePanelA extends AbstractMessagePanel {
 		pricePanel.setPreferredSize(new Dimension(priceWidth, rowHeight));
 		timerPanel.setPreferredSize(new Dimension(timerWidth, rowHeight));
 		itemPanel.setPreferredSize(new Dimension(itemWidth, rowHeight));
-		System.out.println("message frames");
 	}
 
 	public JButton getCloseButton() {

@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
@@ -18,39 +19,49 @@ public class PresetMacroRow extends JPanel {
 	private static final long serialVersionUID = 1L;
 	protected final int BUFFER_WIDTH = 10;
 	private final int COLUMN_SIZE = 40;
-	private JLabel nameLabel = new JLabel("NAME");
-	private JLabel tempLabel = new JLabel("TEMP");
+	
+	private JPanel titlePanel = new JPanel();
+//	private JPanel mousePanel = new JPanel();
+	
+	private JLabel titleLabel = new JLabel("NAME");
+	
+//	private JLabel tempLabel = new JLabel("TEMP");
 	private JTextField textLMB = new JTextField(COLUMN_SIZE);
 	private JTextField textRMB = new JTextField(COLUMN_SIZE);
 	private IconButton exampleButton;
 	GridBagConstraints gc = new GridBagConstraints();
 	
-	private Dimension size;
+	private final int rowHeight = 20;
+	private final int nameWidth = 60;
+	private final int mouseWidth = 70;
+	
+//	private Dimension size;
 
 	PresetMacroRow(String name, String img, boolean... thin) {
-		this.setBackground(Color.GRAY);
 		this.setLayout(new GridBagLayout());
+		titlePanel.setLayout(new GridBagLayout());
+//		mousePanel.setLayout(new GridBagLayout());
+		this.setBackground(Color.GRAY);
+		titlePanel.setOpaque(false);
+//		titlePanel.setOpaque(false);
+		
 		if (thin.length > 0 && thin[0]) {
 			this.setPreferredSize(new Dimension(500, 20));
 		}else{
 			this.setPreferredSize(new Dimension(500, 40));
 		}
-		System.out.println("CELL SIZE : " + textLMB.getPreferredSize());
-		size = textLMB.getPreferredSize();
+//		size = textLMB.getPreferredSize();
 		gc.weightx = 1;
 		gc.gridx = 0;
 		gc.gridy = 0;
-		nameLabel.setText(name);
-		nameLabel.setSize(50, 20);
-		this.add(new BufferPanel(BUFFER_WIDTH, 0), gc);
+		titleLabel.setText(name);
+		titlePanel.add(titleLabel);
+		titlePanel.setPreferredSize(new Dimension(nameWidth, rowHeight));
+		
 		gc.gridx++;
-		this.add(nameLabel, gc);
-		gc.gridx++;
-		this.add(new BufferPanel(BUFFER_WIDTH, 0), gc);
+		this.add(titlePanel, gc);
 		gc.gridx += 2;// Label
-		this.add(new BufferPanel(BUFFER_WIDTH, 0), gc);
 		gc.gridx += 2;// Action
-		this.add(new BufferPanel(BUFFER_WIDTH, 0), gc);
 
 		if (thin.length > 0 && thin[0]) {
 			gc.gridx = 2;
@@ -60,27 +71,72 @@ public class PresetMacroRow extends JPanel {
 			gc.gridy = 1;
 			
 		}
+		gc.gridx = 0;
+		gc.gridy = 0;
 		exampleButton = new IconButton(img, 20);
 		this.add(exampleButton, gc);
 		gc.gridy = 0;
+		this.setPreferredSize(null);
+		this.revalidate();
+	}
+	
+	private JPanel getSimplePanel(){
+		return null;
 	}
 
 	// TODO Make row look like editable
-	public void addRow(String title, String text) {
+	public void getRow(String name, String text, boolean... editable) {
+		gc.gridx = 2;
+		JPanel namePanel = new JPanel();
+		namePanel.setBackground(Color.yellow);
+		namePanel.setLayout(new GridBagLayout());
+		namePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
+		namePanel.setOpaque(false);
+		JLabel nameLabel = new JLabel(name);
+		namePanel.add(nameLabel);
+		this.add(namePanel, gc);
 		gc.gridx = 3;
-		this.add(new JLabel(title), gc);
-		gc.gridx = 5;
-		JLabel textLabel = new JLabel(text);
-		textLabel.setPreferredSize(size);
+		JTextField textLabel = new JTextField(COLUMN_SIZE);
+		if(editable.length==0 || editable[0]==false){
+			textLabel.setEditable(false);
+			textLabel.setOpaque(false);
+			textLabel.setFocusable(false);
+//			textLabel.setDragEnabled(false);
+		}
+		textLabel.setText(text);
 		this.add(textLabel, gc);
 		gc.gridy++;
 	}
+	
+//	public JTextField getRow(String name, String preset, boolean editable){
+//		gc.gridx = 2;
+//		JPanel namePanel = new JPanel();
+//		namePanel.setLayout(new GridBagLayout());
+//		JLabel nameLabel = new JLabel(name);
+//		namePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
+//		namePanel.add(nameLabel);
+//		this.add(namePanel, gc);
+//		gc.gridx = 3;
+//		JTextField textInput = new JTextField(COLUMN_SIZE);
+//		
+//		textInput.setPreferredSize(size);
+//		textInput.setText(preset);
+//		this.add(textInput, gc);
+//		gc.gridy++;
+//		return textInput;
+//	}
 
 	public void addEditLMB(String title, String preset) {
 		gc.gridx = 3;
-		this.add(new JLabel(title), gc);
+		JPanel titlePanel = new JPanel();
+//		titlePanel.setBackground(Color.yellow);
+		titlePanel.setLayout(new GridBagLayout());
+		JLabel titleLabel = new JLabel(title);
+		titlePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
+		titlePanel.add(titleLabel);
+		this.add(titlePanel, gc);
 		gc.gridx = 5;
-		textLMB.setPreferredSize(size);
+//		textLMB.setPreferredSize(size);
 		textLMB.setText(preset);
 		this.add(textLMB, gc);
 		gc.gridy++;
@@ -88,7 +144,13 @@ public class PresetMacroRow extends JPanel {
 
 	public void addEditRMB(String title, String preset) {
 		gc.gridx = 3;
-		this.add(new JLabel(title), gc);
+		JPanel titlePanel = new JPanel();
+//		titlePanel.setBackground(Color.yellow);
+		titlePanel.setLayout(new GridBagLayout());
+		JLabel titleLabel = new JLabel(title);
+		titlePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
+		titlePanel.add(titleLabel);
+		this.add(titlePanel, gc);
 		gc.gridx = 5;
 		// JTextField text = new JTextField(50);
 //		textRMB.setPreferredSize(size);
@@ -100,10 +162,17 @@ public class PresetMacroRow extends JPanel {
 
 	public void addEditRow(String title, String preset) {
 		gc.gridx = 3;
-		this.add(new JLabel(title), gc);
+		JPanel titlePanel = new JPanel();
+//		titlePanel.setBackground(Color.yellow);
+		titlePanel.setLayout(new GridBagLayout());
+		JLabel titleLabel = new JLabel(title);
+		titlePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
+		titlePanel.add(titleLabel);
+		this.add(titlePanel, gc);
 		gc.gridx = 5;
 		JTextField text = new JTextField(COLUMN_SIZE);
 //		text.setPreferredSize(size);
+		
 		text.setText(preset);
 		this.add(text, gc);
 		gc.gridy++;

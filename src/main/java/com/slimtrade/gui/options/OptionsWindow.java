@@ -15,7 +15,8 @@ import javax.swing.ScrollPaneConstants;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
-import main.java.com.slimtrade.gui.options.customizer.MessageCustomizerPanel;
+import main.java.com.slimtrade.gui.options.customizer.IncomingCustomizer;
+import main.java.com.slimtrade.gui.options.customizer.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class OptionsWindow extends AbstractWindowDialog {
@@ -83,10 +84,19 @@ public class OptionsWindow extends AbstractWindowDialog {
 		
 		//Message Customizer
 		OptionTitlePanel customizerTitle = new OptionTitlePanel("Message Customizer");
-		MessageCustomizerPanel customizerPanel = new MessageCustomizerPanel();
+//		CustomizerPanel customizerPanel = new CustomizerPanel();
+		IncomingCustomizer customizerPanel = new IncomingCustomizer();
 		linkToggle(customizerTitle, customizerPanel);
 		optionsContainer.add(customizerTitle);
 		optionsContainer.add(customizerPanel);
+		this.addOptionBuffer();
+		
+		OptionTitlePanel customizerOutTitle = new OptionTitlePanel("Message Customizer");
+//		CustomizerPanel customizerPanel = new CustomizerPanel();
+		OutgoingCustomizer customizerOutPanel = new OutgoingCustomizer();
+		linkToggle(customizerOutTitle, customizerOutPanel);
+		optionsContainer.add(customizerOutTitle);
+		optionsContainer.add(customizerOutPanel);
 		this.addOptionBuffer();
 
 		// Audio Panel

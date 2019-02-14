@@ -59,7 +59,6 @@ public class Main {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		try {
-			// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
@@ -205,11 +204,13 @@ public class Main {
 				// tempFrame.revalidate();
 				// tempFrame.repaint();
 				
+				//PRINT FONTS
+//				String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+//				for (int i = 0; i < fonts.length; i++) {
+//					System.out.println(i + "\t" + fonts[i]);
+//				}
 				
-				String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-				for (int i = 0; i < fonts.length; i++) {
-					System.out.println(i + "\t" + fonts[i]);
-				}
+				
 				// GraphicsEnviroment.getGraphicsEnviroment() ge = new
 				// GraphicsEnviroment.ge
 				// tempFrame.pack();

@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class MacroRow extends JPanel {
+public class CustomMacroRow extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel nameLabel = new JLabel("Custom");
@@ -30,7 +30,7 @@ public class MacroRow extends JPanel {
 	private IconButton deleteButton = new IconButton("/resources/icons/close.png", 20);
 	
 	
-	public MacroRow(){
+	public CustomMacroRow(){
 		this.setBackground(Color.GRAY);
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
@@ -44,6 +44,7 @@ public class MacroRow extends JPanel {
 		iconCombo.setFocusable(false);
 		iconCombo.removeAll();
 		iconCombo.setLayout(new BorderLayout());
+		iconCombo.setBorder(null);
 		for (Component component : iconCombo.getComponents())
 		{
 		    if (component instanceof JButton) {
@@ -51,7 +52,10 @@ public class MacroRow extends JPanel {
 		    }
 		}
 		Dimension iconSize = iconCombo.getPreferredSize();
+		iconSize.height = 20;
 		iconSize.width=(int)(iconSize.height*1.2);
+//		iconSize.width = 20;
+//		
 		iconCombo.setPreferredSize(iconSize);
 		
 		
