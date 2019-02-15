@@ -19,6 +19,7 @@ import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 import main.java.com.slimtrade.gui.options.customizer.IncomingCustomizer;
 import main.java.com.slimtrade.gui.options.customizer.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
+import main.java.com.slimtrade.gui.stashtab.StashTabPanel;
 
 public class FancyWindow extends AbstractWindowDialog {
 
@@ -59,20 +60,27 @@ public class FancyWindow extends AbstractWindowDialog {
 		bottomPanel.add(saveButton);
 		
 		
-		JButton basicsButton = new JButton("DISPLAY");
-//		BasicsPanel basicsPanel = new BasicsPanel();
+		JButton basicsButton = new JButton("Basics");
+		BasicsPanel basicsPanel = new BasicsPanel();
+		link(basicsButton, basicsPanel);
+		display.add(basicsPanel, gc);
 		
-		JButton incomingButton = new JButton("INCOMING TRADES");
+		JButton stashButton = new JButton("Stash Manager");
+		StashTabPanel stashPanel = new StashTabPanel();
+		link(stashButton, stashPanel);
+		display.add(stashPanel, gc);
+		
+		JButton incomingButton = new JButton("Incoming Macros");
 		IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
 		link(incomingButton, incomingPanel);
 		display.add(incomingPanel, gc);
 		
-		JButton outgoingButton = new JButton("OUTGOING TRADES");
+		JButton outgoingButton = new JButton("Outgoing Macros");
 		OutgoingCustomizer outgoingPanel = new OutgoingCustomizer();
 		link(outgoingButton, outgoingPanel);
 		display.add(outgoingPanel, gc);
 		
-		JButton audioButton = new JButton("AUDIO");
+		JButton audioButton = new JButton("Audio");
 		AudioPanel audioPanel = new AudioPanel();
 		link(audioButton, audioPanel);
 		display.add(audioPanel, gc);
@@ -89,6 +97,7 @@ public class FancyWindow extends AbstractWindowDialog {
 		
 		
 		menuPanel.add(basicsButton);
+		menuPanel.add(stashButton);
 		menuPanel.add(incomingButton);
 		menuPanel.add(outgoingButton);
 		menuPanel.add(audioButton);
@@ -110,7 +119,7 @@ public class FancyWindow extends AbstractWindowDialog {
 //		this.resizeWindow((int)(TradeUtility.screenSize.width*modWidth),(int)(TradeUtility.screenSize.height*modHeight));
 		
 		incomingPanel.setVisible(true);
-		advancedPanel.setVisible(true);
+//		advancedPanel.setVisible(true);
 		this.autoReisize();
 		
 		AbstractWindowDialog local = this;

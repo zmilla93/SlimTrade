@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.gui.options.customizer;
 
+import java.awt.Dimension;
 import java.awt.Insets;
 import java.util.Random;
 
@@ -23,7 +24,7 @@ public class OutgoingCustomizer extends ContentPanel {
 				TradeOffer tradeOut = new TradeOffer("", "", MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 
 				
-				AbstractMessagePanel exampleTradeOut = new TradePanelA(tradeOut, 40);
+				AbstractMessagePanel exampleTradeOut = new TradePanelA(tradeOut, new Dimension(400,40));
 				exampleTradeOut.stopTimer();
 
 				//OUTGOING PRESETS

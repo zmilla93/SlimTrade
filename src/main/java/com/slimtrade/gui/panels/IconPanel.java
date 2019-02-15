@@ -18,8 +18,8 @@ import main.java.com.slimtrade.core.managers.ColorManager;
 public class IconPanel extends JPanel {
 
 	private static final long serialVersionUID = -5297536255112243190L;
-	private final int SIZE = 30;
-	private final double IMAGE_SCALE = 0.9;
+	private final int SIZE = 20;
+	private final double IMAGE_SCALE = 1;
 
 	public IconPanel(String path) {
 		buildIcon(path, SIZE, null);

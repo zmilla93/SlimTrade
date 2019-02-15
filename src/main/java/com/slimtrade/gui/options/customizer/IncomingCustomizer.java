@@ -1,6 +1,7 @@
 package main.java.com.slimtrade.gui.options.customizer;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +50,7 @@ public class IncomingCustomizer extends ContentPanel {
 		this.parent = parent;
 		Random rng = new Random();
 		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-		exampleTradeIn = new TradePanelA(tradeIn, 40);
+		exampleTradeIn = new TradePanelA(tradeIn, new Dimension(400,40));
 		exampleTradeIn.stopTimer();
 		// INCOMING PRESETS
 		PresetMacroRow callbackInPreset = new PresetMacroRow("Callback", "/resources/icons/phone.png");

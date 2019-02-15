@@ -59,7 +59,7 @@ public class AbstractMessagePanel extends JPanel {
 	// TODO minute timer
 	private Timer secondTimer=new Timer(1000,new ActionListener(){public void actionPerformed(ActionEvent arg0){second++;timerLabel.setText(second+"s");}});
 
-	public AbstractMessagePanel(int height) {
+	public AbstractMessagePanel() {
 		this.setLayout(gb);
 		borderPanel.setLayout(gb);
 		container.setLayout(gb);

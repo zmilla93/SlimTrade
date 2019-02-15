@@ -67,7 +67,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 
 		// BASICS
 		OptionTitlePanel basicsTitle = new OptionTitlePanel("Basics");
-		BasicsPanel basicsPanel = new BasicsPanel(contentWidth, HEIGHT);
+		BasicsPanel basicsPanel = new BasicsPanel();
 		optionsContainer.add(basicsTitle);
 		optionsContainer.add(basicsPanel);
 		linkToggle(basicsTitle, basicsPanel);

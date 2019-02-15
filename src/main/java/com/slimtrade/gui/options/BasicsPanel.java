@@ -1,7 +1,9 @@
 package main.java.com.slimtrade.gui.options;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
@@ -11,24 +13,18 @@ import javax.swing.JLabel;
 
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class BasicsPanel extends ContentPanel_REMOVE {
+public class BasicsPanel extends ContentPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int bufferX = 30;
 	private int bufferY = 5;
 
-	BasicsPanel(int width, int height) {
-		super(width, height);
+	BasicsPanel() {
 		this.setLayout(new GridBagLayout());
-		GridBagConstraints gc = new GridBagConstraints();
-		GridBagConstraints gcMain = new GridBagConstraints();
-		GridBagConstraints gcRow = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 0;
-
 		// COLOR THEME
-		JLabel colorLabel = new JLabel("Time Format");
+		JLabel colorLabel = new JLabel("Color");
 		JComboBox<String> colorCombo = new JComboBox<String>();
 		colorCombo.setFocusable(false);
 		colorCombo.addItem("Default");
@@ -75,19 +71,7 @@ public class BasicsPanel extends ContentPanel_REMOVE {
 		JButton overlayButton = new JButton("Edit");
 		overlayButton.setFocusable(false);
 
-		gcMain.gridx = 0;
-		gcMain.gridy = 0;
-		gcRow.gridx = 0;
-		gcRow.gridy = 0;
-
-		this.addPair(timeLabel, timeCombo, gcMain);
-		this.addPair(dateLabel, dateCombo, gcMain);
-		// this.addPair(guildLabel, guildCombo, gcMain);
-		this.addPair(guildLabel, guildCheckbox, gcMain);
-		// this.addPair(kickLabel, kickCombo, gcMain);
-		this.addPair(kickLabel, kickCheckbox, gcMain);
-		this.addPair(stashLabel, stashButton, gcMain);
-		this.addPair(overlayLabel, overlayButton, gcMain);
+		
 		
 		
 		//Actions
@@ -111,86 +95,25 @@ public class BasicsPanel extends ContentPanel_REMOVE {
 				FrameManager.overlayManager.showDialog();
 			}
 		});
-
-		// DECENT
-
-		// JPanel pneg1 = new JPanel(new GridBagLayout());
-		// pneg1.add(new BufferPanel(10, 0), gcRow);
-		// gcRow.gridx++;
-		// pneg1.add(timeLabel, gcRow);
-		// gcRow.gridx++;
-		// pneg1.add(new BufferPanel(40, 0), gcRow);
-		// gcRow.gridx++;
-		// pneg1.add(timeCombo, gcRow);
-		// gcRow.gridx = 0;
-		// gcRow.gridy++;
-		// pneg1.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1,
-		// Color.black));
-
-		// this.add(pneg1, gcMain);
-		// gcMain.gridy++;
-		// this.add(new BufferPanel(0, 20), gcMain);
-		// gcMain.gridy++;
-
-		// JPanel p0 = new JPanel(new GridBagLayout());
-		// p0.add(new BufferPanel(10, 0), gcRow);
-		// gcRow.gridx++;
-		// p0.add(dateLabel, gcRow);
-		// gcRow.gridx++;
-		// p0.add(new BufferPanel(40, 0), gcRow);
-		// gcRow.gridx++;
-		// p0.add(dateCombo, gcRow);
-		// gcRow.gridx = 0;
-		// gcRow.gridy++;
-		//
-		// this.add(p0, gcMain);
-		// gcMain.gridy++;
-		// this.add(new BufferPanel(0, 20), gcMain);
-		// gcMain.gridy++;
-
-		// JPanel p1 = new JPanel(new GridBagLayout());
-		// p1.add(new BufferPanel(10, 0), gcRow);
-		// gcRow.gridx++;
-		// p1.add(stashLabel, gcRow);
-		// gcRow.gridx++;
-		// p1.add(new BufferPanel(40, 0), gcRow);
-		// gcRow.gridx++;
-		// p1.add(stashButton, gcRow);
-		// gcRow.gridx = 0;
-		// gcRow.gridy++;
-		//
-		// this.add(p1, gcMain);
-		// gcMain.gridy++;
-		// this.add(new BufferPanel(0, 20), gcMain);
-		// gcMain.gridy++;
-		//
-		// JPanel p2 = new JPanel(new GridBagLayout());
-		// p2.add(new BufferPanel(10, 0), gcRow);
-		// gcRow.gridx++;
-		// p2.add(overlayLabel, gcRow);
-		// gcRow.gridx++;
-		// p2.add(new BufferPanel(40, 0), gcRow);
-		// gcRow.gridx++;
-		// p2.add(overlayButton, gcRow);
-		// gcRow.gridx = 0;
-		// gcRow.gridy++;
-		//
-		// this.add(p2, gcMain);
-		// gcMain.gridy++;
-
-		// this.addPairPanel(stashLabel, stashButton, bufferX, bufferY, gc);
-		// this.addPair(stashLabel, stashButton, bufferX, bufferY, gc);
-		// this.addPair(overlayLabel, overlayButton, bufferX, bufferY, gc);
-		// this.addPairPanel(overlayLabel, overlayButton, bufferX, bufferY, gc);
-		// this.add(GridBagFactory.createSpacedRow(10, stashLabel, stashButton),
-		// gc);
-		// gc.gridy++;
-		// this.add(GridBagFactory.createSpacedRow(10, overlayLabel,
-		// overlayButton), gc);
-
+		
+		gc.insets = new Insets(0, 0, bufferY, 0);
+		this.addPair(timeLabel, timeCombo, gc);
+		this.addPair(dateLabel, dateCombo, gc);
+		this.addPair(guildLabel, guildCheckbox, gc);
+		gc.insets = new Insets(0, 0, 0, 0);
+		this.addPair(kickLabel, kickCheckbox, gc);
 		this.autoResize();
 		// this.setMaximumSize(this.getPreferredSize());
-
+	}
+	
+	private void addPair(Component c1, Component c2, GridBagConstraints gc){
+		this.add(c1, gc);
+		gc.gridx++;
+		this.add(new BufferPanel(bufferX,0), gc);
+		gc.gridx++;
+		this.add(c2, gc);
+		gc.gridx=0;
+		gc.gridy++;
 	}
 
 }

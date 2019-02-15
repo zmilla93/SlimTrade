@@ -3,6 +3,8 @@ package main.java.com.slimtrade.gui.panels;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalTime;
@@ -19,6 +21,7 @@ import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
+import main.java.com.slimtrade.enums.CurrencyType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
 import main.java.com.slimtrade.gui.windows.HistoryWindow;
@@ -80,14 +83,32 @@ public class HistoryRowPanel extends JPanel {
 		JLabel timeLabel = new JLabel(trade.date);
 		JLabel nameLabel = new JLabel(trade.playerName);
 		JLabel itemLabel = new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
-		JLabel priceLabel = new JLabel(trade.priceCount + " " + trade.priceTypeString);
-
-		// timeLabel.setVerticalAlignment(Alignment.CENTER);
+		JLabel priceLabel = new JLabel();
 
 		timePanel.add(timeLabel);
 		namePanel.add(nameLabel);
-		itemPanel.add(itemLabel);
-		pricePanel.add(priceLabel);
+//		itemPanel.add(itemLabel);
+		itemPanel.add(new PricePanel(trade.itemName, trade.itemCount, true));
+		pricePanel.add(new PricePanel(trade.priceTypeString, trade.priceCount, false));
+//		CurrencyType currency = TradeUtility.getCurrencyType(trade.priceTypeString);
+//		pricePanel.setLayout(new GridBagLayout());
+//		GridBagConstraints gcPrice = new GridBagConstraints();
+//		gcPrice.gridx = 0;
+//		gcPrice.gridy = 0;
+//		if(currency != null && !currency.getPath().equals("")){
+//			priceLabel.setText(TradeUtility.getFixedDouble(trade.priceCount, true));
+//			pricePanel.add(priceLabel, gcPrice);
+//			gcPrice.gridx++;
+//			IconPanel img = new IconPanel(currency.getPath());
+//			pricePanel.add(img, gcPrice);
+//		}else{
+//			priceLabel.setText(TradeUtility.getFixedDouble(trade.priceCount, true) + " " + trade.priceTypeString);
+//			pricePanel.add(priceLabel, gcPrice);
+//		}
+		// timeLabel.setVerticalAlignment(Alignment.CENTER);
+
+		
+//		pricePanel.add(priceLabel);
 
 		this.add(refreshButton);
 		this.add(timePanel);

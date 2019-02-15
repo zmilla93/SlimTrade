@@ -134,8 +134,8 @@ public class Main {
 				fileMonitor = new FileMonitor();
 
 				
-				FancyWindow fan = new FancyWindow();
-				fan.setVisible(true);
+//				FancyWindow fan = new FancyWindow();
+//				fan.setVisible(true);
 				// TEMP
 //				JFrame tempFrame = new JFrame();
 //				tempFrame.setLayout(new GridBagLayout());

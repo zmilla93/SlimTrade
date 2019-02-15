@@ -11,16 +11,16 @@ public class TradeUtility {
 
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-	public static String getFixedCurrencyString(String input) {
-		String[] currency = { "alch", "chaos", "ex" };
-		String fixedString = input.replaceAll("\\s", "").replaceAll("(?i)(orb|of)", "");
-		for (String s : currency) {
-			if (fixedString.toLowerCase().matches(s + ".*")) {
-				return s;
-			}
-		}
-		return input;
-	}
+//	public static String getFixedCurrencyString(String input) {
+//		String[] currency = { "alch", "chaos", "ex" };
+//		String fixedString = input.replaceAll("\\s", "").replaceAll("(?i)(orb|of)", "");
+//		for (String s : currency) {
+//			if (fixedString.toLowerCase().matches(s + ".*")) {
+//				return s;
+//			}
+//		}
+//		return input;
+//	}
 
 	public static String getFixedItemName(String item, double count, boolean paren) {
 		String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");
@@ -31,21 +31,30 @@ public class TradeUtility {
 		return fixedString;
 	}
 
-	public static String getFixedDouble(double num) {
+	public static String getFixedDouble(double num, boolean paren) {
 		String fixedDouble = String.valueOf(num).replaceAll("[.,]0", "");
+		if(paren){
+			fixedDouble = "("+ fixedDouble + ")";
+		}
 		return fixedDouble;
 	}
 
 	// TODO : Could remove empty string check
 	public static CurrencyType getCurrencyType(String input) {
+//		System.out.println("Checking ::: " + input);
+		input = input.toLowerCase();
+		String[] terms = input.split("\\s+");
 		for (CurrencyType type : CurrencyType.values()) {
 			for (String tag : type.getTags()) {
 				if (tag == "") {
 					break;
 				}
-				if (input.contains(tag)) {
-					return type;
+				for(int i = 0;i<terms.length;i++){
+					if(terms[i].equals(tag)){
+						return type;
+					}
 				}
+				
 			}
 		}
 		return null;

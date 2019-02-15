@@ -5,7 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -14,14 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
-import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
-import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.panels.PricePanel;
 import main.java.com.slimtrade.gui.panels.StashHelper;
 
 public class TradePanelA extends AbstractMessagePanel {
@@ -34,9 +34,9 @@ public class TradePanelA extends AbstractMessagePanel {
 	protected JPanel topPanel = new JPanel(gb);
 	protected JPanel bottomPanel = new JPanel(gb);
 
-	private JLabel nameLabel = new JLabel("NAME");
-	private JLabel priceLabel = new JLabel("PRICE");
-	private JLabel itemLabel = new JLabel("ITEM");
+	private JLabel nameLabel = new JLabel();
+	private JLabel priceLabel = new JLabel();
+	private JLabel itemLabel = new JLabel();
 
 	protected JPanel buttonPanelTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	protected JPanel buttonPanelBottom = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -63,23 +63,26 @@ public class TradePanelA extends AbstractMessagePanel {
 	private ArrayList<IconButton> customButtons = new ArrayList<IconButton>();
 
 	// TODO Listeners?
-	public TradePanelA(TradeOffer trade, int size) {
-		super(size);
+	public TradePanelA(TradeOffer trade, Dimension size) {
 		buildPanel(trade, size, true);
 	}
 
-	public TradePanelA(TradeOffer trade, int size, boolean makeListeners) {
-		super(size);
+	public TradePanelA(TradeOffer trade, Dimension size, boolean makeListeners) {
 		buildPanel(trade, size, makeListeners);
 	}
 
-	private void buildPanel(TradeOffer trade, int size, boolean makeListeners) {
+	private void buildPanel(TradeOffer trade, Dimension size, boolean makeListeners) {
 		// TODO : move size stuff to super
+		//TODO : TEXT FORMATTING
 		this.trade = trade;
+		
+		nameLabel.setText(trade.playerName);
+		itemLabel.setText(trade.itemName);
+		
 		this.setMessageType(trade.msgType);
 		// TODO : Move to/combine with resize
 		calculateSizes(size);
-		refreshButtons(this.getMessageType());
+		refreshButtons(this.getMessageType(), makeListeners);
 		resizeFrames(buttonCountTop, buttonCountBottom);
 
 		namePanel.setLayout(new BorderLayout());
@@ -87,23 +90,24 @@ public class TradePanelA extends AbstractMessagePanel {
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nameLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-		pricePanel.setLayout(new BorderLayout());
-		pricePanel.add(priceLabel, BorderLayout.CENTER);
-		priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		pricePanel.setLayout(new GridBagLayout());
+		pricePanel.add(new PricePanel(trade.priceTypeString, trade.priceCount, true));
+		
+//		priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		timerPanel.setLayout(new BorderLayout());
 		timerPanel.add(timerLabel, BorderLayout.CENTER);
 		timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		itemPanel.setLayout(new BorderLayout());
-		itemPanel.add(itemLabel, BorderLayout.CENTER);
+		itemPanel.setLayout(new GridBagLayout());
+		itemPanel.add(new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true)));
 		itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Color
 		namePanel.setBackground(Color.LIGHT_GRAY);
 		nameLabel.setOpaque(true);
 		nameLabel.setBackground(Color.green);
-		pricePanel.setBackground(Color.GRAY);
+		pricePanel.setBackground(new Color(0,100,0));
 		itemPanel.setBackground(Color.DARK_GRAY);
 		buttonPanelTop.setBackground(Color.ORANGE);
 		buttonPanelBottom.setBackground(Color.YELLOW);
@@ -151,33 +155,31 @@ public class TradePanelA extends AbstractMessagePanel {
 	}
 
 	// TODO add button count
-	public void resizeMessage(int size) {
+	public void resizeMessage(Dimension size, boolean listeners) {
 		calculateSizes(size);
 		resizeFrames(3, 5);
-		refreshButtons(this.getMessageType());
+		refreshButtons(this.getMessageType(), listeners);
 		this.revalidate();
 		this.repaint();
 	}
 
-	private void calculateSizes(int size) {
-		if (size % 2 != 0) {
-			size++;
+	private void calculateSizes(Dimension size) {
+		if (size.width % 2 != 0) {
+			size.width++;
 		}
-		messageHeight = size;
-		messageWidth = messageHeight * 10;
+		if (size.height % 2 != 0) {
+			size.height++;
+		}
+		messageWidth = size.width;
+		messageHeight = size.height;
 		borderSize = 2;
 		rowHeight = messageHeight / 2;
 		totalWidth = messageWidth + (borderSize * 4);
 		totalHeight = messageHeight + (borderSize * 4);
-		refreshFont(rowHeight);
-		nameLabel.setFont(font);
-		priceLabel.setFont(font);
-		timerLabel.setFont(font);
-		itemLabel.setFont(font);
 	}
 
 	// TODO : get max
-	protected void refreshButtons(MessageType type) {
+	protected void refreshButtons(MessageType type, boolean listeners) {
 		for (Component c : buttonPanelTop.getComponents()) {
 			buttonPanelTop.remove(c);
 			c = null;
@@ -213,8 +215,10 @@ public class TradePanelA extends AbstractMessagePanel {
 			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
 			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
 
-			this.registerPoeInteractionButton(tradeButton, ButtonType.WHISPER, trade.playerName, "trade");
+			if(listeners){
+				this.registerPoeInteractionButton(tradeButton, ButtonType.WHISPER, trade.playerName, "trade");
 			this.registerPoeInteractionButton(callbackButton, ButtonType.CALLBACK);
+			}
 
 			int i = 0;
 			for (IconButton b : customButtons) {

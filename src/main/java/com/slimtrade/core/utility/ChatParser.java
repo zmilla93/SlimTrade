@@ -190,7 +190,7 @@ public class ChatParser {
 			 getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5),
 			 tradeMsgMatcher.group(6),
 			 tradeMsgMatcher.group(11), d1,
-			 TradeUtility.getFixedCurrencyString(tradeMsgMatcher.group(14)),
+			 tradeMsgMatcher.group(14),
 			 d2,
 			 tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24),
 			 tradeMsgMatcher.group(7));
