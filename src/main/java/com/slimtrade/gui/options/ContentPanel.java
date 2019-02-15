@@ -9,7 +9,7 @@ import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-public class AbstractContentPanel extends JPanel {
+public class ContentPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -17,32 +17,41 @@ public class AbstractContentPanel extends JPanel {
 	private int bufferHeight = 20;
 	protected GridBagConstraints gc;
 	
-	public AbstractContentPanel(){
+	public ContentPanel(){
+		build(false);
+	}
+	
+	public ContentPanel(boolean vis){
+		build(vis);
+	}
+	
+	private void build(boolean visible){
 		this.setLayout(new GridBagLayout());
-		this.setVisible(false);
-		//TODO : Border
+		this.setVisible(visible);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-		
 	}
 	
-	protected void autoResize() {
+	public void autoResize() {
+		this.setPreferredSize(null);
 		Dimension size = this.getPreferredSize();
 		size.width = size.width + bufferWidth;
 		size.height = size.height + bufferHeight;
 //		this.setMinimumSize(size);
 		this.setPreferredSize(size);
 		this.setMaximumSize(size);
+		this.revalidate();
+		this.repaint();
 	}
 	
-	protected void addRow(Component c, GridBagConstraints gc){
+	public void addRow(Component c, GridBagConstraints gc){
 		this.add(c, gc);
 		gc.gridy++;
 	}
 	
-	protected void setBuffer(int width, int height){
+	public void setBuffer(int width, int height){
 		int w = width==-1 ? bufferWidth : width;
 		int h = height==-1 ? bufferHeight : height;
 		this.bufferWidth = w;

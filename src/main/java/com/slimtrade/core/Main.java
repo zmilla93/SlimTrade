@@ -1,28 +1,14 @@
 package main.java.com.slimtrade.core;
 
 import java.awt.AWTException;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -42,8 +28,7 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
-import main.java.com.slimtrade.gui.messaging.AbstractMessagePanel;
-import main.java.com.slimtrade.gui.messaging.TradePanelA;
+import main.java.com.slimtrade.gui.options.FancyWindow;
 
 public class Main {
 
@@ -58,11 +43,11 @@ public class Main {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+//			e.printStackTrace();
+//		}
 
 		// Move to independent file, make static to load faster
 		BasicDialog loadWindow = new BasicDialog();
@@ -103,6 +88,13 @@ public class Main {
 
 				ImagePreloader imagePreloader = new ImagePreloader();
 
+				saveManager.putStringDefault("I'm busy, want me to message you back in a little bit?", "macros", "in", "preset", "callback", "left");
+				saveManager.putStringDefault("one sec", "macros", "in", "preset", "wait", "left");
+				saveManager.putStringDefault("one minute", "macros", "in", "preset", "wait", "right");
+				saveManager.putStringDefault("thanks", "macros", "in", "preset", "thank", "left");
+				saveManager.putStringDefault("", "macros", "in", "preset", "thank", "right");
+				
+				//TODO : Remove
 				// Wait Button
 				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "enabled");
 				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "secondaryEnabled");
@@ -141,6 +133,9 @@ public class Main {
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 
+				
+				FancyWindow fan = new FancyWindow();
+				fan.setVisible(true);
 				// TEMP
 //				JFrame tempFrame = new JFrame();
 //				tempFrame.setLayout(new GridBagLayout());

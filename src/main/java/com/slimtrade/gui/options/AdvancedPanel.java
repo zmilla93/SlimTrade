@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class AdvancedPanel extends AbstractContentPanel {
+public class AdvancedPanel extends ContentPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final int BUFFER_SIZE = 5;

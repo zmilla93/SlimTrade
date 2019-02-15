@@ -120,7 +120,6 @@ public class StashTabWindow extends AbstractWindowDialog {
 //		System.out.println(windowSize);
 //		this.resizeWindow(windowSize.width, windowSize.height);
 		this.autoReisize();
-		this.setVisible(true);
 	}
 	
 	//TODO : this

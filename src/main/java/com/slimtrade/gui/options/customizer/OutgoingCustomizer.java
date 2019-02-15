@@ -9,10 +9,10 @@ import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.messaging.AbstractMessagePanel;
 import main.java.com.slimtrade.gui.messaging.TradePanelA;
-import main.java.com.slimtrade.gui.options.AbstractContentPanel;
+import main.java.com.slimtrade.gui.options.ContentPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class OutgoingCustomizer extends AbstractContentPanel {
+public class OutgoingCustomizer extends ContentPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private TradePanelA exampleTradeIn;
@@ -40,6 +40,7 @@ public class OutgoingCustomizer extends AbstractContentPanel {
 
 				gc.insets = new Insets(2,0,0,0);
 				addRow(exampleTradeOut, gc);
+				addRow(new BufferPanel(0,10), gc);
 				addRow(refreshOutPreset, gc);
 				addRow(warpOutPreset, gc);
 				addRow(thankOutPreset, gc);

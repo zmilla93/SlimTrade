@@ -106,10 +106,11 @@ public class SaveManager {
 		File save = new File(savePathString);
 		if (!save.exists()) {
 			try {
-				fw = new FileWriter(save);
+				fw = new FileWriter(savePathString);
 				JSONObject json = new JSONObject();
 				fw.write(json.toString());
 				fw.close();
+				saveData = json;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -513,6 +514,9 @@ public class SaveManager {
 	}
 
 	public boolean hasEntry(String... keys) {
+//		if(keys.length==0 || !saveData.has(keys[0])){
+//			return false;
+//		}
 		JSONObject curArr = saveData;
 		for (int i = 0; i < keys.length; i++) {
 			if (curArr.has(keys[i])) {

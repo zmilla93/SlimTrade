@@ -5,7 +5,7 @@ import java.awt.GridBagLayout;
 
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class AudioPanel extends AbstractContentPanel {
+public class AudioPanel extends ContentPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final int BUFFER_HEIGHT = 10;

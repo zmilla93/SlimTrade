@@ -20,18 +20,19 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 	private static final long serialVersionUID = 1L;
 
 	public static int defaultWidth = 400;
-	public static int defaultHeight = 800;
+	public static int defaultHeight = 400;
 	public static int titlebarHeight = 20;
 	private static int titleOffset = 5;
 	
 	private int bufferWidth = 20;
 	private int bufferHeight = 20;
 	
-	public Container container = new JPanel();
-	public JPanel titlebarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-	public JPanel titlebarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
+	protected Container container = new JPanel();
+	protected JPanel titlebarContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+	protected JPanel titlebarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, titleOffset, 0));
 //	public IconButton_REMOVE closeButton = new IconButton_REMOVE("/resources/icons/close.png", titlebarHeight, titlebarHeight);
-	public IconButton closeButton = new IconButton("/resources/icons/close.png", titlebarHeight);
+	protected IconButton closeButton = new IconButton("/resources/icons/close.png", titlebarHeight);
+	
 	
 	
 	public AbstractWindowDialog(){
@@ -106,17 +107,6 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 		size.height += bufferHeight;
 		this.resizeWindow(size);
 	}
-	
-//	public void resizeWindow(Dimension size){
-//		this.setSize(size.width, size.height+titlebarHeight);
-//		container.setPreferredSize(new Dimension(size.width, size.height));
-//		titlebarContainer.setPreferredSize(new Dimension(size.width, titlebarHeight));
-//		titlebarPanel.setPreferredSize(new Dimension(size.width-titlebarHeight, titlebarHeight));
-//		this.revalidate();
-//		this.repaint();
-//	}
-	
-//	public void addRow();
 	
 	private void hideWindow(){
 		this.setVisible(false);

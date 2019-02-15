@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -18,7 +19,7 @@ public class PresetMacroRow extends JPanel {
 	// TODO : Image
 	private static final long serialVersionUID = 1L;
 	protected final int BUFFER_WIDTH = 10;
-	private final int COLUMN_SIZE = 40;
+	private final int COLUMN_SIZE = 35;
 	
 	private JPanel titlePanel = new JPanel();
 //	private JPanel mousePanel = new JPanel();
@@ -85,7 +86,7 @@ public class PresetMacroRow extends JPanel {
 	}
 
 	// TODO Make row look like editable
-	public void getRow(String name, String text, boolean... editable) {
+	public JTextField getRow(String name, String text, boolean... editable) {
 		gc.gridx = 2;
 		JPanel namePanel = new JPanel();
 		namePanel.setBackground(Color.yellow);
@@ -101,11 +102,14 @@ public class PresetMacroRow extends JPanel {
 			textLabel.setEditable(false);
 			textLabel.setOpaque(false);
 			textLabel.setFocusable(false);
+			//TODO : Border
+//			textLabel.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 //			textLabel.setDragEnabled(false);
 		}
 		textLabel.setText(text);
 		this.add(textLabel, gc);
 		gc.gridy++;
+		return textLabel;
 	}
 	
 //	public JTextField getRow(String name, String preset, boolean editable){

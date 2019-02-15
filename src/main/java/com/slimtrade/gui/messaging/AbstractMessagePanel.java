@@ -12,7 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.core.observing.ButtonType;
+import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
+import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
+import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.buttons.IconButton;
@@ -21,12 +26,12 @@ public class AbstractMessagePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	// TODO Load from drive
-
+	// TODO : Move?
+	private final PoeInteractionListener poeInteractionListener = Main.eventManager;
 	private MessageType messageType;
-
 	// Heights
-//	protected int minHeight;
-//	protected int maxHeight;
+	// protected int minHeight;
+	// protected int maxHeight;
 	protected int messageWidth;
 	protected int messageHeight;
 	protected int borderSize;
@@ -45,16 +50,14 @@ public class AbstractMessagePanel extends JPanel {
 	protected JLabel timerLabel = new JLabel("0s");
 	protected IconButton closeButton;
 
+	// TODO : Change to generic offer
+	protected TradeOffer trade;
+
 	protected Font font;
 	private int second = 0;
 	private int minute = 1;
-	//TODO minute timer
-	private Timer secondTimer = new Timer(1000, new ActionListener(){
-		public void actionPerformed(ActionEvent arg0) {
-			second++;
-			timerLabel.setText(second + "s");
-		}
-	});
+	// TODO minute timer
+	private Timer secondTimer=new Timer(1000,new ActionListener(){public void actionPerformed(ActionEvent arg0){second++;timerLabel.setText(second+"s");}});
 
 	public AbstractMessagePanel(int height) {
 		this.setLayout(gb);
@@ -63,31 +66,47 @@ public class AbstractMessagePanel extends JPanel {
 		gc.gridx = 0;
 		gc.gridy = 0;
 	}
-	
-	
 
 	public void resizeMessage(int i) {
 		System.out.println("Abstract Resize");
 	}
 
 	public void setCloseButton(int size, boolean... forceNew) {
-		if(forceNew.length>0 && forceNew[0]){
+		if (forceNew.length > 0 && forceNew[0]) {
 			this.closeButton = new IconButton("/resources/icons/close.png", size);
-		}else{
+		} else {
 			this.closeButton = new IconButton(ImagePreloader.close, size);
 		}
-		closeButton.addMouseListener(new AdvancedMouseAdapter(){
-			public void click(MouseEvent e){
-				if(e.getButton() == MouseEvent.BUTTON1 || messageType == MessageType.INCOMING_TRADE ){
+		closeButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1 || messageType == MessageType.INCOMING_TRADE) {
 					stopTimer();
 				}
 			}
 		});
 	}
 
-//	public void setCloseButton(int size, boolean forceNew) {
-//		
-//	}
+	protected void registerPoeInteractionButton(JButton button, ButtonType type, String playerName, String whisper) {
+		if (type == ButtonType.WHISPER) {
+			button.addMouseListener(new AdvancedMouseAdapter() {
+				public void click(MouseEvent e) {
+					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade.playerName, whisper));
+				}
+			});
+		}
+	}
+
+	protected void registerPoeInteractionButton(JButton button, ButtonType type) {
+
+		button.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
+				poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade));
+			}
+		});
+	}
+	// public void setCloseButton(int size, boolean forceNew) {
+	//
+	// }
 
 	public JButton getCloseButton() {
 		return this.closeButton;
@@ -122,16 +141,16 @@ public class AbstractMessagePanel extends JPanel {
 	protected void resizeButtons() {
 
 	}
-	
-	public void startTimer(){
+
+	public void startTimer() {
 		secondTimer.start();
 	}
 
-	public void stopTimer(){
+	public void stopTimer() {
 		secondTimer.stop();
 	}
-	
-	public void restartTimer(){
+
+	public void restartTimer() {
 		secondTimer.restart();
 	}
 }

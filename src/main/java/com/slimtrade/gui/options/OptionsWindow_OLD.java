@@ -19,11 +19,11 @@ import main.java.com.slimtrade.gui.options.customizer.IncomingCustomizer;
 import main.java.com.slimtrade.gui.options.customizer.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class OptionsWindow extends AbstractWindowDialog {
+public class OptionsWindow_OLD extends AbstractWindowDialog {
 
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 800;
-	public static final int HEIGHT = 800;
+	public static final int HEIGHT = 600;
 	public final static int contentWidth = (int) (WIDTH * 0.95);
 	public static final int ROW_HEIGHT = 25;
 	private int bufferHeight = 10;
@@ -40,7 +40,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 
 	// TODO : cleanup size variables for better resizing
 
-	public OptionsWindow() {
+	public OptionsWindow_OLD() {
 		super("Options");
 //		this.resizeWindow(WIDTH, HEIGHT);
 		this.setFocusableWindowState(true);
@@ -83,7 +83,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 		this.addOptionBuffer();
 		
 		//Message Customizer
-		OptionTitlePanel customizerTitle = new OptionTitlePanel("Incoming Macros");
+		OptionTitlePanel customizerTitle = new OptionTitlePanel("Message Customizer");
 //		CustomizerPanel customizerPanel = new CustomizerPanel();
 		IncomingCustomizer customizerPanel = new IncomingCustomizer(this);
 		linkToggle(customizerTitle, customizerPanel);
@@ -91,7 +91,7 @@ public class OptionsWindow extends AbstractWindowDialog {
 		optionsContainer.add(customizerPanel);
 		this.addOptionBuffer();
 		
-		OptionTitlePanel customizerOutTitle = new OptionTitlePanel("Outgoing Macros");
+		OptionTitlePanel customizerOutTitle = new OptionTitlePanel("Message Customizer");
 //		CustomizerPanel customizerPanel = new CustomizerPanel();
 		OutgoingCustomizer customizerOutPanel = new OutgoingCustomizer();
 		linkToggle(customizerOutTitle, customizerOutPanel);
@@ -115,7 +115,6 @@ public class OptionsWindow extends AbstractWindowDialog {
 		optionsContainer.add(advancedPanel);
 		this.addOptionBuffer();
 		
-		//Contact
 		OptionTitlePanel contactTitle = new OptionTitlePanel("Contact");
 		ContactPanel contactPanel = new ContactPanel();
 		linkToggle(contactTitle, contactPanel);
@@ -159,7 +158,6 @@ public class OptionsWindow extends AbstractWindowDialog {
 		saveButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				macroPanel.saveAll();
-				customizerPanel.saveData();
 				// Main.saveManager.saveToDisk();
 			}
 		});
@@ -167,7 +165,6 @@ public class OptionsWindow extends AbstractWindowDialog {
 		resetButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				macroPanel.resetAll();
-				customizerPanel.reset();
 			}
 		});
 

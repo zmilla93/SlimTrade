@@ -8,12 +8,24 @@ public class PoeInteractionEvent {
 	private int mouseButton;
 	private ButtonType buttonType;
 	private TradeOffer trade;
+	private String playerName;
+	private String message;
 
 	public PoeInteractionEvent(int mouseButton, ButtonType buttonType, TradeOffer trade) {
 		super();
 		this.mouseButton = mouseButton;
 		this.buttonType = buttonType;
 		this.trade = trade;
+		// this.message = message;
+	}
+
+	public PoeInteractionEvent(int mouseButton, ButtonType buttonType, String playerName, String message) {
+		super();
+		this.mouseButton = mouseButton;
+		this.buttonType = buttonType;
+		// this.trade = trade;
+		this.playerName = playerName;
+		this.message = message;
 	}
 
 	public int getMouseButton() {
@@ -38,6 +50,22 @@ public class PoeInteractionEvent {
 
 	public void setTrade(TradeOffer trade) {
 		this.trade = trade;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }
