@@ -16,8 +16,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import main.java.com.slimtrade.gui.options.customizer.IncomingCustomizer;
-import main.java.com.slimtrade.gui.options.customizer.OutgoingCustomizer;
+import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.gui.options.advanced.AdvancedPanel;
+import main.java.com.slimtrade.gui.options.audio.AudioPanel;
+import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
+import main.java.com.slimtrade.gui.options.macros.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.ResizableWindow;
 import main.java.com.slimtrade.gui.stash.StashTabPanel;
@@ -118,8 +121,10 @@ public class OptionsWindow extends ResizableWindow {
 		incomingPanel.setVisible(true);
 //		advancedPanel.setVisible(true);
 //		this.autoReisize();
+		this.setMinimumSize(new Dimension(900,600));
 		this.refresh();
-		
+		this.setMinimumSize(new Dimension(300,300));
+		this.setVisible(true);
 		AbstractWindow local = this;
 		cancelButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -132,6 +137,8 @@ public class OptionsWindow extends ResizableWindow {
 		saveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				incomingPanel.saveData();
+				audioPanel.save();
+				Main.saveManager.saveToDisk();
 			}
 		});
 		
@@ -143,13 +150,12 @@ public class OptionsWindow extends ResizableWindow {
 			public void actionPerformed(ActionEvent e) {
 				hideAllWindows();
 				p.setVisible(true);
-				System.out.println("CONTENT" + contentPane.getPreferredSize());
+//				System.out.println("CONTENT" + contentPane.getPreferredSize());
 //				local.autoReisize();
 //				local.autore
 //				local.setPreferredSize(null);
 //				local.setPreferredSize(local.getPreferredSize());
-				refresh();
-//				local.pack();
+//				refresh();
 //				local.pack();
 			}
 		});

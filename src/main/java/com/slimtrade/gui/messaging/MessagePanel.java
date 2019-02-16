@@ -29,9 +29,7 @@ import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
 import main.java.com.slimtrade.gui.buttons.IconButton;
-import main.java.com.slimtrade.gui.panels.BasicIcon_REMOVE;
 import main.java.com.slimtrade.gui.panels.IconPanel;
 import main.java.com.slimtrade.gui.panels.StashHelper;
 
@@ -172,8 +170,8 @@ public class MessagePanel extends JPanel {
 		borderInner.add(container, gcCenter);
 		this.add(borderOuter, gcCenter);
 
-		BasicIconButton_REMOVE.width = height / 2;
-		BasicIconButton_REMOVE.height = height / 2;
+//		BasicIconButton_REMOVE.width = height / 2;
+//		BasicIconButton_REMOVE.height = height / 2;
 
 		// TOP PANEL
 		LayoutManager flowCenter = new FlowLayout(FlowLayout.CENTER, 0, 0);
@@ -191,8 +189,8 @@ public class MessagePanel extends JPanel {
 		pricePanel.setLayout(gridbag);
 		priceCountLabel = new JLabel(trade.priceCount.toString().replaceAll("[.]0", "") + " ");
 		pricePanel.add(priceCountLabel, gcCenter);
-		BasicIcon_REMOVE.width = rowHeight;
-		BasicIcon_REMOVE.height = rowHeight;
+//		IconPanel.WIDTH = rowHeight;
+//		BasicIcon_REMOVE.height = rowHeight;
 		IconPanel priceIcon;
 		if (this.getClass().getResource("/resources/currency/" + trade.priceTypeString + ".png") != null) {
 			priceIcon = new IconPanel("/resources/currency/" + trade.priceTypeString + ".png", rowHeight);

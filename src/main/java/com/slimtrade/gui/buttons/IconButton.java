@@ -12,7 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.gui.ImagePreloader;
+import main.java.com.slimtrade.core.audio.AudioManager;
+import main.java.com.slimtrade.core.audio.Sound;
+import main.java.com.slimtrade.core.audio.SoundComponent;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 
 public class IconButton extends JButton {
 
@@ -60,13 +63,18 @@ public class IconButton extends JButton {
 		this.setBorder(borderDefault);
 		this.setIcon(new ImageIcon(image));
 		final IconButton localButton = this;
-		this.addMouseListener(new MouseAdapter() {
+		this.addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e) {
 				localButton.getModel().setPressed(true);
 			}
 
 			public void mouseReleased(MouseEvent e) {
 				localButton.getModel().setPressed(false);
+			}
+		});
+		this.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e){
+//				AudioManager.play(SoundComponent.BUTTON_CLICK);
 			}
 		});
 	}

@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.options.customizer;
+package main.java.com.slimtrade.gui.options.macros;
 
 import java.awt.Dimension;
 import java.awt.Insets;

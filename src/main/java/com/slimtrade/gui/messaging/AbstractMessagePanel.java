@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.audio.AudioManager;
+import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
@@ -116,7 +118,22 @@ public class AbstractMessagePanel extends JPanel {
 		return messageType;
 	}
 
+	//TODO : Reconsider where to put audio
 	public void setMessageType(MessageType messageType) {
+		switch(messageType){
+		case CHAT_SCANNER:
+			break;
+		case INCOMING_TRADE:
+			AudioManager.play(SoundComponent.INCOMING_MESSAGE);
+			break;
+		case OUTGOING_TRADE:
+			break;
+		case UNKNOWN:
+			break;
+		default:
+			break;
+		
+		}
 		this.messageType = messageType;
 	}
 

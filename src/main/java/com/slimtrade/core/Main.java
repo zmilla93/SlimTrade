@@ -13,8 +13,8 @@ import javax.swing.SwingUtilities;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
-import main.java.com.slimtrade.core.audio.AudioManager;
 import main.java.com.slimtrade.core.audio.Sound;
+import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.ExternalFileManager;
 import main.java.com.slimtrade.core.managers.SaveManager;
@@ -30,7 +30,6 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
-import main.java.com.slimtrade.gui.stash.ResizableWindow;
 
 public class Main {
 
@@ -117,6 +116,26 @@ public class Main {
 
 				saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
 
+				//Sound
+				saveManager.putStringDefault(Sound.CLICK1.toString(), "options", "audio", "incomingTrade", "type");
+				saveManager.putIntDefault(50, "options", "audio", "incomingTrade", "volume");
+				
+				//Load preset sound
+				//TODO : This can cause a crash if someone were to modify values
+				//"Safe" Preloading...
+				Sound s = Sound.PING1;
+				float vol = 0;
+				try{
+					s = Sound.valueOf(saveManager.getStringEnum("options", "audio", "incomingTrade", "type"));
+					vol = TradeUtility.getAudioVolume(saveManager.getInt("options", "audio", "incomingTrade", "volume"));
+					
+				}catch(IllegalArgumentException e){
+					System.out.println("Invalid sound, deleting...");
+					saveManager.deleteArray("options", "audio", "incomingTrade");
+				}
+				SoundComponent.INCOMING_MESSAGE.setSound(s);
+				SoundComponent.INCOMING_MESSAGE.setVolume(vol);
+//				saveManager.putDouble(value, keys);("231", "options", "audio", "incomingTrade", "volume");
 				// saveManager.deleteArray("overlayManager");
 				// saveManager.deleteArray("overlayManager", "menubar", "y");
 
@@ -135,10 +154,14 @@ public class Main {
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 
-				ResizableWindow w = new ResizableWindow();
-				w.pack();
-				w.setVisible(true);
-				AudioManager.play(Sound.PING);
+//				ResizableWindow w = new ResizableWindow();
+//				w.pack();
+//				w.setVisible(true);
+				
+//				SoundComponent.BUTTON_CLICK.setVolume(-70f);
+//				SoundComponent.BUTTON_CLICK.setSound(Sound.PING1);
+				
+//				AudioManager.play(Sound.PING);
 //				FancyWindow fan = new FancyWindow();
 //				fan.setVisible(true);
 				// TEMP

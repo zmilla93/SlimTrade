@@ -3,8 +3,6 @@ package main.java.com.slimtrade.gui.panels;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalTime;
@@ -21,9 +19,8 @@ import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.enums.CurrencyType;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.buttons.BasicIconButton_REMOVE;
+import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.windows.HistoryWindow;
 
 public class HistoryRowPanel extends JPanel {
@@ -37,7 +34,7 @@ public class HistoryRowPanel extends JPanel {
 	private double nameWidthPercent = 0.35;
 	private double itemWidthPercent = 0.35;
 	private double priceWidthPercent = 0.15;
-	public BasicIconButton_REMOVE refreshButton = new BasicIconButton_REMOVE("/resources/icons/refresh1.png", height, height);
+	public IconButton refreshButton = new IconButton("/resources/icons/refresh1.png", height);
 
 	private TradeOffer localTrade;
 
@@ -144,8 +141,8 @@ public class HistoryRowPanel extends JPanel {
 	}
 
 	public void updateColor() {
-		refreshButton.setColorPresets(ColorManager.GenericWindow.buttonBG, ColorManager.GenericWindow.buttonBG_hover);
-		refreshButton.setBorderPresets(border, border);
-		refreshButton.updateColorPresets();
+//		refreshButton.setColorPresets(ColorManager.GenericWindow.buttonBG, ColorManager.GenericWindow.buttonBG_hover);
+//		refreshButton.setBorderPresets(border, border);
+//		refreshButton.updateColorPresets();
 	}
 }

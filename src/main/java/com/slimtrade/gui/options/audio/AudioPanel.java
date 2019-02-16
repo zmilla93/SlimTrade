@@ -1,0 +1,48 @@
+package main.java.com.slimtrade.gui.options.audio;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.audio.Sound;
+import main.java.com.slimtrade.core.audio.SoundComponent;
+import main.java.com.slimtrade.core.utility.TradeUtility;
+import main.java.com.slimtrade.gui.options.ContentPanel;
+import main.java.com.slimtrade.gui.options.ISaveable;
+
+public class AudioPanel extends ContentPanel implements ISaveable {
+
+	private static final long serialVersionUID = 1L;
+	private final int BUFFER_HEIGHT = 10;
+
+	private final AudioRow buttonRow = new AudioRow("UI Button");
+	private final AudioRow incomingRow = new AudioRow("Incoming Trade");
+	private final AudioRow outgoingRow = new AudioRow("Outgoing Trade");
+	private final AudioRow scannerRow = new AudioRow("Chat Scanner");
+
+	public AudioPanel() {
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints gc = new GridBagConstraints();
+		gc.gridx = 0;
+		gc.gridy = 0;
+
+		this.addRow(buttonRow, gc);
+		this.addRow(incomingRow, gc);
+		this.addRow(outgoingRow, gc);
+		this.addRow(scannerRow, gc);
+		this.autoResize();
+		load();
+	}
+
+	public void save() {
+		Main.saveManager.putString(incomingRow.getSound().getName(), "options", "audio", "incomingTrade", "type");
+		Main.saveManager.putInt(incomingRow.getVolume(), "options", "audio", "incomingTrade", "volume");
+		SoundComponent.INCOMING_MESSAGE.setSound(incomingRow.getSound());
+		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(incomingRow.getVolume()));
+	}
+
+	public void load() {
+		incomingRow.setValue(SoundComponent.INCOMING_MESSAGE.getSound(), TradeUtility.getAudioPercent(SoundComponent.INCOMING_MESSAGE.getVolume()));
+	}
+
+}

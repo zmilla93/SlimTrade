@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.options;
+package main.java.com.slimtrade.gui.options.advanced;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import main.java.com.slimtrade.gui.options.ContentPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class AdvancedPanel extends ContentPanel {

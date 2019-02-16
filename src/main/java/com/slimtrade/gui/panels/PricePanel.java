@@ -26,7 +26,7 @@ public class PricePanel extends JPanel {
 		JLabel priceLabel = new JLabel();
 		String num = quant > 1 ? TradeUtility.getFixedDouble(quant, paren) + " ": "" ;
 		CurrencyType currency = TradeUtility.getCurrencyType(price);
-		System.out.println(currency + " ::: " + quant + " ::: " + num);
+//		System.out.println(currency + " ::: " + quant + " ::: " + num);
 		if(currency!=null && !currency.getPath().equals("")){
 			priceLabel.setText(num);
 			this.add(priceLabel, gc);

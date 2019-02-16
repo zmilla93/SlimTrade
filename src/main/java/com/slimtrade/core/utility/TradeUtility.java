@@ -3,6 +3,7 @@ package main.java.com.slimtrade.core.utility;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import main.java.com.slimtrade.core.audio.AudioManager;
 import main.java.com.slimtrade.enums.CurrencyType;
 import main.java.com.slimtrade.enums.ExpandDirection;
 import main.java.com.slimtrade.enums.MenubarButtonLocation;
@@ -41,7 +42,6 @@ public class TradeUtility {
 
 	// TODO : Could remove empty string check
 	public static CurrencyType getCurrencyType(String input) {
-//		System.out.println("Checking ::: " + input);
 		input = input.toLowerCase();
 		String[] terms = input.split("\\s+");
 		for (CurrencyType type : CurrencyType.values()) {
@@ -58,6 +58,17 @@ public class TradeUtility {
 			}
 		}
 		return null;
+	}
+	
+	public static int getAudioPercent(float f){
+		f = f+AudioManager.RANGE-AudioManager.MAX_VOLUME;
+		int i = (int)((f/AudioManager.RANGE)*100);
+		return i;
+	}
+	
+	public static float getAudioVolume(int i){
+		float f = (float) ((AudioManager.RANGE/100.0)*(float)(i));
+		return f-AudioManager.RANGE+AudioManager.MAX_VOLUME;
 	}
 	
 	public static ExpandDirection getExpandDirection(String input){
