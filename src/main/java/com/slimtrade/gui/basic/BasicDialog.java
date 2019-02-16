@@ -15,7 +15,7 @@ public class BasicDialog extends JDialog{
 		this.setAlwaysOnTop(true);
 		this.setModal(false);
 		this.setType(JDialog.Type.UTILITY);
-		this.pack();
+//		this.pack();
 	}
 	
 	public void forceToTop(){

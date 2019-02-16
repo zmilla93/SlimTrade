@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.stashtab;
+package main.java.com.slimtrade.gui.stash;
 
 import java.awt.Color;
 import java.awt.Dimension;

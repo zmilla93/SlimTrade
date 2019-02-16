@@ -11,8 +11,8 @@ import main.java.com.slimtrade.gui.menubar.MenubarExpandButton;
 import main.java.com.slimtrade.gui.messaging.ItemHighlighter;
 import main.java.com.slimtrade.gui.messaging.MessageManager;
 import main.java.com.slimtrade.gui.messaging.StashHelperContainer;
-import main.java.com.slimtrade.gui.options.FancyWindow;
-import main.java.com.slimtrade.gui.stashtab.StashTabWindow;
+import main.java.com.slimtrade.gui.options.OptionsWindow;
+import main.java.com.slimtrade.gui.stash.StashTabWindow;
 import main.java.com.slimtrade.gui.windows.CharacterWindow;
 import main.java.com.slimtrade.gui.windows.ChatScannerWindow;
 import main.java.com.slimtrade.gui.windows.HistoryWindow;
@@ -21,7 +21,7 @@ import main.java.com.slimtrade.gui.windows.StashGridOverlay;
 
 public class FrameManager {
 
-	public static FancyWindow optionsWindow;
+	public static OptionsWindow optionsWindow;
 	public static HistoryWindow historyWindow;
 	public static MenubarDialog menubar;
 	public static MenubarExpandButton menubarToggle;
@@ -35,7 +35,7 @@ public class FrameManager {
 
 	public FrameManager() {
 
-		optionsWindow = new FancyWindow();
+		optionsWindow = new OptionsWindow();
 		historyWindow = new HistoryWindow();
 		menubar = new MenubarDialog();
 		menubarToggle = new MenubarExpandButton();

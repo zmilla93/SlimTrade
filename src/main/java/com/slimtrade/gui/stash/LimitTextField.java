@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.stashtab;
+package main.java.com.slimtrade.gui.stash;
 
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;

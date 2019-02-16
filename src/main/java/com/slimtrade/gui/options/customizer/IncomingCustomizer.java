@@ -19,6 +19,7 @@ import main.java.com.slimtrade.gui.messaging.TradePanelA;
 import main.java.com.slimtrade.gui.options.ContentPanel;
 import main.java.com.slimtrade.gui.options.RemovablePanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
+import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
 //TODO : CLEANUP
 public class IncomingCustomizer extends ContentPanel {
@@ -26,7 +27,7 @@ public class IncomingCustomizer extends ContentPanel {
 	private static final long serialVersionUID = 1L;
 	private TradePanelA exampleTradeIn;
 
-	private AbstractWindowDialog parent;
+	private AbstractWindow parent;
 	
 	private JTextField callbackLeft;
 	private JTextField waitLeft;
@@ -46,7 +47,7 @@ public class IncomingCustomizer extends ContentPanel {
 	private int customCount = 0;
 	private final int CUSTOM_MAX = 5;
 
-	public IncomingCustomizer(AbstractWindowDialog parent) {
+	public IncomingCustomizer(AbstractWindow parent) {
 		this.parent = parent;
 		Random rng = new Random();
 		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
@@ -112,7 +113,8 @@ public class IncomingCustomizer extends ContentPanel {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addNewMacro();
-				parent.autoReisize();
+				parent.pack();
+//				parent.autoReisize();
 			}
 		});
 
@@ -153,7 +155,8 @@ public class IncomingCustomizer extends ContentPanel {
 				customPanel.autoResize();
 				local.autoResize();
 				customCount--;
-				parent.autoReisize();
+				parent.refresh();
+//				parent.autoReisize();
 			}
 		});
 		customCount++;

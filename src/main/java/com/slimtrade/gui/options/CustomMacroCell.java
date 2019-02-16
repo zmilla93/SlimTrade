@@ -22,8 +22,8 @@ import main.java.com.slimtrade.gui.panels.BufferPanel;
 public class CustomMacroCell extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private int width = OptionsWindow.contentWidth;
-	private int rowHeight = OptionsWindow.ROW_HEIGHT;
+	private int width = OptionsWindow_UNUSED.contentWidth;
+	private int rowHeight = OptionsWindow_UNUSED.ROW_HEIGHT;
 	
 	private String saveKey;
 	

@@ -19,8 +19,9 @@ public class BasicMovableDialog extends BasicDialog {
 	protected boolean mouseDown = false;
 	private int borderOffset = 0;
 	
+	private JPanel mover;
+	
 	public BasicMovableDialog(){
-		createListeners((JPanel) this.getContentPane());
 	}
 	
 	public BasicMovableDialog(boolean createListeners){
@@ -30,6 +31,7 @@ public class BasicMovableDialog extends BasicDialog {
 	}
 	
 	public void createListeners(JPanel p){
+		mover = p;
 		p.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent e) {
 		    	if(e.getButton() == MouseEvent.BUTTON1){
@@ -55,9 +57,9 @@ public class BasicMovableDialog extends BasicDialog {
 		int targetX = x;
 		int targetY = y;
 		if(targetX<0) targetX = 0;
-		if(targetX>TradeUtility.screenSize.width-getDialogWidth()) targetX = TradeUtility.screenSize.width-getDialogWidth();
+		if(targetX>TradeUtility.screenSize.width-mover.getWidth()) targetX = TradeUtility.screenSize.width-mover.getWidth();
 		if(targetY<0) targetY = 0;
-		if(targetY>TradeUtility.screenSize.height-getDialogHeight()) targetY = TradeUtility.screenSize.height-getDialogHeight();
+		if(targetY>TradeUtility.screenSize.height-mover.getHeight()) targetY = TradeUtility.screenSize.height-mover.getHeight();
 		moveWindow(new Point(targetX, targetY));
 	}
 	
@@ -100,9 +102,9 @@ public class BasicMovableDialog extends BasicDialog {
 					int targetY = MouseInfo.getPointerInfo().getLocation().y-offsetY-borderOffset;
 					if(screenLock){
 						if(targetX<0) targetX = 0;
-						if(targetX>TradeUtility.screenSize.width-getDialogWidth()) targetX = TradeUtility.screenSize.width-getDialogWidth();
+						if(targetX>TradeUtility.screenSize.width-mover.getWidth()) targetX = TradeUtility.screenSize.width-mover.getWidth();
 						if(targetY<0) targetY = 0;
-						if(targetY>TradeUtility.screenSize.height-getDialogHeight()) targetY = TradeUtility.screenSize.height-getDialogHeight();
+						if(targetY>TradeUtility.screenSize.height-mover.getHeight()) targetY = TradeUtility.screenSize.height-mover.getHeight();
 					}
 					moveWindow(new Point(targetX, targetY));
 				}

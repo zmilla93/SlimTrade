@@ -14,7 +14,7 @@ public class OptionTitlePanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
-	private int width = OptionsWindow.contentWidth;
+	private int width = OptionsWindow_UNUSED.contentWidth;
 	public int height = 25;
 	
 	public OptionTitlePanel(String title){

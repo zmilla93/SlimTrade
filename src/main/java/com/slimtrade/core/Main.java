@@ -13,6 +13,8 @@ import javax.swing.SwingUtilities;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
+import main.java.com.slimtrade.core.audio.AudioManager;
+import main.java.com.slimtrade.core.audio.Sound;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.ExternalFileManager;
 import main.java.com.slimtrade.core.managers.SaveManager;
@@ -28,7 +30,7 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
-import main.java.com.slimtrade.gui.options.FancyWindow;
+import main.java.com.slimtrade.gui.stash.ResizableWindow;
 
 public class Main {
 
@@ -133,7 +135,10 @@ public class Main {
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 
-				
+				ResizableWindow w = new ResizableWindow();
+				w.pack();
+				w.setVisible(true);
+				AudioManager.play(Sound.PING);
 //				FancyWindow fan = new FancyWindow();
 //				fan.setVisible(true);
 				// TEMP

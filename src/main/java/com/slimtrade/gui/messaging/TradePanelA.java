@@ -58,6 +58,7 @@ public class TradePanelA extends AbstractMessagePanel {
 	private IconButton kickButton;
 	private IconButton homeButton;
 
+//	private StashHelper stashHelper;
 
 
 	private ArrayList<IconButton> customButtons = new ArrayList<IconButton>();

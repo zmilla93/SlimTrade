@@ -47,17 +47,17 @@ public class MessageManager extends BasicDialog {
 		while (messages[i] != null) {
 			i++;
 		}
-		messages[i] = new TradePanelA(trade, new Dimension(400,40));
+		messages[i] = new TradePanelA(trade, new Dimension(400, 40));
 		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, buffer));
 		final int closeIndex = i;
 		messages[i].getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
-				if(e.getButton() == MouseEvent.BUTTON1){
+				if (e.getButton() == MouseEvent.BUTTON1) {
 					removeMessage(closeIndex);
-				}else if(e.getButton() == MouseEvent.BUTTON3 && messages[closeIndex].getMessageType() == MessageType.OUTGOING_TRADE){
+				} else if (e.getButton() == MouseEvent.BUTTON3 && messages[closeIndex].getMessageType() == MessageType.OUTGOING_TRADE) {
 					closeOtherOutgoing(closeIndex);
 				}
-				
+
 			}
 		});
 		this.add(messages[i]);
@@ -70,10 +70,12 @@ public class MessageManager extends BasicDialog {
 	private void removeMessage(int i) {
 		if (messages[i].getMessageType() == MessageType.INCOMING_TRADE) {
 			// messages[i].stashHelper.highlighterTimer.stop();
-//			messages[i].stashHelper.itemHighlighter.destroy();
-			TradePanelA t = (TradePanelA)messages[i];
-			FrameManager.stashHelperContainer.remove(t.getStashHelper());
-			FrameManager.stashHelperContainer.refresh();
+			// messages[i].stashHelper.itemHighlighter.destroy();
+			TradePanelA t = (TradePanelA) messages[i];
+			if (t.getStashHelper() != null) {
+				FrameManager.stashHelperContainer.remove(t.getStashHelper());
+				FrameManager.stashHelperContainer.refresh();
+			}
 		}
 		this.remove(messages[i]);
 		this.remove(rigidAreas[i]);
@@ -83,15 +85,16 @@ public class MessageManager extends BasicDialog {
 		refresh();
 	}
 
-	private void closeOtherOutgoing(int index){
-		for(int i = 0; i<maxMessageCount;i++ ){
-			if(messages[i] != null && messages[i].getMessageType() == MessageType.OUTGOING_TRADE && i!= index){
+	private void closeOtherOutgoing(int index) {
+		for (int i = 0; i < maxMessageCount; i++) {
+			if (messages[i] != null && messages[i].getMessageType() == MessageType.OUTGOING_TRADE && i != index) {
 				this.removeMessage(i);
 			}
 		}
 	}
 
-	//TODO : Move resize to another funciton to be more consistent with refresh function?
+	// TODO : Move resize to another funciton to be more consistent with refresh
+	// function?
 	public void refresh() {
 		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight * messageCount + buffer * messageCount);
 		this.revalidate();
@@ -101,7 +104,7 @@ public class MessageManager extends BasicDialog {
 	public boolean isDuplicateTrade(TradeOffer trade) {
 		for (AbstractMessagePanel msg : messages) {
 			if (msg != null && msg instanceof TradePanelA) {
-				TradePanelA t = (TradePanelA)msg;
+				TradePanelA t = (TradePanelA) msg;
 				if (TradeUtility.isDuplicateTrade(t.getTrade(), trade)) {
 					return true;
 				}
@@ -110,21 +113,21 @@ public class MessageManager extends BasicDialog {
 		return false;
 	}
 
-//	public void rebuild() {
-//		for (int i = 0; i < maxMessageCount; i++) {
-//			if (messages[i] != null) {
-//				trades.add(messages[i].trade);
-//				this.removeMessage(i);
-//			}
-//		}
-//		this.refresh();
-//		for (TradeOffer t : trades) {
-//			this.addMessage(t);
-//		}
-//		trades.clear();
-//	}
-	
-	public void updateLocation(){
+	// public void rebuild() {
+	// for (int i = 0; i < maxMessageCount; i++) {
+	// if (messages[i] != null) {
+	// trades.add(messages[i].trade);
+	// this.removeMessage(i);
+	// }
+	// }
+	// this.refresh();
+	// for (TradeOffer t : trades) {
+	// this.addMessage(t);
+	// }
+	// trades.clear();
+	// }
+
+	public void updateLocation() {
 		this.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));
 	}
 

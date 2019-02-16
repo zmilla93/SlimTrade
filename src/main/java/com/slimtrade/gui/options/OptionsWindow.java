@@ -1,207 +1,176 @@
+
 package main.java.com.slimtrade.gui.options;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
-import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
-import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 import main.java.com.slimtrade.gui.options.customizer.IncomingCustomizer;
 import main.java.com.slimtrade.gui.options.customizer.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
+import main.java.com.slimtrade.gui.stash.ResizableWindow;
+import main.java.com.slimtrade.gui.stash.StashTabPanel;
+import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
-public class OptionsWindow extends AbstractWindowDialog {
+public class OptionsWindow extends ResizableWindow {
 
-	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 800;
-	public final static int contentWidth = (int) (WIDTH * 0.95);
-	public static final int ROW_HEIGHT = 25;
-	private int bufferHeight = 10;
-
-	// private GridBagConstraints gc = new GridBagConstraints();
-	// private OptionContentPanel basicsPanel = new
-	// OptionContentPanel(contentWidth, 600);
-	// private ContentPanel buttonPanel = new ContentPanel(contentWidth, 600);
-
-	private JPanel optionsContainer = new JPanel();
-	private JButton resetButton = new JButton("Reset to Default");
-	private JButton cancelButton = new JButton("Cancel");
-	private JButton saveButton = new JButton("Save");
-
-	// TODO : cleanup size variables for better resizing
-
-	public OptionsWindow() {
-		super("Options");
-//		this.resizeWindow(WIDTH, HEIGHT);
+	private JPanel display = new JPanel();
+	JScrollPane scrollDisplay;
+	
+	public OptionsWindow(){
+//		super("Fancy Window", false);
+		super();
 		this.setFocusableWindowState(true);
-
-		// JPanel optionsContainer = new JPanel();
-		JScrollPane scrollPane = new JScrollPane(optionsContainer);
-
-		container.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		container.setLayout(new GridBagLayout());
+		this.setFocusable(true);
+		container.setLayout(new BorderLayout());
+//		container.setBackground(Color.LIGHT_GRAY);
+		JPanel menuPanel = new JPanel();
+		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
+		
+		
+		scrollDisplay = new JScrollPane(display);
+		display.setBackground(Color.GREEN);
+		
+		display.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-
-		// TODO : Switch to gridbaglayout
-		optionsContainer.setLayout(new BoxLayout(optionsContainer, BoxLayout.PAGE_AXIS));
-
-		// TEMP SIZE
-		scrollPane.setPreferredSize(new Dimension(WIDTH, (int) (HEIGHT * 0.9)));
-		// scrollPane.setPreferredSize(new Dimension(width, height));
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.getVerticalScrollBar().setUnitIncrement(8);
-
-		this.addOptionBuffer();
-
-		// BASICS
-		OptionTitlePanel basicsTitle = new OptionTitlePanel("Basics");
+		
+		
+		int buffer = 6;
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, buffer));
+		JButton cancelButton = new JButton("CANCEL");
+		JButton saveButton = new JButton("SAVE");
+		bottomPanel.add(cancelButton);
+		bottomPanel.add(saveButton);
+		
+		
+		JButton basicsButton = new JButton("Basics");
 		BasicsPanel basicsPanel = new BasicsPanel();
-		optionsContainer.add(basicsTitle);
-		optionsContainer.add(basicsPanel);
-		linkToggle(basicsTitle, basicsPanel);
-		this.addOptionBuffer();
-
-		// MACRO BUTTONS
-
-		OptionTitlePanel macroTitle = new OptionTitlePanel("Button Macros");
-		MacroPanel macroPanel = new MacroPanel(contentWidth, 600);
-		linkToggle(macroTitle, macroPanel);
-		optionsContainer.add(macroTitle);
-		optionsContainer.add(macroPanel);
-		this.addOptionBuffer();
+		link(basicsButton, basicsPanel);
+		display.add(basicsPanel, gc);
 		
-		//Message Customizer
-		OptionTitlePanel customizerTitle = new OptionTitlePanel("Incoming Macros");
-//		CustomizerPanel customizerPanel = new CustomizerPanel();
-		IncomingCustomizer customizerPanel = new IncomingCustomizer(this);
-		linkToggle(customizerTitle, customizerPanel);
-		optionsContainer.add(customizerTitle);
-		optionsContainer.add(customizerPanel);
-		this.addOptionBuffer();
+		JButton stashButton = new JButton("Stash Manager");
+		StashTabPanel stashPanel = new StashTabPanel();
+		link(stashButton, stashPanel);
+		display.add(stashPanel, gc);
 		
-		OptionTitlePanel customizerOutTitle = new OptionTitlePanel("Outgoing Macros");
-//		CustomizerPanel customizerPanel = new CustomizerPanel();
-		OutgoingCustomizer customizerOutPanel = new OutgoingCustomizer();
-		linkToggle(customizerOutTitle, customizerOutPanel);
-		optionsContainer.add(customizerOutTitle);
-		optionsContainer.add(customizerOutPanel);
-		this.addOptionBuffer();
-
-		// Audio Panel
-		OptionTitlePanel audioTitle = new OptionTitlePanel("Audio");
+		JButton incomingButton = new JButton("Incoming Macros");
+		IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
+		link(incomingButton, incomingPanel);
+		display.add(incomingPanel, gc);
+		
+		JButton outgoingButton = new JButton("Outgoing Macros");
+		OutgoingCustomizer outgoingPanel = new OutgoingCustomizer();
+		link(outgoingButton, outgoingPanel);
+		display.add(outgoingPanel, gc);
+		
+		JButton audioButton = new JButton("Audio");
 		AudioPanel audioPanel = new AudioPanel();
-		linkToggle(audioTitle, audioPanel);
-		optionsContainer.add(audioTitle);
-		optionsContainer.add(audioPanel);
-		this.addOptionBuffer();
-
-		// Advanced Panel
-		OptionTitlePanel advancedTitle = new OptionTitlePanel("Advanced");
-		AdvancedPanel advancedPanel = new AdvancedPanel();
-		linkToggle(advancedTitle, advancedPanel);
-		optionsContainer.add(advancedTitle);
-		optionsContainer.add(advancedPanel);
-		this.addOptionBuffer();
+		link(audioButton, audioPanel);
+		display.add(audioPanel, gc);
 		
-		//Contact
-		OptionTitlePanel contactTitle = new OptionTitlePanel("Contact");
+		JButton advancedButton = new JButton("ADVANCED");
+		AdvancedPanel advancedPanel = new AdvancedPanel();
+		link(advancedButton, advancedPanel);
+		display.add(advancedPanel, gc);
+		
+		JButton contactButton = new JButton("CONTACT");
 		ContactPanel contactPanel = new ContactPanel();
-		linkToggle(contactTitle, contactPanel);
-		optionsContainer.add(contactTitle);
-		optionsContainer.add(contactPanel);
-		this.addOptionBuffer();
-
-		// Ending Button Panel
-		JPanel endPanel = new JPanel();
-		endPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		endPanel.setOpaque(false);
-		endPanel.add(resetButton);
-		endPanel.add(new BufferPanel(30, 0));
-		endPanel.add(saveButton);
-
-		// optionsConta
-
-		// optionsContainer.add(new ButtonOptionPanel());
-
-		// Container Stuff
-		container.add(scrollPane, gc);
-		gc.gridy++;
-		container.add(new BufferPanel(0, 10), gc);
-		gc.gridy++;
-		container.add(endPanel, gc);
-
-		// TEMP RESIZING
-		// TODO : Cleanup
-//		Dimension cur = this.getSize();
-//		this.setPreferredSize(null);
-//		Dimension pref = this.getPreferredSize();
-//		this.setSize(cur.width, pref.height);
-//		this.setPreferredSize(null);
-//		System.out.println(this.getPreferredSize());
-		this.resizeWindow(WIDTH, HEIGHT);
-
-		macroPanel.resetAll();
-
-		FrameManager.centerFrame(this);
-
-		saveButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent e) {
-				macroPanel.saveAll();
-				customizerPanel.saveData();
-				// Main.saveManager.saveToDisk();
+		link(contactButton, contactPanel);
+		display.add(contactPanel, gc);
+		
+		
+		menuPanel.add(basicsButton);
+		menuPanel.add(stashButton);
+		menuPanel.add(incomingButton);
+		menuPanel.add(outgoingButton);
+		menuPanel.add(audioButton);
+		menuPanel.add(advancedButton);
+		menuPanel.add(contactButton);
+		
+		
+		
+		
+//		container.setLayout(new BorderLayout());
+		container.add(new BufferPanel(0,buffer), BorderLayout.NORTH);
+		container.add(new BufferPanel(buffer,0), BorderLayout.EAST);
+		container.add(bottomPanel, BorderLayout.SOUTH);
+		container.add(menuPanel, BorderLayout.WEST);
+		container.add(scrollDisplay, BorderLayout.CENTER);
+//		this.setMinimumSize(new Dimension(500,900));
+//		double modWidth = 0.4;
+//		double modHeight = 0.6;
+//		this.resizeWindow((int)(TradeUtility.screenSize.width*modWidth),(int)(TradeUtility.screenSize.height*modHeight));
+		
+		incomingPanel.setVisible(true);
+//		advancedPanel.setVisible(true);
+//		this.autoReisize();
+		this.refresh();
+		
+		AbstractWindow local = this;
+		cancelButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				incomingPanel.reset();
+//				local.autoReisize();
+				local.pack();
 			}
 		});
-
-		resetButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent e) {
-				macroPanel.resetAll();
-				customizerPanel.reset();
+		
+		saveButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				incomingPanel.saveData();
 			}
 		});
-
-		// TODO : Temp
-//		macroPanel.setVisible(true);
-//		audioPanel.setVisible(true);
-		customizerPanel.setVisible(true);
-
-		this.setVisible(true);
+		
 	}
-
-	private void linkToggle(JPanel title, JPanel content) {
-		title.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent evt) {
-				if (content.isVisible()) {
-					content.setVisible(false);
-				} else {
-					content.setVisible(true);
-				}
+	
+	private void link(JButton b, JPanel p){
+		OptionsWindow local = this;
+		b.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				hideAllWindows();
+				p.setVisible(true);
+				System.out.println("CONTENT" + contentPane.getPreferredSize());
+//				local.autoReisize();
+//				local.autore
+//				local.setPreferredSize(null);
+//				local.setPreferredSize(local.getPreferredSize());
+				refresh();
+//				local.pack();
+//				local.pack();
 			}
 		});
 	}
-
-	private void addOptionBuffer() {
-		optionsContainer.add(new BufferPanel(0, bufferHeight));
+	
+	private void hideAllWindows(){
+		for(Component c : display.getComponents()){
+			c.setVisible(false);
+		}
 	}
-
-	private void addButtonBuffer() {
-
-	}
-
-	public void refresh() {
-		this.revalidate();
+	
+	public void refresh(){
+		System.out.println("Refresh");
+//		display.setPreferredSize(null);
+		display.revalidate();
+//		display.setPreferredSize(display.getPreferredSize());
+//		scrollDisplay.setPreferredSize(null);
+//		scrollDisplay.setPreferredSize(scrollDisplay.getPreferredSize());
+		scrollDisplay.revalidate();
+		this.pack();
 		this.repaint();
 	}
-
+	
 }
