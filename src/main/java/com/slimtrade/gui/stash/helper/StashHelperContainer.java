@@ -1,10 +1,13 @@
-package main.java.com.slimtrade.gui.messaging;
+package main.java.com.slimtrade.gui.stash.helper;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
+
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.panels.StashHelper;
 import main.java.com.slimtrade.gui.windows.StashGridOverlay;
 
 public class StashHelperContainer extends BasicDialog{
@@ -13,22 +16,27 @@ public class StashHelperContainer extends BasicDialog{
 	public static int height = StashHelper.height;
 	private int offsetY = 10;
 	private int spacingX = 5;
+	private int posX = 0;
+	private int posY = 0;
 	
 	public StashHelperContainer(){
 		this.setBackground(ColorManager.CLEAR);
+		this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.RED));
+//		this.getContentPane().setBackground(Color.magenta);
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
 		this.setVisible(true);
-//		this.setFocusable(true);
-//		this.setFocusableWindowState(true);
+//		updateBounds();
 		
 	}
 	
 	public void updateBounds(){
-		int posX = StashGridOverlay.getGridPos().x-spacingX;
-		int posY = StashGridOverlay.getWinPos().y-height-offsetY;
-		int width = StashGridOverlay.getGridSize().width+spacingX;
-		this.setBounds(posX, posY, width, height);
+//		int posX = StashGridOverlay.getGridPos().x-spacingX;
+//		int posY = StashGridOverlay.getWinPos().y-height-offsetY;
+		posX = Main.saveManager.getInt("stashOverlay", "x");
+		posY = Main.saveManager.getInt("stashOverlay", "y");
+		int width = Main.saveManager.getInt("stashOverlay", "width");
+		this.setBounds(posX+10, posY-15, width, height);
 	}
 
 	public void updateBounds(int posX, int posY, int width){

@@ -81,7 +81,7 @@ public class BasicsPanel extends ContentPanel {
 				FrameManager.menubar.setVisible(false);
 				FrameManager.menubarToggle.setVisible(false);
 				FrameManager.messageManager.setVisible(false);
-				FrameManager.stashOverlay.setVisible(true);
+				FrameManager.stashOverlayWindow.setVisible(true);
 			}
 		});
 		

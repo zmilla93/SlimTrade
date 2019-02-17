@@ -31,7 +31,7 @@ import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.IconPanel;
-import main.java.com.slimtrade.gui.panels.StashHelper;
+import main.java.com.slimtrade.gui.stash.helper.StashHelper;
 
 public class MessagePanel extends JPanel {
 

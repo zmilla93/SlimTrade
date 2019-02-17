@@ -124,7 +124,6 @@ public class SaveManager {
 			return;
 		}
 		try {
-			// System.out.println(savePathString);
 			fr = new FileReader(savePathString);
 			br = new BufferedReader(fr);
 			if (!br.ready()) {
@@ -616,7 +615,6 @@ public class SaveManager {
 					curArr = curArr.getJSONObject(keys[i]);
 				} catch (JSONException e) {
 					if(curArr.has(keys[i])){
-						System.out.println("value");
 						curArr.remove(keys[i]);
 						return;
 					}
@@ -626,7 +624,6 @@ public class SaveManager {
 			}
 		}
 		curArr.remove(keys[keys.length-1]);
-		System.out.println(curArr);
 	}
 
 	public boolean hasEntry(String... keys) {

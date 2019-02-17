@@ -18,8 +18,8 @@ import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
-import main.java.com.slimtrade.gui.messaging.ItemHighlighter;
 import main.java.com.slimtrade.gui.panels.GridPanel;
+import main.java.com.slimtrade.gui.stash.helper.ItemHighlighter;
 
 
 public class StashGridOverlay extends AbstractWindowDialog{
@@ -165,7 +165,7 @@ public class StashGridOverlay extends AbstractWindowDialog{
 				saveDataLocally();
 				Main.fileManager.saveStashData(windowPos.x, windowPos.y, windowSize.width, windowSize.height, gridPos.x, gridPos.y, gridSize.width, gridSize.height);
 				FrameManager.stashHelperContainer.updateBounds();
-				ItemHighlighter.saveGridInfo(gridPos.x, gridPos.y, (gridSize.width/12.0), (gridSize.height/12.0));
+//				ItemHighlighter.saveGridInfo(gridPos.x, gridPos.y, (gridSize.width/12.0), (gridSize.height/12.0));
 		    }
 		});
 		

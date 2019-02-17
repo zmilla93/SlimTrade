@@ -5,8 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -15,14 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MessageType;
+import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.PricePanel;
-import main.java.com.slimtrade.gui.panels.StashHelper;
+import main.java.com.slimtrade.gui.stash.helper.StashHelper;
 
 public class TradePanelA extends AbstractMessagePanel {
 
@@ -41,7 +43,7 @@ public class TradePanelA extends AbstractMessagePanel {
 	protected JPanel buttonPanelTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	protected JPanel buttonPanelBottom = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-//	private TradeOffer trade;
+	// private TradeOffer trade;
 	private StashHelper stashHelper;
 
 	private int buttonCountTop;
@@ -58,8 +60,7 @@ public class TradePanelA extends AbstractMessagePanel {
 	private IconButton kickButton;
 	private IconButton homeButton;
 
-//	private StashHelper stashHelper;
-
+	// private StashHelper stashHelper;
 
 	private ArrayList<IconButton> customButtons = new ArrayList<IconButton>();
 
@@ -74,12 +75,12 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private void buildPanel(TradeOffer trade, Dimension size, boolean makeListeners) {
 		// TODO : move size stuff to super
-		//TODO : TEXT FORMATTING
+		// TODO : TEXT FORMATTING
 		this.trade = trade;
-		
+
 		nameLabel.setText(trade.playerName);
 		itemLabel.setText(trade.itemName);
-		
+
 		this.setMessageType(trade.msgType);
 		// TODO : Move to/combine with resize
 		calculateSizes(size);
@@ -93,8 +94,8 @@ public class TradePanelA extends AbstractMessagePanel {
 
 		pricePanel.setLayout(new GridBagLayout());
 		pricePanel.add(new PricePanel(trade.priceTypeString, trade.priceCount, true));
-		
-//		priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+		// priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		timerPanel.setLayout(new BorderLayout());
 		timerPanel.add(timerLabel, BorderLayout.CENTER);
@@ -108,7 +109,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		namePanel.setBackground(Color.LIGHT_GRAY);
 		nameLabel.setOpaque(true);
 		nameLabel.setBackground(Color.green);
-		pricePanel.setBackground(new Color(0,100,0));
+		pricePanel.setBackground(new Color(0, 100, 0));
 		itemPanel.setBackground(Color.DARK_GRAY);
 		buttonPanelTop.setBackground(Color.ORANGE);
 		buttonPanelBottom.setBackground(Color.YELLOW);
@@ -146,6 +147,18 @@ public class TradePanelA extends AbstractMessagePanel {
 		bottomPanel.add(itemPanel, gc);
 		gc.gridx++;
 		bottomPanel.add(buttonPanelBottom, gc);
+
+		if (trade.msgType == MessageType.INCOMING_TRADE) {
+			stashHelper = new StashHelper(trade, Color.orange);
+			stashHelper.setVisible(false);
+			FrameManager.stashHelperContainer.add(stashHelper);
+			
+			itemPanel.addMouseListener(new AdvancedMouseAdapter() {
+				public void click(MouseEvent e) {
+					stashHelper.setVisible(true);
+				}
+			});
+		}
 
 		// buttonPanelBottom.add(new IconButton(ImagePreloader.rad, 20));
 
@@ -196,7 +209,6 @@ public class TradePanelA extends AbstractMessagePanel {
 			buttonCountTop = 4;
 			buttonCountBottom = 4;
 			if (Main.saveManager.hasEntry("macros", "in", "custom", "count")) {
-				System.out.println("custom!");
 				int count = Main.saveManager.getInt("macros", "in", "custom", "count");
 				for (int i = 0; i < count; i++) {
 					if (Main.saveManager.hasEntry("macros", "in", "custom", "button" + 0)) {
@@ -216,9 +228,9 @@ public class TradePanelA extends AbstractMessagePanel {
 			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
 			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
 
-			if(listeners){
+			if (listeners) {
 				this.registerPoeInteractionButton(tradeButton, ButtonType.WHISPER, trade.playerName, "trade");
-			this.registerPoeInteractionButton(callbackButton, ButtonType.CALLBACK);
+				this.registerPoeInteractionButton(callbackButton, ButtonType.CALLBACK);
 			}
 
 			int i = 0;
@@ -269,17 +281,6 @@ public class TradePanelA extends AbstractMessagePanel {
 		// TODO : update force
 		this.setCloseButton(rowHeight);
 		buttonPanelTop.add(closeButton);
-
-		// buttonPanelBottom.add(new IconButton("/resources/icons/thumb1.png",
-		// rowHeight));
-		// buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png",
-		// rowHeight));
-		// buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png",
-		// rowHeight));
-		// buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png",
-		// rowHeight));
-		// buttonPanelBottom.add(new IconButton("/resources/icons/thumb2.png",
-		// rowHeight));
 	}
 
 	protected void resizeFrames(int top, int bottom) {
@@ -327,7 +328,5 @@ public class TradePanelA extends AbstractMessagePanel {
 	public void setStashHelper(StashHelper stashHelper) {
 		this.stashHelper = stashHelper;
 	}
-
-
 
 }

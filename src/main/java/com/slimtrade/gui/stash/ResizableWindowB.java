@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
-public class ResizableWindow extends AbstractWindow {
+public class ResizableWindowB extends AbstractWindow {
 
 	static final long serialVersionUID = 1L;
 	private JPanel pullRight = new JPanel();
@@ -30,10 +30,12 @@ public class ResizableWindow extends AbstractWindow {
 	private int startingHeight;
 	private boolean mousePressed = false;
 	private AbstractWindow local;
+	
+	private final int SLEEP_DURATION = 20;
 
-	public ResizableWindow() {
+	public ResizableWindowB() {
 		super("Stash Overlay", true);
-		this.setMinimumSize(new Dimension(100,100));
+		this.setMinimumSize(new Dimension(100, 100));
 		pullRight.setBackground(Color.DARK_GRAY);
 		pullBottom.setBackground(Color.DARK_GRAY);
 		center.setLayout(new BorderLayout());
@@ -52,11 +54,16 @@ public class ResizableWindow extends AbstractWindow {
 				startingWidth = local.getWidth();
 				startingHeight = local.getHeight();
 				mousePressed = true;
+				new Thread(runnerRight).start();
 			}
 
 			public void mouseReleased(MouseEvent e) {
 				mousePressed = false;
 			}
+
+			// public void mouseEntered(MouseEvent e){
+			// pullRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
+			// }
 		});
 
 		pullBottom.addMouseListener(new MouseAdapter() {
@@ -67,6 +74,7 @@ public class ResizableWindow extends AbstractWindow {
 				startingWidth = local.getWidth();
 				startingHeight = local.getHeight();
 				mousePressed = true;
+				new Thread(runnerBottom).start();
 			}
 
 			public void mouseReleased(MouseEvent e) {
@@ -74,32 +82,6 @@ public class ResizableWindow extends AbstractWindow {
 			}
 
 			public void mouseDragged(MouseEvent e) {
-				
-			}
-		});
-
-		pullRight.addMouseMotionListener(new MouseMotionListener() {
-
-			public void mouseDragged(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				new Thread(runnerRight).start();
-			}
-
-			public void mouseMoved(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		pullBottom.addMouseMotionListener(new MouseMotionListener() {
-
-			public void mouseDragged(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				new Thread(runnerBottom).start();
-			}
-
-			public void mouseMoved(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -107,27 +89,41 @@ public class ResizableWindow extends AbstractWindow {
 
 	protected Runnable runnerRight = new Runnable() {
 		public void run() {
-			int mouseX = MouseInfo.getPointerInfo().getLocation().x;
-//			System.out.println(mouseX);
-			int width = startingWidth - (startingX - mouseX);
-			if (width % 2 != 0)
-				width++;
-			local.setPreferredSize(new Dimension(width, startingHeight));
-			local.pack();
-			local.repaint();
+			while (mousePressed) {
+				int mouseX = MouseInfo.getPointerInfo().getLocation().x;
+//				System.out.println(mouseX);
+				int width = startingWidth - (startingX - mouseX);
+				if (width % 2 != 0)
+					width++;
+				local.setPreferredSize(new Dimension(width, startingHeight));
+				local.pack();
+				local.repaint();
+				try {
+					Thread.sleep(SLEEP_DURATION);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	};
 
 	protected Runnable runnerBottom = new Runnable() {
 		public void run() {
-			int mouseY = MouseInfo.getPointerInfo().getLocation().y;
-//			System.out.println(mouseY);
-			int height = startingHeight - (startingY - mouseY);
-			if (height % 2 != 0)
-				height++;
-			local.setPreferredSize(new Dimension(startingWidth, height));
-			local.pack();
-			local.repaint();
+			while (mousePressed) {
+				int mouseY = MouseInfo.getPointerInfo().getLocation().y;
+//				System.out.println(mouseY);
+				int height = startingHeight - (startingY - mouseY);
+				if (height % 2 != 0)
+					height++;
+				local.setPreferredSize(new Dimension(startingWidth, height));
+				local.pack();
+				local.repaint();
+				try {
+					Thread.sleep(SLEEP_DURATION);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	};
 

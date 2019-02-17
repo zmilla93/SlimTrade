@@ -89,6 +89,11 @@ public class Main {
 
 				ImagePreloader imagePreloader = new ImagePreloader();
 
+				Main.saveManager.putIntDefault(0, "stashOverlay", "x");
+				Main.saveManager.putIntDefault(100, "stashOverlay", "y");
+				Main.saveManager.putIntDefault(600, "stashOverlay", "width");
+				Main.saveManager.putIntDefault(600, "stashOverlay", "height");
+				
 				saveManager.putStringDefault("I'm busy, want me to message you back in a little bit?", "macros", "in", "preset", "callback", "left");
 				saveManager.putStringDefault("one sec", "macros", "in", "preset", "wait", "left");
 				saveManager.putStringDefault("one minute", "macros", "in", "preset", "wait", "right");

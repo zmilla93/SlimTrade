@@ -7,15 +7,17 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
 import main.java.com.slimtrade.gui.buttons.IconButton;
-import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class AbstractWindow extends BasicMovableDialog {
 
@@ -30,15 +32,18 @@ public class AbstractWindow extends BasicMovableDialog {
 	private IconButton closeButton;
 	protected Container contentPane = this.getContentPane();
 
-	private Color borderColor = Color.red;
+	private Color borderColor = Color.orange;
 	
 	GridBagConstraints gc = new GridBagConstraints();
 
 	public AbstractWindow(String title, boolean makeCloseButton) {
 		this.setTitle(title);
+		
+
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(borderColor);
 		titlebarPanel.setBackground(borderColor);
+		center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, borderColor));
 		center.setBackground(Color.blue);
 
 		titlebarPanel.setLayout(new BorderLayout());
@@ -47,7 +52,7 @@ public class AbstractWindow extends BasicMovableDialog {
 //		titlebarPanel.setLayout(new Grid);
 		center.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		//TODO : Container color
-		center.setBackground(Color.LIGHT_GRAY);
+		center.setBackground(borderColor);
 		
 		gc.weightx = 1;
 		gc.gridx = 0;
@@ -65,20 +70,25 @@ public class AbstractWindow extends BasicMovableDialog {
 		gc.insets = new Insets(0, 0, 0, 0);
 
 		gc.gridx++;
-		
+		JDialog local = this;
 		if (makeCloseButton) {
 			gc.anchor = GridBagConstraints.LINE_END;
 			closeButton = new IconButton(ImagePreloader.close, TITLEBAR_HEIGHT);
 //			titlebarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			titlebarPanel.add(closeButton, BorderLayout.EAST);
+			closeButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					local.setVisible(false);
+				}
+			});
 
 		}
 		
 		contentPane.add(titlebarPanel, BorderLayout.NORTH);
 		contentPane.add(center, BorderLayout.CENTER);
-		contentPane.add(new BufferPanel(BORDER_THICKNESS, 0), BorderLayout.LINE_START);
-		contentPane.add(new BufferPanel(0, BORDER_THICKNESS), BorderLayout.PAGE_END);
-		contentPane.add(new BufferPanel(BORDER_THICKNESS, 0), BorderLayout.LINE_END);
+//		contentPane.add(new BufferPanel(BORDER_THICKNESS, 0), BorderLayout.LINE_START);
+//		contentPane.add(new BufferPanel(0, BORDER_THICKNESS), BorderLayout.PAGE_END);
+//		contentPane.add(new BufferPanel(BORDER_THICKNESS, 0), BorderLayout.LINE_END);
 		
 //		container.add(new BasicPanel(200, 500, Color.red));
 

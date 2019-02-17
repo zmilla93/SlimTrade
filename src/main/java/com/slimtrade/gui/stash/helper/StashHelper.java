@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.panels;
+package main.java.com.slimtrade.gui.stash.helper;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,10 +18,8 @@ import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
-import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
-import main.java.com.slimtrade.gui.messaging.ItemHighlighter;
 
 public class StashHelper extends JPanel {
 
@@ -78,7 +76,7 @@ public class StashHelper extends JPanel {
 		this.addMouseListener(new MouseAdapter() {
 		    public void mouseEntered(MouseEvent e) {
 		    	highlighterTimer.stop();
-		    	itemHighlighter.refresh();
+		    	itemHighlighter.updatePos(12);
 		    	itemHighlighter.setVisible(true);
 		    	itemHighlighter.repaint();
 		    }

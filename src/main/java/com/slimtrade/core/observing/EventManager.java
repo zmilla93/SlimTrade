@@ -38,9 +38,9 @@ public class EventManager implements PoeInteractionListener {
 			break;
 		case REFRESH:
 			//FIX FRONT END IMPORT
-			System.out.println("REFRESHING BUTTON : " + trade.msgType);
+//			System.out.println("REFRESHING BUTTON : " + trade.msgType);
 			if (trade.msgType == MessageType.INCOMING_TRADE) {
-				System.out.println("Still interested?");
+//				System.out.println("Still interested?");
 				PoeInterface.paste("@" + trade.playerName + " Hi, are you still interested in my "
 						+ TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, false) + " listed for "
 						+ TradeUtility.getFixedDouble(trade.priceCount, false) + " " + trade.priceTypeString + "?");

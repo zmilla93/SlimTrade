@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.messaging;
+package main.java.com.slimtrade.gui.stash.helper;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,10 +12,10 @@ public class ItemHighlighter extends BasicDialog{
 
 	private static final long serialVersionUID = 1L;
 	//Static
-	private static double gridX;
-	private static double gridY;
-	private static double cellWidth = 0;
-	private static double cellHeight = 0;
+	private static int gridX;
+	private static int gridY;
+	private static double gridWidth = 0;
+	private static double gridHeight = 0;
 	//Internal
 	private int stashX;
 	private int stashY;
@@ -26,20 +26,25 @@ public class ItemHighlighter extends BasicDialog{
 		this.setVisible(false);
 		this.setBackground(ColorManager.CLEAR);
 		this.getRootPane().setBorder(BorderFactory.createLineBorder(color, 4, false));
-		this.setBounds(0-(int)cellWidth*2, 0, (int)cellWidth, (int)cellHeight);
-		this.setSize(new Dimension((int)cellWidth, (int)cellHeight));
+		this.setBounds(0-(int)gridWidth*2, 0, (int)gridWidth, (int)gridHeight);
+		this.setSize(new Dimension((int)gridWidth, (int)gridHeight));
 		this.setVisible(false);
 	}
 	
-	public static void saveGridInfo(double gridX, double gridY, double cellWidth, double cellHeight){
+	public static void saveGridInfo(int gridX, int gridY, int gridWidth, int gridHeight){
 		ItemHighlighter.gridX = gridX;
 		ItemHighlighter.gridY = gridY;
-		ItemHighlighter.cellWidth = cellWidth;
-		ItemHighlighter.cellHeight = cellHeight;
+		ItemHighlighter.gridWidth = gridWidth;
+		ItemHighlighter.gridHeight = gridHeight;
 	}
 	
-	public void refresh(){
+	public void updatePos(int cellCount){
+//		System.out.println("GRID SIZE : " + gridWidth + " : " + gridHeight);
+		double cellWidth = gridWidth/(double)cellCount;
+		double cellHeight = gridHeight/(double)cellCount;
+//		System.out.println("CELL SIZE : " + cellWidth + " : " + cellHeight);
 		this.setBounds((int)(gridX+((stashX-1)*cellWidth)), (int)(gridY+((stashY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
+//		this.setBounds((int)(gridX+((stashX-1)*cellWidth)), (int)(gridY+((stashY-1)*cellHeight)), (int)gridWidth, (int)gridHeight);
 	}
 	
 	public void destroy(){

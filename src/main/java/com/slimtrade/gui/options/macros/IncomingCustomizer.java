@@ -165,9 +165,9 @@ public class IncomingCustomizer extends ContentPanel {
 	}
 
 	public void loadFromSave() {
-		System.out.println("Loading...");
+//		System.out.println("Loading...");
 		for (int i = 0; i < CUSTOM_MAX; i++) {
-			System.out.println("ENTRY!");
+//			System.out.println("ENTRY!");
 			if (Main.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
 				CustomMacroRow row = addNewMacro();
 				row.setFresh(false);

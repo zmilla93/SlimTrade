@@ -124,7 +124,7 @@ public class OptionsWindow extends ResizableWindow {
 		this.setMinimumSize(new Dimension(900,600));
 		this.refresh();
 		this.setMinimumSize(new Dimension(300,300));
-		this.setVisible(true);
+//		this.setVisible(true);
 		AbstractWindow local = this;
 		cancelButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -168,7 +168,7 @@ public class OptionsWindow extends ResizableWindow {
 	}
 	
 	public void refresh(){
-		System.out.println("Refresh");
+//		System.out.println("Refresh");
 //		display.setPreferredSize(null);
 		display.revalidate();
 //		display.setPreferredSize(display.getPreferredSize());

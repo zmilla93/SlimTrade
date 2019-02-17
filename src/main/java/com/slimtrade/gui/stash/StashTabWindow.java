@@ -55,7 +55,7 @@ public class StashTabWindow extends AbstractWindowDialog {
 		scrollPaneSize.width+= 25;
 		scrollPaneSize.height = scrollPaneSize.height*10 + rowBuffer*10;
 		
-		System.out.println("PANE " + scrollPaneSize);
+//		System.out.println("PANE " + scrollPaneSize);
 //		rowContainer.setMinimumSize(dummyRow.getPreferredSize());
 //		rowScrollPane.setMinimumSize(scrollPaneSize);
 		rowScrollPane.setPreferredSize(scrollPaneSize);
@@ -65,7 +65,7 @@ public class StashTabWindow extends AbstractWindowDialog {
 		
 		rowScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		rowScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		System.out.println(dummyRow.getPreferredSize());
+//		System.out.println(dummyRow.getPreferredSize());
 //		rowScrollPane.revalidate();
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
