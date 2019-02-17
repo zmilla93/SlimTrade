@@ -1,6 +1,7 @@
 package main.java.com.slimtrade.gui.messaging;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -49,5 +50,4 @@ public abstract class AbstractClickPanel extends JPanel {
 	public void setText(String text){
 		label.setText(text);
 	}
-
 }

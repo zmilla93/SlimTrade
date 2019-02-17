@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class BasicPanel extends JPanel{
 	
+	//TODO : Consider removing
 	private static final long serialVersionUID = 1L;
 	private static int rowWidth;
 	private static int rowHeight;

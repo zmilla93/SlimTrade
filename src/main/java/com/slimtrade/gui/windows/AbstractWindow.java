@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class AbstractWindow extends BasicMovableDialog {
 
@@ -60,8 +61,8 @@ public class AbstractWindow extends BasicMovableDialog {
 		gc.ipadx = 0;
 		gc.ipady = 0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.insets = new Insets(0, 5, 0, 0);
-		JLabel titleLabel = new JLabel("TITLE");
+		titlebarPanel.add(new BufferPanel(5,0), BorderLayout.WEST);
+		JLabel titleLabel = new JLabel(title);
 		gc.anchor = GridBagConstraints.LINE_START;
 		titlebarPanel.add(titleLabel, BorderLayout.CENTER);
 		JPanel p = new JPanel();

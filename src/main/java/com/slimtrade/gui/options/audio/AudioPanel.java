@@ -8,9 +8,9 @@ import main.java.com.slimtrade.core.audio.Sound;
 import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.options.ContentPanel;
-import main.java.com.slimtrade.gui.options.ISaveable;
+import main.java.com.slimtrade.gui.options.Saveable;
 
-public class AudioPanel extends ContentPanel implements ISaveable {
+public class AudioPanel extends ContentPanel implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 	private final int BUFFER_HEIGHT = 10;

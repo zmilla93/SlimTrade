@@ -21,13 +21,14 @@ import main.java.com.slimtrade.gui.options.advanced.AdvancedPanel;
 import main.java.com.slimtrade.gui.options.audio.AudioPanel;
 import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
 import main.java.com.slimtrade.gui.options.macros.OutgoingCustomizer;
+import main.java.com.slimtrade.gui.options.stash.StashPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.ResizableWindow;
-import main.java.com.slimtrade.gui.stash.StashTabPanel;
 import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
 public class OptionsWindow extends ResizableWindow {
-
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel display = new JPanel();
 	JScrollPane scrollDisplay;
 	
@@ -54,8 +55,10 @@ public class OptionsWindow extends ResizableWindow {
 		int buffer = 6;
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, buffer));
+		JButton resizeButton = new JButton("RESIZE");
 		JButton cancelButton = new JButton("CANCEL");
 		JButton saveButton = new JButton("SAVE");
+		bottomPanel.add(resizeButton);
 		bottomPanel.add(cancelButton);
 		bottomPanel.add(saveButton);
 		
@@ -66,7 +69,7 @@ public class OptionsWindow extends ResizableWindow {
 		display.add(basicsPanel, gc);
 		
 		JButton stashButton = new JButton("Stash Manager");
-		StashTabPanel stashPanel = new StashTabPanel();
+		StashPanel stashPanel = new StashPanel();
 		link(stashButton, stashPanel);
 		display.add(stashPanel, gc);
 		
@@ -124,8 +127,33 @@ public class OptionsWindow extends ResizableWindow {
 		this.setMinimumSize(new Dimension(900,600));
 		this.refresh();
 		this.setMinimumSize(new Dimension(300,300));
-//		this.setVisible(true);
+		this.setVisible(true);
+		
+		//TODO : Resize
 		AbstractWindow local = this;
+		resizeButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				Dimension size = new Dimension(0, 0);
+				for(Component c : scrollDisplay.getComponents()){
+					Dimension newSize = c.getPreferredSize();
+					if(size.width<newSize.width){
+						size.width = newSize.width;
+					}
+					if(size.height<newSize.height){
+						size.height = newSize.height;
+					}
+				}
+//				scrollDisplay.revalidate();
+//				scrollDisplay.setPreferredSize(scrollDisplay.getPreferredSize());
+				scrollDisplay.setPreferredSize(size);
+				System.out.println(size);
+//				display.setPreferredSize(size);
+			
+				local.setPreferredSize(size);
+				local.pack();
+			}
+		});
+		
 		cancelButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				incomingPanel.reset();

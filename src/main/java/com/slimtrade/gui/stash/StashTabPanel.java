@@ -24,9 +24,6 @@ public class StashTabPanel extends ContentPanel {
 	int rowBuffer = 5;
 	
 	public StashTabPanel(){
-//		super("Stash Tab Manager");
-//		this.setFocusableWindowState(true);
-//		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gcRow = new GridBagConstraints();
@@ -63,10 +60,8 @@ public class StashTabPanel extends ContentPanel {
 //		rowContainer.revalidate();
 //		rowScrollPane.revalidate();
 		
-		rowScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		rowScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//		System.out.println(dummyRow.getPreferredSize());
-//		rowScrollPane.revalidate();
+//		rowScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//		rowScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		JButton addButton = new JButton("Add");
@@ -77,7 +72,8 @@ public class StashTabPanel extends ContentPanel {
 		buttonPanel.add(revertButton);
 		
 		
-		
+		this.add(new JButton("EDIT"));
+		gc.gridy++;
 		this.add(rowScrollPane, gc);
 		gc.gridy++;
 		this.add(buttonPanel, gc);
@@ -110,15 +106,6 @@ public class StashTabPanel extends ContentPanel {
 				rowContainer.repaint();
 			}
 		});
-		
-		//TEMP
-//		addNewRow();
-//		addNewRow();
-//		addNewRow();
-//		container.setPreferredSize(null);
-//		Dimension windowSize = container.getPreferredSize();
-//		System.out.println(windowSize);
-//		this.resizeWindow(windowSize.width, windowSize.height);
 		this.autoResize();
 	}
 	

@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.windows;
+package main.java.com.slimtrade.gui.history;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,7 +18,6 @@ import main.java.com.slimtrade.enums.ButtonState;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 import main.java.com.slimtrade.gui.buttons.SelectorButton;
-import main.java.com.slimtrade.gui.panels.HistoryRowPanel;
 
 public class HistoryWindow extends AbstractWindowDialog {
 

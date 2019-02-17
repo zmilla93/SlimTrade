@@ -40,17 +40,11 @@ public class Main {
 	public static SaveManager saveManager = new SaveManager();
 	public static ChatParser chatParser = new ChatParser();
 	public static FileMonitor fileMonitor;
-	public static Logger logger;
+	public static Logger logger = Logger.getLogger("slim");
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-//		try {
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-//			e.printStackTrace();
-//		}
-
-		// Move to independent file, make static to load faster
+		Logger.getAnonymousLogger().log(Level.INFO, "!!");
 		BasicDialog loadWindow = new BasicDialog();
 		loadWindow.setLayout(new GridBagLayout());
 		loadWindow.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());
@@ -256,7 +250,7 @@ public class Main {
 		loadWindow.dispose();
 
 	}
-
+	
 	public static void closeProgram() {
 		saveManager.saveToDisk();
 		try {

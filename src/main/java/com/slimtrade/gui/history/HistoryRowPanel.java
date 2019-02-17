@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.panels;
+package main.java.com.slimtrade.gui.history;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +21,7 @@ import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
-import main.java.com.slimtrade.gui.windows.HistoryWindow;
+import main.java.com.slimtrade.gui.panels.PricePanel;
 
 public class HistoryRowPanel extends JPanel {
 

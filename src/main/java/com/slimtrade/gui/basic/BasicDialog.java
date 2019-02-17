@@ -24,6 +24,7 @@ public class BasicDialog extends JDialog{
 //		this.toFront();
 	}
 	
+	//TODO : Remove
 	public void refresh(){
 		this.revalidate();
 		this.repaint();

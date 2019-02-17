@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ public class ContentPanel extends JPanel {
 	private int bufferWidth = 20;
 	private int bufferHeight = 20;
 	protected GridBagConstraints gc;
+	protected Insets inset = new Insets(0,0,0,0);
 	
 	public ContentPanel(){
 		build(false);
@@ -30,18 +32,22 @@ public class ContentPanel extends JPanel {
 		this.setVisible(visible);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		gc = new GridBagConstraints();
+		gc.insets = inset;
 		gc.gridx = 0;
 		gc.gridy = 0;
 	}
 	
+	//TODO : Recursive resize?
 	public void autoResize() {
+//		for()
+		
 		this.setPreferredSize(null);
 		Dimension size = this.getPreferredSize();
 		size.width = size.width + bufferWidth;
 		size.height = size.height + bufferHeight;
 //		this.setMinimumSize(size);
 		this.setPreferredSize(size);
-		this.setMaximumSize(size);
+//		this.setMaximumSize(size);
 		this.revalidate();
 		this.repaint();
 	}

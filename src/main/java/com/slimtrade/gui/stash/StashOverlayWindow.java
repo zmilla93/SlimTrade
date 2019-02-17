@@ -18,15 +18,16 @@ import javax.swing.JPanel;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.options.ISaveable;
+import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.helper.ItemHighlighter;
 
-public class StashOverlayWindow extends ResizableWindowB implements ISaveable {
+public class StashOverlayWindow extends ResizableWindow implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 
 	private StashGridPanel gridPanel;
+	private boolean vis = false;
 
 	public StashOverlayWindow() {
 		this.setMinimumSize(new Dimension(300, 300));
@@ -95,10 +96,10 @@ public class StashOverlayWindow extends ResizableWindowB implements ISaveable {
 				FrameManager.stashHelperContainer.updateBounds();
 			}
 		});
-
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				load();
+				vis = true;
+				load();				
 			}
 		});
 //		load();
@@ -129,7 +130,8 @@ public class StashOverlayWindow extends ResizableWindowB implements ISaveable {
 			this.setVisible(true);
 			ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
 
-			this.setVisible(false);
+			this.setVisible(vis);
+			vis = false;
 		}
 	}
 
