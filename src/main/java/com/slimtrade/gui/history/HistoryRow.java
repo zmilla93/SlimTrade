@@ -47,7 +47,7 @@ public class HistoryRow extends JPanel {
 		GridBagPanel rowPanel = new GridBagPanel();
 
 		this.setMinimumSize(new Dimension(50, rowHeight));
-//		this.setMaximumSize(new Dimension(1200, rowHeight));
+		this.setMaximumSize(new Dimension(1600, rowHeight));
 
 		this.setBackground(Color.RED);
 
@@ -120,7 +120,8 @@ public class HistoryRow extends JPanel {
 		refreshButton.borderDefault = BorderFactory.createSoftBevelBorder(BevelBorder.RAISED);
 		refreshButton.borderHover = BorderFactory.createSoftBevelBorder(BevelBorder.RAISED);
 		refreshButton.borderPressed = BorderFactory.createSoftBevelBorder(BevelBorder.LOWERED);
-		
+//		refreshButton.setMaximumSize(new Dimension(rowHeight, rowHeight));
+//		this.setMaximumSize(2000,);
 		
 		refreshButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {

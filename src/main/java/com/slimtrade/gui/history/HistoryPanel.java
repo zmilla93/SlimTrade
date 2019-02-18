@@ -23,7 +23,7 @@ public class HistoryPanel extends JPanel {
 	private ArrayList<TradeOffer> outgoingTradeData = new ArrayList<TradeOffer>();
 	private ArrayList<HistoryRow> outgoingTradePanels = new ArrayList<HistoryRow>();
 
-	private int maxTrades = 50;
+	private int maxTrades = 10;
 	private JPanel contentPanel;
 //	private JScrollPane contentScroll;
 	
