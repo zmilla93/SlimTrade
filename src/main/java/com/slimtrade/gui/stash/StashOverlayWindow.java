@@ -38,7 +38,7 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 		// this.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.4f));
 
 		Logger.getAnonymousLogger().log(Level.ALL, "LOGGER");
-		
+
 		int buffer = 10;
 		JPanel gridOuter = new JPanel();
 		gridOuter.setLayout(new BorderLayout());
@@ -56,9 +56,9 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 
 		GridBagConstraints gc = new GridBagConstraints();
 		JPanel buttonPanel = new JPanel();
-		JButton infoButton = new JButton("Info");
-		JButton saveButton = new JButton("Save");
+		JButton infoButton = new JButton("Grid");
 		JButton resetButton = new JButton("Reset");
+		JButton saveButton = new JButton("Save");
 
 		buttonPanel.setLayout(new GridBagLayout());
 
@@ -69,18 +69,20 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 
 		buttonPanel.add(infoButton, gc);
 		gc.gridx++;
-		buttonPanel.add(saveButton, gc);
+		buttonPanel.add(resetButton, gc);
 		gc.gridx++;
 		inset.right = 0;
-		buttonPanel.add(resetButton, gc);
-
+		buttonPanel.add(saveButton, gc);
 		container.add(buttonPanel, BorderLayout.SOUTH);
 
 		JDialog local = this;
 		infoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (gridPanel.getGridCellCount() == 12) {
+				int count = gridPanel.getGridCellCount();
+				if (count == 12) {
 					gridPanel.setGridCellCount(24);
+				} else if (count == 24) {
+					gridPanel.setGridCellCount(0);
 				} else {
 					gridPanel.setGridCellCount(12);
 				}
@@ -100,11 +102,11 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vis = true;
-				load();				
+				load();
 			}
 		});
-//		load();
-//		ItemHighlighter
+		// load();
+		// ItemHighlighter
 
 	}
 
@@ -122,12 +124,12 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 
 	public void load() {
 		if (Main.saveManager.hasEntry("stashOverlay")) {
-//			System.out.println("Loading Grid Panel");
-			
+			// System.out.println("Loading Grid Panel");
+
 			this.setLocation(Main.saveManager.getInt("stashOverlay", "x"), Main.saveManager.getInt("stashOverlay", "y"));
 			this.setSize(Main.saveManager.getInt("stashOverlay", "width"), Main.saveManager.getInt("stashOverlay", "height"));
-			
-//			System.out.println("WIDTH " + gridPanel.getWidth());
+
+			// System.out.println("WIDTH " + gridPanel.getWidth());
 			this.setVisible(true);
 			ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
 

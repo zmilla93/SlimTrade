@@ -14,6 +14,9 @@ public class ColorManager {
 	public static Color stashDarkText = new Color(53, 28, 13);
 	public static Color stashLightText = new Color(254, 192, 118);
 	
+	public static Color greenIncoming = new Color(0,100,0);
+	public static Color redOutgoing = new Color(100,0,0);
+	
 	public static class MsgWindow{
 		public static Color borderOuter;
 		public static Color borderInner;

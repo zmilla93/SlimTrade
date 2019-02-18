@@ -16,6 +16,8 @@ public class PricePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private JLabel priceLabel = new JLabel();
+	
 	public PricePanel(String price, double quant, boolean paren) {
 		this.setLayout(new GridBagLayout());
 		this.setOpaque(false);
@@ -23,7 +25,7 @@ public class PricePanel extends JPanel {
 		
 		gc.gridx = 0;
 		gc.gridy = 0;
-		JLabel priceLabel = new JLabel();
+		priceLabel = new JLabel();
 		String num = quant > 1 ? TradeUtility.getFixedDouble(quant, paren) + " ": "" ;
 		CurrencyType currency = TradeUtility.getCurrencyType(price);
 //		System.out.println(currency + " ::: " + quant + " ::: " + num);
@@ -37,6 +39,10 @@ public class PricePanel extends JPanel {
 			priceLabel.setText(num + price);
 			this.add(priceLabel, gc);
 		}
+	}
+	
+	public JLabel getLabel(){
+		return this.priceLabel;
 	}
 
 }

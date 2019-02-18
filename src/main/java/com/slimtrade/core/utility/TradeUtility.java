@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.core.utility;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -7,6 +8,7 @@ import main.java.com.slimtrade.core.audio.AudioManager;
 import main.java.com.slimtrade.enums.CurrencyType;
 import main.java.com.slimtrade.enums.ExpandDirection;
 import main.java.com.slimtrade.enums.MenubarButtonLocation;
+import main.java.com.slimtrade.enums.StashTabColor;
 
 public class TradeUtility {
 

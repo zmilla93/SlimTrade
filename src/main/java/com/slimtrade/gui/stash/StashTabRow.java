@@ -13,8 +13,9 @@ import javax.swing.JTextField;
 import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.options.RemovablePanel;
 
-public class StashTabRow extends JPanel {
+public class StashTabRow extends RemovablePanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +24,7 @@ public class StashTabRow extends JPanel {
 	private JButton deleteButton;
 	
 	JTextField stashTabText;
-	JComboBox<String> typeCombo;
+	JComboBox<StashTabType> typeCombo;
 	JComboBox<Color> colorCombo;
 	private boolean delete;
 	private boolean newRow = true;
@@ -47,10 +48,11 @@ public class StashTabRow extends JPanel {
 		stashTabText.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT));
 		stashTabTextPanel.add(stashTabText, new GridBagConstraints());
 		
-		typeCombo = new JComboBox<String>();
+		typeCombo = new JComboBox<StashTabType>();
+		for(StashTabType type : StashTabType.values()){
+			typeCombo.addItem(type);
+		}
 		typeCombo.setFocusable(false);
-		typeCombo.addItem("Normal");
-		typeCombo.addItem("Quad");
 		Dimension typeSize = typeCombo.getPreferredSize();
 		typeSize.height = ROW_HEIGHT;
 		typeCombo.setPreferredSize(typeSize);
@@ -72,38 +74,33 @@ public class StashTabRow extends JPanel {
 		gc.gridx++;
 		this.add(colorCombo, gc);
 	}
-
-	public boolean isNewRow() {
-		return newRow;
-	}
-	
-	public void setNewRow(boolean newRow) {
-		this.newRow = newRow;
-	}
-	
-	public boolean isDelete() {
-		return delete;
-	}
-
-	public void setDelete(boolean delete) {
-		this.delete = delete;
-	}
 	
 	public JButton getDeleteButton(){
 		return this.deleteButton;
 	}
 	
-	public String getStashTabName(){
+	public String getText(){
 		return stashTabText.getText();
 	}
+	
+	public void setText(String text){
+		stashTabText.setText(text);
+	}
 
-	//TODO : Stashtab type
-	public StashTabType getStashTabType(){
-		return StashTabType.valueOf((String)typeCombo.getSelectedItem());
+	public StashTabType getType(){
+		return (StashTabType) typeCombo.getSelectedItem();
 	}
 	
-	public Color getStashTabColor(){
-		return (Color)colorCombo.getSelectedItem();
+	public void setType(StashTabType type){
+		typeCombo.setSelectedItem(type);
+	}
+	
+	public StashTabColor getColor(){
+		return StashTabColor.getValueFromColor((Color)colorCombo.getSelectedItem());
+	}
+	
+	public void setColor(StashTabColor color){
+		colorCombo.setSelectedItem(color.getBackground());
 	}
 	
 }

@@ -57,7 +57,8 @@ public class FrameManager {
 		messageManager.updateLocation();
 		menubar.showDialog();
 		
-		historyWindow.setVisible(true);
+//		stashOverlayWindow.setVisible(true);
+//		historyWindow.setVisible(true);
 	}
 
 	public static void hideMenuFrames() {

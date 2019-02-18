@@ -3,16 +3,14 @@ package main.java.com.slimtrade.gui.options;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
-import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
-import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.enums.DateStyle;
+import main.java.com.slimtrade.gui.options.audio.AudioPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class BasicsPanel extends ContentPanel {
@@ -23,11 +21,6 @@ public class BasicsPanel extends ContentPanel {
 
 	BasicsPanel() {
 		this.setLayout(new GridBagLayout());
-		// COLOR THEME
-		JLabel colorLabel = new JLabel("Color");
-		JComboBox<String> colorCombo = new JComboBox<String>();
-		colorCombo.setFocusable(false);
-		colorCombo.addItem("Default");
 
 		// TIME FORMAT
 		JLabel timeLabel = new JLabel("Time Format");
@@ -38,10 +31,11 @@ public class BasicsPanel extends ContentPanel {
 
 		// DATE FORMAT
 		JLabel dateLabel = new JLabel("Date Format");
-		JComboBox<String> dateCombo = new JComboBox<String>();
+		JComboBox<DateStyle> dateCombo = new JComboBox<DateStyle>();
 		dateCombo.setFocusable(false);
-		dateCombo.addItem("Date Style #1");
-		dateCombo.addItem("Date Style #2");
+		for(DateStyle s : DateStyle.values()){
+			dateCombo.addItem(s);
+		}
 
 		// GUILD NAME
 		JLabel guildLabel = new JLabel("Show Guild");
@@ -70,38 +64,29 @@ public class BasicsPanel extends ContentPanel {
 		JLabel overlayLabel = new JLabel("Overlay Layout");
 		JButton overlayButton = new JButton("Edit");
 		overlayButton.setFocusable(false);
-
 		
+		this.addRow(new JLabel("History Options"), gc);
+		this.addRow(new JLabel("Time Format"), gc);
+		this.addRow(new JLabel("Date Format"), gc);
+		this.addRow(dateCombo, gc);
+		this.addRow(new JLabel("Newest First"), gc);
 		
+		this.addRow(new JLabel("Menubar Options"), gc);
+		this.addRow(new JButton("Edit"), gc);
 		
-		//Actions
-		stashButton.addMouseListener(new AdvancedMouseAdapter(){
-			public void click(MouseEvent e){
-				FrameManager.hideMenuFrames();
-				FrameManager.menubar.setVisible(false);
-				FrameManager.menubarToggle.setVisible(false);
-				FrameManager.messageManager.setVisible(false);
-				FrameManager.stashOverlayWindow.setVisible(true);
-			}
-		});
+//		this.addRow(c, gc);
+		AudioPanel audioPanel = new AudioPanel();
+		audioPanel.setVisible(true);
+		this.addRow(audioPanel, gc);
+		audioPanel.autoResize();
 		
-		overlayButton.addMouseListener(new AdvancedMouseAdapter(){
-			public void click(MouseEvent e){
-				//TODO : Make more specific
-				FrameManager.hideMenuFrames();
-				FrameManager.menubar.setVisible(false);
-				FrameManager.menubarToggle.setVisible(false);
-				FrameManager.messageManager.setVisible(false);
-				FrameManager.overlayManager.showDialog();
-			}
-		});
-		
-		gc.insets = new Insets(0, 0, bufferY, 0);
-		this.addPair(timeLabel, timeCombo, gc);
-		this.addPair(dateLabel, dateCombo, gc);
-		this.addPair(guildLabel, guildCheckbox, gc);
-		gc.insets = new Insets(0, 0, 0, 0);
-		this.addPair(kickLabel, kickCheckbox, gc);
+//		
+//		gc.insets = new Insets(0, 0, bufferY, 0);
+//		this.addPair(timeLabel, timeCombo, gc);
+//		this.addPair(dateLabel, dateCombo, gc);
+//		this.addPair(guildLabel, guildCheckbox, gc);
+//		gc.insets = new Insets(0, 0, 0, 0);
+//		this.addPair(kickLabel, kickCheckbox, gc);
 		this.autoResize();
 		// this.setMaximumSize(this.getPreferredSize());
 	}

@@ -13,11 +13,15 @@ import javax.swing.border.Border;
 public class PaintedPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	public Color colorDefault = Color.GRAY;
-	public Color colorHover = Color.LIGHT_GRAY;
-	public Color colorClick = Color.DARK_GRAY;
 	
-//	private Border borderDefault = BorderFactory.createEmptyBorder(1,1,1,1);
+	public Color backgroundDefault = Color.GRAY;
+	public Color backgroundHover = Color.LIGHT_GRAY;
+	public Color backgroundClick = Color.DARK_GRAY;
+	
+	public Color textDefault;
+	public Color textHover;
+	public Color textClick;
+	
 	public Border borderDefault;
 	public Border borderHover;
 	public Border borderClick;
@@ -61,13 +65,16 @@ public class PaintedPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if(mouseDown){
-			g.setColor(colorClick);
+			g.setColor(backgroundClick);
+			this.setForeground(textClick);
 			this.setBorder(borderClick);
 		}else if(hover){
-			g.setColor(colorHover);
+			g.setColor(backgroundHover);
+			this.setForeground(textHover);
 			this.setBorder(borderHover);
 		}else{
-			g.setColor(colorDefault);
+			g.setColor(backgroundDefault);
+			this.setForeground(textDefault);
 			this.setBorder(borderDefault);
 		}
 		g.fillRect(0, 0, getWidth(), getWidth());

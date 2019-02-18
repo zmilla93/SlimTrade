@@ -2,6 +2,18 @@ package main.java.com.slimtrade.enums;
 
 public enum StashTabType {
 
-	NORMAL, QUAD, CURRENCY, MAP
+	NORMAL("Normal"),
+	QUAD("Quad"),
+	;
+	
+	private String name;
+	
+	StashTabType(String name){
+		this.name = name;
+	}
+	
+	public String toString(){
+		return this.name;
+	}
 	
 }

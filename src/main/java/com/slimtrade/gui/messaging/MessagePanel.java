@@ -270,7 +270,7 @@ public class MessagePanel extends JPanel {
 			bottomButtonPanel.add(kickButton);
 
 			// STASH HELPER
-			stashHelper = new StashHelper(trade, color);
+//			stashHelper = new StashHelper(trade, color);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.getContentPane().add(stashHelper);
 

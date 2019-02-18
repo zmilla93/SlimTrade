@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,13 +17,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MessageType;
+import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
+import main.java.com.slimtrade.gui.basic.PaintedPanel;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.PricePanel;
 import main.java.com.slimtrade.gui.stash.helper.StashHelper;
@@ -32,7 +37,7 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private JPanel namePanel = new NameClickPanel();
 	private JPanel pricePanel = new JPanel(gb);
-	private JPanel itemPanel = new ItemClickPanel();
+	private PaintedPanel itemPanel = new PaintedPanel();
 	protected JPanel topPanel = new JPanel(gb);
 	protected JPanel bottomPanel = new JPanel(gb);
 
@@ -93,7 +98,9 @@ public class TradePanelA extends AbstractMessagePanel {
 		nameLabel.setVerticalAlignment(SwingConstants.CENTER);
 
 		pricePanel.setLayout(new GridBagLayout());
-		pricePanel.add(new PricePanel(trade.priceTypeString, trade.priceCount, true));
+		PricePanel p = new PricePanel(trade.priceTypeString, trade.priceCount, true);
+		priceLabel = p.getLabel();
+		pricePanel.add(p);
 
 		// priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -102,7 +109,8 @@ public class TradePanelA extends AbstractMessagePanel {
 		timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		itemPanel.setLayout(new GridBagLayout());
-		itemPanel.add(new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true)));
+		itemLabel = new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
+		itemPanel.add(itemLabel);
 		itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Color
@@ -116,7 +124,7 @@ public class TradePanelA extends AbstractMessagePanel {
 
 		// this.setButtonCount(3, 5);
 
-		this.setBackground(Color.BLACK);
+		this.setBackground(StashTabColor.ONE.getBackground());
 		borderPanel.setBackground(Color.CYAN);
 		container.setBackground(Color.BLACK);
 		topPanel.setBackground(Color.RED);
@@ -147,25 +155,57 @@ public class TradePanelA extends AbstractMessagePanel {
 		bottomPanel.add(itemPanel, gc);
 		gc.gridx++;
 		bottomPanel.add(buttonPanelBottom, gc);
+		Color color = null;
+		Color colorText = null;
 
-		if (trade.msgType == MessageType.INCOMING_TRADE) {
-			stashHelper = new StashHelper(trade, Color.orange);
+		switch (trade.msgType) {
+		case CHAT_SCANNER:
+			break;
+		case INCOMING_TRADE:
+//			Random rand = new Random();
+//			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
+			color = StashTabColor.ONE.getBackground();
+			colorText = StashTabColor.ONE.getForeground();
+			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
+				int i = 0;
+				while (Main.saveManager.hasEntry("stashTabs", "tab" + i)) {
+					Main.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
+					if (Main.saveManager.getString("stashTabs", "tab" + i, "text").equals(trade.stashtabName)) {
+						StashTabColor stashColor = StashTabColor.valueOf(Main.saveManager.getString("stashTabs", "tab" + i, "color"));
+						color = stashColor.getBackground();
+						colorText = stashColor.getForeground();
+						break;
+					}
+					i++;
+				}
+			}
+			itemPanel.backgroundDefault = color;
+			itemLabel.setForeground(colorText);
+			stashHelper = new StashHelper(trade, color, colorText);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.add(stashHelper);
-			
 			itemPanel.addMouseListener(new AdvancedMouseAdapter() {
 				public void click(MouseEvent e) {
 					stashHelper.setVisible(true);
 				}
 			});
+			pricePanel.setBackground(ColorManager.greenIncoming);
+			priceLabel.setForeground(ColorManager.stashLightText);
+			break;
+		case OUTGOING_TRADE:
+			pricePanel.setBackground(ColorManager.redOutgoing);
+			priceLabel.setForeground(ColorManager.stashLightText);
+			break;
+		case UNKNOWN:
+			break;
+		default:
+			break;
 		}
 
-		// buttonPanelBottom.add(new IconButton(ImagePreloader.rad, 20));
-
-		// secondTimer.
 		this.startTimer();
 		this.revalidate();
 		this.repaint();
+
 	}
 
 	// TODO add button count
@@ -186,7 +226,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		}
 		messageWidth = size.width;
 		messageHeight = size.height;
-		borderSize = 2;
+//		borderSize = 4;
 		rowHeight = messageHeight / 2;
 		totalWidth = messageWidth + (borderSize * 4);
 		totalHeight = messageHeight + (borderSize * 4);

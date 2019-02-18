@@ -21,10 +21,9 @@ import main.java.com.slimtrade.gui.options.advanced.AdvancedPanel;
 import main.java.com.slimtrade.gui.options.audio.AudioPanel;
 import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
 import main.java.com.slimtrade.gui.options.macros.OutgoingCustomizer;
-import main.java.com.slimtrade.gui.options.stash.StashPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.ResizableWindow;
-import main.java.com.slimtrade.gui.windows.AbstractWindow;
+import main.java.com.slimtrade.gui.stash.StashTabPanel;
 
 public class OptionsWindow extends ResizableWindow {
 	
@@ -69,7 +68,7 @@ public class OptionsWindow extends ResizableWindow {
 		display.add(basicsPanel, gc);
 		
 		JButton stashButton = new JButton("Stash Manager");
-		StashPanel stashPanel = new StashPanel();
+		StashTabPanel stashPanel = new StashTabPanel();
 		link(stashButton, stashPanel);
 		display.add(stashPanel, gc);
 		
@@ -116,14 +115,9 @@ public class OptionsWindow extends ResizableWindow {
 		container.add(bottomPanel, BorderLayout.SOUTH);
 		container.add(menuPanel, BorderLayout.WEST);
 		container.add(scrollDisplay, BorderLayout.CENTER);
-//		this.setMinimumSize(new Dimension(500,900));
-//		double modWidth = 0.4;
-//		double modHeight = 0.6;
-//		this.resizeWindow((int)(TradeUtility.screenSize.width*modWidth),(int)(TradeUtility.screenSize.height*modHeight));
 		
-		incomingPanel.setVisible(true);
-//		advancedPanel.setVisible(true);
-//		this.autoReisize();
+		
+		stashPanel.setVisible(true);
 		this.setMinimumSize(new Dimension(900,600));
 		this.refresh();
 		this.setMinimumSize(new Dimension(300,300));
@@ -160,9 +154,11 @@ public class OptionsWindow extends ResizableWindow {
 		
 		cancelButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				incomingPanel.reset();
+				audioPanel.load();
+				stashPanel.load();
+//				incomingPanel.reset();
 //				local.autoReisize();
-				local.pack();
+//				local.pack();
 			}
 		});
 		
@@ -170,6 +166,7 @@ public class OptionsWindow extends ResizableWindow {
 			public void actionPerformed(ActionEvent e) {
 				incomingPanel.saveData();
 				audioPanel.save();
+				stashPanel.save();
 				Main.saveManager.saveToDisk();
 			}
 		});

@@ -45,8 +45,8 @@ public enum StashTabColor {
 	TWENTYSEVEN(new Color(221, 221, 221), ColorManager.stashDarkText),
 	;
 	
-	Color backgroundColor;
-	Color textColor;	
+	private Color backgroundColor;
+	private Color textColor;	
 	
 	StashTabColor(Color bg){
 		this.backgroundColor = bg;
@@ -64,6 +64,15 @@ public enum StashTabColor {
 	
 	public Color getForeground(){
 		return this.textColor;
+	}
+	
+	public static StashTabColor getValueFromColor(Color color){
+		for(StashTabColor c : StashTabColor.values()){
+			if(color.equals(c.getBackground())){
+				return c;
+			}
+		}
+		return null;
 	}
 	
 }

@@ -125,6 +125,20 @@ public class ChatParser {
 						if (trade != null && !FrameManager.messageManager.isDuplicateTrade(trade)) {
 							FrameManager.messageManager.addMessage(trade);
 							FrameManager.historyWindow.addTrade(trade, true);
+							switch(trade.msgType){
+							case CHAT_SCANNER:
+								break;
+							case INCOMING_TRADE:
+								AudioManager.play(SoundComponent.INCOMING_MESSAGE);
+								break;
+							case OUTGOING_TRADE:
+								break;
+							case UNKNOWN:
+								break;
+							default:
+								break;
+							}
+							
 						}
 					} else if(chatScannerRunning) {
 						for(String s : searchTerms){

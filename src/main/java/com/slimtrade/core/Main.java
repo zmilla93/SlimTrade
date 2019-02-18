@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -26,14 +27,14 @@ import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.debug.Debugger;
+import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.history.HistoryWindow;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 
 public class Main {
-
+	
 	// TODO : move to invoke later?
 	public static Debugger debug = new Debugger();
 	public static ExternalFileManager fileManager = new ExternalFileManager();
@@ -45,7 +46,13 @@ public class Main {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		Logger.getAnonymousLogger().log(Level.INFO, "!!");
+		
+		
+		for(StashTabType t : StashTabType.values()){
+			System.out.println("NAME : " + t.name());
+			System.out.println("NAME : " + t.toString());
+		}
+		
 		BasicDialog loadWindow = new BasicDialog();
 		loadWindow.setLayout(new GridBagLayout());
 		loadWindow.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());

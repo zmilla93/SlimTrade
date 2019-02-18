@@ -98,7 +98,7 @@ public class StashTabWindow extends AbstractWindowDialog {
 			public void click(MouseEvent e){
 				for(Component c : rowContainer.getComponents()){
 					StashTabRow row = (StashTabRow)c;
-					if(row.isNewRow()){
+					if(row.isFresh()){
 						rowContainer.remove(row);
 					}
 					if(row.isDelete()){
@@ -144,7 +144,7 @@ public class StashTabWindow extends AbstractWindowDialog {
 	private void saveComponents(){
 		for(Component c : rowContainer.getComponents()){
 			StashTabRow row = (StashTabRow)c;
-			row.setNewRow(false);
+			row.setFresh(false);
 			if(row.isDelete()){
 				rowContainer.remove(c);
 			}

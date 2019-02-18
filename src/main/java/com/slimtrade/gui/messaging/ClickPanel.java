@@ -9,24 +9,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-public abstract class AbstractClickPanel extends JPanel {
+public class ClickPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	protected Color bgDefault;
-	protected Color bgHover;
+	public Color backgroudDefault;
+	public Color backgroundHover;
 	
-	protected Color textDefault;
-	protected Color textHover;
+	public Color textDefault;
+	public Color textHover;
 
-	protected Border borderDefault;
-	protected Border borderHover;
+	public Border borderDefault;
+	public Border borderHover;
 	
-	protected JLabel label = new JLabel();
+	public JLabel label = new JLabel();
 
 	
 	//TODO : Add label?
-	public AbstractClickPanel() {
+	public ClickPanel() {
 //		this.setLayout(new GridBagLayout());
 //		GridBagConstraints gc = new GridBagConstraints();
 //		this.add(label, gc);
@@ -34,13 +34,13 @@ public abstract class AbstractClickPanel extends JPanel {
 		this.addMouseListener(new MouseAdapter() {
 			
 			public void mouseEntered(MouseEvent e) {
-				p.setBackground(bgHover);
+				p.setBackground(backgroundHover);
 				p.setForeground(textHover);
 				p.setBorder(borderHover);
 			}
 
 			public void mouseExited(MouseEvent e) {
-				p.setBackground(bgDefault);
+				p.setBackground(backgroudDefault);
 				p.setForeground(textDefault);
 				p.setBorder(borderDefault);
 			}
