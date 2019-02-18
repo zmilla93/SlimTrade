@@ -29,6 +29,7 @@ import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
+import main.java.com.slimtrade.gui.history.HistoryWindow;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 
 public class Main {
@@ -153,6 +154,11 @@ public class Main {
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 
+				
+//				HistoryWindow h = new HistoryWindow();
+//				h.pack();
+//				h.setVisible(true);
+				
 //				ResizableWindow w = new ResizableWindow();
 //				w.pack();
 //				w.setVisible(true);

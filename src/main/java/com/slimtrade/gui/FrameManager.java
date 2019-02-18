@@ -56,7 +56,8 @@ public class FrameManager {
 		menubar.reorder();
 		messageManager.updateLocation();
 		menubar.showDialog();
-
+		
+		historyWindow.setVisible(true);
 	}
 
 	public static void hideMenuFrames() {

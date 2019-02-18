@@ -23,13 +23,13 @@ public class IconButton extends JButton {
 	private final int DEFAULT_SIZE = 30;
 	private final double IMAGE_SCALE = 0.94;
 
-	private Color colorDefault = Color.GRAY;
-	private Color colorHover = Color.LIGHT_GRAY;
-	private Color colorPressed = Color.WHITE;
+	public Color colorDefault = Color.GRAY;
+	public Color colorHover = Color.LIGHT_GRAY;
+	public Color colorPressed = Color.WHITE;
 
-	private Border borderDefault = BorderFactory.createEmptyBorder(1, 1, 1, 1);
-	private Border borderHover = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
-	private Border borderPressed = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.RED);
+	public Border borderDefault = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+	public Border borderHover = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
+	public Border borderPressed = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.RED);
 
 	private Image image;
 	

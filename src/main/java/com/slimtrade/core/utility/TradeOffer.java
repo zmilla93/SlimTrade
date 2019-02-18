@@ -21,7 +21,7 @@ public class TradeOffer implements Serializable{
 	public final int stashtabY;
 	public final String bonusText;
 	public final String sentMessage;
-	
+		
 	public TradeOffer(String date, MessageType msgType, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount){
 		this.date = date;
 		this.time = null;
@@ -54,6 +54,62 @@ public class TradeOffer implements Serializable{
 		this.stashtabY = stashtabY;
 		this.bonusText = bonusText;
 		this.sentMessage = sentMessage;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public MessageType getMsgType() {
+		return msgType;
+	}
+
+	public String getGuildName() {
+		return guildName;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public Double getItemCount() {
+		return itemCount;
+	}
+
+	public String getPriceTypeString() {
+		return priceTypeString;
+	}
+
+	public Double getPriceCount() {
+		return priceCount;
+	}
+
+	public String getStashtabName() {
+		return stashtabName;
+	}
+
+	public int getStashtabX() {
+		return stashtabX;
+	}
+
+	public int getStashtabY() {
+		return stashtabY;
+	}
+
+	public String getBonusText() {
+		return bonusText;
+	}
+
+	public String getSentMessage() {
+		return sentMessage;
 	}
 	
 	

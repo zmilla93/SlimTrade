@@ -151,20 +151,6 @@ public class MenubarDialog extends BasicDialog {
 			}
 		});
 
-//		clearButton.addMouseListener(new AdvancedMouseAdapter() {
-//			public void click(MouseEvent evt) {
-////				MessagePanel.setDefaultHeight(60);
-////				FrameManager.messageManager.rebuild();
-//				Main.debug.clearLog();
-//			}
-//		});
-
-//		refreshButton.addMouseListener(new AdvancedMouseAdapter() {
-//			public void click(MouseEvent evt) {
-//				FrameManager.forceAllToTop();
-//			}
-//		});
-
 		// QUIT PROGRAM
 		quitButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {

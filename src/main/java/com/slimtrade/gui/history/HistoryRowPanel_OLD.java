@@ -23,11 +23,11 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.PricePanel;
 
-public class HistoryRowPanel extends JPanel {
+public class HistoryRowPanel_OLD extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private int width = (int) (HistoryWindow.width * 0.9);
+	private int width = (int) (HistoryWindow_OLD.width * 0.9);
 	public static final int height = 25;
 
 	private double timeWidthPercent = 0.15;
@@ -41,7 +41,7 @@ public class HistoryRowPanel extends JPanel {
 	Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
 	Border borderHover = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 
-	public HistoryRowPanel(TradeOffer trade) {
+	public HistoryRowPanel_OLD(TradeOffer trade) {
 
 		// TODO : Could change to grid layout for better spacing
 		// this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));

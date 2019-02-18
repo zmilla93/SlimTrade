@@ -34,7 +34,7 @@ public class OptionsWindow extends ResizableWindow {
 	
 	public OptionsWindow(){
 //		super("Fancy Window", false);
-		super();
+		super("Options");
 		this.setFocusableWindowState(true);
 		this.setFocusable(true);
 		container.setLayout(new BorderLayout());
@@ -130,27 +130,31 @@ public class OptionsWindow extends ResizableWindow {
 		this.setVisible(true);
 		
 		//TODO : Resize
-		AbstractWindow local = this;
+		ResizableWindow local = this;
 		resizeButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				Dimension size = new Dimension(0, 0);
-				for(Component c : scrollDisplay.getComponents()){
-					Dimension newSize = c.getPreferredSize();
-					if(size.width<newSize.width){
-						size.width = newSize.width;
-					}
-					if(size.height<newSize.height){
-						size.height = newSize.height;
-					}
-				}
+//				Dimension size = new Dimension(0, 0);
+//				for(Component c : scrollDisplay.getComponents()){
+//					Dimension newSize = c.getPreferredSize();
+//					if(size.width<newSize.width){
+//						size.width = newSize.width;
+//					}
+//					if(size.height<newSize.height){
+//						size.height = newSize.height;
+//					}
+//				}
 //				scrollDisplay.revalidate();
 //				scrollDisplay.setPreferredSize(scrollDisplay.getPreferredSize());
-				scrollDisplay.setPreferredSize(size);
-				System.out.println(size);
+//				scrollDisplay.setPreferredSize(size);
+//				System.out.println(size);
 //				display.setPreferredSize(size);
 			
-				local.setPreferredSize(size);
+//				local.setPreferredSize(size);
+//				local.pack();
+//				local.resize
+				local.autoResize();
 				local.pack();
+
 			}
 		});
 		

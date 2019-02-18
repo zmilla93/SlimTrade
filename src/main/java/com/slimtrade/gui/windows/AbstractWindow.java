@@ -25,7 +25,6 @@ public class AbstractWindow extends BasicMovableDialog {
 	private static final long serialVersionUID = 1L;
 	public final int TITLEBAR_HEIGHT = 20;
 	public final int BORDER_THICKNESS = 1;
-	private int titlebarWidth;
 
 	private JPanel titlebarPanel = new JPanel();
 	protected JPanel center = new JPanel();
@@ -35,7 +34,7 @@ public class AbstractWindow extends BasicMovableDialog {
 
 	private Color borderColor = Color.orange;
 	
-	GridBagConstraints gc = new GridBagConstraints();
+	private GridBagConstraints gc = new GridBagConstraints();
 
 	public AbstractWindow(String title, boolean makeCloseButton) {
 		this.setTitle(title);
@@ -48,14 +47,10 @@ public class AbstractWindow extends BasicMovableDialog {
 		center.setBackground(Color.blue);
 
 		titlebarPanel.setLayout(new BorderLayout());
-		JPanel titleLabelPanel = new JPanel();
-		JPanel titleButtonPanel = new JPanel();
-//		titlebarPanel.setLayout(new Grid);
 		center.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		//TODO : Container color
 		center.setBackground(borderColor);
 		
-		gc.weightx = 1;
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.ipadx = 0;
@@ -87,11 +82,6 @@ public class AbstractWindow extends BasicMovableDialog {
 		
 		contentPane.add(titlebarPanel, BorderLayout.NORTH);
 		contentPane.add(center, BorderLayout.CENTER);
-//		contentPane.add(new BufferPanel(BORDER_THICKNESS, 0), BorderLayout.LINE_START);
-//		contentPane.add(new BufferPanel(0, BORDER_THICKNESS), BorderLayout.PAGE_END);
-//		contentPane.add(new BufferPanel(BORDER_THICKNESS, 0), BorderLayout.LINE_END);
-		
-//		container.add(new BasicPanel(200, 500, Color.red));
 
 		this.setLocation(0, 0);
 		titlebarPanel.setPreferredSize(new Dimension(50, TITLEBAR_HEIGHT));
@@ -103,14 +93,5 @@ public class AbstractWindow extends BasicMovableDialog {
 		this.createListeners(titlebarPanel);
 	}
 	
-//	public void refresh(){
-//		
-//		this.pack();
-//		if(closeButton != null && closeButton.getLocation().x%2 != 0){
-//			gc.insets = new Insets(0, 1, 0, 0);
-//			titlebarPanel.add(closeButton, gc);
-//		}
-//		this.pack();
-//	}
 
 }

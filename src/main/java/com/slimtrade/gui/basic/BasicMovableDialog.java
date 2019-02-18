@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.utility.TradeUtility;
 
+//TODO : REVIEW THIS CODE!!
 public class BasicMovableDialog extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -84,14 +85,6 @@ public class BasicMovableDialog extends BasicDialog {
 	
 	private void moveWindow(Point p){
 		this.setLocation(p);
-	}
-	
-	private int getDialogWidth(){
-		return this.getWidth();
-	}
-	
-	private int getDialogHeight(){
-		return this.getHeight();
 	}
 	
 	private void runWindowMover(){

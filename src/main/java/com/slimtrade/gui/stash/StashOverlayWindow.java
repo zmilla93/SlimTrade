@@ -30,6 +30,7 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 	private boolean vis = false;
 
 	public StashOverlayWindow() {
+		super("Stash Overlay");
 		this.setMinimumSize(new Dimension(300, 300));
 		container.setBackground(ColorManager.CLEAR);
 		center.setBackground(ColorManager.CLEAR);
