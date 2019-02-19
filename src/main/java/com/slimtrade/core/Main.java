@@ -47,12 +47,6 @@ public class Main {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		
-		for(StashTabType t : StashTabType.values()){
-			System.out.println("NAME : " + t.name());
-			System.out.println("NAME : " + t.toString());
-		}
-		
 		BasicDialog loadWindow = new BasicDialog();
 		loadWindow.setLayout(new GridBagLayout());
 		loadWindow.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
+import main.java.com.slimtrade.debug.Debugger;
 
 public class HistoryPanel extends JPanel {
 
@@ -23,7 +25,7 @@ public class HistoryPanel extends JPanel {
 	private ArrayList<TradeOffer> outgoingTradeData = new ArrayList<TradeOffer>();
 	private ArrayList<HistoryRow> outgoingTradePanels = new ArrayList<HistoryRow>();
 
-	private int maxTrades = 40;
+	private int maxTrades = 100;
 	private JPanel contentPanel;
 //	private JScrollPane contentScroll;
 	
@@ -71,11 +73,13 @@ public class HistoryPanel extends JPanel {
 	}
 
 	public void initUI() {
+		Debugger.benchmarkStart();
 		for (TradeOffer trade : incomingTradeData) {
 			HistoryRow row = new HistoryRow(trade);
 			contentPanel.add(row);
 			incomingTradePanels.add(row);
 		}
+		Main.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
 		this.revalidate();
 		this.repaint();
 	}

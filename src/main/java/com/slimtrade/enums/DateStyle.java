@@ -8,8 +8,8 @@ public enum DateStyle {
 	MMDDYY("Month/Day/Year", ""),
 	;
 	
-	String name;
-	String format;
+	private final String name;
+	private final String format;
 	
 	DateStyle(String name, String format){
 		this.name = name;
@@ -18,6 +18,10 @@ public enum DateStyle {
 	
 	public String toString(){
 		return this.name;
+	}
+	
+	public String getFormat(){
+		return this.format;
 	}
 	
 }

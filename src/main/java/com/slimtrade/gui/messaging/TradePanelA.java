@@ -124,7 +124,7 @@ public class TradePanelA extends AbstractMessagePanel {
 
 		// this.setButtonCount(3, 5);
 
-		this.setBackground(StashTabColor.ONE.getBackground());
+		this.setBackground(Color.BLACK);
 		borderPanel.setBackground(Color.CYAN);
 		container.setBackground(Color.BLACK);
 		topPanel.setBackground(Color.RED);
@@ -169,8 +169,8 @@ public class TradePanelA extends AbstractMessagePanel {
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
 				while (Main.saveManager.hasEntry("stashTabs", "tab" + i)) {
-					Main.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
 					if (Main.saveManager.getString("stashTabs", "tab" + i, "text").equals(trade.stashtabName)) {
+						Main.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
 						StashTabColor stashColor = StashTabColor.valueOf(Main.saveManager.getString("stashTabs", "tab" + i, "color"));
 						color = stashColor.getBackground();
 						colorText = stashColor.getForeground();
@@ -179,6 +179,7 @@ public class TradePanelA extends AbstractMessagePanel {
 					i++;
 				}
 			}
+			borderPanel.setBackground(color);
 			itemPanel.backgroundDefault = color;
 			itemLabel.setForeground(colorText);
 			stashHelper = new StashHelper(trade, color, colorText);

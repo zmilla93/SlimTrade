@@ -50,20 +50,20 @@ public class HistoryRow extends JPanel {
 		this.setMaximumSize(new Dimension(1600, rowHeight));
 
 		this.setBackground(Color.RED);
-
-		if (trade == null) {
-			datePanel = new GridBagPanel("Date");
-			timePanel = new GridBagPanel("Time");
-			playerPanel = new GridBagPanel("Player");
-			itemPanel = new GridBagPanel("Item");
-			pricePanel = new GridBagPanel("Price");
-		} else {
-			datePanel = new GridBagPanel(trade.date);
-			timePanel = new GridBagPanel(trade.time);
-			playerPanel = new GridBagPanel(trade.playerName);
-			itemPanel = new GridBagPanel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
-			pricePanel = new PricePanel(trade.priceTypeString, trade.priceCount, false);
-		}
+		datePanel = new GridBagPanel(trade.date);
+		timePanel = new GridBagPanel(trade.time);
+		playerPanel = new GridBagPanel(trade.playerName);
+		itemPanel = new GridBagPanel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
+		pricePanel = new PricePanel(trade.priceTypeString, trade.priceCount, false);
+//		if (trade == null) {
+//			datePanel = new GridBagPanel("Date");
+//			timePanel = new GridBagPanel("Time");
+//			playerPanel = new GridBagPanel("Player");
+//			itemPanel = new GridBagPanel("Item");
+//			pricePanel = new GridBagPanel("Price");
+//		} else {
+//			
+//		}
 		
 		//KEEP
 //		rowPanel.setBackground(Color.LIGHT_GRAY);
