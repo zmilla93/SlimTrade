@@ -45,7 +45,7 @@ public class IncomingCustomizer extends ContentPanel {
 	// ArrayList<CustomMacroRow>();
 	private CustomMacroRow[] customRows = new CustomMacroRow[20];
 	private int customCount = 0;
-	private final int CUSTOM_MAX = 5;
+	private final int CUSTOM_MAX = 20;
 
 	public IncomingCustomizer(AbstractWindow parent) {
 		this.parent = parent;

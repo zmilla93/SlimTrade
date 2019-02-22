@@ -12,12 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.basic.HideableDialog;
 import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.helper.ItemHighlighter;
@@ -30,7 +30,7 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 	private boolean vis = false;
 
 	public StashOverlayWindow() {
-		super("Stash Overlay");
+		super("Stash Overlay", false);
 		this.setMinimumSize(new Dimension(300, 300));
 		container.setBackground(ColorManager.CLEAR);
 		center.setBackground(ColorManager.CLEAR);
@@ -57,14 +57,14 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 		GridBagConstraints gc = new GridBagConstraints();
 		JPanel buttonPanel = new JPanel();
 		JButton infoButton = new JButton("Grid");
-		JButton resetButton = new JButton("Reset");
+		JButton resetButton = new JButton("Cancel");
 		JButton saveButton = new JButton("Save");
 
 		buttonPanel.setLayout(new GridBagLayout());
 
 		gc.gridx = 0;
 		gc.gridy = 0;
-		Insets inset = new Insets(10, 0, 10, 20);
+		Insets inset = new Insets(10, 0, 10, 60);
 		gc.insets = inset;
 
 		buttonPanel.add(infoButton, gc);
@@ -75,7 +75,7 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 		buttonPanel.add(saveButton, gc);
 		container.add(buttonPanel, BorderLayout.SOUTH);
 
-		JDialog local = this;
+		HideableDialog local = this;
 		infoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int count = gridPanel.getGridCellCount();
@@ -92,19 +92,31 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 
 			}
 		});
+		
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vis = true;
+				load();
+				local.setShow(false);
+				FrameManager.showVisibleFrames();
+			}
+		});
 
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				save();
 				FrameManager.stashHelperContainer.updateBounds();
+				local.setShow(false);
+				FrameManager.showVisibleFrames();
+				// this.setvi
 			}
 		});
-		resetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				vis = true;
-				load();
-			}
-		});
+
+		// closeButton.addActionListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent e) {
+		// FrameManager.showVisibleFrames();
+		// }
+		// });
 		// load();
 		// ItemHighlighter
 

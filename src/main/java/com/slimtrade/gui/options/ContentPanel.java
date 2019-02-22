@@ -17,7 +17,7 @@ public class ContentPanel extends JPanel {
 	private int bufferWidth = 20;
 	private int bufferHeight = 20;
 	protected GridBagConstraints gc;
-	protected Insets inset = new Insets(0,0,0,0);
+//	protected Insets inset = new Insets(0,0,0,0);
 	
 	public ContentPanel(){
 		build(false);
@@ -32,7 +32,7 @@ public class ContentPanel extends JPanel {
 		this.setVisible(visible);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		gc = new GridBagConstraints();
-		gc.insets = inset;
+//		gc.insets = inset;
 		gc.gridx = 0;
 		gc.gridy = 0;
 	}

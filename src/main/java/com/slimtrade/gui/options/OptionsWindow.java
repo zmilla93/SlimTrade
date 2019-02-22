@@ -10,13 +10,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.options.advanced.AdvancedPanel;
 import main.java.com.slimtrade.gui.options.audio.AudioPanel;
 import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
@@ -31,19 +32,25 @@ public class OptionsWindow extends ResizableWindow {
 	private JPanel display = new JPanel();
 	JScrollPane scrollDisplay;
 	
+	JPanel menuPanel = new JPanel(new GridBagLayout());
+	
 	public OptionsWindow(){
 //		super("Fancy Window", false);
 		super("Options");
 		this.setFocusableWindowState(true);
 		this.setFocusable(true);
 		container.setLayout(new BorderLayout());
+//		JPanel menuPanel = new JPanel(new GridBagLayout());
+		JPanel menuBorder = new JPanel(new BorderLayout());
+		
+//		container.setBackground(Color.red);
 //		container.setBackground(Color.LIGHT_GRAY);
-		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
+		
+		menuBorder.add(menuPanel, BorderLayout.NORTH);
 		
 		
 		scrollDisplay = new JScrollPane(display);
-		display.setBackground(Color.GREEN);
+//		display.setBackground(Color.ORANGE);
 		
 		display.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
@@ -53,6 +60,10 @@ public class OptionsWindow extends ResizableWindow {
 		
 		int buffer = 6;
 		JPanel bottomPanel = new JPanel();
+		bottomPanel.setOpaque(false);
+		menuPanel.setOpaque(false);
+		menuBorder.setOpaque(false);
+		
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, buffer));
 		JButton resizeButton = new JButton("RESIZE");
 		JButton cancelButton = new JButton("CANCEL");
@@ -62,49 +73,63 @@ public class OptionsWindow extends ResizableWindow {
 		bottomPanel.add(saveButton);
 		
 		
-		JButton basicsButton = new JButton("Basics");
+		JButton basicsButton = new ListButton("Basics");
 		BasicsPanel basicsPanel = new BasicsPanel();
 		link(basicsButton, basicsPanel);
 		display.add(basicsPanel, gc);
 		
-		JButton stashButton = new JButton("Stash Manager");
+		JButton stashButton = new ListButton("Stash Manager");
 		StashTabPanel stashPanel = new StashTabPanel();
 		link(stashButton, stashPanel);
 		display.add(stashPanel, gc);
 		
-		JButton incomingButton = new JButton("Incoming Macros");
+		JButton incomingButton = new ListButton("Incoming Macros");
 		IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
 		link(incomingButton, incomingPanel);
 		display.add(incomingPanel, gc);
 		
-		JButton outgoingButton = new JButton("Outgoing Macros");
+		JButton outgoingButton = new ListButton("Outgoing Macros");
 		OutgoingCustomizer outgoingPanel = new OutgoingCustomizer();
 		link(outgoingButton, outgoingPanel);
 		display.add(outgoingPanel, gc);
 		
-		JButton audioButton = new JButton("Audio");
+		JButton audioButton = new ListButton("Audio");
 		AudioPanel audioPanel = new AudioPanel();
 		link(audioButton, audioPanel);
 		display.add(audioPanel, gc);
 		
-		JButton advancedButton = new JButton("ADVANCED");
+		JButton advancedButton = new ListButton("Advanced");
 		AdvancedPanel advancedPanel = new AdvancedPanel();
 		link(advancedButton, advancedPanel);
 		display.add(advancedPanel, gc);
 		
-		JButton contactButton = new JButton("CONTACT");
+		JButton contactButton = new ListButton("Contact");
 		ContactPanel contactPanel = new ContactPanel();
 		link(contactButton, contactPanel);
 		display.add(contactPanel, gc);
 		
+		//TODO : Remove stash
+		gc = new GridBagConstraints();
+		gc.anchor = GridBagConstraints.NORTH;
 		
-		menuPanel.add(basicsButton);
-		menuPanel.add(stashButton);
-		menuPanel.add(incomingButton);
-		menuPanel.add(outgoingButton);
-		menuPanel.add(audioButton);
-		menuPanel.add(advancedButton);
-		menuPanel.add(contactButton);
+		gc.weightx = 1;
+		gc.weighty = 1;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.insets.bottom = 10;
+		gc.gridx = 0;
+		gc.gridy = 0;
+		menuPanel.add(basicsButton, gc);
+		gc.gridy++;
+//		gc.anchor = GridBagConstraints.RELATIVE;
+		menuPanel.add(incomingButton, gc);
+		gc.gridy++;
+		menuPanel.add(outgoingButton, gc);
+		gc.gridy++;
+		menuPanel.add(audioButton, gc);
+		gc.gridy++;
+		menuPanel.add(advancedButton, gc);
+		gc.gridy++;
+		menuPanel.add(contactButton, gc);
 		
 		
 		
@@ -113,39 +138,21 @@ public class OptionsWindow extends ResizableWindow {
 		container.add(new BufferPanel(0,buffer), BorderLayout.NORTH);
 		container.add(new BufferPanel(buffer,0), BorderLayout.EAST);
 		container.add(bottomPanel, BorderLayout.SOUTH);
-		container.add(menuPanel, BorderLayout.WEST);
+		container.add(menuBorder, BorderLayout.WEST);
 		container.add(scrollDisplay, BorderLayout.CENTER);
 		
 		
-		stashPanel.setVisible(true);
+		basicsPanel.setVisible(true);
 		this.setMinimumSize(new Dimension(900,600));
 		this.refresh();
 		this.setMinimumSize(new Dimension(300,300));
-		this.setVisible(true);
+		this.setMaximumSize(new Dimension(1600,900));
+//		this.setVisible(true);
 		
 		//TODO : Resize
 		ResizableWindow local = this;
 		resizeButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-//				Dimension size = new Dimension(0, 0);
-//				for(Component c : scrollDisplay.getComponents()){
-//					Dimension newSize = c.getPreferredSize();
-//					if(size.width<newSize.width){
-//						size.width = newSize.width;
-//					}
-//					if(size.height<newSize.height){
-//						size.height = newSize.height;
-//					}
-//				}
-//				scrollDisplay.revalidate();
-//				scrollDisplay.setPreferredSize(scrollDisplay.getPreferredSize());
-//				scrollDisplay.setPreferredSize(size);
-//				System.out.println(size);
-//				display.setPreferredSize(size);
-			
-//				local.setPreferredSize(size);
-//				local.pack();
-//				local.resize
 				local.autoResize();
 				local.pack();
 
@@ -156,9 +163,6 @@ public class OptionsWindow extends ResizableWindow {
 			public void actionPerformed(ActionEvent e) {
 				audioPanel.load();
 				stashPanel.load();
-//				incomingPanel.reset();
-//				local.autoReisize();
-//				local.pack();
 			}
 		});
 		
@@ -173,19 +177,23 @@ public class OptionsWindow extends ResizableWindow {
 		
 	}
 	
+	//TODO : Make on press down?
+	//switch type to list button for less casting
 	private void link(JButton b, JPanel p){
 		OptionsWindow local = this;
-		b.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
+		b.addMouseListener(new AdvancedMouseAdapter(){
+			public void click(MouseEvent e) {
+				ListButton lb;
+				for(Component c : menuPanel.getComponents()){
+					lb = (ListButton)c;
+					lb.active = false;
+				}
+				lb = (ListButton)b;
+				lb.active = true;
 				hideAllWindows();
 				p.setVisible(true);
-//				System.out.println("CONTENT" + contentPane.getPreferredSize());
-//				local.autoReisize();
-//				local.autore
-//				local.setPreferredSize(null);
-//				local.setPreferredSize(local.getPreferredSize());
-//				refresh();
-//				local.pack();
+//				lb.repaint();
+				local.repaint();
 			}
 		});
 	}

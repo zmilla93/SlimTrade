@@ -36,6 +36,7 @@ public class MessageManager extends BasicDialog {
 		this.setBounds(1220, 0, 500, 400);
 		this.setBackground(ColorManager.CLEAR);
 		this.setVisible(true);
+		this.visible = true;
 	}
 
 	// TODO : Clean up stash helper removal

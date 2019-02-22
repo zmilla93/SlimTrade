@@ -34,8 +34,8 @@ public class OverlayManager {
 	LayoutManager gridbag = new GridBagLayout();
 
 	private BasicDialog helpDialog = new BasicDialog();
-	private BasicMovableDialog menubarDialog = new BasicMovableDialog();
-	private BasicMovableDialog messageDialog = new BasicMovableDialog();
+	private BasicMovableDialog menubarDialog = new BasicMovableDialog(true);
+	private BasicMovableDialog messageDialog = new BasicMovableDialog(true);
 	private JPanel menubarExpandButton = new JPanel();
 	private JPanel menubarPanelTop = new JPanel();
 	private JPanel menubarPanelBottom = new JPanel();
@@ -71,6 +71,9 @@ public class OverlayManager {
 
 	public OverlayManager() {
 
+//		menubarDialog.setFocusableWindowState(true);
+//		menubarDialog.setFocusable(true);
+		
 		menubarExpandButton.setBackground(Color.LIGHT_GRAY);
 		menubarExpandButton.setBorder(borderNW);
 
@@ -237,6 +240,7 @@ public class OverlayManager {
 				menubarCombo.setSelectedItem(oldMenubarCombo);
 				msgPanelCombo.setSelectedItem(oldMsgPanelCombo);
 				updateMenubarButton();
+				FrameManager.showVisibleFrames();
 				hideDialog();
 			}
 		});
@@ -253,11 +257,13 @@ public class OverlayManager {
 				Main.saveManager.saveToDisk();
 
 				// Update UI
+				
 				FrameManager.menubar.setLocation(menubarDialog.getLocation());
 				FrameManager.messageManager.setLocation(messageDialog.getLocation());
 				FrameManager.menubarToggle.updateLocation();
 				FrameManager.menubar.reorder();
-
+				
+				FrameManager.showVisibleFrames();
 				hideDialog();
 			}
 		});
@@ -314,10 +320,10 @@ public class OverlayManager {
 		helpDialog.setVisible(false);
 		menubarDialog.setVisible(false);
 		messageDialog.setVisible(false);
-		FrameManager.menubar.refreshVisibility();
-		FrameManager.menubarToggle.refreshVisibility();
-		FrameManager.optionsWindow.setVisible(true);
-		FrameManager.messageManager.setVisible(true);
+//		FrameManager.menubar.refreshVisibility();
+//		FrameManager.menubarToggle.refreshVisibility();
+//		FrameManager.optionsWindow.setVisible(true);
+//		FrameManager.messageManager.setVisible(true);
 	}
 
 }

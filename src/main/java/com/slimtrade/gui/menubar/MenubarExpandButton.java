@@ -1,7 +1,6 @@
 package main.java.com.slimtrade.gui.menubar;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import main.java.com.slimtrade.core.Main;
@@ -26,20 +25,15 @@ public class MenubarExpandButton extends BasicDialog{
 		
 		showMenubarButton.addMouseListener(new AdvancedMouseAdapter() {
 		    public void click(MouseEvent e) {
-		    	FrameManager.menubar.showDialog();
-		    	FrameManager.menubarToggle.hideDialog();
+		    	FrameManager.menubar.setShow(true);
+		    	FrameManager.menubarToggle.setShow(false);
 		    }
 		});
 	}
 	
-	public void showDialog(){
-		this.setVisible(true);
-		this.visible = true;
-	}
-	
-	public void hideDialog(){
-		this.setVisible(false);
-		this.visible = false;
+	public void setShow(boolean show){
+		this.setVisible(show);
+		this.visible = show;
 	}
 	
 	public void refreshVisibility(){

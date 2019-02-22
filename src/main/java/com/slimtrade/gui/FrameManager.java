@@ -2,6 +2,7 @@ package main.java.com.slimtrade.gui;
 
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
+import main.java.com.slimtrade.gui.basic.HideableDialog;
 import main.java.com.slimtrade.gui.history.HistoryWindow;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarExpandButton;
@@ -27,6 +28,9 @@ public class FrameManager {
 	public static OverlayManager overlayManager;
 	public static StashTabWindow stashTabWindow;
 	public static ChatScannerWindow chatScannerWindow;
+	
+	private static HideableDialog[] menuFrames;
+	private static HideableDialog[] showHideDialogs;
 
 	public FrameManager() {
 		stashHelperContainer = new StashHelperContainer();
@@ -35,39 +39,51 @@ public class FrameManager {
 		menubar = new MenubarDialog();
 		menubarToggle = new MenubarExpandButton();
 		messageManager = new MessageManager();
-		
-		
-		
 		characterWindow = new CharacterWindow();
 		overlayManager = new OverlayManager();
 		stashTabWindow = new StashTabWindow();
 		chatScannerWindow = new ChatScannerWindow();
 		//TODO : temp
-//		stashTabWindow.setVisible(true);
-//		chatScannerWindow.setVisible(true);
 		stashHelperContainer.updateBounds();
 		stashOverlayWindow = new StashOverlayWindow();
 		stashOverlayWindow.load();
-//		stashOverlayWindow.setVisible(true);
-	
 	
 		menubar.updateLocation();
 		menubarToggle.updateLocation();
 		menubar.reorder();
 		messageManager.updateLocation();
-		menubar.showDialog();
+//		menubar.showDialog();
 		
-//		stashOverlayWindow.setVisible(true);
-//		historyWindow.setVisible(true);
+		showHideDialogs = new HideableDialog[]{
+			stashHelperContainer, optionsWindow, historyWindow,
+			menubar, menubarToggle, messageManager,
+			characterWindow, stashTabWindow, chatScannerWindow,
+		};
+		
+		menuFrames = new HideableDialog[]{
+			optionsWindow, historyWindow, chatScannerWindow, stashTabWindow, characterWindow
+		};
+		
+		optionsWindow.setShow(true);
+		menubar.setShow(true);
 	}
 
 	public static void hideMenuFrames() {
-		historyWindow.setVisible(false);
-		stashTabWindow.setVisible(false);
-		chatScannerWindow.setVisible(false);
-		characterWindow.setVisible(false);
-		optionsWindow.setVisible(false);
-		
+		for(HideableDialog d : menuFrames){
+			d.setShow(false);
+		}
+	}
+	
+	public static void hideAllFrames() {
+		for(HideableDialog d : showHideDialogs){
+			d.setVisible(false);
+		}
+	}
+	
+	public static void showVisibleFrames() {
+		for(HideableDialog d : showHideDialogs){
+			d.setVisible(d.visible);
+		}
 	}
 
 	public static void centerFrame(BasicDialog window) {
@@ -75,17 +91,17 @@ public class FrameManager {
 	}
 
 	public static void forceAllToTop() {
-		if (menubarToggle.isVisible()) {
-
+		for(HideableDialog h : showHideDialogs){
+			h.setAlwaysOnTop(false);
+			h.setAlwaysOnTop(true);
 		}
-		if (menubar.isVisible()) {
-
-		}
-		menubarToggle.forceToTop();
-		menubar.forceToTop();
-		messageManager.forceToTop();
-		stashHelperContainer.forceToTop();
+//		menubarToggle.forceToTop();
+//		menubar.forceToTop();
+//		messageManager.forceToTop();
+//		stashHelperContainer.forceToTop();
 		// PoeInterface.focus();
 	}
+	
+	
 
 }

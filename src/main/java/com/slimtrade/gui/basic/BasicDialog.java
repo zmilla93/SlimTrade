@@ -2,7 +2,7 @@ package main.java.com.slimtrade.gui.basic;
 
 import javax.swing.JDialog;
 
-public class BasicDialog extends JDialog{
+public class BasicDialog extends HideableDialog{
 
 	private static final long serialVersionUID = 1L;
 	

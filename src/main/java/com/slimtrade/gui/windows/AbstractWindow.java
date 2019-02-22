@@ -29,7 +29,7 @@ public class AbstractWindow extends BasicMovableDialog {
 	private JPanel titlebarPanel = new JPanel();
 	protected JPanel center = new JPanel();
 
-	private IconButton closeButton;
+	protected IconButton closeButton;
 	protected Container contentPane = this.getContentPane();
 
 	private Color borderColor = Color.orange;
@@ -38,7 +38,7 @@ public class AbstractWindow extends BasicMovableDialog {
 
 	public AbstractWindow(String title, boolean makeCloseButton) {
 		this.setTitle(title);
-		
+//		this.createListeners(titlebarPanel);
 
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(borderColor);

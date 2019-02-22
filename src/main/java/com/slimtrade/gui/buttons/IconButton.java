@@ -72,17 +72,15 @@ public class IconButton extends JButton {
 				localButton.getModel().setPressed(false);
 			}
 		});
-		this.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent e){
-//				AudioManager.play(SoundComponent.BUTTON_CLICK);
-			}
-		});
-	}
-	
-	private void buildMutual(){
-		
+		//
+//		this.addMouseListener(new AdvancedMouseAdapter() {
+//			public void click(MouseEvent e){
+////				AudioManager.play(SoundComponent.BUTTON_CLICK);
+//			}
+//		});
 	}
 
+	//TODO : Switch to normal background stuff??
 	protected void paintComponent(Graphics g) {
 		if (getModel().isPressed()) {
 			g.setColor(colorPressed);
@@ -94,7 +92,7 @@ public class IconButton extends JButton {
 			g.setColor(colorDefault);
 			this.setBorder(borderDefault);
 		}
-		g.fillRect(0, 0, getWidth(), getWidth());
+		g.fillRect(0, 0, getWidth(), getHeight());
 		super.paintComponent(g);
 	}
 

@@ -45,6 +45,7 @@ public class ResizableWindow extends AbstractWindow {
 	}
 
 	private void buildWindow(String title, boolean closeButton) {
+//		container.setOpaque(false);
 		this.setMinimumSize(new Dimension(200, 200));
 		pullRight.setBackground(Color.DARK_GRAY);
 		pullBottom.setBackground(Color.DARK_GRAY);
@@ -58,7 +59,7 @@ public class ResizableWindow extends AbstractWindow {
 		local = this;
 		pullRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
 		pullBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
-		container.setBackground(Color.green);
+//		container.setBackground(Color.green);
 		pullRight.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				startingX = e.getXOnScreen();
@@ -103,6 +104,7 @@ public class ResizableWindow extends AbstractWindow {
 	}
 
 	protected Runnable runnerRight = new Runnable() {
+//		JPanel local = this;
 		public void run() {
 			while (mousePressed) {
 				int mouseX = MouseInfo.getPointerInfo().getLocation().x;
@@ -110,6 +112,10 @@ public class ResizableWindow extends AbstractWindow {
 				int width = startingWidth - (startingX - mouseX);
 				if (width % 2 != 0)
 					width++;
+//				int maxWidth = local.getMaximumSize().width;
+//				if(width>maxWidth){
+//					width = maxWidth;
+//				}
 				local.setPreferredSize(new Dimension(width, startingHeight));
 				local.pack();
 				local.repaint();

@@ -83,48 +83,36 @@ public class MenubarDialog extends BasicDialog {
 		// HISTORY
 		historyButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
-				if (FrameManager.historyWindow.isVisible()) {
-					FrameManager.historyWindow.setVisible(false);
-				} else {
-					FrameManager.hideMenuFrames();
-					FrameManager.historyWindow.setVisible(true);
-				}
+				boolean vis = !FrameManager.historyWindow.visible;
+				FrameManager.hideMenuFrames();
+				FrameManager.historyWindow.setShow(vis);
 			}
 		});
 		
 		// STASH
 		stashTabButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
-				if (FrameManager.stashTabWindow.isVisible()) {
-					FrameManager.stashTabWindow.setVisible(false);
-				} else {
-					FrameManager.hideMenuFrames();
-					FrameManager.stashTabWindow.setVisible(true);
-				}
+				boolean vis = !FrameManager.stashTabWindow.visible;
+				FrameManager.hideMenuFrames();
+				FrameManager.stashTabWindow.setShow(vis);
 			}
 		});
 		
 		// Chat Scanner
 		chatScannerButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
-				if (FrameManager.chatScannerWindow.isVisible()) {
-					FrameManager.chatScannerWindow.setVisible(false);
-				} else {
-					FrameManager.hideMenuFrames();
-					FrameManager.chatScannerWindow.setVisible(true);
-				}
+				boolean vis = !FrameManager.chatScannerWindow.visible;
+				FrameManager.hideMenuFrames();
+				FrameManager.chatScannerWindow.setShow(vis);
 			}
 		});
 		
 		// CHARACTER
 		characterButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
-				if (FrameManager.characterWindow.isVisible()) {
-					FrameManager.characterWindow.setVisible(false);
-				} else {
-					FrameManager.hideMenuFrames();
-					FrameManager.characterWindow.setVisible(true);
-				}
+				boolean vis = !FrameManager.characterWindow.visible;
+				FrameManager.hideMenuFrames();
+				FrameManager.characterWindow.setShow(vis);
 			}
 		});
 
@@ -142,12 +130,9 @@ public class MenubarDialog extends BasicDialog {
 		// OPTIONS
 		optionsButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
-				if (FrameManager.optionsWindow.isVisible()) {
-					FrameManager.optionsWindow.setVisible(false);
-				} else {
-					FrameManager.hideMenuFrames();
-					FrameManager.optionsWindow.setVisible(true);
-				}
+				boolean vis = !FrameManager.optionsWindow.visible;
+				FrameManager.hideMenuFrames();
+				FrameManager.optionsWindow.setShow(vis);
 			}
 		});
 
@@ -161,25 +146,10 @@ public class MenubarDialog extends BasicDialog {
 		//TODO : Is there a way to avoid calling refresh here?
 		minimizeButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
-				FrameManager.menubarToggle.showDialog();
-				FrameManager.menubar.hideDialog();
-				FrameManager.menubarToggle.refresh();
+				FrameManager.menubarToggle.setShow(true);
+				FrameManager.menubar.setShow(false);
 			}
 		});
-	}
-	
-	public void showDialog(){
-		this.setVisible(true);
-		this.visible = true;
-	}
-	
-	public void hideDialog(){
-		this.setVisible(false);
-		this.visible = false;
-	}	
-	
-	public void refreshVisibility(){
-		this.setVisible(visible);
 	}
 
 	private void refreshButtonText() {
@@ -247,7 +217,7 @@ public class MenubarDialog extends BasicDialog {
 		}else{
 			this.expandDirection = dir;
 			Container container = this.getContentPane();
-			ArrayList<Component> cList = new ArrayList<Component>();
+//			ArrayList<Component> cList = new ArrayList<Component>();
 			for(Component c : container.getComponents()){
 				container.add(c, 0);
 			}

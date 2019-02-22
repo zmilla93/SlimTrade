@@ -12,7 +12,6 @@ public class ContactPanel extends ContentPanel {
 	private static final long serialVersionUID = 1L;
 
 	public ContactPanel(){
-		
 		//TODO : Might need to change background color of text areas
 		
 		JLabel gitTitle = new JLabel("GitHub");

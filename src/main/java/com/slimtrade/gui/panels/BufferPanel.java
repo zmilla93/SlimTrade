@@ -16,6 +16,7 @@ public class BufferPanel extends JPanel{
 		this.setMinimumSize(size);
 		this.setMaximumSize(size);
 		this.setBackground(new Color(1.0F, 1.0F, 1.0F, 0.0F));
+		this.setOpaque(false);
 	}
 	
 }

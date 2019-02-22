@@ -23,6 +23,7 @@ public class BasicMovableDialog extends BasicDialog {
 	private JPanel mover;
 	
 	public BasicMovableDialog(){
+//		createListeners((JPanel)this.getContentPane());
 	}
 	
 	public BasicMovableDialog(boolean createListeners){
