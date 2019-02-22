@@ -57,31 +57,28 @@ public class StashTabPanel extends ContentPanel implements Saveable {
 
 		JButton addButton = new JButton("Add Stash Tab");
 
-		JPanel alignPanel = new JPanel();
 		JLabel alignLabel = new JLabel("Align stashtab");
 		JButton alignButton = new JButton("Align Stash Tab Overlay");
 
 		// JLabel
 
-		stashOptions.add(alignLabel, gc);
-		gc.gridx++;
-		stashOptions.add(alignButton, gc);
-		gc.gridx = 0;
-		gc.gridy++;
-
-		JLabel autoLabel = new JLabel("Automatically add new stash tabs");
-		JCheckBox autoCheckbox = new JCheckBox();
-		stashOptions.add(autoLabel, gc);
-		gc.gridx++;
-		stashOptions.add(autoCheckbox, gc);
-		gc.gridx = 0;
-		gc.gridy++;
+//		stashOptions.add(alignLabel, gc);
+//		gc.gridx++;
+//		stashOptions.add(alignButton, gc);
+//		gc.gridx = 0;
+//		gc.gridy++;
+//
+//		JLabel autoLabel = new JLabel("Automatically add new stash tabs");
+//		JCheckBox autoCheckbox = new JCheckBox();
+//		stashOptions.add(autoLabel, gc);
+//		gc.gridx++;
+//		stashOptions.add(autoCheckbox, gc);
+//		gc.gridx = 0;
+//		gc.gridy++;
 
 		// this.addRow(new JLabel("TITLE"), gc);
-		this.addRow(alignButton, gc);
-		this.addRow(new BufferPanel(0, rowBuffer), gc);
-		// this.addRow(new JLabel("Save stash tabs for quad tab detection or
-		// assign color coding"), gc);
+//		this.addRow(alignButton, gc);
+//		this.addRow(new BufferPanel(0, rowBuffer), gc);
 		this.addRow(new JLabel("Colors and Quad tabs must be manually set"), gc);
 		this.addRow(new JLabel("Default white will use a randomized color with white text"), gc);
 		this.addRow(new BufferPanel(0, rowBuffer), gc);

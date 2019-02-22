@@ -1,6 +1,7 @@
 package main.java.com.slimtrade.core;
 
 import java.awt.AWTException;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Locale;
@@ -9,7 +10,6 @@ import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -27,7 +27,6 @@ import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.debug.Debugger;
-import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
@@ -46,7 +45,7 @@ public class Main {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		
+		debug.setState(Frame.ICONIFIED);
 		BasicDialog loadWindow = new BasicDialog();
 		loadWindow.setLayout(new GridBagLayout());
 		loadWindow.add(new JLabel("Loading SlimTrade..."), new GridBagConstraints());

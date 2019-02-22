@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.options.advanced.AdvancedPanel;
 import main.java.com.slimtrade.gui.options.audio.AudioPanel;
 import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
@@ -78,7 +79,7 @@ public class OptionsWindow extends ResizableWindow {
 		link(basicsButton, basicsPanel);
 		display.add(basicsPanel, gc);
 		
-		JButton stashButton = new ListButton("Stash Manager");
+		JButton stashButton = new ListButton("Stash Tabs");
 		StashTabPanel stashPanel = new StashTabPanel();
 		link(stashButton, stashPanel);
 		display.add(stashPanel, gc);
@@ -116,19 +117,22 @@ public class OptionsWindow extends ResizableWindow {
 		gc.weighty = 1;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.insets.bottom = 10;
+		gc.insets.left=5;
+		gc.insets.right=5;
 		gc.gridx = 0;
 		gc.gridy = 0;
 		menuPanel.add(basicsButton, gc);
 		gc.gridy++;
-//		gc.anchor = GridBagConstraints.RELATIVE;
+		menuPanel.add(stashButton, gc);
+		gc.gridy++;
 		menuPanel.add(incomingButton, gc);
 		gc.gridy++;
 		menuPanel.add(outgoingButton, gc);
 		gc.gridy++;
-		menuPanel.add(audioButton, gc);
-		gc.gridy++;
-		menuPanel.add(advancedButton, gc);
-		gc.gridy++;
+//		menuPanel.add(audioButton, gc);
+//		gc.gridy++;
+//		menuPanel.add(advancedButton, gc);
+//		gc.gridy++;
 		menuPanel.add(contactButton, gc);
 		
 		
@@ -148,6 +152,7 @@ public class OptionsWindow extends ResizableWindow {
 		this.setMinimumSize(new Dimension(300,300));
 		this.setMaximumSize(new Dimension(1600,900));
 //		this.setVisible(true);
+		FrameManager.centerFrame(this);
 		
 		//TODO : Resize
 		ResizableWindow local = this;

@@ -50,21 +50,20 @@ public class BasicsPanel extends ContentPanel {
 		JPanel secondPanel = new JPanel(new GridBagLayout());
 		JPanel outerPanel = new JPanel(new GridBagLayout());
 
-		// Labels
-		JLabel generalLabel = new JLabel("General");
+		// GENERAL
 		JLabel stashLabel = new JLabel("Stash Location");
 		JLabel overlayLabel = new JLabel("Overlay Layout");
 		JLabel guildLabel = new JLabel("Show Guild Name");
 		JLabel kickLabel = new JLabel("Close on Kick");
 
-		JLabel historyLabel = new JLabel("History");
+		//HISTORY
 		JLabel timeLabel = new JLabel("Time Format");
 		JLabel dateLabel = new JLabel("Date Format");
 		JLabel orderLabel = new JLabel("Order");
 		JLabel audioLabel = new JLabel("Audio");
 		JLabel advancedLabel = new JLabel("Advanced");
 
-		// General
+		// General Buttons
 		JButton stashButton = new JButton("Edit");
 		stashButton.setFocusable(false);
 		JButton overlayButton = new JButton("Edit");
@@ -75,7 +74,7 @@ public class BasicsPanel extends ContentPanel {
 		kickCheckbox.setFocusable(false);
 		JLabel countlabel = new JLabel("Message Count");
 
-		// History
+		// History Buttons
 		JComboBox<TimeStyle> timeCombo = new JComboBox<TimeStyle>();
 		for (TimeStyle s : TimeStyle.values()) {
 			timeCombo.addItem(s);
@@ -105,9 +104,10 @@ public class BasicsPanel extends ContentPanel {
 		gc.gridy = 0;
 
 		gc.weightx = 1;
-		gc.gridwidth = 3;
-		generalPanel.add(generalLabel, gc);
-		gc.gridwidth = 1;
+		
+//		gc.gridwidth = 3;
+//		generalPanel.add(generalLabel, gc);
+//		gc.gridwidth = 1;
 
 		gc.gridx = 0;
 		gc.gridy++;
@@ -133,24 +133,12 @@ public class BasicsPanel extends ContentPanel {
 		generalPanel.add(kickLabel, gc);
 		gc.gridx = 2;
 		generalPanel.add(kickCheckbox, gc);
+		
+		
+//		gc = new GridBagConstraints();
 		gc.gridx = 0;
-		// gc.gridy++;
-		// gc.fill = GridBagConstraints.NONE;
-		// generalPanel.add(new BufferPanel(0, bufferY * 2), gc);
-		// gc.gridy++;
-		// gc.gridwidth = 4;
-		// gc.insets.top = 20;
-		// gc.insets.bottom = 5;
-
-		// HISTORY
-		historyPanel.add(historyLabel, gc);
-		// gc.insets.top = 0;
-		// gc.insets.bottom = 5;
-		gc.gridwidth = 1;
-		gc.gridy++;
-		historyPanel.add(new BufferPanel(0, bufferY), gc);
-		gc.fill = GridBagConstraints.BOTH;
-		gc.gridy++;
+		gc.gridy = 0;
+//		gc.fill = GridBagConstraints.BOTH;
 		historyPanel.add(timeLabel, gc);
 		gc.insets.right = 0;
 		gc.gridx = 1;
@@ -215,8 +203,8 @@ public class BasicsPanel extends ContentPanel {
 		gc.gridx = 0;
 		gc.gridy++;
 		AdvancedPanel adv = new AdvancedPanel();
-		adv.setVisible(true);
-		// firstPanel.add(adv, gc);
+//		adv.setVisible(false);
+		 firstPanel.add(adv, gc);
 
 		gc.gridx = 0;
 		gc.gridy++;
@@ -225,8 +213,8 @@ public class BasicsPanel extends ContentPanel {
 		// outerPanel.setLayout(new GridBagLayout());
 		gc = new GridBagConstraints();
 		
-		int bufferTop = 5;
-		int bufferBottom = 10;
+		int bufferTop = 10;
+		int bufferBottom = 25;
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.insets.bottom = bufferTop;
@@ -234,38 +222,45 @@ public class BasicsPanel extends ContentPanel {
 		ToggleButton generalButton = new ToggleButton("General");
 		ToggleButton historyButton = new ToggleButton("History");
 		ToggleButton audioButton = new ToggleButton("Audio");
+		ToggleButton advancedButton = new ToggleButton("Save Path");
 
+		generalButton.active = true;
+		historyButton.active = true;
+		audioButton.active = true;
+		this.repaint();
 		
-		
-//		gc.fill = GridBagConstraints.BOTH;
+		gc.insets.top = bufferTop;
 		this.add(generalButton, gc);
-//		gc.fill = GridBagConstraints.NONE;
+		gc.insets.top = 0;
 		gc.gridy++;
 		gc.insets.bottom = bufferBottom;
 		this.add(generalPanel, gc);
 		gc.insets.bottom = bufferTop;
 		gc.gridy++;
-//		gc.fill = GridBagConstraints.BOTH;
 		this.add(historyButton, gc);
-//		gc.fill = GridBagConstraints.NONE;
 		gc.gridy++;
 		gc.insets.bottom = bufferBottom;
 		this.add(historyPanel, gc);
 		gc.insets.bottom = bufferTop;
 		gc.gridy++;
-//		gc.fill = GridBagConstraints.BOTH;
 		this.add(audioButton, gc);
-//		gc.fill = GridBagConstraints.NONE;
 		gc.gridy++;
 		gc.insets.bottom = bufferBottom;
 		this.add(audioPanel, gc);
 		gc.insets.bottom = bufferTop;
+		gc.gridy++;
+		this.add(advancedButton, gc);
+		gc.gridy++;
+		gc.insets.bottom = bufferBottom;
+		this.add(adv, gc);
+		gc.insets.bottom = 5;
 
 		link(generalButton, generalPanel);
 		link(historyButton, historyPanel);
 		link(audioButton, audioPanel);
+		link(advancedButton, adv);
 
-		this.autoResize();
+		
 
 		stashButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -280,10 +275,13 @@ public class BasicsPanel extends ContentPanel {
 				FrameManager.overlayManager.showDialog();
 			}
 		});
+		
 
+		this.repaint();
 	}
 
 	private void link(ToggleButton button, JPanel panel) {
+		JPanel local = this;
 		button.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				if (button.active) {
@@ -291,6 +289,8 @@ public class BasicsPanel extends ContentPanel {
 				} else {
 					panel.setVisible(false);
 				}
+				local.setPreferredSize(null);
+				local.setPreferredSize(local.getPreferredSize());
 			}
 		});
 	}

@@ -14,10 +14,10 @@ import javax.swing.JTextField;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
-import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 import main.java.com.slimtrade.gui.messaging.TradePanelA;
 import main.java.com.slimtrade.gui.options.ContentPanel;
 import main.java.com.slimtrade.gui.options.RemovablePanel;
+import main.java.com.slimtrade.gui.options.ToggleButton;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
@@ -78,11 +78,14 @@ public class IncomingCustomizer extends ContentPanel {
 
 		// INCOMING
 		// TODO : insets
+		ToggleButton presetButton = new ToggleButton("Preset Macros");
+		ToggleButton customButton = new ToggleButton("Custom Macros");
+		
 		gc.insets = new Insets(2, 0, 0, 0);
 		// addRow(incomingLabel, gc);
 		addRow(exampleTradeIn, gc);
 		addRow(new BufferPanel(0, 10), gc);
-		addRow(new JLabel("PRESET MACROS"), gc);
+		addRow(presetButton, gc);
 		addRow(callbackInPreset, gc);
 		addRow(waitInPreset, gc);
 		addRow(refreshInPreset, gc);
@@ -93,7 +96,7 @@ public class IncomingCustomizer extends ContentPanel {
 		addRow(leavePreset, gc);
 
 		addRow(new BufferPanel(0, 10), gc);
-		addRow(new JLabel("CUSTOM MACROS"), gc);
+		addRow(customButton, gc);
 		customPanel = new ContentPanel(true);
 		customPanel.setBorder(null);
 		customPanel.setBuffer(0, 0);
@@ -113,7 +116,7 @@ public class IncomingCustomizer extends ContentPanel {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addNewMacro();
-				parent.pack();
+//				parent.pack();
 //				parent.autoReisize();
 			}
 		});
@@ -155,7 +158,7 @@ public class IncomingCustomizer extends ContentPanel {
 				customPanel.autoResize();
 				local.autoResize();
 				customCount--;
-				parent.refresh();
+//				parent.refresh();
 //				parent.autoReisize();
 			}
 		});
