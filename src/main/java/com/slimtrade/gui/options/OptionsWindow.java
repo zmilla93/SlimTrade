@@ -111,7 +111,7 @@ public class OptionsWindow extends ResizableWindow {
 		
 		//TODO : Remove stash
 		gc = new GridBagConstraints();
-		gc.anchor = GridBagConstraints.NORTH;
+//		gc.anchor = GridBagConstraints.NORTH;
 		
 		gc.weightx = 1;
 		gc.weighty = 1;

@@ -34,21 +34,23 @@ public class ChatParser {
 	private ActionListener updateAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			Debugger.benchmarkStart();
-//			update();
+			// Debugger.benchmarkStart();
+			// update();
 			procUpdate();
-//			System.out.println(Debugger.benchmark());
+			// System.out.println(Debugger.benchmark());
 		}
 	};
 	private Timer updateTimer = new Timer(500, updateAction);
 
 	// REGEX
-	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
+	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(\\S+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
+	// TODO : Remove optional flag for global chat - guild returns null until then
+	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
 	private String[] searchTerms;
 	private boolean chatScannerRunning = false;
-	
+
 	private String clientLogPath;
 
 	public ChatParser() {
@@ -81,7 +83,7 @@ public class ChatParser {
 				if (curLine.contains("@")) {
 					TradeOffer trade = getTradeOffer(curLine);
 					if (trade != null) {
-						 FrameManager.historyWindow.addTrade(trade, false);
+						FrameManager.historyWindow.addTrade(trade, false);
 					}
 					msgCount++;
 				}
@@ -97,20 +99,20 @@ public class ChatParser {
 		Main.debug.log("Chat parser sucessfully launched.");
 	}
 
-	private void procUpdate(){
+	private void procUpdate() {
 		try {
 			fileReader = new FileReader(clientLogPath);
 			fileReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void update() {
 		System.out.println("Updating chat parser");
 		long start = System.currentTimeMillis();
-//		Debugger.benchmarkStart();
+		// Debugger.benchmarkStart();
 		try {
 			fileReader = new FileReader(clientLogPath);
 			bufferedReader = new BufferedReader(fileReader);
@@ -120,12 +122,13 @@ public class ChatParser {
 				if (curLineCount > totalLineCount) {
 					totalLineCount++;
 					if (curLine.contains("@")) {
+						System.out.println(curLine);
 						Main.debug.log(curLine);
 						TradeOffer trade = getTradeOffer(curLine);
 						if (trade != null && !FrameManager.messageManager.isDuplicateTrade(trade)) {
 							FrameManager.messageManager.addMessage(trade);
 							FrameManager.historyWindow.addTrade(trade, true);
-							switch(trade.msgType){
+							switch (trade.messageType) {
 							case CHAT_SCANNER:
 								break;
 							case INCOMING_TRADE:
@@ -138,12 +141,14 @@ public class ChatParser {
 							default:
 								break;
 							}
-							
 						}
-					} else if(chatScannerRunning) {
-						for(String s : searchTerms){
-							if(curLine.toLowerCase().contains(s)){
-								System.out.println("Chat Scanner found term!");
+					} else if (chatScannerRunning) {
+						for (String s : searchTerms) {
+							if (curLine.toLowerCase().contains(s)) {
+								// FrameManager.messageManager.addMessage(trade);
+								//Add null set/check
+								TradeOffer trade = getSearchOffer(curLine);
+								FrameManager.messageManager.addMessage(trade);
 								return;
 							}
 						}
@@ -160,57 +165,73 @@ public class ChatParser {
 			Main.debug.log("Parser disabled.");
 			e.printStackTrace();
 		}
-//		long end = System.currentTimeMillis();
-//		 System.out.println("PARSER UPDATE TIME : " + (end-start));
-//		 System.out.println(end-start-Debugger.benchmark());
+		// long end = System.currentTimeMillis();
+		// System.out.println("PARSER UPDATE TIME : " + (end-start));
+		// System.out.println(end-start-Debugger.benchmark());
 	}
 
 	private TradeOffer getTradeOffer(String text) {
-		Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(curLine);
+		Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(text);
 		TradeOffer trade = null;
 		if (tradeMsgMatcher.matches()) {
 			// DEBUG
-//			System.out.println("NEW TRADE OFFER");
-//			for (int i = 0; i < 24; i++) {
-//				System.out.println("GROUP #" + i + " : " + tradeMsgMatcher.group(i));
-//			}
-//			System.out.println("");
+			// System.out.println("NEW TRADE OFFER");
+			// for (int i = 0; i < 24; i++) {
+			// System.out.println("GROUP #" + i + " : " +
+			// tradeMsgMatcher.group(i));
+			// }
+			// System.out.println("");
 			// DEBUG END
 
-//			date, time, MessageType msgType, guildName, playerName
-//			itemName, Double itemCount, priceTypeString, Double priceCount
-//			stashtabName, int stashtabX, int stashtabY, bonusText, sentMessage
-			
-			 double d1 = 0.0;
-			 double d2 = 0.0;
-			 // Item Count
-			 if (tradeMsgMatcher.group(10) != null) {
-			 d1 = Double.parseDouble(tradeMsgMatcher.group(10));
-			 }
-			 // Price Count
-			 if (tradeMsgMatcher.group(13) != null) {
-			 d2 = Double.parseDouble(tradeMsgMatcher.group(13));
-			 }
-			 int i1 = 0;
-			 int i2 = 0;
-			 // Stashtab X
-			 if (tradeMsgMatcher.group(21) != null) {
-			 i1 = Integer.parseInt(tradeMsgMatcher.group(21));
-			 }
-			 // Stashtab Y
-			 if (tradeMsgMatcher.group(23) != null) {
-			 i2 = Integer.parseInt(tradeMsgMatcher.group(23));
-			 }
-			 trade = new TradeOffer(tradeMsgMatcher.group(2),
-			 tradeMsgMatcher.group(3),
-			 getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5),
-			 tradeMsgMatcher.group(6),
-			 tradeMsgMatcher.group(11), d1,
-			 tradeMsgMatcher.group(14),
-			 d2,
-			 tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24),
-			 tradeMsgMatcher.group(7));
+			// date, time, MessageType msgType, guildName, playerName
+			// itemName, Double itemCount, priceTypeString, Double priceCount
+			// stashtabName, int stashtabX, int stashtabY, bonusText,
+			// sentMessage
 
+			double d1 = 0.0;
+			double d2 = 0.0;
+			// Item Count
+			if (tradeMsgMatcher.group(10) != null) {
+				d1 = Double.parseDouble(tradeMsgMatcher.group(10));
+			}
+			// Price Count
+			if (tradeMsgMatcher.group(13) != null) {
+				d2 = Double.parseDouble(tradeMsgMatcher.group(13));
+			}
+			int i1 = 0;
+			int i2 = 0;
+			// Stashtab X
+			if (tradeMsgMatcher.group(21) != null) {
+				i1 = Integer.parseInt(tradeMsgMatcher.group(21));
+			}
+			// Stashtab Y
+			if (tradeMsgMatcher.group(23) != null) {
+				i2 = Integer.parseInt(tradeMsgMatcher.group(23));
+			}
+			trade = new TradeOffer(tradeMsgMatcher.group(2), tradeMsgMatcher.group(3), getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5), tradeMsgMatcher.group(6), tradeMsgMatcher.group(11), d1, tradeMsgMatcher.group(14), d2, tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24), tradeMsgMatcher.group(7));
+
+			
+//			System.out.println("TRADE OFFER : " + trade.guildName + trade.playerName);
+			return trade;
+		} else {
+			return null;
+		}
+	}
+
+	private TradeOffer getSearchOffer(String text) {
+		Matcher matcher = Pattern.compile(searchMessageMatchString).matcher(text);
+		System.out.println("Searching ::: " + text);
+		TradeOffer trade = null;
+		if (matcher.matches()) {
+			// DEBUG
+			System.out.println("\tMATCH FOUND");
+			for (int i = 0; i <= matcher.groupCount(); i++) {
+				System.out.println("\tGROUP #" + i + " : " + matcher.group(i));
+			}
+			System.out.println("");
+			// DEBUG END
+			
+			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), null, matcher.group(6));
 			return trade;
 		} else {
 			return null;
@@ -229,12 +250,12 @@ public class ChatParser {
 		}
 		return type;
 	}
-	
-	public void setChatScannerRunning(boolean state){
+
+	public void setChatScannerRunning(boolean state) {
 		chatScannerRunning = state;
 	}
-	
-	public void setSearchTerms(String[] searchTerms){
+
+	public void setSearchTerms(String[] searchTerms) {
 		this.searchTerms = searchTerms;
 	}
 

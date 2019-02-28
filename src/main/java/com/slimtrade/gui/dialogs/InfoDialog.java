@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -14,7 +15,6 @@ import javax.swing.SwingConstants;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
-import main.java.com.slimtrade.gui.buttons.CustomButton_REWORK;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 //TODO : Improve resizing functions and buffer areas
@@ -43,7 +43,7 @@ public class InfoDialog extends AbstractWindowDialog {
 		container.add(infoPanel, BorderLayout.CENTER);
 		container.add(buttonPanel, BorderLayout.SOUTH);
 		this.addBuffer();
-		CustomButton_REWORK closeButton = new CustomButton_REWORK("Accept");
+		JButton closeButton = new JButton("Accept");
 		buttonPanel.add(closeButton);
 		closeButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {

@@ -51,6 +51,9 @@ public class BasicsPanel extends ContentPanel {
 		JPanel outerPanel = new JPanel(new GridBagLayout());
 
 		// GENERAL
+		JLabel characterLabel = new JLabel("Character");
+		
+		// GENERAL
 		JLabel stashLabel = new JLabel("Stash Location");
 		JLabel overlayLabel = new JLabel("Overlay Layout");
 		JLabel guildLabel = new JLabel("Show Guild Name");

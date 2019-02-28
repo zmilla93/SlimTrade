@@ -17,6 +17,7 @@ import org.jnativehook.NativeHookException;
 import main.java.com.slimtrade.core.audio.Sound;
 import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.DefaultManager;
 import main.java.com.slimtrade.core.managers.ExternalFileManager;
 import main.java.com.slimtrade.core.managers.SaveManager;
 import main.java.com.slimtrade.core.observing.EventManager;
@@ -31,6 +32,7 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
+import main.java.com.slimtrade.gui.windows.ImprovedChatScanner;
 
 public class Main {
 	
@@ -120,6 +122,8 @@ public class Main {
 				saveManager.putStringDefault(Sound.CLICK1.toString(), "options", "audio", "incomingTrade", "type");
 				saveManager.putIntDefault(50, "options", "audio", "incomingTrade", "volume");
 				
+				DefaultManager defaultManager = new DefaultManager();
+				
 				//Load preset sound
 				//TODO : This can cause a crash if someone were to modify values
 				//"Safe" Preloading...
@@ -154,6 +158,9 @@ public class Main {
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 
+				
+				ImprovedChatScanner scan = new ImprovedChatScanner();
+				scan.setShow(true);
 				
 //				HistoryWindow h = new HistoryWindow();
 //				h.pack();

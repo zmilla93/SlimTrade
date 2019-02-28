@@ -129,7 +129,7 @@ public class MessagePanel extends JPanel {
 		double buttonBotMult = 0;
 
 		// Currently buttons are 0.05 mult
-		switch (trade.msgType) {
+		switch (trade.messageType) {
 		case INCOMING_TRADE:
 			nameWidthMult = 0.5;
 			priceWidthMult = 0.3;
@@ -256,7 +256,7 @@ public class MessagePanel extends JPanel {
 		registerPoeInteractionButton(waitButton, ButtonType.WAIT);
 		registerPoeInteractionButton(tpToHideoutButton, ButtonType.WARP);
 		
-		switch (trade.msgType) {
+		switch (trade.messageType) {
 		case INCOMING_TRADE:
 			// TOP BUTTONS
 			topButtonPanel.add(callbackButton);
@@ -341,7 +341,7 @@ public class MessagePanel extends JPanel {
 		// Row 2
 
 		// Message Type Specific
-		switch (trade.msgType) {
+		switch (trade.messageType) {
 		case INCOMING_TRADE:
 			pricePanel.setBackground(ColorManager.MsgWindow.priceBG_in);
 			this.borderInner.setBackground(color);
@@ -360,7 +360,7 @@ public class MessagePanel extends JPanel {
 	}
 
 	public MessageType getMessageType() {
-		return this.trade.msgType;
+		return this.trade.messageType;
 	}
 	
 	//TODO : Do this a cleaner way

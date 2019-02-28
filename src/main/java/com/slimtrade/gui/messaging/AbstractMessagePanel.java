@@ -20,6 +20,7 @@ import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.ImagePreloader;
+import main.java.com.slimtrade.gui.basic.PaintedPanel;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 
 public class AbstractMessagePanel extends JPanel {
@@ -28,7 +29,7 @@ public class AbstractMessagePanel extends JPanel {
 	// TODO Load from drive
 	// TODO : Move?
 	private final PoeInteractionListener poeInteractionListener = Main.eventManager;
-	private MessageType messageType;
+	protected MessageType messageType;
 	// Heights
 	// protected int minHeight;
 	// protected int maxHeight;
@@ -44,12 +45,23 @@ public class AbstractMessagePanel extends JPanel {
 	protected GridBagConstraints gc = new GridBagConstraints();
 
 	// Panels
+	protected JPanel namePanel = new NameClickPanel();
+	protected JPanel pricePanel = new JPanel(gb);
+	protected PaintedPanel itemPanel = new PaintedPanel();
+	
 	protected JPanel borderPanel = new JPanel();
 	protected JPanel container = new JPanel();
 	protected JPanel timerPanel = new JPanel();
 	protected JLabel timerLabel = new JLabel("0s");
 	protected IconButton closeButton;
-
+	
+	//Labels
+	protected JLabel nameLabel = new JLabel();
+	protected JLabel priceLabel = new JLabel();
+	protected JLabel itemLabel = new JLabel();
+	
+	protected int buttonCountTop;
+	protected int buttonCountBottom;
 	// TODO : Change to generic offer
 	protected TradeOffer trade;
 
@@ -104,9 +116,6 @@ public class AbstractMessagePanel extends JPanel {
 			}
 		});
 	}
-	// public void setCloseButton(int size, boolean forceNew) {
-	//
-	// }
 
 	public JButton getCloseButton() {
 		return this.closeButton;
@@ -123,24 +132,23 @@ public class AbstractMessagePanel extends JPanel {
 
 	// TODO : More fonts
 	// TODO : Properly center font
-	public void refreshFont(int size) {
-		// Font f = this.getFont();
-		int[] fontSizes = { 12, 16, 18, 20 };
-		int i = size;
-		if (i % 2 != 0) {
-			i--;
-		}
-		// System.out.println("FONT SIZE : " + i);
-		font = new Font("Serif", Font.PLAIN, i);
-	}
+//	public void refreshFont(int size) {
+//		// Font f = this.getFont();
+//		int[] fontSizes = { 12, 16, 18, 20 };
+//		int i = size;
+//		if (i % 2 != 0) {
+//			i--;
+//		}
+//		// System.out.println("FONT SIZE : " + i);
+//		font = new Font("Serif", Font.PLAIN, i);
+//	}
 
 	protected void resizeFrames() {
-		System.out.println("abstract frames");
-
+		
 	}
 
 	protected void resizeButtons() {
-
+		
 	}
 
 	public void startTimer() {

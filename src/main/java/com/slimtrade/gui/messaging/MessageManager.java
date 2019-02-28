@@ -49,7 +49,7 @@ public class MessageManager extends BasicDialog {
 			i++;
 		}
 		messages[i] = new TradePanelA(trade, new Dimension(400, 40));
-		rigidAreas[i] = Box.createRigidArea(new Dimension(MessagePanel.totalWidth, buffer));
+		rigidAreas[i] = Box.createRigidArea(new Dimension(1, buffer));
 		final int closeIndex = i;
 		messages[i].getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {

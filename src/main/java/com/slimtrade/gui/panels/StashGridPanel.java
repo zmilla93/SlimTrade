@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
 
-public class GridPanel extends JPanel{
+public class StashGridPanel extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -19,11 +19,11 @@ public class GridPanel extends JPanel{
 	private int gridCellCount = 12;
 	private Color lineColor = Color.RED;
 	
-	public GridPanel(){
+	public StashGridPanel(){
 		this.setBackground(ColorManager.CLEAR);
 	}
 	
-	public GridPanel(int width, int height){
+	public StashGridPanel(int width, int height){
 		this.setBackground(ColorManager.CLEAR);
 		this.width = width;
 		this.height = height;

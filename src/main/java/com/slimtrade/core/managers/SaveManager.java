@@ -6,10 +6,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.gui.dialogs.InfoDialog;
 
 public class SaveManager {
@@ -648,13 +650,15 @@ public class SaveManager {
 	}
 
 	public void putStringDefault(String value, String... keys) {
+		
 		if (!hasEntry(keys)) {
 			putString(value, keys);
 		}
 	}
 	
 	public void putIntDefault(int value, String... keys) {
-		if (!hasEntry(keys)) {
+		if (getInt(keys) == Integer.MIN_VALUE) {
+			Main.logger.log(Level.INFO, "ADDING NEW DEFAULT VALUE");
 			putInt(value, keys);
 		}
 	}

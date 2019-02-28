@@ -64,7 +64,7 @@ public class FrameManager {
 			optionsWindow, historyWindow, chatScannerWindow, stashTabWindow, characterWindow
 		};
 		
-		optionsWindow.setShow(true);
+//		optionsWindow.setShow(true);
 		menubar.setShow(true);
 	}
 

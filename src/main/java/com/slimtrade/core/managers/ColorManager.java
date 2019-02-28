@@ -1,7 +1,6 @@
 package main.java.com.slimtrade.core.managers;
 
 import java.awt.Color;
-import java.util.Hashtable;
 
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
@@ -16,6 +15,13 @@ public class ColorManager {
 	
 	public static Color greenIncoming = new Color(0,100,0);
 	public static Color redOutgoing = new Color(100,0,0);
+	
+	public static Color modify(Color c, int mod){
+		int r = c.getBlue()+mod;
+		int g = c.getGreen()+mod;
+		int b = c.getRed()+mod;
+		return new Color(r,g,b);
+	}
 	
 	public static class MsgWindow{
 		public static Color borderOuter;

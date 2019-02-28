@@ -18,7 +18,7 @@ import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
-import main.java.com.slimtrade.gui.panels.GridPanel;
+import main.java.com.slimtrade.gui.panels.StashGridPanel;
 import main.java.com.slimtrade.gui.stash.helper.ItemHighlighter;
 
 
@@ -46,7 +46,7 @@ public class StashGridOverlay extends AbstractWindowDialog{
 	private int startingContainerHeight;
 	
 	//GRID
-	private GridPanel grid;
+	private StashGridPanel grid;
 	private int bufferThin = 5;
 	private int bufferThick = 12;
 	
@@ -71,7 +71,7 @@ public class StashGridOverlay extends AbstractWindowDialog{
 		container.setBackground(new Color(1.0f,1.0f,1.0f,0.25f));
 		container.setBounds(winPos.x, winPos.y, winWidth, winHeight);
 		
-		grid = new GridPanel();
+		grid = new StashGridPanel();
 		grid.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		grid.setLineColor(Color.GREEN);
 		gridPos.setLocation(winPos.x+bufferThin, winPos.y+bufferThin+AbstractWindowDialog.titlebarHeight);

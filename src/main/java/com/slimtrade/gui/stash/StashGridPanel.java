@@ -13,7 +13,7 @@ public class StashGridPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 
-	Color lineColor = Color.GREEN;
+	Color lineColor = Color.YELLOW;
 	private int gridCellCount = 12;
 	
 	public StashGridPanel(){

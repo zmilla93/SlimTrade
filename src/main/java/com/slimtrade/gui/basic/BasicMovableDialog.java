@@ -96,7 +96,7 @@ public class BasicMovableDialog extends BasicDialog {
 					int targetY = MouseInfo.getPointerInfo().getLocation().y-offsetY-borderOffset;
 					if(screenLock){
 						if(targetX<0) targetX = 0;
-						if(targetX>TradeUtility.screenSize.width-mover.getWidth()) targetX = TradeUtility.screenSize.width-mover.getWidth()-mover.getInsets().right-mover.getInsets().left;
+						if(targetX>TradeUtility.screenSize.width-mover.getWidth()) targetX = TradeUtility.screenSize.width-mover.getWidth();
 						if(targetY<0) targetY = 0;
 						if(targetY>TradeUtility.screenSize.height-mover.getHeight()) targetY = TradeUtility.screenSize.height-mover.getHeight();
 					}

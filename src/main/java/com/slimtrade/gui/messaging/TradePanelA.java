@@ -8,13 +8,13 @@ import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.ToolTipManager;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
@@ -26,7 +26,6 @@ import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
-import main.java.com.slimtrade.gui.basic.PaintedPanel;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.PricePanel;
 import main.java.com.slimtrade.gui.stash.helper.StashHelper;
@@ -35,24 +34,18 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private JPanel namePanel = new NameClickPanel();
-	private JPanel pricePanel = new JPanel(gb);
-	private PaintedPanel itemPanel = new PaintedPanel();
-	protected JPanel topPanel = new JPanel(gb);
-	protected JPanel bottomPanel = new JPanel(gb);
+//	private JPanel namePanel = new NameClickPanel();
+//	private JPanel pricePanel = new JPanel(gb);
+//	private PaintedPanel itemPanel = new PaintedPanel();
+	private JPanel topPanel = new JPanel(gb);
+	private JPanel bottomPanel = new JPanel(gb);
 
-	private JLabel nameLabel = new JLabel();
-	private JLabel priceLabel = new JLabel();
-	private JLabel itemLabel = new JLabel();
+	
 
 	protected JPanel buttonPanelTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	protected JPanel buttonPanelBottom = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-	// private TradeOffer trade;
 	private StashHelper stashHelper;
-
-	private int buttonCountTop;
-	private int buttonCountBottom;
 
 	private IconButton callbackButton;
 	private IconButton waitButton;
@@ -64,6 +57,8 @@ public class TradePanelA extends AbstractMessagePanel {
 	private IconButton leaveButton;
 	private IconButton kickButton;
 	private IconButton homeButton;
+	
+	private IconButton replyButton;
 
 	// private StashHelper stashHelper;
 
@@ -80,14 +75,32 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private void buildPanel(TradeOffer trade, Dimension size, boolean makeListeners) {
 		// TODO : move size stuff to super
-		// TODO : TEXT FORMATTING
 		this.trade = trade;
-
+		this.setMessageType(trade.messageType);
+		
 		nameLabel.setText(trade.playerName);
-		itemLabel.setText(trade.itemName);
-
-		this.setMessageType(trade.msgType);
-		// TODO : Move to/combine with resize
+		
+		
+		switch(messageType){
+		case CHAT_SCANNER:
+			itemLabel.setText(trade.searchMessage);
+			//TODO : Search name
+			priceLabel.setText("TODO");
+			break;
+		case INCOMING_TRADE:
+		case OUTGOING_TRADE:
+//			itemLabel.setText(trade.itemName);
+			itemLabel = new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
+			PricePanel p = new PricePanel(trade.priceTypeString, trade.priceCount, true);
+			priceLabel = p.getLabel();
+			
+			break;
+		case UNKNOWN:
+			break;
+		default:
+			break;
+		}
+		pricePanel.add(priceLabel);
 		calculateSizes(size);
 		refreshButtons(this.getMessageType(), makeListeners);
 		resizeFrames(buttonCountTop, buttonCountBottom);
@@ -97,38 +110,33 @@ public class TradePanelA extends AbstractMessagePanel {
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nameLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-		pricePanel.setLayout(new GridBagLayout());
-		PricePanel p = new PricePanel(trade.priceTypeString, trade.priceCount, true);
-		priceLabel = p.getLabel();
-		pricePanel.add(p);
 
-		// priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		pricePanel.setLayout(new GridBagLayout());
+		
 
 		timerPanel.setLayout(new BorderLayout());
 		timerPanel.add(timerLabel, BorderLayout.CENTER);
 		timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		itemPanel.setLayout(new GridBagLayout());
-		itemLabel = new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
+		
 		itemPanel.add(itemLabel);
 		itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Color
-		namePanel.setBackground(Color.LIGHT_GRAY);
-		nameLabel.setOpaque(true);
-		nameLabel.setBackground(Color.green);
-		pricePanel.setBackground(new Color(0, 100, 0));
-		itemPanel.setBackground(Color.DARK_GRAY);
-		buttonPanelTop.setBackground(Color.ORANGE);
-		buttonPanelBottom.setBackground(Color.YELLOW);
+//		pricePanel.setBackground(new Color(0, 100, 0));
+//		itemPanel.setBackground(Color.DARK_GRAY);
+//		buttonPanelTop.setBackground(Color.ORANGE);
+//		buttonPanelBottom.setBackground(Color.YELLOW);
 
 		// this.setButtonCount(3, 5);
-
-		this.setBackground(Color.BLACK);
-		borderPanel.setBackground(Color.CYAN);
 		container.setBackground(Color.BLACK);
-		topPanel.setBackground(Color.RED);
-		bottomPanel.setBackground(Color.RED);
+		this.setBackground(Color.BLACK);
+		
+		
+		borderPanel.setBackground(Color.CYAN);
+//		topPanel.setBackground(Color.RED);
+//		bottomPanel.setBackground(Color.RED);
 
 		container.add(topPanel, gc);
 		gc.gridy = 1;
@@ -158,8 +166,10 @@ public class TradePanelA extends AbstractMessagePanel {
 		Color color = null;
 		Color colorText = null;
 
-		switch (trade.msgType) {
+		switch (trade.messageType) {
 		case CHAT_SCANNER:
+			ToolTipManager.sharedInstance().setInitialDelay(0);
+			itemPanel.setToolTipText(trade.searchMessage);
 			break;
 		case INCOMING_TRADE:
 //			Random rand = new Random();
@@ -194,6 +204,7 @@ public class TradePanelA extends AbstractMessagePanel {
 			priceLabel.setForeground(ColorManager.stashLightText);
 			break;
 		case OUTGOING_TRADE:
+			borderPanel.setBackground(StashTabColor.ONE.getBackground());
 			pricePanel.setBackground(ColorManager.redOutgoing);
 			priceLabel.setForeground(ColorManager.stashLightText);
 			break;
@@ -210,13 +221,14 @@ public class TradePanelA extends AbstractMessagePanel {
 	}
 
 	// TODO add button count
-	public void resizeMessage(Dimension size, boolean listeners) {
-		calculateSizes(size);
-		resizeFrames(3, 5);
-		refreshButtons(this.getMessageType(), listeners);
-		this.revalidate();
-		this.repaint();
-	}
+	//TODO : Finish this
+//	public void resizeMessage(Dimension size, boolean listeners) {
+//		calculateSizes(size);
+//		resizeFrames(3, 5);
+//		refreshButtons(this.getMessageType(), listeners);
+//		this.revalidate();
+//		this.repaint();
+//	}
 
 	private void calculateSizes(Dimension size) {
 		if (size.width % 2 != 0) {
@@ -227,7 +239,6 @@ public class TradePanelA extends AbstractMessagePanel {
 		}
 		messageWidth = size.width;
 		messageHeight = size.height;
-//		borderSize = 4;
 		rowHeight = messageHeight / 2;
 		totalWidth = messageWidth + (borderSize * 4);
 		totalHeight = messageHeight + (borderSize * 4);
@@ -245,6 +256,10 @@ public class TradePanelA extends AbstractMessagePanel {
 		}
 		switch (type) {
 		case CHAT_SCANNER:
+//			respodButton =
+			buttonCountTop = 2;
+			replyButton = new IconButton(ImagePreloader.warp, rowHeight);
+			buttonPanelTop.add(replyButton);
 			break;
 		case INCOMING_TRADE:
 			buttonCountTop = 4;
@@ -286,7 +301,6 @@ public class TradePanelA extends AbstractMessagePanel {
 				i++;
 
 			}
-
 			buttonPanelTop.add(callbackButton);
 			buttonPanelTop.add(waitButton);
 			buttonPanelTop.add(refreshButton);
@@ -324,25 +338,25 @@ public class TradePanelA extends AbstractMessagePanel {
 		buttonPanelTop.add(closeButton);
 	}
 
-	protected void resizeFrames(int top, int bottom) {
+	protected void resizeFrames(int buttonsTop, int buttonsBottom) {
 		this.setPreferredSize(new Dimension(totalWidth, totalHeight));
 		borderPanel.setPreferredSize(new Dimension(messageWidth + borderSize * 2, messageHeight + borderSize * 2));
 		container.setPreferredSize(new Dimension(messageWidth, messageHeight));
 		Dimension s = new Dimension(messageWidth, rowHeight);
 		topPanel.setPreferredSize(s);
 		bottomPanel.setPreferredSize(s);
-		this.buttonCountTop = top;
-		this.buttonCountBottom = bottom;
-		Dimension sizeTop = new Dimension(rowHeight * top, rowHeight);
-		Dimension sizeBottom = new Dimension(rowHeight * bottom, rowHeight);
-		buttonPanelTop.setPreferredSize(sizeTop);
-		buttonPanelTop.setMinimumSize(sizeTop);
-		buttonPanelBottom.setPreferredSize(sizeBottom);
-		buttonPanelBottom.setMaximumSize(sizeBottom);
-		int nameWidth = (int) ((messageWidth - sizeTop.width) * 0.7);
-		int priceWidth = messageWidth - nameWidth - sizeTop.width;
+		this.buttonCountTop = buttonsTop;
+		this.buttonCountBottom = buttonsBottom;
+		Dimension buttonSizeTop = new Dimension(rowHeight * buttonsTop, rowHeight);
+		Dimension buttonSizeBottom = new Dimension(rowHeight * buttonsBottom, rowHeight);
+		buttonPanelTop.setPreferredSize(buttonSizeTop);
+		buttonPanelTop.setMinimumSize(buttonSizeTop);
+		buttonPanelBottom.setPreferredSize(buttonSizeBottom);
+		buttonPanelBottom.setMaximumSize(buttonSizeBottom);
+		int nameWidth = (int) ((messageWidth - buttonSizeTop.width) * 0.7);
+		int priceWidth = messageWidth - nameWidth - buttonSizeTop.width;
 		int timerWidth = (int) (messageWidth * timerWeight);
-		int itemWidth = messageWidth - timerWidth - sizeBottom.width;
+		int itemWidth = messageWidth - timerWidth - buttonSizeBottom.width;
 
 		namePanel.setPreferredSize(new Dimension(nameWidth, rowHeight));
 		pricePanel.setPreferredSize(new Dimension(priceWidth, rowHeight));

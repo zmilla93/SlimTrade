@@ -20,7 +20,6 @@ import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
-import main.java.com.slimtrade.enums.ExpandDirection;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;

@@ -1,15 +1,15 @@
 package main.java.com.slimtrade.core.utility;
 
-import java.io.Serializable;
-
 import main.java.com.slimtrade.enums.MessageType;
 
-public class TradeOffer implements Serializable{
+//TODO : Would be nice to seperate this into several offer types, but would require a fairly large refactory to do so
+//TODO : Could switch to getting/setting to make constructor less horrible, but would lose constants
 
-	private static final long serialVersionUID = 1L;
+public class TradeOffer {
+
 	public final String date;
 	public final String time;
-	public final MessageType msgType;
+	public final MessageType messageType;
 	public final String guildName;
 	public final String playerName;
 	public final String itemName;
@@ -21,11 +21,14 @@ public class TradeOffer implements Serializable{
 	public final int stashtabY;
 	public final String bonusText;
 	public final String sentMessage;
+	
+	public final String searchName;
+	public final String searchMessage;
 		
 	public TradeOffer(String date, MessageType msgType, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount){
 		this.date = date;
 		this.time = null;
-		this.msgType = msgType;
+		this.messageType = msgType;
 		this.guildName = null;
 		this.playerName = playerName;
 		this.itemName = itemName;
@@ -37,12 +40,33 @@ public class TradeOffer implements Serializable{
 		this.stashtabY = 0;
 		this.bonusText = null;
 		this.sentMessage = null;
+		this.searchName = null;
+		this.searchMessage = null;
+	}
+	
+	public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String searchName, String searchMessage){
+		this.date = date;
+		this.time = null;
+		this.messageType = msgType;
+		this.guildName = guildName;
+		this.playerName = playerName;
+		this.itemName = null;
+		this.itemCount = null;
+		this.priceTypeString = null;
+		this.priceCount = null;
+		this.stashtabName = null;
+		this.stashtabX = 0;
+		this.stashtabY = 0;
+		this.bonusText = null;
+		this.sentMessage = null;
+		this.searchName = searchName;
+		this.searchMessage = searchMessage;
 	}
 	
 	public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage){
 		this.date = date;
 		this.time = time;
-		this.msgType = msgType;
+		this.messageType = msgType;
 		this.guildName = guildName;
 		this.playerName = playerName;
 		this.itemName = itemName;
@@ -54,63 +78,8 @@ public class TradeOffer implements Serializable{
 		this.stashtabY = stashtabY;
 		this.bonusText = bonusText;
 		this.sentMessage = sentMessage;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public MessageType getMsgType() {
-		return msgType;
-	}
-
-	public String getGuildName() {
-		return guildName;
-	}
-
-	public String getPlayerName() {
-		return playerName;
-	}
-
-	public String getItemName() {
-		return itemName;
-	}
-
-	public Double getItemCount() {
-		return itemCount;
-	}
-
-	public String getPriceTypeString() {
-		return priceTypeString;
-	}
-
-	public Double getPriceCount() {
-		return priceCount;
-	}
-
-	public String getStashtabName() {
-		return stashtabName;
-	}
-
-	public int getStashtabX() {
-		return stashtabX;
-	}
-
-	public int getStashtabY() {
-		return stashtabY;
-	}
-
-	public String getBonusText() {
-		return bonusText;
-	}
-
-	public String getSentMessage() {
-		return sentMessage;
-	}
-	
+		this.searchName = null;
+		this.searchMessage = null;
+	}	
 	
 }

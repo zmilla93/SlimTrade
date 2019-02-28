@@ -112,7 +112,7 @@ public class HistoryWindow extends ResizableWindow {
 	}
 
 	public void addTrade(TradeOffer trade, boolean updateUI) {
-		switch (trade.msgType) {
+		switch (trade.messageType) {
 		case CHAT_SCANNER:
 			break;
 		case INCOMING_TRADE:
