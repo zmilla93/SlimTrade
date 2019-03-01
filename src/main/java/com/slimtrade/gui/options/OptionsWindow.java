@@ -146,7 +146,7 @@ public class OptionsWindow extends ResizableWindow {
 		container.add(scrollDisplay, BorderLayout.CENTER);
 		
 		
-		basicsPanel.setVisible(true);
+		incomingPanel.setVisible(true);
 		this.setMinimumSize(new Dimension(900,600));
 		this.refresh();
 		this.setMinimumSize(new Dimension(300,300));
@@ -166,6 +166,7 @@ public class OptionsWindow extends ResizableWindow {
 		
 		cancelButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				incomingPanel.load();
 				audioPanel.load();
 				stashPanel.load();
 			}
@@ -173,7 +174,7 @@ public class OptionsWindow extends ResizableWindow {
 		
 		saveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				incomingPanel.saveData();
+				incomingPanel.save();
 				audioPanel.save();
 				stashPanel.save();
 				Main.saveManager.saveToDisk();

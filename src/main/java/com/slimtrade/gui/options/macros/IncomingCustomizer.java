@@ -2,13 +2,13 @@ package main.java.com.slimtrade.gui.options.macros;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import main.java.com.slimtrade.core.Main;
@@ -17,18 +17,21 @@ import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.messaging.TradePanelA;
 import main.java.com.slimtrade.gui.options.ContentPanel;
 import main.java.com.slimtrade.gui.options.RemovablePanel;
+import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.options.ToggleButton;
+import main.java.com.slimtrade.gui.options.macros.datatypes.ButtonRow;
+import main.java.com.slimtrade.gui.options.macros.datatypes.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
 //TODO : CLEANUP
-public class IncomingCustomizer extends ContentPanel {
+public class IncomingCustomizer extends ContentPanel implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 	private TradePanelA exampleTradeIn;
 
 	private AbstractWindow parent;
-	
+
 	private JTextField callbackLeft;
 	private JTextField waitLeft;
 	private JTextField waitRight;
@@ -45,14 +48,17 @@ public class IncomingCustomizer extends ContentPanel {
 	// ArrayList<CustomMacroRow>();
 	private CustomMacroRow[] customRows = new CustomMacroRow[20];
 	private int customCount = 0;
-	private final int CUSTOM_MAX = 20;
+	public static final int CUSTOM_MAX = 10;
 
 	public IncomingCustomizer(AbstractWindow parent) {
 		this.parent = parent;
-		Random rng = new Random();
-		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-		exampleTradeIn = new TradePanelA(tradeIn, new Dimension(400,40));
-		exampleTradeIn.stopTimer();
+		
+//		Random rng = new Random();
+//		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+//		exampleTradeIn = new TradePanelA(tradeIn, new Dimension(400, 40));
+//		exampleTradeIn.stopTimer();
+		refreshTrade();
+		
 		// INCOMING PRESETS
 		PresetMacroRow callbackInPreset = new PresetMacroRow("Callback", "/resources/icons/phone.png");
 		callbackLeft = callbackInPreset.getRow("Left Mouse", "I'm busy, want me to message you back in a little bit?!", true);
@@ -80,8 +86,8 @@ public class IncomingCustomizer extends ContentPanel {
 		// TODO : insets
 		ToggleButton presetButton = new ToggleButton("Preset Macros");
 		ToggleButton customButton = new ToggleButton("Custom Macros");
-		
-		gc.insets = new Insets(2, 0, 0, 0);
+
+//		gc.insets = new Insets(2, 0, 0, 0);
 		// addRow(incomingLabel, gc);
 		addRow(exampleTradeIn, gc);
 		addRow(new BufferPanel(0, 10), gc);
@@ -116,12 +122,30 @@ public class IncomingCustomizer extends ContentPanel {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addNewMacro();
-//				parent.pack();
-//				parent.autoReisize();
+				// parent.pack();
+				// parent.autoReisize();
 			}
 		});
 
 		this.autoResize();
+	}
+	
+	private void refreshTrade(){
+		try{
+			this.remove(exampleTradeIn);
+		}catch(NullPointerException e){
+			
+		}
+		GridBagConstraints gc = new GridBagConstraints();
+		gc.gridx = 0;
+		gc.gridy = 0;
+		Random rng = new Random();
+		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+		exampleTradeIn = new TradePanelA(tradeIn, new Dimension(400, 40));
+		exampleTradeIn.stopTimer();
+		this.add(exampleTradeIn, gc);
+		parent.revalidate();
+		parent.repaint();
 	}
 
 	// TODO : Need to sort out limiting...
@@ -136,16 +160,6 @@ public class IncomingCustomizer extends ContentPanel {
 			return null;
 		}
 		CustomMacroRow row = new CustomMacroRow();
-		// int i = 0;
-		// for (i = 0; i < CUSTOM_MAX; i++) {
-		// if (customRows[i] == null) {
-		// break;
-		// }
-		// if (i == CUSTOM_MAX-1) {
-		// return null;
-		// }
-		// }
-		// customRows[i] = row;
 		customPanel.addRow(row, gc);
 		customPanel.autoResize();
 		this.autoResize();
@@ -158,8 +172,6 @@ public class IncomingCustomizer extends ContentPanel {
 				customPanel.autoResize();
 				local.autoResize();
 				customCount--;
-//				parent.refresh();
-//				parent.autoReisize();
 			}
 		});
 		customCount++;
@@ -167,20 +179,7 @@ public class IncomingCustomizer extends ContentPanel {
 		// customText
 	}
 
-	public void loadFromSave() {
-//		System.out.println("Loading...");
-		for (int i = 0; i < CUSTOM_MAX; i++) {
-//			System.out.println("ENTRY!");
-			if (Main.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
-				CustomMacroRow row = addNewMacro();
-				row.setFresh(false);
-				row.setTextLMB(Main.saveManager.getString("macros", "in", "custom", "button" + i, "left"));
-				row.setTextRMB(Main.saveManager.getString("macros", "in", "custom", "button" + i, "right"));
-			} else {
-				return;
-			}
-		}
-	}
+	
 
 	public void reset() {
 		for (Component c : customPanel.getComponents()) {
@@ -201,8 +200,43 @@ public class IncomingCustomizer extends ContentPanel {
 	}
 
 	// TODO : Order
-	public void saveData() {
-		//CUSTOM BUTTONS
+	// public void saveData() {
+	//
+	// }
+
+	public void loadPresets() {
+		callbackLeft.setText(Main.saveManager.getString("macros", "in", "preset", "callback", "left"));
+		waitLeft.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "left"));
+		waitRight.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "right"));
+		thankLeft.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "left"));
+		thankRight.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "right"));
+	}
+
+	private void loadFromSave() {
+		// System.out.println("Loading...");
+		for (int i = 0; i < CUSTOM_MAX; i++) {
+			if (Main.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
+				CustomMacroRow row = addNewMacro();
+				row.setFresh(false);
+				ButtonRow buttonRow = ButtonRow.valueOf(Main.saveManager.getString("macros", "in", "custom", "button" + i, "row"));
+				PreloadedImageCustom buttonImage = PreloadedImageCustom.valueOf(Main.saveManager.getString("macros", "in", "custom", "button" + i, "image"));
+				row.setButtonRow(buttonRow);
+				row.setButtonImage(buttonImage);
+//				row.setButtonRow(Main.saveManager.getString("macros", "in", "custom", "button" + i, "row"));
+				row.setTextLMB(Main.saveManager.getString("macros", "in", "custom", "button" + i, "left"));
+				row.setTextRMB(Main.saveManager.getString("macros", "in", "custom", "button" + i, "right"));
+			} else {
+				return;
+			}
+		}
+	}
+	
+	private void addCustom() {
+
+	}
+
+	public void save() {
+		// CUSTOM BUTTONS
 		Main.saveManager.deleteArray("macros", "in", "custom");
 		int index = 0;
 		for (Component c : customPanel.getComponents()) {
@@ -214,6 +248,10 @@ public class IncomingCustomizer extends ContentPanel {
 				customCount--;
 			} else {
 				p.setFresh(false);
+				// Main.saveManager.putString(p., "macros", "in", "custom",
+				// "button" + index, "row");
+				Main.saveManager.putString(p.getButtonImage().name(), "macros", "in", "custom", "button" + index, "image");
+				Main.saveManager.putString(p.getButtonRow().name(), "macros", "in", "custom", "button" + index, "row");
 				Main.saveManager.putString(p.getTextLMB(), "macros", "in", "custom", "button" + index, "left");
 				Main.saveManager.putString(p.getTextRMB(), "macros", "in", "custom", "button" + index, "right");
 				index++;
@@ -221,24 +259,20 @@ public class IncomingCustomizer extends ContentPanel {
 		}
 		Main.saveManager.putInt(index, "macros", "in", "custom", "count");
 
-		//PRESET BUTTONS
+		// PRESET BUTTONS
 		Main.saveManager.putString(callbackLeft.getText(), "macros", "in", "preset", "callback", "left");
 		Main.saveManager.putString(waitLeft.getText(), "macros", "in", "preset", "wait", "left");
 		Main.saveManager.putString(waitRight.getText(), "macros", "in", "preset", "wait", "right");
 		Main.saveManager.putString(thankLeft.getText(), "macros", "in", "preset", "thank", "left");
 		Main.saveManager.putString(thankRight.getText(), "macros", "in", "preset", "thank", "right");
+		refreshTrade();
 	}
 
-	public void loadPresets() {
-		callbackLeft.setText(Main.saveManager.getString("macros", "in", "preset", "callback", "left"));
-		waitLeft.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "left"));
-		waitRight.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "right"));
-		thankLeft.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "left"));
-		thankRight.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "right"));
-	}
-
-	private void addCustom() {
-
+	@Override
+	public void load() {
+		customPanel.removeAll();
+		loadPresets();
+		loadFromSave();
 	}
 
 }

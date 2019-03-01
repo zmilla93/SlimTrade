@@ -27,6 +27,8 @@ import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.options.macros.datatypes.ButtonRow;
+import main.java.com.slimtrade.gui.options.macros.datatypes.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.panels.PricePanel;
 import main.java.com.slimtrade.gui.stash.helper.StashHelper;
 
@@ -63,6 +65,8 @@ public class TradePanelA extends AbstractMessagePanel {
 	// private StashHelper stashHelper;
 
 	private ArrayList<IconButton> customButtons = new ArrayList<IconButton>();
+	private ArrayList<IconButton> customButtonsTop = new ArrayList<IconButton>();
+	private ArrayList<IconButton> customButtonsBottom = new ArrayList<IconButton>();
 
 	// TODO Listeners?
 	public TradePanelA(TradeOffer trade, Dimension size) {
@@ -86,24 +90,27 @@ public class TradePanelA extends AbstractMessagePanel {
 			itemLabel.setText(trade.searchMessage);
 			//TODO : Search name
 			priceLabel.setText("TODO");
+			pricePanel.add(priceLabel);
 			break;
 		case INCOMING_TRADE:
 		case OUTGOING_TRADE:
+			//TODO : This is janky plz fix
 //			itemLabel.setText(trade.itemName);
 			itemLabel = new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
 			PricePanel p = new PricePanel(trade.priceTypeString, trade.priceCount, true);
 			priceLabel = p.getLabel();
-			
+			pricePanel.add(p);
 			break;
 		case UNKNOWN:
 			break;
 		default:
 			break;
 		}
-		pricePanel.add(priceLabel);
+		
 		calculateSizes(size);
 		refreshButtons(this.getMessageType(), makeListeners);
-		resizeFrames(buttonCountTop, buttonCountBottom);
+		System.out.println("BUTTON COUNTS ::: " + buttonCountTop + " : " + buttonCountBottom);
+		resizeFrames();
 
 		namePanel.setLayout(new BorderLayout());
 		namePanel.add(nameLabel, BorderLayout.CENTER);
@@ -124,19 +131,9 @@ public class TradePanelA extends AbstractMessagePanel {
 		itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Color
-//		pricePanel.setBackground(new Color(0, 100, 0));
-//		itemPanel.setBackground(Color.DARK_GRAY);
-//		buttonPanelTop.setBackground(Color.ORANGE);
-//		buttonPanelBottom.setBackground(Color.YELLOW);
-
-		// this.setButtonCount(3, 5);
 		container.setBackground(Color.BLACK);
 		this.setBackground(Color.BLACK);
-		
-		
 		borderPanel.setBackground(Color.CYAN);
-//		topPanel.setBackground(Color.RED);
-//		bottomPanel.setBackground(Color.RED);
 
 		container.add(topPanel, gc);
 		gc.gridy = 1;
@@ -144,10 +141,6 @@ public class TradePanelA extends AbstractMessagePanel {
 		gc.gridy = 0;
 		borderPanel.add(container, gc);
 		this.add(borderPanel, gc);
-
-		// gc.fill = GridBagConstraints.BOTH;
-		// gc.weightx = 0.7;
-
 		// TOP PANEL
 		topPanel.add(namePanel, gc);
 		gc.gridx++;
@@ -254,6 +247,8 @@ public class TradePanelA extends AbstractMessagePanel {
 			buttonPanelBottom.remove(c);
 			c = null;
 		}
+		
+		
 		switch (type) {
 		case CHAT_SCANNER:
 //			respodButton =
@@ -264,16 +259,18 @@ public class TradePanelA extends AbstractMessagePanel {
 		case INCOMING_TRADE:
 			buttonCountTop = 4;
 			buttonCountBottom = 4;
-			if (Main.saveManager.hasEntry("macros", "in", "custom", "count")) {
-				int count = Main.saveManager.getInt("macros", "in", "custom", "count");
-				for (int i = 0; i < count; i++) {
-					if (Main.saveManager.hasEntry("macros", "in", "custom", "button" + 0)) {
-						IconButton button = new IconButton(ImagePreloader.warp, rowHeight);
-						customButtons.add(button);
-					} else {
-						return;
-					}
+			int i = 0;
+			while(Main.saveManager.hasEntry("macros", "in", "custom", "button"+i)){
+				PreloadedImageCustom img = PreloadedImageCustom.valueOf(Main.saveManager.getString("macros", "in", "custom", "button"+i, "image"));
+				IconButton button = new IconButton(img.getImage(), rowHeight);
+				if(Main.saveManager.getString("macros", "in", "custom", "button"+i, "row").equals(ButtonRow.TOP.name())){
+					buttonCountTop++;
+					customButtonsTop.add(button);
+				}else if(Main.saveManager.getString("macros", "in", "custom", "button"+i, "row").equals(ButtonRow.BOTTOM.name())){
+					buttonCountBottom++;
+					customButtonsBottom.add(button);
 				}
+				i++;
 			}
 
 			callbackButton = new IconButton(ImagePreloader.callback, rowHeight);
@@ -289,17 +286,12 @@ public class TradePanelA extends AbstractMessagePanel {
 				this.registerPoeInteractionButton(callbackButton, ButtonType.CALLBACK);
 			}
 
-			int i = 0;
-			for (IconButton b : customButtons) {
-				if (Main.saveManager.hasEntry("macros", "in", "custom", "button" + i, "row") && Main.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals("Top")) {
-					buttonPanelTop.add(b);
-					buttonCountTop++;
-				} else {
-					buttonPanelBottom.add(b);
-					buttonCountBottom++;
-				}
-				i++;
-
+//			i = 0;
+			for (IconButton b : customButtonsTop) {
+				buttonPanelTop.add(b);
+			}
+			for (IconButton b : customButtonsBottom) {
+				buttonPanelBottom.add(b);
 			}
 			buttonPanelTop.add(callbackButton);
 			buttonPanelTop.add(waitButton);
@@ -338,17 +330,17 @@ public class TradePanelA extends AbstractMessagePanel {
 		buttonPanelTop.add(closeButton);
 	}
 
-	protected void resizeFrames(int buttonsTop, int buttonsBottom) {
+	protected void resizeFrames() {
 		this.setPreferredSize(new Dimension(totalWidth, totalHeight));
 		borderPanel.setPreferredSize(new Dimension(messageWidth + borderSize * 2, messageHeight + borderSize * 2));
 		container.setPreferredSize(new Dimension(messageWidth, messageHeight));
 		Dimension s = new Dimension(messageWidth, rowHeight);
 		topPanel.setPreferredSize(s);
 		bottomPanel.setPreferredSize(s);
-		this.buttonCountTop = buttonsTop;
-		this.buttonCountBottom = buttonsBottom;
-		Dimension buttonSizeTop = new Dimension(rowHeight * buttonsTop, rowHeight);
-		Dimension buttonSizeBottom = new Dimension(rowHeight * buttonsBottom, rowHeight);
+//		this.buttonCountTop = buttonsTop;
+//		this.buttonCountBottom = buttonsBottom;
+		Dimension buttonSizeTop = new Dimension(rowHeight * buttonCountTop, rowHeight);
+		Dimension buttonSizeBottom = new Dimension(rowHeight * buttonCountBottom, rowHeight);
 		buttonPanelTop.setPreferredSize(buttonSizeTop);
 		buttonPanelTop.setMinimumSize(buttonSizeTop);
 		buttonPanelBottom.setPreferredSize(buttonSizeBottom);
