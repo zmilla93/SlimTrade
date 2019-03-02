@@ -41,6 +41,7 @@ public class AudioPanel extends ContentPanel implements Saveable {
 		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(incomingRow.getVolume()));
 	}
 
+	//TODO : This doesn't work...
 	public void load() {
 		incomingRow.setValue(SoundComponent.INCOMING_MESSAGE.getSound(), TradeUtility.getAudioPercent(SoundComponent.INCOMING_MESSAGE.getVolume()));
 	}

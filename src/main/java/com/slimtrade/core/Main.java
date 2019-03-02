@@ -40,7 +40,7 @@ public class Main {
 	public static Debugger debug = new Debugger();
 	public static ExternalFileManager fileManager = new ExternalFileManager();
 	public static EventManager eventManager = new EventManager();
-	public static SaveManager saveManager = new SaveManager();
+	public static SaveManager saveManager;
 	public static ChatParser chatParser = new ChatParser();
 	public static FileMonitor fileMonitor;
 	public static Logger logger = Logger.getLogger("slim");
@@ -85,17 +85,17 @@ public class Main {
 				// SAVE MANAGER DEFAULTS
 
 				ImagePreloader imagePreloader = new ImagePreloader();
-
+				saveManager = new SaveManager();
 				Main.saveManager.putIntDefault(0, "stashOverlay", "x");
 				Main.saveManager.putIntDefault(100, "stashOverlay", "y");
 				Main.saveManager.putIntDefault(600, "stashOverlay", "width");
 				Main.saveManager.putIntDefault(600, "stashOverlay", "height");
 				
-				saveManager.putStringDefault("I'm busy, want me to message you back in a little bit?", "macros", "in", "preset", "callback", "left");
-				saveManager.putStringDefault("one sec", "macros", "in", "preset", "wait", "left");
-				saveManager.putStringDefault("one minute", "macros", "in", "preset", "wait", "right");
-				saveManager.putStringDefault("thanks", "macros", "in", "preset", "thank", "left");
-				saveManager.putStringDefault("", "macros", "in", "preset", "thank", "right");
+				Main.saveManager.putStringDefault("I'm busy, want me to message you back in a little bit?", "macros", "in", "preset", "callback", "left");
+				Main.saveManager.putStringDefault("one sec", "macros", "in", "preset", "wait", "left");
+				Main.saveManager.putStringDefault("one minute", "macros", "in", "preset", "wait", "right");
+				Main.saveManager.putStringDefault("thanks", "macros", "in", "preset", "thank", "left");
+				Main.saveManager.putStringDefault("", "macros", "in", "preset", "thank", "right");
 				
 				//TODO : Remove
 				// Wait Button
@@ -133,7 +133,7 @@ public class Main {
 					s = Sound.valueOf(saveManager.getStringEnum("options", "audio", "incomingTrade", "type"));
 					vol = TradeUtility.getAudioVolume(saveManager.getInt("options", "audio", "incomingTrade", "volume"));
 					
-				}catch(IllegalArgumentException e){
+				}catch(IllegalArgumentException | NullPointerException e){
 					System.out.println("Invalid sound, deleting...");
 					saveManager.deleteArray("options", "audio", "incomingTrade");
 				}

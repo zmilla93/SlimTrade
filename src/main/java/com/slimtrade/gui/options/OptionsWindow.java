@@ -166,16 +166,18 @@ public class OptionsWindow extends ResizableWindow {
 		
 		cancelButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				basicsPanel.load();
 				incomingPanel.load();
-				audioPanel.load();
+//				audioPanel.load();
 				stashPanel.load();
 			}
 		});
 		
 		saveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				basicsPanel.save();
 				incomingPanel.save();
-				audioPanel.save();
+//				audioPanel.save();
 				stashPanel.save();
 				Main.saveManager.saveToDisk();
 			}

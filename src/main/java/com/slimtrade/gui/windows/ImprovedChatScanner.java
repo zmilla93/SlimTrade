@@ -204,9 +204,7 @@ public class ImprovedChatScanner extends ResizableWindow implements Saveable {
 
 		clearButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nameInput.setText("");
-				termsText.setText("");
-				ignoreText.setText("");
+				clearWindow();
 			}
 		});
 
@@ -225,6 +223,9 @@ public class ImprovedChatScanner extends ResizableWindow implements Saveable {
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				delete();
+				if(nameCombo.getItemCount() == 0){
+					clearWindow();
+				}
 			}
 		});
 
@@ -236,6 +237,12 @@ public class ImprovedChatScanner extends ResizableWindow implements Saveable {
 		this.setPreferredSize(new Dimension(400, 400));
 		this.pack();
 
+	}
+	
+	private void clearWindow(){
+		nameInput.setText("");
+		termsText.setText("");
+		ignoreText.setText("");
 	}
 
 	private void updateCombo(String selected) {

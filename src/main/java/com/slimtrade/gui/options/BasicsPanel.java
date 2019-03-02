@@ -6,18 +6,19 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.enums.DateStyle;
 import main.java.com.slimtrade.enums.TimeStyle;
@@ -26,14 +27,23 @@ import main.java.com.slimtrade.gui.options.advanced.AdvancedPanel;
 import main.java.com.slimtrade.gui.options.audio.AudioPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class BasicsPanel extends ContentPanel {
+public class BasicsPanel extends ContentPanel implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 	private int bufferX = 30;
 	private int bufferY = 5;
 
-	private JSlider historySlider = new JSlider();
+	// private JSlider historySlider = new JSlider();
+	private JCheckBox guildCheckbox = new JCheckBox();
+	private JCheckBox kickCheckbox = new JCheckBox();
+	JComboBox<TimeStyle> timeCombo = new JComboBox<TimeStyle>();
+	JComboBox<DateStyle> dateCombo = new JComboBox<DateStyle>();
+	JComboBox<OrderType> orderCombo = new JComboBox<OrderType>();
+	JSpinner countSpinner;
 
+	AudioPanel audioPanel = new AudioPanel();
+	AdvancedPanel advancedPanel = new AdvancedPanel();
+	
 	BasicsPanel() {
 		// TODO : Cleaup panels
 		// this.setBuffer(0, 0);
@@ -52,6 +62,15 @@ public class BasicsPanel extends ContentPanel {
 
 		// GENERAL
 		JLabel characterLabel = new JLabel("Character");
+
+		ToggleButton generalButton = new ToggleButton("General");
+		ToggleButton historyButton = new ToggleButton("History");
+		ToggleButton audioButton = new ToggleButton("Audio");
+		ToggleButton advancedButton = new ToggleButton("Save Path");
+
+		generalButton.active = true;
+		historyButton.active = true;
+		audioButton.active = true;
 		
 		// GENERAL
 		JLabel stashLabel = new JLabel("Stash Location");
@@ -59,47 +78,46 @@ public class BasicsPanel extends ContentPanel {
 		JLabel guildLabel = new JLabel("Show Guild Name");
 		JLabel kickLabel = new JLabel("Close on Kick");
 
-		//HISTORY
+		// HISTORY
 		JLabel timeLabel = new JLabel("Time Format");
 		JLabel dateLabel = new JLabel("Date Format");
 		JLabel orderLabel = new JLabel("Order");
 		JLabel audioLabel = new JLabel("Audio");
 		JLabel advancedLabel = new JLabel("Advanced");
 
+		
+		
 		// General Buttons
 		JButton stashButton = new JButton("Edit");
 		stashButton.setFocusable(false);
 		JButton overlayButton = new JButton("Edit");
 		overlayButton.setFocusable(false);
-		JCheckBox guildCheckbox = new JCheckBox();
+
 		guildCheckbox.setFocusable(false);
-		JCheckBox kickCheckbox = new JCheckBox();
+
 		kickCheckbox.setFocusable(false);
 		JLabel countlabel = new JLabel("Message Count");
 
 		// History Buttons
-		JComboBox<TimeStyle> timeCombo = new JComboBox<TimeStyle>();
+
 		for (TimeStyle s : TimeStyle.values()) {
 			timeCombo.addItem(s);
 		}
 		timeCombo.setFocusable(false);
 
-		JComboBox<DateStyle> dateCombo = new JComboBox<DateStyle>();
 		dateCombo.setFocusable(false);
 		for (DateStyle s : DateStyle.values()) {
 			dateCombo.addItem(s);
 		}
 
-		JComboBox<OrderType> orderCombo = new JComboBox<OrderType>();
 		for (OrderType t : OrderType.values()) {
 			orderCombo.addItem(t);
 		}
 		// Message Count
-		SpinnerModel model = new SpinnerNumberModel(50, 0, 100, 10);
-		JSpinner spinner = new JSpinner(model);
-		((DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
-		;
-		spinner.setFocusable(false);
+		SpinnerModel spinnerModel = new SpinnerNumberModel(50, 0, 100, 10);
+		countSpinner = new JSpinner(spinnerModel);
+		((DefaultEditor) countSpinner.getEditor()).getTextField().setEditable(false);
+		countSpinner.setFocusable(false);
 
 		// General Label
 		gc.fill = GridBagConstraints.BOTH;
@@ -107,10 +125,10 @@ public class BasicsPanel extends ContentPanel {
 		gc.gridy = 0;
 
 		gc.weightx = 1;
-		
-//		gc.gridwidth = 3;
-//		generalPanel.add(generalLabel, gc);
-//		gc.gridwidth = 1;
+
+		// gc.gridwidth = 3;
+		// generalPanel.add(generalLabel, gc);
+		// gc.gridwidth = 1;
 
 		gc.gridx = 0;
 		gc.gridy++;
@@ -136,12 +154,11 @@ public class BasicsPanel extends ContentPanel {
 		generalPanel.add(kickLabel, gc);
 		gc.gridx = 2;
 		generalPanel.add(kickCheckbox, gc);
-		
-		
-//		gc = new GridBagConstraints();
+
+		// gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-//		gc.fill = GridBagConstraints.BOTH;
+		// gc.fill = GridBagConstraints.BOTH;
 		historyPanel.add(timeLabel, gc);
 		gc.insets.right = 0;
 		gc.gridx = 1;
@@ -165,7 +182,7 @@ public class BasicsPanel extends ContentPanel {
 		historyPanel.add(countlabel, gc);
 		gc.gridx = 2;
 		gc.gridwidth = 1;
-		historyPanel.add(spinner, gc);
+		historyPanel.add(countSpinner, gc);
 		gc.gridwidth = 1;
 		gc.gridx = 0;
 		gc.gridy++;
@@ -184,7 +201,7 @@ public class BasicsPanel extends ContentPanel {
 		// gc.gridwidth=1;
 		gc.gridx = 0;
 		gc.gridy++;
-		AudioPanel audioPanel = new AudioPanel();
+		
 		audioPanel.setVisible(true);
 		audioPanel.autoResize();
 		audioOuter.add(new JLabel("Audio"), gc);
@@ -205,9 +222,10 @@ public class BasicsPanel extends ContentPanel {
 		// gc.gridwidth=1;
 		gc.gridx = 0;
 		gc.gridy++;
-		AdvancedPanel adv = new AdvancedPanel();
-//		adv.setVisible(false);
-		 firstPanel.add(adv, gc);
+		
+		
+		// adv.setVisible(false);
+		firstPanel.add(advancedPanel, gc);
 
 		gc.gridx = 0;
 		gc.gridy++;
@@ -215,23 +233,16 @@ public class BasicsPanel extends ContentPanel {
 		// this.addRow(c, gc);
 		// outerPanel.setLayout(new GridBagLayout());
 		gc = new GridBagConstraints();
-		
+
 		int bufferTop = 10;
 		int bufferBottom = 25;
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.insets.bottom = bufferTop;
 
-		ToggleButton generalButton = new ToggleButton("General");
-		ToggleButton historyButton = new ToggleButton("History");
-		ToggleButton audioButton = new ToggleButton("Audio");
-		ToggleButton advancedButton = new ToggleButton("Save Path");
 
-		generalButton.active = true;
-		historyButton.active = true;
-		audioButton.active = true;
-		this.repaint();
-		
+//		this.repaint();
+
 		gc.insets.top = bufferTop;
 		this.add(generalButton, gc);
 		gc.insets.top = 0;
@@ -255,15 +266,13 @@ public class BasicsPanel extends ContentPanel {
 		this.add(advancedButton, gc);
 		gc.gridy++;
 		gc.insets.bottom = bufferBottom;
-		this.add(adv, gc);
+		this.add(advancedPanel, gc);
 		gc.insets.bottom = 5;
 
 		link(generalButton, generalPanel);
 		link(historyButton, historyPanel);
 		link(audioButton, audioPanel);
-		link(advancedButton, adv);
-
-		
+		link(advancedButton, advancedPanel);
 
 		stashButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -278,8 +287,8 @@ public class BasicsPanel extends ContentPanel {
 				FrameManager.overlayManager.showDialog();
 			}
 		});
-		
 
+		this.load();
 		this.repaint();
 	}
 
@@ -296,6 +305,49 @@ public class BasicsPanel extends ContentPanel {
 				local.setPreferredSize(local.getPreferredSize());
 			}
 		});
+	}
+
+	public void save() {
+		
+		audioPanel.save();
+		advancedPanel.save();
+		
+		Main.saveManager.putBool(guildCheckbox.isSelected(), "general", "showGuild");
+		Main.saveManager.putBool(kickCheckbox.isSelected(), "general", "closeOnKick");
+
+		TimeStyle time = (TimeStyle) timeCombo.getSelectedItem();
+		DateStyle date = (DateStyle) dateCombo.getSelectedItem();
+		OrderType order = (OrderType) orderCombo.getSelectedItem();
+
+		Main.saveManager.putString(time.name(), "history", "timeStyle");
+		Main.saveManager.putString(date.name(), "history", "dateStyle");
+		Main.saveManager.putString(order.name(), "history", "orderType");
+		Main.saveManager.putInt((int) countSpinner.getValue(), "history", "messageCount");
+		
+		
+	}
+
+	public void load() {
+		audioPanel.load();
+		advancedPanel.load();
+		try {
+			guildCheckbox.setSelected(Main.saveManager.getBool("general", "showGuild"));
+			kickCheckbox.setSelected(Main.saveManager.getBool("general", "closeOnKick"));
+
+			TimeStyle time = TimeStyle.valueOf(Main.saveManager.getString("history", "timeStyle"));
+			DateStyle date = DateStyle.valueOf(Main.saveManager.getString("history", "dateStyle"));
+			OrderType order = OrderType.valueOf(Main.saveManager.getString("history", "orderType"));
+
+			timeCombo.setSelectedItem(time);
+			dateCombo.setSelectedItem(date);
+			orderCombo.setSelectedItem(order);
+			countSpinner.setValue(Main.saveManager.getInt("history", "messageCount"));
+			
+			
+		} catch (NullPointerException e) {
+			Main.logger.log(Level.WARNING, "Error loading basics panel information");
+		}
+		
 	}
 
 }

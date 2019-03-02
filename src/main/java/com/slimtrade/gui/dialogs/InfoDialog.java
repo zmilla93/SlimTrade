@@ -29,13 +29,13 @@ public class InfoDialog extends AbstractWindowDialog {
 	private int defaultHeight = 100;
 	private int height = 30;
 	private int bufferHeight = 10;
-	private int textHeight;
+	private int textHeight=10;
 
 	public InfoDialog(String title) {
 		// TODO : Modify Colors
 		super(title);
 		Graphics g = this.getGraphics();
-		textHeight = g.getFontMetrics().getHeight();
+//		textHeight = g.getFontMetrics().getHeight();
 		container.setLayout(new BorderLayout());
 		titlebarPanel.setPreferredSize(new Dimension(defaultWidth, titlebarHeight));
 		infoLabel.setAlignmentX(SwingConstants.CENTER);

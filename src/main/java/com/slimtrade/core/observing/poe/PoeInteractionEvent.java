@@ -3,13 +3,14 @@ package main.java.com.slimtrade.core.observing.poe;
 import main.java.com.slimtrade.core.observing.ButtonType;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 
-public class PoeInteractionEvent {
+public final class PoeInteractionEvent {
 
 	private int mouseButton;
 	private ButtonType buttonType;
 	private TradeOffer trade;
 	private String playerName;
-	private String message;
+	private String clickLeft;
+	private String clickRight;
 
 	public PoeInteractionEvent(int mouseButton, ButtonType buttonType, TradeOffer trade) {
 		super();
@@ -19,53 +20,38 @@ public class PoeInteractionEvent {
 		// this.message = message;
 	}
 
-	public PoeInteractionEvent(int mouseButton, ButtonType buttonType, String playerName, String message) {
+	public PoeInteractionEvent(int mouseButton, ButtonType buttonType, String playerName, String clickLeft, String clickRight) {
 		super();
 		this.mouseButton = mouseButton;
 		this.buttonType = buttonType;
 		// this.trade = trade;
 		this.playerName = playerName;
-		this.message = message;
+		this.clickLeft = clickLeft;
+		this.clickRight = clickRight;
 	}
 
 	public int getMouseButton() {
 		return mouseButton;
 	}
 
-	public void setMouseButton(int mouseButton) {
-		this.mouseButton = mouseButton;
-	}
-
 	public ButtonType getButtonType() {
 		return buttonType;
-	}
-
-	public void setButtonType(ButtonType buttonType) {
-		this.buttonType = buttonType;
 	}
 
 	public TradeOffer getTrade() {
 		return trade;
 	}
 
-	public void setTrade(TradeOffer trade) {
-		this.trade = trade;
-	}
-
 	public String getPlayerName() {
 		return playerName;
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public String getClickLeft() {
+		return clickLeft;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getClickRight() {
+		return clickRight;
 	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
+	
 }

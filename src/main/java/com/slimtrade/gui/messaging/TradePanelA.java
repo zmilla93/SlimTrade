@@ -109,7 +109,6 @@ public class TradePanelA extends AbstractMessagePanel {
 		
 		calculateSizes(size);
 		refreshButtons(this.getMessageType(), makeListeners);
-		System.out.println("BUTTON COUNTS ::: " + buttonCountTop + " : " + buttonCountBottom);
 		resizeFrames();
 
 		namePanel.setLayout(new BorderLayout());
@@ -265,9 +264,15 @@ public class TradePanelA extends AbstractMessagePanel {
 				IconButton button = new IconButton(img.getImage(), rowHeight);
 				if(Main.saveManager.getString("macros", "in", "custom", "button"+i, "row").equals(ButtonRow.TOP.name())){
 					buttonCountTop++;
+					String lmb = Main.saveManager.getString("macros", "in", "custom", "button"+i, "left");
+					String rmb = Main.saveManager.getString("macros", "in", "custom", "button"+i, "right");
+					this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
 					customButtonsTop.add(button);
 				}else if(Main.saveManager.getString("macros", "in", "custom", "button"+i, "row").equals(ButtonRow.BOTTOM.name())){
 					buttonCountBottom++;
+					String lmb = Main.saveManager.getString("macros", "in", "custom", "button"+i, "left");
+					String rmb = Main.saveManager.getString("macros", "in", "custom", "button"+i, "right");
+					this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
 					customButtonsBottom.add(button);
 				}
 				i++;
@@ -282,7 +287,7 @@ public class TradePanelA extends AbstractMessagePanel {
 			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
 
 			if (listeners) {
-				this.registerPoeInteractionButton(tradeButton, ButtonType.WHISPER, trade.playerName, "trade");
+				this.registerPoeInteractionButton(tradeButton, ButtonType.WHISPER, trade.playerName, "trade1", "trade2");
 				this.registerPoeInteractionButton(callbackButton, ButtonType.CALLBACK);
 			}
 

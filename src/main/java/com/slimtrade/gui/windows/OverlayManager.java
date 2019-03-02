@@ -270,6 +270,10 @@ public class OverlayManager {
 
 	private void updateMenubarButton() {
 		String sel = (String) menubarCombo.getSelectedItem();
+		//TODO : Switch to enum, add proper default setting
+		if(sel == null){
+			sel = "Bottom Left";
+		}
 		switch (sel) {
 		case "Top Left":
 			if (menubarDialog.getScreenLock()) {

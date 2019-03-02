@@ -30,7 +30,9 @@ public class FrameManager {
 	public static ChatScannerWindow chatScannerWindow;
 	
 	private static HideableDialog[] menuFrames;
+	private static HideableDialog[] forceFrames;
 	private static HideableDialog[] showHideDialogs;
+	
 
 	public FrameManager() {
 		stashHelperContainer = new StashHelperContainer();
@@ -54,10 +56,16 @@ public class FrameManager {
 		messageManager.updateLocation();
 //		menubar.showDialog();
 		
+		//TODO : Cleanup
 		showHideDialogs = new HideableDialog[]{
 			stashHelperContainer, optionsWindow, historyWindow,
 			menubar, menubarToggle, messageManager,
 			characterWindow, stashTabWindow, chatScannerWindow,
+		};
+		
+		forceFrames = new HideableDialog[]{
+			stashHelperContainer, historyWindow, menubar,
+			menubarToggle, messageManager,
 		};
 		
 		menuFrames = new HideableDialog[]{
@@ -91,7 +99,7 @@ public class FrameManager {
 	}
 
 	public static void forceAllToTop() {
-		for(HideableDialog h : showHideDialogs){
+		for(HideableDialog h : forceFrames){
 			h.setAlwaysOnTop(false);
 			h.setAlwaysOnTop(true);
 		}

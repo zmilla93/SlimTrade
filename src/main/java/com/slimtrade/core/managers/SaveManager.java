@@ -26,8 +26,8 @@ public class SaveManager {
 	private String saveStub = "/settings.json";
 	private String steamStub = ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
 	private String standAloneStub = ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
-	private String[] commonDrives = { "C", "D", "E", "F", "G", "H" };
-	// private String[] commonDrives = {"H"};
+	 private String[] commonDrives = { "C", "D", "E", "F", "G", "H" };
+//	private String[] commonDrives = { "H" };
 	private String user = System.getProperty("user.name");
 
 	private JSONObject saveData;
@@ -40,6 +40,7 @@ public class SaveManager {
 
 	public SaveManager() {
 		// Steam Path
+		System.out.println(System.getenv("LocalAppData"));
 		for (String drive : commonDrives) {
 			File clientFile = new File(drive + steamStub);
 			if (clientFile.exists() && clientFile.isFile()) {
@@ -72,12 +73,12 @@ public class SaveManager {
 				} else {
 
 				}
-				initSaveData();
+				
 			} else {
 				// TODO : Prompt user to set a save directory
 			}
 		}
-
+		initSaveData();
 		if (clientConflict) {
 			System.err.println("Conflict");
 			InfoDialog conflictDialog = new InfoDialog("SlimTrade - Warning");
@@ -105,6 +106,10 @@ public class SaveManager {
 	}
 
 	private void initSaveData() {
+		if(!validSaveDirectory){
+			saveData = new JSONObject();
+			return;
+		}
 		File save = new File(savePathString);
 		if (!save.exists()) {
 			try {
@@ -146,6 +151,9 @@ public class SaveManager {
 	}
 
 	public void saveToDisk() {
+		if(!validSaveDirectory){
+			return;
+		}
 		try {
 			fw = new FileWriter(savePathString);
 			fw.write(saveData.toString());
@@ -216,8 +224,8 @@ public class SaveManager {
 		}
 		hasUnsavedChanges = true;
 	}
-	
-	public String getStringEnum(String... keys){
+
+	public String getStringEnum(String... keys) {
 		return getString(keys).toUpperCase().replaceAll("\\s+", "");
 	}
 
@@ -384,7 +392,7 @@ public class SaveManager {
 		}
 		return value;
 	}
-	
+
 	public void putDouble(double value, String... keys) {
 		class Local {
 		}
@@ -404,7 +412,7 @@ public class SaveManager {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 		} else if (keys.length > 1) {
 			// Get existing arrays, or create new ones
 			activeArr = saveData;
@@ -444,7 +452,7 @@ public class SaveManager {
 		}
 		hasUnsavedChanges = true;
 	}
-	
+
 	public double getDouble(String... keys) {
 		class Local {
 		}
@@ -474,7 +482,7 @@ public class SaveManager {
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-					
+
 				} else {
 					StringBuilder chain = new StringBuilder();
 					for (String s : keys) {
@@ -608,31 +616,33 @@ public class SaveManager {
 		}
 		return value;
 	}
-	
-	public void deleteArray(String... keys){
+
+	public void deleteArray(String... keys) {
 		JSONObject curArr = saveData;
-		for(int i = 0; i<keys.length-1; i++){
-			if(curArr.has(keys[i])){
+		for (int i = 0; i < keys.length - 1; i++) {
+			if (curArr.has(keys[i])) {
 				try {
 					curArr = curArr.getJSONObject(keys[i]);
 				} catch (JSONException e) {
-					if(curArr.has(keys[i])){
+					if (curArr.has(keys[i])) {
 						curArr.remove(keys[i]);
 						return;
 					}
 				}
-			}else{
+			} else {
 				return;
 			}
 		}
-		curArr.remove(keys[keys.length-1]);
+		curArr.remove(keys[keys.length - 1]);
 	}
 
 	public boolean hasEntry(String... keys) {
-//		if(keys.length==0 || !saveData.has(keys[0])){
-//			return false;
-//		}
+		// if(keys.length==0 || !saveData.has(keys[0])){
+		// return false;
+		// }
 		JSONObject curArr = saveData;
+//		System.out.println(saveData);
+//		saveData.has(keys[0]);
 		for (int i = 0; i < keys.length; i++) {
 			if (curArr.has(keys[i])) {
 				try {
@@ -650,25 +660,24 @@ public class SaveManager {
 	}
 
 	public void putStringDefault(String value, String... keys) {
-		
 		if (!hasEntry(keys)) {
 			putString(value, keys);
 		}
 	}
-	
+
 	public void putIntDefault(int value, String... keys) {
 		if (getInt(keys) == Integer.MIN_VALUE) {
 			Main.logger.log(Level.INFO, "ADDING NEW DEFAULT VALUE");
 			putInt(value, keys);
 		}
 	}
-	
+
 	public void putBoolDefault(boolean value, String... keys) {
 		if (!hasEntry(keys)) {
 			putBool(value, keys);
 		}
 	}
-	
+
 	public void putDoubleDefault(double value, String... keys) {
 		if (!hasEntry(keys)) {
 			putDouble(value, keys);

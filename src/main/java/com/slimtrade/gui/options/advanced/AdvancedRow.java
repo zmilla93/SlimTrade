@@ -19,6 +19,7 @@ public class AdvancedRow extends JPanel {
 	private final int LABEL_WIDTH = 100;
 	private final int PATH_WIDTH = 450;
 
+	private boolean changed = false;
 	private JLabel pathLabel;
 	private JButton editButton;
 	private JFileChooser fileChooser;
@@ -56,7 +57,24 @@ public class AdvancedRow extends JPanel {
 		this.add(editButton, gc);
 
 	}
+	
+	public String getText(){
+		return pathLabel.getText();
+	}
+	
+	public void setText(String text){
+		pathLabel.setText(text);
+		changed = true;
+	}
+	
+	public boolean isChanged(){
+		return this.changed;
+	}
 
+	public void setChanged(boolean state){
+		this.changed = state;
+	}
+	
 	public JLabel getPathLabel() {
 		return this.pathLabel;
 	}

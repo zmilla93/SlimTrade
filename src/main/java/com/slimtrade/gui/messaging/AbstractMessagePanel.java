@@ -98,11 +98,11 @@ public class AbstractMessagePanel extends JPanel {
 		});
 	}
 
-	protected void registerPoeInteractionButton(JButton button, ButtonType type, String playerName, String whisper) {
+	protected void registerPoeInteractionButton(JButton button, ButtonType type, String playerName, String clickLeft, String clickRight) {
 		if (type == ButtonType.WHISPER) {
 			button.addMouseListener(new AdvancedMouseAdapter() {
 				public void click(MouseEvent e) {
-					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade.playerName, whisper));
+					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade.playerName, clickLeft, clickRight));
 				}
 			});
 		}
