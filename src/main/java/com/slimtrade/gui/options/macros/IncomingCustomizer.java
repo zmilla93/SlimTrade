@@ -14,13 +14,13 @@ import javax.swing.JTextField;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
+import main.java.com.slimtrade.gui.enums.ButtonRow;
+import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.messaging.TradePanelA;
 import main.java.com.slimtrade.gui.options.ContentPanel;
 import main.java.com.slimtrade.gui.options.RemovablePanel;
 import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.options.ToggleButton;
-import main.java.com.slimtrade.gui.options.macros.datatypes.ButtonRow;
-import main.java.com.slimtrade.gui.options.macros.datatypes.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
@@ -33,8 +33,8 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 	private AbstractWindow parent;
 
 	private JTextField callbackLeft;
-	private JTextField waitLeft;
-	private JTextField waitRight;
+//	private JTextField waitLeft;
+//	private JTextField waitRight;
 	private JTextField thankLeft;
 	private JTextField thankRight;
 
@@ -63,9 +63,9 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		PresetMacroRow callbackInPreset = new PresetMacroRow("Callback", "/resources/icons/phone.png");
 		callbackLeft = callbackInPreset.getRow("Left Mouse", "I'm busy, want me to message you back in a little bit?!", true);
 		callbackInPreset.getRow("Right Mouse", "Save message to trade history");
-		PresetMacroRow waitInPreset = new PresetMacroRow("Wait", "/resources/icons/clock1.png");
-		waitLeft = waitInPreset.getRow("Left Mouse", "One Sec", true);
-		waitRight = waitInPreset.getRow("Right Mouse", "One Min", true);
+//		PresetMacroRow waitInPreset = new PresetMacroRow("Wait", "/resources/icons/clock1.png");
+//		waitLeft = waitInPreset.getRow("Left Mouse", "One Sec", true);
+//		waitRight = waitInPreset.getRow("Right Mouse", "One Min", true);
 		PresetMacroRow refreshInPreset = new PresetMacroRow("Refresh", "/resources/icons/refresh1.png", true);
 		refreshInPreset.getRow("Left Mouse", "Hi, are you still interested in my [item] listed for [amount]?");
 		PresetMacroRow closePreset = new PresetMacroRow("Close", "/resources/icons/close.png");
@@ -89,11 +89,12 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 
 //		gc.insets = new Insets(2, 0, 0, 0);
 		// addRow(incomingLabel, gc);
+		gc.insets.bottom = 2;
 		addRow(exampleTradeIn, gc);
 		addRow(new BufferPanel(0, 10), gc);
 		addRow(presetButton, gc);
 		addRow(callbackInPreset, gc);
-		addRow(waitInPreset, gc);
+//		addRow(waitInPreset, gc);
 		addRow(refreshInPreset, gc);
 		addRow(closePreset, gc);
 		addRow(invitePreset, gc);
@@ -110,7 +111,7 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		// customPanel.addRow(new CustomMacroRow(), gc);
 		addRow(addButton, gc);
 		addRow(customPanel, gc);
-		gc.insets = new Insets(0, 0, 5, 0);
+		gc.insets.bottom = 2;
 		gc.gridx = 0;
 		gc.gridy = 0;
 		customPanel.autoResize();
@@ -206,8 +207,8 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 
 	public void loadPresets() {
 		callbackLeft.setText(Main.saveManager.getString("macros", "in", "preset", "callback", "left"));
-		waitLeft.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "left"));
-		waitRight.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "right"));
+//		waitLeft.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "left"));
+//		waitRight.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "right"));
 		thankLeft.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "left"));
 		thankRight.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "right"));
 	}
@@ -261,8 +262,8 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 
 		// PRESET BUTTONS
 		Main.saveManager.putString(callbackLeft.getText(), "macros", "in", "preset", "callback", "left");
-		Main.saveManager.putString(waitLeft.getText(), "macros", "in", "preset", "wait", "left");
-		Main.saveManager.putString(waitRight.getText(), "macros", "in", "preset", "wait", "right");
+//		Main.saveManager.putString(waitLeft.getText(), "macros", "in", "preset", "wait", "left");
+//		Main.saveManager.putString(waitRight.getText(), "macros", "in", "preset", "wait", "right");
 		Main.saveManager.putString(thankLeft.getText(), "macros", "in", "preset", "thank", "left");
 		Main.saveManager.putString(thankRight.getText(), "macros", "in", "preset", "thank", "right");
 		refreshTrade();

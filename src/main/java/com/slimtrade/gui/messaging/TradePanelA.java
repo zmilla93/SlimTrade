@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 
 import javax.swing.JButton;
@@ -27,8 +28,9 @@ import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.buttons.IconButton;
-import main.java.com.slimtrade.gui.options.macros.datatypes.ButtonRow;
-import main.java.com.slimtrade.gui.options.macros.datatypes.PreloadedImageCustom;
+import main.java.com.slimtrade.gui.enums.ButtonRow;
+import main.java.com.slimtrade.gui.enums.PreloadedImage;
+import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.panels.PricePanel;
 import main.java.com.slimtrade.gui.stash.helper.StashHelper;
 
@@ -36,13 +38,11 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private static final long serialVersionUID = 1L;
 
-//	private JPanel namePanel = new NameClickPanel();
-//	private JPanel pricePanel = new JPanel(gb);
-//	private PaintedPanel itemPanel = new PaintedPanel();
+	// private JPanel namePanel = new NameClickPanel();
+	// private JPanel pricePanel = new JPanel(gb);
+	// private PaintedPanel itemPanel = new PaintedPanel();
 	private JPanel topPanel = new JPanel(gb);
 	private JPanel bottomPanel = new JPanel(gb);
-
-	
 
 	protected JPanel buttonPanelTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	protected JPanel buttonPanelBottom = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -50,30 +50,28 @@ public class TradePanelA extends AbstractMessagePanel {
 	private StashHelper stashHelper;
 
 	private IconButton callbackButton;
-	private IconButton waitButton;
+	// private IconButton waitButton;
 	private IconButton refreshButton;
 	private IconButton inviteButton;
 	private IconButton warpButton;
 	private IconButton tradeButton;
 	private IconButton thankButton;
-	private IconButton leaveButton;
-	private IconButton kickButton;
+
 	private IconButton homeButton;
-	
 	private IconButton replyButton;
 
 	// private StashHelper stashHelper;
-
-	private ArrayList<IconButton> customButtons = new ArrayList<IconButton>();
 	private ArrayList<IconButton> customButtonsTop = new ArrayList<IconButton>();
 	private ArrayList<IconButton> customButtonsBottom = new ArrayList<IconButton>();
 
 	// TODO Listeners?
 	public TradePanelA(TradeOffer trade, Dimension size) {
+		super(trade);
 		buildPanel(trade, size, true);
 	}
 
 	public TradePanelA(TradeOffer trade, Dimension size, boolean makeListeners) {
+		super(trade);
 		buildPanel(trade, size, makeListeners);
 	}
 
@@ -81,21 +79,24 @@ public class TradePanelA extends AbstractMessagePanel {
 		// TODO : move size stuff to super
 		this.trade = trade;
 		this.setMessageType(trade.messageType);
-		
-		nameLabel.setText(trade.playerName);
-		
-		
-		switch(messageType){
+
+		if (trade.guildName != null && Main.saveManager.getBool("general", "showGuild")) {
+			nameLabel.setText(trade.guildName + " " + trade.playerName);
+		} else {
+			nameLabel.setText(trade.playerName);
+		}
+
+		switch (messageType) {
 		case CHAT_SCANNER:
 			itemLabel.setText(trade.searchMessage);
-			//TODO : Search name
+			// TODO : Search name
 			priceLabel.setText("TODO");
 			pricePanel.add(priceLabel);
 			break;
 		case INCOMING_TRADE:
 		case OUTGOING_TRADE:
-			//TODO : This is janky plz fix
-//			itemLabel.setText(trade.itemName);
+			// TODO : This is janky plz fix
+			// itemLabel.setText(trade.itemName);
 			itemLabel = new JLabel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
 			PricePanel p = new PricePanel(trade.priceTypeString, trade.priceCount, true);
 			priceLabel = p.getLabel();
@@ -106,7 +107,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		default:
 			break;
 		}
-		
+
 		calculateSizes(size);
 		refreshButtons(this.getMessageType(), makeListeners);
 		resizeFrames();
@@ -116,16 +117,14 @@ public class TradePanelA extends AbstractMessagePanel {
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nameLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-
 		pricePanel.setLayout(new GridBagLayout());
-		
 
 		timerPanel.setLayout(new BorderLayout());
 		timerPanel.add(timerLabel, BorderLayout.CENTER);
 		timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		itemPanel.setLayout(new GridBagLayout());
-		
+
 		itemPanel.add(itemLabel);
 		itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -164,10 +163,10 @@ public class TradePanelA extends AbstractMessagePanel {
 			itemPanel.setToolTipText(trade.searchMessage);
 			break;
 		case INCOMING_TRADE:
-//			Random rand = new Random();
-//			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
-			color = StashTabColor.ONE.getBackground();
-			colorText = StashTabColor.ONE.getForeground();
+			Random rand = new Random();
+			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
+//			color = StashTabColor.ONE.getBackground();
+			colorText = ColorManager.stashDarkText;
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
 				while (Main.saveManager.hasEntry("stashTabs", "tab" + i)) {
@@ -181,9 +180,10 @@ public class TradePanelA extends AbstractMessagePanel {
 					i++;
 				}
 			}
-			borderPanel.setBackground(color);
-			itemPanel.backgroundDefault = color;
+
+			itemPanel.backgroudDefault = color;
 			itemLabel.setForeground(colorText);
+			itemPanel.refresh();
 			stashHelper = new StashHelper(trade, color, colorText);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.add(stashHelper);
@@ -192,11 +192,16 @@ public class TradePanelA extends AbstractMessagePanel {
 					stashHelper.setVisible(true);
 				}
 			});
+			borderPanel.setBackground(ColorManager.greenIncoming);
 			pricePanel.setBackground(ColorManager.greenIncoming);
 			priceLabel.setForeground(ColorManager.stashLightText);
+//			System.out.println(itemPanel.getForeground());
 			break;
 		case OUTGOING_TRADE:
-			borderPanel.setBackground(StashTabColor.ONE.getBackground());
+			itemPanel.backgroudDefault = Color.GRAY;
+//			System.out.println(itemPanel.getForeground());
+			// borderPanel.setBackground(StashTabColor.ONE.getBackground());
+			borderPanel.setBackground(ColorManager.redOutgoing);
 			pricePanel.setBackground(ColorManager.redOutgoing);
 			priceLabel.setForeground(ColorManager.stashLightText);
 			break;
@@ -205,22 +210,23 @@ public class TradePanelA extends AbstractMessagePanel {
 		default:
 			break;
 		}
-
+		itemPanel.refresh();
+		
 		this.startTimer();
-		this.revalidate();
-		this.repaint();
+		// this.revalidate();
+		// this.repaint();
 
 	}
 
 	// TODO add button count
-	//TODO : Finish this
-//	public void resizeMessage(Dimension size, boolean listeners) {
-//		calculateSizes(size);
-//		resizeFrames(3, 5);
-//		refreshButtons(this.getMessageType(), listeners);
-//		this.revalidate();
-//		this.repaint();
-//	}
+	// TODO : Finish this
+	// public void resizeMessage(Dimension size, boolean listeners) {
+	// calculateSizes(size);
+	// resizeFrames(3, 5);
+	// refreshButtons(this.getMessageType(), listeners);
+	// this.revalidate();
+	// this.repaint();
+	// }
 
 	private void calculateSizes(Dimension size) {
 		if (size.width % 2 != 0) {
@@ -246,52 +252,60 @@ public class TradePanelA extends AbstractMessagePanel {
 			buttonPanelBottom.remove(c);
 			c = null;
 		}
-		
-		
+
 		switch (type) {
 		case CHAT_SCANNER:
-//			respodButton =
+			// respodButton =
 			buttonCountTop = 2;
 			replyButton = new IconButton(ImagePreloader.warp, rowHeight);
 			buttonPanelTop.add(replyButton);
 			break;
 		case INCOMING_TRADE:
-			buttonCountTop = 4;
+			buttonCountTop = 3;
 			buttonCountBottom = 4;
 			int i = 0;
-			while(Main.saveManager.hasEntry("macros", "in", "custom", "button"+i)){
-				PreloadedImageCustom img = PreloadedImageCustom.valueOf(Main.saveManager.getString("macros", "in", "custom", "button"+i, "image"));
+			while (Main.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
+				PreloadedImageCustom img = PreloadedImageCustom.valueOf(Main.saveManager.getString("macros", "in", "custom", "button" + i, "image"));
 				IconButton button = new IconButton(img.getImage(), rowHeight);
-				if(Main.saveManager.getString("macros", "in", "custom", "button"+i, "row").equals(ButtonRow.TOP.name())){
+				if (Main.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals(ButtonRow.TOP.name())) {
 					buttonCountTop++;
-					String lmb = Main.saveManager.getString("macros", "in", "custom", "button"+i, "left");
-					String rmb = Main.saveManager.getString("macros", "in", "custom", "button"+i, "right");
+					String lmb = Main.saveManager.getString("macros", "in", "custom", "button" + i, "left");
+					String rmb = Main.saveManager.getString("macros", "in", "custom", "button" + i, "right");
 					this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
 					customButtonsTop.add(button);
-				}else if(Main.saveManager.getString("macros", "in", "custom", "button"+i, "row").equals(ButtonRow.BOTTOM.name())){
+				} else if (Main.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals(ButtonRow.BOTTOM.name())) {
 					buttonCountBottom++;
-					String lmb = Main.saveManager.getString("macros", "in", "custom", "button"+i, "left");
-					String rmb = Main.saveManager.getString("macros", "in", "custom", "button"+i, "right");
+					String lmb = Main.saveManager.getString("macros", "in", "custom", "button" + i, "left");
+					String rmb = Main.saveManager.getString("macros", "in", "custom", "button" + i, "right");
 					this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
 					customButtonsBottom.add(button);
 				}
 				i++;
 			}
 
-			callbackButton = new IconButton(ImagePreloader.callback, rowHeight);
-			waitButton = new IconButton(ImagePreloader.wait, rowHeight);
+			callbackButton = new IconButton(PreloadedImage.DISK.getImage(), rowHeight);
+			// waitButton = new IconButton(ImagePreloader.wait, rowHeight);
 			refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
 			inviteButton = new IconButton(ImagePreloader.invite, rowHeight);
 			tradeButton = new IconButton(ImagePreloader.trade, rowHeight);
 			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
 			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
-
 			if (listeners) {
-				this.registerPoeInteractionButton(tradeButton, ButtonType.WHISPER, trade.playerName, "trade1", "trade2");
-				this.registerPoeInteractionButton(callbackButton, ButtonType.CALLBACK);
+				this.registerPoeInteractionButton(refreshButton, ButtonType.REFRESH);
+				this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
+				this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
+				this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
+				this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
 			}
 
-//			i = 0;
+			// if (listeners) {
+			// this.registerPoeInteractionButton(tradeButton,
+			// ButtonType.WHISPER, trade.playerName, "trade1", "trade2");
+			// this.registerPoeInteractionButton(callbackButton,
+			// ButtonType.CALLBACK);
+			// }
+
+			// i = 0;
 			for (IconButton b : customButtonsTop) {
 				buttonPanelTop.add(b);
 			}
@@ -299,7 +313,7 @@ public class TradePanelA extends AbstractMessagePanel {
 				buttonPanelBottom.add(b);
 			}
 			buttonPanelTop.add(callbackButton);
-			buttonPanelTop.add(waitButton);
+			// buttonPanelTop.add(waitButton);
 			buttonPanelTop.add(refreshButton);
 
 			buttonPanelBottom.add(inviteButton);
@@ -314,14 +328,14 @@ public class TradePanelA extends AbstractMessagePanel {
 			refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
 			warpButton = new IconButton(ImagePreloader.warp, rowHeight);
 			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
-			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
+			leaveButton = new IconButton(ImagePreloader.leave, rowHeight);
 			homeButton = new IconButton(ImagePreloader.home, rowHeight);
 
 			buttonPanelTop.add(refreshButton);
 
 			buttonPanelBottom.add(warpButton);
 			buttonPanelBottom.add(thankButton);
-			buttonPanelBottom.add(kickButton);
+			buttonPanelBottom.add(leaveButton);
 			buttonPanelBottom.add(homeButton);
 			break;
 		case UNKNOWN:
@@ -333,6 +347,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		// TODO : update force
 		this.setCloseButton(rowHeight);
 		buttonPanelTop.add(closeButton);
+
 	}
 
 	protected void resizeFrames() {
@@ -342,8 +357,8 @@ public class TradePanelA extends AbstractMessagePanel {
 		Dimension s = new Dimension(messageWidth, rowHeight);
 		topPanel.setPreferredSize(s);
 		bottomPanel.setPreferredSize(s);
-//		this.buttonCountTop = buttonsTop;
-//		this.buttonCountBottom = buttonsBottom;
+		// this.buttonCountTop = buttonsTop;
+		// this.buttonCountBottom = buttonsBottom;
 		Dimension buttonSizeTop = new Dimension(rowHeight * buttonCountTop, rowHeight);
 		Dimension buttonSizeBottom = new Dimension(rowHeight * buttonCountBottom, rowHeight);
 		buttonPanelTop.setPreferredSize(buttonSizeTop);
@@ -364,6 +379,14 @@ public class TradePanelA extends AbstractMessagePanel {
 	public JButton getCloseButton() {
 		return this.closeButton;
 	}
+
+	// public JButton getCloseKickButton(){
+	// if(this.messageType == MessageType.INCOMING_TRADE){
+	// return this.kickButton;
+	// }else if(this.messageType == MessageType.OUTGOING_TRADE){
+	// return this.leaveButton;
+	// }else return null;
+	// }
 
 	public TradeOffer getTrade() {
 		return trade;

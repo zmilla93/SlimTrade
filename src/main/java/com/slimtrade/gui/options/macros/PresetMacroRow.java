@@ -111,24 +111,6 @@ public class PresetMacroRow extends JPanel {
 		gc.gridy++;
 		return textLabel;
 	}
-	
-//	public JTextField getRow(String name, String preset, boolean editable){
-//		gc.gridx = 2;
-//		JPanel namePanel = new JPanel();
-//		namePanel.setLayout(new GridBagLayout());
-//		JLabel nameLabel = new JLabel(name);
-//		namePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
-//		namePanel.add(nameLabel);
-//		this.add(namePanel, gc);
-//		gc.gridx = 3;
-//		JTextField textInput = new JTextField(COLUMN_SIZE);
-//		
-//		textInput.setPreferredSize(size);
-//		textInput.setText(preset);
-//		this.add(textInput, gc);
-//		gc.gridy++;
-//		return textInput;
-//	}
 
 	public void addEditLMB(String title, String preset) {
 		gc.gridx = 3;

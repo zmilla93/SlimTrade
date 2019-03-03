@@ -99,10 +99,10 @@ public class Main {
 				
 				//TODO : Remove
 				// Wait Button
-				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "enabled");
-				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "secondaryEnabled");
-				saveManager.putStringDefault("one sec", "macroButtons", "waitButton", "textLMB");
-				saveManager.putStringDefault("one min", "macroButtons", "waitButton", "textRMB");
+//				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "enabled");
+//				saveManager.putBoolDefault(true, "macroButtons", "waitButton", "secondaryEnabled");
+//				saveManager.putStringDefault("one sec", "macroButtons", "waitButton", "textLMB");
+//				saveManager.putStringDefault("one min", "macroButtons", "waitButton", "textRMB");
 
 				// Thank Button
 				saveManager.putBoolDefault(true, "macroButtons", "thankButton", "enabled");

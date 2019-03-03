@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import javax.swing.filechooser.FileSystemView;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,8 +28,9 @@ public class SaveManager {
 	private String saveStub = "/settings.json";
 	private String steamStub = ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
 	private String standAloneStub = ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
-	 private String[] commonDrives = { "C", "D", "E", "F", "G", "H" };
-//	private String[] commonDrives = { "H" };
+//	private String[] commonDrives = File.listRoots();
+	private String[] commonDrives = { "C", "D", "E", "F", "G", "H" };
+	// private String[] commonDrives = { "H" };
 	private String user = System.getProperty("user.name");
 
 	private JSONObject saveData;
@@ -39,8 +42,17 @@ public class SaveManager {
 	private BufferedReader br;
 
 	public SaveManager() {
-		// Steam Path
+		//TEST
+		File[] paths = File.listRoots();
+		FileSystemView fsv = FileSystemView.getFileSystemView();
+//		paths = File.listRoots();
+		for(File p : paths){
+			System.out.println(p);
+			System.out.println(fsv.getSystemTypeDescription(p));
+		}
 		System.out.println(System.getenv("LocalAppData"));
+		
+		// Steam Path
 		for (String drive : commonDrives) {
 			File clientFile = new File(drive + steamStub);
 			if (clientFile.exists() && clientFile.isFile()) {
@@ -73,7 +85,7 @@ public class SaveManager {
 				} else {
 
 				}
-				
+
 			} else {
 				// TODO : Prompt user to set a save directory
 			}
@@ -106,7 +118,7 @@ public class SaveManager {
 	}
 
 	private void initSaveData() {
-		if(!validSaveDirectory){
+		if (!validSaveDirectory) {
 			saveData = new JSONObject();
 			return;
 		}
@@ -151,7 +163,7 @@ public class SaveManager {
 	}
 
 	public void saveToDisk() {
-		if(!validSaveDirectory){
+		if (!validSaveDirectory) {
 			return;
 		}
 		try {
@@ -641,8 +653,8 @@ public class SaveManager {
 		// return false;
 		// }
 		JSONObject curArr = saveData;
-//		System.out.println(saveData);
-//		saveData.has(keys[0]);
+		// System.out.println(saveData);
+		// saveData.has(keys[0]);
 		for (int i = 0; i < keys.length; i++) {
 			if (curArr.has(keys[i])) {
 				try {

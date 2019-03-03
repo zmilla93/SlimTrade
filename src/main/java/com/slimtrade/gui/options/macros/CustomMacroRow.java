@@ -13,9 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.enums.ButtonRow;
+import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.options.RemovablePanel;
-import main.java.com.slimtrade.gui.options.macros.datatypes.ButtonRow;
-import main.java.com.slimtrade.gui.options.macros.datatypes.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class CustomMacroRow extends RemovablePanel {

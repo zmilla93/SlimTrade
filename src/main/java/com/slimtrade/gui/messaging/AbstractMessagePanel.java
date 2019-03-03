@@ -45,15 +45,19 @@ public class AbstractMessagePanel extends JPanel {
 	protected GridBagConstraints gc = new GridBagConstraints();
 
 	// Panels
-	protected JPanel namePanel = new NameClickPanel();
+	protected JPanel namePanel;
 	protected JPanel pricePanel = new JPanel(gb);
-	protected PaintedPanel itemPanel = new PaintedPanel();
+	protected ItemClickPanel itemPanel = new ItemClickPanel();
 	
 	protected JPanel borderPanel = new JPanel();
 	protected JPanel container = new JPanel();
 	protected JPanel timerPanel = new JPanel();
 	protected JLabel timerLabel = new JLabel("0s");
 	protected IconButton closeButton;
+	
+	//Buttons
+	protected IconButton kickButton;
+	protected IconButton leaveButton;
 	
 	//Labels
 	protected JLabel nameLabel = new JLabel();
@@ -71,12 +75,14 @@ public class AbstractMessagePanel extends JPanel {
 	// TODO minute timer
 	private Timer secondTimer=new Timer(1000,new ActionListener(){public void actionPerformed(ActionEvent arg0){second++;timerLabel.setText(second+"s");}});
 
-	public AbstractMessagePanel() {
+	public AbstractMessagePanel(TradeOffer trade) {
+		this.trade = trade;
 		this.setLayout(gb);
 		borderPanel.setLayout(gb);
 		container.setLayout(gb);
 		gc.gridx = 0;
 		gc.gridy = 0;
+		namePanel = new NameClickPanel();
 	}
 
 	public void resizeMessage(int i) {
@@ -96,6 +102,16 @@ public class AbstractMessagePanel extends JPanel {
 				}
 			}
 		});
+	}
+	
+	public JButton getKickLeaveButton(){
+		if(this.getMessageType() == MessageType.INCOMING_TRADE){
+			return this.kickButton;
+		}else if(this.getMessageType() == MessageType.OUTGOING_TRADE){
+			return this.leaveButton;
+		}else{
+			return null;
+		}
 	}
 
 	protected void registerPoeInteractionButton(JButton button, ButtonType type, String playerName, String clickLeft, String clickRight) {

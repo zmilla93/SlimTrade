@@ -1,14 +1,12 @@
-package main.java.com.slimtrade.gui.options.macros.datatypes;
+package main.java.com.slimtrade.gui.enums;
 
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public enum PreloadedImageCustom {
+public enum PreloadedImage {
 
-	REFRESH("/resources/icons/refresh3.png"),
-	CLOCK("/resources/icons/clock1.png"),
-	HAPPY("/resources/icons/happy.png"),
+	DISK("/resources/icons/disk.png"),
 	
 	;
 	
@@ -16,7 +14,7 @@ public enum PreloadedImageCustom {
 	private final double IMAGE_SCALE = 0.94;
 	private final int imageSize = (int)(20*IMAGE_SCALE);
 	
-	PreloadedImageCustom(String path){
+	PreloadedImage(String path){
 		this.image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
 	}
 	

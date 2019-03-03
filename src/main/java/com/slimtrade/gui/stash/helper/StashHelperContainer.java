@@ -25,7 +25,6 @@ public class StashHelperContainer extends BasicDialog{
 //		this.getContentPane().setBackground(Color.magenta);
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
-		this.setVisible(true);
 //		updateBounds();
 		
 	}

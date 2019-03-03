@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.options.macros.datatypes;
+package main.java.com.slimtrade.gui.enums;
 
 public enum ButtonRow {
 

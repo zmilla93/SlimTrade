@@ -48,8 +48,11 @@ public class FrameManager {
 		//TODO : temp
 		stashHelperContainer.updateBounds();
 		stashOverlayWindow = new StashOverlayWindow();
+		//TODO : ????
 		stashOverlayWindow.load();
 	
+		
+		stashHelperContainer.setShow(true);
 		menubar.updateLocation();
 		menubarToggle.updateLocation();
 		menubar.reorder();
@@ -72,6 +75,7 @@ public class FrameManager {
 			optionsWindow, historyWindow, chatScannerWindow, stashTabWindow, characterWindow
 		};
 		
+		messageManager.setShow(true);
 		optionsWindow.setShow(true);
 		menubar.setShow(true);
 	}

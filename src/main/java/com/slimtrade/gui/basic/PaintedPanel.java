@@ -63,6 +63,7 @@ public class PaintedPanel extends JPanel {
 	
 
 	protected void paintComponent(Graphics g) {
+//		System.out.println(textDefault);
 		super.paintComponent(g);
 		if(mouseDown){
 			g.setColor(backgroundClick);

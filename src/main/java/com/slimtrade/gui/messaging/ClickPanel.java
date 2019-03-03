@@ -27,12 +27,8 @@ public class ClickPanel extends JPanel {
 	
 	//TODO : Add label?
 	public ClickPanel() {
-//		this.setLayout(new GridBagLayout());
-//		GridBagConstraints gc = new GridBagConstraints();
-//		this.add(label, gc);
 		JPanel p = this;
 		this.addMouseListener(new MouseAdapter() {
-			
 			public void mouseEntered(MouseEvent e) {
 				p.setBackground(backgroundHover);
 				p.setForeground(textHover);
@@ -49,5 +45,11 @@ public class ClickPanel extends JPanel {
 	
 	public void setText(String text){
 		label.setText(text);
+	}
+	
+	public void refresh(){
+		this.setBackground(backgroudDefault);
+		this.setForeground(textDefault);
+		this.setBorder(borderDefault);
 	}
 }

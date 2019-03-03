@@ -3,6 +3,8 @@ package main.java.com.slimtrade.gui.messaging;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -35,8 +37,8 @@ public class MessageManager extends BasicDialog {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setBounds(1220, 0, 500, 400);
 		this.setBackground(ColorManager.CLEAR);
-		this.setVisible(true);
-		this.visible = true;
+//		this.setVisible(true);
+//		this.visible = true;
 	}
 
 	// TODO : Clean up stash helper removal
@@ -61,6 +63,14 @@ public class MessageManager extends BasicDialog {
 
 			}
 		});
+		boolean close = Main.saveManager.getBool("general", "closeOnKick");
+		if(close && messages[i].getKickLeaveButton() != null){
+			messages[i].getKickLeaveButton().addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					removeMessage(closeIndex);
+				}
+			});
+		}
 		this.add(messages[i]);
 		this.add(rigidAreas[i]);
 		messageCount++;
