@@ -2,8 +2,8 @@ package main.java.com.slimtrade.enums;
 
 public enum TimeStyle {
 
-	H12("12 Hour", ""),
-	H24("24 Hour", ""),
+	H12("12 Hour", "h:mm a"),
+	H24("24 Hour", "HH:mm"),
 	;
 	
 	private final String name;
@@ -11,7 +11,7 @@ public enum TimeStyle {
 	
 	TimeStyle(String name, String format){
 		this.name = name;
-		this.format = name;
+		this.format = format;
 	}
 
 	public String toString() {

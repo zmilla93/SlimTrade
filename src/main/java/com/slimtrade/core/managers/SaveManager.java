@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -237,8 +238,24 @@ public class SaveManager {
 		hasUnsavedChanges = true;
 	}
 
-	public String getStringEnum(String... keys) {
-		return getString(keys).toUpperCase().replaceAll("\\s+", "");
+//	public String getStringEnum(String... keys) {
+//		return getString(keys).toUpperCase().replaceAll("\\s+", "");
+//	}
+	
+	public String getEnumValue(Class<?> c, boolean allowDefault, String... keys){
+		System.out.println("ENUM VALUES ::: " + c.getSimpleName());
+		for(Field s : c.getFields()){
+			System.out.println(s.toString().replaceAll(".+enums\\..+\\.", ""));
+		}
+		String s = this.getString(keys);
+		System.out.println("VALUE ::: " + s);
+		
+		for(Object o : c.getFields()){
+			if(s.equals(o.toString().replaceAll(".+enums\\..+\\.", ""))){
+				return s;
+			}
+		}
+		return null;
 	}
 
 	public String getString(String... keys) {
@@ -696,13 +713,13 @@ public class SaveManager {
 		}
 	}
 
-	public void snapshot() {
-		this.saveDataSnapshot = saveData;
-	}
-
-	public void reloadSnapshot() {
-		this.saveData = saveDataSnapshot;
-	}
+//	public void snapshot() {
+//		this.saveDataSnapshot = saveData;
+//	}
+//
+//	public void reloadSnapshot() {
+//		this.saveData = saveDataSnapshot;
+//	}
 
 	public boolean hasUnsavedChanges() {
 		return hasUnsavedChanges;

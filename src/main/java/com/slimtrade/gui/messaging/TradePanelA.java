@@ -49,7 +49,7 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private StashHelper stashHelper;
 
-	private IconButton callbackButton;
+	private IconButton saveToHistoryButton;
 	// private IconButton waitButton;
 	private IconButton refreshButton;
 	private IconButton inviteButton;
@@ -283,7 +283,7 @@ public class TradePanelA extends AbstractMessagePanel {
 				i++;
 			}
 
-			callbackButton = new IconButton(PreloadedImage.DISK.getImage(), rowHeight);
+			saveToHistoryButton = new IconButton(PreloadedImage.DISK.getImage(), rowHeight);
 			// waitButton = new IconButton(ImagePreloader.wait, rowHeight);
 			refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
 			inviteButton = new IconButton(ImagePreloader.invite, rowHeight);
@@ -298,22 +298,13 @@ public class TradePanelA extends AbstractMessagePanel {
 				this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
 			}
 
-			// if (listeners) {
-			// this.registerPoeInteractionButton(tradeButton,
-			// ButtonType.WHISPER, trade.playerName, "trade1", "trade2");
-			// this.registerPoeInteractionButton(callbackButton,
-			// ButtonType.CALLBACK);
-			// }
-
-			// i = 0;
 			for (IconButton b : customButtonsTop) {
 				buttonPanelTop.add(b);
 			}
 			for (IconButton b : customButtonsBottom) {
 				buttonPanelBottom.add(b);
 			}
-			buttonPanelTop.add(callbackButton);
-			// buttonPanelTop.add(waitButton);
+			buttonPanelTop.add(saveToHistoryButton);
 			buttonPanelTop.add(refreshButton);
 
 			buttonPanelBottom.add(inviteButton);
@@ -332,11 +323,17 @@ public class TradePanelA extends AbstractMessagePanel {
 			homeButton = new IconButton(ImagePreloader.home, rowHeight);
 
 			buttonPanelTop.add(refreshButton);
-
 			buttonPanelBottom.add(warpButton);
 			buttonPanelBottom.add(thankButton);
 			buttonPanelBottom.add(leaveButton);
 			buttonPanelBottom.add(homeButton);
+			if (listeners) {
+				this.registerPoeInteractionButton(refreshButton, ButtonType.REFRESH);
+				this.registerPoeInteractionButton(warpButton, ButtonType.WARP);
+				this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
+				this.registerPoeInteractionButton(leaveButton, ButtonType.LEAVE);
+				this.registerPoeInteractionButton(homeButton, ButtonType.HIDEOUT);
+			}
 			break;
 		case UNKNOWN:
 			break;

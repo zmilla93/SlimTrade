@@ -22,7 +22,7 @@ public class MenubarDialog extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	private static int buttonCount = 8;
+	private static int buttonCount = 6;
 	private static int spacerCount = 2;
 	private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.8);
 
@@ -30,9 +30,9 @@ public class MenubarDialog extends BasicDialog {
 	public static final int HEIGHT = (MenubarButton.HEIGHT * buttonCount) + (spacerHeight * spacerCount);
 	
 	private MenubarButton historyButton;
-	private MenubarButton stashTabButton;
+//	private MenubarButton stashTabButton;
 	private MenubarButton chatScannerButton;
-	private MenubarButton characterButton;
+//	private MenubarButton characterButton;
 	private MenubarButton testButton;
 	private MenubarButton optionsButton;
 	private MenubarButton quitButton;
@@ -55,9 +55,9 @@ public class MenubarDialog extends BasicDialog {
 		
 		//TODO : Update Locale
 		historyButton = new MenubarButton("");
-		stashTabButton = new MenubarButton("");
+//		stashTabButton = new MenubarButton("");
 		chatScannerButton = new MenubarButton("Chat Scanner");
-		characterButton = new MenubarButton("");
+//		characterButton = new MenubarButton("");
 		testButton = new MenubarButton("");
 		optionsButton = new MenubarButton("");
 		quitButton = new MenubarButton("");
@@ -66,9 +66,9 @@ public class MenubarDialog extends BasicDialog {
 		testButton.setToolTipText("This is a test.");
 		
 		container.add(historyButton);
-		container.add(stashTabButton);
+//		container.add(stashTabButton);
 		container.add(chatScannerButton);
-		container.add(characterButton);
+//		container.add(characterButton);
 		container.add(testButton);
 		container.add(optionsButton);
 		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
@@ -90,13 +90,13 @@ public class MenubarDialog extends BasicDialog {
 		});
 		
 		// STASH
-		stashTabButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent evt) {
-				boolean vis = !FrameManager.stashTabWindow.visible;
-				FrameManager.hideMenuFrames();
-				FrameManager.stashTabWindow.setShow(vis);
-			}
-		});
+//		stashTabButton.addMouseListener(new AdvancedMouseAdapter() {
+//			public void click(MouseEvent evt) {
+//				boolean vis = !FrameManager.stashTabWindow.visible;
+//				FrameManager.hideMenuFrames();
+//				FrameManager.stashTabWindow.setShow(vis);
+//			}
+//		});
 		
 		// Chat Scanner
 		chatScannerButton.addMouseListener(new AdvancedMouseAdapter() {
@@ -108,13 +108,13 @@ public class MenubarDialog extends BasicDialog {
 		});
 		
 		// CHARACTER
-		characterButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent evt) {
-				boolean vis = !FrameManager.characterWindow.visible;
-				FrameManager.hideMenuFrames();
-				FrameManager.characterWindow.setShow(vis);
-			}
-		});
+//		characterButton.addMouseListener(new AdvancedMouseAdapter() {
+//			public void click(MouseEvent evt) {
+//				boolean vis = !FrameManager.characterWindow.visible;
+//				FrameManager.hideMenuFrames();
+//				FrameManager.characterWindow.setShow(vis);
+//			}
+//		});
 
 		// TEST
 		testButton.addMouseListener(new AdvancedMouseAdapter() {
@@ -124,6 +124,7 @@ public class MenubarDialog extends BasicDialog {
 				TradeOffer t2 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 				FrameManager.messageManager.addMessage(t);
 				FrameManager.messageManager.addMessage(t2);
+				FrameManager.historyWindow.setOrder(false);
 			}
 		});
 		
@@ -156,8 +157,8 @@ public class MenubarDialog extends BasicDialog {
 		ResourceBundle lang = ResourceBundle.getBundle("lang");
 		optionsButton.setText(lang.getString("optionsButton"));
 		historyButton.setText(lang.getString("historyButton"));
-		stashTabButton.setText(lang.getString("stashButton"));
-		characterButton.setText(lang.getString("characterButton"));
+//		stashTabButton.setText(lang.getString("stashButton"));
+//		characterButton.setText(lang.getString("characterButton"));
 		testButton.setText(lang.getString("testButton"));
 //		clearButton.setText(lang.getString("clearDebugButton"));
 //		refreshButton.setText(lang.getString("refreshButton"));

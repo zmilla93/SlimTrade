@@ -15,11 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DefaultEditor;
+import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.enums.DateStyle;
 import main.java.com.slimtrade.enums.TimeStyle;
 import main.java.com.slimtrade.gui.FrameManager;
@@ -32,8 +34,8 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 	private static final long serialVersionUID = 1L;
 	private int bufferX = 30;
 	private int bufferY = 5;
-
-	// private JSlider historySlider = new JSlider();
+	
+	JTextField characterInput = new JTextField();
 	private JCheckBox guildCheckbox = new JCheckBox();
 	private JCheckBox kickCheckbox = new JCheckBox();
 	JComboBox<TimeStyle> timeCombo = new JComboBox<TimeStyle>();
@@ -62,6 +64,7 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 
 		// GENERAL
 		JLabel characterLabel = new JLabel("Character");
+		
 
 		ToggleButton generalButton = new ToggleButton("General");
 		ToggleButton historyButton = new ToggleButton("History");
@@ -123,15 +126,18 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		gc.fill = GridBagConstraints.BOTH;
 		gc.gridx = 0;
 		gc.gridy = 0;
-
 		gc.weightx = 1;
 
-		// gc.gridwidth = 3;
-		// generalPanel.add(generalLabel, gc);
-		// gc.gridwidth = 1;
-
+		generalPanel.add(characterLabel, gc);
+		gc.gridx=1;
+		gc.gridwidth = 2;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		generalPanel.add(characterInput, gc);
+		gc.fill = GridBagConstraints.BOTH;
+		gc.gridwidth = 1;
 		gc.gridx = 0;
 		gc.gridy++;
+		
 		generalPanel.add(stashLabel, gc);
 		gc.gridx = 1;
 		generalPanel.add(new BufferPanel(50, 0), gc);
@@ -311,7 +317,12 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		
 		audioPanel.save();
 		advancedPanel.save();
-		
+		String characterName = characterInput.getText().replaceAll("\\s", "");
+		if(characterName.equals("")){
+			characterName = null;
+		}
+		EventManager.setCharacterName(characterName);
+		Main.saveManager.putString(characterName, "general", "character");
 		Main.saveManager.putBool(guildCheckbox.isSelected(), "general", "showGuild");
 		Main.saveManager.putBool(kickCheckbox.isSelected(), "general", "closeOnKick");
 
@@ -319,6 +330,9 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		DateStyle date = (DateStyle) dateCombo.getSelectedItem();
 		OrderType order = (OrderType) orderCombo.getSelectedItem();
 
+		FrameManager.historyWindow.setTimeStyle(time);
+		FrameManager.historyWindow.setDateStyle(date);
+		
 		Main.saveManager.putString(time.name(), "history", "timeStyle");
 		Main.saveManager.putString(date.name(), "history", "dateStyle");
 		Main.saveManager.putString(order.name(), "history", "orderType");
@@ -331,6 +345,13 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		audioPanel.load();
 		advancedPanel.load();
 		try {
+			String characterName = Main.saveManager.getString("general", "character");
+			if(characterName.equals("")){
+				characterName = null;
+			}
+			EventManager.setCharacterName(characterName);
+			System.out.println("CHAR NAME : " + characterName);
+			characterInput.setText(characterName);
 			guildCheckbox.setSelected(Main.saveManager.getBool("general", "showGuild"));
 			kickCheckbox.setSelected(Main.saveManager.getBool("general", "closeOnKick"));
 

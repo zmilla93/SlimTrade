@@ -19,7 +19,7 @@ import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 
-public class CharacterWindow extends AbstractWindowDialog{
+public class REMOVE_CharacterWindow extends AbstractWindowDialog{
 
 	private static final long serialVersionUID = 1L;
 	private static int width = 400;
@@ -33,7 +33,7 @@ public class CharacterWindow extends AbstractWindowDialog{
 	private JComboBox<String> leagueSelect = new JComboBox<String>(league);
 	JButton saveButton = new JButton("Save");
 	
-	public CharacterWindow(){
+	public REMOVE_CharacterWindow(){
 		super("Character");
 		this.setFocusableWindowState(true);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));

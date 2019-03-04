@@ -3,9 +3,7 @@ package main.java.com.slimtrade.gui.history;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -14,20 +12,19 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.debug.Debugger;
+import main.java.com.slimtrade.enums.DateStyle;
+import main.java.com.slimtrade.enums.TimeStyle;
 
 public class HistoryPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	// private TradeOffer savedTrade;
 
-	private ArrayList<TradeOffer> incomingTradeData = new ArrayList<TradeOffer>();
-	private ArrayList<HistoryRow> incomingTradePanels = new ArrayList<HistoryRow>();
-	private ArrayList<TradeOffer> outgoingTradeData = new ArrayList<TradeOffer>();
-	private ArrayList<HistoryRow> outgoingTradePanels = new ArrayList<HistoryRow>();
+	private ArrayList<TradeOffer> trades = new ArrayList<TradeOffer>();
+	private ArrayList<HistoryRow> tradePanels = new ArrayList<HistoryRow>();
 
 	private int maxTrades = 100;
 	private JPanel contentPanel;
-//	private JScrollPane contentScroll;
 	
 	HistoryPanel() {
 		this.setLayout(new BorderLayout());
@@ -43,30 +40,30 @@ public class HistoryPanel extends JPanel {
 	public void addTrade(TradeOffer trade, boolean updateUI) {
 		int i = 0;
 		// Delete old duplicate
-		for (TradeOffer savedTrade : incomingTradeData) {
+		for (TradeOffer savedTrade : trades) {
 			if (TradeUtility.isDuplicateTrade(trade, savedTrade)) {
-				incomingTradeData.remove(i);
+				trades.remove(i);
 				if (updateUI) {
-					contentPanel.remove(incomingTradePanels.get(i));
-					incomingTradePanels.remove(i);
+					contentPanel.remove(tradePanels.get(i));
+					tradePanels.remove(i);
 				}
 				break;
 			}
 			i++;
 		}
 		// Delete oldest trade if at max trades
-		if (incomingTradeData.size() == maxTrades) {
-			incomingTradeData.remove(0);
+		if (trades.size() == maxTrades) {
+			trades.remove(0);
 			if (updateUI) {
-				contentPanel.remove(incomingTradePanels.get(0));
-				incomingTradePanels.remove(0);
+				contentPanel.remove(tradePanels.get(0));
+				tradePanels.remove(0);
 			}
 		}
 		// Add new trade
-		incomingTradeData.add(trade);
+		trades.add(trade);
 		if (updateUI) {
-			incomingTradePanels.add(new HistoryRow(trade));
-			contentPanel.add(incomingTradePanels.get(incomingTradePanels.size() - 1), 0);
+			tradePanels.add(new HistoryRow(trade));
+			contentPanel.add(tradePanels.get(tradePanels.size() - 1), 0);
 			this.revalidate();
 			this.repaint();
 		}
@@ -74,14 +71,44 @@ public class HistoryPanel extends JPanel {
 
 	public void initUI() {
 		Debugger.benchmarkStart();
-		for (TradeOffer trade : incomingTradeData) {
+		for (TradeOffer trade : trades) {
 			HistoryRow row = new HistoryRow(trade);
 			contentPanel.add(row);
-			incomingTradePanels.add(row);
+			tradePanels.add(row);
 		}
 		Main.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
 		this.revalidate();
 		this.repaint();
+	}
+	
+	public void setOrder(boolean order){
+		if(order){
+			for(HistoryRow row : tradePanels){
+				contentPanel.add(row);
+			}
+		}else{
+			for(HistoryRow row : tradePanels){
+				contentPanel.add(row, 0);
+			}
+		}
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void updateDate(){
+		for(HistoryRow row : tradePanels){
+			row.updateDate();
+		}
+	}
+	
+	public void updateTime(){
+		for(HistoryRow row : tradePanels){
+			row.updateTime();
+		}
+	}
+	
+	public void setTimeStyle(TimeStyle style){
+		
 	}
 
 }

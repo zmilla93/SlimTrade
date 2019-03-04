@@ -9,10 +9,10 @@ import main.java.com.slimtrade.gui.menubar.MenubarExpandButton;
 import main.java.com.slimtrade.gui.messaging.MessageManager;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
 import main.java.com.slimtrade.gui.stash.StashOverlayWindow;
-import main.java.com.slimtrade.gui.stash.StashTabWindow;
+import main.java.com.slimtrade.gui.stash.REMOVE_StashTabWindow;
 import main.java.com.slimtrade.gui.stash.helper.StashHelperContainer;
-import main.java.com.slimtrade.gui.windows.CharacterWindow;
-import main.java.com.slimtrade.gui.windows.ChatScannerWindow;
+import main.java.com.slimtrade.gui.windows.REMOVE_CharacterWindow;
+import main.java.com.slimtrade.gui.windows.REMOVE_ChatScannerWindow;
 import main.java.com.slimtrade.gui.windows.OverlayManager;
 
 public class FrameManager {
@@ -24,10 +24,10 @@ public class FrameManager {
 	public static MessageManager messageManager;
 	public static StashHelperContainer stashHelperContainer;
 	public static StashOverlayWindow stashOverlayWindow;
-	public static CharacterWindow characterWindow;
+//	public static REMOVE_CharacterWindow characterWindow;
 	public static OverlayManager overlayManager;
-	public static StashTabWindow stashTabWindow;
-	public static ChatScannerWindow chatScannerWindow;
+//	public static REMOVE_StashTabWindow stashTabWindow;
+	public static REMOVE_ChatScannerWindow chatScannerWindow;
 	
 	private static HideableDialog[] menuFrames;
 	private static HideableDialog[] forceFrames;
@@ -41,10 +41,8 @@ public class FrameManager {
 		menubar = new MenubarDialog();
 		menubarToggle = new MenubarExpandButton();
 		messageManager = new MessageManager();
-		characterWindow = new CharacterWindow();
 		overlayManager = new OverlayManager();
-		stashTabWindow = new StashTabWindow();
-		chatScannerWindow = new ChatScannerWindow();
+		chatScannerWindow = new REMOVE_ChatScannerWindow();
 		//TODO : temp
 		stashHelperContainer.updateBounds();
 		stashOverlayWindow = new StashOverlayWindow();
@@ -62,8 +60,7 @@ public class FrameManager {
 		//TODO : Cleanup
 		showHideDialogs = new HideableDialog[]{
 			stashHelperContainer, optionsWindow, historyWindow,
-			menubar, menubarToggle, messageManager,
-			characterWindow, stashTabWindow, chatScannerWindow,
+			menubar, menubarToggle, messageManager, chatScannerWindow,
 		};
 		
 		forceFrames = new HideableDialog[]{
@@ -72,7 +69,7 @@ public class FrameManager {
 		};
 		
 		menuFrames = new HideableDialog[]{
-			optionsWindow, historyWindow, chatScannerWindow, stashTabWindow, characterWindow
+			optionsWindow, historyWindow, chatScannerWindow
 		};
 		
 		messageManager.setShow(true);

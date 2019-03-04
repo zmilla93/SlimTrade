@@ -25,7 +25,7 @@ import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class ChatScannerWindow extends AbstractWindowDialog {
+public class REMOVE_ChatScannerWindow extends AbstractWindowDialog {
 
 	private static final long serialVersionUID = 1L;
 	private String savedText = "";
@@ -44,7 +44,7 @@ public class ChatScannerWindow extends AbstractWindowDialog {
 	private int rowBuffer = 10;
 	private boolean running = false;
 	
-	public ChatScannerWindow(){
+	public REMOVE_ChatScannerWindow(){
 		super("Chat Scanner");
 		this.setFocusableWindowState(true);
 		

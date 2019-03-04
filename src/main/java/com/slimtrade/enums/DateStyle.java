@@ -2,10 +2,10 @@ package main.java.com.slimtrade.enums;
 
 public enum DateStyle {
 
-	DDMM("Day/Month", ""),
-	DDMMYY("Day/Month/Year", ""),
-	MMDD("Month/Day", ""),
-	MMDDYY("Month/Day/Year", ""),
+	DDMM("Day/Month", "dd/MM"),
+	DDMMYY("Day/Month/Year", "dd/MM/YY"),
+	MMDD("Month/Day", "MM/dd"),
+	MMDDYY("Month/Day/Year", "MM/dd/YY"),
 	;
 	
 	private final String name;

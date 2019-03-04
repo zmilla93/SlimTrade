@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
 
-public class StashTabWindow extends AbstractWindowDialog {
+public class REMOVE_StashTabWindow extends AbstractWindowDialog {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +23,7 @@ public class StashTabWindow extends AbstractWindowDialog {
 	GridBagConstraints gcRow;
 	int rowBuffer = 5;
 	
-	public StashTabWindow(){
+	public REMOVE_StashTabWindow(){
 		super("Stash Tab Manager");
 		this.setFocusableWindowState(true);
 //		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));

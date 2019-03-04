@@ -32,7 +32,7 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 
 	private AbstractWindow parent;
 
-	private JTextField callbackLeft;
+//	private JTextField callbackLeft;
 //	private JTextField waitLeft;
 //	private JTextField waitRight;
 	private JTextField thankLeft;
@@ -60,8 +60,8 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		refreshTrade();
 		
 		// INCOMING PRESETS
-		PresetMacroRow callbackInPreset = new PresetMacroRow("Callback", "/resources/icons/phone.png");
-		callbackLeft = callbackInPreset.getRow("Left Mouse", "I'm busy, want me to message you back in a little bit?!", true);
+		PresetMacroRow callbackInPreset = new PresetMacroRow("Save", "/resources/icons/phone.png");
+//		callbackLeft = callbackInPreset.getRow("Left Mouse", "I'm busy, want me to message you back in a little bit?!", true);
 		callbackInPreset.getRow("Right Mouse", "Save message to trade history");
 //		PresetMacroRow waitInPreset = new PresetMacroRow("Wait", "/resources/icons/clock1.png");
 //		waitLeft = waitInPreset.getRow("Left Mouse", "One Sec", true);
@@ -206,7 +206,7 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 	// }
 
 	public void loadPresets() {
-		callbackLeft.setText(Main.saveManager.getString("macros", "in", "preset", "callback", "left"));
+//		callbackLeft.setText(Main.saveManager.getString("macros", "in", "preset", "callback", "left"));
 //		waitLeft.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "left"));
 //		waitRight.setText(Main.saveManager.getString("macros", "in", "preset", "wait", "right"));
 		thankLeft.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "left"));
@@ -232,10 +232,6 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		}
 	}
 	
-	private void addCustom() {
-
-	}
-
 	public void save() {
 		// CUSTOM BUTTONS
 		Main.saveManager.deleteArray("macros", "in", "custom");
@@ -261,7 +257,7 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		Main.saveManager.putInt(index, "macros", "in", "custom", "count");
 
 		// PRESET BUTTONS
-		Main.saveManager.putString(callbackLeft.getText(), "macros", "in", "preset", "callback", "left");
+//		Main.saveManager.putString(callbackLeft.getText(), "macros", "in", "preset", "callback", "left");
 //		Main.saveManager.putString(waitLeft.getText(), "macros", "in", "preset", "wait", "left");
 //		Main.saveManager.putString(waitRight.getText(), "macros", "in", "preset", "wait", "right");
 		Main.saveManager.putString(thankLeft.getText(), "macros", "in", "preset", "thank", "left");
@@ -269,7 +265,6 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		refreshTrade();
 	}
 
-	@Override
 	public void load() {
 		customPanel.removeAll();
 		loadPresets();

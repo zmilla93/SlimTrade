@@ -208,7 +208,7 @@ public class ChatParser {
 			if (tradeMsgMatcher.group(23) != null) {
 				i2 = Integer.parseInt(tradeMsgMatcher.group(23));
 			}
-			trade = new TradeOffer(tradeMsgMatcher.group(2), tradeMsgMatcher.group(3), getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5), tradeMsgMatcher.group(6), tradeMsgMatcher.group(11), d1, tradeMsgMatcher.group(14), d2, tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24), tradeMsgMatcher.group(7));
+			trade = new TradeOffer(tradeMsgMatcher.group(2).replaceAll("/", "-"), tradeMsgMatcher.group(3), getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5), tradeMsgMatcher.group(6), tradeMsgMatcher.group(11), d1, tradeMsgMatcher.group(14), d2, tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24), tradeMsgMatcher.group(7));
 
 			
 //			System.out.println("TRADE OFFER : " + trade.guildName + trade.playerName);

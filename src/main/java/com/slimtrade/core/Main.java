@@ -28,6 +28,8 @@ import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.debug.Debugger;
+import main.java.com.slimtrade.enums.MessageType;
+import main.java.com.slimtrade.enums.TimeStyle;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
@@ -130,7 +132,7 @@ public class Main {
 				Sound s = Sound.PING1;
 				float vol = 0;
 				try{
-					s = Sound.valueOf(saveManager.getStringEnum("options", "audio", "incomingTrade", "type"));
+					s = Sound.valueOf(saveManager.getString("options", "audio", "incomingTrade", "type"));
 					vol = TradeUtility.getAudioVolume(saveManager.getInt("options", "audio", "incomingTrade", "volume"));
 					
 				}catch(IllegalArgumentException | NullPointerException e){
@@ -139,6 +141,8 @@ public class Main {
 				}
 				SoundComponent.INCOMING_MESSAGE.setSound(s);
 				SoundComponent.INCOMING_MESSAGE.setVolume(vol);
+				System.out.println(MessageType.values());
+				System.out.println("ENUM TEST : " + saveManager.getEnumValue(TimeStyle.class, false, "history", "timeStyle"));
 //				saveManager.putDouble(value, keys);("231", "options", "audio", "incomingTrade", "volume");
 				// saveManager.deleteArray("overlayManager");
 				// saveManager.deleteArray("overlayManager", "menubar", "y");

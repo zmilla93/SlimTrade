@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.basic;
+package main.java.com.slimtrade.gui.history;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,7 +7,7 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GridBagPanel extends JPanel {
+public class HistoryCellPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,16 +16,16 @@ public class GridBagPanel extends JPanel {
 
 	JLabel defaultLabel;
 
-	public GridBagPanel() {
+	public HistoryCellPanel() {
 		buildPanel();
 	}
 
-	public GridBagPanel(String label) {
+	public HistoryCellPanel(String label) {
 		buildPanel();
 		setLabel(label);
 	}
 	
-	public GridBagPanel(String label, int buffer) {
+	public HistoryCellPanel(String label, int buffer) {
 		buildPanel();
 		inset.set(buffer, buffer, buffer, buffer);
 		setLabel(label);
@@ -42,6 +42,10 @@ public class GridBagPanel extends JPanel {
 		this.removeAll();
 		defaultLabel = new JLabel(s);
 		this.add(defaultLabel, gc);
+	}
+	
+	public JLabel getLabel(){
+		return this.defaultLabel;
 	}
 
 }

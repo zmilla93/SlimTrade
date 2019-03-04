@@ -12,6 +12,8 @@ import main.java.com.slimtrade.enums.MessageType;
 
 public class EventManager implements PoeInteractionListener {
 
+	private static String characterName = null;
+	
 	public void poeInteractionPerformed(PoeInteractionEvent e) {
 
 		int mouseButton = e.getMouseButton();
@@ -21,7 +23,7 @@ public class EventManager implements PoeInteractionListener {
 		switch (type) {
 		case CALLBACK:
 			if(mouseButton == MouseEvent.BUTTON1){
-				PoeInterface.paste("@" + trade.playerName + " " + Main.saveManager.getString("macros", "in", "preset", "callback", "left"));
+//				PoeInterface.paste("@" + trade.playerName + " " + Main.saveManager.getString("macros", "in", "preset", "callback", "left"));
 			}
 			break;
 		case HIDEOUT:
@@ -34,7 +36,9 @@ public class EventManager implements PoeInteractionListener {
 			PoeInterface.paste("/kick " + trade.playerName);
 			break;
 		case LEAVE:
-			// TODO : Kick self
+			if(characterName != null){
+				PoeInterface.paste("/kick " + characterName);
+			}
 			break;
 		case REFRESH:
 			//FIX FRONT END IMPORT
@@ -85,6 +89,14 @@ public class EventManager implements PoeInteractionListener {
 //		System.out.println(e.getButtonType());
 //		System.out.println(e.getTrade().playerName);
 		
+	}
+
+	public static String getCharacterName() {
+		return characterName;
+	}
+
+	public static void setCharacterName(String characterName) {
+		EventManager.characterName = characterName;
 	}
 
 }
