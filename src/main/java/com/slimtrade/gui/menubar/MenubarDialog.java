@@ -171,41 +171,6 @@ public class MenubarDialog extends BasicDialog {
 		
 	}
 	
-//	public void setOrder(ExpandDirection dir){
-//		Container container = this.getContentPane();
-//		switch(dir){
-//		case DOWN:
-//			for(Component c : componentList){
-//				container.add(c);
-//			}
-//			break;
-//		case UP:
-//			for(Component c : componentList){
-//				container.add(c, 0);
-//			}
-//			break;
-//		default:
-//			break;
-//		}
-//		this.revalidate();
-//		this.repaint();
-//	}
-	
-//	public void reorder(ExpandDirection dir){
-//		if(dir == this.expandDirection){
-//			return;
-//		}else{
-//			this.expandDirection = dir;
-//			Container container = this.getContentPane();
-//			ArrayList<Component> cList = new ArrayList<Component>();
-//			for(Component c : container.getComponents()){
-//				container.add(c, 0);
-//			}
-//		}		
-//		this.revalidate();
-//		this.repaint();
-//	}
-	
 	public void reorder(){
 		ExpandDirection dir;
 		if(Main.saveManager.getString("overlayManager", "menubar", "buttonLocation").contains("Top")){

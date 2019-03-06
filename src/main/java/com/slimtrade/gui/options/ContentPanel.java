@@ -20,7 +20,7 @@ public class ContentPanel extends JPanel {
 //	protected Insets inset = new Insets(0,0,0,0);
 	
 	public ContentPanel(){
-		build(false);
+		build(true);
 	}
 	
 	public ContentPanel(boolean vis){

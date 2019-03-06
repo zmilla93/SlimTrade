@@ -13,7 +13,7 @@ public class ContactPanel extends ContentPanel {
 
 	public ContactPanel(){
 		//TODO : Might need to change background color of text areas
-		
+		super(false);
 		JLabel gitTitle = new JLabel("GitHub");
 		JTextField gitText = new JTextField("https://github.com/zmilla93/SlimTrade");
 		Dimension gitSize = gitText.getPreferredSize();

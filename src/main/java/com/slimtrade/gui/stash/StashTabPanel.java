@@ -33,6 +33,7 @@ public class StashTabPanel extends ContentPanel implements Saveable {
 	int rowBuffer = 10;
 
 	public StashTabPanel() {
+		super(false);
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gcRow = new GridBagConstraints();
@@ -120,16 +121,16 @@ public class StashTabPanel extends ContentPanel implements Saveable {
 
 	public void save() {
 		int index = 0;
-		Main.saveManager.deleteArray("stashTabs");
+		Main.saveManager.deleteObject("stashTabs");
 		for (Component c : rowContainer.getComponents()) {
 			StashTabRow row = (StashTabRow) c;
 			row.setFresh(false);
 			if (row.isDelete()) {
 				rowContainer.remove(c);
 			} else {
-				Main.saveManager.putString(row.getText(), "stashTabs", "tab" + index, "text");
-				Main.saveManager.putString(row.getType().name(), "stashTabs", "tab" + index, "type");
-				Main.saveManager.putString(row.getColor().name(), "stashTabs", "tab" + index, "color");
+				Main.saveManager.putObject(row.getText(), "stashTabs", "tab" + index, "text");
+				Main.saveManager.putObject(row.getType().name(), "stashTabs", "tab" + index, "type");
+				Main.saveManager.putObject(row.getColor().name(), "stashTabs", "tab" + index, "color");
 				index++;
 			}
 		}

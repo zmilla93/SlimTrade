@@ -324,7 +324,7 @@ public class ImprovedChatScanner extends ResizableWindow implements Saveable {
 	}
 
 	private void localSaveToDisk() {
-		Main.saveManager.deleteArray("chatScanner");
+		Main.saveManager.deleteObject("chatScanner");
 		//TODO : Double check this sorting code
 		Collections.sort(messages, new Comparator<ScannerMessage>() {
 			public int compare(final ScannerMessage obj1, final ScannerMessage obj2) {
@@ -334,9 +334,9 @@ public class ImprovedChatScanner extends ResizableWindow implements Saveable {
 		int i = 0;
 		for (ScannerMessage msg : messages) {
 			Main.logger.log(Level.INFO, "Writing to index [" + i + "]\n");
-			Main.saveManager.putString(msg.name, "chatScanner", "search" + i, "name");
-			Main.saveManager.putString(msg.searchTerms, "chatScanner", "search" + i, "terms");
-			Main.saveManager.putString(msg.ignoreTerms, "chatScanner", "search" + i, "ignore");
+			Main.saveManager.putObject(msg.name, "chatScanner", "search" + i, "name");
+			Main.saveManager.putObject(msg.searchTerms, "chatScanner", "search" + i, "terms");
+			Main.saveManager.putObject(msg.ignoreTerms, "chatScanner", "search" + i, "ignore");
 			i++;
 		}
 		Main.saveManager.saveToDisk();

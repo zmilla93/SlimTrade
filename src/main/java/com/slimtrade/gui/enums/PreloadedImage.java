@@ -7,7 +7,9 @@ import javax.swing.ImageIcon;
 public enum PreloadedImage {
 
 	DISK("/resources/icons/disk.png"),
-	
+	CLOSE("/resources/icons/closex64.png"),
+	REFRESH("/resources/icons/refreshx64.png"),
+	INVITE("/resources/icons/invite1.png"),
 	;
 	
 	Image image;

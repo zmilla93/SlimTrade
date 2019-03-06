@@ -36,12 +36,10 @@ public class OptionsWindow extends ResizableWindow {
 	JPanel menuPanel = new JPanel(new GridBagLayout());
 	
 	public OptionsWindow(){
-//		super("Fancy Window", false);
 		super("Options");
 		this.setFocusableWindowState(true);
 		this.setFocusable(true);
 		container.setLayout(new BorderLayout());
-//		JPanel menuPanel = new JPanel(new GridBagLayout());
 		JPanel menuBorder = new JPanel(new BorderLayout());
 		
 //		container.setBackground(Color.red);

@@ -47,6 +47,7 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 	AdvancedPanel advancedPanel = new AdvancedPanel();
 	
 	BasicsPanel() {
+		super(false);
 		// TODO : Cleaup panels
 		// this.setBuffer(0, 0);
 		this.setLayout(new GridBagLayout());
@@ -208,7 +209,7 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		gc.gridx = 0;
 		gc.gridy++;
 		
-		audioPanel.setVisible(true);
+//		audioPanel.setVisible(true);
 		audioPanel.autoResize();
 		audioOuter.add(new JLabel("Audio"), gc);
 		// firstPanel.add(audioPanel, gc);
@@ -322,9 +323,9 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 			characterName = null;
 		}
 		EventManager.setCharacterName(characterName);
-		Main.saveManager.putString(characterName, "general", "character");
-		Main.saveManager.putBool(guildCheckbox.isSelected(), "general", "showGuild");
-		Main.saveManager.putBool(kickCheckbox.isSelected(), "general", "closeOnKick");
+		Main.saveManager.putObject(characterName, "general", "character");
+		Main.saveManager.putObject(guildCheckbox.isSelected(), "general", "showGuild");
+		Main.saveManager.putObject(kickCheckbox.isSelected(), "general", "closeOnKick");
 
 		TimeStyle time = (TimeStyle) timeCombo.getSelectedItem();
 		DateStyle date = (DateStyle) dateCombo.getSelectedItem();
@@ -333,10 +334,10 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		FrameManager.historyWindow.setTimeStyle(time);
 		FrameManager.historyWindow.setDateStyle(date);
 		
-		Main.saveManager.putString(time.name(), "history", "timeStyle");
-		Main.saveManager.putString(date.name(), "history", "dateStyle");
-		Main.saveManager.putString(order.name(), "history", "orderType");
-		Main.saveManager.putInt((int) countSpinner.getValue(), "history", "messageCount");
+		Main.saveManager.putObject(time.name(), "history", "timeStyle");
+		Main.saveManager.putObject(date.name(), "history", "dateStyle");
+		Main.saveManager.putObject(order.name(), "history", "orderType");
+		Main.saveManager.putObject((int) countSpinner.getValue(), "history", "messageCount");
 		
 		
 	}
@@ -346,11 +347,10 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		advancedPanel.load();
 		try {
 			String characterName = Main.saveManager.getString("general", "character");
-			if(characterName.equals("")){
-				characterName = null;
-			}
+//			if(characterName.equals("")){
+//				characterName = null;
+//			}
 			EventManager.setCharacterName(characterName);
-			System.out.println("CHAR NAME : " + characterName);
 			characterInput.setText(characterName);
 			guildCheckbox.setSelected(Main.saveManager.getBool("general", "showGuild"));
 			kickCheckbox.setSelected(Main.saveManager.getBool("general", "closeOnKick"));

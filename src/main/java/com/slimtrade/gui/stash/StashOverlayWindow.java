@@ -126,10 +126,10 @@ public class StashOverlayWindow extends ResizableWindow implements Saveable {
 		Point winPos = this.getLocation();
 		Dimension winSize = this.getSize();
 		Dimension gridSize = gridPanel.getSize();
-		Main.saveManager.putInt(winPos.x, "stashOverlay", "x");
-		Main.saveManager.putInt(winPos.y, "stashOverlay", "y");
-		Main.saveManager.putInt(winSize.width, "stashOverlay", "width");
-		Main.saveManager.putInt(winSize.height, "stashOverlay", "height");
+		Main.saveManager.putObject(winPos.x, "stashOverlay", "x");
+		Main.saveManager.putObject(winPos.y, "stashOverlay", "y");
+		Main.saveManager.putObject(winSize.width, "stashOverlay", "width");
+		Main.saveManager.putObject(winSize.height, "stashOverlay", "height");
 		ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
 
 	}

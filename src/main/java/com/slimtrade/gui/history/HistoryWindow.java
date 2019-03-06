@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.DateStyle;
 import main.java.com.slimtrade.enums.TimeStyle;
@@ -39,6 +40,7 @@ public class HistoryWindow extends ResizableWindow {
 		super("NEW HISTORY");
 		timeStyle = TimeStyle.H24;
 		dateStyle = DateStyle.DDMMYY;
+//		timeStyle = Main.saveManager.getEnumValue("", keys)
 		this.setPreferredSize(new Dimension(900, 600));
 		gc.gridx = 0;
 		gc.gridy = 0;

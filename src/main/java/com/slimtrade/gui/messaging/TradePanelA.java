@@ -285,8 +285,8 @@ public class TradePanelA extends AbstractMessagePanel {
 
 			saveToHistoryButton = new IconButton(PreloadedImage.DISK.getImage(), rowHeight);
 			// waitButton = new IconButton(ImagePreloader.wait, rowHeight);
-			refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
-			inviteButton = new IconButton(ImagePreloader.invite, rowHeight);
+			refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
+			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
 			tradeButton = new IconButton(ImagePreloader.trade, rowHeight);
 			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
 			kickButton = new IconButton(ImagePreloader.leave, rowHeight);

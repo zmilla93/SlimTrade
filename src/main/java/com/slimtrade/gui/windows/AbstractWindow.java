@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.enums.PreloadedImage;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class AbstractWindow extends BasicMovableDialog {
@@ -69,7 +70,7 @@ public class AbstractWindow extends BasicMovableDialog {
 		JDialog local = this;
 		if (makeCloseButton) {
 			gc.anchor = GridBagConstraints.LINE_END;
-			closeButton = new IconButton(ImagePreloader.close, TITLEBAR_HEIGHT);
+			closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), TITLEBAR_HEIGHT);
 //			titlebarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			titlebarPanel.add(closeButton, BorderLayout.EAST);
 			closeButton.addActionListener(new ActionListener(){

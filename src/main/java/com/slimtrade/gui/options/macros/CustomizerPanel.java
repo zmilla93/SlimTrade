@@ -22,7 +22,7 @@ public class CustomizerPanel extends ContentPanel {
 	private JLabel outgoingLabel = new JLabel("Outgoing Trade");
 	
 	public CustomizerPanel() {
-		
+		super(false);
 		//TODO : Colors
 		Random rng = new Random();
 		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");

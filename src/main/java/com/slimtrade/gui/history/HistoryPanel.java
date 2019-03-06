@@ -70,13 +70,13 @@ public class HistoryPanel extends JPanel {
 	}
 
 	public void initUI() {
-		Debugger.benchmarkStart();
+//		Debugger.benchmarkStart();
 		for (TradeOffer trade : trades) {
 			HistoryRow row = new HistoryRow(trade);
 			contentPanel.add(row);
 			tradePanels.add(row);
 		}
-		Main.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
+//		Main.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
 		this.revalidate();
 		this.repaint();
 	}

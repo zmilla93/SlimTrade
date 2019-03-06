@@ -21,6 +21,7 @@ public class AudioPanel extends ContentPanel implements Saveable {
 	private final AudioRow scannerRow = new AudioRow("Chat Scanner");
 
 	public AudioPanel() {
+		super(false);
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
@@ -35,8 +36,8 @@ public class AudioPanel extends ContentPanel implements Saveable {
 	}
 
 	public void save() {
-		Main.saveManager.putString(incomingRow.getSound().getName(), "options", "audio", "incomingTrade", "type");
-		Main.saveManager.putInt(incomingRow.getVolume(), "options", "audio", "incomingTrade", "volume");
+		Main.saveManager.putObject(incomingRow.getSound().getName(), "options", "audio", "incomingTrade", "type");
+		Main.saveManager.putObject(incomingRow.getVolume(), "options", "audio", "incomingTrade", "volume");
 		SoundComponent.INCOMING_MESSAGE.setSound(incomingRow.getSound());
 		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(incomingRow.getVolume()));
 	}

@@ -14,17 +14,11 @@ import main.java.com.slimtrade.gui.panels.BufferPanel;
 public class AdvancedPanel extends ContentPanel implements Saveable {
 
 	private static final long serialVersionUID = 1L;
-	private final int BUFFER_SIZE = 5;
 
 	AdvancedRow clientRow = new AdvancedRow("Client Path");
-	AdvancedRow saveRow = new AdvancedRow("Save Directory");
 
 	public AdvancedPanel() {
-
-		// TODO : hide save directory if valid
 		this.addRow(clientRow, gc);
-		this.addRow(new BufferPanel(0, BUFFER_SIZE), gc);
-		this.addRow(saveRow, gc);
 
 		clientRow.getEditButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -37,39 +31,19 @@ public class AdvancedPanel extends ContentPanel implements Saveable {
 			}
 		});
 
-		saveRow.getEditButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int action = saveRow.getFileChooser().showOpenDialog(saveRow);
-				if (action == JFileChooser.APPROVE_OPTION) {
-					File savePath = saveRow.getFileChooser().getSelectedFile();
-					String path = savePath.getPath();
-					saveRow.getPathLabel().setText(path);
-				}
-			}
-		});
-
-		if (Main.saveManager.validSaveDirectory) {
-			// saveRow.setVisible(false);
-		}
-
 		this.load();
 		this.autoResize();
 	}
 
 	public void save() {
-		if(clientRow.isChanged()){
-			Main.saveManager.putString(clientRow.getText(), "advanced", "clientPath");
+		if (clientRow.isChanged()) {
+			Main.saveManager.putObject(clientRow.getText(), "general", "clientDirectory");
 		}
 	}
 
 	public void load() {
-		try {
-			if (Main.saveManager.hasEntry("advanced", "clientPath")) {
-				clientRow.setText(Main.saveManager.getString("advanced", "clientPath"));
-			} else if (Main.saveManager.validSaveDirectory) {
-				clientRow.setText(Main.saveManager.getClientPath());
-			}
-		} catch (Exception e) {
+		if (Main.saveManager.hasEntry("general", "clientDirectory")) {
+			clientRow.setText(Main.saveManager.getString("general", "clientDirectory"));
 		}
 	}
 

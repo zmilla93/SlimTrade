@@ -248,11 +248,11 @@ public class OverlayManager {
 		saveButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				// Save
-				Main.saveManager.putInt(menubarDialog.getX(), "overlayManager", "menubar", "x");
-				Main.saveManager.putInt(menubarDialog.getY(), "overlayManager", "menubar", "y");
-				Main.saveManager.putInt(messageDialog.getX(), "overlayManager", "messageManager", "x");
-				Main.saveManager.putInt(messageDialog.getY(), "overlayManager", "messageManager", "y");
-				Main.saveManager.putString(menubarCombo.getSelectedItem().toString(), "overlayManager", "menubar", "buttonLocation");
+				Main.saveManager.putObject(menubarDialog.getX(), "overlayManager", "menubar", "x");
+				Main.saveManager.putObject(menubarDialog.getY(), "overlayManager", "menubar", "y");
+				Main.saveManager.putObject(messageDialog.getX(), "overlayManager", "messageManager", "x");
+				Main.saveManager.putObject(messageDialog.getY(), "overlayManager", "messageManager", "y");
+				Main.saveManager.putObject(menubarCombo.getSelectedItem().toString(), "overlayManager", "menubar", "buttonLocation");
 				Main.saveManager.saveToDisk();
 
 				// Update UI

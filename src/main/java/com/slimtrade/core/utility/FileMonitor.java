@@ -8,6 +8,7 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.logging.Level;
 
 import main.java.com.slimtrade.core.Main;
 
@@ -25,27 +26,29 @@ public class FileMonitor {
 			e.printStackTrace();
 		}
 
-		// System.out.println(Main.saveManager.getClientPath());
-		Path dir = Paths.get(Main.saveManager.getClientPath());
-		Path testDir = Paths.get("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile\\logs");
+//		Path dir = Paths.get(Main.saveManager.getClientPath());
+//		Path testDir = Paths.get("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile\\logs");
 //		System.out.println(dir.toString());
-		try {
-			clientKey = testDir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			clientKey = testDir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
-		startMonitor();
-
+//		startMonitor();
 	}
 
 	public void startMonitor() {
-		Path dir = Paths.get(Main.saveManager.getClientPath());
-		Path testDir = Paths.get("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile\\logs");
+		if(!Main.saveManager.isValidClientPath()){
+			Main.logger.log(Level.WARNING, "No valid client path found");
+			return;
+		}
+		Path dir = Paths.get(Main.saveManager.getClientDirectory());
+//		Path testDir = Paths.get("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile\\logs");
 //		System.out.println(dir.toString());
 		try {
-			clientKey = testDir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
+			clientKey = dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -81,11 +84,12 @@ public class FileMonitor {
 	}
 	
 	public void stopMonitor(){
-		monitor.interrupt();
 		try {
+			monitor.interrupt();
 			monitor.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (InterruptedException | NullPointerException e) {
+//			e.printStackTrace();
+			return;
 		}
 		
 	}
