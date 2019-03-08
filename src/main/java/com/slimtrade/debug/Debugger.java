@@ -1,6 +1,7 @@
 package main.java.com.slimtrade.debug;
 
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -8,67 +9,88 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import main.java.com.slimtrade.core.FrameManager;
+import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.basic.PaintedPanel;
 
-public class Debugger extends JFrame{
+public class Debugger extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JScrollPane logScrollPane;
 	private JTextArea logTextArea = new JTextArea();
 
-	public Debugger(){
+	private static long start;
+	private static long end;
+	
+	public Debugger() {
 		this.setTitle("SlimTrade Debugger");
 		this.setBounds(0, 0, 800, 500);
 		this.setVisible(true);
-//		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
+		// this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		logScrollPane = new JScrollPane(logTextArea);
 		logScrollPane.setPreferredSize(new Dimension(750, 400));
 		this.add(logScrollPane);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		PaintedPanel p = new PaintedPanel();
+		p.setPreferredSize(new Dimension(200,20));
+		this.add(p);
+		
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 		JButton refreshButton = new JButton("Refresh");
 		refreshButton.setAlignmentX(CENTER_ALIGNMENT);
 		this.add(refreshButton);
-		
-		refreshButton.addMouseListener(new java.awt.event.MouseAdapter(){
-			public void mouseClicked(java.awt.event.MouseEvent e){
+
+		refreshButton.addMouseListener(new AdvancedMouseAdapter() {
+			public void click(MouseEvent e) {
 				FrameManager.forceAllToTop();
 			}
 		});
 		
+		this.revalidate();
+		this.repaint();
+
 	}
-	
-	public void log(String... text){
-		if(!logTextArea.getText().equals("")){
-						for(int i = 0;i<text.length;i++){
+
+	public void log(String... text) {
+		if (!logTextArea.getText().equals("")) {
+			for (int i = 0; i < text.length; i++) {
 				logTextArea.setText(logTextArea.getText() + "\n" + text[i]);
 			}
-			
-		}else{
+		} else {
 			logTextArea.setText(text[0]);
-			if(text.length>1){
-				for(int i = 0;i<text.length;i++){
-				logTextArea.setText(logTextArea.getText() + "\n" + text[i]);
+			if (text.length > 1) {
+				for (int i = 0; i < text.length; i++) {
+					logTextArea.setText(logTextArea.getText() + "\n" + text[i]);
 				}
 			}
 		}
 	}
-	
-	public void clearLog(){
+
+	public void clearLog() {
 		logTextArea.setText("");
 	}
-	
-	public static void print(String... str){
-		for(int i=0;i<str.length;i++){
+
+	public static void print(String... str) {
+		for (int i = 0; i < str.length; i++) {
 			System.out.println(str[i]);
 		}
 	}
-	
-	public static void print(int... num){
-		for(int i=0;i<num.length;i++){
+
+	public static void print(int... num) {
+		for (int i = 0; i < num.length; i++) {
 			System.out.println(num[i]);
 		}
 	}
 	
+	//Benchmarking has 1 millisecond of variance
+	public static void benchmarkStart(){
+		start = System.currentTimeMillis();
+	}
+	
+	public static long benchmark(){
+		return System.currentTimeMillis()-start;
+	}
+
 }
