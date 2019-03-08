@@ -59,9 +59,9 @@ public class BasicMovableDialog extends BasicDialog {
 		int targetX = x;
 		int targetY = y;
 		if(targetX<0) targetX = 0;
-		if(targetX>TradeUtility.screenSize.width-mover.getWidth()) targetX = TradeUtility.screenSize.width-mover.getWidth();
+		if(targetX>TradeUtility.screenSize.width-mover.getWidth()) targetX = TradeUtility.screenSize.width-mover.getWidth()-borderOffset*2;
 		if(targetY<0) targetY = 0;
-		if(targetY>TradeUtility.screenSize.height-mover.getHeight()) targetY = TradeUtility.screenSize.height-mover.getHeight();
+		if(targetY>TradeUtility.screenSize.height-mover.getHeight()) targetY = TradeUtility.screenSize.height-mover.getHeight()-borderOffset*2;
 		moveWindow(new Point(targetX, targetY));
 	}
 	
