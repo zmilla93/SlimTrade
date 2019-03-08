@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.options.advanced;
+package main.java.com.slimtrade.gui.options.general;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class AdvancedRow extends JPanel {
 
@@ -48,8 +50,14 @@ public class AdvancedRow extends JPanel {
 		editSize.height = HEIGHT;
 		editButton.setPreferredSize(editSize);
 
-		fileChooser = new JFileChooser();
-
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			fileChooser = new JFileChooser();
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			fileChooser = new JFileChooser();
+		}
+		
 		this.add(labelPanel, gc);
 		gc.gridx++;
 		this.add(pathPanel, gc);
@@ -57,24 +65,24 @@ public class AdvancedRow extends JPanel {
 		this.add(editButton, gc);
 
 	}
-	
-	public String getText(){
+
+	public String getText() {
 		return pathLabel.getText();
 	}
-	
-	public void setText(String text){
+
+	public void setText(String text) {
 		pathLabel.setText(text);
 		changed = true;
 	}
-	
-	public boolean isChanged(){
+
+	public boolean isChanged() {
 		return this.changed;
 	}
 
-	public void setChanged(boolean state){
+	public void setChanged(boolean state) {
 		this.changed = state;
 	}
-	
+
 	public JLabel getPathLabel() {
 		return this.pathLabel;
 	}

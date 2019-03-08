@@ -25,11 +25,11 @@ import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.enums.DateStyle;
 import main.java.com.slimtrade.enums.TimeStyle;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.options.advanced.AdvancedPanel;
-import main.java.com.slimtrade.gui.options.audio.AudioPanel;
+import main.java.com.slimtrade.gui.options.general.AdvancedPanel;
+import main.java.com.slimtrade.gui.options.general.AudioPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class BasicsPanel extends ContentPanel implements Saveable {
+public class BasicsPanel_OLD extends ContentPanel_REMOVE implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 	private int bufferX = 30;
@@ -46,7 +46,7 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 	AudioPanel audioPanel = new AudioPanel();
 	AdvancedPanel advancedPanel = new AdvancedPanel();
 	
-	BasicsPanel() {
+	BasicsPanel_OLD() {
 		super(false);
 		// TODO : Cleaup panels
 		// this.setBuffer(0, 0);
@@ -67,7 +67,7 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		JLabel characterLabel = new JLabel("Character");
 		
 
-		ToggleButton generalButton = new ToggleButton("General");
+		ToggleButton generalButton = new ToggleButton("Basics");
 		ToggleButton historyButton = new ToggleButton("History");
 		ToggleButton audioButton = new ToggleButton("Audio");
 		ToggleButton advancedButton = new ToggleButton("Save Path");
@@ -86,6 +86,9 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		JLabel timeLabel = new JLabel("Time Format");
 		JLabel dateLabel = new JLabel("Date Format");
 		JLabel orderLabel = new JLabel("Order");
+		JLabel countlabel = new JLabel("Message Count");
+		
+		
 		JLabel audioLabel = new JLabel("Audio");
 		JLabel advancedLabel = new JLabel("Advanced");
 
@@ -100,20 +103,20 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		guildCheckbox.setFocusable(false);
 
 		kickCheckbox.setFocusable(false);
-		JLabel countlabel = new JLabel("Message Count");
+		
 
 		// History Buttons
 
+		timeCombo.setFocusable(false);
+		dateCombo.setFocusable(false);
+		orderCombo.setFocusable(false);
 		for (TimeStyle s : TimeStyle.values()) {
 			timeCombo.addItem(s);
 		}
-		timeCombo.setFocusable(false);
-
-		dateCombo.setFocusable(false);
+		
 		for (DateStyle s : DateStyle.values()) {
 			dateCombo.addItem(s);
 		}
-
 		for (OrderType t : OrderType.values()) {
 			orderCombo.addItem(t);
 		}
@@ -162,6 +165,10 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		gc.gridx = 2;
 		generalPanel.add(kickCheckbox, gc);
 
+		
+		
+		//History
+		
 		// gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
@@ -173,8 +180,8 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		gc.gridx = 2;
 		historyPanel.add(timeCombo, gc);
 		gc.gridx = 0;
-		;
 		gc.gridy++;
+		
 		historyPanel.add(dateLabel, gc);
 		gc.gridx = 2;
 		historyPanel.add(dateCombo, gc);
@@ -186,6 +193,7 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		historyPanel.add(orderCombo, gc);
 		gc.gridx = 0;
 		gc.gridy++;
+		
 		historyPanel.add(countlabel, gc);
 		gc.gridx = 2;
 		gc.gridwidth = 1;
@@ -210,7 +218,7 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		gc.gridy++;
 		
 //		audioPanel.setVisible(true);
-		audioPanel.autoResize();
+//		audioPanel.autoResize();
 		audioOuter.add(new JLabel("Audio"), gc);
 		// firstPanel.add(audioPanel, gc);
 		gc.gridwidth = 1;
@@ -330,9 +338,11 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		TimeStyle time = (TimeStyle) timeCombo.getSelectedItem();
 		DateStyle date = (DateStyle) dateCombo.getSelectedItem();
 		OrderType order = (OrderType) orderCombo.getSelectedItem();
+		
 
 		FrameManager.historyWindow.setTimeStyle(time);
 		FrameManager.historyWindow.setDateStyle(date);
+		FrameManager.historyWindow.setOrderType(order);
 		
 		Main.saveManager.putObject(time.name(), "history", "timeStyle");
 		Main.saveManager.putObject(date.name(), "history", "dateStyle");
@@ -347,22 +357,19 @@ public class BasicsPanel extends ContentPanel implements Saveable {
 		advancedPanel.load();
 		try {
 			String characterName = Main.saveManager.getString("general", "character");
-//			if(characterName.equals("")){
-//				characterName = null;
-//			}
 			EventManager.setCharacterName(characterName);
 			characterInput.setText(characterName);
 			guildCheckbox.setSelected(Main.saveManager.getBool("general", "showGuild"));
 			kickCheckbox.setSelected(Main.saveManager.getBool("general", "closeOnKick"));
 
-			TimeStyle time = TimeStyle.valueOf(Main.saveManager.getString("history", "timeStyle"));
-			DateStyle date = DateStyle.valueOf(Main.saveManager.getString("history", "dateStyle"));
-			OrderType order = OrderType.valueOf(Main.saveManager.getString("history", "orderType"));
+			TimeStyle time = TimeStyle.valueOf(Main.saveManager.getEnumValue(TimeStyle.class, "history", "timeStyle"));
+			DateStyle date = DateStyle.valueOf(Main.saveManager.getEnumValue(DateStyle.class, "history", "dateStyle"));
+			OrderType order = OrderType.valueOf(Main.saveManager.getEnumValue(OrderType.class, "history", "orderType"));
 
 			timeCombo.setSelectedItem(time);
 			dateCombo.setSelectedItem(date);
 			orderCombo.setSelectedItem(order);
-			countSpinner.setValue(Main.saveManager.getInt("history", "messageCount"));
+			countSpinner.setValue(Main.saveManager.getDefaultInt(0, 100, 50, "history", "messageCount"));
 			
 			
 		} catch (NullPointerException e) {

@@ -21,17 +21,12 @@ public class StashHelperContainer extends BasicDialog{
 	
 	public StashHelperContainer(){
 		this.setBackground(ColorManager.CLEAR);
-		this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.RED));
-//		this.getContentPane().setBackground(Color.magenta);
+//		this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.RED));
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
-//		updateBounds();
-		
 	}
 	
 	public void updateBounds(){
-//		int posX = StashGridOverlay.getGridPos().x-spacingX;
-//		int posY = StashGridOverlay.getWinPos().y-height-offsetY;
 		posX = Main.saveManager.getInt("stashOverlay", "x");
 		posY = Main.saveManager.getInt("stashOverlay", "y");
 		int width = Main.saveManager.getInt("stashOverlay", "width");

@@ -1,14 +1,11 @@
 package main.java.com.slimtrade.core.utility;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import main.java.com.slimtrade.core.audio.AudioManager;
 import main.java.com.slimtrade.enums.CurrencyType;
-import main.java.com.slimtrade.enums.ExpandDirection;
 import main.java.com.slimtrade.enums.MenubarButtonLocation;
-import main.java.com.slimtrade.enums.StashTabColor;
 
 public class TradeUtility {
 
@@ -73,23 +70,23 @@ public class TradeUtility {
 		return f-AudioManager.RANGE+AudioManager.MAX_VOLUME;
 	}
 	
-	public static ExpandDirection getExpandDirection(String input){
-		for(ExpandDirection dir : ExpandDirection.values()){
-			if(dir.toString().equals(input)){
-				return dir;
-			}
-		}
-		return null;
-	}
+//	public static ExpandDirection getExpandDirection(String input){
+//		for(ExpandDirection dir : ExpandDirection.values()){
+//			if(dir.toString().equals(input)){
+//				return dir;
+//			}
+//		}
+//		return null;
+//	}
 	
-	public static MenubarButtonLocation getMenubarButtonLocation(String input){
-		for(MenubarButtonLocation location : MenubarButtonLocation.values()){
-			if(location.getText().equals(input)){
-				return location;
-			}
-		}
-		return null;
-	}
+//	public static MenubarButtonLocation getMenubarButtonLocation(String input){
+//		for(MenubarButtonLocation location : MenubarButtonLocation.values()){
+//			if(location.getText().equals(input)){
+//				return location;
+//			}
+//		}
+//		return null;
+//	}
 
 	// TODO : check more stuff?
 	public static boolean isDuplicateTrade(TradeOffer trade1, TradeOffer trade2) {

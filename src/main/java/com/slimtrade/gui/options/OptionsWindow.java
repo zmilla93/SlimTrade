@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.options.advanced.AdvancedPanel;
-import main.java.com.slimtrade.gui.options.audio.AudioPanel;
+import main.java.com.slimtrade.gui.options.general.AdvancedPanel;
+import main.java.com.slimtrade.gui.options.general.AudioPanel;
 import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
 import main.java.com.slimtrade.gui.options.macros.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
@@ -72,10 +72,10 @@ public class OptionsWindow extends ResizableWindow {
 		bottomPanel.add(saveButton);
 		
 		
-		JButton basicsButton = new ListButton("Basics");
-		BasicsPanel basicsPanel = new BasicsPanel();
-		link(basicsButton, basicsPanel);
-		display.add(basicsPanel, gc);
+		ListButton generalButton = new ListButton("General");
+		GeneralPanel generalPanel = new GeneralPanel();
+		link(generalButton, generalPanel);
+		display.add(generalPanel, gc);
 		
 		JButton stashButton = new ListButton("Stash Tabs");
 		StashTabPanel stashPanel = new StashTabPanel();
@@ -92,15 +92,15 @@ public class OptionsWindow extends ResizableWindow {
 		link(outgoingButton, outgoingPanel);
 		display.add(outgoingPanel, gc);
 		
-		JButton audioButton = new ListButton("Audio");
-		AudioPanel audioPanel = new AudioPanel();
-		link(audioButton, audioPanel);
-		display.add(audioPanel, gc);
+//		JButton audioButton = new ListButton("Audio");
+//		AudioPanel audioPanel = new AudioPanel();
+//		link(audioButton, audioPanel);
+//		display.add(audioPanel, gc);
 		
-		JButton advancedButton = new ListButton("Advanced");
-		AdvancedPanel advancedPanel = new AdvancedPanel();
-		link(advancedButton, advancedPanel);
-		display.add(advancedPanel, gc);
+//		JButton advancedButton = new ListButton("Advanced");
+//		AdvancedPanel advancedPanel = new AdvancedPanel();
+//		link(advancedButton, advancedPanel);
+//		display.add(advancedPanel, gc);
 		
 		JButton contactButton = new ListButton("Contact");
 		ContactPanel contactPanel = new ContactPanel();
@@ -119,7 +119,7 @@ public class OptionsWindow extends ResizableWindow {
 		gc.insets.right=5;
 		gc.gridx = 0;
 		gc.gridy = 0;
-		menuPanel.add(basicsButton, gc);
+		menuPanel.add(generalButton, gc);
 		gc.gridy++;
 		menuPanel.add(stashButton, gc);
 		gc.gridy++;
@@ -144,7 +144,8 @@ public class OptionsWindow extends ResizableWindow {
 		container.add(scrollDisplay, BorderLayout.CENTER);
 		
 		
-		incomingPanel.setVisible(true);
+		generalPanel.setVisible(true);
+		generalButton.active = true;
 		this.setMinimumSize(new Dimension(900,600));
 		this.refresh();
 		this.setMinimumSize(new Dimension(300,300));
@@ -164,7 +165,7 @@ public class OptionsWindow extends ResizableWindow {
 		
 		cancelButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				basicsPanel.load();
+				generalPanel.load();
 				incomingPanel.load();
 //				audioPanel.load();
 				stashPanel.load();
@@ -173,7 +174,7 @@ public class OptionsWindow extends ResizableWindow {
 		
 		saveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				basicsPanel.save();
+				generalPanel.save();
 				incomingPanel.save();
 //				audioPanel.save();
 				stashPanel.save();

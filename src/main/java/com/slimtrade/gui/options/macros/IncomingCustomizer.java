@@ -16,7 +16,7 @@ import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.enums.ButtonRow;
 import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.messaging.TradePanelA;
-import main.java.com.slimtrade.gui.options.ContentPanel;
+import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
 import main.java.com.slimtrade.gui.options.RemovablePanel;
 import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.options.ToggleButton;
@@ -24,7 +24,7 @@ import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
 //TODO : CLEANUP
-public class IncomingCustomizer extends ContentPanel implements Saveable {
+public class IncomingCustomizer extends ContentPanel_REMOVE implements Saveable {
 	private static final long serialVersionUID = 1L;
 	private TradePanelA exampleTradeIn;
 
@@ -36,7 +36,7 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 	private JTextField thankLeft;
 	private JTextField thankRight;
 
-	private ContentPanel customPanel;
+	private ContentPanel_REMOVE customPanel;
 
 	private JButton addButton = new JButton("Add");
 
@@ -76,8 +76,8 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		PresetMacroRow tradePreset = new PresetMacroRow("Trade", "/resources/icons/cart.png", true);
 		tradePreset.getRow("Left Mouse", "Trades with a player");
 		PresetMacroRow thankPreset = new PresetMacroRow("Thank", "/resources/icons/thumb1.png");
-		thankLeft = thankPreset.getRow("Left Mouse", "thanks", true);
-		thankRight = thankPreset.getRow("Right Mouse", "", true);
+		thankLeft = thankPreset.getRow("Left Mouse", "thanks");
+		thankRight = thankPreset.getRow("Right Mouse", "");
 		PresetMacroRow leavePreset = new PresetMacroRow("Kick", "/resources/icons/leave.png", true);
 		leavePreset.getRow("Left Mouse", "Kick player from your party");
 
@@ -103,7 +103,7 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 
 		addRow(new BufferPanel(0, 10), gc);
 		addRow(customButton, gc);
-		customPanel = new ContentPanel();
+		customPanel = new ContentPanel_REMOVE();
 		customPanel.setBorder(null);
 		customPanel.setBuffer(0, 0);
 
@@ -115,6 +115,7 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		gc.gridy = 0;
 		customPanel.autoResize();
 
+		
 		loadPresets();
 		loadFromSave();
 
@@ -164,7 +165,7 @@ public class IncomingCustomizer extends ContentPanel implements Saveable {
 		customPanel.autoResize();
 		this.autoResize();
 		// int i = i;
-		ContentPanel local = this;
+		ContentPanel_REMOVE local = this;
 		row.getDeleteButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				row.setVisible(false);

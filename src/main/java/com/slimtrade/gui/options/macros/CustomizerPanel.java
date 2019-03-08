@@ -11,10 +11,10 @@ import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.messaging.AbstractMessagePanel;
 import main.java.com.slimtrade.gui.messaging.TradePanelA;
-import main.java.com.slimtrade.gui.options.ContentPanel;
+import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class CustomizerPanel extends ContentPanel {
+public class CustomizerPanel extends ContentPanel_REMOVE {
 
 	private static final long serialVersionUID = 1L;
 

@@ -43,24 +43,26 @@ public class MenubarExpandButton extends BasicDialog{
 	public void updateLocation(){
 		int x = Main.saveManager.getInt("overlayManager", "menubar", "x");
 		int y = Main.saveManager.getInt("overlayManager", "menubar", "y");
-		String loc = Main.saveManager.getString("overlayManager", "menubar", "buttonLocation");
+		
+		MenubarButtonLocation loc = MenubarButtonLocation.valueOf(Main.saveManager.getEnumValue(MenubarButtonLocation.class, "overlayManager", "menubar", "buttonLocation"));
+		//		String loc = Main.saveManager.getString("overlayManager", "menubar", "buttonLocation");
 		
 		int modX = 0;
 		int modY = 0;
 		switch(loc){
-		case "Top Left":
+		case NW:
 			modX = MenubarButtonLocation.NW.getModX();
 			modY = MenubarButtonLocation.NW.getModY();
 			break;
-		case "Top Right":
+		case NE:
 			modX = MenubarButtonLocation.NE.getModX();
 			modY = MenubarButtonLocation.NE.getModY();
 			break;
-		case "Bottom Left":
+		case SW:
 			modX = MenubarButtonLocation.SW.getModX();
 			modY = MenubarButtonLocation.SW.getModY();
 			break;
-		case "Bottom Right":
+		case SE:
 			modX = MenubarButtonLocation.SE.getModX();
 			modY = MenubarButtonLocation.SE.getModY();
 			break;

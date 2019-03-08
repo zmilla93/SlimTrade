@@ -20,15 +20,18 @@ import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.enums.MenubarButtonLocation;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
+import main.java.com.slimtrade.gui.enums.ExpandDirection;
 import main.java.com.slimtrade.gui.menubar.MenubarButton;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 import main.java.com.slimtrade.gui.messaging.MessagePanel;
+import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class OverlayManager {
+public class OverlayManager implements Saveable {
 
 	LayoutManager gridbag = new GridBagLayout();
 
@@ -59,8 +62,8 @@ public class OverlayManager {
 
 	Color tempBGColor = new Color(100, 100, 100, 200);
 
-	JComboBox<String> menubarCombo = new JComboBox<String>();
-	JComboBox<String> msgPanelCombo = new JComboBox<String>();
+	JComboBox<MenubarButtonLocation> menubarCombo = new JComboBox<MenubarButtonLocation>();
+	JComboBox<ExpandDirection> msgPanelCombo = new JComboBox<ExpandDirection>();
 
 	GridBagConstraints gcLeft = new GridBagConstraints();
 	GridBagConstraints gcRight = new GridBagConstraints();
@@ -72,6 +75,7 @@ public class OverlayManager {
 
 //		menubarDialog.setFocusableWindowState(true);
 //		menubarDialog.setFocusable(true);
+//		messageDialog.setBorderOffset(BORDER_SIZE);
 		
 		menubarExpandButton.setBackground(Color.LIGHT_GRAY);
 		menubarExpandButton.setBorder(borderNW);
@@ -144,15 +148,22 @@ public class OverlayManager {
 		JLabel msgPanelExpandLabel = new JLabel("Message Panel Grow Direction");
 		int bufferSize = 10;
 
-		menubarCombo.addItem("Top Left");
-		menubarCombo.addItem("Top Right");
-		menubarCombo.addItem("Bottom Left");
-		menubarCombo.addItem("Bottom Right");
+		for(MenubarButtonLocation b : MenubarButtonLocation.values()){
+			menubarCombo.addItem(b);
+		}
+		
+//		menubarCombo.addItem("Top Left");
+//		menubarCombo.addItem("Top Right");
+//		menubarCombo.addItem("Bottom Left");
+//		menubarCombo.addItem("Bottom Right");
 		menubarCombo.setSelectedItem(Main.saveManager.getString("overlayManager", "menubar", "buttonLocation"));
 		updateMenubarButton();
 
-		msgPanelCombo.addItem("Upwards");
-		msgPanelCombo.addItem("Downwards");
+		for(ExpandDirection d : ExpandDirection.values()){
+			msgPanelCombo.addItem(d);
+		}
+//		msgPanelCombo.addItem("Upwards");
+//		msgPanelCombo.addItem("Downwards");
 		Dimension panelSize = menubarCombo.getPreferredSize();
 		msgPanelCombo.setPreferredSize(panelSize);
 
@@ -199,6 +210,8 @@ public class OverlayManager {
 		helpDialog.setSize(pref.width + 20, pref.height + 20);
 		FrameManager.centerFrame(helpDialog);
 
+		load();
+		
 		menubarDialog.getContentPane().addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON3) {
@@ -237,7 +250,7 @@ public class OverlayManager {
 				menubarDialog.setLocation(Main.saveManager.getInt("overlayManager", "menubar", "x"), Main.saveManager.getInt("overlayManager", "menubar", "y"));
 				messageDialog.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));
 				menubarCombo.setSelectedItem(oldMenubarCombo);
-				msgPanelCombo.setSelectedItem(oldMsgPanelCombo);
+				msgPanelCombo.setSelectedItem(oldMsgPanelCombo);				
 				updateMenubarButton();
 				FrameManager.showVisibleFrames();
 				hideDialog();
@@ -252,15 +265,25 @@ public class OverlayManager {
 				Main.saveManager.putObject(menubarDialog.getY(), "overlayManager", "menubar", "y");
 				Main.saveManager.putObject(messageDialog.getX(), "overlayManager", "messageManager", "x");
 				Main.saveManager.putObject(messageDialog.getY(), "overlayManager", "messageManager", "y");
-				Main.saveManager.putObject(menubarCombo.getSelectedItem().toString(), "overlayManager", "menubar", "buttonLocation");
+//				Main.saveManager.putObject(menubarCombo.getSelectedItem().toString(), "overlayManager", "menubar", "buttonLocation");
+				
+				ExpandDirection dir = (ExpandDirection)msgPanelCombo.getSelectedItem();
+				MenubarButtonLocation loc = (MenubarButtonLocation)menubarCombo.getSelectedItem();
+				
+				Main.saveManager.putObject(dir.name(), "overlayManager", "messageManager", "expandDirection");
+				Main.saveManager.putObject(loc.name(), "overlayManager", "menubar", "buttonLocation");
+				
 				Main.saveManager.saveToDisk();
 
 				// Update UI
 				
 				FrameManager.menubar.setLocation(menubarDialog.getLocation());
-				FrameManager.messageManager.setLocation(messageDialog.getLocation());
+//				FrameManager.messageManager.setLocation(messageDialog.getLocation());
 				FrameManager.menubarToggle.updateLocation();
 				FrameManager.menubar.reorder();
+				
+				FrameManager.messageManager.updateLocation();
+				FrameManager.messageManager.setExpandDirection((ExpandDirection)msgPanelCombo.getSelectedItem());
 				
 				FrameManager.showVisibleFrames();
 				hideDialog();
@@ -269,13 +292,14 @@ public class OverlayManager {
 	}
 
 	private void updateMenubarButton() {
-		String sel = (String) menubarCombo.getSelectedItem();
+//		String sel = (String) menubarCombo.getSelectedItem();
+		MenubarButtonLocation loc = (MenubarButtonLocation)menubarCombo.getSelectedItem();
 		//TODO : Switch to enum, add proper default setting
-		if(sel == null){
-			sel = "Bottom Left";
-		}
-		switch (sel) {
-		case "Top Left":
+//		if(sel == null){
+//			sel = "Bottom Left";
+//		}
+		switch (loc) {
+		case NW:
 			if (menubarDialog.getScreenLock()) {
 				menubarExpandButton.setBorder(borderNWLock);
 			} else {
@@ -283,7 +307,7 @@ public class OverlayManager {
 			}
 			menubarPanelTop.add(menubarExpandButton, gcLeft);
 			break;
-		case "Top Right":
+		case NE:
 			if (menubarDialog.getScreenLock()) {
 				menubarExpandButton.setBorder(borderNELock);
 			} else {
@@ -291,7 +315,7 @@ public class OverlayManager {
 			}
 			menubarPanelTop.add(menubarExpandButton, gcRight);
 			break;
-		case "Bottom Left":
+		case SW:
 			if (menubarDialog.getScreenLock()) {
 				menubarExpandButton.setBorder(borderSWLock);
 			} else {
@@ -299,7 +323,7 @@ public class OverlayManager {
 			}
 			menubarPanelBottom.add(menubarExpandButton, gcLeft);
 			break;
-		case "Bottom Right":
+		case SE:
 			if (menubarDialog.getScreenLock()) {
 				menubarExpandButton.setBorder(borderSELock);
 			} else {
@@ -323,10 +347,21 @@ public class OverlayManager {
 		helpDialog.setVisible(false);
 		menubarDialog.setVisible(false);
 		messageDialog.setVisible(false);
-//		FrameManager.menubar.refreshVisibility();
-//		FrameManager.menubarToggle.refreshVisibility();
-//		FrameManager.optionsWindow.setVisible(true);
-//		FrameManager.messageManager.setVisible(true);
+	}
+
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void load() {
+		MenubarButtonLocation loc = MenubarButtonLocation.valueOf(Main.saveManager.getEnumValue(MenubarButtonLocation.class, "overlayManager", "menubar", "buttonLocation"));
+		ExpandDirection dir = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
+		
+		menubarCombo.setSelectedItem(loc);	
+		msgPanelCombo.setSelectedItem(dir);	
+		
+		updateMenubarButton();
 	}
 
 }

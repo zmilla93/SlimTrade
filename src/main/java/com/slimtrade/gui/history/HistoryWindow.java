@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.DateStyle;
+import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.enums.TimeStyle;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.options.OrderType;
@@ -35,22 +36,29 @@ public class HistoryWindow extends ResizableWindow {
 	HistoryPanel savedPanel = new HistoryPanel();
 	// private ArrayList<TradeOffer> incomingTradeData = new
 	// ArrayList<TradeOffer>();
-
+	
+//	private int maxTrades = 50;
+	
 	public HistoryWindow() {
-		super("NEW HISTORY");
+		super("History");
 		timeStyle = TimeStyle.H24;
 		dateStyle = DateStyle.DDMMYY;
-//		timeStyle = Main.saveManager.getEnumValue("", keys)
+		timeStyle = TimeStyle.valueOf(Main.saveManager.getEnumValue(TimeStyle.class, "history", "timeStyle"));
+		dateStyle = DateStyle.valueOf(Main.saveManager.getEnumValue(DateStyle.class, "history", "dateStyle"));
+		orderType = OrderType.valueOf(Main.saveManager.getEnumValue(OrderType.class, "history", "orderType"));
 		this.setPreferredSize(new Dimension(900, 600));
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.insets = inset;
 		container.setLayout(new BorderLayout());
+		
+		savedPanel.setClose(true);
 
 		// GridBagPanel historyContainer = new GridBagPanel();
 
 		JScrollPane incomingScroll = new JScrollPane(incomingPanel);
 		JScrollPane outgoingScroll = new JScrollPane(outgoingPanel);
+		JScrollPane savedScroll = new JScrollPane(savedPanel);
 
 		// incomingScroll.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0,
 		// Color.BLACK));
@@ -73,7 +81,7 @@ public class HistoryWindow extends ResizableWindow {
 
 		buttonPanel.add(incomingButton);
 		buttonPanel.add(outgoingButton);
-		buttonPanel.add(savedButton);
+//		buttonPanel.add(savedButton);
 
 		// scrollPane
 
@@ -85,33 +93,46 @@ public class HistoryWindow extends ResizableWindow {
 		incomingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				outgoingScroll.setVisible(false);
+				savedScroll.setVisible(false);
 				incomingScroll.setVisible(true);
 				innerPanel.add(incomingScroll, BorderLayout.CENTER);
 
 				innerPanel.revalidate();
 				innerPanel.repaint();
 
-				// local.autoResize();
-				// local.pack();
-				// local.repaint();
 			}
 		});
+		
 		outgoingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				incomingScroll.setVisible(false);
+				savedScroll.setVisible(false);
 				outgoingScroll.setVisible(true);
 				innerPanel.add(outgoingScroll, BorderLayout.CENTER);
 
 				innerPanel.revalidate();
 				innerPanel.repaint();
-
-				// local.autoResize();
-				// local.pack();
-				// local.repaint();
 			}
 		});
+		
+		savedButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				incomingScroll.setVisible(false);
+				outgoingScroll.setVisible(false);
+				savedScroll.setVisible(true);
+				innerPanel.add(savedScroll, BorderLayout.CENTER);
+				
+				innerPanel.revalidate();
+				innerPanel.repaint();
+			}
+		});
+		
+		TradeOffer trade = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", 3, 3, "", "");
+		savedPanel.addTrade(trade, true);
+		
 		incomingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		outgoingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		savedScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		innerPanel.add(incomingScroll, BorderLayout.CENTER);
 		innerPanel.revalidate();
 		innerPanel.repaint();
@@ -133,6 +154,8 @@ public class HistoryWindow extends ResizableWindow {
 	
 	public void setOrderType(OrderType type){
 		HistoryWindow.orderType = type;
+		incomingPanel.refreshOrder();
+		outgoingPanel.refreshOrder();
 	}
 
 	public void addTrade(TradeOffer trade, boolean updateUI) {
@@ -161,8 +184,8 @@ public class HistoryWindow extends ResizableWindow {
 		this.repaint();
 	}
 
-	public void setOrder(boolean order) {
-		incomingPanel.setOrder(order);
-	}
+//	public void setOrder(boolean order) {
+//		incomingPanel.setOrder(order);
+//	}
 
 }

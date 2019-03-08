@@ -28,13 +28,21 @@ public class ToggleButton extends JButton {
 
 	public ToggleButton(String text) {
 		super(text);
+		buildButton(text, false);
+	}
+
+	public ToggleButton(String text, boolean pressed) {
+		super(text);
+		buildButton(text, pressed);
+	}
+
+	private void buildButton(String text, boolean pressed) {
+		this.active = pressed;
+		
 		this.setContentAreaFilled(false);
 		this.setFocusable(false);
 		JButton local = this;
 		this.setPreferredSize(new Dimension(300, 20));
-
-		this.setBackground(colorInactive);
-		this.setBorder(borderInactive);
 
 		this.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {

@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.gui.messaging;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,7 +21,6 @@ import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.ImagePreloader;
-import main.java.com.slimtrade.gui.basic.PaintedPanel;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 
 public class AbstractMessagePanel extends JPanel {
@@ -48,22 +48,22 @@ public class AbstractMessagePanel extends JPanel {
 	protected JPanel namePanel;
 	protected JPanel pricePanel = new JPanel(gb);
 	protected ItemClickPanel itemPanel = new ItemClickPanel();
-	
+
 	protected JPanel borderPanel = new JPanel();
 	protected JPanel container = new JPanel();
 	protected JPanel timerPanel = new JPanel();
 	protected JLabel timerLabel = new JLabel("0s");
 	protected IconButton closeButton;
-	
-	//Buttons
+
+	// Buttons
 	protected IconButton kickButton;
 	protected IconButton leaveButton;
-	
-	//Labels
+
+	// Labels
 	protected JLabel nameLabel = new JLabel();
 	protected JLabel priceLabel = new JLabel();
 	protected JLabel itemLabel = new JLabel();
-	
+
 	protected int buttonCountTop;
 	protected int buttonCountBottom;
 	// TODO : Change to generic offer
@@ -73,7 +73,35 @@ public class AbstractMessagePanel extends JPanel {
 	private int second = 0;
 	private int minute = 1;
 	// TODO minute timer
-	private Timer secondTimer=new Timer(1000,new ActionListener(){public void actionPerformed(ActionEvent arg0){second++;timerLabel.setText(second+"s");}});
+	// private Timer secondTimer = new Timer(1000, new ActionListener() {
+	// public void actionPerformed(ActionEvent e) {
+	// second++;
+	// if(second > 59){
+	// minute++;
+	// second = 0;
+	// }
+	// String sec = String.format("%02d", second);
+	// timerLabel.setText(minute + ":" + sec);
+	// }
+
+	private Timer secondTimer = new Timer(1000, new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			second++;
+			if(second>59){
+				secondTimer.stop();
+				minuteTimer.start();
+				timerLabel.setText("1m");
+			}else{
+				timerLabel.setText(second + "s");
+			}
+		}
+	});
+	private Timer minuteTimer = new Timer(60000, new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			minute++;
+			timerLabel.setText(minute + "m");
+		}
+	});
 
 	public AbstractMessagePanel(TradeOffer trade) {
 		this.trade = trade;
@@ -103,13 +131,13 @@ public class AbstractMessagePanel extends JPanel {
 			}
 		});
 	}
-	
-	public JButton getKickLeaveButton(){
-		if(this.getMessageType() == MessageType.INCOMING_TRADE){
+
+	public JButton getKickLeaveButton() {
+		if (this.getMessageType() == MessageType.INCOMING_TRADE) {
 			return this.kickButton;
-		}else if(this.getMessageType() == MessageType.OUTGOING_TRADE){
+		} else if (this.getMessageType() == MessageType.OUTGOING_TRADE) {
 			return this.leaveButton;
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -124,9 +152,9 @@ public class AbstractMessagePanel extends JPanel {
 		}
 	}
 
-	protected void registerPoeInteractionButton(JButton button, ButtonType type) {
+	protected void registerPoeInteractionButton(Component c, ButtonType type) {
 
-		button.addMouseListener(new AdvancedMouseAdapter() {
+		c.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade));
 			}
@@ -141,30 +169,30 @@ public class AbstractMessagePanel extends JPanel {
 		return messageType;
 	}
 
-	//TODO : Reconsider where to put audio
+	// TODO : Reconsider where to put audio
 	public void setMessageType(MessageType messageType) {
 		this.messageType = messageType;
 	}
 
 	// TODO : More fonts
 	// TODO : Properly center font
-//	public void refreshFont(int size) {
-//		// Font f = this.getFont();
-//		int[] fontSizes = { 12, 16, 18, 20 };
-//		int i = size;
-//		if (i % 2 != 0) {
-//			i--;
-//		}
-//		// System.out.println("FONT SIZE : " + i);
-//		font = new Font("Serif", Font.PLAIN, i);
-//	}
+	// public void refreshFont(int size) {
+	// // Font f = this.getFont();
+	// int[] fontSizes = { 12, 16, 18, 20 };
+	// int i = size;
+	// if (i % 2 != 0) {
+	// i--;
+	// }
+	// // System.out.println("FONT SIZE : " + i);
+	// font = new Font("Serif", Font.PLAIN, i);
+	// }
 
 	protected void resizeFrames() {
-		
+
 	}
 
 	protected void resizeButtons() {
-		
+
 	}
 
 	public void startTimer() {

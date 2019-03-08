@@ -4,15 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
@@ -32,7 +35,7 @@ public class HistoryRow extends JPanel {
 
 	private Color color = this.getBackground();
 	private Color colorHover = color.LIGHT_GRAY;
-	
+
 	final int rowHeight = 20;
 
 	public static final int MIN_WIDTH = 500;
@@ -40,10 +43,20 @@ public class HistoryRow extends JPanel {
 	IconButton refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
 	IconButton closeButton = new IconButton(ImagePreloader.close, rowHeight);
 	// public HistoryRow()
-	
-	TradeOffer trade;
 
-	public HistoryRow(TradeOffer trade) {
+	TradeOffer trade;
+	
+	private Border cellBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED);
+	
+	public HistoryRow(TradeOffer trade){
+		buildRow(trade, false);
+	}
+	
+	public HistoryRow(TradeOffer trade, boolean close){
+		buildRow(trade, close);
+	}
+
+	private void buildRow(TradeOffer trade, boolean close) {
 		this.trade = trade;
 		this.setLayout(new BorderLayout());
 		HistoryCellPanel rowPanel = new HistoryCellPanel();
@@ -52,20 +65,19 @@ public class HistoryRow extends JPanel {
 		this.setMaximumSize(new Dimension(1600, rowHeight));
 
 		this.setBackground(Color.RED);
-		
-//		System.out.println(trade.date);
-		
-//		LocalDate date = LocalDate.parse("2019-12-03", DateTimeFormatter.ISO_DATE);
-		LocalDate date = LocalDate.parse(trade.date.replaceAll("/", "-"), DateTimeFormatter.ISO_DATE);
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd");
-		
-		String newDate = date.format(format);
-//		System.out.println(date.getMonth());
-//		SimpleDateFormat
-		
+
+		// System.out.println(trade.date);
+
+		// LocalDate date = LocalDate.parse("2019-12-03",
+		// DateTimeFormatter.ISO_DATE);
+		// LocalDate date = LocalDate.parse(trade.date.replaceAll("/", "-"),
+		// DateTimeFormatter.ISO_DATE);
+		// DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd");
+		// String newDate = date.format(format);
+
 		datePanel = new HistoryCellPanel(trade.date);
-	
-//		datePanel = new HistoryCellPanel(newDate);
+
+		// datePanel = new HistoryCellPanel(newDate);
 		timePanel = new HistoryCellPanel(trade.time);
 		playerPanel = new HistoryCellPanel(trade.playerName);
 		itemPanel = new HistoryCellPanel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
@@ -77,13 +89,12 @@ public class HistoryRow extends JPanel {
 		itemPanel.setPreferredSize(new Dimension(200, rowHeight));
 		pricePanel.setPreferredSize(new Dimension(100, rowHeight));
 
+		datePanel.setBorder(cellBorder);
+		timePanel.setBorder(cellBorder);
+		playerPanel.setBorder(cellBorder);
+		itemPanel.setBorder(cellBorder);
+		pricePanel.setBorder(cellBorder);
 
-		datePanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		timePanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		playerPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		itemPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		pricePanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		
 		datePanel.setOpaque(false);
 		timePanel.setOpaque(false);
 		playerPanel.setOpaque(false);
@@ -91,7 +102,7 @@ public class HistoryRow extends JPanel {
 		pricePanel.setOpaque(false);
 
 		GridBagConstraints gc = rowPanel.gc;
-		rowPanel.add(refreshButton, gc);
+//		rowPanel.add(refreshButton, gc);
 		gc.weightx = 1;
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.fill = GridBagConstraints.BOTH;
@@ -99,77 +110,99 @@ public class HistoryRow extends JPanel {
 		gc.weightx = 0.2;
 		rowPanel.add(datePanel, gc);
 		gc.gridx++;
-		 gc.weightx = 0.2;
+		gc.weightx = 0.2;
 		rowPanel.add(timePanel, gc);
 		gc.gridx++;
-		 gc.weightx = 0.4;
+		gc.weightx = 0.4;
 		rowPanel.add(playerPanel, gc);
 		gc.gridx++;
-		 gc.weightx = 0.4;
+		gc.weightx = 0.4;
 		rowPanel.add(itemPanel, gc);
 		gc.gridx++;
-		 gc.weightx = 0.2;
+		gc.weightx = 0.2;
 		rowPanel.add(pricePanel, gc);
-		
-//		this.setBackground(Color.GREEN);
-		
-		
+
+		// this.setBackground(Color.GREEN);
+
 		refreshButton.borderDefault = BorderFactory.createSoftBevelBorder(BevelBorder.RAISED);
 		refreshButton.borderHover = BorderFactory.createSoftBevelBorder(BevelBorder.RAISED);
 		refreshButton.borderPressed = BorderFactory.createSoftBevelBorder(BevelBorder.LOWERED);
-//		refreshButton.setMaximumSize(new Dimension(rowHeight, rowHeight));
-//		this.setMaximumSize(2000,);
-		
-		refreshButton.addActionListener(new ActionListener(){
+		// refreshButton.setMaximumSize(new Dimension(rowHeight, rowHeight));
+		// this.setMaximumSize(2000,);
+
+		refreshButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrameManager.messageManager.addMessage(trade);
 			}
 		});
 		this.updateDate();
 		this.updateTime();
-		//TODO : Switch to paint
-		//TODO : This wastes a ton of GPU
-//		refreshButton.addMouseListener(new MouseAdapter(){
-//
-//			public void mouseEntered(MouseEvent arg0) {
-//				rowPanel.setBackground(colorHover);
-//				
-//			}
-//
-//			public void mouseExited(MouseEvent arg0) {
-//				rowPanel.setBackground(color);
-//			}
-//		});
-//		
-//		this.addMouseListener(new MouseAdapter(){
-//			
-//			public void mouseEntered(MouseEvent arg0) {
-//				rowPanel.setBackground(colorHover);
-//				
-//			}
-//			
-//			public void mouseExited(MouseEvent arg0) {
-//				rowPanel.setBackground(color);
-//			}
-//		});
+		// TODO : Switch to paint
+		// TODO : This wastes a ton of GPU
+		// refreshButton.addMouseListener(new MouseAdapter(){
+		//
+		// public void mouseEntered(MouseEvent arg0) {
+		// rowPanel.setBackground(colorHover);
+		//
+		// }
+		//
+		// public void mouseExited(MouseEvent arg0) {
+		// rowPanel.setBackground(color);
+		// }
+		// });
+		//
+		// this.addMouseListener(new MouseAdapter(){
+		//
+		// public void mouseEntered(MouseEvent arg0) {
+		// rowPanel.setBackground(colorHover);
+		//
+		// }
+		//
+		// public void mouseExited(MouseEvent arg0) {
+		// rowPanel.setBackground(color);
+		// }
+		// });
 		
-		this.add(refreshButton, BorderLayout.WEST);
+		if(close){
+			JPanel buttonPanel = new JPanel(new GridBagLayout());
+			gc = new GridBagConstraints();
+			gc.gridx = 0;
+			gc.gridy = 0;
+			gc.insets.right = 20;
+			buttonPanel.add(closeButton, gc);
+			gc.gridx++;
+			gc.insets.right = 0;
+			buttonPanel.add(refreshButton, gc);
+//			buttonPanel.setBorder(cellBorder);
+			this.add(buttonPanel, BorderLayout.WEST);
+		}else{
+			this.add(refreshButton, BorderLayout.WEST);
+		}
+		
 		this.add(rowPanel, BorderLayout.CENTER);
 	}
-	
-	public void updateDate(){
-		LocalDate date = LocalDate.parse(trade.date, DateTimeFormatter.ISO_DATE);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(HistoryWindow.dateStyle.getFormat());
-		String newDate = date.format(formatter);
-		datePanel.setLabel(newDate);
+
+	public void updateDate() {
+		try {
+			LocalDate date = LocalDate.parse(trade.date, DateTimeFormatter.ISO_DATE);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(HistoryWindow.dateStyle.getFormat());
+			String newDate = date.format(formatter);
+			datePanel.setLabel(newDate);
+		} catch (DateTimeParseException e) {
+			// e.printStackTrace();
+		}
+
 	}
-	
-	public void updateTime(){
-//		System.out.println(trade.time);
-		LocalTime time = LocalTime.parse(trade.time, DateTimeFormatter.ISO_TIME);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(HistoryWindow.timeStyle.getFormat());
-		String newTime = time.format(formatter);
-		timePanel.setLabel(newTime);
+
+	public void updateTime() {
+		try {
+			LocalTime time = LocalTime.parse(trade.time, DateTimeFormatter.ISO_TIME);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(HistoryWindow.timeStyle.getFormat());
+			String newTime = time.format(formatter);
+			timePanel.setLabel(newTime);
+		} catch (DateTimeParseException e) {
+
+		}
 	}
 
 }

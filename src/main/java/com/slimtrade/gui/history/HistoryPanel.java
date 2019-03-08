@@ -14,6 +14,7 @@ import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.enums.DateStyle;
 import main.java.com.slimtrade.enums.TimeStyle;
+import main.java.com.slimtrade.gui.options.OrderType;
 
 public class HistoryPanel extends JPanel {
 
@@ -23,18 +24,20 @@ public class HistoryPanel extends JPanel {
 	private ArrayList<TradeOffer> trades = new ArrayList<TradeOffer>();
 	private ArrayList<HistoryRow> tradePanels = new ArrayList<HistoryRow>();
 
-	private int maxTrades = 100;
+
 	private JPanel contentPanel;
+	
+	private static int maxTrades = 10;
+	
+	private boolean close = false;
 	
 	HistoryPanel() {
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.RED);
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-//		contentPanel.setBorder(null);
 		this.add(contentPanel, BorderLayout.CENTER);
-//		initUI();
+		this.setMaxTrades(Main.saveManager.getDefaultInt(0, 100, 50, "history", "messageCount"));
 	}
 
 	public void addTrade(TradeOffer trade, boolean updateUI) {
@@ -62,8 +65,12 @@ public class HistoryPanel extends JPanel {
 		// Add new trade
 		trades.add(trade);
 		if (updateUI) {
-			tradePanels.add(new HistoryRow(trade));
-			contentPanel.add(tradePanels.get(tradePanels.size() - 1), 0);
+			tradePanels.add(new HistoryRow(trade, close));
+			if(HistoryWindow.orderType == OrderType.NEW_FIRST){
+				contentPanel.add(tradePanels.get(tradePanels.size() - 1), 0);
+			}else{
+				contentPanel.add(tradePanels.get(tradePanels.size() - 1));
+			}
 			this.revalidate();
 			this.repaint();
 		}
@@ -71,9 +78,15 @@ public class HistoryPanel extends JPanel {
 
 	public void initUI() {
 //		Debugger.benchmarkStart();
+//		contentPanel.removeAll();
+//		tradePanels.clear();
 		for (TradeOffer trade : trades) {
-			HistoryRow row = new HistoryRow(trade);
-			contentPanel.add(row);
+			HistoryRow row = new HistoryRow(trade, close);
+			if(HistoryWindow.orderType == OrderType.NEW_FIRST){
+				contentPanel.add(row, 0);
+			}else{
+				contentPanel.add(row);
+			}
 			tradePanels.add(row);
 		}
 //		Main.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
@@ -81,14 +94,14 @@ public class HistoryPanel extends JPanel {
 		this.repaint();
 	}
 	
-	public void setOrder(boolean order){
-		if(order){
+	public void refreshOrder(){
+		if(HistoryWindow.orderType == OrderType.NEW_FIRST){
 			for(HistoryRow row : tradePanels){
-				contentPanel.add(row);
+				contentPanel.add(row, 0);
 			}
 		}else{
 			for(HistoryRow row : tradePanels){
-				contentPanel.add(row, 0);
+				contentPanel.add(row);
 			}
 		}
 		this.revalidate();
@@ -107,8 +120,12 @@ public class HistoryPanel extends JPanel {
 		}
 	}
 	
-	public void setTimeStyle(TimeStyle style){
-		
+	public void setMaxTrades(int maxTrades){
+		HistoryPanel.maxTrades = maxTrades;
 	}
-
+	
+	public void setClose(boolean close){
+		this.close = close;
+	}
+	
 }

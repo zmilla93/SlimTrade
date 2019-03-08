@@ -45,64 +45,68 @@ public class StashHelper extends JPanel {
 
 	private PoeInteractionListener poeInteractionListener = Main.eventManager;
 
-	public StashHelper(TradeOffer trade, Color colorBackground, Color colorForeground){
+	public StashHelper(TradeOffer trade, Color colorBackground, Color colorForeground) {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, borderThickness));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setBorder(BorderFactory.createLineBorder(colorForeground, borderThickness, true));
-		
-//		this.setFocusable(true);
-//		this.requestFocusInWindow(true);
-		
-		BasicPanel stashPanel = new BasicPanel(width, height/3, new FlowLayout(FlowLayout.CENTER, 0, 0));
+
+		// this.setFocusable(true);
+		// this.requestFocusInWindow(true);
+
+		BasicPanel stashPanel = new BasicPanel(width, height / 3, new FlowLayout(FlowLayout.CENTER, 0, 0));
 		String fixedStashtabName = trade.stashtabName == null ? "(~price " + Double.toString(trade.priceCount).replaceAll("[.]0", "") + " " + trade.priceTypeString + ")" : trade.stashtabName;
 		JLabel stashLabel = new JLabel(fixedStashtabName);
 		stashLabel.setForeground(colorForeground);
 		stashPanel.add(stashLabel);
-		
-		BasicPanel itemPanel = new BasicPanel(width, height/3, new FlowLayout(FlowLayout.CENTER, 0, 0));
+
+		BasicPanel itemPanel = new BasicPanel(width, height / 3, new FlowLayout(FlowLayout.CENTER, 0, 0));
 		JLabel itemLabel = new JLabel(trade.itemName);
 		itemLabel.setForeground(colorForeground);
 		itemPanel.add(itemLabel);
 		this.add(stashPanel);
 		this.add(itemPanel);
 		this.add(new BasicPanel(width, borderThickness));
-		
-		//ITEM HIGHLIGHTER
+
+		// ITEM HIGHLIGHTER
 		this.setBackground(colorBackground);
-		itemHighlighter = new ItemHighlighter(trade.stashtabX, trade.stashtabY, colorBackground);
-		
+		if (trade.stashtabName != null) {
+			itemHighlighter = new ItemHighlighter(trade.stashType, trade.stashtabX, trade.stashtabY, colorBackground);
+
+			this.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+					highlighterTimer.stop();
+					itemHighlighter.updatePos(12);
+					itemHighlighter.setVisible(true);
+					itemHighlighter.repaint();
+				}
+			});
+
+			this.addMouseListener(new MouseAdapter() {
+				public void mouseExited(MouseEvent e) {
+					highlighterTimer.restart();
+				}
+			});
+		}
+
 		this.repaint();
-		
-		this.addMouseListener(new MouseAdapter() {
-		    public void mouseEntered(MouseEvent e) {
-		    	highlighterTimer.stop();
-		    	itemHighlighter.updatePos(12);
-		    	itemHighlighter.setVisible(true);
-		    	itemHighlighter.repaint();
-		    }
-		});
-		
-		this.addMouseListener(new MouseAdapter() {
-			public void mouseExited(MouseEvent e) {
-				highlighterTimer.restart();
-			}
-		});
-		
+
 		this.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
-				if(e.getButton() == MouseEvent.BUTTON1){
+				if (e.getButton() == MouseEvent.BUTTON1) {
 					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), ButtonType.SEARCH, trade));
-				}else if(e.getButton() == MouseEvent.BUTTON3){
+				} else if (e.getButton() == MouseEvent.BUTTON3) {
 					hideStashHelper();
 				}
-				
+
 			}
 		});
 	}
 
 	private void hideStashHelper() {
 		this.setVisible(false);
-		itemHighlighter.setVisible(false);
+		if(itemHighlighter != null){
+			itemHighlighter.setVisible(false);
+		}
 	}
 
 }

@@ -30,7 +30,7 @@ import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.windows.ImprovedChatScanner;
+import main.java.com.slimtrade.gui.scanner.ImprovedChatScanner;
 
 public class Main {
 	
@@ -46,10 +46,6 @@ public class Main {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		
-		JFrame frame = new JFrame("Hello!");
-		frame.setSize(400,400);
-		frame.setVisible(true);
 		
 		debug.setState(Frame.ICONIFIED);
 		BasicDialog loadWindow = new BasicDialog();
@@ -106,9 +102,6 @@ public class Main {
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 				fileMonitor.startMonitor();
-				
-				ImprovedChatScanner scan = new ImprovedChatScanner();
-				scan.setShow(true);
 
 			}
 		});
@@ -123,7 +116,7 @@ public class Main {
 
 	}
 	
-	public static void closeProgram() {
+	private static void closeProgram() {
 		try {
 			GlobalScreen.unregisterNativeHook();
 		} catch (NativeHookException e) {

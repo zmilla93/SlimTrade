@@ -49,12 +49,15 @@ public class ChatParser {
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
 	private String[] searchTerms;
+	private String[] ignoreTerms;
 	private boolean chatScannerRunning = false;
+	private String searchResponseLeft;
+	private String searchResponseRight;
 
 	private String clientLogPath;
 
 	public ChatParser() {
-
+		
 	}
 
 	// TODO : Move path to options
@@ -143,15 +146,21 @@ public class ChatParser {
 							}
 						}
 					} else if (chatScannerRunning) {
-						for (String s : searchTerms) {
-							if (curLine.toLowerCase().contains(s)) {
-								// FrameManager.messageManager.addMessage(trade);
-								//Add null set/check
-								TradeOffer trade = getSearchOffer(curLine);
-								FrameManager.messageManager.addMessage(trade);
-								return;
-							}
+						TradeOffer trade = getSearchOffer(curLine);
+						if(trade != null){
+							FrameManager.messageManager.addMessage(trade);
 						}
+//						for (String s : searchTerms) {
+//							if (curLine.toLowerCase().contains(s)) {
+//								// FrameManager.messageManager.addMessage(trade);
+//								//Add null set/check
+//								TradeOffer trade = getSearchOffer(curLine);
+//								if(trade != null){
+//									FrameManager.messageManager.addMessage(trade);
+//								}
+//								return;
+//							}
+//						}
 					} else {
 						Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
 					}
@@ -230,12 +239,24 @@ public class ChatParser {
 			}
 			System.out.println("");
 			// DEBUG END
+			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), null, matcher.group(6), this.searchResponseLeft, this.searchResponseRight);
 			
-			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), null, matcher.group(6));
-			return trade;
-		} else {
-			return null;
+			for(String s : this.ignoreTerms){
+				if(trade.searchMessage.contains(s)){
+					return null;
+				}
+			}
+			boolean found = false;
+			for(String s : this.searchTerms){
+				if(trade.searchMessage.contains(s)){
+					found = true;
+				}
+			}
+			if(found){
+				return trade;
+			}
 		}
+		return null;
 	}
 
 	private MessageType getMsgType(String s) {
@@ -257,6 +278,15 @@ public class ChatParser {
 
 	public void setSearchTerms(String[] searchTerms) {
 		this.searchTerms = searchTerms;
+	}
+	
+	public void setIgnoreTerms(String[] ignoreTerms) {
+		this.ignoreTerms = ignoreTerms;
+	}
+	
+	public void setResponseText(String lmb, String rmb){
+		this.searchResponseLeft = lmb;
+		this.searchResponseRight = rmb;
 	}
 
 }

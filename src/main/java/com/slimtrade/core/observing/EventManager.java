@@ -40,6 +40,13 @@ public class EventManager implements PoeInteractionListener {
 				PoeInterface.paste("/kick " + characterName);
 			}
 			break;
+		case NAME_PANEL:
+			if(mouseButton == MouseEvent.BUTTON1){
+				PoeInterface.paste("/whois " + trade.playerName);
+			}else if(mouseButton == MouseEvent.BUTTON3){
+				PoeInterface.paste("@" + trade.playerName + " ", false);
+			}
+			break;
 		case REFRESH:
 			//FIX FRONT END IMPORT
 //			System.out.println("REFRESHING BUTTON : " + trade.msgType);

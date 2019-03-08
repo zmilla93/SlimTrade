@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class ContactPanel extends ContentPanel {
+public class ContactPanel extends ContentPanel_REMOVE {
 
 	private static final long serialVersionUID = 1L;
 

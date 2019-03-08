@@ -15,11 +15,11 @@ public enum TimeStyle {
 	}
 
 	public String toString() {
-		return name;
+		return this.name;
 	}
 
 	public String getFormat() {
-		return format;
+		return this.format;
 	}
 	
 }

@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 
 public class ItemHighlighter extends BasicDialog{
@@ -19,8 +20,11 @@ public class ItemHighlighter extends BasicDialog{
 	//Internal
 	private int stashX;
 	private int stashY;
+	
+	private StashTabType type;
 
-	public ItemHighlighter(int stashX, int stashY, Color color){
+	public ItemHighlighter(StashTabType type, int stashX, int stashY, Color color){
+		this.type = type;
 		this.stashX = stashX;
 		this.stashY = stashY;
 		this.setVisible(false);
@@ -39,12 +43,15 @@ public class ItemHighlighter extends BasicDialog{
 	}
 	
 	public void updatePos(int cellCount){
-//		System.out.println("GRID SIZE : " + gridWidth + " : " + gridHeight);
 		double cellWidth = gridWidth/(double)cellCount;
 		double cellHeight = gridHeight/(double)cellCount;
-//		System.out.println("CELL SIZE : " + cellWidth + " : " + cellHeight);
+		
+		if(type == StashTabType.QUAD){
+			cellWidth = cellWidth/2;
+			cellHeight = cellHeight/2;
+		}
+		
 		this.setBounds((int)(gridX+((stashX-1)*cellWidth)), (int)(gridY+((stashY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
-//		this.setBounds((int)(gridX+((stashX-1)*cellWidth)), (int)(gridY+((stashY-1)*cellHeight)), (int)gridWidth, (int)gridHeight);
 	}
 	
 	public void destroy(){

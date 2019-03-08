@@ -38,7 +38,8 @@ public class AbstractWindow extends BasicMovableDialog {
 	private GridBagConstraints gc = new GridBagConstraints();
 
 	public AbstractWindow(String title, boolean makeCloseButton) {
-		this.setTitle(title);
+		String fullTitle = "SlimTrade - " + title;
+		this.setTitle(fullTitle);
 //		this.createListeners(titlebarPanel);
 
 		contentPane.setLayout(new BorderLayout());
@@ -58,7 +59,7 @@ public class AbstractWindow extends BasicMovableDialog {
 		gc.ipady = 0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		titlebarPanel.add(new BufferPanel(5,0), BorderLayout.WEST);
-		JLabel titleLabel = new JLabel(title);
+		JLabel titleLabel = new JLabel(fullTitle);
 		gc.anchor = GridBagConstraints.LINE_START;
 		titlebarPanel.add(titleLabel, BorderLayout.CENTER);
 		JPanel p = new JPanel();

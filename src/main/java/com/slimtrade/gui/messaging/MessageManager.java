@@ -1,14 +1,18 @@
 package main.java.com.slimtrade.gui.messaging;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
@@ -18,6 +22,7 @@ import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
+import main.java.com.slimtrade.gui.enums.ExpandDirection;
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
 public class MessageManager extends BasicDialog {
@@ -25,25 +30,28 @@ public class MessageManager extends BasicDialog {
 	private static final long serialVersionUID = 1L;
 
 	public static final int buffer = 1;
-	private final int maxMessageCount = 20;
+	private final int MAX_MESSAGES = 20;
 	private int messageCount = 0;
-	private AbstractMessagePanel[] messages = new AbstractMessagePanel[maxMessageCount];
-	private Component[] rigidAreas = new Component[maxMessageCount];
+	private AbstractMessagePanel[] messages = new AbstractMessagePanel[MAX_MESSAGES];
+	private Component[] rigidAreas = new Component[MAX_MESSAGES];
 	private ArrayList<TradeOffer> trades = new ArrayList<TradeOffer>();
+	
+	private Container container;
+	
+	private Point startingPos;
+	private ExpandDirection expandDirection;
 
 	public MessageManager() {
-		// TODO : Get default theme, or move setMessageTheme
-		// ColorManager.setMessageTheme();
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		this.setBounds(1220, 0, 500, 400);
+		this.setBounds(1220, 0, 0, 0);
 		this.setBackground(ColorManager.CLEAR);
-		// this.setVisible(true);
-		// this.visible = true;
+		container = this.getContentPane();
+		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+		this.expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
 	}
 
 	// TODO : Clean up stash helper removal
 	public void addMessage(TradeOffer trade) {
-		if (messageCount == maxMessageCount) {
+		if (messageCount == MAX_MESSAGES) {
 			return;
 		}
 		int i = 0;
@@ -76,8 +84,14 @@ public class MessageManager extends BasicDialog {
 				}
 			});
 		}
-		this.add(messages[i]);
-		this.add(rigidAreas[i]);
+		if(expandDirection == ExpandDirection.UP){
+			container.add(messages[i], 0);
+			container.add(rigidAreas[i], 0);
+		}else{
+			container.add(messages[i]);
+			container.add(rigidAreas[i]);
+		}
+		
 		messageCount++;
 		refresh();
 		FrameManager.forceAllToTop();
@@ -93,8 +107,8 @@ public class MessageManager extends BasicDialog {
 				FrameManager.stashHelperContainer.refresh();
 			}
 		}
-		this.remove(messages[i]);
-		this.remove(rigidAreas[i]);
+		container.remove(messages[i]);
+		container.remove(rigidAreas[i]);
 		messages[i] = null;
 		rigidAreas[i] = null;
 		messageCount--;
@@ -135,19 +149,36 @@ public class MessageManager extends BasicDialog {
 			i++;
 		}
 	}
-
-	private void closeOtherOutgoing(int index) {
-		System.out.println("Closing others...");
-		for (int i = 0; i < maxMessageCount; i++) {
-			if (messages[i] != null && messages[i].getMessageType() == MessageType.OUTGOING_TRADE && i != index) {
-				this.removeMessage(i);
+	
+	public void setExpandDirection(ExpandDirection direction){
+		this.expandDirection = direction;
+		container.removeAll();
+		if(direction == ExpandDirection.UP){
+			for(int i = 0;i<MAX_MESSAGES;i++){
+				if(messages[i]!=null){
+					container.add(messages[i], 0);
+					container.add(rigidAreas[i], 0);
+				}
+			}
+		}else{
+			for(int i = 0;i<MAX_MESSAGES;i++){
+				if(messages[i]!=null){
+					container.add(messages[i]);
+					container.add(rigidAreas[i]);
+				}
 			}
 		}
-	}
+		refresh();
+	}	
 
-	// TODO : Move resize to another funciton to be more consistent with refresh
+	// TODO : Move resize to another function to be more consistent with refresh
 	// function?
 	public void refresh() {
+		if(expandDirection == ExpandDirection.UP){
+			this.setLocation(startingPos.x, startingPos.y-MessagePanel.totalHeight*(messageCount-1)-buffer*(messageCount-1));
+		}else{
+			
+		}
 		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight * messageCount + buffer * messageCount);
 		this.revalidate();
 		this.repaint();
@@ -165,22 +196,11 @@ public class MessageManager extends BasicDialog {
 		return false;
 	}
 
-	// public void rebuild() {
-	// for (int i = 0; i < maxMessageCount; i++) {
-	// if (messages[i] != null) {
-	// trades.add(messages[i].trade);
-	// this.removeMessage(i);
-	// }
-	// }
-	// this.refresh();
-	// for (TradeOffer t : trades) {
-	// this.addMessage(t);
-	// }
-	// trades.clear();
-	// }
-
 	public void updateLocation() {
-		this.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));
+		int x = Main.saveManager.getInt("overlayManager", "messageManager", "x");
+		int y = Main.saveManager.getInt("overlayManager", "messageManager", "y");
+		this.startingPos = new Point(x, y);
+		this.setLocation(x, y);
 	}
 
 }

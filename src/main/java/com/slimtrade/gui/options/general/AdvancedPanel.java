@@ -1,5 +1,6 @@
-package main.java.com.slimtrade.gui.options.advanced;
+package main.java.com.slimtrade.gui.options.general;
 
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -7,18 +8,19 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.gui.options.ContentPanel;
 import main.java.com.slimtrade.gui.options.Saveable;
-import main.java.com.slimtrade.gui.panels.BufferPanel;
+import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class AdvancedPanel extends ContentPanel implements Saveable {
+public class AdvancedPanel extends ContainerPanel implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 
 	AdvancedRow clientRow = new AdvancedRow("Client Path");
 
 	public AdvancedPanel() {
-		this.addRow(clientRow, gc);
+		GridBagConstraints gc = new GridBagConstraints();
+		
+		this.container.add(clientRow, gc);
 
 		clientRow.getEditButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -32,7 +34,7 @@ public class AdvancedPanel extends ContentPanel implements Saveable {
 		});
 
 		this.load();
-		this.autoResize();
+//		this.autoResize();
 	}
 
 	public void save() {

@@ -10,34 +10,33 @@ import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 public class DefaultManager {
 
 	public DefaultManager(){
-		Main.saveManager.putIntDefault(0, "stashOverlay", "x");
-		Main.saveManager.putIntDefault(100, "stashOverlay", "y");
-		Main.saveManager.putIntDefault(600, "stashOverlay", "width");
-		Main.saveManager.putIntDefault(600, "stashOverlay", "height");
+		Main.saveManager.putDefaultInt(0, "stashOverlay", "x");
+		Main.saveManager.putDefaultInt(100, "stashOverlay", "y");
+		Main.saveManager.putDefaultInt(600, "stashOverlay", "width");
+		Main.saveManager.putDefaultInt(600, "stashOverlay", "height");
 		
-		Main.saveManager.putStringDefault("I'm busy, want me to message you back in a little bit?", "macros", "in", "preset", "callback", "left");
-		Main.saveManager.putStringDefault("one sec", "macros", "in", "preset", "wait", "left");
-		Main.saveManager.putStringDefault("one minute", "macros", "in", "preset", "wait", "right");
+//		Main.saveManager.putStringDefault("I'm busy, want me to message you back in a little bit?", "macros", "in", "preset", "callback", "left");
+//		Main.saveManager.putStringDefault("one sec", "macros", "in", "preset", "wait", "left");
+//		Main.saveManager.putStringDefault("one minute", "macros", "in", "preset", "wait", "right");
 		Main.saveManager.putStringDefault("thanks", "macros", "in", "preset", "thank", "left");
 		Main.saveManager.putStringDefault("", "macros", "in", "preset", "thank", "right");
 
 		// Thank Button
-		Main.saveManager.putBoolDefault(true, "macroButtons", "thankButton", "enabled");
-		Main.saveManager.putBoolDefault(false, "macroButtons", "thankButton", "secondaryEnabled");
-		Main.saveManager.putStringDefault("thanks", "macroButtons", "thankButton", "textLMB");
-		Main.saveManager.putStringDefault("", "macroButtons", "thankButton", "textRMB");
+//		Main.saveManager.putDefaultBool(true, "macroButtons", "thankButton", "enabled");
+//		Main.saveManager.putDefaultBool(false, "macroButtons", "thankButton", "secondaryEnabled");
+//		Main.saveManager.putStringDefault("thanks", "macroButtons", "thankButton", "textLMB");
+//		Main.saveManager.putStringDefault("", "macroButtons", "thankButton", "textRMB");
 
 		// Overlay
-		Main.saveManager.putIntDefault(0, "overlayManager", "menubar", "x");
-		Main.saveManager.putIntDefault(TradeUtility.screenSize.height - MenubarDialog.HEIGHT, "overlayManager", "menubar", "y");
-		Main.saveManager.putIntDefault(1220, "overlayManager", "messageManager", "x");
-		Main.saveManager.putIntDefault(0, "overlayManager", "messageManager", "y");
-
+		Main.saveManager.putDefaultInt(0, "overlayManager", "menubar", "x");
+		Main.saveManager.putDefaultInt(TradeUtility.screenSize.height - MenubarDialog.HEIGHT, "overlayManager", "menubar", "y");
+		Main.saveManager.putDefaultInt(1220, "overlayManager", "messageManager", "x");
+		Main.saveManager.putDefaultInt(0, "overlayManager", "messageManager", "y");
 		Main.saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
 
 		//Sound
 		Main.saveManager.putStringDefault(Sound.CLICK1.toString(), "options", "audio", "incomingTrade", "type");
-		Main.saveManager.putIntDefault(50, "options", "audio", "incomingTrade", "volume");
+		Main.saveManager.putDefaultInt(50, "options", "audio", "incomingTrade", "volume");
 		
 
 		Sound s = Sound.PING1;

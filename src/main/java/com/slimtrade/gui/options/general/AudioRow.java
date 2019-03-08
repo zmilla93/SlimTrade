@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.options.audio;
+package main.java.com.slimtrade.gui.options.general;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;

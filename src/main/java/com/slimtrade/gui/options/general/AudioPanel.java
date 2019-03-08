@@ -1,16 +1,15 @@
-package main.java.com.slimtrade.gui.options.audio;
+package main.java.com.slimtrade.gui.options.general;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.audio.Sound;
 import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.gui.options.ContentPanel;
 import main.java.com.slimtrade.gui.options.Saveable;
+import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class AudioPanel extends ContentPanel implements Saveable {
+public class AudioPanel extends ContainerPanel implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 	private final int BUFFER_HEIGHT = 10;
@@ -21,17 +20,20 @@ public class AudioPanel extends ContentPanel implements Saveable {
 	private final AudioRow scannerRow = new AudioRow("Chat Scanner");
 
 	public AudioPanel() {
-		super(false);
-		this.setLayout(new GridBagLayout());
+//		super(false);
+		container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
 
-		this.addRow(buttonRow, gc);
-		this.addRow(incomingRow, gc);
-		this.addRow(outgoingRow, gc);
-		this.addRow(scannerRow, gc);
-		this.autoResize();
+		container.add(buttonRow, gc);
+		gc.gridy++;
+		container.add(incomingRow, gc);
+		gc.gridy++;
+		container.add(outgoingRow, gc);
+		gc.gridy++;
+		container.add(scannerRow, gc);
+		gc.gridy++;
 		load();
 	}
 

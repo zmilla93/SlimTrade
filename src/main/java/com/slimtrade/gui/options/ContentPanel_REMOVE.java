@@ -10,7 +10,7 @@ import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-public class ContentPanel extends JPanel {
+public class ContentPanel_REMOVE extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -19,11 +19,11 @@ public class ContentPanel extends JPanel {
 	protected GridBagConstraints gc;
 //	protected Insets inset = new Insets(0,0,0,0);
 	
-	public ContentPanel(){
+	public ContentPanel_REMOVE(){
 		build(true);
 	}
 	
-	public ContentPanel(boolean vis){
+	public ContentPanel_REMOVE(boolean vis){
 		build(vis);
 	}
 	

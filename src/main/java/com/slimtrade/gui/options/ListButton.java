@@ -14,7 +14,7 @@ public class ListButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	boolean active = false;
+	public boolean active = false;
 
 	public Color colorInactive = new Color(150, 150, 150);
 //	public Color colorActive = Color.red;

@@ -20,11 +20,11 @@ import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.options.ContentPanel;
+import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
 import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class StashTabPanel extends ContentPanel implements Saveable {
+public class StashTabPanel extends ContentPanel_REMOVE implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -80,8 +80,8 @@ public class StashTabPanel extends ContentPanel implements Saveable {
 		// this.addRow(new JLabel("TITLE"), gc);
 //		this.addRow(alignButton, gc);
 //		this.addRow(new BufferPanel(0, rowBuffer), gc);
-		this.addRow(new JLabel("Colors and Quad tabs must be manually set"), gc);
-		this.addRow(new JLabel("Default white will use a randomized color with white text"), gc);
+		this.addRow(new JLabel("Stash tabs only need to be added if you want to set colors or quad tabs"), gc);
+		this.addRow(new JLabel("Default white will use a randomized color like normal"), gc);
 		this.addRow(new BufferPanel(0, rowBuffer), gc);
 		this.addRow(addButton, gc);
 		this.addRow(rowScrollPane, gc);

@@ -21,10 +21,12 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
+import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.enums.StashTabColor;
+import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.buttons.IconButton;
@@ -128,10 +130,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		itemPanel.add(itemLabel);
 		itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		// Color
-		container.setBackground(Color.BLACK);
-		this.setBackground(Color.BLACK);
-		borderPanel.setBackground(Color.CYAN);
+		
 
 		container.add(topPanel, gc);
 		gc.gridy = 1;
@@ -157,9 +156,14 @@ public class TradePanelA extends AbstractMessagePanel {
 		Color color = null;
 		Color colorText = null;
 
+		//COLORS
+		container.setBackground(Color.BLACK);
+		this.setBackground(Color.BLACK);
+		borderPanel.setBackground(Color.CYAN);
+		
 		switch (trade.messageType) {
 		case CHAT_SCANNER:
-			ToolTipManager.sharedInstance().setInitialDelay(0);
+//			ToolTipManager.sharedInstance().setInitialDelay(0);
 			itemPanel.setToolTipText(trade.searchMessage);
 			break;
 		case INCOMING_TRADE:
@@ -167,12 +171,15 @@ public class TradePanelA extends AbstractMessagePanel {
 			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
 //			color = StashTabColor.ONE.getBackground();
 			colorText = ColorManager.stashDarkText;
+			//TODO : Move to tradeOffer
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
 				while (Main.saveManager.hasEntry("stashTabs", "tab" + i)) {
 					if (Main.saveManager.getString("stashTabs", "tab" + i, "text").equals(trade.stashtabName)) {
 						Main.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
-						StashTabColor stashColor = StashTabColor.valueOf(Main.saveManager.getString("stashTabs", "tab" + i, "color"));
+						StashTabColor stashColor = StashTabColor.valueOf(Main.saveManager.getEnumValue(StashTabColor.class, "stashTabs", "tab" + i, "color"));
+						StashTabType type = StashTabType.valueOf(Main.saveManager.getEnumValue(StashTabType.class, "stashTabs", "tab" + i, "type"));
+						trade.stashType = type;
 						color = stashColor.getBackground();
 						colorText = stashColor.getForeground();
 						break;
@@ -252,13 +259,32 @@ public class TradePanelA extends AbstractMessagePanel {
 			buttonPanelBottom.remove(c);
 			c = null;
 		}
-
 		switch (type) {
 		case CHAT_SCANNER:
 			// respodButton =
 			buttonCountTop = 2;
+			buttonCountBottom = 4;
+			
 			replyButton = new IconButton(ImagePreloader.warp, rowHeight);
 			buttonPanelTop.add(replyButton);
+			
+			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
+			tradeButton = new IconButton(ImagePreloader.trade, rowHeight);
+			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
+			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
+			
+			if (listeners) {
+				this.registerPoeInteractionButton(replyButton, ButtonType.WHISPER, trade.playerName, trade.searchResponseLeft, trade.searchResponseRight);
+				this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
+				this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
+				this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
+				this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
+			}
+			
+			buttonPanelBottom.add(inviteButton);
+			buttonPanelBottom.add(tradeButton);
+			buttonPanelBottom.add(thankButton);
+			buttonPanelBottom.add(kickButton);
 			break;
 		case INCOMING_TRADE:
 			buttonCountTop = 3;
@@ -282,9 +308,7 @@ public class TradePanelA extends AbstractMessagePanel {
 				}
 				i++;
 			}
-
 			saveToHistoryButton = new IconButton(PreloadedImage.DISK.getImage(), rowHeight);
-			// waitButton = new IconButton(ImagePreloader.wait, rowHeight);
 			refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
 			tradeButton = new IconButton(ImagePreloader.trade, rowHeight);
@@ -339,6 +363,9 @@ public class TradePanelA extends AbstractMessagePanel {
 			break;
 		default:
 			break;
+		}
+		if(listeners){
+			this.registerPoeInteractionButton(namePanel, ButtonType.NAME_PANEL);
 		}
 
 		// TODO : update force

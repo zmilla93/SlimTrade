@@ -68,7 +68,7 @@ public class SaveManager {
 			for(File s : File.listRoots()){
 				for(String stub : stubs){
 					File f = new File(s.toString() + stub + sep + poeLogs);
-					System.out.println("Checking file ::: " + f.getPath());
+//					System.out.println("Checking file ::: " + f.getPath());
 					if(f.exists() && f.isDirectory()){
 						clientCount++;
 						validDirectory = f.getPath();
@@ -80,20 +80,9 @@ public class SaveManager {
 				validClientPath = true;
 				clientDirectory = validDirectory;
 				clientPath = validDirectory + sep + "Client.txt";
-				System.out.println("CLIENT PATH FOUND : " + validDirectory);
+//				System.out.println("CLIENT PATH FOUND : " + validDirectory);
 			}
 		}
-		
-		// TODO : Set client path
-		// Get saved client path
-		// String cPath = getString();
-		// If no client path saved, try to find one
-//		for (File s : File.listRoots()) {
-//			System.out.println(s.toString() + steamStub);
-//			System.out.println(s.toString() + steamStubx86);
-//			System.out.println(s.toString() + standAlone);
-//			System.out.println(s.toString() + standAlonex86);
-//		}
 	}
 
 	private void initSave() {
@@ -107,17 +96,17 @@ public class SaveManager {
 					in.append(br.readLine());
 				}
 				br.close();
-				System.out.println("IN ::: " + in);
+//				System.out.println("IN ::: " + in);
 				saveData = new JSONObject(in.toString());
 			} catch (IOException | JSONException e) {
-				System.out.println("?");
+//				System.out.println("?");
 				saveData = new JSONObject();
 			}
 		} else {
-			System.out.println("?");
+//			System.out.println("?");
 			saveData = new JSONObject();
 		}
-		System.out.println("SAVE DATA ::: " + saveData);
+//		System.out.println("SAVE DATA ::: " + saveData);
 	}
 
 	public void saveToDisk() {
@@ -176,7 +165,15 @@ public class SaveManager {
 		return Integer.MIN_VALUE;
 	}
 	
-	public void putIntDefault(int defaultValue, String... keys) {
+	public int getDefaultInt(int min, int max, int def, String...keys){
+		int i = getInt(keys);
+		if(i<min || i>max){
+			return def;
+		}
+		return i;
+	}
+	
+	public void putDefaultInt(int defaultValue, String... keys) {
 		boolean addEntry = false;
 		if (hasEntry(keys)) {
 			Object o = getObject(keys);
@@ -191,7 +188,7 @@ public class SaveManager {
 		}
 	}
 	
-	public void putBoolDefault(boolean defaultValue, String... keys) {
+	public void putDefaultBool(boolean defaultValue, String... keys) {
 		boolean addEntry = false;
 		if (hasEntry(keys)) {
 			Object o = getObject(keys);
@@ -213,28 +210,27 @@ public class SaveManager {
 		}
 		return false;
 	}
+	
+	public String getEnumValue(Class<?> c, String... keys){
+		return getEnumValue(c, false, keys);
+	}
 
-	public String getEnumValue(Class<?> c, String... keys) {
-		System.out.println("ENUM VALUES ::: " + c.getSimpleName());
-		// for(Field f : c.getFields()){
-		// System.out.println("\t" + f.toString().replaceAll(".+enums\\..+\\.",
-		// ""));
-		// }
+	public String getEnumValue(Class<?> c, boolean allowNull, String... keys) {
+//		System.out.println("ENUM VALUES ::: " + c.getSimpleName());
 		Object val = getObject(keys);
-		System.out.println("VALUE ::: " + val);
 		String name = c.getSimpleName();
-		System.out.println("NAME ::: " + name);
 		String defaultValue = null;
 		for (Object o : c.getFields()) {
 			String compare = o.toString().replaceAll(".+" + name + "\\.", "");
-			if (defaultValue == null) {
+			if (!allowNull && defaultValue == null) {
 				defaultValue = compare;
 			}
-			System.out.println("\t\t" + compare + " : " + val);
-			if (val.toString().equals(compare)) {
-				return val.toString();
+//			System.out.println("\t\t" + compare + " : " + val);
+			if (val != null && val.toString().equals(compare)) {
+				return compare;
 			}
 		}
+		Main.logger.log(Level.WARNING, "Could not find enum value " + Arrays.toString(keys) + "\nReturning default value");
 		return defaultValue;
 	}
 
