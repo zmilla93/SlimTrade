@@ -15,7 +15,7 @@ public class MenubarExpandButton extends BasicDialog{
 
 	private static final long serialVersionUID = 1L;
 	private int size = MenubarButton.HEIGHT;
-	private boolean visible;
+//	private boolean visible;
 	
 	public MenubarExpandButton(){
 		this.setBounds(0, TradeUtility.screenSize.height-size, size, size);
@@ -29,15 +29,6 @@ public class MenubarExpandButton extends BasicDialog{
 		    	FrameManager.menubarToggle.setShow(false);
 		    }
 		});
-	}
-	
-	public void setShow(boolean show){
-		this.setVisible(show);
-		this.visible = show;
-	}
-	
-	public void refreshVisibility(){
-		this.setVisible(visible);
 	}
 	
 	public void updateLocation(){

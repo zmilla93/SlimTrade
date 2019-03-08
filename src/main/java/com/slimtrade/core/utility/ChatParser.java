@@ -44,7 +44,8 @@ public class ChatParser {
 
 	// REGEX
 	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(\\S+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
-	// TODO : Remove optional flag for global chat - guild returns null until then
+	// TODO : Remove optional flag for global chat - guild returns null until
+	// then
 	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
@@ -57,7 +58,7 @@ public class ChatParser {
 	private String clientLogPath;
 
 	public ChatParser() {
-		
+
 	}
 
 	// TODO : Move path to options
@@ -138,6 +139,7 @@ public class ChatParser {
 								AudioManager.play(SoundComponent.INCOMING_MESSAGE);
 								break;
 							case OUTGOING_TRADE:
+								AudioManager.play(SoundComponent.OUTGOING_MESSAGE);
 								break;
 							case UNKNOWN:
 								break;
@@ -147,20 +149,22 @@ public class ChatParser {
 						}
 					} else if (chatScannerRunning) {
 						TradeOffer trade = getSearchOffer(curLine);
-						if(trade != null){
+						System.out.println(trade);
+						if (trade != null) {
+							AudioManager.play(SoundComponent.SCANNER_MESSAGE);
 							FrameManager.messageManager.addMessage(trade);
 						}
-//						for (String s : searchTerms) {
-//							if (curLine.toLowerCase().contains(s)) {
-//								// FrameManager.messageManager.addMessage(trade);
-//								//Add null set/check
-//								TradeOffer trade = getSearchOffer(curLine);
-//								if(trade != null){
-//									FrameManager.messageManager.addMessage(trade);
-//								}
-//								return;
-//							}
-//						}
+						// for (String s : searchTerms) {
+						// if (curLine.toLowerCase().contains(s)) {
+						// // FrameManager.messageManager.addMessage(trade);
+						// //Add null set/check
+						// TradeOffer trade = getSearchOffer(curLine);
+						// if(trade != null){
+						// FrameManager.messageManager.addMessage(trade);
+						// }
+						// return;
+						// }
+						// }
 					} else {
 						Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
 					}
@@ -219,8 +223,8 @@ public class ChatParser {
 			}
 			trade = new TradeOffer(tradeMsgMatcher.group(2).replaceAll("/", "-"), tradeMsgMatcher.group(3), getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5), tradeMsgMatcher.group(6), tradeMsgMatcher.group(11), d1, tradeMsgMatcher.group(14), d2, tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24), tradeMsgMatcher.group(7));
 
-			
-//			System.out.println("TRADE OFFER : " + trade.guildName + trade.playerName);
+			// System.out.println("TRADE OFFER : " + trade.guildName +
+			// trade.playerName);
 			return trade;
 		} else {
 			return null;
@@ -240,19 +244,24 @@ public class ChatParser {
 			System.out.println("");
 			// DEBUG END
 			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), null, matcher.group(6), this.searchResponseLeft, this.searchResponseRight);
-			
-			for(String s : this.ignoreTerms){
-				if(trade.searchMessage.contains(s)){
-					return null;
+
+			if (this.ignoreTerms != null) {
+				for (String s : this.ignoreTerms) {
+					System.out.println("IGNORE : " + s);
+					if (trade.searchMessage.contains(s)) {
+						return null;
+					}
 				}
 			}
 			boolean found = false;
-			for(String s : this.searchTerms){
-				if(trade.searchMessage.contains(s)){
+			System.out.println("MESSAGE ::: " + trade.searchMessage);
+			for (String s : this.searchTerms) {
+				System.out.println("\t" + s);
+				if (trade.searchMessage.contains(s)) {
 					found = true;
 				}
 			}
-			if(found){
+			if (found) {
 				return trade;
 			}
 		}
@@ -279,12 +288,12 @@ public class ChatParser {
 	public void setSearchTerms(String[] searchTerms) {
 		this.searchTerms = searchTerms;
 	}
-	
+
 	public void setIgnoreTerms(String[] ignoreTerms) {
 		this.ignoreTerms = ignoreTerms;
 	}
-	
-	public void setResponseText(String lmb, String rmb){
+
+	public void setResponseText(String lmb, String rmb) {
 		this.searchResponseLeft = lmb;
 		this.searchResponseRight = rmb;
 	}

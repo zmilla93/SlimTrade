@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public enum PreloadedImageCustom {
 
-	REFRESH("/resources/icons/refresh3.png"),
+//	REFRESH("/resources/icons/refreshx48.png"),
 	CLOCK("/resources/icons/clock1.png"),
 	HAPPY("/resources/icons/happy.png"),
 	

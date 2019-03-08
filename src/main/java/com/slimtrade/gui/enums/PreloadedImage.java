@@ -5,11 +5,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public enum PreloadedImage {
-
-	DISK("/resources/icons/disk.png"),
+	CART("/resources/icons/cartx64.png"),
 	CLOSE("/resources/icons/closex64.png"),
-	REFRESH("/resources/icons/refreshx64.png"),
+	DISK("/resources/icons/disk.png"),
 	INVITE("/resources/icons/invite1.png"),
+	REFRESH("/resources/icons/refreshx64.png"),
+	TAG("/resources/icons/tagx48.png"),
 	;
 	
 	Image image;

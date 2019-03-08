@@ -8,7 +8,6 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
@@ -19,18 +18,19 @@ import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.DefaultManager;
 import main.java.com.slimtrade.core.managers.ExternalFileManager;
 import main.java.com.slimtrade.core.managers.SaveManager;
-import main.java.com.slimtrade.core.managers.UpdateChecker;
 import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.core.observing.GlobalKeyboardListener;
 import main.java.com.slimtrade.core.observing.GlobalMouseListener;
 import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
+import main.java.com.slimtrade.core.utility.UpdateChecker;
+import main.java.com.slimtrade.core.utility.VersionNumber;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.scanner.ImprovedChatScanner;
+import main.java.com.slimtrade.gui.windows.UpdateDialog;
 
 public class Main {
 	
@@ -43,6 +43,7 @@ public class Main {
 	public static ChatParser chatParser = new ChatParser();
 	public static FileMonitor fileMonitor;
 	public static Logger logger = Logger.getLogger("slim");
+	public static UpdateChecker updateChecker;
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
@@ -76,7 +77,7 @@ public class Main {
 
 		ColorManager.setMessageTheme();
 
-		UpdateChecker updateChecker = new UpdateChecker();
+		
 		
 		// POE Interface
 
@@ -102,6 +103,29 @@ public class Main {
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 				fileMonitor.startMonitor();
+				
+//				UpdateDialog u = new UpdateDialog();
+//				FrameManager.centerFrame(u);
+//				u.setVisible(true);
+				VersionNumber v1 = new VersionNumber("1.43.341");
+				VersionNumber v2 = new VersionNumber("3.1.31");
+				VersionNumber v3 = new VersionNumber("1.323.3231");
+				VersionNumber v4 = new VersionNumber("14.3.31");
+				VersionNumber v5 = new VersionNumber("3.3.1");
+				VersionNumber v6 = new VersionNumber("3.1.61");
+//				public static final String APP_VERSION = "3.1.59";
+				System.out.println(VersionNumber.isNewVersion(v1));
+				System.out.println(VersionNumber.isNewVersion(v2));
+				System.out.println(VersionNumber.isNewVersion(v3));
+				System.out.println(VersionNumber.isNewVersion(v4));
+				System.out.println(VersionNumber.isNewVersion(v5));
+				System.out.println(VersionNumber.isNewVersion(v6));
+				
+				updateChecker = new UpdateChecker();
+				if(updateChecker.checkForUpdate()){
+					UpdateDialog d = new UpdateDialog();
+					d.setVisible(true);
+				}
 
 			}
 		});

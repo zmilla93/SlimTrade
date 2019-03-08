@@ -29,7 +29,7 @@ import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 import main.java.com.slimtrade.gui.stash.ResizableWindow;
 
-public class ImprovedChatScanner extends ResizableWindow implements Saveable {
+public class ChatScannerWindow extends ResizableWindow implements Saveable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -56,7 +56,7 @@ public class ImprovedChatScanner extends ResizableWindow implements Saveable {
 	JButton searchButton = new JButton("Search");
 	JButton deleteButton = new JButton("Delete");
 
-	public ImprovedChatScanner() {
+	public ChatScannerWindow() {
 		super("Chat Scanner");
 		this.setFocusableWindowState(true);
 
@@ -354,7 +354,7 @@ public class ImprovedChatScanner extends ResizableWindow implements Saveable {
 		String ignore = ignoreText.getText();
 		String lmb = lmbInput.getText();
 		String rmb = rmbInput.getText();
-		if (name.replaceAll("\\s", "").equals("")) {
+		if (name.replaceAll("\\s+", "").equals("") || terms.replaceAll("\\s+", "").equals("")) {
 			return;
 		}
 		int i = 0;

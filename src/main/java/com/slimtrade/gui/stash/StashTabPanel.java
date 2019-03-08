@@ -1,6 +1,5 @@
 package main.java.com.slimtrade.gui.stash;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -10,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,10 +39,11 @@ public class StashTabPanel extends ContentPanel_REMOVE implements Saveable {
 		gc.gridy = 0;
 		gcRow.gridx = 0;
 		gcRow.gridy = 0;
+		gcRow.insets.bottom = 5;
 		// gcRow.insets = new Insets(0, 0, rowBuffer, 0);
 
 		rowContainer = new JPanel(new GridBagLayout());
-		rowContainer.setBackground(Color.RED);
+//		rowContainer.setBackground(Color.RED);
 
 		JScrollPane rowScrollPane = new JScrollPane(rowContainer);
 		StashTabRow dummyRow = new StashTabRow();
@@ -85,6 +84,7 @@ public class StashTabPanel extends ContentPanel_REMOVE implements Saveable {
 		this.addRow(new BufferPanel(0, rowBuffer), gc);
 		this.addRow(addButton, gc);
 		this.addRow(rowScrollPane, gc);
+		
 		// this.addRow(buttonPanel, gc);
 
 		// this.addRow(c, gc);

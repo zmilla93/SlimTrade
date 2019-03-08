@@ -51,7 +51,7 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private StashHelper stashHelper;
 
-	private IconButton saveToHistoryButton;
+//	private IconButton saveToHistoryButton;
 	// private IconButton waitButton;
 	private IconButton refreshButton;
 	private IconButton inviteButton;
@@ -269,7 +269,7 @@ public class TradePanelA extends AbstractMessagePanel {
 			buttonPanelTop.add(replyButton);
 			
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
-			tradeButton = new IconButton(ImagePreloader.trade, rowHeight);
+			tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
 			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
 			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
 			
@@ -287,7 +287,7 @@ public class TradePanelA extends AbstractMessagePanel {
 			buttonPanelBottom.add(kickButton);
 			break;
 		case INCOMING_TRADE:
-			buttonCountTop = 3;
+			buttonCountTop = 2;
 			buttonCountBottom = 4;
 			int i = 0;
 			while (Main.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
@@ -308,10 +308,10 @@ public class TradePanelA extends AbstractMessagePanel {
 				}
 				i++;
 			}
-			saveToHistoryButton = new IconButton(PreloadedImage.DISK.getImage(), rowHeight);
+//			saveToHistoryButton = new IconButton(PreloadedImage.DISK.getImage(), rowHeight);
 			refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
-			tradeButton = new IconButton(ImagePreloader.trade, rowHeight);
+			tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
 			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
 			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
 			if (listeners) {
@@ -328,7 +328,7 @@ public class TradePanelA extends AbstractMessagePanel {
 			for (IconButton b : customButtonsBottom) {
 				buttonPanelBottom.add(b);
 			}
-			buttonPanelTop.add(saveToHistoryButton);
+//			buttonPanelTop.add(saveToHistoryButton);
 			buttonPanelTop.add(refreshButton);
 
 			buttonPanelBottom.add(inviteButton);

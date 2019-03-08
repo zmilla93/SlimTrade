@@ -31,7 +31,7 @@ public class StashTabRow extends RemovablePanel {
 	
 	public StashTabRow(){
 		this.setLayout(new GridBagLayout());
-		this.setBackground(Color.YELLOW);
+//		this.setBackground(Color.YELLOW);
 		this.setPreferredSize(new Dimension(400, ROW_HEIGHT));
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;

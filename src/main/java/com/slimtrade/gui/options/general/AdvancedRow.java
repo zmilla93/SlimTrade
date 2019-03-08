@@ -56,8 +56,9 @@ public class AdvancedRow extends JPanel {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			fileChooser = new JFileChooser();
+			
 		}
-		
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		this.add(labelPanel, gc);
 		gc.gridx++;
 		this.add(pathPanel, gc);

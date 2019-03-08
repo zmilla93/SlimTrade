@@ -35,25 +35,23 @@ public class DefaultManager {
 		Main.saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
 
 		//Sound
-		Main.saveManager.putStringDefault(Sound.CLICK1.toString(), "options", "audio", "incomingTrade", "type");
-		Main.saveManager.putDefaultInt(50, "options", "audio", "incomingTrade", "volume");
-		
-
-		Sound s = Sound.PING1;
-		float vol = 0;
 		try{
-			s = Sound.valueOf(Main.saveManager.getString("options", "audio", "incomingTrade", "type"));
-			vol = TradeUtility.getAudioVolume(Main.saveManager.getInt("options", "audio", "incomingTrade", "volume"));
-			
-		}catch(IllegalArgumentException | NullPointerException e){
-			System.out.println("Invalid sound, deleting...");
-			Main.saveManager.deleteObject("options", "audio", "incomingTrade");
+			SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, true, "audio", "buttonClick", "type")));
+		}catch(NullPointerException e){
+			SoundComponent.BUTTON_CLICK.setSound(Sound.CLICK1);
 		}
-		SoundComponent.INCOMING_MESSAGE.setSound(s);
-		SoundComponent.INCOMING_MESSAGE.setVolume(vol);
-		System.out.println(MessageType.values());
+		SoundComponent.BUTTON_CLICK.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, "audio", "buttonClick", "volume")));
+
+		SoundComponent.INCOMING_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, "audio", "incomingTrade", "type")));
+		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, "audio", "incomingTrade", "volume")));
+		
+		SoundComponent.OUTGOING_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, "audio", "outgoingTrade", "type")));
+		SoundComponent.OUTGOING_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, "audio", "outgoingTrade", "volume")));
+		
+		SoundComponent.SCANNER_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, "audio", "scannerMessage", "type")));
+		SoundComponent.SCANNER_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, "audio", "scannerMessage", "volume")));
 
 		Main.saveManager.saveToDisk();
 	}
-	
+
 }

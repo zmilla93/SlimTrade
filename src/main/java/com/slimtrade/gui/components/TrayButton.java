@@ -20,7 +20,7 @@ public class TrayButton {
 		}
 
 		final SystemTray tray = SystemTray.getSystemTray();
-		final TrayIcon trayIcon = new TrayIcon(PreloadedImage.DISK.getImage());
+		final TrayIcon trayIcon = new TrayIcon(PreloadedImage.TAG.getImage());
 		final PopupMenu popup = new PopupMenu();
 
 		final MenuItem optionsButton = new MenuItem("Options");

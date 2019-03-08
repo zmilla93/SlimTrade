@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core.managers;
+package main.java.com.slimtrade.core.utility;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,11 +17,21 @@ public class UpdateChecker {
 
 	private final String releases = "https://github.com/zmilla93/SlimTrade/releases/";
 	private final String versionMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
-	
-	private ArrayList<String> versions = new ArrayList<String>();
-	
-	public UpdateChecker() {
 
+	private ArrayList<String> versions = new ArrayList<String>();
+
+	private boolean newVersion = false;
+	private VersionNumber latestVersion;
+
+	public UpdateChecker() {
+		
+	}
+	
+	public VersionNumber getLatestVersion(){
+		return latestVersion;
+	}
+
+	public boolean checkForUpdate() {
 		InputStream inputStream = null;
 
 		try {
@@ -31,7 +41,7 @@ public class UpdateChecker {
 			inputStream = connection.getInputStream();
 		} catch (IOException e) {
 			Main.logger.log(Level.WARNING, "Error while connecting to github.");
-			return;
+			return false;
 		}
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
@@ -42,16 +52,29 @@ public class UpdateChecker {
 			}
 		} catch (IOException e) {
 			Main.logger.log(Level.WARNING, "Error while parsing data from github.");
-			return;
+			return false;
 		}
 		Pattern pattern = Pattern.compile(versionMatchString);
 		Matcher matcher = pattern.matcher(webText.toString());
-		while(matcher.find()){
-			versions.add(matcher.group(1));
-			System.out.println("Version Found + " + matcher.group(1));
+		// System.out.println(webText.toString());
+		System.out.println(matcher.matches());
+		while (matcher.find()) {
+			VersionNumber v = new VersionNumber(matcher.group(1));
+			System.out.println(v.toString());
+			if (VersionNumber.isNewVersion(v)) {
+				newVersion = true;
+				if(latestVersion != null){
+					if(VersionNumber.isNewVersion(v, latestVersion)){
+						latestVersion = v;
+					}
+				}else{
+					latestVersion = v;
+				}
+			}
+			// versions.add(matcher.group(1));
+			// System.out.println("Version Found + " + matcher.group(1));
 		}
+		 return newVersion;
 	}
-	
-	
 
 }

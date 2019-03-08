@@ -72,10 +72,10 @@ public class IconButton extends JButton {
 				localButton.getModel().setPressed(false);
 			}
 		});
-		//
+		
 //		this.addMouseListener(new AdvancedMouseAdapter() {
 //			public void click(MouseEvent e){
-////				AudioManager.play(SoundComponent.BUTTON_CLICK);
+//				AudioManager.play(SoundComponent.BUTTON_CLICK);
 //			}
 //		});
 	}

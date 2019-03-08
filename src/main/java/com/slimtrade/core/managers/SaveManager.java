@@ -41,6 +41,8 @@ public class SaveManager {
 
 	boolean validClientPath = false;
 
+	private boolean log = false;
+
 	public SaveManager() {
 		// Set save directory
 		String os = (System.getProperty("os.name")).toUpperCase();
@@ -55,32 +57,30 @@ public class SaveManager {
 			saveDir.mkdirs();
 		}
 		initSave();
-		
-		//Attempt to get client path
-		if(hasEntry("general", "clientDirectory")){
+
+		// Attempt to get client path
+		if (hasEntry("general", "clientDirectory")) {
 			clientDirectory = getString("general", "clientDirectory");
-			clientPath = clientDirectory + "Client.txt"; 
+			clientPath = clientDirectory + "Client.txt";
 			validClientPath = true;
-		}else{
+		} else {
 			int clientCount = 0;
 			String validDirectory = null;
-			String[] stubs = {steamStub, steamStubx86, standAlone, standAlonex86};
-			for(File s : File.listRoots()){
-				for(String stub : stubs){
+			String[] stubs = { steamStub, steamStubx86, standAlone, standAlonex86 };
+			for (File s : File.listRoots()) {
+				for (String stub : stubs) {
 					File f = new File(s.toString() + stub + sep + poeLogs);
-//					System.out.println("Checking file ::: " + f.getPath());
-					if(f.exists() && f.isDirectory()){
+					if (f.exists() && f.isDirectory()) {
 						clientCount++;
 						validDirectory = f.getPath();
 						putObject(f.getPath(), "general", "clientDirectory");
 					}
 				}
 			}
-			if(clientCount == 1){
+			if (clientCount == 1) {
 				validClientPath = true;
 				clientDirectory = validDirectory;
 				clientPath = validDirectory + sep + "Client.txt";
-//				System.out.println("CLIENT PATH FOUND : " + validDirectory);
 			}
 		}
 	}
@@ -96,17 +96,13 @@ public class SaveManager {
 					in.append(br.readLine());
 				}
 				br.close();
-//				System.out.println("IN ::: " + in);
 				saveData = new JSONObject(in.toString());
 			} catch (IOException | JSONException e) {
-//				System.out.println("?");
 				saveData = new JSONObject();
 			}
 		} else {
-//			System.out.println("?");
 			saveData = new JSONObject();
 		}
-//		System.out.println("SAVE DATA ::: " + saveData);
 	}
 
 	public void saveToDisk() {
@@ -164,15 +160,15 @@ public class SaveManager {
 		}
 		return Integer.MIN_VALUE;
 	}
-	
-	public int getDefaultInt(int min, int max, int def, String...keys){
+
+	public int getDefaultInt(int min, int max, int def, String... keys) {
 		int i = getInt(keys);
-		if(i<min || i>max){
+		if (i < min || i > max) {
 			return def;
 		}
 		return i;
 	}
-	
+
 	public void putDefaultInt(int defaultValue, String... keys) {
 		boolean addEntry = false;
 		if (hasEntry(keys)) {
@@ -187,7 +183,7 @@ public class SaveManager {
 			putObject(defaultValue, keys);
 		}
 	}
-	
+
 	public void putDefaultBool(boolean defaultValue, String... keys) {
 		boolean addEntry = false;
 		if (hasEntry(keys)) {
@@ -210,13 +206,12 @@ public class SaveManager {
 		}
 		return false;
 	}
-	
-	public String getEnumValue(Class<?> c, String... keys){
+
+	public String getEnumValue(Class<?> c, String... keys) {
 		return getEnumValue(c, false, keys);
 	}
 
 	public String getEnumValue(Class<?> c, boolean allowNull, String... keys) {
-//		System.out.println("ENUM VALUES ::: " + c.getSimpleName());
 		Object val = getObject(keys);
 		String name = c.getSimpleName();
 		String defaultValue = null;
@@ -225,12 +220,13 @@ public class SaveManager {
 			if (!allowNull && defaultValue == null) {
 				defaultValue = compare;
 			}
-//			System.out.println("\t\t" + compare + " : " + val);
 			if (val != null && val.toString().equals(compare)) {
 				return compare;
 			}
 		}
-		Main.logger.log(Level.WARNING, "Could not find enum value " + Arrays.toString(keys) + "\nReturning default value");
+		if (log) {
+			Main.logger.log(Level.WARNING, "Could not find enum value " + Arrays.toString(keys) + "\nReturning default value");
+		}
 		return defaultValue;
 	}
 
@@ -313,7 +309,9 @@ public class SaveManager {
 				try {
 					value = saveData.get(key);
 				} catch (JSONException e) {
-					Main.logger.log(Level.WARNING, "Failed to get value from single key \"" + key + "\"");
+					if (log) {
+						Main.logger.log(Level.WARNING, "Failed to get value from single key \"" + key + "\"");
+					}
 					return null;
 				}
 			}
@@ -332,8 +330,9 @@ public class SaveManager {
 			try {
 				value = activeArr.get(key);
 			} catch (JSONException e) {
-//				String s = 
-				Main.logger.log(Level.WARNING, "Failed to get value from nested keys " + Arrays.toString(keys)+ "");
+				if (log) {
+					Main.logger.log(Level.WARNING, "Failed to get value from nested keys " + Arrays.toString(keys) + "");
+				}
 				return null;
 			}
 		}
@@ -366,7 +365,7 @@ public class SaveManager {
 	public String getClientDirectory() {
 		return this.clientDirectory;
 	}
-	
+
 	public String getClientPath() {
 		return this.clientPath;
 	}

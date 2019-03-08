@@ -5,9 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.basic.HideableDialog;
 import main.java.com.slimtrade.gui.components.TrayButton;
 import main.java.com.slimtrade.gui.history.HistoryWindow;
@@ -15,11 +15,10 @@ import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarExpandButton;
 import main.java.com.slimtrade.gui.messaging.MessageManager;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
-import main.java.com.slimtrade.gui.scanner.ImprovedChatScanner;
+import main.java.com.slimtrade.gui.scanner.ChatScannerWindow;
 import main.java.com.slimtrade.gui.stash.StashOverlayWindow;
 import main.java.com.slimtrade.gui.stash.helper.StashHelperContainer;
 import main.java.com.slimtrade.gui.windows.OverlayManager;
-import main.java.com.slimtrade.gui.windows.REMOVE_ChatScannerWindow;
 
 public class FrameManager {
 
@@ -33,7 +32,7 @@ public class FrameManager {
 	// public static REMOVE_CharacterWindow characterWindow;
 	public static OverlayManager overlayManager;
 	// public static REMOVE_StashTabWindow stashTabWindow;
-	public static ImprovedChatScanner chatScannerWindow;
+	public static ChatScannerWindow chatScannerWindow;
 
 	private static HideableDialog[] menuFrames;
 	private static HideableDialog[] forceFrames;
@@ -47,7 +46,7 @@ public class FrameManager {
 		menubarToggle = new MenubarExpandButton();
 		messageManager = new MessageManager();
 		overlayManager = new OverlayManager();
-		chatScannerWindow = new ImprovedChatScanner();
+		chatScannerWindow = new ChatScannerWindow();
 		// TODO : temp
 		stashHelperContainer.updateBounds();
 		stashOverlayWindow = new StashOverlayWindow();
@@ -69,7 +68,7 @@ public class FrameManager {
 		menuFrames = new HideableDialog[] { optionsWindow, historyWindow, chatScannerWindow };
 
 		messageManager.setShow(true);
-		optionsWindow.setShow(true);
+//		optionsWindow.setShow(true);
 		menubar.setShow(true);
 
 		TrayButton tray = new TrayButton();
@@ -93,7 +92,7 @@ public class FrameManager {
 		}
 	}
 
-	public static void centerFrame(BasicDialog window) {
+	public static void centerFrame(JDialog window) {
 		window.setLocation((TradeUtility.screenSize.width / 2) - (window.getWidth() / 2), (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2));
 	}
 
