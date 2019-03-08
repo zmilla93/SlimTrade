@@ -92,7 +92,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		case CHAT_SCANNER:
 			itemLabel.setText(trade.searchMessage);
 			// TODO : Search name
-			priceLabel.setText("TODO");
+			priceLabel.setText(trade.searchName);
 			pricePanel.add(priceLabel);
 			break;
 		case INCOMING_TRADE:
@@ -265,7 +265,7 @@ public class TradePanelA extends AbstractMessagePanel {
 			buttonCountTop = 2;
 			buttonCountBottom = 4;
 			
-			replyButton = new IconButton(ImagePreloader.warp, rowHeight);
+			replyButton = new IconButton(PreloadedImage.REPLY.getImage(), rowHeight);
 			buttonPanelTop.add(replyButton);
 			
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);

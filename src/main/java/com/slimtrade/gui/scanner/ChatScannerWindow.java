@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.gui.scanner;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,9 +25,11 @@ import javax.swing.JTextField;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.enums.PreloadedImage;
 import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
+import main.java.com.slimtrade.gui.panels.IconPanel;
 import main.java.com.slimtrade.gui.stash.ResizableWindow;
 
 public class ChatScannerWindow extends ResizableWindow implements Saveable {
@@ -64,24 +67,28 @@ public class ChatScannerWindow extends ResizableWindow implements Saveable {
 		ContainerPanel borderPanel = new ContainerPanel();
 		borderPanel.container.setLayout(new GridBagLayout());
 		borderPanel.setBorder(null);
-		
+
 		ContainerPanel criteriaPanel = new ContainerPanel();
 		JPanel topPanel = criteriaPanel.container;
 		topPanel.setLayout(new GridBagLayout());
-		
+
 		ContainerPanel savePanel = new ContainerPanel();
 		JPanel bottomPanel = savePanel.container;
 		bottomPanel.setLayout(new GridBagLayout());
-		
 
 		JLabel nameLabel = new JLabel("Save Name");
 		JLabel termsLabel = new JLabel("Search Terms");
 		JLabel ignoreLabel = new JLabel("Ignore Terms");
 
-		JLabel responseLabel = new JLabel("Response Buttons");
+		JLabel responseLabel = new JLabel("Response Button");
 		JLabel lmbLabel = new JLabel("Left Mouse");
 		JLabel rmbLabel = new JLabel("Right Mouse");
 
+		JPanel responsePanel = new JPanel(new BorderLayout());
+		IconPanel responseButton = new IconPanel(PreloadedImage.REPLY.getImage(), 20);
+		responsePanel.add(responseLabel, BorderLayout.CENTER);
+		responsePanel.add(responseButton, BorderLayout.EAST);
+		
 		JScrollPane termsScroll = new JScrollPane(termsText);
 		JScrollPane ignoreScroll = new JScrollPane(ignoreText);
 
@@ -100,7 +107,7 @@ public class ChatScannerWindow extends ResizableWindow implements Saveable {
 		searchPanel.add(searchButton);
 		searchPanel.add(messageCombo);
 
-//		container.setLayout(new GridBagLayout());
+		// container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.gridx = 0;
@@ -153,7 +160,7 @@ public class ChatScannerWindow extends ResizableWindow implements Saveable {
 		gc.gridy++;
 
 		// gc.gridwidth = 3;
-		topPanel.add(responseLabel, gc);
+		topPanel.add(responsePanel, gc);
 		// gc.gridwidth = 1;
 		gc.gridy++;
 
@@ -233,11 +240,11 @@ public class ChatScannerWindow extends ResizableWindow implements Saveable {
 		borderPanel.container.add(criteriaPanel, gc);
 		gc.insets.bottom = 0;
 		gc.gridy++;
-		
+
 		gc.weighty = 1;
 		borderPanel.container.add(savePanel, gc);
 		gc.gridy++;
-		
+
 		gc = new GridBagConstraints();
 		gc.weightx = 1;
 		gc.weighty = 1;
@@ -283,6 +290,7 @@ public class ChatScannerWindow extends ResizableWindow implements Saveable {
 				}
 				if (searching) {
 					ScannerMessage msg = (ScannerMessage) messageCombo.getSelectedItem();
+					Main.chatParser.setSearchName(msg.name);
 					Main.chatParser.setSearchTerms(msg.searchTermsArray);
 					Main.chatParser.setIgnoreTerms(msg.ignoreTermsArray);
 					Main.chatParser.setResponseText(msg.clickLeft, msg.clickRight);
@@ -290,8 +298,9 @@ public class ChatScannerWindow extends ResizableWindow implements Saveable {
 				}
 				updateSearchButton();
 				Main.chatParser.setChatScannerRunning(searching);
-//				ScannerMessage msg = (ScannerMessage) messageCombo.getSelectedItem();
-//				System.out.println(Arrays.toString(msg.searchTermsArray));
+				// ScannerMessage msg = (ScannerMessage)
+				// messageCombo.getSelectedItem();
+				// System.out.println(Arrays.toString(msg.searchTermsArray));
 			}
 		});
 
@@ -302,7 +311,7 @@ public class ChatScannerWindow extends ResizableWindow implements Saveable {
 		this.setMinimumSize(this.getPreferredSize());
 		this.setPreferredSize(new Dimension(400, 450));
 		this.pack();
-//		System.out.println(this.getSize());
+		// System.out.println(this.getSize());
 		FrameManager.centerFrame(this);
 
 	}
@@ -321,7 +330,12 @@ public class ChatScannerWindow extends ResizableWindow implements Saveable {
 			messageCombo.addItem(m);
 		}
 		if (msg != null) {
-			messageCombo.setSelectedItem(msg);
+			for(int i = 0; i<messageCombo.getItemCount();i++){
+				if(messageCombo.getItemAt(i).name.equals(msg.name)){
+					messageCombo.setSelectedIndex(i);
+				}
+			}
+//			messageCombo.setSelectedItem(msg);
 		}
 	}
 

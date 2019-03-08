@@ -80,9 +80,11 @@ public class EventManager implements PoeInteractionListener {
 			PoeInterface.paste("/hideout " + trade.playerName);
 			break;
 		case WHISPER:
-			if(mouseButton==MouseEvent.BUTTON1){
+			System.out.println("L : " + e.getClickLeft());
+			System.out.println(e.getClickRight());
+			if(mouseButton==MouseEvent.BUTTON1 && !e.getClickLeft().replaceAll("\\s", "").equals("")){
 				PoeInterface.paste("@"+e.getPlayerName() + " " + e.getClickLeft());
-			}else if(mouseButton==MouseEvent.BUTTON3){
+			}else if(mouseButton==MouseEvent.BUTTON3 && !e.getClickRight().replaceAll("\\s", "").equals("")){
 				PoeInterface.paste("@"+e.getPlayerName() + " " + e.getClickRight());
 			}
 			

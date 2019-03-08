@@ -10,6 +10,7 @@ public enum PreloadedImage {
 	DISK("/resources/icons/disk.png"),
 	INVITE("/resources/icons/invite1.png"),
 	REFRESH("/resources/icons/refreshx64.png"),
+	REPLY("/resources/icons/replyx48.png"),
 	TAG("/resources/icons/tagx48.png"),
 	;
 	

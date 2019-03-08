@@ -23,23 +23,34 @@ public class IconPanel extends JPanel {
 	private final int SIZE = 20;
 	private final double IMAGE_SCALE = 1;
 
+	//TODO : Remove path constructors
 	public IconPanel(String path) {
-		buildIcon(path, SIZE, null);
+		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(SIZE, SIZE, Image.SCALE_SMOOTH);
+		buildIcon(image, SIZE, null);
 	}
-
+	
 	public IconPanel(String path, int size) {
-		buildIcon(path, size, null);
+		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(SIZE, SIZE, Image.SCALE_SMOOTH);
+		buildIcon(image, size, null);
+	}
+	
+	public IconPanel(Image image) {
+		buildIcon(image, SIZE, null);
 	}
 
-	public IconPanel(String path, Color borderColor) {
-		buildIcon(path, SIZE, borderColor);
+	public IconPanel(Image image, int size) {
+		buildIcon(image, size, null);
 	}
 
-	public IconPanel(String path, int size, Color borderColor) {
-		buildIcon(path, size, borderColor);
+	public IconPanel(Image image, Color borderColor) {
+		buildIcon(image, SIZE, borderColor);
 	}
 
-	private void buildIcon(String path, int size, Color borderColor) {
+	public IconPanel(Image image, int size, Color borderColor) {
+		buildIcon(image, size, borderColor);
+	}
+
+	private void buildIcon(Image image, int size, Color borderColor) {
 //		Main.logger.log(Level.INFO, path);
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(size, size));
@@ -50,7 +61,7 @@ public class IconPanel extends JPanel {
 			this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, borderColor));
 		}
 		int imageSize = (int)(size*IMAGE_SCALE);
-		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
+//		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
 		JLabel imgLabel = new JLabel();
 		imgLabel.setIcon(new ImageIcon(image));
 		this.add(imgLabel, BorderLayout.CENTER);

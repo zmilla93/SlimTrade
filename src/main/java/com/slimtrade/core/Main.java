@@ -104,23 +104,6 @@ public class Main {
 				fileMonitor = new FileMonitor();
 				fileMonitor.startMonitor();
 				
-//				UpdateDialog u = new UpdateDialog();
-//				FrameManager.centerFrame(u);
-//				u.setVisible(true);
-				VersionNumber v1 = new VersionNumber("1.43.341");
-				VersionNumber v2 = new VersionNumber("3.1.31");
-				VersionNumber v3 = new VersionNumber("1.323.3231");
-				VersionNumber v4 = new VersionNumber("14.3.31");
-				VersionNumber v5 = new VersionNumber("3.3.1");
-				VersionNumber v6 = new VersionNumber("3.1.61");
-//				public static final String APP_VERSION = "3.1.59";
-				System.out.println(VersionNumber.isNewVersion(v1));
-				System.out.println(VersionNumber.isNewVersion(v2));
-				System.out.println(VersionNumber.isNewVersion(v3));
-				System.out.println(VersionNumber.isNewVersion(v4));
-				System.out.println(VersionNumber.isNewVersion(v5));
-				System.out.println(VersionNumber.isNewVersion(v6));
-				
 				updateChecker = new UpdateChecker();
 				if(updateChecker.checkForUpdate()){
 					UpdateDialog d = new UpdateDialog();

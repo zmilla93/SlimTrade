@@ -52,6 +52,7 @@ public class ChatParser {
 	private String[] searchTerms;
 	private String[] ignoreTerms;
 	private boolean chatScannerRunning = false;
+	private String searchName;
 	private String searchResponseLeft;
 	private String searchResponseRight;
 
@@ -243,7 +244,7 @@ public class ChatParser {
 			}
 			System.out.println("");
 			// DEBUG END
-			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), null, matcher.group(6), this.searchResponseLeft, this.searchResponseRight);
+			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6), this.searchResponseLeft, this.searchResponseRight);
 
 			if (this.ignoreTerms != null) {
 				for (String s : this.ignoreTerms) {
@@ -283,6 +284,10 @@ public class ChatParser {
 
 	public void setChatScannerRunning(boolean state) {
 		chatScannerRunning = state;
+	}
+	
+	public void setSearchName(String name) {
+		searchName = name;
 	}
 
 	public void setSearchTerms(String[] searchTerms) {

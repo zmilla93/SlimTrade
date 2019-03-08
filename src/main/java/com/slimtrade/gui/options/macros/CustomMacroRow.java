@@ -57,10 +57,9 @@ public class CustomMacroRow extends RemovablePanel {
 		iconCombo.removeAll();
 		iconCombo.setLayout(new BorderLayout());
 		iconCombo.setBorder(null);
-		Dimension iconSize = iconCombo.getPreferredSize();
-		// iconSize.height = 30;
-		iconSize.width = iconSize.width / 2;
-		iconCombo.setPreferredSize(iconSize);
+//		Dimension iconSize = iconCombo.getPreferredSize();
+//		iconSize.width = iconSize.width / 2;
+//		iconCombo.setPreferredSize(iconSize);
 
 		rowCombo = new JComboBox<ButtonRow>();
 		for (ButtonRow row : ButtonRow.values()) {

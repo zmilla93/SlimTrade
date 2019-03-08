@@ -21,7 +21,7 @@ import main.java.com.slimtrade.gui.enums.ExpandDirection;
 public class MenubarDialog extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
-
+	private boolean test = true;
 	private static int buttonCount = 6;
 	private static int spacerCount = 2;
 	private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.8);
@@ -45,6 +45,8 @@ public class MenubarDialog extends BasicDialog {
 	// private ArrayList<Component> componentList = new ArrayList<Component>();
 	Container container = this.getContentPane();
 	private ExpandDirection expandDirection = ExpandDirection.DOWN;
+	
+	
 
 	public MenubarDialog() {
 		// TODO : Modify constructor of menubar buttons
@@ -63,13 +65,15 @@ public class MenubarDialog extends BasicDialog {
 		quitButton = new MenubarButton("");
 		minimizeButton = new MenubarButton("");
 
-		testButton.setToolTipText("This is a test.");
+//		testButton.setToolTipText("This is a test.");
 
 		container.add(historyButton);
 		// container.add(stashTabButton);
 		container.add(chatScannerButton);
 		// container.add(characterButton);
-		container.add(testButton);
+		if(test){
+			container.add(testButton);
+		}
 		container.add(optionsButton);
 		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
 		container.add(quitButton);
@@ -106,10 +110,12 @@ public class MenubarDialog extends BasicDialog {
 		testButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
 				Random rng = new Random();
-				TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-				TradeOffer t2 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t2 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t3 = new TradeOffer("", "", MessageType.CHAT_SCANNER,  "<GLD>", "SmashyMcFireBalls", "Search Name", "example text", null, null);
 				FrameManager.messageManager.addMessage(t);
 				FrameManager.messageManager.addMessage(t2);
+				FrameManager.messageManager.addMessage(t3);
 				// FrameManager.historyWindow.setOrder(false);
 			}
 		});
