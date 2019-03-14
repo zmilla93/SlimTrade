@@ -22,7 +22,7 @@ import main.java.com.slimtrade.gui.panels.StashGridPanel;
 import main.java.com.slimtrade.gui.stash.helper.ItemHighlighter;
 
 
-public class StashGridOverlay extends AbstractWindowDialog{
+public class REMOVE_StashGridOverlay extends AbstractWindowDialog{
 	
 	private static final long serialVersionUID = 1L;
 	//STATICS
@@ -52,7 +52,7 @@ public class StashGridOverlay extends AbstractWindowDialog{
 	
 	//TODO : Improve naming conventions
 	//TODO : Get rid of all the getters and setters and have methods automatically update these instead
-	public StashGridOverlay(Point winPos, int winWidth, int winHeight){
+	public REMOVE_StashGridOverlay(Point winPos, int winWidth, int winHeight){
 		super("Stash Overlay");
 		this.setVisible(false);
 		this.setLocation(winPos);
@@ -163,7 +163,7 @@ public class StashGridOverlay extends AbstractWindowDialog{
 		saveButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				saveDataLocally();
-				Main.fileManager.saveStashData(windowPos.x, windowPos.y, windowSize.width, windowSize.height, gridPos.x, gridPos.y, gridSize.width, gridSize.height);
+//				Main.fileManager.saveStashData(windowPos.x, windowPos.y, windowSize.width, windowSize.height, gridPos.x, gridPos.y, gridSize.width, gridSize.height);
 				FrameManager.stashHelperContainer.updateBounds();
 //				ItemHighlighter.saveGridInfo(gridPos.x, gridPos.y, (gridSize.width/12.0), (gridSize.height/12.0));
 		    }
@@ -195,36 +195,36 @@ public class StashGridOverlay extends AbstractWindowDialog{
 	
 	//WINDOW GETTERS/SETTERS
 	public static void setDefaultWinPos(Point pos){
-		StashGridOverlay.windowPos = pos;
+		REMOVE_StashGridOverlay.windowPos = pos;
 	}
 	
 	public static void setDefaultWinSize(Dimension size){
-		StashGridOverlay.windowSize = size;
+		REMOVE_StashGridOverlay.windowSize = size;
 	}
 	
 	public static Point getWinPos(){
-		return StashGridOverlay.windowPos;
+		return REMOVE_StashGridOverlay.windowPos;
 	}
 	
 	public static Dimension getwindowSize(){
-		return StashGridOverlay.windowSize;
+		return REMOVE_StashGridOverlay.windowSize;
 	}
 	
 	//GRID GETTERS/SETTERS
 	public static void setDefaultGridPos(Point pos){
-		StashGridOverlay.gridPos = pos;
+		REMOVE_StashGridOverlay.gridPos = pos;
 	}
 	
 	public static void setDefaultGridSize(Dimension size){
-		StashGridOverlay.gridSize = size;
+		REMOVE_StashGridOverlay.gridSize = size;
 	}
 	
 	public static Point getGridPos(){
-		return StashGridOverlay.gridPos;
+		return REMOVE_StashGridOverlay.gridPos;
 	}
 	
 	public static Dimension getGridSize(){
-		return StashGridOverlay.gridSize;
+		return REMOVE_StashGridOverlay.gridSize;
 	}
 	
 	private void saveDataLocally(){
@@ -251,7 +251,7 @@ public class StashGridOverlay extends AbstractWindowDialog{
 		double gridWidth = w-bufferThin-bufferThick;
 		double gridHeight = h-bufferThin-bufferThick-infoPanelHeight;
 		grid.resizeGrid((int)gridWidth, (int)gridHeight);
-		StashGridOverlay.setDefaultGridSize(new Dimension((int)gridWidth, (int)gridHeight));
+		REMOVE_StashGridOverlay.setDefaultGridSize(new Dimension((int)gridWidth, (int)gridHeight));
 //		gridSize.setSize((int)gridWidth, (int)gridHeight);
 		this.resizeWindow(w, h);
 		this.revalidate();

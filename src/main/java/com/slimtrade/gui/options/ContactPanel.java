@@ -46,14 +46,15 @@ public class ContactPanel extends ContentPanel_REMOVE {
 		this.add(emailText, gc);
 		gc.gridx = 0;
 		gc.gridy++;
-		gc.gridwidth = 2;
-		this.add(new BufferPanel(0, 10), gc);
-		gc.gridy++;
-		this.add(info1, gc);
-		gc.gridy++;
-		this.add(info2, gc);
-		gc.gridy++;
-		this.add(info3, gc);
+		
+//		gc.gridwidth = 2;
+//		this.add(new BufferPanel(0, 10), gc);
+//		gc.gridy++;
+//		this.add(info1, gc);
+//		gc.gridy++;
+//		this.add(info2, gc);
+//		gc.gridy++;
+//		this.add(info3, gc);
 		
 		
 		

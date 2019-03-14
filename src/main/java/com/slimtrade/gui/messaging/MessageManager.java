@@ -1,10 +1,8 @@
 package main.java.com.slimtrade.gui.messaging;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -175,11 +173,11 @@ public class MessageManager extends BasicDialog {
 	// function?
 	public void refresh() {
 		if(expandDirection == ExpandDirection.UP){
-			this.setLocation(startingPos.x, startingPos.y-MessagePanel.totalHeight*(messageCount-1)-buffer*(messageCount-1));
+			this.setLocation(startingPos.x, startingPos.y-AbstractMessagePanel.totalHeight*(messageCount-1)-buffer*(messageCount-1));
 		}else{
 			
 		}
-		this.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight * messageCount + buffer * messageCount);
+		this.setSize(AbstractMessagePanel.totalWidth, AbstractMessagePanel.totalHeight * messageCount + buffer * messageCount);
 		this.revalidate();
 		this.repaint();
 	}

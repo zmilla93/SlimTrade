@@ -36,7 +36,7 @@ public class Main {
 	
 	// TODO : move to invoke later?
 	public static Debugger debug = new Debugger();
-	public static ExternalFileManager fileManager = new ExternalFileManager();
+//	public static ExternalFileManager fileManager = new ExternalFileManager();
 	public static EventManager eventManager = new EventManager();
 //	public static OLD_SaveManager saveManagerOld;
 	public static SaveManager saveManager;
@@ -109,6 +109,8 @@ public class Main {
 					UpdateDialog d = new UpdateDialog();
 					d.setVisible(true);
 				}
+				
+				
 
 			}
 		});

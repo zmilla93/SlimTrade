@@ -27,7 +27,7 @@ import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
 import main.java.com.slimtrade.gui.enums.ExpandDirection;
 import main.java.com.slimtrade.gui.menubar.MenubarButton;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
-import main.java.com.slimtrade.gui.messaging.MessagePanel;
+import main.java.com.slimtrade.gui.messaging.AbstractMessagePanel;
 import main.java.com.slimtrade.gui.options.Saveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
@@ -82,7 +82,7 @@ public class OverlayManager implements Saveable {
 
 		helpDialog.setSize(500, 150);
 		menubarDialog.setSize(MenubarDialog.WIDTH, MenubarDialog.HEIGHT);
-		messageDialog.setSize(MessagePanel.totalWidth, MessagePanel.totalHeight);
+		messageDialog.setSize(AbstractMessagePanel.totalWidth, AbstractMessagePanel.totalHeight);
 		menubarPanelTop.setPreferredSize(new Dimension(0, MENUBAR_BUTTON_SIZE));
 		menubarPanelBottom.setPreferredSize(new Dimension(0, MENUBAR_BUTTON_SIZE));
 		menubarExpandButton.setPreferredSize(new Dimension(MENUBAR_BUTTON_SIZE, MENUBAR_BUTTON_SIZE));

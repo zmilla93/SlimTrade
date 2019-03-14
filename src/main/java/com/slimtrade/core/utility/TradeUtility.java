@@ -89,11 +89,14 @@ public class TradeUtility {
 //	}
 
 	// TODO : check more stuff?
+	// TODO : THIS THROWS AN ERROR IF A VALUE IS NULL
 	public static boolean isDuplicateTrade(TradeOffer trade1, TradeOffer trade2) {
 		final int checkCount = 6;
 		int check = 0;
 		if (trade1.messageType.equals(trade2.messageType)) {
 			check++;
+		}else{
+			return false;
 		}
 		if (trade1.playerName.equals(trade2.playerName)) {
 			check++;

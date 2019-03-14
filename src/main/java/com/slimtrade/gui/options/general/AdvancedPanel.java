@@ -28,7 +28,8 @@ public class AdvancedPanel extends ContainerPanel implements Saveable {
 				if (action == JFileChooser.APPROVE_OPTION) {
 					File clientFile = clientRow.getFileChooser().getSelectedFile();
 					String path = clientFile.getPath();
-					clientRow.getPathLabel().setText(path);
+//					clientRow.getPathLabel().setText(path);
+					clientRow.setText(path);
 				}
 			}
 		});
@@ -39,13 +40,20 @@ public class AdvancedPanel extends ContainerPanel implements Saveable {
 
 	public void save() {
 		if (clientRow.isChanged()) {
-			Main.saveManager.putObject(clientRow.getText(), "general", "clientDirectory");
+			Main.saveManager.putObject(clientRow.getText(), "general", "clientPath");
+
+			Main.saveManager.refreshPath();
+			Main.chatParser.setClientPath(clientRow.getText());
+			
+			Main.fileMonitor.stopMonitor();
+			Main.chatParser.init();
+			Main.fileMonitor.startMonitor();
 		}
 	}
 
 	public void load() {
-		if (Main.saveManager.hasEntry("general", "clientDirectory")) {
-			clientRow.setText(Main.saveManager.getString("general", "clientDirectory"));
+		if (Main.saveManager.hasEntry("general", "clientPath")) {
+			clientRow.setText(Main.saveManager.getString("general", "clientPath"));
 		}
 	}
 

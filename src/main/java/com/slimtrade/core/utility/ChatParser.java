@@ -22,7 +22,7 @@ public class ChatParser {
 	private FileReader fileReader;
 	private BufferedReader bufferedReader;
 	int curLineCount = 0;
-	int totalLineCount = 0;
+	int totalLineCount;
 	String curLine;
 	// TODO: should these be trade or message variables? chat scanner?
 	public int tradeHistoryIndex = 0;
@@ -32,12 +32,8 @@ public class ChatParser {
 	public String[] playerJoinedArea = new String[20];
 	public int playerJoinedQueue = 0;
 	private ActionListener updateAction = new ActionListener() {
-		@Override
 		public void actionPerformed(ActionEvent e) {
-			// Debugger.benchmarkStart();
-			// update();
 			procUpdate();
-			// System.out.println(Debugger.benchmark());
 		}
 	};
 	private Timer updateTimer = new Timer(500, updateAction);
@@ -56,7 +52,7 @@ public class ChatParser {
 	private String searchResponseLeft;
 	private String searchResponseRight;
 
-	private String clientLogPath;
+	private String clientPath;
 
 	public ChatParser() {
 
@@ -67,8 +63,8 @@ public class ChatParser {
 		Main.debug.log("Launching chat parser...");
 		int msgCount = 0;
 		updateTimer.stop();
-		if (Main.fileManager.validClientPath) {
-			clientLogPath = Main.fileManager.clientPath;
+		if (Main.saveManager.isValidClientPath()) {
+			clientPath = Main.saveManager.getClientPath();
 		} else {
 			Main.debug.log("[ERROR] No valid client file path found.");
 			return;
@@ -76,13 +72,14 @@ public class ChatParser {
 		try {
 			// fileReader = new FileReader("C:/Program Files
 			// (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-			fileReader = new FileReader(clientLogPath);
+			fileReader = new FileReader(clientPath);
 			bufferedReader = new BufferedReader(fileReader);
 		} catch (FileNotFoundException e1) {
 			Main.debug.log("[ERROR] Chat parser failed to launch.");
 			e1.printStackTrace();
 		}
 		// TODO : Init history
+		totalLineCount = 0;
 		try {
 			while ((curLine = bufferedReader.readLine()) != null) {
 				if (curLine.contains("@")) {
@@ -106,7 +103,7 @@ public class ChatParser {
 
 	private void procUpdate() {
 		try {
-			fileReader = new FileReader(clientLogPath);
+			fileReader = new FileReader(clientPath);
 			fileReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -119,7 +116,8 @@ public class ChatParser {
 		long start = System.currentTimeMillis();
 		// Debugger.benchmarkStart();
 		try {
-			fileReader = new FileReader(clientLogPath);
+			System.out.println("READING : " + clientPath);
+			fileReader = new FileReader(clientPath);
 			bufferedReader = new BufferedReader(fileReader);
 			curLineCount = 0;
 			while ((curLine = bufferedReader.readLine()) != null) {
@@ -280,6 +278,10 @@ public class ChatParser {
 			break;
 		}
 		return type;
+	}
+	
+	public void setClientPath(String path){
+		this.clientPath = path;
 	}
 
 	public void setChatScannerRunning(boolean state) {

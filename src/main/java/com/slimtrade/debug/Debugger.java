@@ -32,9 +32,9 @@ public class Debugger extends JFrame {
 		logScrollPane.setPreferredSize(new Dimension(750, 400));
 		this.add(logScrollPane);
 		
-		PaintedPanel p = new PaintedPanel();
-		p.setPreferredSize(new Dimension(200,20));
-		this.add(p);
+//		PaintedPanel p = new PaintedPanel();
+//		p.setPreferredSize(new Dimension(200,20));
+//		this.add(p);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 

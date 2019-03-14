@@ -1,6 +1,7 @@
 package main.java.com.slimtrade.core.utility;
 
 import java.io.IOException;
+import java.nio.file.ClosedWatchServiceException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,40 +21,34 @@ public class FileMonitor {
 
 	public FileMonitor() {
 
+	}
+
+	public void startMonitor() {
 		try {
 			watcher = FileSystems.getDefault().newWatchService();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-//		Path dir = Paths.get(Main.saveManager.getClientPath());
-//		Path testDir = Paths.get("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile\\logs");
-//		System.out.println(dir.toString());
-//		try {
-//			clientKey = testDir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
-//		startMonitor();
-	}
-
-	public void startMonitor() {
 		if(!Main.saveManager.isValidClientPath()){
 			Main.logger.log(Level.WARNING, "No valid client path found");
 			return;
 		}
-		Path dir = Paths.get(Main.saveManager.getClientDirectory());
-//		Path testDir = Paths.get("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile\\logs");
-//		System.out.println(dir.toString());
-		try {
-			clientKey = dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
-//		System.out.println("Staring watch thread...");
+		Path dir = Paths.get(Main.saveManager.getClientDirectory());
+		System.out.println("NEW DIR : " + dir.toString());
+		System.out.println("CLIENT KEY ::: " + clientKey);
+		if(clientKey != null){
+			clientKey.cancel();
+			clientKey = null;
+		}
+		System.out.println("CLIENT KEY ::: " + clientKey);
+		try {
+//			dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
+			clientKey = dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
+		} catch (IOException | ClosedWatchServiceException e) {
+			e.printStackTrace();
+			return;
+		}
 		monitor = new Thread(new Runnable() {
 			public void run() {
 				while (true) {
@@ -70,6 +65,7 @@ public class FileMonitor {
 					}
 					for (WatchEvent<?> event : key.pollEvents()) {
 						Main.chatParser.update();
+						System.out.println("CONTEXT ::: " + event.context());
 						if (event.kind() == StandardWatchEventKinds.OVERFLOW) {
 							System.err.println("Overflow");
 							continue;
@@ -87,11 +83,11 @@ public class FileMonitor {
 		try {
 			monitor.interrupt();
 			monitor.join();
+			clientKey.cancel();
 		} catch (InterruptedException | NullPointerException e) {
 //			e.printStackTrace();
 			return;
 		}
-		
 	}
 	
 	

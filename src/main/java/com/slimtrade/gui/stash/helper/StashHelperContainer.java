@@ -1,14 +1,10 @@
 package main.java.com.slimtrade.gui.stash.helper;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
-
-import javax.swing.BorderFactory;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.windows.StashGridOverlay;
 
 public class StashHelperContainer extends BasicDialog{
 	//TODO : Should probably get spacing X directly from stash overlay left buffer

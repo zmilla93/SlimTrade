@@ -30,6 +30,7 @@ public class EventManager implements PoeInteractionListener {
 			PoeInterface.paste("/hideout");
 			break;
 		case INVITE:
+			System.out.println("INVITE");
 			PoeInterface.paste("/invite " + trade.playerName);
 			break;
 		case KICK:

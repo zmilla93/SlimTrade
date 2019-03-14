@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileFilter;
 
 public class AdvancedRow extends JPanel {
 
@@ -27,6 +29,7 @@ public class AdvancedRow extends JPanel {
 	private JFileChooser fileChooser;
 
 	public AdvancedRow(String labelText) {
+
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
@@ -56,9 +59,24 @@ public class AdvancedRow extends JPanel {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			fileChooser = new JFileChooser();
-			
+
 		}
-		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+		fileChooser.setFileFilter(new FileFilter() {
+			public boolean accept(File f) {
+				if (f.isDirectory()) {
+					return true;
+				} else {
+					String filename = f.getName().toLowerCase();
+					return filename.endsWith(".txt");
+				}
+			}
+
+			public String getDescription() {
+				return "Text Files (*.txt)";
+			}
+		});
+
 		this.add(labelPanel, gc);
 		gc.gridx++;
 		this.add(pathPanel, gc);

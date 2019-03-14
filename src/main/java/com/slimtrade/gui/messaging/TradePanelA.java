@@ -15,13 +15,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.ToolTipManager;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
-import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MessageType;
@@ -194,11 +192,6 @@ public class TradePanelA extends AbstractMessagePanel {
 			stashHelper = new StashHelper(trade, color, colorText);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.add(stashHelper);
-			itemPanel.addMouseListener(new AdvancedMouseAdapter() {
-				public void click(MouseEvent e) {
-					stashHelper.setVisible(true);
-				}
-			});
 			borderPanel.setBackground(ColorManager.greenIncoming);
 			pricePanel.setBackground(ColorManager.greenIncoming);
 			priceLabel.setForeground(ColorManager.stashLightText);
@@ -320,6 +313,16 @@ public class TradePanelA extends AbstractMessagePanel {
 				this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
 				this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
 				this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
+				itemPanel.addMouseListener(new AdvancedMouseAdapter() {
+					public void click(MouseEvent e) {
+						stashHelper.setVisible(true);
+					}
+				});
+				inviteButton.addMouseListener(new AdvancedMouseAdapter(){
+					public void click(MouseEvent e){
+						stashHelper.setVisible(true);
+					}
+				});
 			}
 
 			for (IconButton b : customButtonsTop) {

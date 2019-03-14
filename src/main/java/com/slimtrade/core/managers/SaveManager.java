@@ -42,7 +42,10 @@ public class SaveManager {
 	boolean validClientPath = false;
 
 	private boolean log = false;
-
+	
+	private int clientCount = 0;
+	private ArrayList<String> potentialPaths = new ArrayList<String>();
+	
 	public SaveManager() {
 		// Set save directory
 		String os = (System.getProperty("os.name")).toUpperCase();
@@ -59,12 +62,13 @@ public class SaveManager {
 		initSave();
 
 		// Attempt to get client path
-		if (hasEntry("general", "clientDirectory")) {
-			clientDirectory = getString("general", "clientDirectory");
-			clientPath = clientDirectory + "Client.txt";
+		if (hasEntry("general", "clientPath")) {
+			clientPath = getString("general", "clientPath");
+			clientDirectory = getDirectoryFromPath(clientPath);
 			validClientPath = true;
+			System.out.println("HAS ENTRY ::: \n\t" + clientPath + "\n\t" + clientDirectory);
 		} else {
-			int clientCount = 0;
+//			int clientCount = 0;
 			String validDirectory = null;
 			String[] stubs = { steamStub, steamStubx86, standAlone, standAlonex86 };
 			for (File s : File.listRoots()) {
@@ -72,17 +76,35 @@ public class SaveManager {
 					File f = new File(s.toString() + stub + sep + poeLogs);
 					if (f.exists() && f.isDirectory()) {
 						clientCount++;
+						potentialPaths.add(f.getPath());
 						validDirectory = f.getPath();
-						putObject(f.getPath(), "general", "clientDirectory");
 					}
 				}
 			}
-			if (clientCount == 1) {
+			if(clientCount == 0){
+				Main.debug.log("No client path found");
+			}else if (clientCount == 1) {
 				validClientPath = true;
 				clientDirectory = validDirectory;
 				clientPath = validDirectory + sep + "Client.txt";
+				putObject(clientPath, "general", "clientPath");
+				System.out.println("FOUND ENTRY ::: \n\t" + clientPath + "\n\t" + clientDirectory);
+			}else if (clientCount > 1){
+				Main.debug.log("[Warning] Multiple client paths found:");
+				for(String s : potentialPaths){
+					Main.debug.log(s);
+				}
 			}
 		}
+	}
+	
+	public void refreshPath(){
+		this.clientPath = this.getString("general", "clientPath");
+		this.clientDirectory = getDirectoryFromPath(clientPath);
+	}
+	
+	public String getDirectoryFromPath(String path){
+		return path.replaceAll("(\\/|\\\\)[\\w\\d\\s]+\\.\\w+", "");
 	}
 
 	private void initSave() {

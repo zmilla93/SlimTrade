@@ -28,6 +28,7 @@ public class AbstractMessagePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	// TODO Load from drive
 	// TODO : Move?
+	// TODO : switch totalwidth/height to use get/set?
 	private final PoeInteractionListener poeInteractionListener = Main.eventManager;
 	protected MessageType messageType;
 	// Heights
@@ -37,8 +38,8 @@ public class AbstractMessagePanel extends JPanel {
 	protected int messageHeight;
 	protected int borderSize = 2;
 	protected int rowHeight;
-	protected int totalWidth;
-	protected int totalHeight;
+	public static int totalWidth;
+	public static int totalHeight;
 	protected final double timerWeight = 0.1;
 
 	protected static GridBagLayout gb = new GridBagLayout();
