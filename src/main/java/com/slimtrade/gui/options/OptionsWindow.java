@@ -64,11 +64,11 @@ public class OptionsWindow extends ResizableWindow {
 		menuBorder.setOpaque(false);
 		
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, buffer));
-		JButton resizeButton = new JButton("RESIZE");
-		JButton cancelButton = new JButton("CANCEL");
-		JButton saveButton = new JButton("SAVE");
-		bottomPanel.add(resizeButton);
-		bottomPanel.add(cancelButton);
+//		JButton resizeButton = new JButton("RESIZE");
+		JButton revertButton = new JButton("Revert Changes");
+		JButton saveButton = new JButton("Save");
+//		bottomPanel.add(resizeButton);
+		bottomPanel.add(revertButton);
 		bottomPanel.add(saveButton);
 		
 		
@@ -155,15 +155,15 @@ public class OptionsWindow extends ResizableWindow {
 		
 		//TODO : Resize
 		ResizableWindow local = this;
-		resizeButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				local.autoResize();
-				local.pack();
-
-			}
-		});
+//		resizeButton.addActionListener(new ActionListener(){
+//			public void actionPerformed(ActionEvent e) {
+//				local.autoResize();
+//				local.pack();
+//
+//			}
+//		});
 		
-		cancelButton.addActionListener(new ActionListener(){
+		revertButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				generalPanel.load();
 				incomingPanel.load();

@@ -23,6 +23,7 @@ import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
 public class UpdateDialog extends JDialog {
 
+	private static final long serialVersionUID = 1L;
 	JButton laterButton = new JButton("Update Later");
 	JButton viewButton = new JButton("View on Github");
 	
@@ -43,8 +44,8 @@ public class UpdateDialog extends JDialog {
 		gc.gridy = 0;
 		
 		JLabel info1 = new JLabel("New version available!");
-		JLabel info2 = new JLabel("Current Version : " + References.APP_VERSION);
-		JLabel info3 = new JLabel("Latest Version : " + Main.updateChecker.getLatestVersion());
+		JLabel info2 = new JLabel("Currently Running: " + References.APP_VERSION);
+		JLabel info3 = new JLabel("Latest Version: " + Main.updateChecker.getLatestVersion());
 		
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0));
 		buttonPanel.add(laterButton);

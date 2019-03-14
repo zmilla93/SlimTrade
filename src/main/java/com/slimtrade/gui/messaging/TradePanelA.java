@@ -49,7 +49,7 @@ public class TradePanelA extends AbstractMessagePanel {
 
 	private StashHelper stashHelper;
 
-//	private IconButton saveToHistoryButton;
+	// private IconButton saveToHistoryButton;
 	// private IconButton waitButton;
 	private IconButton refreshButton;
 	private IconButton inviteButton;
@@ -128,8 +128,6 @@ public class TradePanelA extends AbstractMessagePanel {
 		itemPanel.add(itemLabel);
 		itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		
-
 		container.add(topPanel, gc);
 		gc.gridy = 1;
 		container.add(bottomPanel, gc);
@@ -154,22 +152,22 @@ public class TradePanelA extends AbstractMessagePanel {
 		Color color = null;
 		Color colorText = null;
 
-		//COLORS
+		// COLORS
 		container.setBackground(Color.BLACK);
 		this.setBackground(Color.BLACK);
 		borderPanel.setBackground(Color.CYAN);
-		
+
 		switch (trade.messageType) {
 		case CHAT_SCANNER:
-//			ToolTipManager.sharedInstance().setInitialDelay(0);
+			// ToolTipManager.sharedInstance().setInitialDelay(0);
 			itemPanel.setToolTipText(trade.searchMessage);
 			break;
 		case INCOMING_TRADE:
 			Random rand = new Random();
 			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
-//			color = StashTabColor.ONE.getBackground();
+			// color = StashTabColor.ONE.getBackground();
 			colorText = ColorManager.stashDarkText;
-			//TODO : Move to tradeOffer
+			// TODO : Move to tradeOffer
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
 				while (Main.saveManager.hasEntry("stashTabs", "tab" + i)) {
@@ -178,8 +176,10 @@ public class TradePanelA extends AbstractMessagePanel {
 						StashTabColor stashColor = StashTabColor.valueOf(Main.saveManager.getEnumValue(StashTabColor.class, "stashTabs", "tab" + i, "color"));
 						StashTabType type = StashTabType.valueOf(Main.saveManager.getEnumValue(StashTabType.class, "stashTabs", "tab" + i, "type"));
 						trade.stashType = type;
-						color = stashColor.getBackground();
-						colorText = stashColor.getForeground();
+						if (stashColor != StashTabColor.ZERO) {
+							color = stashColor.getBackground();
+							colorText = stashColor.getForeground();
+						}
 						break;
 					}
 					i++;
@@ -195,11 +195,11 @@ public class TradePanelA extends AbstractMessagePanel {
 			borderPanel.setBackground(ColorManager.greenIncoming);
 			pricePanel.setBackground(ColorManager.greenIncoming);
 			priceLabel.setForeground(ColorManager.stashLightText);
-//			System.out.println(itemPanel.getForeground());
+			// System.out.println(itemPanel.getForeground());
 			break;
 		case OUTGOING_TRADE:
 			itemPanel.backgroudDefault = Color.GRAY;
-//			System.out.println(itemPanel.getForeground());
+			// System.out.println(itemPanel.getForeground());
 			// borderPanel.setBackground(StashTabColor.ONE.getBackground());
 			borderPanel.setBackground(ColorManager.redOutgoing);
 			pricePanel.setBackground(ColorManager.redOutgoing);
@@ -211,7 +211,7 @@ public class TradePanelA extends AbstractMessagePanel {
 			break;
 		}
 		itemPanel.refresh();
-		
+
 		this.startTimer();
 		// this.revalidate();
 		// this.repaint();
@@ -257,15 +257,15 @@ public class TradePanelA extends AbstractMessagePanel {
 			// respodButton =
 			buttonCountTop = 2;
 			buttonCountBottom = 4;
-			
+
 			replyButton = new IconButton(PreloadedImage.REPLY.getImage(), rowHeight);
 			buttonPanelTop.add(replyButton);
-			
+
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
 			tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
 			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
 			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
-			
+
 			if (listeners) {
 				this.registerPoeInteractionButton(replyButton, ButtonType.WHISPER, trade.playerName, trade.searchResponseLeft, trade.searchResponseRight);
 				this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
@@ -273,7 +273,7 @@ public class TradePanelA extends AbstractMessagePanel {
 				this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
 				this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
 			}
-			
+
 			buttonPanelBottom.add(inviteButton);
 			buttonPanelBottom.add(tradeButton);
 			buttonPanelBottom.add(thankButton);
@@ -301,7 +301,8 @@ public class TradePanelA extends AbstractMessagePanel {
 				}
 				i++;
 			}
-//			saveToHistoryButton = new IconButton(PreloadedImage.DISK.getImage(), rowHeight);
+			// saveToHistoryButton = new
+			// IconButton(PreloadedImage.DISK.getImage(), rowHeight);
 			refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
 			tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
@@ -318,8 +319,8 @@ public class TradePanelA extends AbstractMessagePanel {
 						stashHelper.setVisible(true);
 					}
 				});
-				inviteButton.addMouseListener(new AdvancedMouseAdapter(){
-					public void click(MouseEvent e){
+				inviteButton.addMouseListener(new AdvancedMouseAdapter() {
+					public void click(MouseEvent e) {
 						stashHelper.setVisible(true);
 					}
 				});
@@ -331,7 +332,7 @@ public class TradePanelA extends AbstractMessagePanel {
 			for (IconButton b : customButtonsBottom) {
 				buttonPanelBottom.add(b);
 			}
-//			buttonPanelTop.add(saveToHistoryButton);
+			// buttonPanelTop.add(saveToHistoryButton);
 			buttonPanelTop.add(refreshButton);
 
 			buttonPanelBottom.add(inviteButton);
@@ -367,7 +368,7 @@ public class TradePanelA extends AbstractMessagePanel {
 		default:
 			break;
 		}
-		if(listeners){
+		if (listeners) {
 			this.registerPoeInteractionButton(namePanel, ButtonType.NAME_PANEL);
 		}
 
