@@ -1,16 +1,22 @@
 package main.java.com.slimtrade.gui.messaging;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
@@ -27,7 +33,7 @@ public class MessageManager extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int buffer = 1;
+	public static final int buffer = 2;
 	private final int MAX_MESSAGES = 20;
 	private int messageCount = 0;
 	private AbstractMessagePanel[] messages = new AbstractMessagePanel[MAX_MESSAGES];
@@ -40,13 +46,51 @@ public class MessageManager extends BasicDialog {
 	private ExpandDirection expandDirection;
 
 	public MessageManager() {
+//        System.setProperty("sun.java2d.noddraw", "true");
+
+		
+		//TODO : Opacitiy is what is causing repainting issues
 		this.setBounds(1220, 0, 0, 0);
+//		
+//		this.setOpacity(0);
+//		this.getRootPane().setBackground(Color.yellow);
+		
+		
+		this.getRootPane().setOpaque(false);
 		this.setBackground(ColorManager.CLEAR);
+		
+//		JPanel contentPane = new JPanel();
+//		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
+		
+//		final JPanel contentPane = new JPanel() {
+//	        @Override
+//	        protected void paintComponent(Graphics g) {
+//	            super.paintComponent(g);
+//	            final Graphics2D g2d = (Graphics2D) g.create();
+//	            g2d.setColor(new Color(0, 0, 0, 0));
+//	            g2d.fill(new Area(new Rectangle(new Point(0, 0), getSize())));
+//	            g2d.dispose();
+//	        }
+//	    };
+		
+//	    contentPane.setOpaque(false);
+//		this.setContentPane(contentPane);
+		
 		container = this.getContentPane();
+//		container.setBackground(ColorManager.CLEAR);
+		
+		
+//		container = this.getContentPane();
+		
+//		this.setOpacity(0.5f);
+//		container.setBackground(ColorManager.CLEAR);
+//		container.setBackground(Color.green);
+//		WindowUtils.setWindowTransparent(this, true);
+
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		this.expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
 	}
-
+	
 	// TODO : Clean up stash helper removal
 	public void addMessage(TradeOffer trade) {
 		if (messageCount == MAX_MESSAGES) {
@@ -177,9 +221,10 @@ public class MessageManager extends BasicDialog {
 		}else{
 			
 		}
-		this.setSize(AbstractMessagePanel.totalWidth, AbstractMessagePanel.totalHeight * messageCount + buffer * messageCount);
-		this.revalidate();
-		this.repaint();
+//		this.setSize(AbstractMessagePanel.totalWidth, AbstractMessagePanel.totalHeight * messageCount + buffer * messageCount);
+//		this.revalidate();
+//		this.repaint();
+		this.pack();
 	}
 
 	public boolean isDuplicateTrade(TradeOffer trade) {
