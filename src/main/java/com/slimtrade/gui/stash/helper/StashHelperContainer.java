@@ -17,6 +17,8 @@ public class StashHelperContainer extends BasicDialog{
 	
 	public StashHelperContainer(){
 		this.setBackground(ColorManager.CLEAR);
+//		this.setFocusableWindowState(true);
+//		this.setFocusable(true);
 //		this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.RED));
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));

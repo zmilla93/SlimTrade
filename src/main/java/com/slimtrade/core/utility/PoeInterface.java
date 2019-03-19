@@ -19,6 +19,7 @@ public class PoeInterface extends Robot {
 	public PoeInterface() throws AWTException {
 		try {
 			robot = new Robot();
+//			robot.setAutoDelay(100);
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +56,7 @@ public class PoeInterface extends Robot {
 				robot.keyRelease(KeyEvent.VK_F);
 				robot.keyRelease(KeyEvent.VK_CONTROL);
 				try {
-					Thread.sleep(150);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

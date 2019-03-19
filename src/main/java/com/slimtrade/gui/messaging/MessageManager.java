@@ -1,22 +1,17 @@
 package main.java.com.slimtrade.gui.messaging;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Area;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
@@ -33,64 +28,32 @@ public class MessageManager extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int buffer = 2;
+	public static final int buffer = 20;
 	private final int MAX_MESSAGES = 20;
 	private int messageCount = 0;
 	private AbstractMessagePanel[] messages = new AbstractMessagePanel[MAX_MESSAGES];
 	private Component[] rigidAreas = new Component[MAX_MESSAGES];
 	private ArrayList<TradeOffer> trades = new ArrayList<TradeOffer>();
-	
+
 	private Container container;
-	
+
 	private Point startingPos;
 	private ExpandDirection expandDirection;
 
 	public MessageManager() {
-//        System.setProperty("sun.java2d.noddraw", "true");
-
-		
-		//TODO : Opacitiy is what is causing repainting issues
 		this.setBounds(1220, 0, 0, 0);
-//		
-//		this.setOpacity(0);
-//		this.getRootPane().setBackground(Color.yellow);
-		
-		
-		this.getRootPane().setOpaque(false);
 		this.setBackground(ColorManager.CLEAR);
-		
-//		JPanel contentPane = new JPanel();
-//		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
-		
-//		final JPanel contentPane = new JPanel() {
-//	        @Override
-//	        protected void paintComponent(Graphics g) {
-//	            super.paintComponent(g);
-//	            final Graphics2D g2d = (Graphics2D) g.create();
-//	            g2d.setColor(new Color(0, 0, 0, 0));
-//	            g2d.fill(new Area(new Rectangle(new Point(0, 0), getSize())));
-//	            g2d.dispose();
-//	        }
-//	    };
-		
-//	    contentPane.setOpaque(false);
-//		this.setContentPane(contentPane);
-		
 		container = this.getContentPane();
-//		container.setBackground(ColorManager.CLEAR);
-		
-		
-//		container = this.getContentPane();
-		
-//		this.setOpacity(0.5f);
-//		container.setBackground(ColorManager.CLEAR);
-//		container.setBackground(Color.green);
-//		WindowUtils.setWindowTransparent(this, true);
-
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		this.expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
+
+		this.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				repaint();
+			}
+		});
 	}
-	
+
 	// TODO : Clean up stash helper removal
 	public void addMessage(TradeOffer trade) {
 		if (messageCount == MAX_MESSAGES) {
@@ -108,11 +71,11 @@ public class MessageManager extends BasicDialog {
 				if (e.getButton() == MouseEvent.BUTTON1) {
 					removeMessage(closeIndex);
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
-					if(messages[closeIndex].trade.messageType == MessageType.INCOMING_TRADE){
+					if (messages[closeIndex].trade.messageType == MessageType.INCOMING_TRADE) {
 						closeSimilarTrades(closeIndex, true);
-					}else if(messages[closeIndex].trade.messageType == MessageType.OUTGOING_TRADE){
+					} else if (messages[closeIndex].trade.messageType == MessageType.OUTGOING_TRADE) {
 						closeSimilarTrades(closeIndex, false);
-					}					
+					}
 					// closeOtherOutgoing(closeIndex);
 				}
 
@@ -126,14 +89,14 @@ public class MessageManager extends BasicDialog {
 				}
 			});
 		}
-		if(expandDirection == ExpandDirection.UP){
+		if (expandDirection == ExpandDirection.UP) {
 			container.add(messages[i], 0);
 			container.add(rigidAreas[i], 0);
-		}else{
+		} else {
 			container.add(messages[i]);
 			container.add(rigidAreas[i]);
 		}
-		
+
 		messageCount++;
 		refresh();
 		FrameManager.forceAllToTop();
@@ -163,67 +126,76 @@ public class MessageManager extends BasicDialog {
 		for (AbstractMessagePanel msg : messages) {
 			if (msg != null && msg instanceof TradePanelA) {
 				if (i != index || deleteCurrent) {
-					TradePanelA p = (TradePanelA) msg;
-					TradeOffer tradeB = p.getTrade();
-					final int checkCount = 5;
-					int check = 0;
-					if (tradeA.messageType.equals(tradeB.messageType)) {
-						check++;
-					}
-					if (tradeA.itemName.equals(tradeB.itemName)) {
-						check++;
-					}
-					if (tradeA.itemCount.equals(tradeB.itemCount)) {
-						check++;
-					}
-					if (tradeA.priceTypeString.equals(tradeB.priceTypeString)) {
-						check++;
-					}
-					if (tradeA.priceCount.equals(tradeB.priceCount)) {
-						check++;
-					}
-					if (check == checkCount) {
-						this.removeMessage(i);
+					try {
+						TradePanelA p = (TradePanelA) msg;
+						TradeOffer tradeB = p.getTrade();
+						final int checkCount = 5;
+						int check = 0;
+						if (tradeA.messageType.equals(tradeB.messageType)) {
+							check++;
+						}
+						if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
+							check++;
+						}
+						if (tradeA.messageType == MessageType.INCOMING_TRADE) {
+							if (tradeA.itemCount.equals(tradeB.itemCount)) {
+								check++;
+							}
+							if (tradeA.priceTypeString.equals(tradeB.priceTypeString)) {
+								check++;
+							}
+							if (tradeA.priceCount.equals(tradeB.priceCount)) {
+								check++;
+							}
+						} else {
+							check += 3;
+						}
+						if (check == checkCount) {
+							this.removeMessage(i);
+						}
+					} catch (NullPointerException e) {
+						e.printStackTrace();
 					}
 				}
-
 			}
 			i++;
 		}
 	}
-	
-	public void setExpandDirection(ExpandDirection direction){
+
+	public void setExpandDirection(ExpandDirection direction) {
 		this.expandDirection = direction;
 		container.removeAll();
-		if(direction == ExpandDirection.UP){
-			for(int i = 0;i<MAX_MESSAGES;i++){
-				if(messages[i]!=null){
+		if (direction == ExpandDirection.UP) {
+			for (int i = 0; i < MAX_MESSAGES; i++) {
+				if (messages[i] != null) {
 					container.add(messages[i], 0);
 					container.add(rigidAreas[i], 0);
 				}
 			}
-		}else{
-			for(int i = 0;i<MAX_MESSAGES;i++){
-				if(messages[i]!=null){
+		} else {
+			for (int i = 0; i < MAX_MESSAGES; i++) {
+				if (messages[i] != null) {
 					container.add(messages[i]);
 					container.add(rigidAreas[i]);
 				}
 			}
 		}
 		refresh();
-	}	
+	}
 
 	// TODO : Move resize to another function to be more consistent with refresh
 	// function?
 	public void refresh() {
-		if(expandDirection == ExpandDirection.UP){
-			this.setLocation(startingPos.x, startingPos.y-AbstractMessagePanel.totalHeight*(messageCount-1)-buffer*(messageCount-1));
-		}else{
-			
+		if (expandDirection == ExpandDirection.UP) {
+			this.setLocation(startingPos.x, startingPos.y - AbstractMessagePanel.totalHeight * (messageCount - 1) - buffer * (messageCount - 1));
+		} else {
+
 		}
-//		this.setSize(AbstractMessagePanel.totalWidth, AbstractMessagePanel.totalHeight * messageCount + buffer * messageCount);
-//		this.revalidate();
-//		this.repaint();
+		// this.setSize(AbstractMessagePanel.totalWidth,
+		// AbstractMessagePanel.totalHeight * messageCount + buffer *
+		// messageCount);
+		// this.revalidate();
+		// this.repaint();
 		this.pack();
 	}
 

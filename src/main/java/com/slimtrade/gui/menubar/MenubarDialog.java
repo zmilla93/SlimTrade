@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MenubarButtonLocation;
@@ -110,12 +111,20 @@ public class MenubarDialog extends BasicDialog {
 		testButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
 				Random rng = new Random();
-				TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-				TradeOffer t2 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-				TradeOffer t3 = new TradeOffer("", "", MessageType.CHAT_SCANNER,  "<GLD>", "SmashyMcFireBalls", "Search Name", "example text", null, null);
+				TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t2 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t3 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t4 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 7, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t5 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3, "chaos", 7, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t6 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+				TradeOffer t7 = new TradeOffer("", "", MessageType.CHAT_SCANNER,  "<GLD>", "SmashyMcFireBalls", "Search Name", "example text", null, null);
 				FrameManager.messageManager.addMessage(t);
 				FrameManager.messageManager.addMessage(t2);
-				FrameManager.messageManager.addMessage(t3);
+//				FrameManager.messageManager.addMessage(t3);
+//				FrameManager.messageManager.addMessage(t4);
+//				FrameManager.messageManager.addMessage(t5);
+//				FrameManager.messageManager.addMessage(t6);
+				FrameManager.messageManager.addMessage(t7);
 				// FrameManager.historyWindow.setOrder(false);
 			}
 		});

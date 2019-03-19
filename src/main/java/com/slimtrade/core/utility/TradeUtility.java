@@ -70,6 +70,15 @@ public class TradeUtility {
 		return f-AudioManager.RANGE+AudioManager.MAX_VOLUME;
 	}
 	
+	public static String cleanItemName(String input){
+		if(input == null){
+			return null;
+		}
+		System.out.println("INPUT : " + input);
+		String cleanString = input.replaceAll("(?i)superior( )?", "").replaceAll("( )?\\(.+\\)", "");
+		return cleanString;
+	}
+	
 //	public static ExpandDirection getExpandDirection(String input){
 //		for(ExpandDirection dir : ExpandDirection.values()){
 //			if(dir.toString().equals(input)){
