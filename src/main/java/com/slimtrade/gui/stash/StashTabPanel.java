@@ -19,10 +19,10 @@ import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
-import main.java.com.slimtrade.gui.options.Saveable;
+import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class StashTabPanel extends ContentPanel_REMOVE implements Saveable {
+public class StashTabPanel extends ContentPanel_REMOVE implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 

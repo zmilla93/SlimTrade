@@ -12,7 +12,7 @@ import main.java.com.slimtrade.gui.options.general.BasicsOptionsPanel;
 import main.java.com.slimtrade.gui.options.general.HistoryOptionsPanel;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class GeneralPanel extends ContainerPanel implements Saveable {
+public class GeneralPanel extends ContainerPanel implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 

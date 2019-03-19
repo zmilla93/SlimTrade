@@ -25,14 +25,14 @@ import javax.swing.JTextField;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.basic.AbstractResizableWindow;
 import main.java.com.slimtrade.gui.enums.PreloadedImage;
-import main.java.com.slimtrade.gui.options.Saveable;
+import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 import main.java.com.slimtrade.gui.panels.IconPanel;
-import main.java.com.slimtrade.gui.stash.ResizableWindow;
 
-public class ChatScannerWindow extends ResizableWindow implements Saveable {
+public class ChatScannerWindow extends AbstractResizableWindow implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -8,10 +8,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.gui.options.Saveable;
+import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class AdvancedPanel extends ContainerPanel implements Saveable {
+public class AdvancedPanel extends ContainerPanel implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,7 @@ public class AdvancedPanel extends ContainerPanel implements Saveable {
 
 	public AdvancedPanel() {
 		GridBagConstraints gc = new GridBagConstraints();
-		
+
 		this.container.add(clientRow, gc);
 
 		clientRow.getEditButton().addActionListener(new ActionListener() {
@@ -28,32 +28,40 @@ public class AdvancedPanel extends ContainerPanel implements Saveable {
 				if (action == JFileChooser.APPROVE_OPTION) {
 					File clientFile = clientRow.getFileChooser().getSelectedFile();
 					String path = clientFile.getPath();
-//					clientRow.getPathLabel().setText(path);
+					// clientRow.getPathLabel().setText(path);
 					clientRow.setText(path);
 				}
 			}
 		});
 
 		this.load();
-//		this.autoResize();
+		// this.autoResize();
 	}
 
 	public void save() {
 		if (clientRow.isChanged()) {
-			Main.saveManager.putObject(clientRow.getText(), "general", "clientPath");
+			new Thread(new Runnable() {
+				public void run() {
+					clientRow.setChanged(false);
+					Main.saveManager.putObject(clientRow.getText(), "general", "clientPath");
 
-			Main.saveManager.refreshPath();
-			Main.chatParser.setClientPath(clientRow.getText());
-			
-			Main.fileMonitor.stopMonitor();
-			Main.chatParser.init();
-			Main.fileMonitor.startMonitor();
+					Main.saveManager.refreshPath();
+					Main.chatParser.setClientPath(clientRow.getText());
+
+					Main.fileMonitor.stopMonitor();
+					Main.chatParser.init();
+					Main.fileMonitor.startMonitor();
+
+				}
+			}).start();
+
 		}
 	}
 
 	public void load() {
 		if (Main.saveManager.hasEntry("general", "clientPath")) {
 			clientRow.setText(Main.saveManager.getString("general", "clientPath"));
+			clientRow.setChanged(false);
 		}
 	}
 

@@ -16,7 +16,6 @@ import org.jnativehook.NativeHookException;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.DefaultManager;
-import main.java.com.slimtrade.core.managers.ExternalFileManager;
 import main.java.com.slimtrade.core.managers.SaveManager;
 import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.core.observing.GlobalKeyboardListener;
@@ -25,11 +24,11 @@ import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.UpdateChecker;
-import main.java.com.slimtrade.core.utility.VersionNumber;
 import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
+import main.java.com.slimtrade.gui.setup.SetupWindow;
 import main.java.com.slimtrade.gui.windows.UpdateDialog;
 
 public class Main {
@@ -110,7 +109,8 @@ public class Main {
 					d.setVisible(true);
 				}
 				
-				
+				SetupWindow tutorial = new SetupWindow();
+				tutorial.setShow(true);
 
 			}
 		});

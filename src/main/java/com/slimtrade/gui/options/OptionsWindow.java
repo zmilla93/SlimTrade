@@ -19,15 +19,15 @@ import javax.swing.JScrollPane;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.basic.AbstractResizableWindow;
 import main.java.com.slimtrade.gui.options.general.AdvancedPanel;
 import main.java.com.slimtrade.gui.options.general.AudioPanel;
 import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
 import main.java.com.slimtrade.gui.options.macros.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
-import main.java.com.slimtrade.gui.stash.ResizableWindow;
 import main.java.com.slimtrade.gui.stash.StashTabPanel;
 
-public class OptionsWindow extends ResizableWindow {
+public class OptionsWindow extends AbstractResizableWindow {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel display = new JPanel();
@@ -154,7 +154,7 @@ public class OptionsWindow extends ResizableWindow {
 		FrameManager.centerFrame(this);
 		
 		//TODO : Resize
-		ResizableWindow local = this;
+		AbstractResizableWindow local = this;
 //		resizeButton.addActionListener(new ActionListener(){
 //			public void actionPerformed(ActionEvent e) {
 //				local.autoResize();
@@ -176,7 +176,6 @@ public class OptionsWindow extends ResizableWindow {
 			public void actionPerformed(ActionEvent e) {
 				generalPanel.save();
 				incomingPanel.save();
-//				audioPanel.save();
 				stashPanel.save();
 				Main.saveManager.saveToDisk();
 			}

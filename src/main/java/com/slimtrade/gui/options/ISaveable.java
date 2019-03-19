@@ -1,6 +1,6 @@
 package main.java.com.slimtrade.gui.options;
 
-public interface Saveable {
+public interface ISaveable {
 
 	public boolean unsavedChangess = false;
 	

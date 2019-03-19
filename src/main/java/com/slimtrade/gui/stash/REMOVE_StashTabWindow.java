@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
-import main.java.com.slimtrade.gui.basic.AbstractWindowDialog;
+import main.java.com.slimtrade.gui.basic.OLD_AbstractWindowDialog;
 
-public class REMOVE_StashTabWindow extends AbstractWindowDialog {
+public class REMOVE_StashTabWindow extends OLD_AbstractWindowDialog {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -119,7 +119,7 @@ public class REMOVE_StashTabWindow extends AbstractWindowDialog {
 //		Dimension windowSize = container.getPreferredSize();
 //		System.out.println(windowSize);
 //		this.resizeWindow(windowSize.width, windowSize.height);
-		this.autoReisize();
+		this.autoResize();
 	}
 	
 	//TODO : this

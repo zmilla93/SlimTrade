@@ -18,11 +18,12 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.HideableDialog;
-import main.java.com.slimtrade.gui.options.Saveable;
+import main.java.com.slimtrade.gui.basic.AbstractResizableWindow;
+import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.helper.ItemHighlighter;
 
-public class StashOverlayWindow extends ResizableWindow implements Saveable {
+public class StashOverlayWindow extends AbstractResizableWindow implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 

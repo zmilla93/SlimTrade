@@ -29,7 +29,7 @@ import main.java.com.slimtrade.gui.options.general.AdvancedPanel;
 import main.java.com.slimtrade.gui.options.general.AudioPanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class BasicsPanel_OLD extends ContentPanel_REMOVE implements Saveable {
+public class BasicsPanel_OLD extends ContentPanel_REMOVE implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 	private int bufferX = 30;

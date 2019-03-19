@@ -33,8 +33,6 @@ public class StashHelper extends JPanel {
 	// private int y;
 	private int borderThickness = 2;
 	// private String itemName;
-	
-	private JButton testButton;
 
 	public ItemHighlighter itemHighlighter;
 	private ActionListener hideHighlighter = new ActionListener() {
@@ -53,11 +51,6 @@ public class StashHelper extends JPanel {
 		this.setPreferredSize(new Dimension(width, height));
 		this.setBorder(BorderFactory.createLineBorder(colorForeground, borderThickness, true));
 
-		testButton = new JButton();
-//		this.window
-		// this.setFocusable(true);
-//		 this.requestFocusInWindow(true);
-
 		BasicPanel stashPanel = new BasicPanel(width, height / 3, new FlowLayout(FlowLayout.CENTER, 0, 0));
 		String fixedStashtabName = trade.stashtabName == null ? "(~price " + Double.toString(trade.priceCount).replaceAll("[.]0", "") + " " + trade.priceTypeString + ")" : trade.stashtabName;
 		JLabel stashLabel = new JLabel(fixedStashtabName);
@@ -70,7 +63,6 @@ public class StashHelper extends JPanel {
 		itemPanel.add(itemLabel);
 		this.add(stashPanel);
 		this.add(itemPanel);
-		this.add(testButton);
 		this.add(new BasicPanel(width, borderThickness));
 
 		// ITEM HIGHLIGHTER
@@ -93,20 +85,6 @@ public class StashHelper extends JPanel {
 				}
 			});
 		}
-
-//		this.repaint();
-
-//		testButton.addActionListener(new ActionListener(){
-//			public void actionPerformed(ActionEvent e) {
-//				PoeInterface.findInStash(trade.itemName);
-//			}
-//		});
-		
-//		this.addMouseListener(new MouseAdapter(){
-//			public void mousePressed(MouseEvent e){
-//				PoeInterface.findInStash(TradeUtility.cleanItemName(trade.itemName));
-//			}
-//		});
 		
 		this.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {

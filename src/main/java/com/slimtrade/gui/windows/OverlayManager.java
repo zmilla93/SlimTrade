@@ -28,10 +28,10 @@ import main.java.com.slimtrade.gui.enums.ExpandDirection;
 import main.java.com.slimtrade.gui.menubar.MenubarButton;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 import main.java.com.slimtrade.gui.messaging.AbstractMessagePanel;
-import main.java.com.slimtrade.gui.options.Saveable;
+import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class OverlayManager implements Saveable {
+public class OverlayManager implements ISaveable {
 
 	LayoutManager gridbag = new GridBagLayout();
 

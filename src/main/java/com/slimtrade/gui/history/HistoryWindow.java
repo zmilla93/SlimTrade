@@ -17,11 +17,11 @@ import main.java.com.slimtrade.enums.DateStyle;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.enums.TimeStyle;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.basic.AbstractResizableWindow;
 import main.java.com.slimtrade.gui.options.OrderType;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
-import main.java.com.slimtrade.gui.stash.ResizableWindow;
 
-public class HistoryWindow extends ResizableWindow {
+public class HistoryWindow extends AbstractResizableWindow {
 	private static final long serialVersionUID = 1L;
 
 	protected static TimeStyle timeStyle;
@@ -89,7 +89,7 @@ public class HistoryWindow extends ResizableWindow {
 
 		JPanel bufferPanel = new BufferPanel(0, 10);
 
-		ResizableWindow local = this;
+		AbstractResizableWindow local = this;
 		incomingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				outgoingScroll.setVisible(false);

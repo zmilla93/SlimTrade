@@ -62,7 +62,7 @@ public class EventManager implements PoeInteractionListener {
 			}
 			break;
 		case SEARCH:
-			PoeInterface.findInStash(trade.itemName.replaceAll("(?i)superior( )?", "").replaceAll("( )?\\(.+\\)", ""));
+			PoeInterface.findInStash(TradeUtility.cleanItemName(trade.itemName));
 			break;
 		case THANK:
 			PoeInterface.paste("@" + trade.playerName + " thanks");
@@ -81,8 +81,6 @@ public class EventManager implements PoeInteractionListener {
 			PoeInterface.paste("/hideout " + trade.playerName);
 			break;
 		case WHISPER:
-			System.out.println("L : " + e.getClickLeft());
-			System.out.println(e.getClickRight());
 			if(mouseButton==MouseEvent.BUTTON1 && !e.getClickLeft().replaceAll("\\s", "").equals("")){
 				PoeInterface.paste("@"+e.getPlayerName() + " " + e.getClickLeft());
 			}else if(mouseButton==MouseEvent.BUTTON3 && !e.getClickRight().replaceAll("\\s", "").equals("")){

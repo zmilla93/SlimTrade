@@ -16,11 +16,11 @@ import javax.swing.JTextField;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.options.Saveable;
+import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class BasicsOptionsPanel extends ContainerPanel implements Saveable {
+public class BasicsOptionsPanel extends ContainerPanel implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 

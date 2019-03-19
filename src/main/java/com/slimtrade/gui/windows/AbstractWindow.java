@@ -21,7 +21,7 @@ import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.enums.PreloadedImage;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class AbstractWindow extends BasicMovableDialog {
+public abstract class AbstractWindow extends BasicMovableDialog {
 
 	private static final long serialVersionUID = 1L;
 	public final int TITLEBAR_HEIGHT = 20;

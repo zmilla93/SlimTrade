@@ -18,13 +18,13 @@ import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.messaging.TradePanelA;
 import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
 import main.java.com.slimtrade.gui.options.RemovablePanel;
-import main.java.com.slimtrade.gui.options.Saveable;
+import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.options.ToggleButton;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
 //TODO : CLEANUP
-public class IncomingCustomizer extends ContentPanel_REMOVE implements Saveable {
+public class IncomingCustomizer extends ContentPanel_REMOVE implements ISaveable {
 	private static final long serialVersionUID = 1L;
 	private TradePanelA exampleTradeIn;
 

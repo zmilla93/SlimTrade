@@ -26,7 +26,7 @@ public class StashGridPanel extends JPanel {
 		super.paintComponent(g);
 //		System.out.println(gridCellCount);
 //		g.dispose();
-		g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.3f));
+		g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.2f));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		double gridCellWidth = this.getWidth()/(double)gridCellCount;
 		double gridCellHeight = this.getHeight()/(double)gridCellCount;

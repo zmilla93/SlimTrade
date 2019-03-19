@@ -15,7 +15,7 @@ import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 
-public abstract class AbstractWindowDialog extends BasicMovableDialog {
+public abstract class OLD_AbstractWindowDialog extends BasicMovableDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,12 +35,12 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 	
 	
 	
-	public AbstractWindowDialog(){
+	public OLD_AbstractWindowDialog(){
 		super(false);
 		buildDialog("SlimTrade");
 	}
 	
-	public AbstractWindowDialog(String title){
+	public OLD_AbstractWindowDialog(String title){
 		super(false);
 		buildDialog("SlimTrade - " + title);
 	}
@@ -100,7 +100,7 @@ public abstract class AbstractWindowDialog extends BasicMovableDialog {
 		this.repaint();
 	}
 	
-	public void autoReisize(){
+	public void autoResize(){
 		container.setPreferredSize(null);
 		Dimension size = container.getPreferredSize();
 		size.width += bufferWidth;
