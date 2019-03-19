@@ -127,28 +127,26 @@ public class MessageManager extends BasicDialog {
 			if (msg != null && msg instanceof TradePanelA) {
 				if (i != index || deleteCurrent) {
 					try {
-						TradePanelA p = (TradePanelA) msg;
-						TradeOffer tradeB = p.getTrade();
-						final int checkCount = 5;
+						int checkCount = 0;
 						int check = 0;
-						if (tradeA.messageType.equals(tradeB.messageType)) {
-							check++;
-						}
-						if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
-							check++;
-						}
-						if (tradeA.messageType == MessageType.INCOMING_TRADE) {
-							if (tradeA.itemCount.equals(tradeB.itemCount)) {
-								check++;
-							}
+						TradePanelA panelA = (TradePanelA) msg;
+						TradeOffer tradeB = panelA.getTrade();
+						if(tradeA.messageType == MessageType.INCOMING_TRADE){
+							checkCount = 4;
 							if (tradeA.priceTypeString.equals(tradeB.priceTypeString)) {
 								check++;
 							}
 							if (tradeA.priceCount.equals(tradeB.priceCount)) {
 								check++;
 							}
-						} else {
-							check += 3;
+						}else if (tradeA.messageType == MessageType.OUTGOING_TRADE){
+							checkCount = 2;
+						}
+						if (tradeA.messageType.equals(tradeB.messageType)) {
+							check++;
+						}
+						if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
+							check++;
 						}
 						if (check == checkCount) {
 							this.removeMessage(i);

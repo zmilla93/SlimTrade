@@ -3,9 +3,12 @@ package main.java.com.slimtrade.core.utility;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,12 +17,12 @@ import javax.swing.Timer;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.audio.AudioManager;
 import main.java.com.slimtrade.core.audio.SoundComponent;
-import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 
 public class ChatParser {
-	private FileReader fileReader;
+//	private FileReader fileReader;
+	private InputStreamReader reader;
 	private BufferedReader bufferedReader;
 	int curLineCount = 0;
 	int totalLineCount;
@@ -72,8 +75,9 @@ public class ChatParser {
 		try {
 			// fileReader = new FileReader("C:/Program Files
 			// (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-			fileReader = new FileReader(clientPath);
-			bufferedReader = new BufferedReader(fileReader);
+//			fileReader = new FileReader(clientPath);
+			reader = new InputStreamReader(new FileInputStream(clientPath), StandardCharsets.UTF_8);
+			bufferedReader = new BufferedReader(reader);
 		} catch (FileNotFoundException e1) {
 			Main.debug.log("[ERROR] Chat parser failed to launch.");
 			e1.printStackTrace();
@@ -103,8 +107,8 @@ public class ChatParser {
 
 	private void procUpdate() {
 		try {
-			fileReader = new FileReader(clientPath);
-			fileReader.close();
+			reader = new InputStreamReader(new FileInputStream(clientPath), StandardCharsets.UTF_8);
+			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -117,8 +121,8 @@ public class ChatParser {
 		// Debugger.benchmarkStart();
 		try {
 			System.out.println("READING : " + clientPath);
-			fileReader = new FileReader(clientPath);
-			bufferedReader = new BufferedReader(fileReader);
+			reader = new InputStreamReader(new FileInputStream(clientPath), StandardCharsets.UTF_8);
+			bufferedReader = new BufferedReader(reader);
 			curLineCount = 0;
 			while ((curLine = bufferedReader.readLine()) != null) {
 				curLineCount++;
@@ -170,7 +174,7 @@ public class ChatParser {
 				}
 			}
 			bufferedReader.close();
-			fileReader.close();
+			reader.close();
 		} catch (NumberFormatException | IOException e) {
 			updateTimer.stop();
 			Main.debug.log("[ERROR] Exception encountered while attempting to update parser.");
