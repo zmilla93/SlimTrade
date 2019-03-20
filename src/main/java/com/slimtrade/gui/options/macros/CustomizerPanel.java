@@ -10,7 +10,7 @@ import javax.swing.JSlider;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.messaging.AbstractMessagePanel;
-import main.java.com.slimtrade.gui.messaging.TradePanelA;
+import main.java.com.slimtrade.gui.messaging.MessagePanel;
 import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
@@ -29,8 +29,8 @@ public class CustomizerPanel extends ContentPanel_REMOVE {
 		TradeOffer tradeOut = new TradeOffer("", "", MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 
 		
-		AbstractMessagePanel exampleTradeIn = new TradePanelA(tradeIn, new Dimension(400,40));
-		AbstractMessagePanel exampleTradeOut = new TradePanelA(tradeOut, new Dimension(400,40));
+		AbstractMessagePanel exampleTradeIn = new MessagePanel(tradeIn, new Dimension(400,40));
+		AbstractMessagePanel exampleTradeOut = new MessagePanel(tradeOut, new Dimension(400,40));
 		exampleTradeIn.stopTimer();
 		exampleTradeOut.stopTimer();
 		

@@ -15,7 +15,7 @@ import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.enums.ButtonRow;
 import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
-import main.java.com.slimtrade.gui.messaging.TradePanelA;
+import main.java.com.slimtrade.gui.messaging.MessagePanel;
 import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
 import main.java.com.slimtrade.gui.options.RemovablePanel;
 import main.java.com.slimtrade.gui.options.ISaveable;
@@ -26,7 +26,7 @@ import main.java.com.slimtrade.gui.windows.AbstractWindow;
 //TODO : CLEANUP
 public class IncomingCustomizer extends ContentPanel_REMOVE implements ISaveable {
 	private static final long serialVersionUID = 1L;
-	private TradePanelA exampleTradeIn;
+	private MessagePanel exampleTradeIn;
 
 	private AbstractWindow parent;
 
@@ -142,7 +142,7 @@ public class IncomingCustomizer extends ContentPanel_REMOVE implements ISaveable
 		gc.gridy = 0;
 		Random rng = new Random();
 		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-		exampleTradeIn = new TradePanelA(tradeIn, new Dimension(400, 40));
+		exampleTradeIn = new MessagePanel(tradeIn, new Dimension(400, 40));
 		exampleTradeIn.stopTimer();
 		this.add(exampleTradeIn, gc);
 		parent.revalidate();

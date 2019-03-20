@@ -34,7 +34,7 @@ import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.panels.PricePanel;
 import main.java.com.slimtrade.gui.stash.helper.StashHelper;
 
-public class TradePanelA extends AbstractMessagePanel {
+public class MessagePanel extends AbstractMessagePanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -65,12 +65,12 @@ public class TradePanelA extends AbstractMessagePanel {
 	private ArrayList<IconButton> customButtonsBottom = new ArrayList<IconButton>();
 
 	// TODO Listeners?
-	public TradePanelA(TradeOffer trade, Dimension size) {
+	public MessagePanel(TradeOffer trade, Dimension size) {
 		super(trade);
 		buildPanel(trade, size, true);
 	}
 
-	public TradePanelA(TradeOffer trade, Dimension size, boolean makeListeners) {
+	public MessagePanel(TradeOffer trade, Dimension size, boolean makeListeners) {
 		super(trade);
 		buildPanel(trade, size, makeListeners);
 	}
@@ -317,11 +317,13 @@ public class TradePanelA extends AbstractMessagePanel {
 				itemPanel.addMouseListener(new AdvancedMouseAdapter() {
 					public void click(MouseEvent e) {
 						stashHelper.setVisible(true);
+						FrameManager.stashHelperContainer.pack();
 					}
 				});
 				inviteButton.addMouseListener(new AdvancedMouseAdapter() {
 					public void click(MouseEvent e) {
 						stashHelper.setVisible(true);
+						FrameManager.stashHelperContainer.pack();
 					}
 				});
 			}

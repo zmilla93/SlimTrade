@@ -1,6 +1,8 @@
 package main.java.com.slimtrade.gui.stash.helper;
 
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
@@ -15,6 +17,7 @@ public class StashHelperContainer extends BasicDialog{
 	private int posX = 0;
 	private int posY = 0;
 	
+	//TODO : Recheck all resizing
 	public StashHelperContainer(){
 		this.setBackground(ColorManager.CLEAR);
 //		this.setFocusableWindowState(true);
@@ -22,6 +25,13 @@ public class StashHelperContainer extends BasicDialog{
 //		this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.RED));
 		this.setBounds(0, 0, height, height);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, spacingX, 0));
+		this.pack();
+		
+		this.addMouseListener(new MouseAdapter(){
+			public void mouseEntered(MouseEvent e){
+				repaint();
+			}
+		});
 	}
 	
 	public void updateBounds(){
@@ -42,9 +52,9 @@ public class StashHelperContainer extends BasicDialog{
 		
 	}
 	
-	public void refresh(){
-		this.revalidate();
-		this.repaint();
-	}
+//	public void refresh(){
+//		this.revalidate();
+//		this.repaint();
+//	}
 	
 }

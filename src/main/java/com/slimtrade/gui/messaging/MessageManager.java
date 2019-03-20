@@ -28,7 +28,7 @@ public class MessageManager extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int buffer = 20;
+	public static final int buffer = 1;
 	private final int MAX_MESSAGES = 20;
 	private int messageCount = 0;
 	private AbstractMessagePanel[] messages = new AbstractMessagePanel[MAX_MESSAGES];
@@ -63,7 +63,7 @@ public class MessageManager extends BasicDialog {
 		while (messages[i] != null) {
 			i++;
 		}
-		messages[i] = new TradePanelA(trade, new Dimension(400, 40));
+		messages[i] = new MessagePanel(trade, new Dimension(400, 40));
 		rigidAreas[i] = Box.createRigidArea(new Dimension(1, buffer));
 		final int closeIndex = i;
 		messages[i].getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
@@ -76,7 +76,6 @@ public class MessageManager extends BasicDialog {
 					} else if (messages[closeIndex].trade.messageType == MessageType.OUTGOING_TRADE) {
 						closeSimilarTrades(closeIndex, false);
 					}
-					// closeOtherOutgoing(closeIndex);
 				}
 
 			}
@@ -106,10 +105,11 @@ public class MessageManager extends BasicDialog {
 		if (messages[i].getMessageType() == MessageType.INCOMING_TRADE) {
 			// messages[i].stashHelper.highlighterTimer.stop();
 			// messages[i].stashHelper.itemHighlighter.destroy();
-			TradePanelA t = (TradePanelA) messages[i];
+			MessagePanel t = (MessagePanel) messages[i];
 			if (t.getStashHelper() != null) {
 				FrameManager.stashHelperContainer.remove(t.getStashHelper());
-				FrameManager.stashHelperContainer.refresh();
+//				FrameManager.stashHelperContainer.refresh();
+				FrameManager.stashHelperContainer.pack();
 			}
 		}
 		container.remove(messages[i]);
@@ -124,12 +124,12 @@ public class MessageManager extends BasicDialog {
 		TradeOffer tradeA = messages[index].trade;
 		int i = 0;
 		for (AbstractMessagePanel msg : messages) {
-			if (msg != null && msg instanceof TradePanelA) {
+			if (msg != null && msg instanceof MessagePanel) {
 				if (i != index || deleteCurrent) {
 					try {
 						int checkCount = 0;
 						int check = 0;
-						TradePanelA panelA = (TradePanelA) msg;
+						MessagePanel panelA = (MessagePanel) msg;
 						TradeOffer tradeB = panelA.getTrade();
 						if(tradeA.messageType == MessageType.INCOMING_TRADE){
 							checkCount = 4;
@@ -199,8 +199,8 @@ public class MessageManager extends BasicDialog {
 
 	public boolean isDuplicateTrade(TradeOffer trade) {
 		for (AbstractMessagePanel msg : messages) {
-			if (msg != null && msg instanceof TradePanelA) {
-				TradePanelA t = (TradePanelA) msg;
+			if (msg != null && msg instanceof MessagePanel) {
+				MessagePanel t = (MessagePanel) msg;
 				if (TradeUtility.isDuplicateTrade(t.getTrade(), trade)) {
 					return true;
 				}

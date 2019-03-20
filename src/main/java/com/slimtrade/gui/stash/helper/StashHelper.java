@@ -20,6 +20,7 @@ import main.java.com.slimtrade.core.observing.ButtonType;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import main.java.com.slimtrade.core.observing.poe.PoeInteractionListener;
 import main.java.com.slimtrade.core.utility.TradeOffer;
+import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.BasicPanel;
 
 public class StashHelper extends JPanel {
@@ -92,6 +93,7 @@ public class StashHelper extends JPanel {
 					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), ButtonType.SEARCH, trade));
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
 					hideStashHelper();
+					FrameManager.stashHelperContainer.pack();
 				}
 			}
 		});

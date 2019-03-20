@@ -109,8 +109,8 @@ public class Main {
 					d.setVisible(true);
 				}
 				
-				SetupWindow tutorial = new SetupWindow();
-				tutorial.setShow(true);
+//				SetupWindow tutorial = new SetupWindow();
+//				tutorial.setShow(true);
 
 			}
 		});

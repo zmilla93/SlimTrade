@@ -9,14 +9,14 @@ import javax.swing.JSlider;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.messaging.AbstractMessagePanel;
-import main.java.com.slimtrade.gui.messaging.TradePanelA;
+import main.java.com.slimtrade.gui.messaging.MessagePanel;
 import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class OutgoingCustomizer extends ContentPanel_REMOVE {
 
 	private static final long serialVersionUID = 1L;
-	private TradePanelA exampleTradeIn;
+	private MessagePanel exampleTradeIn;
 
 	public OutgoingCustomizer() {
 		// TODO : Colors
@@ -24,7 +24,7 @@ public class OutgoingCustomizer extends ContentPanel_REMOVE {
 		Random rng = new Random();
 		TradeOffer tradeOut = new TradeOffer("", "", MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 
-		AbstractMessagePanel exampleTradeOut = new TradePanelA(tradeOut, new Dimension(400, 40));
+		AbstractMessagePanel exampleTradeOut = new MessagePanel(tradeOut, new Dimension(400, 40));
 		exampleTradeOut.stopTimer();
 
 		// OUTGOING PRESETS

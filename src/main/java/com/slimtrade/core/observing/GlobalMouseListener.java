@@ -51,6 +51,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
 	}
 
+	//TODO : This throws an error if mouse is clicked during loading
 	public void nativeMousePressed(NativeMouseEvent e) {
 //		new Thread(refreshRunner).start();
 		
