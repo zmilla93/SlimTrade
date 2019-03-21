@@ -29,21 +29,19 @@ public class FileMonitor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(!Main.saveManager.isValidClientPath()){
+		if (!Main.saveManager.isValidClientPath()) {
 			Main.logger.log(Level.WARNING, "No valid client path found");
 			return;
 		}
-		
+
 		Path dir = Paths.get(Main.saveManager.getClientDirectory());
-		System.out.println("NEW DIR : " + dir.toString());
-		System.out.println("CLIENT KEY ::: " + clientKey);
-		if(clientKey != null){
+		if (clientKey != null) {
 			clientKey.cancel();
 			clientKey = null;
 		}
 		System.out.println("CLIENT KEY ::: " + clientKey);
 		try {
-//			dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
+			// dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
 			clientKey = dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
 		} catch (IOException | ClosedWatchServiceException e) {
 			e.printStackTrace();
@@ -64,11 +62,13 @@ public class FileMonitor {
 						break;
 					}
 					for (WatchEvent<?> event : key.pollEvents()) {
-						Main.chatParser.update();
-						System.out.println("CONTEXT ::: " + event.context());
-						if (event.kind() == StandardWatchEventKinds.OVERFLOW) {
-							System.err.println("Overflow");
-							continue;
+						// TODO : Check context before parsing
+						if (event.context().toString().toLowerCase().equals("client.txt")) {
+							Main.chatParser.update();
+							if (event.kind() == StandardWatchEventKinds.OVERFLOW) {
+								System.err.println("Overflow");
+								continue;
+							}
 						}
 					}
 					key.reset();
@@ -76,19 +76,18 @@ public class FileMonitor {
 			}
 		});
 		monitor.start();
-		
+
 	}
-	
-	public void stopMonitor(){
+
+	public void stopMonitor() {
 		try {
 			monitor.interrupt();
 			monitor.join();
 			clientKey.cancel();
 		} catch (InterruptedException | NullPointerException e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 			return;
 		}
 	}
-	
-	
+
 }

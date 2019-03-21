@@ -298,9 +298,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 				}
 				updateSearchButton();
 				Main.chatParser.setChatScannerRunning(searching);
-				// ScannerMessage msg = (ScannerMessage)
-				// messageCombo.getSelectedItem();
-				// System.out.println(Arrays.toString(msg.searchTermsArray));
 			}
 		});
 

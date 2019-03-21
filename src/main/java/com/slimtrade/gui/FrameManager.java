@@ -68,7 +68,7 @@ public class FrameManager {
 		menuFrames = new HideableDialog[] { optionsWindow, historyWindow, chatScannerWindow };
 
 		messageManager.setShow(true);
-//		optionsWindow.setShow(true);
+		// optionsWindow.setShow(true);
 		menubar.setShow(true);
 
 		TrayButton tray = new TrayButton();
@@ -96,10 +96,15 @@ public class FrameManager {
 		window.setLocation((TradeUtility.screenSize.width / 2) - (window.getWidth() / 2), (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2));
 	}
 
+	// TODO : This throws jnativehook nullPointerException during launch if
+	// mouse is clicked
 	public static void forceAllToTop() {
 		for (HideableDialog h : forceFrames) {
-			h.setAlwaysOnTop(false);
-			h.setAlwaysOnTop(true);
+			if (h != null && h.isVisible()) {
+				h.setAlwaysOnTop(false);
+				h.setAlwaysOnTop(true);
+			}
+
 		}
 		// menubarToggle.forceToTop();
 		// menubar.forceToTop();
@@ -107,9 +112,9 @@ public class FrameManager {
 		// stashHelperContainer.forceToTop();
 		// PoeInterface.focus();
 	}
-	
-	public static void linkToggle(JButton b, Component c2){
-		b.addActionListener(new ActionListener(){
+
+	public static void linkToggle(JButton b, Component c2) {
+		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean vis = !c2.isVisible();
 				c2.setVisible(vis);

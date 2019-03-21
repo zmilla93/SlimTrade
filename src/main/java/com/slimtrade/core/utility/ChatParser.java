@@ -116,11 +116,9 @@ public class ChatParser {
 	}
 
 	public void update() {
-		System.out.println("Updating chat parser");
 		long start = System.currentTimeMillis();
 		// Debugger.benchmarkStart();
 		try {
-			System.out.println("READING : " + clientPath);
 			reader = new InputStreamReader(new FileInputStream(clientPath), StandardCharsets.UTF_8);
 			bufferedReader = new BufferedReader(reader);
 			curLineCount = 0;
@@ -236,32 +234,31 @@ public class ChatParser {
 
 	private TradeOffer getSearchOffer(String text) {
 		Matcher matcher = Pattern.compile(searchMessageMatchString).matcher(text);
-		System.out.println("Searching ::: " + text);
+//		System.out.println("Searching ::: " + text);
 		TradeOffer trade = null;
 		if (matcher.matches()) {
 			// DEBUG
-			System.out.println("\tMATCH FOUND");
-			for (int i = 0; i <= matcher.groupCount(); i++) {
-				System.out.println("\tGROUP #" + i + " : " + matcher.group(i));
-			}
-			System.out.println("");
+//			System.out.println("\tMATCH FOUND");
+//			for (int i = 0; i <= matcher.groupCount(); i++) {
+//				System.out.println("\tGROUP #" + i + " : " + matcher.group(i));
+//			}
+//			System.out.println("");
 			// DEBUG END
 			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6), this.searchResponseLeft, this.searchResponseRight);
 
 			if (this.ignoreTerms != null) {
 				for (String s : this.ignoreTerms) {
-					System.out.println("IGNORE : " + s);
 					if (trade.searchMessage.contains(s)) {
 						return null;
 					}
 				}
 			}
 			boolean found = false;
-			System.out.println("MESSAGE ::: " + trade.searchMessage);
 			for (String s : this.searchTerms) {
-				System.out.println("\t" + s);
-				if (trade.searchMessage.contains(s)) {
-					found = true;
+				if(!s.equals("")){
+					if (trade.searchMessage.toLowerCase().contains(s.toLowerCase())) {
+						found = true;
+					}
 				}
 			}
 			if (found) {

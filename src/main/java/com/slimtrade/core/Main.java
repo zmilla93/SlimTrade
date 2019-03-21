@@ -60,15 +60,15 @@ public class Main {
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
 		logger.setLevel(Level.WARNING);
 		logger.setUseParentHandlers(false);
-		try {
-			GlobalScreen.registerNativeHook();
-		} catch (NativeHookException e) {
-			e.printStackTrace();
-		}
-		GlobalMouseListener globalMouse = new GlobalMouseListener();
-		GlobalKeyboardListener globalKeyboard = new GlobalKeyboardListener();
-		GlobalScreen.addNativeMouseListener(globalMouse);
-		GlobalScreen.addNativeKeyListener(globalKeyboard);
+//		try {
+//			GlobalScreen.registerNativeHook();
+//		} catch (NativeHookException e) {
+//			e.printStackTrace();
+//		}
+//		GlobalMouseListener globalMouse = new GlobalMouseListener();
+//		GlobalKeyboardListener globalKeyboard = new GlobalKeyboardListener();
+//		GlobalScreen.addNativeMouseListener(globalMouse);
+//		GlobalScreen.addNativeKeyListener(globalKeyboard);
 
 		// Locale
 		// debug.log("Default Localization : " + Locale.getDefault());
@@ -109,12 +109,24 @@ public class Main {
 					d.setVisible(true);
 				}
 				
+				
+				try {
+					GlobalScreen.registerNativeHook();
+				} catch (NativeHookException e) {
+					e.printStackTrace();
+				}
+				GlobalMouseListener globalMouse = new GlobalMouseListener();
+				GlobalKeyboardListener globalKeyboard = new GlobalKeyboardListener();
+				GlobalScreen.addNativeMouseListener(globalMouse);
+				GlobalScreen.addNativeKeyListener(globalKeyboard);
 //				SetupWindow tutorial = new SetupWindow();
 //				tutorial.setShow(true);
 
 			}
 		});
 
+		
+		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			public void run() {
 				closeProgram();

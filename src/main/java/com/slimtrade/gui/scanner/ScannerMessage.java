@@ -53,7 +53,10 @@ public class ScannerMessage {
 		String[] arr = input.split("\\n|,|;");
 		int i = 0;
 		for(String s : arr){
-			arr[i] = s.trim().replaceAll("\\s+", " ");
+			String curTerm = s.trim().replaceAll("\\s+", " ");
+			if(!curTerm.replaceAll("\\s+", "").equals("")){
+				arr[i] = curTerm;
+			}
 			i++;
 		}
 		return arr;

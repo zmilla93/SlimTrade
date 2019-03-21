@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.windows;
+package main.java.com.slimtrade.gui.basic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,12 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.gui.ImagePreloader;
-import main.java.com.slimtrade.gui.basic.BasicMovableDialog;
+import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.enums.PreloadedImage;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
@@ -68,15 +66,26 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 		gc.insets = new Insets(0, 0, 0, 0);
 
 		gc.gridx++;
-		JDialog local = this;
+		
 		if (makeCloseButton) {
 			gc.anchor = GridBagConstraints.LINE_END;
 			closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), TITLEBAR_HEIGHT);
 //			titlebarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			titlebarPanel.add(closeButton, BorderLayout.EAST);
+			AbstractWindow local = this;
 			closeButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-					local.setVisible(false);
+					new Thread(new Runnable(){
+						public void run() {
+							local.setShow(false);
+							try {
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							FrameManager.forceAllToTop();
+						}
+					}).start();;
 				}
 			});
 

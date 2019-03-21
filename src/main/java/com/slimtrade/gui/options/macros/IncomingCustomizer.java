@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.enums.MessageType;
+import main.java.com.slimtrade.gui.basic.AbstractWindow;
 import main.java.com.slimtrade.gui.enums.ButtonRow;
 import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.messaging.MessagePanel;
@@ -21,7 +22,6 @@ import main.java.com.slimtrade.gui.options.RemovablePanel;
 import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.options.ToggleButton;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
-import main.java.com.slimtrade.gui.windows.AbstractWindow;
 
 //TODO : CLEANUP
 public class IncomingCustomizer extends ContentPanel_REMOVE implements ISaveable {

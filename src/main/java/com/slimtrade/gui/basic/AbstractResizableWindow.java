@@ -12,8 +12,6 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.gui.windows.AbstractWindow;
-
 public abstract class AbstractResizableWindow extends AbstractWindow {
 
 	static final long serialVersionUID = 1L;

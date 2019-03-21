@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.audio.Sound;
 import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.options.ISaveable;
@@ -12,7 +13,6 @@ import main.java.com.slimtrade.gui.panels.ContainerPanel;
 public class AudioPanel extends ContainerPanel implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
-	private final int BUFFER_HEIGHT = 10;
 
 	private final AudioRow uiRow = new AudioRow("UI Button");
 	private final AudioRow incomingRow = new AudioRow("Incoming Trade");
@@ -20,7 +20,14 @@ public class AudioPanel extends ContainerPanel implements ISaveable {
 	private final AudioRow scannerRow = new AudioRow("Chat Scanner");
 
 	public AudioPanel() {
-//		super(false);
+		uiRow.addSound(Sound.CLICK1);
+		incomingRow.addSound(Sound.PING1);
+		incomingRow.addSound(Sound.PING2);
+		outgoingRow.addSound(Sound.PING1);
+		outgoingRow.addSound(Sound.PING2);
+		scannerRow.addSound(Sound.PING1);
+		scannerRow.addSound(Sound.PING2);
+	
 		container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;

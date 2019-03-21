@@ -57,9 +57,9 @@ public class AudioRow extends JPanel {
 		
 		soundCombo.setFocusable(false);
 		//TODO :sound types
-		for(Sound s : Sound.values()){
-			soundCombo.addItem(s);
-		}
+//		for(Sound s : Sound.values()){
+//			soundCombo.addItem(s);
+//		}
 		slider.addChangeListener(new ChangeListener(){
 			public void stateChanged(ChangeEvent arg0) {
 //				System.out.println(slider.getValue());
@@ -82,6 +82,10 @@ public class AudioRow extends JPanel {
 				AudioManager.playRaw(sound, volume);
 			}
 		});
+	}
+	
+	public void addSound(Sound sound){
+		soundCombo.addItem(sound);
 	}
 	
 	public void setValue(Sound sound, int volume){
