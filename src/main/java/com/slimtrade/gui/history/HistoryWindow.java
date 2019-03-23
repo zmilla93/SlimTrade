@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -87,8 +89,6 @@ public class HistoryWindow extends AbstractResizableWindow {
 
 		container.add(innerPanel, BorderLayout.CENTER);
 
-		JPanel bufferPanel = new BufferPanel(0, 10);
-
 		AbstractResizableWindow local = this;
 		incomingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -139,7 +139,13 @@ public class HistoryWindow extends AbstractResizableWindow {
 
 		this.pack();
 		FrameManager.centerFrame(this);
-		// incomingScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		//TODO : This would fix image scroll glitch at the cost of GPU power
+//		incomingScroll.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener(){
+//			public void adjustmentValueChanged(AdjustmentEvent e) {
+//				incomingScroll.revalidate();
+//			}
+//		});
 	}
 
 	public void setDateStyle(DateStyle style) {

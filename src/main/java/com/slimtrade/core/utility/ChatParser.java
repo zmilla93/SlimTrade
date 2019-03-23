@@ -127,7 +127,7 @@ public class ChatParser {
 				if (curLineCount > totalLineCount) {
 					totalLineCount++;
 					if (curLine.contains("@")) {
-						System.out.println(curLine);
+//						System.out.println(curLine);
 						Main.debug.log(curLine);
 						TradeOffer trade = getTradeOffer(curLine);
 						if (trade != null && !FrameManager.messageManager.isDuplicateTrade(trade)) {

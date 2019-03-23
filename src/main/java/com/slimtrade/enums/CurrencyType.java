@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public enum CurrencyType {
 
+	UNKNOWN(""),
 	ALBINO_RHOA_FEATHER(""),
 	ANCIENT_ORB(""),
 	APPRENTICE_CARTOGRAPHERS_SEAL(""),

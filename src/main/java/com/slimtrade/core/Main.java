@@ -17,6 +17,7 @@ import org.jnativehook.NativeHookException;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.DefaultManager;
 import main.java.com.slimtrade.core.managers.SaveManager;
+import main.java.com.slimtrade.core.observing.ClipboardManager;
 import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.core.observing.GlobalKeyboardListener;
 import main.java.com.slimtrade.core.observing.GlobalMouseListener;
@@ -28,7 +29,6 @@ import main.java.com.slimtrade.debug.Debugger;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
-import main.java.com.slimtrade.gui.setup.SetupWindow;
 import main.java.com.slimtrade.gui.windows.UpdateDialog;
 
 public class Main {
@@ -43,7 +43,8 @@ public class Main {
 	public static FileMonitor fileMonitor;
 	public static Logger logger = Logger.getLogger("slim");
 	public static UpdateChecker updateChecker;
-
+	public static GlobalKeyboardListener globalKeyboard;
+	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
@@ -116,9 +117,11 @@ public class Main {
 					e.printStackTrace();
 				}
 				GlobalMouseListener globalMouse = new GlobalMouseListener();
-				GlobalKeyboardListener globalKeyboard = new GlobalKeyboardListener();
+				globalKeyboard = new GlobalKeyboardListener();
 				GlobalScreen.addNativeMouseListener(globalMouse);
 				GlobalScreen.addNativeKeyListener(globalKeyboard);
+				ClipboardManager clipboardManager = new ClipboardManager();
+//				KeyboardListener kbd = new KeyboardListener();
 //				SetupWindow tutorial = new SetupWindow();
 //				tutorial.setShow(true);
 

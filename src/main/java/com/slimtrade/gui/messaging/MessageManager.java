@@ -108,7 +108,7 @@ public class MessageManager extends BasicDialog {
 			MessagePanel t = (MessagePanel) messages[i];
 			if (t.getStashHelper() != null) {
 				FrameManager.stashHelperContainer.remove(t.getStashHelper());
-//				FrameManager.stashHelperContainer.refresh();
+				// FrameManager.stashHelperContainer.refresh();
 				FrameManager.stashHelperContainer.pack();
 			}
 		}
@@ -131,21 +131,21 @@ public class MessageManager extends BasicDialog {
 						int check = 0;
 						MessagePanel panelA = (MessagePanel) msg;
 						TradeOffer tradeB = panelA.getTrade();
-						if(tradeA.messageType == MessageType.INCOMING_TRADE){
+						if (tradeA.messageType == MessageType.INCOMING_TRADE) {
 							checkCount = 4;
-							if (tradeA.priceTypeString.equals(tradeB.priceTypeString)) {
+							if (tradeA.priceType.equals(tradeB.priceType)) {
 								check++;
 							}
 							if (tradeA.priceCount.equals(tradeB.priceCount)) {
 								check++;
 							}
-						}else if (tradeA.messageType == MessageType.OUTGOING_TRADE){
-							checkCount = 2;
+							if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
+								check++;
+							}
+						} else if (tradeA.messageType == MessageType.OUTGOING_TRADE) {
+							checkCount = 1;
 						}
 						if (tradeA.messageType.equals(tradeB.messageType)) {
-							check++;
-						}
-						if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
 							check++;
 						}
 						if (check == checkCount) {

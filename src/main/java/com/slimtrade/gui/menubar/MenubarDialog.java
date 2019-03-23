@@ -3,13 +3,13 @@ package main.java.com.slimtrade.gui.menubar;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 import java.util.ResourceBundle;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
-import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MenubarButtonLocation;
@@ -154,6 +154,13 @@ public class MenubarDialog extends BasicDialog {
 				FrameManager.menubar.setShow(false);
 			}
 		});
+		
+//		this.addMouseListener(new MouseAdapter(){
+//			public void mouseExited(MouseEvent e){
+//				FrameManager.menubarToggle.setShow(true);
+//				FrameManager.menubar.setShow(false);
+//			}
+//		});
 	}
 
 	private void refreshButtonText() {

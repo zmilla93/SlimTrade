@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.core.utility;
 
+import main.java.com.slimtrade.enums.CurrencyType;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.enums.StashTabType;
 
@@ -23,6 +24,7 @@ public class TradeOffer {
 	public final String bonusText;
 	public final String sentMessage;
 	
+	public CurrencyType priceType;
 	public StashTabType stashType = StashTabType.NORMAL;
 	
 	public final String searchName;
@@ -39,6 +41,7 @@ public class TradeOffer {
 		this.playerName = playerName;
 		this.itemName = itemName;
 		this.itemCount = itemCount;
+		this.priceType = TradeUtility.getCurrencyType(priceTypeString);
 		this.priceTypeString = priceTypeString;
 		this.priceCount = priceCount;
 		this.stashtabName = null;
@@ -83,6 +86,7 @@ public class TradeOffer {
 		this.playerName = playerName;
 		this.itemName = itemName;
 		this.itemCount = itemCount;
+		this.priceType = TradeUtility.getCurrencyType(priceTypeString);
 		this.priceTypeString = priceTypeString;
 		this.priceCount = priceCount;
 		this.stashtabName = stashtabName;
