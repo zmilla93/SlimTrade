@@ -3,10 +3,15 @@ package main.java.com.slimtrade.gui.menubar;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 import java.util.ResourceBundle;
+
+import javax.swing.JDialog;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
@@ -23,8 +28,8 @@ public class MenubarDialog extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 	private boolean test = true;
-	private static int buttonCount = 6;
-	private static int spacerCount = 2;
+	private static int buttonCount = 5;
+	private static int spacerCount = 1;
 	private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.8);
 
 	public static final int WIDTH = MenubarButton.WIDTH;
@@ -37,7 +42,7 @@ public class MenubarDialog extends BasicDialog {
 	private MenubarButton testButton;
 	private MenubarButton optionsButton;
 	private MenubarButton quitButton;
-	private MenubarButton minimizeButton;
+//	private MenubarButton minimizeButton;
 
 	private boolean visible = false;
 	private boolean order = false;
@@ -64,7 +69,7 @@ public class MenubarDialog extends BasicDialog {
 		testButton = new MenubarButton("");
 		optionsButton = new MenubarButton("");
 		quitButton = new MenubarButton("");
-		minimizeButton = new MenubarButton("");
+//		minimizeButton = new MenubarButton("");
 
 //		testButton.setToolTipText("This is a test.");
 
@@ -78,8 +83,8 @@ public class MenubarDialog extends BasicDialog {
 		container.add(optionsButton);
 		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
 		container.add(quitButton);
-		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
-		container.add(minimizeButton);
+//		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
+//		container.add(minimizeButton);
 
 		this.refreshButtonText();
 
@@ -148,19 +153,17 @@ public class MenubarDialog extends BasicDialog {
 		});
 
 		// TODO : Is there a way to avoid calling refresh here?
-		minimizeButton.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent e) {
-				FrameManager.menubarToggle.setShow(true);
-				FrameManager.menubar.setShow(false);
-			}
-		});
-		
-//		this.addMouseListener(new MouseAdapter(){
-//			public void mouseExited(MouseEvent e){
+//		minimizeButton.addMouseListener(new AdvancedMouseAdapter() {
+//			public void click(MouseEvent e) {
 //				FrameManager.menubarToggle.setShow(true);
 //				FrameManager.menubar.setShow(false);
 //			}
 //		});
+		
+		for(Component c : container.getComponents()){
+			System.out.println("adding listner");
+			addMouseExitListener(c);
+		}
 	}
 
 	private void refreshButtonText() {
@@ -173,12 +176,11 @@ public class MenubarDialog extends BasicDialog {
 		// clearButton.setText(lang.getString("clearDebugButton"));
 		// refreshButton.setText(lang.getString("refreshButton"));
 		quitButton.setText(lang.getString("quitButton"));
-		minimizeButton.setText(lang.getString("minimizeButton"));
+//		minimizeButton.setText(lang.getString("minimizeButton"));
 	}
 
 	public void updateLocation() {
 		this.setLocation(Main.saveManager.getInt("overlayManager", "menubar", "x"), Main.saveManager.getInt("overlayManager", "menubar", "y"));
-
 	}
 
 	public void reorder() {
@@ -199,6 +201,20 @@ public class MenubarDialog extends BasicDialog {
 		}
 		this.revalidate();
 		this.repaint();
+	}
+	
+	private void addMouseExitListener(Component c){
+		JDialog local = this;
+		c.addMouseListener(new MouseAdapter(){
+			public void mouseExited(MouseEvent e){
+				Rectangle bounds = local.getBounds();
+				if(!bounds.contains(MouseInfo.getPointerInfo().getLocation())){
+					FrameManager.menubarToggle.setShow(true);
+					FrameManager.menubar.setShow(false);
+					FrameManager.menubarToggle.repaint();
+				}
+			}
+		});
 	}
 
 }

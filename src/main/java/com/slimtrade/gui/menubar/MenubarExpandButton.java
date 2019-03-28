@@ -31,12 +31,12 @@ public class MenubarExpandButton extends BasicDialog{
 		    }
 		});
 		
-//		showMenubarButton.addMouseListener(new MouseAdapter(){
-//			public void mouseEntered(MouseEvent e){
-//				FrameManager.menubar.setShow(true);
-//		    	FrameManager.menubarToggle.setShow(false);
-//			}
-//		});
+		showMenubarButton.addMouseListener(new MouseAdapter(){
+			public void mouseEntered(MouseEvent e){
+				FrameManager.menubar.setShow(true);
+		    	FrameManager.menubarToggle.setShow(false);
+			}
+		});
 	}
 	
 	public void updateLocation(){

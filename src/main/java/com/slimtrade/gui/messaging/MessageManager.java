@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
+import com.sun.jna.platform.WindowUtils;
+
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
@@ -41,17 +43,14 @@ public class MessageManager extends BasicDialog {
 	private ExpandDirection expandDirection;
 
 	public MessageManager() {
+		this.setAutoRequestFocus(false);
 		this.setBounds(1220, 0, 0, 0);
 		this.setBackground(ColorManager.CLEAR);
 		container = this.getContentPane();
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		this.expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
-
-		this.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				repaint();
-			}
-		});
+//		this.setModal(true);
+		WindowUtils.setWindowTransparent(this, true);
 	}
 
 	// TODO : Clean up stash helper removal

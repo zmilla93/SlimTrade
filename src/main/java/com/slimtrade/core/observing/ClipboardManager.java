@@ -19,7 +19,7 @@ public class ClipboardManager {
 
 	private Clipboard clipboard;
 	private String clipboardText;
-	private static boolean ignore = true;
+	private static boolean ignore = false;
 	public final static String tradeMessageString = "@(<.+> )?(.+) ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
 	private String previousText;
 	
@@ -40,8 +40,12 @@ public class ClipboardManager {
 					Main.logger.log(Level.WARNING, "NO CONTROL KEY");
 					refreshFlavor();
 					return;
+				}else if(previousText != null && clipboardText.equals(previousText)){
+					previousText = null;
+					return;
 				}
 				boolean isText = false;
+//				System.out.println(clipboard.getData(DataFlavor.));
 				try {
 					clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
 					isText = true;
@@ -50,7 +54,7 @@ public class ClipboardManager {
 				}catch (IllegalStateException err){
 					return;
 				}
-				if (clipboardText != null && !clipboardText.equals(previousText)) {
+				if (clipboardText != null) {
 					previousText = clipboardText;
 					Matcher matcher = Pattern.compile(tradeMessageString).matcher(clipboardText);
 					if(matcher.matches()){
@@ -66,60 +70,16 @@ public class ClipboardManager {
 	
 	private void refreshFlavor(){
 		try{
-			clipboard.setContents(new StringSelection(clipboardText), null);
+			clipboard.setContents(clipboard.getContents(null), null);
+//			clipboard.setContents(new StringSelection(clipboardText), null);
 		}catch(IllegalStateException err){
 			
 		}
 	}
 	
-	private void refreshListener(){
-		System.out.println("Refreshing clipboard");
-
-		clipboard.addFlavorListener(new FlavorListener(){
-			public void flavorsChanged(FlavorEvent e) {
-
-			}
-		});
-	}
-	
-	private void addListener(){
-		clipboard.addFlavorListener(new CustomFlavorListener());
-	}
-	
-	private void removeListener(){
-		for(FlavorListener l : clipboard.getFlavorListeners()){
-			clipboard.removeFlavorListener(l);
-		}
-	}
-	
 	private class CustomFlavorListener implements FlavorListener{
 		public void flavorsChanged(FlavorEvent e) {
-			System.out.println("Clipboard Action Detected");
-			boolean isText = false;
-			try {
-				clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
-				isText = true;
-			} catch (UnsupportedFlavorException | IOException err) {
-				err.printStackTrace();
-			}catch (IllegalStateException err){
-				err.printStackTrace();
-				return;
-			}
-			if (clipboardText != null) {
-				Matcher matcher = Pattern.compile(tradeMessageString).matcher(clipboardText);
-				if(matcher.matches()){
-					PoeInterface.pasteWithFocus(clipboardText);
-				}
-			}
-			if(isText){
-				removeListener();
-				try {
-					clipboard.setContents(new StringSelection(clipboardText), null);
-				} catch (IllegalStateException err) {
 
-				}
-//				addListener();
-			}
 		}
 	}
 

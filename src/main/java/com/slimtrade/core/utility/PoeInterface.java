@@ -5,7 +5,9 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 
 import com.sun.jna.Native;
@@ -54,10 +56,20 @@ public class PoeInterface extends Robot {
 			public void run() {
 				focus();
 				try {
-					Thread.sleep(2);
+					Thread.sleep(1);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
+//				robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+//				try {
+//					Thread.sleep(5);
+//				} catch (InterruptedException e1) {
+//					e1.printStackTrace();
+//				}
+//				robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+				robot.mouseMove(100, 100);
+				robot.mousePress(InputEvent.BUTTON1_MASK);
+				robot.mouseRelease(InputEvent.BUTTON1_MASK);
 				PointerType hwnd = null;
 				byte[] windowText = new byte[512];
 				int i = 0;

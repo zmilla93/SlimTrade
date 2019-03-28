@@ -10,9 +10,13 @@ import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
+
+import com.sun.jna.platform.DesktopWindow;
+import com.sun.jna.platform.WindowUtils;
 
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.DefaultManager;
@@ -83,6 +87,9 @@ public class Main {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				
+				System.setProperty("sun.java2d.noddraw", "true");
+				
 				// Locale swede = new Locale("sv", "SE");
 				Locale.setDefault(Locale.US);
 				ImagePreloader imagePreloader = new ImagePreloader();
@@ -120,10 +127,21 @@ public class Main {
 				globalKeyboard = new GlobalKeyboardListener();
 				GlobalScreen.addNativeMouseListener(globalMouse);
 				GlobalScreen.addNativeKeyListener(globalKeyboard);
+				
 				ClipboardManager clipboardManager = new ClipboardManager();
+				
 //				KeyboardListener kbd = new KeyboardListener();
 //				SetupWindow tutorial = new SetupWindow();
 //				tutorial.setShow(true);
+				System.out.println("WINDOWS : ");
+				for(DesktopWindow win : WindowUtils.getAllWindows(true)){
+					System.out.println(win.getTitle());
+					if(win.getTitle().contains("Path of Exile")){
+						System.out.println(win.getLocAndSize());
+					}
+				}
+				
+				
 
 			}
 		});
