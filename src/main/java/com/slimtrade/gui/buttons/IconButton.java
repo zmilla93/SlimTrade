@@ -56,7 +56,6 @@ public class IconButton extends JButton {
 	}
 	
 	private void buildButton(Image image, int size){
-//		image = ImagePreloader.rad;
 		this.setPreferredSize(new Dimension(size, size));
 		this.setContentAreaFilled(false);
 		this.setFocusable(false);

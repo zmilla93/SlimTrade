@@ -26,7 +26,7 @@ import main.java.com.slimtrade.gui.basic.BasicDialog;
 import main.java.com.slimtrade.gui.enums.ExpandDirection;
 
 //TODO : Could reuse panels instead of creating/destroying constantly, especially rigid areas
-public class MessageManager extends BasicDialog {
+public class OLD_MessageManager extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class MessageManager extends BasicDialog {
 	private Point startingPos;
 	private ExpandDirection expandDirection;
 
-	public MessageManager() {
+	public OLD_MessageManager() {
 		this.setAutoRequestFocus(false);
 		this.setBounds(1220, 0, 0, 0);
 		this.setBackground(ColorManager.CLEAR);
@@ -50,7 +50,7 @@ public class MessageManager extends BasicDialog {
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		this.expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
 //		this.setModal(true);
-		WindowUtils.setWindowTransparent(this, true);
+//		WindowUtils.setWindowTransparent(this, true);
 	}
 
 	// TODO : Clean up stash helper removal
@@ -188,11 +188,6 @@ public class MessageManager extends BasicDialog {
 		} else {
 
 		}
-		// this.setSize(AbstractMessagePanel.totalWidth,
-		// AbstractMessagePanel.totalHeight * messageCount + buffer *
-		// messageCount);
-		// this.revalidate();
-		// this.repaint();
 		this.pack();
 	}
 

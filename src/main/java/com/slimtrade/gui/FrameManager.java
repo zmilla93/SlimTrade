@@ -13,7 +13,7 @@ import main.java.com.slimtrade.gui.components.TrayButton;
 import main.java.com.slimtrade.gui.history.HistoryWindow;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarExpandButton;
-import main.java.com.slimtrade.gui.messaging.MessageManager;
+import main.java.com.slimtrade.gui.messaging.OLD_MessageManager;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
 import main.java.com.slimtrade.gui.scanner.ChatScannerWindow;
 import main.java.com.slimtrade.gui.stash.StashOverlayWindow;
@@ -26,7 +26,7 @@ public class FrameManager {
 	public static HistoryWindow historyWindow;
 	public static MenubarDialog menubar;
 	public static MenubarExpandButton menubarToggle;
-	public static MessageManager messageManager;
+	public static OLD_MessageManager messageManager;
 	public static StashHelperContainer stashHelperContainer;
 	public static StashOverlayWindow stashOverlayWindow;
 	// public static REMOVE_CharacterWindow characterWindow;
@@ -44,7 +44,7 @@ public class FrameManager {
 		historyWindow = new HistoryWindow();
 		menubar = new MenubarDialog();
 		menubarToggle = new MenubarExpandButton();
-		messageManager = new MessageManager();
+		messageManager = new OLD_MessageManager();
 		overlayManager = new OverlayManager();
 		chatScannerWindow = new ChatScannerWindow();
 		// TODO : temp

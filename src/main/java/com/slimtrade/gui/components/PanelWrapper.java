@@ -25,5 +25,9 @@ public class PanelWrapper extends BasicDialog {
 		this.pack();
 		this.setVisible(true);
 	}
+	
+	public JPanel getPanel(){
+		return this.panel;
+	}
 
 }

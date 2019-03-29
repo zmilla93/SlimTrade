@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -11,7 +12,7 @@ import javax.swing.JTextArea;
 
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.basic.PaintedPanel;
+import main.java.com.slimtrade.gui.enums.PreloadedImage;
 
 public class Debugger extends JFrame {
 
@@ -32,10 +33,9 @@ public class Debugger extends JFrame {
 		logScrollPane.setPreferredSize(new Dimension(750, 400));
 		this.add(logScrollPane);
 		
-//		PaintedPanel p = new PaintedPanel();
-//		p.setPreferredSize(new Dimension(200,20));
-//		this.add(p);
-		
+//		ImageIcon img = new ImageIcon();
+//		this.setIconImage(PreloadedImage.TAG.getImage());
+
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		JButton refreshButton = new JButton("Refresh");

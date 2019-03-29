@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
@@ -82,15 +83,16 @@ public class Main {
 		// Locale.setDefault(Locale.US);
 
 		ColorManager.setMessageTheme();
-
-		
 		
 		// POE Interface
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				
-				System.setProperty("sun.java2d.noddraw", "true");
+//				ImageIcon img = new ImageIcon("images/myicon.gif");
+//				this.setIconImage(img.getImage());
+				
+//				System.setProperty("sun.java2d.noddraw", "true");
 				
 				// Locale swede = new Locale("sv", "SE");
 				Locale.setDefault(Locale.US);
@@ -126,13 +128,13 @@ public class Main {
 //				PanelWrapper panel = new PanelWrapper(p);
 //				panel.setVisible(true);
 				
-				MessageDialogManager testManager = new MessageDialogManager();
-				testManager.addMessage(t1);
-				testManager.addMessage(t2);
-				testManager.addMessage(t3);
-				testManager.addMessage(t3);
-				testManager.addMessage(t3);
-				testManager.addMessage(t3);
+//				MessageDialogManager testManager = new MessageDialogManager();
+//				testManager.addMessage(t1);
+//				testManager.addMessage(t2);
+//				testManager.addMessage(t3);
+//				testManager.addMessage(t3);
+//				testManager.addMessage(t3);
+//				testManager.addMessage(t3);
 				
 				try {
 					GlobalScreen.registerNativeHook();
@@ -144,18 +146,18 @@ public class Main {
 				GlobalScreen.addNativeMouseListener(globalMouse);
 				GlobalScreen.addNativeKeyListener(globalKeyboard);
 				
-				ClipboardManager clipboardManager = new ClipboardManager();
+//				ClipboardManager clipboardManager = new ClipboardManager();
 				
 //				KeyboardListener kbd = new KeyboardListener();
 //				SetupWindow tutorial = new SetupWindow();
 //				tutorial.setShow(true);
-				System.out.println("WINDOWS : ");
-				for(DesktopWindow win : WindowUtils.getAllWindows(true)){
-					System.out.println(win.getTitle());
-					if(win.getTitle().contains("Path of Exile")){
-						System.out.println(win.getLocAndSize());
-					}
-				}
+//				System.out.println("WINDOWS : ");
+//				for(DesktopWindow win : WindowUtils.getAllWindows(true)){
+//					System.out.println(win.getTitle());
+//					if(win.getTitle().contains("Path of Exile")){
+//						System.out.println(win.getLocAndSize());
+//					}
+//				}
 				
 				
 
