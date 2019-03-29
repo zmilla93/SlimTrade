@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -28,11 +27,14 @@ import main.java.com.slimtrade.core.observing.GlobalMouseListener;
 import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
+import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.UpdateChecker;
 import main.java.com.slimtrade.debug.Debugger;
+import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
+import main.java.com.slimtrade.gui.messaging.MessageDialogManager;
 import main.java.com.slimtrade.gui.windows.UpdateDialog;
 
 public class Main {
@@ -117,6 +119,20 @@ public class Main {
 					d.setVisible(true);
 				}
 				
+				TradeOffer t1 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 3.5, "STASH_TAB", 1, 1, "", "");
+				TradeOffer t2 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 3.5, "STASH_TAB", 1, 1, "", "");
+				TradeOffer t3 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 3.5, "STASH_TAB", 1, 1, "", "");
+//				MessagePanel p = new MessagePanel(t, new Dimension(500, 80));
+//				PanelWrapper panel = new PanelWrapper(p);
+//				panel.setVisible(true);
+				
+				MessageDialogManager testManager = new MessageDialogManager();
+				testManager.addMessage(t1);
+				testManager.addMessage(t2);
+				testManager.addMessage(t3);
+				testManager.addMessage(t3);
+				testManager.addMessage(t3);
+				testManager.addMessage(t3);
 				
 				try {
 					GlobalScreen.registerNativeHook();

@@ -7,27 +7,26 @@ public class BasicDialog extends HideableDialog{
 	private static final long serialVersionUID = 1L;
 	
 	public BasicDialog(){
-		this.setTitle("SlimTrade Window");
+		buildDialog("SlimTrade Window");
+	}
+	
+	public BasicDialog(String title){
+		buildDialog(title);
+	}
+	
+	private void buildDialog(String title){
+		this.setTitle(title);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setFocusable(false);
 		this.setFocusableWindowState(false);
 		this.setUndecorated(true);
 		this.setAlwaysOnTop(true);
-		this.setModal(false);
 		this.setType(JDialog.Type.UTILITY);
-//		this.pack();
 	}
 	
 	public void forceToTop(){
 		this.setAlwaysOnTop(false);
 		this.setAlwaysOnTop(true);
-//		this.toFront();
-	}
-	
-	//TODO : Remove
-	public void refresh(){
-		this.revalidate();
-		this.repaint();
 	}
 	
 }
