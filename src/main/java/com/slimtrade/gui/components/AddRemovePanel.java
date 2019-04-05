@@ -2,22 +2,24 @@ package main.java.com.slimtrade.gui.components;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-public class AddRemoveContainer extends JPanel {
+public class AddRemovePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private GridBagConstraints gc = new GridBagConstraints();
 
-	public AddRemoveContainer(){
-		this.setPreferredSize(new Dimension(400,100));
+	public AddRemovePanel(){
+//		this.setPreferredSize(new Dimension(400,100));
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBackground(Color.RED);
 	}
 	
-	public void addPanel(){
-		RemovablePanel p = new RemovablePanel();
-		this.add(p);
+	public void addPanel(JPanel panel){
+		this.add(panel, gc);
 		this.revalidate();
 		this.repaint();
 	}
@@ -33,6 +35,8 @@ public class AddRemoveContainer extends JPanel {
 				}
 			}
 		}
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void revertChanges(){
@@ -48,6 +52,8 @@ public class AddRemoveContainer extends JPanel {
 				
 			}
 		}
+		this.revalidate();
+		this.repaint();
 	}
 	
 }

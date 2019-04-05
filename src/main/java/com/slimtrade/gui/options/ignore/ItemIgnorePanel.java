@@ -5,14 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import main.java.com.slimtrade.gui.components.AddRemoveContainer;
+import main.java.com.slimtrade.gui.components.AddRemovePanel;
+import main.java.com.slimtrade.gui.components.RemovablePanel;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
 public class ItemIgnorePanel extends ContainerPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	AddRemoveContainer addRemoveContainer = new AddRemoveContainer();
+	AddRemovePanel addRemoveContainer = new AddRemovePanel();
 	
 	public ItemIgnorePanel(){
 		this.setVisible(false);
@@ -26,29 +27,22 @@ public class ItemIgnorePanel extends ContainerPanel {
 		container.add(addButton);
 		container.add(tempRevert);
 		container.add(tempSave);
-//		this.revalidate();
 		
 		addButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				addRemoveContainer.addPanel();
-				addRemoveContainer.revalidate();
-				addRemoveContainer.repaint();
+				addRemoveContainer.addPanel(new RemovablePanel());
 			}
 		});
 		
 		tempRevert.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				addRemoveContainer.revertChanges();
-				addRemoveContainer.revalidate();
-				addRemoveContainer.repaint();
 			}
 		});
 		
 		tempSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				addRemoveContainer.saveChanges();
-				addRemoveContainer.revalidate();
-				addRemoveContainer.repaint();
 			}
 		});
 		

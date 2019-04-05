@@ -125,13 +125,12 @@ public class MenubarDialog extends BasicDialog {
 				TradeOffer t5 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 7, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 				TradeOffer t6 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3, "chaos", 7, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 				TradeOffer t7 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-//				FrameManager.messageManager.addMessage(t);
-//				FrameManager.messageManager.addMessage(t2);
-//				FrameManager.messageManager.addMessage(t3);
-				for(DesktopWindow w : WindowUtils.getAllWindows(true)){
-					System.out.println(w.getTitle() + " ::: " + w.getLocAndSize());
-					
-				}
+				FrameManager.messageManager.addMessage(t);
+				FrameManager.messageManager.addMessage(t2);
+				FrameManager.messageManager.addMessage(t3);
+//				for(DesktopWindow w : WindowUtils.getAllWindows(true)){
+//					System.out.println(w.getTitle() + " ::: " + w.getLocAndSize());
+//				}
 				
 			}
 		});

@@ -2,13 +2,14 @@ package main.java.com.slimtrade.gui.options;
 
 import javax.swing.JPanel;
 
-public class RemovablePanel extends JPanel {
+public class OLD_RemovablePanel extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	boolean fresh = true;
 	boolean unsaved;
 	boolean delete;
 
-	public RemovablePanel() {
+	public OLD_RemovablePanel() {
 
 	}
 

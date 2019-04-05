@@ -33,7 +33,7 @@ public class MessageDialogManager {
 	
 	public void addMessage(TradeOffer trade){
 		//TODO : Check duplicates
-		if(wrapperList.size() >= MAX_MESSAGE_COUNT){
+		if(wrapperList.size() >= MAX_MESSAGE_COUNT || isDuplicateTrade(trade)){
 			return;
 		}
 		final MessagePanel panel = new MessagePanel(trade, defaultSize);
@@ -69,16 +69,16 @@ public class MessageDialogManager {
 		}
 	}
 
-//	private boolean isDuplicateTrade(TradeOffer trade) {
-//		for (PanelWrapper wrapper : wrapperList) {
-//			MessagePanel msgPanel = (MessagePanel)wrapper.getPanel();
-//			TradeOffer tradeB = msgPanel.getTrade();
-//			if(TradeUtility.isDuplicateTrade(trade, tradeB)){
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	private boolean isDuplicateTrade(TradeOffer trade) {
+		for (PanelWrapper wrapper : wrapperList) {
+			MessagePanel msgPanel = (MessagePanel)wrapper.getPanel();
+			TradeOffer tradeB = msgPanel.getTrade();
+			if(TradeUtility.isDuplicateTrade(trade, tradeB)){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	private void closeSimilarTrades(int index) {
 		MessagePanel msg = (MessagePanel)wrapperList.get(index).getPanel();
@@ -90,6 +90,10 @@ public class MessageDialogManager {
 			MessagePanel msgB = (MessagePanel)wrapper.getPanel();
 			TradeOffer tradeB = msgB.getTrade();
 			if (msg != null && msg instanceof MessagePanel) {
+				//TODO : TEMP FIX FOR CHAT SCANNER
+//				if(msg.messageType.equals(MessageType.CHAT_SCANNER)){
+//					return;
+//				}
 				if (i != index) {
 					try {
 						System.out.println(SaveConstants.Macros.test);
@@ -108,6 +112,11 @@ public class MessageDialogManager {
 							}
 						} else if (tradeA.messageType == MessageType.OUTGOING_TRADE) {
 							checkCount = 1;
+						}else if (tradeA.messageType == MessageType.CHAT_SCANNER){
+							checkCount = 2;
+							if(tradeA.searchName.equals(tradeB.searchName)){
+								check++;
+							}
 						}
 						if (tradeA.messageType.equals(tradeB.messageType)) {
 							check++;

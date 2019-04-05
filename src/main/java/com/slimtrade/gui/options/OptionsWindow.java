@@ -177,9 +177,11 @@ public class OptionsWindow extends AbstractResizableWindow {
 		revertButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				generalPanel.load();
-				incomingPanel.load();
-//				audioPanel.load();
-				stashPanel.load();
+//				incomingPanel.load();
+//				incomingPanel.rever
+//				stashPanel.load();
+				incomingPanel.revertChanges();
+				stashPanel.revertChanges();
 			}
 		});
 		

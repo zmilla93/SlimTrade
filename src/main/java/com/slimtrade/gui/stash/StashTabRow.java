@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.buttons.IconButton;
-import main.java.com.slimtrade.gui.options.RemovablePanel;
+import main.java.com.slimtrade.gui.components.RemovablePanel;
 
 public class StashTabRow extends RemovablePanel {
 
@@ -21,7 +21,7 @@ public class StashTabRow extends RemovablePanel {
 
 	public static final int ROW_HEIGHT = 25;
 
-	private JButton deleteButton;
+	private JButton removeButton;
 	
 	JTextField stashTabText;
 	JComboBox<StashTabType> typeCombo;
@@ -37,7 +37,8 @@ public class StashTabRow extends RemovablePanel {
 		gc.gridx = 0;
 		gc.gridy = 0;
 		
-		deleteButton = new IconButton("/resources/icons/close.png", ROW_HEIGHT);
+		removeButton = new IconButton("/resources/icons/close.png", ROW_HEIGHT);
+		this.setRemoveButton(removeButton);
 		
 		int stashTextWidth = 250;
 		JPanel stashTabTextPanel = new JPanel(new GridBagLayout());
@@ -66,7 +67,7 @@ public class StashTabRow extends RemovablePanel {
 			colorCombo.addItem(c.getBackground());
 		}
 				
-		this.add(deleteButton, gc);
+		this.add(removeButton, gc);
 		gc.gridx++;
 		this.add(stashTabTextPanel, gc);
 		gc.gridx++;
@@ -75,9 +76,9 @@ public class StashTabRow extends RemovablePanel {
 		this.add(colorCombo, gc);
 	}
 	
-	public JButton getDeleteButton(){
-		return this.deleteButton;
-	}
+//	public JButton getDeleteButton(){
+//		return this.deleteButton;
+//	}
 	
 	public String getText(){
 		return stashTabText.getText();

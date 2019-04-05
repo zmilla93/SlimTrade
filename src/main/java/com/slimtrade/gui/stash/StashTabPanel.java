@@ -4,8 +4,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
@@ -17,22 +15,22 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.enums.StashTabType;
-import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
+import main.java.com.slimtrade.gui.components.AddRemovePanel;
 import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
+import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class StashTabPanel extends ContentPanel_REMOVE implements ISaveable {
+public class StashTabPanel extends ContainerPanel implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 
-	private JPanel rowContainer;
+	public static final AddRemovePanel rowContainer= new AddRemovePanel();
 	private GridBagConstraints gcRow;
 	int rowBuffer = 10;
 
 	public StashTabPanel() {
-		super(false);
-		this.setLayout(new GridBagLayout());
+		this.setVisible(false);
+		container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gcRow = new GridBagConstraints();
 		gc.gridx = 0;
@@ -40,16 +38,8 @@ public class StashTabPanel extends ContentPanel_REMOVE implements ISaveable {
 		gcRow.gridx = 0;
 		gcRow.gridy = 0;
 		gcRow.insets.bottom = 5;
-		// gcRow.insets = new Insets(0, 0, rowBuffer, 0);
-
-		rowContainer = new JPanel(new GridBagLayout());
-
-		JScrollPane rowScrollPane = new JScrollPane(rowContainer);
-		StashTabRow dummyRow = new StashTabRow();
-		Dimension scrollPaneSize = dummyRow.getPreferredSize();
-		scrollPaneSize.width += 25;
-		scrollPaneSize.height = scrollPaneSize.height * 10 + rowBuffer * 10;
-		rowScrollPane.setPreferredSize(scrollPaneSize);
+		
+//		rowContainer = new AddRemovePanel();
 
 		JPanel stashOptions = new JPanel();
 		stashOptions.setLayout(new GridBagLayout());
@@ -59,60 +49,51 @@ public class StashTabPanel extends ContentPanel_REMOVE implements ISaveable {
 //		JLabel alignLabel = new JLabel("Align stashtab");
 //		JButton alignButton = new JButton("Align Stash Tab Overlay");
 
-		this.addRow(new JLabel("Stash tabs only need to be added if you want to set colors or quad tabs"), gc);
-		this.addRow(new JLabel("Default white will use a randomized color like normal"), gc);
-		this.addRow(new BufferPanel(0, rowBuffer), gc);
-		this.addRow(addButton, gc);
-		this.addRow(rowScrollPane, gc);
 		
-//		alignButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				FrameManager.stashOverlayWindow.setVisible(true);
-//			}
-//		});
+		container.add(new JLabel("Stash tabs only need to be added if you want to set colors or quad tabs"), gc);
+		gc.gridy++;
+		container.add(new JLabel("Default white will use a randomized color like normal"), gc);
+		gc.gridy++;
+		container.add(new BufferPanel(0, rowBuffer), gc);
+		gc.gridy++;
+		container.add(addButton, gc);
+		gc.gridy++;
+		container.add(rowContainer, gc);
+		
 
 		addButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				addNewRow();
+				revalidate();
 			}
 		});
 		load();
-		// stashOptions.autoResize();
-		this.autoResize();
 	}
 
 	private StashTabRow addNewRow() {
 		StashTabRow row = new StashTabRow();
-		rowContainer.add(row, gcRow);
-		gcRow.gridy++;
-		row.getDeleteButton().addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent e) {
-				row.setVisible(false);
-				row.setDelete(true);
-			}
-		});
-		rowContainer.revalidate();
-		rowContainer.repaint();
+		rowContainer.addPanel(row);
+//		gcRow.gridy++;
+//		row.getDeleteButton().addMouseListener(new AdvancedMouseAdapter() {
+//			public void click(MouseEvent e) {
+//				row.markForDeletion();
+//			}
+//		});
 		return row;
 	}
 
 	public void save() {
 		int index = 0;
 		Main.saveManager.deleteObject("stashTabs");
+		rowContainer.saveChanges();
 		for (Component c : rowContainer.getComponents()) {
+			System.out.println("Saving...");
 			StashTabRow row = (StashTabRow) c;
-			row.setFresh(false);
-			if (row.isDelete()) {
-				rowContainer.remove(c);
-			} else {
-				Main.saveManager.putObject(row.getText(), "stashTabs", "tab" + index, "text");
-				Main.saveManager.putObject(row.getType().name(), "stashTabs", "tab" + index, "type");
-				Main.saveManager.putObject(row.getColor().name(), "stashTabs", "tab" + index, "color");
-				index++;
-			}
+			Main.saveManager.putObject(row.getText(), "stashTabs", "tab" + index, "text");
+			Main.saveManager.putObject(row.getType().name(), "stashTabs", "tab" + index, "type");
+			Main.saveManager.putObject(row.getColor().name(), "stashTabs", "tab" + index, "color");
+			index++;
 		}
-		rowContainer.revalidate();
-		rowContainer.repaint();
 	}
 
 	public void load() {
@@ -120,12 +101,16 @@ public class StashTabPanel extends ContentPanel_REMOVE implements ISaveable {
 		rowContainer.removeAll();
 		while (Main.saveManager.hasEntry("stashTabs", "tab" + index)) {
 			StashTabRow row = addNewRow();
-			row.setFresh(false);
 			row.setText(Main.saveManager.getString("stashTabs", "tab" + index, "text"));
 			row.setType(StashTabType.valueOf(Main.saveManager.getString("stashTabs", "tab" + index, "type")));
 			row.setColor(StashTabColor.valueOf(Main.saveManager.getString("stashTabs", "tab" + index, "color")));
 			index++;
 		}
+		rowContainer.saveChanges();
+	}
+	
+	public void revertChanges(){
+		rowContainer.revertChanges();
 	}
 
 }

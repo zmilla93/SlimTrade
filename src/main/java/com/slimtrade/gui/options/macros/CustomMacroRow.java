@@ -2,7 +2,6 @@ package main.java.com.slimtrade.gui.options.macros;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -13,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.components.RemovablePanel;
 import main.java.com.slimtrade.gui.enums.ButtonRow;
 import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
-import main.java.com.slimtrade.gui.options.RemovablePanel;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
 public class CustomMacroRow extends RemovablePanel {
@@ -28,48 +27,33 @@ public class CustomMacroRow extends RemovablePanel {
 	private JTextField m2Text = new JTextField(30);
 	private JComboBox<ImageIcon> iconCombo;
 	private JComboBox<ButtonRow> rowCombo;
-	private IconButton deleteButton = new IconButton("/resources/icons/close.png", 20);
+	private IconButton removeButton = new IconButton("/resources/icons/close.png", 20);
 
-	private boolean unsaved = true;
-	private boolean delete;
+//	private boolean unsaved = true;
+//	private boolean delete;
 
 	public CustomMacroRow() {
 		this.setBackground(Color.GRAY);
 		this.setLayout(new GridBagLayout());
+		setRemoveButton(removeButton);
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-
-		// Image img = new
-		// ImageIcon(this.getClass().getResource("/resources/icons/cart.png")).getImage().getScaledInstance(20,
-		// 20, Image.SCALE_SMOOTH);
-		// ImageIcon i = new ImageIcon(img);
-		// ImageIcon[] icons = {i};
 		iconCombo = new JComboBox<ImageIcon>();
 		for (PreloadedImageCustom i : PreloadedImageCustom.values()) {
 			ImageIcon icon = new ImageIcon(i.getImage());
 			iconCombo.addItem(icon);
-			// System.out.println(icon);
-			// iconCombo.addItem(i);
 		}
 
 		iconCombo.setFocusable(false);
 		iconCombo.removeAll();
 		iconCombo.setLayout(new BorderLayout());
 		iconCombo.setBorder(null);
-//		Dimension iconSize = iconCombo.getPreferredSize();
-//		iconSize.width = iconSize.width / 2;
-//		iconCombo.setPreferredSize(iconSize);
 
 		rowCombo = new JComboBox<ButtonRow>();
 		for (ButtonRow row : ButtonRow.values()) {
 			rowCombo.addItem(row);
 		}
-		// Dimension rowSize = rowCombo.getPreferredSize();
-		// rowSize.height = 20;
-		// rowCombo.setPreferredSize(rowSize);
-		// rowCombo.addItem("Top");
-		// rowCombo.addItem("Bottom");
 
 		this.add(new BufferPanel(10, 0), gc);
 		gc.gridx++;
@@ -90,7 +74,7 @@ public class CustomMacroRow extends RemovablePanel {
 		gc.gridheight = 1;
 		gc.gridx++;
 		this.add(new BufferPanel(10, 0), gc);
-		this.add(deleteButton, gc);
+		this.add(removeButton, gc);
 
 		gc.gridx = 1;
 		gc.gridy = 1;
@@ -104,9 +88,9 @@ public class CustomMacroRow extends RemovablePanel {
 		this.repaint();
 	}
 
-	public JButton getDeleteButton() {
-		return this.deleteButton;
-	}
+//	public JButton getDeleteButton() {
+//		return this.deleteButton;
+//	}
 
 	public ButtonRow getButtonRow() {
 		return (ButtonRow) rowCombo.getSelectedItem();

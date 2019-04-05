@@ -15,18 +15,19 @@ public class RemovablePanel extends JPanel {
 	private boolean newPanel = true;
 	private boolean toBeDeleted = false;
 	
-	private JButton removeButton = new JButton();
+//	private JButton removeButton = new JButton();
 	
 	public RemovablePanel(){
-		
-		this.add(removeButton);
 		Random rand = new Random();
 		int r = 50+rand.nextInt(150);
 		int g = 50+rand.nextInt(150);
 		int b = 50+rand.nextInt(150);
 		this.setBackground(new Color(r, g, b));
-		
-		removeButton.addActionListener(new ActionListener(){
+
+	}
+	
+	public void setRemoveButton(JButton button){
+		button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				markForDeletion();
 			}

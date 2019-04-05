@@ -16,7 +16,7 @@ import main.java.com.slimtrade.gui.panels.BufferPanel;
 public class OutgoingCustomizer extends ContentPanel_REMOVE {
 
 	private static final long serialVersionUID = 1L;
-	private MessagePanel exampleTradeIn;
+	private MessagePanel exampleTrade;
 
 	public OutgoingCustomizer() {
 		// TODO : Colors
@@ -24,7 +24,7 @@ public class OutgoingCustomizer extends ContentPanel_REMOVE {
 		Random rng = new Random();
 		TradeOffer tradeOut = new TradeOffer("", "", MessageType.OUTGOING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 
-		AbstractMessagePanel exampleTradeOut = new MessagePanel(tradeOut, new Dimension(400, 40));
+		AbstractMessagePanel exampleTradeOut = new MessagePanel(tradeOut, new Dimension(400, 40), false);
 		exampleTradeOut.stopTimer();
 
 		// OUTGOING PRESETS
