@@ -26,8 +26,8 @@ public class StashTabPanel extends ContentPanel_REMOVE implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 
-	JPanel rowContainer;
-	GridBagConstraints gcRow;
+	private JPanel rowContainer;
+	private GridBagConstraints gcRow;
 	int rowBuffer = 10;
 
 	public StashTabPanel() {
@@ -43,7 +43,6 @@ public class StashTabPanel extends ContentPanel_REMOVE implements ISaveable {
 		// gcRow.insets = new Insets(0, 0, rowBuffer, 0);
 
 		rowContainer = new JPanel(new GridBagLayout());
-//		rowContainer.setBackground(Color.RED);
 
 		JScrollPane rowScrollPane = new JScrollPane(rowContainer);
 		StashTabRow dummyRow = new StashTabRow();
@@ -57,42 +56,20 @@ public class StashTabPanel extends ContentPanel_REMOVE implements ISaveable {
 
 		JButton addButton = new JButton("Add Stash Tab");
 
-		JLabel alignLabel = new JLabel("Align stashtab");
-		JButton alignButton = new JButton("Align Stash Tab Overlay");
+//		JLabel alignLabel = new JLabel("Align stashtab");
+//		JButton alignButton = new JButton("Align Stash Tab Overlay");
 
-		// JLabel
-
-//		stashOptions.add(alignLabel, gc);
-//		gc.gridx++;
-//		stashOptions.add(alignButton, gc);
-//		gc.gridx = 0;
-//		gc.gridy++;
-//
-//		JLabel autoLabel = new JLabel("Automatically add new stash tabs");
-//		JCheckBox autoCheckbox = new JCheckBox();
-//		stashOptions.add(autoLabel, gc);
-//		gc.gridx++;
-//		stashOptions.add(autoCheckbox, gc);
-//		gc.gridx = 0;
-//		gc.gridy++;
-
-		// this.addRow(new JLabel("TITLE"), gc);
-//		this.addRow(alignButton, gc);
-//		this.addRow(new BufferPanel(0, rowBuffer), gc);
 		this.addRow(new JLabel("Stash tabs only need to be added if you want to set colors or quad tabs"), gc);
 		this.addRow(new JLabel("Default white will use a randomized color like normal"), gc);
 		this.addRow(new BufferPanel(0, rowBuffer), gc);
 		this.addRow(addButton, gc);
 		this.addRow(rowScrollPane, gc);
 		
-		// this.addRow(buttonPanel, gc);
-
-		// this.addRow(c, gc);
-		alignButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FrameManager.stashOverlayWindow.setVisible(true);
-			}
-		});
+//		alignButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				FrameManager.stashOverlayWindow.setVisible(true);
+//			}
+//		});
 
 		addButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {

@@ -5,7 +5,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.FlavorEvent;
 import java.awt.datatransfer.FlavorListener;
-import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -13,6 +12,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.audio.AudioManager;
+import main.java.com.slimtrade.core.audio.Sound;
+import main.java.com.slimtrade.core.audio.SoundComponent;
+import main.java.com.slimtrade.core.utility.POEWindowInfo;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 
 public class ClipboardManager {
@@ -24,54 +27,19 @@ public class ClipboardManager {
 	private String previousText;
 	
 	public ClipboardManager() {
-		
 		clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-//		refreshListener();
-//		addListener();
-		try{
-			clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
-			clipboard.setContents(new StringSelection(""), null);
-		}catch(IllegalStateException | UnsupportedFlavorException | IOException err){
-			
+		try {
+			refreshFlavor();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		clipboard.addFlavorListener(new FlavorListener() {
-			public void flavorsChanged(FlavorEvent e) {
-				if(!Main.globalKeyboard.isControlPressed()){
-					Main.logger.log(Level.WARNING, "NO CONTROL KEY");
-					refreshFlavor();
-					return;
-				}else if(previousText != null && clipboardText.equals(previousText)){
-					previousText = null;
-					return;
-				}
-				boolean isText = false;
-//				System.out.println(clipboard.getData(DataFlavor.));
-				try {
-					clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
-					isText = true;
-				} catch (UnsupportedFlavorException | IOException err) {
-					
-				}catch (IllegalStateException err){
-					return;
-				}
-				if (clipboardText != null) {
-					previousText = clipboardText;
-					Matcher matcher = Pattern.compile(tradeMessageString).matcher(clipboardText);
-					if(matcher.matches()){
-						PoeInterface.pasteWithFocus(clipboardText);
-					}
-				}
-				if(isText){
-					refreshFlavor();
-				}
-			}
-		});
+		clipboard.addFlavorListener(new CustomFlavorListener());
 	}
 	
-	private void refreshFlavor(){
+	//TODO : This throws an error, not sure what triggers it
+	private void refreshFlavor() throws IOException{
 		try{
 			clipboard.setContents(clipboard.getContents(null), null);
-//			clipboard.setContents(new StringSelection(clipboardText), null);
 		}catch(IllegalStateException err){
 			
 		}
@@ -79,7 +47,62 @@ public class ClipboardManager {
 	
 	private class CustomFlavorListener implements FlavorListener{
 		public void flavorsChanged(FlavorEvent e) {
-
+			System.out.println("Flavor Changed!!");
+			POEWindowInfo poe = new POEWindowInfo();
+			if(!poe.getIsOpen() || !poe.getIsVisible()){
+				Main.logger.log(Level.WARNING, "POE is not visible");
+				try{
+					refreshFlavor();
+				}catch(IOException err){
+					err.printStackTrace();
+					AudioManager.playRaw(Sound.PING2, 0);
+				}
+				return;
+			}
+			if(!Main.globalKeyboard.isControlPressed()){
+				Main.logger.log(Level.WARNING, "NO CONTROL KEY");
+				try{
+					refreshFlavor();
+				}catch(IOException err){
+					err.printStackTrace();
+					AudioManager.playRaw(Sound.PING2, 0);
+				}
+				return;
+			}else if(previousText != null && clipboardText.equals(previousText)){
+				previousText = null;
+				try{
+					refreshFlavor();
+				}catch(IOException err){
+					err.printStackTrace();
+					AudioManager.playRaw(Sound.PING2, 0);
+				}
+				return;
+			}
+			boolean isText = false;
+//			System.out.println(clipboard.getData(DataFlavor.));
+			try {
+				clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
+				isText = true;
+			} catch (UnsupportedFlavorException | IOException err) {
+				
+			}catch (IllegalStateException err){
+				return;
+			}
+			if (clipboardText != null) {
+				previousText = clipboardText;
+				Matcher matcher = Pattern.compile(tradeMessageString).matcher(clipboardText);
+				if(matcher.matches()){
+					PoeInterface.pasteWithFocus(clipboardText);
+				}
+			}
+			if(isText){
+				try{
+					refreshFlavor();
+				}catch(IOException err){
+					err.printStackTrace();
+					AudioManager.play(SoundComponent.INCOMING_MESSAGE);
+				}
+			}
 		}
 	}
 

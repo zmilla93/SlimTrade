@@ -14,6 +14,7 @@ import com.sun.jna.Native;
 import com.sun.jna.PointerType;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.References;
 //import main.java.com.slimtrade.core.utility.User32;
 import main.java.com.slimtrade.core.utility.User32Custom;
 import com.sun.jna.platform.win32.User32;
@@ -56,20 +57,13 @@ public class PoeInterface extends Robot {
 			public void run() {
 				focus();
 				try {
-					Thread.sleep(1);
+					Thread.sleep(5);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-//				robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-//				try {
-//					Thread.sleep(5);
-//				} catch (InterruptedException e1) {
-//					e1.printStackTrace();
-//				}
-//				robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-				robot.mouseMove(100, 100);
-				robot.mousePress(InputEvent.BUTTON1_MASK);
-				robot.mouseRelease(InputEvent.BUTTON1_MASK);
+//				robot.mouseMove(100, 100);
+//				robot.mousePress(InputEvent.BUTTON1_MASK);
+//				robot.mouseRelease(InputEvent.BUTTON1_MASK);
 				PointerType hwnd = null;
 				byte[] windowText = new byte[512];
 				int i = 0;
@@ -79,7 +73,7 @@ public class PoeInterface extends Robot {
 					if (hwnd != null) {
 						User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 						curWindowTitle = Native.toString(windowText);
-						if(i>1000 || curWindowTitle.equals("Path of Exile")){
+						if(i>1000 || curWindowTitle.equals(References.POE_WINDOW_TITLE)){
 							break;
 						}
 					} else {
@@ -103,8 +97,7 @@ public class PoeInterface extends Robot {
 					robot.keyPress(KeyEvent.VK_ENTER);
 					robot.keyRelease(KeyEvent.VK_ENTER);
 				}else{
-					Main.logger.log(Level.WARNING, "BAD WINDOW");
-					Main.logger.log(Level.WARNING, curWindowTitle);
+					Main.logger.log(Level.WARNING, "Bad Window ::: " + curWindowTitle);
 				}
 			}
 		}).start();
@@ -117,15 +110,11 @@ public class PoeInterface extends Robot {
 		robot.keyPress(KeyEvent.VK_CONTROL);
 		robot.keyPress(KeyEvent.VK_F);
 		robot.keyRelease(KeyEvent.VK_F);
-		robot.keyRelease(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_CONTROL);
 		robot.keyPress(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_CONTROL);
 	}
 
-	// TODO: modify to remove lambda? or store it somewhere else if it will
-	// actually be reused
 	public static void focus() {
 		System.out.println("Focusing POE...");
 		User32.INSTANCE.EnumWindows((hWnd, arg1) -> {

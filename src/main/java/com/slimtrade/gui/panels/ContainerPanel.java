@@ -21,14 +21,14 @@ public class ContainerPanel extends JPanel {
 		this(defaultBorderSize);
 	}
 	
-	private ContainerPanel(int size){
+	private ContainerPanel(int borderSize){
 		container.setOpaque(false);
 		this.setBorder(defaultBorder);
 		this.setLayout(new BorderLayout());
-		this.add(new BufferPanel(0, size), BorderLayout.NORTH);
-		this.add(new BufferPanel(size, 0), BorderLayout.WEST);
-		this.add(new BufferPanel(0, size), BorderLayout.SOUTH);
-		this.add(new BufferPanel(size, 0), BorderLayout.EAST);
+		this.add(new BufferPanel(0, borderSize), BorderLayout.NORTH);
+		this.add(new BufferPanel(borderSize, 0), BorderLayout.WEST);
+		this.add(new BufferPanel(0, borderSize), BorderLayout.SOUTH);
+		this.add(new BufferPanel(borderSize, 0), BorderLayout.EAST);
 		this.add(container, BorderLayout.CENTER);
 	}
 		

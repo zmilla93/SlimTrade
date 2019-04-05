@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.gui.options;
+package main.java.com.slimtrade.gui.options.general;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -6,10 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.options.general.AdvancedPanel;
-import main.java.com.slimtrade.gui.options.general.AudioPanel;
-import main.java.com.slimtrade.gui.options.general.BasicsOptionsPanel;
-import main.java.com.slimtrade.gui.options.general.HistoryOptionsPanel;
+import main.java.com.slimtrade.gui.options.ISaveable;
+import main.java.com.slimtrade.gui.options.ToggleButton;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
 public class GeneralPanel extends ContainerPanel implements ISaveable {

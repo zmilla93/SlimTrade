@@ -13,6 +13,7 @@ import main.java.com.slimtrade.gui.components.TrayButton;
 import main.java.com.slimtrade.gui.history.HistoryWindow;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarExpandButton;
+import main.java.com.slimtrade.gui.messaging.MessageDialogManager;
 import main.java.com.slimtrade.gui.messaging.OLD_MessageManager;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
 import main.java.com.slimtrade.gui.scanner.ChatScannerWindow;
@@ -26,7 +27,7 @@ public class FrameManager {
 	public static HistoryWindow historyWindow;
 	public static MenubarDialog menubar;
 	public static MenubarExpandButton menubarToggle;
-	public static OLD_MessageManager messageManager;
+	public static MessageDialogManager messageManager;
 	public static StashHelperContainer stashHelperContainer;
 	public static StashOverlayWindow stashOverlayWindow;
 	// public static REMOVE_CharacterWindow characterWindow;
@@ -44,7 +45,7 @@ public class FrameManager {
 		historyWindow = new HistoryWindow();
 		menubar = new MenubarDialog();
 		menubarToggle = new MenubarExpandButton();
-		messageManager = new OLD_MessageManager();
+		messageManager = new MessageDialogManager();
 		overlayManager = new OverlayManager();
 		chatScannerWindow = new ChatScannerWindow();
 		// TODO : temp
@@ -57,17 +58,21 @@ public class FrameManager {
 		menubar.updateLocation();
 		menubarToggle.updateLocation();
 		menubar.reorder();
-		messageManager.updateLocation();
+//		messageManager.updateLocation();
+//		messageManager.ref
 		// menubar.showDialog();
 
 		// TODO : Cleanup
-		showHideDialogs = new HideableDialog[] { stashHelperContainer, optionsWindow, historyWindow, menubar, menubarToggle, messageManager, chatScannerWindow, };
+		
+		//TODO : ADD NEW MESSAGE MANAGER
+		showHideDialogs = new HideableDialog[] { stashHelperContainer, optionsWindow, historyWindow, menubar, menubarToggle, chatScannerWindow, };
 
-		forceFrames = new HideableDialog[] { stashHelperContainer, historyWindow, menubar, menubarToggle, messageManager, };
+		//TODO : ADD NEW MESSAGE MANAGER
+		forceFrames = new HideableDialog[] { stashHelperContainer, historyWindow, menubar, menubarToggle};
 
 		menuFrames = new HideableDialog[] { optionsWindow, historyWindow, chatScannerWindow };
 
-		messageManager.setShow(true);
+//		messageManager.setShow(true);
 		// optionsWindow.setShow(true);
 		menubar.setShow(true);
 

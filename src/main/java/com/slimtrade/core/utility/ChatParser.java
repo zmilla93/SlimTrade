@@ -130,7 +130,7 @@ public class ChatParser {
 //						System.out.println(curLine);
 						Main.debug.log(curLine);
 						TradeOffer trade = getTradeOffer(curLine);
-						if (trade != null && !FrameManager.messageManager.isDuplicateTrade(trade)) {
+						if (trade != null) {
 							FrameManager.messageManager.addMessage(trade);
 							FrameManager.historyWindow.addTrade(trade, true);
 							switch (trade.messageType) {

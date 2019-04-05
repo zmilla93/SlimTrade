@@ -2,7 +2,6 @@
 package main.java.com.slimtrade.gui.options;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -20,8 +19,8 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractResizableWindow;
-import main.java.com.slimtrade.gui.options.general.AdvancedPanel;
-import main.java.com.slimtrade.gui.options.general.AudioPanel;
+import main.java.com.slimtrade.gui.options.general.GeneralPanel;
+import main.java.com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
 import main.java.com.slimtrade.gui.options.macros.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
@@ -34,6 +33,7 @@ public class OptionsWindow extends AbstractResizableWindow {
 	JScrollPane scrollDisplay;
 	
 	JPanel menuPanel = new JPanel(new GridBagLayout());
+	JPanel menuPanelLower = new JPanel(new GridBagLayout());
 	
 	public OptionsWindow(){
 		super("Options");
@@ -41,11 +41,13 @@ public class OptionsWindow extends AbstractResizableWindow {
 		this.setFocusable(true);
 		container.setLayout(new BorderLayout());
 		JPanel menuBorder = new JPanel(new BorderLayout());
+//		JPanel menuBorderLower = new JPanel(new BorderLayout());
 		
 //		container.setBackground(Color.red);
 //		container.setBackground(Color.LIGHT_GRAY);
 		
 		menuBorder.add(menuPanel, BorderLayout.NORTH);
+		menuBorder.add(menuPanelLower, BorderLayout.SOUTH);
 		
 		
 		scrollDisplay = new JScrollPane(display);
@@ -77,35 +79,40 @@ public class OptionsWindow extends AbstractResizableWindow {
 		link(generalButton, generalPanel);
 		display.add(generalPanel, gc);
 		
-		JButton stashButton = new ListButton("Stash Tabs");
+		ListButton stashButton = new ListButton("Stash Tabs");
 		StashTabPanel stashPanel = new StashTabPanel();
 		link(stashButton, stashPanel);
 		display.add(stashPanel, gc);
 		
-		JButton incomingButton = new ListButton("Incoming Macros");
+		ListButton incomingButton = new ListButton("Incoming Macros");
 		IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
 		link(incomingButton, incomingPanel);
 		display.add(incomingPanel, gc);
 		
-		JButton outgoingButton = new ListButton("Outgoing Macros");
+		ListButton outgoingButton = new ListButton("Outgoing Macros");
 		OutgoingCustomizer outgoingPanel = new OutgoingCustomizer();
 		link(outgoingButton, outgoingPanel);
 		display.add(outgoingPanel, gc);
 		
-//		JButton audioButton = new ListButton("Audio");
-//		AudioPanel audioPanel = new AudioPanel();
-//		link(audioButton, audioPanel);
-//		display.add(audioPanel, gc);
+		ListButton ignoreButton = new ListButton("Ignore Items");
+		ItemIgnorePanel ignorePanel = new ItemIgnorePanel();
+		link(ignoreButton, ignorePanel);
+		display.add(ignorePanel, gc);
 		
-//		JButton advancedButton = new ListButton("Advanced");
-//		AdvancedPanel advancedPanel = new AdvancedPanel();
-//		link(advancedButton, advancedPanel);
-//		display.add(advancedPanel, gc);
 		
-		JButton contactButton = new ListButton("Contact");
-		ContactPanel contactPanel = new ContactPanel();
+		
+		JButton contactButton = new ListButton("Information");
+		InformationPanel contactPanel = new InformationPanel();
 		link(contactButton, contactPanel);
 		display.add(contactPanel, gc);
+		
+		
+		JButton updateButton = new ListButton("Check for Updates");
+//		InformationPanel updatePanel = new InformationPanel();
+//		link(updateButton, updatePanel);
+//		display.add(updatePanel, gc);
+		
+//		updateButton.removeAc
 		
 		//TODO : Remove stash
 		gc = new GridBagConstraints();
@@ -127,14 +134,16 @@ public class OptionsWindow extends AbstractResizableWindow {
 		gc.gridy++;
 		menuPanel.add(outgoingButton, gc);
 		gc.gridy++;
-//		menuPanel.add(audioButton, gc);
-//		gc.gridy++;
-//		menuPanel.add(advancedButton, gc);
-//		gc.gridy++;
+		menuPanel.add(ignoreButton, gc);
+		gc.gridy++;
 		menuPanel.add(contactButton, gc);
+		gc.gridy++;
 		
-		
-		
+		//Update Button
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.insets.bottom = 0;
+		menuPanelLower.add(updateButton, gc);
 		
 //		container.setLayout(new BorderLayout());
 		container.add(new BufferPanel(0,buffer), BorderLayout.NORTH);
@@ -144,8 +153,10 @@ public class OptionsWindow extends AbstractResizableWindow {
 		container.add(scrollDisplay, BorderLayout.CENTER);
 		
 		
-		generalPanel.setVisible(true);
-		generalButton.active = true;
+//		generalPanel.setVisible(true);
+//		generalButton.active = true;
+		ignorePanel.setVisible(true);
+		ignoreButton.active = true;
 		this.setMinimumSize(new Dimension(900,600));
 		this.refresh();
 		this.setMinimumSize(new Dimension(300,300));
@@ -181,6 +192,8 @@ public class OptionsWindow extends AbstractResizableWindow {
 			}
 		});
 		
+		this.setVisible(true);
+		
 	}
 	
 	//TODO : Make on press down?
@@ -211,12 +224,8 @@ public class OptionsWindow extends AbstractResizableWindow {
 	}
 	
 	public void refresh(){
-//		System.out.println("Refresh");
-//		display.setPreferredSize(null);
+
 		display.revalidate();
-//		display.setPreferredSize(display.getPreferredSize());
-//		scrollDisplay.setPreferredSize(null);
-//		scrollDisplay.setPreferredSize(scrollDisplay.getPreferredSize());
 		scrollDisplay.revalidate();
 		this.pack();
 		this.repaint();

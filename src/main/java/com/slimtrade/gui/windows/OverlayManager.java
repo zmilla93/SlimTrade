@@ -282,7 +282,8 @@ public class OverlayManager implements ISaveable {
 				FrameManager.menubarToggle.updateLocation();
 				FrameManager.menubar.reorder();
 				
-				FrameManager.messageManager.updateLocation();
+//				FrameManager.messageManager.updateLocation();
+				FrameManager.messageManager.setAnchorPoint(messageDialog.getLocation());
 				FrameManager.messageManager.setExpandDirection((ExpandDirection)msgPanelCombo.getSelectedItem());
 				
 				FrameManager.showVisibleFrames();

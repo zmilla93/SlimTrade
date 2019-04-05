@@ -5,16 +5,22 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import main.java.com.slimtrade.core.References;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class ContactPanel extends ContentPanel_REMOVE {
+public class InformationPanel extends ContentPanel_REMOVE {
 
 	private static final long serialVersionUID = 1L;
 
-	public ContactPanel(){
+	private final int buffer = 10;
+	
+	public InformationPanel(){
 		//TODO : Might need to change background color of text areas
 		super(false);
-		JLabel gitTitle = new JLabel("GitHub");
+		
+		JLabel versionLabel = new JLabel(References.APP_NAME + " v" + References.APP_VERSION);
+		
+		JLabel gitLabel = new JLabel("GitHub");
 		JTextField gitText = new JTextField("https://github.com/zmilla93/SlimTrade");
 		Dimension gitSize = gitText.getPreferredSize();
 		gitSize.width++;
@@ -35,29 +41,28 @@ public class ContactPanel extends ContentPanel_REMOVE {
 		JLabel info3 = new JLabel("Please read the github post before sending feedback to avoid redundancy.");
 		
 		gc.weightx = 1;
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.insets.bottom = buffer;
 		
-		this.add(gitTitle, gc);
+		gc.gridwidth = 2;
+		this.add(versionLabel, gc);
+		gc.gridwidth = 1;
+		gc.gridy++;
+		
+		this.add(gitLabel, gc);
 		gc.gridx = 1;
 		this.add(gitText, gc);
 		gc.gridx = 0;
 		gc.gridy++;
+		
+		gc.insets.bottom = 0;
 		this.add(emailTitle, gc);
 		gc.gridx = 1;
 		this.add(emailText, gc);
 		gc.gridx = 0;
 		gc.gridy++;
-		
-//		gc.gridwidth = 2;
-//		this.add(new BufferPanel(0, 10), gc);
-//		gc.gridy++;
-//		this.add(info1, gc);
-//		gc.gridy++;
-//		this.add(info2, gc);
-//		gc.gridy++;
-//		this.add(info3, gc);
-		
-		
-		
+
 		this.setBuffer(40, -1);
 		this.autoResize();
 		

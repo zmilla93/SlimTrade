@@ -48,7 +48,7 @@ public class OLD_MessageManager extends BasicDialog {
 		this.setBackground(ColorManager.CLEAR);
 		container = this.getContentPane();
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
-		this.expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
+		expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
 //		this.setModal(true);
 //		WindowUtils.setWindowTransparent(this, true);
 	}

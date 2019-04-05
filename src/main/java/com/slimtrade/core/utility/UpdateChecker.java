@@ -15,7 +15,9 @@ import main.java.com.slimtrade.core.Main;
 
 public class UpdateChecker {
 
-	private final String releases = "https://github.com/zmilla93/SlimTrade/releases/";
+	//TODO : Switch to /releases/latest with new versionMatchString in order to avoid detecting prereleases
+	
+	private final String releases = "https://github.com/zmilla93/SlimTrade/releases";
 	private final String versionMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
 
 	private ArrayList<String> versions = new ArrayList<String>();

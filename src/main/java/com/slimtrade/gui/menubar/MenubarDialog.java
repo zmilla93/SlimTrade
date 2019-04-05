@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,6 +11,9 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import javax.swing.JDialog;
+
+import com.sun.jna.platform.DesktopWindow;
+import com.sun.jna.platform.WindowUtils;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
@@ -123,15 +125,14 @@ public class MenubarDialog extends BasicDialog {
 				TradeOffer t5 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 7, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 				TradeOffer t6 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3, "chaos", 7, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 				TradeOffer t7 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+//				FrameManager.messageManager.addMessage(t);
+//				FrameManager.messageManager.addMessage(t2);
+//				FrameManager.messageManager.addMessage(t3);
+				for(DesktopWindow w : WindowUtils.getAllWindows(true)){
+					System.out.println(w.getTitle() + " ::: " + w.getLocAndSize());
+					
+				}
 				
-				FrameManager.messageManager.addMessage(t);
-				FrameManager.messageManager.addMessage(t2);
-				FrameManager.messageManager.addMessage(t3);
-//				FrameManager.messageManager.addMessage(t4);
-//				FrameManager.messageManager.addMessage(t5);
-//				FrameManager.messageManager.addMessage(t6);
-//				FrameManager.messageManager.addMessage(t7);
-				// FrameManager.historyWindow.setOrder(false);
 			}
 		});
 
@@ -151,14 +152,6 @@ public class MenubarDialog extends BasicDialog {
 				System.exit(0);
 			}
 		});
-
-		// TODO : Is there a way to avoid calling refresh here?
-//		minimizeButton.addMouseListener(new AdvancedMouseAdapter() {
-//			public void click(MouseEvent e) {
-//				FrameManager.menubarToggle.setShow(true);
-//				FrameManager.menubar.setShow(false);
-//			}
-//		});
 		
 		for(Component c : container.getComponents()){
 			System.out.println("adding listner");
@@ -170,13 +163,8 @@ public class MenubarDialog extends BasicDialog {
 		ResourceBundle lang = ResourceBundle.getBundle("lang");
 		optionsButton.setText(lang.getString("optionsButton"));
 		historyButton.setText(lang.getString("historyButton"));
-		// stashTabButton.setText(lang.getString("stashButton"));
-		// characterButton.setText(lang.getString("characterButton"));
 		testButton.setText(lang.getString("testButton"));
-		// clearButton.setText(lang.getString("clearDebugButton"));
-		// refreshButton.setText(lang.getString("refreshButton"));
 		quitButton.setText(lang.getString("quitButton"));
-//		minimizeButton.setText(lang.getString("minimizeButton"));
 	}
 
 	public void updateLocation() {
