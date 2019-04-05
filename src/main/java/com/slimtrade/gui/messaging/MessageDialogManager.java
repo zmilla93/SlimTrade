@@ -11,6 +11,7 @@ import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MessageType;
+import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.components.PanelWrapper;
 import main.java.com.slimtrade.gui.enums.ExpandDirection;
 
@@ -44,8 +45,8 @@ public class MessageDialogManager {
 			public void click(MouseEvent e){
 				if(e.getButton() == MouseEvent.BUTTON1){
 					System.out.println(wrapperList.indexOf(wrapper));
-					wrapperList.remove(wrapper);
-					wrapper.dispose();
+//					wrapperList.remove(wrapper);
+					removeMessage(wrapperList.indexOf(wrapper));
 					refreshPanelLocations();
 				}
 				else if (e.getButton() == MouseEvent.BUTTON3){
@@ -53,8 +54,6 @@ public class MessageDialogManager {
 				}
 			}
 		});
-
-//		System.out.println("SIZE : " + wrapperList.size());
 	}
 	
 	private void refreshPanelLocations(){
@@ -138,12 +137,23 @@ public class MessageDialogManager {
 		int max = wrapperList.size()-1;
 		for(i = max;i>=0;i--){
 			if(indexesToDelete.contains(i)){
-				wrapperList.get(i).dispose();
-				wrapperList.remove(i);
+				removeMessage(i);
 			}
 		}
 		//TODO : End Optimize
 		refreshPanelLocations();
+	}
+	
+	private void removeMessage(int index){
+		MessagePanel msgPanel = (MessagePanel) wrapperList.get(index).getPanel();
+		if (msgPanel.getMessageType() == MessageType.INCOMING_TRADE) {
+			if (msgPanel.getStashHelper() != null) {
+				FrameManager.stashHelperContainer.remove(msgPanel.getStashHelper());
+				FrameManager.stashHelperContainer.pack();
+			}
+		}
+		wrapperList.get(index).dispose();
+		wrapperList.remove(index);
 	}
 	
 	public void setExpandDirection(ExpandDirection dir){

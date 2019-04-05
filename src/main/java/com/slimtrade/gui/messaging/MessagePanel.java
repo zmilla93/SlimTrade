@@ -378,7 +378,6 @@ public class MessagePanel extends AbstractMessagePanel {
 		if (listeners) {
 			this.registerPoeInteractionButton(namePanel, ButtonType.NAME_PANEL);
 		}
-
 		// TODO : update force
 		this.setCloseButton(rowHeight);
 		buttonPanelTop.add(closeButton);
@@ -392,8 +391,6 @@ public class MessagePanel extends AbstractMessagePanel {
 		Dimension s = new Dimension(messageWidth, rowHeight);
 		topPanel.setPreferredSize(s);
 		bottomPanel.setPreferredSize(s);
-		// this.buttonCountTop = buttonsTop;
-		// this.buttonCountBottom = buttonsBottom;
 		Dimension buttonSizeTop = new Dimension(rowHeight * buttonCountTop, rowHeight);
 		Dimension buttonSizeBottom = new Dimension(rowHeight * buttonCountBottom, rowHeight);
 		buttonPanelTop.setPreferredSize(buttonSizeTop);

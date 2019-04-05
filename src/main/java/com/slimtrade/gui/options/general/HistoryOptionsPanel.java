@@ -35,7 +35,7 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable {
 		JLabel dateLabel = new JLabel("Date Format");
 		JLabel orderLabel = new JLabel("Order");
 		JLabel limitLabel = new JLabel("Message Limit");
-		JLabel limitInfoLabel = new JLabel("Message limit will not be applied until restart.");
+//		JLabel limitInfoLabel = new JLabel("Message limit will not be applied until restart.");
 
 		timeCombo.setFocusable(false);
 		dateCombo.setFocusable(false);

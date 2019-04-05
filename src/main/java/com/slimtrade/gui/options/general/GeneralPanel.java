@@ -26,13 +26,12 @@ public class GeneralPanel extends ContainerPanel implements ISaveable {
 		ToggleButton basicsButton = new ToggleButton("Basics", true);
 		ToggleButton historyButton = new ToggleButton("History", true);
 		ToggleButton audioButton = new ToggleButton("Audio", true);
-		ToggleButton advancedButton = new ToggleButton("Save Path");
+		ToggleButton advancedButton = new ToggleButton("Save Path", true);
 		
 		basicsPanel = new BasicsOptionsPanel();
 		historyPanel = new HistoryOptionsPanel();
 		audioPanel = new AudioPanel();
 		advancedPanel = new AdvancedPanel();
-		advancedPanel.setVisible(false);
 		
 		container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();

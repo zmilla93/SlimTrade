@@ -48,7 +48,8 @@ public class Main {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		debug.setState(Frame.ICONIFIED);
+//		debug.setState(Frame.ICONIFIED);
+		debug.setVisible(false);
 		loadingDialog = new LoadingDialog();
 
 

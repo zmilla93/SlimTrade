@@ -162,15 +162,6 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 		}
 		CustomMacroRow row = new CustomMacroRow();
 		customPanel.addPanel(row);
-		// this.autoResize();
-		// int i = i;
-		// JPanel local = this;
-//		row.getDeleteButton().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				row.markForDeletion();
-//			}
-//		});
-//		customCount++;
 		return row;
 	}
 
@@ -179,12 +170,6 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 	}
 
 	public void loadPresets() {
-		// callbackLeft.setText(Main.saveManager.getString("macros", "in",
-		// "preset", "callback", "left"));
-		// waitLeft.setText(Main.saveManager.getString("macros", "in", "preset",
-		// "wait", "left"));
-		// waitRight.setText(Main.saveManager.getString("macros", "in",
-		// "preset", "wait", "right"));
 		thankLeft.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "left"));
 		thankRight.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "right"));
 	}

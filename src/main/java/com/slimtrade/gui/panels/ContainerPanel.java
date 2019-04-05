@@ -14,7 +14,7 @@ public class ContainerPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public JPanel container = new JPanel();
-	private final static int defaultBorderSize = 10;
+	private static final int defaultBorderSize = 15;
 	private Border defaultBorder = BorderFactory.createLineBorder(Color.black);
 	
 	public ContainerPanel(){

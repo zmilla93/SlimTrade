@@ -8,6 +8,7 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import main.java.com.slimtrade.core.References;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.enums.PreloadedImage;
 
@@ -24,7 +25,7 @@ public class TrayButton {
 		final PopupMenu popup = new PopupMenu();
 
 		final MenuItem optionsButton = new MenuItem("Options");
-		final MenuItem exitButton = new MenuItem("Exit");
+		final MenuItem exitButton = new MenuItem("Exit " + References.APP_NAME);
 
 		popup.add(optionsButton);
 		popup.addSeparator();

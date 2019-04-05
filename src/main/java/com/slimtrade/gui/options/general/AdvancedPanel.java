@@ -28,14 +28,12 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable {
 				if (action == JFileChooser.APPROVE_OPTION) {
 					File clientFile = clientRow.getFileChooser().getSelectedFile();
 					String path = clientFile.getPath();
-					// clientRow.getPathLabel().setText(path);
 					clientRow.setText(path);
 				}
 			}
 		});
 
 		this.load();
-		// this.autoResize();
 	}
 
 	public void save() {

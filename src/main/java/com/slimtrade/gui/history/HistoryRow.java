@@ -66,15 +66,6 @@ public class HistoryRow extends JPanel {
 
 		this.setBackground(Color.RED);
 
-		// System.out.println(trade.date);
-
-		// LocalDate date = LocalDate.parse("2019-12-03",
-		// DateTimeFormatter.ISO_DATE);
-		// LocalDate date = LocalDate.parse(trade.date.replaceAll("/", "-"),
-		// DateTimeFormatter.ISO_DATE);
-		// DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd");
-		// String newDate = date.format(format);
-
 		datePanel = new HistoryCellPanel(trade.date);
 
 		// datePanel = new HistoryCellPanel(newDate);
@@ -137,6 +128,8 @@ public class HistoryRow extends JPanel {
 		});
 		this.updateDate();
 		this.updateTime();
+		
+		
 		// TODO : Switch to paint
 		// TODO : This wastes a ton of GPU
 		// refreshButton.addMouseListener(new MouseAdapter(){

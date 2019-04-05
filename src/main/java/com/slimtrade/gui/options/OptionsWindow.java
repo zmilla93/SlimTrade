@@ -182,6 +182,7 @@ public class OptionsWindow extends AbstractResizableWindow {
 //				stashPanel.load();
 				incomingPanel.revertChanges();
 				stashPanel.revertChanges();
+				ignorePanel.revertChanges();
 			}
 		});
 		
@@ -190,6 +191,7 @@ public class OptionsWindow extends AbstractResizableWindow {
 				generalPanel.save();
 				incomingPanel.save();
 				stashPanel.save();
+				ignorePanel.save();
 				Main.saveManager.saveToDisk();
 			}
 		});
