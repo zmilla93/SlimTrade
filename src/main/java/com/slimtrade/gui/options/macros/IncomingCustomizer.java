@@ -160,7 +160,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 		if (i == CUSTOM_MAX) {
 			return null;
 		}
-		CustomMacroRow row = new CustomMacroRow();
+		CustomMacroRow row = new CustomMacroRow(customPanel);
 		customPanel.addPanel(row);
 		return row;
 	}

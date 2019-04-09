@@ -14,14 +14,14 @@ import main.java.com.slimtrade.gui.messaging.MessagePanel;
 import main.java.com.slimtrade.gui.options.ContentPanel_REMOVE;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 
-public class CustomizerPanel extends ContentPanel_REMOVE {
+public class CHECKOLD_CustomizerPanel extends ContentPanel_REMOVE {
 
 	private static final long serialVersionUID = 1L;
 
 	private JLabel incomingLabel = new JLabel("Incoming Trade");
 	private JLabel outgoingLabel = new JLabel("Outgoing Trade");
 	
-	public CustomizerPanel() {
+	public CHECKOLD_CustomizerPanel() {
 		super(false);
 		//TODO : Colors
 		Random rng = new Random();
@@ -95,7 +95,7 @@ public class CustomizerPanel extends ContentPanel_REMOVE {
 		addRow(leavePreset, gc);
 
 		addRow(new BufferPanel(0,10), gc);
-		addRow(new CustomMacroRow(), gc);
+//		addRow(new CustomMacroRow(), gc);
 		addRow(new BufferPanel(0,10), gc);
 		
 		//OUTGOING

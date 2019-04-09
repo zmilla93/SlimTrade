@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.OLD_ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.gui.FrameManager;
@@ -54,10 +54,10 @@ public abstract class OLD_AbstractWindowDialog extends BasicMovableDialog {
 		this.setSize(defaultWidth, defaultHeight+titlebarHeight);
 		
 		titlebarPanel.setPreferredSize(new Dimension(defaultWidth-titlebarHeight, titlebarHeight));
-		titlebarPanel.setBackground(ColorManager.GenericWindow.titlebarBG);
+		titlebarPanel.setBackground(OLD_ColorManager.GenericWindow.titlebarBG);
 		
 		titlebarContainer.setPreferredSize(new Dimension(defaultWidth, titlebarHeight));
-		titlebarContainer.setBackground(ColorManager.GenericWindow.closeButtonBG);
+		titlebarContainer.setBackground(OLD_ColorManager.GenericWindow.closeButtonBG);
 		
 		JLabel titleLabel = new JLabel(title);
 		titlebarPanel.add(titleLabel);

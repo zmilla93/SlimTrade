@@ -5,7 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 
-import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.OLD_ColorManager;
 import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 
@@ -28,7 +28,7 @@ public class ItemHighlighter extends BasicDialog{
 		this.stashX = stashX;
 		this.stashY = stashY;
 		this.setVisible(false);
-		this.setBackground(ColorManager.CLEAR);
+		this.setBackground(OLD_ColorManager.CLEAR);
 		this.getRootPane().setBorder(BorderFactory.createLineBorder(color, 4, false));
 		this.setBounds(0-(int)gridWidth*2, 0, (int)gridWidth, (int)gridHeight);
 		this.setSize(new Dimension((int)gridWidth, (int)gridHeight));

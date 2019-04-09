@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.OLD_ColorManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 

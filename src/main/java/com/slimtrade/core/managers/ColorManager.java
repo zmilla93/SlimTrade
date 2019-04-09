@@ -2,104 +2,55 @@ package main.java.com.slimtrade.core.managers;
 
 import java.awt.Color;
 
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-
 public class ColorManager {
-		
-	public static Color CLEAR = new Color(0,0,0,0);
-	public static Color CLEAR_CLICKABLE = new Color(1.0f, 1.0f, 1.0f, 0.002f);
+
+	// Mutual Colors
+	public static Color PRMIARY = Color.ORANGE; // MAIN COLOR
+	public static Color GREEN = Color.GREEN; // APPROVE
+	public static Color RED = Color.RED; // DENY
+	public static Color ORANGE = Color.ORANGE; // ORANGE
+	public static Color INTERACTIVE = Color.BLUE; // INTERACTIVE
+	public static Color DISABLED = Color.GRAY; // DISABLED
 	
-	public static Color stashDarkText = new Color(53, 28, 13);
-	public static Color stashLightText = new Color(254, 192, 118);
-	
-	public static Color greenIncoming = new Color(0,100,0);
-	public static Color redOutgoing = new Color(100,0,0);
-	
-	public static Color modify(Color c, int mod){
-		int r = c.getBlue()+mod;
-		int g = c.getGreen()+mod;
-		int b = c.getRed()+mod;
-		return new Color(r,g,b);
+//	public static Color PRMIARY; // MAIN COLOR
+//	public static Color GREEN; // APPROVE
+//	public static Color RED; // DENY
+//	public static Color ORANGE; // ORANGE
+//	public static Color INTERACTIVE; // INTERACTIVE
+//	public static Color DISABLED; // DISABLED
+
+	// Exclusive Colors
+	public static Color BACKGROUND; // DARK/LIGHT THEME
+	public static Color LOW_CONSTRAST; // SUBTLE BACKGROUND
+	public static Color HIGH_CONSTRAST_1; // DEFINE WHITE/BLACK
+	public static Color HIGH_CONSTRAST_2; // LESSER WHITE/BLACK - CAN BE
+											// LIGHT/DARK THEME
+
+	public ColorManager() {
+//		NewColorManager.PRMIARY = Color.YELLOW;
+//		NewColorManager.GREEN = Color.GREEN;
+//		NewColorManager.RED = Color.RED;
+//		NewColorManager.ORANGE = Color.ORANGE;
+//		NewColorManager.INTERACTIVE = Color.BLUE;
+//		NewColorManager.DISABLED = Color.GRAY;
 	}
-	
-	public static class MsgWindow{
-		public static Color borderOuter;
-		public static Color borderInner;
-		public static Color panelBorder;
-		public static Color panelBorder_hover;
-		public static Color text;
-		public static Color text_hover;
-		public static Color buttonBG;
-		public static Color buttonBG_next;
-		public static Color buttonBG_completed;
-		public static Color buttonBG_hover;
-		public static Border buttonBorder;
-		public static Border buttonBorder_next;
-		public static Border buttonBorder_hover;
-		public static Color nameBG;
-		public static Color priceBG_in;
-		public static Color priceBG_out;
-		public static Color itemBG;
-	}
-	
-	public static class GenericWindow{
-		public static Color titlebarBG;
-		public static Color titlebarText;
-		public static Color closeButtonBG;
-		public static Color buttonBG;
-		public static Color buttonBG_hover;
-		public static Border buttonBorder;
-		public static Border buttonBorder_hover;
-	}
-	
-	public static class HistoryWindow{
-		public static Color buttonBG_active;
-		public static Color buttonBG_inactive;
-		public static Color buttonBG_hover;
-		public static Border buttonBorder_active;
-		public static Border buttonBorder_inactive;
-		public static Border buttonBorder_hover;
-	}
-	
-	public static void setMessageTheme(){
-		MsgWindow.borderOuter = new Color(40, 20, 0);
-		MsgWindow.borderInner = new Color(102, 53, 0);
-//		MsgWindow.panelBorder = new Color();
-//		MsgWindow.panelBorder_hover = new Color();
-		
-		MsgWindow.text = Color.WHITE;
-//		MsgWindow.text = new Color(197,179,88);
-		
-//		MsgWindow.text_hover = new Color();
-		MsgWindow.buttonBG = Color.LIGHT_GRAY;
-		MsgWindow.buttonBG_next = Color.WHITE;
-		MsgWindow.buttonBG_completed = Color.DARK_GRAY;
-		MsgWindow.buttonBG_hover = Color.WHITE;
-//		MsgWindow.buttonBorder = new Color();
-//		MsgWindow.buttonBorder_hover = new Color();
-		MsgWindow.nameBG = Color.GRAY;
-		MsgWindow.priceBG_in = new Color(0, 100, 0);
-		MsgWindow.priceBG_out = new Color(100, 0, 0);
-		MsgWindow.itemBG = Color.DARK_GRAY;
-		MsgWindow.buttonBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
-		MsgWindow.buttonBorder_next = BorderFactory.createLineBorder(Color.GREEN);
-		MsgWindow.buttonBorder_hover = BorderFactory.createLineBorder(Color.BLACK);
-				
-		GenericWindow.titlebarBG = Color.LIGHT_GRAY;
-		GenericWindow.closeButtonBG = Color.LIGHT_GRAY;
-		GenericWindow.titlebarText = Color.WHITE;
-		GenericWindow.buttonBG = Color.LIGHT_GRAY;
-		GenericWindow.buttonBG_hover = Color.WHITE;
-		GenericWindow.buttonBorder = BorderFactory.createRaisedSoftBevelBorder();
-		GenericWindow.buttonBorder_hover = BorderFactory.createRaisedSoftBevelBorder();
-		
-		HistoryWindow.buttonBG_active = Color.LIGHT_GRAY;
-		HistoryWindow.buttonBG_inactive = Color.GRAY;
-		HistoryWindow.buttonBG_hover = Color.WHITE;
-		HistoryWindow.buttonBorder_active = BorderFactory.createLoweredSoftBevelBorder();
-		HistoryWindow.buttonBorder_inactive = BorderFactory.createRaisedSoftBevelBorder();
-//		HistoryWindow.buttonBorder_active = BorderFactory.createLoweredSoftBevelBorder();
+
+	public static void setTheme(ColorTheme theme) {
+		switch (theme) {
+		default:
+		case DARK_THEME:
+			ColorManager.BACKGROUND = Color.BLACK;
+			ColorManager.LOW_CONSTRAST = Color.DARK_GRAY;
+			ColorManager.HIGH_CONSTRAST_1 = Color.WHITE;
+			ColorManager.HIGH_CONSTRAST_2 = Color.LIGHT_GRAY;
+			break;
+		case LIGHT_THEME:
+			ColorManager.BACKGROUND = Color.WHITE;
+			ColorManager.LOW_CONSTRAST = Color.LIGHT_GRAY;
+			ColorManager.HIGH_CONSTRAST_1 = Color.BLACK;
+			ColorManager.HIGH_CONSTRAST_2 = Color.DARK_GRAY;
+			break;
+		}
 	}
 
 }

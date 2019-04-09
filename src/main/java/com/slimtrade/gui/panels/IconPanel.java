@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.OLD_ColorManager;
 
 public class IconPanel extends JPanel {
 
@@ -54,7 +54,7 @@ public class IconPanel extends JPanel {
 //		Main.logger.log(Level.INFO, path);
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(size, size));
-		this.setBackground(ColorManager.CLEAR);
+		this.setBackground(OLD_ColorManager.CLEAR);
 		if (borderColor == null) {
 			this.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 		} else {

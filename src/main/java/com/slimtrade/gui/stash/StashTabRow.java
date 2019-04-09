@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.enums.StashTabType;
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.components.AddRemovePanel;
 import main.java.com.slimtrade.gui.components.RemovablePanel;
 
 public class StashTabRow extends RemovablePanel {
@@ -29,7 +30,8 @@ public class StashTabRow extends RemovablePanel {
 	private boolean delete;
 	private boolean newRow = true;
 	
-	public StashTabRow(){
+	public StashTabRow(AddRemovePanel parent){
+		super(parent);
 		this.setLayout(new GridBagLayout());
 //		this.setBackground(Color.YELLOW);
 		this.setPreferredSize(new Dimension(400, ROW_HEIGHT));

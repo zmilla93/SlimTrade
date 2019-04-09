@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.gui.options.ignore;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -10,10 +11,14 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.Timer;
 
+import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.SaveConstants;
 import main.java.com.slimtrade.gui.buttons.BasicButton;
 import main.java.com.slimtrade.gui.components.AddRemovePanel;
 import main.java.com.slimtrade.gui.enums.MatchType;
@@ -26,24 +31,21 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 	private static final long serialVersionUID = 1L;
 
 	private AddRemovePanel addRemovePanel = new AddRemovePanel();
-	
-	
-	
-	private final int defaultTime = 60;
-	
 	private JTextField itemText = new JTextField();
 	private JComboBox<MatchType> typeCombo = new JComboBox<MatchType>();
 	private SpinnerModel spinnerModel = new SpinnerNumberModel(60, 10, 120, 10);
 	private JSpinner timerSpinner = new JSpinner(spinnerModel);
 	private JButton addButton = new BasicButton("Ignore Item");
-//	private JButton addButton = new JButton("Ignore Item");
 	
-//	private JButton addButton = new BasicButton();
+//	private final 
 	
 	public ItemIgnorePanel(){
 		this.setVisible(false);
+//		this.setOpaque(false);
+//		container.setOpaque(false);
 		
 		JPanel entryPanel = new JPanel(new GridBagLayout());
+		entryPanel.setOpaque(false);
 		
 		JLabel itemLabel = new JLabel("Item Name");
 		JLabel typeLabel = new JLabel("Match Type");
@@ -52,7 +54,9 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 		for(MatchType type : MatchType.values()){
 			typeCombo.addItem(type);
 		}
-				
+		((DefaultEditor) timerSpinner.getEditor()).getTextField().setEditable(false);
+		((DefaultEditor) timerSpinner.getEditor()).getTextField().setHighlighter(null);
+		
 		container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
@@ -101,14 +105,14 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 		container.add(addRemovePanel, gc);
 		gc.gridy++;
 		
+		AddRemovePanel local = addRemovePanel;
 		addButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				addRemovePanel.addPanel(new IgnoreRow(itemText.getText(), (MatchType)typeCombo.getSelectedItem(), (int)timerSpinner.getValue()));
+				addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(itemText.getText(), (MatchType)typeCombo.getSelectedItem(), (int)timerSpinner.getValue()), local));
 			}
 		});
-		
-		System.out.println(addButton.getPreferredSize());
-		
+
+		System.out.println(Main.saveManager.getSaveDirectory());
 	}
 	
 	public void revertChanges(){
@@ -119,6 +123,15 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 	public void save() {
 		//TODO : Saving
 		addRemovePanel.saveChanges();
+		int index = 0;
+		for(Component c : addRemovePanel.getComponents()){
+			if(c instanceof IgnoreRow){
+				IgnoreRow row = (IgnoreRow) c;
+//				IgnoreData data = row.getIgnoreData();
+				Main.saveManager.putObject("TEST", SaveConstants.appendedPath(SaveConstants.IgnoreItems.ignore, ("item" + index)));
+			}
+			index++;
+		}
 	}
 
 	@Override

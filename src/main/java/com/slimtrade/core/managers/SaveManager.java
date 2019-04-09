@@ -20,7 +20,10 @@ public class SaveManager {
 	private String clientDirectory;
 	private String clientPath;
 	private String savePath;
-
+	
+	boolean validClientPath = false;
+	boolean validSavePath = false;
+	
 	// Stubs
 	private final String folderWin = "SlimTrade";
 	private final String folderOther = ".slimtrade";
@@ -39,7 +42,7 @@ public class SaveManager {
 	private BufferedReader br;
 	private FileWriter fw;
 
-	boolean validClientPath = false;
+	
 
 	private boolean log = false;
 	
@@ -58,6 +61,9 @@ public class SaveManager {
 		File saveDir = new File(saveDirectory);
 		if (!saveDir.exists()) {
 			saveDir.mkdirs();
+		}
+		if(saveDir.exists()){
+			validSavePath = true;
 		}
 		initSave();
 
@@ -378,6 +384,14 @@ public class SaveManager {
 			}
 		}
 		curArr.remove(keys[keys.length - 1]);
+	}
+	
+	public boolean isValidSavePath(){
+		return validSavePath;
+	}
+	
+	public String getSaveDirectory(){
+		return this.saveDirectory;
 	}
 
 	public boolean isValidClientPath() {

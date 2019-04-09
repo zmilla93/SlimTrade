@@ -22,6 +22,9 @@ public class ContainerPanel extends JPanel {
 	}
 	
 	private ContainerPanel(int borderSize){
+		
+		this.setBackground(ColorManager.HIGH_CONSTRAST_1);
+//		container.setOpaque(false);
 		container.setOpaque(false);
 		this.setBorder(defaultBorder);
 		this.setLayout(new BorderLayout());

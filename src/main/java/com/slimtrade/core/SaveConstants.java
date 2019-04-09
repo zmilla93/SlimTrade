@@ -21,12 +21,32 @@ public class SaveConstants {
 		public static final String[] TIME_STYLE = {};
 	}
 	
+	public static class IgnoreItems{
+		public static final String[] ignore = {"ignoreItems"};
+	}
+	
 	public static class Macros{
 		public static final String test = "cool";
 	}
 	
 	public static class StashTabs{
 		public static final String basePath[] = {"stashTabs"};
+	}
+	
+	public static String[] appendedPath(String[] inputArray, String appendString){
+		String[] newArray = new String[inputArray.length+1];
+		int i = 0;
+		for(String s : inputArray){
+			newArray[i] = inputArray[i];
+			i++;
+		}
+		newArray[i] = appendString;
+		//TODO : REMOVE
+		System.out.println("NEW ARRAY : ");
+		for(String s : newArray){
+			System.out.println("\t" + s);
+		}
+		return newArray;
 	}
 	
 }

@@ -11,16 +11,17 @@ public class TradeUtility {
 
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-//	public static String getFixedCurrencyString(String input) {
-//		String[] currency = { "alch", "chaos", "ex" };
-//		String fixedString = input.replaceAll("\\s", "").replaceAll("(?i)(orb|of)", "");
-//		for (String s : currency) {
-//			if (fixedString.toLowerCase().matches(s + ".*")) {
-//				return s;
-//			}
-//		}
-//		return input;
-//	}
+	// public static String getFixedCurrencyString(String input) {
+	// String[] currency = { "alch", "chaos", "ex" };
+	// String fixedString = input.replaceAll("\\s",
+	// "").replaceAll("(?i)(orb|of)", "");
+	// for (String s : currency) {
+	// if (fixedString.toLowerCase().matches(s + ".*")) {
+	// return s;
+	// }
+	// }
+	// return input;
+	// }
 
 	public static String getFixedItemName(String item, double count, boolean paren) {
 		String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");
@@ -33,8 +34,8 @@ public class TradeUtility {
 
 	public static String getFixedDouble(double num, boolean paren) {
 		String fixedDouble = String.valueOf(num).replaceAll("[.,]0", "");
-		if(paren){
-			fixedDouble = "("+ fixedDouble + ")";
+		if (paren) {
+			fixedDouble = "(" + fixedDouble + ")";
 		}
 		return fixedDouble;
 	}
@@ -48,65 +49,70 @@ public class TradeUtility {
 				if (tag == "") {
 					break;
 				}
-				for(int i = 0;i<terms.length;i++){
-					if(terms[i].equals(tag)){
+				for (int i = 0; i < terms.length; i++) {
+					if (terms[i].equals(tag)) {
 						return type;
 					}
 				}
-				
+
 			}
 		}
 		return null;
 	}
-	
-	public static int getAudioPercent(float f){
-		f = f+AudioManager.RANGE-AudioManager.MAX_VOLUME;
-		int i = (int)((f/AudioManager.RANGE)*100);
+
+	public static int getAudioPercent(float f) {
+		f = f + AudioManager.RANGE - AudioManager.MAX_VOLUME;
+		int i = (int) ((f / AudioManager.RANGE) * 100);
 		return i;
 	}
-	
-	public static float getAudioVolume(int i){
-		float f = (float) ((AudioManager.RANGE/100.0)*(float)(i));
-		return f-AudioManager.RANGE+AudioManager.MAX_VOLUME;
+
+	public static float getAudioVolume(int i) {
+		float f = (float) ((AudioManager.RANGE / 100.0) * (float) (i));
+		return f - AudioManager.RANGE + AudioManager.MAX_VOLUME;
 	}
-	
-	public static String cleanItemName(String input){
-		if(input == null){
+
+	public static String cleanItemName(String input) {
+		if (input == null) {
 			return null;
 		}
 		System.out.println("INPUT : " + input);
 		String cleanString = input.replaceAll("(?i)superior( )?", "").replaceAll("( )?\\(.+\\)", "");
 		return cleanString;
 	}
-	
-//	public static ExpandDirection getExpandDirection(String input){
-//		for(ExpandDirection dir : ExpandDirection.values()){
-//			if(dir.toString().equals(input)){
-//				return dir;
-//			}
-//		}
-//		return null;
-//	}
-	
-//	public static MenubarButtonLocation getMenubarButtonLocation(String input){
-//		for(MenubarButtonLocation location : MenubarButtonLocation.values()){
-//			if(location.getText().equals(input)){
-//				return location;
-//			}
-//		}
-//		return null;
-//	}
+
+	public static int intWithinRange(int value, int min, int max) {
+		return Math.min(Math.max(value, min), max);
+	}
+
+	// public static ExpandDirection getExpandDirection(String input){
+	// for(ExpandDirection dir : ExpandDirection.values()){
+	// if(dir.toString().equals(input)){
+	// return dir;
+	// }
+	// }
+	// return null;
+	// }
+
+	// public static MenubarButtonLocation getMenubarButtonLocation(String
+	// input){
+	// for(MenubarButtonLocation location : MenubarButtonLocation.values()){
+	// if(location.getText().equals(input)){
+	// return location;
+	// }
+	// }
+	// return null;
+	// }
 
 	// TODO : check more stuff?
 	// TODO : THIS THROWS AN ERROR IF A VALUE IS NULL
 	// TODO : Add chat scanner messages
 	public static boolean isDuplicateTrade(TradeOffer trade1, TradeOffer trade2) {
-		try{
+		try {
 			final int checkCount = 6;
 			int check = 0;
 			if (trade1.messageType.equals(trade2.messageType)) {
 				check++;
-			}else{
+			} else {
 				return false;
 			}
 			if (trade1.playerName.equals(trade2.playerName)) {
@@ -128,7 +134,7 @@ public class TradeUtility {
 				return true;
 			}
 			return false;
-		}catch(NullPointerException e){
+		} catch (NullPointerException e) {
 			return false;
 		}
 

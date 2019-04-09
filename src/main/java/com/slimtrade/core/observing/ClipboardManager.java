@@ -52,10 +52,11 @@ public class ClipboardManager {
 			if(!poe.getIsOpen() || !poe.getIsVisible()){
 				Main.logger.log(Level.WARNING, "POE is not visible");
 				try{
+					//TODO : ERROR IS THROWN HERE
 					refreshFlavor();
 				}catch(IOException err){
-					err.printStackTrace();
 					AudioManager.playRaw(Sound.PING2, 0);
+					err.printStackTrace();
 				}
 				return;
 			}

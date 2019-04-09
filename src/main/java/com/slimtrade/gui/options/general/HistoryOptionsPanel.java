@@ -42,6 +42,7 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable {
 		orderCombo.setFocusable(false);
 		limitSpinner.setFocusable(false);
 		((DefaultEditor) limitSpinner.getEditor()).getTextField().setEditable(false);
+		((DefaultEditor) limitSpinner.getEditor()).getTextField().setHighlighter(null);
 
 		for (TimeStyle s : TimeStyle.values()) {
 			timeCombo.addItem(s);

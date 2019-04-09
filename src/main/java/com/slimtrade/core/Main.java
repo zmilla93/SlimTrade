@@ -1,7 +1,6 @@
 package main.java.com.slimtrade.core;
 
 import java.awt.AWTException;
-import java.awt.Frame;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,8 +10,10 @@ import javax.swing.SwingUtilities;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
-import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.OLD_ColorManager;
+import main.java.com.slimtrade.core.managers.ColorTheme;
 import main.java.com.slimtrade.core.managers.DefaultManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.managers.SaveManager;
 import main.java.com.slimtrade.core.observing.ClipboardManager;
 import main.java.com.slimtrade.core.observing.EventManager;
@@ -21,10 +22,8 @@ import main.java.com.slimtrade.core.observing.GlobalMouseListener;
 import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
-import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.UpdateChecker;
 import main.java.com.slimtrade.debug.Debugger;
-import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.dialogs.LoadingDialog;
@@ -57,11 +56,15 @@ public class Main {
 		logger.setLevel(Level.WARNING);
 		logger.setUseParentHandlers(false);
 
-		ColorManager.setMessageTheme();
+		OLD_ColorManager.setMessageTheme();
 		
 		// POE Interface
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				
+				ColorManager.setTheme(ColorTheme.DARK_THEME);
+//				ColorManager.setTheme(ColorTheme.LIGHT_THEME);
+				
 				Locale.setDefault(Locale.US);
 				
 				//TODO : Remove image preloader
@@ -101,7 +104,7 @@ public class Main {
 				GlobalScreen.addNativeKeyListener(globalKeyboard);
 				
 				//Clipboard listener for fast paste
-				ClipboardManager clipboardManager = new ClipboardManager();
+				ClipboardManager clipboard = new ClipboardManager();
 
 			}
 		});

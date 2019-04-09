@@ -71,7 +71,7 @@ public class StashTabPanel extends ContainerPanel implements ISaveable {
 	}
 
 	private StashTabRow addNewRow() {
-		StashTabRow row = new StashTabRow();
+		StashTabRow row = new StashTabRow(rowContainer);
 		rowContainer.addPanel(row);
 //		gcRow.gridy++;
 //		row.getDeleteButton().addMouseListener(new AdvancedMouseAdapter() {

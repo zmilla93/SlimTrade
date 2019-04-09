@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.OLD_ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
 import main.java.com.slimtrade.core.utility.TradeOffer;
@@ -153,9 +154,9 @@ public class MessagePanel extends AbstractMessagePanel {
 		Color colorText = null;
 
 		// COLORS
-		container.setBackground(Color.BLACK);
-		this.setBackground(Color.BLACK);
-		borderPanel.setBackground(Color.CYAN);
+//		container.setBackground(Color.blue);
+		this.setBackground(ColorManager.BACKGROUND);
+//		borderPanel.setBackground(Color.);
 
 		switch (trade.messageType) {
 		case CHAT_SCANNER:
@@ -165,14 +166,14 @@ public class MessagePanel extends AbstractMessagePanel {
 		case INCOMING_TRADE:
 			Random rand = new Random();
 			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
-			// color = StashTabColor.ONE.getBackground();
-			colorText = ColorManager.stashDarkText;
-			// TODO : Move to tradeOffer
+			colorText = OLD_ColorManager.stashDarkText;
+			boolean stashFound = false;
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
 				while (Main.saveManager.hasEntry("stashTabs", "tab" + i)) {
 					if (Main.saveManager.getString("stashTabs", "tab" + i, "text").equals(trade.stashtabName)) {
 						Main.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
+						stashFound = true;
 						StashTabColor stashColor = StashTabColor.valueOf(Main.saveManager.getEnumValue(StashTabColor.class, "stashTabs", "tab" + i, "color"));
 						StashTabType type = StashTabType.valueOf(Main.saveManager.getEnumValue(StashTabType.class, "stashTabs", "tab" + i, "type"));
 						trade.stashType = type;
@@ -185,25 +186,21 @@ public class MessagePanel extends AbstractMessagePanel {
 					i++;
 				}
 			}
-
 			itemPanel.backgroudDefault = color;
 			itemLabel.setForeground(colorText);
 			itemPanel.refresh();
 			stashHelper = new StashHelper(trade, color, colorText);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.add(stashHelper);
-			borderPanel.setBackground(ColorManager.greenIncoming);
-			pricePanel.setBackground(ColorManager.greenIncoming);
-			priceLabel.setForeground(ColorManager.stashLightText);
-			// System.out.println(itemPanel.getForeground());
+			borderPanel.setBackground(ColorManager.GREEN);
+			pricePanel.setBackground(ColorManager.GREEN);
+			priceLabel.setForeground(OLD_ColorManager.stashLightText);
 			break;
 		case OUTGOING_TRADE:
 			itemPanel.backgroudDefault = Color.GRAY;
-			// System.out.println(itemPanel.getForeground());
-			// borderPanel.setBackground(StashTabColor.ONE.getBackground());
-			borderPanel.setBackground(ColorManager.redOutgoing);
-			pricePanel.setBackground(ColorManager.redOutgoing);
-			priceLabel.setForeground(ColorManager.stashLightText);
+			borderPanel.setBackground(ColorManager.RED);
+			pricePanel.setBackground(ColorManager.RED);
+			priceLabel.setForeground(OLD_ColorManager.stashLightText);
 			break;
 		case UNKNOWN:
 			break;

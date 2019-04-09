@@ -22,6 +22,8 @@ public class POEWindowInfo {
 	
 	public POEWindowInfo(){
 		Rectangle r = null;
+		//TODO : Throws Invalid Window Handle sometimes?
+		//		JNA / WindowUtils error
 		for(DesktopWindow w : WindowUtils.getAllWindows(true)){
 			if(w.getTitle().equals(References.POE_WINDOW_TITLE)){
 				isOpen = true;
@@ -40,7 +42,6 @@ public class POEWindowInfo {
 				centerPoint = new Point(x+width/2, y+height/2);
 			}
 		}
-		System.out.println("CENTER : " + centerPoint);
 	}
 	
 	public boolean getIsOpen(){

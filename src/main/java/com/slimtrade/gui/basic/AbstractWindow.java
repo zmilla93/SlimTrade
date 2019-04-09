@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.enums.PreloadedImage;
@@ -31,7 +32,7 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 	protected IconButton closeButton;
 	protected Container contentPane = this.getContentPane();
 
-	private Color borderColor = Color.orange;
+	private Color borderColor = ColorManager.PRMIARY;
 	
 	private GridBagConstraints gc = new GridBagConstraints();
 
@@ -44,7 +45,7 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 		contentPane.setBackground(borderColor);
 		titlebarPanel.setBackground(borderColor);
 		center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, borderColor));
-		center.setBackground(Color.blue);
+		center.setBackground(Color.CYAN);
 
 		titlebarPanel.setLayout(new BorderLayout());
 		center.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));

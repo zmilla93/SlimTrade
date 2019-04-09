@@ -6,12 +6,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import main.java.com.slimtrade.gui.buttons.IconButton;
+import main.java.com.slimtrade.gui.components.AddRemovePanel;
 import main.java.com.slimtrade.gui.components.RemovablePanel;
 import main.java.com.slimtrade.gui.enums.ButtonRow;
 import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
@@ -32,7 +32,8 @@ public class CustomMacroRow extends RemovablePanel {
 //	private boolean unsaved = true;
 //	private boolean delete;
 
-	public CustomMacroRow() {
+	public CustomMacroRow(AddRemovePanel parent) {
+		super(parent);
 		this.setBackground(Color.GRAY);
 		this.setLayout(new GridBagLayout());
 		setRemoveButton(removeButton);
