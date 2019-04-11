@@ -13,7 +13,6 @@ import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
 import main.java.com.slimtrade.core.managers.ColorManager;
 
 public class BasicButton extends JButton {
@@ -25,7 +24,8 @@ public class BasicButton extends JButton {
 	private static Border borderDefault;
 	private static Border borderRollover;
 
-	private Color mainColor = ColorManager.PRMIARY;
+	protected Color mainColor = ColorManager.PRMIARY;
+	protected Color secondaryColor = ColorManager.BACKGROUND;
 	
 	public BasicButton() {
 		this.model = this.getModel();
@@ -79,11 +79,11 @@ public class BasicButton extends JButton {
 		}
 		//FILL
 		if(model.isPressed() && model.isRollover()){
-			g2.setPaint(OLD_ColorManager.modify(mainColor, 75));
+			g2.setPaint(ColorManager.PRMIARY);
 		}else if(model.isPressed() && !model.isRollover()){
 			g2.setPaint(Color.LIGHT_GRAY);
 		}else{
-			g2.setPaint(new GradientPaint(new Point(0, 0), Color.WHITE, new Point(0, getHeight()), mainColor));
+			g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), mainColor));
 		}
 		g2.fillRect(0, 0, getWidth(), getHeight());
 		g2.dispose();

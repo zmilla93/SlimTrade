@@ -21,7 +21,7 @@ public class GeneralPanel extends ContainerPanel implements ISaveable {
 	
 	public GeneralPanel(){
 		this.setVisible(false);
-		this.setBorder(null);
+//		this.setBorder(null);
 		
 		ToggleButton basicsButton = new ToggleButton("Basics", true);
 		ToggleButton historyButton = new ToggleButton("History", true);

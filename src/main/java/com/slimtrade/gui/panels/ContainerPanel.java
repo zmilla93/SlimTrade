@@ -23,9 +23,10 @@ public class ContainerPanel extends JPanel {
 	
 	private ContainerPanel(int borderSize){
 		
-		this.setBackground(ColorManager.HIGH_CONSTRAST_1);
+		this.setBackground(ColorManager.BACKGROUND);
 //		container.setOpaque(false);
 		container.setOpaque(false);
+//		container.setBorder(BorderFactory.createLineBorder(Color.RED));
 		this.setBorder(defaultBorder);
 		this.setLayout(new BorderLayout());
 		this.add(new BufferPanel(0, borderSize), BorderLayout.NORTH);

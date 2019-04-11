@@ -12,9 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.audio.AudioManager;
-import main.java.com.slimtrade.core.audio.Sound;
-import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.core.utility.POEWindowInfo;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 
@@ -22,87 +19,59 @@ public class ClipboardManager {
 
 	private Clipboard clipboard;
 	private String clipboardText;
-	private static boolean ignore = false;
-	public final static String tradeMessageString = "@(<.+> )?(.+) ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
 	private String previousText;
 	
+	private int count = 0;
+
+	public final static String tradeMessageString = "@(<.+> )?(.+) ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
+
 	public ClipboardManager() {
 		clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		try {
-			refreshFlavor();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		clipboard.addFlavorListener(new CustomFlavorListener());
 	}
-	
-	//TODO : This throws an error, not sure what triggers it
-	private void refreshFlavor() throws IOException{
-		try{
-			clipboard.setContents(clipboard.getContents(null), null);
-		}catch(IllegalStateException err){
-			
-		}
-	}
-	
-	private class CustomFlavorListener implements FlavorListener{
+
+	private class CustomFlavorListener implements FlavorListener {
 		public void flavorsChanged(FlavorEvent e) {
-			System.out.println("Flavor Changed!!");
+			count++;
+			System.out.println("Flavor Changed : " + count);
+			boolean valid = true;
+			// Ignore if POE is not visible
 			POEWindowInfo poe = new POEWindowInfo();
-			if(!poe.getIsOpen() || !poe.getIsVisible()){
+			if (!poe.getIsOpen() || !poe.getIsVisible()) {
 				Main.logger.log(Level.WARNING, "POE is not visible");
-				try{
-					//TODO : ERROR IS THROWN HERE
-					refreshFlavor();
-				}catch(IOException err){
-					AudioManager.playRaw(Sound.PING2, 0);
-					err.printStackTrace();
-				}
-				return;
+				valid = false;
 			}
-			if(!Main.globalKeyboard.isControlPressed()){
-				Main.logger.log(Level.WARNING, "NO CONTROL KEY");
-				try{
-					refreshFlavor();
-				}catch(IOException err){
-					err.printStackTrace();
-					AudioManager.playRaw(Sound.PING2, 0);
-				}
-				return;
-			}else if(previousText != null && clipboardText.equals(previousText)){
-				previousText = null;
-				try{
-					refreshFlavor();
-				}catch(IOException err){
-					err.printStackTrace();
-					AudioManager.playRaw(Sound.PING2, 0);
-				}
-				return;
+			// Ignore if control is not being pressed
+			if (!Main.globalKeyboard.isControlPressed()) {
+				Main.logger.log(Level.WARNING, "Control key not pressed");
+				valid = false;
 			}
-			boolean isText = false;
-//			System.out.println(clipboard.getData(DataFlavor.));
+			// Ignore non-strings and duplicates
 			try {
 				clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
-				isText = true;
-			} catch (UnsupportedFlavorException | IOException err) {
-				
-			}catch (IllegalStateException err){
-				return;
+				if (clipboardText.equals(previousText)) {
+					Main.logger.log(Level.WARNING, "Ignoring duplicate");
+					previousText = null;
+					valid = false;
+				}else{
+					previousText = clipboardText;
+				}
+			} catch (UnsupportedFlavorException | IOException | IllegalStateException err) {
+				valid = false;
 			}
-			if (clipboardText != null) {
-				previousText = clipboardText;
+			if (valid) {
+				System.out.println("Valid...");
 				Matcher matcher = Pattern.compile(tradeMessageString).matcher(clipboardText);
-				if(matcher.matches()){
+				if (matcher.matches()) {
 					PoeInterface.pasteWithFocus(clipboardText);
 				}
 			}
-			if(isText){
-				try{
-					refreshFlavor();
-				}catch(IOException err){
-					err.printStackTrace();
-					AudioManager.play(SoundComponent.INCOMING_MESSAGE);
-				}
+			// Refresh
+			// TODO : Throws IOException
+			try {
+				clipboard.setContents(clipboard.getContents(null), null);
+			} catch (IllegalStateException err) {
+
 			}
 		}
 	}

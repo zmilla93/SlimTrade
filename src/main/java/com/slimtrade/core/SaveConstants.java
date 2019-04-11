@@ -22,7 +22,10 @@ public class SaveConstants {
 	}
 	
 	public static class IgnoreItems{
-		public static final String[] ignore = {"ignoreItems"};
+		public static final String[] base = {"ignoreItems"};
+		public static final String[] itemName = {"ignoreItems", null, "itemName", "item"};
+		public static final String[] matchType = {"ignoreItems", null, "matchType", "item"};
+		public static final String[] expireTime = {"ignoreItems", null, "expireTime", "item"};
 	}
 	
 	public static class Macros{
@@ -45,6 +48,23 @@ public class SaveConstants {
 		System.out.println("NEW ARRAY : ");
 		for(String s : newArray){
 			System.out.println("\t" + s);
+		}
+		return newArray;
+	}
+	
+	public static String[] numeredPath(String[] inputArray, int num){
+		String[] newArray = new String[inputArray.length-1];
+		int i = 0;
+		for(String s : inputArray){
+			if(s == null){
+				newArray[i] = inputArray[inputArray.length-1] + num;
+			}else{
+				newArray[i] = s;
+			}
+			if(i == newArray.length-1){
+				break;
+			}
+			i++;
 		}
 		return newArray;
 	}

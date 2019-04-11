@@ -7,7 +7,7 @@ import java.awt.Point;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 
 public class StashGridPanel extends JPanel {
 	
@@ -17,7 +17,7 @@ public class StashGridPanel extends JPanel {
 	private int gridCellCount = 12;
 	
 	public StashGridPanel(){
-		this.setBackground(OLD_ColorManager.CLEAR);
+		this.setBackground(ColorManager.CLEAR);
 		this.setBorder(BorderFactory.createLineBorder(lineColor));
 //		this.setBackground(Color);
 	}

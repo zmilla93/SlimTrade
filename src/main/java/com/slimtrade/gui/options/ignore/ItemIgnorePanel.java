@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,7 +17,6 @@ import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.Timer;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.SaveConstants;
@@ -36,40 +37,39 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 	private SpinnerModel spinnerModel = new SpinnerNumberModel(60, 10, 120, 10);
 	private JSpinner timerSpinner = new JSpinner(spinnerModel);
 	private JButton addButton = new BasicButton("Ignore Item");
-	
-//	private final 
-	
-	public ItemIgnorePanel(){
+
+	//TODO : Impose max
+	private final int MAX_IGNORE_COUNT = 40;
+
+	public ItemIgnorePanel() {
 		this.setVisible(false);
-//		this.setOpaque(false);
-//		container.setOpaque(false);
-		
+
 		JPanel entryPanel = new JPanel(new GridBagLayout());
 		entryPanel.setOpaque(false);
-		
+
 		JLabel itemLabel = new JLabel("Item Name");
 		JLabel typeLabel = new JLabel("Match Type");
 		JLabel timerLabel = new JLabel("Minutes");
-		
-		for(MatchType type : MatchType.values()){
+
+		for (MatchType type : MatchType.values()) {
 			typeCombo.addItem(type);
 		}
 		((DefaultEditor) timerSpinner.getEditor()).getTextField().setEditable(false);
 		((DefaultEditor) timerSpinner.getEditor()).getTextField().setHighlighter(null);
-		
+
 		container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-		
+
 		gc.insets.left = 10;
 		gc.insets.right = 10;
-		
-		//Entry Panel
+
+		// Entry Panel
 		gc.gridx = 1;
 		entryPanel.add(new BufferPanel(200, 0), gc);
 		gc.gridy++;
-		
+
 		entryPanel.add(itemLabel, gc);
 		gc.gridx++;
 		entryPanel.add(typeLabel, gc);
@@ -77,7 +77,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 		entryPanel.add(timerLabel, gc);
 		gc.gridx = 0;
 		gc.gridy++;
-		
+
 		entryPanel.add(addButton, gc);
 		gc.gridx++;
 		gc.fill = GridBagConstraints.BOTH;
@@ -88,47 +88,52 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 		entryPanel.add(timerSpinner, gc);
 		gc.gridx = 0;
 		gc.gridy++;
-		
-		//Reset gc
+
+		// Reset gc
 		gc.fill = GridBagConstraints.NONE;
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.gridwidth = 1;
 		gc.insets.left = 0;
 		gc.insets.right = 0;
-		
-		//Container
+
+		// Container
 		container.add(entryPanel, gc);
 		gc.gridy++;
 		container.add(new BufferPanel(0, 15), gc);
 		gc.gridy++;
 		container.add(addRemovePanel, gc);
 		gc.gridy++;
+
+		load();
 		
 		AddRemovePanel local = addRemovePanel;
-		addButton.addActionListener(new ActionListener(){
+		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(itemText.getText(), (MatchType)typeCombo.getSelectedItem(), (int)timerSpinner.getValue()), local));
+				addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(itemText.getText(), (MatchType) typeCombo.getSelectedItem(), (int) timerSpinner.getValue()), local));
 			}
 		});
-
-		System.out.println(Main.saveManager.getSaveDirectory());
 	}
-	
-	public void revertChanges(){
+
+	public void revertChanges() {
 		addRemovePanel.revertChanges();
 	}
 
 	@Override
 	public void save() {
-		//TODO : Saving
 		addRemovePanel.saveChanges();
 		int index = 0;
-		for(Component c : addRemovePanel.getComponents()){
-			if(c instanceof IgnoreRow){
+		Main.saveManager.deleteObject(SaveConstants.IgnoreItems.base);
+		for (Component c : addRemovePanel.getComponents()) {
+			if (c instanceof IgnoreRow) {
 				IgnoreRow row = (IgnoreRow) c;
-//				IgnoreData data = row.getIgnoreData();
-				Main.saveManager.putObject("TEST", SaveConstants.appendedPath(SaveConstants.IgnoreItems.ignore, ("item" + index)));
+				Main.saveManager.putObject(row.getIgnoreData().getItemName(), SaveConstants.numeredPath(SaveConstants.IgnoreItems.itemName, index));
+				Main.saveManager.putObject(row.getIgnoreData().getMatchType().name(), SaveConstants.numeredPath(SaveConstants.IgnoreItems.matchType, index));
+				Main.saveManager.putObject(row.getIgnoreData().getExpireTime(), SaveConstants.numeredPath(SaveConstants.IgnoreItems.expireTime, index));
+				System.out.println("Ignore : ");
+				for (String s : SaveConstants.numeredPath(SaveConstants.IgnoreItems.itemName, index)) {
+					System.out.println("\t" + s);
+				}
 			}
 			index++;
 		}
@@ -136,7 +141,23 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
 	@Override
 	public void load() {
-		//TODO : Loading
+		for (int i = 0; i < MAX_IGNORE_COUNT; i++) {
+			if(Main.saveManager.hasEntry(SaveConstants.numeredPath(SaveConstants.IgnoreItems.itemName, i))){
+				try{
+					String itemName = Main.saveManager.getString(SaveConstants.numeredPath(SaveConstants.IgnoreItems.itemName, i));
+					MatchType matchType = MatchType.valueOf(Main.saveManager.getEnumValue(MatchType.class, SaveConstants.numeredPath(SaveConstants.IgnoreItems.matchType, i)));
+					LocalDateTime expireTime = LocalDateTime.parse(Main.saveManager.getString(SaveConstants.numeredPath(SaveConstants.IgnoreItems.expireTime, i)));
+					IgnoreData data = new IgnoreData(itemName, matchType, expireTime);
+					System.out.println("REMAINING : " + data.getRemainingTime());
+					if(data.getRemainingTime()>0){
+						addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
+					}
+				}catch (DateTimeParseException e){
+					
+				}
+			}
+		}
+		addRemovePanel.saveChanges();
 	}
-	
+
 }

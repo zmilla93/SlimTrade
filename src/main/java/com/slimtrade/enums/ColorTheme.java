@@ -1,4 +1,4 @@
-package main.java.com.slimtrade.core.managers;
+package main.java.com.slimtrade.enums;
 
 public enum ColorTheme {
 

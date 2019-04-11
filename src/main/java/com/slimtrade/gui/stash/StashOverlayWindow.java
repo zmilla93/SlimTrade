@@ -15,10 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.basic.HideableDialog;
 import main.java.com.slimtrade.gui.basic.AbstractResizableWindow;
+import main.java.com.slimtrade.gui.basic.HideableDialog;
 import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.helper.ItemHighlighter;
@@ -33,9 +33,9 @@ public class StashOverlayWindow extends AbstractResizableWindow implements ISave
 	public StashOverlayWindow() {
 		super("Stash Overlay", false);
 		this.setMinimumSize(new Dimension(300, 300));
-		container.setBackground(OLD_ColorManager.CLEAR);
-		center.setBackground(OLD_ColorManager.CLEAR);
-		this.setBackground(OLD_ColorManager.CLEAR);
+		container.setBackground(ColorManager.CLEAR);
+		center.setBackground(ColorManager.CLEAR);
+		this.setBackground(ColorManager.CLEAR);
 		// this.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.4f));
 
 		Logger.getAnonymousLogger().log(Level.ALL, "LOGGER");
@@ -43,7 +43,7 @@ public class StashOverlayWindow extends AbstractResizableWindow implements ISave
 		int buffer = 10;
 		JPanel gridOuter = new JPanel();
 		gridOuter.setLayout(new BorderLayout());
-		gridOuter.setBackground(OLD_ColorManager.CLEAR);
+		gridOuter.setBackground(ColorManager.CLEAR);
 		container.setLayout(new BorderLayout());
 		gridOuter.add(new BufferPanel(0, 40), BorderLayout.NORTH);
 		gridOuter.add(new BufferPanel(buffer, 0), BorderLayout.WEST);

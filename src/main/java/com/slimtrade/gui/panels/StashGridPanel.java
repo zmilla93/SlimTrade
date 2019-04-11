@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 
 public class StashGridPanel extends JPanel{
 	
@@ -20,11 +20,11 @@ public class StashGridPanel extends JPanel{
 	private Color lineColor = Color.RED;
 	
 	public StashGridPanel(){
-		this.setBackground(OLD_ColorManager.CLEAR);
+		this.setBackground(ColorManager.CLEAR);
 	}
 	
 	public StashGridPanel(int width, int height){
-		this.setBackground(OLD_ColorManager.CLEAR);
+		this.setBackground(ColorManager.CLEAR);
 		this.width = width;
 		this.height = height;
 		this.gridCellWidth = (double)width/12;

@@ -5,7 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.basic.BasicDialog;
 
 public class StashHelperContainer extends BasicDialog{
@@ -19,7 +19,7 @@ public class StashHelperContainer extends BasicDialog{
 	
 	//TODO : Recheck all resizing
 	public StashHelperContainer(){
-		this.setBackground(OLD_ColorManager.CLEAR);
+		this.setBackground(ColorManager.CLEAR);
 //		this.setFocusableWindowState(true);
 //		this.setFocusable(true);
 //		this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.RED));

@@ -47,15 +47,13 @@ public class InformationPanel extends ContainerPanel {
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-		
 		gc.weightx = 1;
-		gc.gridx = 0;
-		gc.gridy = 0;
 		gc.insets.bottom = buffer;
 		
 		gc.gridwidth = 2;
 		container.add(versionLabel, gc);
 		gc.gridwidth = 1;
+		gc.gridx = 0;
 		gc.gridy++;
 		
 		container.add(gitLabel, gc);

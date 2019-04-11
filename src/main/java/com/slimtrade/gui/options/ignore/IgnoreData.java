@@ -47,8 +47,9 @@ public class IgnoreData {
 		this.expireTime = expireTime;
 	}
 	
+	//Rounds to the nearest minute
 	public int getRemainingTime(){
-		return Math.round((((int)(LocalDateTime.now().until(this.getExpireTime(), ChronoUnit.SECONDS))+5)/10)*10)/60;
+		return Math.round((((int)(LocalDateTime.now().until(expireTime, ChronoUnit.SECONDS))+5)/10)*10)/60;
 	}
 
 }

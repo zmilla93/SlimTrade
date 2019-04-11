@@ -6,17 +6,14 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
-import com.sun.jna.platform.WindowUtils;
-
 import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
@@ -45,7 +42,7 @@ public class OLD_MessageManager extends BasicDialog {
 	public OLD_MessageManager() {
 		this.setAutoRequestFocus(false);
 		this.setBounds(1220, 0, 0, 0);
-		this.setBackground(OLD_ColorManager.CLEAR);
+		this.setBackground(ColorManager.CLEAR);
 		container = this.getContentPane();
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));

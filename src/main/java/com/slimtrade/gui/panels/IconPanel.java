@@ -4,22 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.io.IOException;
-import java.util.logging.Level;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
-import main.java.com.slimtrade.core.Main;
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 
 public class IconPanel extends JPanel {
-
-	private static final long serialVersionUID = -5297536255112243190L;
+	
+	private static final long serialVersionUID = 1L;
 	private final int SIZE = 20;
 	private final double IMAGE_SCALE = 1;
 
@@ -54,7 +49,7 @@ public class IconPanel extends JPanel {
 //		Main.logger.log(Level.INFO, path);
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(size, size));
-		this.setBackground(OLD_ColorManager.CLEAR);
+		this.setBackground(ColorManager.CLEAR);
 		if (borderColor == null) {
 			this.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 		} else {

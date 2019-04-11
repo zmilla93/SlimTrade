@@ -10,20 +10,19 @@ import javax.swing.SwingUtilities;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
-import main.java.com.slimtrade.core.managers.ColorTheme;
-import main.java.com.slimtrade.core.managers.DefaultManager;
 import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.managers.DefaultManager;
 import main.java.com.slimtrade.core.managers.SaveManager;
-import main.java.com.slimtrade.core.observing.ClipboardManager;
 import main.java.com.slimtrade.core.observing.EventManager;
 import main.java.com.slimtrade.core.observing.GlobalKeyboardListener;
 import main.java.com.slimtrade.core.observing.GlobalMouseListener;
+import main.java.com.slimtrade.core.observing.ClipboardManager;
 import main.java.com.slimtrade.core.utility.ChatParser;
 import main.java.com.slimtrade.core.utility.FileMonitor;
 import main.java.com.slimtrade.core.utility.PoeInterface;
 import main.java.com.slimtrade.core.utility.UpdateChecker;
 import main.java.com.slimtrade.debug.Debugger;
+import main.java.com.slimtrade.enums.ColorTheme;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.ImagePreloader;
 import main.java.com.slimtrade.gui.dialogs.LoadingDialog;
@@ -56,14 +55,14 @@ public class Main {
 		logger.setLevel(Level.WARNING);
 		logger.setUseParentHandlers(false);
 
-		OLD_ColorManager.setMessageTheme();
+//		Color.RED.setMessageTheme();
 		
 		// POE Interface
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				
-				ColorManager.setTheme(ColorTheme.DARK_THEME);
-//				ColorManager.setTheme(ColorTheme.LIGHT_THEME);
+//				ColorManager.setTheme(ColorTheme.DARK_THEME);
+				ColorManager.setTheme(ColorTheme.LIGHT_THEME);
 				
 				Locale.setDefault(Locale.US);
 				

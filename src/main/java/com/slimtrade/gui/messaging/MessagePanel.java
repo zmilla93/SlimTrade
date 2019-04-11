@@ -18,11 +18,12 @@ import javax.swing.SwingConstants;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.ButtonType;
+import main.java.com.slimtrade.core.utility.IColorable;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
+import main.java.com.slimtrade.enums.ColorTheme;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.enums.StashTabColor;
 import main.java.com.slimtrade.enums.StashTabType;
@@ -35,7 +36,7 @@ import main.java.com.slimtrade.gui.enums.PreloadedImageCustom;
 import main.java.com.slimtrade.gui.panels.PricePanel;
 import main.java.com.slimtrade.gui.stash.helper.StashHelper;
 
-public class MessagePanel extends AbstractMessagePanel {
+public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -78,6 +79,7 @@ public class MessagePanel extends AbstractMessagePanel {
 
 	private void buildPanel(TradeOffer trade, Dimension size, boolean makeListeners) {
 		// TODO : move size stuff to super
+		this.test();
 		this.trade = trade;
 		this.setMessageType(trade.messageType);
 
@@ -166,7 +168,7 @@ public class MessagePanel extends AbstractMessagePanel {
 		case INCOMING_TRADE:
 			Random rand = new Random();
 			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
-			colorText = OLD_ColorManager.stashDarkText;
+			colorText = ColorManager.POE_TEXT_DARK;
 			boolean stashFound = false;
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
@@ -192,15 +194,15 @@ public class MessagePanel extends AbstractMessagePanel {
 			stashHelper = new StashHelper(trade, color, colorText);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.add(stashHelper);
-			borderPanel.setBackground(ColorManager.GREEN);
-			pricePanel.setBackground(ColorManager.GREEN);
-			priceLabel.setForeground(OLD_ColorManager.stashLightText);
+			borderPanel.setBackground(ColorManager.GREEN_SALE);
+			pricePanel.setBackground(ColorManager.GREEN_SALE);
+			priceLabel.setForeground(ColorManager.POE_TEXT_LIGHT);
 			break;
 		case OUTGOING_TRADE:
 			itemPanel.backgroudDefault = Color.GRAY;
-			borderPanel.setBackground(ColorManager.RED);
-			pricePanel.setBackground(ColorManager.RED);
-			priceLabel.setForeground(OLD_ColorManager.stashLightText);
+			borderPanel.setBackground(ColorManager.RED_SALE);
+			pricePanel.setBackground(ColorManager.RED_SALE);
+			priceLabel.setForeground(ColorManager.POE_TEXT_LIGHT);
 			break;
 		case UNKNOWN:
 			break;
@@ -213,6 +215,10 @@ public class MessagePanel extends AbstractMessagePanel {
 		// this.revalidate();
 		// this.repaint();
 
+	}
+	
+	public void test(){
+		System.out.println("LOCAL TEST");
 	}
 
 	// TODO add button count
@@ -431,6 +437,11 @@ public class MessagePanel extends AbstractMessagePanel {
 
 	public void setStashHelper(StashHelper stashHelper) {
 		this.stashHelper = stashHelper;
+	}
+
+	@Override
+	public void applyColor(ColorTheme theme) {
+		
 	}
 
 }

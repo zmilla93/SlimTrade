@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import main.java.com.slimtrade.core.managers.OLD_ColorManager;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.gui.buttons.IconButton;
 import main.java.com.slimtrade.gui.components.AddRemovePanel;
 import main.java.com.slimtrade.gui.components.RemovablePanel;
@@ -33,15 +33,16 @@ public class IgnoreRow extends RemovablePanel implements ActionListener{
 	public IgnoreRow(IgnoreData ignoreData, AddRemovePanel parent) {
 		super(parent);
 		JPanel local = this;
-		timer = new Timer(60000, new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("LOCAL DISPOSE NEW");
-				timer.stop();
-				parent.remove(local);
-				parent.revalidate();
-				parent.repaint();
-			}
-		});
+//		timer = new Timer(60000, new ActionListener(){
+//			public void actionPerformed(ActionEvent arg0) {
+//				System.out.println("LOCAL DISPOSE NEW");
+//				timer.stop();
+//				parent.remove(local);
+//				parent.revalidate();
+//				parent.repaint();
+//			}
+//		});
+		timer = new Timer(60000, this);
 		
 		this.ignoreData = ignoreData;
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
@@ -53,7 +54,7 @@ public class IgnoreRow extends RemovablePanel implements ActionListener{
 		timerLabel = new JLabel(ignoreData.getRemainingTime() + "m");
 		
 //		itemLabel.setPreferredSize(new Dimension(ITEM_MAX_WIDTH, itemLabel.getPreferredSize().height));
-		itemPanel.setBackground(OLD_ColorManager.CLEAR);
+		itemPanel.setBackground(ColorManager.CLEAR);
 		itemPanel.add(itemLabel);
 		
 		
@@ -86,7 +87,13 @@ public class IgnoreRow extends RemovablePanel implements ActionListener{
 		
 		timer.start();
 		
-		this.setRemoveButton(removeButton);
+//		this.setRemoveButton(removeButton);
+		
+		removeButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				markForDeletion();
+			}
+		});
 		this.revalidate();
 	}
 
@@ -104,13 +111,13 @@ public class IgnoreRow extends RemovablePanel implements ActionListener{
 		}
 	}
 	
-//	@Override
-//	protected void dispose(){
-//		System.out.println("LOCAL DISPOSE");
-//		timer.stop();
-//		parent.remove(this);
-//		parent.revalidate();
-//		parent.repaint();
-//	}
+	@Override
+	protected void dispose(){
+		System.out.println("LOCAL DISPOSE");
+		timer.stop();
+		parent.remove(this);
+		parent.revalidate();
+		parent.repaint();
+	}
 
 }

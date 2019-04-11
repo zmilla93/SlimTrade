@@ -21,6 +21,8 @@ import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractResizableWindow;
 import main.java.com.slimtrade.gui.buttons.BasicButton;
+import main.java.com.slimtrade.gui.buttons.ConfirmButton;
+import main.java.com.slimtrade.gui.buttons.DenyButton;
 import main.java.com.slimtrade.gui.options.general.GeneralPanel;
 import main.java.com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import main.java.com.slimtrade.gui.options.macros.IncomingCustomizer;
@@ -66,8 +68,8 @@ public class OptionsWindow extends AbstractResizableWindow {
 
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, buffer));
 		// JButton resizeButton = new JButton("RESIZE");
-		JButton revertButton = new JButton("Revert Changes");
-		JButton saveButton = new JButton("Save");
+		DenyButton revertButton = new DenyButton("Revert Changes");
+		ConfirmButton saveButton = new ConfirmButton("Save");
 		// bottomPanel.add(resizeButton);
 		bottomPanel.add(revertButton);
 		bottomPanel.add(saveButton);
