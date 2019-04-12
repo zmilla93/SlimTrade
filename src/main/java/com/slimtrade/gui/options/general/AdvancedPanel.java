@@ -8,10 +8,12 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.observing.improved.ColorUpdateListener;
 import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class AdvancedPanel extends ContainerPanel implements ISaveable {
+public class AdvancedPanel extends ContainerPanel implements ISaveable, ColorUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,6 +35,9 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable {
 			}
 		});
 
+		this.updateColor();
+		Main.eventManager.addListener(this);
+		
 		this.load();
 	}
 
@@ -61,6 +66,11 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable {
 			clientRow.setText(Main.saveManager.getString("general", "clientPath"));
 			clientRow.setChanged(false);
 		}
+	}
+
+	@Override
+	public void updateColor() {
+		this.setBackground(ColorManager.BACKGROUND);
 	}
 
 }

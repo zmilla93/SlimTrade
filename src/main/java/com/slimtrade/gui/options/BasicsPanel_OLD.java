@@ -21,7 +21,7 @@ import javax.swing.SpinnerNumberModel;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
-import main.java.com.slimtrade.core.observing.EventManager;
+import main.java.com.slimtrade.core.observing.REDO_MacroEventManager;
 import main.java.com.slimtrade.enums.DateStyle;
 import main.java.com.slimtrade.enums.TimeStyle;
 import main.java.com.slimtrade.gui.FrameManager;
@@ -330,7 +330,7 @@ public class BasicsPanel_OLD extends ContentPanel_REMOVE implements ISaveable {
 		if(characterName.equals("")){
 			characterName = null;
 		}
-		EventManager.setCharacterName(characterName);
+		REDO_MacroEventManager.setCharacterName(characterName);
 		Main.saveManager.putObject(characterName, "general", "character");
 		Main.saveManager.putObject(guildCheckbox.isSelected(), "general", "showGuild");
 		Main.saveManager.putObject(kickCheckbox.isSelected(), "general", "closeOnKick");
@@ -357,7 +357,7 @@ public class BasicsPanel_OLD extends ContentPanel_REMOVE implements ISaveable {
 		advancedPanel.load();
 		try {
 			String characterName = Main.saveManager.getString("general", "character");
-			EventManager.setCharacterName(characterName);
+			REDO_MacroEventManager.setCharacterName(characterName);
 			characterInput.setText(characterName);
 			guildCheckbox.setSelected(Main.saveManager.getBool("general", "showGuild"));
 			kickCheckbox.setSelected(Main.saveManager.getBool("general", "closeOnKick"));

@@ -7,9 +7,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.observing.improved.ColorUpdateListener;
 
-public class ContainerPanel extends JPanel {
+public class ContainerPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +25,7 @@ public class ContainerPanel extends JPanel {
 	
 	private ContainerPanel(int borderSize){
 		
-		this.setBackground(ColorManager.BACKGROUND);
+//		this.setBackground(ColorManager.BACKGROUND);
 //		container.setOpaque(false);
 		container.setOpaque(false);
 //		container.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -34,6 +36,10 @@ public class ContainerPanel extends JPanel {
 		this.add(new BufferPanel(0, borderSize), BorderLayout.SOUTH);
 		this.add(new BufferPanel(borderSize, 0), BorderLayout.EAST);
 		this.add(container, BorderLayout.CENTER);
+		
+		//TODO : Resolve this?
+//		this.updateColor();
+//		Main.eventManager.addListener(this);
 	}
 		
 }

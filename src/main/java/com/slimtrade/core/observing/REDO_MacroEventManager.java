@@ -10,7 +10,7 @@ import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.enums.MessageType;
 
-public class EventManager implements PoeInteractionListener {
+public class REDO_MacroEventManager implements PoeInteractionListener {
 
 	private static String characterName = null;
 	
@@ -104,7 +104,7 @@ public class EventManager implements PoeInteractionListener {
 	}
 
 	public static void setCharacterName(String characterName) {
-		EventManager.characterName = characterName;
+		REDO_MacroEventManager.characterName = characterName;
 	}
 
 }

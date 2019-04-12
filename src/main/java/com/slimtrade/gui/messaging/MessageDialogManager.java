@@ -78,6 +78,29 @@ public class MessageDialogManager {
 		}
 		return false;
 	}
+
+	public void closeTradesByItem(String itemA){
+		int i = 0;
+		final ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
+		for (PanelWrapper wrapper : wrapperList) {
+			MessagePanel msg = (MessagePanel)wrapper.getPanel();
+			TradeOffer trade = msg.trade;
+			String itemB = trade.itemName;
+			if(trade.messageType == MessageType.INCOMING_TRADE && itemA.equals(itemB)){
+				indexesToDelete.add(i);
+			}
+			i++;
+		}
+		//TODO : Optimize
+		int max = wrapperList.size()-1;
+		for(i = max;i>=0;i--){
+			if(indexesToDelete.contains(i)){
+				removeMessage(i);
+			}
+		}
+		//TODO : End Optimize
+		refreshPanelLocations();
+	}
 	
 	private void closeSimilarTrades(int index) {
 		MessagePanel msg = (MessagePanel)wrapperList.get(index).getPanel();
@@ -89,10 +112,6 @@ public class MessageDialogManager {
 			MessagePanel msgB = (MessagePanel)wrapper.getPanel();
 			TradeOffer tradeB = msgB.getTrade();
 			if (msg != null && msg instanceof MessagePanel) {
-				//TODO : TEMP FIX FOR CHAT SCANNER
-//				if(msg.messageType.equals(MessageType.CHAT_SCANNER)){
-//					return;
-//				}
 				if (i != index) {
 					try {
 						System.out.println(SaveConstants.Macros.test);

@@ -45,7 +45,7 @@ public class StashHelper extends JPanel {
 	};
 	public Timer highlighterTimer = new Timer(2000, hideHighlighter);
 
-	private PoeInteractionListener poeInteractionListener = Main.eventManager;
+	private PoeInteractionListener poeInteractionListener = Main.macroEventManager;
 
 	public StashHelper(TradeOffer trade, Color colorBackground, Color colorForeground) {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, borderThickness));

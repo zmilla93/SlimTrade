@@ -40,6 +40,7 @@ public class RemovablePanel extends JPanel {
 	public void markForDeletion(){
 		this.toBeDeleted = true;
 		this.setVisible(false);
+		parent.revalidate();
 	}
 	
 	public void setToBeDeleted(boolean state){

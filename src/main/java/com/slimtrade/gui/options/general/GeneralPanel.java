@@ -2,19 +2,21 @@ package main.java.com.slimtrade.gui.options.general;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.observing.improved.ColorUpdateListener;
+import main.java.com.slimtrade.enums.ColorThemeType;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.options.ToggleButton;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class GeneralPanel extends ContainerPanel implements ISaveable {
+public class GeneralPanel extends ContainerPanel implements ISaveable, ColorUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private BasicsOptionsPanel basicsPanel;
+	private BasicsPanel basicsPanel;
 	private HistoryOptionsPanel historyPanel;
 	private AudioPanel audioPanel;
 	private AdvancedPanel advancedPanel;
@@ -28,7 +30,7 @@ public class GeneralPanel extends ContainerPanel implements ISaveable {
 		ToggleButton audioButton = new ToggleButton("Audio", true);
 		ToggleButton advancedButton = new ToggleButton("Save Path", true);
 		
-		basicsPanel = new BasicsOptionsPanel();
+		basicsPanel = new BasicsPanel();
 		historyPanel = new HistoryOptionsPanel();
 		audioPanel = new AudioPanel();
 		advancedPanel = new AdvancedPanel();
@@ -63,6 +65,10 @@ public class GeneralPanel extends ContainerPanel implements ISaveable {
 		FrameManager.linkToggle(historyButton, historyPanel);
 		FrameManager.linkToggle(audioButton, audioPanel);
 		FrameManager.linkToggle(advancedButton, advancedPanel);
+		
+		Main.eventManager.addListener(this);
+		this.updateColor();
+		
 	}
 
 	@Override
@@ -80,6 +86,11 @@ public class GeneralPanel extends ContainerPanel implements ISaveable {
 		historyPanel.load();
 		audioPanel.load();
 		advancedPanel.load();
+	}
+
+	@Override
+	public void updateColor() {
+		this.setBackground(ColorManager.LOW_CONSTRAST);
 	}
 	
 }

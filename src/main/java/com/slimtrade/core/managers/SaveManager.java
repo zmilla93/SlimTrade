@@ -20,6 +20,8 @@ public class SaveManager {
 	private String clientDirectory;
 	private String clientPath;
 	private String savePath;
+	//TODO : Remove this
+	private String savePathFormatted;
 	
 	boolean validClientPath = false;
 	boolean validSavePath = false;
@@ -30,6 +32,8 @@ public class SaveManager {
 	private final String saveDirectory;
 	private final String sep = File.separator;
 	private final String saveStub = sep + "settings.json";
+	//TODO : Remove this
+	private final String saveStubFormatted = sep + "settingsFormatted.json";
 	private final String poeLogs = "Path of Exile" + sep + "logs";
 	private final String steamStub = "Program Files" + sep + "Steam" + sep + "steamapps" + sep + "common";
 	private final String steamStubx86 = "Program Files (x86)" + sep + "Steam" + sep + "steamapps" + sep + "common";
@@ -58,6 +62,8 @@ public class SaveManager {
 			saveDirectory = System.getProperty("user.home") + File.separator + folderOther;
 		}
 		savePath = saveDirectory + saveStub;
+		//TODO : Remove this
+		savePathFormatted = saveDirectory + saveStubFormatted;
 		File saveDir = new File(saveDirectory);
 		if (!saveDir.exists()) {
 			saveDir.mkdirs();
@@ -72,7 +78,6 @@ public class SaveManager {
 			clientPath = getString("general", "clientPath");
 			clientDirectory = getDirectoryFromPath(clientPath);
 			validClientPath = true;
-			System.out.println("HAS ENTRY ::: \n\t" + clientPath + "\n\t" + clientDirectory);
 		} else {
 //			int clientCount = 0;
 			String validDirectory = null;
@@ -135,10 +140,20 @@ public class SaveManager {
 
 	public void saveToDisk() {
 		File saveFile = new File(savePath);
+		File saveFileFormatted = new File(savePathFormatted);
 		try {
 			fw = new FileWriter(saveFile);
 			fw.write(saveData.toString());
 			fw.close();
+			//TODO : Remove this debugging text
+			fw = new FileWriter(saveFileFormatted);
+			try {
+				fw.write(saveData.toString(3));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			fw.close();
+			//END DEBUGGING
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

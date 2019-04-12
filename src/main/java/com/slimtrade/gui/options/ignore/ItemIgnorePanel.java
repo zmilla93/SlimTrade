@@ -20,6 +20,7 @@ import javax.swing.SpinnerNumberModel;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.SaveConstants;
+import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicButton;
 import main.java.com.slimtrade.gui.components.AddRemovePanel;
 import main.java.com.slimtrade.gui.enums.MatchType;
@@ -38,11 +39,13 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 	private JSpinner timerSpinner = new JSpinner(spinnerModel);
 	private JButton addButton = new BasicButton("Ignore Item");
 
-	//TODO : Impose max
+	// TODO : Impose max
 	private final int MAX_IGNORE_COUNT = 40;
 
 	public ItemIgnorePanel() {
 		this.setVisible(false);
+		
+		FrameManager.ignoreItemAddRemovePanel = addRemovePanel;
 
 		JPanel entryPanel = new JPanel(new GridBagLayout());
 		entryPanel.setOpaque(false);
@@ -106,6 +109,8 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 		gc.gridy++;
 
 		load();
+
+		FrameManager.itemIgnorePanel = this;
 		
 		AddRemovePanel local = addRemovePanel;
 		addButton.addActionListener(new ActionListener() {
@@ -127,13 +132,9 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 		for (Component c : addRemovePanel.getComponents()) {
 			if (c instanceof IgnoreRow) {
 				IgnoreRow row = (IgnoreRow) c;
-				Main.saveManager.putObject(row.getIgnoreData().getItemName(), SaveConstants.numeredPath(SaveConstants.IgnoreItems.itemName, index));
-				Main.saveManager.putObject(row.getIgnoreData().getMatchType().name(), SaveConstants.numeredPath(SaveConstants.IgnoreItems.matchType, index));
-				Main.saveManager.putObject(row.getIgnoreData().getExpireTime(), SaveConstants.numeredPath(SaveConstants.IgnoreItems.expireTime, index));
-				System.out.println("Ignore : ");
-				for (String s : SaveConstants.numeredPath(SaveConstants.IgnoreItems.itemName, index)) {
-					System.out.println("\t" + s);
-				}
+				Main.saveManager.putObject(row.getIgnoreData().getItemName(), SaveConstants.IgnoreItems.getItemName(index));
+				Main.saveManager.putObject(row.getIgnoreData().getMatchType().name(), SaveConstants.IgnoreItems.getMatchType(index));
+				Main.saveManager.putObject(row.getIgnoreData().getExpireTime(), SaveConstants.IgnoreItems.getExpireTime(index));
 			}
 			index++;
 		}
@@ -141,19 +142,18 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
 	@Override
 	public void load() {
-		for (int i = 0; i < MAX_IGNORE_COUNT; i++) {
-			if(Main.saveManager.hasEntry(SaveConstants.numeredPath(SaveConstants.IgnoreItems.itemName, i))){
-				try{
-					String itemName = Main.saveManager.getString(SaveConstants.numeredPath(SaveConstants.IgnoreItems.itemName, i));
-					MatchType matchType = MatchType.valueOf(Main.saveManager.getEnumValue(MatchType.class, SaveConstants.numeredPath(SaveConstants.IgnoreItems.matchType, i)));
-					LocalDateTime expireTime = LocalDateTime.parse(Main.saveManager.getString(SaveConstants.numeredPath(SaveConstants.IgnoreItems.expireTime, i)));
+		for (int index = 0; index < MAX_IGNORE_COUNT; index++) {
+			if (Main.saveManager.hasEntry(SaveConstants.IgnoreItems.getItemName(index))) {
+				try {
+					String itemName = Main.saveManager.getString(SaveConstants.IgnoreItems.getItemName(index));
+					MatchType matchType = MatchType.valueOf(Main.saveManager.getEnumValue(MatchType.class, SaveConstants.IgnoreItems.getMatchType(index)));
+					LocalDateTime expireTime = LocalDateTime.parse(Main.saveManager.getString(SaveConstants.IgnoreItems.getExpireTime(index)));
 					IgnoreData data = new IgnoreData(itemName, matchType, expireTime);
-					System.out.println("REMAINING : " + data.getRemainingTime());
-					if(data.getRemainingTime()>0){
+					if (data.getRemainingTime() > 0) {
 						addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
 					}
-				}catch (DateTimeParseException e){
-					
+				} catch (DateTimeParseException e) {
+
 				}
 			}
 		}

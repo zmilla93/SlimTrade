@@ -28,7 +28,7 @@ public abstract class AbstractResizableWindow extends AbstractWindow {
 	private boolean mousePressed = false;
 	private AbstractWindow local;
 
-	private final int SLEEP_DURATION = 20;
+	private final int SLEEP_DURATION = 10;
 
 	public AbstractResizableWindow(String title) {
 		super(title, true);
@@ -42,7 +42,7 @@ public abstract class AbstractResizableWindow extends AbstractWindow {
 
 	private void buildWindow(String title, boolean closeButton) {
 		// container.setOpaque(false);
-		this.setMinimumSize(new Dimension(200, 200));
+		this.setMinimumSize(new Dimension(100, 100));
 		pullRight.setBackground(Color.DARK_GRAY);
 		pullBottom.setBackground(Color.DARK_GRAY);
 		pullRight.setPreferredSize(new Dimension(pullbarSize, 0));

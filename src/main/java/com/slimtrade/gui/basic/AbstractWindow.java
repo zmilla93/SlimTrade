@@ -32,7 +32,7 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 	protected IconButton closeButton;
 	protected Container contentPane = this.getContentPane();
 
-	private Color borderColor = ColorManager.PRMIARY;
+	private Color borderColor = ColorManager.PRIMARY;
 	
 	private GridBagConstraints gc = new GridBagConstraints();
 

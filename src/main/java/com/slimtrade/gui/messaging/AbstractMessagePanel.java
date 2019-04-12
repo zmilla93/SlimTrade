@@ -29,7 +29,7 @@ public class AbstractMessagePanel extends JPanel {
 	// TODO Load from drive
 	// TODO : Move?
 	// TODO : switch totalwidth/height to use get/set?
-	private final PoeInteractionListener poeInteractionListener = Main.eventManager;
+	private final PoeInteractionListener poeInteractionListener = Main.macroEventManager;
 	protected MessageType messageType;
 	// Heights
 	// protected int minHeight;

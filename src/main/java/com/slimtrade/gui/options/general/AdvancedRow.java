@@ -15,7 +15,12 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 
-public class AdvancedRow extends JPanel {
+import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.observing.improved.ColorUpdateListener;
+import main.java.com.slimtrade.gui.buttons.BasicButton;
+
+public class AdvancedRow extends JPanel implements ColorUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +29,7 @@ public class AdvancedRow extends JPanel {
 	private final int PATH_WIDTH = 450;
 
 	private boolean changed = false;
+	private JLabel label = new JLabel();
 	private JLabel pathLabel;
 	private JButton editButton;
 	private JFileChooser fileChooser;
@@ -34,10 +40,10 @@ public class AdvancedRow extends JPanel {
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-
+ 
 		JPanel labelPanel = new JPanel(new GridBagLayout());
 		labelPanel.setPreferredSize(new Dimension(LABEL_WIDTH, HEIGHT));
-		JLabel label = new JLabel(labelText);
+		label.setText(labelText);
 		labelPanel.add(label);
 
 		// TODO : Set path
@@ -47,11 +53,16 @@ public class AdvancedRow extends JPanel {
 		pathLabel = new JLabel("Unset");
 		pathPanel.add(pathLabel);
 
-		editButton = new JButton("Edit");
+		editButton = new BasicButton("Edit");
 		editButton.setFocusable(false);
 		Dimension editSize = editButton.getPreferredSize();
 		editSize.height = HEIGHT;
 		editButton.setPreferredSize(editSize);
+		
+		this.setOpaque(false);
+		labelPanel.setOpaque(false);
+		pathPanel.setOpaque(false);
+		
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -82,6 +93,9 @@ public class AdvancedRow extends JPanel {
 		this.add(pathPanel, gc);
 		gc.gridx++;
 		this.add(editButton, gc);
+		
+		this.updateColor();
+		Main.eventManager.addListener(this);
 
 	}
 
@@ -112,6 +126,13 @@ public class AdvancedRow extends JPanel {
 
 	public JFileChooser getFileChooser() {
 		return this.fileChooser;
+	}
+
+	@Override
+	public void updateColor() {
+		this.setBackground(ColorManager.BACKGROUND);
+		label.setForeground(ColorManager.TEXT);
+		pathLabel.setForeground(ColorManager.TEXT);
 	}
 
 }

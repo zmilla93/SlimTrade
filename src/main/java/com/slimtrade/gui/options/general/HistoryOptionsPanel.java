@@ -11,15 +11,18 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.SaveConstants;
+import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.observing.improved.ColorUpdateListener;
 import main.java.com.slimtrade.enums.DateStyle;
 import main.java.com.slimtrade.enums.TimeStyle;
 import main.java.com.slimtrade.gui.FrameManager;
-import main.java.com.slimtrade.gui.options.OrderType;
 import main.java.com.slimtrade.gui.options.ISaveable;
+import main.java.com.slimtrade.gui.options.OrderType;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.panels.ContainerPanel;
 
-public class HistoryOptionsPanel extends ContainerPanel implements ISaveable {
+public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, ColorUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,13 +32,15 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable {
 	private SpinnerModel spinnerModel = new SpinnerNumberModel(50, 0, 100, 5);
 	private JSpinner limitSpinner = new JSpinner(spinnerModel);
 
+	private JLabel timeLabel = new JLabel("Time Format");
+	private JLabel dateLabel = new JLabel("Date Format");
+	private JLabel orderLabel = new JLabel("Order");
+	private JLabel limitLabel = new JLabel("Message Limit");
+
 	public HistoryOptionsPanel() {
 
-		JLabel timeLabel = new JLabel("Time Format");
-		JLabel dateLabel = new JLabel("Date Format");
-		JLabel orderLabel = new JLabel("Order");
-		JLabel limitLabel = new JLabel("Message Limit");
-//		JLabel limitInfoLabel = new JLabel("Message limit will not be applied until restart.");
+		// JLabel limitInfoLabel = new JLabel("Message limit will not be applied
+		// until restart.");
 
 		timeCombo.setFocusable(false);
 		dateCombo.setFocusable(false);
@@ -97,7 +102,11 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable {
 		gc.gridx = 0;
 		gc.gridy++;
 
+		this.updateColor();
+		Main.eventManager.addListener(this);
+
 		load();
+
 	}
 
 	@Override
@@ -105,27 +114,36 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable {
 		TimeStyle time = (TimeStyle) timeCombo.getSelectedItem();
 		DateStyle date = (DateStyle) dateCombo.getSelectedItem();
 		OrderType order = (OrderType) orderCombo.getSelectedItem();
-		
+
 		FrameManager.historyWindow.setTimeStyle(time);
 		FrameManager.historyWindow.setDateStyle(date);
 		FrameManager.historyWindow.setOrderType(order);
-		
-		Main.saveManager.putObject(time.name(), "history", "timeStyle");
-		Main.saveManager.putObject(date.name(), "history", "dateStyle");
-		Main.saveManager.putObject(order.name(), "history", "orderType");
-		Main.saveManager.putObject((int) limitSpinner.getValue(), "history", "messageCount");
+
+		Main.saveManager.putObject(time.name(), SaveConstants.History.TIME_STYLE);
+		Main.saveManager.putObject(date.name(), SaveConstants.History.DATE_STYLE);
+		Main.saveManager.putObject(order.name(), SaveConstants.History.ORDER_TYPE);
+		Main.saveManager.putObject((int) limitSpinner.getValue(), SaveConstants.History.MAX_MESSAGE_COUNT);
 	}
 
 	@Override
 	public void load() {
-		TimeStyle time = TimeStyle.valueOf(Main.saveManager.getEnumValue(TimeStyle.class, "history", "timeStyle"));
-		DateStyle date = DateStyle.valueOf(Main.saveManager.getEnumValue(DateStyle.class, "history", "dateStyle"));
-		OrderType order = OrderType.valueOf(Main.saveManager.getEnumValue(OrderType.class, "history", "orderType"));
+		TimeStyle time = TimeStyle.valueOf(Main.saveManager.getEnumValue(TimeStyle.class, SaveConstants.History.TIME_STYLE));
+		DateStyle date = DateStyle.valueOf(Main.saveManager.getEnumValue(DateStyle.class, SaveConstants.History.DATE_STYLE));
+		OrderType order = OrderType.valueOf(Main.saveManager.getEnumValue(OrderType.class, SaveConstants.History.ORDER_TYPE));
 
 		timeCombo.setSelectedItem(time);
 		dateCombo.setSelectedItem(date);
 		orderCombo.setSelectedItem(order);
-		limitSpinner.setValue(Main.saveManager.getDefaultInt(0, 100, 50, "history", "messageCount"));
+		limitSpinner.setValue(Main.saveManager.getDefaultInt(0, 100, 50, SaveConstants.History.MAX_MESSAGE_COUNT));
+	}
+
+	@Override
+	public void updateColor() {
+		this.setBackground(ColorManager.BACKGROUND);
+		timeLabel.setForeground(ColorManager.TEXT);
+		dateLabel.setForeground(ColorManager.TEXT);
+		orderLabel.setForeground(ColorManager.TEXT);
+		limitLabel.setForeground(ColorManager.TEXT);
 	}
 
 }

@@ -2,6 +2,7 @@
 package main.java.com.slimtrade.gui.options;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,6 +20,7 @@ import javax.swing.JScrollPane;
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
+import main.java.com.slimtrade.core.observing.improved.ColorUpdateListener;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.basic.AbstractResizableWindow;
 import main.java.com.slimtrade.gui.buttons.BasicButton;
@@ -30,14 +33,14 @@ import main.java.com.slimtrade.gui.options.macros.OutgoingCustomizer;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.StashTabPanel;
 
-public class OptionsWindow extends AbstractResizableWindow {
+public class OptionsWindow extends AbstractResizableWindow implements ColorUpdateListener {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel display = new JPanel();
-	JScrollPane scrollDisplay;
+	private final JPanel display = new JPanel();
+	private final JScrollPane scrollDisplay;
 
-	JPanel menuPanel = new JPanel(new GridBagLayout());
-	JPanel menuPanelLower = new JPanel(new GridBagLayout());
+	private final JPanel menuPanel = new JPanel(new GridBagLayout());
+	private final JPanel menuPanelLower = new JPanel(new GridBagLayout());
 
 	public OptionsWindow() {
 		super("Options");
@@ -45,19 +48,18 @@ public class OptionsWindow extends AbstractResizableWindow {
 		this.setFocusable(true);
 		container.setLayout(new BorderLayout());
 		JPanel menuBorder = new JPanel(new BorderLayout());
-		
-		container.setBackground(ColorManager.BACKGROUND);
 
 		menuBorder.add(menuPanel, BorderLayout.NORTH);
 		menuBorder.add(menuPanelLower, BorderLayout.SOUTH);
 
 		scrollDisplay = new JScrollPane(display);
-		display.setBackground(ColorManager.LOW_CONSTRAST);
+		scrollDisplay.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		display.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
+//		gc.fill = GridBagConstraints.BOTH;
 
 		int buffer = 6;
 		JPanel bottomPanel = new JPanel();
@@ -73,7 +75,7 @@ public class OptionsWindow extends AbstractResizableWindow {
 		// bottomPanel.add(resizeButton);
 		bottomPanel.add(revertButton);
 		bottomPanel.add(saveButton);
-
+		
 		ListButton generalButton = new ListButton("General");
 		GeneralPanel generalPanel = new GeneralPanel();
 		link(generalButton, generalPanel);
@@ -137,6 +139,7 @@ public class OptionsWindow extends AbstractResizableWindow {
 		gc.insets.bottom = 0;
 		menuPanelLower.add(updateButton, gc);
 
+		
 		// container.setLayout(new BorderLayout());
 		container.add(new BufferPanel(0, buffer), BorderLayout.NORTH);
 		container.add(new BufferPanel(buffer, 0), BorderLayout.EAST);
@@ -144,10 +147,10 @@ public class OptionsWindow extends AbstractResizableWindow {
 		container.add(menuBorder, BorderLayout.WEST);
 		container.add(scrollDisplay, BorderLayout.CENTER);
 
-		// generalPanel.setVisible(true);
-		// generalButton.active = true;
-		ignorePanel.setVisible(true);
-		ignoreButton.active = true;
+		 generalPanel.setVisible(true);
+		 generalButton.active = true;
+//		ignorePanel.setVisible(true);
+//		ignoreButton.active = true;
 		this.setMinimumSize(new Dimension(900, 600));
 		this.refresh();
 		this.setMinimumSize(new Dimension(300, 300));
@@ -156,7 +159,7 @@ public class OptionsWindow extends AbstractResizableWindow {
 		FrameManager.centerFrame(this);
 
 		// TODO : Resize
-//		AbstractResizableWindow local = this;	
+		// AbstractResizableWindow local = this;
 		// resizeButton.addActionListener(new ActionListener(){
 		// public void actionPerformed(ActionEvent e) {
 		// local.autoResize();
@@ -187,8 +190,12 @@ public class OptionsWindow extends AbstractResizableWindow {
 			}
 		});
 
+		
+		
+		updateColor();
 		this.setVisible(true);
-
+		Main.eventManager.addListener(this);
+		
 	}
 
 	// TODO : Make on press down?
@@ -224,6 +231,12 @@ public class OptionsWindow extends AbstractResizableWindow {
 		scrollDisplay.revalidate();
 		this.pack();
 		this.repaint();
+	}
+
+	@Override
+	public void updateColor() {
+		container.setBackground(ColorManager.BACKGROUND);
+		display.setBackground(ColorManager.BACKGROUND);
 	}
 
 }

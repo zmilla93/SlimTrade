@@ -16,9 +16,11 @@ import com.sun.jna.platform.DesktopWindow;
 import com.sun.jna.platform.WindowUtils;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.utility.TradeOffer;
 import main.java.com.slimtrade.core.utility.TradeUtility;
+import main.java.com.slimtrade.enums.ColorThemeType;
 import main.java.com.slimtrade.enums.MenubarButtonLocation;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
@@ -110,6 +112,8 @@ public class MenubarDialog extends BasicDialog {
 				if (!FrameManager.chatScannerWindow.isVisible()) {
 					FrameManager.hideMenuFrames();
 					FrameManager.chatScannerWindow.setShow(true);
+					
+					
 				}
 			}
 		});
@@ -128,6 +132,8 @@ public class MenubarDialog extends BasicDialog {
 				FrameManager.messageManager.addMessage(t);
 				FrameManager.messageManager.addMessage(t2);
 				FrameManager.messageManager.addMessage(t3);
+		
+				
 //				for(DesktopWindow w : WindowUtils.getAllWindows(true)){
 //					System.out.println(w.getTitle() + " ::: " + w.getLocAndSize());
 //				}

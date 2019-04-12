@@ -9,13 +9,14 @@ import javax.swing.JDialog;
 
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.HideableDialog;
+import main.java.com.slimtrade.gui.components.AddRemovePanel;
 import main.java.com.slimtrade.gui.components.TrayButton;
 import main.java.com.slimtrade.gui.history.HistoryWindow;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 import main.java.com.slimtrade.gui.menubar.MenubarExpandButton;
 import main.java.com.slimtrade.gui.messaging.MessageDialogManager;
-import main.java.com.slimtrade.gui.messaging.OLD_MessageManager;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
+import main.java.com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import main.java.com.slimtrade.gui.scanner.ChatScannerWindow;
 import main.java.com.slimtrade.gui.stash.StashOverlayWindow;
 import main.java.com.slimtrade.gui.stash.helper.StashHelperContainer;
@@ -34,7 +35,13 @@ public class FrameManager {
 	public static OverlayManager overlayManager;
 	// public static REMOVE_StashTabWindow stashTabWindow;
 	public static ChatScannerWindow chatScannerWindow;
-
+	
+	//Ignore Items
+	public static IgnoreItemWindow ignoreItemWindow;
+	public static ItemIgnorePanel itemIgnorePanel;
+	public static AddRemovePanel ignoreItemAddRemovePanel;
+	
+	
 	private static HideableDialog[] menuFrames;
 	private static HideableDialog[] forceFrames;
 	private static HideableDialog[] showHideDialogs;
@@ -48,7 +55,9 @@ public class FrameManager {
 		messageManager = new MessageDialogManager();
 		overlayManager = new OverlayManager();
 		chatScannerWindow = new ChatScannerWindow();
+		ignoreItemWindow = new IgnoreItemWindow();
 		// TODO : temp
+//		ignoreItemWindow.setVisible(true);
 		stashHelperContainer.updateBounds();
 		stashOverlayWindow = new StashOverlayWindow();
 		// TODO : ????
@@ -65,10 +74,10 @@ public class FrameManager {
 		// TODO : Cleanup
 		
 		//TODO : ADD NEW MESSAGE MANAGER
-		showHideDialogs = new HideableDialog[] { stashHelperContainer, optionsWindow, historyWindow, menubar, menubarToggle, chatScannerWindow, };
+		showHideDialogs = new HideableDialog[] { stashHelperContainer, optionsWindow, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
 
 		//TODO : ADD NEW MESSAGE MANAGER
-		forceFrames = new HideableDialog[] { stashHelperContainer, historyWindow, menubar, menubarToggle};
+		forceFrames = new HideableDialog[] { stashHelperContainer, historyWindow, menubar, menubarToggle, ignoreItemWindow};
 
 		menuFrames = new HideableDialog[] { optionsWindow, historyWindow, chatScannerWindow };
 

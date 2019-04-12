@@ -1,10 +1,10 @@
 package main.java.com.slimtrade.core.managers;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.SaveConstants.Audio;
 import main.java.com.slimtrade.core.audio.Sound;
 import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.core.utility.TradeUtility;
-import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.menubar.MenubarDialog;
 
 public class DefaultManager {
@@ -35,21 +35,18 @@ public class DefaultManager {
 		Main.saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
 
 		//Sound
-		try{
-			SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, true, "audio", "buttonClick", "type")));
-		}catch(NullPointerException e){
-			SoundComponent.BUTTON_CLICK.setSound(Sound.CLICK1);
-		}
-		SoundComponent.BUTTON_CLICK.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, "audio", "buttonClick", "volume")));
+		SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, true, Audio.UIClick.TYPE)));
+		SoundComponent.BUTTON_CLICK.setSound(Sound.CLICK1);
+		SoundComponent.BUTTON_CLICK.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.UIClick.VOLUME)));
 
-		SoundComponent.INCOMING_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, "audio", "incomingTrade", "type")));
-		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, "audio", "incomingTrade", "volume")));
+		SoundComponent.INCOMING_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, Audio.IncomingTrade.TYPE)));
+		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.IncomingTrade.VOLUME)));
 		
-		SoundComponent.OUTGOING_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, "audio", "outgoingTrade", "type")));
-		SoundComponent.OUTGOING_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, "audio", "outgoingTrade", "volume")));
+		SoundComponent.OUTGOING_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, Audio.OutgoingTrade.TYPE)));
+		SoundComponent.OUTGOING_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.OutgoingTrade.VOLUME)));
 		
-		SoundComponent.SCANNER_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, "audio", "scannerMessage", "type")));
-		SoundComponent.SCANNER_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, "audio", "scannerMessage", "volume")));
+		SoundComponent.SCANNER_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, Audio.ChatScanner.TYPE)));
+		SoundComponent.SCANNER_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.ChatScanner.VOLUME)));
 
 		Main.saveManager.saveToDisk();
 	}
