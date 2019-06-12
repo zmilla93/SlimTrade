@@ -1,5 +1,18 @@
 # SlimTrade
 
-This is a WIP overlay program for the game Path of Exile inteded to assist with trading.
+SlimTrade is a macro program for Path of Exile. It is still currently in development and may contain bugs.
 
-It is not considered functional and should not be used at this time.
+# Current Features 
+- Popup window for incoming and outgoing trades
+- Stash highlighting and item name searching
+- Chat scanner that provides a popup for custom pieces of text
+- Retroactive history that can reload trade windows, even for trades you recieved while the program was not running
+- Ignore items list
+- Customizable macro messages, icons, and overlay position
+- Update checker to inform you when a new version is available
+
+# Planned Features
+- Allow reordering of custom macros
+- Allow resizing of macro windows
+- Add color themes
+- Add optional price to ignored items
