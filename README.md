@@ -1,6 +1,6 @@
 # SlimTrade
 
-SlimTrade is a macro program for Path of Exile. It is still currently in development and may contain bugs.
+SlimTrade is a macro overlay program for Path of Exile, and is complient with the game's TOS. It is still currently in development and may contain bugs.
 
 # Current Features 
 - Popup window for incoming and outgoing trades
