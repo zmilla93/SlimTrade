@@ -90,8 +90,10 @@ public enum CurrencyType {
 	}
 
 	//TODO : add toString for printing; replace _ with spaces, and capitalize remaining terms properly
-//	public String toString(){
-//
-//    }
+	public String toString(){
+        String formattedName = this.name().toLowerCase().replaceAll("_", " ");
+
+        return formattedName;
+    }
 
 }

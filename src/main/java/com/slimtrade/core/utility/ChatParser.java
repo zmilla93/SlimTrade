@@ -163,7 +163,17 @@ public class ChatParser {
 						}
 					} else {
 						Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
+						if(joinAreaMatcher.matches()){
+                            for(int i = 0; i<joinAreaMatcher.groupCount(); i++){
+                                System.out.println("index " + i + " " + joinAreaMatcher.group(i));
+                                if(joinAreaMatcher.groupCount()>1){
+                                    FrameManager.messageManager.setPlayerJoinedArea(joinAreaMatcher.group(1));
+                                }
+                            }
+                        }
 						//TODO : Player joined indicator
+//                        System.out.println("PLAYER JOINED!");
+//
 					}
 				}
 			}
