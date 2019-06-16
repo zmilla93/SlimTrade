@@ -1,7 +1,6 @@
 package main.java.com.slimtrade.gui.messaging;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -194,7 +193,8 @@ public class MessageDialogManager {
 	    for(PanelWrapper wrapper : wrapperList){
 	        MessagePanel panel = (MessagePanel) wrapper.getPanel();
 	        if(panel.getTrade().playerName.equals(username)){
-	            panel.nameLabel.setForeground(ColorManager.GREEN_APPROVE);
+	            panel.nameLabel.setForeground(Color.YELLOW);
+                panel.borderPanel.setBackground(Color.YELLOW);
             }
         }
     }
