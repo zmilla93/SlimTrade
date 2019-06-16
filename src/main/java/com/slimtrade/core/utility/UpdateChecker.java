@@ -15,29 +15,40 @@ import main.java.com.slimtrade.core.Main;
 
 public class UpdateChecker {
 
-	//TODO : Switch to /releases/latest with new versionMatchString in order to avoid detecting prereleases
-	
-	private final String releases = "https://github.com/zmilla93/SlimTrade/releases";
-	private final String versionMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
+	// TODO : Switch to /releases/latest with new versionMatchString in order to
+	// avoid detecting prereleases
 
-	private ArrayList<String> versions = new ArrayList<String>();
+	private final String latestRelease = "https://github.com/zmilla93/SlimTrade/releases/latest";
+	private final String latestReleaseMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
+	private final String allReleases = "https://github.com/zmilla93/SlimTrade/releases";
+	private final String allReleasesMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
+
+	// private ArrayList<String> versions = new ArrayList<String>();
 
 	private boolean newVersion = false;
 	private VersionNumber latestVersion;
 
 	public UpdateChecker() {
-		
+
 	}
-	
-	public VersionNumber getLatestVersion(){
+
+	public VersionNumber getLatestVersion() {
 		return latestVersion;
 	}
 
-	public boolean checkForUpdate() {
+	public boolean checkForUpdate(){
+		return checkForUpdate(false);
+	}
+	
+	public boolean checkForUpdate(boolean allowPrereleases) {
 		InputStream inputStream = null;
-
 		try {
-			URL url = new URL(releases);
+			URL url;
+			if (allowPrereleases) {
+				url = new URL(allReleases);
+			} else {
+				url = new URL(latestRelease);
+			}
 			URLConnection connection = url.openConnection();
 			connection.setConnectTimeout(5000);
 			inputStream = connection.getInputStream();
@@ -56,27 +67,29 @@ public class UpdateChecker {
 			Main.logger.log(Level.WARNING, "Error while parsing data from github.");
 			return false;
 		}
-		Pattern pattern = Pattern.compile(versionMatchString);
+		Pattern pattern = null;
+		if (allowPrereleases) {
+			pattern = Pattern.compile(allReleasesMatchString);
+		} else {
+			pattern = Pattern.compile(latestReleaseMatchString);
+		}
 		Matcher matcher = pattern.matcher(webText.toString());
-		// System.out.println(webText.toString());
 		System.out.println(matcher.matches());
 		while (matcher.find()) {
 			VersionNumber v = new VersionNumber(matcher.group(1));
 			System.out.println(v.toString());
 			if (VersionNumber.isNewVersion(v)) {
 				newVersion = true;
-				if(latestVersion != null){
-					if(VersionNumber.isNewVersion(v, latestVersion)){
+				if (latestVersion != null) {
+					if (VersionNumber.isNewVersion(v, latestVersion)) {
 						latestVersion = v;
 					}
-				}else{
+				} else {
 					latestVersion = v;
 				}
 			}
-			// versions.add(matcher.group(1));
-			// System.out.println("Version Found + " + matcher.group(1));
 		}
-		 return newVersion;
+		return newVersion;
 	}
 
 }

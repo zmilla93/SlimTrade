@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,6 +21,7 @@ import javax.swing.SpinnerNumberModel;
 
 import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.SaveConstants;
+import main.java.com.slimtrade.core.SaveConstants.IgnoreItems;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.buttons.BasicButton;
 import main.java.com.slimtrade.gui.components.AddRemovePanel;
@@ -129,19 +131,24 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 		addRemovePanel.saveChanges();
 		int index = 0;
 		Main.saveManager.deleteObject(SaveConstants.IgnoreItems.base);
+		ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
 		for (Component c : addRemovePanel.getComponents()) {
 			if (c instanceof IgnoreRow) {
 				IgnoreRow row = (IgnoreRow) c;
-				Main.saveManager.putObject(row.getIgnoreData().getItemName(), SaveConstants.IgnoreItems.getItemName(index));
-				Main.saveManager.putObject(row.getIgnoreData().getMatchType().name(), SaveConstants.IgnoreItems.getMatchType(index));
-				Main.saveManager.putObject(row.getIgnoreData().getExpireTime(), SaveConstants.IgnoreItems.getExpireTime(index));
+				IgnoreData rowData = row.getIgnoreData();
+				Main.saveManager.putObject(rowData.getItemName(), IgnoreItems.getItemName(index));
+				Main.saveManager.putObject(rowData.getMatchType().name(), IgnoreItems.getMatchType(index));
+				Main.saveManager.putObject(rowData.getExpireTime(), IgnoreItems.getExpireTime(index));
+				fullData.add(rowData);
 			}
 			index++;
 		}
+		Main.chatParser.setWhisperIgnoreTerms(fullData);
 	}
 
 	@Override
 	public void load() {
+		ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
 		for (int index = 0; index < MAX_IGNORE_COUNT; index++) {
 			if (Main.saveManager.hasEntry(SaveConstants.IgnoreItems.getItemName(index))) {
 				try {
@@ -151,6 +158,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 					IgnoreData data = new IgnoreData(itemName, matchType, expireTime);
 					if (data.getRemainingTime() > 0) {
 						addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
+						fullData.add(data);
 					}
 				} catch (DateTimeParseException e) {
 
@@ -158,6 +166,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 			}
 		}
 		addRemovePanel.saveChanges();
+		Main.chatParser.setWhisperIgnoreTerms(fullData);
 	}
 
 }

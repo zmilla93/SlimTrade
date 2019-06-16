@@ -33,7 +33,7 @@ import main.java.com.slimtrade.gui.windows.UpdateDialog;
 public class Main {
 	
 	// TODO : move to invoke later?
-	public static Debugger debug = new Debugger();
+	public static Debugger debugger;
 	public static REDO_MacroEventManager macroEventManager = new REDO_MacroEventManager();
 	public static EventManager eventManager = new EventManager();
 	public static SaveManager saveManager;
@@ -44,22 +44,33 @@ public class Main {
 	public static GlobalKeyboardListener globalKeyboard;
 	public static LoadingDialog loadingDialog;
 	public static ColorManager colorManager = new ColorManager();
-	
-	@SuppressWarnings("unused")
+
+	public static boolean debugMode = false;
+
+
 	public static void main(String[] args) {
-		
-		debug.setState(Frame.ICONIFIED);
-//		debug.setVisible(false);
+
+		// Command line args
+		if(args.length>0){
+			for(String s : args){
+				switch (s){
+					case "debug":
+						debugMode = true;
+						break;
+				}
+			}
+		}
+		//Debug Mode
+		if(debugMode){
+			debugger = new Debugger();
+			debugger.setState(Frame.ICONIFIED);
+		}
+		//Loading Dialog
 		loadingDialog = new LoadingDialog();
-
-
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
 		logger.setLevel(Level.WARNING);
 		logger.setUseParentHandlers(false);
 
-//		Color.RED.setMessageTheme();
-		
-		// POE Interface
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				//TODO : Load Color Theme
@@ -74,10 +85,8 @@ public class Main {
 				saveManager = new SaveManager();
 				DefaultManager defaultManager = new DefaultManager();
 				saveManager.saveToDisk();
-				
 				ColorManager.setTheme(ColorThemeType.valueOf(saveManager.getEnumValue(ColorThemeType.class, SaveConstants.General.COLOR_THEME)));
-
-
+				// POE Interface
 				try {
 					PoeInterface poe = new PoeInterface();
 				} catch (AWTException e) {

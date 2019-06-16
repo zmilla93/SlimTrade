@@ -23,7 +23,7 @@ public class MessageDialogManager {
 	
 	private final int BUFFER_SIZE = 2;
 	private final int MAX_MESSAGE_COUNT = 20;
-	private final ArrayList<PanelWrapper> wrapperList = new ArrayList<PanelWrapper>();
+	private static final ArrayList<PanelWrapper> wrapperList = new ArrayList<PanelWrapper>();
 	
 	public MessageDialogManager(){
 		expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
@@ -60,6 +60,8 @@ public class MessageDialogManager {
 		Point targetPoint = new Point(anchorPoint);
 		for(PanelWrapper w : wrapperList){
 			w.setLocation(targetPoint);
+			w.setAlwaysOnTop(false);
+			w.setAlwaysOnTop(true);
 			if(expandDirection == ExpandDirection.DOWN){
 				targetPoint.y += w.getHeight() + BUFFER_SIZE;
 			}else{
@@ -181,6 +183,10 @@ public class MessageDialogManager {
 	
 	public void setAnchorPoint(Point point){
 		this.anchorPoint = point;
+	}
+	
+	public static ArrayList<PanelWrapper> getDialogList(){
+		return MessageDialogManager.wrapperList;
 	}
 	
 	

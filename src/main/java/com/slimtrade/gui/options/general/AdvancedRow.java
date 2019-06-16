@@ -26,7 +26,7 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 
 	private final int HEIGHT = 22;
 	private final int LABEL_WIDTH = 100;
-	private final int PATH_WIDTH = 450;
+	private final int PATH_WIDTH = 500;
 
 	private boolean changed = false;
 	private JLabel label = new JLabel();
@@ -70,7 +70,6 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			fileChooser = new JFileChooser();
-
 		}
 
 		fileChooser.setFileFilter(new FileFilter() {

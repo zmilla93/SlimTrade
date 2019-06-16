@@ -23,14 +23,14 @@ import main.java.com.slimtrade.gui.options.ISaveable;
 import main.java.com.slimtrade.gui.panels.BufferPanel;
 import main.java.com.slimtrade.gui.stash.helper.ItemHighlighter;
 
-public class StashOverlayWindow extends AbstractResizableWindow implements ISaveable {
+public class StashWindow extends AbstractResizableWindow implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 
 	private StashGridPanel gridPanel;
 	private boolean vis = false;
 
-	public StashOverlayWindow() {
+	public StashWindow() {
 		super("Stash Overlay", false);
 		this.setMinimumSize(new Dimension(300, 300));
 		container.setBackground(ColorManager.CLEAR);
@@ -109,6 +109,7 @@ public class StashOverlayWindow extends AbstractResizableWindow implements ISave
 				FrameManager.stashHelperContainer.updateBounds();
 				local.setShow(false);
 				FrameManager.showVisibleFrames();
+				Main.saveManager.saveToDisk();
 				// this.setvi
 			}
 		});

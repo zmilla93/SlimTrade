@@ -11,7 +11,7 @@ public class ColorManager {
 	private static ColorThemeType currentColorTheme;
 	
 	// Mutual Colors
-	public static Color PRIMARY = Color.PINK; 						// MAIN COLORS
+	public static Color PRIMARY = new Color(255,204,0); 						// MAIN COLORS
 	public static Color GREEN_SALE = new Color(0, 100, 0); 			// 
 	public static Color GREEN_APPROVE = new Color(0, 100, 0); 		// 
 	public static Color RED_SALE = new Color(100, 0, 0);			// 

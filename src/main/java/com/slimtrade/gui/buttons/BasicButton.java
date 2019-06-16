@@ -39,6 +39,10 @@ public class BasicButton extends JButton implements ColorUpdateListener {
 		this.model = this.getModel();
 		buildButton();
 	}
+	
+	public void setColor(Color color){
+		this.primaryColor = color;
+	}
 
 	//TODO : Check mouse button?
 	//TODO : Currently paints twice per action...

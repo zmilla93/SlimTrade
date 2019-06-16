@@ -10,39 +10,34 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 
-public class ListButton extends JButton {
+import main.java.com.slimtrade.core.managers.ColorManager;
+import main.java.com.slimtrade.core.observing.improved.ColorUpdateListener;
+
+public class ListButton extends JButton implements ColorUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 
 	public boolean active = false;
 
-	public Color colorInactive = new Color(150, 150, 150);
-//	public Color colorActive = Color.red;
-	public Color colorActive = new Color(220, 220, 220);
-//	public Color colorHover = new Color(220, 220, 220);
-//	public Color colorPressed = Color.WHITE;
+	public Color colorInactive = ColorManager.LOW_CONSTRAST;
+	public Color colorActive = ColorManager.PRIMARY;
+	public Color colorPressed = ColorManager.BACKGROUND;
 
-	private Border borderOuter = BorderFactory.createLineBorder(Color.black);
-	private Border borderInner = BorderFactory.createLineBorder(Color.gray);
+	private Border borderOuter = BorderFactory.createLineBorder(ColorManager.LOW_CONSTRAST);
+	private Border borderInner = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
 	private Border b = BorderFactory.createCompoundBorder(borderOuter, borderInner);
 
-	private Border borderOuter2 = BorderFactory.createLineBorder(Color.gray);
-	private Border borderInner2 = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
-	private Border b2 = BorderFactory.createCompoundBorder(borderOuter2, borderInner2);
+	private Border borderOuter2 = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
+	private Border borderInner2 = BorderFactory.createLineBorder(ColorManager.LOW_CONSTRAST);
+	private Border borderDefault = BorderFactory.createCompoundBorder(borderOuter2, borderInner2);
 
-	public Border borderDefault = b2;
-//	public Border borderInactive = b;
-//	public Border borderActive = b;
 	public Border borderHover = b;
 	public Border borderPressed = b;
 
 	public ListButton(String title) {
 		super(title);
-
-		borderOuter = BorderFactory.createLineBorder(Color.black);
-		borderInner = BorderFactory.createLineBorder(Color.gray);
-//		borderInactive = BorderFactory.createCompoundBorder(borderOuter, borderInner);
-
+//		borderOuter = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
+//		borderInner = BorderFactory.createLineBorder(ColorManager.LOW_CONSTRAST);
 		this.setContentAreaFilled(false);
 		this.setFocusable(false);
 		Dimension size = this.getPreferredSize();
@@ -65,24 +60,39 @@ public class ListButton extends JButton {
 	}
 
 	protected void paintComponent(Graphics g) {
-		if (getModel().isPressed()) {
-//			g.setColor(colorPressed);
-			this.setBorder(borderPressed);
-		} else if (getModel().isRollover()) {
-//			g.setColor(colorHover);
-			this.setBorder(borderHover);
-		} else {
-			this.setBorder(borderDefault);
+		
+		if(getModel().isPressed()) {
+			this.setBorder(BorderFactory.createLoweredBevelBorder());
+			g.setColor(colorPressed);
+		}else{
+			if (active) {
+				g.setColor(colorActive);
+				this.setBorder(borderDefault);
+			}else{
+				g.setColor(colorInactive);
+			}
 		}
-		if (active) {
-			g.setColor(colorActive);
-//			this.setBorder(borderActive);
-		} else {
-			g.setColor(colorInactive);
-//			this.setBorder(borderInactive);
+		if (getModel().isRollover()) {
+			this.setBorder(borderHover);
+		}else{
+			this.setBorder(borderDefault);
 		}
 		g.fillRect(0, 0, getWidth(), getHeight());
 		super.paintComponent(g);
+	}
+
+	@Override
+	public void updateColor() {
+		borderOuter = BorderFactory.createLineBorder(ColorManager.LOW_CONSTRAST);
+		borderInner = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
+		b = BorderFactory.createCompoundBorder(borderOuter, borderInner);
+
+		borderOuter2 = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
+		borderInner2 = BorderFactory.createLineBorder(ColorManager.LOW_CONSTRAST);
+		borderDefault = BorderFactory.createCompoundBorder(borderOuter2, borderInner2);
+		
+		borderHover = b;
+		borderPressed = b;
 	}
 
 }

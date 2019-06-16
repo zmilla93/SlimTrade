@@ -76,7 +76,7 @@ public class UpdateDialog extends JDialog {
 		viewButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases");
+					URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
 					Desktop.getDesktop().browse(uri);
 				} catch (URISyntaxException | IOException e) {
 					e.printStackTrace();

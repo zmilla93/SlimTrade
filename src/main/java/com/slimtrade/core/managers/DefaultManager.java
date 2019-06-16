@@ -35,7 +35,9 @@ public class DefaultManager {
 		Main.saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
 
 		//Sound
-		SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, true, Audio.UIClick.TYPE)));
+		//TODO : Revisit if more click sounds are added
+//		SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, Audio.UIClick.TYPE)));
+//		SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, true, Audio.UIClick.TYPE)));
 		SoundComponent.BUTTON_CLICK.setSound(Sound.CLICK1);
 		SoundComponent.BUTTON_CLICK.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.UIClick.VOLUME)));
 

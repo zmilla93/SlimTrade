@@ -96,7 +96,7 @@ public class MenubarDialog extends BasicDialog {
 
 		// TODO : Move button actions
 
-		// HISTORY
+		// History
 		historyButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
 				if (!FrameManager.historyWindow.isVisible()) {
@@ -118,7 +118,7 @@ public class MenubarDialog extends BasicDialog {
 			}
 		});
 
-		// TEST
+		// TEST BUTTON
 		testButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
 				Random rng = new Random();
@@ -141,7 +141,7 @@ public class MenubarDialog extends BasicDialog {
 			}
 		});
 
-		// OPTIONS
+		// Options
 		optionsButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent evt) {
 				if(!FrameManager.optionsWindow.isVisible()){
@@ -151,15 +151,15 @@ public class MenubarDialog extends BasicDialog {
 			}
 		});
 
-		// QUIT PROGRAM
+		// Quit Program
 		quitButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				System.exit(0);
 			}
 		});
-		
+
+		// Listeners
 		for(Component c : container.getComponents()){
-			System.out.println("adding listner");
 			addMouseExitListener(c);
 		}
 	}

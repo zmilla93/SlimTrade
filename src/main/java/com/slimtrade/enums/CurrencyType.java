@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 public enum CurrencyType {
 
-	UNKNOWN(""),
+    /*
+        First term is the name of the file, all remaining terms are alternate tags used by trade sites
+        Display name (toString) is a formatted version of the enum name
+     */
+
+	NONE(""),
 	ALBINO_RHOA_FEATHER(""),
 	ANCIENT_ORB(""),
 	APPRENTICE_CARTOGRAPHERS_SEAL(""),
@@ -56,7 +61,9 @@ public enum CurrencyType {
 	VAAL_ORB(""),
 	;
 
-	String path;
+	//TODO : Public common currency type array
+
+	private String path;
 	private ArrayList<String> tags = new ArrayList<String>();
 
 	CurrencyType(String... tags) {
@@ -81,5 +88,10 @@ public enum CurrencyType {
 	public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
+
+	//TODO : add toString for printing; replace _ with spaces, and capitalize remaining terms properly
+//	public String toString(){
+//
+//    }
 
 }

@@ -78,22 +78,24 @@ public class SaveManager {
 			clientPath = getString("general", "clientPath");
 			clientDirectory = getDirectoryFromPath(clientPath);
 			validClientPath = true;
+			potentialPaths.add(clientPath);
+			clientCount = 1;
 		} else {
-//			int clientCount = 0;
 			String validDirectory = null;
 			String[] stubs = { steamStub, steamStubx86, standAlone, standAlonex86 };
 			for (File s : File.listRoots()) {
 				for (String stub : stubs) {
-					File f = new File(s.toString() + stub + sep + poeLogs);
-					if (f.exists() && f.isDirectory()) {
+					File f = new File(s.toString() + stub + sep + poeLogs + sep + "Client.txt");
+					System.out.println("PATH : " + f.getPath());
+					if (f.exists() && f.isFile()) {
 						clientCount++;
 						potentialPaths.add(f.getPath());
-						validDirectory = f.getPath();
+						validDirectory = s.toString() + stub + sep + poeLogs;
 					}
 				}
 			}
 			if(clientCount == 0){
-				Main.debug.log("No client path found");
+				Main.debugger.log("No client path found");
 			}else if (clientCount == 1) {
 				validClientPath = true;
 				clientDirectory = validDirectory;
@@ -101,9 +103,9 @@ public class SaveManager {
 				putObject(clientPath, "general", "clientPath");
 				System.out.println("FOUND ENTRY ::: \n\t" + clientPath + "\n\t" + clientDirectory);
 			}else if (clientCount > 1){
-				Main.debug.log("[Warning] Multiple client paths found:");
+				Main.debugger.log("[Warning] Multiple client paths found:");
 				for(String s : potentialPaths){
-					Main.debug.log(s);
+					Main.debugger.log(s);
 				}
 			}
 		}
@@ -419,6 +421,14 @@ public class SaveManager {
 
 	public String getClientPath() {
 		return this.clientPath;
+	}
+	
+	public int getClientCount(){
+		return clientCount;
+	}
+	
+	public ArrayList<String> getPotentialPaths(){
+		return this.potentialPaths;
 	}
 
 }

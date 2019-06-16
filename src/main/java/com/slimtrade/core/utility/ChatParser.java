@@ -5,10 +5,11 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +20,8 @@ import main.java.com.slimtrade.core.audio.AudioManager;
 import main.java.com.slimtrade.core.audio.SoundComponent;
 import main.java.com.slimtrade.enums.MessageType;
 import main.java.com.slimtrade.gui.FrameManager;
+import main.java.com.slimtrade.gui.enums.MatchType;
+import main.java.com.slimtrade.gui.options.ignore.IgnoreData;
 
 public class ChatParser {
 //	private FileReader fileReader;
@@ -49,7 +52,8 @@ public class ChatParser {
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
 	private String[] searchTerms;
-	private String[] ignoreTerms;
+	private String[] searchIgnoreTerms;
+	private ArrayList<IgnoreData> whisperIgnoreData = new ArrayList<IgnoreData>();
 	private boolean chatScannerRunning = false;
 	private String searchName;
 	private String searchResponseLeft;
@@ -63,13 +67,13 @@ public class ChatParser {
 
 	// TODO : Move path to options
 	public void init() {
-		Main.debug.log("Launching chat parser...");
+		Main.debugger.log("Launching chat parser...");
 		int msgCount = 0;
 		updateTimer.stop();
 		if (Main.saveManager.isValidClientPath()) {
 			clientPath = Main.saveManager.getClientPath();
 		} else {
-			Main.debug.log("[ERROR] No valid client file path found.");
+			Main.debugger.log("[ERROR] No valid client file path found.");
 			return;
 		}
 		try {
@@ -78,9 +82,11 @@ public class ChatParser {
 //			fileReader = new FileReader(clientPath);
 			reader = new InputStreamReader(new FileInputStream(clientPath), StandardCharsets.UTF_8);
 			bufferedReader = new BufferedReader(reader);
-		} catch (FileNotFoundException e1) {
-			Main.debug.log("[ERROR] Chat parser failed to launch.");
-			e1.printStackTrace();
+		} catch (FileNotFoundException e) {
+			Main.debugger.log("[ERROR] Chat parser failed to launch.");
+			Main.logger.log(Level.SEVERE, "Chat parser failed to launch");
+			return;
+//			e.printStackTrace();
 		}
 		// TODO : Init history
 		totalLineCount = 0;
@@ -96,13 +102,13 @@ public class ChatParser {
 				totalLineCount++;
 			}
 			FrameManager.historyWindow.buildHistory();
-			Main.debug.log(msgCount + " whisper messages found.");
+			Main.debugger.log(msgCount + " whisper messages found.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		updateTimer.start();
-		Main.debug.log(totalLineCount + " total lines found.");
-		Main.debug.log("Chat parser sucessfully launched.");
+		Main.debugger.log(totalLineCount + " total lines found.");
+		Main.debugger.log("Chat parser sucessfully launched.");
 	}
 
 	private void procUpdate() {
@@ -128,7 +134,7 @@ public class ChatParser {
 					totalLineCount++;
 					if (curLine.contains("@")) {
 //						System.out.println(curLine);
-						Main.debug.log(curLine);
+						Main.debugger.log(curLine);
 						TradeOffer trade = getTradeOffer(curLine);
 						if (trade != null) {
 							FrameManager.messageManager.addMessage(trade);
@@ -155,19 +161,9 @@ public class ChatParser {
 							AudioManager.play(SoundComponent.SCANNER_MESSAGE);
 							FrameManager.messageManager.addMessage(trade);
 						}
-						// for (String s : searchTerms) {
-						// if (curLine.toLowerCase().contains(s)) {
-						// // FrameManager.messageManager.addMessage(trade);
-						// //Add null set/check
-						// TradeOffer trade = getSearchOffer(curLine);
-						// if(trade != null){
-						// FrameManager.messageManager.addMessage(trade);
-						// }
-						// return;
-						// }
-						// }
 					} else {
 						Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
+						//TODO : Player joined indicator
 					}
 				}
 			}
@@ -175,8 +171,8 @@ public class ChatParser {
 			reader.close();
 		} catch (NumberFormatException | IOException e) {
 			updateTimer.stop();
-			Main.debug.log("[ERROR] Exception encountered while attempting to update parser.");
-			Main.debug.log("Parser disabled.");
+			Main.debugger.log("[ERROR] Exception encountered while attempting to update parser.");
+			Main.debugger.log("Parser disabled.");
 			e.printStackTrace();
 		}
 		// long end = System.currentTimeMillis();
@@ -201,7 +197,6 @@ public class ChatParser {
 			// itemName, Double itemCount, priceTypeString, Double priceCount
 			// stashtabName, int stashtabX, int stashtabY, bonusText,
 			// sentMessage
-
 			double d1 = 0.0;
 			double d2 = 0.0;
 			// Item Count
@@ -223,9 +218,22 @@ public class ChatParser {
 				i2 = Integer.parseInt(tradeMsgMatcher.group(23));
 			}
 			trade = new TradeOffer(tradeMsgMatcher.group(2).replaceAll("/", "-"), tradeMsgMatcher.group(3), getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5), tradeMsgMatcher.group(6), tradeMsgMatcher.group(11), d1, tradeMsgMatcher.group(14), d2, tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24), tradeMsgMatcher.group(7));
-
+//			if(trade.itemName)
 			// System.out.println("TRADE OFFER : " + trade.guildName +
 			// trade.playerName);
+			if(trade.messageType == MessageType.INCOMING_TRADE && this.whisperIgnoreData!=null){
+				for(IgnoreData d : this.whisperIgnoreData){
+					if(d.getMatchType() == MatchType.CONTAINS){
+						if(trade.itemName.toLowerCase().contains(d.getItemName().toLowerCase())){
+							return null;
+						}
+					}else if(d.getMatchType() == MatchType.EXACT){
+						if(trade.itemName.toLowerCase().equals(d.getItemName().toLowerCase())){
+							return null;
+						}
+					}
+				}
+			}
 			return trade;
 		} else {
 			return null;
@@ -245,10 +253,10 @@ public class ChatParser {
 //			System.out.println("");
 			// DEBUG END
 			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6), this.searchResponseLeft, this.searchResponseRight);
-
-			if (this.ignoreTerms != null) {
-				for (String s : this.ignoreTerms) {
-					if (trade.searchMessage.contains(s)) {
+			//TODO (OPT) : This loops the same thing twice, and calls toLowerCase more than needed
+			if (this.searchIgnoreTerms != null) {
+				for (String s : this.searchIgnoreTerms) {
+					if (trade.searchMessage.toLowerCase().contains(s.toLowerCase())) {
 						return null;
 					}
 				}
@@ -297,8 +305,12 @@ public class ChatParser {
 		this.searchTerms = searchTerms;
 	}
 
-	public void setIgnoreTerms(String[] ignoreTerms) {
-		this.ignoreTerms = ignoreTerms;
+	public void setSearchIgnoreTerms(String[] ignoreTerms) {
+		this.searchIgnoreTerms = ignoreTerms;
+	}
+	
+	public void setWhisperIgnoreTerms(ArrayList<IgnoreData> ignoreData) {
+		this.whisperIgnoreData = ignoreData;
 	}
 
 	public void setResponseText(String lmb, String rmb) {

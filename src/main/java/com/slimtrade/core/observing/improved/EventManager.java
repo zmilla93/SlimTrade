@@ -3,6 +3,7 @@ package main.java.com.slimtrade.core.observing.improved;
 import java.util.ArrayList;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.enums.ColorThemeType;
 
 public class EventManager {
@@ -19,7 +20,7 @@ public class EventManager {
 	
 	public void updateAllColors(ColorThemeType theme){
 		System.out.println("Updaing All Colors");
-		Main.colorManager.setTheme(theme);
+		ColorManager.setTheme(theme);
 		for(ColorUpdateListener l : updateColorList){
 			l.updateColor();
 		}

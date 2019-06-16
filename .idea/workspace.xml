@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e3636277-2cba-4680-9c9a-b850665a6e6d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SlimTrade.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/References.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/References.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/ColorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/ColorManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/DefaultManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/DefaultManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/ExternalFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/ExternalFileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/SaveManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/SaveManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/observing/improved/ColorUpdateListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/observing/improved/ColorUpdateListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/observing/improved/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/observing/improved/EventManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/ChatParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/ChatParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/POEWindowInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/POEWindowInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/UpdateChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/UpdateChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/debug/Debugger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/debug/Debugger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/enums/ColorThemeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/enums/ColorThemeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/enums/CurrencyType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/enums/CurrencyType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/FrameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/FrameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/buttons/BasicButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/buttons/BasicButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/menubar/MenubarDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/menubar/MenubarDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/messaging/MessageDialogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/messaging/MessageDialogManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/messaging/MessagePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/messaging/MessagePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/ListButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/ListButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/OptionsWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/OptionsWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/general/AdvancedRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/general/AdvancedRow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/ignore/ItemIgnorePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/ignore/ItemIgnorePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/scanner/ChatScannerWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/scanner/ChatScannerWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/setup/SetupWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/setup/SetupWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/setup/panels/PathPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/setup/panels/PathPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/stash/StashOverlayWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/stash/StashWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/windows/UpdateDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/windows/UpdateDialog.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/bin/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-838090212">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="6" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="17" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="17" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="11" />
+          <entry key="java" value="1536" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="1536" />
+          <entry key="PLAIN_TEXT" value="11" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/ClipboardManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/scanner/ChatScannerWindow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-5797">
+              <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/ChatParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="269" column="17" lean-forward="true" selection-start-line="269" selection-start-column="17" selection-end-line="269" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/messaging/MessagePanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/menubar/MenubarDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="143" column="18" lean-forward="true" selection-start-line="143" selection-start-column="18" selection-end-line="143" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>debug</find>
+      <find>saveButton.</find>
+      <find>setvis</find>
+      <find>optionsWindow</find>
+      <find>visible</find>
+      <find>LOCAL TEST</find>
+      <find>adding lis</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/core/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/debug/Debugger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/FrameManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/stash/StashWindow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/OptionsWindow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/enums/CurrencyType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/POEWindowInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/ChatParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/messaging/MessagePanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/slimtrade/gui/menubar/MenubarDialog.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>AccessibilityLintAndroid</id>
+          </State>
+          <State>
+            <id>Android</id>
+          </State>
+          <State>
+            <id>Code style issuesJava</id>
+          </State>
+          <State>
+            <id>Control flow issuesJava</id>
+          </State>
+          <State>
+            <id>CorrectnessLintAndroid</id>
+          </State>
+          <State>
+            <id>Declaration redundancyJava</id>
+          </State>
+          <State>
+            <id>Dependency issuesJava</id>
+          </State>
+          <State>
+            <id>Error handlingJava</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>IconsUsabilityLintAndroid</id>
+          </State>
+          <State>
+            <id>ImportsJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java 8Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>JavadocJava</id>
+          </State>
+          <State>
+            <id>Kotlin</id>
+          </State>
+          <State>
+            <id>LintAndroid</id>
+          </State>
+          <State>
+            <id>MessagesCorrectnessLintAndroid</id>
+          </State>
+          <State>
+            <id>Naming conventionsJava</id>
+          </State>
+          <State>
+            <id>PerformanceLintAndroid</id>
+          </State>
+          <State>
+            <id>Plugin DevKit</id>
+          </State>
+          <State>
+            <id>Probable bugsJava</id>
+          </State>
+          <State>
+            <id>Probable bugsKotlin</id>
+          </State>
+          <State>
+            <id>Properties Files</id>
+          </State>
+          <State>
+            <id>Redundant constructsKotlin</id>
+          </State>
+          <State>
+            <id>Reflective accessJava</id>
+          </State>
+          <State>
+            <id>SecurityLintAndroid</id>
+          </State>
+          <State>
+            <id>Style issuesKotlin</id>
+          </State>
+          <State>
+            <id>TestNGJava</id>
+          </State>
+          <State>
+            <id>Threading issuesJava</id>
+          </State>
+          <State>
+            <id>UsabilityLintAndroid</id>
+          </State>
+          <State>
+            <id>VisibilityJava</id>
+          </State>
+          <State>
+            <id>YAML</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="slimtrade" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="slimtrade" type="462c0819:PsiDirectoryNode" />
+              <item name="debug" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="slimtrade" type="462c0819:PsiDirectoryNode" />
+              <item name="enums" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="slimtrade" type="462c0819:PsiDirectoryNode" />
+              <item name="gui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="slimtrade" type="462c0819:PsiDirectoryNode" />
+              <item name="gui" type="462c0819:PsiDirectoryNode" />
+              <item name="options" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="slimtrade" type="462c0819:PsiDirectoryNode" />
+              <item name="gui" type="462c0819:PsiDirectoryNode" />
+              <item name="options" type="462c0819:PsiDirectoryNode" />
+              <item name="general" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="chatpars&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/utility/ChatParser.java&#10;chatscan&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.scanner.ChatScannerWindow&#10;clipb&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/managers/ClipboardManager.java&#10;currency&#9;PSI&#9;JAVA://main.java.com.slimtrade.enums.CurrencyType&#10;println&#9;PSI&#9;JAVA://com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util#println&#10;OptionsWin&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/options/OptionsWindow.java&#10;framema&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/FrameManager.java&#10;frame&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.FrameManager&#10;main&#9;PSI&#9;JAVA://main.java.com.slimtrade.core.Main&#10;chat&#9;PSI&#9;JAVA://main.java.com.slimtrade.core.utility.ChatParser" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560518960329" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="SlimTrade" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="main.java.com.slimtrade.core.Main" />
+      <module name="SlimTrade" />
+      <option name="PROGRAM_PARAMETERS" value="debug" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e3636277-2cba-4680-9c9a-b850665a6e6d" name="Default Changelist" comment="" />
+      <created>1560322864043</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1560322864043</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1663113" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Learn" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37635574" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.121475056" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_112/src.zip!/com/sun/org/apache/xalan/internal/xsltc/compiler/util/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="110" column="23" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/ListButton_OLD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="32" column="37" lean-forward="true" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="65" column="47" selection-start-line="65" selection-start-column="47" selection-end-line="65" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/References.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/debug/Debugger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/FrameManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="90" column="41" selection-start-line="90" selection-start-column="41" selection-end-line="90" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/enums/CurrencyType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/OptionsWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3944">
+          <caret line="268" column="17" selection-start-line="268" selection-start-column="17" selection-end-line="268" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/general/BasicsPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/stash/StashWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="110" column="40" selection-start-line="110" selection-start-column="40" selection-end-line="110" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/POEWindowInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-163">
+          <caret line="26" column="56" lean-forward="true" selection-start-line="26" selection-start-column="56" selection-end-line="26" selection-end-column="56" />
+          <folding>
+            <element signature="e#1231#1232#0" expanded="true" />
+            <element signature="e#1256#1257#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/managers/ClipboardManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/scanner/ChatScannerWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5797">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/utility/ChatParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="269" column="17" lean-forward="true" selection-start-line="269" selection-start-column="17" selection-end-line="269" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/messaging/MessagePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/menubar/MenubarDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="143" column="18" lean-forward="true" selection-start-line="143" selection-start-column="18" selection-end-line="143" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>java-json</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>SlimTrade</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

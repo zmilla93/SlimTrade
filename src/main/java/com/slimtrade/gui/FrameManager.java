@@ -18,7 +18,7 @@ import main.java.com.slimtrade.gui.messaging.MessageDialogManager;
 import main.java.com.slimtrade.gui.options.OptionsWindow;
 import main.java.com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import main.java.com.slimtrade.gui.scanner.ChatScannerWindow;
-import main.java.com.slimtrade.gui.stash.StashOverlayWindow;
+import main.java.com.slimtrade.gui.stash.StashWindow;
 import main.java.com.slimtrade.gui.stash.helper.StashHelperContainer;
 import main.java.com.slimtrade.gui.windows.OverlayManager;
 
@@ -30,7 +30,7 @@ public class FrameManager {
 	public static MenubarExpandButton menubarToggle;
 	public static MessageDialogManager messageManager;
 	public static StashHelperContainer stashHelperContainer;
-	public static StashOverlayWindow stashOverlayWindow;
+	public static StashWindow stashOverlayWindow;
 	// public static REMOVE_CharacterWindow characterWindow;
 	public static OverlayManager overlayManager;
 	// public static REMOVE_StashTabWindow stashTabWindow;
@@ -47,6 +47,9 @@ public class FrameManager {
 	private static HideableDialog[] showHideDialogs;
 
 	public FrameManager() {
+//		SetupWindow setupWindow = new SetupWindow();
+//		setupWindow.setVisible(true);
+		
 		stashHelperContainer = new StashHelperContainer();
 		optionsWindow = new OptionsWindow();
 		historyWindow = new HistoryWindow();
@@ -57,9 +60,8 @@ public class FrameManager {
 		chatScannerWindow = new ChatScannerWindow();
 		ignoreItemWindow = new IgnoreItemWindow();
 		// TODO : temp
-//		ignoreItemWindow.setVisible(true);
 		stashHelperContainer.updateBounds();
-		stashOverlayWindow = new StashOverlayWindow();
+		stashOverlayWindow = new StashWindow();
 		// TODO : ????
 		stashOverlayWindow.load();
 
@@ -67,8 +69,6 @@ public class FrameManager {
 		menubar.updateLocation();
 		menubarToggle.updateLocation();
 		menubar.reorder();
-//		messageManager.updateLocation();
-//		messageManager.ref
 		// menubar.showDialog();
 
 		// TODO : Cleanup
@@ -113,13 +113,19 @@ public class FrameManager {
 	// TODO : This throws jnativehook nullPointerException during launch if
 	// mouse is clicked
 	public static void forceAllToTop() {
+		for(HideableDialog h : MessageDialogManager.getDialogList()){
+			if(h.isVisible()){
+				h.setAlwaysOnTop(false);
+				h.setAlwaysOnTop(true);
+			}
+		}
 		for (HideableDialog h : forceFrames) {
 			if (h != null && h.isVisible()) {
 				h.setAlwaysOnTop(false);
 				h.setAlwaysOnTop(true);
 			}
-
 		}
+
 		// menubarToggle.forceToTop();
 		// menubar.forceToTop();
 		// messageManager.forceToTop();

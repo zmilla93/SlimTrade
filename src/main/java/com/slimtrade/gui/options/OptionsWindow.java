@@ -4,6 +4,7 @@ package main.java.com.slimtrade.gui.options;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -11,13 +12,18 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import main.java.com.slimtrade.core.Main;
+import main.java.com.slimtrade.core.References;
 import main.java.com.slimtrade.core.managers.ColorManager;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.core.observing.improved.ColorUpdateListener;
@@ -42,6 +48,8 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 	private final JPanel menuPanel = new JPanel(new GridBagLayout());
 	private final JPanel menuPanelLower = new JPanel(new GridBagLayout());
 
+	private boolean updateAvailable;
+
 	public OptionsWindow() {
 		super("Options");
 		this.setFocusableWindowState(true);
@@ -59,7 +67,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-//		gc.fill = GridBagConstraints.BOTH;
+		// gc.fill = GridBagConstraints.BOTH;
 
 		int buffer = 6;
 		JPanel bottomPanel = new JPanel();
@@ -75,7 +83,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		// bottomPanel.add(resizeButton);
 		bottomPanel.add(revertButton);
 		bottomPanel.add(saveButton);
-		
+
 		ListButton generalButton = new ListButton("General");
 		GeneralPanel generalPanel = new GeneralPanel();
 		link(generalButton, generalPanel);
@@ -106,8 +114,11 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		link(contactButton, contactPanel);
 		display.add(contactPanel, gc);
 
-		JButton updateButton = new BasicButton("Check for Updates");
+		// JButton updateButton = new BasicButton("Update Available!");
+		// updateButton.setVisible(false);
 
+		BasicButton checkUpdateButton = new BasicButton("Check for Update");
+		checkUpdateButton.setPreferredSize(checkUpdateButton.getPreferredSize());
 		// TODO : Remove stash
 		gc = new GridBagConstraints();
 		// gc.anchor = GridBagConstraints.NORTH;
@@ -137,9 +148,17 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.insets.bottom = 0;
-		menuPanelLower.add(updateButton, gc);
 
-		
+		gc.fill = GridBagConstraints.NONE;
+		menuPanelLower.add(new JLabel(References.APP_NAME + " v" + References.APP_VERSION), gc);
+		gc.gridy++;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		// gc.insets.bottom = 10;
+		// menuPanelLower.add(updateButton, gc);
+		// gc.insets.bottom = 0;
+		gc.gridy++;
+		menuPanelLower.add(checkUpdateButton, gc);
+
 		// container.setLayout(new BorderLayout());
 		container.add(new BufferPanel(0, buffer), BorderLayout.NORTH);
 		container.add(new BufferPanel(buffer, 0), BorderLayout.EAST);
@@ -147,12 +166,14 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		container.add(menuBorder, BorderLayout.WEST);
 		container.add(scrollDisplay, BorderLayout.CENTER);
 
-		 generalPanel.setVisible(true);
-		 generalButton.active = true;
-//		ignorePanel.setVisible(true);
-//		ignoreButton.active = true;
-		this.setMinimumSize(new Dimension(900, 600));
+		generalPanel.setVisible(true);
+		generalButton.active = true;
+		// ignorePanel.setVisible(true);
+		// ignoreButton.active = true;
+		this.setPreferredSize(new Dimension(900, 600));
+
 		this.refresh();
+		System.out.println(this.getPreferredSize());
 		this.setMinimumSize(new Dimension(300, 300));
 		this.setMaximumSize(new Dimension(1600, 900));
 		// this.setVisible(true);
@@ -167,6 +188,44 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		//
 		// }
 		// });
+
+		// boolean
+		checkUpdateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO : allowPrerelease
+				if (updateAvailable) {
+					//UPDATE
+					try {
+						URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
+						Desktop.getDesktop().browse(uri);
+					} catch (URISyntaxException | IOException err) {
+						err.printStackTrace();
+					}
+				} else {
+					new Thread(new Runnable() {
+						public void run() {
+							checkUpdateButton.setText("Checking...");
+							checkUpdateButton.setEnabled(false);
+							updateAvailable = Main.updateChecker.checkForUpdate(true);
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+							}
+							System.out.println();
+							if (updateAvailable) {
+								// updateButton.setVisible(true);
+								checkUpdateButton.setText("Update Available!");
+								checkUpdateButton.setColor(Color.GREEN);
+							} else {
+								checkUpdateButton.setText("Check for Update");
+							}
+							checkUpdateButton.setEnabled(true);
+
+						}
+					}).start();
+				}
+			}
+		});
 
 		revertButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -190,12 +249,11 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 			}
 		});
 
-		
-		
 		updateColor();
-		this.setVisible(true);
+//		this.setVisible(true);
+//		this.setShow(false);
 		Main.eventManager.addListener(this);
-		
+
 	}
 
 	// TODO : Make on press down?

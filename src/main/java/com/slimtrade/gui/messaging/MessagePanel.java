@@ -79,7 +79,6 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 
 	private void buildPanel(TradeOffer trade, Dimension size, boolean makeListeners) {
 		// TODO : move size stuff to super
-		this.test();
 		this.trade = trade;
 		this.setMessageType(trade.messageType);
 
@@ -162,10 +161,6 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 		// this.revalidate();
 		// this.repaint();
 
-	}
-
-	public void test() {
-		System.out.println("LOCAL TEST");
 	}
 
 	// TODO add button count

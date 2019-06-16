@@ -47,7 +47,7 @@ public class ExternalFileManager {
 			if(clientFile.exists() && clientFile.isFile()){
 				validClientPath = true;
 				clientPath = drive + clientSteamStub;
-				Main.debug.log("Valid client path found on " + drive + " drive. (Steam)");
+				Main.debugger.log("Valid client path found on " + drive + " drive. (Steam)");
 			}
 		}
 		for(String drive : commonDrives){
@@ -55,12 +55,12 @@ public class ExternalFileManager {
 			if(clientFile.exists() && clientFile.isFile()){
 				validClientPath = true;
 				clientPath = drive + clientStandAloneStub;
-				Main.debug.log("Valid client path found on " + drive + " drive. (Stand Alone)");
+				Main.debugger.log("Valid client path found on " + drive + " drive. (Stand Alone)");
 			}
 		}
 		//TODO : Switch to something viewable by user later on
 		if(!validClientPath){
-			Main.debug.log("Could not find client path.");
+			Main.debugger.log("Could not find client path.");
 		}
 
 		for(String drive : commonDrives){
@@ -71,9 +71,9 @@ public class ExternalFileManager {
 				savePath = saveDirectory.getPath();
 				if(!saveDirectory.exists()){
 					saveDirectory.mkdirs();
-					Main.debug.log("No save directory found.\nCreating new save directory at " + saveDirectory.getPath());
+					Main.debugger.log("No save directory found.\nCreating new save directory at " + saveDirectory.getPath());
 				}else{
-					Main.debug.log("Previous save directory found.");
+					Main.debugger.log("Previous save directory found.");
 					file = new File(savePath + characterStub);
 					if(file.exists()) hasCharacterData = true;
 					file = new File(savePath + stashStub);

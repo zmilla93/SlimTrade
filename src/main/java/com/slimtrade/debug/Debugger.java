@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.observing.AdvancedMouseAdapter;
 import main.java.com.slimtrade.gui.FrameManager;
 import main.java.com.slimtrade.gui.enums.PreloadedImage;
@@ -17,8 +18,8 @@ import main.java.com.slimtrade.gui.enums.PreloadedImage;
 public class Debugger extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JScrollPane logScrollPane;
-	private JTextArea logTextArea = new JTextArea();
+	private static JScrollPane logScrollPane;
+	private static JTextArea logTextArea = new JTextArea();
 
 	private static long start;
 	private static long end;
@@ -53,7 +54,10 @@ public class Debugger extends JFrame {
 
 	}
 
-	public void log(String... text) {
+	public static void log(String... text) {
+		if(!Main.debugMode){
+			return;
+		}
 		if (!logTextArea.getText().equals("")) {
 			for (int i = 0; i < text.length; i++) {
 				logTextArea.setText(logTextArea.getText() + "\n" + text[i]);
@@ -69,16 +73,25 @@ public class Debugger extends JFrame {
 	}
 
 	public void clearLog() {
+		if(!Main.debugMode){
+			return;
+		}
 		logTextArea.setText("");
 	}
 
 	public static void print(String... str) {
+		if(!Main.debugMode){
+			return;
+		}
 		for (int i = 0; i < str.length; i++) {
 			System.out.println(str[i]);
 		}
 	}
 
 	public static void print(int... num) {
+		if(!Main.debugMode){
+			return;
+		}
 		for (int i = 0; i < num.length; i++) {
 			System.out.println(num[i]);
 		}
