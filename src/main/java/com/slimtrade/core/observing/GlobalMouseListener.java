@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.core.observing;
 
+import main.java.com.slimtrade.core.References;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;
 
@@ -89,9 +90,14 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 		} while (true);
 		User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 		String curWindowTitle = Native.toString(windowText);
-		if (curWindowTitle.equals("Path of Exile") || curWindowTitle.matches("SlimTrade*+")) {
+        System.out.println(curWindowTitle);
+		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.contains(References.APP_NAME)) {
+            FrameManager.showVisibleFrames();
 			FrameManager.forceAllToTop();
-		}
+		}else{
+            System.out.println("hide");
+		    FrameManager.hideAllFrames();
+        }
 	}
 
 	public void nativeMouseReleased(NativeMouseEvent e) {

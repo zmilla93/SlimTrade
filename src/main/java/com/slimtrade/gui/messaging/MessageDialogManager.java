@@ -54,6 +54,7 @@ public class MessageDialogManager {
 				}
 			}
 		});
+		wrapper.setShow(true);
 	}
 	
 	private void refreshPanelLocations(){

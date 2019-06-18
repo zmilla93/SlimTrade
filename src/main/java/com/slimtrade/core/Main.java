@@ -71,6 +71,8 @@ public class Main {
 		logger.setLevel(Level.WARNING);
 		logger.setUseParentHandlers(false);
 
+		Runtime.getRuntime().traceMethodCalls(true);
+
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				//TODO : Load Color Theme
@@ -112,9 +114,9 @@ public class Main {
 					e.printStackTrace();
 				}
 				GlobalMouseListener globalMouse = new GlobalMouseListener();
-				globalKeyboard = new GlobalKeyboardListener();
+//				globalKeyboard = new GlobalKeyboardListener();
 				GlobalScreen.addNativeMouseListener(globalMouse);
-				GlobalScreen.addNativeKeyListener(globalKeyboard);
+//				GlobalScreen.addNativeKeyListener(globalKeyboard);
 				
 				//Clipboard listener for fast paste
 				ClipboardManager clipboard = new ClipboardManager();

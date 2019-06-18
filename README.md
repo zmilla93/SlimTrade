@@ -13,7 +13,7 @@ SlimTrade is a macro overlay program for Path of Exile, and is complient with th
 - Update checker to inform you when a new version is available
 
 # Planned Features
-- Allow reordering of custom macros
+- Allow reordering of custom macros without the need to remake
 - Allow resizing of macro popup windows
 - Add color themes
 - Add optional price to ignored items

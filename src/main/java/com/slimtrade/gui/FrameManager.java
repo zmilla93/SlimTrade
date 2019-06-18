@@ -98,10 +98,16 @@ public class FrameManager {
 		for (HideableDialog d : showHideDialogs) {
 			d.setVisible(false);
 		}
+        for (HideableDialog d : MessageDialogManager.getDialogList()) {
+            d.setVisible(false);
+        }
 	}
 
 	public static void showVisibleFrames() {
 		for (HideableDialog d : showHideDialogs) {
+			d.setVisible(d.visible);
+		}
+		for (HideableDialog d : MessageDialogManager.getDialogList()) {
 			d.setVisible(d.visible);
 		}
 	}
