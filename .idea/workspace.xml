@@ -6,12 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3636277-2cba-4680-9c9a-b850665a6e6d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/SlimTrade_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/References.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/slimtrade/core/References.java" afterDir="false" />
-    </list>
+    <list default="true" id="e3636277-2cba-4680-9c9a-b850665a6e6d" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +18,7 @@
     <session id="-838090212">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.3" value="1" />
@@ -73,8 +68,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/References.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+            <state relative-caret-position="170">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -118,9 +113,8 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-139" />
-    <option name="y" value="55" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -273,7 +267,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="messagemana&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.messaging.MessageDialogManager&#10;chatpars&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/utility/ChatParser.java&#10;chatscan&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.scanner.ChatScannerWindow&#10;clipb&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/managers/ClipboardManager.java&#10;currency&#9;PSI&#9;JAVA://main.java.com.slimtrade.enums.CurrencyType&#10;println&#9;PSI&#9;JAVA://com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util#println&#10;OptionsWin&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/options/OptionsWindow.java&#10;framema&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/FrameManager.java&#10;frame&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.FrameManager&#10;main&#9;PSI&#9;JAVA://main.java.com.slimtrade.core.Main&#10;chat&#9;PSI&#9;JAVA://main.java.com.slimtrade.core.utility.ChatParser" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560678568684" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560679526385" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../_EXPORTED JARS" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -325,8 +319,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="0" width="1936" height="1056" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1663113" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -338,7 +331,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19631237" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.19631237" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -530,8 +523,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/core/References.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
