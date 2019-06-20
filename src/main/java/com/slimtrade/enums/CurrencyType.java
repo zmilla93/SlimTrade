@@ -1,6 +1,10 @@
 package main.java.com.slimtrade.enums;
 
+import main.java.com.slimtrade.core.utility.TradeUtility;
+
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public enum CurrencyType {
 
@@ -29,7 +33,7 @@ public enum CurrencyType {
 	DIVINE_ORB(""),
 	ENGINEERS_ORB(""),
 	ETERNAL_ORB(""),
-	EXALTED_ORB("exalted", "exa"),
+	EXALTED_ORB("exalted", "exa", "ex"),
 	GEMCUTTERS_PRISM(""),
 	GLASSBLOWERS_BAUBLE(""),
 	HARBINGERS_ORB(""),
@@ -89,11 +93,9 @@ public enum CurrencyType {
 		this.tags = tags;
 	}
 
-	//TODO : add toString for printing; replace _ with spaces, and capitalize remaining terms properly
+	//TODO : add toString for printing; replace _ with spaces, capitalize remaining terms properly
 	public String toString(){
-        String formattedName = this.name().toLowerCase().replaceAll("_", " ");
-
-        return formattedName;
+        return TradeUtility.fixCasing(this.name().replaceAll("_", " "));
     }
 
 }

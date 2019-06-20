@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="SlimTrade:jar">
+  <artifact type="jar" build-on-make="true" name="SlimTrade:jar">
     <output-path>$PROJECT_DIR$/../_EXPORTED JARS</output-path>
     <root id="archive" name="SlimTrade.jar">
       <element id="module-output" name="SlimTrade" />

@@ -1,5 +1,6 @@
 package main.java.com.slimtrade.core.observing;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.References;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;
@@ -13,56 +14,8 @@ import main.java.com.slimtrade.gui.FrameManager;
 
 public class GlobalMouseListener implements NativeMouseInputListener {
 
-	// private WindowType lastWindow = null;
-//	private String lastWindow;
-//	private Runnable refreshRunner = new Runnable() {
-//		public void run() {
-//			try {
-//				Thread.sleep(1);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//			PointerType hwnd = null;
-//			byte[] windowText = new byte[512];
-//			int i = 0;
-//			do {
-//				hwnd = User32.INSTANCE.GetForegroundWindow();
-//				if(hwnd!=null){
-//					break;
-//				}else{
-//					i++;
-//					try {
-//						Thread.sleep(1);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//			} while (true);
-////			System.out.println("TIME : " + i);
-//			User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
-//			String curWindowTitle = Native.toString(windowText);
-////			System.out.println("PRESSED : " + curWindowTitle);
-//			if (curWindowTitle.equals("Path of Exile") || curWindowTitle.matches("SlimTrade*+")) {
-//				FrameManager.forceAllToTop();
-//			}
-//		}
-//	};
-	
-//	String clipboardText;
-//	private static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-
-	
-//	public GlobalMouseListener(){
-//		try {
-//			clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
-//		} catch (UnsupportedFlavorException | IOException e) {
-////			e.printStackTrace();
-//		}
-//		System.out.println(clipboardText);
-//	}
-
 	public void nativeMouseClicked(NativeMouseEvent e) {
-		
+
 	}
 
 	//TODO : This throws an error if mouse is clicked during loading
@@ -90,27 +43,17 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 		} while (true);
 		User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 		String curWindowTitle = Native.toString(windowText);
-        System.out.println(curWindowTitle);
-		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.contains(References.APP_NAME)) {
+        System.out.println("window : " +  curWindowTitle);
+		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || Main.debugMode) {
             FrameManager.showVisibleFrames();
 			FrameManager.forceAllToTop();
 		}else{
-            System.out.println("hide");
 		    FrameManager.hideAllFrames();
         }
 	}
 
 	public void nativeMouseReleased(NativeMouseEvent e) {
-//		String newText = null;
-//		try {
-//			newText = (String) clipboard.getData(DataFlavor.stringFlavor);
-//		} catch (UnsupportedFlavorException | IOException err) {
-////			err.printStackTrace();
-//		}
-//		if(newText != null && !newText.equals(clipboardText)){
-//			clipboardText = newText;
-//			System.out.println("NEW TEXT : " + newText);
-//		}
+
 	}
 
 	public void nativeMouseDragged(NativeMouseEvent e) {
@@ -129,7 +72,6 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 		} else {
 			return WindowType.OTHER;
 		}
-
 	}
 
 }

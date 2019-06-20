@@ -2,6 +2,10 @@
 
 SlimTrade is a macro overlay program for Path of Exile, and is complient with the game's TOS. It is still currently in development and may contain bugs.
 
+# How to Run
+- Ensure you have an up to date version of java: https://www.java.com/
+- Delete any old versions of SlimTrade, then download and run the latest version: https://github.com/zmilla93/SlimTrade/releases
+
 # Current Features 
 - Popup window for incoming and outgoing trades with many macros
 - Chat scanner that provides a popup for custom pieces of text

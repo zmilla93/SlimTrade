@@ -47,7 +47,7 @@ public class Main {
 
 	public static boolean debugMode = false;
 
-
+    @SuppressWarnings("unused")
 	public static void main(String[] args) {
 
 		// Command line args
@@ -65,13 +65,14 @@ public class Main {
 			debugger = new Debugger();
 			debugger.setState(Frame.ICONIFIED);
 		}
+
 		//Loading Dialog
 		loadingDialog = new LoadingDialog();
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
 		logger.setLevel(Level.WARNING);
 		logger.setUseParentHandlers(false);
 
-		Runtime.getRuntime().traceMethodCalls(true);
+//		Runtime.getRuntime().traceMethodCalls(true);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -114,9 +115,9 @@ public class Main {
 					e.printStackTrace();
 				}
 				GlobalMouseListener globalMouse = new GlobalMouseListener();
-//				globalKeyboard = new GlobalKeyboardListener();
+				globalKeyboard = new GlobalKeyboardListener();
 				GlobalScreen.addNativeMouseListener(globalMouse);
-//				GlobalScreen.addNativeKeyListener(globalKeyboard);
+				GlobalScreen.addNativeKeyListener(globalKeyboard);
 				
 				//Clipboard listener for fast paste
 				ClipboardManager clipboard = new ClipboardManager();

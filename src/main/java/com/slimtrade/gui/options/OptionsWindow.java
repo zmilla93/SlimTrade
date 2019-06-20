@@ -51,7 +51,10 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 	private boolean updateAvailable;
 
 	public OptionsWindow() {
-		super("Options");
+	    super("Options");
+	    if(Main.debugMode){
+	        this.setTitleText(this.getTitle() + " - DEBUG");
+        }
 		this.setFocusableWindowState(true);
 		this.setFocusable(true);
 		container.setLayout(new BorderLayout());
@@ -153,13 +156,9 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		menuPanelLower.add(new JLabel(References.APP_NAME + " v" + References.APP_VERSION), gc);
 		gc.gridy++;
 		gc.fill = GridBagConstraints.HORIZONTAL;
-		// gc.insets.bottom = 10;
-		// menuPanelLower.add(updateButton, gc);
-		// gc.insets.bottom = 0;
 		gc.gridy++;
 		menuPanelLower.add(checkUpdateButton, gc);
 
-		// container.setLayout(new BorderLayout());
 		container.add(new BufferPanel(0, buffer), BorderLayout.NORTH);
 		container.add(new BufferPanel(buffer, 0), BorderLayout.EAST);
 		container.add(bottomPanel, BorderLayout.SOUTH);
@@ -168,32 +167,19 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 
 		generalPanel.setVisible(true);
 		generalButton.active = true;
-		// ignorePanel.setVisible(true);
-		// ignoreButton.active = true;
-		this.setPreferredSize(new Dimension(900, 600));
+		this.setPreferredSize(new Dimension(1000, 600));
 
 		this.refresh();
 		System.out.println(this.getPreferredSize());
-		this.setMinimumSize(new Dimension(300, 300));
+		//TODO : Resize doesn't respect maximum size
+		this.setMinimumSize(new Dimension(600, 500));
 		this.setMaximumSize(new Dimension(1600, 900));
-		// this.setVisible(true);
 		FrameManager.centerFrame(this);
 
-		// TODO : Resize
-		// AbstractResizableWindow local = this;
-		// resizeButton.addActionListener(new ActionListener(){
-		// public void actionPerformed(ActionEvent e) {
-		// local.autoResize();
-		// local.pack();
-		//
-		// }
-		// });
-
-		// boolean
 		checkUpdateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO : allowPrerelease
-				if (updateAvailable) {
+                if (updateAvailable) {
 					//UPDATE
 					try {
 						URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
@@ -206,7 +192,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 						public void run() {
 							checkUpdateButton.setText("Checking...");
 							checkUpdateButton.setEnabled(false);
-							updateAvailable = Main.updateChecker.checkForUpdate(true);
+							updateAvailable = Main.updateChecker.checkForUpdate();
 							try {
 								Thread.sleep(1000);
 							} catch (InterruptedException e) {

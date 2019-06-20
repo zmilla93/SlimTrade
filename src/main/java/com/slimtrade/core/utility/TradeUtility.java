@@ -80,6 +80,23 @@ public class TradeUtility {
 		return cleanString;
 	}
 
+	public static String fixCasing(String input){
+	    String inputArray[] = input.toLowerCase().split("\\s");
+	    int i = 0;
+	    StringBuilder stringBuilder = new StringBuilder();
+	    for(String str : inputArray){
+            if(i>0){
+                stringBuilder.append(" ");
+            }
+	        if(!str.equals("of") && !str.equals("the")){
+                inputArray[i] = str.substring(0, 1).toUpperCase() + str.substring(1);
+	        }
+            stringBuilder.append(inputArray[i]);
+	        i++;
+        }
+	    return stringBuilder.toString();
+    }
+
 	public static int intWithinRange(int value, int min, int max) {
 		return Math.min(Math.max(value, min), max);
 	}

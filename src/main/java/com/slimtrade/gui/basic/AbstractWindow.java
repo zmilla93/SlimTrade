@@ -28,6 +28,7 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 
 	private JPanel titlebarPanel = new JPanel();
 	protected JPanel center = new JPanel();
+	private JLabel titleLabel;
 
 	protected IconButton closeButton;
 	protected Container contentPane = this.getContentPane();
@@ -58,7 +59,7 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 		gc.ipady = 0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		titlebarPanel.add(new BufferPanel(5,0), BorderLayout.WEST);
-		JLabel titleLabel = new JLabel(fullTitle);
+		titleLabel = new JLabel(fullTitle);
 		gc.anchor = GridBagConstraints.LINE_START;
 		titlebarPanel.add(titleLabel, BorderLayout.CENTER);
 		JPanel p = new JPanel();
@@ -104,6 +105,10 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 		}
 		this.createListeners(titlebarPanel);
 	}
-	
+
+	public void setTitleText(String title){
+	    this.setTitle(title);
+	    titleLabel.setText(title);
+    }
 
 }

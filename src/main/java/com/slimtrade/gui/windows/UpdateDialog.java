@@ -1,7 +1,6 @@
 package main.java.com.slimtrade.gui.windows;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -24,16 +23,11 @@ import main.java.com.slimtrade.gui.panels.ContainerPanel;
 public class UpdateDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	JButton laterButton = new JButton("Update Later");
-	JButton viewButton = new JButton("View on Github");
-	
-	
-	
+	private JButton viewUpdateButton = new JButton("View on Github");
+
 	public UpdateDialog(){
 		this.setTitle("SlimTrade - Update");
-		laterButton.setFocusable(false);
-		viewButton.setFocusable(false);
-//		this.setModal(true);
+		viewUpdateButton.setFocusable(false);
 		ContainerPanel containerPanel = new ContainerPanel();
 		JPanel container = containerPanel.container;
 		this.getContentPane().add(containerPanel);
@@ -46,10 +40,6 @@ public class UpdateDialog extends JDialog {
 		JLabel info1 = new JLabel("New version available!");
 		JLabel info2 = new JLabel("Currently Running: " + References.APP_VERSION);
 		JLabel info3 = new JLabel("Latest Version: " + Main.updateChecker.getLatestVersion());
-		
-		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0));
-		buttonPanel.add(laterButton);
-		buttonPanel.add(viewButton);
 		
 		int bufferY = 10;
 		container.add(info1, gc);
@@ -64,16 +54,9 @@ public class UpdateDialog extends JDialog {
 		gc.gridy++;
 		container.add(new BufferPanel(0, 20), gc);
 		gc.gridy++;
-		container.add(buttonPanel, gc);
-		
-		JDialog local = this;
-		laterButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				local.dispose();
-			}
-		});
-		
-		viewButton.addActionListener(new ActionListener(){
+		container.add(viewUpdateButton, gc);
+
+		viewUpdateButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");

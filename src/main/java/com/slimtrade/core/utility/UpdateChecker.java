@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,9 +17,12 @@ public class UpdateChecker {
 	// TODO : Switch to /releases/latest with new versionMatchString in order to
 	// avoid detecting prereleases
 
-	private final String latestRelease = "https://github.com/zmilla93/SlimTrade/releases/latest";
+    //Github URLs
+	private final String latestReleaseURL = "https://github.com/zmilla93/SlimTrade/releases/latest";
+    private final String allReleases = "https://github.com/zmilla93/SlimTrade/releases";
+
+    //Regex match strings
 	private final String latestReleaseMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
-	private final String allReleases = "https://github.com/zmilla93/SlimTrade/releases";
 	private final String allReleasesMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
 
 	// private ArrayList<String> versions = new ArrayList<String>();
@@ -44,10 +46,11 @@ public class UpdateChecker {
 		InputStream inputStream = null;
 		try {
 			URL url;
-			if (allowPrereleases) {
+			if (allowPrereleases || Main.debugMode) {
+                System.out.println("debug check");
 				url = new URL(allReleases);
 			} else {
-				url = new URL(latestRelease);
+				url = new URL(latestReleaseURL);
 			}
 			URLConnection connection = url.openConnection();
 			connection.setConnectTimeout(5000);

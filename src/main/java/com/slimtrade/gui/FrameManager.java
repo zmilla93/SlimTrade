@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.utility.TradeUtility;
 import main.java.com.slimtrade.gui.basic.HideableDialog;
 import main.java.com.slimtrade.gui.components.AddRemovePanel;
@@ -49,9 +50,9 @@ public class FrameManager {
 	public FrameManager() {
 //		SetupWindow setupWindow = new SetupWindow();
 //		setupWindow.setVisible(true);
-		
+
 		stashHelperContainer = new StashHelperContainer();
-		optionsWindow = new OptionsWindow();
+        optionsWindow = new OptionsWindow();
 		historyWindow = new HistoryWindow();
 		menubar = new MenubarDialog();
 		menubarToggle = new MenubarExpandButton();

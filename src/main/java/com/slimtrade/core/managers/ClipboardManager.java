@@ -15,6 +15,7 @@ import main.java.com.slimtrade.core.Main;
 import main.java.com.slimtrade.core.SaveConstants;
 import main.java.com.slimtrade.core.utility.POEWindowInfo;
 import main.java.com.slimtrade.core.utility.PoeInterface;
+import main.java.com.slimtrade.gui.FrameManager;
 
 public class ClipboardManager {
 
@@ -39,6 +40,8 @@ public class ClipboardManager {
 				valid = false;
 			}
 			// Ignore if POE is not visible
+
+            //TODO : ERROR invalid window handle
 			else if (!poe.getIsOpen() || !poe.getIsVisible()) {
 				Main.logger.log(Level.WARNING, "POE is not visible");
 				valid = false;
@@ -66,6 +69,8 @@ public class ClipboardManager {
 				Matcher matcher = Pattern.compile(tradeMessageString).matcher(clipboardText);
 				if (matcher.matches()) {
 					PoeInterface.pasteWithFocus(clipboardText);
+					FrameManager.showVisibleFrames();
+//                    FrameManager.forceAllToTop();
 				}
 			}
 			refreshFlavor();
