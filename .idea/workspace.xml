@@ -7,227 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e3636277-2cba-4680-9c9a-b850665a6e6d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lang.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lang_sv_SE.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SlimTrade.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SlimTrade.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/References.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/SaveConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/audio/AudioManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/audio/AudioRunner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/audio/Sound.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/audio/SoundComponent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/managers/ClipboardManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/managers/ColorManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/managers/DefaultManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/managers/ExternalFileManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/managers/OLD_SaveManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/managers/RangedValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/managers/SaveManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/AdvancedMouseAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/ButtonType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/GlobalKeyboardListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/GlobalMouseListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/MouseClickState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/MouseHoverState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/OLD_ClipboardManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/REDO_MacroEventManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/improved/ColorUpdateListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/improved/EventManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/poe/PoeInteractionEvent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/observing/poe/PoeInteractionListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/ChatParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/FileMonitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/ImageManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/POEWindowInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/PoeInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/TradeOffer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/TradeUtility.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/UpdateChecker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/User32Custom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/core/utility/VersionNumber.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/debug/Debugger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/ButtonState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/ColorThemeType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/CurrencyType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/DateStyle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/MenubarButtonLocation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/MessageType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/StashTabColor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/StashTabType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/TimeStyle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/Visibility.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/enums/WindowType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/FrameManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/IgnoreItemWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/ImagePreloader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/basic/AbstractResizableWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/basic/AbstractWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/basic/BasicDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/basic/BasicMovableDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/basic/BasicPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/basic/HideableDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/basic/OLD_AbstractWindowDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/basic/PaintedPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/buttons/BasicButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/buttons/ConfirmButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/buttons/DenyButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/buttons/IconButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/components/AddRemovePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/components/PanelWrapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/components/RemovablePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/components/TrayButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/dialogs/CustomScrollPane.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/dialogs/InfoDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/dialogs/LoadingDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/enums/ButtonRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/enums/ExpandDirection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/enums/MatchType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/enums/PreloadedImage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/enums/PreloadedImageCustom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/history/HistoryCellPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/history/HistoryPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/history/HistoryRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/history/HistoryWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/menubar/MenubarButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/menubar/MenubarDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/menubar/MenubarExpandButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/messaging/AbstractMessagePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/messaging/ClickPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/messaging/ItemClickPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/messaging/MessageDialogManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/messaging/MessagePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/messaging/NameClickPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/messaging/OLD_MessageManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/BasicsPanel_OLD.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/BuilderPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/ContentPanel_REMOVE.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/ISaveable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/InformationPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/ListButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/ListButton_OLD.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/OLD_RemovablePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/OptionsWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/OrderType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/ToggleButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/general/AdvancedPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/general/AdvancedRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/general/AudioPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/general/AudioRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/general/BasicsPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/general/GeneralPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/general/HistoryOptionsPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/ignore/IgnoreData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/ignore/IgnoreRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/ignore/ItemIgnorePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/macros/AbstractMacroPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/macros/CHECKOLD_CustomizerPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/macros/CustomMacroRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/macros/IncomingCustomizer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/macros/OutgoingCustomizer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/options/macros/PresetMacroRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/panels/BufferPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/panels/ContainerPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/panels/IconPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/panels/PricePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/panels/StashGridPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/scanner/ChatScannerWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/scanner/ScannerMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/setup/SetupWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/setup/panels/AbstractSetupPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/setup/panels/CharacterPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/setup/panels/ISetupPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/setup/panels/PathPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/LimitTextField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/StashGridPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/StashTabCellRenderer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/StashTabPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/StashTabRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/StashWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/helper/ItemHighlighter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/helper/StashHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/stash/helper/StashHelperContainer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/windows/OverlayManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/gui/windows/UpdateDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/tests/CurrencyTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/slimtrade/tests/SaveManagerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/audio/click1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/audio/click2.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/audio/click3.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/audio/ping1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/audio/ping2.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/audio/ping2fix.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/audio/pingg.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/audio/shortclick.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/currency/alchemy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/currency/alteration.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/currency/chaos.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/currency/chisel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/currency/exalted.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/currency/fusing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/beakerx48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/cancelx48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/cart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/cart2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/cartx64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/clock1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/clock2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/close.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/closex64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/disk.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/flowx48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/gear.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/happy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/home2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/home3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/invite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/invite1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/key1x48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/key2x48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/leave.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/mapx48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/mapx48b.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/menu1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/options.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/phone.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/play1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/play2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/rad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/refresh1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/refresh2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/refresh2x64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/refresh3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/refreshx48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/refreshx64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/replyx48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/shufflex48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/stopwatchx48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/tagx48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/thumb1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/thumb2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/warp.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/icons/watch.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/c1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/close1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/close2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/closethick.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/closethin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/l.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/maze.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/maze2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/no.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/plus.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/refresh1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/refresh2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/refresh3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/temp/right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lang/lang.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lang/lang_sv_SE.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/userPreferences.txt" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -260,16 +44,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="iml" value="1" />
           <entry key="java" value="66" />
-          <entry key="md" value="3" />
+          <entry key="md" value="4" />
+          <entry key="prefs" value="1" />
+          <entry key="project" value="1" />
           <entry key="properties" value="1" />
+          <entry key="txt" value="1" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="Eclipse" value="1" />
+          <entry key="IDEA_MODULE" value="1" />
           <entry key="JAVA" value="66" />
-          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="PLAIN_TEXT" value="6" />
           <entry key="Properties" value="1" />
           <entry key="XML" value="1" />
         </counts>
@@ -293,7 +83,17 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -498,28 +298,6 @@
               <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
               <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-              <item name="Resource Bundle 'lang'" type="a6c14932:ResourceBundleNode" />
-            </path>
-            <path>
-              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SlimTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="slimTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -530,7 +308,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="update&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.windows.UpdateDialog&#10;mouse&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/observing/GlobalMouseListener.java&#10;frame&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/FrameManager.java&#10;opti&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/options/OptionsWindow.java&#10;chatpar&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/utility/ChatParser.java&#10;charpa&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.setup.panels.CharacterPanel&#10;hideable&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.basic.HideableDialog&#10;showhide&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.FrameManager#showHideDialogs&#10;mess&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/messaging/MessageDialogManager.java&#10;frameman&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/FrameManager.java&#10;main.&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/Main.java&#10;messagemana&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.messaging.MessageDialogManager&#10;chatpars&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/utility/ChatParser.java&#10;chatscan&#9;PSI&#9;JAVA://main.java.com.slimtrade.gui.scanner.ChatScannerWindow&#10;clipb&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/core/managers/ClipboardManager.java&#10;currency&#9;PSI&#9;JAVA://main.java.com.slimtrade.enums.CurrencyType&#10;println&#9;PSI&#9;JAVA://com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util#println&#10;OptionsWin&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/options/OptionsWindow.java&#10;framema&#9;FILE&#9;file://D:/Programming/Java/slimTrade/src/main/java/com/slimtrade/gui/FrameManager.java&#10;main&#9;PSI&#9;JAVA://main.java.com.slimtrade.core.Main&#10;chat&#9;PSI&#9;JAVA://main.java.com.slimtrade.core.utility.ChatParser" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1568071063637" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1568071287558" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../_LIBRARIES/hamcrest-all-1.3.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -654,8 +432,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15031983" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15031983" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -671,7 +450,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.121475056" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.329718" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.19956616" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.39696312" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3286334" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -692,14 +471,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_112/src.zip!/com/sun/org/apache/xalan/internal/xsltc/compiler/util/Util.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/gui/options/ListButton_OLD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="32" column="37" lean-forward="true" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/slimtrade/debug/Debugger.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
@@ -836,13 +607,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="901">
           <caret line="72" column="20" lean-forward="true" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
@@ -1053,6 +817,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="401">
           <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/userPreferences.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SlimTrade.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.project">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
