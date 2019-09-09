@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.slimtrade</groupId>
+    <artifactId>slim-trade</artifactId>
+    <version>0.1.4-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.5.2</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20190722</version>
+        </dependency>
+
+        <!--Local JNA-->
+        <dependency>
+            <groupId>jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
+        <!--Local JNA Platform-->
+        <dependency>
+            <groupId>jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
+        <!--Local JNativeHook-->
+        <dependency>
+            <groupId>jnativehook</groupId>
+            <artifactId>jnativehook</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.1stleg/jnativehook -->
+        <dependency>
+            <groupId>com.1stleg</groupId>
+            <artifactId>jnativehook</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
+
+
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <mainClass>com.slimtrade.Main</mainClass>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

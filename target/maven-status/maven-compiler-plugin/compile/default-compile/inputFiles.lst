@@ -36,6 +36,7 @@ D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\history\HistoryPan
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\enums\ExpandDirection.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\windows\UpdateDialog.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\utility\PoeInterface.java
+D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\enums\ButtonState.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\stash\helper\StashHelper.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\options\ToggleButton.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\dialogs\InfoDialog.java
@@ -53,7 +54,6 @@ D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\observing\Advance
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\enums\ButtonRow.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\stash\StashTabRow.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\setup\SetupWindow.java
-D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\tests\SaveManagerTest.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\options\ListButton_OLD.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\utility\TradeUtility.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\options\ListButton.java
@@ -66,7 +66,6 @@ D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\audio\AudioManage
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\managers\RangedValue.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\observing\poe\PoeInteractionListener.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\history\HistoryWindow.java
-D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\tests\CurrencyTest.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\observing\GlobalKeyboardListener.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\enums\StashTabType.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\observing\ButtonType.java
@@ -82,6 +81,7 @@ D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\managers\ColorMan
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\basic\OLD_AbstractWindowDialog.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\messaging\MessagePanel.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\components\RemovablePanel.java
+D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\Main.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\audio\SoundComponent.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\managers\ClipboardManager.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\IgnoreItemWindow.java
@@ -125,7 +125,6 @@ D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\basic\BasicMovable
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\options\ignore\IgnoreRow.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\audio\Sound.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\history\HistoryCellPanel.java
-D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\Main.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\enums\ColorThemeType.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\messaging\ClickPanel.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\options\ContentPanel_REMOVE.java

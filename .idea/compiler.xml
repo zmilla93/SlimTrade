@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="slim-trade" />
+        <module name="SlimTrade" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="slim-trade" target="1.5" />
+      <module name="SlimTrade" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
