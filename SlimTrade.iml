@@ -18,7 +18,7 @@
       <sourceFolder url="file://$MODULE_DIR$/lang" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="Java 12" jdkType="JavaSDK" />
     <orderEntry type="module-library">
       <library name="java-json.jar">
         <CLASSES>
