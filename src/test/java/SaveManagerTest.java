@@ -1,10 +1,7 @@
-import static org.junit.Assert.fail;
-
-import org.junit.Test;
-
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.enums.MessageType;
+import org.junit.jupiter.api.Test;
 
 public class SaveManagerTest {
 

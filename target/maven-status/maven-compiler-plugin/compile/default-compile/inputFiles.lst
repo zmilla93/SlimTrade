@@ -97,6 +97,7 @@ D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\options\BuilderPan
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\enums\StashTabColor.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\stash\LimitTextField.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\stash\StashTabCellRenderer.java
+D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\SaveSystem\SaveElement.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\FrameManager.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\options\ISaveable.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\enums\TimeStyle.java
@@ -135,5 +136,6 @@ D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\stash\StashTabPane
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\basic\BasicDialog.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\debug\Debugger.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\enums\CurrencyType.java
+D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\core\SaveSystem\SaveFile.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\options\OLD_RemovablePanel.java
 D:\Programming\Java\slimTrade\src\main\java\com\slimtrade\gui\windows\OverlayManager.java

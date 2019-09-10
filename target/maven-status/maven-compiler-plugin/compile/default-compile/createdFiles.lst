@@ -80,6 +80,7 @@ com\slimtrade\enums\MenubarButtonLocation.class
 com\slimtrade\gui\menubar\MenubarExpandButton$1.class
 com\slimtrade\gui\options\general\AudioRow$2.class
 com\slimtrade\gui\menubar\MenubarDialog.class
+com\slimtrade\core\SaveSystem\SaveElement.class
 com\slimtrade\gui\options\ListButton.class
 com\slimtrade\gui\windows\OverlayManager$1.class
 com\slimtrade\gui\options\BasicsPanel_OLD$1.class
@@ -159,6 +160,7 @@ com\slimtrade\gui\options\ListButton$1.class
 com\slimtrade\gui\options\macros\OutgoingCustomizer.class
 com\slimtrade\gui\options\InformationPanel.class
 com\slimtrade\gui\windows\OverlayManager$2.class
+com\slimtrade\core\SaveSystem\SaveFile.class
 com\slimtrade\gui\setup\SetupWindow.class
 com\slimtrade\gui\stash\helper\StashHelper$4.class
 com\slimtrade\gui\IgnoreItemWindow.class
