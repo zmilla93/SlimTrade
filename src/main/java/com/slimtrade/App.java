@@ -81,7 +81,11 @@ public class App {
 			public void run() {
 				//TODO : Load Color Theme
 //				ColorManager.setTheme(ColorThemeType.DARK_THEME);
-				
+
+                // Check for Updates
+                updateChecker = new UpdateChecker();
+//                updateChecker.checkForUpdates();
+
 				
 				Locale.setDefault(Locale.US);
 				
@@ -103,12 +107,6 @@ public class App {
 				chatParser.init();
 				fileMonitor = new FileMonitor();
 				fileMonitor.startMonitor();
-				
-				updateChecker = new UpdateChecker();
-				if(updateChecker.checkForUpdate()){
-					UpdateDialog d = new UpdateDialog();
-					d.setVisible(true);
-				}
 
 				
 				// JNativeHook Setup
@@ -125,11 +123,17 @@ public class App {
 				//Clipboard listener for fast paste
 				ClipboardManager clipboard = new ClipboardManager();
 
+				// Alert about new update
+                if(updateChecker.isUpdateAvailable()){
+                    UpdateDialog d = new UpdateDialog();
+                    d.setVisible(true);
+                }
+
+
 			}
 		});
 
-		
-		
+
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			public void run() {
 				closeProgram();

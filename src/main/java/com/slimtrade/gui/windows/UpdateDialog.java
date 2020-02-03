@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.utility.UpdateChecker;
+import com.slimtrade.core.utility.VersionNumber;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
@@ -27,6 +29,12 @@ public class UpdateDialog extends JDialog {
 
 	public UpdateDialog(){
 		this.setTitle("SlimTrade - Update");
+		VersionNumber newVersion = null;
+		if(App.updateChecker.isAllowPreReleases() && App.updateChecker.isNewPreReleaseAvailable()) {
+		    newVersion = App.updateChecker.getLatestPreRelease();
+        } else {
+            newVersion = App.updateChecker.getLatestRelease();
+        }
 		viewUpdateButton.setFocusable(false);
 		ContainerPanel containerPanel = new ContainerPanel();
 		JPanel container = containerPanel.container;
@@ -39,7 +47,7 @@ public class UpdateDialog extends JDialog {
 		
 		JLabel info1 = new JLabel("New version available!");
 		JLabel info2 = new JLabel("Currently Running: " + References.APP_VERSION);
-		JLabel info3 = new JLabel("Latest Version: " + App.updateChecker.getLatestVersion());
+		JLabel info3 = new JLabel("Latest Version: " + App.updateChecker.getNewestVersion());
 		
 		int bufferY = 10;
 		container.add(info1, gc);

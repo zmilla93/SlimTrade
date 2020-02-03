@@ -1,27 +1,25 @@
 package com.slimtrade.core.utility;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.slimtrade.App;
+import com.slimtrade.core.References;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.google.gson.*;
-import com.slimtrade.App;
-import org.json.JSONObject;
 
 public class UpdateChecker {
 
 	// TODO : Switch to /releases/latest with new versionMatchString in order to
 	// avoid detecting prereleases
-    private static VersionNumber currentVersion;
-    private static VersionNumber latestRelease;
-    private static VersionNumber latestPreRelease;
+    private VersionNumber currentVersion;
+    private VersionNumber latestRelease;
+    private VersionNumber latestPreRelease;
+    private boolean allowPreReleases;
 
     //Github URLs
 	private final String latestReleaseURL = "https://github.com/zmilla93/SlimTrade/releases/latest";
@@ -30,6 +28,7 @@ public class UpdateChecker {
     //Regex match strings
 	private final String latestReleaseMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
 	private final String allReleasesMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
+	private static final String gitUrl = "https://api.github.com/repos/zmilla93/slimtrade/tags";
 
 	// private ArrayList<String> versions = new ArrayList<String>();
 
@@ -37,22 +36,33 @@ public class UpdateChecker {
 	private VersionNumber latestVersion;
 
 	public UpdateChecker() {
-
+        currentVersion = new VersionNumber(References.APP_VERSION);
+        latestRelease = new VersionNumber(References.APP_VERSION);
+        latestPreRelease = new VersionNumber(References.APP_VERSION);
 	}
 
-	public VersionNumber getLatestVersion() {
-		return latestVersion;
+//	public VersionNumber getLatestVersion() {
+//		return latestVersion;
+//	}
+
+	public boolean checkForUpdates(){
+		return checkForUpdates(false);
 	}
 
-	public boolean checkForUpdate(){
-		return checkForUpdate(false);
-	}
+	public boolean checkForUpdates(boolean allowPreReleases) {
 
-	public boolean checkForUpdate(boolean allowPrereleases) {
-        URL url = null;
+	    VersionNumber appVersion = new VersionNumber(References.APP_VERSION);
+        currentVersion = appVersion;
+        latestRelease = appVersion;
+        latestPreRelease = appVersion;
+        if(allowPreReleases | App.debugMode) {
+            this.allowPreReleases = true;
+        }
+//        this.allowPreReleases = (allowPreReleases | App.debugMode);
+
         try {
             System.out.println("Checking for updates...");
-            url = new URL("https://api.github.com/repos/zmilla93/slimtrade/tags");
+            URL url = new URL(gitUrl);
             URLConnection conn = url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder builder = new StringBuilder();
@@ -69,96 +79,86 @@ public class UpdateChecker {
                 VersionNumber v = new VersionNumber(tag.toString());
                 System.out.println(v.toString());
                 //TODO : CLEAN + PRE
-                if (VersionNumber.isNewVersion(v)) {
-                    newVersion = true;
-                    if (latestVersion != null) {
-                        if (VersionNumber.isNewVersion(v, latestVersion)) {
-                            latestVersion = v;
-                        }
-                    } else {
-                        latestVersion = v;
-                    }
-                }
+                v.checkVersion();
+//                if (VersionNumber.isNewVersion(v)) {
+//                    newVersion = true;
+//                    if (latestVersion != null) {
+//                        if (VersionNumber.isNewVersion(v, latestVersion)) {
+//                            latestVersion = v;
+//                        }
+//                    } else {
+//                        latestVersion = v;
+//                    }
+//                }
             }
             br.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
+//            e.printStackTrace();
         }
-
         System.out.println("Checked!");
-        return newVersion;
+        System.out.println("Current : " + getCurrentVersion());
+        System.out.println("Ver : " + getLatestRelease());
+        System.out.println("Pre : " + getLatestPreRelease());
+        System.out.println("Allow Pre : " + this.isAllowPreReleases());
+        System.out.println("isNewVer : " + this.isNewReleaseAvailable());
+        System.out.println("isNewPre : " + this.isNewPreReleaseAvailable());
+
+        if(this.isAllowPreReleases()) {
+            return isNewReleaseAvailable();
+        } else {
+            return isNewPreReleaseAvailable();
+        }
+//        return newVersion;
     }
 
-	public boolean checkForUpdateOld(boolean allowPrereleases) {
-		InputStream inputStream = null;
-		try {
-			URL url;
-			if (allowPrereleases || App.debugMode) {
-                System.out.println("debug check");
-				url = new URL(allReleases);
-			} else {
-				url = new URL(latestReleaseURL);
-			}
-			URLConnection connection = url.openConnection();
-			connection.setConnectTimeout(5000);
-			inputStream = connection.getInputStream();
-		} catch (IOException e) {
-			App.logger.log(Level.WARNING, "Error while connecting to github.");
-			return false;
-		}
+    public VersionNumber getCurrentVersion(){
+        return currentVersion;
+    }
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-		StringBuilder webText = new StringBuilder();
-		try {
-			while (br.ready()) {
-				webText.append(br.readLine());
-			}
-		} catch (IOException e) {
-			App.logger.log(Level.WARNING, "Error while parsing data from github.");
-			return false;
-		}
-		Pattern pattern = null;
-		if (allowPrereleases) {
-			pattern = Pattern.compile(allReleasesMatchString);
-		} else {
-			pattern = Pattern.compile(latestReleaseMatchString);
-		}
-		Matcher matcher = pattern.matcher(webText.toString());
-		System.out.println(matcher.matches());
-		while (matcher.find()) {
-			VersionNumber v = new VersionNumber(matcher.group(1));
-			System.out.println(v.toString());
-			if (VersionNumber.isNewVersion(v)) {
-				newVersion = true;
-				if (latestVersion != null) {
-					if (VersionNumber.isNewVersion(v, latestVersion)) {
-						latestVersion = v;
-					}
-				} else {
-					latestVersion = v;
-				}
-			}
-		}
+    public VersionNumber getLatestRelease(){
+        return latestRelease;
+    }
 
+    public VersionNumber getLatestPreRelease(){
+        return latestPreRelease;
+    }
 
-		//TODO : Implement new update checker
-//        URL conn = null;
-//        try {
-//            conn = new URL("https://api.github.com/repos/zmilla93/slimtrade/tags");
-//            URLConnection yc = conn.openConnection();
-//            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-//            String inputLine;
-//            while ((inputLine = in.readLine()) != null) {
-//                System.out.println(inputLine);
-//            }
-//            in.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    public boolean isNewReleaseAvailable() {
+        if(VersionNumber.isNewVersion(currentVersion, latestRelease)) {
+            return true;
+        }
+        return false;
+    }
 
+    public boolean isNewPreReleaseAvailable() {
+        if(VersionNumber.isNewVersion(currentVersion, latestPreRelease)) {
+            return true;
+        }
+        return false;
+    }
 
+    public boolean isAllowPreReleases(){
+	    return this.allowPreReleases;
+    }
 
-		return newVersion;
-	}
+    public void setLatestRelease(VersionNumber version) {
+	    latestRelease = version;
+    }
+    public void setLatestPreRelease(VersionNumber version) {
+	    latestPreRelease = version;
+    }
+
+    public boolean isUpdateAvailable() {
+	    boolean update = (this.allowPreReleases && this.isNewPreReleaseAvailable()) ? this.isNewPreReleaseAvailable() : this.isNewReleaseAvailable();
+	    return update;
+    }
+
+    public VersionNumber getNewestVersion() {
+	    if(this.allowPreReleases && VersionNumber.isNewVersion(this.getLatestRelease(), this.getLatestPreRelease())){
+	        return this.getLatestPreRelease();
+        }
+        return this.getLatestRelease();
+    }
 
 }

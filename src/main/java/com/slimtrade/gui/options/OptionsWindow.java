@@ -47,6 +47,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 
 	private final JPanel menuPanel = new JPanel(new GridBagLayout());
 	private final JPanel menuPanelLower = new JPanel(new GridBagLayout());
+	private BasicButton checkUpdateButton = null;
 
 	private boolean updateAvailable;
 
@@ -120,7 +121,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		// JButton updateButton = new BasicButton("Update Available!");
 		// updateButton.setVisible(false);
 
-		BasicButton checkUpdateButton = new BasicButton("Check for Update");
+        checkUpdateButton = new BasicButton("Check for Update");
 		checkUpdateButton.setPreferredSize(checkUpdateButton.getPreferredSize());
 		// TODO : Remove stash
 		gc = new GridBagConstraints();
@@ -179,7 +180,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		checkUpdateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO : allowPrerelease
-                if (updateAvailable) {
+                if (App.updateChecker.isUpdateAvailable()) {
 					//UPDATE
 					try {
 						URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
@@ -192,17 +193,18 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 						public void run() {
 							checkUpdateButton.setText("Checking...");
 							checkUpdateButton.setEnabled(false);
-							updateAvailable = App.updateChecker.checkForUpdate();
+//							updateAvailable = App.updateChecker.checkForUpdates();
+							App.updateChecker.checkForUpdates();
 							try {
 								Thread.sleep(1000);
 							} catch (InterruptedException e) {
 							}
-							if (updateAvailable) {
+							if (App.updateChecker.isUpdateAvailable()) {
 								// updateButton.setVisible(true);
 								checkUpdateButton.setText("Update Available!");
 								checkUpdateButton.setColor(Color.GREEN);
 							} else {
-								checkUpdateButton.setText("Check for Update");
+								checkUpdateButton.setText("Check for Updates");
 							}
 							checkUpdateButton.setEnabled(true);
 
@@ -236,6 +238,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		});
 
 		updateColor();
+		recolorUpdateButton();
 //		this.setVisible(true);
 //		this.setShow(false);
 		App.eventManager.addListener(this);
@@ -282,5 +285,12 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		container.setBackground(ColorManager.BACKGROUND);
 		display.setBackground(ColorManager.BACKGROUND);
 	}
+
+	private void recolorUpdateButton(){
+        if(App.updateChecker.isUpdateAvailable()){
+            this.checkUpdateButton.setText("Update Available!");
+            this.checkUpdateButton.setColor(Color.GREEN);
+        }
+    }
 
 }
