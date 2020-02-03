@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
@@ -45,7 +45,7 @@ public class OLD_MessageManager extends BasicDialog {
 		this.setBackground(ColorManager.CLEAR);
 		container = this.getContentPane();
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
-		expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
+		expandDirection = ExpandDirection.valueOf(App.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
 //		this.setModal(true);
 //		WindowUtils.setWindowTransparent(this, true);
 	}
@@ -76,7 +76,7 @@ public class OLD_MessageManager extends BasicDialog {
 
 			}
 		});
-		boolean close = Main.saveManager.getBool("general", "closeOnKick");
+		boolean close = App.saveManager.getBool("general", "closeOnKick");
 		if (close && messages[i].getKickLeaveButton() != null) {
 			messages[i].getKickLeaveButton().addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -201,8 +201,8 @@ public class OLD_MessageManager extends BasicDialog {
 	}
 
 	public void updateLocation() {
-		int x = Main.saveManager.getInt("overlayManager", "messageManager", "x");
-		int y = Main.saveManager.getInt("overlayManager", "messageManager", "y");
+		int x = App.saveManager.getInt("overlayManager", "messageManager", "x");
+		int y = App.saveManager.getInt("overlayManager", "messageManager", "y");
 		this.startingPos = new Point(x, y);
 		this.setLocation(x, y);
 	}

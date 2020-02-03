@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 
+import com.slimtrade.App;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.slimtrade.Main;
 
 public class SaveManager {
 
@@ -95,7 +94,7 @@ public class SaveManager {
 				}
 			}
 			if(clientCount == 0){
-				Main.debugger.log("No client path found");
+				App.debugger.log("No client path found");
 			}else if (clientCount == 1) {
 				validClientPath = true;
 				clientDirectory = validDirectory;
@@ -103,9 +102,9 @@ public class SaveManager {
 				putObject(clientPath, "general", "clientPath");
 				System.out.println("FOUND ENTRY ::: \n\t" + clientPath + "\n\t" + clientDirectory);
 			}else if (clientCount > 1){
-				Main.debugger.log("[Warning] Multiple client paths found:");
+				App.debugger.log("[Warning] Multiple client paths found:");
 				for(String s : potentialPaths){
-					Main.debugger.log(s);
+					App.debugger.log(s);
 				}
 			}
 		}
@@ -270,7 +269,7 @@ public class SaveManager {
 			}
 		}
 		if (log) {
-			Main.logger.log(Level.WARNING, "Could not find enum value " + Arrays.toString(keys) + "\nReturning default value");
+			App.logger.log(Level.WARNING, "Could not find enum value " + Arrays.toString(keys) + "\nReturning default value");
 		}
 		return defaultValue;
 	}
@@ -355,7 +354,7 @@ public class SaveManager {
 					value = saveData.get(key);
 				} catch (JSONException e) {
 					if (log) {
-						Main.logger.log(Level.WARNING, "Failed to get value from single key \"" + key + "\"");
+						App.logger.log(Level.WARNING, "Failed to get value from single key \"" + key + "\"");
 					}
 					return null;
 				}
@@ -376,7 +375,7 @@ public class SaveManager {
 				value = activeArr.get(key);
 			} catch (JSONException e) {
 				if (log) {
-					Main.logger.log(Level.WARNING, "Failed to get value from nested keys " + Arrays.toString(keys) + "");
+					App.logger.log(Level.WARNING, "Failed to get value from nested keys " + Arrays.toString(keys) + "");
 				}
 				return null;
 			}

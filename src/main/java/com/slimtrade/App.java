@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
 import com.slimtrade.core.SaveConstants;
+import com.slimtrade.core.SaveSystem.SaveFile;
 import com.slimtrade.core.managers.ClipboardManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.DefaultManager;
@@ -31,7 +32,7 @@ import org.jnativehook.NativeHookException;
 import com.slimtrade.gui.dialogs.LoadingDialog;
 import com.slimtrade.gui.windows.UpdateDialog;
 
-public class Main {
+public class App {
 	
 	// TODO : move to invoke later?
 	public static Debugger debugger;
@@ -45,6 +46,7 @@ public class Main {
 	public static GlobalKeyboardListener globalKeyboard;
 	public static LoadingDialog loadingDialog;
 	public static ColorManager colorManager = new ColorManager();
+	public static SaveFile saveFile = new SaveFile();
 
 	public static boolean debugMode = false;
 

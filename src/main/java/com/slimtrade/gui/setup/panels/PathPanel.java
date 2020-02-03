@@ -9,7 +9,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.gui.options.general.AdvancedRow;
 import com.slimtrade.gui.setup.SetupWindow;
 
@@ -26,13 +26,13 @@ public class PathPanel extends AbstractSetupPanel {
 		
 		AdvancedRow row = new AdvancedRow("Client Path");
 		
-		int clientCount = Main.saveManager.getClientCount();
+		int clientCount = App.saveManager.getClientCount();
 		
 		if(clientCount == 0){
 			foundLabel.setText("Unable to locate a valid Client.txt file.");
 		}else if(clientCount == 1){
 			foundLabel.setText("Client.txt file has been successfully located!");
-			row.setText(Main.saveManager.getClientPath());
+			row.setText(App.saveManager.getClientPath());
 			this.complete = true;
 			parent.updateButtonState();
 		}else if(clientCount > 1){

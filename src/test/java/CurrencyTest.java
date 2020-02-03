@@ -10,7 +10,7 @@ public class CurrencyTest {
 		System.out.println(TradeUtility.getCurrencyType("alch"));
 		System.out.println(TradeUtility.getCurrencyType("093485alch34509dlk"));
 		System.out.println(TradeUtility.getCurrencyType("chaos"));
-		System.out.println(TradeUtility.getCurrencyType("ex"));
+
 		System.out.println(TradeUtility.getCurrencyType("none"));
 	}
 

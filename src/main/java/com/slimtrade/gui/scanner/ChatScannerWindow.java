@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.enums.PreloadedImage;
@@ -290,14 +290,14 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 				}
 				if (searching) {
 					ScannerMessage msg = (ScannerMessage) messageCombo.getSelectedItem();
-					Main.chatParser.setSearchName(msg.name);
-					Main.chatParser.setSearchTerms(msg.searchTermsArray);
-					Main.chatParser.setSearchIgnoreTerms(msg.ignoreTermsArray);
-					Main.chatParser.setResponseText(msg.clickLeft, msg.clickRight);
+					App.chatParser.setSearchName(msg.name);
+					App.chatParser.setSearchTerms(msg.searchTermsArray);
+					App.chatParser.setSearchIgnoreTerms(msg.ignoreTermsArray);
+					App.chatParser.setResponseText(msg.clickLeft, msg.clickRight);
 					System.out.println(Arrays.toString(msg.searchTermsArray));
 				}
 				updateSearchButton();
-				Main.chatParser.setChatScannerRunning(searching);
+				App.chatParser.setChatScannerRunning(searching);
 			}
 		});
 
@@ -398,19 +398,19 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
 	public void load() {
 		for (int i = 0; i < maxSaves; i++) {
-			if (Main.saveManager.hasEntry("chatScanner", "search" + i)) {
-				String name = Main.saveManager.getString("chatScanner", "search" + i, "name");
-				String terms = Main.saveManager.getString("chatScanner", "search" + i, "terms");
-				String ignore = Main.saveManager.getString("chatScanner", "search" + i, "ignore");
-				String lmb = Main.saveManager.getString("chatScanner", "search" + i, "clickLeft");
-				String rmb = Main.saveManager.getString("chatScanner", "search" + i, "clickRight");
+			if (App.saveManager.hasEntry("chatScanner", "search" + i)) {
+				String name = App.saveManager.getString("chatScanner", "search" + i, "name");
+				String terms = App.saveManager.getString("chatScanner", "search" + i, "terms");
+				String ignore = App.saveManager.getString("chatScanner", "search" + i, "ignore");
+				String lmb = App.saveManager.getString("chatScanner", "search" + i, "clickLeft");
+				String rmb = App.saveManager.getString("chatScanner", "search" + i, "clickRight");
 				messages.add(new ScannerMessage(name, terms, ignore, lmb, rmb));
 			}
 		}
 	}
 
 	private void localSaveToDisk() {
-		Main.saveManager.deleteObject("chatScanner");
+		App.saveManager.deleteObject("chatScanner");
 		// TODO : Double check this sorting code
 		Collections.sort(messages, new Comparator<ScannerMessage>() {
 			public int compare(final ScannerMessage obj1, final ScannerMessage obj2) {
@@ -419,15 +419,15 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 		});
 		int i = 0;
 		for (ScannerMessage msg : messages) {
-			Main.logger.log(Level.INFO, "Writing to index [" + i + "]\n");
-			Main.saveManager.putObject(msg.name, "chatScanner", "search" + i, "name");
-			Main.saveManager.putObject(msg.searchTerms, "chatScanner", "search" + i, "terms");
-			Main.saveManager.putObject(msg.ignoreTerms, "chatScanner", "search" + i, "ignore");
-			Main.saveManager.putObject(msg.clickLeft, "chatScanner", "search" + i, "clickLeft");
-			Main.saveManager.putObject(msg.clickRight, "chatScanner", "search" + i, "clickRight");
+			App.logger.log(Level.INFO, "Writing to index [" + i + "]\n");
+			App.saveManager.putObject(msg.name, "chatScanner", "search" + i, "name");
+			App.saveManager.putObject(msg.searchTerms, "chatScanner", "search" + i, "terms");
+			App.saveManager.putObject(msg.ignoreTerms, "chatScanner", "search" + i, "ignore");
+			App.saveManager.putObject(msg.clickLeft, "chatScanner", "search" + i, "clickLeft");
+			App.saveManager.putObject(msg.clickRight, "chatScanner", "search" + i, "clickRight");
 			i++;
 		}
-		Main.saveManager.saveToDisk();
+		App.saveManager.saveToDisk();
 	}
 
 }

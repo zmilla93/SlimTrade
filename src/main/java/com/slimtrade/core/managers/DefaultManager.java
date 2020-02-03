@@ -1,6 +1,6 @@
 package com.slimtrade.core.managers;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.SaveConstants.Audio;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
@@ -10,47 +10,47 @@ import com.slimtrade.gui.menubar.MenubarDialog;
 public class DefaultManager {
 
 	public DefaultManager(){
-		Main.saveManager.putDefaultInt(0, "stashOverlay", "x");
-		Main.saveManager.putDefaultInt(100, "stashOverlay", "y");
-		Main.saveManager.putDefaultInt(600, "stashOverlay", "width");
-		Main.saveManager.putDefaultInt(600, "stashOverlay", "height");
+		App.saveManager.putDefaultInt(0, "stashOverlay", "x");
+		App.saveManager.putDefaultInt(100, "stashOverlay", "y");
+		App.saveManager.putDefaultInt(600, "stashOverlay", "width");
+		App.saveManager.putDefaultInt(600, "stashOverlay", "height");
 		
-//		Main.saveManager.putStringDefault("I'm busy, want me to message you back in a little bit?", "macros", "in", "preset", "callback", "left");
-//		Main.saveManager.putStringDefault("one sec", "macros", "in", "preset", "wait", "left");
-//		Main.saveManager.putStringDefault("one minute", "macros", "in", "preset", "wait", "right");
-		Main.saveManager.putStringDefault("thanks", "macros", "in", "preset", "thank", "left");
-		Main.saveManager.putStringDefault("", "macros", "in", "preset", "thank", "right");
+//		App.saveManager.putStringDefault("I'm busy, want me to message you back in a little bit?", "macros", "in", "preset", "callback", "left");
+//		App.saveManager.putStringDefault("one sec", "macros", "in", "preset", "wait", "left");
+//		App.saveManager.putStringDefault("one minute", "macros", "in", "preset", "wait", "right");
+		App.saveManager.putStringDefault("thanks", "macros", "in", "preset", "thank", "left");
+		App.saveManager.putStringDefault("", "macros", "in", "preset", "thank", "right");
 
 		// Thank Button
-//		Main.saveManager.putDefaultBool(true, "macroButtons", "thankButton", "enabled");
-//		Main.saveManager.putDefaultBool(false, "macroButtons", "thankButton", "secondaryEnabled");
-//		Main.saveManager.putStringDefault("thanks", "macroButtons", "thankButton", "textLMB");
-//		Main.saveManager.putStringDefault("", "macroButtons", "thankButton", "textRMB");
+//		App.saveManager.putDefaultBool(true, "macroButtons", "thankButton", "enabled");
+//		App.saveManager.putDefaultBool(false, "macroButtons", "thankButton", "secondaryEnabled");
+//		App.saveManager.putStringDefault("thanks", "macroButtons", "thankButton", "textLMB");
+//		App.saveManager.putStringDefault("", "macroButtons", "thankButton", "textRMB");
 
 		// Overlay
-		Main.saveManager.putDefaultInt(0, "overlayManager", "menubar", "x");
-		Main.saveManager.putDefaultInt(TradeUtility.screenSize.height - MenubarDialog.HEIGHT, "overlayManager", "menubar", "y");
-		Main.saveManager.putDefaultInt(1220, "overlayManager", "messageManager", "x");
-		Main.saveManager.putDefaultInt(0, "overlayManager", "messageManager", "y");
-		Main.saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
+		App.saveManager.putDefaultInt(0, "overlayManager", "menubar", "x");
+		App.saveManager.putDefaultInt(TradeUtility.screenSize.height - MenubarDialog.HEIGHT, "overlayManager", "menubar", "y");
+		App.saveManager.putDefaultInt(1220, "overlayManager", "messageManager", "x");
+		App.saveManager.putDefaultInt(0, "overlayManager", "messageManager", "y");
+		App.saveManager.putStringDefault("Bottom Left", "overlayManager", "menubar", "buttonLocation");
 
 		//Sound
 		//TODO : Revisit if more click sounds are added
-//		SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, Audio.UIClick.TYPE)));
-//		SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, true, Audio.UIClick.TYPE)));
+//		SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(App.saveManager.getEnumValue(Sound.class, Audio.UIClick.TYPE)));
+//		SoundComponent.BUTTON_CLICK.setSound(Sound.valueOf(App.saveManager.getEnumValue(Sound.class, true, Audio.UIClick.TYPE)));
 		SoundComponent.BUTTON_CLICK.setSound(Sound.CLICK1);
-		SoundComponent.BUTTON_CLICK.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.UIClick.VOLUME)));
+		SoundComponent.BUTTON_CLICK.setVolume(TradeUtility.getAudioVolume(App.saveManager.getDefaultInt(0, 100, 50, Audio.UIClick.VOLUME)));
 
-		SoundComponent.INCOMING_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, Audio.IncomingTrade.TYPE)));
-		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.IncomingTrade.VOLUME)));
+		SoundComponent.INCOMING_MESSAGE.setSound(Sound.valueOf(App.saveManager.getEnumValue(Sound.class, Audio.IncomingTrade.TYPE)));
+		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(App.saveManager.getDefaultInt(0, 100, 50, Audio.IncomingTrade.VOLUME)));
 		
-		SoundComponent.OUTGOING_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, Audio.OutgoingTrade.TYPE)));
-		SoundComponent.OUTGOING_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.OutgoingTrade.VOLUME)));
+		SoundComponent.OUTGOING_MESSAGE.setSound(Sound.valueOf(App.saveManager.getEnumValue(Sound.class, Audio.OutgoingTrade.TYPE)));
+		SoundComponent.OUTGOING_MESSAGE.setVolume(TradeUtility.getAudioVolume(App.saveManager.getDefaultInt(0, 100, 50, Audio.OutgoingTrade.VOLUME)));
 		
-		SoundComponent.SCANNER_MESSAGE.setSound(Sound.valueOf(Main.saveManager.getEnumValue(Sound.class, Audio.ChatScanner.TYPE)));
-		SoundComponent.SCANNER_MESSAGE.setVolume(TradeUtility.getAudioVolume(Main.saveManager.getDefaultInt(0, 100, 50, Audio.ChatScanner.VOLUME)));
+		SoundComponent.SCANNER_MESSAGE.setSound(Sound.valueOf(App.saveManager.getEnumValue(Sound.class, Audio.ChatScanner.TYPE)));
+		SoundComponent.SCANNER_MESSAGE.setVolume(TradeUtility.getAudioVolume(App.saveManager.getDefaultInt(0, 100, 50, Audio.ChatScanner.VOLUME)));
 
-		Main.saveManager.saveToDisk();
+		App.saveManager.saveToDisk();
 	}
 
 }

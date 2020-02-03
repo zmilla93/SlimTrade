@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.options.OrderType;
@@ -33,7 +33,7 @@ public class HistoryPanel extends JPanel {
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 		this.add(contentPanel, BorderLayout.CENTER);
-		this.setMaxTrades(Main.saveManager.getDefaultInt(0, 100, 50, "history", "messageCount"));
+		this.setMaxTrades(App.saveManager.getDefaultInt(0, 100, 50, "history", "messageCount"));
 	}
 
 	public void addTrade(TradeOffer trade, boolean updateUI) {
@@ -85,7 +85,7 @@ public class HistoryPanel extends JPanel {
 			}
 			tradePanels.add(row);
 		}
-//		Main.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
+//		App.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
 		this.revalidate();
 		this.repaint();
 	}

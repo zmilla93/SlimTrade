@@ -13,7 +13,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
@@ -98,7 +98,7 @@ public class AudioRow extends JPanel implements ColorUpdateListener {
 		});
 		
 		this.updateColor();
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 		
 	}
 

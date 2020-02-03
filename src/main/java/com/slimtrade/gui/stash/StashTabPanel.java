@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
@@ -82,14 +82,14 @@ public class StashTabPanel extends ContainerPanel implements ISaveable {
 
 	public void save() {
 		int index = 0;
-		Main.saveManager.deleteObject("stashTabs");
+		App.saveManager.deleteObject("stashTabs");
 		rowContainer.saveChanges();
 		for (Component c : rowContainer.getComponents()) {
 			System.out.println("Saving...");
 			StashTabRow row = (StashTabRow) c;
-			Main.saveManager.putObject(row.getText(), "stashTabs", "tab" + index, "text");
-			Main.saveManager.putObject(row.getType().name(), "stashTabs", "tab" + index, "type");
-			Main.saveManager.putObject(row.getColor().name(), "stashTabs", "tab" + index, "color");
+			App.saveManager.putObject(row.getText(), "stashTabs", "tab" + index, "text");
+			App.saveManager.putObject(row.getType().name(), "stashTabs", "tab" + index, "type");
+			App.saveManager.putObject(row.getColor().name(), "stashTabs", "tab" + index, "color");
 			index++;
 		}
 	}
@@ -97,11 +97,11 @@ public class StashTabPanel extends ContainerPanel implements ISaveable {
 	public void load() {
 		int index = 0;
 		rowContainer.removeAll();
-		while (Main.saveManager.hasEntry("stashTabs", "tab" + index)) {
+		while (App.saveManager.hasEntry("stashTabs", "tab" + index)) {
 			StashTabRow row = addNewRow();
-			row.setText(Main.saveManager.getString("stashTabs", "tab" + index, "text"));
-			row.setType(StashTabType.valueOf(Main.saveManager.getString("stashTabs", "tab" + index, "type")));
-			row.setColor(StashTabColor.valueOf(Main.saveManager.getString("stashTabs", "tab" + index, "color")));
+			row.setText(App.saveManager.getString("stashTabs", "tab" + index, "text"));
+			row.setType(StashTabType.valueOf(App.saveManager.getString("stashTabs", "tab" + index, "type")));
+			row.setColor(StashTabColor.valueOf(App.saveManager.getString("stashTabs", "tab" + index, "color")));
 			index++;
 		}
 		rowContainer.saveChanges();

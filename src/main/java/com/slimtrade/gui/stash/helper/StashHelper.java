@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
 import com.slimtrade.core.observing.poe.PoeInteractionEvent;
@@ -44,7 +44,7 @@ public class StashHelper extends JPanel {
 	};
 	public Timer highlighterTimer = new Timer(2000, hideHighlighter);
 
-	private PoeInteractionListener poeInteractionListener = Main.macroEventManager;
+	private PoeInteractionListener poeInteractionListener = App.macroEventManager;
 
 	public StashHelper(TradeOffer trade, Color colorBackground, Color colorForeground) {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, borderThickness));

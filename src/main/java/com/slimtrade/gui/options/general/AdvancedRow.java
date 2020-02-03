@@ -15,7 +15,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -94,7 +94,7 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 		this.add(editButton, gc);
 		
 		this.updateColor();
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 
 	}
 

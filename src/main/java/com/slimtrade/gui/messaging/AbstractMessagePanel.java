@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
 import com.slimtrade.core.observing.poe.PoeInteractionEvent;
@@ -29,7 +29,7 @@ public class AbstractMessagePanel extends JPanel {
 	// TODO Load from drive
 	// TODO : Move?
 	// TODO : switch totalwidth/height to use get/set?
-	private final PoeInteractionListener poeInteractionListener = Main.macroEventManager;
+	private final PoeInteractionListener poeInteractionListener = App.macroEventManager;
 	protected MessageType messageType;
 	// Heights
 	// protected int minHeight;

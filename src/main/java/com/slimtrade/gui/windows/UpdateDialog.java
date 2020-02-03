@@ -14,7 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.panels.BufferPanel;
@@ -39,7 +39,7 @@ public class UpdateDialog extends JDialog {
 		
 		JLabel info1 = new JLabel("New version available!");
 		JLabel info2 = new JLabel("Currently Running: " + References.APP_VERSION);
-		JLabel info3 = new JLabel("Latest Version: " + Main.updateChecker.getLatestVersion());
+		JLabel info3 = new JLabel("Latest Version: " + App.updateChecker.getLatestVersion());
 		
 		int bufferY = 10;
 		container.add(info1, gc);

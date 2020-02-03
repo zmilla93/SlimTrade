@@ -11,7 +11,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.components.AddRemovePanel;
@@ -170,20 +170,20 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 	}
 
 	public void loadPresets() {
-		thankLeft.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "left"));
-		thankRight.setText(Main.saveManager.getString("macros", "in", "preset", "thank", "right"));
+		thankLeft.setText(App.saveManager.getString("macros", "in", "preset", "thank", "left"));
+		thankRight.setText(App.saveManager.getString("macros", "in", "preset", "thank", "right"));
 	}
 
 	private void loadFromSave() {
 		for (int i = 0; i < CUSTOM_MAX; i++) {
-			if (Main.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
+			if (App.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
 				CustomMacroRow row = addNewMacro();
-				ButtonRow buttonRow = ButtonRow.valueOf(Main.saveManager.getString("macros", "in", "custom", "button" + i, "row"));
-				PreloadedImageCustom buttonImage = PreloadedImageCustom.valueOf(Main.saveManager.getString("macros", "in", "custom", "button" + i, "image"));
+				ButtonRow buttonRow = ButtonRow.valueOf(App.saveManager.getString("macros", "in", "custom", "button" + i, "row"));
+				PreloadedImageCustom buttonImage = PreloadedImageCustom.valueOf(App.saveManager.getString("macros", "in", "custom", "button" + i, "image"));
 				row.setButtonRow(buttonRow);
 				row.setButtonImage(buttonImage);
-				row.setTextLMB(Main.saveManager.getString("macros", "in", "custom", "button" + i, "left"));
-				row.setTextRMB(Main.saveManager.getString("macros", "in", "custom", "button" + i, "right"));
+				row.setTextLMB(App.saveManager.getString("macros", "in", "custom", "button" + i, "left"));
+				row.setTextRMB(App.saveManager.getString("macros", "in", "custom", "button" + i, "right"));
 			} else {
 				return;
 			}
@@ -193,21 +193,21 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 
 	public void save() {
 		// CUSTOM BUTTONS
-		Main.saveManager.deleteObject("macros", "in", "custom");
+		App.saveManager.deleteObject("macros", "in", "custom");
 		int index = 0;
 		customPanel.saveChanges();
 		for (Component c : customPanel.getComponents()) {
 			CustomMacroRow p = (CustomMacroRow) c;
-			Main.saveManager.putObject(p.getButtonImage().name(), "macros", "in", "custom", "button" + index, "image");
-			Main.saveManager.putObject(p.getButtonRow().name(), "macros", "in", "custom", "button" + index, "row");
-			Main.saveManager.putObject(p.getTextLMB(), "macros", "in", "custom", "button" + index, "left");
-			Main.saveManager.putObject(p.getTextRMB(), "macros", "in", "custom", "button" + index, "right");
+			App.saveManager.putObject(p.getButtonImage().name(), "macros", "in", "custom", "button" + index, "image");
+			App.saveManager.putObject(p.getButtonRow().name(), "macros", "in", "custom", "button" + index, "row");
+			App.saveManager.putObject(p.getTextLMB(), "macros", "in", "custom", "button" + index, "left");
+			App.saveManager.putObject(p.getTextRMB(), "macros", "in", "custom", "button" + index, "right");
 			index++;
 		}
-		Main.saveManager.putObject(index, "macros", "in", "custom", "count");
+		App.saveManager.putObject(index, "macros", "in", "custom", "count");
 		// PRESET BUTTONS
-		Main.saveManager.putObject(thankLeft.getText(), "macros", "in", "preset", "thank", "left");
-		Main.saveManager.putObject(thankRight.getText(), "macros", "in", "preset", "thank", "right");
+		App.saveManager.putObject(thankLeft.getText(), "macros", "in", "preset", "thank", "left");
+		App.saveManager.putObject(thankRight.getText(), "macros", "in", "preset", "thank", "right");
 		refreshTrade();
 		customPanel.saveChanges();
 	}

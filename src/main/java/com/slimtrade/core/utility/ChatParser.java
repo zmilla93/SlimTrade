@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
 
 import javax.swing.Timer;
 
+import com.slimtrade.App;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.Main;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.gui.enums.MatchType;
@@ -67,13 +67,13 @@ public class ChatParser {
 
 	// TODO : Move path to options
 	public void init() {
-		Main.debugger.log("Launching chat parser...");
+		App.debugger.log("Launching chat parser...");
 		int msgCount = 0;
 		updateTimer.stop();
-		if (Main.saveManager.isValidClientPath()) {
-			clientPath = Main.saveManager.getClientPath();
+		if (App.saveManager.isValidClientPath()) {
+			clientPath = App.saveManager.getClientPath();
 		} else {
-			Main.debugger.log("[ERROR] No valid client file path found.");
+			App.debugger.log("[ERROR] No valid client file path found.");
 			return;
 		}
 		try {
@@ -83,8 +83,8 @@ public class ChatParser {
 			reader = new InputStreamReader(new FileInputStream(clientPath), StandardCharsets.UTF_8);
 			bufferedReader = new BufferedReader(reader);
 		} catch (FileNotFoundException e) {
-			Main.debugger.log("[ERROR] Chat parser failed to launch.");
-			Main.logger.log(Level.SEVERE, "Chat parser failed to launch");
+			App.debugger.log("[ERROR] Chat parser failed to launch.");
+			App.logger.log(Level.SEVERE, "Chat parser failed to launch");
 			return;
 //			e.printStackTrace();
 		}
@@ -102,13 +102,13 @@ public class ChatParser {
 				totalLineCount++;
 			}
 			FrameManager.historyWindow.buildHistory();
-			Main.debugger.log(msgCount + " whisper messages found.");
+			App.debugger.log(msgCount + " whisper messages found.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		updateTimer.start();
-		Main.debugger.log(totalLineCount + " total lines found.");
-		Main.debugger.log("Chat parser sucessfully launched.");
+		App.debugger.log(totalLineCount + " total lines found.");
+		App.debugger.log("Chat parser sucessfully launched.");
 	}
 
 	private void procUpdate() {
@@ -134,7 +134,7 @@ public class ChatParser {
 					totalLineCount++;
 					if (curLine.contains("@")) {
 //						System.out.println(curLine);
-						Main.debugger.log(curLine);
+						App.debugger.log(curLine);
 						TradeOffer trade = getTradeOffer(curLine);
 						if (trade != null) {
 							FrameManager.messageManager.addMessage(trade);
@@ -181,8 +181,8 @@ public class ChatParser {
 			reader.close();
 		} catch (NumberFormatException | IOException e) {
 			updateTimer.stop();
-			Main.debugger.log("[ERROR] Exception encountered while attempting to update parser.");
-			Main.debugger.log("Parser disabled.");
+			App.debugger.log("[ERROR] Exception encountered while attempting to update parser.");
+			App.debugger.log("Parser disabled.");
 			e.printStackTrace();
 		}
 		// long end = System.currentTimeMillis();

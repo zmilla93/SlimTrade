@@ -10,7 +10,7 @@ import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.SaveConstants;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
@@ -103,7 +103,7 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, Co
 		gc.gridy++;
 
 		this.updateColor();
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 
 		load();
 
@@ -119,22 +119,22 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, Co
 		FrameManager.historyWindow.setDateStyle(date);
 		FrameManager.historyWindow.setOrderType(order);
 
-		Main.saveManager.putObject(time.name(), SaveConstants.History.TIME_STYLE);
-		Main.saveManager.putObject(date.name(), SaveConstants.History.DATE_STYLE);
-		Main.saveManager.putObject(order.name(), SaveConstants.History.ORDER_TYPE);
-		Main.saveManager.putObject((int) limitSpinner.getValue(), SaveConstants.History.MAX_MESSAGE_COUNT);
+		App.saveManager.putObject(time.name(), SaveConstants.History.TIME_STYLE);
+		App.saveManager.putObject(date.name(), SaveConstants.History.DATE_STYLE);
+		App.saveManager.putObject(order.name(), SaveConstants.History.ORDER_TYPE);
+		App.saveManager.putObject((int) limitSpinner.getValue(), SaveConstants.History.MAX_MESSAGE_COUNT);
 	}
 
 	@Override
 	public void load() {
-		TimeStyle time = TimeStyle.valueOf(Main.saveManager.getEnumValue(TimeStyle.class, SaveConstants.History.TIME_STYLE));
-		DateStyle date = DateStyle.valueOf(Main.saveManager.getEnumValue(DateStyle.class, SaveConstants.History.DATE_STYLE));
-		OrderType order = OrderType.valueOf(Main.saveManager.getEnumValue(OrderType.class, SaveConstants.History.ORDER_TYPE));
+		TimeStyle time = TimeStyle.valueOf(App.saveManager.getEnumValue(TimeStyle.class, SaveConstants.History.TIME_STYLE));
+		DateStyle date = DateStyle.valueOf(App.saveManager.getEnumValue(DateStyle.class, SaveConstants.History.DATE_STYLE));
+		OrderType order = OrderType.valueOf(App.saveManager.getEnumValue(OrderType.class, SaveConstants.History.ORDER_TYPE));
 
 		timeCombo.setSelectedItem(time);
 		dateCombo.setSelectedItem(date);
 		orderCombo.setSelectedItem(order);
-		limitSpinner.setValue(Main.saveManager.getDefaultInt(0, 100, 50, SaveConstants.History.MAX_MESSAGE_COUNT));
+		limitSpinner.setValue(App.saveManager.getDefaultInt(0, 100, 50, SaveConstants.History.MAX_MESSAGE_COUNT));
 	}
 
 	@Override

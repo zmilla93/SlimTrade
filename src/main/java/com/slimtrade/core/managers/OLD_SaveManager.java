@@ -10,10 +10,10 @@ import java.util.logging.Level;
 
 import javax.swing.filechooser.FileSystemView;
 
+import com.slimtrade.App;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.slimtrade.Main;
 import com.slimtrade.gui.dialogs.InfoDialog;
 
 public class OLD_SaveManager {
@@ -692,7 +692,7 @@ public class OLD_SaveManager {
 
 	public void putIntDefault(int value, String... keys) {
 		if (getInt(keys) == Integer.MIN_VALUE) {
-			Main.logger.log(Level.INFO, "ADDING NEW DEFAULT VALUE");
+			App.logger.log(Level.INFO, "ADDING NEW DEFAULT VALUE");
 			putInt(value, keys);
 		}
 	}

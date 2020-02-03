@@ -13,8 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.SaveConstants;
+import com.slimtrade.core.SaveSystem.SaveElement;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.REDO_MacroEventManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
@@ -47,6 +48,8 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 	public BasicsPanel() {
 
 //		this.setBackground(Color.LIGHT_GRAY);
+
+        App.saveFile.characterName = new SaveElement("charName", characterInput);
 
 		guildCheckbox.setFocusable(false);
 		kickCheckbox.setFocusable(false);
@@ -159,14 +162,14 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 			}
 		});
 
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 		this.updateColor();
 		load();
 		
 		//TEMP COLOR THEME CHANGER
 		colorThemeCombo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				Main.eventManager.updateAllColors((ColorThemeType)colorThemeCombo.getSelectedItem());
+				App.eventManager.updateAllColors((ColorThemeType)colorThemeCombo.getSelectedItem());
 			}
 		});
 	}
@@ -180,22 +183,22 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 		REDO_MacroEventManager.setCharacterName(characterName);
 		ColorThemeType colorTheme = (ColorThemeType)colorThemeCombo.getSelectedItem();
 		
-		Main.saveManager.putObject(characterName, SaveConstants.General.CHARACTER);
-		Main.saveManager.putObject(guildCheckbox.isSelected(), SaveConstants.General.SHOW_GUILD);
-		Main.saveManager.putObject(kickCheckbox.isSelected(), SaveConstants.General.CLOSE_ON_KICK);
-		Main.saveManager.putObject(quickPasteCheckbox.isSelected(), SaveConstants.General.QUICK_PASTE);
-		Main.saveManager.putObject(colorTheme.name(), SaveConstants.General.COLOR_THEME);
+		App.saveManager.putObject(characterName, SaveConstants.General.CHARACTER);
+		App.saveManager.putObject(guildCheckbox.isSelected(), SaveConstants.General.SHOW_GUILD);
+		App.saveManager.putObject(kickCheckbox.isSelected(), SaveConstants.General.CLOSE_ON_KICK);
+		App.saveManager.putObject(quickPasteCheckbox.isSelected(), SaveConstants.General.QUICK_PASTE);
+		App.saveManager.putObject(colorTheme.name(), SaveConstants.General.COLOR_THEME);
 	}
 
 	@Override
 	public void load() {
-		String characterName = Main.saveManager.getString(SaveConstants.General.CHARACTER);
+		String characterName = App.saveManager.getString(SaveConstants.General.CHARACTER);
 		REDO_MacroEventManager.setCharacterName(characterName);
 		characterInput.setText(characterName);
-		guildCheckbox.setSelected(Main.saveManager.getBool(SaveConstants.General.SHOW_GUILD));
-		kickCheckbox.setSelected(Main.saveManager.getBool(SaveConstants.General.CLOSE_ON_KICK));
-		quickPasteCheckbox.setSelected(Main.saveManager.getBool(SaveConstants.General.QUICK_PASTE));
-		colorThemeCombo.setSelectedItem(ColorThemeType.valueOf(Main.saveManager.getEnumValue(ColorThemeType.class, SaveConstants.General.COLOR_THEME)));
+		guildCheckbox.setSelected(App.saveManager.getBool(SaveConstants.General.SHOW_GUILD));
+		kickCheckbox.setSelected(App.saveManager.getBool(SaveConstants.General.CLOSE_ON_KICK));
+		quickPasteCheckbox.setSelected(App.saveManager.getBool(SaveConstants.General.QUICK_PASTE));
+		colorThemeCombo.setSelectedItem(ColorThemeType.valueOf(App.saveManager.getEnumValue(ColorThemeType.class, SaveConstants.General.COLOR_THEME)));
 	}
 
 	@Override

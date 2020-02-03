@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
@@ -87,8 +87,8 @@ public class OverlayManager implements ISaveable {
 		menubarPanelBottom.setPreferredSize(new Dimension(0, MENUBAR_BUTTON_SIZE));
 		menubarExpandButton.setPreferredSize(new Dimension(MENUBAR_BUTTON_SIZE, MENUBAR_BUTTON_SIZE));
 
-		menubarDialog.setLocation(Main.saveManager.getInt("overlayManager", "menubar", "x"), Main.saveManager.getInt("overlayManager", "menubar", "y"));
-		messageDialog.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));
+		menubarDialog.setLocation(App.saveManager.getInt("overlayManager", "menubar", "x"), App.saveManager.getInt("overlayManager", "menubar", "y"));
+		messageDialog.setLocation(App.saveManager.getInt("overlayManager", "messageManager", "x"), App.saveManager.getInt("overlayManager", "messageManager", "y"));
 
 		helpDialog.setLayout(gridbag);
 		menubarDialog.setLayout(new BorderLayout());
@@ -156,7 +156,7 @@ public class OverlayManager implements ISaveable {
 //		menubarCombo.addItem("Top Right");
 //		menubarCombo.addItem("Bottom Left");
 //		menubarCombo.addItem("Bottom Right");
-		menubarCombo.setSelectedItem(Main.saveManager.getString("overlayManager", "menubar", "buttonLocation"));
+		menubarCombo.setSelectedItem(App.saveManager.getString("overlayManager", "menubar", "buttonLocation"));
 		updateMenubarButton();
 
 		for(ExpandDirection d : ExpandDirection.values()){
@@ -247,8 +247,8 @@ public class OverlayManager implements ISaveable {
 
 		cancelButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
-				menubarDialog.setLocation(Main.saveManager.getInt("overlayManager", "menubar", "x"), Main.saveManager.getInt("overlayManager", "menubar", "y"));
-				messageDialog.setLocation(Main.saveManager.getInt("overlayManager", "messageManager", "x"), Main.saveManager.getInt("overlayManager", "messageManager", "y"));
+				menubarDialog.setLocation(App.saveManager.getInt("overlayManager", "menubar", "x"), App.saveManager.getInt("overlayManager", "menubar", "y"));
+				messageDialog.setLocation(App.saveManager.getInt("overlayManager", "messageManager", "x"), App.saveManager.getInt("overlayManager", "messageManager", "y"));
 				menubarCombo.setSelectedItem(oldMenubarCombo);
 				msgPanelCombo.setSelectedItem(oldMsgPanelCombo);				
 				updateMenubarButton();
@@ -261,19 +261,19 @@ public class OverlayManager implements ISaveable {
 		saveButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				// Save
-				Main.saveManager.putObject(menubarDialog.getX(), "overlayManager", "menubar", "x");
-				Main.saveManager.putObject(menubarDialog.getY(), "overlayManager", "menubar", "y");
-				Main.saveManager.putObject(messageDialog.getX(), "overlayManager", "messageManager", "x");
-				Main.saveManager.putObject(messageDialog.getY(), "overlayManager", "messageManager", "y");
-//				Main.saveManager.putObject(menubarCombo.getSelectedItem().toString(), "overlayManager", "menubar", "buttonLocation");
+				App.saveManager.putObject(menubarDialog.getX(), "overlayManager", "menubar", "x");
+				App.saveManager.putObject(menubarDialog.getY(), "overlayManager", "menubar", "y");
+				App.saveManager.putObject(messageDialog.getX(), "overlayManager", "messageManager", "x");
+				App.saveManager.putObject(messageDialog.getY(), "overlayManager", "messageManager", "y");
+//				App.saveManager.putObject(menubarCombo.getSelectedItem().toString(), "overlayManager", "menubar", "buttonLocation");
 				
 				ExpandDirection dir = (ExpandDirection)msgPanelCombo.getSelectedItem();
 				MenubarButtonLocation loc = (MenubarButtonLocation)menubarCombo.getSelectedItem();
 				
-				Main.saveManager.putObject(dir.name(), "overlayManager", "messageManager", "expandDirection");
-				Main.saveManager.putObject(loc.name(), "overlayManager", "menubar", "buttonLocation");
+				App.saveManager.putObject(dir.name(), "overlayManager", "messageManager", "expandDirection");
+				App.saveManager.putObject(loc.name(), "overlayManager", "menubar", "buttonLocation");
 				
-				Main.saveManager.saveToDisk();
+				App.saveManager.saveToDisk();
 
 				// Update UI
 				
@@ -356,8 +356,8 @@ public class OverlayManager implements ISaveable {
 	}
 
 	public void load() {
-		MenubarButtonLocation loc = MenubarButtonLocation.valueOf(Main.saveManager.getEnumValue(MenubarButtonLocation.class, "overlayManager", "menubar", "buttonLocation"));
-		ExpandDirection dir = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
+		MenubarButtonLocation loc = MenubarButtonLocation.valueOf(App.saveManager.getEnumValue(MenubarButtonLocation.class, "overlayManager", "menubar", "buttonLocation"));
+		ExpandDirection dir = ExpandDirection.valueOf(App.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
 		
 		menubarCombo.setSelectedItem(loc);	
 		msgPanelCombo.setSelectedItem(dir);	

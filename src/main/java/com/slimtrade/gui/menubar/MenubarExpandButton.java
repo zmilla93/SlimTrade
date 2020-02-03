@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MenubarButtonLocation;
@@ -40,11 +40,11 @@ public class MenubarExpandButton extends BasicDialog{
 	}
 	
 	public void updateLocation(){
-		int x = Main.saveManager.getInt("overlayManager", "menubar", "x");
-		int y = Main.saveManager.getInt("overlayManager", "menubar", "y");
+		int x = App.saveManager.getInt("overlayManager", "menubar", "x");
+		int y = App.saveManager.getInt("overlayManager", "menubar", "y");
 		
-		MenubarButtonLocation loc = MenubarButtonLocation.valueOf(Main.saveManager.getEnumValue(MenubarButtonLocation.class, "overlayManager", "menubar", "buttonLocation"));
-		//		String loc = Main.saveManager.getString("overlayManager", "menubar", "buttonLocation");
+		MenubarButtonLocation loc = MenubarButtonLocation.valueOf(App.saveManager.getEnumValue(MenubarButtonLocation.class, "overlayManager", "menubar", "buttonLocation"));
+		//		String loc = App.saveManager.getString("overlayManager", "menubar", "buttonLocation");
 		
 		int modX = 0;
 		int modY = 0;

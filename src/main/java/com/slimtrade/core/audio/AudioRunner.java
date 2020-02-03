@@ -25,7 +25,7 @@ public class AudioRunner implements Runnable {
 		Clip clip = null;
 		try {
 			clip = AudioSystem.getClip();
-			AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getResource(sound.getPath()));
+			AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(sound.getPath()));
 			clip.open(stream);
 			FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 			volumeControl.setValue(volume);

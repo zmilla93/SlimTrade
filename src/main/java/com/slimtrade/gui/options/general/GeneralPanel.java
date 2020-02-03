@@ -3,7 +3,7 @@ package com.slimtrade.gui.options.general;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.gui.FrameManager;
@@ -65,7 +65,7 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, ColorUpda
 		FrameManager.linkToggle(audioButton, audioPanel);
 		FrameManager.linkToggle(advancedButton, advancedPanel);
 		
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 		this.updateColor();
 		
 	}

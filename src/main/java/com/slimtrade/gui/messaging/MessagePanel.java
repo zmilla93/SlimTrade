@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
@@ -81,7 +81,7 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 		this.trade = trade;
 		this.setMessageType(trade.messageType);
 
-		if (trade.guildName != null && Main.saveManager.getBool("general", "showGuild")) {
+		if (trade.guildName != null && App.saveManager.getBool("general", "showGuild")) {
 			nameLabel.setText(trade.guildName + " " + trade.playerName);
 		} else {
 			nameLabel.setText(trade.playerName);
@@ -154,7 +154,7 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 		this.startTimer();
 		
 		
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 		this.updateColor();
 		
 		// this.revalidate();
@@ -227,21 +227,21 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 			buttonCountTop = 2;
 			buttonCountBottom = 4;
 			int i = 0;
-			while (Main.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
-				PreloadedImageCustom img = PreloadedImageCustom.valueOf(Main.saveManager.getString("macros", "in", "custom", "button" + i, "image"));
+			while (App.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
+				PreloadedImageCustom img = PreloadedImageCustom.valueOf(App.saveManager.getString("macros", "in", "custom", "button" + i, "image"));
 				IconButton button = new IconButton(img.getImage(), rowHeight);
-				if (Main.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals(ButtonRow.TOP.name())) {
+				if (App.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals(ButtonRow.TOP.name())) {
 					buttonCountTop++;
-					String lmb = Main.saveManager.getString("macros", "in", "custom", "button" + i, "left");
-					String rmb = Main.saveManager.getString("macros", "in", "custom", "button" + i, "right");
+					String lmb = App.saveManager.getString("macros", "in", "custom", "button" + i, "left");
+					String rmb = App.saveManager.getString("macros", "in", "custom", "button" + i, "right");
 					if (listeners) {
 						this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
 					}
 					customButtonsTop.add(button);
-				} else if (Main.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals(ButtonRow.BOTTOM.name())) {
+				} else if (App.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals(ButtonRow.BOTTOM.name())) {
 					buttonCountBottom++;
-					String lmb = Main.saveManager.getString("macros", "in", "custom", "button" + i, "left");
-					String rmb = Main.saveManager.getString("macros", "in", "custom", "button" + i, "right");
+					String lmb = App.saveManager.getString("macros", "in", "custom", "button" + i, "left");
+					String rmb = App.saveManager.getString("macros", "in", "custom", "button" + i, "right");
 					if (listeners) {
 						this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
 					}
@@ -410,12 +410,12 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 			boolean stashFound = false;
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
-				while (Main.saveManager.hasEntry("stashTabs", "tab" + i)) {
-					if (Main.saveManager.getString("stashTabs", "tab" + i, "text").equals(trade.stashtabName)) {
-						Main.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
+				while (App.saveManager.hasEntry("stashTabs", "tab" + i)) {
+					if (App.saveManager.getString("stashTabs", "tab" + i, "text").equals(trade.stashtabName)) {
+						App.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
 						stashFound = true;
-						StashTabColor stashColor = StashTabColor.valueOf(Main.saveManager.getEnumValue(StashTabColor.class, "stashTabs", "tab" + i, "color"));
-						StashTabType type = StashTabType.valueOf(Main.saveManager.getEnumValue(StashTabType.class, "stashTabs", "tab" + i, "type"));
+						StashTabColor stashColor = StashTabColor.valueOf(App.saveManager.getEnumValue(StashTabColor.class, "stashTabs", "tab" + i, "color"));
+						StashTabType type = StashTabType.valueOf(App.saveManager.getEnumValue(StashTabType.class, "stashTabs", "tab" + i, "type"));
 						trade.stashType = type;
 						if (stashColor != StashTabColor.ZERO) {
 							color = stashColor.getBackground();

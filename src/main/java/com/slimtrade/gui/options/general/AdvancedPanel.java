@@ -7,7 +7,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.gui.options.ISaveable;
@@ -36,7 +36,7 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, ColorUpd
 		});
 
 		this.updateColor();
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 		
 		this.load();
 	}
@@ -46,14 +46,14 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, ColorUpd
 			new Thread(new Runnable() {
 				public void run() {
 					clientRow.setChanged(false);
-					Main.saveManager.putObject(clientRow.getText(), "general", "clientPath");
+					App.saveManager.putObject(clientRow.getText(), "general", "clientPath");
 
-					Main.saveManager.refreshPath();
-					Main.chatParser.setClientPath(clientRow.getText());
+					App.saveManager.refreshPath();
+					App.chatParser.setClientPath(clientRow.getText());
 
-					Main.fileMonitor.stopMonitor();
-					Main.chatParser.init();
-					Main.fileMonitor.startMonitor();
+					App.fileMonitor.stopMonitor();
+					App.chatParser.init();
+					App.fileMonitor.startMonitor();
 
 				}
 			}).start();
@@ -62,8 +62,8 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, ColorUpd
 	}
 
 	public void load() {
-		if (Main.saveManager.hasEntry("general", "clientPath")) {
-			clientRow.setText(Main.saveManager.getString("general", "clientPath"));
+		if (App.saveManager.hasEntry("general", "clientPath")) {
+			clientRow.setText(App.saveManager.getString("general", "clientPath"));
 			clientRow.setChanged(false);
 		}
 	}

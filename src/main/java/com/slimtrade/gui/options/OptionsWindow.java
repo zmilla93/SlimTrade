@@ -22,7 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
@@ -52,7 +52,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 
 	public OptionsWindow() {
 	    super("Options");
-	    if(Main.debugMode){
+	    if(App.debugMode){
 	        this.setTitleText(this.getTitle() + " - DEBUG");
         }
 		this.setFocusableWindowState(true);
@@ -192,12 +192,11 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 						public void run() {
 							checkUpdateButton.setText("Checking...");
 							checkUpdateButton.setEnabled(false);
-							updateAvailable = Main.updateChecker.checkForUpdate();
+							updateAvailable = App.updateChecker.checkForUpdate();
 							try {
 								Thread.sleep(1000);
 							} catch (InterruptedException e) {
 							}
-							System.out.println();
 							if (updateAvailable) {
 								// updateButton.setVisible(true);
 								checkUpdateButton.setText("Update Available!");
@@ -231,14 +230,15 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 				incomingPanel.save();
 				stashPanel.save();
 				ignorePanel.save();
-				Main.saveManager.saveToDisk();
+				App.saveManager.saveToDisk();
+                System.out.println(App.saveFile.characterName);
 			}
 		});
 
 		updateColor();
 //		this.setVisible(true);
 //		this.setShow(false);
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 
 	}
 

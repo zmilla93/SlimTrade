@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.REDO_MacroEventManager;
 import com.slimtrade.enums.DateStyle;
@@ -331,9 +331,9 @@ public class BasicsPanel_OLD extends ContentPanel_REMOVE implements ISaveable {
 			characterName = null;
 		}
 		REDO_MacroEventManager.setCharacterName(characterName);
-		Main.saveManager.putObject(characterName, "general", "character");
-		Main.saveManager.putObject(guildCheckbox.isSelected(), "general", "showGuild");
-		Main.saveManager.putObject(kickCheckbox.isSelected(), "general", "closeOnKick");
+		App.saveManager.putObject(characterName, "general", "character");
+		App.saveManager.putObject(guildCheckbox.isSelected(), "general", "showGuild");
+		App.saveManager.putObject(kickCheckbox.isSelected(), "general", "closeOnKick");
 
 		TimeStyle time = (TimeStyle) timeCombo.getSelectedItem();
 		DateStyle date = (DateStyle) dateCombo.getSelectedItem();
@@ -344,10 +344,10 @@ public class BasicsPanel_OLD extends ContentPanel_REMOVE implements ISaveable {
 		FrameManager.historyWindow.setDateStyle(date);
 		FrameManager.historyWindow.setOrderType(order);
 		
-		Main.saveManager.putObject(time.name(), "history", "timeStyle");
-		Main.saveManager.putObject(date.name(), "history", "dateStyle");
-		Main.saveManager.putObject(order.name(), "history", "orderType");
-		Main.saveManager.putObject((int) countSpinner.getValue(), "history", "messageCount");
+		App.saveManager.putObject(time.name(), "history", "timeStyle");
+		App.saveManager.putObject(date.name(), "history", "dateStyle");
+		App.saveManager.putObject(order.name(), "history", "orderType");
+		App.saveManager.putObject((int) countSpinner.getValue(), "history", "messageCount");
 		
 		
 	}
@@ -356,24 +356,24 @@ public class BasicsPanel_OLD extends ContentPanel_REMOVE implements ISaveable {
 		audioPanel.load();
 		advancedPanel.load();
 		try {
-			String characterName = Main.saveManager.getString("general", "character");
+			String characterName = App.saveManager.getString("general", "character");
 			REDO_MacroEventManager.setCharacterName(characterName);
 			characterInput.setText(characterName);
-			guildCheckbox.setSelected(Main.saveManager.getBool("general", "showGuild"));
-			kickCheckbox.setSelected(Main.saveManager.getBool("general", "closeOnKick"));
+			guildCheckbox.setSelected(App.saveManager.getBool("general", "showGuild"));
+			kickCheckbox.setSelected(App.saveManager.getBool("general", "closeOnKick"));
 
-			TimeStyle time = TimeStyle.valueOf(Main.saveManager.getEnumValue(TimeStyle.class, "history", "timeStyle"));
-			DateStyle date = DateStyle.valueOf(Main.saveManager.getEnumValue(DateStyle.class, "history", "dateStyle"));
-			OrderType order = OrderType.valueOf(Main.saveManager.getEnumValue(OrderType.class, "history", "orderType"));
+			TimeStyle time = TimeStyle.valueOf(App.saveManager.getEnumValue(TimeStyle.class, "history", "timeStyle"));
+			DateStyle date = DateStyle.valueOf(App.saveManager.getEnumValue(DateStyle.class, "history", "dateStyle"));
+			OrderType order = OrderType.valueOf(App.saveManager.getEnumValue(OrderType.class, "history", "orderType"));
 
 			timeCombo.setSelectedItem(time);
 			dateCombo.setSelectedItem(date);
 			orderCombo.setSelectedItem(order);
-			countSpinner.setValue(Main.saveManager.getDefaultInt(0, 100, 50, "history", "messageCount"));
+			countSpinner.setValue(App.saveManager.getDefaultInt(0, 100, 50, "history", "messageCount"));
 			
 			
 		} catch (NullPointerException e) {
-			Main.logger.log(Level.WARNING, "Error loading basics panel information");
+			App.logger.log(Level.WARNING, "Error loading basics panel information");
 		}
 		
 	}

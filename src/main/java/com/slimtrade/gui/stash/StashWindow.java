@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.options.ISaveable;
@@ -109,7 +109,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 				FrameManager.stashHelperContainer.updateBounds();
 				local.setShow(false);
 				FrameManager.showVisibleFrames();
-				Main.saveManager.saveToDisk();
+				App.saveManager.saveToDisk();
 				// this.setvi
 			}
 		});
@@ -128,20 +128,20 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 		Point winPos = this.getLocation();
 		Dimension winSize = this.getSize();
 		Dimension gridSize = gridPanel.getSize();
-		Main.saveManager.putObject(winPos.x, "stashOverlay", "x");
-		Main.saveManager.putObject(winPos.y, "stashOverlay", "y");
-		Main.saveManager.putObject(winSize.width, "stashOverlay", "width");
-		Main.saveManager.putObject(winSize.height, "stashOverlay", "height");
+		App.saveManager.putObject(winPos.x, "stashOverlay", "x");
+		App.saveManager.putObject(winPos.y, "stashOverlay", "y");
+		App.saveManager.putObject(winSize.width, "stashOverlay", "width");
+		App.saveManager.putObject(winSize.height, "stashOverlay", "height");
 		ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
 
 	}
 
 	public void load() {
-		if (Main.saveManager.hasEntry("stashOverlay")) {
+		if (App.saveManager.hasEntry("stashOverlay")) {
 			// System.out.println("Loading Grid Panel");
 
-			this.setLocation(Main.saveManager.getInt("stashOverlay", "x"), Main.saveManager.getInt("stashOverlay", "y"));
-			this.setSize(Main.saveManager.getInt("stashOverlay", "width"), Main.saveManager.getInt("stashOverlay", "height"));
+			this.setLocation(App.saveManager.getInt("stashOverlay", "x"), App.saveManager.getInt("stashOverlay", "y"));
+			this.setSize(App.saveManager.getInt("stashOverlay", "width"), App.saveManager.getInt("stashOverlay", "height"));
 
 			// System.out.println("WIDTH " + gridPanel.getWidth());
 			this.setVisible(true);

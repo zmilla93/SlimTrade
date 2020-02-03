@@ -4,7 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.basic.BasicDialog;
 
@@ -35,9 +35,9 @@ public class StashHelperContainer extends BasicDialog{
 	}
 	
 	public void updateBounds(){
-		posX = Main.saveManager.getInt("stashOverlay", "x");
-		posY = Main.saveManager.getInt("stashOverlay", "y");
-		int width = Main.saveManager.getInt("stashOverlay", "width");
+		posX = App.saveManager.getInt("stashOverlay", "x");
+		posY = App.saveManager.getInt("stashOverlay", "y");
+		int width = App.saveManager.getInt("stashOverlay", "width");
 		this.setBounds(posX+10, posY-15, width, height);
 	}
 

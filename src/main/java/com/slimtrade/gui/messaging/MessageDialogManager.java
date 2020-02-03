@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.SaveConstants;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
@@ -25,9 +25,9 @@ public class MessageDialogManager {
 	private static final ArrayList<PanelWrapper> wrapperList = new ArrayList<PanelWrapper>();
 	
 	public MessageDialogManager(){
-		expandDirection = ExpandDirection.valueOf(Main.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
-		int x = Main.saveManager.getInt("overlayManager", "messageManager", "x");
-		int y = Main.saveManager.getInt("overlayManager", "messageManager", "y");
+		expandDirection = ExpandDirection.valueOf(App.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
+		int x = App.saveManager.getInt("overlayManager", "messageManager", "x");
+		int y = App.saveManager.getInt("overlayManager", "messageManager", "y");
 		anchorPoint = new Point(x, y);
 	}
 	

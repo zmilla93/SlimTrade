@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.MessageType;
@@ -43,9 +43,9 @@ public class HistoryWindow extends AbstractResizableWindow {
 		super("History");
 		timeStyle = TimeStyle.H24;
 		dateStyle = DateStyle.DDMMYY;
-		timeStyle = TimeStyle.valueOf(Main.saveManager.getEnumValue(TimeStyle.class, "history", "timeStyle"));
-		dateStyle = DateStyle.valueOf(Main.saveManager.getEnumValue(DateStyle.class, "history", "dateStyle"));
-		orderType = OrderType.valueOf(Main.saveManager.getEnumValue(OrderType.class, "history", "orderType"));
+		timeStyle = TimeStyle.valueOf(App.saveManager.getEnumValue(TimeStyle.class, "history", "timeStyle"));
+		dateStyle = DateStyle.valueOf(App.saveManager.getEnumValue(DateStyle.class, "history", "dateStyle"));
+		orderType = OrderType.valueOf(App.saveManager.getEnumValue(OrderType.class, "history", "orderType"));
 		this.setPreferredSize(new Dimension(900, 600));
 		gc.gridx = 0;
 		gc.gridy = 0;

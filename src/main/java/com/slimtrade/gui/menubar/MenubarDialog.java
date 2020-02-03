@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JDialog;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
@@ -169,11 +169,11 @@ public class MenubarDialog extends BasicDialog {
 	}
 
 	public void updateLocation() {
-		this.setLocation(Main.saveManager.getInt("overlayManager", "menubar", "x"), Main.saveManager.getInt("overlayManager", "menubar", "y"));
+		this.setLocation(App.saveManager.getInt("overlayManager", "menubar", "x"), App.saveManager.getInt("overlayManager", "menubar", "y"));
 	}
 
 	public void reorder() {
-		MenubarButtonLocation loc = MenubarButtonLocation.valueOf(Main.saveManager.getEnumValue(MenubarButtonLocation.class, "overlayManager", "menubar", "buttonLocation"));
+		MenubarButtonLocation loc = MenubarButtonLocation.valueOf(App.saveManager.getEnumValue(MenubarButtonLocation.class, "overlayManager", "menubar", "buttonLocation"));
 		switch (loc) {
 		case NE:
 		case NW:

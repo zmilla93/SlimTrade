@@ -11,7 +11,7 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.logging.Level;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 
 public class FileMonitor {
 
@@ -29,12 +29,12 @@ public class FileMonitor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (!Main.saveManager.isValidClientPath()) {
-			Main.logger.log(Level.WARNING, "No valid client path found");
+		if (!App.saveManager.isValidClientPath()) {
+			App.logger.log(Level.WARNING, "No valid client path found");
 			return;
 		}
 
-		Path dir = Paths.get(Main.saveManager.getClientDirectory());
+		Path dir = Paths.get(App.saveManager.getClientDirectory());
 		if (clientKey != null) {
 			clientKey.cancel();
 			clientKey = null;
@@ -64,7 +64,7 @@ public class FileMonitor {
 					for (WatchEvent<?> event : key.pollEvents()) {
 						// TODO : Check context before parsing
 						if (event.context().toString().toLowerCase().equals("client.txt")) {
-							Main.chatParser.update();
+							App.chatParser.update();
 							if (event.kind() == StandardWatchEventKinds.OVERFLOW) {
 								System.err.println("Overflow");
 								continue;

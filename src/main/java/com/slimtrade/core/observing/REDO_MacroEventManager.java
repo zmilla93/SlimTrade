@@ -22,7 +22,7 @@ public class REDO_MacroEventManager implements PoeInteractionListener {
 		switch (type) {
 		case CALLBACK:
 			if(mouseButton == MouseEvent.BUTTON1){
-//				PoeInterface.paste("@" + trade.playerName + " " + Main.saveManager.getString("macros", "in", "preset", "callback", "left"));
+//				PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.getString("macros", "in", "preset", "callback", "left"));
 			}
 			break;
 		case HIDEOUT:

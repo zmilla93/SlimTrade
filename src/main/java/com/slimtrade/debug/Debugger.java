@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 
 public class Debugger extends JFrame {
@@ -53,7 +53,7 @@ public class Debugger extends JFrame {
 	}
 
 	public static void log(String... text) {
-		if(!Main.debugMode){
+		if(!App.debugMode){
 			return;
 		}
 		if (!logTextArea.getText().equals("")) {
@@ -71,14 +71,14 @@ public class Debugger extends JFrame {
 	}
 
 	public void clearLog() {
-		if(!Main.debugMode){
+		if(!App.debugMode){
 			return;
 		}
 		logTextArea.setText("");
 	}
 
 	public static void print(String... str) {
-		if(!Main.debugMode){
+		if(!App.debugMode){
 			return;
 		}
 		for (int i = 0; i < str.length; i++) {
@@ -87,7 +87,7 @@ public class Debugger extends JFrame {
 	}
 
 	public static void print(int... num) {
-		if(!Main.debugMode){
+		if(!App.debugMode){
 			return;
 		}
 		for (int i = 0; i < num.length; i++) {

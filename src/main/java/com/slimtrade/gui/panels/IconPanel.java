@@ -46,7 +46,7 @@ public class IconPanel extends JPanel {
 	}
 
 	private void buildIcon(Image image, int size, Color borderColor) {
-//		Main.logger.log(Level.INFO, path);
+//		App.logger.log(Level.INFO, path);
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(size, size));
 		this.setBackground(ColorManager.CLEAR);

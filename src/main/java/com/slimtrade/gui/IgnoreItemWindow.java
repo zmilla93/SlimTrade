@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.ConfirmButton;
@@ -84,7 +84,7 @@ public class IgnoreItemWindow extends AbstractResizableWindow implements ColorUp
 				FrameManager.ignoreItemAddRemovePanel.saveChanges();
 				FrameManager.itemIgnorePanel.save();
 				FrameManager.messageManager.closeTradesByItem(itemLabel.getText());
-				Main.saveManager.saveToDisk();
+				App.saveManager.saveToDisk();
 				setVisible(false);
 			}
 		});

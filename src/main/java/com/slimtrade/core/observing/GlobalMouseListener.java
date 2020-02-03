@@ -1,8 +1,8 @@
 package com.slimtrade.core.observing;
 
+import com.slimtrade.App;
 import com.slimtrade.enums.WindowType;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.Main;
 import com.slimtrade.core.References;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;
@@ -44,7 +44,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 		User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 		String curWindowTitle = Native.toString(windowText);
         System.out.println("window : " +  curWindowTitle);
-		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || Main.debugMode) {
+		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || App.debugMode) {
             FrameManager.showVisibleFrames();
 			FrameManager.forceAllToTop();
 		}else{

@@ -35,7 +35,7 @@ public class ContainerPanel extends JPanel{
 		
 		//TODO : Resolve this?
 //		this.updateColor();
-//		Main.eventManager.addListener(this);
+//		App.eventManager.addListener(this);
 	}
 		
 }

@@ -6,10 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.slimtrade.App;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.slimtrade.Main;
 
 
 public class ExternalFileManager {
@@ -47,7 +46,7 @@ public class ExternalFileManager {
 			if(clientFile.exists() && clientFile.isFile()){
 				validClientPath = true;
 				clientPath = drive + clientSteamStub;
-				Main.debugger.log("Valid client path found on " + drive + " drive. (Steam)");
+				App.debugger.log("Valid client path found on " + drive + " drive. (Steam)");
 			}
 		}
 		for(String drive : commonDrives){
@@ -55,12 +54,12 @@ public class ExternalFileManager {
 			if(clientFile.exists() && clientFile.isFile()){
 				validClientPath = true;
 				clientPath = drive + clientStandAloneStub;
-				Main.debugger.log("Valid client path found on " + drive + " drive. (Stand Alone)");
+				App.debugger.log("Valid client path found on " + drive + " drive. (Stand Alone)");
 			}
 		}
 		//TODO : Switch to something viewable by user later on
 		if(!validClientPath){
-			Main.debugger.log("Could not find client path.");
+			App.debugger.log("Could not find client path.");
 		}
 
 		for(String drive : commonDrives){
@@ -71,9 +70,9 @@ public class ExternalFileManager {
 				savePath = saveDirectory.getPath();
 				if(!saveDirectory.exists()){
 					saveDirectory.mkdirs();
-					Main.debugger.log("No save directory found.\nCreating new save directory at " + saveDirectory.getPath());
+					App.debugger.log("No save directory found.\nCreating new save directory at " + saveDirectory.getPath());
 				}else{
-					Main.debugger.log("Previous save directory found.");
+					App.debugger.log("Previous save directory found.");
 					file = new File(savePath + characterStub);
 					if(file.exists()) hasCharacterData = true;
 					file = new File(savePath + stashStub);

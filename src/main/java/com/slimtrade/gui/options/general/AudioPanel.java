@@ -3,7 +3,7 @@ package com.slimtrade.gui.options.general;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.SaveConstants;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
@@ -47,28 +47,28 @@ public class AudioPanel extends ContainerPanel implements ISaveable, ColorUpdate
 		load();
 		
 		this.updateColor();
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 		
 	}
 
 	public void save() {
-		Main.saveManager.putObject(uiRow.getSound().getName(), SaveConstants.Audio.UIClick.TYPE);
-		Main.saveManager.putObject(uiRow.getVolume(), SaveConstants.Audio.UIClick.VOLUME);
+		App.saveManager.putObject(uiRow.getSound().getName(), SaveConstants.Audio.UIClick.TYPE);
+		App.saveManager.putObject(uiRow.getVolume(), SaveConstants.Audio.UIClick.VOLUME);
 		SoundComponent.BUTTON_CLICK.setSound(uiRow.getSound());
 		SoundComponent.BUTTON_CLICK.setVolume(TradeUtility.getAudioVolume(uiRow.getVolume()));
 		
-		Main.saveManager.putObject(incomingRow.getSound().getName(), SaveConstants.Audio.IncomingTrade.TYPE);
-		Main.saveManager.putObject(incomingRow.getVolume(), SaveConstants.Audio.IncomingTrade.VOLUME);
+		App.saveManager.putObject(incomingRow.getSound().getName(), SaveConstants.Audio.IncomingTrade.TYPE);
+		App.saveManager.putObject(incomingRow.getVolume(), SaveConstants.Audio.IncomingTrade.VOLUME);
 		SoundComponent.INCOMING_MESSAGE.setSound(incomingRow.getSound());
 		SoundComponent.INCOMING_MESSAGE.setVolume(TradeUtility.getAudioVolume(incomingRow.getVolume()));
 		
-		Main.saveManager.putObject(outgoingRow.getSound().getName(), SaveConstants.Audio.OutgoingTrade.TYPE);
-		Main.saveManager.putObject(outgoingRow.getVolume(), SaveConstants.Audio.OutgoingTrade.VOLUME);
+		App.saveManager.putObject(outgoingRow.getSound().getName(), SaveConstants.Audio.OutgoingTrade.TYPE);
+		App.saveManager.putObject(outgoingRow.getVolume(), SaveConstants.Audio.OutgoingTrade.VOLUME);
 		SoundComponent.OUTGOING_MESSAGE.setSound(outgoingRow.getSound());
 		SoundComponent.OUTGOING_MESSAGE.setVolume(TradeUtility.getAudioVolume(outgoingRow.getVolume()));
 		
-		Main.saveManager.putObject(scannerRow.getSound().getName(), SaveConstants.Audio.ChatScanner.TYPE);
-		Main.saveManager.putObject(scannerRow.getVolume(), SaveConstants.Audio.ChatScanner.VOLUME);
+		App.saveManager.putObject(scannerRow.getSound().getName(), SaveConstants.Audio.ChatScanner.TYPE);
+		App.saveManager.putObject(scannerRow.getVolume(), SaveConstants.Audio.ChatScanner.VOLUME);
 		SoundComponent.SCANNER_MESSAGE.setSound(scannerRow.getSound());
 		SoundComponent.SCANNER_MESSAGE.setVolume(TradeUtility.getAudioVolume(scannerRow.getVolume()));
 

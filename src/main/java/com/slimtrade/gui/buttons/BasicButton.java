@@ -13,7 +13,7 @@ import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 
@@ -73,7 +73,7 @@ public class BasicButton extends JButton implements ColorUpdateListener {
 		});
 		
 		updateColor();
-		Main.eventManager.addListener(this);
+		App.eventManager.addListener(this);
 	}
 
 	@Override

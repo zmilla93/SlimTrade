@@ -12,7 +12,7 @@ import com.slimtrade.gui.FrameManager;
 import com.sun.jna.Native;
 import com.sun.jna.PointerType;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.References;
 //import main.java.com.slimtrade.core.utility.User32;
 import com.sun.jna.platform.win32.User32;
@@ -93,7 +93,7 @@ public class PoeInterface extends Robot {
 					robot.keyPress(KeyEvent.VK_ENTER);
 					robot.keyRelease(KeyEvent.VK_ENTER);
 				}else{
-					Main.logger.log(Level.WARNING, "Bad Window ::: " + curWindowTitle);
+					App.logger.log(Level.WARNING, "Bad Window ::: " + curWindowTitle);
 				}
 			}
 		}).start();

@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.slimtrade.Main;
+import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
@@ -50,7 +50,7 @@ public class OLD_ClipboardManager {
 			System.out.println("Flavor Changed!!");
 			POEWindowInfo poe = new POEWindowInfo();
 			if(!poe.getIsOpen() || !poe.getIsVisible()){
-				Main.logger.log(Level.WARNING, "POE is not visible");
+				App.logger.log(Level.WARNING, "POE is not visible");
 				try{
 					//TODO : ERROR IS THROWN HERE
 					refreshFlavor();
@@ -60,8 +60,8 @@ public class OLD_ClipboardManager {
 				}
 				return;
 			}
-			if(!Main.globalKeyboard.isControlPressed()){
-				Main.logger.log(Level.WARNING, "NO CONTROL KEY");
+			if(!App.globalKeyboard.isControlPressed()){
+				App.logger.log(Level.WARNING, "NO CONTROL KEY");
 				try{
 					refreshFlavor();
 				}catch(IOException err){
