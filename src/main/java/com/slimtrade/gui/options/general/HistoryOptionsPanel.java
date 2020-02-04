@@ -11,7 +11,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveConstants;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.enums.DateStyle;
@@ -111,30 +110,27 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, Co
 
 	@Override
 	public void save() {
-		TimeStyle time = (TimeStyle) timeCombo.getSelectedItem();
-		DateStyle date = (DateStyle) dateCombo.getSelectedItem();
-		OrderType order = (OrderType) orderCombo.getSelectedItem();
+		TimeStyle timeStyle = (TimeStyle) timeCombo.getSelectedItem();
+		DateStyle dateStyle = (DateStyle) dateCombo.getSelectedItem();
+		OrderType orderType = (OrderType) orderCombo.getSelectedItem();
 
-		FrameManager.historyWindow.setTimeStyle(time);
-		FrameManager.historyWindow.setDateStyle(date);
-		FrameManager.historyWindow.setOrderType(order);
+		FrameManager.historyWindow.setTimeStyle(timeStyle);
+		FrameManager.historyWindow.setDateStyle(dateStyle);
+		FrameManager.historyWindow.setOrderType(orderType);
+//        App.saveManager.saveFile.historyLimit = ((int)limitSpinner.getValue());
 
-		App.saveManager.putObject(time.name(), SaveConstants.History.TIME_STYLE);
-		App.saveManager.putObject(date.name(), SaveConstants.History.DATE_STYLE);
-		App.saveManager.putObject(order.name(), SaveConstants.History.ORDER_TYPE);
-		App.saveManager.putObject((int) limitSpinner.getValue(), SaveConstants.History.MAX_MESSAGE_COUNT);
+		App.saveManager.saveFile.timeStyle = timeStyle;
+		App.saveManager.saveFile.dateStyle = dateStyle;
+		App.saveManager.saveFile.orderType = orderType;
+        App.saveManager.saveFile.historyLimit = ((int)limitSpinner.getValue());
 	}
 
 	@Override
 	public void load() {
-		TimeStyle time = TimeStyle.valueOf(App.saveManager.getEnumValue(TimeStyle.class, SaveConstants.History.TIME_STYLE));
-		DateStyle date = DateStyle.valueOf(App.saveManager.getEnumValue(DateStyle.class, SaveConstants.History.DATE_STYLE));
-		OrderType order = OrderType.valueOf(App.saveManager.getEnumValue(OrderType.class, SaveConstants.History.ORDER_TYPE));
-
-		timeCombo.setSelectedItem(time);
-		dateCombo.setSelectedItem(date);
-		orderCombo.setSelectedItem(order);
-		limitSpinner.setValue(App.saveManager.getDefaultInt(0, 100, 50, SaveConstants.History.MAX_MESSAGE_COUNT));
+		timeCombo.setSelectedItem(App.saveManager.saveFile.timeStyle);
+		dateCombo.setSelectedItem(App.saveManager.saveFile.dateStyle);
+		orderCombo.setSelectedItem(App.saveManager.saveFile.orderType);
+		limitSpinner.setValue(App.saveManager.saveFile.historyLimit);
 	}
 
 	@Override

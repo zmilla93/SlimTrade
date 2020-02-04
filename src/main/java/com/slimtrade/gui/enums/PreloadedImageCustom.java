@@ -17,7 +17,6 @@ public enum PreloadedImageCustom {
 //	KEY2("icons/key2x48.png"),
 	MAP("icons/mapx48.png"),
 //	SHUFFLE("icons/shufflex48.png"),
-	
 	;
 	
 	Image image;

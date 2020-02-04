@@ -20,8 +20,8 @@ import com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import com.slimtrade.core.observing.poe.PoeInteractionListener;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.ImagePreloader;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.enums.PreloadedImage;
 
 public class AbstractMessagePanel extends JPanel {
 
@@ -122,7 +122,7 @@ public class AbstractMessagePanel extends JPanel {
 		if (forceNew.length > 0 && forceNew[0]) {
 			this.closeButton = new IconButton("icons/close.png", size);
 		} else {
-			this.closeButton = new IconButton(ImagePreloader.close, size);
+			this.closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), size);
 		}
 		closeButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {

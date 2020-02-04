@@ -54,7 +54,7 @@ public class AudioRow extends JPanel implements ColorUpdateListener {
 		slider.setFocusable(false);
 		slider.setPaintTicks(true);
 
-		// Sound Combo
+		// SoundComponentOLD Combo
 		soundCombo.setFocusable(false);
 
 		// Opacity

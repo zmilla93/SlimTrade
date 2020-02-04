@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import com.slimtrade.App;
+import com.slimtrade.core.SaveSystem.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.components.AddRemovePanel;
@@ -69,7 +70,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 		invitePreset.getRow("Left Mouse", "Invite player to your party");
 		PresetMacroRow tradePreset = new PresetMacroRow("Trade", "icons/cart.png", true);
 		tradePreset.getRow("Left Mouse", "Trades with a player");
-		PresetMacroRow thankPreset = new PresetMacroRow("Thank", "icons/thumb1.png");
+		PresetMacroRow thankPreset = new PresetMacroRow("Thank", "icons/thumb.png");
 		thankLeft = thankPreset.getRow("Left Mouse", "thanks");
 		thankRight = thankPreset.getRow("Right Mouse", "");
 		PresetMacroRow leavePreset = new PresetMacroRow("Kick", "icons/leave.png", true);
@@ -170,44 +171,40 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 	}
 
 	public void loadPresets() {
-		thankLeft.setText(App.saveManager.getString("macros", "in", "preset", "thank", "left"));
-		thankRight.setText(App.saveManager.getString("macros", "in", "preset", "thank", "right"));
+	    // TODO : add customizer
+		thankLeft.setText("thanks");
+		thankRight.setText("thanks");
 	}
 
 	private void loadFromSave() {
-		for (int i = 0; i < CUSTOM_MAX; i++) {
-			if (App.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
-				CustomMacroRow row = addNewMacro();
-				ButtonRow buttonRow = ButtonRow.valueOf(App.saveManager.getString("macros", "in", "custom", "button" + i, "row"));
-				PreloadedImageCustom buttonImage = PreloadedImageCustom.valueOf(App.saveManager.getString("macros", "in", "custom", "button" + i, "image"));
-				row.setButtonRow(buttonRow);
-				row.setButtonImage(buttonImage);
-				row.setTextLMB(App.saveManager.getString("macros", "in", "custom", "button" + i, "left"));
-				row.setTextRMB(App.saveManager.getString("macros", "in", "custom", "button" + i, "right"));
-			} else {
-				return;
-			}
-		}
-		
+	    int i = 0;
+	    for(MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
+            CustomMacroRow row = addNewMacro();
+            ButtonRow buttonRow = macro.row;
+            PreloadedImageCustom buttonImage = macro.image;
+            row.setButtonRow(buttonRow);
+            row.setButtonImage(buttonImage);
+            row.setTextLMB(macro.leftMouseResponse);
+            row.setTextRMB(macro.rightMouseResponse);
+	        if(++i >= CUSTOM_MAX){
+	            return;
+            }
+        }
 	}
 
 	public void save() {
 		// CUSTOM BUTTONS
-		App.saveManager.deleteObject("macros", "in", "custom");
+		App.saveManager.saveFile.incomingMacroButtons.clear();
 		int index = 0;
 		customPanel.saveChanges();
 		for (Component c : customPanel.getComponents()) {
-			CustomMacroRow p = (CustomMacroRow) c;
-			App.saveManager.putObject(p.getButtonImage().name(), "macros", "in", "custom", "button" + index, "image");
-			App.saveManager.putObject(p.getButtonRow().name(), "macros", "in", "custom", "button" + index, "row");
-			App.saveManager.putObject(p.getTextLMB(), "macros", "in", "custom", "button" + index, "left");
-			App.saveManager.putObject(p.getTextRMB(), "macros", "in", "custom", "button" + index, "right");
-			index++;
+			CustomMacroRow row = (CustomMacroRow) c;
+			App.saveManager.saveFile.incomingMacroButtons.add(row.getMacroData());
 		}
-		App.saveManager.putObject(index, "macros", "in", "custom", "count");
+//		App.saveManager.putObject(index, "macros", "in", "custom", "count");
 		// PRESET BUTTONS
-		App.saveManager.putObject(thankLeft.getText(), "macros", "in", "preset", "thank", "left");
-		App.saveManager.putObject(thankRight.getText(), "macros", "in", "preset", "thank", "right");
+//		App.saveManager.putObject(thankLeft.getText(), "macros", "in", "preset", "thank", "left");
+//		App.saveManager.putObject(thankRight.getText(), "macros", "in", "preset", "thank", "right");
 		refreshTrade();
 		customPanel.saveChanges();
 	}

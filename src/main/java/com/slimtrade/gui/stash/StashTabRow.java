@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.slimtrade.core.SaveSystem.StashTab;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.buttons.IconButton;
@@ -105,5 +106,9 @@ public class StashTabRow extends RemovablePanel {
 	public void setColor(StashTabColor color){
 		colorCombo.setSelectedItem(color.getBackground());
 	}
+
+	public StashTab getStashTabData() {
+        return new StashTab(getText(), getType(), getColor());
+    }
 	
 }

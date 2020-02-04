@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveConstants;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
@@ -16,7 +15,7 @@ import com.slimtrade.gui.enums.ExpandDirection;
 
 public class MessageDialogManager {
 	
-	private Point anchorPoint = new Point(0, 500);
+	private Point anchorPoint;
 	private Dimension defaultSize = new Dimension(400, 40);
 	private ExpandDirection expandDirection = ExpandDirection.DOWN;
 	
@@ -25,9 +24,9 @@ public class MessageDialogManager {
 	private static final ArrayList<PanelWrapper> wrapperList = new ArrayList<PanelWrapper>();
 	
 	public MessageDialogManager(){
-		expandDirection = ExpandDirection.valueOf(App.saveManager.getEnumValue(ExpandDirection.class, "overlayManager", "messageManager", "expandDirection"));
-		int x = App.saveManager.getInt("overlayManager", "messageManager", "x");
-		int y = App.saveManager.getInt("overlayManager", "messageManager", "y");
+		expandDirection = App.saveManager.saveFile.messageExpandDirection;
+		int x = App.saveManager.saveFile.messageManagerX;
+		int y = App.saveManager.saveFile.messageManagerY;
 		anchorPoint = new Point(x, y);
 	}
 	
@@ -43,8 +42,6 @@ public class MessageDialogManager {
 		panel.getCloseButton().addMouseListener(new AdvancedMouseAdapter(){
 			public void click(MouseEvent e){
 				if(e.getButton() == MouseEvent.BUTTON1){
-					System.out.println(wrapperList.indexOf(wrapper));
-//					wrapperList.remove(wrapper);
 					removeMessage(wrapperList.indexOf(wrapper));
 					refreshPanelLocations();
 				}
@@ -116,7 +113,6 @@ public class MessageDialogManager {
 			if (msg != null && msg instanceof MessagePanel) {
 				if (i != index) {
 					try {
-						System.out.println(SaveConstants.Macros.test);
 						int checkCount = 0;
 						int check = 0;
 						if (tradeA.messageType == MessageType.INCOMING_TRADE) {

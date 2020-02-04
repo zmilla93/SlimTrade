@@ -14,12 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveConstants;
-import com.slimtrade.core.SaveSystem.SaveElement;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.REDO_MacroEventManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
-import com.slimtrade.enums.ColorThemeType;
+import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.options.ISaveable;
@@ -34,7 +32,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 	private JCheckBox guildCheckbox = new JCheckBox();
 	private JCheckBox kickCheckbox = new JCheckBox();
 	private JCheckBox quickPasteCheckbox = new JCheckBox();
-	private JComboBox<ColorThemeType> colorThemeCombo = new JComboBox<ColorThemeType>();
+	private JComboBox<ColorTheme> colorThemeCombo = new JComboBox<ColorTheme>();
 	private JButton editStashButton = new BasicButton();
 	private JButton editOverlayButton = new BasicButton();
 
@@ -49,7 +47,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 
 //		this.setBackground(Color.LIGHT_GRAY);
 
-        App.saveFile.characterName = new SaveElement("charName", characterInput);
+//        App.saveFile.characterName = new SaveElement("charName", characterInput);
 
 		guildCheckbox.setFocusable(false);
 		kickCheckbox.setFocusable(false);
@@ -79,7 +77,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 
 		editStashButton.setText("Edit Stash");
 		editOverlayButton.setText("Edit Overlay");
-		for(ColorThemeType theme : ColorThemeType.values()){
+		for(ColorTheme theme : ColorTheme.values()){
 			colorThemeCombo.addItem(theme);
 		}
 
@@ -169,7 +167,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 		//TEMP COLOR THEME CHANGER
 		colorThemeCombo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				App.eventManager.updateAllColors((ColorThemeType)colorThemeCombo.getSelectedItem());
+				App.eventManager.updateAllColors((ColorTheme)colorThemeCombo.getSelectedItem());
 			}
 		});
 	}
@@ -181,24 +179,24 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 			characterName = null;
 		}
 		REDO_MacroEventManager.setCharacterName(characterName);
-		ColorThemeType colorTheme = (ColorThemeType)colorThemeCombo.getSelectedItem();
-		
-		App.saveManager.putObject(characterName, SaveConstants.General.CHARACTER);
-		App.saveManager.putObject(guildCheckbox.isSelected(), SaveConstants.General.SHOW_GUILD);
-		App.saveManager.putObject(kickCheckbox.isSelected(), SaveConstants.General.CLOSE_ON_KICK);
-		App.saveManager.putObject(quickPasteCheckbox.isSelected(), SaveConstants.General.QUICK_PASTE);
-		App.saveManager.putObject(colorTheme.name(), SaveConstants.General.COLOR_THEME);
+		ColorTheme colorTheme = (ColorTheme)colorThemeCombo.getSelectedItem();
+		App.saveManager.saveFile.characterName = characterName;
+		App.saveManager.saveFile.showGuildName = guildCheckbox.isSelected();
+		App.saveManager.saveFile.closeOnKick = kickCheckbox.isSelected();
+		App.saveManager.saveFile.quickPasteTrades = guildCheckbox.isSelected();
+		App.saveManager.saveFile.colorTheme = colorTheme;
+
 	}
 
 	@Override
 	public void load() {
-		String characterName = App.saveManager.getString(SaveConstants.General.CHARACTER);
+		String characterName = App.saveManager.saveFile.characterName;
 		REDO_MacroEventManager.setCharacterName(characterName);
 		characterInput.setText(characterName);
-		guildCheckbox.setSelected(App.saveManager.getBool(SaveConstants.General.SHOW_GUILD));
-		kickCheckbox.setSelected(App.saveManager.getBool(SaveConstants.General.CLOSE_ON_KICK));
-		quickPasteCheckbox.setSelected(App.saveManager.getBool(SaveConstants.General.QUICK_PASTE));
-		colorThemeCombo.setSelectedItem(ColorThemeType.valueOf(App.saveManager.getEnumValue(ColorThemeType.class, SaveConstants.General.COLOR_THEME)));
+		guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
+		kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
+		quickPasteCheckbox.setSelected(false);
+		colorThemeCombo.setSelectedItem(ColorTheme.LIGHT_THEME);
 	}
 
 	@Override

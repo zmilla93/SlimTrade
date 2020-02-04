@@ -33,7 +33,7 @@ public class HistoryPanel extends JPanel {
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 		this.add(contentPanel, BorderLayout.CENTER);
-		this.setMaxTrades(App.saveManager.getDefaultInt(0, 100, 50, "history", "messageCount"));
+		this.setMaxTrades(App.saveManager.saveFile.historyLimit);
 	}
 
 	public void addTrade(TradeOffer trade, boolean updateUI) {
@@ -51,7 +51,7 @@ public class HistoryPanel extends JPanel {
 			i++;
 		}
 		// Delete oldest trade if at max trades
-		if (trades.size() == maxTrades) {
+		if (trades.size() >= maxTrades) {
 			trades.remove(0);
 			if (updateUI) {
 				contentPanel.remove(tradePanels.get(0));

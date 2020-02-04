@@ -26,13 +26,13 @@ public class PathPanel extends AbstractSetupPanel {
 		
 		AdvancedRow row = new AdvancedRow("Client Path");
 		
-		int clientCount = App.saveManager.getClientCount();
+		int clientCount = App.saveManager.saveFile.clientCount;
 		
 		if(clientCount == 0){
 			foundLabel.setText("Unable to locate a valid Client.txt file.");
 		}else if(clientCount == 1){
 			foundLabel.setText("Client.txt file has been successfully located!");
-			row.setText(App.saveManager.getClientPath());
+			row.setText(App.saveManager.saveFile.clientPath);
 			this.complete = true;
 			parent.updateButtonState();
 		}else if(clientCount > 1){

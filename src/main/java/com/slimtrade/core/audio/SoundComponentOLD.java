@@ -1,6 +1,6 @@
 package com.slimtrade.core.audio;
 
-public enum SoundComponent {
+public enum SoundComponentOLD {
 
 	INCOMING_MESSAGE(Sound.PING1, 0),
 	OUTGOING_MESSAGE(Sound.PING1, 0),
@@ -11,7 +11,7 @@ public enum SoundComponent {
 	private Sound sound;
 	private float volume;
 	
-	SoundComponent(Sound sound, float volume){
+	SoundComponentOLD(Sound sound, float volume){
 		this.sound = sound;
 		this.volume = volume;
 	}

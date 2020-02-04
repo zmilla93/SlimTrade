@@ -121,7 +121,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		// JButton updateButton = new BasicButton("Update Available!");
 		// updateButton.setVisible(false);
 
-        checkUpdateButton = new BasicButton("Check for Update");
+        checkUpdateButton = new BasicButton("Check for Updates");
 		checkUpdateButton.setPreferredSize(checkUpdateButton.getPreferredSize());
 		// TODO : Remove stash
 		gc = new GridBagConstraints();
@@ -171,7 +171,6 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		this.setPreferredSize(new Dimension(1000, 600));
 
 		this.refresh();
-		System.out.println(this.getPreferredSize());
 		//TODO : Resize doesn't respect maximum size
 		this.setMinimumSize(new Dimension(600, 500));
 		this.setMaximumSize(new Dimension(1600, 900));
@@ -232,8 +231,9 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 				incomingPanel.save();
 				stashPanel.save();
 				ignorePanel.save();
-				App.saveManager.saveToDisk();
-                System.out.println(App.saveFile.characterName);
+//				App.saveManager.saveToDisk();
+                App.saveManager.saveToDisk();
+//                System.out.println(App.saveFile.characterName);
 			}
 		});
 

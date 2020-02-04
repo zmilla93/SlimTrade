@@ -110,7 +110,6 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 				local.setShow(false);
 				FrameManager.showVisibleFrames();
 				App.saveManager.saveToDisk();
-				// this.setvi
 			}
 		});
 
@@ -128,28 +127,29 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 		Point winPos = this.getLocation();
 		Dimension winSize = this.getSize();
 		Dimension gridSize = gridPanel.getSize();
-		App.saveManager.putObject(winPos.x, "stashOverlay", "x");
-		App.saveManager.putObject(winPos.y, "stashOverlay", "y");
-		App.saveManager.putObject(winSize.width, "stashOverlay", "width");
-		App.saveManager.putObject(winSize.height, "stashOverlay", "height");
+		App.saveManager.saveFile.stashX = winPos.x;
+		App.saveManager.saveFile.stashY = winPos.y;
+		App.saveManager.saveFile.stashWidth = winSize.width;
+		App.saveManager.saveFile.stashHeight = winSize.height;
 		ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
 
 	}
 
 	public void load() {
-		if (App.saveManager.hasEntry("stashOverlay")) {
-			// System.out.println("Loading Grid Panel");
-
-			this.setLocation(App.saveManager.getInt("stashOverlay", "x"), App.saveManager.getInt("stashOverlay", "y"));
-			this.setSize(App.saveManager.getInt("stashOverlay", "width"), App.saveManager.getInt("stashOverlay", "height"));
-
-			// System.out.println("WIDTH " + gridPanel.getWidth());
-			this.setVisible(true);
-			ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
-
-			this.setVisible(vis);
-			vis = false;
-		}
+        this.setLocation(App.saveManager.saveFile.stashX, App.saveManager.saveFile.stashY);
+        this.setSize(App.saveManager.saveFile.stashWidth, App.saveManager.saveFile.stashHeight);
+//		if (App.saveManager.hasEntry("stashOverlay")) {
+//			// System.out.println("Loading Grid Panel");
+//
+//
+//
+//			// System.out.println("WIDTH " + gridPanel.getWidth());
+//			this.setVisible(true);
+//			ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
+//
+//			this.setVisible(vis);
+//			vis = false;
+//		}
 	}
 
 }

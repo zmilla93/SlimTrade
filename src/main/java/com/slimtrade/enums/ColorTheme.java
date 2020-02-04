@@ -1,6 +1,6 @@
 package com.slimtrade.enums;
 
-public enum ColorThemeType {
+public enum ColorTheme {
 	
 	LIGHT_THEME("Light"),
 	DARK_THEME("Dark");
@@ -8,7 +8,7 @@ public enum ColorThemeType {
 	
 	private String name;
 	
-	private ColorThemeType(String name){
+	private ColorTheme(String name){
 		this.name = name;
 	}
 	

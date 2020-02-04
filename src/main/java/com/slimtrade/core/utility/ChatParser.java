@@ -16,10 +16,11 @@ import java.util.regex.Pattern;
 import javax.swing.Timer;
 
 import com.slimtrade.App;
+import com.slimtrade.core.audio.SoundComponentOLD;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.core.audio.AudioManager;
-import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.gui.enums.MatchType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
 
@@ -70,8 +71,8 @@ public class ChatParser {
 		App.debugger.log("Launching chat parser...");
 		int msgCount = 0;
 		updateTimer.stop();
-		if (App.saveManager.isValidClientPath()) {
-			clientPath = App.saveManager.getClientPath();
+		if (App.saveManager.saveFile.validClientPath) {
+			clientPath = App.saveManager.saveFile.clientPath;
 		} else {
 			App.debugger.log("[ERROR] No valid client file path found.");
 			return;
@@ -125,6 +126,7 @@ public class ChatParser {
 		long start = System.currentTimeMillis();
 		// Debugger.benchmarkStart();
 		try {
+            System.out.println("UPDATE!!!");
 			reader = new InputStreamReader(new FileInputStream(clientPath), StandardCharsets.UTF_8);
 			bufferedReader = new BufferedReader(reader);
 			curLineCount = 0;
@@ -143,10 +145,10 @@ public class ChatParser {
 							case CHAT_SCANNER:
 								break;
 							case INCOMING_TRADE:
-								AudioManager.play(SoundComponent.INCOMING_MESSAGE);
+								AudioManager.play(App.saveManager.saveFile.incomingMessageSound);
 								break;
 							case OUTGOING_TRADE:
-								AudioManager.play(SoundComponent.OUTGOING_MESSAGE);
+								AudioManager.play(App.saveManager.saveFile.outgoingMessageSound);
 								break;
 							case UNKNOWN:
 								break;
@@ -158,7 +160,7 @@ public class ChatParser {
 						TradeOffer trade = getSearchOffer(curLine);
 						System.out.println(trade);
 						if (trade != null) {
-							AudioManager.play(SoundComponent.SCANNER_MESSAGE);
+							AudioManager.play(App.saveManager.saveFile.scannerMessageSound);
 							FrameManager.messageManager.addMessage(trade);
 						}
 					} else {

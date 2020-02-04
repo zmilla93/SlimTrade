@@ -46,11 +46,15 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, ColorUpd
 			new Thread(new Runnable() {
 				public void run() {
 					clientRow.setChanged(false);
-					App.saveManager.putObject(clientRow.getText(), "general", "clientPath");
+//					App.saveManager.saveFile.clientPath =
+//                    String path = clientRow.getText();
+//					App.saveManager.putObject(clientRow.getText(), "general", "clientPath");
+					App.saveManager.saveFile.clientPath = clientRow.getText();
 
-					App.saveManager.refreshPath();
+//					App.saveManager.refreshPath();
 					App.chatParser.setClientPath(clientRow.getText());
 
+					// Restart file monitor
 					App.fileMonitor.stopMonitor();
 					App.chatParser.init();
 					App.fileMonitor.startMonitor();
@@ -62,10 +66,13 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, ColorUpd
 	}
 
 	public void load() {
-		if (App.saveManager.hasEntry("general", "clientPath")) {
-			clientRow.setText(App.saveManager.getString("general", "clientPath"));
-			clientRow.setChanged(false);
-		}
+	    if(App.saveManager.saveFile.clientPath != null) {
+            File file = new File(App.saveManager.saveFile.clientPath);
+            if(file.exists() && file.isFile()) {
+                clientRow.setText(App.saveManager.saveFile.clientPath);
+            }
+        }
+
 	}
 
 	@Override

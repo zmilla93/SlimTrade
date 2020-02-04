@@ -45,7 +45,7 @@ public class IconButton extends JButton {
 	private void getNewImage(String path, int size) {
 //		System.out.println("NEW IMAGE");
 		int imageSize = (int)(size*IMAGE_SCALE);
-        System.out.println("PATH : " + path);
+//        System.out.println("PATH : " + path);
         ClassLoader loader = getClass().getClassLoader();
 		image = new ImageIcon(loader.getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
 //		this.setPreferredSize(new Dimension(size, size));
@@ -71,7 +71,7 @@ public class IconButton extends JButton {
 		
 //		this.addMouseListener(new AdvancedMouseAdapter() {
 //			public void click(MouseEvent e){
-//				AudioManager.play(SoundComponent.BUTTON_CLICK);
+//				AudioManager.play(SoundComponentOLD.BUTTON_CLICK);
 //			}
 //		});
 	}

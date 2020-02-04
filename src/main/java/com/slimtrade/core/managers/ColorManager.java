@@ -2,21 +2,21 @@ package com.slimtrade.core.managers;
 
 import java.awt.Color;
 
-import com.slimtrade.enums.ColorThemeType;
+import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.core.utility.TradeUtility;
 
 public class ColorManager {
 	
 	// INTERNAL
-	private static ColorThemeType currentColorTheme;
+	private static ColorTheme currentColorTheme;
 	
 	// Mutual Colors
 	public static Color PRIMARY = new Color(255,204,0); 						// MAIN COLORS
-	public static Color GREEN_SALE = new Color(0, 100, 0); 			// 
+	public static Color GREEN_SALE = new Color(0, 100, 0); 			//
 	public static Color GREEN_APPROVE = new Color(0, 100, 0); 		// 
 	public static Color RED_SALE = new Color(100, 0, 0);			// 
 	public static Color RED_DENY = new Color(100, 0, 0);			// 
-	public static Color ORANGE_SCANNER = new Color(250, 128, 0);	// 
+	public static Color SCANNER_BACKGROUND = new Color(200, 128, 0);	//
 	public static Color INTERACTIVE = Color.BLUE;					// Currently Unused
 	
 	// Exclusive Colors
@@ -34,7 +34,7 @@ public class ColorManager {
 	public static Color POE_TEXT_DARK = new Color(53, 28, 13);
 	public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
 		
-	public static void setTheme(ColorThemeType theme) {
+	public static void setTheme(ColorTheme theme) {
 		if(currentColorTheme == theme){
 			return;
 		}
@@ -68,7 +68,7 @@ public class ColorManager {
 		return new Color(r, g, b);
 	}
 
-	public static ColorThemeType getTheme(){
+	public static ColorTheme getTheme(){
 		return currentColorTheme;
 	}
 	

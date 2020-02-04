@@ -1,6 +1,6 @@
 package com.slimtrade.gui;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,6 +23,8 @@ import com.slimtrade.gui.stash.helper.StashHelperContainer;
 import com.slimtrade.gui.windows.OverlayManager;
 
 public class FrameManager {
+
+    public static GridBagLayout gridbag;
 
 	public static OptionsWindow optionsWindow;
 	public static HistoryWindow historyWindow;
@@ -49,6 +51,7 @@ public class FrameManager {
 	public FrameManager() {
 //		SetupWindow setupWindow = new SetupWindow();
 //		setupWindow.setVisible(true);
+        FrameManager.gridbag = new GridBagLayout();
 
 		stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();

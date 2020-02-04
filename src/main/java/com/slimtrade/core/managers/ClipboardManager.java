@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 import com.slimtrade.App;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.core.SaveConstants;
 import com.slimtrade.core.utility.POEWindowInfo;
 import com.slimtrade.core.utility.PoeInterface;
 
@@ -33,10 +32,11 @@ public class ClipboardManager {
 
 	private class CustomFlavorListener implements FlavorListener {
 		public void flavorsChanged(FlavorEvent e) {
-			boolean valid = true;
+		    // TODO : enable
+			boolean valid = false;
 			POEWindowInfo poe = new POEWindowInfo();
 			//Ignore if option is disabled
-			if(App.saveManager.getBool(SaveConstants.General.QUICK_PASTE) == false){
+			if(false){
 				valid = false;
 			}
 			// Ignore if POE is not visible

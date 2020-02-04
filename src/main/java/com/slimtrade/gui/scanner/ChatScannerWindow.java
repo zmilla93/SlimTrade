@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -397,35 +396,39 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 	}
 
 	public void load() {
-		for (int i = 0; i < maxSaves; i++) {
-			if (App.saveManager.hasEntry("chatScanner", "search" + i)) {
-				String name = App.saveManager.getString("chatScanner", "search" + i, "name");
-				String terms = App.saveManager.getString("chatScanner", "search" + i, "terms");
-				String ignore = App.saveManager.getString("chatScanner", "search" + i, "ignore");
-				String lmb = App.saveManager.getString("chatScanner", "search" + i, "clickLeft");
-				String rmb = App.saveManager.getString("chatScanner", "search" + i, "clickRight");
-				messages.add(new ScannerMessage(name, terms, ignore, lmb, rmb));
-			}
-		}
+	    for(ScannerMessage scan : App.saveManager.saveFile.scannerMessages) {
+            messages.add(scan);
+        }
+//		for (int i = 0; i < maxSaves; i++) {
+//			if (App.saveManager.hasEntry("chatScanner", "search" + i)) {
+//				String name = App.saveManager.getString("chatScanner", "search" + i, "name");
+//				String terms = App.saveManager.getString("chatScanner", "search" + i, "terms");
+//				String ignore = App.saveManager.getString("chatScanner", "search" + i, "ignore");
+//				String lmb = App.saveManager.getString("chatScanner", "search" + i, "clickLeft");
+//				String rmb = App.saveManager.getString("chatScanner", "search" + i, "clickRight");
+//				messages.add(new ScannerMessage(name, terms, ignore, lmb, rmb));
+//			}
+//		}
 	}
 
 	private void localSaveToDisk() {
-		App.saveManager.deleteObject("chatScanner");
+//		App.saveManager.deleteObject("chatScanner");
 		// TODO : Double check this sorting code
 		Collections.sort(messages, new Comparator<ScannerMessage>() {
 			public int compare(final ScannerMessage obj1, final ScannerMessage obj2) {
 				return obj1.getName().compareTo(obj2.getName());
 			}
 		});
-		int i = 0;
+        App.saveManager.saveFile.scannerMessages.clear();
 		for (ScannerMessage msg : messages) {
-			App.logger.log(Level.INFO, "Writing to index [" + i + "]\n");
-			App.saveManager.putObject(msg.name, "chatScanner", "search" + i, "name");
-			App.saveManager.putObject(msg.searchTerms, "chatScanner", "search" + i, "terms");
-			App.saveManager.putObject(msg.ignoreTerms, "chatScanner", "search" + i, "ignore");
-			App.saveManager.putObject(msg.clickLeft, "chatScanner", "search" + i, "clickLeft");
-			App.saveManager.putObject(msg.clickRight, "chatScanner", "search" + i, "clickRight");
-			i++;
+//			App.logger.log(Level.INFO, "Writing to index [" + i + "]\n");
+//			App.saveManager.putObject(msg.name, "chatScanner", "search" + i, "name");
+//			App.saveManager.putObject(msg.searchTerms, "chatScanner", "search" + i, "terms");
+//			App.saveManager.putObject(msg.ignoreTerms, "chatScanner", "search" + i, "ignore");
+//			App.saveManager.putObject(msg.clickLeft, "chatScanner", "search" + i, "clickLeft");
+//			App.saveManager.putObject(msg.clickRight, "chatScanner", "search" + i, "clickRight");
+			App.saveManager.saveFile.scannerMessages.add(msg);
+//			i++;
 		}
 		App.saveManager.saveToDisk();
 	}

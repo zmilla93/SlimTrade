@@ -12,14 +12,14 @@ public class MenubarButton extends ListButton {
 	
 	public MenubarButton(){
 		super("");
-		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+//		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setFocusable(false);
 	}
 	
 	public MenubarButton(String text){
 		super("");
 		this.setText(text);
-		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+//		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setFocusable(false);
 	}
 

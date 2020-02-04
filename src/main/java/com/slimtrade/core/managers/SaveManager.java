@@ -1,433 +1,160 @@
 package com.slimtrade.core.managers;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.logging.Level;
-
+import com.google.gson.*;
 import com.slimtrade.App;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.slimtrade.core.SaveSystem.SaveFile;
+
+import java.io.*;
+import java.lang.reflect.Type;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class SaveManager {
 
-	// Full
-	private String clientDirectory;
-	private String clientPath;
-	private String savePath;
-	//TODO : Remove this
-	private String savePathFormatted;
-	
-	boolean validClientPath = false;
-	boolean validSavePath = false;
-	
-	// Stubs
-	private final String folderWin = "SlimTrade";
-	private final String folderOther = ".slimtrade";
-	private final String saveDirectory;
-	private final String sep = File.separator;
-	private final String saveStub = sep + "settings.json";
-	//TODO : Remove this
-	private final String saveStubFormatted = sep + "settingsFormatted.json";
-	private final String poeLogs = "Path of Exile" + sep + "logs";
-	private final String steamStub = "Program Files" + sep + "Steam" + sep + "steamapps" + sep + "common";
-	private final String steamStubx86 = "Program Files (x86)" + sep + "Steam" + sep + "steamapps" + sep + "common";
-	private final String standAlone = "Program Files" + sep + "Grinding Gear Games";
-	private final String standAlonex86 = "Program Files (x86)" + sep + "Grinding Gear Games";
+    // Public Info
+    public final String savePath;
+    public final String saveDirectory;
+    public SaveFile saveFile = new SaveFile();
 
-	private JSONObject saveData;
+    //Internal
+    private final String folderWin = "SlimTrade";
+    private final String folderOther = ".slimtrade";
+    private final String fileName = "settings.json";
+    private final String os = (System.getProperty("os.name")).toUpperCase();
+    private boolean validSavePath = false;
 
-	private FileReader fr;
-	private BufferedReader br;
-	private FileWriter fw;
+    // File Stuff
+    private FileReader fr;
+    private BufferedReader br;
+    private FileWriter fw;
+    private Gson gson;
 
-	
+    public SaveManager(){
 
-	private boolean log = false;
-	
-	private int clientCount = 0;
-	private ArrayList<String> potentialPaths = new ArrayList<String>();
-	
-	public SaveManager() {
-		// Set save directory
-		String os = (System.getProperty("os.name")).toUpperCase();
-		if (os.contains("WIN")) {
-			saveDirectory = System.getenv("LocalAppData") + File.separator + folderWin;
-		} else {
-			saveDirectory = System.getProperty("user.home") + File.separator + folderOther;
-		}
-		savePath = saveDirectory + saveStub;
-		//TODO : Remove this
-		savePathFormatted = saveDirectory + saveStubFormatted;
-		File saveDir = new File(saveDirectory);
-		if (!saveDir.exists()) {
-			saveDir.mkdirs();
-		}
-		if(saveDir.exists()){
-			validSavePath = true;
-		}
-		initSave();
+        // Set save directory
 
-		// Attempt to get client path
-		if (hasEntry("general", "clientPath")) {
-			clientPath = getString("general", "clientPath");
-			clientDirectory = getDirectoryFromPath(clientPath);
-			validClientPath = true;
-			potentialPaths.add(clientPath);
-			clientCount = 1;
-		} else {
-			String validDirectory = null;
-			String[] stubs = { steamStub, steamStubx86, standAlone, standAlonex86 };
-			for (File s : File.listRoots()) {
-				for (String stub : stubs) {
-					File f = new File(s.toString() + stub + sep + poeLogs + sep + "Client.txt");
-					System.out.println("PATH : " + f.getPath());
-					if (f.exists() && f.isFile()) {
-						clientCount++;
-						potentialPaths.add(f.getPath());
-						validDirectory = s.toString() + stub + sep + poeLogs;
-					}
-				}
-			}
-			if(clientCount == 0){
-				App.debugger.log("No client path found");
-			}else if (clientCount == 1) {
-				validClientPath = true;
-				clientDirectory = validDirectory;
-				clientPath = validDirectory + sep + "Client.txt";
-				putObject(clientPath, "general", "clientPath");
-				System.out.println("FOUND ENTRY ::: \n\t" + clientPath + "\n\t" + clientDirectory);
-			}else if (clientCount > 1){
-				App.debugger.log("[Warning] Multiple client paths found:");
-				for(String s : potentialPaths){
-					App.debugger.log(s);
-				}
-			}
-		}
-	}
-	
-	public void refreshPath(){
-		this.clientPath = this.getString("general", "clientPath");
-		this.clientDirectory = getDirectoryFromPath(clientPath);
-	}
-	
-	public String getDirectoryFromPath(String path){
-		return path.replaceAll("(\\/|\\\\)[\\w\\d\\s]+\\.\\w+", "");
-	}
+        if (os.contains("WIN")) {
+            saveDirectory = System.getenv("LocalAppData") + File.separator + folderWin;
+        } else {
+            saveDirectory = System.getProperty("user.home") + File.separator + folderOther;
+        }
+        savePath = saveDirectory + File.separator + fileName;
+        File saveDir = new File(saveDirectory);
+        if (!saveDir.exists()) {
+            saveDir.mkdirs();
+        }
+        if(saveDir.exists()){
+            validSavePath = true;
+        }
 
-	private void initSave() {
-		File saveFile = new File(savePath);
-		if (saveFile.exists() && saveFile.isFile()) {
-			try {
-				fr = new FileReader(saveFile);
-				br = new BufferedReader(fr);
-				StringBuilder in = new StringBuilder();
-				while (br.ready()) {
-					in.append(br.readLine());
-				}
-				br.close();
-				saveData = new JSONObject(in.toString());
-			} catch (IOException | JSONException e) {
-				saveData = new JSONObject();
-			}
-		} else {
-			saveData = new JSONObject();
-		}
-	}
+        // Gson instance with added support for LocalDateTime
+        gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+            @Override
+            public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
+                return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+            }
+        }).create();
 
-	public void saveToDisk() {
-		File saveFile = new File(savePath);
-		File saveFileFormatted = new File(savePathFormatted);
-		try {
-			fw = new FileWriter(saveFile);
-			fw.write(saveData.toString());
-			fw.close();
-			//TODO : Remove this debugging text
-			fw = new FileWriter(saveFileFormatted);
-			try {
-				fw.write(saveData.toString(3));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			fw.close();
-			//END DEBUGGING
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        System.out.println("Save Directory : " + saveDirectory);
+        System.out.println("Save path : " + savePath);
+        loadFromDisk();
+        saveToDisk();
+    }
 
-	public String getString(String... keys) {
-		Object obj = getObject(keys);
-		if (obj instanceof String) {
-			return (String) obj;
-		}
-		return null;
-	}
+    public void loadFromDisk() {
+        StringBuilder builder = new StringBuilder();
+        try {
+            br = new BufferedReader(new FileReader(savePath));
+            while(br.ready()) {
+                builder.append(br.readLine());
+            }
+//            Gson saveFile = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+//                @Override
+//                public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+//                    Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
+//                    return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+//                }
+//            }).create();
 
-	// If keys result in array, array is returned as string. Not sure if worth
-	// fixing
-	public String getStringDefault(String defaultValue, String... keys) {
-		if (!hasEntry(keys)) {
-			return defaultValue;
-		}
-		try {
-			String value = getObject(keys).toString();
-			return value;
-		} catch (NullPointerException e) {
-			return defaultValue;
-		}
-	}
 
-	public void putStringDefault(String defaultValue, String... keys) {
-		boolean addEntry = false;
-		if (hasEntry(keys)) {
-			Object o = getObject(keys);
-			if (!(o instanceof String)) {
-				addEntry = true;
-			}
-		} else {
-			addEntry = true;
-		}
-		if (addEntry) {
-			putObject(defaultValue, keys);
-		}
-	}
+//            saveFile = new Gson().fromJson(builder.toString(), SaveFile.class);
+            saveFile = gson.fromJson(builder.toString(), SaveFile.class);
 
-	public int getInt(String... keys) {
-		Object obj = getObject(keys);
-		if (obj instanceof Integer) {
-			return (int) obj;
-		}
-		return Integer.MIN_VALUE;
-	}
+            if(saveFile == null) {
+                saveFile = new SaveFile();
+            }
+        } catch (JsonSyntaxException e1){
+            saveFile = new SaveFile();
+            System.out.println("Corrupted save file!");
+            return;
+        }
+        catch (IOException e2) {
+            saveFile = new SaveFile();
+            System.out.println("IO Error with save file!");
+            return;
+        }
+        validateClientPath();
+    }
 
-	public int getDefaultInt(int min, int max, int def, String... keys) {
-		int i = getInt(keys);
-		if (i < min || i > max) {
-			return def;
-		}
-		return i;
-	}
+    public void saveToDisk() {
+        try {
+//            StringBuilder builder = new StringBuilder();
+            fw = new FileWriter(savePath);
+//            Gson gson = new Gson();
+//            Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+//                @Override
+//                public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+//                    Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
+//                    return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+//                }
+//            }).create();
+            fw.write(gson.toJson(saveFile));
+            fw.close();
+            //TODO : REMOVE
+            this.loadFromDisk();
+        } catch (IOException e) {
+            return;
+        }
+    }
 
-	public void putDefaultInt(int defaultValue, String... keys) {
-		boolean addEntry = false;
-		if (hasEntry(keys)) {
-			Object o = getObject(keys);
-			if (!(o instanceof Integer)) {
-				addEntry = true;
-			}
-		} else {
-			addEntry = true;
-		}
-		if (addEntry) {
-			putObject(defaultValue, keys);
-		}
-	}
+    public void validateClientPath() {
+        String clientPath = saveFile.clientPath;
 
-	public void putDefaultBool(boolean defaultValue, String... keys) {
-		boolean addEntry = false;
-		if (hasEntry(keys)) {
-			Object o = getObject(keys);
-			if (!(o instanceof Boolean)) {
-				addEntry = true;
-			}
-		} else {
-			addEntry = true;
-		}
-		if (addEntry) {
-			putObject(defaultValue, keys);
-		}
-	}
 
-	public boolean getBool(String... keys) {
-		Object obj = getObject(keys);
-		if (obj instanceof Boolean) {
-			return (boolean) obj;
-		}
-		return false;
-	}
+        if(clientPath != null) {
+            File file = new File(clientPath);
+            if (file.exists() && file.isFile()) {
+                saveFile.validClientPath = true;
+            }
+        }
+        if(!saveFile.validClientPath) {
+            String[] commonDrives = {"C", "D", "E", "F"};
+            String clientSteamStub =  ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
+            String clientStandAloneStub =  ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
+            for(String drive : commonDrives){
+                File clientFile = new File(drive + clientSteamStub);
+                if(clientFile.exists() && clientFile.isFile()){
+                    saveFile.validClientPath = true;
+                    saveFile.clientPath = drive + clientSteamStub;
+                    saveFile.clientDirectory = saveFile.clientPath.replaceFirst("Client\\.txt", "");
+                    saveFile.clientCount++;
+                    App.debugger.log("Valid client path found on " + drive + " drive. (Steam)");
+                }
+            }
+            for(String drive : commonDrives){
+                File clientFile = new File(drive + clientStandAloneStub);
+                if(clientFile.exists() && clientFile.isFile()){
+                    saveFile.validClientPath = true;
+                    saveFile.clientPath = drive + clientStandAloneStub;
+                    saveFile.clientDirectory = saveFile.clientPath.replaceFirst("Client\\.txt", "");
+                    saveFile.clientCount++;
+                    App.debugger.log("Valid client path found on " + drive + " drive. (Stand Alone)");
+                }
+            }
 
-	public String getEnumValue(Class<?> c, String... keys) {
-		return getEnumValue(c, false, keys);
-	}
-
-	public String getEnumValue(Class<?> c, boolean allowNull, String... keys) {
-		Object val = getObject(keys);
-		String name = c.getSimpleName();
-		String defaultValue = null;
-		for (Object o : c.getFields()) {
-			String compare = o.toString().replaceAll(".+" + name + "\\.", "");
-			if (!allowNull && defaultValue == null) {
-				defaultValue = compare;
-			}
-			if (val != null && val.toString().equals(compare)) {
-				return compare;
-			}
-		}
-		if (log) {
-			App.logger.log(Level.WARNING, "Could not find enum value " + Arrays.toString(keys) + "\nReturning default value");
-		}
-		return defaultValue;
-	}
-
-	public boolean hasEntry(String... keys) {
-		JSONObject curArr = saveData;
-		for (int i = 0; i < keys.length; i++) {
-			if (curArr.has(keys[i])) {
-				try {
-					curArr = curArr.getJSONObject(keys[i]);
-				} catch (JSONException e) {
-					if (curArr.has(keys[i])) {
-						// TODO : Change to break?
-						continue;
-					}
-				}
-			} else {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public void putObject(Object value, String... keys) {
-		// Object value = obj;
-		ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
-		String key = keys[keys.length - 1];
-		JSONObject activeArr;
-		if (keys.length == 1) {
-			// Single key handling
-			try {
-				saveData.put(key, value);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		} else if (keys.length > 1) {
-			// Get existing arrays, or create new ones
-			activeArr = saveData;
-			for (int i = 0; i < keys.length - 1; i++) {
-				if (activeArr.has(keys[i])) {
-					try {
-						arr.add(activeArr.getJSONObject(keys[i]));
-						activeArr = activeArr.getJSONObject(keys[i]);
-					} catch (JSONException e) {
-						JSONObject newArr = new JSONObject();
-						arr.add(newArr);
-						activeArr = newArr;
-					}
-				} else {
-					arr.add(new JSONObject());
-				}
-			}
-			// Add Final value to deepest nested array
-			try {
-				arr.get(arr.size() - 1).put(key, value);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			// Rebuild into single array
-			for (int i = keys.length - 2; i >= 1; i--) {
-				try {
-					arr.get(i - 1).put(keys[i], arr.get(i));
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-			try {
-				saveData.put(keys[0], arr.get(0));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private Object getObject(String... keys) {
-		String key = keys[keys.length - 1];
-		Object value = null;
-		JSONObject activeArr = saveData;
-		if (keys.length == 1) {
-			if (saveData.has(key)) {
-				try {
-					value = saveData.get(key);
-				} catch (JSONException e) {
-					if (log) {
-						App.logger.log(Level.WARNING, "Failed to get value from single key \"" + key + "\"");
-					}
-					return null;
-				}
-			}
-		} else if (keys.length > 1) {
-			for (int i = 0; i < keys.length - 1; i++) {
-				if (activeArr.has(keys[i])) {
-					try {
-						activeArr = activeArr.getJSONObject(keys[i]);
-					} catch (JSONException e) {
-						return null;
-					}
-				} else {
-					return null;
-				}
-			}
-			try {
-				value = activeArr.get(key);
-			} catch (JSONException e) {
-				if (log) {
-					App.logger.log(Level.WARNING, "Failed to get value from nested keys " + Arrays.toString(keys) + "");
-				}
-				return null;
-			}
-		}
-		return value;
-	}
-
-	public void deleteObject(String... keys) {
-		JSONObject curArr = saveData;
-		for (int i = 0; i < keys.length - 1; i++) {
-			if (curArr.has(keys[i])) {
-				try {
-					curArr = curArr.getJSONObject(keys[i]);
-				} catch (JSONException e) {
-					if (curArr.has(keys[i])) {
-						curArr.remove(keys[i]);
-						return;
-					}
-				}
-			} else {
-				return;
-			}
-		}
-		curArr.remove(keys[keys.length - 1]);
-	}
-	
-	public boolean isValidSavePath(){
-		return validSavePath;
-	}
-	
-	public String getSaveDirectory(){
-		return this.saveDirectory;
-	}
-
-	public boolean isValidClientPath() {
-		return validClientPath;
-	}
-
-	public String getClientDirectory() {
-		return this.clientDirectory;
-	}
-
-	public String getClientPath() {
-		return this.clientPath;
-	}
-	
-	public int getClientCount(){
-		return clientCount;
-	}
-	
-	public ArrayList<String> getPotentialPaths(){
-		return this.potentialPaths;
-	}
+        }
+    }
 
 }

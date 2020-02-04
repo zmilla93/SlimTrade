@@ -5,8 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -20,7 +18,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveConstants;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -128,42 +125,40 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 	@Override
 	public void save() {
 		addRemovePanel.saveChanges();
-		int index = 0;
-		App.saveManager.deleteObject(SaveConstants.IgnoreItems.base);
-		ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
+		App.saveManager.saveFile.ignoreData.clear();
 		for (Component c : addRemovePanel.getComponents()) {
 			if (c instanceof IgnoreRow) {
 				IgnoreRow row = (IgnoreRow) c;
 				IgnoreData rowData = row.getIgnoreData();
-				App.saveManager.putObject(rowData.getItemName(), SaveConstants.IgnoreItems.getItemName(index));
-				App.saveManager.putObject(rowData.getMatchType().name(), SaveConstants.IgnoreItems.getMatchType(index));
-				App.saveManager.putObject(rowData.getExpireTime(), SaveConstants.IgnoreItems.getExpireTime(index));
-				fullData.add(rowData);
+                App.saveManager.saveFile.ignoreData.add(rowData);
 			}
-			index++;
 		}
-		App.chatParser.setWhisperIgnoreTerms(fullData);
+		App.chatParser.setWhisperIgnoreTerms(App.saveManager.saveFile.ignoreData);
 	}
 
 	@Override
 	public void load() {
 		ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
-		for (int index = 0; index < MAX_IGNORE_COUNT; index++) {
-			if (App.saveManager.hasEntry(SaveConstants.IgnoreItems.getItemName(index))) {
-				try {
-					String itemName = App.saveManager.getString(SaveConstants.IgnoreItems.getItemName(index));
-					MatchType matchType = MatchType.valueOf(App.saveManager.getEnumValue(MatchType.class, SaveConstants.IgnoreItems.getMatchType(index)));
-					LocalDateTime expireTime = LocalDateTime.parse(App.saveManager.getString(SaveConstants.IgnoreItems.getExpireTime(index)));
-					IgnoreData data = new IgnoreData(itemName, matchType, expireTime);
-					if (data.getRemainingTime() > 0) {
-						addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
-						fullData.add(data);
-					}
-				} catch (DateTimeParseException e) {
-
-				}
-			}
-		}
+		for(IgnoreData data : App.saveManager.saveFile.ignoreData) {
+		    fullData.add(data);
+            addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
+        }
+//		for (int index = 0; index < MAX_IGNORE_COUNT; index++) {
+//			if (App.saveManager.hasEntry(SaveConstants.IgnoreItems.getItemName(index))) {
+//				try {
+//					String itemName = App.saveManager.getString(SaveConstants.IgnoreItems.getItemName(index));
+//					MatchType matchType = MatchType.valueOf(App.saveManager.getEnumValue(MatchType.class, SaveConstants.IgnoreItems.getMatchType(index)));
+//					LocalDateTime expireTime = LocalDateTime.parse(App.saveManager.getString(SaveConstants.IgnoreItems.getExpireTime(index)));
+//					IgnoreData data = new IgnoreData(itemName, matchType, expireTime);
+//					if (data.getRemainingTime() > 0) {
+//						addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
+//						fullData.add(data);
+//					}
+//				} catch (DateTimeParseException e) {
+//
+//				}
+//			}
+//		}
 		addRemovePanel.saveChanges();
 		App.chatParser.setWhisperIgnoreTerms(fullData);
 	}

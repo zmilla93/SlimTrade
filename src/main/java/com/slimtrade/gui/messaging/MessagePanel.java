@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.slimtrade.App;
+import com.slimtrade.core.SaveSystem.MacroButton;
+import com.slimtrade.core.SaveSystem.StashTab;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
@@ -27,7 +29,6 @@ import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.ImagePreloader;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.PreloadedImage;
@@ -81,7 +82,7 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 		this.trade = trade;
 		this.setMessageType(trade.messageType);
 
-		if (trade.guildName != null && App.saveManager.getBool("general", "showGuild")) {
+		if (trade.guildName != null && App.saveManager.saveFile.showGuildName) {
 			nameLabel.setText(trade.guildName + " " + trade.playerName);
 		} else {
 			nameLabel.setText(trade.playerName);
@@ -207,8 +208,8 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
 			tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
-			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
-			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
+			thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
+			kickButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
 
 			if (listeners) {
 				this.registerPoeInteractionButton(replyButton, ButtonType.WHISPER, trade.playerName, trade.searchResponseLeft, trade.searchResponseRight);
@@ -227,36 +228,39 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 			buttonCountTop = 2;
 			buttonCountBottom = 4;
 			int i = 0;
-			while (App.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
-				PreloadedImageCustom img = PreloadedImageCustom.valueOf(App.saveManager.getString("macros", "in", "custom", "button" + i, "image"));
-				IconButton button = new IconButton(img.getImage(), rowHeight);
-				if (App.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals(ButtonRow.TOP.name())) {
-					buttonCountTop++;
-					String lmb = App.saveManager.getString("macros", "in", "custom", "button" + i, "left");
-					String rmb = App.saveManager.getString("macros", "in", "custom", "button" + i, "right");
-					if (listeners) {
-						this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
-					}
-					customButtonsTop.add(button);
-				} else if (App.saveManager.getString("macros", "in", "custom", "button" + i, "row").equals(ButtonRow.BOTTOM.name())) {
-					buttonCountBottom++;
-					String lmb = App.saveManager.getString("macros", "in", "custom", "button" + i, "left");
-					String rmb = App.saveManager.getString("macros", "in", "custom", "button" + i, "right");
-					if (listeners) {
-						this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
-					}
-					customButtonsBottom.add(button);
-				}
-				i++;
-			}
+			for(MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
+                PreloadedImageCustom img = macro.image;
+                IconButton button = new IconButton(img.getImage(), rowHeight);
+                if (macro.row == ButtonRow.TOP) {
+                    buttonCountTop++;
+                    String lmb = macro.leftMouseResponse;
+                    String rmb = macro.rightMouseResponse;
+                    if (listeners) {
+                        this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
+                    }
+                    customButtonsTop.add(button);
+                } else if (macro.row == ButtonRow.BOTTOM) {
+                    buttonCountBottom++;
+                    String lmb = macro.leftMouseResponse;
+                    String rmb = macro.leftMouseResponse;
+                    if (listeners) {
+                        this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
+                    }
+                    customButtonsBottom.add(button);
+                }
+            }
+//			while (App.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
+//
+//				i++;
+//			}
 
 			// saveToHistoryButton = new
 			// IconButton(PreloadedImage.DISK.getImage(), rowHeight);
 			refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
 			tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
-			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
-			kickButton = new IconButton(ImagePreloader.leave, rowHeight);
+			thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
+			kickButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
 			if (listeners) {
 				this.registerPoeInteractionButton(refreshButton, ButtonType.REFRESH);
 				this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
@@ -303,11 +307,11 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 		case OUTGOING_TRADE:
 			buttonCountTop = 2;
 			buttonCountBottom = 4;
-			refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
-			warpButton = new IconButton(ImagePreloader.warp, rowHeight);
-			thankButton = new IconButton(ImagePreloader.thank, rowHeight);
-			leaveButton = new IconButton(ImagePreloader.leave, rowHeight);
-			homeButton = new IconButton(ImagePreloader.home, rowHeight);
+			refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
+			warpButton = new IconButton(PreloadedImage.WARP.getImage(), rowHeight);
+			thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
+			leaveButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
+			homeButton = new IconButton(PreloadedImage.HOME.getImage(), rowHeight);
 
 			buttonPanelTop.add(refreshButton);
 			buttonPanelBottom.add(warpButton);
@@ -395,12 +399,14 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 		
 		//MUTUAL COLORS 
 		this.setBackground(ColorManager.BACKGROUND);
-		
 		switch (trade.messageType) {
 		case CHAT_SCANNER:
 			itemPanel.setToolTipText(trade.searchMessage);
-			borderPanel.setBackground(ColorManager.ORANGE_SCANNER);
-			pricePanel.setBackground(ColorManager.ORANGE_SCANNER);
+//			itemPanel.setToolTipText(trade.searchMessage);
+			borderPanel.setBackground(ColorManager.SCANNER_BACKGROUND);
+			pricePanel.setBackground(ColorManager.SCANNER_BACKGROUND);
+            itemPanel.backgroudDefault = Color.GRAY;
+            itemLabel.setForeground(ColorManager.TEXT);
 //			priceLabel.setForeground(ColorManager.POE_TEXT_LIGHT);
 			break;
 		case INCOMING_TRADE:
@@ -410,25 +416,23 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 			boolean stashFound = false;
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
-				while (App.saveManager.hasEntry("stashTabs", "tab" + i)) {
-					if (App.saveManager.getString("stashTabs", "tab" + i, "text").equals(trade.stashtabName)) {
-						App.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
-						stashFound = true;
-						StashTabColor stashColor = StashTabColor.valueOf(App.saveManager.getEnumValue(StashTabColor.class, "stashTabs", "tab" + i, "color"));
-						StashTabType type = StashTabType.valueOf(App.saveManager.getEnumValue(StashTabType.class, "stashTabs", "tab" + i, "type"));
-						trade.stashType = type;
-						if (stashColor != StashTabColor.ZERO) {
-							color = stashColor.getBackground();
-							colorText = stashColor.getForeground();
-						}
-						break;
-					}
-					i++;
-				}
+				for(StashTab tab : App.saveManager.saveFile.stashTabs) {
+                    if (tab.name.equals(trade.stashtabName)) {
+                        App.logger.log(Level.INFO, "STASH FOUND ::: " + trade.stashtabName);
+                        stashFound = true;
+                        StashTabColor stashColor = tab.color;
+                        StashTabType type = tab.type;
+                        trade.stashType = type;
+                        if (stashColor != StashTabColor.ZERO) {
+                            color = stashColor.getBackground();
+                            colorText = stashColor.getForeground();
+                        }
+                        break;
+                    }
+                }
 			}
 			itemPanel.backgroudDefault = color;
 			itemLabel.setForeground(colorText);
-			itemPanel.refresh();
 			stashHelper = new StashHelper(trade, color, colorText);
 			stashHelper.setVisible(false);
 			FrameManager.stashHelperContainer.add(stashHelper);

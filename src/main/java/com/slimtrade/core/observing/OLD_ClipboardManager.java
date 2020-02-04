@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.Sound;
-import com.slimtrade.core.audio.SoundComponent;
+import com.slimtrade.core.audio.SoundComponentOLD;
 import com.slimtrade.core.utility.POEWindowInfo;
 import com.slimtrade.core.utility.PoeInterface;
 
@@ -101,7 +101,7 @@ public class OLD_ClipboardManager {
 					refreshFlavor();
 				}catch(IOException err){
 					err.printStackTrace();
-					AudioManager.play(SoundComponent.INCOMING_MESSAGE);
+//					AudioManager.play(SoundComponentOLD.INCOMING_MESSAGE);
 				}
 			}
 		}

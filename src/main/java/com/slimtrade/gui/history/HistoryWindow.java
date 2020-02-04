@@ -43,9 +43,9 @@ public class HistoryWindow extends AbstractResizableWindow {
 		super("History");
 		timeStyle = TimeStyle.H24;
 		dateStyle = DateStyle.DDMMYY;
-		timeStyle = TimeStyle.valueOf(App.saveManager.getEnumValue(TimeStyle.class, "history", "timeStyle"));
-		dateStyle = DateStyle.valueOf(App.saveManager.getEnumValue(DateStyle.class, "history", "dateStyle"));
-		orderType = OrderType.valueOf(App.saveManager.getEnumValue(OrderType.class, "history", "orderType"));
+		timeStyle = App.saveManager.saveFile.timeStyle;
+		dateStyle = App.saveManager.saveFile.dateStyle;
+		orderType = App.saveManager.saveFile.orderType;
 		this.setPreferredSize(new Dimension(900, 600));
 		gc.gridx = 0;
 		gc.gridy = 0;

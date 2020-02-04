@@ -20,8 +20,8 @@ import javax.swing.border.Border;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.ImagePreloader;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.panels.PricePanel;
 
 public class HistoryRow extends JPanel {
@@ -40,8 +40,8 @@ public class HistoryRow extends JPanel {
 
 	public static final int MIN_WIDTH = 500;
 
-	IconButton refreshButton = new IconButton(ImagePreloader.refresh, rowHeight);
-	IconButton closeButton = new IconButton(ImagePreloader.close, rowHeight);
+	IconButton refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
+	IconButton closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), rowHeight);
 	// public HistoryRow()
 
 	TradeOffer trade;

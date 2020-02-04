@@ -7,13 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
-
-import com.slimtrade.core.SaveConstants;
-import com.slimtrade.core.SaveSystem.SaveFile;
-import com.slimtrade.core.managers.ClipboardManager;
-import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.managers.DefaultManager;
-import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.managers.*;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.observing.REDO_MacroEventManager;
@@ -23,9 +17,8 @@ import com.slimtrade.core.utility.FileMonitor;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.UpdateChecker;
 import com.slimtrade.debug.Debugger;
-import com.slimtrade.enums.ColorThemeType;
+import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.ImagePreloader;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
@@ -36,6 +29,7 @@ public class App {
 	
 	// TODO : move to invoke later?
 	public static Debugger debugger;
+	public static FrameManager frameManager;
 	public static REDO_MacroEventManager macroEventManager = new REDO_MacroEventManager();
 	public static EventManager eventManager = new EventManager();
 	public static SaveManager saveManager;
@@ -46,7 +40,7 @@ public class App {
 	public static GlobalKeyboardListener globalKeyboard;
 	public static LoadingDialog loadingDialog;
 	public static ColorManager colorManager = new ColorManager();
-	public static SaveFile saveFile = new SaveFile();
+//	public static SaveFile saveFile = new SaveFile();
 
 	public static boolean debugMode = false;
 
@@ -63,11 +57,7 @@ public class App {
 				}
 			}
 		}
-		//Debug Mode
-		if(debugMode){
-			debugger = new Debugger();
-			debugger.setState(Frame.ICONIFIED);
-		}
+
 
 		//Loading Dialog
 		loadingDialog = new LoadingDialog();
@@ -80,7 +70,13 @@ public class App {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				//TODO : Load Color Theme
-//				ColorManager.setTheme(ColorThemeType.DARK_THEME);
+				ColorManager.setTheme(ColorTheme.LIGHT_THEME);
+
+                //Debug Mode
+                if(debugMode){
+                    debugger = new Debugger();
+                    debugger.setState(Frame.ICONIFIED);
+                }
 
                 // Check for Updates
                 updateChecker = new UpdateChecker();
@@ -88,14 +84,12 @@ public class App {
 
 				
 				Locale.setDefault(Locale.US);
-				
-				//TODO : Remove image preloader
-				ImagePreloader imagePreloader = new ImagePreloader();
-				
+
 				saveManager = new SaveManager();
-				DefaultManager defaultManager = new DefaultManager();
-				saveManager.saveToDisk();
-				ColorManager.setTheme(ColorThemeType.valueOf(saveManager.getEnumValue(ColorThemeType.class, SaveConstants.General.COLOR_THEME)));
+				saveManager.loadFromDisk();
+
+
+
 				// POE Interface
 				try {
 					PoeInterface poe = new PoeInterface();
@@ -103,10 +97,11 @@ public class App {
 					e.printStackTrace();
 				}
 				
-				FrameManager frameManager = new FrameManager();
-				chatParser.init();
+				frameManager = new FrameManager();
+
 				fileMonitor = new FileMonitor();
 				fileMonitor.startMonitor();
+                chatParser.init();
 
 				
 				// JNativeHook Setup
@@ -121,7 +116,8 @@ public class App {
 				GlobalScreen.addNativeKeyListener(globalKeyboard);
 				
 				//Clipboard listener for fast paste
-				ClipboardManager clipboard = new ClipboardManager();
+                // TODO : DEBUG OPTION
+//				ClipboardManager clipboard = new ClipboardManager();
 
 				// Alert about new update
                 if(updateChecker.isUpdateAvailable()){
