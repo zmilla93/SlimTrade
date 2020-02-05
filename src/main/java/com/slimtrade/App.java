@@ -2,11 +2,13 @@ package com.slimtrade;
 
 import java.awt.AWTException;
 import java.awt.Frame;
+import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+
 import com.slimtrade.core.managers.*;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
@@ -47,6 +49,9 @@ public class App {
     @SuppressWarnings("unused")
 	public static void main(String[] args) {
 
+
+        Date date = new Date();
+        System.out.println(date);
 		// Command line args
 		if(args.length>0){
 			for(String s : args){
@@ -70,6 +75,7 @@ public class App {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				//TODO : Load Color Theme
+//                UIManager.put("")
 				ColorManager.setTheme(ColorTheme.LIGHT_THEME);
 
                 //Debug Mode

@@ -1,27 +1,37 @@
 package com.slimtrade.gui.options.ignore;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
+import com.slimtrade.core.SaveSystem.SaveFile;
 import com.slimtrade.gui.enums.MatchType;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 public class IgnoreData {
 
 	private String itemName;
 	private MatchType matchType;
-	private LocalDateTime expireTime;
+	private Date expireTime;
+	private static Calendar calendar = Calendar.getInstance();
 
 	public IgnoreData(String itemName, MatchType type, int duration) {
 		this.itemName = itemName;
 		this.matchType = type;
-		this.expireTime = LocalDateTime.now().plusMinutes(duration);
+		Date date = new Date();
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, duration);
+		this.expireTime = calendar.getTime();
 	}
 	
-	public IgnoreData(String itemName, MatchType type, LocalDateTime time) {
-		this.itemName = itemName;
-		this.matchType = type;
-		this.expireTime = time;
-	}
+//	public IgnoreData(String itemName, MatchType type, LocalDateTime date) {
+//		this.itemName = itemName;
+//		this.matchType = type;
+////		this.calendar = Calendar.getInstance();
+////		calendar.setTime(date);
+////		calendar.add(Calendar.MINUTE, 60);
+//		this.expireTime = calendar.getTime();
+//	}
 
 	public String getItemName() {
 		return itemName;
@@ -39,17 +49,19 @@ public class IgnoreData {
 		this.matchType = matchType;
 	}
 
-	public LocalDateTime getExpireTime() {
+	public Date getExpireTime() {
 		return expireTime;
 	}
 
-	public void setExpireTime(LocalDateTime expireTime) {
+	public void setExpireTime(Date expireTime) {
 		this.expireTime = expireTime;
 	}
 	
 	//Rounds to the nearest minute
 	public int getRemainingTime(){
-		return Math.round((((int)(LocalDateTime.now().until(expireTime, ChronoUnit.SECONDS))+5)/10)*10)/60;
+	    Date now = new Date();
+        int diff = SaveFile.dateDifference(now, expireTime);
+		return diff;
 	}
 
 }

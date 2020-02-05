@@ -15,6 +15,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
+import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.basic.AbstractWindow;
@@ -27,6 +28,7 @@ import com.slimtrade.gui.panels.ContainerPanel;
 
 //TODO : CLEANUP
 public class IncomingCustomizer extends ContainerPanel implements ISaveable {
+
 	private static final long serialVersionUID = 1L;
 	private MessagePanel exampleTradeIn;
 
@@ -40,7 +42,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 
 	private AddRemovePanel customPanel;
 
-	private JButton addButton = new JButton("Add");
+	private JButton addButton = new BasicButton("Add Macro");
 
 	// private ContentPanel customPanel
 
@@ -142,7 +144,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable {
 		gc.gridx = 0;
 		gc.gridy = 0;
 		Random rng = new Random();
-		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "BuyerUsername", "Example Item", 1, "chaos", 20, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
 		exampleTradeIn = new MessagePanel(tradeIn, new Dimension(400, 40), false);
 		exampleTradeIn.stopTimer();
 		container.add(exampleTradeIn, gc);

@@ -39,22 +39,22 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, ColorUpda
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.insets.bottom = 5;
-		
+
 		container.add(basicsButton, gc);
 		gc.gridy++;
 		container.add(basicsPanel, gc);
 		gc.gridy++;
-		
+
 		container.add(historyButton, gc);
 		gc.gridy++;
 		container.add(historyPanel, gc);
 		gc.gridy++;
-		
+
 		container.add(audioButton, gc);
 		gc.gridy++;
 		container.add(audioPanel, gc);
 		gc.gridy++;
-		
+
 		container.add(advancedButton, gc);
 		gc.gridy++;
 		container.add(advancedPanel, gc);
@@ -89,7 +89,9 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, ColorUpda
 
 	@Override
 	public void updateColor() {
-		this.setBackground(ColorManager.LOW_CONSTRAST);
+	    this.setBackground(ColorManager.LOW_CONSTRAST_1);
+
+//	    this.setBackground();
 	}
 	
 }

@@ -46,6 +46,7 @@ public class PoeInterface extends Robot {
 			robot.keyPress(KeyEvent.VK_ENTER);
 			robot.keyRelease(KeyEvent.VK_ENTER);
 		}
+		FrameManager.forceAllToTop();
 	}
 
 	public static void pasteWithFocus(String s) {

@@ -13,7 +13,7 @@ public class NameClickPanel extends ClickPanel {
 	public NameClickPanel() {
 		backgroudDefault = Color.LIGHT_GRAY;
 		this.setBackground(Color.LIGHT_GRAY);
-		backgroundHover = ColorManager.LOW_CONSTRAST;
+		backgroundHover = ColorManager.LOW_CONSTRAST_1;
 		textDefault = Color.BLACK;
 		textHover = Color.BLACK;
 		borderDefault = BorderFactory.createEmptyBorder(1, 1, 1, 1);

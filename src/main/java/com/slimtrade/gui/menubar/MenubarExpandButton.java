@@ -20,8 +20,10 @@ public class MenubarExpandButton extends BasicDialog{
 	
 	public MenubarExpandButton(){
 		this.setBounds(0, TradeUtility.screenSize.height-size, size, size);
-		this.setBackground(Color.RED);
+		this.getContentPane().setBackground(Color.RED);
 		IconButton showMenubarButton = new IconButton("icons/menu1.png", size);
+//		IconButton
+		showMenubarButton.setBackground(Color.GREEN);
 		this.add(showMenubarButton);
 		
 		showMenubarButton.addMouseListener(new AdvancedMouseAdapter() {

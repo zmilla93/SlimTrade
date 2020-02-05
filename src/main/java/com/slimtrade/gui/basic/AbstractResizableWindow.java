@@ -1,5 +1,9 @@
 package com.slimtrade.gui.basic;
 
+import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.ColorUpdateListener;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -10,12 +14,14 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-public abstract class AbstractResizableWindow extends AbstractWindow {
+public abstract class AbstractResizableWindow extends AbstractWindow implements ColorUpdateListener {
 
 	static final long serialVersionUID = 1L;
-	private JPanel pullRight = new JPanel();
-	private JPanel pullBottom = new JPanel();
+	protected JPanel pullRight = new JPanel();
+	protected JPanel pullBottom = new JPanel();
 	protected JPanel container = new JPanel();
+
+	public static Color pullbarColor = ColorManager.HIGH_CONTRAST_1;
 
 	private int pullbarSize = 5;
 
@@ -40,9 +46,9 @@ public abstract class AbstractResizableWindow extends AbstractWindow {
 
 	private void buildWindow(String title, boolean closeButton) {
 		// container.setOpaque(false);
+        App.eventManager.addListener(this);
 		this.setMinimumSize(new Dimension(100, 100));
-		pullRight.setBackground(Color.DARK_GRAY);
-		pullBottom.setBackground(Color.DARK_GRAY);
+		//TODO : COLOR!
 		pullRight.setPreferredSize(new Dimension(pullbarSize, 0));
 		pullBottom.setPreferredSize(new Dimension(0, pullbarSize));
 		center.setLayout(new BorderLayout());
@@ -135,5 +141,15 @@ public abstract class AbstractResizableWindow extends AbstractWindow {
 			}
 		}
 	};
+
+	@Override
+	public void updateColor() {
+	    // Note, this is also changed in
+        pullRight.setBackground(pullbarColor);
+        pullBottom.setBackground(pullbarColor);
+//        pullRight.setBackground(Color.BLACK);
+//        pullBottom.setBackground(Color.BLACK);
+//        this.repaint();
+    }
 
 }

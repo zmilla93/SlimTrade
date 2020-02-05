@@ -82,7 +82,8 @@ public class FrameManager {
 		//TODO : ADD NEW MESSAGE MANAGER
 		forceFrames = new HideableDialog[] { stashHelperContainer, historyWindow, menubar, menubarToggle, ignoreItemWindow};
 
-		menuFrames = new HideableDialog[] { optionsWindow, historyWindow, chatScannerWindow };
+//		menuFrames = new HideableDialog[] { optionsWindow, historyWindow, chatScannerWindow };
+		menuFrames = new HideableDialog[] { historyWindow };
 
 //		messageManager.setShow(true);
 		// optionsWindow.setShow(true);

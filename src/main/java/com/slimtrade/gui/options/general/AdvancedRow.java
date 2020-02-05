@@ -6,13 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.File;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 
 import com.slimtrade.App;
@@ -26,10 +20,11 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 
 	private final int HEIGHT = 22;
 	private final int LABEL_WIDTH = 100;
-	private final int PATH_WIDTH = 500;
+	private final int PATH_WIDTH = 300;
 
 	private boolean changed = false;
 	private JLabel label = new JLabel();
+	private JTextField textField = new JTextField();
 	private JLabel pathLabel;
 	private JButton editButton;
 	private JFileChooser fileChooser;
@@ -40,18 +35,28 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
+		gc.gridwidth = 1;
  
 		JPanel labelPanel = new JPanel(new GridBagLayout());
 		labelPanel.setPreferredSize(new Dimension(LABEL_WIDTH, HEIGHT));
 		label.setText(labelText);
 		labelPanel.add(label);
 
+
 		// TODO : Set path
 		JPanel pathPanel = new JPanel(new GridBagLayout());
-		pathPanel.setPreferredSize(new Dimension(PATH_WIDTH, HEIGHT));
+//		pathPanel.setPreferredSize(new Dimension(PATH_WIDTH, HEIGHT));
 		pathPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		pathLabel = new JLabel("Unset");
-		pathPanel.add(pathLabel);
+		textField.setColumns(40);
+		textField.setText("Unset");
+        textField.setText(labelText);
+//        textField.setBackground(new Color(0, 0, 0, 0));
+        textField.setBorder(null);
+        textField.setEditable(false);
+        gc.fill = GridBagConstraints.HORIZONTAL;
+		pathPanel.add(textField, gc);
+		gc.fill = GridBagConstraints.NONE;
 
 		editButton = new BasicButton("Edit");
 		editButton.setFocusable(false);
@@ -89,21 +94,30 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 
 		this.add(labelPanel, gc);
 		gc.gridx++;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        pathPanel.setPreferredSize(pathPanel.getPreferredSize());
 		this.add(pathPanel, gc);
+        gc.fill = GridBagConstraints.NONE;
+        System.out.println("S:" + pathPanel.getSize());
+        System.out.println("S:" + textField.getSize());
 		gc.gridx++;
 		this.add(editButton, gc);
 		
 		this.updateColor();
+//		this.revalidate();
+//		this.repaint();
 		App.eventManager.addListener(this);
 
 	}
 
 	public String getText() {
-		return pathLabel.getText();
+		return textField.getText();
 	}
 
 	public void setText(String text) {
-		pathLabel.setText(text);
+//		pathLabel.setText(text);
+		textField.setText(text);
+//		textField.setPreferredSize(textField.getPreferredSize());
 		changed = true;
 	}
 
@@ -130,6 +144,7 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 	@Override
 	public void updateColor() {
 		this.setBackground(ColorManager.BACKGROUND);
+		textField.setBackground(ColorManager.BACKGROUND);
 		label.setForeground(ColorManager.TEXT);
 		pathLabel.setForeground(ColorManager.TEXT);
 	}

@@ -53,6 +53,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 
 	public OptionsWindow() {
 	    super("Options");
+	    this.setAlwaysOnTop(false);
 	    if(App.debugMode){
 	        this.setTitleText(this.getTitle() + " - DEBUG");
         }
@@ -284,6 +285,8 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 	public void updateColor() {
 		container.setBackground(ColorManager.BACKGROUND);
 		display.setBackground(ColorManager.BACKGROUND);
+        pullRight.setBackground(AbstractResizableWindow.pullbarColor);
+        pullBottom.setBackground(AbstractResizableWindow.pullbarColor);
 	}
 
 	private void recolorUpdateButton(){

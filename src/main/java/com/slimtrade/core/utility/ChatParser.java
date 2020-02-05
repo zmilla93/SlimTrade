@@ -126,7 +126,6 @@ public class ChatParser {
 		long start = System.currentTimeMillis();
 		// Debugger.benchmarkStart();
 		try {
-            System.out.println("UPDATE!!!");
 			reader = new InputStreamReader(new FileInputStream(clientPath), StandardCharsets.UTF_8);
 			bufferedReader = new BufferedReader(reader);
 			curLineCount = 0;

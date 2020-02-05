@@ -1,5 +1,8 @@
 package com.slimtrade.gui.buttons;
 
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.ColorUpdateListener;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,13 +15,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 
-public class IconButton extends JButton {
+public class IconButton extends JButton implements ColorUpdateListener {
 
-	private static final long serialVersionUID = -6435841710429512781L;
 	private final int DEFAULT_SIZE = 30;
 	private final double IMAGE_SCALE = 0.94;
 
-	public Color colorDefault = Color.GRAY;
+//	public Color colorDefault = Color.GRAY;
+	public Color colorDefault = ColorManager.LOW_CONSTRAST_1;
 	public Color colorHover = Color.LIGHT_GRAY;
 	public Color colorPressed = Color.WHITE;
 
@@ -92,4 +95,11 @@ public class IconButton extends JButton {
 		super.paintComponent(g);
 	}
 
+
+    @Override
+    public void updateColor() {
+        colorDefault = ColorManager.LOW_CONSTRAST_1;
+        colorHover = Color.LIGHT_GRAY;
+        colorPressed = Color.WHITE;
+    }
 }

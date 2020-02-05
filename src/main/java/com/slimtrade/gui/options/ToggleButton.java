@@ -42,7 +42,7 @@ public class ToggleButton extends JButton {
 		this.setContentAreaFilled(false);
 		this.setFocusable(false);
 		JButton local = this;
-		this.setPreferredSize(new Dimension(300, 20));
+		this.setPreferredSize(new Dimension(400, 22));
 
 		this.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {

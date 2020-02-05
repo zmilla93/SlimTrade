@@ -411,8 +411,10 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 			break;
 		case INCOMING_TRADE:
 			Random rand = new Random();
-			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
-			colorText = ColorManager.POE_TEXT_DARK;
+//			color = new Color(rand.nextInt(150) + 50, rand.nextInt(150) + 50, rand.nextInt(150) + 50);
+//            colorText = ColorManager.POE_TEXT_DARK;
+			color = StashTabColor.TWENTYSIX.getBackground();
+            colorText = StashTabColor.TWENTYSIX.getForeground();
 			boolean stashFound = false;
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;

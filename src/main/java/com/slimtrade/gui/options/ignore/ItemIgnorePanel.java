@@ -28,119 +28,132 @@ import com.slimtrade.gui.panels.ContainerPanel;
 
 public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private AddRemovePanel addRemovePanel = new AddRemovePanel();
-	private JTextField itemText = new JTextField();
-	private JComboBox<MatchType> typeCombo = new JComboBox<MatchType>();
-	private SpinnerModel spinnerModel = new SpinnerNumberModel(60, 10, 120, 10);
-	private JSpinner timerSpinner = new JSpinner(spinnerModel);
-	private JButton addButton = new BasicButton("Ignore Item");
+    private AddRemovePanel addRemovePanel = new AddRemovePanel();
+    private JTextField itemText = new JTextField();
+    private JComboBox<MatchType> typeCombo = new JComboBox<MatchType>();
+    private SpinnerModel spinnerModel = new SpinnerNumberModel(60, 10, 120, 10);
+    private JSpinner timerSpinner = new JSpinner(spinnerModel);
+    private JButton addButton = new BasicButton("Ignore Item");
 
-	// TODO : Impose max
-	private final int MAX_IGNORE_COUNT = 40;
+    // TODO : Impose max
+    private final int MAX_IGNORE_COUNT = 40;
 
-	public ItemIgnorePanel() {
-		this.setVisible(false);
-		
-		FrameManager.ignoreItemAddRemovePanel = addRemovePanel;
+    public ItemIgnorePanel() {
+        this.setVisible(false);
 
-		JPanel entryPanel = new JPanel(new GridBagLayout());
-		entryPanel.setOpaque(false);
+        FrameManager.ignoreItemAddRemovePanel = addRemovePanel;
 
-		JLabel itemLabel = new JLabel("Item Name");
-		JLabel typeLabel = new JLabel("Match Type");
-		JLabel timerLabel = new JLabel("Minutes");
+        JPanel entryPanel = new JPanel(new GridBagLayout());
+        entryPanel.setOpaque(false);
 
-		for (MatchType type : MatchType.values()) {
-			typeCombo.addItem(type);
-		}
-		((DefaultEditor) timerSpinner.getEditor()).getTextField().setEditable(false);
-		((DefaultEditor) timerSpinner.getEditor()).getTextField().setHighlighter(null);
+        JLabel itemLabel = new JLabel("Item Name");
+        JLabel typeLabel = new JLabel("Match Type");
+        JLabel timerLabel = new JLabel("Minutes");
 
-		container.setLayout(new GridBagLayout());
-		GridBagConstraints gc = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 0;
+        for (MatchType type : MatchType.values()) {
+            typeCombo.addItem(type);
+        }
+        ((DefaultEditor) timerSpinner.getEditor()).getTextField().setEditable(false);
+        ((DefaultEditor) timerSpinner.getEditor()).getTextField().setHighlighter(null);
 
-		gc.insets.left = 10;
-		gc.insets.right = 10;
+        container.setLayout(new GridBagLayout());
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
 
-		// Entry Panel
-		gc.gridx = 1;
-		entryPanel.add(new BufferPanel(200, 0), gc);
-		gc.gridy++;
+        gc.insets.left = 10;
+        gc.insets.right = 10;
 
-		entryPanel.add(itemLabel, gc);
-		gc.gridx++;
-		entryPanel.add(typeLabel, gc);
-		gc.gridx++;
-		entryPanel.add(timerLabel, gc);
-		gc.gridx = 0;
-		gc.gridy++;
+        // Entry Panel
+        gc.gridx = 1;
+        entryPanel.add(new BufferPanel(200, 0), gc);
+        gc.gridy++;
 
-		entryPanel.add(addButton, gc);
-		gc.gridx++;
-		gc.fill = GridBagConstraints.BOTH;
-		entryPanel.add(itemText, gc);
-		gc.gridx++;
-		entryPanel.add(typeCombo, gc);
-		gc.gridx++;
-		entryPanel.add(timerSpinner, gc);
-		gc.gridx = 0;
-		gc.gridy++;
+        entryPanel.add(itemLabel, gc);
+        gc.gridx++;
+        entryPanel.add(typeLabel, gc);
+        gc.gridx++;
+        entryPanel.add(timerLabel, gc);
+        gc.gridx = 0;
+        gc.gridy++;
 
-		// Reset gc
-		gc.fill = GridBagConstraints.NONE;
-		gc.gridx = 0;
-		gc.gridy = 0;
-		gc.gridwidth = 1;
-		gc.insets.left = 0;
-		gc.insets.right = 0;
+        entryPanel.add(addButton, gc);
+        gc.gridx++;
+        gc.fill = GridBagConstraints.BOTH;
+        entryPanel.add(itemText, gc);
+        gc.gridx++;
+        entryPanel.add(typeCombo, gc);
+        gc.gridx++;
+        entryPanel.add(timerSpinner, gc);
+        gc.gridx = 0;
+        gc.gridy++;
 
-		// Container
-		container.add(entryPanel, gc);
-		gc.gridy++;
-		container.add(new BufferPanel(0, 15), gc);
-		gc.gridy++;
-		container.add(addRemovePanel, gc);
-		gc.gridy++;
+        // Reset gc
+        gc.fill = GridBagConstraints.NONE;
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.gridwidth = 1;
+        gc.insets.left = 0;
+        gc.insets.right = 0;
 
-		load();
+        // Container
+        container.add(entryPanel, gc);
+        gc.gridy++;
+        container.add(new BufferPanel(0, 15), gc);
+        gc.gridy++;
+        container.add(addRemovePanel, gc);
+        gc.gridy++;
 
-		FrameManager.itemIgnorePanel = this;
-		
-		AddRemovePanel local = addRemovePanel;
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(itemText.getText(), (MatchType) typeCombo.getSelectedItem(), (int) timerSpinner.getValue()), local));
-			}
-		});
-	}
+        load();
 
-	public void revertChanges() {
-		addRemovePanel.revertChanges();
-	}
+        FrameManager.itemIgnorePanel = this;
 
-	@Override
-	public void save() {
-		addRemovePanel.saveChanges();
-		App.saveManager.saveFile.ignoreData.clear();
-		for (Component c : addRemovePanel.getComponents()) {
-			if (c instanceof IgnoreRow) {
-				IgnoreRow row = (IgnoreRow) c;
-				IgnoreData rowData = row.getIgnoreData();
+        AddRemovePanel local = addRemovePanel;
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text = itemText.getText().trim();
+                if (text.matches("")) {
+                    return;
+                }
+                for (Component c : addRemovePanel.getComponents()) {
+                    if (c instanceof IgnoreRow) {
+                        IgnoreRow row = (IgnoreRow) c;
+                        if(!row.isToBeDeleted() && text.toLowerCase().matches(row.getIgnoreData().getItemName().toLowerCase())) {
+                            return;
+                        }
+                    }
+                }
+                addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), (int) timerSpinner.getValue()), local));
+                itemText.setText("");
+            }
+        });
+    }
+
+    public void revertChanges() {
+        addRemovePanel.revertChanges();
+    }
+
+    @Override
+    public void save() {
+        addRemovePanel.saveChanges();
+        App.saveManager.saveFile.ignoreData.clear();
+        for (Component c : addRemovePanel.getComponents()) {
+            if (c instanceof IgnoreRow) {
+                IgnoreRow row = (IgnoreRow) c;
+                IgnoreData rowData = row.getIgnoreData();
                 App.saveManager.saveFile.ignoreData.add(rowData);
-			}
-		}
-		App.chatParser.setWhisperIgnoreTerms(App.saveManager.saveFile.ignoreData);
-	}
+            }
+        }
+        App.chatParser.setWhisperIgnoreTerms(App.saveManager.saveFile.ignoreData);
+    }
 
-	@Override
-	public void load() {
-		ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
-		for(IgnoreData data : App.saveManager.saveFile.ignoreData) {
-		    fullData.add(data);
+    @Override
+    public void load() {
+        ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
+        for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
+            fullData.add(data);
             addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
         }
 //		for (int index = 0; index < MAX_IGNORE_COUNT; index++) {
@@ -159,8 +172,8 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 //				}
 //			}
 //		}
-		addRemovePanel.saveChanges();
-		App.chatParser.setWhisperIgnoreTerms(fullData);
-	}
+        addRemovePanel.saveChanges();
+        App.chatParser.setWhisperIgnoreTerms(fullData);
+    }
 
 }

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.StashTab;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
@@ -41,7 +42,7 @@ public class StashTabPanel extends ContainerPanel implements ISaveable {
 		JPanel stashOptions = new JPanel();
 		stashOptions.setLayout(new GridBagLayout());
 
-		JButton addButton = new JButton("Add Stash Tab");
+		JButton addButton = new BasicButton("Add Stash Tab");
 
 //		JLabel alignLabel = new JLabel("Align stashtab");
 //		JButton alignButton = new JButton("Align Stash Tab Overlay");

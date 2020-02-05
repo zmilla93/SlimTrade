@@ -43,11 +43,23 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 		} while (true);
 		User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 		String curWindowTitle = Native.toString(windowText);
-//        System.out.println("window : " +  curWindowTitle);
-		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || App.debugMode) {
+        System.out.println("window : " +  curWindowTitle);
+//		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || App.debugMode) {
+//            FrameManager.showVisibleFrames();
+//			FrameManager.forceAllToTop();
+//		}else{
+//		    FrameManager.hideAllFrames();
+//        }
+        // TODO : CLEAN UP
+        if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.equals(References.APP_NAME + " - Options")
+                || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
+                || App.debugMode) {
             FrameManager.showVisibleFrames();
 			FrameManager.forceAllToTop();
-		}else{
+		}else if(curWindowTitle.equals("Open")){
+
+        }
+		else{
 		    FrameManager.hideAllFrames();
         }
 	}
