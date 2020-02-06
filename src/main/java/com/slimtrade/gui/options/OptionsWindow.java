@@ -51,11 +51,13 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 	public OptionsWindow() {
 	    super("Options");
 	    this.setAlwaysOnTop(false);
+	    this.setAlwaysOnTop(true);
 	    if(App.debugMode){
 	        this.setTitleText(this.getTitle() + " - DEBUG");
         }
+        this.setFocusable(true);
 		this.setFocusableWindowState(true);
-		this.setFocusable(true);
+
 		container.setLayout(new BorderLayout());
 		JPanel menuBorder = new JPanel(new BorderLayout());
 
@@ -224,6 +226,8 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 				incomingPanel.revertChanges();
 				stashPanel.revertChanges();
 				ignorePanel.revertChanges();
+				FrameManager.optionsWindow.revalidate();
+				FrameManager.optionsWindow.repaint();
 			}
 		});
 

@@ -11,6 +11,7 @@ import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.basic.CustomCheckboxIcon;
 import com.slimtrade.gui.buttons.CustomArrowButton;
+import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
@@ -151,13 +152,17 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 
         editStashButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                FrameManager.windowState = WindowState.STASH_OVERLAY;
                 FrameManager.hideAllFrames();
                 FrameManager.stashOverlayWindow.setShow(true);
+                FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
+                FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
             }
         });
 
         editOverlayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                FrameManager.windowState = WindowState.LAYOUT_MANAGER;
                 FrameManager.hideAllFrames();
                 FrameManager.overlayManager.showDialog();
             }

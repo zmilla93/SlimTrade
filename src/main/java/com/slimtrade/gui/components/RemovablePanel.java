@@ -1,5 +1,10 @@
 package com.slimtrade.gui.components;
 
+import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.gui.FrameManager;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +13,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class RemovablePanel extends JPanel {
+public class RemovablePanel extends JPanel implements ColorUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -20,11 +25,8 @@ public class RemovablePanel extends JPanel {
 	
 	public RemovablePanel(AddRemovePanel parent){
 		this.parent = parent;
-		Random rand = new Random();
-		int r = 50+rand.nextInt(150);
-		int g = 50+rand.nextInt(150);
-		int b = 50+rand.nextInt(150);
-		this.setBackground(new Color(r, g, b));
+        App.eventManager.addListener(this);
+        updateColor();
 
 	}
 	
@@ -63,5 +65,9 @@ public class RemovablePanel extends JPanel {
 		System.out.println("PARENT DISPOSE");
 		markForDeletion();
 	}
-	
+
+    @Override
+    public void updateColor() {
+        this.setBackground(ColorManager.BACKGROUND);
+    }
 }

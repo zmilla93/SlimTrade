@@ -53,7 +53,6 @@ public class MenubarDialog extends BasicDialog {
 //		container.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         container.setLayout(new GridBagLayout());
 
-
         // TODO : Update Locale
         historyButton = new MenubarButton("");
         // stashTabButton = new MenubarButton("");
@@ -66,15 +65,29 @@ public class MenubarDialog extends BasicDialog {
 
 //		testButton.setToolTipText("This is a test.");
 
-        container.add(historyButton);
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.fill = GridBagConstraints.BOTH;
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.gridwidth = 1;
+        gc.gridheight = 1;
+        gc.insets = new Insets(20, 20, 0,2);
+
+        container.add(historyButton, gc);
+        gc.gridy++;
         // container.add(stashTabButton);
-        container.add(chatScannerButton);
+        container.add(chatScannerButton, gc);
+        gc.gridy++;
         // container.add(characterButton);
         if (test) {
-            container.add(testButton);
+            container.add(testButton, gc);
+            gc.gridy++;
         }
-        container.add(optionsButton);
+        container.add(optionsButton, gc);
+        gc.gridy++;
         container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
+        gc.gridy++;
+        gc.insets = new Insets(2, 2, 2,2);
         container.add(quitButton);
 //		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
 //		container.add(minimizeButton);
@@ -146,7 +159,7 @@ public class MenubarDialog extends BasicDialog {
         });
 
         //
-        this.reorder();
+
 
         // Listeners
         this.addMouseListener(new MouseAdapter() {
@@ -159,6 +172,10 @@ public class MenubarDialog extends BasicDialog {
                 }
             }
         });
+
+        this.pack();
+        this.reorder();
+        this.setBounds(0, TradeUtility.screenSize.height - HEIGHT, WIDTH, HEIGHT);
     }
 
     private void refreshButtonText() {
@@ -204,6 +221,13 @@ public class MenubarDialog extends BasicDialog {
                 for (Component c : componentList) {
                     container.add(c, gc);
                     gc.gridy++;
+                    if(gc.gridy < componentCount-1) {
+                        gc.insets.bottom = 0;
+                        gc.insets.top = buffer;
+                    } else {
+                        gc.insets.top = 0;
+                        gc.insets.bottom = 3;
+                    }
                 }
                 break;
         }

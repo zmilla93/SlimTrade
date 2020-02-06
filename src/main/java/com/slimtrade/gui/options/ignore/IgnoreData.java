@@ -10,18 +10,24 @@ import java.util.Date;
 
 public class IgnoreData {
 
-	private String itemName;
-	private MatchType matchType;
-	private Date expireTime;
-	private static Calendar calendar = Calendar.getInstance();
+	public String itemName;
+    public MatchType matchType;
+    public Date expireTime;
+    public int duration;
+    public boolean indefinite = false;
+    public static Calendar calendar = Calendar.getInstance();
 
 	public IgnoreData(String itemName, MatchType type, int duration) {
 		this.itemName = itemName;
 		this.matchType = type;
+		this.duration = duration;
 		Date date = new Date();
         calendar.setTime(date);
         calendar.add(Calendar.MINUTE, duration);
 		this.expireTime = calendar.getTime();
+		if(duration == 0){
+		    indefinite = true;
+        }
 	}
 	
 //	public IgnoreData(String itemName, MatchType type, LocalDateTime date) {
@@ -45,6 +51,10 @@ public class IgnoreData {
 		return matchType;
 	}
 
+	public boolean getIndefinite() {
+	    return indefinite;
+    }
+
 	public void setMatchType(MatchType matchType) {
 		this.matchType = matchType;
 	}
@@ -59,6 +69,7 @@ public class IgnoreData {
 	
 	//Rounds to the nearest minute
 	public int getRemainingTime(){
+//	    return duration;
 	    Date now = new Date();
         int diff = SaveFile.dateDifference(now, expireTime);
 		return diff;

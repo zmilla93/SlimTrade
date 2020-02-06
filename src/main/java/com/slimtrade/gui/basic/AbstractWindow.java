@@ -87,7 +87,7 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 							}
 							FrameManager.forceAllToTop();
 						}
-					}).start();;
+					}).start();
 				}
 			});
 

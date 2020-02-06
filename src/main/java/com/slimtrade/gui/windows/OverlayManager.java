@@ -1,11 +1,6 @@
 package com.slimtrade.gui.windows;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -21,6 +16,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.messaging.AbstractMessagePanel;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.basic.BasicMovableDialog;
@@ -239,10 +235,12 @@ public class OverlayManager implements ISaveable {
 
 		cancelButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
-				menubarDialog.setLocation(App.saveManager.saveFile.menubarX, App.saveManager.saveFile.menubarX);
+                FrameManager.windowState = WindowState.NORMAL;
+				menubarDialog.setLocation(App.saveManager.saveFile.menubarX, App.saveManager.saveFile.menubarY);
 				messageDialog.setLocation(App.saveManager.saveFile.messageManagerX, App.saveManager.saveFile.messageManagerY);
-				menubarCombo.setSelectedItem(oldMenubarCombo);
-				msgPanelCombo.setSelectedItem(oldMsgPanelCombo);				
+//				menubarCombo.setSelectedItem(App.saveManager.saveFile.menubarButtonLocation);
+//				msgPanelCombo.setSelectedItem(App.saveManager.saveFile.menubarButtonLocation);
+                load();
 				updateMenubarButton();
 				FrameManager.showVisibleFrames();
 				hideDialog();
@@ -252,6 +250,7 @@ public class OverlayManager implements ISaveable {
 		// TODO : Cleanup
 		saveButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
+                FrameManager.windowState = WindowState.NORMAL;
 				// Save
                 // TODO : Move to save
 //				App.saveManager.putObject(menubarDialog.getX(), "overlayManager", "menubar", "x");
@@ -331,6 +330,15 @@ public class OverlayManager implements ISaveable {
 		menubarDialog.repaint();
 	}
 
+	public void forceToFront() {
+	    helpDialog.setAlwaysOnTop(false);
+        menubarDialog.setAlwaysOnTop(false);
+        messageDialog.setAlwaysOnTop(false);
+        helpDialog.setAlwaysOnTop(true);
+        menubarDialog.setAlwaysOnTop(true);
+        messageDialog.setAlwaysOnTop(true);
+    }
+
 	public void showDialog() {
 //		oldMenubarCombo = menubarCombo.getSelectedItem().toString();
 //		oldMsgPanelCombo = msgPanelCombo.getSelectedItem().toString();
@@ -347,7 +355,6 @@ public class OverlayManager implements ISaveable {
 
 	public void save() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void load() {

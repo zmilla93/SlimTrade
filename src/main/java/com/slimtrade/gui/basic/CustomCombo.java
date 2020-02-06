@@ -50,8 +50,8 @@ public class CustomCombo<E> extends JComboBox<E> implements ColorUpdateListener 
 
 
         updateColor();
-        this.setPreferredSize(null);
-        this.setPreferredSize(new Dimension(this.getPreferredSize().width + 10, this.getPreferredSize().height + 2));
+//        this.setPreferredSize(null);
+//        this.setPreferredSize(new Dimension(this.getPreferredSize().width + 10, this.getPreferredSize().height + 2));
         super.paintComponent(g);
     }
 

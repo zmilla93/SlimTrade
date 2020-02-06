@@ -12,7 +12,7 @@ public class SectionHeader extends JPanel implements ColorUpdateListener {
 
     public SectionHeader(String title) {
         App.eventManager.addListener(this);
-        this.setLayout(FrameManager.gridbag);
+        this.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.ipady = 0;

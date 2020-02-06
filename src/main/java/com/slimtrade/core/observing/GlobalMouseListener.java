@@ -4,6 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.enums.WindowType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.core.References;
+import com.slimtrade.gui.enums.WindowState;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;
 
@@ -12,7 +13,11 @@ import com.sun.jna.PointerType;
 
 import com.slimtrade.core.utility.User32Custom;
 
+import java.awt.*;
+
 public class GlobalMouseListener implements NativeMouseInputListener {
+
+    static int click = 0;
 
 	public void nativeMouseClicked(NativeMouseEvent e) {
 
@@ -43,7 +48,11 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 		} while (true);
 		User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 		String curWindowTitle = Native.toString(windowText);
-//        System.out.println("window : " +  curWindowTitle);
+
+        System.out.println("Click : " +  click);
+        click++;
+        System.out.println("window : " +  curWindowTitle);
+        System.out.println("STATE : " + FrameManager.windowState);
 //		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || App.debugMode) {
 //            FrameManager.showVisibleFrames();
 //			FrameManager.forceAllToTop();
@@ -51,17 +60,38 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 //		    FrameManager.hideAllFrames();
 //        }
         // TODO : CLEAN UP
+
         if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.equals(References.APP_NAME + " - Options")
                 || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
                 || App.debugMode) {
-            FrameManager.showVisibleFrames();
-			FrameManager.forceAllToTop();
-		}else if(curWindowTitle.equals("Open")){
+            if(FrameManager.windowState == WindowState.NORMAL) {
+                System.out.println("P1");
+                FrameManager.showVisibleFrames();
+                System.out.println("P2");
+                FrameManager.forceAllToTop();
+                System.out.println("P3");
+            }
+            else if (FrameManager.windowState == WindowState.LAYOUT_MANAGER) {
+                FrameManager.overlayManager.showDialog();
+                FrameManager.overlayManager.forceToFront();
+            }
+            else if(FrameManager.windowState == WindowState.STASH_OVERLAY) {
+                FrameManager.stashOverlayWindow.setVisible(true);
+                FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
+                FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
+            }
+        }else if(curWindowTitle.equals("Open")){
 
         }
-		else{
-		    FrameManager.hideAllFrames();
+        else{
+            FrameManager.hideAllFrames();
+            FrameManager.overlayManager.hideDialog();
+//            FrameManager.stashOverlayWindow.setVisible(false);
+//            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
         }
+        System.out.println("Success\n");
+
+
 	}
 
 	public void nativeMouseReleased(NativeMouseEvent e) {

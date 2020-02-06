@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.stash.helper.ItemHighlighter;
@@ -36,7 +37,6 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 		container.setBackground(ColorManager.CLEAR);
 		center.setBackground(ColorManager.CLEAR);
 		this.setBackground(ColorManager.CLEAR);
-		// this.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.4f));
 
 		Logger.getAnonymousLogger().log(Level.ALL, "LOGGER");
 
@@ -96,6 +96,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 		
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+                FrameManager.windowState = WindowState.NORMAL;
 				vis = true;
 				load();
 				local.setShow(false);
@@ -105,6 +106,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+                FrameManager.windowState = WindowState.NORMAL;
 				save();
 				FrameManager.stashHelperContainer.updateBounds();
 				local.setShow(false);
@@ -128,29 +130,21 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 		Point winPos = this.getLocation();
 		Dimension winSize = this.getSize();
 		Dimension gridSize = gridPanel.getSize();
-		App.saveManager.saveFile.stashX = winPos.x;
-		App.saveManager.saveFile.stashY = winPos.y;
-		App.saveManager.saveFile.stashWidth = winSize.width;
-		App.saveManager.saveFile.stashHeight = winSize.height;
-		ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
+        App.saveManager.stashSaveFile.windowX = winPos.x;
+        App.saveManager.stashSaveFile.windowY = winPos.y;
+        App.saveManager.stashSaveFile.width = winSize.width;
+		App.saveManager.stashSaveFile.height = winSize.height;
+//		App.saveManager.stashSaveFile.height = winSize.height;
+		App.saveManager.saveStashToDisk();
+        System.out.println(gridPanel.getGridPosition());
+		//TODO : this?
+//		ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
 
 	}
 
 	public void load() {
-        this.setLocation(App.saveManager.saveFile.stashX, App.saveManager.saveFile.stashY);
-        this.setSize(App.saveManager.saveFile.stashWidth, App.saveManager.saveFile.stashHeight);
-//		if (App.saveManager.hasEntry("stashOverlay")) {
-//			// System.out.println("Loading Grid Panel");
-//
-//
-//
-//			// System.out.println("WIDTH " + gridPanel.getWidth());
-//			this.setVisible(true);
-//			ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
-//
-//			this.setVisible(vis);
-//			vis = false;
-//		}
+        this.setLocation(App.saveManager.stashSaveFile.windowX, App.saveManager.stashSaveFile.windowY);
+        this.setSize(App.saveManager.stashSaveFile.width, App.saveManager.stashSaveFile.height);
 	}
 
     @Override

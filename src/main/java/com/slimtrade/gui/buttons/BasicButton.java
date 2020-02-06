@@ -71,9 +71,10 @@ public class BasicButton extends JButton implements ColorUpdateListener {
 				model.setPressed(false);
 			}
 		});
-		
+
+        App.eventManager.addListener(this);
 		updateColor();
-		App.eventManager.addListener(this);
+
 	}
 
 	@Override

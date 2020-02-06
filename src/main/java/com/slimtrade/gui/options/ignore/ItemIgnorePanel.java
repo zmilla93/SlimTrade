@@ -33,9 +33,9 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
     private AddRemovePanel addRemovePanel = new AddRemovePanel();
     private JTextField itemText = new JTextField();
     private JComboBox<MatchType> typeCombo = new JComboBox<MatchType>();
-    private SpinnerModel spinnerModel = new SpinnerNumberModel(60, 10, 120, 10);
+    private SpinnerModel spinnerModel = new SpinnerNumberModel(60, 0, 300, 10);
     private JSpinner timerSpinner = new JSpinner(spinnerModel);
-    private JButton addButton = new BasicButton("Ignore Item");
+    private JButton ignoreButton = new BasicButton("Ignore Item");
 
     // TODO : Impose max
     private final int MAX_IGNORE_COUNT = 40;
@@ -58,6 +58,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         ((DefaultEditor) timerSpinner.getEditor()).getTextField().setEditable(false);
         ((DefaultEditor) timerSpinner.getEditor()).getTextField().setHighlighter(null);
 
+
         container.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -79,7 +80,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         gc.gridx = 0;
         gc.gridy++;
 
-        entryPanel.add(addButton, gc);
+        entryPanel.add(ignoreButton, gc);
         gc.gridx++;
         gc.fill = GridBagConstraints.BOTH;
         entryPanel.add(itemText, gc);
@@ -111,12 +112,14 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         FrameManager.itemIgnorePanel = this;
 
         AddRemovePanel local = addRemovePanel;
-        addButton.addActionListener(new ActionListener() {
+        ignoreButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Good0");
                 String text = itemText.getText().trim();
                 if (text.matches("")) {
                     return;
                 }
+                System.out.println("Good1");
                 for (Component c : addRemovePanel.getComponents()) {
                     if (c instanceof IgnoreRow) {
                         IgnoreRow row = (IgnoreRow) c;
@@ -125,8 +128,15 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
                         }
                     }
                 }
-                addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), (int) timerSpinner.getValue()), local));
+                System.out.println("Good2");
+                int i = 0;
+//                i = (int)((DefaultEditor) timerSpinner.getEditor()).getTextField().getValue();
+                i = (int)timerSpinner.getValue();
+                System.out.println("SPIN:" + i);
+                addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), local));
+                System.out.println("Good3");
                 itemText.setText("");
+
             }
         });
     }
