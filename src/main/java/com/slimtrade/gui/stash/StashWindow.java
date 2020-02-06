@@ -120,6 +120,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 		// });
 		// load();
 		// ItemHighlighter
+        this.updateColor();
 
 	}
 
@@ -151,5 +152,16 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 //			vis = false;
 //		}
 	}
+
+    @Override
+    public void updateColor() {
+        // Note, this is also changed in
+        pullRight.setBackground(pullbarColor);
+        pullBottom.setBackground(pullbarColor);
+//        pullRight.setBackground(Color.BLACK);
+//        pullBottom.setBackground(Color.BLACK);
+//        this.repaint();
+    }
+
 
 }

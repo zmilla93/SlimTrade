@@ -303,6 +303,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 		load();
 
 		updateCombo(null);
+		updateColor();
 
 		this.setMinimumSize(this.getPreferredSize());
 		this.setPreferredSize(new Dimension(400, 450));

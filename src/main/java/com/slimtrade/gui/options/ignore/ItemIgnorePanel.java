@@ -154,7 +154,8 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
         for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
             fullData.add(data);
-            addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
+            addRemovePanel.addPanel(new IgnoreRow(data, addRemovePanel));
+//            addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
         }
 //		for (int index = 0; index < MAX_IGNORE_COUNT; index++) {
 //			if (App.saveManager.hasEntry(SaveConstants.IgnoreItems.getItemName(index))) {

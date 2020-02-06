@@ -396,16 +396,20 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 	public void updateColor() {
 		Color color = null;
 		Color colorText = null;
-		
-		//MUTUAL COLORS 
-		this.setBackground(ColorManager.BACKGROUND);
+        nameLabel.setForeground(ColorManager.TEXT);
+        itemLabel.setForeground(ColorManager.TEXT);
+		namePanel.setBackground(ColorManager.LOW_CONSTRAST_1);
+        itemPanel.setBackground(ColorManager.HIGH_CONTRAST_2);
+        itemPanel.backgroudDefault = ColorManager.HIGH_CONTRAST_2;
+		//MUTUAL COLORS
+		this.setBackground(ColorManager.PRIMARY);
 		switch (trade.messageType) {
 		case CHAT_SCANNER:
 			itemPanel.setToolTipText(trade.searchMessage);
 //			itemPanel.setToolTipText(trade.searchMessage);
 			borderPanel.setBackground(ColorManager.SCANNER_BACKGROUND);
 			pricePanel.setBackground(ColorManager.SCANNER_BACKGROUND);
-            itemPanel.backgroudDefault = Color.GRAY;
+//            itemPanel.backgroudDefault = ColorManager.HIGH_CONTRAST_2;
             itemLabel.setForeground(ColorManager.TEXT);
 //			priceLabel.setForeground(ColorManager.POE_TEXT_LIGHT);
 			break;
@@ -443,7 +447,7 @@ public class MessagePanel extends AbstractMessagePanel implements ColorUpdateLis
 			priceLabel.setForeground(ColorManager.POE_TEXT_LIGHT);
 			break;
 		case OUTGOING_TRADE:
-			itemPanel.backgroudDefault = Color.GRAY;
+//			itemPanel.backgroudDefault = Color.GRAY;
 			borderPanel.setBackground(ColorManager.RED_SALE);
 			pricePanel.setBackground(ColorManager.RED_SALE);
 			priceLabel.setForeground(ColorManager.POE_TEXT_LIGHT);

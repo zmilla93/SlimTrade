@@ -16,11 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
@@ -28,6 +24,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomScrollBarUI;
 import com.slimtrade.gui.options.general.GeneralPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macros.IncomingCustomizer;
@@ -67,7 +64,11 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 
 		scrollDisplay = new JScrollPane(display);
 		scrollDisplay.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
+		scrollDisplay.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        scrollDisplay.getVerticalScrollBar().setUnitIncrement(14);
+        scrollDisplay.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        scrollDisplay.getHorizontalScrollBar().setUnitIncrement(14);
+//        scrollDisplay.setHorizontalScrollBarPolicy(JScrollBar.);
 		display.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
@@ -283,10 +284,11 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 
 	@Override
 	public void updateColor() {
+	    super.updateColor();
 		container.setBackground(ColorManager.BACKGROUND);
 		display.setBackground(ColorManager.BACKGROUND);
-        pullRight.setBackground(AbstractResizableWindow.pullbarColor);
-        pullBottom.setBackground(AbstractResizableWindow.pullbarColor);
+//        pullRight.setBackground(AbstractResizableWindow.pullbarColor);
+//        pullBottom.setBackground(AbstractResizableWindow.pullbarColor);
 	}
 
 	private void recolorUpdateButton(){

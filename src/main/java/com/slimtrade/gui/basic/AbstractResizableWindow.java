@@ -21,7 +21,7 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
 	protected JPanel pullBottom = new JPanel();
 	protected JPanel container = new JPanel();
 
-	public static Color pullbarColor = ColorManager.HIGH_CONTRAST_1;
+	public static Color pullbarColor = ColorManager.PRIMARY;
 
 	private int pullbarSize = 5;
 
@@ -144,12 +144,8 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
 
 	@Override
 	public void updateColor() {
-	    // Note, this is also changed in
         pullRight.setBackground(pullbarColor);
         pullBottom.setBackground(pullbarColor);
-//        pullRight.setBackground(Color.BLACK);
-//        pullBottom.setBackground(Color.BLACK);
-//        this.repaint();
     }
 
 }

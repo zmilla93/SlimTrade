@@ -1,4 +1,4 @@
-package com.slimtrade.gui.buttons;
+package com.slimtrade.gui.basic;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class CheckboxIcon implements ColorUpdateListener, Icon {
+public class CustomCheckboxIcon implements ColorUpdateListener, Icon {
 
 //    private JCheckbox checkbox;
 	private static Border borderDefault;
@@ -21,17 +21,17 @@ public class CheckboxIcon implements ColorUpdateListener, Icon {
 	protected Color primaryColor;
 	protected Color secondaryColor;
 
-	public CheckboxIcon() {
+	public CustomCheckboxIcon() {
 		buildButton();
 	}
 
-	public CheckboxIcon(JCheckBox checkbox) {
+	public CustomCheckboxIcon(JCheckBox checkbox) {
 	    controlSize = checkbox.getHeight();
 //        System.out.println("SIZE : " + controlSize);
 		buildButton();
 	}
 
-	public CheckboxIcon(String text) {
+	public CustomCheckboxIcon(String text) {
 //		super(text);
 //		this.model = this.getModel();
 		buildButton();

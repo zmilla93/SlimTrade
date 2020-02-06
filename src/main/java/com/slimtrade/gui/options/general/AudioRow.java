@@ -19,6 +19,8 @@ import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomSliderUI;
 import com.slimtrade.gui.buttons.IconButton;
 
 public class AudioRow extends JPanel implements ColorUpdateListener {
@@ -29,12 +31,13 @@ public class AudioRow extends JPanel implements ColorUpdateListener {
 	private final int BUTTON_SIZE = HEIGHT - 5;
 	private final int LABEL_WIDTH = 120;
 
+//	JSlider slider = new JSlider();
 	JSlider slider = new JSlider();
-	JComboBox<Sound> soundCombo = new JComboBox<Sound>();
+	CustomCombo<Sound> soundCombo = new CustomCombo<Sound>();
 	JLabel label = new JLabel();
 
 	public AudioRow(String title) {
-
+        slider.setUI(new CustomSliderUI(slider));
 		// Sample Button
 		IconButton sampleButton = new IconButton("icons/play1.png", BUTTON_SIZE);
 
@@ -54,14 +57,10 @@ public class AudioRow extends JPanel implements ColorUpdateListener {
 		slider.setFocusable(false);
 		slider.setPaintTicks(true);
 
-		// SoundComponentOLD Combo
-		soundCombo.setFocusable(false);
-
 		// Opacity
 		labelPanel.setOpaque(false);
 		this.setOpaque(false);
 		slider.setOpaque(false);
-		soundCombo.setOpaque(false);
 
 		// Layout
 		this.setLayout(new GridBagLayout());

@@ -1,5 +1,8 @@
 package com.slimtrade.gui.components;
 
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.gui.FrameManager;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -11,15 +14,19 @@ public class AddRemovePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private GridBagConstraints gc = new GridBagConstraints();
+	private int spacer = 5;
 
 	public AddRemovePanel() {
-		// this.setPreferredSize(new Dimension(400,100));
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		// this.setLayout(new GridLayout(0, 1, 5, 5));
-		this.setBackground(Color.RED);
+		this.setLayout(FrameManager.gridbag);
+		this.setBackground(new Color(1, 1, 1, 0));
+		gc.gridx = 0;
+		gc.gridy = 0;
 	}
 
 	public void addPanel(JPanel panel) {
+	    int i = this.getComponentCount();
+        gc.gridy = i;
+        gc.insets.top = i == 0 ? 0 : spacer;
 		this.add(panel, gc);
 		this.revalidate();
 		this.repaint();

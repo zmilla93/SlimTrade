@@ -6,9 +6,10 @@ import com.slimtrade.core.observing.REDO_MacroEventManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomCheckbox;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.buttons.CheckboxIcon;
+import com.slimtrade.gui.basic.CustomCheckboxIcon;
 import com.slimtrade.gui.buttons.CustomArrowButton;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
@@ -27,9 +28,9 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
     private static final long serialVersionUID = 1L;
 
     private JTextField characterInput = new JTextField();
-    private JCheckBox guildCheckbox = new JCheckBox();
-    private JCheckBox kickCheckbox = new JCheckBox();
-    private JCheckBox quickPasteCheckbox = new JCheckBox();
+    private JCheckBox guildCheckbox = new CustomCheckbox();
+    private JCheckBox kickCheckbox = new CustomCheckbox();
+    private JCheckBox quickPasteCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
     //	private CustomComboBox<ColorTheme> colorThemeCombo = new JComboBox<>();
     private JButton editStashButton = new BasicButton();
@@ -48,11 +49,11 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 
 //        App.saveFile.characterName = new SaveElement("charName", characterInput);
 
-        guildCheckbox.setFocusable(false);
-        kickCheckbox.setFocusable(false);
-        colorThemeCombo.setFocusable(false);
-        editStashButton.setFocusable(false);
-        editOverlayButton.setFocusable(false);
+//        guildCheckbox.setFocusable(false);
+//        kickCheckbox.setFocusable(false);
+//        colorThemeCombo.setFocusable(false);
+//        editStashButton.setFocusable(false);
+//        editOverlayButton.setFocusable(false);
 
         JPanel showGuildContainer = new JPanel(new BorderLayout());
         guildCheckbox.setOpaque(false);
@@ -71,7 +72,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 
         JPanel colorThemeContainer = new JPanel(new BorderLayout());
         colorThemeContainer.setOpaque(false);
-        colorThemeCombo.setOpaque(false);
+//        colorThemeCombo.setOpaque(false);
         colorThemeContainer.add(colorThemeCombo, BorderLayout.EAST);
 
 
@@ -107,6 +108,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
         gc.gridy++;
 
         // show Guild
+        gc.insets.bottom = 0;
         container.add(guildLabel, gc);
         gc.gridx = 2;
 
@@ -123,14 +125,15 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
         gc.gridy++;
 
         // Quick Paste
-        container.add(quickPasteLabel, gc);
-        gc.gridx = 2;
-
-        container.add(quickPasteContainer, gc);
-        gc.gridx = 0;
-        gc.gridy++;
+//        container.add(quickPasteLabel, gc);
+//        gc.gridx = 2;
+//
+//        container.add(quickPasteContainer, gc);
+//        gc.gridx = 0;
+//        gc.gridy++;
 
         // Color Combo
+        gc.insets.bottom = 5;
         container.add(colorThemeLabel, gc);
         gc.gridx = 2;
 
@@ -165,7 +168,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
         load();
 
         //TEMP COLOR THEME CHANGER
-        guildCheckbox.setIcon(new CheckboxIcon());
+//        guildCheckbox.setIcon(new CustomCheckboxIcon());
         colorThemeCombo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
@@ -217,90 +220,51 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 
 
         // COMBO BOX
-//        colorThemeCombo.setBackground(Color.GREEN);
-//        colorThemeCombo.setForeground(Color.RED);
-
-//        colorThemeCombo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//        colorThemeCombo.getComponents();
-
-
-//        setUI(new BasicComboBoxUI() {
-//            @Override protected JButton createArrowButton() {
-//                JButton b = new JButton();
-//                b.setBorder(BorderFactory.createEmptyBorder());
-//                b.setVisible(false);
-//                return b;
+//        for(Component c : colorThemeCombo.getComponents()) {
+//            System.out.println("COMP : " + c);
+//            if(c instanceof MetalComboBoxButton){
+//                MetalComboBoxButton box = (MetalComboBoxButton) c;
+//                box.setBorderPainted(false);
+//                box.setVisible(false);
+//                box.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//            } else if(c instanceof CellRendererPane) {
+//                CellRendererPane pane = (CellRendererPane) c;
+//                pane.setBackground(Color.RED);
+//                pane.setFocusable(false);
 //            }
-//        });
-
-        for(Component c : colorThemeCombo.getComponents()) {
-            System.out.println("COMP : " + c);
-            if(c instanceof MetalComboBoxButton){
-                MetalComboBoxButton box = (MetalComboBoxButton) c;
-                box.setBorderPainted(false);
-                box.setVisible(false);
-
-//                this.remove(box);
-//                box.setSize();
-                box.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                System.out.println("!!!");
-            } else if(c instanceof CellRendererPane) {
-                CellRendererPane pane = (CellRendererPane) c;
-                pane.setBackground(Color.RED);
-                pane.setFocusable(false);
-            }
-//            if(c instanceof JButton) {
-//                this.remove(c);
-//            }
-            c.setBackground(Color.RED);
-        }
+//            c.setBackground(Color.RED);
+//        }
 
         // Dropdown list + hover
-        colorThemeCombo.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
-                Component c = super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
-                list.setBorder(null);
-                if(isSelected){
-                    list.setSelectionBackground(ColorManager.TEXT);
-                    list.setSelectionForeground(ColorManager.BACKGROUND);
-                } else {
-                    c.setBackground(ColorManager.BACKGROUND);
-                    c.setForeground(ColorManager.TEXT);
-                }
-                return c;
-            }
-
-        });
+//        colorThemeCombo.setRenderer(new DefaultListCellRenderer() {
+//            @Override
+//            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
+//                Component c = super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
+//                list.setBorder(null);
+//                if(isSelected){
+//                    list.setSelectionBackground(ColorManager.TEXT);
+//                    list.setSelectionForeground(ColorManager.BACKGROUND);
+//                } else {
+//                    c.setBackground(ColorManager.BACKGROUND);
+//                    c.setForeground(ColorManager.TEXT);
+//                }
+//                return c;
+//            }
+//
+//        });
 
         // TODO : Customize
-        colorThemeCombo.setUI(new BasicComboBoxUI(){
-            @Override
-
-            protected JButton createArrowButton() {
-//                JButton button = new JButton();
-//                return button;
-//                JButton button = new BasicArrowButton(BasicArrowButton.SOUTH);
-//                BasicArrowButton button = new BasicArrowButton(
-//                        BasicArrowButton.SOUTH,
-//                        new Color(255, 0, 45),
-//                        new Color(255, 0, 45),
-//                        new Color(100, 100, 100),
-//                        new Color(100, 100, 100));
-////                arrowButton.setEnabled(false);
-//                return button;
-                return new CustomArrowButton(BasicArrowButton.SOUTH);
-            }
-
-
-            @Override
-            protected ListCellRenderer<Object> createRenderer() {
-                return super.createRenderer();
-            }
-        });
+//        colorThemeCombo.setUI(new BasicComboBoxUI(){
+//            @Override
+//
+//            protected JButton createArrowButton() {
+//                return new CustomArrowButton(BasicArrowButton.SOUTH);
+//            }
+//        });
 //        colorThemeCombo.setUI(newnew CustomArrowButton(BasicArrowButton.SOUTH));
-        colorThemeCombo.setPreferredSize(null);
-        colorThemeCombo.setPreferredSize(new Dimension(colorThemeCombo.getPreferredSize().width + 10, colorThemeCombo.getPreferredSize().height + 2));
+
+//        colorThemeCombo.setPreferredSize(null);
+//        colorThemeCombo.setPreferredSize(new Dimension(colorThemeCombo.getPreferredSize().width + 10, colorThemeCombo.getPreferredSize().height + 2));
 
 //        colorThemeCombo.setRenderer(new CustomComboRenderer());
 //        colorThemeCombo.setEditor(new CustomComboEditor());

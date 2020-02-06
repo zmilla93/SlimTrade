@@ -41,7 +41,7 @@ public class App {
 	public static UpdateChecker updateChecker;
 	public static GlobalKeyboardListener globalKeyboard;
 	public static LoadingDialog loadingDialog;
-	public static ColorManager colorManager = new ColorManager();
+//	public static ColorManager colorManager = new ColorManager();
 //	public static SaveFile saveFile = new SaveFile();
 
 	public static boolean debugMode = false;

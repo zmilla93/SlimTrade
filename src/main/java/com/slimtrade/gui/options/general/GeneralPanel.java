@@ -7,6 +7,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.ToggleButton;
 import com.slimtrade.gui.panels.ContainerPanel;
@@ -19,16 +20,23 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, ColorUpda
 	private HistoryOptionsPanel historyPanel;
 	private AudioPanel audioPanel;
 	private AdvancedPanel advancedPanel;
-	
+
+	private final int smallGap = 4;
+	private final int largeGap = 15;
+
 	public GeneralPanel(){
 		this.setVisible(false);
 //		this.setBorder(null);
 		
-		ToggleButton basicsButton = new ToggleButton("Basics", true);
-		ToggleButton historyButton = new ToggleButton("History", true);
-		ToggleButton audioButton = new ToggleButton("Audio", true);
-		ToggleButton advancedButton = new ToggleButton("Save Path", true);
-		
+//		ToggleButton basicsButton = new ToggleButton("Basics", true);
+//		ToggleButton historyButton = new ToggleButton("History", true);
+//		ToggleButton audioButton = new ToggleButton("Audio", true);
+//		ToggleButton advancedButton = new ToggleButton("Save Path", true);
+		SectionHeader basicsHeader = new SectionHeader("Basics");
+		SectionHeader historyHeader = new SectionHeader("History");
+		SectionHeader audioHeader = new SectionHeader("Audio");
+		SectionHeader clientHeader = new SectionHeader("Client");
+
 		basicsPanel = new BasicsPanel();
 		historyPanel = new HistoryOptionsPanel();
 		audioPanel = new AudioPanel();
@@ -38,33 +46,40 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, ColorUpda
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
-		gc.insets.bottom = 5;
 
-		container.add(basicsButton, gc);
+        gc.insets.bottom = smallGap;
+		container.add(basicsHeader, gc);
 		gc.gridy++;
+        gc.insets.bottom = largeGap;
 		container.add(basicsPanel, gc);
 		gc.gridy++;
 
-		container.add(historyButton, gc);
+        gc.insets.bottom = smallGap;
+		container.add(historyHeader, gc);
 		gc.gridy++;
+        gc.insets.bottom = largeGap;
 		container.add(historyPanel, gc);
 		gc.gridy++;
 
-		container.add(audioButton, gc);
+        gc.insets.bottom = smallGap;
+		container.add(audioHeader, gc);
+        gc.insets.bottom = largeGap;
 		gc.gridy++;
 		container.add(audioPanel, gc);
 		gc.gridy++;
 
-		container.add(advancedButton, gc);
+        gc.insets.bottom = smallGap;
+		container.add(clientHeader, gc);
 		gc.gridy++;
+        gc.insets.bottom = 0;
 		container.add(advancedPanel, gc);
 		gc.gridy++;
 		
-		FrameManager.linkToggle(basicsButton, basicsPanel);
-		FrameManager.linkToggle(historyButton, historyPanel);
-		FrameManager.linkToggle(audioButton, audioPanel);
-		FrameManager.linkToggle(advancedButton, advancedPanel);
-		
+//		FrameManager.linkToggle(basicsButton, basicsPanel);
+//		FrameManager.linkToggle(historyButton, historyPanel);
+//		FrameManager.linkToggle(audioButton, audioPanel);
+//		FrameManager.linkToggle(advancedButton, advancedPanel);
+//
 		App.eventManager.addListener(this);
 		this.updateColor();
 		

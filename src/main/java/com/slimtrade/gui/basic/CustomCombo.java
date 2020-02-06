@@ -1,24 +1,69 @@
 package com.slimtrade.gui.basic;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.gui.buttons.CustomArrowButton;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 
-public class CustomCombo<E> extends JComboBox<E> {
+public class CustomCombo<E> extends JComboBox<E> implements ColorUpdateListener {
+
+    private Color bg;
+    private Color text;
+
+    public CustomCombo(){
+        super();
+
+        this.setFocusable(false);
+        this.setUI(new BasicComboBoxUI(){
+            @Override
+
+            protected JButton createArrowButton() {
+                return new CustomArrowButton(BasicArrowButton.SOUTH);
+            }
+        });
+        this.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
+                Component c = super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
+                list.setBorder(null);
+                if(isSelected){
+                    list.setSelectionBackground(text);
+                    list.setSelectionForeground(bg);
+                } else {
+                    c.setBackground(bg);
+                    c.setForeground(text);
+                }
+                return c;
+            }
+        });
+        App.eventManager.addListener(this);
+        updateColor();
+    }
 
     protected void paintComponent(Graphics g) {
-//        final Graphics2D g2 = (Graphics2D) g.create();
+        this.setOpaque(false);
 
-        // Selection box
-        this.setBackground(ColorManager.BACKGROUND);
-        this.setForeground(ColorManager.TEXT);
-        this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
-//        g2.setPaint(Color.BLUE);
-//        g2.fillRect(0, 0, getWidth(), getHeight());
-//        g2.dispose();
+
+        updateColor();
+        this.setPreferredSize(null);
+        this.setPreferredSize(new Dimension(this.getPreferredSize().width + 10, this.getPreferredSize().height + 2));
         super.paintComponent(g);
+    }
+
+    @Override
+    public void updateColor() {
+        bg = ColorManager.BACKGROUND;
+        text = ColorManager.TEXT;
+        this.setForeground(ColorManager.TEXT);
+        this.setBackground(ColorManager.BACKGROUND);
+        this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+//        this.setPreferredSize(null);
+//        this.setPreferredSize(new Dimension(this.getPreferredSize().width + 10, this.getPreferredSize().height + 2));
     }
 
 
@@ -39,7 +84,6 @@ public class CustomCombo<E> extends JComboBox<E> {
 //                };
 //            }
 //        });
-//
 //    }
 
 }

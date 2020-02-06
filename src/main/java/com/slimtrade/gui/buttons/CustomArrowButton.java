@@ -11,14 +11,15 @@ public class CustomArrowButton extends BasicArrowButton {
 
     // TODO : direction only constructor
     private static Color background = ColorManager.PRIMARY;
-    private static Color shadow = Color.GREEN;
+    private static Color shadow = ColorManager.LOW_CONSTRAST_1;
     private static Color darkShadow = ColorManager.TEXT;
-    private static Color highlight = Color.blue;
+    private static Color highlight = ColorManager.LOW_CONSTRAST_1;
     private int direction = 0;
 
     public CustomArrowButton(int direction) {
         super(direction, background, shadow, darkShadow, highlight);
         this.direction = direction;
+        this.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
     }
 
 //    public CustomArrowButton(int direction, Color background, Color shadow, Color darkShadow, Color highlight) {
@@ -38,9 +39,9 @@ public class CustomArrowButton extends BasicArrowButton {
         isEnabled = isEnabled();
 
         g.setColor(getBackground());
-        g.fillRect(1, 1, w-2, h-2);
+        g.fillRect(0, 0, w, h);
 
-        /// Draw the proper Border
+//       Draw the proper Border
 //        if (getBorder() != null && !(getBorder() instanceof UIResource)) {
 //            paintBorder(g);
 //        } else if (isPressed) {
@@ -70,9 +71,9 @@ public class CustomArrowButton extends BasicArrowButton {
             return;
         }
 
-//        if (isPressed) {
-//            g.translate(1, 1);
-//        }
+        if (isPressed) {
+            g.translate(1, 1);
+        }
 
         // Draw the arrow
 //        size = Math.min((h - 4) / 2, (w - 4) / 2);
@@ -85,9 +86,9 @@ public class CustomArrowButton extends BasicArrowButton {
         paintTriangle(g, w-(size/2), h-(size/2), size, direction, isEnabled);
 
         // Reset the Graphics back to it's original settings
-//        if (isPressed) {
-//            g.translate(-1, -1);
-//        }
+        if (isPressed) {
+            g.translate(-1, -1);
+        }
         g.setColor(origColor);
 
     }

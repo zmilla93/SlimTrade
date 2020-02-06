@@ -1,14 +1,10 @@
 package com.slimtrade.gui.options.general;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
+import javax.swing.*;
 import javax.swing.JSpinner.DefaultEditor;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.plaf.basic.BasicArrowButton;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
@@ -16,6 +12,7 @@ import com.slimtrade.core.observing.improved.ColorUpdateListener;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.panels.BufferPanel;
@@ -25,9 +22,9 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, Co
 
 	private static final long serialVersionUID = 1L;
 
-	private JComboBox<TimeStyle> timeCombo = new JComboBox<TimeStyle>();
-	private JComboBox<DateStyle> dateCombo = new JComboBox<DateStyle>();
-	private JComboBox<OrderType> orderCombo = new JComboBox<OrderType>();
+	private CustomCombo<TimeStyle> timeCombo = new CustomCombo<>();
+	private CustomCombo<DateStyle> dateCombo = new CustomCombo<>();
+	private CustomCombo<OrderType> orderCombo = new CustomCombo<>();
 	private SpinnerModel spinnerModel = new SpinnerNumberModel(50, 0, 100, 5);
 	private JSpinner limitSpinner = new JSpinner(spinnerModel);
 
@@ -41,6 +38,18 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, Co
 		// JLabel limitInfoLabel = new JLabel("Message limit will not be applied
 		// until restart.");
 
+//        limitSpinner.getEditor().getComponent(0).;
+        for(Component c : limitSpinner.getComponents()) {
+            System.out.println("SPINNER:"  + c);
+            if(c instanceof BasicArrowButton) {
+                BasicArrowButton b = (BasicArrowButton)c;
+                b.setBackground(ColorManager.BACKGROUND);
+                b.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+            }
+        }
+        for(Component c : limitSpinner.getEditor().getComponents()) {
+            System.out.println("editor:"  + c);
+        }
 		timeCombo.setFocusable(false);
 		dateCombo.setFocusable(false);
 		orderCombo.setFocusable(false);
@@ -114,9 +123,10 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, Co
 		DateStyle dateStyle = (DateStyle) dateCombo.getSelectedItem();
 		OrderType orderType = (OrderType) orderCombo.getSelectedItem();
 
-		FrameManager.historyWindow.setTimeStyle(timeStyle);
-		FrameManager.historyWindow.setDateStyle(dateStyle);
-		FrameManager.historyWindow.setOrderType(orderType);
+//		FrameManager.historyWindow.setTimeStyle(timeStyle);
+//		FrameManager.historyWindow.setDateStyle(dateStyle);
+//		FrameManager.historyWindow.setOrderType(orderType);
+//		limitSpinner.setValue();
 //        App.saveManager.saveFile.historyLimit = ((int)limitSpinner.getValue());
 
 		App.saveManager.saveFile.timeStyle = timeStyle;
@@ -135,11 +145,15 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, Co
 
 	@Override
 	public void updateColor() {
+        limitSpinner.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+        limitSpinner.getEditor().getComponent(0).setForeground(ColorManager.TEXT);
+        limitSpinner.getEditor().getComponent(0).setBackground(ColorManager.BACKGROUND);
 		this.setBackground(ColorManager.BACKGROUND);
 		timeLabel.setForeground(ColorManager.TEXT);
 		dateLabel.setForeground(ColorManager.TEXT);
 		orderLabel.setForeground(ColorManager.TEXT);
 		limitLabel.setForeground(ColorManager.TEXT);
+		limitSpinner.setBackground(Color.RED);
 	}
 
 }

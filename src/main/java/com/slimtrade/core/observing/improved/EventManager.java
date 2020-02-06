@@ -11,6 +11,7 @@ public class EventManager {
 	
 	public void addListener(ColorUpdateListener listener){
 		updateColorList.add(listener);
+//		listener.updateColor();
 	}
 	
 	public void removeListener(ColorUpdateListener listener){
