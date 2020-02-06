@@ -1,12 +1,5 @@
 package com.slimtrade.gui;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
@@ -23,7 +16,14 @@ import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
 import com.slimtrade.gui.windows.OverlayManager;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class FrameManager {
+
+    public static int gapSmall = 4;
+    public static int gapLarge = 14;
+
 
     public static GridBagLayout gridbag;
 
@@ -53,6 +53,8 @@ public class FrameManager {
     public static WindowState windowState = WindowState.NORMAL;
 
     public FrameManager() {
+        UIManager.put("ScrollBar.width", 12);
+        UIManager.put("ScrollBar.height", 12);
 //		SetupWindow setupWindow = new SetupWindow();
 //		setupWindow.setVisible(true);
         FrameManager.gridbag = new GridBagLayout();
@@ -126,16 +128,16 @@ public class FrameManager {
                 overlayManager.forceToFront();
                 break;
             case NORMAL:
-                System.out.println("vis1");
+//                System.out.println("VIS1");
                 for (HideableDialog d : showHideDialogs) {
-                    System.out.println("DIG:" + d);
+//                    System.out.println("DIG:" + d);
                     d.setVisible(d.visible);
                 }
-                System.out.println("vis2");
+//                System.out.println("VIS2");
                 for (HideableDialog d : MessageDialogManager.getDialogList()) {
                     d.setVisible(d.visible);
                 }
-                System.out.println("vis3");
+//                System.out.println("VIS3");
                 break;
         }
 

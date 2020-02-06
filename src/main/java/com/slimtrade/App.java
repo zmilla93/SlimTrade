@@ -12,7 +12,7 @@ import javax.swing.*;
 import com.slimtrade.core.managers.*;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
-import com.slimtrade.core.observing.REDO_MacroEventManager;
+import com.slimtrade.core.observing.MacroEventManager;
 import com.slimtrade.core.observing.improved.EventManager;
 import com.slimtrade.core.utility.ChatParser;
 import com.slimtrade.core.utility.FileMonitor;
@@ -32,7 +32,7 @@ public class App {
 	// TODO : move to invoke later?
 	public static Debugger debugger;
 	public static FrameManager frameManager;
-	public static REDO_MacroEventManager macroEventManager = new REDO_MacroEventManager();
+	public static MacroEventManager macroEventManager = new MacroEventManager();
 	public static EventManager eventManager = new EventManager();
 	public static SaveManager saveManager;
 	public static ChatParser chatParser = new ChatParser();

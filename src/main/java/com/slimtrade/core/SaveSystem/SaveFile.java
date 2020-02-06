@@ -1,5 +1,6 @@
 package com.slimtrade.core.SaveSystem;
 
+import com.slimtrade.core.References;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.DateStyle;
@@ -10,13 +11,13 @@ import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
 import com.slimtrade.gui.scanner.ScannerMessage;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class SaveFile {
+
+    //Version
+    public String versionNumber = References.APP_VERSION;
 
     // Overlay
     public int menubarX = 0;
@@ -53,6 +54,8 @@ public class SaveFile {
 
     // Custom Macros
     public ArrayList<StashTab> stashTabs = new ArrayList<>();
+    public String thankIncomingLMB = "Thanks!", thankIncomingRMB;
+    public String thankOutgoingLMB = "Thanks!", thankOutgoingRMB;
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
     public ArrayList<IgnoreData> ignoreData = new ArrayList<>();

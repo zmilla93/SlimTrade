@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.slimtrade.App;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
@@ -19,7 +19,7 @@ import com.slimtrade.gui.options.ignore.IgnoreData;
 import com.slimtrade.gui.options.ignore.IgnoreRow;
 import com.slimtrade.gui.panels.ContainerPanel;
 
-public class IgnoreItemWindow extends AbstractResizableWindow implements ColorUpdateListener{
+public class IgnoreItemWindow extends AbstractResizableWindow implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	

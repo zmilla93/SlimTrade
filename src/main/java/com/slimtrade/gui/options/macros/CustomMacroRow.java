@@ -1,16 +1,18 @@
 package com.slimtrade.gui.options.macros;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.MacroButton;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
 import com.slimtrade.gui.buttons.IconButton;
@@ -18,14 +20,14 @@ import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.PreloadedImageCustom;
 import com.slimtrade.gui.panels.BufferPanel;
 
-public class CustomMacroRow extends RemovablePanel {
+public class CustomMacroRow extends RemovablePanel implements IColorable {
 
     private static final long serialVersionUID = 1L;
     private JLabel nameLabel = new JLabel("Custom");
     private JLabel m1Label = new JLabel("Left Mouse");
     private JLabel m2Label = new JLabel("Right Mouse");
-    private JTextField m1Text = new JTextField(30);
-    private JTextField m2Text = new JTextField(30);
+    private JTextField m1Text = new CustomTextField(30);
+    private JTextField m2Text = new CustomTextField(30);
     private JComboBox<ImageIcon> iconCombo;
     private JComboBox<ButtonRow> rowCombo;
     private IconButton removeButton = new IconButton("icons/close.png", 20);
@@ -35,24 +37,24 @@ public class CustomMacroRow extends RemovablePanel {
 
     public CustomMacroRow(AddRemovePanel parent) {
         super(parent);
-        this.setBackground(Color.GRAY);
         this.setLayout(new GridBagLayout());
         setRemoveButton(removeButton);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        iconCombo = new JComboBox<ImageIcon>();
+        gc.gridheight = 1;
+        iconCombo = new CustomCombo<>();
         for (PreloadedImageCustom i : PreloadedImageCustom.values()) {
             ImageIcon icon = new ImageIcon(i.getImage());
             iconCombo.addItem(icon);
         }
 
         iconCombo.setFocusable(false);
-        iconCombo.removeAll();
-        iconCombo.setLayout(new BorderLayout());
+//        iconCombo.removeAll();
+//        iconCombo.setLayout(new BorderLayout());
         iconCombo.setBorder(null);
 
-        rowCombo = new JComboBox<ButtonRow>();
+        rowCombo = new CustomCombo<>();
         for (ButtonRow row : ButtonRow.values()) {
             rowCombo.addItem(row);
         }
@@ -61,6 +63,9 @@ public class CustomMacroRow extends RemovablePanel {
         gc.gridx++;
         gc.gridheight = 2;
         this.add(rowCombo, gc);
+
+        gc.gridx++;
+        this.add(iconCombo, gc);
         gc.gridheight = 1;
         gc.gridx++;
         this.add(new BufferPanel(10, 0), gc);
@@ -72,7 +77,7 @@ public class CustomMacroRow extends RemovablePanel {
         this.add(m1Text, gc);
         gc.gridx++;
         gc.gridheight = 2;
-        this.add(iconCombo, gc);
+
         gc.gridheight = 1;
         gc.gridx++;
         this.add(new BufferPanel(10, 0), gc);
@@ -81,18 +86,13 @@ public class CustomMacroRow extends RemovablePanel {
         gc.gridx = 1;
         gc.gridy = 1;
         // this.add(rowCombo, gc);
-        gc.gridx += 2;
+        gc.gridx += 3;
         this.add(m2Label, gc);
         gc.gridx += 2;
         this.add(m2Text, gc);
-
-        this.revalidate();
-        this.repaint();
+        App.eventManager.addListener(this);
+        updateColor();
     }
-
-//	public JButton getDeleteButton() {
-//		return this.deleteButton;
-//	}
 
     public ButtonRow getButtonRow() {
         return (ButtonRow) rowCombo.getSelectedItem();
@@ -100,7 +100,6 @@ public class CustomMacroRow extends RemovablePanel {
 
     public PreloadedImageCustom getButtonImage() {
         return PreloadedImageCustom.values()[iconCombo.getSelectedIndex()];
-        // return iconCombo.getSelectedItem().toString();
     }
 
     public String getTextLMB() {
@@ -132,5 +131,9 @@ public class CustomMacroRow extends RemovablePanel {
         return new MacroButton(getButtonRow(), getTextLMB(), getTextRMB(), getButtonImage());
     }
 
+    @Override
+    public void updateColor() {
+        this.setBackground(ColorManager.BACKGROUND);
+    }
 
 }

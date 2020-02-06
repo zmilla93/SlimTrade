@@ -2,13 +2,12 @@ package com.slimtrade.gui.basic;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
-import com.slimtrade.gui.FrameManager;
+import com.slimtrade.core.observing.improved.IColorable;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SectionHeader extends JPanel implements ColorUpdateListener {
+public class SectionHeader extends JPanel implements IColorable {
 
     public SectionHeader(String title) {
         App.eventManager.addListener(this);

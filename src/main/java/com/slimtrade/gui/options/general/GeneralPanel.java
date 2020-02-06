@@ -5,14 +5,12 @@ import java.awt.GridBagLayout;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
-import com.slimtrade.gui.FrameManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.options.ToggleButton;
 import com.slimtrade.gui.panels.ContainerPanel;
 
-public class GeneralPanel extends ContainerPanel implements ISaveable, ColorUpdateListener {
+public class GeneralPanel extends ContainerPanel implements ISaveable, IColorable {
 
 	private static final long serialVersionUID = 1L;
 

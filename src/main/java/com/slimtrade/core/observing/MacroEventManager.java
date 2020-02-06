@@ -2,6 +2,7 @@ package com.slimtrade.core.observing;
 
 import java.awt.event.MouseEvent;
 
+import com.slimtrade.App;
 import com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import com.slimtrade.core.observing.poe.PoeInteractionListener;
 import com.slimtrade.enums.MessageType;
@@ -9,7 +10,7 @@ import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 
-public class REDO_MacroEventManager implements PoeInteractionListener {
+public class MacroEventManager implements PoeInteractionListener {
 
 	private static String characterName = null;
 	
@@ -64,7 +65,11 @@ public class REDO_MacroEventManager implements PoeInteractionListener {
 			PoeInterface.findInStash(TradeUtility.cleanItemName(trade.itemName));
 			break;
 		case THANK:
-			PoeInterface.paste("@" + trade.playerName + " thanks");
+            if(mouseButton == MouseEvent.BUTTON1){
+                PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankIncomingLMB);
+            }else if(mouseButton == MouseEvent.BUTTON3){
+                PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankIncomingRMB);
+            }
 			break;
 		case TRADE:
 			PoeInterface.paste("/tradewith " + trade.playerName);
@@ -103,7 +108,7 @@ public class REDO_MacroEventManager implements PoeInteractionListener {
 	}
 
 	public static void setCharacterName(String characterName) {
-		REDO_MacroEventManager.characterName = characterName;
+		MacroEventManager.characterName = characterName;
 	}
 
 }

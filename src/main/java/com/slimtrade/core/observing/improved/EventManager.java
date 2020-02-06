@@ -7,21 +7,21 @@ import com.slimtrade.core.managers.ColorManager;
 
 public class EventManager {
 
-	private ArrayList<ColorUpdateListener> updateColorList = new ArrayList<ColorUpdateListener>();
+	private ArrayList<IColorable> updateColorList = new ArrayList<IColorable>();
 	
-	public void addListener(ColorUpdateListener listener){
+	public void addListener(IColorable listener){
 		updateColorList.add(listener);
 //		listener.updateColor();
 	}
 	
-	public void removeListener(ColorUpdateListener listener){
+	public void removeListener(IColorable listener){
 		updateColorList.remove(listener);
 	}
 	
 	public void updateAllColors(ColorTheme theme){
 		System.out.println("Updaing All Colors");
 		ColorManager.setTheme(theme);
-		for(ColorUpdateListener l : updateColorList){
+		for(IColorable l : updateColorList){
 			l.updateColor();
 		}
 	}

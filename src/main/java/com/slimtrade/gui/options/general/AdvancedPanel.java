@@ -9,11 +9,11 @@ import javax.swing.JFileChooser;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
 
-public class AdvancedPanel extends ContainerPanel implements ISaveable, ColorUpdateListener {
+public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorable {
 
 	private static final long serialVersionUID = 1L;
 

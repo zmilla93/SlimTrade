@@ -76,7 +76,7 @@ public class ColorManager {
         }
         //MUTUAL
         TEXT = HIGH_CONTRAST_1;
-//        TEXT = Color.RED;
+//        TEXT = Color.ORANGE;
     }
 
     //TODO : Revamp this?

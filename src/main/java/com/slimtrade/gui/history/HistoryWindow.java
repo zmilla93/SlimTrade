@@ -1,9 +1,6 @@
 package com.slimtrade.gui.history;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,6 +14,9 @@ import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomScrollBarUI;
+import com.slimtrade.gui.components.CustomScrollPane;
+import com.slimtrade.gui.options.ListButton;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.panels.BufferPanel;
@@ -41,6 +41,7 @@ public class HistoryWindow extends AbstractResizableWindow {
 	
 	public HistoryWindow() {
 		super("History");
+		this.setAlwaysOnTop(false);
 		timeStyle = TimeStyle.H24;
 		dateStyle = DateStyle.DDMMYY;
 		timeStyle = App.saveManager.saveFile.timeStyle;
@@ -56,9 +57,9 @@ public class HistoryWindow extends AbstractResizableWindow {
 
 		// GridBagPanel historyContainer = new GridBagPanel();
 
-		JScrollPane incomingScroll = new JScrollPane(incomingPanel);
-		JScrollPane outgoingScroll = new JScrollPane(outgoingPanel);
-		JScrollPane savedScroll = new JScrollPane(savedPanel);
+		JScrollPane incomingScroll = new CustomScrollPane(incomingPanel);
+		JScrollPane outgoingScroll = new CustomScrollPane(outgoingPanel);
+//		JScrollPane savedScroll = new CustomScrollPane(savedPanel);
 
 		// incomingScroll.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0,
 		// Color.BLACK));
@@ -75,13 +76,25 @@ public class HistoryWindow extends AbstractResizableWindow {
 		innerPanel.add(new BufferPanel(0, 10), BorderLayout.SOUTH);
 		innerPanel.add(new BufferPanel(10, 0), BorderLayout.EAST);
 
-		JButton incomingButton = new JButton("Incoming");
-		JButton outgoingButton = new JButton("Outgoing");
+        ListButton incomingButton = new ListButton("Incoming");
+        ListButton outgoingButton = new ListButton("Outgoing");
+
+
+
 		JButton savedButton = new JButton("Saved");
 
 		buttonPanel.add(incomingButton);
 		buttonPanel.add(outgoingButton);
+        ListButton.link(buttonPanel, incomingButton);
+        ListButton.link(buttonPanel, outgoingButton);
+        incomingButton.active = true;
 //		buttonPanel.add(savedButton);
+
+//        incomingScroll.getVerticalScrollBar().setUI(new CustomScrollBarUI(incomingScroll.getVerticalScrollBar()));
+//        outgoingScroll.getVerticalScrollBar().setUI(new CustomScrollBarUI(outgoingScroll.getVerticalScrollBar()));
+//        incomingScroll.getVerticalScrollBar().setUI(CustomScrollBarUI.DEFAULT_SCROLLBAR);
+//        incomingScroll.getVerticalScrollBar().setUI(CustomScrollBarUI.DEFAULT_SCROLLBAR);
+//        outgoingScroll.getVerticalScrollBar().setUI(CustomScrollBarUI.DEFAULT_SCROLLBAR);
 
 		// scrollPane
 
@@ -91,7 +104,7 @@ public class HistoryWindow extends AbstractResizableWindow {
 		incomingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				outgoingScroll.setVisible(false);
-				savedScroll.setVisible(false);
+//				savedScroll.setVisible(false);
 				incomingScroll.setVisible(true);
 				innerPanel.add(incomingScroll, BorderLayout.CENTER);
 
@@ -104,7 +117,7 @@ public class HistoryWindow extends AbstractResizableWindow {
 		outgoingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				incomingScroll.setVisible(false);
-				savedScroll.setVisible(false);
+//				savedScroll.setVisible(false);
 				outgoingScroll.setVisible(true);
 				innerPanel.add(outgoingScroll, BorderLayout.CENTER);
 
@@ -117,8 +130,8 @@ public class HistoryWindow extends AbstractResizableWindow {
 			public void actionPerformed(ActionEvent e) {
 				incomingScroll.setVisible(false);
 				outgoingScroll.setVisible(false);
-				savedScroll.setVisible(true);
-				innerPanel.add(savedScroll, BorderLayout.CENTER);
+//				savedScroll.setVisible(true);
+//				innerPanel.add(savedScroll, BorderLayout.CENTER);
 				
 				innerPanel.revalidate();
 				innerPanel.repaint();
@@ -130,7 +143,7 @@ public class HistoryWindow extends AbstractResizableWindow {
 		
 		incomingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		outgoingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		savedScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//		savedScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		innerPanel.add(incomingScroll, BorderLayout.CENTER);
 		innerPanel.revalidate();
 		innerPanel.repaint();

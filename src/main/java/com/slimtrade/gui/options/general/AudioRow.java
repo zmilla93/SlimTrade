@@ -6,7 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -17,13 +16,13 @@ import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.basic.CustomSliderUI;
 import com.slimtrade.gui.buttons.IconButton;
 
-public class AudioRow extends JPanel implements ColorUpdateListener {
+public class AudioRow extends JPanel implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	private final int WIDTH = 200;

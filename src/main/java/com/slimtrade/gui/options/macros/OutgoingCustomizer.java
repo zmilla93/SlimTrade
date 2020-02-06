@@ -29,7 +29,7 @@ public class OutgoingCustomizer extends ContentPanel_REMOVE {
 		PresetMacroRow refreshOutPreset = new PresetMacroRow("Refresh", "icons/refresh1.png", true);
 		refreshOutPreset.getRow("Left Mouse", "Resend trade message");
 		PresetMacroRow warpOutPreset = new PresetMacroRow("Refresh", "icons/warp.png", true);
-		warpOutPreset.getRow("Left Mouse", "Warp to other player's hideout");
+		warpOutPreset.getRow("Left Mouse", "Warp to seller's hideout");
 		PresetMacroRow thankOutPreset = new PresetMacroRow("Refresh", "icons/thumb.png", true);
 		thankOutPreset.getRow("Left Mouse", "thanks");
 		PresetMacroRow leaveOutPreset = new PresetMacroRow("Refresh", "icons/leave.png", true);

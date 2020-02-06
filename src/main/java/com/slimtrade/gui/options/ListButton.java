@@ -1,19 +1,17 @@
 package com.slimtrade.gui.options;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.observing.improved.IColorable;
 
-public class ListButton extends JButton implements ColorUpdateListener {
+public class ListButton extends JButton implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -59,6 +57,23 @@ public class ListButton extends JButton implements ColorUpdateListener {
 			}
 		});
 	}
+
+	public static void link(JPanel panel, ListButton button){
+//        OptionsWindow local = this;
+        button.addMouseListener(new AdvancedMouseAdapter() {
+            public void click(MouseEvent e) {
+                ListButton lb;
+                for (Component c : panel.getComponents()) {
+                    if(c instanceof ListButton){
+                        lb = (ListButton) c;
+                        lb.active = false;
+                    }
+                }
+                button.active = true;
+                panel.repaint();
+            }
+        });
+    }
 
 	protected void paintComponent(Graphics g) {
 		

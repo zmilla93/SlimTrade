@@ -8,23 +8,13 @@ import java.awt.*;
 
 public class CustomScrollBarUI extends BasicScrollBarUI {
 
-//    Color trackColor = Color.RED;
-//    Color thumbColor = Color.BLACK;
-//    Color thumbDarkShadowColor = trackColor;
-//    Color thumbLightShadowColor = trackColor;
-
     public CustomScrollBarUI() {
-        super();
-        UIManager.put("ScrollBar.width", 12);
-        UIManager.put("ScrollBar.height", 12);
     }
-
 
     @Override
     protected void configureScrollBarColors() {
         this.trackColor = ColorManager.LOW_CONSTRAST_1;
         this.thumbColor = ColorManager.HIGH_CONTRAST_1;
-
     }
 
     @Override
@@ -53,9 +43,8 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
     protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
         g.clearRect(r.x, r.y, r.width, r.height);
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        Color color = null;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        Color color;
         JScrollBar sb = (JScrollBar) c;
         if (!sb.isEnabled()) {
             return;

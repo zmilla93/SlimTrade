@@ -1,6 +1,6 @@
 package com.slimtrade.core.observing.improved;
 
-public interface ColorUpdateListener {
+public interface IColorable {
 
 	public void updateColor();
 	

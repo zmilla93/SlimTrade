@@ -97,7 +97,7 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (ignoreData.getIndefinite()) {
+        if (ignoreData.indefinite) {
             timerLabel.setText("~");
             return;
         }

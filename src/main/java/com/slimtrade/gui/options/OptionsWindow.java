@@ -22,9 +22,9 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomScrollBarUI;
+import com.slimtrade.gui.components.CustomScrollPane;
 import com.slimtrade.gui.options.general.GeneralPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macros.IncomingCustomizer;
@@ -36,7 +36,7 @@ import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.stash.StashTabPanel;
 
-public class OptionsWindow extends AbstractResizableWindow implements ColorUpdateListener {
+public class OptionsWindow extends AbstractResizableWindow implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel display = new JPanel();
@@ -51,7 +51,7 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 	public OptionsWindow() {
 	    super("Options");
 	    this.setAlwaysOnTop(false);
-	    this.setAlwaysOnTop(true);
+//	    this.setAlwaysOnTop(true);
 	    if(App.debugMode){
 	        this.setTitleText(this.getTitle() + " - DEBUG");
         }
@@ -64,12 +64,13 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 		menuBorder.add(menuPanel, BorderLayout.NORTH);
 		menuBorder.add(menuPanelLower, BorderLayout.SOUTH);
 
-		scrollDisplay = new JScrollPane(display);
+//		scrollDisplay = new CustomScrollPane(display);
+		scrollDisplay = new CustomScrollPane(display);
 		scrollDisplay.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		scrollDisplay.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        scrollDisplay.getVerticalScrollBar().setUnitIncrement(14);
-        scrollDisplay.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        scrollDisplay.getHorizontalScrollBar().setUnitIncrement(14);
+//		scrollDisplay.getVerticalScrollBar().setUI(new CustomScrollBarUI(scrollDisplay.getVerticalScrollBar()));
+//        scrollDisplay.getVerticalScrollBar().setUnitIncrement(CustomScrollBarUI.DEFAULT_SCROLL_SPEED);
+//        scrollDisplay.getHorizontalScrollBar().setUI(new CustomScrollBarUI(scrollDisplay.getVerticalScrollBar()));
+//        scrollDisplay.getHorizontalScrollBar().setUnitIncrement(14);
 //        scrollDisplay.setHorizontalScrollBarPolicy(JScrollBar.);
 		display.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
@@ -266,8 +267,9 @@ public class OptionsWindow extends AbstractResizableWindow implements ColorUpdat
 				lb.active = true;
 				hideAllWindows();
 				p.setVisible(true);
+				menuPanel.repaint();
 				// lb.repaint();
-				local.repaint();
+//				local.repaint();
 			}
 		});
 	}

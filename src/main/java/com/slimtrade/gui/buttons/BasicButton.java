@@ -15,9 +15,9 @@ import javax.swing.border.Border;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 
-public class BasicButton extends JButton implements ColorUpdateListener {
+public class BasicButton extends JButton implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	

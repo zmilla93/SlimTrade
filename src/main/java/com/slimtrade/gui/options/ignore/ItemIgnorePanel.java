@@ -7,18 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
+import javax.swing.*;
 import javax.swing.JSpinner.DefaultEditor;
-import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.plaf.basic.BasicArrowButton;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.enums.MatchType;
@@ -31,17 +28,25 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
     private static final long serialVersionUID = 1L;
 
     private AddRemovePanel addRemovePanel = new AddRemovePanel();
-    private JTextField itemText = new JTextField();
-    private JComboBox<MatchType> typeCombo = new JComboBox<MatchType>();
+    private JTextField itemText = new CustomTextField(30);
+    private JComboBox<MatchType> typeCombo = new CustomCombo<>();
     private SpinnerModel spinnerModel = new SpinnerNumberModel(60, 0, 300, 10);
     private JSpinner timerSpinner = new JSpinner(spinnerModel);
     private JButton ignoreButton = new BasicButton("Ignore Item");
 
-    // TODO : Impose max
+    // TODO : Impose max?
     private final int MAX_IGNORE_COUNT = 40;
 
     public ItemIgnorePanel() {
         this.setVisible(false);
+
+        for(Component c : timerSpinner.getComponents()) {
+            if(c instanceof BasicArrowButton) {
+                BasicArrowButton b = (BasicArrowButton)c;
+                b.setBackground(ColorManager.BACKGROUND);
+                b.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+            }
+        }
 
         FrameManager.ignoreItemAddRemovePanel = addRemovePanel;
 
@@ -82,7 +87,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
         entryPanel.add(ignoreButton, gc);
         gc.gridx++;
-        gc.fill = GridBagConstraints.BOTH;
+//        gc.fill = GridBagConstraints.BOTH;
         entryPanel.add(itemText, gc);
         gc.gridx++;
         entryPanel.add(typeCombo, gc);
@@ -153,7 +158,9 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
             if (c instanceof IgnoreRow) {
                 IgnoreRow row = (IgnoreRow) c;
                 IgnoreData rowData = row.getIgnoreData();
-                App.saveManager.saveFile.ignoreData.add(rowData);
+                if(rowData.getRemainingTime() > 0 || rowData.indefinite) {
+                    App.saveManager.saveFile.ignoreData.add(rowData);
+                }
             }
         }
         App.chatParser.setWhisperIgnoreTerms(App.saveManager.saveFile.ignoreData);
@@ -163,8 +170,11 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
     public void load() {
         ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
         for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
-            fullData.add(data);
-            addRemovePanel.addPanel(new IgnoreRow(data, addRemovePanel));
+            if(data.getRemainingTime() > -0 || data.indefinite) {
+                fullData.add(data);
+                addRemovePanel.addPanel(new IgnoreRow(data, addRemovePanel));
+            }
+
 //            addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
         }
 //		for (int index = 0; index < MAX_IGNORE_COUNT; index++) {

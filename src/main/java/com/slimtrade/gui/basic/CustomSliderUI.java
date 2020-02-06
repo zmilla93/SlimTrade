@@ -2,16 +2,13 @@ package com.slimtrade.gui.basic;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
-import com.slimtrade.gui.FrameManager;
-import sun.swing.DefaultLookup;
+import com.slimtrade.core.observing.improved.IColorable;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
-import java.awt.geom.GeneralPath;
 
-public class CustomSliderUI extends BasicSliderUI implements ColorUpdateListener {
+public class CustomSliderUI extends BasicSliderUI implements IColorable {
     //    private BasicStroke stroke = new BasicStroke(1f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0f, new float[]{1f, 2f}, 0f);
     private BasicStroke stroke = new BasicStroke(BasicStroke.CAP_ROUND);
     private Color color;

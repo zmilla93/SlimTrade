@@ -1,7 +1,7 @@
 package com.slimtrade.gui.buttons;
 
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 
-public class IconButton extends JButton implements ColorUpdateListener {
+public class IconButton extends JButton implements IColorable {
 
 	private final int DEFAULT_SIZE = 30;
 	private final double IMAGE_SCALE = 0.94;

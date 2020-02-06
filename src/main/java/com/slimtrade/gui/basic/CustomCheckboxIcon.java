@@ -2,16 +2,13 @@ package com.slimtrade.gui.basic;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class CustomCheckboxIcon implements ColorUpdateListener, Icon {
+public class CustomCheckboxIcon implements IColorable, Icon {
 
 //    private JCheckbox checkbox;
 	private static Border borderDefault;

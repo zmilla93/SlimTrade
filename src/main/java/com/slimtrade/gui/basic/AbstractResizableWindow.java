@@ -2,7 +2,7 @@ package com.slimtrade.gui.basic;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-public abstract class AbstractResizableWindow extends AbstractWindow implements ColorUpdateListener {
+public abstract class AbstractResizableWindow extends AbstractWindow implements IColorable {
 
 	static final long serialVersionUID = 1L;
 	protected JPanel pullRight = new JPanel();

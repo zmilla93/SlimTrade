@@ -60,7 +60,9 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
 	public ChatScannerWindow() {
 		super("Chat Scanner");
+        this.setAlwaysOnTop(false);
 		this.setFocusableWindowState(true);
+		this.setFocusable(true);
 
 		// TODO : Switch to nested panels
 		ContainerPanel borderPanel = new ContainerPanel();

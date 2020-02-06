@@ -1,8 +1,6 @@
 package com.slimtrade.gui.stash;
 
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
@@ -11,20 +9,24 @@ import javax.swing.JPanel;
 
 import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.StashTab;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
+import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
 
-public class StashTabPanel extends ContainerPanel implements ISaveable {
+public class StashTabPanel extends ContainerPanel implements ISaveable, IColorable {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final AddRemovePanel rowContainer= new AddRemovePanel();
 	private GridBagConstraints gcRow;
 	int rowBuffer = 10;
+	private JPanel stashOptions;
 
 	public StashTabPanel() {
 		this.setVisible(false);
@@ -39,7 +41,7 @@ public class StashTabPanel extends ContainerPanel implements ISaveable {
 		
 //		rowContainer = new AddRemovePanel();
 
-		JPanel stashOptions = new JPanel();
+		stashOptions = new JPanel();
 		stashOptions.setLayout(new GridBagLayout());
 
 		JButton addButton = new BasicButton("Add Stash Tab");
@@ -47,11 +49,14 @@ public class StashTabPanel extends ContainerPanel implements ISaveable {
 //		JLabel alignLabel = new JLabel("Align stashtab");
 //		JButton alignButton = new JButton("Align Stash Tab Overlay");
 
+//        Add stash tab names to mark
+//        quad tabs or to add color coding
+
 		
-		container.add(new JLabel("Stash tabs only need to be added if you want to set colors or quad tabs"), gc);
+		container.add(new JLabel("Add stash tabs by name to mark quad tabs or add color coding."), gc);
 		gc.gridy++;
-		container.add(new JLabel("Default white will use a randomized color like normal"), gc);
-		gc.gridy++;
+//		container.add(new JLabel("quad tabs or add color coding."), gc);
+//		gc.gridy++;
 		container.add(new BufferPanel(0, rowBuffer), gc);
 		gc.gridy++;
 		container.add(addButton, gc);
@@ -66,7 +71,10 @@ public class StashTabPanel extends ContainerPanel implements ISaveable {
 			}
 		});
 		load();
-	}
+        App.eventManager.addListener(this);
+        updateColor();
+
+    }
 
 	private StashTabRow addNewRow() {
 		StashTabRow row = new StashTabRow(rowContainer);
@@ -109,9 +117,17 @@ public class StashTabPanel extends ContainerPanel implements ISaveable {
 //			index++;
 //		}
 		rowContainer.saveChanges();
+//		App.eventManager.addListener(this);
+//		updateColor();
 	}
-	
-	public void revertChanges(){
+
+    @Override
+    public void updateColor() {
+        super.updateColor();
+        stashOptions.setBackground(Color.GREEN);
+    }
+
+    public void revertChanges(){
 		rowContainer.revertChanges();
 	}
 

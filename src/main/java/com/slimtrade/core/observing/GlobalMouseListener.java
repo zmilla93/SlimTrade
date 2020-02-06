@@ -17,7 +17,6 @@ import java.awt.*;
 
 public class GlobalMouseListener implements NativeMouseInputListener {
 
-    static int click = 0;
 
 	public void nativeMouseClicked(NativeMouseEvent e) {
 
@@ -49,10 +48,10 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 		User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 		String curWindowTitle = Native.toString(windowText);
 
-        System.out.println("Click : " +  click);
-        click++;
-        System.out.println("window : " +  curWindowTitle);
-        System.out.println("STATE : " + FrameManager.windowState);
+//        System.out.println("Click : " +  click);
+//        click++;
+//        System.out.println("window : " +  curWindowTitle);
+//        System.out.println("STATE : " + FrameManager.windowState);
 //		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || App.debugMode) {
 //            FrameManager.showVisibleFrames();
 //			FrameManager.forceAllToTop();
@@ -65,11 +64,11 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                 || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
                 || App.debugMode) {
             if(FrameManager.windowState == WindowState.NORMAL) {
-                System.out.println("P1");
+//                System.out.println("P1");
                 FrameManager.showVisibleFrames();
-                System.out.println("P2");
+//                System.out.println("P2");
                 FrameManager.forceAllToTop();
-                System.out.println("P3");
+//                System.out.println("P3");
             }
             else if (FrameManager.windowState == WindowState.LAYOUT_MANAGER) {
                 FrameManager.overlayManager.showDialog();
@@ -89,7 +88,6 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 //            FrameManager.stashOverlayWindow.setVisible(false);
 //            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
         }
-        System.out.println("Success\n");
 
 
 	}

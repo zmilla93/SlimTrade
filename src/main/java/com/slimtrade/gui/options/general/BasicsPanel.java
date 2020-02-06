@@ -2,33 +2,29 @@ package com.slimtrade.gui.options.general;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.REDO_MacroEventManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.MacroEventManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCheckbox;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.basic.CustomCheckboxIcon;
-import com.slimtrade.gui.buttons.CustomArrowButton;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.basic.BasicComboBoxUI;
-import javax.swing.plaf.metal.MetalComboBoxButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdateListener {
+public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable {
 
     private static final long serialVersionUID = 1L;
 
-    private JTextField characterInput = new JTextField();
+    private JTextField characterInput = new CustomTextField();
     private JCheckBox guildCheckbox = new CustomCheckbox();
     private JCheckBox kickCheckbox = new CustomCheckbox();
     private JCheckBox quickPasteCheckbox = new CustomCheckbox();
@@ -38,13 +34,18 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
     private JButton editOverlayButton = new BasicButton();
 
     //Labels
-    private JLabel characterLabel = new JLabel("Character Name");
-    private JLabel guildLabel = new JLabel("Show Guild Name");
-    private JLabel kickLabel = new JLabel("Close on Kick");
-    private JLabel quickPasteLabel = new JLabel("Quick Paste Trades");
-    private JLabel colorThemeLabel = new JLabel("Color Theme");
+    private JLabel characterLabel;
+    private JLabel guildLabel;
+    private JLabel kickLabel;
+    private JLabel quickPasteLabel;
+    private JLabel colorThemeLabel;
 
     public BasicsPanel() {
+        characterLabel = new JLabel("Character Name");
+        guildLabel = new JLabel("Show Guild Name");
+        kickLabel = new JLabel("Close on Kick");
+        quickPasteLabel = new JLabel("Quick Paste Trades");
+        colorThemeLabel = new JLabel("Color Theme");
 
 //		this.setBackground(Color.LIGHT_GRAY);
 
@@ -168,17 +169,17 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
             }
         });
 
-        App.eventManager.addListener(this);
-        this.updateColor();
+
         load();
 
-        //TEMP COLOR THEME CHANGER
-//        guildCheckbox.setIcon(new CustomCheckboxIcon());
         colorThemeCombo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
             }
         });
+
+        App.eventManager.addListener(this);
+        this.updateColor();
     }
 
     @Override
@@ -187,7 +188,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
         if (characterName.equals("")) {
             characterName = null;
         }
-        REDO_MacroEventManager.setCharacterName(characterName);
+        MacroEventManager.setCharacterName(characterName);
         ColorTheme colorTheme = (ColorTheme) colorThemeCombo.getSelectedItem();
         App.saveManager.saveFile.characterName = characterName;
         App.saveManager.saveFile.showGuildName = guildCheckbox.isSelected();
@@ -200,7 +201,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
     @Override
     public void load() {
         String characterName = App.saveManager.saveFile.characterName;
-        REDO_MacroEventManager.setCharacterName(characterName);
+        MacroEventManager.setCharacterName(characterName);
         characterInput.setText(characterName);
         guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
@@ -213,11 +214,15 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, ColorUpdat
 
     @Override
     public void updateColor() {
+        super.updateColor();
         this.setBackground(ColorManager.BACKGROUND);
+        System.out.println("COL" + ColorManager.TEXT);
+        System.out.println("BG" + characterLabel);
         characterLabel.setForeground(ColorManager.TEXT);
-        characterInput.setBackground(ColorManager.LOW_CONSTRAST_1);
-        characterInput.setForeground(ColorManager.TEXT);
-        characterInput.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+//        characterInput.setBackground(ColorManager.LOW_CONSTRAST_1);
+//        characterInput.setForeground(ColorManager.TEXT);
+//        characterInput.setSelectionColor(ColorManager.PRIMARY);
+//        characterInput.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
         guildLabel.setForeground(ColorManager.TEXT);
         kickLabel.setForeground(ColorManager.TEXT);
         quickPasteLabel.setForeground(ColorManager.TEXT);

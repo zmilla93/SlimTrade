@@ -8,17 +8,16 @@ import javax.swing.plaf.basic.BasicArrowButton;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
-public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, ColorUpdateListener {
+public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IColorable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,15 +39,11 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, Co
 
 //        limitSpinner.getEditor().getComponent(0).;
         for(Component c : limitSpinner.getComponents()) {
-            System.out.println("SPINNER:"  + c);
             if(c instanceof BasicArrowButton) {
                 BasicArrowButton b = (BasicArrowButton)c;
                 b.setBackground(ColorManager.BACKGROUND);
                 b.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
             }
-        }
-        for(Component c : limitSpinner.getEditor().getComponents()) {
-            System.out.println("editor:"  + c);
         }
 		timeCombo.setFocusable(false);
 		dateCombo.setFocusable(false);

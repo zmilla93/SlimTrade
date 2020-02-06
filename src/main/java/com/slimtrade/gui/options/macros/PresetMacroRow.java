@@ -1,6 +1,5 @@
 package com.slimtrade.gui.options.macros;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,9 +8,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
 
-public class PresetMacroRow extends JPanel {
+public class PresetMacroRow extends JPanel implements IColorable{
 
 	// TODO : Image
 	private static final long serialVersionUID = 1L;
@@ -24,8 +27,8 @@ public class PresetMacroRow extends JPanel {
 	private JLabel titleLabel = new JLabel("NAME");
 	
 //	private JLabel tempLabel = new JLabel("TEMP");
-	private JTextField textLMB = new JTextField(COLUMN_SIZE);
-	private JTextField textRMB = new JTextField(COLUMN_SIZE);
+	private CustomTextField textLMB = new CustomTextField();
+	private CustomTextField textRMB = new CustomTextField();
 	private IconButton exampleButton;
 	GridBagConstraints gc = new GridBagConstraints();
 	
@@ -39,7 +42,6 @@ public class PresetMacroRow extends JPanel {
 		this.setLayout(new GridBagLayout());
 		titlePanel.setLayout(new GridBagLayout());
 //		mousePanel.setLayout(new GridBagLayout());
-		this.setBackground(Color.GRAY);
 		titlePanel.setOpaque(false);
 //		titlePanel.setOpaque(false);
 		
@@ -76,17 +78,18 @@ public class PresetMacroRow extends JPanel {
 		gc.gridy = 0;
 		this.setPreferredSize(null);
 		this.revalidate();
+        App.eventManager.addListener(this);
+        this.updateColor();
 	}
 	
-	private JPanel getSimplePanel(){
-		return null;
-	}
+//	private JPanel getSimplePanel(){
+//		return null;
+//	}
 
 	// TODO Make row look like editable
 	public JTextField getRow(String name, String text, boolean... editable) {
 		gc.gridx = 2;
 		JPanel namePanel = new JPanel();
-		namePanel.setBackground(Color.yellow);
 		namePanel.setLayout(new GridBagLayout());
 		namePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
 		namePanel.setOpaque(false);
@@ -94,7 +97,7 @@ public class PresetMacroRow extends JPanel {
 		namePanel.add(nameLabel);
 		this.add(namePanel, gc);
 		gc.gridx = 3;
-		JTextField textLabel = new JTextField(COLUMN_SIZE);
+		JTextField textLabel = new CustomTextField(COLUMN_SIZE);
 		if(editable.length==0 || editable[0]==false){
 			textLabel.setEditable(false);
 			textLabel.setOpaque(false);
@@ -112,7 +115,6 @@ public class PresetMacroRow extends JPanel {
 	public void addEditLMB(String title, String preset) {
 		gc.gridx = 3;
 		JPanel titlePanel = new JPanel();
-//		titlePanel.setBackground(Color.yellow);
 		titlePanel.setLayout(new GridBagLayout());
 		JLabel titleLabel = new JLabel(title);
 		titlePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
@@ -128,7 +130,6 @@ public class PresetMacroRow extends JPanel {
 	public void addEditRMB(String title, String preset) {
 		gc.gridx = 3;
 		JPanel titlePanel = new JPanel();
-//		titlePanel.setBackground(Color.yellow);
 		titlePanel.setLayout(new GridBagLayout());
 		JLabel titleLabel = new JLabel(title);
 		titlePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
@@ -146,7 +147,6 @@ public class PresetMacroRow extends JPanel {
 	public void addEditRow(String title, String preset) {
 		gc.gridx = 3;
 		JPanel titlePanel = new JPanel();
-//		titlePanel.setBackground(Color.yellow);
 		titlePanel.setLayout(new GridBagLayout());
 		JLabel titleLabel = new JLabel(title);
 		titlePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
@@ -159,5 +159,12 @@ public class PresetMacroRow extends JPanel {
 		text.setText(preset);
 		this.add(text, gc);
 		gc.gridy++;
+
+
 	}
+
+    @Override
+    public void updateColor() {
+	    this.setBackground(ColorManager.BACKGROUND);
+    }
 }

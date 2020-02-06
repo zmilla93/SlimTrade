@@ -22,7 +22,7 @@ import com.slimtrade.core.SaveSystem.StashTab;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
@@ -36,7 +36,7 @@ import com.slimtrade.gui.enums.PreloadedImageCustom;
 import com.slimtrade.gui.panels.PricePanel;
 import com.slimtrade.gui.stash.helper.StashHelper;
 
-public class MessagePanel extends AbstractMessagePanel implements ColorUpdateListener {
+public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 

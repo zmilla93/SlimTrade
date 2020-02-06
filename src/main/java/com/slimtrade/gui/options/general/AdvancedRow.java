@@ -11,20 +11,20 @@ import javax.swing.filechooser.FileFilter;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.ColorUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
 
-public class AdvancedRow extends JPanel implements ColorUpdateListener {
+public class AdvancedRow extends JPanel implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 
 	private final int HEIGHT = 22;
 	private final int LABEL_WIDTH = 100;
-	private final int PATH_WIDTH = 300;
 
 	private boolean changed = false;
 	private JLabel label = new JLabel();
-	private JTextField textField = new JTextField();
+	private JTextField textField = new CustomTextField();
 	private JLabel pathLabel;
 	private JButton editButton;
 	private JFileChooser fileChooser;
@@ -42,16 +42,12 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 		label.setText(labelText);
 		labelPanel.add(label);
 
-
-		// TODO : Set path
 		JPanel pathPanel = new JPanel(new GridBagLayout());
-//		pathPanel.setPreferredSize(new Dimension(PATH_WIDTH, HEIGHT));
 		pathPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		pathLabel = new JLabel("Unset");
 		textField.setColumns(40);
 		textField.setText("Unset");
         textField.setText(labelText);
-//        textField.setBackground(new Color(0, 0, 0, 0));
         textField.setBorder(null);
         textField.setEditable(false);
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -67,7 +63,6 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 		this.setOpaque(false);
 		labelPanel.setOpaque(false);
 		pathPanel.setOpaque(false);
-		
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -104,8 +99,6 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 		this.add(editButton, gc);
 		
 		this.updateColor();
-//		this.revalidate();
-//		this.repaint();
 		App.eventManager.addListener(this);
 
 	}
@@ -115,9 +108,7 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 	}
 
 	public void setText(String text) {
-//		pathLabel.setText(text);
 		textField.setText(text);
-//		textField.setPreferredSize(textField.getPreferredSize());
 		changed = true;
 	}
 
@@ -144,7 +135,7 @@ public class AdvancedRow extends JPanel implements ColorUpdateListener {
 	@Override
 	public void updateColor() {
 		this.setBackground(ColorManager.BACKGROUND);
-		textField.setBackground(ColorManager.BACKGROUND);
+//		textField.setBackground(ColorManager.BACKGROUND);
 		label.setForeground(ColorManager.TEXT);
 		pathLabel.setForeground(ColorManager.TEXT);
 	}
