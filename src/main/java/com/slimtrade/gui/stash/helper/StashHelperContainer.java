@@ -37,7 +37,7 @@ public class StashHelperContainer extends BasicDialog{
 	public void updateBounds(){
 		posX = App.saveManager.stashSaveFile.windowX;
 		posY = App.saveManager.stashSaveFile.windowY;
-		int width = App.saveManager.stashSaveFile.width;
+		int width = App.saveManager.stashSaveFile.windowWidth;
 		this.setBounds(posX+10, posY-15, width, height);
 	}
 

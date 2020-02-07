@@ -2,6 +2,6 @@ package com.slimtrade.core.SaveSystem;
 
 public class StashSaveFile {
 
-    public int windowX, windowY, width, height;
+    public int windowX, windowY, windowWidth, windowHeight, gridX, gridY, gridWidth, gridHeight;
 
 }

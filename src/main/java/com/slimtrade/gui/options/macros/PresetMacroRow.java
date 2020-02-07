@@ -89,18 +89,20 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		namePanel.add(nameLabel);
 		this.add(namePanel, gc);
 //        gc.insets.right = 1;
-		gc.gridx = 1;
-		JTextField textLabel = new CustomTextField(COLUMN_SIZE);
+		gc.gridx = 3;
+		JTextField textField = new CustomTextField(COLUMN_SIZE);
 		if(editable.length==0 || editable[0]==false){
-			textLabel.setEditable(false);
-			textLabel.setOpaque(false);
-			textLabel.setFocusable(false);
+			textField.setEditable(false);
+			textField.setOpaque(false);
+			textField.setFocusable(false);
+			textField.setBorder(null);
 		}
-		textLabel.setText(text);
-		this.add(textLabel, gc);
-//        gc.insets.right = 0;
+		textField.setText(text);
+        gc.insets.right = 1;
+		this.add(textField, gc);
+        gc.insets.right = 0;
 		gc.gridy++;
-		return textLabel;
+		return textField;
 	}
 
     @Override

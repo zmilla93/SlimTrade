@@ -18,35 +18,35 @@ import java.awt.*;
 public class GlobalMouseListener implements NativeMouseInputListener {
 
 
-	public void nativeMouseClicked(NativeMouseEvent e) {
+    public void nativeMouseClicked(NativeMouseEvent e) {
 
-	}
+    }
 
-	//TODO : This throws an error if mouse is clicked during loading
-	public void nativeMousePressed(NativeMouseEvent e) {
+    //TODO : This throws an error if mouse is clicked during loading
+    public void nativeMousePressed(NativeMouseEvent e) {
 //		new Thread(refreshRunner).start();
-		
-		try {
-			Thread.sleep(1);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-		PointerType hwnd = null;
-		byte[] windowText = new byte[512];
-		do {
-			hwnd = User32Custom.INSTANCE.GetForegroundWindow();
-			if(hwnd!=null){
-				break;
-			}else{
-				try {
-					Thread.sleep(1);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			}
-		} while (true);
-		User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
-		String curWindowTitle = Native.toString(windowText);
+
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+        PointerType hwnd = null;
+        byte[] windowText = new byte[512];
+        do {
+            hwnd = User32Custom.INSTANCE.GetForegroundWindow();
+            if (hwnd != null) {
+                break;
+            } else {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        } while (true);
+        User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+        String curWindowTitle = Native.toString(windowText);
 
 //        System.out.println("Click : " +  click);
 //        click++;
@@ -60,29 +60,27 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 //        }
         // TODO : CLEAN UP
 
-        if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.equals(References.APP_NAME + " - Options")
-                || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
+        if (curWindowTitle.equals(References.POE_WINDOW_TITLE)
+
                 || App.debugMode) {
-            if(FrameManager.windowState == WindowState.NORMAL) {
+            if (FrameManager.windowState == WindowState.NORMAL) {
 //                System.out.println("P1");
                 FrameManager.showVisibleFrames();
 //                System.out.println("P2");
                 FrameManager.forceAllToTop();
 //                System.out.println("P3");
-            }
-            else if (FrameManager.windowState == WindowState.LAYOUT_MANAGER) {
+            } else if (FrameManager.windowState == WindowState.LAYOUT_MANAGER) {
                 FrameManager.overlayManager.showDialog();
                 FrameManager.overlayManager.forceToFront();
-            }
-            else if(FrameManager.windowState == WindowState.STASH_OVERLAY) {
+            } else if (FrameManager.windowState == WindowState.STASH_OVERLAY) {
                 FrameManager.stashOverlayWindow.setVisible(true);
                 FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
                 FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
             }
-        }else if(curWindowTitle.equals("Open")){
-
-        }
-        else{
+        } else if (curWindowTitle.equals("Open") || curWindowTitle.equals(References.APP_NAME + " - Options") || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")) {
+            FrameManager.optionsWindow.setAlwaysOnTop(false);
+            FrameManager.optionsWindow.setAlwaysOnTop(true);
+        } else {
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideDialog();
 //            FrameManager.stashOverlayWindow.setVisible(false);
@@ -90,28 +88,28 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         }
 
 
-	}
+    }
 
-	public void nativeMouseReleased(NativeMouseEvent e) {
+    public void nativeMouseReleased(NativeMouseEvent e) {
 
-	}
+    }
 
-	public void nativeMouseDragged(NativeMouseEvent e) {
+    public void nativeMouseDragged(NativeMouseEvent e) {
 
-	}
+    }
 
-	public void nativeMouseMoved(NativeMouseEvent e) {
+    public void nativeMouseMoved(NativeMouseEvent e) {
 
-	}
+    }
 
-	private WindowType getWindowType(String win) {
-		if (win.equals("Path of Exile")) {
-			return WindowType.POE;
-		} else if (win.contains("SlimTrade")) {
-			return WindowType.SLIMTRADE;
-		} else {
-			return WindowType.OTHER;
-		}
-	}
+    private WindowType getWindowType(String win) {
+        if (win.equals("Path of Exile")) {
+            return WindowType.POE;
+        } else if (win.contains("SlimTrade")) {
+            return WindowType.SLIMTRADE;
+        } else {
+            return WindowType.OTHER;
+        }
+    }
 
 }

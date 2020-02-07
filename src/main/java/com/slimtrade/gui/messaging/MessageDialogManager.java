@@ -169,6 +169,7 @@ public class MessageDialogManager {
 				FrameManager.stashHelperContainer.pack();
 			}
 		}
+		App.eventManager.removeListener(msgPanel);
 		wrapperList.get(index).dispose();
 		wrapperList.remove(index);
 	}

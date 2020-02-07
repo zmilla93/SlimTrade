@@ -232,8 +232,8 @@ public class MenubarDialog extends BasicDialog {
                 break;
         }
         Dimension size = this.getPreferredSize();
-//		Dimension size = new Dimension(this.getPreferredSize().width - 40, this.getPreferredSize().height - 25);
-//		this.setSize(this.getPreferredSize().width-5, this.getPreferredSize().height-5);
+//		Dimension size = new Dimension(this.getPreferredSize().windowWidth - 40, this.getPreferredSize().windowHeight - 25);
+//		this.setSize(this.getPreferredSize().windowWidth-5, this.getPreferredSize().windowHeight-5);
 //        FrameManager.menubar.setSize(size);
         this.setPreferredSize(size);
         this.revalidate();

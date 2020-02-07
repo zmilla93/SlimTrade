@@ -15,6 +15,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomSpinner;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -31,7 +32,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
     private JTextField itemText = new CustomTextField(30);
     private JComboBox<MatchType> typeCombo = new CustomCombo<>();
     private SpinnerModel spinnerModel = new SpinnerNumberModel(60, 0, 300, 10);
-    private JSpinner timerSpinner = new JSpinner(spinnerModel);
+    private JSpinner timerSpinner = new CustomSpinner(spinnerModel);
     private JButton ignoreButton = new BasicButton("Ignore Item");
 
     // TODO : Impose max?
@@ -39,14 +40,6 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
     public ItemIgnorePanel() {
         this.setVisible(false);
-
-        for(Component c : timerSpinner.getComponents()) {
-            if(c instanceof BasicArrowButton) {
-                BasicArrowButton b = (BasicArrowButton)c;
-                b.setBackground(ColorManager.BACKGROUND);
-                b.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
-            }
-        }
 
         FrameManager.ignoreItemAddRemovePanel = addRemovePanel;
 
@@ -60,9 +53,6 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         for (MatchType type : MatchType.values()) {
             typeCombo.addItem(type);
         }
-        ((DefaultEditor) timerSpinner.getEditor()).getTextField().setEditable(false);
-        ((DefaultEditor) timerSpinner.getEditor()).getTextField().setHighlighter(null);
-
 
         container.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
@@ -87,7 +77,6 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
         entryPanel.add(ignoreButton, gc);
         gc.gridx++;
-//        gc.fill = GridBagConstraints.BOTH;
         entryPanel.add(itemText, gc);
         gc.gridx++;
         entryPanel.add(typeCombo, gc);
@@ -121,19 +110,29 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
                 if (text.matches("")) {
                     return;
                 }
+                int i = 0;
                 for (Component c : addRemovePanel.getComponents()) {
                     if (c instanceof IgnoreRow) {
                         IgnoreRow row = (IgnoreRow) c;
                         if(!row.isToBeDeleted() && text.toLowerCase().matches(row.getIgnoreData().getItemName().toLowerCase())) {
                             return;
                         }
+                        if(row.isVisible()){
+                            i++;
+                        }
                     }
                 }
-                int i = (int)timerSpinner.getValue();
+                if(i >= MAX_IGNORE_COUNT) {
+                    return;
+                }
+                i = (int)timerSpinner.getValue();
                 itemText.setText("");
                 addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
             }
         });
+
+        App.eventManager.addListener(this);
+        updateColor();
     }
 
     public void revertChanges() {

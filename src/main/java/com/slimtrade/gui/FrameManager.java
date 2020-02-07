@@ -53,8 +53,8 @@ public class FrameManager {
     public static WindowState windowState = WindowState.NORMAL;
 
     public FrameManager() {
-        UIManager.put("ScrollBar.width", 12);
-        UIManager.put("ScrollBar.height", 12);
+        UIManager.put("ScrollBar.windowWidth", 12);
+        UIManager.put("ScrollBar.windowHeight", 12);
 //		SetupWindow setupWindow = new SetupWindow();
 //		setupWindow.setVisible(true);
         FrameManager.gridbag = new GridBagLayout();

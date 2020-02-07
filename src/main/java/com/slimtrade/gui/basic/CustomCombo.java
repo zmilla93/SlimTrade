@@ -51,7 +51,7 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
 
         updateColor();
 //        this.setPreferredSize(null);
-//        this.setPreferredSize(new Dimension(this.getPreferredSize().width + 10, this.getPreferredSize().height + 2));
+//        this.setPreferredSize(new Dimension(this.getPreferredSize().windowWidth + 10, this.getPreferredSize().windowHeight + 2));
         super.paintComponent(g);
     }
 
@@ -63,9 +63,8 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
         this.setBackground(ColorManager.BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
 //        this.setPreferredSize(null);
-//        this.setPreferredSize(new Dimension(this.getPreferredSize().width + 10, this.getPreferredSize().height + 2));
+//        this.setPreferredSize(new Dimension(this.getPreferredSize().windowWidth + 10, this.getPreferredSize().windowHeight + 2));
     }
-
 
 //    // HIDE BUTTON
 //    public void updateUI() {

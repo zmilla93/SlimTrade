@@ -14,6 +14,7 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.ColorPanel;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
@@ -26,7 +27,7 @@ public class StashTabRow extends RemovablePanel implements IColorable {
 
     public static final int ROW_HEIGHT = 22;
 
-    private JButton removeButton;
+    private IconButton removeButton;
 
     CustomTextField stashTabText;
     JComboBox<StashTabType> typeCombo;
@@ -44,10 +45,13 @@ public class StashTabRow extends RemovablePanel implements IColorable {
         gc.gridy = 0;
 
         removeButton = new IconButton("icons/close.png", ROW_HEIGHT);
+        App.eventManager.addListener(removeButton);
         this.setRemoveButton(removeButton);
 
         int stashTextWidth = 250;
-        JPanel stashTabTextPanel = new JPanel(FrameManager.gridbag);
+            JPanel stashTabTextPanel = new ColorPanel(FrameManager.gridbag){
+
+        };
         stashTabTextPanel.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT));
         stashTabTextPanel.setBackground(Color.RED);
 

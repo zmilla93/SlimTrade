@@ -93,7 +93,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 
 			}
 		});
-		
+
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
                 FrameManager.windowState = WindowState.NORMAL;
@@ -115,13 +115,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 			}
 		});
 
-		// closeButton.addActionListener(new ActionListener() {
-		// public void actionPerformed(ActionEvent e) {
-		// FrameManager.showVisibleFrames();
-		// }
-		// });
-		// load();
-		// ItemHighlighter
+		App.eventManager.addListener(this);
         this.updateColor();
 
 	}
@@ -129,33 +123,22 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 	public void save() {
 		Point winPos = this.getLocation();
 		Dimension winSize = this.getSize();
-		Dimension gridSize = gridPanel.getSize();
         App.saveManager.stashSaveFile.windowX = winPos.x;
         App.saveManager.stashSaveFile.windowY = winPos.y;
-        App.saveManager.stashSaveFile.width = winSize.width;
-		App.saveManager.stashSaveFile.height = winSize.height;
-//		App.saveManager.stashSaveFile.height = winSize.height;
+        App.saveManager.stashSaveFile.windowWidth = winSize.width;
+		App.saveManager.stashSaveFile.windowHeight = winSize.height;
+        App.saveManager.stashSaveFile.gridX = winPos.x + gridPanel.getX();
+        App.saveManager.stashSaveFile.gridY = winPos.y + gridPanel.getY();
+        App.saveManager.stashSaveFile.gridWidth = gridPanel.getWidth();
+        App.saveManager.stashSaveFile.gridHeight = gridPanel.getHeight();
 		App.saveManager.saveStashToDisk();
-        System.out.println(gridPanel.getGridPosition());
-		//TODO : this?
-//		ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
-
+		ItemHighlighter.saveGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
 	}
 
 	public void load() {
+        ItemHighlighter.saveGridInfo(App.saveManager.stashSaveFile.gridX,App.saveManager.stashSaveFile.gridY, App.saveManager.stashSaveFile.gridWidth, App.saveManager.stashSaveFile.gridHeight);
         this.setLocation(App.saveManager.stashSaveFile.windowX, App.saveManager.stashSaveFile.windowY);
-        this.setSize(App.saveManager.stashSaveFile.width, App.saveManager.stashSaveFile.height);
+        this.setSize(App.saveManager.stashSaveFile.windowWidth, App.saveManager.stashSaveFile.windowHeight);
 	}
-
-    @Override
-    public void updateColor() {
-        // Note, this is also changed in
-        pullRight.setBackground(pullbarColor);
-        pullBottom.setBackground(pullbarColor);
-//        pullRight.setBackground(Color.BLACK);
-//        pullBottom.setBackground(Color.BLACK);
-//        this.repaint();
-    }
-
 
 }

@@ -85,7 +85,6 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, IColorabl
 
 	@Override
 	public void save() {
-//		System.out.println(basicsPanel);
 		basicsPanel.save();
 		historyPanel.save();
 		audioPanel.save();

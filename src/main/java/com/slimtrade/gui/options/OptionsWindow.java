@@ -240,9 +240,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 outgoingPanel.save();
 				stashPanel.save();
 				ignorePanel.save();
-//				App.saveManager.saveToDisk();
                 App.saveManager.saveToDisk();
-//                System.out.println(App.saveFile.characterName);
 			}
 		});
 

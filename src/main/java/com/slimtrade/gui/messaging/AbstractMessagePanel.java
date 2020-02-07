@@ -28,7 +28,7 @@ public class AbstractMessagePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	// TODO Load from drive
 	// TODO : Move?
-	// TODO : switch totalwidth/height to use get/set?
+	// TODO : switch totalwidth/windowHeight to use get/set?
 	private final PoeInteractionListener poeInteractionListener = App.macroEventManager;
 	protected MessageType messageType;
 	// Heights

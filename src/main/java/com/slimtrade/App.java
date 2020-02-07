@@ -144,6 +144,7 @@ public class App {
 		}));
 
 		loadingDialog.dispose();
+        System.out.println("SlimTrade launched!\n");
 
 	}
 	

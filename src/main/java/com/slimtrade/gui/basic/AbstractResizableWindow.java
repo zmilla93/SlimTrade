@@ -46,7 +46,7 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
 
 	private void buildWindow(String title, boolean closeButton) {
 		// container.setOpaque(false);
-        App.eventManager.addListener(this);
+
 		this.setMinimumSize(new Dimension(100, 100));
 		//TODO : COLOR!
 		pullRight.setPreferredSize(new Dimension(pullbarSize, 0));
@@ -106,9 +106,9 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
 				int width = startingWidth - (startingX - mouseX);
 				if (width % 2 != 0)
 					width++;
-				// int maxWidth = local.getMaximumSize().width;
-				// if(width>maxWidth){
-				// width = maxWidth;
+				// int maxWidth = local.getMaximumSize().windowWidth;
+				// if(windowWidth>maxWidth){
+				// windowWidth = maxWidth;
 				// }
 				local.setPreferredSize(new Dimension(width, startingHeight));
 				local.pack();

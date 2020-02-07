@@ -274,7 +274,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 //        colorThemeCombo.setUI(newnew CustomArrowButton(BasicArrowButton.SOUTH));
 
 //        colorThemeCombo.setPreferredSize(null);
-//        colorThemeCombo.setPreferredSize(new Dimension(colorThemeCombo.getPreferredSize().width + 10, colorThemeCombo.getPreferredSize().height + 2));
+//        colorThemeCombo.setPreferredSize(new Dimension(colorThemeCombo.getPreferredSize().windowWidth + 10, colorThemeCombo.getPreferredSize().windowHeight + 2));
 
 //        colorThemeCombo.setRenderer(new CustomComboRenderer());
 //        colorThemeCombo.setEditor(new CustomComboEditor());

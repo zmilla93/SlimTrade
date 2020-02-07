@@ -57,20 +57,21 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
 
         // INCOMING PRESETS
         PresetMacroRow refreshInPreset = new PresetMacroRow(PreloadedImage.REFRESH.getImage(), true);
-        refreshInPreset.getRow(left, "Hi, are you still interested in my [ITEM] listed for [PRICE]?");
+        refreshInPreset.getRow(left, "Resend Offer");
         PresetMacroRow closePreset = new PresetMacroRow(PreloadedImage.CLOSE.getImage());
         closePreset.getRow(left, "Close trade");
-        closePreset.getRow(right, "Close trade + all similar trades");
+        closePreset.getRow(right, "Save this trade, Close all other similar trades");
 
-        PresetMacroRow invitePreset = new PresetMacroRow(PreloadedImage.INVITE.getImage(), true);
-        invitePreset.getRow(left, "Invite");
-        PresetMacroRow tradePreset = new PresetMacroRow(PreloadedImage.CART.getImage(), true);
-        tradePreset.getRow(left, "Trade");
+        PresetMacroRow warpPreset = new PresetMacroRow(PreloadedImage.WARP.getImage(), true);
+        warpPreset.getRow(left, "Warp to Seller");
+
         PresetMacroRow thankPreset = new PresetMacroRow(PreloadedImage.THUMB.getImage());
         thankLeft = thankPreset.getRow(left, "", true);
         thankRight = thankPreset.getRow(right, "", true);
         PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
         leavePreset.getRow(left, "Kick");
+        PresetMacroRow homePreset = new PresetMacroRow(PreloadedImage.HOME.getImage(), true);
+        homePreset.getRow(left, "Hideout");
 
         // INCOMING
         SectionHeader exampleHeader = new SectionHeader("Outgoing Trade");
@@ -79,26 +80,24 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
 
         customPanel = new AddRemovePanel();
         customPanel.setBorder(null);
-
-        // gc.insets = new Insets(2, 0, 0, 0);
-        // addRow(incomingLabel, gc);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        gc.insets.bottom = 4;
+
         //Preset Macros
+        gc.insets.bottom = 4;
         presetPanel.add(refreshInPreset, gc);
         gc.gridy++;
         presetPanel.add(closePreset, gc);
         gc.gridy++;
-        presetPanel.add(invitePreset, gc);
-        gc.gridy++;
-        presetPanel.add(tradePreset, gc);
+        presetPanel.add(warpPreset, gc);
         gc.gridy++;
         presetPanel.add(thankPreset, gc);
         gc.gridy++;
-        gc.insets.bottom = 0;
         presetPanel.add(leavePreset, gc);
+        gc.gridy++;
+        gc.insets.bottom = 0;
+        presetPanel.add(homePreset, gc);
         gc.gridy++;
 
         //Everything
@@ -135,9 +134,9 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
     }
 
     private void refreshTrade() {
-        try {
+        if(exampleTradeIn != null){
             container.remove(exampleTradeIn);
-        } catch (NullPointerException e) {
+            App.eventManager.removeListener(exampleTradeIn);
         }
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;

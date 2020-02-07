@@ -38,9 +38,9 @@ public class POEWindowInfo {
 //				isVisible = true;
 //				x = r.x;
 //				y = r.y;
-//				width = r.width;
-//				height = r.height;
-//				centerPoint = new Point(x+width/2, y+height/2);
+//				windowWidth = r.windowWidth;
+//				windowHeight = r.windowHeight;
+//				centerPoint = new Point(x+windowWidth/2, y+windowHeight/2);
 //			}
 //		}
 //	}

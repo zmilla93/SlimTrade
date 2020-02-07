@@ -1,5 +1,6 @@
 package com.slimtrade.gui.stash;
 
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.CustomTextField;
 
 import javax.swing.JTextField;

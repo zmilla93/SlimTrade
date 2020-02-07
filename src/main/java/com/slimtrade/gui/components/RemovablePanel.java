@@ -4,11 +4,10 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 public class RemovablePanel extends JPanel implements IColorable {
 
@@ -24,7 +23,6 @@ public class RemovablePanel extends JPanel implements IColorable {
 		this.parent = parent;
         App.eventManager.addListener(this);
         updateColor();
-
 	}
 	
 	//TODO : REMOVE THIS ADD DO ACTIONS LOCALLY
@@ -70,4 +68,5 @@ public class RemovablePanel extends JPanel implements IColorable {
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);
     }
+
 }

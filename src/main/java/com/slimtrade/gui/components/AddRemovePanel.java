@@ -1,7 +1,6 @@
 package com.slimtrade.gui.components;
 
 import com.slimtrade.App;
-import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 
@@ -63,6 +62,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
 			if (c instanceof RemovablePanel) {
 				RemovablePanel panel = (RemovablePanel) c;
 				if (panel.isToBeDeleted()) {
+				    panel.removeListener();
 					this.remove(panel);
 				} else if (panel.isNewPanel()) {
 					panel.setNewPanel(false);
@@ -109,5 +109,15 @@ public class AddRemovePanel extends JPanel implements IColorable {
 //            }
 //        }
 
+    }
+
+    @Override
+    public void removeAll() {
+        for(Component c : this.getComponents()) {
+            if(c instanceof IColorable) {
+                ((IColorable) c).removeListener();
+            }
+        }
+        super.removeAll();
     }
 }

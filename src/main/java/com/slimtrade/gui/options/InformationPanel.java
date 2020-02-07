@@ -7,7 +7,9 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 public class InformationPanel extends ContainerPanel {
@@ -15,16 +17,19 @@ public class InformationPanel extends ContainerPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final int buffer = 10;
-	
+
+    private JTextField gitText;
+    private JTextField emailText;
+
 	public InformationPanel(){
 		this.setVisible(false);
 		//TODO : Might need to change background color of text areas
 //		super(false);
 		
-		JLabel versionLabel = new JLabel(References.APP_NAME + " v" + References.APP_VERSION);
+		JLabel versionLabel = new JLabel(References.APP_NAME);
 		
 		JLabel gitLabel = new JLabel("GitHub");
-		JTextField gitText = new JTextField("https://github.com/zmilla93/SlimTrade");
+		gitText = new JTextField("https://github.com/zmilla93/SlimTrade");
 		Dimension gitSize = gitText.getPreferredSize();
 		gitSize.width++;
 		gitText.setPreferredSize(gitSize);
@@ -32,7 +37,7 @@ public class InformationPanel extends ContainerPanel {
 		gitText.setEditable(false);
 		
 		JLabel emailTitle = new JLabel("E-Mail");
-		JTextField emailText = new JTextField("slimtradepoe@gmail.com");
+        emailText = new JTextField("slimtradepoe@gmail.com");
 		Dimension emailSize = emailText.getPreferredSize();
 		emailSize.width++;
 		emailText.setPreferredSize(emailSize);
@@ -58,7 +63,9 @@ public class InformationPanel extends ContainerPanel {
 		
 		container.add(gitLabel, gc);
 		gc.gridx = 1;
+		gc.insets.left = 30;
 		container.add(gitText, gc);
+        gc.insets.left = 0;
 		gc.gridx = 0;
 		gc.gridy++;
 		
@@ -71,8 +78,15 @@ public class InformationPanel extends ContainerPanel {
 
 //		this.setBuffer(40, -1);
 //		this.autoResize();
+        App.eventManager.addListener(this);
+        updateColor();
 		
 	}
-	
-	
+
+    @Override
+    public void updateColor() {
+        super.updateColor();
+        gitText.setBackground(ColorManager.LOW_CONSTRAST_1);
+        emailText.setBackground(ColorManager.LOW_CONSTRAST_1);
+    }
 }

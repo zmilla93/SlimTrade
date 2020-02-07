@@ -24,13 +24,12 @@ public class AdvancedRow extends JPanel implements IColorable {
 
 	private boolean changed = false;
 	private JLabel label = new JLabel();
-	private JTextField textField = new CustomTextField();
+	private JTextField textField = new CustomTextField(30);
 	private JLabel pathLabel;
 	private JButton editButton;
 	private JFileChooser fileChooser;
 
 	public AdvancedRow(String labelText) {
-
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
@@ -43,12 +42,12 @@ public class AdvancedRow extends JPanel implements IColorable {
 		labelPanel.add(label);
 
 		JPanel pathPanel = new JPanel(new GridBagLayout());
-		pathPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//		pathPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		pathLabel = new JLabel("Unset");
 		textField.setColumns(40);
 		textField.setText("Unset");
         textField.setText(labelText);
-        textField.setBorder(null);
+
         textField.setEditable(false);
         gc.fill = GridBagConstraints.HORIZONTAL;
 		pathPanel.add(textField, gc);
@@ -90,16 +89,15 @@ public class AdvancedRow extends JPanel implements IColorable {
 		this.add(labelPanel, gc);
 		gc.gridx++;
         gc.fill = GridBagConstraints.HORIZONTAL;
-        pathPanel.setPreferredSize(pathPanel.getPreferredSize());
+//        pathPanel.setPreferredSize(pathPanel.getPreferredSize());
 		this.add(pathPanel, gc);
         gc.fill = GridBagConstraints.NONE;
-        System.out.println("S:" + pathPanel.getSize());
-        System.out.println("S:" + textField.getSize());
 		gc.gridx++;
 		this.add(editButton, gc);
 		
-		this.updateColor();
+
 		App.eventManager.addListener(this);
+		updateColor();
 
 	}
 
@@ -138,6 +136,7 @@ public class AdvancedRow extends JPanel implements IColorable {
 //		textField.setBackground(ColorManager.BACKGROUND);
 		label.setForeground(ColorManager.TEXT);
 		pathLabel.setForeground(ColorManager.TEXT);
+//        textField.setBorder(BorderFactory);
 	}
 
 }
