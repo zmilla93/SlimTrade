@@ -113,18 +113,14 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         gc.gridy++;
 
         load();
-
         FrameManager.itemIgnorePanel = this;
 
-        AddRemovePanel local = addRemovePanel;
         ignoreButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Good0");
                 String text = itemText.getText().trim();
                 if (text.matches("")) {
                     return;
                 }
-                System.out.println("Good1");
                 for (Component c : addRemovePanel.getComponents()) {
                     if (c instanceof IgnoreRow) {
                         IgnoreRow row = (IgnoreRow) c;
@@ -133,15 +129,9 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
                         }
                     }
                 }
-                System.out.println("Good2");
-                int i = 0;
-//                i = (int)((DefaultEditor) timerSpinner.getEditor()).getTextField().getValue();
-                i = (int)timerSpinner.getValue();
-                System.out.println("SPIN:" + i);
-                addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), local));
-                System.out.println("Good3");
+                int i = (int)timerSpinner.getValue();
                 itemText.setText("");
-
+                addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
             }
         });
     }
@@ -174,25 +164,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
                 fullData.add(data);
                 addRemovePanel.addPanel(new IgnoreRow(data, addRemovePanel));
             }
-
-//            addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
         }
-//		for (int index = 0; index < MAX_IGNORE_COUNT; index++) {
-//			if (App.saveManager.hasEntry(SaveConstants.IgnoreItems.getItemName(index))) {
-//				try {
-//					String itemName = App.saveManager.getString(SaveConstants.IgnoreItems.getItemName(index));
-//					MatchType matchType = MatchType.valueOf(App.saveManager.getEnumValue(MatchType.class, SaveConstants.IgnoreItems.getMatchType(index)));
-//					LocalDateTime expireTime = LocalDateTime.parse(App.saveManager.getString(SaveConstants.IgnoreItems.getExpireTime(index)));
-//					IgnoreData data = new IgnoreData(itemName, matchType, expireTime);
-//					if (data.getRemainingTime() > 0) {
-//						addRemovePanel.add(new IgnoreRow(data, addRemovePanel));
-//						fullData.add(data);
-//					}
-//				} catch (DateTimeParseException e) {
-//
-//				}
-//			}
-//		}
         addRemovePanel.saveChanges();
         App.chatParser.setWhisperIgnoreTerms(fullData);
     }

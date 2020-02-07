@@ -59,9 +59,9 @@ public class RemovablePanel extends JPanel implements IColorable {
 	}
 
 	protected void dispose(){
-		System.out.println("PARENT DISPOSE");
 		markForDeletion();
 		parent.updateColor();
+        parent.refreshPanels();
 		parent.revalidate();
 		parent.repaint();
 	}

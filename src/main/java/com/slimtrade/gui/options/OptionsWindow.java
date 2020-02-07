@@ -109,7 +109,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 		display.add(incomingPanel, gc);
 
 		ListButton outgoingButton = new ListButton("Outgoing Macros");
-		OutgoingCustomizer outgoingPanel = new OutgoingCustomizer();
+		OutgoingCustomizer outgoingPanel = new OutgoingCustomizer(this);
 		link(outgoingButton, outgoingPanel);
 		display.add(outgoingPanel, gc);
 
@@ -225,6 +225,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 				// incomingPanel.rever
 				// stashPanel.load();
 				incomingPanel.revertChanges();
+				outgoingPanel.revertChanges();
 				stashPanel.revertChanges();
 				ignorePanel.revertChanges();
 				FrameManager.optionsWindow.revalidate();
@@ -236,6 +237,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 			public void actionPerformed(ActionEvent e) {
 				generalPanel.save();
 				incomingPanel.save();
+                outgoingPanel.save();
 				stashPanel.save();
 				ignorePanel.save();
 //				App.saveManager.saveToDisk();

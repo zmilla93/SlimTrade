@@ -60,25 +60,12 @@ public class SaveFile {
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
     public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
     public ArrayList<ScannerMessage> scannerMessages = new ArrayList<>();
-//    public String dateTime = LocalDateTime.now().toString();
-//    Date date = new Date();
 
 
     public static int dateDifference(Date d1, Date d2) {
-        //HH converts hour in 24 hours format (0-23), day calculation
-//        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
-//        Date d1 = null;
-//        Date d2 = null;
-
         try {
-
-//            d1 = format.parse(dateStart);
-//            d2 = format.parse(dateStop);
-
-            //in milliseconds
             long diff = d2.getTime() - d1.getTime();
-            if(diff<0) {
+            if (diff < 0) {
                 return -1;
             }
 
@@ -88,15 +75,15 @@ public class SaveFile {
 //            long diffDays = diff / (24 * 60 * 60 * 1000);
 
 //            System.out.print(diffDays + " days, ");
-            System.out.print(diffHours + " hours, ");
-            System.out.print(diffMinutes + " minutes, ");
-            System.out.print(diffSeconds + " seconds.");
+//            System.out.print(diffHours + " hours, ");
+//            System.out.print(diffMinutes + " minutes, ");
+//            System.out.print(diffSeconds + " seconds.");
 
             diffMinutes += diffHours * 60;
-            if(diffSeconds > 30) {
+            if (diffSeconds > 30) {
                 diffMinutes++;
             }
-            return (int)diffMinutes;
+            return (int) diffMinutes;
 
         } catch (Exception e) {
             e.printStackTrace();

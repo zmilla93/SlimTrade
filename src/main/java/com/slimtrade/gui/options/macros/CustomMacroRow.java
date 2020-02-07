@@ -2,10 +2,7 @@ package com.slimtrade.gui.options.macros;
 
 import java.awt.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.MacroButton;
@@ -17,6 +14,7 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ButtonRow;
+import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.enums.PreloadedImageCustom;
 import com.slimtrade.gui.panels.BufferPanel;
 
@@ -30,7 +28,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     private JTextField m2Text = new CustomTextField(30);
     private JComboBox<ImageIcon> iconCombo;
     private JComboBox<ButtonRow> rowCombo;
-    private IconButton removeButton = new IconButton("icons/close.png", 20);
+    private IconButton removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), 20);
 
 //	private boolean unsaved = true;
 //	private boolean delete;
@@ -52,6 +50,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         iconCombo.setFocusable(false);
 //        iconCombo.removeAll();
 //        iconCombo.setLayout(new BorderLayout());
+        iconCombo.setPreferredSize(iconCombo.getPreferredSize());
         iconCombo.setBorder(null);
 
         rowCombo = new CustomCombo<>();
@@ -61,12 +60,11 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
 
         this.add(new BufferPanel(10, 0), gc);
         gc.gridx++;
-        gc.gridheight = 2;
+//        gc.gridheight = 2;
         this.add(rowCombo, gc);
-
         gc.gridx++;
         this.add(iconCombo, gc);
-        gc.gridheight = 1;
+//        gc.gridheight = 1;
         gc.gridx++;
         this.add(new BufferPanel(10, 0), gc);
         gc.gridx++;
@@ -134,6 +132,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
 }

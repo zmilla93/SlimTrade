@@ -1,15 +1,7 @@
 package com.slimtrade.gui.stash;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.StashTab;
-import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -17,7 +9,10 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
-import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class StashTabPanel extends ContainerPanel implements ISaveable, IColorable {
 

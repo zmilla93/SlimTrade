@@ -227,7 +227,6 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 		case INCOMING_TRADE:
 			buttonCountTop = 2;
 			buttonCountBottom = 4;
-			int i = 0;
 			for(MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
                 PreloadedImageCustom img = macro.image;
                 IconButton button = new IconButton(img.getImage(), rowHeight);
@@ -242,20 +241,13 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 } else if (macro.row == ButtonRow.BOTTOM) {
                     buttonCountBottom++;
                     String lmb = macro.leftMouseResponse;
-                    String rmb = macro.leftMouseResponse;
+                    String rmb = macro.rightMouseResponse;
                     if (listeners) {
                         this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
                     }
                     customButtonsBottom.add(button);
                 }
             }
-//			while (App.saveManager.hasEntry("macros", "in", "custom", "button" + i)) {
-//
-//				i++;
-//			}
-
-			// saveToHistoryButton = new
-			// IconButton(PreloadedImage.DISK.getImage(), rowHeight);
 			refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
 			inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
 			tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
@@ -307,11 +299,39 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 		case OUTGOING_TRADE:
 			buttonCountTop = 2;
 			buttonCountBottom = 4;
+            for(MacroButton macro : App.saveManager.saveFile.outgoingMacroButtons) {
+                PreloadedImageCustom img = macro.image;
+                IconButton button = new IconButton(img.getImage(), rowHeight);
+                if (macro.row == ButtonRow.TOP) {
+                    buttonCountTop++;
+                    String lmb = macro.leftMouseResponse;
+                    String rmb = macro.rightMouseResponse;
+                    if (listeners) {
+                        this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
+                    }
+                    customButtonsTop.add(button);
+                } else if (macro.row == ButtonRow.BOTTOM) {
+                    buttonCountBottom++;
+                    String lmb = macro.leftMouseResponse;
+                    String rmb = macro.rightMouseResponse;
+                    if (listeners) {
+                        this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
+                    }
+                    customButtonsBottom.add(button);
+                }
+            }
 			refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
 			warpButton = new IconButton(PreloadedImage.WARP.getImage(), rowHeight);
 			thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
 			leaveButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
 			homeButton = new IconButton(PreloadedImage.HOME.getImage(), rowHeight);
+
+            for (IconButton b : customButtonsTop) {
+                buttonPanelTop.add(b);
+            }
+            for (IconButton b : customButtonsBottom) {
+                buttonPanelBottom.add(b);
+            }
 
 			buttonPanelTop.add(refreshButton);
 			buttonPanelBottom.add(warpButton);

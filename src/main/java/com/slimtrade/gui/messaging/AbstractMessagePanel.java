@@ -154,7 +154,6 @@ public class AbstractMessagePanel extends JPanel {
 	}
 
 	protected void registerPoeInteractionButton(Component c, ButtonType type) {
-
 		c.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade));

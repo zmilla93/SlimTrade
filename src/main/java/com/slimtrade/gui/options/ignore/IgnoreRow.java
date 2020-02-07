@@ -29,7 +29,6 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
     private final Timer timer;
     private JLabel timerLabel;
 
-    //TODO : Fix timer deleting stuff after 1m
     public IgnoreRow(IgnoreData ignoreData, AddRemovePanel parent) {
         super(parent);
         if (ignoreData.indefinite) {
@@ -40,6 +39,7 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
         this.ignoreData = ignoreData;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         IconButton removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), 20);
+        this.setRemoveButton(removeButton);
         JLabel itemLabel = new JLabel(ignoreData.getItemName());
         JPanel itemPanel = new JPanel(new GridBagLayout());
         itemPanel.setPreferredSize(new Dimension(ITEM_MAX_WIDTH, itemLabel.getPreferredSize().height));
@@ -53,7 +53,6 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
         itemPanel.setBackground(ColorManager.CLEAR);
         itemPanel.add(itemLabel);
 
-
         this.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.NONE;
@@ -62,7 +61,7 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
 
         gc.gridx++;
         gc.gridx++;
-        this.add(new BufferPanel(100, 0), gc);
+        this.add(new BufferPanel(160, 0), gc);
         gc.gridx++;
         this.add(new BufferPanel(60, 0), gc);
         gc.gridx = 0;
@@ -81,14 +80,6 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
         if (!ignoreData.indefinite) {
             timer.start();
         }
-
-
-        removeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                markForDeletion();
-            }
-        });
-        this.revalidate();
     }
 
     public IgnoreData getIgnoreData() {
@@ -107,17 +98,6 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
         } else {
             timerLabel.setText(time + "m");
         }
-    }
-
-    @Override
-    protected void dispose() {
-        System.out.println("LOCAL DISPOSE");
-        super.dispose();
-        timer.stop();
-        parent.remove(this);
-        parent.revalidate();
-        parent.repaint();
-
     }
 
 }

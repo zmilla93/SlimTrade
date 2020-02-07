@@ -3,6 +3,7 @@ package com.slimtrade.gui.components;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.FrameManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +15,9 @@ public class AddRemovePanel extends JPanel implements IColorable {
 	private int spacer = 5;
 
 	public AddRemovePanel() {
-//		this.setLayout(FrameManager.gridbag);
+		this.setLayout(FrameManager.gridbag);
 //		this.setLayout(new GridBagLayout());
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+//		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBackground(new Color(1, 1, 1, 0));
 		gc.gridx = 0;
 		gc.gridy = 0;
@@ -25,15 +26,37 @@ public class AddRemovePanel extends JPanel implements IColorable {
 	}
 
 	public void addPanel(JPanel panel) {
-	    int i = this.getComponentCount();
-        System.out.println("ComponentCount:" + i);
-//        gc.gridy = i;
-//        gc.insets.top = i == 0 ? 0 : spacer;
-		this.add(panel);
+	    gc.gridy = 0;
+        gc.insets.top = 0;
+	    for(Component c : this.getComponents()) {
+	        if(c.isVisible()) {
+	            this.add(c, gc);
+                gc.insets.top = spacer;
+                gc.gridy++;
+            }
+
+        }
+		this.add(panel, gc);
 		updateColor();
 		this.revalidate();
 		this.repaint();
 	}
+
+	public void refreshPanels() {
+	    gc.gridx = 0;
+	    gc.gridy = 0;
+	    gc.insets.top = 0;
+        int i = 0;
+        for(Component c : this.getComponents()) {
+            if(c.isVisible()) {
+                this.add(c, gc);
+                gc.insets.top = spacer;
+                gc.gridy++;
+                i++;
+            }
+        }
+        System.out.println("SIZE:" + i);
+    }
 
 	public void saveChanges() {
 		for (Component c : this.getComponents()) {
@@ -61,12 +84,13 @@ public class AddRemovePanel extends JPanel implements IColorable {
 					panel.setVisible(true);
 					panel.setToBeDeleted(false);
 				}
-
 			}
 		}
+		this.refreshPanels();
 		updateColor();
 		this.revalidate();
 		this.repaint();
+
 	}
 
     @Override
@@ -76,13 +100,14 @@ public class AddRemovePanel extends JPanel implements IColorable {
 //        } else {
 //            this.setBorder(null);
 //        }
-        this.setBorder(null);
-        for(Component c : this.getComponents()) {
-            if(c.isVisible()){
-                this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
-                break;
-            }
-        }
+//        this.setBorder(null);
+//        for(Component c : this.getComponents()) {
+//            if(c.isVisible()){
+//                this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+//                this.setBorder(BorderFactory.createLineBorder(Color.RED));
+//                break;
+//            }
+//        }
 
     }
 }

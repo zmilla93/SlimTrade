@@ -21,11 +21,6 @@ public class MacroEventManager implements PoeInteractionListener {
 		ButtonType type = e.getButtonType();
 
 		switch (type) {
-		case CALLBACK:
-			if(mouseButton == MouseEvent.BUTTON1){
-//				PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.getString("macros", "in", "preset", "callback", "left"));
-			}
-			break;
 		case HIDEOUT:
 			PoeInterface.paste("/hideout");
 			break;
@@ -50,9 +45,7 @@ public class MacroEventManager implements PoeInteractionListener {
 			break;
 		case REFRESH:
 			//FIX FRONT END IMPORT
-//			System.out.println("REFRESHING BUTTON : " + trade.msgType);
 			if (trade.messageType == MessageType.INCOMING_TRADE) {
-//				System.out.println("Still interested?");
 				PoeInterface.paste("@" + trade.playerName + " Hi, are you still interested in my "
 						+ TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, false) + " listed for "
 						+ TradeUtility.getFixedDouble(trade.priceCount, false) + " " + trade.priceTypeString + "?");
@@ -66,9 +59,18 @@ public class MacroEventManager implements PoeInteractionListener {
 			break;
 		case THANK:
             if(mouseButton == MouseEvent.BUTTON1){
-                PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankIncomingLMB);
+                if(trade.messageType == MessageType.INCOMING_TRADE) {
+                    PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankIncomingLMB);
+                } else if(trade.messageType == MessageType.OUTGOING_TRADE) {
+                    PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankOutgoingLMB);
+                }
             }else if(mouseButton == MouseEvent.BUTTON3){
-                PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankIncomingRMB);
+
+                if(trade.messageType == MessageType.INCOMING_TRADE) {
+                    PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankIncomingRMB);
+                } else if(trade.messageType == MessageType.OUTGOING_TRADE) {
+                    PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankOutgoingRMB);
+                }
             }
 			break;
 		case TRADE:
@@ -90,7 +92,6 @@ public class MacroEventManager implements PoeInteractionListener {
 			}else if(mouseButton==MouseEvent.BUTTON3 && !e.getClickRight().replaceAll("\\s", "").equals("")){
 				PoeInterface.paste("@"+e.getPlayerName() + " " + e.getClickRight());
 			}
-			
 			break;
 		default:
 			break;
