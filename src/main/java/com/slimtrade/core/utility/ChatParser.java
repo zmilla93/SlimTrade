@@ -140,20 +140,6 @@ public class ChatParser {
 						if (trade != null) {
 							FrameManager.messageManager.addMessage(trade);
 							FrameManager.historyWindow.addTrade(trade, true);
-							switch (trade.messageType) {
-							case CHAT_SCANNER:
-								break;
-							case INCOMING_TRADE:
-								AudioManager.play(App.saveManager.saveFile.incomingMessageSound);
-								break;
-							case OUTGOING_TRADE:
-								AudioManager.play(App.saveManager.saveFile.outgoingMessageSound);
-								break;
-							case UNKNOWN:
-								break;
-							default:
-								break;
-							}
 						}
 					} else if (chatScannerRunning) {
 						TradeOffer trade = getSearchOffer(curLine);

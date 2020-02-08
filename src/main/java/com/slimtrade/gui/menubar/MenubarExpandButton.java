@@ -53,7 +53,6 @@ public class MenubarExpandButton extends BasicDialog implements IColorable {
         int x = App.saveManager.overlaySaveFile.menubarX;
         int y = App.saveManager.overlaySaveFile.menubarY;
         MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.overlaySaveFile.menubarButtonLocation;
-
         int modX = 0;
         int modY = 0;
         switch (loc) {

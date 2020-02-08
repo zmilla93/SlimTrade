@@ -15,6 +15,7 @@ public enum PreloadedImage {
 	HOME("icons/home3.png"),
 	INVITE("icons/invite1.png"),
     LEAVE("icons/leave.png"),
+    PLAY("icons/play1.png"),
 	REFRESH("icons/refreshx64.png"),
 	REPLY("icons/replyx48.png"),
 	THUMB("icons/thumb.png"),

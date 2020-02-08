@@ -217,6 +217,15 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 				this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
 				this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
 				this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
+				if(App.saveManager.saveFile.closeOnKick) {
+				    kickButton.addMouseListener(new AdvancedMouseAdapter(){
+				        public void click(MouseEvent e){
+				            if(App.saveManager.saveFile.closeOnKick) {
+
+                            }
+                        }
+                    });
+                }
 			}
 
 			buttonPanelBottom.add(inviteButton);

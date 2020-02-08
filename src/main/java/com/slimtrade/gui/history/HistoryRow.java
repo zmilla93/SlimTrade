@@ -121,11 +121,7 @@ public class HistoryRow extends JPanel {
 		// refreshButton.setMaximumSize(new Dimension(rowHeight, rowHeight));
 		// this.setMaximumSize(2000,);
 
-		refreshButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FrameManager.messageManager.addMessage(trade);
-			}
-		});
+		refreshButton.addActionListener(e -> FrameManager.messageManager.addMessage(trade, false));
 		this.updateDate();
 		this.updateTime();
 		

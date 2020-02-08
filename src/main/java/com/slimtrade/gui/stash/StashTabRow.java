@@ -18,6 +18,7 @@ import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
+import com.slimtrade.gui.enums.PreloadedImage;
 
 public class StashTabRow extends RemovablePanel implements IColorable {
 
@@ -36,13 +37,12 @@ public class StashTabRow extends RemovablePanel implements IColorable {
     public StashTabRow(AddRemovePanel parent) {
         super(parent);
         this.setLayout(new GridBagLayout());
-//		this.setBackground(Color.YELLOW);
         this.setPreferredSize(new Dimension(400, ROW_HEIGHT));
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
 
-        removeButton = new IconButton("icons/close.png", ROW_HEIGHT);
+        removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), ROW_HEIGHT);
         App.eventManager.addColorListener(removeButton);
         this.setRemoveButton(removeButton);
 

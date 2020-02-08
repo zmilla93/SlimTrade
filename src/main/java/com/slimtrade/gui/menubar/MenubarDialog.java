@@ -20,8 +20,8 @@ import java.util.ResourceBundle;
 public class MenubarDialog extends BasicDialog {
 
     private static final long serialVersionUID = 1L;
-    private boolean test = true;
-    private static int buttonCount = 5;
+    private boolean test = false;
+    private static int buttonCount = 4;
     private static int spacerCount = 1;
     private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.3);
 
@@ -71,7 +71,7 @@ public class MenubarDialog extends BasicDialog {
         gc.gridy = 0;
         gc.gridwidth = 1;
         gc.gridheight = 1;
-        gc.insets = new Insets(20, 20, 0,2);
+        gc.insets = new Insets(20, 20, 0, 2);
 
         container.add(historyButton, gc);
         gc.gridy++;
@@ -87,7 +87,7 @@ public class MenubarDialog extends BasicDialog {
         gc.gridy++;
         container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
         gc.gridy++;
-        gc.insets = new Insets(2, 2, 2,2);
+        gc.insets = new Insets(2, 2, 2, 2);
         container.add(quitButton);
 //		container.add(new BasicPanel(MenubarButton.WIDTH, spacerHeight));
 //		container.add(minimizeButton);
@@ -125,19 +125,9 @@ public class MenubarDialog extends BasicDialog {
                 TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
                 TradeOffer t2 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
                 TradeOffer t3 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "SmashyMcFireBalls", "Search Name", "example text", null, null);
-                TradeOffer t4 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-                TradeOffer t5 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Superior Item Name", 3, "chaos", 7, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-                TradeOffer t6 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3, "chaos", 7, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-                TradeOffer t7 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "Item Name", 3.5, "chaos", 3.5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-                FrameManager.messageManager.addMessage(t);
-                FrameManager.messageManager.addMessage(t2);
-                FrameManager.messageManager.addMessage(t3);
-
-
-//				for(DesktopWindow w : WindowUtils.getAllWindows(true)){
-//					System.out.println(w.getTitle() + " ::: " + w.getLocAndSize());
-//				}
-
+                FrameManager.messageManager.addMessage(t, false);
+                FrameManager.messageManager.addMessage(t2, false);
+                FrameManager.messageManager.addMessage(t3, false);
             }
         });
 
@@ -182,12 +172,42 @@ public class MenubarDialog extends BasicDialog {
         ResourceBundle lang = ResourceBundle.getBundle("lang");
         optionsButton.setText(lang.getString("optionsButton"));
         historyButton.setText(lang.getString("historyButton"));
-        testButton.setText(lang.getString("testButton"));
+//        testButton.setText(lang.getString("testButton"));
+        testButton.setText("TEST TEST TEST TEST TEST TEST");
         quitButton.setText(lang.getString("quitButton"));
     }
 
     public void updateLocation() {
-        this.setLocation(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
+        System.out.println("UPDATE MENUBAR");
+//        this.(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
+        this.setBounds(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY, this.getWidth(), this.getHeight());
+    }
+
+    public void init() {
+//        System.out.println("INIT X:" + this.getX());
+        System.out.println("INIT X:" + App.saveManager.overlaySaveFile.menubarX);
+        boolean hasChanges = false;
+        int diff;
+        if (this.getWidth() != App.saveManager.overlaySaveFile.menubarWidth) {
+            System.out.println("DIFF WIDTH");
+            if (App.saveManager.overlaySaveFile.menubarButtonLocation == MenubarButtonLocation.NE || App.saveManager.overlaySaveFile.menubarButtonLocation == MenubarButtonLocation.SE) {
+                App.saveManager.overlaySaveFile.menubarX += App.saveManager.overlaySaveFile.menubarWidth - this.getWidth();
+            }
+            App.saveManager.overlaySaveFile.menubarWidth = this.getWidth();
+            hasChanges = true;
+        }
+        if (this.getHeight() != App.saveManager.overlaySaveFile.menubarHeight) {
+            if (App.saveManager.overlaySaveFile.menubarButtonLocation == MenubarButtonLocation.SE || App.saveManager.overlaySaveFile.menubarButtonLocation == MenubarButtonLocation.SW) {
+                App.saveManager.overlaySaveFile.menubarY += App.saveManager.overlaySaveFile.menubarHeight - this.getHeight();
+            }
+            App.saveManager.overlaySaveFile.menubarHeight = this.getHeight();
+            hasChanges = true;
+        }
+        if (hasChanges) {
+            App.saveManager.saveOverlayToDisk();
+        }
+        System.out.println("INIT X:" + App.saveManager.overlaySaveFile.menubarX);
+        this.updateLocation();
     }
 
     public void reorder() {
@@ -208,7 +228,7 @@ public class MenubarDialog extends BasicDialog {
                 for (Component c : componentList) {
                     container.add(c, gc);
                     gc.gridy++;
-                    if(gc.gridy < componentCount-1) {
+                    if (gc.gridy < componentCount - 1) {
                         gc.insets.bottom = 0;
                         gc.insets.top = buffer;
                     } else {
@@ -222,7 +242,7 @@ public class MenubarDialog extends BasicDialog {
                 for (Component c : componentList) {
                     container.add(c, gc);
                     gc.gridy++;
-                    if(gc.gridy < componentCount-1) {
+                    if (gc.gridy < componentCount - 1) {
                         gc.insets.bottom = 0;
                         gc.insets.top = buffer;
                     } else {

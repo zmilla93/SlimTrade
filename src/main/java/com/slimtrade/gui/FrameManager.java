@@ -23,9 +23,6 @@ public class FrameManager {
 
     public static int gapSmall = 4;
     public static int gapLarge = 14;
-
-
-
     public static GridBagLayout gridbag;
 
     public static OptionsWindow optionsWindow;
@@ -35,17 +32,15 @@ public class FrameManager {
     public static MessageDialogManager messageManager;
     public static StashHelperContainer stashHelperContainer;
     public static StashWindow stashOverlayWindow;
-    // public static REMOVE_CharacterWindow characterWindow;
     public static OverlayManager overlayManager;
-    // public static REMOVE_StashTabWindow stashTabWindow;
     public static ChatScannerWindow chatScannerWindow;
+    private static TrayButton tray;
 
     //Ignore Items
     public static IgnoreItemWindow ignoreItemWindow;
     public static ItemIgnorePanel itemIgnorePanel;
     public static AddRemovePanel ignoreItemAddRemovePanel;
-    
-    private static HideableDialog[] menuFrames;
+
     private static HideableDialog[] menuHideFrames;
     private static HideableDialog[] forceFrames;
     private static HideableDialog[] showHideDialogs;
@@ -55,55 +50,35 @@ public class FrameManager {
     public FrameManager() {
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
-//		SetupWindow setupWindow = new SetupWindow();
-//		setupWindow.setVisible(true);
         FrameManager.gridbag = new GridBagLayout();
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();
-        menubar = new MenubarDialog();
+
         menubarToggle = new MenubarExpandButton();
         messageManager = new MessageDialogManager();
-        overlayManager = new OverlayManager();
+
         chatScannerWindow = new ChatScannerWindow();
         ignoreItemWindow = new IgnoreItemWindow();
-        // TODO : temp
-//        stashHelperContainer.updateBounds();
         stashOverlayWindow = new StashWindow();
-        // TODO : ????
-        stashOverlayWindow.load();
+        menubar = new MenubarDialog();
+        overlayManager = new OverlayManager();
 
         stashHelperContainer.setShow(true);
-        menubar.updateLocation();
+        menubar.init();
         menubarToggle.updateLocation();
         menubar.reorder();
-        // menubar.showDialog();
-
-        // TODO : Cleanup
-
-        // TODO : TEMP
-//        manager = new OverlayManager();
-//        manager.showAll();
-//        LagTestDialog test = new LagTestDialog();
-//        test.setVisible(true);
 
         //TODO : ADD NEW MESSAGE MANAGER
-//        showHideDialogs = new HideableDialog[]{stashHelperContainer, optionsWindow, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
         showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
 
         //TODO : ADD NEW MESSAGE MANAGER
         forceFrames = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, ignoreItemWindow};
-
-//		menuFrames = new HideableDialog[] { optionsWindow, historyWindow, chatScannerWindow };
-        menuFrames = new HideableDialog[]{historyWindow};
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow};
-
-//		messageManager.setShow(true);
-        // optionsWindow.setShow(true);
         menubar.setShow(true);
 
-        TrayButton tray = new TrayButton();
+        tray = new TrayButton();
     }
 
     public static void hideMenuFrames() {
@@ -153,14 +128,12 @@ public class FrameManager {
         window.setLocation((TradeUtility.screenSize.width / 2) - (window.getWidth() / 2), (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2));
     }
 
-    // TODO : This throws jnativehook nullPointerException during launch if
-    // mouse is clicked
     public static void forceAllToTop() {
         for (HideableDialog h : MessageDialogManager.getDialogList()) {
             if (h.isVisible()) {
                 h.setAlwaysOnTop(false);
-                h.setAlwaysOnTop(true);
-            }
+            h.setAlwaysOnTop(true);
+        }
         }
         if(FrameManager.windowState == WindowState.NORMAL){
             for (HideableDialog h : forceFrames) {
@@ -170,13 +143,6 @@ public class FrameManager {
                 }
             }
         }
-
-
-        // menubarToggle.forceToTop();
-        // menubar.forceToTop();
-        // messageManager.forceToTop();
-        // stashHelperContainer.forceToTop();
-        // PoeInterface.focus();
     }
 
     public static void showOptionsWindow() {
@@ -184,14 +150,5 @@ public class FrameManager {
         optionsWindow.setAlwaysOnTop(true);
         optionsWindow.setAlwaysOnTop(false);
     }
-
-//	public static void linkToggle(JButton b, Component c2) {
-//		b.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				boolean vis = !c2.isVisible();
-//				c2.setVisible(vis);
-//			}
-//		});
-//	}
 
 }

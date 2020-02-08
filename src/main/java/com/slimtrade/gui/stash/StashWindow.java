@@ -111,6 +111,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
             FrameManager.showOptionsWindow();
         });
 
+        this.load();
         App.eventManager.addColorListener(this);
         this.updateColor();
 

@@ -21,6 +21,7 @@ import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.basic.CustomSliderUI;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.enums.PreloadedImage;
 
 public class AudioRow extends JPanel implements IColorable {
 
@@ -38,7 +39,7 @@ public class AudioRow extends JPanel implements IColorable {
 	public AudioRow(String title) {
         slider.setUI(new CustomSliderUI(slider));
 		// Sample Button
-		IconButton sampleButton = new IconButton("icons/play1.png", BUTTON_SIZE);
+		IconButton sampleButton = new IconButton(PreloadedImage.PLAY.getImage(), BUTTON_SIZE);
 
 		// Label
 		JPanel labelPanel = new JPanel(new GridBagLayout());
@@ -76,24 +77,11 @@ public class AudioRow extends JPanel implements IColorable {
 		gc.gridx++;
 		this.add(soundCombo, gc);
 
-		slider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				// System.out.println(slider.getValue());
-				//
-				// System.out.println(f-70);
-				// System.out.println(getVolume());
-				// float vol = TradeUtility.getAudioVolume(slider.getValue());
-				// System.out.println(TradeUtility.getAudioPercent(vol));
-			}
-		});
-
-		sampleButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Sound sound = (Sound) soundCombo.getSelectedItem();
-				float volume = TradeUtility.getAudioVolume(slider.getValue());
-				AudioManager.playRaw(sound, volume);
-			}
-		});
+		sampleButton.addActionListener(e -> {
+            Sound sound = (Sound) soundCombo.getSelectedItem();
+            float volume = TradeUtility.getAudioVolume(slider.getValue());
+            AudioManager.playRaw(sound, volume);
+        });
 		
 		this.updateColor();
 		App.eventManager.addColorListener(this);
@@ -106,15 +94,10 @@ public class AudioRow extends JPanel implements IColorable {
 
 	public void setValue(Sound sound, int volume) {
 		soundCombo.setSelectedItem(sound);
-		// System.out.println(volume);
 		slider.setValue(volume);
 	}
 
 	public int getVolume() {
-		// int range=40;
-		// float f = (float)
-		// ((AudioManager.RANGE/100.0)*(float)(slider.getValue()));
-		// return f-AudioManager.RANGE+AudioManager.MAX_VOLUME;
 		return slider.getValue();
 	}
 

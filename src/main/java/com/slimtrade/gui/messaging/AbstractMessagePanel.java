@@ -120,7 +120,7 @@ public class AbstractMessagePanel extends JPanel {
 
 	public void setCloseButton(int size, boolean... forceNew) {
 		if (forceNew.length > 0 && forceNew[0]) {
-			this.closeButton = new IconButton("icons/close.png", size);
+			this.closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), size);
 		} else {
 			this.closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), size);
 		}

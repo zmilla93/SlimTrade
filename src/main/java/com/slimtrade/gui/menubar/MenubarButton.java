@@ -7,7 +7,7 @@ import com.slimtrade.gui.options.ListButton;
 public class MenubarButton extends ListButton {
 	
 	private static final long serialVersionUID = 1L;
-	public static int WIDTH = 140;
+	public static int WIDTH = 200;
 	public static int HEIGHT= 22;
 	
 	public MenubarButton(){

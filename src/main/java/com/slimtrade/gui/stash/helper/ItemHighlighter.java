@@ -54,8 +54,4 @@ public class ItemHighlighter extends BasicDialog{
 		this.setBounds((int)(gridX+((stashX-1)*cellWidth)), (int)(gridY+((stashY-1)*cellHeight)), (int)cellWidth, (int)cellHeight);
 	}
 	
-	public void destroy(){
-		this.dispose();
-	}
-	
 }
