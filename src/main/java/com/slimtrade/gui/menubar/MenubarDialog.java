@@ -187,12 +187,13 @@ public class MenubarDialog extends BasicDialog {
     }
 
     public void updateLocation() {
-        this.setLocation(App.saveManager.saveFile.menubarX, App.saveManager.saveFile.menubarY);
+        this.setLocation(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
     }
 
     public void reorder() {
+        System.out.println("REORDER : " + App.saveManager.overlaySaveFile.menubarButtonLocation);
         int buffer = 2;
-        MenubarButtonLocation loc = App.saveManager.saveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.saveFile.menubarButtonLocation;
+        MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.overlaySaveFile.menubarButtonLocation;
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
@@ -231,11 +232,8 @@ public class MenubarDialog extends BasicDialog {
                 }
                 break;
         }
-        Dimension size = this.getPreferredSize();
-//		Dimension size = new Dimension(this.getPreferredSize().windowWidth - 40, this.getPreferredSize().windowHeight - 25);
-//		this.setSize(this.getPreferredSize().windowWidth-5, this.getPreferredSize().windowHeight-5);
-//        FrameManager.menubar.setSize(size);
-        this.setPreferredSize(size);
+        this.setPreferredSize(null);
+        this.setPreferredSize(this.getPreferredSize());
         this.revalidate();
         this.repaint();
     }

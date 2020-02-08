@@ -2,7 +2,6 @@ package com.slimtrade.gui;
 
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
-import com.slimtrade.gui.basic.LagTestDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
 import com.slimtrade.gui.enums.WindowState;
@@ -16,7 +15,6 @@ import com.slimtrade.gui.overlay.OverlayManager;
 import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
-import com.slimtrade.gui.windows.OverlayManagerOLD;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,8 +28,6 @@ public class FrameManager {
 
     public static GridBagLayout gridbag;
 
-    public static OverlayManager manager;
-
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
     public static MenubarDialog menubar;
@@ -40,7 +36,7 @@ public class FrameManager {
     public static StashHelperContainer stashHelperContainer;
     public static StashWindow stashOverlayWindow;
     // public static REMOVE_CharacterWindow characterWindow;
-    public static OverlayManagerOLD overlayManager;
+    public static OverlayManager overlayManager;
     // public static REMOVE_StashTabWindow stashTabWindow;
     public static ChatScannerWindow chatScannerWindow;
 
@@ -70,7 +66,7 @@ public class FrameManager {
         menubar = new MenubarDialog();
         menubarToggle = new MenubarExpandButton();
         messageManager = new MessageDialogManager();
-        overlayManager = new OverlayManagerOLD();
+        overlayManager = new OverlayManager();
         chatScannerWindow = new ChatScannerWindow();
         ignoreItemWindow = new IgnoreItemWindow();
         // TODO : temp
@@ -88,8 +84,8 @@ public class FrameManager {
         // TODO : Cleanup
 
         // TODO : TEMP
-        manager = new OverlayManager();
-        manager.showAll();
+//        manager = new OverlayManager();
+//        manager.showAll();
 //        LagTestDialog test = new LagTestDialog();
 //        test.setVisible(true);
 
@@ -127,7 +123,7 @@ public class FrameManager {
         for (HideableDialog d : MessageDialogManager.getDialogList()) {
             d.setVisible(false);
         }
-        FrameManager.overlayManager.hideDialog();
+        FrameManager.overlayManager.hideAll();
     }
 
     public static void showVisibleFrames() {
@@ -136,7 +132,7 @@ public class FrameManager {
             case STASH_OVERLAY:
                 break;
             case LAYOUT_MANAGER:
-                overlayManager.forceToFront();
+                overlayManager.allToFront();
                 break;
             case NORMAL:
 //                System.out.println("VIS1");

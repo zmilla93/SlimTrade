@@ -42,9 +42,9 @@ public class MenubarExpandButton extends BasicDialog{
 	}
 	
 	public void updateLocation(){
-		int x = App.saveManager.saveFile.menubarX;
-		int y = App.saveManager.saveFile.menubarY;
-		MenubarButtonLocation loc = App.saveManager.saveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.saveFile.menubarButtonLocation;
+		int x = App.saveManager.overlaySaveFile.menubarX;
+		int y = App.saveManager.overlaySaveFile.menubarY;
+		MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.overlaySaveFile.menubarButtonLocation;
 		
 		int modX = 0;
 		int modY = 0;

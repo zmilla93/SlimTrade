@@ -20,12 +20,12 @@ public class SaveFile {
     public String versionNumber = References.APP_VERSION;
 
     // Overlay
-    public int menubarX = 0;
-    public int menubarY = 0;
-    public int messageManagerX = 500;
-    public int messageManagerY = 0;
-    public ExpandDirection messageExpandDirection = ExpandDirection.DOWN;
-    public MenubarButtonLocation menubarButtonLocation = MenubarButtonLocation.NW;
+//    public int menubarX = 0;
+//    public int menubarY = 0;
+//    public int messageManagerX = 500;
+//    public int messageManagerY = 0;
+//    public ExpandDirection messageExpandDirection = ExpandDirection.DOWN;
+//    public MenubarButtonLocation menubarButtonLocation = MenubarButtonLocation.NW;
 
     // Basics
     public String characterName = "";

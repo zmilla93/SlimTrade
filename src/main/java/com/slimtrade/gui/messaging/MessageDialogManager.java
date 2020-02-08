@@ -24,9 +24,9 @@ public class MessageDialogManager {
 	private static final ArrayList<PanelWrapper> wrapperList = new ArrayList<PanelWrapper>();
 	
 	public MessageDialogManager(){
-		expandDirection = App.saveManager.saveFile.messageExpandDirection;
-		int x = App.saveManager.saveFile.messageManagerX;
-		int y = App.saveManager.saveFile.messageManagerY;
+		expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
+		int x = App.saveManager.overlaySaveFile.messageX;
+		int y = App.saveManager.overlaySaveFile.messageY;
 		anchorPoint = new Point(x, y);
 	}
 	

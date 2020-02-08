@@ -63,9 +63,9 @@ public class BasicMovableDialog extends BasicDialog {
 		int targetX = x;
 		int targetY = y;
 		if(targetX<0) targetX = 0;
-		if(targetX> TradeUtility.screenSize.width-mover.getWidth()) targetX = TradeUtility.screenSize.width-mover.getWidth()-borderOffset*2;
+		if(targetX> TradeUtility.screenSize.width-getWidth()) targetX = TradeUtility.screenSize.width-getWidth()-borderOffset*2;
 		if(targetY<0) targetY = 0;
-		if(targetY>TradeUtility.screenSize.height-mover.getHeight()) targetY = TradeUtility.screenSize.height-mover.getHeight()-borderOffset*2;
+		if(targetY>TradeUtility.screenSize.height-getHeight()) targetY = TradeUtility.screenSize.height-getHeight()-borderOffset*2;
 		moveWindow(new Point(targetX, targetY));
 	}
 	
@@ -96,6 +96,7 @@ public class BasicMovableDialog extends BasicDialog {
 	}
 	
 	private void runWindowMover(){
+//	    BasicMovableDialog local = this;
 		new Thread(){
 			public void run(){
 				while(mouseDown){
@@ -103,9 +104,9 @@ public class BasicMovableDialog extends BasicDialog {
 					int targetY = MouseInfo.getPointerInfo().getLocation().y-offsetY-borderOffset;
 					if(screenLock){
 						if(targetX<0) targetX = 0;
-						if(targetX>TradeUtility.screenSize.width-mover.getWidth()-borderOffset*2) targetX = TradeUtility.screenSize.width-mover.getWidth()-borderOffset*2;
+						if(targetX>TradeUtility.screenSize.width-getWidth()-borderOffset*2) targetX = TradeUtility.screenSize.width-getWidth()-borderOffset*2;
 						if(targetY<0) targetY = 0;
-						if(targetY>TradeUtility.screenSize.height-mover.getHeight()-borderOffset*2) targetY = TradeUtility.screenSize.height-mover.getHeight()-borderOffset*2;
+						if(targetY>TradeUtility.screenSize.height-getHeight()-borderOffset*2) targetY = TradeUtility.screenSize.height-getHeight()-borderOffset*2;
 					}
 					moveWindow(new Point(targetX, targetY));
 				}

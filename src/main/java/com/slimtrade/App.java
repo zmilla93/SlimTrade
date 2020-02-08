@@ -94,6 +94,7 @@ public class App {
 				saveManager = new SaveManager();
 				saveManager.loadFromDisk();
 				saveManager.loadStashFromDisk();
+				saveManager.loadOverlayFromDisk();
 
 
 

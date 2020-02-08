@@ -70,8 +70,8 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                 FrameManager.forceAllToTop();
 //                System.out.println("P3");
             } else if (FrameManager.windowState == WindowState.LAYOUT_MANAGER) {
-                FrameManager.overlayManager.showDialog();
-                FrameManager.overlayManager.forceToFront();
+                FrameManager.overlayManager.showAll();
+                FrameManager.overlayManager.allToFront();
             } else if (FrameManager.windowState == WindowState.STASH_OVERLAY) {
                 FrameManager.stashOverlayWindow.setVisible(true);
                 FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
@@ -82,7 +82,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
             FrameManager.optionsWindow.setAlwaysOnTop(true);
         } else {
             FrameManager.hideAllFrames();
-            FrameManager.overlayManager.hideDialog();
+            FrameManager.overlayManager.hideAll();
 //            FrameManager.stashOverlayWindow.setVisible(false);
 //            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
         }

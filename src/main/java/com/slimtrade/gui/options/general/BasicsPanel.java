@@ -165,7 +165,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
             public void actionPerformed(ActionEvent e) {
                 FrameManager.windowState = WindowState.LAYOUT_MANAGER;
                 FrameManager.hideAllFrames();
-                FrameManager.overlayManager.showDialog();
+                FrameManager.overlayManager.showAll();
             }
         });
 

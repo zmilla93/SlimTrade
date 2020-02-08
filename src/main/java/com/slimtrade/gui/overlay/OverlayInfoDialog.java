@@ -3,10 +3,11 @@ package com.slimtrade.gui.overlay;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.buttons.ConfirmButton;
+import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.enums.ExpandDirection;
 
 import javax.swing.*;
@@ -16,10 +17,14 @@ public class OverlayInfoDialog extends BasicDialog {
 
     //Labels
     private JLabel title = new JLabel("Overlay Manager");
-    private JLabel info1 = new JLabel("Left click to drag panels.");
-    private JLabel info2 = new JLabel("Right click to prevent panels from going off screen.");
+    private JLabel info1 = new JLabel("Left click to move panels.");
+    private JLabel info2 = new JLabel("Right click to toggle panels going off screen.");
     private JLabel menubarLabel = new JLabel("Menubar Button");
     private JLabel messageLabel = new JLabel("Message Expand Direction");
+
+    public JButton defaultsButton = new BasicButton("Restore Defaults");
+    public JButton cancelButton = new DenyButton("Cancel");
+    public JButton saveButton = new ConfirmButton("Apply");
 
     public JComboBox<MenubarButtonLocation> menubarCombo = new CustomCombo<>();
     public JComboBox<ExpandDirection> messageCombo = new CustomCombo<>();
@@ -45,23 +50,36 @@ public class OverlayInfoDialog extends BasicDialog {
         this.add(info2, gc);
         gc.insets.bottom = 0;
         gc.gridy++;
+
         // Combo Menubar Button
-        gc.gridx = 1;
-        gc.gridwidth = 1;
+        gc.gridx = 0;
+        gc.gridwidth = 2;
         gc.insets.bottom = 5;
         gc.fill = GridBagConstraints.BOTH;
         this.add(menubarLabel, gc);
         gc.gridx = 2;
+        gc.gridwidth = 1;
         this.add(menubarCombo, gc);
         gc.insets.bottom = 0;
         gc.gridy++;
         // Combo Message Expand
-        gc.gridx = 1;
+        gc.gridx = 0;
+        gc.gridwidth = 2;
         gc.insets.bottom = 20;
         this.add(messageLabel, gc);
         gc.gridx = 2;
+        gc.gridwidth = 1;
         this.add(messageCombo, gc);
         gc.gridy++;
+
+        // Revert/Save buttons
+        gc.gridx = 0;
+        // Defaults button
+        this.add(cancelButton, gc);
+        gc.gridx = 1;
+        this.add(defaultsButton, gc);
+        gc.gridx = 2;
+        this.add(saveButton, gc);
 
         int i = 4;
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(i, i, i, i, ColorManager.PRIMARY));
