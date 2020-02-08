@@ -74,7 +74,7 @@ public class TradeUtility {
 		if (input == null) {
 			return null;
 		}
-		System.out.println("INPUT : " + input);
+//		System.out.println("INPUT : " + input);
 		String cleanString = input.replaceAll("(?i)superior( )?", "").replaceAll("( )?\\(.+\\)", "");
 		return cleanString;
 	}

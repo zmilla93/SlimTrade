@@ -110,10 +110,10 @@ public class PoeInterface extends Robot {
 		robot.keyPress(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_CONTROL);
+		FrameManager.forceAllToTop();
 	}
 
 	public static void focus() {
-		System.out.println("Focusing POE...");
 		User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
 			char[] className = new char[512];
 			User32.INSTANCE.GetClassName(hWnd, className, 512);

@@ -46,25 +46,15 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
             ImageIcon icon = new ImageIcon(i.getImage());
             iconCombo.addItem(icon);
         }
-
-        iconCombo.setFocusable(false);
-//        iconCombo.removeAll();
-//        iconCombo.setLayout(new BorderLayout());
-        iconCombo.setPreferredSize(iconCombo.getPreferredSize());
-        iconCombo.setBorder(null);
-
         rowCombo = new CustomCombo<>();
         for (ButtonRow row : ButtonRow.values()) {
             rowCombo.addItem(row);
         }
-
         this.add(new BufferPanel(10, 0), gc);
         gc.gridx++;
-//        gc.gridheight = 2;
         this.add(rowCombo, gc);
         gc.gridx++;
         this.add(iconCombo, gc);
-//        gc.gridheight = 1;
         gc.gridx++;
         this.add(new BufferPanel(10, 0), gc);
         gc.gridx++;
@@ -74,16 +64,13 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         gc.gridx++;
         this.add(m1Text, gc);
         gc.gridx++;
-        gc.gridheight = 2;
-
-        gc.gridheight = 1;
-        gc.gridx++;
         this.add(new BufferPanel(10, 0), gc);
         this.add(removeButton, gc);
 
+        //Second Row
+        gc.insets.bottom = 2;
         gc.gridx = 1;
         gc.gridy = 1;
-        // this.add(rowCombo, gc);
         gc.gridx += 3;
         this.add(m2Label, gc);
         gc.gridx += 2;

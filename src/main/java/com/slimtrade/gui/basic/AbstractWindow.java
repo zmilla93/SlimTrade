@@ -110,5 +110,4 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 	    this.setTitle(title);
 	    titleLabel.setText(title);
     }
-
 }

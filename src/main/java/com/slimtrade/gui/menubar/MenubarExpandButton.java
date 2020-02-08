@@ -1,74 +1,87 @@
 package com.slimtrade.gui.menubar;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.enums.PreloadedImage;
 
-public class MenubarExpandButton extends BasicDialog{
+import javax.swing.*;
 
-	private static final long serialVersionUID = 1L;
-	private int size = MenubarButton.HEIGHT;
-//	private boolean visible;
-	
-	public MenubarExpandButton(){
-		this.setBounds(0, TradeUtility.screenSize.height-size, size, size);
-		this.getContentPane().setBackground(Color.RED);
-		IconButton showMenubarButton = new IconButton("icons/menu1.png", size);
-//		IconButton
-		showMenubarButton.setBackground(Color.GREEN);
-		this.add(showMenubarButton);
-		
-		showMenubarButton.addMouseListener(new AdvancedMouseAdapter() {
-		    public void click(MouseEvent e) {
-		    	FrameManager.menubar.setShow(true);
-		    	FrameManager.menubarToggle.setShow(false);
-		    }
-		});
-		
-		showMenubarButton.addMouseListener(new MouseAdapter(){
-			public void mouseEntered(MouseEvent e){
-				FrameManager.menubar.setShow(true);
-		    	FrameManager.menubarToggle.setShow(false);
-			}
-		});
-	}
-	
-	public void updateLocation(){
-		int x = App.saveManager.overlaySaveFile.menubarX;
-		int y = App.saveManager.overlaySaveFile.menubarY;
-		MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.overlaySaveFile.menubarButtonLocation;
-		
-		int modX = 0;
-		int modY = 0;
-		switch(loc){
-		case NW:
-			modX = MenubarButtonLocation.NW.getModX();
-			modY = MenubarButtonLocation.NW.getModY();
-			break;
-		case NE:
-			modX = MenubarButtonLocation.NE.getModX();
-			modY = MenubarButtonLocation.NE.getModY();
-			break;
-		case SW:
-			modX = MenubarButtonLocation.SW.getModX();
-			modY = MenubarButtonLocation.SW.getModY();
-			break;
-		case SE:
-			modX = MenubarButtonLocation.SE.getModX();
-			modY = MenubarButtonLocation.SE.getModY();
-			break;
-		}
-		this.setLocation(x+modX, y+modY);
-		this.revalidate();
-		this.repaint();
-	}
-	
+public class MenubarExpandButton extends BasicDialog implements IColorable {
+
+    private static final long serialVersionUID = 1L;
+    private int size = MenubarButton.HEIGHT;
+    private IconButton expandButton;
+
+    public MenubarExpandButton() {
+        this.setBounds(0, TradeUtility.screenSize.height - size, size, size);
+//        this.getContentPane().setBackground(Color.RED);
+        expandButton = new IconButton(PreloadedImage.TAG.getImage(), size);
+
+        this.add(expandButton);
+
+
+        expandButton.addMouseListener(new AdvancedMouseAdapter() {
+            public void click(MouseEvent e) {
+                FrameManager.menubar.setShow(true);
+                FrameManager.menubarToggle.setShow(false);
+            }
+        });
+
+        expandButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                FrameManager.menubar.setShow(true);
+                FrameManager.menubarToggle.setShow(false);
+            }
+        });
+
+        App.eventManager.addColorListener(this);
+        this.updateColor();
+    }
+
+    public void updateLocation() {
+        int x = App.saveManager.overlaySaveFile.menubarX;
+        int y = App.saveManager.overlaySaveFile.menubarY;
+        MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.overlaySaveFile.menubarButtonLocation;
+
+        int modX = 0;
+        int modY = 0;
+        switch (loc) {
+            case NW:
+                modX = MenubarButtonLocation.NW.getModX();
+                modY = MenubarButtonLocation.NW.getModY();
+                break;
+            case NE:
+                modX = MenubarButtonLocation.NE.getModX();
+                modY = MenubarButtonLocation.NE.getModY();
+                break;
+            case SW:
+                modX = MenubarButtonLocation.SW.getModX();
+                modY = MenubarButtonLocation.SW.getModY();
+                break;
+            case SE:
+                modX = MenubarButtonLocation.SE.getModX();
+                modY = MenubarButtonLocation.SE.getModY();
+                break;
+        }
+        this.setLocation(x + modX, y + modY);
+        this.revalidate();
+        this.repaint();
+    }
+
+    @Override
+    public void updateColor() {
+        super.updateColor();
+//        this.getRootPane().setBorder(BorderFactory.createLineBorder(ColorManager.TEXT, 2));
+    }
 }

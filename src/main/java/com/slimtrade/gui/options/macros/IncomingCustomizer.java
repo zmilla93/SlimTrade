@@ -32,10 +32,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 	private MessagePanel exampleTradeIn;
 
 	private AbstractWindow parent;
-
-	// private JTextField callbackLeft;
-	// private JTextField waitLeft;
-	// private JTextField waitRight;
+	
 	private JTextField thankLeft;
 	private JTextField thankRight;
 

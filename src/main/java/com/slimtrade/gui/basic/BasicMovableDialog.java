@@ -20,10 +20,8 @@ public class BasicMovableDialog extends BasicDialog {
 	protected boolean mouseDown = false;
 	private int borderOffset = 0;
 	
-	private JPanel mover;
-	
 	public BasicMovableDialog(){
-//		createListeners((JPanel)this.getContentPane());
+
 	}
 	
 	public BasicMovableDialog(boolean createListeners){
@@ -33,7 +31,6 @@ public class BasicMovableDialog extends BasicDialog {
 	}
 	
 	public void createListeners(JPanel p){
-		mover = p;
 		p.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent e) {
 		    	if(e.getButton() == MouseEvent.BUTTON1){
@@ -44,7 +41,6 @@ public class BasicMovableDialog extends BasicDialog {
 		    	}
 		    }
 		});
-		
 		p.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1){
@@ -75,20 +71,9 @@ public class BasicMovableDialog extends BasicDialog {
 		    forceOntoScreen();
         }
 	}
-	
-	public void toggleScreenLock(){
-		screenLock = !screenLock;
-		if(screenLock){
-			forceOntoScreen(this.getX(), this.getY());
-		}
-	}
-	
+
 	public void setBorderOffset(int borderOffset){
 		this.borderOffset = borderOffset;
-	}
-	
-	public boolean getScreenLock(){
-		return screenLock;
 	}
 	
 	private void moveWindow(Point p){
@@ -96,22 +81,19 @@ public class BasicMovableDialog extends BasicDialog {
 	}
 	
 	private void runWindowMover(){
-//	    BasicMovableDialog local = this;
-		new Thread(){
-			public void run(){
-				while(mouseDown){
-					int targetX = MouseInfo.getPointerInfo().getLocation().x-offsetX-borderOffset;
-					int targetY = MouseInfo.getPointerInfo().getLocation().y-offsetY-borderOffset;
-					if(screenLock){
-						if(targetX<0) targetX = 0;
-						if(targetX>TradeUtility.screenSize.width-getWidth()-borderOffset*2) targetX = TradeUtility.screenSize.width-getWidth()-borderOffset*2;
-						if(targetY<0) targetY = 0;
-						if(targetY>TradeUtility.screenSize.height-getHeight()-borderOffset*2) targetY = TradeUtility.screenSize.height-getHeight()-borderOffset*2;
-					}
-					moveWindow(new Point(targetX, targetY));
-				}
-			}
-		}.start();
+		new Thread(() -> {
+            while(mouseDown){
+                int targetX = MouseInfo.getPointerInfo().getLocation().x-offsetX-borderOffset;
+                int targetY = MouseInfo.getPointerInfo().getLocation().y-offsetY-borderOffset;
+                if(screenLock){
+                    if(targetX<0) targetX = 0;
+                    if(targetX>TradeUtility.screenSize.width-getWidth()-borderOffset*2) targetX = TradeUtility.screenSize.width-getWidth()-borderOffset*2;
+                    if(targetY<0) targetY = 0;
+                    if(targetY>TradeUtility.screenSize.height-getHeight()-borderOffset*2) targetY = TradeUtility.screenSize.height-getHeight()-borderOffset*2;
+                }
+                moveWindow(new Point(targetX, targetY));
+            }
+        }).start();
 	}
 	
 

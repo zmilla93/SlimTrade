@@ -144,6 +144,7 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
 
 	@Override
 	public void updateColor() {
+	    super.updateColor();
         pullRight.setBackground(pullbarColor);
         pullBottom.setBackground(pullbarColor);
     }

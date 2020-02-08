@@ -44,8 +44,7 @@ public class FrameManager {
     public static IgnoreItemWindow ignoreItemWindow;
     public static ItemIgnorePanel itemIgnorePanel;
     public static AddRemovePanel ignoreItemAddRemovePanel;
-
-
+    
     private static HideableDialog[] menuFrames;
     private static HideableDialog[] menuHideFrames;
     private static HideableDialog[] forceFrames;
@@ -70,7 +69,7 @@ public class FrameManager {
         chatScannerWindow = new ChatScannerWindow();
         ignoreItemWindow = new IgnoreItemWindow();
         // TODO : temp
-        stashHelperContainer.updateBounds();
+//        stashHelperContainer.updateBounds();
         stashOverlayWindow = new StashWindow();
         // TODO : ????
         stashOverlayWindow.load();

@@ -21,7 +21,6 @@ public class AudioRunner implements Runnable {
 	}
 	
 	public void run() {
-		System.out.println("Playing audio...");
 		Clip clip = null;
 		try {
 			clip = AudioSystem.getClip();
@@ -29,11 +28,6 @@ public class AudioRunner implements Runnable {
 			clip.open(stream);
 			FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 			volumeControl.setValue(volume);
-			System.out.println("GAIN CONTROL : " + volumeControl.getValue()  + ":::" +  volumeControl.getMinimum() + " - " + volumeControl.getMaximum());
-			
-			
-//			volume.setValue(6f);
-			
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 			System.out.println(e.getMessage());
 			System.err.println("[ERROR] Issue retriving audio file");

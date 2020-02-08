@@ -47,7 +47,7 @@ public class HistoryWindow extends AbstractResizableWindow {
 		timeStyle = App.saveManager.saveFile.timeStyle;
 		dateStyle = App.saveManager.saveFile.dateStyle;
 		orderType = App.saveManager.saveFile.orderType;
-		this.setPreferredSize(new Dimension(900, 600));
+		this.setPreferredSize(new Dimension(900, 550));
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.insets = inset;
@@ -141,12 +141,15 @@ public class HistoryWindow extends AbstractResizableWindow {
 		TradeOffer trade = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "SmashyMcFireBalls", "ITEM_NAME", 3.5, "chaos", 3.5, "STASH_TAB", 3, 3, "", "");
 		savedPanel.addTrade(trade, true);
 		
-		incomingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		outgoingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//		incomingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//		outgoingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 //		savedScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		innerPanel.add(incomingScroll, BorderLayout.CENTER);
 		innerPanel.revalidate();
 		innerPanel.repaint();
+
+		App.eventManager.addColorListener(this);
+		this.updateColor();
 
 		this.pack();
 		FrameManager.centerFrame(this);

@@ -35,7 +35,7 @@ public class ItemHighlighter extends BasicDialog{
 		this.setVisible(false);
 	}
 	
-	public static void saveGridInfo(int gridX, int gridY, int gridWidth, int gridHeight){
+	public static void setGridInfo(int gridX, int gridY, int gridWidth, int gridHeight){
 		ItemHighlighter.gridX = gridX;
 		ItemHighlighter.gridY = gridY;
 		ItemHighlighter.gridWidth = gridWidth;
