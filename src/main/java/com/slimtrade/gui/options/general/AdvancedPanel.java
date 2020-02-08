@@ -36,7 +36,7 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
 		});
 
 		this.updateColor();
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
 		
 		this.load();
 	}

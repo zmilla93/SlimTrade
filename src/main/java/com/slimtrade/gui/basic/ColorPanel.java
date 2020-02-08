@@ -10,12 +10,12 @@ public class ColorPanel extends JPanel implements IColorable {
 
     public ColorPanel(){
         super();
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
     }
 
     public ColorPanel(LayoutManager layout){
         super(layout);
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
     }
 
     @Override

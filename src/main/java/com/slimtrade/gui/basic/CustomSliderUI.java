@@ -15,7 +15,7 @@ public class CustomSliderUI extends BasicSliderUI implements IColorable {
 
     public CustomSliderUI(JSlider b) {
         super(b);
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
 //        this.stroke = new BasicStroke();
     }

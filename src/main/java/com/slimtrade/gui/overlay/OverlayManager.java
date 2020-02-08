@@ -1,0 +1,249 @@
+package com.slimtrade.gui.overlay;
+
+import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.enums.MenubarButtonLocation;
+import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.BasicDialog;
+import com.slimtrade.gui.basic.BasicMovableDialog;
+import com.slimtrade.gui.enums.ExpandDirection;
+import com.slimtrade.gui.messaging.AbstractMessagePanel;
+import com.slimtrade.gui.options.ISaveable;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+
+public class OverlayManager implements ISaveable, IColorable {
+
+    private BasicDialog helpDialog;
+    private BasicMovableDialog menubarDialog = new BasicMovableDialog(true);
+    private BasicMovableDialog messageDialog = new BasicMovableDialog(true);
+    private GridBagConstraints gc = new GridBagConstraints();
+
+    private Color backgroundDefault = new Color(0, 0, 0, 0.3f);
+    private Color backgroundLocked = new Color(1, 1, 1, 0.3f);
+
+    JLabel menubarLabel = new JLabel("Menu bar");
+    JLabel messageLabel = new JLabel("Message Panel");
+
+    //Input
+    private JComboBox menubarCombo;
+    private JComboBox messageCombo;
+
+
+    //Other
+    JPanel menubarButtonDummy = new JPanel();
+    private Color borderColor = ColorManager.TEXT;
+    private Color borderColorLock = ColorManager.PRIMARY;
+    private Color dummyButtonColor = ColorManager.HIGH_CONTRAST_2;
+
+    private final int BORDER_SIZE = 2;
+
+    private boolean messageScreenLock = true;
+    private boolean menubarScreenLock = true;
+
+    public OverlayManager() {
+        helpDialog = new OverlayInfoDialog();
+        menubarCombo = ((OverlayInfoDialog) helpDialog).menubarCombo;
+        messageCombo = ((OverlayInfoDialog) helpDialog).messageCombo;
+
+        // Sizes
+        Border borderDefault = BorderFactory.createMatteBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, borderColor);
+        menubarDialog.getRootPane().setBorder(borderDefault);
+        menubarDialog.setSize(App.frameManager.menubar.getWidth(), App.frameManager.menubar.getHeight());
+        messageDialog.setBorderOffset(BORDER_SIZE);
+        messageDialog.setSize(AbstractMessagePanel.totalWidth, AbstractMessagePanel.totalHeight);
+        menubarButtonDummy.setPreferredSize(new Dimension(App.frameManager.menubarToggle.getSize().width - BORDER_SIZE, App.frameManager.menubarToggle.getSize().height - BORDER_SIZE));
+
+        // Add Elements
+        for (MenubarButtonLocation b : MenubarButtonLocation.values()) {
+            menubarCombo.addItem(b);
+        }
+        for (ExpandDirection d : ExpandDirection.values()) {
+            messageCombo.addItem(d);
+        }
+
+        // Build Dialog
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.weightx = 1;
+        gc.weighty = 1;
+
+        // Menubar
+        gc.anchor = GridBagConstraints.SOUTHEAST;
+        menubarDialog.getContentPane().setLayout(FrameManager.gridbag);
+
+        menubarDialog.getContentPane().add(menubarButtonDummy, gc);
+        gc.anchor = GridBagConstraints.CENTER;
+
+        // Message
+        messageDialog.getContentPane().setLayout(FrameManager.gridbag);
+        menubarDialog.getContentPane().add(menubarLabel, gc);
+        messageDialog.getContentPane().add(messageLabel, gc);
+
+
+
+
+        //Buttons
+        menubarCombo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                updateMenubarButton(((MenubarButtonLocation) menubarCombo.getSelectedItem()));
+            }
+        });
+
+        messageDialog.getContentPane().addMouseListener(new AdvancedMouseAdapter() {
+            @Override
+            public void click(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    messageScreenLock = !messageScreenLock;
+                    messageDialog.setScreenLock(messageScreenLock);
+//                    messageDialog.forceOntoScreen();
+                    updateColor();
+                }
+            }
+        });
+
+        menubarDialog.getContentPane().addMouseListener(new AdvancedMouseAdapter() {
+            @Override
+            public void click(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    menubarScreenLock = !menubarScreenLock;
+                    menubarDialog.setScreenLock(menubarScreenLock);
+                    updateColor();
+                }
+            }
+        });
+
+
+        //Finish
+        this.updateMenubarButton(((MenubarButtonLocation) menubarCombo.getSelectedItem()));
+        helpDialog.updateColor();
+        helpDialog.pack();
+
+        helpDialog.setSize(helpDialog.getPreferredSize());
+        FrameManager.centerFrame(helpDialog);
+        App.eventManager.addColorListener(this);
+        updateColor();
+
+    }
+
+    public void showAll() {
+        helpDialog.setVisible(true);
+        menubarDialog.setVisible(true);
+        messageDialog.setVisible(true);
+        this.allToFront();
+    }
+
+    public void hideAll() {
+        helpDialog.setVisible(false);
+        menubarDialog.setVisible(false);
+        messageDialog.setVisible(false);
+    }
+
+    public void allToFront() {
+        helpDialog.setAlwaysOnTop(false);
+        menubarDialog.setAlwaysOnTop(false);
+        messageDialog.setAlwaysOnTop(false);
+
+        helpDialog.setAlwaysOnTop(true);
+        menubarDialog.setAlwaysOnTop(true);
+        messageDialog.setAlwaysOnTop(true);
+    }
+
+    private void updateMenubarButton(MenubarButtonLocation location) {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.weightx = 1;
+        gc.weighty = 1;
+        Color color = borderColor;
+        if (menubarScreenLock) {
+            color = borderColorLock;
+        }
+        switch (location) {
+            case NW:
+                gc.anchor = GridBagConstraints.NORTHWEST;
+                menubarButtonDummy.setBorder(BorderFactory.createMatteBorder(0, 0, BORDER_SIZE, BORDER_SIZE, borderColor));
+                menubarDialog.getContentPane().add(menubarButtonDummy, gc);
+                break;
+            case NE:
+                gc.anchor = GridBagConstraints.NORTHEAST;
+                menubarButtonDummy.setBorder(BorderFactory.createMatteBorder(0, BORDER_SIZE, BORDER_SIZE, 0, borderColor));
+                menubarDialog.getContentPane().add(menubarButtonDummy, gc);
+                break;
+            case SW:
+                gc.anchor = GridBagConstraints.SOUTHWEST;
+                menubarButtonDummy.setBorder(BorderFactory.createMatteBorder(BORDER_SIZE, 0, 0, BORDER_SIZE, borderColor));
+                menubarDialog.getContentPane().add(menubarButtonDummy, gc);
+                break;
+            case SE:
+                gc.anchor = GridBagConstraints.SOUTHEAST;
+                menubarButtonDummy.setBorder(BorderFactory.createMatteBorder(BORDER_SIZE, BORDER_SIZE, 0, 0, borderColor));
+                menubarDialog.getContentPane().add(menubarButtonDummy, gc);
+                break;
+        }
+    }
+
+    @Override
+    public void save() {
+        App.saveManager.overlaySaveFile.menubarScreenLock = menubarScreenLock;
+        App.saveManager.overlaySaveFile.messageScreenLock = messageScreenLock;
+        App.saveManager.overlaySaveFile.menubarX = menubarDialog.getX();
+        App.saveManager.overlaySaveFile.menubarY = menubarDialog.getY();
+        App.saveManager.overlaySaveFile.menubarWidth = menubarDialog.getWidth();
+        App.saveManager.overlaySaveFile.menubarHeight = menubarDialog.getHeight();
+        App.saveManager.overlaySaveFile.messageX = messageDialog.getX();
+        App.saveManager.overlaySaveFile.messageY = messageDialog.getY();
+//        App.saveManager.saveOverlayToDisk();
+    }
+
+    @Override
+    public void load() {
+        this.menubarScreenLock = App.saveManager.overlaySaveFile.menubarScreenLock;
+        this.messageScreenLock = App.saveManager.overlaySaveFile.messageScreenLock;
+        App.saveManager.overlaySaveFile.messageScreenLock = messageScreenLock;
+        menubarDialog.setLocation(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
+        messageDialog.setLocation(App.saveManager.overlaySaveFile.messageX, App.saveManager.overlaySaveFile.messageY);
+        menubarCombo.setSelectedItem(App.saveManager.overlaySaveFile.messageExpandDirection);
+        menubarCombo.setSelectedItem(App.saveManager.overlaySaveFile.menubarButtonLocation);
+        updateMenubarButton(App.saveManager.saveFile.menubarButtonLocation);
+    }
+
+    @Override
+    public void updateColor() {
+        System.out.println("COL");
+        menubarButtonDummy.setBackground(dummyButtonColor);
+        // Message Screen Lock
+        if (messageScreenLock) {
+//            messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColorLock, BORDER_SIZE));
+//            messageLabel.setForeground(borderColorLock);
+            messageDialog.setBackground(backgroundLocked);
+        } else {
+            messageDialog.setBackground(backgroundDefault);
+//            messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
+//            messageLabel.setForeground(borderColor);
+        }
+        // Menubar Screen Lock
+        if (menubarScreenLock) {
+//            menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColorLock, BORDER_SIZE));
+//            menubarLabel.setForeground(borderColorLock);
+            menubarDialog.setBackground(backgroundLocked);
+        } else {
+//            menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
+//            menubarLabel.setForeground(borderColor);
+            menubarDialog.setBackground(backgroundDefault);
+        }
+        // Menubar Button
+        updateMenubarButton((MenubarButtonLocation) menubarCombo.getSelectedItem());
+//        menubarDialog.setBackground(new Color(1, 1, 1, 0.5f));
+//        messageDialog.setBackground(new Color(1, 1, 1, 0.5f));
+    }
+}

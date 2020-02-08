@@ -67,7 +67,7 @@ public class CustomCheckboxIcon implements IColorable, Icon {
 //		});
 		
 		updateColor();
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
 	}
 
 	@Override

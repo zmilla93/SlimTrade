@@ -2,6 +2,7 @@ package com.slimtrade.core.managers;
 
 import com.google.gson.*;
 import com.slimtrade.App;
+import com.slimtrade.core.SaveSystem.OverlaySaveFile;
 import com.slimtrade.core.SaveSystem.SaveFile;
 import com.slimtrade.core.SaveSystem.StashSaveFile;
 
@@ -14,15 +15,18 @@ public class SaveManager {
     // Public Info
     public final String savePath;
     public final String stashSavePath;
+    public final String overlaySavePath;
     public final String saveDirectory;
     public SaveFile saveFile = new SaveFile();
     public StashSaveFile stashSaveFile = new StashSaveFile();
+    public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
 
     //Internal
     private final String folderWin = "SlimTrade";
     private final String folderOther = ".slimtrade";
     private final String fileName = "settings.json";
     private final String stashFileName = "stash.json";
+    private final String overlayFileName = "overlay.json";
     private final String os = (System.getProperty("os.name")).toUpperCase();
     private boolean validSavePath = false;
 
@@ -43,6 +47,7 @@ public class SaveManager {
         }
         savePath = saveDirectory + File.separator + fileName;
         stashSavePath = saveDirectory + File.separator + stashFileName;
+        overlaySavePath = saveDirectory + File.separator + overlayFileName;
         File saveDir = new File(saveDirectory);
         if (!saveDir.exists()) {
             saveDir.mkdirs();
@@ -126,6 +131,38 @@ public class SaveManager {
         try {
             fw = new FileWriter(stashSavePath);
             fw.write(gson.toJson(stashSaveFile));
+            fw.close();
+        } catch (IOException e) {
+            return;
+        }
+    }
+
+    public void loadOverlayFromDisk() {
+        StringBuilder builder = new StringBuilder();
+        try {
+            br = new BufferedReader(new FileReader(overlaySavePath));
+            while (br.ready()) {
+                builder.append(br.readLine());
+            }
+            overlaySaveFile = gson.fromJson(builder.toString(), OverlaySaveFile.class);
+            if (overlaySaveFile == null) {
+                overlaySaveFile = new OverlaySaveFile();
+            }
+        } catch (JsonSyntaxException e1) {
+            overlaySaveFile = new OverlaySaveFile();
+            System.out.println("Corrupted save file!");
+            return;
+        } catch (IOException e2) {
+            overlaySaveFile = new OverlaySaveFile();
+            System.out.println("IO Error with save file!");
+            return;
+        }
+    }
+
+    public void saveOverlayToDisk() {
+        try {
+            fw = new FileWriter(overlaySavePath);
+            fw.write(gson.toJson(overlaySaveFile));
             fw.close();
         } catch (IOException e) {
             return;

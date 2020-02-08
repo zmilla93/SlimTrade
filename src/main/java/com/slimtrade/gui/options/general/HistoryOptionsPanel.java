@@ -3,8 +3,6 @@ package com.slimtrade.gui.options.general;
 import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.JSpinner.DefaultEditor;
-import javax.swing.plaf.basic.BasicArrowButton;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
@@ -86,7 +84,7 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 		gc.gridy++;
 
 		this.updateColor();
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
 
 		load();
 

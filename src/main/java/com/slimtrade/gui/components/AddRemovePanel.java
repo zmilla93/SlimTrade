@@ -20,7 +20,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
 		this.setBackground(new Color(1, 1, 1, 0));
 		gc.gridx = 0;
 		gc.gridy = 0;
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
 	}
 

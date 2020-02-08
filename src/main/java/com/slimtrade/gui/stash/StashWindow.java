@@ -101,6 +101,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 				load();
 				local.setShow(false);
 				FrameManager.showVisibleFrames();
+                FrameManager.showOptionsWindow();
 			}
 		});
 
@@ -110,12 +111,13 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
 				save();
 				FrameManager.stashHelperContainer.updateBounds();
 				local.setShow(false);
+                App.saveManager.saveToDisk();
 				FrameManager.showVisibleFrames();
-				App.saveManager.saveToDisk();
+                FrameManager.showOptionsWindow();
 			}
 		});
 
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
         this.updateColor();
 
 	}

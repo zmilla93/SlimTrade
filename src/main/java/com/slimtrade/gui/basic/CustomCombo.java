@@ -17,7 +17,7 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
 
     public CustomCombo(){
         super();
-
+        this.setOpaque(false);
         this.setFocusable(false);
         this.setUI(new BasicComboBoxUI(){
             @Override
@@ -41,18 +41,8 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
                 return c;
             }
         });
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
-    }
-
-    protected void paintComponent(Graphics g) {
-        this.setOpaque(false);
-
-
-        updateColor();
-//        this.setPreferredSize(null);
-//        this.setPreferredSize(new Dimension(this.getPreferredSize().windowWidth + 10, this.getPreferredSize().windowHeight + 2));
-        super.paintComponent(g);
     }
 
     @Override
@@ -62,27 +52,5 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
         this.setForeground(ColorManager.TEXT);
         this.setBackground(ColorManager.BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
-//        this.setPreferredSize(null);
-//        this.setPreferredSize(new Dimension(this.getPreferredSize().windowWidth + 10, this.getPreferredSize().windowHeight + 2));
     }
-
-//    // HIDE BUTTON
-//    public void updateUI() {
-//        super.updateUI();
-//        UIManager.put("ComboBox.squareButton", false);
-//        setUI(new BasicComboBoxUI(){
-//            @Override
-//            protected JButton createArrowButton() {
-//                return new JButton(){
-//
-//                    @Override
-//                    public int getWidth() {
-//                        return 0;
-//                    }
-//
-//                };
-//            }
-//        });
-//    }
-
 }

@@ -12,13 +12,13 @@ public class CustomTextField extends JTextField implements IColorable {
 
     public CustomTextField(){
         super();
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
     }
 
     public CustomTextField(int col){
         super(col);
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
     }
 

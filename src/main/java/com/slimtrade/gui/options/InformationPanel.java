@@ -47,7 +47,7 @@ public class InformationPanel extends ContainerPanel {
 		JLabel info1 = new JLabel("Bugs can be reported on github or via e-mail");
 		JLabel info2 = new JLabel("Design/feature feedback can be sent via e-mail.");
 		JLabel info3 = new JLabel("Please read the github post before sending feedback to avoid redundancy.");
-		
+
 		container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
@@ -78,7 +78,7 @@ public class InformationPanel extends ContainerPanel {
 
 //		this.setBuffer(40, -1);
 //		this.autoResize();
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
 		
 	}

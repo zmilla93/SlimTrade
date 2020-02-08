@@ -72,7 +72,7 @@ public class BasicButton extends JButton implements IColorable {
 			}
 		});
 
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
 		updateColor();
 
 	}

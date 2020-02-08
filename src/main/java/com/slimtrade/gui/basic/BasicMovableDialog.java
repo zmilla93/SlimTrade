@@ -55,6 +55,10 @@ public class BasicMovableDialog extends BasicDialog {
 	}
 	
 	//TODO : Make this function cleaner, then use it for runWindowMover
+    public void forceOntoScreen(){
+	    forceOntoScreen(this.getX(), this.getY());
+    }
+
 	public void forceOntoScreen(int x, int y){
 		int targetX = x;
 		int targetY = y;
@@ -67,6 +71,9 @@ public class BasicMovableDialog extends BasicDialog {
 	
 	public void setScreenLock(boolean state){
 		screenLock = state;
+		if(screenLock) {
+		    forceOntoScreen();
+        }
 	}
 	
 	public void toggleScreenLock(){

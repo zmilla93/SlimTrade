@@ -8,7 +8,4 @@ public class CustomScrollbar extends JScrollBar {
     public static final int ARC_HEIGHT = 8;
 
 
-
-
-
 }

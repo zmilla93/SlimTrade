@@ -10,7 +10,7 @@ import java.awt.*;
 public class SectionHeader extends JPanel implements IColorable {
 
     public SectionHeader(String title) {
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         this.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;

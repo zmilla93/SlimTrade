@@ -53,7 +53,7 @@ public class MessageDialogManager {
 		wrapper.setShow(true);
 	}
 	
-	private void refreshPanelLocations(){
+	public void refreshPanelLocations(){
 		Point targetPoint = new Point(anchorPoint);
 		for(PanelWrapper w : wrapperList){
 			w.setLocation(targetPoint);
@@ -169,7 +169,7 @@ public class MessageDialogManager {
 				FrameManager.stashHelperContainer.pack();
 			}
 		}
-		App.eventManager.removeListener(msgPanel);
+		App.eventManager.removeColorListener(msgPanel);
 		wrapperList.get(index).dispose();
 		wrapperList.remove(index);
 	}

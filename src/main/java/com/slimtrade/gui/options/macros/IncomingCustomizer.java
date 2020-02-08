@@ -23,8 +23,6 @@ import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.PreloadedImageCustom;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.options.ToggleButton;
-import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 //TODO : CLEANUP
@@ -135,14 +133,14 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 			}
 		});
 		load();
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         this.updateColor();
 	}
 
 	private void refreshTrade() {
         if(exampleTradeIn != null){
             container.remove(exampleTradeIn);
-            App.eventManager.removeListener(exampleTradeIn);
+            App.eventManager.removeColorListener(exampleTradeIn);
         }
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;

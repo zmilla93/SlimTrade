@@ -1,8 +1,11 @@
 package com.slimtrade.gui.basic;
 
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
+
 import javax.swing.JDialog;
 
-public class BasicDialog extends HideableDialog{
+public class BasicDialog extends HideableDialog implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -28,5 +31,10 @@ public class BasicDialog extends HideableDialog{
 		this.setAlwaysOnTop(false);
 		this.setAlwaysOnTop(true);
 	}
-	
+
+    @Override
+    public void updateColor() {
+        this.getContentPane().setBackground(ColorManager.BACKGROUND);
+        this.getContentPane().setForeground(ColorManager.TEXT);
+    }
 }

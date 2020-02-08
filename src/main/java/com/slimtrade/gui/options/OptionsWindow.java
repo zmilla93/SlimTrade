@@ -248,7 +248,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 		recolorUpdateButton();
 //		this.setVisible(true);
 //		this.setShow(false);
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
 
 	}
 

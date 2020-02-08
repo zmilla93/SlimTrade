@@ -66,7 +66,7 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
 			}
 		});
 		load();
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
 
     }
@@ -112,7 +112,7 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
 //			index++;
 //		}
 		rowContainer.saveChanges();
-//		App.eventManager.addListener(this);
+//		App.eventManager.addColorListener(this);
 //		updateColor();
 	}
 

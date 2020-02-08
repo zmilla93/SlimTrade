@@ -8,11 +8,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.JSpinner.DefaultEditor;
-import javax.swing.plaf.basic.BasicArrowButton;
 
 import com.slimtrade.App;
-import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.basic.CustomSpinner;
@@ -131,7 +128,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
             }
         });
 
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
     }
 

@@ -45,7 +45,7 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
 		load();
 		
 		this.updateColor();
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
 		
 	}
 

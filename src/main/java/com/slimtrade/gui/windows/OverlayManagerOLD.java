@@ -14,6 +14,7 @@ import javax.swing.border.Border;
 
 import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.WindowState;
@@ -23,9 +24,10 @@ import com.slimtrade.gui.basic.BasicMovableDialog;
 import com.slimtrade.gui.enums.ExpandDirection;
 import com.slimtrade.gui.menubar.MenubarButton;
 import com.slimtrade.gui.options.ISaveable;
+import com.slimtrade.gui.overlay.OverlayInfoDialog;
 import com.slimtrade.gui.panels.BufferPanel;
 
-public class OverlayManager implements ISaveable {
+public class OverlayManagerOLD implements ISaveable, IColorable {
 
 	GridBagLayout gridbag = new GridBagLayout();
 
@@ -65,7 +67,7 @@ public class OverlayManager implements ISaveable {
 	private String oldMenubarCombo;
 	private String oldMsgPanelCombo;
 
-	public OverlayManager() {
+	public OverlayManagerOLD() {
 
 		menubarExpandButton.setBackground(Color.LIGHT_GRAY);
 		menubarExpandButton.setBorder(borderNW);
@@ -193,6 +195,9 @@ public class OverlayManager implements ISaveable {
 		gcHelp.gridy++;
 		helpDialog.add(closePanel, gcHelp);
 
+		// TODO : temppp
+        helpDialog = new OverlayInfoDialog();
+
 		// TODO : Set buffer
 		Dimension pref = helpDialog.getPreferredSize();
 		helpDialog.setSize(pref.width + 20, pref.height + 20);
@@ -242,8 +247,9 @@ public class OverlayManager implements ISaveable {
 //				msgPanelCombo.setSelectedItem(App.saveManager.saveFile.menubarButtonLocation);
                 load();
 				updateMenubarButton();
-				FrameManager.showVisibleFrames();
 				hideDialog();
+				FrameManager.showVisibleFrames();
+				FrameManager.showOptionsWindow();
 			}
 		});
 
@@ -253,10 +259,6 @@ public class OverlayManager implements ISaveable {
                 FrameManager.windowState = WindowState.NORMAL;
 				// Save
                 // TODO : Move to save
-//				App.saveManager.putObject(menubarDialog.getX(), "overlayManager", "menubar", "x");
-//				App.saveManager.putObject(menubarDialog.getY(), "overlayManager", "menubar", "y");
-//				App.saveManager.putObject(messageDialog.getX(), "overlayManager", "messageManager", "x");
-//				App.saveManager.putObject(messageDialog.getY(), "overlayManager", "messageManager", "y");
 				App.saveManager.saveFile.menubarX = menubarDialog.getX();
                 App.saveManager.saveFile.menubarY = menubarDialog.getY();
                 App.saveManager.saveFile.messageManagerX = messageDialog.getX();
@@ -278,9 +280,11 @@ public class OverlayManager implements ISaveable {
 //				FrameManager.messageManager.updateLocation();
 				FrameManager.messageManager.setAnchorPoint(messageDialog.getLocation());
 				FrameManager.messageManager.setExpandDirection((ExpandDirection)msgPanelCombo.getSelectedItem());
-				
-				FrameManager.showVisibleFrames();
+				FrameManager.messageManager.refreshPanelLocations();
+
 				hideDialog();
+                FrameManager.showVisibleFrames();
+                FrameManager.showOptionsWindow();
 			}
 		});
 	}
@@ -340,8 +344,6 @@ public class OverlayManager implements ISaveable {
     }
 
 	public void showDialog() {
-//		oldMenubarCombo = menubarCombo.getSelectedItem().toString();
-//		oldMsgPanelCombo = msgPanelCombo.getSelectedItem().toString();
 		helpDialog.setVisible(true);
 		menubarDialog.setVisible(true);
 		messageDialog.setVisible(true);
@@ -367,4 +369,8 @@ public class OverlayManager implements ISaveable {
 		updateMenubarButton();
 	}
 
+    @Override
+    public void updateColor() {
+
+    }
 }

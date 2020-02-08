@@ -2,6 +2,7 @@ package com.slimtrade.gui;
 
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
+import com.slimtrade.gui.basic.LagTestDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
 import com.slimtrade.gui.enums.WindowState;
@@ -11,10 +12,11 @@ import com.slimtrade.gui.menubar.MenubarExpandButton;
 import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.options.OptionsWindow;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
+import com.slimtrade.gui.overlay.OverlayManager;
 import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
-import com.slimtrade.gui.windows.OverlayManager;
+import com.slimtrade.gui.windows.OverlayManagerOLD;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +27,10 @@ public class FrameManager {
     public static int gapLarge = 14;
 
 
+
     public static GridBagLayout gridbag;
+
+    public static OverlayManager manager;
 
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
@@ -35,7 +40,7 @@ public class FrameManager {
     public static StashHelperContainer stashHelperContainer;
     public static StashWindow stashOverlayWindow;
     // public static REMOVE_CharacterWindow characterWindow;
-    public static OverlayManager overlayManager;
+    public static OverlayManagerOLD overlayManager;
     // public static REMOVE_StashTabWindow stashTabWindow;
     public static ChatScannerWindow chatScannerWindow;
 
@@ -53,8 +58,8 @@ public class FrameManager {
     public static WindowState windowState = WindowState.NORMAL;
 
     public FrameManager() {
-        UIManager.put("ScrollBar.windowWidth", 12);
-        UIManager.put("ScrollBar.windowHeight", 12);
+        UIManager.put("ScrollBar.width", 12);
+        UIManager.put("ScrollBar.height", 12);
 //		SetupWindow setupWindow = new SetupWindow();
 //		setupWindow.setVisible(true);
         FrameManager.gridbag = new GridBagLayout();
@@ -65,7 +70,7 @@ public class FrameManager {
         menubar = new MenubarDialog();
         menubarToggle = new MenubarExpandButton();
         messageManager = new MessageDialogManager();
-        overlayManager = new OverlayManager();
+        overlayManager = new OverlayManagerOLD();
         chatScannerWindow = new ChatScannerWindow();
         ignoreItemWindow = new IgnoreItemWindow();
         // TODO : temp
@@ -81,6 +86,12 @@ public class FrameManager {
         // menubar.showDialog();
 
         // TODO : Cleanup
+
+        // TODO : TEMP
+        manager = new OverlayManager();
+        manager.showAll();
+//        LagTestDialog test = new LagTestDialog();
+//        test.setVisible(true);
 
         //TODO : ADD NEW MESSAGE MANAGER
 //        showHideDialogs = new HideableDialog[]{stashHelperContainer, optionsWindow, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
@@ -171,6 +182,12 @@ public class FrameManager {
         // messageManager.forceToTop();
         // stashHelperContainer.forceToTop();
         // PoeInterface.focus();
+    }
+
+    public static void showOptionsWindow() {
+        optionsWindow.setVisible(true);
+        optionsWindow.setAlwaysOnTop(true);
+        optionsWindow.setAlwaysOnTop(false);
     }
 
 //	public static void linkToggle(JButton b, Component c2) {

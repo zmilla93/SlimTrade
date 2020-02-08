@@ -178,7 +178,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
             }
         });
 
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         this.updateColor();
     }
 

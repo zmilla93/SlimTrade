@@ -96,7 +96,7 @@ public class AudioRow extends JPanel implements IColorable {
 		});
 		
 		this.updateColor();
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
 		
 	}
 

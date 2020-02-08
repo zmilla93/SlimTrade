@@ -2,7 +2,8 @@ package com.slimtrade.gui.enums;
 
 public enum ExpandDirection {
 
-	DOWN("Downwards"), UP("Upwards");
+    UP("Upwards"),
+	DOWN("Downwards");
 	
 	private final String name;
 	

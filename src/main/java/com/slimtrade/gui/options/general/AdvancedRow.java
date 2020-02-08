@@ -1,6 +1,5 @@
 package com.slimtrade.gui.options.general;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -96,7 +95,7 @@ public class AdvancedRow extends JPanel implements IColorable {
 		this.add(editButton, gc);
 		
 
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
 		updateColor();
 
 	}

@@ -2,14 +2,12 @@ package com.slimtrade.gui.stash;
 
 import java.awt.*;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.StashTab;
-import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
@@ -45,7 +43,7 @@ public class StashTabRow extends RemovablePanel implements IColorable {
         gc.gridy = 0;
 
         removeButton = new IconButton("icons/close.png", ROW_HEIGHT);
-        App.eventManager.addListener(removeButton);
+        App.eventManager.addColorListener(removeButton);
         this.setRemoveButton(removeButton);
 
         int stashTextWidth = 250;
@@ -84,7 +82,7 @@ public class StashTabRow extends RemovablePanel implements IColorable {
         this.add(typeCombo, gc);
         gc.gridx++;
         this.add(colorCombo, gc);
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
 
     }

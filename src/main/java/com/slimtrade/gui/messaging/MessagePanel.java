@@ -155,7 +155,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 		this.startTimer();
 		
 		
-		App.eventManager.addListener(this);
+		App.eventManager.addColorListener(this);
 		this.updateColor();
 		
 		// this.revalidate();

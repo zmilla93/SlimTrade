@@ -15,7 +15,7 @@ public class CustomSpinner extends JSpinner implements IColorable {
 //        setFocusable(false);
         ((DefaultEditor) this.getEditor()).getTextField().setEditable(false);
         ((DefaultEditor) this.getEditor()).getTextField().setHighlighter(null);
-        App.eventManager.addListener(this);
+        App.eventManager.addColorListener(this);
         updateColor();
     }
 

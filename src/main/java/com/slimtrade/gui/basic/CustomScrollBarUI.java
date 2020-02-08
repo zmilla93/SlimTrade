@@ -9,6 +9,7 @@ import java.awt.*;
 public class CustomScrollBarUI extends BasicScrollBarUI {
 
     public CustomScrollBarUI() {
+
     }
 
     @Override
