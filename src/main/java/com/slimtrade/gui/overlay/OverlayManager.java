@@ -1,6 +1,7 @@
 package com.slimtrade.gui.overlay;
 
 import com.slimtrade.App;
+import com.slimtrade.core.SaveSystem.OverlaySaveFile;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
@@ -303,4 +304,12 @@ public class OverlayManager implements ISaveable, IColorable {
 //        menubarDialog.setBackground(new Color(1, 1, 1, 0.5f));
 //        messageDialog.setBackground(new Color(1, 1, 1, 0.5f));
     }
+
+    public void resetToDefault() {
+        App.saveManager.overlaySaveFile = new OverlaySaveFile();
+        App.saveManager.overlaySaveFile.menubarWidth = FrameManager.menubar.getWidth();
+        App.saveManager.overlaySaveFile.menubarHeight = FrameManager.menubar.getHeight();
+        load();
+    }
+
 }

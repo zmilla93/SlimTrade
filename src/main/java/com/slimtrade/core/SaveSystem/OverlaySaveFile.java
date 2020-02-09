@@ -5,9 +5,15 @@ import com.slimtrade.gui.enums.ExpandDirection;
 
 public class OverlaySaveFile {
 
-    public boolean messageScreenLock, menubarScreenLock;
-    public int messageX = 400, messageY = 0, menubarX = 0, menubarY = 0, menubarWidth, menubarHeight;
+    // Message Manager Info
+    public boolean messageScreenLock;
+    public int messageX = 400, messageY = 0;
     public ExpandDirection messageExpandDirection = ExpandDirection.DOWN;
+
+    // MenuBar Info
+    public boolean menubarScreenLock;
+    public int menubarX = 0, menubarY = 0;
+    public int menubarWidth, menubarHeight;
     public MenubarButtonLocation menubarButtonLocation = MenubarButtonLocation.NW;
 
 
