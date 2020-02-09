@@ -13,16 +13,9 @@ public class ItemClickPanel extends PaintedPanel {
 	private static final long serialVersionUID = 1L;
 
 	public ItemClickPanel() {
-//		backgroudDefault = Color.black;
-		backgroundHover = Color.yellow;
-		textDefault = Color.yellow;
-		textHover = Color.black;
-		borderDefault = BorderFactory.createEmptyBorder(1, 1, 1, 1);
-		borderHover = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
-//        App.eventManager.addColorListener(this);
-//        this.updateColor();
-		
-//		this.addMouseListener();
+//		backgroundHover = Color.yellow;
+//		textDefault = Color.yellow;
+//		textHover = Color.black;
 	}
 
 //    @Override

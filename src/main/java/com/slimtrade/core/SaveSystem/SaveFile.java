@@ -19,14 +19,6 @@ public class SaveFile {
     //Version
     public String versionNumber = References.APP_VERSION;
 
-    // Overlay
-//    public int menubarX = 0;
-//    public int menubarY = 0;
-//    public int messageManagerX = 500;
-//    public int messageManagerY = 0;
-//    public ExpandDirection messageExpandDirection = ExpandDirection.DOWN;
-//    public MenubarButtonLocation menubarButtonLocation = MenubarButtonLocation.NW;
-
     // Basics
     public String characterName = "";
     public boolean showGuildName = false;
@@ -38,7 +30,7 @@ public class SaveFile {
     public TimeStyle timeStyle = TimeStyle.H12;
     public DateStyle dateStyle = DateStyle.DDMMYY;
     public OrderType orderType = OrderType.NEW_FIRST;
-    public int historyLimit = 50;
+    public int historyLimit = 25;
 
     //Audio
     public SoundElement incomingMessageSound = new SoundElement(Sound.PING1, 50);

@@ -11,7 +11,7 @@ public class NameClickPanel extends ClickPanel {
 	private static final long serialVersionUID = 1L;
 
 	public NameClickPanel() {
-		backgroudDefault = Color.LIGHT_GRAY;
+		backgroundDefault = Color.LIGHT_GRAY;
 		this.setBackground(Color.LIGHT_GRAY);
 		backgroundHover = ColorManager.LOW_CONSTRAST_1;
 		textDefault = Color.BLACK;

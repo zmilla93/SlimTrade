@@ -1,5 +1,6 @@
 package com.slimtrade.gui.buttons;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 
@@ -22,12 +23,12 @@ public class IconButton extends JButton implements IColorable {
 
 //	public Color colorDefault = Color.GRAY;
 	public Color colorDefault = ColorManager.LOW_CONSTRAST_1;
-	public Color colorHover = Color.LIGHT_GRAY;
-	public Color colorPressed = Color.WHITE;
+	public Color colorHover = ColorManager.PRIMARY;
+	public Color colorPressed = ColorManager.BACKGROUND;
 
 	public Border borderDefault = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 	public Border borderHover = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
-	public Border borderPressed = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.RED);
+	public Border borderPressed = borderHover;
 
 	private Image image;
 	
@@ -71,7 +72,7 @@ public class IconButton extends JButton implements IColorable {
 				localButton.getModel().setPressed(false);
 			}
 		});
-		
+		App.eventManager.addColorListener(this);
 //		this.addMouseListener(new AdvancedMouseAdapter() {
 //			public void click(MouseEvent e){
 //				AudioManager.play(SoundComponentOLD.BUTTON_CLICK);

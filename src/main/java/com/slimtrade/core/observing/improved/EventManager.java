@@ -1,5 +1,6 @@
 package com.slimtrade.core.observing.improved;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import com.slimtrade.enums.ColorTheme;
@@ -25,7 +26,12 @@ public class EventManager {
     }
 
     public void removeColorListener(IColorable listener) {
+//        int i = colorListenerList.size();
         colorListenerList.remove(listener);
+//        if (i == colorListenerList.size()) {
+//            System.out.print("!");
+//        }
+//        System.out.println("--(" + colorListenerList.size() + "):" + listener);
     }
 
     public void addSaveListener(ISaveable listener) {
@@ -54,6 +60,9 @@ public class EventManager {
         ColorManager.setTheme(theme);
         for (IColorable l : colorListenerList) {
             l.updateColor();
+            if(l instanceof Component) {
+                ((Component) l).repaint();
+            }
         }
     }
 

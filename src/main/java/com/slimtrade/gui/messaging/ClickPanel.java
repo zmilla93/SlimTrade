@@ -1,7 +1,6 @@
 package com.slimtrade.gui.messaging;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,7 +12,7 @@ public class ClickPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public Color backgroudDefault;
+	public Color backgroundDefault;
 	public Color backgroundHover;
 	
 	public Color textDefault;
@@ -36,7 +35,7 @@ public class ClickPanel extends JPanel {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				p.setBackground(backgroudDefault);
+				p.setBackground(backgroundDefault);
 				p.setForeground(textDefault);
 				p.setBorder(borderDefault);
 			}
@@ -48,7 +47,7 @@ public class ClickPanel extends JPanel {
 	}
 	
 	public void refresh(){
-		this.setBackground(backgroudDefault);
+		this.setBackground(backgroundDefault);
 		this.setForeground(textDefault);
 		this.setBorder(borderDefault);
 	}

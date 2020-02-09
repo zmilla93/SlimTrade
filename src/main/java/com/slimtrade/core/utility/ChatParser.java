@@ -134,7 +134,6 @@ public class ChatParser {
 				if (curLineCount > totalLineCount) {
 					totalLineCount++;
 					if (curLine.contains("@")) {
-//						System.out.println(curLine);
 						App.debugger.log(curLine);
 						TradeOffer trade = getTradeOffer(curLine);
 						if (trade != null) {
@@ -152,7 +151,6 @@ public class ChatParser {
 						Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
 						if(joinAreaMatcher.matches()){
                             for(int i = 0; i<joinAreaMatcher.groupCount(); i++){
-                                System.out.println("index " + i + " " + joinAreaMatcher.group(i));
                                 if(joinAreaMatcher.groupCount()>1){
                                     FrameManager.messageManager.setPlayerJoinedArea(joinAreaMatcher.group(1));
                                 }

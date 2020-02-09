@@ -8,15 +8,16 @@ import javax.swing.JPanel;
 
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.CurrencyType;
+import com.slimtrade.gui.basic.PaintedPanel;
 
-public class PricePanel extends JPanel {
+public class PricePanel extends PaintedPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JLabel priceLabel = new JLabel();
+//	private JLabel label = new JLabel();
 	
 	public PricePanel(String price, double quant, boolean paren) {
 		this.setLayout(new GridBagLayout());
@@ -25,24 +26,24 @@ public class PricePanel extends JPanel {
 		
 		gc.gridx = 0;
 		gc.gridy = 0;
-		priceLabel = new JLabel();
+		label = new JLabel();
 		String num = quant > 0 ? TradeUtility.getFixedDouble(quant, paren) + " ": "" ;
 		CurrencyType currency = TradeUtility.getCurrencyType(price);
 //		System.out.println(currency + " ::: " + quant + " ::: " + num);
 		if(currency!=null && !currency.getPath().equals("")){
-			priceLabel.setText(num);
-			this.add(priceLabel, gc);
+			label.setText(num);
+			this.add(label, gc);
 			gc.gridx++;
 			IconPanel img = new IconPanel(currency.getPath());
 			this.add(img, gc);
 		}else{
-			priceLabel.setText(num + price);
-			this.add(priceLabel, gc);
+			label.setText(num + price);
+			this.add(label, gc);
 		}
 	}
 	
 	public JLabel getLabel(){
-		return this.priceLabel;
+		return this.label;
 	}
 
 }

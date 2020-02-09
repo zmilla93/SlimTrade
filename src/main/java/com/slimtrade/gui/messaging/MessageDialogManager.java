@@ -18,11 +18,11 @@ public class MessageDialogManager {
 
     private Point anchorPoint;
     private Dimension defaultSize = new Dimension(400, 40);
-    private ExpandDirection expandDirection = ExpandDirection.DOWN;
+    private ExpandDirection expandDirection;
 
     private final int BUFFER_SIZE = 2;
     private final int MAX_MESSAGE_COUNT = 20;
-    private static final ArrayList<PanelWrapper> wrapperList = new ArrayList<PanelWrapper>();
+    private static final ArrayList<PanelWrapper> wrapperList = new ArrayList<>();
 
     public MessageDialogManager() {
         expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
@@ -200,6 +200,7 @@ public class MessageDialogManager {
             }
         }
         App.eventManager.removeColorListener(msgPanel);
+        ((MessagePanel)wrapperList.get(index).getPanel()).removeListener();
         wrapperList.get(index).dispose();
         wrapperList.remove(index);
     }
@@ -224,12 +225,13 @@ public class MessageDialogManager {
             MessagePanel panel = (MessagePanel) wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
                 if(panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
-                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_INCOMING);
+                    // TODO : Color names!
+//                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                 }
                 else if(panel.getTrade().messageType == MessageType.INCOMING_TRADE.OUTGOING_TRADE) {
-                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_OUTGOING);
+//                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_OUTGOING);
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
                 }

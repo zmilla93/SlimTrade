@@ -71,10 +71,8 @@ public class BasicButton extends JButton implements IColorable {
 				model.setPressed(false);
 			}
 		});
-
         App.eventManager.addColorListener(this);
 		updateColor();
-
 	}
 
 	@Override

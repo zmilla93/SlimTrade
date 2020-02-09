@@ -80,6 +80,6 @@ public class MenubarExpandButton extends BasicDialog implements IColorable {
     @Override
     public void updateColor() {
         super.updateColor();
-//        this.getRootPane().setBorder(BorderFactory.createLineBorder(ColorManager.TEXT, 2));
+        expandButton.colorDefault = ColorManager.PRIMARY;
     }
 }

@@ -14,16 +14,21 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
 import com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import com.slimtrade.core.observing.poe.PoeInteractionListener;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
+import com.slimtrade.gui.basic.BasicTextPanel;
+import com.slimtrade.gui.basic.ColorPanel;
+import com.slimtrade.gui.basic.PaintedPanel;
+import com.slimtrade.gui.basic.PaintedTextPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.PreloadedImage;
 
-public class AbstractMessagePanel extends JPanel {
+public class AbstractMessagePanel extends ColorPanel {
 
 	private static final long serialVersionUID = 1L;
 	// TODO Load from drive
@@ -46,14 +51,14 @@ public class AbstractMessagePanel extends JPanel {
 	protected GridBagConstraints gc = new GridBagConstraints();
 
 	// Panels
-	protected JPanel namePanel;
-	protected JPanel pricePanel = new JPanel(gb);
-	protected ItemClickPanel itemPanel = new ItemClickPanel();
+	protected PaintedPanel namePanel = new PaintedPanel();
+	protected PaintedPanel pricePanel = new PaintedPanel();
+	protected PaintedPanel itemPanel = new PaintedPanel();
 
-	protected JPanel borderPanel = new JPanel();
-	protected JPanel container = new JPanel();
-	protected JPanel timerPanel = new JPanel();
-	protected JLabel timerLabel = new JLabel("0s");
+	protected JPanel borderPanel = new ColorPanel();
+	protected JPanel container = new ColorPanel();
+	protected PaintedPanel timerPanel = new PaintedPanel();
+	protected JLabel timerLabel;
 	protected IconButton closeButton;
 
 	// Buttons
@@ -61,9 +66,9 @@ public class AbstractMessagePanel extends JPanel {
 	protected IconButton leaveButton;
 
 	// Labels
-	protected JLabel nameLabel = new JLabel();
-	protected JLabel priceLabel = new JLabel();
-	protected JLabel itemLabel = new JLabel();
+//	protected JLabel nameLabel = new JLabel();
+//	protected JLabel priceLabel = new JLabel();
+//	protected JLabel itemLabel = new JLabel();
 
 	protected int buttonCountTop;
 	protected int buttonCountBottom;
@@ -73,18 +78,6 @@ public class AbstractMessagePanel extends JPanel {
 	protected Font font;
 	private int second = 0;
 	private int minute = 1;
-	// TODO minute timer
-	// private Timer secondTimer = new Timer(1000, new ActionListener() {
-	// public void actionPerformed(ActionEvent e) {
-	// second++;
-	// if(second > 59){
-	// minute++;
-	// second = 0;
-	// }
-	// String sec = String.format("%02d", second);
-	// timerLabel.setText(minute + ":" + sec);
-	// }
-
 	private Timer secondTimer = new Timer(1000, new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			second++;
@@ -105,13 +98,15 @@ public class AbstractMessagePanel extends JPanel {
 	});
 
 	public AbstractMessagePanel(TradeOffer trade) {
+		timerPanel.setLabel(new JLabel("0s"));
+		timerLabel = timerPanel.getLabel();
 		this.trade = trade;
 		this.setLayout(gb);
 		borderPanel.setLayout(gb);
 		container.setLayout(gb);
 		gc.gridx = 0;
 		gc.gridy = 0;
-		namePanel = new NameClickPanel();
+//		App.eventManager.addColorListener(this);
 	}
 
 	public void resizeMessage(int i) {
@@ -169,23 +164,9 @@ public class AbstractMessagePanel extends JPanel {
 		return messageType;
 	}
 
-	// TODO : Reconsider where to put audio
 	public void setMessageType(MessageType messageType) {
 		this.messageType = messageType;
 	}
-
-	// TODO : More fonts
-	// TODO : Properly center font
-	// public void refreshFont(int size) {
-	// // Font f = this.getFont();
-	// int[] fontSizes = { 12, 16, 18, 20 };
-	// int i = size;
-	// if (i % 2 != 0) {
-	// i--;
-	// }
-	// // System.out.println("FONT SIZE : " + i);
-	// font = new Font("Serif", Font.PLAIN, i);
-	// }
 
 	protected void resizeFrames() {
 
@@ -205,5 +186,12 @@ public class AbstractMessagePanel extends JPanel {
 
 	public void restartTimer() {
 		secondTimer.restart();
+	}
+
+	@Override
+	public void updateColor() {
+		super.updateColor();
+		timerPanel.setBackgroundColor(ColorManager.BACKGROUND);
+		timerPanel.setBorderColor(ColorManager.BACKGROUND);
 	}
 }

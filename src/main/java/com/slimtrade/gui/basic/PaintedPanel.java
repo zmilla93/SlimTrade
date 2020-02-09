@@ -1,90 +1,133 @@
 package com.slimtrade.gui.basic;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.ColorModel;
+import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 
 import javax.swing.*;
-import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class PaintedPanel extends JPanel {
+public class PaintedPanel extends JPanel implements IColorable {
 
-	private static final long serialVersionUID = 1L;
+	public static final int BORDER_SIZE = 1;
 	
-	public Color backgroundDefault = Color.GRAY;
-	public Color backgroundHover = Color.LIGHT_GRAY;
-	public Color backgroundClick = Color.DARK_GRAY;
-	
-	public Color textDefault;
+	public Color backgroundDefault = ColorManager.LOW_CONSTRAST_1;
+	public Color backgroundHover;
+	public Color backgroundClick;
+
+	public Color textDefault = ColorManager.TEXT;
 	public Color textHover;
 	public Color textClick;
-	
-	public Border borderDefault;
-	public Border borderHover;
-	public Border borderClick;
+
+	public Color borderDefault;
+	public Color borderHover;
+	public Color borderClick;
 	
 	private boolean hover;
 	private boolean mouseDown;
 
-	protected GridBagConstraints gc = new GridBagConstraints();
-	
-	JPanel local = this;
+	protected JLabel label = new JLabel();
+
 	public PaintedPanel(){
 		this.setLayout(new GridBagLayout());
 		this.addMouseListener(new MouseListener(){
 			public void mouseClicked(MouseEvent e) {
 			}
-
 			public void mouseEntered(MouseEvent e) {
 				hover = true;
-				local.repaint();
+				repaint();
 			}
-
 			public void mouseExited(MouseEvent e) {
 				hover = false;
-				local.repaint();
+				repaint();
 			}
-
 			public void mousePressed(MouseEvent e) {
 				mouseDown = true;
-				local.repaint();
+				repaint();
 			}
-
 			public void mouseReleased(MouseEvent e) {
 				mouseDown = false;
-				local.repaint();
+				repaint();
 			}
-
 		});
+		this.add(label);
+		App.eventManager.addColorListener(this);
+		this.updateColor();
 	}
 	
     @Override
-	public void paint(Graphics g) {
-//		System.out.println(textDefault);
-		super.paintComponent(g);
-
+	public void paintComponent(Graphics g) {
+		Color bg;
+		Color border;
+		Color text;
 		if(mouseDown){
-			g.setColor(backgroundClick);
+			bg = backgroundClick;
+			border = borderClick;
+			text = textClick;
 		}else if(hover){
-			g.setColor(backgroundHover);
-//            this.setBackground(Color.BLUE);
-			this.setForeground(textHover);
-//			this.setBorder(borderHover);
+			bg = backgroundHover;
+			border = borderHover;
+			text = textHover;
 		}else{
-			g.setColor(backgroundDefault);
-			this.setForeground(textDefault);
-//			this.setBorder(borderDefault);
+			bg = backgroundDefault;
+			border = borderDefault;
+			text = textDefault;
 		}
+		g.setColor(border);
 		g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.GREEN);
+        g.setColor(bg);
 		g.fillRect(1, 1, getWidth()-2, getHeight()-2);
-		super.paintChildren(g);
+		label.setForeground(text);
+	}
+
+	@Override
+	public void updateColor() {
+		backgroundDefault = ColorManager.LOW_CONSTRAST_1;
+		backgroundHover = backgroundDefault;
+		backgroundClick = backgroundDefault;
+
+		borderDefault = backgroundDefault;
+		borderHover = backgroundDefault;
+		borderClick = backgroundDefault;
+
+		textDefault = ColorManager.TEXT;
+		textHover = textDefault;
+		textClick = textDefault;
 
 	}
+
+	public void setText(String text) {
+		label.setText(text);
+	}
+
+	public void setLabel(JLabel label) {
+		this.label = label;
+	}
+
+	public JLabel getLabel() {
+		return this.label;
+	}
+
+	public void setBackgroundColor(Color color) {
+		backgroundDefault = color;
+		backgroundClick = color;
+		backgroundHover = color;
+	}
+
+	public void setBorderColor(Color color) {
+		borderDefault = color;
+		borderClick = color;
+		borderHover = color;
+	}
+
+	public void setTextColor(Color color) {
+		textDefault = color;
+		textClick = color;
+		textHover = color;
+	}
+
 }
 
 
