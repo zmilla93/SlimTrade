@@ -14,18 +14,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MenubarDialog extends BasicDialog {
 
     private static final long serialVersionUID = 1L;
-    private static int buttonCount = 4;
-    private static int spacerCount = 1;
-    private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.3);
+//    private static int buttonCount = 4;
+//    private static int spacerCount = 1;
+//    private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.3);
 
-    public static final int WIDTH = MenubarButton.WIDTH;
-    public static final int HEIGHT = (MenubarButton.HEIGHT * buttonCount) + (spacerHeight * spacerCount);
+//    public static final int WIDTH = MenubarButton.WIDTH;
+//    public static final int HEIGHT = (MenubarButton.HEIGHT * buttonCount) + (spacerHeight * spacerCount);
 
     private MenubarButton historyButton;
     private MenubarButton chatScannerButton;
@@ -33,13 +34,16 @@ public class MenubarDialog extends BasicDialog {
     private MenubarButton optionsButton;
     private MenubarButton quitButton;
 
-    private Component[] componentList;
+    private ArrayList<JButton> buttons = new ArrayList<>();
+
+//    private Component[] componentList;
     private Container container = this.getContentPane();
 
     public MenubarDialog() {
+
         // TODO : Modify constructor of menubar buttons
 
-        this.setBounds(0, TradeUtility.screenSize.height - HEIGHT, WIDTH, HEIGHT);
+//        this.setBounds(0, TradeUtility.screenSize.height - HEIGHT, WIDTH, HEIGHT);
         container.setLayout(FrameManager.gridbag);
 
         // TODO : Update Locale
@@ -48,33 +52,13 @@ public class MenubarDialog extends BasicDialog {
         testButton = new MenubarButton("");
         optionsButton = new MenubarButton("");
         quitButton = new MenubarButton("");
-        GridBagConstraints gc = new GridBagConstraints();
 
-        gc.gridx = 0;
-        gc.gridy = 0;
-//        gc.gridwidth = 1;
-//        gc.gridheight = 1;
-        gc.fill = GridBagConstraints.BOTH;
-        gc.insets = new Insets(2, 2, 0, 2);
+        // Anything added to buttons appears on the Menubar
+        buttons.add(historyButton);
+        buttons.add(chatScannerButton);
+        buttons.add(optionsButton);
+        // Test and Quit buttons are added automatically
 
-        container.add(historyButton, gc);
-        gc.gridy++;
-        container.add(chatScannerButton, gc);
-        gc.gridy++;
-        if (App.debugMode) {
-            container.add(testButton, gc);
-            gc.gridy++;
-        }
-        container.add(optionsButton, gc);
-        gc.insets = new Insets(12, 2, 2, 2);
-        gc.gridy++;
-        container.add(quitButton, gc);
-
-        this.refreshButtonText();
-
-        componentList = container.getComponents();
-
-        // TODO : Move button actions
 
         // History
         historyButton.addMouseListener(new AdvancedMouseAdapter() {
@@ -138,9 +122,9 @@ public class MenubarDialog extends BasicDialog {
             }
         });
 
-        this.pack();
-//        this.reorder();
-//        this.setBounds(0, 0, WIDTH, HEIGHT);
+
+        this.refreshButtonText();
+        this.reorder();
     }
 
     private void refreshButtonText() {
@@ -148,24 +132,19 @@ public class MenubarDialog extends BasicDialog {
         optionsButton.setText(lang.getString("optionsButton"));
         historyButton.setText(lang.getString("historyButton"));
 //        testButton.setText(lang.getString("testButton"));
-        testButton.setText("TEST");
+        testButton.setText("Test Messages");
         quitButton.setText(lang.getString("quitButton"));
     }
 
     public void updateLocation() {
         System.out.println("UPDATE MENUBAR");
-//        this.(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
         this.setBounds(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY, this.getWidth(), this.getHeight());
         FrameManager.menubarToggle.updateLocation();
     }
 
     public void init() {
-//        System.out.println("INIT X:" + this.getX());
-        System.out.println("INIT X:" + App.saveManager.overlaySaveFile.menubarX);
         boolean hasChanges = false;
-        int diff;
         if (this.getWidth() != App.saveManager.overlaySaveFile.menubarWidth) {
-            System.out.println("DIFF WIDTH");
             if (App.saveManager.overlaySaveFile.menubarButtonLocation == MenubarButtonLocation.NE || App.saveManager.overlaySaveFile.menubarButtonLocation == MenubarButtonLocation.SE) {
                 App.saveManager.overlaySaveFile.menubarX += App.saveManager.overlaySaveFile.menubarWidth - this.getWidth();
             }
@@ -182,56 +161,47 @@ public class MenubarDialog extends BasicDialog {
         if (hasChanges) {
             App.saveManager.saveOverlayToDisk();
         }
-        System.out.println("INIT X:" + App.saveManager.overlaySaveFile.menubarX);
         this.updateLocation();
+
+        System.out.println("MENUBAR SIZE : " + this.getSize());
     }
 
     public void reorder() {
-//        System.out.println("REORDER : " + App.saveManager.overlaySaveFile.menubarButtonLocation);
-//        int buffer = 2;
-//        MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.overlaySaveFile.menubarButtonLocation;
-//        GridBagConstraints gc = new GridBagConstraints();
-//        gc.gridx = 0;
-//        gc.gridy = 0;
-//        gc.weightx = 1;
-//        gc.weighty = 1;
-//        gc.fill = GridBagConstraints.HORIZONTAL;
-//        gc.insets = new Insets(3, buffer, 0, buffer);
-//        int componentCount = componentList.length;
-//        switch (loc) {
-//            case NE:
-//            case NW:
-//                for (Component c : componentList) {
-//                    container.add(c, gc);
-//                    gc.gridy++;
-//                    if (gc.gridy < componentCount - 1) {
-//                        gc.insets.bottom = 0;
-//                        gc.insets.top = buffer;
-//                    } else {
-//                        gc.insets.top = 0;
-//                        gc.insets.bottom = 3;
-//                    }
-//                }
-//                break;
-//            case SE:
-//            case SW:
-//                for (Component c : componentList) {
-//                    container.add(c, gc);
-//                    gc.gridy++;
-//                    if (gc.gridy < componentCount - 1) {
-//                        gc.insets.bottom = 0;
-//                        gc.insets.top = buffer;
-//                    } else {
-//                        gc.insets.top = 0;
-//                        gc.insets.bottom = 3;
-//                    }
-//                }
-//                break;
-//        }
-//        this.setPreferredSize(null);
-//        this.setPreferredSize(this.getPreferredSize());
-//        this.revalidate();
-//        this.repaint();
+        MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation;
+        boolean flip = false;
+        int y = 0;
+        int modY = 1;
+        int count = buttons.size() + 1;
+        if(loc == MenubarButtonLocation.SW || loc == MenubarButtonLocation.SE) {
+            flip = true;
+            y = App.debugMode ? count + 1 : count;
+            modY = -1;
+        }
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = y;
+        gc.fill = GridBagConstraints.BOTH;
+        if(flip) {
+            gc.insets = new Insets(0, 2, 2, 2);
+        } else {
+            gc.insets = new Insets(2, 2, 0, 2);
+        }
+        for(JButton b : buttons) {
+            container.add(b, gc);
+            gc.gridy += modY;
+        }
+        if(App.debugMode) {
+            container.add(testButton, gc);
+            gc.gridy += modY;
+        }
+        if(flip) {
+            gc.insets = new Insets(2, 2, 12, 2);
+        } else {
+            gc.insets = new Insets(12, 2, 2, 2);
+        }
+
+        container.add(quitButton, gc);
+        this.pack();
     }
 
     private void addMouseExitListener(Component c) {

@@ -1,21 +1,5 @@
 package com.slimtrade.gui.messaging;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.logging.Level;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.MacroButton;
 import com.slimtrade.core.SaveSystem.StashTab;
@@ -35,6 +19,12 @@ import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.enums.PreloadedImageCustom;
 import com.slimtrade.gui.panels.PricePanel;
 import com.slimtrade.gui.stash.helper.StashHelper;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
@@ -429,7 +419,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         itemLabel.setForeground(ColorManager.TEXT);
 		namePanel.setBackground(ColorManager.LOW_CONSTRAST_1);
         itemPanel.setBackground(ColorManager.HIGH_CONTRAST_2);
-        itemPanel.backgroudDefault = ColorManager.HIGH_CONTRAST_2;
+//        itemPanel.backgroudDefault = ColorManager.HIGH_CONTRAST_2;
 		//MUTUAL COLORS
 		this.setBackground(ColorManager.PRIMARY);
 		switch (trade.messageType) {
@@ -463,7 +453,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                     }
                 }
 			}
-			itemPanel.backgroudDefault = color;
+//			itemPanel.backgroudDefault = color;
 			itemLabel.setForeground(colorText);
 			stashHelper = new StashHelper(trade, color, colorText);
 			stashHelper.setVisible(false);
@@ -483,7 +473,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 		default:
 			break;
 		}
-		itemPanel.refresh();
+//		itemPanel.refresh();
 	}
 
 }

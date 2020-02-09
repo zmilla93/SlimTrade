@@ -12,6 +12,7 @@ public class MenubarButton extends BasicButton {
 
     private static final long serialVersionUID = 1L;
     public static int HEIGHT = 20;
+    public static int WIDTH = 120;
 
     public MenubarButton() {
         this("");
@@ -19,8 +20,7 @@ public class MenubarButton extends BasicButton {
 
     public MenubarButton(String text) {
         super(text);
-		this.setPreferredSize(new Dimension(this.getPreferredSize().width, HEIGHT));
-        this.setFocusable(false);
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
 }

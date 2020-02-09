@@ -117,11 +117,7 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.gridy++;
         gc.insets.bottom = 0;
         container.add(customPanel, gc);
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                addNewMacro();
-            }
-        });
+        addButton.addActionListener(e -> addNewMacro());
         load();
         App.eventManager.addColorListener(this);
         this.updateColor();

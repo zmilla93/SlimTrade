@@ -28,31 +28,31 @@ import com.slimtrade.gui.panels.ContainerPanel;
 //TODO : CLEANUP
 public class IncomingCustomizer extends ContainerPanel implements ISaveable, IColorable {
 
-	private static final long serialVersionUID = 1L;
-	private MessagePanel exampleTradeIn;
+    private static final long serialVersionUID = 1L;
+    private MessagePanel exampleTradeIn;
 
-	private AbstractWindow parent;
+    private AbstractWindow parent;
 
-	private JTextField thankLeft;
-	private JTextField thankRight;
+    private JTextField thankLeft;
+    private JTextField thankRight;
 
-	private AddRemovePanel customPanel;
+    private AddRemovePanel customPanel;
 
-	private JButton addButton = new BasicButton("Add Custom Macro");
-	private JPanel presetPanel = new JPanel(FrameManager.gridbag);
+    private JButton addButton = new BasicButton("Add Custom Macro");
+    private JPanel presetPanel = new JPanel(FrameManager.gridbag);
 
-	private String left = "Left Click";
-	private String right = "Right Click";
-	private String either = "Either";
-	public static final int CUSTOM_MAX = 10;
+    private String left = "Left Click";
+    private String right = "Right Click";
+    private String either = "Either";
+    public static final int CUSTOM_MAX = 10;
 
-	public IncomingCustomizer(AbstractWindow parent) {
-		this.setVisible(false);
-		this.parent = parent;
+    public IncomingCustomizer(AbstractWindow parent) {
+        this.setVisible(false);
+        this.parent = parent;
 
-		refreshTrade();
+        refreshTrade();
 
-		// INCOMING PRESETS
+        // INCOMING PRESETS
         PresetMacroRow refreshInPreset = new PresetMacroRow(PreloadedImage.REFRESH.getImage(), true);
         refreshInPreset.getRow(either, "Hi, are you still interested in my [Item] listed for [Price]?");
         PresetMacroRow closePreset = new PresetMacroRow(PreloadedImage.CLOSE.getImage());
@@ -69,21 +69,21 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
         leavePreset.getRow(either, "Kick");
 
-		// INCOMING
-		SectionHeader exampleHeader = new SectionHeader("Incoming Trade");
-		SectionHeader presetHeader = new SectionHeader("Preset Macros");
+        // INCOMING
+        SectionHeader exampleHeader = new SectionHeader("Incoming Trade");
+        SectionHeader presetHeader = new SectionHeader("Preset Macros");
         SectionHeader customHeader = new SectionHeader("Custom Macros");
 
-		customPanel = new AddRemovePanel();
-		customPanel.setBorder(null);
+        customPanel = new AddRemovePanel();
+        customPanel.setBorder(null);
 
-		// gc.insets = new Insets(2, 0, 0, 0);
-		// addRow(incomingLabel, gc);
-		GridBagConstraints gc = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 0;
-		gc.insets.bottom = 4;
-		//Preset Macros
+        // gc.insets = new Insets(2, 0, 0, 0);
+        // addRow(incomingLabel, gc);
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.insets.bottom = 4;
+        //Preset Macros
         presetPanel.add(refreshInPreset, gc);
         gc.gridy++;
         presetPanel.add(closePreset, gc);
@@ -100,84 +100,80 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 
         //Everything
         gc.gridy = 0;
-		container.setLayout(new GridBagLayout());
+        container.setLayout(new GridBagLayout());
         gc.insets.bottom = FrameManager.gapSmall;
-		container.add(exampleHeader, gc);
+        container.add(exampleHeader, gc);
         gc.gridy++;
         gc.insets.bottom = FrameManager.gapLarge;
-		container.add(exampleTradeIn, gc);
-		gc.gridy++;
+        container.add(exampleTradeIn, gc);
+        gc.gridy++;
         gc.insets.bottom = FrameManager.gapSmall;
         container.add(presetHeader, gc);
         gc.gridy++;
         gc.insets.bottom = FrameManager.gapLarge;
-		container.add(presetPanel, gc);
-		gc.gridy++;
+        container.add(presetPanel, gc);
+        gc.gridy++;
 
         gc.insets.bottom = FrameManager.gapSmall;
-		container.add(customHeader, gc);
-		gc.gridy++;
-		container.add(addButton, gc);
-		gc.gridy++;
+        container.add(customHeader, gc);
+        gc.gridy++;
+        container.add(addButton, gc);
+        gc.gridy++;
         gc.insets.bottom = 0;
-		container.add(customPanel, gc);
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				addNewMacro();
-			}
-		});
-		load();
+        container.add(customPanel, gc);
+        addButton.addActionListener(e -> addNewMacro());
+        load();
         App.eventManager.addColorListener(this);
         this.updateColor();
-	}
+    }
 
-	private void refreshTrade() {
-        if(exampleTradeIn != null){
+    private void refreshTrade() {
+        if (exampleTradeIn != null) {
             container.remove(exampleTradeIn);
             App.eventManager.removeColorListener(exampleTradeIn);
         }
-		GridBagConstraints gc = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 1;
-		gc.insets.bottom = FrameManager.gapLarge;
-		Random rng = new Random();
-		TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "BuyerUsername", "Example Item", 1, "chaos", 20, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-		exampleTradeIn = new MessagePanel(tradeIn, new Dimension(400, 40), false);
-		exampleTradeIn.stopTimer();
-		container.add(exampleTradeIn, gc);
-		parent.revalidate();
-		parent.repaint();
-	}
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 1;
+        gc.insets.bottom = FrameManager.gapLarge;
+        Random rng = new Random();
+        TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "BuyerUsername", "Example Item", 1, "chaos", 20, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+        exampleTradeIn = new MessagePanel(tradeIn, new Dimension(400, 40), false);
+        exampleTradeIn.stopTimer();
+        container.add(exampleTradeIn, gc);
+        parent.revalidate();
+        parent.repaint();
+    }
 
-	private CustomMacroRow addNewMacro() {
-		int i = 0;
-		for (Component c : customPanel.getComponents()) {
-			if (c.isVisible()) {
-				i++;
-			}
-		}
-		if (i >= CUSTOM_MAX) {
-			return null;
-		}
-		CustomMacroRow row = new CustomMacroRow(customPanel);
-		customPanel.addPanel(row);
-		return row;
-	}
+    private CustomMacroRow addNewMacro() {
+        int i = 0;
+        for (Component c : customPanel.getComponents()) {
+            if (c.isVisible()) {
+                i++;
+            }
+        }
+        if (i >= CUSTOM_MAX) {
+            return null;
+        }
+        CustomMacroRow row = new CustomMacroRow(customPanel);
+        customPanel.addPanel(row);
+        return row;
+    }
 
-	public void revertChanges() {
-		customPanel.revertChanges();
-		load();
-	}
+    public void revertChanges() {
+        customPanel.revertChanges();
+        load();
+    }
 
-	private void loadFromSave() {
+    private void loadFromSave() {
 
-	    // Thank Button
+        // Thank Button
         thankLeft.setText(App.saveManager.saveFile.thankIncomingLMB);
         thankRight.setText(App.saveManager.saveFile.thankIncomingRMB);
 
         // Custom Macros
-	    int i = 0;
-	    for(MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
+        int i = 0;
+        for (MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
             CustomMacroRow row = addNewMacro();
             ButtonRow buttonRow = macro.row;
             PreloadedImageCustom buttonImage = macro.image;
@@ -185,36 +181,36 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
             row.setButtonImage(buttonImage);
             row.setTextLMB(macro.leftMouseResponse);
             row.setTextRMB(macro.rightMouseResponse);
-	        if(++i >= CUSTOM_MAX){
-	            return;
+            if (++i >= CUSTOM_MAX) {
+                return;
             }
         }
-	}
+    }
 
-	public void save() {
+    public void save() {
         customPanel.saveChanges();
         // PRESET BUTTONS
         App.saveManager.saveFile.thankIncomingLMB = thankLeft.getText();
         App.saveManager.saveFile.thankIncomingRMB = thankRight.getText();
-		// CUSTOM BUTTONS
-		App.saveManager.saveFile.incomingMacroButtons.clear();
-		for (Component c : customPanel.getComponents()) {
-			CustomMacroRow row = (CustomMacroRow) c;
-			App.saveManager.saveFile.incomingMacroButtons.add(row.getMacroData());
-		}
-		// Refresh
+        // CUSTOM BUTTONS
+        App.saveManager.saveFile.incomingMacroButtons.clear();
+        for (Component c : customPanel.getComponents()) {
+            CustomMacroRow row = (CustomMacroRow) c;
+            App.saveManager.saveFile.incomingMacroButtons.add(row.getMacroData());
+        }
+        // Refresh
         refreshTrade();
-	}
+    }
 
-	public void load() {
-		customPanel.removeAll();
-		loadFromSave();
-		customPanel.updateColor();
-	}
+    public void load() {
+        customPanel.removeAll();
+        loadFromSave();
+        customPanel.updateColor();
+    }
 
     @Override
     public void updateColor() {
-	    this.setBackground(ColorManager.LOW_CONSTRAST_1);
+        this.setBackground(ColorManager.LOW_CONSTRAST_1);
     }
 
 }

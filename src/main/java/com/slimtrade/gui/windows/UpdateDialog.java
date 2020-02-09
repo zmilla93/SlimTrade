@@ -64,16 +64,14 @@ public class UpdateDialog extends JDialog {
 		gc.gridy++;
 		container.add(viewUpdateButton, gc);
 
-		viewUpdateButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
-					Desktop.getDesktop().browse(uri);
-				} catch (URISyntaxException | IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		viewUpdateButton.addActionListener(e -> {
+            try {
+                URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
+                Desktop.getDesktop().browse(uri);
+            } catch (URISyntaxException | IOException err) {
+                err.printStackTrace();
+            }
+        });
 		
 		this.setAlwaysOnTop(true);
 		this.toFront();

@@ -27,7 +27,6 @@ public class MenubarExpandButton extends BasicDialog implements IColorable {
         this.setBounds(0, TradeUtility.screenSize.height - size, size, size);
 //        this.getContentPane().setBackground(Color.RED);
         expandButton = new IconButton(PreloadedImage.TAG.getImage(), size);
-
         this.add(expandButton);
 
 

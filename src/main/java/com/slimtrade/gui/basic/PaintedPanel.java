@@ -6,8 +6,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.ColorModel;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 public class PaintedPanel extends JPanel {
@@ -28,58 +29,61 @@ public class PaintedPanel extends JPanel {
 	
 	private boolean hover;
 	private boolean mouseDown;
-	
+
 	protected GridBagConstraints gc = new GridBagConstraints();
 	
 	JPanel local = this;
 	public PaintedPanel(){
 		this.setLayout(new GridBagLayout());
 		this.addMouseListener(new MouseListener(){
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent e) {
 			}
-			
-			public void mouseEntered(MouseEvent arg0) {
+
+			public void mouseEntered(MouseEvent e) {
 				hover = true;
 				local.repaint();
 			}
-			
-			public void mouseExited(MouseEvent arg0) {
+
+			public void mouseExited(MouseEvent e) {
 				hover = false;
 				local.repaint();
 			}
-			
-			public void mousePressed(MouseEvent arg0) {
+
+			public void mousePressed(MouseEvent e) {
 				mouseDown = true;
 				local.repaint();
 			}
-			
-			public void mouseReleased(MouseEvent arg0) {
+
+			public void mouseReleased(MouseEvent e) {
 				mouseDown = false;
 				local.repaint();
 			}
-			
+
 		});
 	}
 	
-
-	protected void paintComponent(Graphics g) {
+    @Override
+	public void paint(Graphics g) {
 //		System.out.println(textDefault);
 		super.paintComponent(g);
+
 		if(mouseDown){
 			g.setColor(backgroundClick);
-			this.setForeground(textClick);
-			this.setBorder(borderClick);
 		}else if(hover){
 			g.setColor(backgroundHover);
+//            this.setBackground(Color.BLUE);
 			this.setForeground(textHover);
-			this.setBorder(borderHover);
+//			this.setBorder(borderHover);
 		}else{
 			g.setColor(backgroundDefault);
 			this.setForeground(textDefault);
-			this.setBorder(borderDefault);
+//			this.setBorder(borderDefault);
 		}
-		g.fillRect(0, 0, getWidth(), getWidth());
-		
+		g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.GREEN);
+		g.fillRect(1, 1, getWidth()-2, getHeight()-2);
+		super.paintChildren(g);
+
 	}
 }
 
