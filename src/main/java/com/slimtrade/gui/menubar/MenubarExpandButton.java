@@ -69,7 +69,7 @@ public class MenubarExpandButton extends BasicDialog implements IColorable {
                 break;
             case SE:
                 modX = FrameManager.menubar.getWidth() - this.getWidth();
-                modY = FrameManager.menubar.getHeight()-this.getHeight();
+                modY = FrameManager.menubar.getHeight() - this.getHeight();
                 break;
         }
         this.setLocation(x + modX, y + modY);

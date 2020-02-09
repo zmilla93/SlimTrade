@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.SaveSystem.OverlaySaveFile;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.PreloadedImage;
@@ -37,8 +38,10 @@ public class TrayButton {
 
         // Reset UI Button
         resetUIButton.addActionListener(e -> {
+            App.saveManager.overlaySaveFile = new OverlaySaveFile();
             FrameManager.overlayManager.resetToDefault();
             FrameManager.menubar.updateLocation();
+            FrameManager.menubar.reorder();
             FrameManager.messageManager.setAnchorPoint(new Point(App.saveManager.overlaySaveFile.messageX, App.saveManager.overlaySaveFile.messageY));
             FrameManager.messageManager.refreshPanelLocations();
             FrameManager.centerFrame(FrameManager.optionsWindow);

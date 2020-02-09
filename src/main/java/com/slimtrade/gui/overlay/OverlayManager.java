@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent;
 
 public class OverlayManager implements ISaveable, IColorable {
 
-    private BasicDialog helpDialog;
+    private OverlayInfoDialog helpDialog;
     private BasicMovableDialog menubarDialog = new BasicMovableDialog(true);
     private BasicMovableDialog messageDialog = new BasicMovableDialog(true);
     private GridBagConstraints gc = new GridBagConstraints();
@@ -51,8 +51,8 @@ public class OverlayManager implements ISaveable, IColorable {
 
     public OverlayManager() {
         helpDialog = new OverlayInfoDialog();
-        menubarCombo = ((OverlayInfoDialog) helpDialog).menubarCombo;
-        messageCombo = ((OverlayInfoDialog) helpDialog).messageCombo;
+        menubarCombo = helpDialog.menubarCombo;
+        messageCombo = helpDialog.messageCombo;
 
         // Sizes
         Border borderDefault = BorderFactory.createMatteBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, borderColor);
@@ -76,10 +76,9 @@ public class OverlayManager implements ISaveable, IColorable {
         gc.weightx = 1;
         gc.weighty = 1;
 
-        // Menubar
+        // MenuBar
         gc.anchor = GridBagConstraints.SOUTHEAST;
         menubarDialog.getContentPane().setLayout(FrameManager.gridbag);
-
         menubarDialog.getContentPane().add(menubarButtonDummy, gc);
         gc.anchor = GridBagConstraints.CENTER;
 
@@ -124,11 +123,11 @@ public class OverlayManager implements ISaveable, IColorable {
         });
 
         // CANCEL BUTTON
-        ((OverlayInfoDialog) helpDialog).cancelButton.addMouseListener(new AdvancedMouseAdapter() {
+        helpDialog.cancelButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
                 FrameManager.windowState = WindowState.NORMAL;
-                menubarDialog.setLocation(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
-                messageDialog.setLocation(App.saveManager.overlaySaveFile.messageX, App.saveManager.overlaySaveFile.messageY);
+//                menubarDialog.setLocation(FrameManager.menubar.getX(), FrameManager.menubar.getY());
+//                messageDialog.setLocation(FrameManager.messageManager.getAnchorPoint());
                 load();
                 updateMenubarButton(App.saveManager.overlaySaveFile.menubarButtonLocation);
                 hideAll();
@@ -138,23 +137,11 @@ public class OverlayManager implements ISaveable, IColorable {
         });
 
         // SAVE BUTTON
-        ((OverlayInfoDialog) helpDialog).saveButton.addMouseListener(new AdvancedMouseAdapter() {
+        helpDialog.saveButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
                 FrameManager.windowState = WindowState.NORMAL;
                 save();
-//                App.saveManager.saveFile.menubarX = menubarDialog.getX();
-//                App.saveManager.saveFile.menubarY = menubarDialog.getY();
-//                App.saveManager.saveFile.messageManagerX = messageDialog.getX();
-//                App.saveManager.saveFile.messageManagerY = messageDialog.getY();
-//                ExpandDirection dir = (ExpandDirection)messageCombo.getSelectedItem();
-//                MenubarButtonLocation loc = (MenubarButtonLocation)menubarCombo.getSelectedItem();
-//
-//                App.saveManager.saveFile.messageExpandDirection = dir;
-//                App.saveManager.saveFile.menubarButtonLocation = loc;
-//                App.saveManager.saveOverlayToDisk();
-
                 // Update UI
-
                 FrameManager.menubar.setLocation(menubarDialog.getLocation());
                 FrameManager.menubarToggle.updateLocation();
                 FrameManager.menubar.reorder();
@@ -168,6 +155,10 @@ public class OverlayManager implements ISaveable, IColorable {
                 FrameManager.showVisibleFrames();
                 FrameManager.showOptionsWindow();
             }
+        });
+
+        helpDialog.defaultsButton.addActionListener(e -> {
+            this.resetToDefault();
         });
 
 
@@ -267,7 +258,8 @@ public class OverlayManager implements ISaveable, IColorable {
         menubarCombo.setSelectedItem(App.saveManager.overlaySaveFile.menubarButtonLocation);
         messageCombo.setSelectedItem(App.saveManager.overlaySaveFile.messageExpandDirection);
         updateMenubarButton(App.saveManager.overlaySaveFile.menubarButtonLocation);
-        FrameManager.menubar.reorder();
+        System.out.println("LOCCC:" + menubarDialog.getLocation());
+
     }
 
     @Override
@@ -306,10 +298,14 @@ public class OverlayManager implements ISaveable, IColorable {
     }
 
     public void resetToDefault() {
-        App.saveManager.overlaySaveFile = new OverlaySaveFile();
-        App.saveManager.overlaySaveFile.menubarWidth = FrameManager.menubar.getWidth();
-        App.saveManager.overlaySaveFile.menubarHeight = FrameManager.menubar.getHeight();
-        load();
+        OverlaySaveFile defaults = new OverlaySaveFile();
+        menubarDialog.setLocation(defaults.menubarX, defaults.menubarY);
+        messageDialog.setLocation(defaults.messageX, defaults.messageY);
+        menubarCombo.setSelectedItem(defaults.menubarButtonLocation);
+        messageCombo.setSelectedItem(defaults.messageExpandDirection);
+        this.menubarScreenLock = defaults.menubarScreenLock;
+        this.messageScreenLock = defaults.messageScreenLock;
+        updateMenubarButton(defaults.menubarButtonLocation);
     }
 
 }

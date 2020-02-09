@@ -56,19 +56,22 @@ public class FrameManager {
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();
 
+        // Menu Bar
+        menubar = new MenubarDialog();
         menubarToggle = new MenubarExpandButton();
+        menubar.init();
+        menubarToggle.updateLocation();
+
         messageManager = new MessageDialogManager();
 
         chatScannerWindow = new ChatScannerWindow();
         ignoreItemWindow = new IgnoreItemWindow();
         stashOverlayWindow = new StashWindow();
-        menubar = new MenubarDialog();
+
         overlayManager = new OverlayManager();
 
         stashHelperContainer.setShow(true);
-        menubar.init();
-        menubarToggle.updateLocation();
-        menubar.reorder();
+
 
         //TODO : ADD NEW MESSAGE MANAGER
         showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
@@ -132,10 +135,10 @@ public class FrameManager {
         for (HideableDialog h : MessageDialogManager.getDialogList()) {
             if (h.isVisible()) {
                 h.setAlwaysOnTop(false);
-            h.setAlwaysOnTop(true);
+                h.setAlwaysOnTop(true);
+            }
         }
-        }
-        if(FrameManager.windowState == WindowState.NORMAL){
+        if (FrameManager.windowState == WindowState.NORMAL) {
             for (HideableDialog h : forceFrames) {
                 if (h != null && h.isVisible()) {
                     h.setAlwaysOnTop(false);

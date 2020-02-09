@@ -3,12 +3,10 @@ package com.slimtrade.gui.menubar;
 import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
-import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
-import com.slimtrade.gui.basic.BasicPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -121,10 +119,7 @@ public class MenubarDialog extends BasicDialog {
                 }
             }
         });
-
-
         this.refreshButtonText();
-        this.reorder();
     }
 
     private void refreshButtonText() {
@@ -137,12 +132,16 @@ public class MenubarDialog extends BasicDialog {
     }
 
     public void updateLocation() {
-        System.out.println("UPDATE MENUBAR");
-        this.setBounds(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY, this.getWidth(), this.getHeight());
-        FrameManager.menubarToggle.updateLocation();
+        this.setLocation(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
+        if(FrameManager.menubarToggle != null) {
+            FrameManager.menubarToggle.updateLocation();
+        }
     }
 
+    // If the MenuBar changes sizes, the anchor point is shifted based on the location
+    // of the expand button to ensure that the expand button never moves off screen.
     public void init() {
+        this.reorder();
         boolean hasChanges = false;
         if (this.getWidth() != App.saveManager.overlaySaveFile.menubarWidth) {
             if (App.saveManager.overlaySaveFile.menubarButtonLocation == MenubarButtonLocation.NE || App.saveManager.overlaySaveFile.menubarButtonLocation == MenubarButtonLocation.SE) {
@@ -162,9 +161,8 @@ public class MenubarDialog extends BasicDialog {
             App.saveManager.saveOverlayToDisk();
         }
         this.updateLocation();
-
-        System.out.println("MENUBAR SIZE : " + this.getSize());
     }
+
 
     public void reorder() {
         MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation;
@@ -199,7 +197,6 @@ public class MenubarDialog extends BasicDialog {
         } else {
             gc.insets = new Insets(12, 2, 2, 2);
         }
-
         container.add(quitButton, gc);
         this.pack();
     }

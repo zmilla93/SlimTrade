@@ -211,6 +211,9 @@ public class MessageDialogManager {
     public void setAnchorPoint(Point point) {
         this.anchorPoint = point;
     }
+    public Point getAnchorPoint() {
+        return this.anchorPoint;
+    }
 
     public static ArrayList<PanelWrapper> getDialogList() {
         return MessageDialogManager.wrapperList;
