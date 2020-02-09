@@ -40,6 +40,11 @@ public class ColorManager {
     public static Color TEXT;    // DEFAULT TEXT
     public static Color DISABLED = Color.GRAY;    // DISABLED
 
+    // OTHER
+    public static Color PLAYER_JOINED_INCOMING = new Color(0, 160, 0);
+    public static Color PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
+
+
     //Static Colors
     //TODO : Check uses of clear
     public static Color CLEAR = new Color(0, 0, 0, 0);

@@ -32,7 +32,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 	private MessagePanel exampleTradeIn;
 
 	private AbstractWindow parent;
-	
+
 	private JTextField thankLeft;
 	private JTextField thankRight;
 
@@ -49,9 +49,6 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 	public IncomingCustomizer(AbstractWindow parent) {
 		this.setVisible(false);
 		this.parent = parent;
-
-		//TEMP
-
 
 		refreshTrade();
 
@@ -195,7 +192,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 	}
 
 	public void save() {
-        refreshTrade();
+        customPanel.saveChanges();
         // PRESET BUTTONS
         App.saveManager.saveFile.thankIncomingLMB = thankLeft.getText();
         App.saveManager.saveFile.thankIncomingRMB = thankRight.getText();
@@ -206,7 +203,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 			App.saveManager.saveFile.incomingMacroButtons.add(row.getMacroData());
 		}
 		// Refresh
-        customPanel.saveChanges();
+        refreshTrade();
 	}
 
 	public void load() {

@@ -448,7 +448,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 //            colorText = ColorManager.POE_TEXT_DARK;
 			color = StashTabColor.TWENTYSIX.getBackground();
             colorText = StashTabColor.TWENTYSIX.getForeground();
-            System.out.println("TAB NAME : " + trade.stashtabName);
+//            System.out.println("TAB NAME : " + trade.stashtabName);
 			if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
 				int i = 0;
 				for(StashTab tab : App.saveManager.saveFile.stashTabs) {

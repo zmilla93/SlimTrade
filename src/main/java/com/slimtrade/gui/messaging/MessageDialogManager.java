@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
@@ -219,8 +220,17 @@ public class MessageDialogManager {
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel panel = (MessagePanel) wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
-                panel.nameLabel.setForeground(Color.YELLOW);
-                panel.borderPanel.setBackground(Color.YELLOW);
+                if(panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
+                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_INCOMING);
+                    panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
+                    panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
+                }
+                else if(panel.getTrade().messageType == MessageType.INCOMING_TRADE.OUTGOING_TRADE) {
+                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_OUTGOING);
+                    panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
+                    panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
+                }
+
             }
         }
     }

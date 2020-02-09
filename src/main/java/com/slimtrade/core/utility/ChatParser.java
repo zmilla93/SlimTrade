@@ -32,12 +32,12 @@ public class ChatParser {
 	int totalLineCount;
 	String curLine;
 	// TODO: should these be trade or message variables? chat scanner?
-	public int tradeHistoryIndex = 0;
+//	public int tradeHistoryIndex = 0;
 	final public int MAX_TRADE_HISTORY = 50;
 	public TradeOffer[] tradeHistory = new TradeOffer[MAX_TRADE_HISTORY];
 	// public int messageQueue = 0;
-	public String[] playerJoinedArea = new String[20];
-	public int playerJoinedQueue = 0;
+//	public String[] playerJoinedArea = new String[20];
+//	public int playerJoinedQueue = 0;
 	private ActionListener updateAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			procUpdate();
