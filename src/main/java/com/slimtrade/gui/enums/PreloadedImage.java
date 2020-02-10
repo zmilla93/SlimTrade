@@ -1,39 +1,48 @@
 package com.slimtrade.gui.enums;
 
+import com.slimtrade.core.References;
+
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
 /**
  * Preloaded icons used by the SlimTrade UI. These are intended for internal use only.
- * PreloadedImageCustom is for use by the user with custom custom buttons.
+ * PreloadedImageCustom is for use by the user with custom macro buttons.
  */
 
 public enum PreloadedImage {
-    CART("icons/cartx64.png"),
-    CLOSE("icons/closex64.png"),
-    HOME("icons/home3.png"),
-    INVITE("icons/invite1.png"),
-    LEAVE("icons/leave.png"),
-    PLAY("icons/play1.png"),
-    REFRESH("icons/refreshx64.png"),
-    REPLY("icons/replyx48.png"),
-    THUMB("icons/thumb.png"),
-    TAG("icons/tagx48.png"),
-    WARP("icons/warp.png"),
+    CART("icons/default/cartx64.png"),
+    CLOSE("icons/default/closex64.png"),
+    HOME("icons/default/homex64.png"),
+    INVITE("icons/default/invitex48.png"),
+    LEAVE("icons/default/leavex64.png"),
+    PLAY("icons/default/playx64.png"),
+    REFRESH("icons/default/refreshx64.png"),
+    REPLY("icons/default/replyx48.png"),
+    TAG("icons/default/tagx64.png"),
+    THUMB("icons/default/thumbx64.png"),
+    WARP("icons/default/warpx64.png"),
     ;
 
-    Image image;
-    ImageIcon imageIcon;
-    private static final double IMAGE_SCALE = 0.94;
-    private static final int imageSize = (int) (20 * IMAGE_SCALE);
+    private Image image;
+    private final String path;
+    private int cachedSize = 0;
 
     PreloadedImage(String path) {
-        this.image = new ImageIcon(this.getClass().getClassLoader().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
+        this.path = path;
     }
 
     public Image getImage() {
-        return this.image;
+        return getImage(References.DEFAULT_IMAGE_SIZE);
+    }
+
+    public Image getImage(int size) {
+        if(image == null || size != cachedSize) {
+            image = new ImageIcon(this.getClass().getClassLoader().getResource(path)).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
+            cachedSize = size;
+        }
+        return image;
     }
 
 }

@@ -1,19 +1,17 @@
 package com.slimtrade.gui.basic;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class PaintedPanel extends JPanel implements IColorable {
+public class PaintedPanel extends JPanel  {
 
 	public static final int BORDER_SIZE = 1;
 	
-	public Color backgroundDefault = ColorManager.LOW_CONSTRAST_1;
+	public Color backgroundDefault = ColorManager.LOW_CONTRAST_1;
 	public Color backgroundHover;
 	public Color backgroundClick;
 
@@ -31,6 +29,18 @@ public class PaintedPanel extends JPanel implements IColorable {
 	protected JLabel label = new JLabel();
 
 	public PaintedPanel(){
+		backgroundDefault = ColorManager.LOW_CONTRAST_1;
+		backgroundHover = backgroundDefault;
+		backgroundClick = backgroundDefault;
+
+		borderDefault = backgroundDefault;
+		borderHover = backgroundDefault;
+		borderClick = backgroundDefault;
+
+		textDefault = ColorManager.TEXT;
+		textHover = textDefault;
+		textClick = textDefault;
+
 		this.setLayout(new GridBagLayout());
 		this.addMouseListener(new MouseListener(){
 			public void mouseClicked(MouseEvent e) {
@@ -53,8 +63,8 @@ public class PaintedPanel extends JPanel implements IColorable {
 			}
 		});
 		this.add(label);
-		App.eventManager.addColorListener(this);
-		this.updateColor();
+//		App.eventManager.addColorListener(this);
+//		this.updateColor();
 	}
 	
     @Override
@@ -82,21 +92,10 @@ public class PaintedPanel extends JPanel implements IColorable {
 		label.setForeground(text);
 	}
 
-	@Override
-	public void updateColor() {
-		backgroundDefault = ColorManager.LOW_CONSTRAST_1;
-		backgroundHover = backgroundDefault;
-		backgroundClick = backgroundDefault;
-
-		borderDefault = backgroundDefault;
-		borderHover = backgroundDefault;
-		borderClick = backgroundDefault;
-
-		textDefault = ColorManager.TEXT;
-		textHover = textDefault;
-		textClick = textDefault;
-
-	}
+//	@Override
+//	public void updateColor() {
+//
+//	}
 
 	public void setText(String text) {
 		label.setText(text);

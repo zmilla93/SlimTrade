@@ -1,8 +1,6 @@
 package com.slimtrade.gui.options.macros;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 
 import com.slimtrade.App;
@@ -51,10 +49,10 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
 
         // INCOMING PRESETS
         PresetMacroRow refreshInPreset = new PresetMacroRow(PreloadedImage.REFRESH.getImage(), true);
-        refreshInPreset.getRow(left, "Resend Offer");
+        refreshInPreset.getRow(left, "Resend Trade Whisper");
         PresetMacroRow closePreset = new PresetMacroRow(PreloadedImage.CLOSE.getImage());
-        closePreset.getRow(left, "Close trade");
-        closePreset.getRow(right, "Save this trade, Close all other similar trades");
+        closePreset.getRow(left, "Close Trade");
+        closePreset.getRow(right, "Save Trade + close all other similar trades");
 
         PresetMacroRow warpPreset = new PresetMacroRow(PreloadedImage.WARP.getImage(), true);
         warpPreset.getRow(left, "Warp to Seller");
@@ -63,9 +61,9 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         thankLeft = thankPreset.getRow(left, "", true);
         thankRight = thankPreset.getRow(right, "", true);
         PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
-        leavePreset.getRow(left, "Kick");
+        leavePreset.getRow(left, "Leave Party");
         PresetMacroRow homePreset = new PresetMacroRow(PreloadedImage.HOME.getImage(), true);
-        homePreset.getRow(left, "Hideout");
+        homePreset.getRow(left, "Warp to Hideout");
 
         // INCOMING
         SectionHeader exampleHeader = new SectionHeader("Outgoing Trade");
@@ -208,6 +206,6 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
 
     @Override
     public void updateColor() {
-        this.setBackground(ColorManager.LOW_CONSTRAST_1);
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
     }
 }

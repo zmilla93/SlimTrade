@@ -1,34 +1,46 @@
 package com.slimtrade.gui.enums;
 
-import java.awt.Image;
+import com.slimtrade.core.References;
 
+import java.awt.Image;
+import java.sql.Ref;
 import javax.swing.ImageIcon;
 
-//TODO : WHAT IS THIS?
+/**
+ * Preloaded icons for use by the user with custom macro buttons.
+ */
+
 public enum PreloadedImageCustom {
 
-//	REFRESH("icons/refreshx48.png"),
-	BEAKER("icons/beakerx48.png"),
-	CANCEL("icons/cancelx48.png"),
-	CLOCK("icons/clock1.png"),
-	FLOW("icons/flowx48.png"),
-	HAPPY("icons/happy.png"),
-	KEY("icons/key1x48.png"),
-//	KEY2("icons/key2x48.png"),
-	MAP("icons/mapx48.png"),
-//	SHUFFLE("icons/shufflex48.png"),
+	CANCEL("icons/custom/cancelx48.png"),
+	BOOKMARK("icons/custom/bookmarkx48.png"),
+	MAP("icons/custom/mapx64.png"),
+	BEAKER("icons/custom/beakerx48.png"),
+	FLOW2("icons/custom/flow-switchx48.png"),
+	CLOCK("icons/custom/clockx64.png"),
+	WATCH("icons/custom/watchx64.png"),
+	MAIL1("icons/custom/mailx64.png"),
 	;
 	
-	Image image;
-	private final double IMAGE_SCALE = 0.94;
-	private final int imageSize = (int)(20*IMAGE_SCALE);
+	private Image image;
+	private int cachedSize = 0;
+	private final String path;
+
 	
 	PreloadedImageCustom(String path){
-		this.image = new ImageIcon(this.getClass().getClassLoader().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
+		this.path = path;
+	}
+
+	public Image getImage(){
+		return this.getImage(References.DEFAULT_IMAGE_SIZE);
 	}
 	
-	public Image getImage(){
-		return this.image;
+	public Image getImage(int size){
+		if(image == null || size != cachedSize) {
+			image = new ImageIcon(this.getClass().getClassLoader().getResource(path)).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
+			cachedSize = size;
+		}
+		return image;
 	}
 	
 }

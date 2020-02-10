@@ -86,7 +86,7 @@ public class InformationPanel extends ContainerPanel {
     @Override
     public void updateColor() {
         super.updateColor();
-        gitText.setBackground(ColorManager.LOW_CONSTRAST_1);
-        emailText.setBackground(ColorManager.LOW_CONSTRAST_1);
+        gitText.setBackground(ColorManager.LOW_CONTRAST_1);
+        emailText.setBackground(ColorManager.LOW_CONTRAST_1);
     }
 }

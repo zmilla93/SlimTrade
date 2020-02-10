@@ -14,7 +14,7 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
 
     @Override
     protected void configureScrollBarColors() {
-        this.trackColor = ColorManager.LOW_CONSTRAST_1;
+        this.trackColor = ColorManager.LOW_CONTRAST_1;
         this.thumbColor = ColorManager.HIGH_CONTRAST_1;
     }
 
@@ -52,7 +52,7 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
         } else if (isDragging) {
             color = ColorManager.HIGH_CONTRAST_2;
         } else if (isThumbRollover()) {
-            color = ColorManager.LOW_CONSTRAST_2;
+            color = ColorManager.LOW_CONTRAST_2;
         } else {
             color = ColorManager.PRIMARY;
         }

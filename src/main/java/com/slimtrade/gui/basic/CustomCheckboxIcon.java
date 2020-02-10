@@ -83,7 +83,7 @@ public class CustomCheckboxIcon implements IColorable, Icon {
         if (model.isEnabled()) {
             if (model.isPressed() && model.isArmed()) {
 //                g.setColor(UIManager.getColor("MyCheckBox.checkClickBackground"));
-                g.setColor(ColorManager.LOW_CONSTRAST_1);
+                g.setColor(ColorManager.LOW_CONTRAST_1);
                 g.fillRect( x, y, controlSize, controlSize);
             } else {
                 g.setColor(ColorManager.BACKGROUND);

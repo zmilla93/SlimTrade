@@ -1,8 +1,6 @@
 package com.slimtrade.gui.options.macros;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.*;
@@ -60,14 +58,14 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         closePreset.getRow(right, "Close trade + all similar trades");
 
         PresetMacroRow invitePreset = new PresetMacroRow(PreloadedImage.INVITE.getImage(), true);
-        invitePreset.getRow(either, "Invite");
+        invitePreset.getRow(either, "Invite to Party");
         PresetMacroRow tradePreset = new PresetMacroRow(PreloadedImage.CART.getImage(), true);
-        tradePreset.getRow(either, "Trade");
+        tradePreset.getRow(either, "Send Trade Offer");
         PresetMacroRow thankPreset = new PresetMacroRow(PreloadedImage.THUMB.getImage());
         thankLeft = thankPreset.getRow(left, "", true);
         thankRight = thankPreset.getRow(right, "", true);
         PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
-        leavePreset.getRow(either, "Kick");
+        leavePreset.getRow(either, "Leave Party");
 
         // INCOMING
         SectionHeader exampleHeader = new SectionHeader("Incoming Trade");
@@ -210,7 +208,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 
     @Override
     public void updateColor() {
-        this.setBackground(ColorManager.LOW_CONSTRAST_1);
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
     }
 
 }

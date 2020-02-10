@@ -15,7 +15,7 @@ import com.slimtrade.gui.overlay.OverlayManager;
 import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
-import com.slimtrade.gui.windows.CurrencyTestWindow;
+import com.slimtrade.gui.windows.ImageTestingWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,8 +53,9 @@ public class FrameManager {
         UIManager.put("ScrollBar.height", 12);
         FrameManager.gridbag = new GridBagLayout();
 
-        // TODO : TEMP currency testing window
-//        CurrencyTestWindow currencyTestWindow = new CurrencyTestWindow();
+        // TODO : TEMP Image testing window
+//        ImageTestingWindow imageTestingWindow = new ImageTestingWindow();
+//        imageTestingWindow.setVisible(true);
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();

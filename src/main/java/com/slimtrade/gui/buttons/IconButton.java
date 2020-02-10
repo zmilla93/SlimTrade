@@ -22,7 +22,7 @@ public class IconButton extends JButton implements IColorable {
 	private final double IMAGE_SCALE = 0.94;
 
 //	public Color colorDefault = Color.GRAY;
-	public Color colorDefault = ColorManager.LOW_CONSTRAST_1;
+	public Color colorDefault = ColorManager.LOW_CONTRAST_1;
 	public Color colorHover = ColorManager.PRIMARY;
 	public Color colorPressed = ColorManager.BACKGROUND;
 
@@ -99,7 +99,7 @@ public class IconButton extends JButton implements IColorable {
 
     @Override
     public void updateColor() {
-        colorDefault = ColorManager.LOW_CONSTRAST_1;
+        colorDefault = ColorManager.LOW_CONTRAST_1;
         colorHover = Color.LIGHT_GRAY;
         colorPressed = Color.WHITE;
     }

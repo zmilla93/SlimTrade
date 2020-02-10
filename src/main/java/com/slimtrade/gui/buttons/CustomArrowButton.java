@@ -3,7 +3,6 @@ package com.slimtrade.gui.buttons;
 import com.slimtrade.core.managers.ColorManager;
 
 import javax.swing.*;
-import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 
@@ -11,9 +10,9 @@ public class CustomArrowButton extends BasicArrowButton {
 
     // TODO : direction only constructor
     private static Color background = ColorManager.PRIMARY;
-    private static Color shadow = ColorManager.LOW_CONSTRAST_1;
+    private static Color shadow = ColorManager.LOW_CONTRAST_1;
     private static Color darkShadow = ColorManager.TEXT;
-    private static Color highlight = ColorManager.LOW_CONSTRAST_1;
+    private static Color highlight = ColorManager.LOW_CONTRAST_1;
     private int direction = 0;
 
     public CustomArrowButton(int direction) {

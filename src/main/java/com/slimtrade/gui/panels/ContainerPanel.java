@@ -1,6 +1,5 @@
 package com.slimtrade.gui.panels;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 
@@ -39,6 +38,6 @@ public class ContainerPanel extends JPanel implements IColorable {
 
     @Override
     public void updateColor() {
-        this.setBackground(ColorManager.LOW_CONSTRAST_1);
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
     }
 }

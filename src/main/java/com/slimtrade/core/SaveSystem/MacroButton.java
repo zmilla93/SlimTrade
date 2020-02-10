@@ -14,6 +14,7 @@ public class MacroButton {
         this.row = row;
         this.leftMouseResponse = leftMouseResponse;
         this.rightMouseResponse = rightMouseResponse;
+        System.out.println("IMAGE :::: " + image);
         this.image = image;
     }
 

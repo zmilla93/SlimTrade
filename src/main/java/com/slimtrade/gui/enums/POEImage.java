@@ -1,6 +1,6 @@
 package com.slimtrade.gui.enums;
 
-import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.core.References;
 
 import javax.swing.*;
 import java.awt.*;
@@ -153,12 +153,12 @@ public enum POEImage {
     ;
 
 
-    private static final double IMAGE_SCALE = 1;
-    private static final int DEFAULT_SIZE = 20;
-    private static int imageSize = (int) (DEFAULT_SIZE * IMAGE_SCALE);
-    private int size = DEFAULT_SIZE;
+//    private static final double IMAGE_SCALE = 1;
+//    private static final int DEFAULT_SIZE = 20;
+//    private static int imageSize = (int) (DEFAULT_SIZE * IMAGE_SCALE);
 
-    private Image image = null;
+    private Image image;
+    private int cachedSize = 0;
     private String[] tags = null;
 
     POEImage(String... inTags) {
@@ -200,32 +200,16 @@ public enum POEImage {
     }
 
     public Image getImage() {
-        if (image == null) {
-//            ClassLoader loader = getClass().getClassLoader();
-//            image = new ImageIcon(loader.getResource(getPath())).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
-            return getImage(DEFAULT_SIZE);
-        }
-        return image;
+        return getImage(References.DEFAULT_IMAGE_SIZE);
     }
 
     public Image getImage(int size) {
-        if (image == null || size != this.size) {
-            this.size = size;
-            ClassLoader loader = getClass().getClassLoader();
-            imageSize = (int) (this.size * IMAGE_SCALE);
+        if (image == null || size != this.cachedSize) {
             System.out.println("\tGenerating Image : " + getPath());
-            try {
-                image = new ImageIcon(loader.getResource(getPath())).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
-            }catch (NullPointerException e) {
-                System.out.println("ERR : "  + getPath());
-            }
-
+            cachedSize = size;
+            image = new ImageIcon(getClass().getClassLoader().getResource(getPath())).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
         }
         return image;
-    }
-
-    public int getImageSize() {
-        return size;
     }
 
 }

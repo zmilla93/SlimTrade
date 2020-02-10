@@ -33,8 +33,8 @@ public class ColorManager {
 
     // Exclusive Colors
     public static Color BACKGROUND;                 // DARK/LIGHT THEME
-    public static Color LOW_CONSTRAST_1;            // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
-    public static Color LOW_CONSTRAST_2;            // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
+    public static Color LOW_CONTRAST_1;            // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
+    public static Color LOW_CONTRAST_2;            // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
     public static Color HIGH_CONTRAST_1;            // DEFINE WHITE/BLACK 	- CAN BE BACKGROUND OF OPPO
     public static Color HIGH_CONTRAST_2;            // LESSER WHITE/BLACK 	- CAN BE LOW CONSTAST OF OPPO
     public static Color TEXT;    // DEFAULT TEXT
@@ -60,12 +60,12 @@ public class ColorManager {
             default:
             case LIGHT_THEME:
                 ColorManager.BACKGROUND = Color.WHITE;
-                ColorManager.LOW_CONSTRAST_1 = Color.LIGHT_GRAY;
+                ColorManager.LOW_CONTRAST_1 = Color.LIGHT_GRAY;
                 ColorManager.HIGH_CONTRAST_1 = Color.BLACK;
                 ColorManager.HIGH_CONTRAST_2 = Color.DARK_GRAY;
                 ColorManager.BACKGROUND = new Color(255, 245, 235);
-                ColorManager.LOW_CONSTRAST_1 = new Color(240, 235, 225);
-                ColorManager.LOW_CONSTRAST_2 = new Color(197, 192, 182);
+                ColorManager.LOW_CONTRAST_1 = new Color(240, 235, 225);
+                ColorManager.LOW_CONTRAST_2 = new Color(197, 192, 182);
                 ColorManager.HIGH_CONTRAST_1 = new Color(60, 60, 60);
                 ColorManager.HIGH_CONTRAST_2 = new Color(102, 102, 102);
                 break;
@@ -73,7 +73,8 @@ public class ColorManager {
             case DARK_THEME:
 //			ColorManager.BACKGROUND = new Color(64, 64, 64);
                 ColorManager.BACKGROUND = new Color(43, 43, 43);
-                ColorManager.LOW_CONSTRAST_1 = Color.DARK_GRAY;
+                ColorManager.LOW_CONTRAST_1 = Color.DARK_GRAY;
+                ColorManager.LOW_CONTRAST_2 = new Color(80, 80, 80);
                 ColorManager.HIGH_CONTRAST_1 = Color.WHITE;
                 ColorManager.HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
                 break;

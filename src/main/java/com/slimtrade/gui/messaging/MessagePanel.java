@@ -81,7 +81,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
             case INCOMING_TRADE:
             case OUTGOING_TRADE:
                 itemPanel.setText(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
-                pricePanel.removeListener();
+//                pricePanel.removeListener();
                 pricePanel = new PricePanel(trade.priceTypeString, trade.priceCount, true);
                 //TODO : PRICE PANEL
                 break;
@@ -193,6 +193,12 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 buttonCountBottom = 4;
                 for (MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
                     PreloadedImageCustom img = macro.image;
+                    if(img == null) {
+                        for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
+                            img = c;
+                            break;
+                        }
+                    }
                     IconButton button = new IconButton(img.getImage(), rowHeight);
                     if (macro.row == ButtonRow.TOP) {
                         buttonCountTop++;
@@ -265,6 +271,12 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 buttonCountBottom = 4;
                 for (MacroButton macro : App.saveManager.saveFile.outgoingMacroButtons) {
                     PreloadedImageCustom img = macro.image;
+                    if(img == null) {
+                        for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
+                            img = c;
+                            break;
+                        }
+                    }
                     IconButton button = new IconButton(img.getImage(), rowHeight);
                     if (macro.row == ButtonRow.TOP) {
                         buttonCountTop++;
@@ -377,14 +389,13 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         //MUTUAL COLORS
         this.setBackground(ColorManager.PRIMARY);
         // Name Panel
-        namePanel.setBackgroundColor(ColorManager.LOW_CONSTRAST_1);
+        namePanel.setBackgroundColor(ColorManager.LOW_CONTRAST_1);
         namePanel.backgroundHover = ColorManager.PRIMARY;
-        namePanel.borderDefault = ColorManager.LOW_CONSTRAST_1;
+        namePanel.borderDefault = ColorManager.LOW_CONTRAST_1;
         namePanel.borderHover = ColorManager.TEXT;
         namePanel.borderClick = ColorManager.TEXT;
-
-        itemPanel.setBackgroundColor(ColorManager.LOW_CONSTRAST_2);
-        itemPanel.setBorderColor(ColorManager.LOW_CONSTRAST_2);
+        itemPanel.setBackgroundColor(ColorManager.LOW_CONTRAST_2);
+        itemPanel.setBorderColor(ColorManager.LOW_CONTRAST_2);
         pricePanel.setTextColor(ColorManager.PRIMARY);
         switch (trade.messageType) {
             case CHAT_SCANNER:
@@ -420,17 +431,11 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 borderPanel.setBackground(ColorManager.GREEN_SALE);
                 pricePanel.setBackgroundColor(ColorManager.GREEN_SALE);
                 pricePanel.setBorderColor(ColorManager.GREEN_SALE);
-
-
                 break;
             case OUTGOING_TRADE:
                 borderPanel.setBackground(ColorManager.RED_SALE);
                 pricePanel.setBackgroundColor(ColorManager.RED_SALE);
                 pricePanel.setBorderColor(ColorManager.RED_SALE);
-                break;
-            case UNKNOWN:
-                break;
-            default:
                 break;
         }
     }

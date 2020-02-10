@@ -36,7 +36,7 @@ public class PaintedTextPanel extends PaintedPanel implements IColorable {
 
     @Override
     public void updateColor() {
-        super.updateColor();
+//        super.updateColor();
         this.setForeground(textDefault);
     }
 }

@@ -30,7 +30,7 @@ public class PricePanel extends PaintedPanel {
 			label.setText(num);
 			this.add(label, gc);
 			gc.gridx++;
-			IconPanel img = new IconPanel(poeImage.getImage(), poeImage.getImageSize());
+			IconPanel img = new IconPanel(poeImage.getImage(20), 25);
 			this.add(img, gc);
 		}else{
 			label.setText(num + price);
