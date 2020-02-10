@@ -192,7 +192,7 @@ public enum POEImage {
                 builder.append(Character.toLowerCase(c));
             }
         }
-        return "currency/" + builder.toString() + ".png";
+        return "currency/" + builder.toString().replaceAll("Of", "of") + ".png";
     }
 
     public String[] getTags() {
