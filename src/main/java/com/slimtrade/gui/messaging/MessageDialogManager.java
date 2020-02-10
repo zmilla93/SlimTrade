@@ -17,7 +17,7 @@ import com.slimtrade.gui.enums.ExpandDirection;
 public class MessageDialogManager {
 
     private Point anchorPoint;
-    private Dimension defaultSize = new Dimension(400, 40);
+    public Dimension defaultSize = new Dimension(400, 40);
     private ExpandDirection expandDirection;
 
     private final int BUFFER_SIZE = 2;
@@ -194,7 +194,10 @@ public class MessageDialogManager {
         MessagePanel msgPanel = (MessagePanel) wrapperList.get(index).getPanel();
         if (msgPanel.getMessageType() == MessageType.INCOMING_TRADE) {
             if (msgPanel.getStashHelper() != null) {
-                msgPanel.getStashHelper().itemHighlighter.dispose();
+                // TODO :
+                if(msgPanel.getStashHelper().itemHighlighter != null) {
+                    msgPanel.getStashHelper().itemHighlighter.dispose();
+                }
                 FrameManager.stashHelperContainer.remove(msgPanel.getStashHelper());
                 FrameManager.stashHelperContainer.pack();
             }

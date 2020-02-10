@@ -1,14 +1,11 @@
 package com.slimtrade.gui.panels;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import com.slimtrade.core.utility.TradeUtility;
-import com.slimtrade.enums.CurrencyType;
 import com.slimtrade.gui.basic.PaintedPanel;
+import com.slimtrade.gui.enums.POEImage;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class PricePanel extends PaintedPanel {
 
@@ -27,14 +24,13 @@ public class PricePanel extends PaintedPanel {
 		gc.gridx = 0;
 		gc.gridy = 0;
 		label = new JLabel();
-		String num = quant > 0 ? TradeUtility.getFixedDouble(quant, paren) + " ": "" ;
-		CurrencyType currency = TradeUtility.getCurrencyType(price);
-//		System.out.println(currency + " ::: " + quant + " ::: " + num);
-		if(currency!=null && !currency.getPath().equals("")){
+		String num = quant > 0 ? TradeUtility.getFixedDouble(quant, paren) + " " : "" ;
+		POEImage poeImage = TradeUtility.getPOEImage(price.toLowerCase());
+		if(poeImage!=null){
 			label.setText(num);
 			this.add(label, gc);
 			gc.gridx++;
-			IconPanel img = new IconPanel(currency.getPath());
+			IconPanel img = new IconPanel(poeImage.getImage(), poeImage.getImageSize());
 			this.add(img, gc);
 		}else{
 			label.setText(num + price);

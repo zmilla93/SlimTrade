@@ -127,7 +127,7 @@ public class MenubarDialog extends BasicDialog {
         optionsButton.setText(lang.getString("optionsButton"));
         historyButton.setText(lang.getString("historyButton"));
 //        testButton.setText(lang.getString("testButton"));
-        testButton.setText("Test Messages");
+        testButton.setText("Test");
         quitButton.setText(lang.getString("quitButton"));
     }
 

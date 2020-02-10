@@ -37,10 +37,10 @@ public class IconButton extends JButton implements IColorable {
 		buildButton(image, DEFAULT_SIZE);
 	}
 
-//	public IconButton(String path, int size) {
-//		getNewImage(path, size);
-//		buildButton(image, size);
-//	}
+	public IconButton(String path, int size) {
+		getNewImage(path, size);
+		buildButton(image, size);
+	}
 	
 	public IconButton(Image image, int size){
 		buildButton(image, size);

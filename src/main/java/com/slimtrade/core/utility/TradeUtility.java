@@ -1,10 +1,9 @@
 package com.slimtrade.core.utility;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
-import com.slimtrade.enums.CurrencyType;
 import com.slimtrade.core.audio.AudioManager;
+import com.slimtrade.gui.enums.POEImage;
+
+import java.awt.*;
 
 public class TradeUtility {
 
@@ -39,21 +38,34 @@ public class TradeUtility {
 		return fixedDouble;
 	}
 
-	// TODO : Could remove empty string check
-	public static CurrencyType getCurrencyType(String input) {
+//	// TODO : Could remove empty string check
+//	public static CurrencyType getCurrencyType(String input) {
+//		input = input.toLowerCase();
+//		String[] terms = input.split("\\s+");
+//		for (CurrencyType type : CurrencyType.values()) {
+//			for (String tag : type.getTags()) {
+//				if (tag == "") {
+//					break;
+//				}
+//				for (int i = 0; i < terms.length; i++) {
+//					if (terms[i].equals(tag)) {
+//						return type;
+//					}
+//				}
+//			}
+//		}
+//		return null;
+//	}
+
+	public static POEImage getPOEImage(String input) {
 		input = input.toLowerCase();
-		String[] terms = input.split("\\s+");
-		for (CurrencyType type : CurrencyType.values()) {
-			for (String tag : type.getTags()) {
-				if (tag == "") {
-					break;
-				}
-				for (int i = 0; i < terms.length; i++) {
-					if (terms[i].equals(tag)) {
-						return type;
+		for (POEImage poeImage : POEImage.values()) {
+			if(poeImage.getTags() != null) {
+				for (String tag : poeImage.getTags()) {
+					if(tag.toLowerCase().equals(input.toLowerCase())) {
+						return poeImage;
 					}
 				}
-
 			}
 		}
 		return null;
@@ -98,6 +110,30 @@ public class TradeUtility {
 
 	public static int intWithinRange(int value, int min, int max) {
 		return Math.min(Math.max(value, min), max);
+	}
+
+	public static String capitalizeString(String s) {
+		return capitalizeString(s, false);
+	}
+
+	public static String capitalizeString(String s, boolean replaceUnderscores) {
+		StringBuilder builder = new StringBuilder();
+		boolean cap = true;
+		for(char c : s.toCharArray()) {
+			if(cap){
+				builder.append(Character.toUpperCase(c));
+				cap = false;
+			} else if (c == '_' || c == ' '){
+				builder.append(c);
+				cap = true;
+			} else {
+				builder.append(Character.toLowerCase(c));
+			}
+		}
+		if(replaceUnderscores) {
+			return builder.toString().replaceAll("_", " ");
+		}
+		return builder.toString();
 	}
 
 	// public static ExpandDirection getExpandDirection(String input){

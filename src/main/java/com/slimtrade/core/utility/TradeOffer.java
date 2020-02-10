@@ -2,9 +2,9 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
-import com.slimtrade.enums.CurrencyType;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.StashTabType;
+import com.slimtrade.gui.enums.POEImage;
 
 //TODO : Would be nice to seperate this into several offer types, but would require a fairly large refactory to do so
 //TODO : Could switch to getting/setting to make constructor less horrible, but would lose constants
@@ -26,7 +26,7 @@ public class TradeOffer {
     public final String bonusText;
     public final String sentMessage;
 
-    public CurrencyType priceType;
+    public POEImage priceType;
     public StashTabType stashType = StashTabType.NORMAL;
 
     public final String searchName;
@@ -43,7 +43,7 @@ public class TradeOffer {
         this.playerName = playerName;
         this.itemName = itemName;
         this.itemCount = itemCount;
-        this.priceType = TradeUtility.getCurrencyType(priceTypeString);
+        this.priceType = TradeUtility.getPOEImage(priceTypeString);
         this.priceTypeString = priceTypeString;
         this.priceCount = priceCount;
         this.stashtabName = null;
@@ -88,7 +88,7 @@ public class TradeOffer {
         this.playerName = playerName;
         this.itemName = itemName;
         this.itemCount = itemCount;
-        this.priceType = TradeUtility.getCurrencyType(priceTypeString);
+        this.priceType = TradeUtility.getPOEImage(priceTypeString);
         this.priceTypeString = priceTypeString;
         this.priceCount = priceCount;
         this.stashtabName = stashtabName;
