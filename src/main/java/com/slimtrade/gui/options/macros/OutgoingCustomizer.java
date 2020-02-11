@@ -66,7 +66,7 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         homePreset.getRow(left, "Warp to Hideout");
 
         PresetMacroRow usernamePreset = new PresetMacroRow("Username");
-        usernamePreset.getRow(left, "/whois [Seller]");
+        usernamePreset.getRow(left, "/whois [seller]");
         usernamePreset.getRow(right, "Open empty whisper with seller");
 
         // INCOMING

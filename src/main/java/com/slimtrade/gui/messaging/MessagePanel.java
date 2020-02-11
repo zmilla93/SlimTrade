@@ -394,8 +394,10 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         namePanel.borderDefault = ColorManager.LOW_CONTRAST_1;
         namePanel.borderHover = ColorManager.TEXT;
         namePanel.borderClick = ColorManager.TEXT;
+        namePanel.setTextColor(ColorManager.TEXT);
         itemPanel.setBackgroundColor(ColorManager.LOW_CONTRAST_2);
         itemPanel.setBorderColor(ColorManager.LOW_CONTRAST_2);
+        itemPanel.setTextColor(ColorManager.TEXT);
         pricePanel.setTextColor(ColorManager.PRIMARY);
         switch (trade.messageType) {
             case CHAT_SCANNER:

@@ -151,29 +151,26 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         container.add(editOverlayButton, gc);
         gc.gridy++;
 
-        editStashButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                FrameManager.windowState = WindowState.STASH_OVERLAY;
-                FrameManager.hideAllFrames();
-                FrameManager.stashOverlayWindow.setShow(true);
-                FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
-                FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
-            }
+        editStashButton.addActionListener(e -> {
+            FrameManager.windowState = WindowState.STASH_OVERLAY;
+            FrameManager.hideAllFrames();
+            FrameManager.stashOverlayWindow.setShow(true);
+            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
+            FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
         });
 
-        editOverlayButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                FrameManager.windowState = WindowState.LAYOUT_MANAGER;
-                FrameManager.hideAllFrames();
-                FrameManager.overlayManager.showAll();
-            }
+        editOverlayButton.addActionListener(e -> {
+            FrameManager.windowState = WindowState.LAYOUT_MANAGER;
+            FrameManager.hideAllFrames();
+            FrameManager.overlayManager.showAll();
         });
 
 
         load();
 
-        colorThemeCombo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        colorThemeCombo.addActionListener(e -> {
+            System.out.println("COLINDEX:" + colorThemeCombo.getSelectedIndex());
+            if(colorThemeCombo.getSelectedIndex() >= 0) {
                 App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
             }
         });

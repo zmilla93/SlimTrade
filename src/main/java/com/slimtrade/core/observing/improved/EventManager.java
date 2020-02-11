@@ -58,12 +58,25 @@ public class EventManager {
     public void updateAllColors(ColorTheme theme) {
         System.out.println("Updaing All Colors");
         ColorManager.setTheme(theme);
-        for (IColorable l : colorListenerList) {
-            l.updateColor();
-            if(l instanceof Component) {
-                ((Component) l).repaint();
+        System.out.println("||LIST:" + colorListenerList + " | " + colorListenerList.size());
+        ArrayList<IColorable> temp = new ArrayList<>();
+
+        for (int i = 0;i<colorListenerList.size();i++) {
+            IColorable c  = colorListenerList.get(i);
+            c.updateColor();
+            if(c != null) {
+                temp.add(c);
+//                if(c instanceof Component) {
+//                    ((Component)c).repaint();
+//                }
             }
         }
+//        for (IColorable l : colorListenerList) {
+//            l.updateColor();
+//            if(l instanceof Component) {
+//                ((Component) l).repaint();
+//            }
+//        }
     }
 
 }

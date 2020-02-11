@@ -50,7 +50,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
 //        System.out.println("Click : " +  click);
 //        click++;
-//        System.out.println("window : " +  curWindowTitle);
+        System.out.println("window : " +  curWindowTitle);
 //        System.out.println("STATE : " + FrameManager.windowState);
 //		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || App.debugMode) {
 //            FrameManager.showVisibleFrames();
@@ -61,7 +61,6 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         // TODO : CLEAN UP
 
         if (curWindowTitle.equals(References.POE_WINDOW_TITLE)
-
                 || App.debugMode) {
             if (FrameManager.windowState == WindowState.NORMAL) {
 //                System.out.println("P1");
@@ -78,8 +77,10 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                 FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
             }
         } else if (curWindowTitle.equals("Open") || curWindowTitle.equals(References.APP_NAME + " - Options") || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")) {
-            FrameManager.optionsWindow.setAlwaysOnTop(false);
-            FrameManager.optionsWindow.setAlwaysOnTop(true);
+//            FrameManager.optionsWindow.setAlwaysOnTop(false);
+//            FrameManager.optionsWindow.setAlwaysOnTop(true);
+            FrameManager.showVisibleFrames();
+            FrameManager.forceAllToTop();
         } else {
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideAll();

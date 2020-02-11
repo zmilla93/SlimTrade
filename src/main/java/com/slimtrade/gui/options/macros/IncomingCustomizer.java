@@ -53,7 +53,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 
         // INCOMING PRESETS
         PresetMacroRow refreshInPreset = new PresetMacroRow(PreloadedImage.REFRESH.getImage(), true);
-        refreshInPreset.getRow(either, "Hi, are you still interested in my [Item] listed for [Price]?");
+        refreshInPreset.getRow(either, "Hi, are you still interested in my [item] listed for [price]?");
         PresetMacroRow closePreset = new PresetMacroRow(PreloadedImage.CLOSE.getImage());
         closePreset.getRow(left, "Close trade");
         closePreset.getRow(right, "Close trade + all similar trades");
@@ -69,7 +69,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         leavePreset.getRow(either, "Leave Party");
 
         PresetMacroRow usernamePreset = new PresetMacroRow("Username");
-        usernamePreset.getRow(left, "/whois [Buyer]");
+        usernamePreset.getRow(left, "/whois [buyer]");
         usernamePreset.getRow(right, "Open empty whisper with buyer");
         PresetMacroRow itemPreset = new PresetMacroRow("Item Name");
         itemPreset.getRow(left, "Open Stash Highlighter");

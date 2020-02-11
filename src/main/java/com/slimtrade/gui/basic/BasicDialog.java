@@ -1,5 +1,6 @@
 package com.slimtrade.gui.basic;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 
@@ -25,6 +26,7 @@ public class BasicDialog extends HideableDialog implements IColorable {
 		this.setUndecorated(true);
 		this.setAlwaysOnTop(true);
 		this.setType(JDialog.Type.UTILITY);
+		App.eventManager.addColorListener(this);
 	}
 	
 	public void forceToTop(){
