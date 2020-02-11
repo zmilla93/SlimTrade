@@ -23,25 +23,39 @@ public class PresetMacroRow extends JPanel implements IColorable{
 //	private JLabel titleLabel = new JLabel("NAME");
 	
 //	private JLabel tempLabel = new JLabel("TEMP");
-	private CustomTextField textLMB = new CustomTextField();
-	private CustomTextField textRMB = new CustomTextField();
+//	private CustomTextField textLMB = new CustomTextField();
+//	private CustomTextField textRMB = new CustomTextField();
 	private IconButton exampleButton;
 	GridBagConstraints gc = new GridBagConstraints();
 	
 	private final int rowHeight = 20;
 	private final int nameWidth = 60;
 	private final int mouseWidth = 70;
+
+	boolean hasImage = true;
+	private String title;
 	
 //	private Dimension size;
+	PresetMacroRow(String title) {
+		this(title, false);
+	}
 
-	PresetMacroRow(Image img, boolean... thin) {
+	PresetMacroRow(String title, boolean thin) {
+		this(title, null, thin);
+	}
+
+	PresetMacroRow(Image img) {
+		this(null, img, false);
+	}
+
+	PresetMacroRow(Image img, boolean thin) {
+		this(null, img, thin);
+	}
+
+	PresetMacroRow(String title, Image img, boolean thin) {
+		this.title = title;
 		this.setLayout(new GridBagLayout());
-//		titlePanel.setLayout(new GridBagLayout());
-//		mousePanel.setLayout(new GridBagLayout());
-//		titlePanel.setOpaque(false);
-//		titlePanel.setOpaque(false);
-		
-		if (thin.length > 0 && thin[0]) {
+		if (thin) {
 			this.setPreferredSize(new Dimension(500, 20));
 		}else{
 			this.setPreferredSize(new Dimension(500, 40));
@@ -59,7 +73,7 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		gc.gridx += 2;// Label
 		gc.gridx += 2;// Action
 
-		if (thin.length > 0 && thin[0]) {
+		if (thin) {
 			gc.gridx = 2;
 			gc.gridy = 0;
 		} else {
@@ -69,8 +83,14 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		}
 		gc.gridx = 0;
 		gc.gridy = 0;
-		exampleButton = new IconButton(img, 20);
-		this.add(exampleButton, gc);
+		if(img == null) {
+			JLabel label = new JLabel(title);
+			this.add(label, gc);
+		} else {
+			exampleButton = new IconButton(img, 20);
+			this.add(exampleButton, gc);
+		}
+
 		gc.gridy = 0;
 		this.setPreferredSize(null);
 		this.revalidate();

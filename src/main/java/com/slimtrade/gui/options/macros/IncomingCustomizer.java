@@ -66,6 +66,13 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         thankRight = thankPreset.getRow(right, "", true);
         PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
         leavePreset.getRow(either, "Leave Party");
+        PresetMacroRow usernamePreset = new PresetMacroRow("Buyer Username");
+        usernamePreset.getRow(left, "/whois [buyer]");
+        usernamePreset.getRow(left, "Open empty whisper with buyer");
+        PresetMacroRow itemPreset = new PresetMacroRow("Item Name");
+        itemPreset.getRow(left, "Open Stash Highlighter");
+        itemPreset.getRow(left, "Ignore Item");
+//        leavePreset.getRow(either, "Leave Party");
 
         // INCOMING
         SectionHeader exampleHeader = new SectionHeader("Incoming Trade");
@@ -81,6 +88,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets.bottom = 4;
+//        gc.fill = GridBagConstraints.HORIZONTAL;
         //Preset Macros
         presetPanel.add(refreshInPreset, gc);
         gc.gridy++;
@@ -92,8 +100,12 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.gridy++;
         presetPanel.add(thankPreset, gc);
         gc.gridy++;
-        gc.insets.bottom = 0;
         presetPanel.add(leavePreset, gc);
+        gc.gridy++;
+        presetPanel.add(itemPreset, gc);
+        gc.gridy++;
+        gc.insets.bottom = 0;
+        presetPanel.add(usernamePreset, gc);
         gc.gridy++;
 
         //Everything
@@ -209,6 +221,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.LOW_CONTRAST_1);
+        presetPanel.setBackground(ColorManager.LOW_CONTRAST_1);
     }
 
 }

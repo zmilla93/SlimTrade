@@ -100,14 +100,20 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     }
 
     public void setButtonImage(PreloadedImageCustom img) {
-        System.out.println("IMG!!!:" + img);
         if(img == null) {
             for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
                 img = c;
                 break;
             }
         }
-        iconCombo.setSelectedItem(img);
+        int i = 0;
+        for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
+            if(c == img) {
+                break;
+            }
+            i++;
+        }
+        iconCombo.setSelectedIndex(i);
     }
 
     public void setTextLMB(String text) {
