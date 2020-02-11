@@ -37,6 +37,7 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
 
     private JButton addButton = new BasicButton("Add Custom Macro");
     private JPanel presetPanel = new JPanel(FrameManager.gridbag);
+    private JPanel presetTextPanel = new JPanel(FrameManager.gridbag);
 
     private String left = "Left Click";
     private String right = "Right Click";
@@ -53,7 +54,6 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         PresetMacroRow closePreset = new PresetMacroRow(PreloadedImage.CLOSE.getImage());
         closePreset.getRow(left, "Close Trade");
         closePreset.getRow(right, "Save Trade + close all other similar trades");
-
         PresetMacroRow warpPreset = new PresetMacroRow(PreloadedImage.WARP.getImage(), true);
         warpPreset.getRow(left, "Warp to Seller");
 
@@ -64,6 +64,10 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         leavePreset.getRow(left, "Leave Party");
         PresetMacroRow homePreset = new PresetMacroRow(PreloadedImage.HOME.getImage(), true);
         homePreset.getRow(left, "Warp to Hideout");
+
+        PresetMacroRow usernamePreset = new PresetMacroRow("Username");
+        usernamePreset.getRow(left, "/whois [Seller]");
+        usernamePreset.getRow(right, "Open empty whisper with seller");
 
         // INCOMING
         SectionHeader exampleHeader = new SectionHeader("Outgoing Trade");
@@ -92,6 +96,10 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         presetPanel.add(homePreset, gc);
         gc.gridy++;
 
+        // Text Panels
+        gc.gridy = 0;
+        presetTextPanel.add(usernamePreset, gc);
+
         //Everything
         gc.gridy = 0;
         container.setLayout(new GridBagLayout());
@@ -104,8 +112,11 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.insets.bottom = FrameManager.gapSmall;
         container.add(presetHeader, gc);
         gc.gridy++;
-        gc.insets.bottom = FrameManager.gapLarge;
+        gc.insets.bottom = 4;
         container.add(presetPanel, gc);
+        gc.gridy++;
+        gc.insets.bottom = FrameManager.gapLarge;
+        container.add(presetTextPanel, gc);
         gc.gridy++;
 
         gc.insets.bottom = FrameManager.gapSmall;

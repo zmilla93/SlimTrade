@@ -98,8 +98,9 @@ public class PresetMacroRow extends JPanel implements IColorable{
         this.updateColor();
 	}
 
-	// TODO Make row look like editable
+
 	public JTextField getRow(String name, String text, boolean... editable) {
+		System.out.println();
 		gc.gridx = 2;
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new GridBagLayout());
@@ -110,7 +111,14 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		this.add(namePanel, gc);
 //        gc.insets.right = 1;
 		gc.gridx = 3;
-		JTextField textField = new CustomTextField(COLUMN_SIZE);
+//		gc.fill = GridBagConstraints.HORIZONTAL;
+		JTextField textField;
+		if(title == null) {
+			textField = new CustomTextField(30);
+		}else {
+			gc.insets.left = 5;
+			textField = new CustomTextField(20);
+		}
 		if(editable.length==0 || editable[0]==false){
 			textField.setEditable(false);
 			textField.setOpaque(false);
@@ -120,6 +128,7 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		textField.setText(text);
         gc.insets.right = 1;
 		this.add(textField, gc);
+		gc.insets.left = 0;
         gc.insets.right = 0;
 		gc.gridy++;
 		return textField;

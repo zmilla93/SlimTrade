@@ -38,6 +38,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
 
     private JButton addButton = new BasicButton("Add Custom Macro");
     private JPanel presetPanel = new JPanel(FrameManager.gridbag);
+    private JPanel presetTextPanel = new JPanel(FrameManager.gridbag);
 
     private String left = "Left Click";
     private String right = "Right Click";
@@ -66,13 +67,13 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         thankRight = thankPreset.getRow(right, "", true);
         PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
         leavePreset.getRow(either, "Leave Party");
-        PresetMacroRow usernamePreset = new PresetMacroRow("Buyer Username");
-        usernamePreset.getRow(left, "/whois [buyer]");
-        usernamePreset.getRow(left, "Open empty whisper with buyer");
+
+        PresetMacroRow usernamePreset = new PresetMacroRow("Username");
+        usernamePreset.getRow(left, "/whois [Buyer]");
+        usernamePreset.getRow(right, "Open empty whisper with buyer");
         PresetMacroRow itemPreset = new PresetMacroRow("Item Name");
         itemPreset.getRow(left, "Open Stash Highlighter");
-        itemPreset.getRow(left, "Ignore Item");
-//        leavePreset.getRow(either, "Leave Party");
+        itemPreset.getRow(right, "Ignore Item");
 
         // INCOMING
         SectionHeader exampleHeader = new SectionHeader("Incoming Trade");
@@ -88,8 +89,8 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets.bottom = 4;
-//        gc.fill = GridBagConstraints.HORIZONTAL;
-        //Preset Macros
+
+        //Preset Buttons
         presetPanel.add(refreshInPreset, gc);
         gc.gridy++;
         presetPanel.add(closePreset, gc);
@@ -100,15 +101,19 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.gridy++;
         presetPanel.add(thankPreset, gc);
         gc.gridy++;
+        gc.insets.bottom = 0;
         presetPanel.add(leavePreset, gc);
         gc.gridy++;
-        presetPanel.add(itemPreset, gc);
-        gc.gridy++;
-        gc.insets.bottom = 0;
-        presetPanel.add(usernamePreset, gc);
-        gc.gridy++;
 
-        //Everything
+        // Text Panels
+        gc.gridy = 0;
+        gc.insets.bottom = 4;
+        presetTextPanel.add(usernamePreset, gc);
+        gc.insets.bottom = 0;
+        gc.gridy++;
+        presetTextPanel.add(itemPreset, gc);
+
+        // Entire Panel
         gc.gridy = 0;
         container.setLayout(new GridBagLayout());
         gc.insets.bottom = FrameManager.gapSmall;
@@ -120,8 +125,11 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.insets.bottom = FrameManager.gapSmall;
         container.add(presetHeader, gc);
         gc.gridy++;
-        gc.insets.bottom = FrameManager.gapLarge;
+        gc.insets.bottom = 4;
         container.add(presetPanel, gc);
+        gc.gridy++;
+        gc.insets.bottom = FrameManager.gapLarge;
+        container.add(presetTextPanel, gc);
         gc.gridy++;
 
         gc.insets.bottom = FrameManager.gapSmall;
@@ -222,6 +230,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
     public void updateColor() {
         this.setBackground(ColorManager.LOW_CONTRAST_1);
         presetPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+        presetTextPanel.setBackground(ColorManager.LOW_CONTRAST_1);
     }
 
 }
