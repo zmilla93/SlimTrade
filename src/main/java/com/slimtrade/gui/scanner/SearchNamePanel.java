@@ -10,19 +10,22 @@ import java.awt.*;
 
 public class SearchNamePanel extends JPanel {
 
-    protected JLabel searchNameLabel = new JLabel("Search Name");
-    protected JComboBox<ScannerMessage> searchCombo = new CustomCombo<>();
-    protected JButton searchButton = new BasicButton("Search");
-    protected JTextField searchNameTextField = new LimitTextField(32);
-    protected JButton saveButton = new BasicButton("Save");
-    protected JButton clearButton = new BasicButton("Clear");
-    protected JButton revertButton = new BasicButton("Revert");
-    protected JButton deleteButton = new BasicButton("Delete");
+    private JLabel searchNameLabel = new JLabel("Search Name");
+    public JButton searchButton = new BasicButton("Search");
+    public JComboBox<ScannerMessage> searchCombo = new CustomCombo<>();
+    public JTextField saveTextField = new LimitTextField(32);
 
-    private JPanel namePanel = new JPanel(FrameManager.gridBag);
+    public JButton saveButton = new BasicButton("Save");
+    public JButton clearButton = new BasicButton("Clear");
+    public JButton revertButton = new BasicButton("Revert");
+    public JButton deleteButton = new BasicButton("Delete");
+
     private JPanel buttonPanel = new JPanel(FrameManager.gridBag);
+    private JPanel namePanel = new JPanel(FrameManager.gridBag);
 
     public SearchNamePanel() {
+
+        super(FrameManager.gridBag);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
@@ -40,23 +43,22 @@ public class SearchNamePanel extends JPanel {
         gc.gridx++;
         buttonPanel.add(saveButton, gc);
         gc.gridx++;
-//		buttonPanel.add(searchButton, gc);
         gc.gridx = 0;
         gc.weightx = 1;
         gc.insets.left = 0;
         gc.insets.top = 0;
 
-
         // Name Panel
         gc.fill = GridBagConstraints.BOTH;
         gc.insets.bottom = 5;
-        namePanel.add(searchNameTextField, gc);
+        namePanel.add(saveTextField, gc);
         gc.gridy++;
         gc.insets.bottom = 0;
         namePanel.add(searchCombo, gc);
         gc.gridy = 0;
 
-
+        // Upper Panel
+        // Row 1
         gc.fill = GridBagConstraints.BOTH;
         this.add(searchNameLabel, gc);
         gc.fill = GridBagConstraints.NONE;
@@ -74,6 +76,14 @@ public class SearchNamePanel extends JPanel {
         gc.fill = GridBagConstraints.NONE;
         gc.gridy++;
         this.add(Box.createHorizontalStrut(400), gc);
+        gc.gridwidth = 1;
+
+
+        // Row 2
+        gc.gridx = 0;
+        gc.gridwidth = 2;
+        gc.gridy++;
+        this.add(buttonPanel, gc);
         gc.gridwidth = 1;
     }
 
