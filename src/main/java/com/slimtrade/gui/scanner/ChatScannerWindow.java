@@ -62,7 +62,9 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private JPanel buttonPanel = new JPanel(FrameManager.gridBag);
     private JPanel namePanel = new JPanel(FrameManager.gridBag);
     private JPanel lowerPanel = new JPanel(FrameManager.gridBag);
-    private JPanel macroPanel = new JPanel(FrameManager.gridBag);
+    //TODO : THIS
+//    private JPanel macroPanel = new JPanel(FrameManager.gridBag);
+    private SearchMacroPanel macroPanel = new SearchMacroPanel();
 
     // Upper Controls
     private JComboBox<ScannerMessage> searchCombo = new CustomCombo<>();
@@ -77,8 +79,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private JTextArea searchTermsInput = new JTextArea();
     private JTextArea ignoreTermsInput = new JTextArea();
 
-    private AddRemovePanel addRemovePanel = new AddRemovePanel();
-    private JButton addMacroButton = new BasicButton("Add Macro");
+    private AddRemovePanel addRemovePanel;
+    private JButton addMacroButton;
     private JTextField thankLeft;
     private JTextField thankRight;
 
@@ -93,36 +95,11 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
     public ChatScannerWindow() {
         super("Chat Scanner");
-        String either = "Either";
-        String left = "Left Click";
-        String right = "Right Click";
-        JPanel presetMacroPanel = new JPanel(FrameManager.gridBag);
-        PresetMacroRow refreshInPreset = new PresetMacroRow(PreloadedImage.REFRESH.getImage(), true);
-        refreshInPreset.getRow(either, "Hi, are you still interested in my [item] listed for [price]?");
-        PresetMacroRow closePreset = new PresetMacroRow(PreloadedImage.CLOSE.getImage());
-        closePreset.getRow(left, "Close trade");
-        closePreset.getRow(right, "Close trade + all similar trades");
 
-        PresetMacroRow invitePreset = new PresetMacroRow(PreloadedImage.INVITE.getImage(), true);
-        invitePreset.getRow(either, "Invite to Party");
-        PresetMacroRow warpPreset = new PresetMacroRow(PreloadedImage.WARP.getImage(), true);
-        warpPreset.getRow(either, "Warp to Player");
-        PresetMacroRow tradePreset = new PresetMacroRow(PreloadedImage.CART.getImage(), true);
-        tradePreset.getRow(either, "Send Trade Offer");
-        PresetMacroRow thankPreset = new PresetMacroRow(PreloadedImage.THUMB.getImage());
-        thankLeft = thankPreset.getRow(left, "", true);
-        thankRight = thankPreset.getRow(right, "", true);
-        PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
-        leavePreset.getRow(either, "Leave Party");
-        PresetMacroRow homePreset = new PresetMacroRow(PreloadedImage.HOME.getImage(), true);
-        homePreset.getRow(either, "Warp to Hideout");
-
-        PresetMacroRow usernamePreset = new PresetMacroRow("Username");
-        usernamePreset.getRow(left, "/whois [username]");
-        usernamePreset.getRow(right, "Open empty whisper with buyer");
-        PresetMacroRow itemPreset = new PresetMacroRow("Item Name");
-        itemPreset.getRow(left, "Open Stash Highlighter");
-        itemPreset.getRow(right, "Ignore Item");
+        addRemovePanel = macroPanel.addRemovePanel;
+        addMacroButton = macroPanel.addMacroButton;
+        thankLeft = macroPanel.thankLeft;
+        thankRight = macroPanel.thankRight;
 
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -141,7 +118,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         gc.gridx++;
         buttonPanel.add(saveButton, gc);
         gc.gridx++;
-//		buttonPanel.add(searchButton, gc);
         gc.gridx = 0;
         gc.weightx = 1;
         gc.insets.left = 0;
@@ -154,35 +130,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         gc.gridy++;
         gc.insets.bottom = 0;
         namePanel.add(searchCombo, gc);
-        gc.gridy = 0;
-
-        // Macro Panel
-        gc.fill = GridBagConstraints.BOTH;
-        gc.insets.bottom = 2;
-        presetMacroPanel.add(invitePreset, gc);
-        gc.gridy++;
-        presetMacroPanel.add(warpPreset, gc);
-        gc.gridy++;
-        presetMacroPanel.add(tradePreset, gc);
-        gc.gridy++;
-        presetMacroPanel.add(thankPreset, gc);
-        gc.gridy++;
-        presetMacroPanel.add(leavePreset, gc);
-        gc.gridy++;
-        presetMacroPanel.add(homePreset, gc);
-        gc.gridy++;
-        presetMacroPanel.add(usernamePreset, gc);
-//		gc.gridy++;
-        gc.gridy = 0;
-        gc.insets.bottom = 5;
-        gc.fill = GridBagConstraints.NONE;
-        macroPanel.add(presetMacroPanel, gc);
-        gc.gridy++;
-        gc.insets.bottom = 2;
-        macroPanel.add(addMacroButton, gc);
-        gc.gridy++;
-        macroPanel.add(addRemovePanel, gc);
-        gc.insets.bottom = 0;
         gc.gridy = 0;
 
         // Upper Panel
@@ -278,9 +225,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
         container.setLayout(new BorderLayout());
         container.add(scrollPane, BorderLayout.CENTER);
-//		upperPanel.setMinimumSize(upperPanel.getPreferredSize());
-//		lowerPanel.setMinimumSize(lowerPanel.getPreferredSize());
-//		innerPanel.setMinimumSize(innerPanel.getPreferredSize());
 
         this.pack();
         gc.gridx = 0;
@@ -289,10 +233,10 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         searchInputPane.setPreferredSize(searchInputPane.getPreferredSize());
 
         //Finalize
-//		this.setAlwaysOnTop(false);
+        this.setAlwaysOnTop(true);
+        this.setAlwaysOnTop(false);
         this.setFocusableWindowState(true);
         this.setFocusable(true);
-//		this.setPreferredSize(new Dimension(400, 400));
         this.pack();
         this.setSize(650, 800);
         searchTermsInput.setLineWrap(true);
@@ -443,34 +387,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             }
             messageList.add(message);
             Collections.sort(messageList, Comparator.comparing(ScannerMessage::getName));
-            //            if (searchCombo.getSelectedIndex() > 0) {
-//                System.out.println("Matching Messages : " + matchingMessages(message, (ScannerMessage) searchCombo.getSelectedItem()));
-//            }
-//            int i = 0;
-//            boolean dupe = false;
-//            while (i < searchCombo.getItemCount()) {
-//                System.out.println("SaveL" + i);
-//                System.out.println(searchCombo.getItemAt(i).getName() + " ::: " + message.name);
-//                if (searchCombo.getItemAt(i).getName().toLowerCase().equals(message.name.toLowerCase())) {
-//                    System.out.println("Dupe");
-//                    dupe = true;
-//                    if (searchCombo.getItemAt(i).macroButtons.size() == message.macroButtons.size()) {
-//                        int n = 0;
-//                        for (MacroButton b : searchCombo.getItemAt(i).macroButtons) {
-//                            if (!MacroButton.doButtonsMatch(b, message.macroButtons.get(n))) {
-//                                break;
-//                            }
-//                            n++;
-//                        }
-//                    }
-//                    messageList.set(i, message);
-//                    break;
-//                }
-//                i++;
-//            }
-//            if (!dupe) {
-//                messageList.add(message);
-//            }
             refreshCombo(message);
             loadMessage(message);
             refreshWindowState();
@@ -480,6 +396,9 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             App.saveManager.scannerSaveFile.messages.clear();
             App.saveManager.scannerSaveFile.messages.addAll(messageList);
             App.saveManager.saveScannerToDisk();
+
+            macroPanel.revalidate();
+            macroPanel.repaint();
 
             saving = false;
             System.out.println("Scanner Saved!");

@@ -55,6 +55,8 @@ public class AddRemovePanel extends JPanel implements IColorable {
             }
         }
         System.out.println("SIZE:" + i);
+        this.revalidate();
+        this.repaint();
     }
 
 	public void saveChanges() {
@@ -95,20 +97,8 @@ public class AddRemovePanel extends JPanel implements IColorable {
 
     @Override
     public void updateColor() {
-//	    if(this.getComponentCount() > 0) {
-//            this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//        } else {
-//            this.setBorder(null);
-//        }
-//        this.setBorder(null);
-//        for(Component c : this.getComponents()) {
-//            if(c.isVisible()){
-//                this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
-//                this.setBorder(BorderFactory.createLineBorder(Color.RED));
-//                break;
-//            }
-//        }
-
+		this.revalidate();
+		this.repaint();
     }
 
     @Override
