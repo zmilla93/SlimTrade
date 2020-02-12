@@ -213,8 +213,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     public void updateColor() {
         super.updateColor();
         this.setBackground(ColorManager.BACKGROUND);
-        System.out.println("COL" + ColorManager.TEXT);
-        System.out.println("BG" + characterLabel);
         characterLabel.setForeground(ColorManager.TEXT);
 //        characterInput.setBackground(ColorManager.LOW_CONSTRAST_1);
 //        characterInput.setForeground(ColorManager.TEXT);

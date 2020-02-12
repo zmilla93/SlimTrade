@@ -20,7 +20,7 @@ public class ColorPanel extends JPanel implements IColorable {
 
     @Override
     public void updateColor() {
-
+        //TODO
     }
 
 }

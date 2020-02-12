@@ -7,7 +7,6 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
@@ -61,7 +60,7 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
 
     private StashTabRow addNewRow() {
         StashTabRow row = new StashTabRow(rowContainer);
-        rowContainer.addPanel(row);
+        rowContainer.addRemoveablePanel(row);
         return row;
     }
 

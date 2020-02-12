@@ -50,7 +50,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
 //        System.out.println("Click : " +  click);
 //        click++;
-        System.out.println("window : " +  curWindowTitle);
+//        System.out.println("window : " +  curWindowTitle);
 //        System.out.println("STATE : " + FrameManager.windowState);
 //		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || App.debugMode) {
 //            FrameManager.showVisibleFrames();

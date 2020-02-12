@@ -124,7 +124,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
                 }
                 i = (int)timerSpinner.getValue();
                 itemText.setText("");
-                addRemovePanel.addPanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
+                addRemovePanel.addRemoveablePanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
             }
         });
 
@@ -158,7 +158,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
             if(data.getRemainingTime() > -0 || data.indefinite) {
                 fullData.add(data);
-                addRemovePanel.addPanel(new IgnoreRow(data, addRemovePanel));
+                addRemovePanel.addRemoveablePanel(new IgnoreRow(data, addRemovePanel));
             }
         }
         addRemovePanel.saveChanges();

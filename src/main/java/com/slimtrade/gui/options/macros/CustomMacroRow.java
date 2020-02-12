@@ -24,11 +24,11 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     private JLabel nameLabel = new JLabel("Custom");
     private JLabel m1Label = new JLabel("Left Mouse");
     private JLabel m2Label = new JLabel("Right Mouse");
-    private JTextField m1Text = new CustomTextField(30);
-    private JTextField m2Text = new CustomTextField(30);
-    private JComboBox<ImageIcon> iconCombo;
-    private JComboBox<ButtonRow> rowCombo;
-    private IconButton removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), 20);
+    public JTextField m1Text = new CustomTextField(26);
+    public JTextField m2Text = new CustomTextField(26);
+    public JComboBox<ImageIcon> iconCombo;
+    public JComboBox<ButtonRow> rowCombo;
+    public IconButton removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), 20);
 
 //	private boolean unsaved = true;
 //	private boolean delete;
@@ -80,11 +80,17 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     }
 
     public ButtonRow getButtonRow() {
+        int index = rowCombo.getSelectedIndex();
+        System.out.println("\tGetting Row from CustomMacroRow : (" + index + ") ");
         return (ButtonRow) rowCombo.getSelectedItem();
     }
 
     public PreloadedImageCustom getButtonImage() {
-        return PreloadedImageCustom.values()[iconCombo.getSelectedIndex()];
+        int index = iconCombo.getSelectedIndex();
+        PreloadedImageCustom img = PreloadedImageCustom.values()[index];
+        System.out.println("\tGetting Image from CustomMacroRow : (" + index + ") " + img);
+        return img;
+//        return img;
     }
 
     public String getTextLMB() {
@@ -100,20 +106,8 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     }
 
     public void setButtonImage(PreloadedImageCustom img) {
-        if(img == null) {
-            for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
-                img = c;
-                break;
-            }
-        }
-        int i = 0;
-        for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
-            if(c == img) {
-                break;
-            }
-            i++;
-        }
-        iconCombo.setSelectedIndex(i);
+        System.out.println("Setting combo... " + img);
+        iconCombo.setSelectedItem(img);
     }
 
     public void setTextLMB(String text) {
@@ -126,6 +120,22 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
 
     public MacroButton getMacroData() {
         return new MacroButton(getButtonRow(), getTextLMB(), getTextRMB(), getButtonImage());
+    }
+
+    public static boolean checkMatchingRows(CustomMacroRow row1, CustomMacroRow row2) {
+        if(!(row1.getButtonRow() == row2.getButtonRow())) {
+            return false;
+        }
+        if(!(row1.getButtonImage() == row2.getButtonImage())) {
+            return false;
+        }
+        if(!(row1.getTextLMB().equals(row2.getTextLMB()))) {
+            return false;
+        }
+        if(!(row1.getTextRMB().equals(row2.getTextRMB()))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -48,10 +48,7 @@ public class App {
 
     @SuppressWarnings("unused")
 	public static void main(String[] args) {
-
-
         Date date = new Date();
-        System.out.println(date);
 		// Command line args
 		if(args.length>0){
 			for(String s : args){

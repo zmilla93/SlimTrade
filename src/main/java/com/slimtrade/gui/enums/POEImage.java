@@ -23,7 +23,7 @@ public enum POEImage {
     CHROMATIC_ORB("chrome", "chrom"),
     CRUSADERS_EXALTED_ORB(),
     DIVINE_ORB("divine", "div"),
-    EXALTED_ORB("exalt, ex"),
+    EXALTED_ORB("exalted", "exalt", "ex"),
     GEMCUTTERS_PRISM("Gemcutter's Prism", "gcp", "gemc"),
     GLASSBLOWERS_BAUBLE("Glassblower's Bauble", "glass", "bauble"),
     HUNTERS_EXALTED_ORB(),

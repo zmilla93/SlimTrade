@@ -14,7 +14,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
 	private int spacer = 5;
 
 	public AddRemovePanel() {
-		this.setLayout(FrameManager.gridbag);
+		this.setLayout(FrameManager.gridBag);
 //		this.setLayout(new GridBagLayout());
 //		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBackground(new Color(1, 1, 1, 0));
@@ -24,7 +24,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
         updateColor();
 	}
 
-	public void addPanel(JPanel panel) {
+	public void addRemoveablePanel(JPanel panel) {
 	    gc.gridy = 0;
         gc.insets.top = 0;
 	    for(Component c : this.getComponents()) {
@@ -117,7 +117,10 @@ public class AddRemovePanel extends JPanel implements IColorable {
             if(c instanceof IColorable) {
                 ((IColorable) c).removeListener();
             }
+            this.remove(c);
         }
         super.removeAll();
+        this.revalidate();
+        this.repaint();
     }
 }

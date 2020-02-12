@@ -24,7 +24,7 @@ public class POEWindowInfo {
 //		//TODO : Throws Invalid Window Handle sometimes?
 //		//		JNA / WindowUtils error
 //		for(DesktopWindow w : WindowUtils.getAllWindows(true)){
-////            System.out.println("Window : " + w.getTitle());
+////            System.out.println("win : " + w.getTitle());
 //			if(w.getTitle().equals(References.POE_WINDOW_TITLE)){
 //				isOpen = true;
 //				r  = w.getLocAndSize();

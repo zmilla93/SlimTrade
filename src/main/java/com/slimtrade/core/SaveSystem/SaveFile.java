@@ -4,12 +4,10 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.DateStyle;
-import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.enums.TimeStyle;
-import com.slimtrade.gui.enums.ExpandDirection;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
-import com.slimtrade.gui.scanner.ScannerMessage;
+import com.slimtrade.gui.scanner.old.ScannerMessage_OLD;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +49,7 @@ public class SaveFile {
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
     public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
-    public ArrayList<ScannerMessage> scannerMessages = new ArrayList<>();
+    public ArrayList<ScannerMessage_OLD> scannerMessages = new ArrayList<>();
 
 
     public static int dateDifference(Date d1, Date d2) {

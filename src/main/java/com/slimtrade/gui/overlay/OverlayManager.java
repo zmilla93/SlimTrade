@@ -7,7 +7,6 @@ import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.basic.BasicMovableDialog;
 import com.slimtrade.gui.enums.ExpandDirection;
 import com.slimtrade.gui.enums.WindowState;
@@ -78,12 +77,12 @@ public class OverlayManager implements ISaveable, IColorable {
 
         // MenuBar
         gc.anchor = GridBagConstraints.SOUTHEAST;
-        menubarDialog.getContentPane().setLayout(FrameManager.gridbag);
+        menubarDialog.getContentPane().setLayout(FrameManager.gridBag);
         menubarDialog.getContentPane().add(menubarButtonDummy, gc);
         gc.anchor = GridBagConstraints.CENTER;
 
         // Message
-        messageDialog.getContentPane().setLayout(FrameManager.gridbag);
+        messageDialog.getContentPane().setLayout(FrameManager.gridBag);
         menubarDialog.getContentPane().add(menubarLabel, gc);
         messageDialog.getContentPane().add(messageLabel, gc);
 
@@ -258,13 +257,10 @@ public class OverlayManager implements ISaveable, IColorable {
         menubarCombo.setSelectedItem(App.saveManager.overlaySaveFile.menubarButtonLocation);
         messageCombo.setSelectedItem(App.saveManager.overlaySaveFile.messageExpandDirection);
         updateMenubarButton(App.saveManager.overlaySaveFile.menubarButtonLocation);
-        System.out.println("LOCCC:" + menubarDialog.getLocation());
-
     }
 
     @Override
     public void updateColor() {
-        System.out.println("COL");
         menubarButtonDummy.setBackground(borderColor);
         menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
         messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));

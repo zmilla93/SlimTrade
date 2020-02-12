@@ -15,7 +15,6 @@ import com.slimtrade.gui.overlay.OverlayManager;
 import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
-import com.slimtrade.gui.windows.ImageTestingWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +23,7 @@ public class FrameManager {
 
     public static int gapSmall = 4;
     public static int gapLarge = 14;
-    public static GridBagLayout gridbag;
+    public static GridBagLayout gridBag;
 
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
@@ -51,7 +50,7 @@ public class FrameManager {
     public FrameManager() {
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
-        FrameManager.gridbag = new GridBagLayout();
+        FrameManager.gridBag = new GridBagLayout();
 
         // TODO : TEMP Image testing window
 //        ImageTestingWindow imageTestingWindow = new ImageTestingWindow();
@@ -79,7 +78,8 @@ public class FrameManager {
 
 
         //TODO : ADD NEW MESSAGE MANAGER
-        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
+//        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
+        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle};
 
         //TODO : ADD NEW MESSAGE MANAGER
         forceFrames = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, ignoreItemWindow};

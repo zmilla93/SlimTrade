@@ -4,7 +4,9 @@ import com.google.gson.*;
 import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.OverlaySaveFile;
 import com.slimtrade.core.SaveSystem.SaveFile;
+import com.slimtrade.core.SaveSystem.ScannerSaveFile;
 import com.slimtrade.core.SaveSystem.StashSaveFile;
+import com.slimtrade.gui.scanner.ScannerMessage;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -16,10 +18,12 @@ public class SaveManager {
     public final String savePath;
     public final String stashSavePath;
     public final String overlaySavePath;
+    public final String scannerSavePath;
     public final String saveDirectory;
     public SaveFile saveFile = new SaveFile();
     public StashSaveFile stashSaveFile = new StashSaveFile();
     public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
+    public ScannerSaveFile scannerSaveFile = new ScannerSaveFile();
 
     //Internal
     private final String folderWin = "SlimTrade";
@@ -27,7 +31,8 @@ public class SaveManager {
     private final String fileName = "settings.json";
     private final String stashFileName = "stash.json";
     private final String overlayFileName = "overlay.json";
-    private final String os = (System.getProperty("os.name")).toUpperCase();
+    private final String scannerFileName = "scanner.json";
+
     private boolean validSavePath = false;
 
     // File Stuff
@@ -39,7 +44,7 @@ public class SaveManager {
     public SaveManager() {
 
         // Set save directory
-
+        String os = (System.getProperty("os.name")).toUpperCase();
         if (os.contains("WIN")) {
             saveDirectory = System.getenv("LocalAppData") + File.separator + folderWin;
         } else {
@@ -48,6 +53,7 @@ public class SaveManager {
         savePath = saveDirectory + File.separator + fileName;
         stashSavePath = saveDirectory + File.separator + stashFileName;
         overlaySavePath = saveDirectory + File.separator + overlayFileName;
+        scannerSavePath = saveDirectory + File.separator + scannerFileName;
         File saveDir = new File(saveDirectory);
         if (!saveDir.exists()) {
             saveDir.mkdirs();
@@ -65,9 +71,8 @@ public class SaveManager {
                 return ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()).toLocalDateTime();
             }
         }).create();
-
-        System.out.println("Save Directory : " + saveDirectory);
-        System.out.println("Save path : " + savePath);
+//        System.out.println("Save Directory : " + saveDirectory);
+//        System.out.println("Save path : " + savePath);
 //        loadFromDisk();
 //        saveToDisk();
     }
@@ -163,6 +168,38 @@ public class SaveManager {
         try {
             fw = new FileWriter(overlaySavePath);
             fw.write(gson.toJson(overlaySaveFile));
+            fw.close();
+        } catch (IOException e) {
+            return;
+        }
+    }
+
+    public void loadScannerFromDisk() {
+        StringBuilder builder = new StringBuilder();
+        try {
+            br = new BufferedReader(new FileReader(scannerSavePath));
+            while (br.ready()) {
+                builder.append(br.readLine());
+            }
+            scannerSaveFile = gson.fromJson(builder.toString(), ScannerSaveFile.class);
+            if (scannerSaveFile == null) {
+                scannerSaveFile = new ScannerSaveFile();
+            }
+        } catch (JsonSyntaxException e1) {
+            scannerSaveFile = new ScannerSaveFile();
+            System.out.println("Corrupted save file!");
+            return;
+        } catch (IOException e2) {
+            scannerSaveFile = new ScannerSaveFile();
+            System.out.println("IO Error with save file!");
+            return;
+        }
+    }
+
+    public void saveScannerToDisk() {
+        try {
+            fw = new FileWriter(scannerSavePath);
+            fw.write(gson.toJson(scannerSaveFile));
             fw.close();
         } catch (IOException e) {
             return;

@@ -37,8 +37,8 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
     private AddRemovePanel customPanel;
 
     private JButton addButton = new BasicButton("Add Custom Macro");
-    private JPanel presetPanel = new JPanel(FrameManager.gridbag);
-    private JPanel presetTextPanel = new JPanel(FrameManager.gridbag);
+    private JPanel presetPanel = new JPanel(FrameManager.gridBag);
+    private JPanel presetTextPanel = new JPanel(FrameManager.gridBag);
 
     private String left = "Left Click";
     private String right = "Right Click";
@@ -174,7 +174,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
             return null;
         }
         CustomMacroRow row = new CustomMacroRow(customPanel);
-        customPanel.addPanel(row);
+        customPanel.addRemoveablePanel(row);
         return row;
     }
 

@@ -36,23 +36,23 @@ public class PresetMacroRow extends JPanel implements IColorable{
 	private String title;
 	
 //	private Dimension size;
-	PresetMacroRow(String title) {
+	public PresetMacroRow(String title) {
 		this(title, false);
 	}
 
-	PresetMacroRow(String title, boolean thin) {
+	public PresetMacroRow(String title, boolean thin) {
 		this(title, null, thin);
 	}
 
-	PresetMacroRow(Image img) {
+	public PresetMacroRow(Image img) {
 		this(null, img, false);
 	}
 
-	PresetMacroRow(Image img, boolean thin) {
+	public PresetMacroRow(Image img, boolean thin) {
 		this(null, img, thin);
 	}
 
-	PresetMacroRow(String title, Image img, boolean thin) {
+	public PresetMacroRow(String title, Image img, boolean thin) {
 		this.title = title;
 		this.setLayout(new GridBagLayout());
 		if (thin) {
@@ -100,7 +100,6 @@ public class PresetMacroRow extends JPanel implements IColorable{
 
 
 	public JTextField getRow(String name, String text, boolean... editable) {
-		System.out.println();
 		gc.gridx = 2;
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new GridBagLayout());

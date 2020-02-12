@@ -1,4 +1,4 @@
-package com.slimtrade.gui.scanner;
+package com.slimtrade.gui.scanner.old;
 
 import com.slimtrade.App;
 import com.slimtrade.gui.FrameManager;
@@ -32,8 +32,8 @@ public class ChatScannerWindow_OLD extends AbstractResizableWindow implements IS
 	private JTextField lmbInput = new JTextField(10);
 	private JTextField rmbInput = new JTextField(10);
 
-	private ArrayList<ScannerMessage> messages = new ArrayList<ScannerMessage>();
-	private JComboBox<ScannerMessage> messageCombo = new JComboBox<ScannerMessage>();
+	private ArrayList<ScannerMessage_OLD> messages = new ArrayList<>();
+	private JComboBox<ScannerMessage_OLD> messageCombo = new JComboBox<>();
 
 	private int bufferX = 20;
 	private int bufferY = 10;
@@ -255,7 +255,7 @@ public class ChatScannerWindow_OLD extends AbstractResizableWindow implements IS
 		JDialog local = this;
 		messageCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateText((ScannerMessage) messageCombo.getSelectedItem());
+				updateText((ScannerMessage_OLD) messageCombo.getSelectedItem());
 				local.revalidate();
 				local.repaint();
 			}
@@ -277,7 +277,7 @@ public class ChatScannerWindow_OLD extends AbstractResizableWindow implements IS
 					searching = false;
 				}
 				if (searching) {
-					ScannerMessage msg = (ScannerMessage) messageCombo.getSelectedItem();
+					ScannerMessage_OLD msg = (ScannerMessage_OLD) messageCombo.getSelectedItem();
 					App.chatParser.setSearchName(msg.name);
 					App.chatParser.setSearchTerms(msg.searchTermsArray);
 					App.chatParser.setSearchIgnoreTerms(msg.ignoreTermsArray);
@@ -310,9 +310,9 @@ public class ChatScannerWindow_OLD extends AbstractResizableWindow implements IS
 		rmbInput.setText("");
 	}
 
-	private void updateCombo(ScannerMessage msg) {
+	private void updateCombo(ScannerMessage_OLD msg) {
 		messageCombo.removeAllItems();
-		for (ScannerMessage m : messages) {
+		for (ScannerMessage_OLD m : messages) {
 			messageCombo.addItem(m);
 		}
 		if (msg != null) {
@@ -325,15 +325,15 @@ public class ChatScannerWindow_OLD extends AbstractResizableWindow implements IS
 		}
 	}
 
-	private void updateText(ScannerMessage msg) {
+	private void updateText(ScannerMessage_OLD msg) {
 		// for (ScannerMessage msg : messages) {
 		// if (msg.name.equals(name)) {
 		if (msg == null) {
 			return;
 		}
 		nameInput.setText(msg.name);
-		termsText.setText(msg.searchTerms);
-		ignoreText.setText(msg.ignoreTerms);
+		termsText.setText(msg.searchTermsRaw);
+		ignoreText.setText(msg.ignoreTermsRaw);
 		lmbInput.setText(msg.clickLeft);
 		rmbInput.setText(msg.clickRight);
 		// }
@@ -359,15 +359,15 @@ public class ChatScannerWindow_OLD extends AbstractResizableWindow implements IS
 		}
 		int i = 0;
 		boolean saved = false;
-		for (ScannerMessage msg : messages) {
+		for (ScannerMessage_OLD msg : messages) {
 			if (msg.name != null && msg.name.equals(name)) {
-				messages.set(i, new ScannerMessage(name, terms, ignore, lmb, rmb));
+				messages.set(i, new ScannerMessage_OLD(name, terms, ignore));
 				saved = true;
 				// messages.add();
 			}
 			i++;
 		}
-		ScannerMessage msg = new ScannerMessage(name, terms, ignore, lmb, rmb);
+		ScannerMessage_OLD msg = new ScannerMessage_OLD(name, terms, ignore);
 		if (!saved) {
 			messages.add(msg);
 		}
@@ -386,15 +386,15 @@ public class ChatScannerWindow_OLD extends AbstractResizableWindow implements IS
 	}
 
 	public void load() {
-	    for(ScannerMessage scan : App.saveManager.saveFile.scannerMessages) {
+	    for(ScannerMessage_OLD scan : App.saveManager.saveFile.scannerMessages) {
             messages.add(scan);
         }
 	}
 
 	private void localSaveToDisk() {
-		Collections.sort(messages, Comparator.comparing(ScannerMessage::getName));
+		Collections.sort(messages, Comparator.comparing(ScannerMessage_OLD::getName));
         App.saveManager.saveFile.scannerMessages.clear();
-		for (ScannerMessage msg : messages) {
+		for (ScannerMessage_OLD msg : messages) {
 			App.saveManager.saveFile.scannerMessages.add(msg);
 		}
 		App.saveManager.saveToDisk();

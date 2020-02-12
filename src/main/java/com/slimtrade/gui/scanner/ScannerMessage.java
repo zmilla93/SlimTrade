@@ -1,25 +1,29 @@
 package com.slimtrade.gui.scanner;
 
+import com.slimtrade.core.SaveSystem.MacroButton;
+
+import java.util.ArrayList;
+
 public class ScannerMessage {
+
+	public String name;
+	public String searchTermsRaw;
+	public String ignoreTermsRaw;
+	public String thankLeft;
+	public String thankRight;
+	public String[] searchTermsArray;
+	public String[] ignoreTermsArray;
+	public ArrayList<MacroButton> macroButtons;
 	
-	protected String name;
-	protected String searchTerms;
-	protected String ignoreTerms;
-	protected String[] searchTermsArray;
-	protected String[] ignoreTermsArray;
-	protected String clickLeft;
-	protected String clickRight;
-	
-	public ScannerMessage(String name, String searchTerms, String ignoreTerms, String clickLeft, String clickRight) {
+	public ScannerMessage(String name, String searchTermsRaw, String ignoreTermsRaw, String thankLeft, String thankRight, ArrayList<MacroButton> macroButtons) {
 		this.name = name;
-		this.searchTerms = searchTerms;
-		this.ignoreTerms = ignoreTerms;
-		this.clickLeft = clickLeft;
-		this.clickRight = clickRight;
-		
-		this.searchTermsArray = cleanArray(searchTerms);
-		this.ignoreTermsArray = cleanArray(ignoreTerms);
-	
+		this.searchTermsRaw = searchTermsRaw;
+		this.ignoreTermsRaw = ignoreTermsRaw;
+		this.thankLeft = thankLeft;
+		this.thankRight = thankRight;
+		this.macroButtons = macroButtons;
+		this.searchTermsArray = cleanArray(searchTermsRaw);
+		this.ignoreTermsArray = cleanArray(ignoreTermsRaw);
 	}
 	
 	public String getName() {
@@ -28,18 +32,17 @@ public class ScannerMessage {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getSearchTerms() {
-		return searchTerms;
+
+
+	public void setSearchTermsRaw(String searchTermsRaw) {
+		this.searchTermsRaw = searchTermsRaw;
+		this.searchTermsArray = searchTermsRaw.split("\\s+");
 	}
-	public void setSearchTerms(String searchTerms) {
-		this.searchTerms = searchTerms;
-		this.searchTermsArray = searchTerms.split("\\s+");
+	public String getIgnoreTermsRaw() {
+		return ignoreTermsRaw;
 	}
-	public String getIgnoreTerms() {
-		return ignoreTerms;
-	}
-	public void setIgnoreTerms(String ignoreTerms) {
-		this.ignoreTerms = ignoreTerms;
+	public void setIgnoreTermsRaw(String ignoreTermsRaw) {
+		this.ignoreTermsRaw = ignoreTermsRaw;
 	}
 	
 	public String toString(){

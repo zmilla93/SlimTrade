@@ -11,7 +11,7 @@ public class LagTestDialog extends AbstractResizableWindow implements IColorable
 
     public LagTestDialog() {
         super("Lag Test");
-        container.setLayout(FrameManager.gridbag);
+        container.setLayout(FrameManager.gridBag);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

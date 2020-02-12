@@ -60,7 +60,7 @@ public class EventManager {
         ColorManager.setTheme(theme);
         System.out.println("||LIST:" + colorListenerList + " | " + colorListenerList.size());
         ArrayList<IColorable> temp = new ArrayList<>();
-
+        int bad = 0;
         for (int i = 0;i<colorListenerList.size();i++) {
             IColorable c  = colorListenerList.get(i);
             c.updateColor();
@@ -69,8 +69,11 @@ public class EventManager {
 //                if(c instanceof Component) {
 //                    ((Component)c).repaint();
 //                }
+            } else {
+                bad++;
             }
         }
+        System.out.println("Bad color stuff : " + bad);
 //        for (IColorable l : colorListenerList) {
 //            l.updateColor();
 //            if(l instanceof Component) {
