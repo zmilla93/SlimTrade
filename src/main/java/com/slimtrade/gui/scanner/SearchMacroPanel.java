@@ -88,6 +88,7 @@ public class SearchMacroPanel extends JPanel implements IColorable {
         gc.insets.bottom = 2;
         this.add(addMacroButton, gc);
         gc.gridy++;
+        gc.insets.bottom = 0;
         this.add(addRemovePanel, gc);
         gc.insets.bottom = 0;
         gc.gridy = 0;

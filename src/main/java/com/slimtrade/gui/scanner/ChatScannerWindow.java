@@ -7,17 +7,10 @@ import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.basic.ColorPanel;
-import com.slimtrade.gui.basic.CustomCombo;
-import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.CustomScrollPane;
-import com.slimtrade.gui.enums.ButtonRow;
-import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.macros.CustomMacroRow;
-import com.slimtrade.gui.options.macros.PresetMacroRow;
-import com.slimtrade.gui.scanner.old.ScannerMessage_OLD;
-import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -47,22 +40,13 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private ArrayList<DocumentListener> docListenerList = new ArrayList<>();
 
     // Labels
-//    private JLabel searchNameLabel = new JLabel("Search Name");
-    private JLabel searchTermsLabel = new JLabel("Search Terms");
-    private JLabel ignoreTermsLabel = new JLabel("Ignore Terms");
-    private JLabel presetMacrosLabel = new JLabel("Preset Macros");
-    private JLabel customMacrosLabel = new JLabel("Custom Macros");
-
     private JPanel borderPanel = new JPanel(FrameManager.gridBag);
-    // Panels
     private JPanel innerPanel = new ColorPanel(FrameManager.gridBag);
-    private JScrollPane scrollPane = new CustomScrollPane(borderPanel);
 
-//    private JPanel upperPanel = new JPanel(FrameManager.gridBag);
-    private SearchNamePanel upperPanel = new SearchNamePanel();
-//    private JPanel buttonPanel = new JPanel(FrameManager.gridBag);
-//    private JPanel namePanel = new JPanel(FrameManager.gridBag);
-    private JPanel lowerPanel = new JPanel(FrameManager.gridBag);
+    private JScrollPane scrollPane = new CustomScrollPane(borderPanel);
+    private SearchNamePanel namePanel = new SearchNamePanel();
+
+    private SearchTermsPanel termsPanel = new SearchTermsPanel();
     //TODO : THIS
 //    private JPanel macroPanel = new JPanel(FrameManager.gridBag);
     private SearchMacroPanel macroPanel = new SearchMacroPanel();
@@ -84,8 +68,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private JButton deleteButton;
 
     // Lower Controls
-    private JTextArea searchTermsInput = new JTextArea();
-    private JTextArea ignoreTermsInput = new JTextArea();
+    private JTextArea searchTermsInput;
+    private JTextArea ignoreTermsInput;
 
     private AddRemovePanel addRemovePanel;
     private JButton addMacroButton;
@@ -103,129 +87,45 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
     public ChatScannerWindow() {
         super("Chat Scanner");
-
         // Get controls from child panels
+        // Macro Panel Controls
         addRemovePanel = macroPanel.addRemovePanel;
         addMacroButton = macroPanel.addMacroButton;
         thankLeft = macroPanel.thankLeft;
         thankRight = macroPanel.thankRight;
 
-        searchButton = upperPanel.searchButton;
-        searchCombo = upperPanel.searchCombo;
-        saveTextField = upperPanel.saveTextField;
-        saveButton = upperPanel.saveButton;
-        clearButton = upperPanel.clearButton;
-        revertButton = upperPanel.revertButton;
-        deleteButton = upperPanel.deleteButton;
+        // Save Panel Controls
+        searchButton = namePanel.searchButton;
+        searchCombo = namePanel.searchCombo;
+        saveTextField = namePanel.saveTextField;
+        saveButton = namePanel.saveButton;
+        clearButton = namePanel.clearButton;
+        revertButton = namePanel.revertButton;
+        deleteButton = namePanel.deleteButton;
+
+        // Terms Panel Controls
+        searchTermsInput = termsPanel.searchTermsInput;
+        ignoreTermsInput = termsPanel.ignoreTermsInput;
 
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
         gc.weightx = 1;
 
-//        // Button Panel
-//        gc.fill = GridBagConstraints.BOTH;
-//        gc.insets.top = 10;
-//        buttonPanel.add(deleteButton, gc);
-//        gc.gridx++;
-//        gc.insets.left = 40;
-//        buttonPanel.add(revertButton, gc);
-//        gc.gridx++;
-//        buttonPanel.add(clearButton, gc);
-//        gc.gridx++;
-//        buttonPanel.add(saveButton, gc);
-//        gc.gridx++;
-//        gc.gridx = 0;
-//        gc.weightx = 1;
-//        gc.insets.left = 0;
-//        gc.insets.top = 0;
-//
-//        // Name Panel
-//        gc.fill = GridBagConstraints.BOTH;
-//        gc.insets.bottom = 5;
-//        namePanel.add(saveTextField, gc);
-//        gc.gridy++;
-//        gc.insets.bottom = 0;
-//        namePanel.add(searchCombo, gc);
-//        gc.gridy = 0;
-//
-//        // Upper Panel
-//        // Row 1
-//        gc.fill = GridBagConstraints.BOTH;
-//        upperPanel.add(searchNameLabel, gc);
-//        gc.fill = GridBagConstraints.NONE;
-//        gc.gridx++;
-//        gc.anchor = GridBagConstraints.EAST;
-//        gc.insets = new Insets(0, 0, 5, 0);
-//        upperPanel.add(searchButton, gc);
-//        gc.insets = new Insets(0, 0, 0, 0);
-//        gc.anchor = GridBagConstraints.CENTER;
-//        gc.gridx = 0;
-//        gc.gridy++;
-//        gc.gridwidth = 2;
-//        gc.fill = GridBagConstraints.BOTH;
-//        upperPanel.add(namePanel, gc);
-//        gc.fill = GridBagConstraints.NONE;
-//        gc.gridy++;
-//        upperPanel.add(Box.createHorizontalStrut(400), gc);
-//        gc.gridwidth = 1;
-//
-//
-//        // Row 2
-//        gc.gridx = 0;
-//        gc.gridwidth = 2;
-//        gc.gridy++;
-//        upperPanel.add(buttonPanel, gc);
-//        gc.gridwidth = 1;
-
-        // Lower Panel
-        gc.gridx = 0;
-        gc.gridy = 0;
-        gc.gridy++;
-        gc.fill = GridBagConstraints.BOTH;
-        lowerPanel.add(searchTermsLabel, gc);
-        gc.gridy++;
-        JPanel p1 = new JPanel(new BorderLayout());
-        p1.add(searchTermsInput, BorderLayout.CENTER);
-        JScrollPane searchInputPane = new CustomScrollPane(p1);
-        lowerPanel.add(searchInputPane, gc);
-        gc.gridx++;
-        lowerPanel.add(Box.createVerticalStrut(HEIGHT), gc);
-        gc.gridx = 0;
-        gc.gridy++;
-
-//		gc.fill = GridBagConstraints.BOTH;
-        lowerPanel.add(ignoreTermsLabel, gc);
-        gc.gridy++;
-        lowerPanel.add(ignoreTermsInput, gc);
-        gc.gridx++;
-        lowerPanel.add(Box.createVerticalStrut(HEIGHT), gc);
-        gc.fill = GridBagConstraints.NONE;
-//		gc.fill = GridBagConstraints.NONE;
-
-        upperPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-
         // Full Window
-        innerPanel.setLayout(FrameManager.gridBag);
-//		gc.fill = GridBagConstraints.BOTH;
-        gc.gridx = 0;
-        gc.gridy = 0;
-
-//		gc.insets = new Insets(40, 40, 40, 40);
         borderPanel.add(innerPanel, gc);
         gc.insets = new Insets(20, 20, 0, 20);
-        innerPanel.add(upperPanel, gc);
+        innerPanel.add(namePanel, gc);
         gc.gridy++;
         gc.insets = new Insets(BUFFER_SMALL, 20, 0, 20);
-        innerPanel.add(new JLabel("Separate terms using commas, semicolons, or new lines."), gc);
-        gc.gridy++;
-        gc.insets = new Insets(0, 20, 0, 20);
-        gc.gridy++;
-        innerPanel.add(new JLabel("Scanning is case insensitive. Irregular spacing will be ignored."), gc);
+//        innerPanel.add(new JLabel("Separate terms using commas, semicolons, or new lines."), gc);
+//        gc.gridy++;
+//        gc.insets = new Insets(0, 20, 0, 20);
+//        gc.gridy++;
+//        innerPanel.add(new JLabel("Scanning is case insensitive. Irregular spacing will be ignored."), gc);
         gc.gridy++;
         gc.insets = new Insets(BUFFER_SMALL, 20, 0, 20);
-        innerPanel.add(lowerPanel, gc);
+        innerPanel.add(termsPanel, gc);
         gc.gridy++;
         gc.insets.bottom = 20;
         innerPanel.add(macroPanel, gc);
@@ -243,15 +143,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         container.setLayout(new BorderLayout());
         container.add(scrollPane, BorderLayout.CENTER);
 
-        this.pack();
-        gc.gridx = 0;
-        gc.gridy = 0;
-        lowerPanel.add(Box.createHorizontalStrut(upperPanel.getWidth()), gc);
-        searchInputPane.setPreferredSize(searchInputPane.getPreferredSize());
-
         //Finalize
-        this.setAlwaysOnTop(true);
-        this.setAlwaysOnTop(false);
         this.setFocusableWindowState(true);
         this.setFocusable(true);
         this.pack();
@@ -349,6 +241,26 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             refreshWindowState();
         });
 
+        deleteButton.addActionListener(e -> {
+            if (searchCombo.getSelectedIndex() >= 0) {
+                System.out.println("Deleting...");
+                for (ScannerMessage m : messageList) {
+                    if (selectedMessage.name.equals(m.name)) {
+                        messageList.remove(m);
+                        break;
+                    }
+                }
+                App.saveManager.scannerSaveFile.messages.clear();
+                App.saveManager.scannerSaveFile.messages.addAll(messageList);
+                App.saveManager.saveScannerToDisk();
+                refreshCombo();
+                clearWindow();
+                runAllChecks();
+                refreshWindowState();
+                System.out.println("Deleted!...");
+            }
+        });
+
         revertButton.addActionListener(e -> {
             System.out.println("Reverting...");
             saving = true;
@@ -369,12 +281,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         });
 
         clearButton.addActionListener(e -> {
-            selectedMessage = null;
-            saveTextField.setText(null);
-            searchCombo.setSelectedIndex(-1);
-            searchTermsInput.setText(null);
-            ignoreTermsInput.setText(null);
-            addRemovePanel.removeAll();
+            clearWindow();
             runAllChecks();
             refreshWindowState();
         });
@@ -423,11 +330,11 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     }
 
     private void runAllChecks() {
-        checkName = selectedMessage == null ? false : saveTextField.getText().equals(selectedMessage.name);
-        checkSearchTerms = selectedMessage == null ? false : searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
-        checkIgnoreTerms = selectedMessage == null ? false : ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
-        checkThankLeft = selectedMessage == null ? false : thankLeft.getText().equals(selectedMessage.thankLeft);
-        checkThankRight = selectedMessage == null ? false : thankRight.getText().equals(selectedMessage.thankRight);
+        checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
+        checkSearchTerms = selectedMessage != null && searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
+        checkIgnoreTerms = selectedMessage != null && ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
+        checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
+        checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
         checkMacros = checkMacros();
     }
 
@@ -468,11 +375,14 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 saveButton.setEnabled(false);
             } else {
                 if (!saveTextField.getText().matches("\\s*") && !searchTermsInput.getText().matches("\\s*")) {
-                    revertButton.setEnabled(true);
                     saveButton.setEnabled(true);
                 } else {
-                    revertButton.setEnabled(false);
                     saveButton.setEnabled(false);
+                }
+                if (searchCombo.getSelectedIndex() >= 0) {
+                    revertButton.setEnabled(true);
+                } else {
+                    revertButton.setEnabled(false);
                 }
                 deleteButton.setEnabled(false);
                 searchButton.setEnabled(false);
@@ -721,6 +631,15 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         addRemovePanel.saveChanges();
     }
 
+    private void clearWindow() {
+        selectedMessage = null;
+        saveTextField.setText(null);
+        searchCombo.setSelectedIndex(-1);
+        searchTermsInput.setText(null);
+        ignoreTermsInput.setText(null);
+        addRemovePanel.removeAll();
+    }
+
     @Override
     public void save() {
 
@@ -736,16 +655,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         for (ScannerMessage msg : messageList) {
             searchCombo.addItem(msg);
         }
-        if(messageList.size() > 0) {
-            searchCombo.setSelectedIndex(0);
-            loadMessage(messageList.get(0));
-            selectedMessage = messageList.get(0);
-        }
-
-
-//        if(App.saveManager.scannerSaveFile.messages.size() > 0) {
-//            searchCombo.setSelectedIndex(0);
-//        }
+        searchCombo.setSelectedIndex(-1);
     }
 }
 
