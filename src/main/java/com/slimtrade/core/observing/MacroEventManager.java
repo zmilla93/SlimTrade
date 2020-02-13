@@ -10,6 +10,7 @@ import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.scanner.ScannerMessage;
 
 public class MacroEventManager implements PoeInteractionListener {
 
@@ -24,7 +25,7 @@ public class MacroEventManager implements PoeInteractionListener {
         switch (type) {
             case HIDEOUT:
                 if (mouseButton == MouseEvent.BUTTON1 || mouseButton == MouseEvent.BUTTON3) {
-                    if(App.saveManager.saveFile.closeOnKick) {
+                    if (App.saveManager.saveFile.closeOnKick) {
                         FrameManager.messageManager.closeTrade(trade);
                     }
                     PoeInterface.paste("/hideout");
@@ -37,7 +38,7 @@ public class MacroEventManager implements PoeInteractionListener {
                 break;
             case KICK:
                 if (mouseButton == MouseEvent.BUTTON1 || mouseButton == MouseEvent.BUTTON3) {
-                    if(App.saveManager.saveFile.closeOnKick) {
+                    if (App.saveManager.saveFile.closeOnKick) {
                         FrameManager.messageManager.closeTrade(trade);
                     }
                     PoeInterface.paste("/kick " + trade.playerName);
@@ -72,17 +73,34 @@ public class MacroEventManager implements PoeInteractionListener {
                 PoeInterface.findInStash(TradeUtility.cleanItemName(trade.itemName));
                 break;
             case THANK:
+                ScannerMessage msg = null;
+                if (trade.messageType == MessageType.CHAT_SCANNER) {
+                    for (ScannerMessage m : App.saveManager.scannerSaveFile.messages) {
+                        if(trade.searchName.equals(m.name)) {
+                            msg = m;
+                            break;
+                        }
+                    }
+                }
                 if (mouseButton == MouseEvent.BUTTON1) {
                     if (trade.messageType == MessageType.INCOMING_TRADE) {
                         PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankIncomingLMB);
                     } else if (trade.messageType == MessageType.OUTGOING_TRADE) {
                         PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankOutgoingLMB);
+                    } else if (trade.messageType == MessageType.CHAT_SCANNER) {
+                        if(msg != null) {
+                            PoeInterface.paste("@" + trade.playerName + " " + msg.thankLeft);
+                        }
                     }
                 } else if (mouseButton == MouseEvent.BUTTON3) {
                     if (trade.messageType == MessageType.INCOMING_TRADE) {
                         PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankIncomingRMB);
                     } else if (trade.messageType == MessageType.OUTGOING_TRADE) {
                         PoeInterface.paste("@" + trade.playerName + " " + App.saveManager.saveFile.thankOutgoingRMB);
+                    } else if (trade.messageType == MessageType.CHAT_SCANNER) {
+                        if(msg != null) {
+                            PoeInterface.paste("@" + trade.playerName + " " + msg.thankRight);
+                        }
                     }
                 }
                 break;

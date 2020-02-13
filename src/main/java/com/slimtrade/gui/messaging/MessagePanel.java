@@ -19,6 +19,7 @@ import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.enums.PreloadedImageCustom;
 import com.slimtrade.gui.panels.PricePanel;
+import com.slimtrade.gui.scanner.ScannerMessage;
 import com.slimtrade.gui.stash.helper.StashHelper;
 
 import javax.swing.*;
@@ -46,7 +47,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
     private IconButton thankButton;
 
     private IconButton homeButton;
-    private IconButton replyButton;
+//    private IconButton replyButton;
 
     private ArrayList<IconButton> customButtonsTop = new ArrayList<IconButton>();
     private ArrayList<IconButton> customButtonsBottom = new ArrayList<IconButton>();
@@ -128,15 +129,6 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
     }
 
-    // TODO : Finish this
-    // public void resizeMessage(Dimension size, boolean listeners) {
-    // calculateSizes(size);
-    // resizeFrames(3, 5);
-    // refreshButtons(this.getMessageType(), listeners);
-    // this.revalidate();
-    // this.repaint();
-    // }
-
     private void calculateSizes(Dimension size) {
         if (size.width % 2 != 0) {
             size.width++;
@@ -151,7 +143,6 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         totalHeight = messageHeight + (borderSize * 4);
     }
 
-    // TODO : get max
     protected void refreshButtons(MessageType type, boolean listeners) {
         for (Component c : buttonPanelTop.getComponents()) {
             buttonPanelTop.remove(c);
@@ -164,11 +155,45 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         switch (type) {
             case CHAT_SCANNER:
                 // respodButton =
-                buttonCountTop = 2;
+                buttonCountTop = 1;
                 buttonCountBottom = 4;
+                ArrayList<ScannerMessage> messages = App.saveManager.scannerSaveFile.messages;
+                ArrayList<MacroButton> buttons = new ArrayList<>();
+                for(ScannerMessage m : messages) {
+                    if(m.name.equals(trade.searchName)) {
+                        buttons = m.macroButtons;
+                    }
+                }
+                for (MacroButton macro : buttons) {
+                    PreloadedImageCustom img = macro.image;
+                    if(img == null) {
+                        for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
+                            img = c;
+                            break;
+                        }
+                    }
+                    IconButton button = new IconButton(img.getImage(), rowHeight);
+                    if (macro.row == ButtonRow.TOP) {
+                        buttonCountTop++;
+                        String lmb = macro.leftMouseResponse;
+                        String rmb = macro.rightMouseResponse;
+                        if (listeners) {
+                            this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
+                        }
+                        customButtonsTop.add(button);
+                    } else if (macro.row == ButtonRow.BOTTOM) {
+                        buttonCountBottom++;
+                        String lmb = macro.leftMouseResponse;
+                        String rmb = macro.rightMouseResponse;
+                        if (listeners) {
+                            this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
+                        }
+                        customButtonsBottom.add(button);
+                    }
+                }
 
-                replyButton = new IconButton(PreloadedImage.REPLY.getImage(), rowHeight);
-                buttonPanelTop.add(replyButton);
+//                replyButton = new IconButton(PreloadedImage.REPLY.getImage(), rowHeight);
+//                buttonPanelTop.add(replyButton);
 
                 inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
                 tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
@@ -182,7 +207,12 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                     this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
                     this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
                 }
-
+                for (IconButton b : customButtonsTop) {
+                    buttonPanelTop.add(b);
+                }
+                for (IconButton b : customButtonsBottom) {
+                    buttonPanelBottom.add(b);
+                }
                 buttonPanelBottom.add(inviteButton);
                 buttonPanelBottom.add(tradeButton);
                 buttonPanelBottom.add(thankButton);

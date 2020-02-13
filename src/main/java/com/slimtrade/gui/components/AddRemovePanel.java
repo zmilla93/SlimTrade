@@ -3,6 +3,7 @@ package com.slimtrade.gui.components;
 import com.slimtrade.App;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.options.macros.CustomMacroRow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,6 +94,14 @@ public class AddRemovePanel extends JPanel implements IColorable {
 		this.revalidate();
 		this.repaint();
 
+	}
+
+	public void setEnabledAll(boolean state) {
+		for(Component c : this.getComponents()) {
+			if(c instanceof CustomMacroRow) {
+				((CustomMacroRow) c).setEnabledAll(state);
+			}
+		}
 	}
 
     @Override

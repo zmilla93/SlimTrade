@@ -41,9 +41,9 @@ public class ChatParser {
 	// REGEX
 	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(\\S+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
 	// TODO : Remove optional flag for global chat - guild returns null until
-	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
+//	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
 	// Allows for local chat
-//	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
+	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
 	private String[] searchTerms;
@@ -136,9 +136,7 @@ public class ChatParser {
 						}
 					} else if (chatScannerRunning) {
 						TradeOffer trade = getSearchOffer(curLine);
-						System.out.println(trade);
 						if (trade != null) {
-							AudioManager.play(App.saveManager.saveFile.scannerMessageSound);
 							FrameManager.messageManager.addMessage(trade);
 						}
 					} else {
@@ -242,10 +240,10 @@ public class ChatParser {
 //			System.out.println("");
 			// DEBUG END
 			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6));
-			//TODO (OPT) : This loops the same thing twice, and calls toLowerCase more than needed
+			String chatMessage = trade.searchMessage.toLowerCase();
 			if (this.searchIgnoreTerms != null) {
 				for (String s : this.searchIgnoreTerms) {
-					if (trade.searchMessage.toLowerCase().contains(s.toLowerCase())) {
+					if (chatMessage.contains(s)) {
 						return null;
 					}
 				}
@@ -253,7 +251,7 @@ public class ChatParser {
 			boolean found = false;
 			for (String s : this.searchTerms) {
 				if(!s.equals("")){
-					if (trade.searchMessage.toLowerCase().contains(s.toLowerCase())) {
+					if (chatMessage.contains(s)) {
 						found = true;
 					}
 				}

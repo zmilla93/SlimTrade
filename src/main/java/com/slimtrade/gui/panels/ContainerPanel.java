@@ -2,9 +2,9 @@ package com.slimtrade.gui.panels;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.FrameManager;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -14,7 +14,7 @@ public class ContainerPanel extends JPanel implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public JPanel container = new JPanel();
+	public JPanel container = new JPanel(FrameManager.gridBag);
 	private static final int defaultBorderSize = 15;
 	private Border defaultBorder = BorderFactory.createLineBorder(Color.black);
 	
@@ -23,9 +23,6 @@ public class ContainerPanel extends JPanel implements IColorable {
 	}
 	
 	private ContainerPanel(int borderSize){
-		
-//		this.setBackground(ColorManager.BACKGROUND);
-//		container.setOpaque(false);
 		container.setOpaque(false);
 		this.setBorder(defaultBorder);
 		this.setLayout(new BorderLayout());
@@ -39,5 +36,6 @@ public class ContainerPanel extends JPanel implements IColorable {
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.LOW_CONTRAST_1);
+        this.setBackground(Color.ORANGE);
     }
 }

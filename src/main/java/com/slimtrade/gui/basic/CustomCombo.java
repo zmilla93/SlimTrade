@@ -50,7 +50,7 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
         bg = ColorManager.BACKGROUND;
         text = ColorManager.TEXT;
         this.setForeground(ColorManager.TEXT);
-        this.setBackground(ColorManager.BACKGROUND);
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
     }
 }

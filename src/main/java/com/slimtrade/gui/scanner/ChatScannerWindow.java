@@ -2,16 +2,18 @@ package com.slimtrade.gui.scanner;
 
 import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.MacroButton;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.ComponentResizeAdapter;
 import com.slimtrade.core.observing.DocumentUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.basic.ColorPanel;
+import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.CustomScrollPane;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.macros.CustomMacroRow;
-import com.slimtrade.gui.scanner.old.ScannerMessage_OLD;
+import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -20,24 +22,14 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ChatScannerWindow extends AbstractResizableWindow implements ISaveable {
+public class ChatScannerWindow extends AbstractResizableWindow implements ISaveable, IColorable {
 
+    // TODO : inner panel could be containerpanel for consistency
     public static final int bufferOuter = 8;
     public static final int bufferInner = 5;
-
-    private final int PADDING = 14;
-    private final int BUFFER_SMALL = 8;
-    private final int BUFFER_LARGE = 10;
-    private final Dimension inputSize = new Dimension(400, 140);
-    private final int HEIGHT = 70;
-    private final int CUSTOM_MAX = 8;
-
-    boolean searching = false;
-    volatile boolean saving = false;
 
     //Arrays
     private ArrayList<ScannerMessage> messageList = new ArrayList<>();
@@ -46,7 +38,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
     // Labels
     private JPanel borderPanel = new JPanel(FrameManager.gridBag);
-    private JPanel innerPanel = new ColorPanel(FrameManager.gridBag);
+    private ContainerPanel containerPanel = new ContainerPanel();
 
     private JScrollPane scrollPane = new CustomScrollPane(borderPanel);
     private SearchNamePanel namePanel = new SearchNamePanel();
@@ -54,31 +46,36 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private SearchTermsPanel termsPanel = new SearchTermsPanel();
     private SearchMacroPanel macroPanel = new SearchMacroPanel();
 
-    private JButton searchButton;
+    private BasicButton searchButton;
     private JComboBox<ScannerMessage> searchCombo;
     private JTextField saveTextField;
-    private JButton saveButton;
-    private JButton clearButton;
-    private JButton revertButton;
-    private JButton deleteButton;
 
-    // Lower Controls
-    private JTextArea searchTermsInput;
-    private JTextArea ignoreTermsInput;
+    // Controls from child panels
+    private JButton saveButton, clearButton, revertButton, deleteButton;
+    private JTextArea searchTermsInput, ignoreTermsInput;
+
 
     private AddRemovePanel addRemovePanel;
     private JButton addMacroButton;
     private JTextField thankLeft;
     private JTextField thankRight;
 
-    // Checks
+    // Internal
     private ScannerMessage selectedMessage;
+
     private boolean checkName;
     private boolean checkSearchTerms;
     private boolean checkIgnoreTerms;
     private boolean checkThankLeft;
     private boolean checkThankRight;
     private boolean checkMacros;
+
+    private final int MAX_MACROS = 8;
+    private boolean searching = false;
+    // TODO : Saving?
+    private volatile boolean saving = false;
+
+
 
     public ChatScannerWindow() {
         super("Chat Scanner");
@@ -108,41 +105,34 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         gc.weightx = 1;
 
         // Full Window
-        borderPanel.add(innerPanel, gc);
+        borderPanel.add(containerPanel, gc);
         gc.insets = new Insets(20, 20, 0, 20);
-        innerPanel.add(namePanel, gc);
+
+        containerPanel.container.add(namePanel, gc);
         gc.gridy++;
-        gc.insets = new Insets(BUFFER_SMALL, 20, 0, 20);
-//        innerPanel.add(new JLabel("Separate terms using commas, semicolons, or new lines."), gc);
-//        gc.gridy++;
-//        gc.insets = new Insets(0, 20, 0, 20);
-//        gc.gridy++;
-//        innerPanel.add(new JLabel("Scanning is case insensitive. Irregular spacing will be ignored."), gc);
+        gc.insets = new Insets(bufferInner, 20, 0, 20);
         gc.gridy++;
-        gc.insets = new Insets(BUFFER_SMALL, 20, 0, 20);
-        innerPanel.add(termsPanel, gc);
+//        gc.insets = new Insets(bufferInner, 20, 0, 20);
+        containerPanel.container.add(termsPanel, gc);
         gc.gridy++;
         gc.insets.bottom = 20;
-        innerPanel.add(macroPanel, gc);
+        containerPanel.container.add(macroPanel, gc);
         gc.gridy = 0;
-        gc.fill = GridBagConstraints.BOTH;
+//        gc.fill = GridBagConstraints.BOTH;
 
 
-        gc.insets = new Insets(0, 0, 0, 0);
+//        gc.insets = new Insets(0, 0, 0, 0);
 
-        borderPanel.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
-        borderPanel.setBackground(Color.YELLOW);
-        innerPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        innerPanel.setBackground(Color.GREEN);
 
         container.setLayout(new BorderLayout());
         container.add(scrollPane, BorderLayout.CENTER);
+
 
         //Finalize
         this.setFocusableWindowState(true);
         this.setFocusable(true);
         this.pack();
-        this.setSize(650, 800);
+        this.setSize(650, 820);
         searchTermsInput.setLineWrap(true);
         searchTermsInput.setWrapStyleWord(true);
         FrameManager.centerFrame(this);
@@ -208,29 +198,36 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             } else {
                 selectedMessage = null;
             }
+            refreshListeners();
             runAllChecks();
             refreshWindowState();
         });
 
         searchButton.addActionListener(e -> {
             searching = !searching;
-
             if (searching && selectedMessage != null) {
-                System.out.println("SEARCH TERMS : " + Arrays.toString(selectedMessage.searchTermsArray));
-                System.out.println("IGNORE TERMS :"  + Arrays.toString(selectedMessage.ignoreTermsArray));
-                for(String s : selectedMessage.searchTermsArray) {
-                    System.out.print("\"" + s + "\" ");
+                if(App.debugMode) {
+                    System.out.print("SEARCH TERMS : ");
+                    if (selectedMessage.searchTermsArray != null) {
+                        for (String s : selectedMessage.searchTermsArray) {
+                            System.out.print("\"" + s + "\" ");
+                        }
+                    }
+                    System.out.println();
+                    System.out.print("SEARCH TERMS : ");
+                    if (selectedMessage.ignoreTermsArray != null) {
+                        for (String s : selectedMessage.ignoreTermsArray) {
+                            System.out.print("\"" + s + "\" ");
+                        }
+                    }
+                    System.out.println();
                 }
-                System.out.println();
-//                ScannerMessage_OLD msg = (ScannerMessage_OLD) messageCombo.getSelectedItem();
                 App.chatParser.setSearchName(selectedMessage.name);
                 App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
                 App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
             }
-//            updateSearchButton();
             App.chatParser.setChatScannerRunning(searching);
             if (searching) {
-//        		searchButton.setEnabled(true);
                 saveTextField.setEnabled(false);
                 searchCombo.setEnabled(false);
                 saveButton.setEnabled(false);
@@ -238,8 +235,10 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 deleteButton.setEnabled(false);
                 searchTermsInput.setEnabled(false);
                 ignoreTermsInput.setEnabled(false);
+                addRemovePanel.setEnabledAll(false);
+                searchButton.setText("Cancel Search");
+                searchButton.primaryColor = ColorManager.RED_DENY;
             } else {
-//				searchButton.setEnabled(true);
                 saveTextField.setEnabled(true);
                 searchCombo.setEnabled(true);
                 saveButton.setEnabled(true);
@@ -247,7 +246,11 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 deleteButton.setEnabled(true);
                 searchTermsInput.setEnabled(true);
                 ignoreTermsInput.setEnabled(true);
+                addRemovePanel.setEnabledAll(true);
+                searchButton.setText("Search");
+                searchButton.primaryColor = ColorManager.GREEN_APPROVE;
             }
+            refreshListeners();
             refreshWindowState();
         });
 
@@ -320,13 +323,13 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 }
             }
             messageList.add(message);
-            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getName));
+            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
             refreshCombo(message);
             loadMessage(message);
             refreshWindowState();
             refreshListeners();
 
-            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getName));
+            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
             App.saveManager.scannerSaveFile.messages.clear();
             App.saveManager.scannerSaveFile.messages.addAll(messageList);
             App.saveManager.saveScannerToDisk();
@@ -397,68 +400,12 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 deleteButton.setEnabled(false);
                 searchButton.setEnabled(false);
             }
+            // TODO : Clear button
         }
-
-
-    }
-
-    // Enabled/disabled the window controls based on how they match the saved messages
-    private void refreshWindowState(ScannerMessage currentMessage) {
-        if (saving) {
-            System.out.println("IGNORED");
-            return;
-        }
-        System.out.println("\t\tWindow Refresh");
-        searchButton.setEnabled(false);
-        deleteButton.setEnabled(false);
-        revertButton.setEnabled(false);
-        clearButton.setEnabled(false);
-        saveButton.setEnabled(false);
-        addMacroButton.setEnabled(false);
-        if (searching) {
-            System.out.println("SEARCH");
-            searchButton.setEnabled(true);
-            return;
-        }
-        addMacroButton.setEnabled(true);
-        if (!currentMessage.name.matches("\\s*") || currentMessage.searchTermsRaw.length() > 0 || currentMessage.ignoreTermsRaw.length() > 0 || currentMessage.macroButtons.size() > 0) {
-            clearButton.setEnabled(true);
-        }
-        if (!currentMessage.name.matches("\\s*") && !currentMessage.searchTermsRaw.matches("\\s*")) {
-            saveButton.setEnabled(true);
-        }
-        ScannerMessage selectedMessage = null;
-        if (searchCombo.getItemCount() > 0) {
-            if (searchCombo.getSelectedIndex() < 0) {
-//                searchCombo.setSelectedIndex(0);
-            } else {
-
-                selectedMessage = (ScannerMessage) searchCombo.getSelectedItem();
-                runAllChecks();
-            }
-            boolean matchingMessages = matchingMessages(currentMessage, selectedMessage);
-            if (matchingMessages) {
-                searchButton.setEnabled(true);
-                deleteButton.setEnabled(true);
-            } else {
-                if (searchCombo.getSelectedIndex() > -1) {
-                    revertButton.setEnabled(true);
-                }
-            }
-            searchButton.setEnabled(matchingMessages);
-        } else {
-            System.out.println("No selection");
-            //TODO
-        }
-
-        // If everything is valid, enable search
-//        refreshListeners();
-
     }
 
     private boolean checkMacros() {
         if (selectedMessage == null) {
-            System.out.println("BMAC:MSG");
             return false;
         }
         ArrayList<MacroButton> buttons = new ArrayList<>();
@@ -545,7 +492,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 i++;
             }
         }
-        if (i >= CUSTOM_MAX) {
+        if (i >= MAX_MACROS) {
             return null;
         }
         CustomMacroRow row = new CustomMacroRow(addRemovePanel);
@@ -647,6 +594,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         searchCombo.setSelectedIndex(-1);
         searchTermsInput.setText(null);
         ignoreTermsInput.setText(null);
+        thankLeft.setText(null);
+        thankRight.setText(null);
         addRemovePanel.removeAll();
     }
 
@@ -660,12 +609,24 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         App.saveManager.loadScannerFromDisk();
         messageList.clear();
         messageList.addAll(App.saveManager.scannerSaveFile.messages);
-        Collections.sort(messageList, Comparator.comparing(ScannerMessage::getName));
+        Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
         searchCombo.removeAllItems();
         for (ScannerMessage msg : messageList) {
             searchCombo.addItem(msg);
         }
         searchCombo.setSelectedIndex(-1);
+    }
+
+    @Override
+    public void updateColor() {
+        super.updateColor();
+        borderPanel.setBackground(ColorManager.BACKGROUND);
+        containerPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+        containerPanel.setBorder(ColorManager.BORDER_TEXT);
+        searchTermsInput.setBackground(ColorManager.LOW_CONTRAST_1);
+        searchTermsInput.setForeground(ColorManager.TEXT);
+        ignoreTermsInput.setBackground(ColorManager.LOW_CONTRAST_1);
+        ignoreTermsInput.setForeground(ColorManager.TEXT);
     }
 }
 

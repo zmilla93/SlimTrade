@@ -6,6 +6,8 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.buttons.ConfirmButton;
+import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
@@ -15,31 +17,33 @@ import static com.slimtrade.gui.scanner.ChatScannerWindow.bufferOuter;
 
 public class SearchNamePanel extends JPanel implements IColorable {
 
-    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
-
-    private JLabel info1 = new JLabel("Create a save by enter a name and search terms.");
-    private JLabel searchNameLabel = new JLabel("Search Name");
-    public JButton searchButton = new BasicButton("Search");
-    public JComboBox<ScannerMessage> searchCombo = new CustomCombo<>();
+    // Public Controls
     public JTextField saveTextField = new LimitTextField(32);
+    public JComboBox<ScannerMessage> searchCombo = new CustomCombo<>();
 
-    public JButton saveButton = new BasicButton("Save");
-    public JButton clearButton = new BasicButton("Clear");
-    public JButton revertButton = new BasicButton("Revert");
-    public JButton deleteButton = new BasicButton("Delete");
+    public BasicButton searchButton = new ConfirmButton("Search");
+    public BasicButton saveButton = new ConfirmButton("Save");
+    public BasicButton clearButton = new BasicButton("Clear");
+    public BasicButton revertButton = new BasicButton("Revert");
+    public BasicButton deleteButton = new DenyButton("Delete");
 
+    // Private Labels
+    private JLabel info1 = new JLabel("Create a save by entering a name and search terms.");
+    private JLabel searchNameLabel = new JLabel("Search Name");
+
+    // Internal
     private JPanel buttonPanel = new JPanel(FrameManager.gridBag);
     private JPanel namePanel = new JPanel(FrameManager.gridBag);
+    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
 
     public SearchNamePanel() {
+
         super(FrameManager.gridBag);
+
 
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-
-
-//        gc.weightx = 1;
 
         // Button Panel
         gc.fill = GridBagConstraints.BOTH;
@@ -101,13 +105,13 @@ public class SearchNamePanel extends JPanel implements IColorable {
         gc.gridwidth = 1;
 
         gc = new GridBagConstraints();
-        gc.insets = new Insets(10, 10, 10, 10);
+        gc.insets = new Insets(bufferOuter, bufferOuter, bufferOuter, bufferOuter);
         this.add(outerPanel, gc);
 
 
-        buttonPanel.setBackground(ColorManager.CLEAR);
+
         namePanel.setBackground(ColorManager.CLEAR);
-        outerPanel.setBackground(ColorManager.CLEAR);
+
         App.eventManager.addColorListener(this);
         this.updateColor();
 
@@ -115,8 +119,15 @@ public class SearchNamePanel extends JPanel implements IColorable {
 
     @Override
     public void updateColor() {
+
+        //Background
         this.setBackground(ColorManager.BACKGROUND);
-        this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+        namePanel.setBackground(ColorManager.BACKGROUND);
+        buttonPanel.setBackground(ColorManager.BACKGROUND);
+        outerPanel.setBackground(ColorManager.BACKGROUND);
+
+        // Foreground
+        this.setBorder(ColorManager.BORDER_TEXT);
         searchNameLabel.setForeground(ColorManager.TEXT);
     }
 }

@@ -206,7 +206,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 							if (App.updateChecker.isUpdateAvailable()) {
 								// updateButton.setVisible(true);
 								checkUpdateButton.setText("Update Available!");
-								checkUpdateButton.setColor(Color.GREEN);
+								checkUpdateButton.primaryColor = Color.GREEN;
 							} else {
 								checkUpdateButton.setText("Check for Updates");
 							}
@@ -300,7 +300,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 	private void recolorUpdateButton(){
         if(App.updateChecker.isUpdateAvailable()){
             this.checkUpdateButton.setText("Update Available!");
-            this.checkUpdateButton.setColor(Color.GREEN);
+            this.checkUpdateButton.primaryColor = Color.GREEN;
         }
     }
 

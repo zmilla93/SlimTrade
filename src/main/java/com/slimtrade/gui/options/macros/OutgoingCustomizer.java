@@ -215,8 +215,8 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         customPanel.updateColor();
     }
 
-    @Override
-    public void updateColor() {
-        this.setBackground(ColorManager.LOW_CONTRAST_1);
-    }
+//    @Override
+//    public void updateColor() {
+//        this.setBackground(ColorManager.LOW_CONTRAST_1);
+//    }
 }

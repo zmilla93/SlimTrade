@@ -99,11 +99,11 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, IColorabl
 		advancedPanel.load();
 	}
 
-	@Override
-	public void updateColor() {
-	    this.setBackground(ColorManager.LOW_CONTRAST_1);
-
-//	    this.setBackground();
-	}
+//	@Override
+//	public void updateColor() {
+//	    this.setBackground(ColorManager.LOW_CONTRAST_1);
+//
+////	    this.setBackground();
+//	}
 	
 }

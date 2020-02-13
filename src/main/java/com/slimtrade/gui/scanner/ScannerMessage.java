@@ -29,37 +29,35 @@ public class ScannerMessage {
 	public String getName() {
 		return name;
 	}
+
+	public String getNameLower() {
+		return name.toLowerCase();
+	}
+
 	public void setName(String name) {
 		this.name = name;
-	}
-
-
-	public void setSearchTermsRaw(String searchTermsRaw) {
-		this.searchTermsRaw = searchTermsRaw;
-		this.searchTermsArray = searchTermsRaw.split("\\s+");
-	}
-	public String getIgnoreTermsRaw() {
-		return ignoreTermsRaw;
-	}
-	public void setIgnoreTermsRaw(String ignoreTermsRaw) {
-		this.ignoreTermsRaw = ignoreTermsRaw;
 	}
 	
 	public String toString(){
 		return this.name;
 	}
 	
-	private String[] cleanArray(String input){
+	private static String[] cleanArray(String input){
 		if(input.replaceAll("\\s+", "").equals("")){
 			return null;
 		}
 		String[] arr = input.split("\\n|,|;");
-		int i = 0;
+		ArrayList<String> clean = new ArrayList();
 		for(String s : arr){
-			String curTerm = s.trim().replaceAll("\\s+", " ");
-			if(!curTerm.replaceAll("\\s+", "").equals("")){
-				arr[i] = curTerm;
+			String curTerm = s.trim().replaceAll("\\s+", " ").trim();
+			if(!curTerm.matches("\\s*")){
+				clean.add(curTerm.toLowerCase());
 			}
+		}
+		arr = new String[clean.size()];
+		int i = 0;
+		for(String s : clean) {
+			arr[i] = s;
 			i++;
 		}
 		return arr;

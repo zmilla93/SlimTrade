@@ -19,89 +19,106 @@ import com.slimtrade.core.observing.improved.IColorable;
 
 public class BasicButton extends JButton implements IColorable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private final ButtonModel model;
-	
-	private static Border borderDefault;
-	private static Border borderRollover;
+    private static final long serialVersionUID = 1L;
 
-	protected Color primaryColor;
-	protected Color secondaryColor;
-	
-	public BasicButton() {
-		this.model = this.getModel();
-		buildButton();
-	}
+    private final ButtonModel model;
 
-	public BasicButton(String text) {
-		super(text);
-		this.model = this.getModel();
-		buildButton();
-	}
-	
-	public void setColor(Color color){
-		this.primaryColor = color;
-	}
+    private static Border borderDefault;
+    private static Border borderDisabled;
+    private static Border borderRollover;
 
-	//TODO : Check mouse button?
-	//TODO : Currently paints twice per action...
-	private void buildButton() {
-		Border outsideBorder = BorderFactory.createLineBorder(Color.GRAY);
-		Border outsideBorderRollover = BorderFactory.createLineBorder(Color.BLACK);
-		Border insideBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
-		borderDefault = BorderFactory.createCompoundBorder(outsideBorder, insideBorder);
-		borderRollover = BorderFactory.createCompoundBorder(outsideBorderRollover, insideBorder);
-		this.setBorder(borderDefault);
-		setContentAreaFilled(false);
-		setFocusPainted(false);
-		this.addMouseListener(new MouseListener(){
-			public void mouseClicked(MouseEvent e) {
-			}
-			public void mouseEntered(MouseEvent e) {
-				model.setRollover(true);
-			}
-			public void mouseExited(MouseEvent e) {
-				model.setRollover(false);
-			}
-			public void mousePressed(MouseEvent e) {
-				model.setPressed(true);
-			}
-			public void mouseReleased(MouseEvent e) {
-				model.setPressed(false);
-			}
-		});
+    public Color primaryColor;
+    public Color secondaryColor;
+
+    private Border bufferBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
+
+    // TODO : Secondary Color
+
+    public BasicButton() {
+        this.model = this.getModel();
+        buildButton();
+    }
+
+    public BasicButton(String text) {
+        super(text);
+        this.model = this.getModel();
+        buildButton();
+    }
+
+//    public void setColor(Color color) {
+//        this.primaryColor = color;
+//    }
+
+    //TODO : Check mouse button?
+    //TODO : Currently paints twice per action...
+    // TODO : Adjust border
+    private void buildButton() {
+
+        this.setBorder(borderDefault);
+        setContentAreaFilled(false);
+        setFocusPainted(false);
+        this.addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                model.setRollover(true);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                model.setRollover(false);
+            }
+
+            public void mousePressed(MouseEvent e) {
+                model.setPressed(true);
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                model.setPressed(false);
+            }
+        });
         App.eventManager.addColorListener(this);
-		updateColor();
-	}
+        updateColor();
+    }
 
-	@Override
-	protected void paintComponent(Graphics g) {
-		final Graphics2D g2 = (Graphics2D) g.create();
-		ButtonModel model = getModel();
-		//BORDER
-		if(model.isRollover()){
-			this.setBorder(borderRollover);
-		}else{
-			this.setBorder(borderDefault);
-		}
-		//FILL
-		if(model.isPressed() && model.isRollover()){
-			g2.setPaint(primaryColor);
-		}else if(model.isPressed() && !model.isRollover()){
-			g2.setPaint(Color.LIGHT_GRAY);
-		}else{
-			g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), primaryColor));
-		}
-		g2.fillRect(0, 0, getWidth(), getHeight());
-		g2.dispose();
-		super.paintComponent(g);
-	}
+    @Override
+    protected void paintComponent(Graphics g) {
+        final Graphics2D g2 = (Graphics2D) g.create();
+        ButtonModel model = getModel();
+        //BORDER
+        Color curPrime;
+        if (model.isEnabled()) {
+            curPrime = primaryColor;
+            if (model.isRollover()) {
+                this.setBorder(borderRollover);
+            } else {
+                this.setBorder(borderDefault);
+            }
+        } else {
+            curPrime = ColorManager.lighter(primaryColor);
+            this.setBorder(borderDisabled);
+        }
+        //FILL
+        if (model.isPressed() && model.isRollover()) {
+            g2.setPaint(curPrime);
+        } else if (model.isPressed() && !model.isRollover()) {
+            g2.setPaint(ColorManager.LOW_CONTRAST_1);
+        } else {
+            g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), curPrime));
+        }
+        g2.fillRect(0, 0, getWidth(), getHeight());
+        g2.dispose();
+        super.paintComponent(g);
+    }
 
-	@Override
-	public void updateColor() {
-		primaryColor = ColorManager.PRIMARY;
-		secondaryColor = ColorManager.BACKGROUND;
-	}
+    @Override
+    public void updateColor() {
+        primaryColor = primaryColor == null ? ColorManager.PRIMARY : primaryColor;
+        secondaryColor = secondaryColor == null ? ColorManager.BACKGROUND : secondaryColor;
+
+        borderDisabled = BorderFactory.createCompoundBorder(ColorManager.BORDER_LOW_CONTRAST_1, bufferBorder);
+        borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
+        borderRollover = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(primaryColor), bufferBorder);
+    }
 
 }

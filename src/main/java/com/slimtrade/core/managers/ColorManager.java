@@ -49,14 +49,21 @@ public class ColorManager {
 
     public static Border BORDER_PRIMARY;
     public static Border BORDER_TEXT;
+    public static Border BORDER_LOW_CONTRAST_1;
 
 
+
+    // TODO : Remove clear as it causes massive drawing issues!
     //Static Colors
     //TODO : Check uses of clear
     public static Color CLEAR = new Color(0, 0, 0, 0);
     public static Color CLEAR_CLICKABLE = new Color(1.0f, 1.0f, 1.0f, 0.002f);
     public static Color POE_TEXT_DARK = new Color(53, 28, 13);
     public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
+
+
+    // Internal
+    private static final int OFFSET_COLOR_AMOUNT = 60;
 
     public static void setTheme(ColorTheme theme) {
         if (currentColorTheme == theme) {
@@ -70,8 +77,10 @@ public class ColorManager {
                 ColorManager.HIGH_CONTRAST_1 = Color.BLACK;
                 ColorManager.HIGH_CONTRAST_2 = Color.DARK_GRAY;
                 ColorManager.BACKGROUND = new Color(255, 245, 235);
-                ColorManager.LOW_CONTRAST_1 = new Color(240, 235, 225);
-                ColorManager.LOW_CONTRAST_2 = new Color(197, 192, 182);
+//                ColorManager.LOW_CONTRAST_1 = new Color(240, 235, 225);
+                ColorManager.LOW_CONTRAST_1 = new Color(227, 222, 212);
+//                ColorManager.LOW_CONTRAST_2 = new Color(197, 192, 182);
+                ColorManager.LOW_CONTRAST_2 = new Color(207, 202, 192);
                 ColorManager.HIGH_CONTRAST_1 = new Color(60, 60, 60);
                 ColorManager.HIGH_CONTRAST_2 = new Color(102, 102, 102);
                 break;
@@ -90,6 +99,7 @@ public class ColorManager {
         TEXT = HIGH_CONTRAST_1;
         BORDER_PRIMARY = BorderFactory.createLineBorder(ColorManager.PRIMARY);
         BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.TEXT);
+        BORDER_LOW_CONTRAST_1 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
 //        TEXT = Color.ORANGE;
     }
 
@@ -101,6 +111,14 @@ public class ColorManager {
         int g = TradeUtility.intWithinRange(c.getGreen() + mod, min, max);
         int b = TradeUtility.intWithinRange(c.getBlue() + mod, min, max);
         return new Color(r, g, b);
+    }
+
+    public static Color lighter(Color c) {
+        return modify(c, OFFSET_COLOR_AMOUNT);
+    }
+
+    public static Color darker(Color c) {
+        return modify(c, -OFFSET_COLOR_AMOUNT);
     }
 
     public static ColorTheme getTheme() {

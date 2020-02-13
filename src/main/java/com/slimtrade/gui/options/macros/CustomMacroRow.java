@@ -138,6 +138,15 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         return true;
     }
 
+    public void setEnabledAll(boolean state) {
+        rowCombo.setEnabled(state);
+        iconCombo.setEnabled(state);
+        m1Text.setEnabled(state);
+        m2Text.setEnabled(state);
+        removeButton.setEnabled(state);
+    }
+
+
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);

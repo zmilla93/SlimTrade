@@ -12,7 +12,11 @@ import com.slimtrade.gui.options.macros.PresetMacroRow;
 import javax.swing.*;
 import java.awt.*;
 
+import static com.slimtrade.gui.scanner.ChatScannerWindow.bufferOuter;
+
 public class SearchMacroPanel extends JPanel implements IColorable {
+
+    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
 
     public JButton addMacroButton = new BasicButton("Add Macro");
     public AddRemovePanel addRemovePanel = new AddRemovePanel();
@@ -83,15 +87,24 @@ public class SearchMacroPanel extends JPanel implements IColorable {
         gc.gridy = 0;
         gc.insets.bottom = 5;
         gc.fill = GridBagConstraints.NONE;
-        this.add(presetMacroPanel, gc);
+        outerPanel.add(presetMacroPanel, gc);
         gc.gridy++;
         gc.insets.bottom = 2;
-        this.add(addMacroButton, gc);
+        outerPanel.add(addMacroButton, gc);
         gc.gridy++;
         gc.insets.bottom = 0;
-        this.add(addRemovePanel, gc);
+        outerPanel.add(addRemovePanel, gc);
         gc.insets.bottom = 0;
         gc.gridy = 0;
+
+        gc = new GridBagConstraints();
+        gc.insets = new Insets(bufferOuter, bufferOuter, bufferOuter, bufferOuter);
+        this.add(outerPanel, gc);
+
+        outerPanel.setBackground(ColorManager.CLEAR);
+        presetMacroPanel.setBackground(ColorManager.CLEAR);
+        addRemovePanel.setBackground(ColorManager.CLEAR);
+
         App.eventManager.addColorListener(this);
         this.updateColor();
     }
@@ -99,6 +112,6 @@ public class SearchMacroPanel extends JPanel implements IColorable {
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);
-        this.setBackground(Color.RED);
+        this.setBorder(ColorManager.BORDER_TEXT);
     }
 }
