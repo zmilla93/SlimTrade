@@ -11,6 +11,7 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.CustomScrollPane;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.macros.CustomMacroRow;
+import com.slimtrade.gui.scanner.old.ScannerMessage_OLD;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -19,10 +20,14 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class ChatScannerWindow extends AbstractResizableWindow implements ISaveable {
+
+    public static final int bufferOuter = 8;
+    public static final int bufferInner = 5;
 
     private final int PADDING = 14;
     private final int BUFFER_SMALL = 8;
@@ -47,18 +52,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private SearchNamePanel namePanel = new SearchNamePanel();
 
     private SearchTermsPanel termsPanel = new SearchTermsPanel();
-    //TODO : THIS
-//    private JPanel macroPanel = new JPanel(FrameManager.gridBag);
     private SearchMacroPanel macroPanel = new SearchMacroPanel();
 
-    // Upper Controls
-//    private JButton searchButton = new BasicButton("Search");
-//    private JComboBox<ScannerMessage> searchCombo = new CustomCombo<>();
-//    private JTextField saveTextField = new LimitTextField(32);
-//    private JButton saveButton = new BasicButton("Save");
-//    private JButton clearButton = new BasicButton("Clear");
-//    private JButton revertButton = new BasicButton("Revert");
-//    private JButton deleteButton = new BasicButton("Delete");
     private JButton searchButton;
     private JComboBox<ScannerMessage> searchCombo;
     private JTextField saveTextField;
@@ -159,35 +154,35 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
         saveTextField.getDocument().addDocumentListener(new DocumentUpdateListener() {
             public void update() {
-                checkName = selectedMessage == null ? false : saveTextField.getText().equals(selectedMessage.name);
+                checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
                 refreshWindowState();
             }
         });
 
         searchTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
             public void update() {
-                checkSearchTerms = selectedMessage == null ? false : searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
+                checkSearchTerms = selectedMessage != null && searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
                 refreshWindowState();
             }
         });
 
         ignoreTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
             public void update() {
-                checkIgnoreTerms = selectedMessage == null ? false : ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
+                checkIgnoreTerms = selectedMessage != null && ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
                 refreshWindowState();
             }
         });
 
         thankLeft.getDocument().addDocumentListener(new DocumentUpdateListener() {
             public void update() {
-                checkThankLeft = selectedMessage == null ? false : thankLeft.getText().equals(selectedMessage.thankLeft);
+                checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
                 refreshWindowState();
             }
         });
 
         thankRight.getDocument().addDocumentListener(new DocumentUpdateListener() {
             public void update() {
-                checkThankRight = selectedMessage == null ? false : thankRight.getText().equals(selectedMessage.thankRight);
+                checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
                 refreshWindowState();
             }
         });
@@ -219,6 +214,21 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
         searchButton.addActionListener(e -> {
             searching = !searching;
+
+            if (searching && selectedMessage != null) {
+                System.out.println("SEARCH TERMS : " + Arrays.toString(selectedMessage.searchTermsArray));
+                System.out.println("IGNORE TERMS :"  + Arrays.toString(selectedMessage.ignoreTermsArray));
+                for(String s : selectedMessage.searchTermsArray) {
+                    System.out.print("\"" + s + "\" ");
+                }
+                System.out.println();
+//                ScannerMessage_OLD msg = (ScannerMessage_OLD) messageCombo.getSelectedItem();
+                App.chatParser.setSearchName(selectedMessage.name);
+                App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
+                App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
+            }
+//            updateSearchButton();
+            App.chatParser.setChatScannerRunning(searching);
             if (searching) {
 //        		searchButton.setEnabled(true);
                 saveTextField.setEnabled(false);

@@ -31,10 +31,11 @@ public class TradeOffer {
 
     public final String searchName;
     public final String searchMessage;
-    public final String searchResponseLeft;
-    public final String searchResponseRight;
+//    public final String searchResponseLeft;
+//    public final String searchResponseRight;
+    //TODO : Trade response buttons?
 
-    //Dummy
+    // Empty Trade
     public TradeOffer(String date, MessageType msgType, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount) {
         this.date = date;
         this.time = null;
@@ -53,14 +54,14 @@ public class TradeOffer {
         this.sentMessage = null;
         this.searchName = null;
         this.searchMessage = null;
-        this.searchResponseLeft = null;
-        this.searchResponseRight = null;
+//        this.searchResponseLeft = null;
+//        this.searchResponseRight = null;
     }
 
     //Chat Scanner Search
-    public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String searchName, String searchMessage, String responseLeft, String responseRight) {
+    public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String searchName, String searchMessage) {
         this.date = date;
-        this.time = null;
+        this.time = time;
         this.messageType = msgType;
         this.guildName = guildName;
         this.playerName = playerName;
@@ -75,8 +76,8 @@ public class TradeOffer {
         this.sentMessage = null;
         this.searchName = searchName;
         this.searchMessage = searchMessage;
-        this.searchResponseLeft = responseLeft;
-        this.searchResponseRight = responseRight;
+//        this.searchResponseLeft = responseLeft;
+//        this.searchResponseRight = responseRight;
     }
 
     //Trade
@@ -98,8 +99,8 @@ public class TradeOffer {
         this.sentMessage = sentMessage;
         this.searchName = null;
         this.searchMessage = null;
-        this.searchResponseLeft = null;
-        this.searchResponseRight = null;
+//        this.searchResponseLeft = null;
+//        this.searchResponseRight = null;
     }
 
     public void playSound() {

@@ -176,7 +176,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 kickButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
 
                 if (listeners) {
-                    this.registerPoeInteractionButton(replyButton, ButtonType.WHISPER, trade.playerName, trade.searchResponseLeft, trade.searchResponseRight);
+//                    this.registerPoeInteractionButton(replyButton, ButtonType.WHISPER, trade.playerName, null, null);
                     this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
                     this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
                     this.registerPoeInteractionButton(thankButton, ButtonType.THANK);

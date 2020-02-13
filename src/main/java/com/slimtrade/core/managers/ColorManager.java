@@ -5,6 +5,9 @@ import java.awt.Color;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.core.utility.TradeUtility;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+
 public class ColorManager {
 
     // INTERNAL
@@ -44,6 +47,9 @@ public class ColorManager {
     public static Color PLAYER_JOINED_INCOMING = new Color(0, 160, 0);
     public static Color PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
 
+    public static Border BORDER_PRIMARY;
+    public static Border BORDER_TEXT;
+
 
     //Static Colors
     //TODO : Check uses of clear
@@ -82,6 +88,8 @@ public class ColorManager {
         }
         //MUTUAL
         TEXT = HIGH_CONTRAST_1;
+        BORDER_PRIMARY = BorderFactory.createLineBorder(ColorManager.PRIMARY);
+        BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.TEXT);
 //        TEXT = Color.ORANGE;
     }
 

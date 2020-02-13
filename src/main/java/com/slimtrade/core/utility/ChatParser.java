@@ -1,28 +1,21 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.App;
+import com.slimtrade.core.audio.AudioManager;
+import com.slimtrade.enums.MessageType;
+import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.enums.MatchType;
+import com.slimtrade.gui.options.ignore.IgnoreData;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.swing.Timer;
-
-import com.slimtrade.App;
-import com.slimtrade.core.audio.SoundComponentOLD;
-import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.FrameManager;
-import com.slimtrade.core.audio.AudioManager;
-import com.slimtrade.gui.enums.MatchType;
-import com.slimtrade.gui.options.ignore.IgnoreData;
 
 public class ChatParser {
 //	private FileReader fileReader;
@@ -48,8 +41,9 @@ public class ChatParser {
 	// REGEX
 	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(\\S+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
 	// TODO : Remove optional flag for global chat - guild returns null until
-	// then
-	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
+	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
+	// Allows for local chat
+//	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
 	private String[] searchTerms;
@@ -57,8 +51,8 @@ public class ChatParser {
 	private ArrayList<IgnoreData> whisperIgnoreData = new ArrayList<IgnoreData>();
 	private boolean chatScannerRunning = false;
 	private String searchName;
-	private String searchResponseLeft;
-	private String searchResponseRight;
+//	private String searchResponseLeft;
+//	private String searchResponseRight;
 
 	private String clientPath;
 
@@ -247,7 +241,7 @@ public class ChatParser {
 //			}
 //			System.out.println("");
 			// DEBUG END
-			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6), this.searchResponseLeft, this.searchResponseRight);
+			trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6));
 			//TODO (OPT) : This loops the same thing twice, and calls toLowerCase more than needed
 			if (this.searchIgnoreTerms != null) {
 				for (String s : this.searchIgnoreTerms) {
@@ -308,9 +302,9 @@ public class ChatParser {
 		this.whisperIgnoreData = ignoreData;
 	}
 
-	public void setResponseText(String lmb, String rmb) {
-		this.searchResponseLeft = lmb;
-		this.searchResponseRight = rmb;
-	}
+//	public void setResponseText(String lmb, String rmb) {
+//		this.searchResponseLeft = lmb;
+//		this.searchResponseRight = rmb;
+//	}
 
 }

@@ -1,5 +1,8 @@
 package com.slimtrade.gui.scanner;
 
+import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -8,8 +11,13 @@ import com.slimtrade.gui.stash.LimitTextField;
 import javax.swing.*;
 import java.awt.*;
 
-public class SearchNamePanel extends JPanel {
+import static com.slimtrade.gui.scanner.ChatScannerWindow.bufferOuter;
 
+public class SearchNamePanel extends JPanel implements IColorable {
+
+    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
+
+    private JLabel info1 = new JLabel("Create a save by enter a name and search terms.");
     private JLabel searchNameLabel = new JLabel("Search Name");
     public JButton searchButton = new BasicButton("Search");
     public JComboBox<ScannerMessage> searchCombo = new CustomCombo<>();
@@ -24,12 +32,14 @@ public class SearchNamePanel extends JPanel {
     private JPanel namePanel = new JPanel(FrameManager.gridBag);
 
     public SearchNamePanel() {
-
         super(FrameManager.gridBag);
+
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        gc.weightx = 1;
+
+
+//        gc.weightx = 1;
 
         // Button Panel
         gc.fill = GridBagConstraints.BOTH;
@@ -48,6 +58,7 @@ public class SearchNamePanel extends JPanel {
         gc.insets.left = 0;
         gc.insets.top = 0;
 
+
         // Name Panel
         gc.fill = GridBagConstraints.BOTH;
         gc.insets.bottom = 5;
@@ -55,36 +66,57 @@ public class SearchNamePanel extends JPanel {
         gc.gridy++;
         gc.insets.bottom = 0;
         namePanel.add(searchCombo, gc);
+        gc.fill = GridBagConstraints.NONE;
         gc.gridy = 0;
 
-        // Upper Panel
-        // Row 1
+        // Full Panel
+        gc.gridwidth = 2;
+        gc.insets.bottom = 8;
+        outerPanel.add(info1, gc);
+        gc.insets.bottom = 0;
+        gc.gridy++;
         gc.fill = GridBagConstraints.BOTH;
-        this.add(searchNameLabel, gc);
+        outerPanel.add(searchNameLabel, gc);
         gc.fill = GridBagConstraints.NONE;
+        gc.gridwidth = 1;
         gc.gridx++;
         gc.anchor = GridBagConstraints.EAST;
         gc.insets = new Insets(0, 0, 5, 0);
-        this.add(searchButton, gc);
+        outerPanel.add(searchButton, gc);
         gc.insets = new Insets(0, 0, 0, 0);
         gc.anchor = GridBagConstraints.CENTER;
         gc.gridx = 0;
         gc.gridy++;
         gc.gridwidth = 2;
         gc.fill = GridBagConstraints.BOTH;
-        this.add(namePanel, gc);
+        outerPanel.add(namePanel, gc);
         gc.fill = GridBagConstraints.NONE;
         gc.gridy++;
-        this.add(Box.createHorizontalStrut(400), gc);
+        outerPanel.add(Box.createHorizontalStrut(400), gc);
         gc.gridwidth = 1;
-
-
-        // Row 2
         gc.gridx = 0;
         gc.gridwidth = 2;
         gc.gridy++;
-        this.add(buttonPanel, gc);
+        outerPanel.add(buttonPanel, gc);
         gc.gridwidth = 1;
+
+        gc = new GridBagConstraints();
+        gc.insets = new Insets(10, 10, 10, 10);
+        this.add(outerPanel, gc);
+
+
+        buttonPanel.setBackground(ColorManager.CLEAR);
+        namePanel.setBackground(ColorManager.CLEAR);
+        outerPanel.setBackground(ColorManager.CLEAR);
+        App.eventManager.addColorListener(this);
+        this.updateColor();
+
     }
 
+    @Override
+    public void updateColor() {
+        this.setBackground(ColorManager.BACKGROUND);
+        this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+        searchNameLabel.setForeground(ColorManager.TEXT);
+    }
 }

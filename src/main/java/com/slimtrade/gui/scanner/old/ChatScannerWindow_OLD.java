@@ -281,7 +281,7 @@ public class ChatScannerWindow_OLD extends AbstractResizableWindow implements IS
 					App.chatParser.setSearchName(msg.name);
 					App.chatParser.setSearchTerms(msg.searchTermsArray);
 					App.chatParser.setSearchIgnoreTerms(msg.ignoreTermsArray);
-					App.chatParser.setResponseText(msg.clickLeft, msg.clickRight);
+//					App.chatParser.setResponseText(msg.clickLeft, msg.clickRight);
 					System.out.println(Arrays.toString(msg.searchTermsArray));
 				}
 				updateSearchButton();

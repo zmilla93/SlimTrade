@@ -8,6 +8,9 @@ import com.slimtrade.gui.FrameManager;
 import javax.swing.*;
 import java.awt.*;
 
+import static com.slimtrade.gui.scanner.ChatScannerWindow.bufferInner;
+import static com.slimtrade.gui.scanner.ChatScannerWindow.bufferOuter;
+
 public class SearchTermsPanel extends JPanel implements IColorable {
 
     private JLabel searchTermsLabel = new JLabel("Search Terms");
@@ -18,8 +21,7 @@ public class SearchTermsPanel extends JPanel implements IColorable {
     public JTextArea searchTermsInput = new JTextArea(4, 45);
     public JTextArea ignoreTermsInput = new JTextArea(4, 45);
 
-    private final int bufferOuter = 8;
-    private final int bufferInner = 5;
+
 
 
     public SearchTermsPanel() {
@@ -56,8 +58,8 @@ public class SearchTermsPanel extends JPanel implements IColorable {
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
-        searchTermsInput.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
-        ignoreTermsInput.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+        searchTermsInput.setBorder(ColorManager.BORDER_TEXT);
+        ignoreTermsInput.setBorder(ColorManager.BORDER_TEXT);
         searchTermsLabel.setForeground(ColorManager.TEXT);
         ignoreTermsLabel.setForeground(ColorManager.TEXT);
         info1.setForeground(ColorManager.TEXT);
