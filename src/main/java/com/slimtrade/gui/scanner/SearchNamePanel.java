@@ -61,6 +61,7 @@ public class SearchNamePanel extends JPanel implements IColorable {
         gc.weightx = 1;
         gc.insets.left = 0;
         gc.insets.top = 0;
+        gc.fill = GridBagConstraints.NONE;
 
 
         // Name Panel

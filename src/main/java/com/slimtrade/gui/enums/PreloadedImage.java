@@ -19,7 +19,7 @@ public enum PreloadedImage {
     LEAVE("icons/default/leavex64.png"),
     PLAY("icons/default/playx64.png"),
     REFRESH("icons/default/refreshx64.png"),
-    REPLY("icons/default/replyx48.png"),
+    REPLY("icons/custom/replyx48.png"),
     TAG("icons/default/tagx64.png"),
     THUMB("icons/default/thumbx64.png"),
     WARP("icons/default/warpx64.png"),

@@ -23,7 +23,7 @@ public class ColorManager {
 //    public static Color PRIMARY = new Color(227, 255, 212);                        // MAIN COLORS
 //    public static Color PRIMARY = new Color(196, 183, 215); //Purp
     public static Color PRIMARY = new Color(215, 206, 169); //Tanish
-//    public static Color PRIMARY = new Color(194, 162, 64); //Bronzish
+    //    public static Color PRIMARY = new Color(194, 162, 64); //Bronzish
     public static Color GREEN_SALE = new Color(0, 100, 0);            //
     //	public static Color GREEN_APPROVE = new Color(14, 179, 0); 		//
 //    public static Color GREEN_APPROVE = new Color(190, 215, 0);        //
@@ -36,12 +36,12 @@ public class ColorManager {
 
     // Exclusive Colors
     public static Color BACKGROUND;                 // DARK/LIGHT THEME
-    public static Color LOW_CONTRAST_1;            // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
-    public static Color LOW_CONTRAST_2;            // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
+    public static Color LOW_CONTRAST_1;             // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
+    public static Color LOW_CONTRAST_2;             // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
     public static Color HIGH_CONTRAST_1;            // DEFINE WHITE/BLACK 	- CAN BE BACKGROUND OF OPPO
     public static Color HIGH_CONTRAST_2;            // LESSER WHITE/BLACK 	- CAN BE LOW CONSTAST OF OPPO
-    public static Color TEXT;    // DEFAULT TEXT
-    public static Color DISABLED = Color.GRAY;    // DISABLED
+    public static Color TEXT;                       // DEFAULT TEXT
+    public static Color TEXT_EDIT_BACKGROUND;       // DEFAULT TEXT
 
     // OTHER
     public static Color PLAYER_JOINED_INCOMING = new Color(0, 160, 0);
@@ -52,12 +52,10 @@ public class ColorManager {
     public static Border BORDER_LOW_CONTRAST_1;
 
 
-
     // TODO : Remove clear as it causes massive drawing issues!
-    //Static Colors
     //TODO : Check uses of clear
     public static Color CLEAR = new Color(0, 0, 0, 0);
-    public static Color CLEAR_CLICKABLE = new Color(1.0f, 1.0f, 1.0f, 0.002f);
+//    public static Color CLEAR_CLICKABLE = new Color(1.0f, 1.0f, 1.0f, 0.002f);
     public static Color POE_TEXT_DARK = new Color(53, 28, 13);
     public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
 
@@ -80,9 +78,15 @@ public class ColorManager {
 //                ColorManager.LOW_CONTRAST_1 = new Color(240, 235, 225);
                 ColorManager.LOW_CONTRAST_1 = new Color(227, 222, 212);
 //                ColorManager.LOW_CONTRAST_2 = new Color(197, 192, 182);
-                ColorManager.LOW_CONTRAST_2 = new Color(207, 202, 192);
+//                ColorManager.LOW_CONTRAST_2 = new Color(214, 209, 199);
+                ColorManager.LOW_CONTRAST_2 = LOW_CONTRAST_1;
                 ColorManager.HIGH_CONTRAST_1 = new Color(60, 60, 60);
+
                 ColorManager.HIGH_CONTRAST_2 = new Color(102, 102, 102);
+
+                // TODO : TESTING COLORS
+//                ColorManager.LOW_CONTRAST_2 = Color.GREEN;
+//                ColorManager.HIGH_CONTRAST_2 = Color.ORANGE;
                 break;
 
             case DARK_THEME:
@@ -97,6 +101,8 @@ public class ColorManager {
         }
         //MUTUAL
         TEXT = HIGH_CONTRAST_1;
+        TEXT_EDIT_BACKGROUND = LOW_CONTRAST_1;
+//        TEXT_EDIT_BACKGROUND = ColorManager.LOW_CONTRAST_1;
         BORDER_PRIMARY = BorderFactory.createLineBorder(ColorManager.PRIMARY);
         BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.TEXT);
         BORDER_LOW_CONTRAST_1 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);

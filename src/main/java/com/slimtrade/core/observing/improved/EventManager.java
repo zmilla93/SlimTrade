@@ -58,7 +58,6 @@ public class EventManager {
     public void updateAllColors(ColorTheme theme) {
         System.out.println("Updaing All Colors");
         ColorManager.setTheme(theme);
-        System.out.println("||LIST:" + colorListenerList + " | " + colorListenerList.size());
         ArrayList<IColorable> temp = new ArrayList<>();
         int bad = 0;
         for (int i = 0;i<colorListenerList.size();i++) {

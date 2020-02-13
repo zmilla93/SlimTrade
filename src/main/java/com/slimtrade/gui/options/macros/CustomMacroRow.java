@@ -81,16 +81,15 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
 
     public ButtonRow getButtonRow() {
         int index = rowCombo.getSelectedIndex();
-        System.out.println("\tGetting Row from CustomMacroRow : (" + index + ") ");
+//        System.out.println("\tGetting Row from CustomMacroRow : (" + index + ") ");
         return (ButtonRow) rowCombo.getSelectedItem();
     }
 
     public PreloadedImageCustom getButtonImage() {
         int index = iconCombo.getSelectedIndex();
         PreloadedImageCustom img = PreloadedImageCustom.values()[index];
-        System.out.println("\tGetting Image from CustomMacroRow : (" + index + ") " + img);
+//        System.out.println("\tGetting Image from CustomMacroRow : (" + index + ") " + img);
         return img;
-//        return img;
     }
 
     public String getTextLMB() {

@@ -76,7 +76,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private volatile boolean saving = false;
 
 
-
     public ChatScannerWindow() {
         super("Chat Scanner");
         // Get controls from child panels
@@ -179,7 +178,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
         addRemovePanel.addComponentListener(new ComponentResizeAdapter() {
             public void componentResized(ComponentEvent e) {
-                System.out.println("RES");
                 checkMacros = checkMacros();
                 refreshWindowState();
             }
@@ -191,7 +189,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         });
 
         searchCombo.addActionListener(e -> {
-            System.out.println("Search Combo Changed");
             if (searchCombo.getSelectedIndex() >= 0) {
                 loadMessage((ScannerMessage) searchCombo.getSelectedItem());
                 selectedMessage = (ScannerMessage) searchCombo.getSelectedItem();
@@ -206,22 +203,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         searchButton.addActionListener(e -> {
             searching = !searching;
             if (searching && selectedMessage != null) {
-                if(App.debugMode) {
-                    System.out.print("SEARCH TERMS : ");
-                    if (selectedMessage.searchTermsArray != null) {
-                        for (String s : selectedMessage.searchTermsArray) {
-                            System.out.print("\"" + s + "\" ");
-                        }
-                    }
-                    System.out.println();
-                    System.out.print("SEARCH TERMS : ");
-                    if (selectedMessage.ignoreTermsArray != null) {
-                        for (String s : selectedMessage.ignoreTermsArray) {
-                            System.out.print("\"" + s + "\" ");
-                        }
-                    }
-                    System.out.println();
-                }
                 App.chatParser.setSearchName(selectedMessage.name);
                 App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
                 App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
@@ -238,6 +219,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 addRemovePanel.setEnabledAll(false);
                 searchButton.setText("Cancel Search");
                 searchButton.primaryColor = ColorManager.RED_DENY;
+                searchButton.updateColor();
             } else {
                 saveTextField.setEnabled(true);
                 searchCombo.setEnabled(true);
@@ -249,6 +231,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 addRemovePanel.setEnabledAll(true);
                 searchButton.setText("Search");
                 searchButton.primaryColor = ColorManager.GREEN_APPROVE;
+                searchButton.updateColor();
             }
             refreshListeners();
             refreshWindowState();
@@ -314,7 +297,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 }
             }
             // Get current scanner window message
-            ScannerMessage message = new ScannerMessage(saveTextField.getText(), searchTermsInput.getText(), ignoreTermsInput.getText(), thankLeft.getText(), thankRight.getText(), macros);
+            ScannerMessage message = new ScannerMessage(saveTextField.getText().trim(), searchTermsInput.getText(), ignoreTermsInput.getText(), thankLeft.getText(), thankRight.getText(), macros);
             // Delete old duplicate
             for (ScannerMessage m : messageList) {
                 if (message.name.toLowerCase().equals(m.name.toLowerCase())) {
@@ -329,7 +312,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             refreshWindowState();
             refreshListeners();
 
-            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
+//            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
             App.saveManager.scannerSaveFile.messages.clear();
             App.saveManager.scannerSaveFile.messages.addAll(messageList);
             App.saveManager.saveScannerToDisk();
@@ -354,14 +337,14 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private void refreshWindowState() {
         // TEMP
         boolean matchingMessage = checkName && checkSearchTerms && checkIgnoreTerms && checkThankLeft && checkThankRight && checkMacros;
-        System.out.print("MATCH : " + matchingMessage + "\t");
-        System.out.print("checkName[" + checkName + "]\t");
-        System.out.print("checkSearchTerms[" + checkSearchTerms + "]\t");
-        System.out.print("checkIgnoreTerms[" + checkIgnoreTerms + "]\t");
-        System.out.print("checkThankLeft[" + checkThankLeft + "]\t");
-        System.out.print("checkThankRight[" + checkThankRight + "]\t");
-        System.out.print("checkMacros[" + checkMacros + "]\t");
-        System.out.println();
+//        System.out.print("MATCH : " + matchingMessage + "\t");
+//        System.out.print("checkName[" + checkName + "]\t");
+//        System.out.print("checkSearchTerms[" + checkSearchTerms + "]\t");
+//        System.out.print("checkIgnoreTerms[" + checkIgnoreTerms + "]\t");
+//        System.out.print("checkThankLeft[" + checkThankLeft + "]\t");
+//        System.out.print("checkThankRight[" + checkThankRight + "]\t");
+//        System.out.print("checkMacros[" + checkMacros + "]\t");
+//        System.out.println();
         if (searching) {
             searchButton.setEnabled(false);
             deleteButton.setEnabled(false);
@@ -379,7 +362,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             ignoreTermsInput.setEnabled(true);
             thankLeft.setEnabled(true);
             thankRight.setEnabled(true);
-            clearButton.setEnabled(true);
             addMacroButton.setEnabled(true);
             if (matchingMessage) {
                 deleteButton.setEnabled(true);
@@ -399,6 +381,17 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 }
                 deleteButton.setEnabled(false);
                 searchButton.setEnabled(false);
+            }
+            // Clear Button
+            if (!saveTextField.getText().equals("") ||
+                    !searchTermsInput.getText().equals("") ||
+                    !ignoreTermsInput.getText().equals("") ||
+                    !thankLeft.getText().equals("") ||
+                    !thankRight.getText().equals("") ||
+                    addRemovePanel.getComponentCount() > 0) {
+                clearButton.setEnabled(true);
+            } else {
+                clearButton.setEnabled(false);
             }
             // TODO : Clear button
         }
@@ -519,7 +512,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private void refreshListeners() {
         // Reset Listeners
         for (Component c : addRemovePanel.getComponents()) {
-            System.out.println("\t...");
             // Remove All Document Listeners
             int i = 0;
             for (Document d : docList) {
@@ -539,7 +531,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 }
                 if (row.iconCombo.getListeners(ActionListener.class).length < 1) {
                     ((CustomMacroRow) c).iconCombo.addActionListener(e -> {
-                        System.out.println("iconIndex!!!" + ((CustomMacroRow) c).iconCombo.getSelectedIndex());
                         checkMacros = checkMacros();
                         refreshWindowState();
                     });
@@ -556,7 +547,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                         refreshWindowState();
                     }
                 });
-                System.out.println("\t\tLC2:" + ((CustomMacroRow) c).rowCombo.getListeners(ActionListener.class).length);
             }
         }
     }
@@ -571,16 +561,13 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         for (MacroButton b : message.macroButtons) {
             CustomMacroRow row = new CustomMacroRow(addRemovePanel);
             row.rowCombo.setSelectedItem(b.row);
-            System.out.println("\tLoding Combo Image... " + b.image);
             boolean found = false;
             for (int i = 0; i < row.iconCombo.getItemCount(); i++) {
-                System.out.println("\t\tOPTION :: " + row.iconCombo.getItemAt(i).getImage().equals(b.image.getImage()));
                 if (row.iconCombo.getItemAt(i).getImage().equals(b.image.getImage())) {
                     row.iconCombo.setSelectedIndex(i);
                     break;
                 }
             }
-            System.out.println("LOADED ::: " + row.iconCombo.getSelectedIndex());
             row.setTextLMB(b.leftMouseResponse);
             row.setTextRMB(b.rightMouseResponse);
             addRemovePanel.addRemoveablePanel(row);
@@ -620,13 +607,9 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     @Override
     public void updateColor() {
         super.updateColor();
+        containerPanel.updateColor();
         borderPanel.setBackground(ColorManager.BACKGROUND);
-        containerPanel.setBackground(ColorManager.LOW_CONTRAST_1);
         containerPanel.setBorder(ColorManager.BORDER_TEXT);
-        searchTermsInput.setBackground(ColorManager.LOW_CONTRAST_1);
-        searchTermsInput.setForeground(ColorManager.TEXT);
-        ignoreTermsInput.setBackground(ColorManager.LOW_CONTRAST_1);
-        ignoreTermsInput.setForeground(ColorManager.TEXT);
     }
 }
 

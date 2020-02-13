@@ -8,13 +8,14 @@ public class ConfirmButton extends BasicButton {
 
 	public ConfirmButton(String text){
 		super(text);
-//		this.primaryColor = ColorManager.GREEN_APPROVE;
+		primaryColor = ColorManager.GREEN_APPROVE;
+		secondaryColor = ColorManager.BACKGROUND;
+		this.updateColor();
 	}
 	
 	@Override
 	public void updateColor() {
-		primaryColor = ColorManager.GREEN_APPROVE;
-		secondaryColor = ColorManager.BACKGROUND;
+		super.updateColor();
 	}
 	
 }

@@ -35,7 +35,8 @@ public class ContainerPanel extends JPanel implements IColorable {
 
     @Override
     public void updateColor() {
-        this.setBackground(ColorManager.LOW_CONTRAST_1);
-        this.setBackground(Color.ORANGE);
+        this.setBackground(ColorManager.LOW_CONTRAST_2);
+//		this.setBackground(ColorManager.modify(ColorManager.PRIMARY, 20));
+		setForeground(ColorManager.TEXT);
     }
 }

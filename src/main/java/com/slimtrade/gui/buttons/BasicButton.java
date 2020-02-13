@@ -23,9 +23,9 @@ public class BasicButton extends JButton implements IColorable {
 
     private final ButtonModel model;
 
-    private static Border borderDefault;
-    private static Border borderDisabled;
-    private static Border borderRollover;
+    private Border borderDefault;
+    private Border borderRollover;
+    private Border borderDisabled;
 
     public Color primaryColor;
     public Color secondaryColor;
@@ -54,13 +54,12 @@ public class BasicButton extends JButton implements IColorable {
     // TODO : Adjust border
     private void buildButton() {
 
-        this.setBorder(borderDefault);
+//        this.setBorder(borderDefault);
         setContentAreaFilled(false);
         setFocusPainted(false);
         this.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
             }
-
             public void mouseEntered(MouseEvent e) {
                 model.setRollover(true);
             }
@@ -86,25 +85,25 @@ public class BasicButton extends JButton implements IColorable {
         final Graphics2D g2 = (Graphics2D) g.create();
         ButtonModel model = getModel();
         //BORDER
-        Color curPrime;
+        Color curPrimary;
         if (model.isEnabled()) {
-            curPrime = primaryColor;
+            curPrimary = primaryColor;
             if (model.isRollover()) {
                 this.setBorder(borderRollover);
             } else {
                 this.setBorder(borderDefault);
             }
         } else {
-            curPrime = ColorManager.lighter(primaryColor);
+            curPrimary = ColorManager.lighter(primaryColor);
             this.setBorder(borderDisabled);
         }
         //FILL
         if (model.isPressed() && model.isRollover()) {
-            g2.setPaint(curPrime);
+            g2.setPaint(curPrimary);
         } else if (model.isPressed() && !model.isRollover()) {
             g2.setPaint(ColorManager.LOW_CONTRAST_1);
         } else {
-            g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), curPrime));
+            g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), curPrimary));
         }
         g2.fillRect(0, 0, getWidth(), getHeight());
         g2.dispose();
@@ -116,9 +115,12 @@ public class BasicButton extends JButton implements IColorable {
         primaryColor = primaryColor == null ? ColorManager.PRIMARY : primaryColor;
         secondaryColor = secondaryColor == null ? ColorManager.BACKGROUND : secondaryColor;
 
-        borderDisabled = BorderFactory.createCompoundBorder(ColorManager.BORDER_LOW_CONTRAST_1, bufferBorder);
+
+//        borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
         borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
         borderRollover = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(primaryColor), bufferBorder);
+        borderDisabled = BorderFactory.createCompoundBorder(ColorManager.BORDER_LOW_CONTRAST_1, bufferBorder);
+
     }
 
 }

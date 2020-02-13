@@ -4,6 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomTextArea;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +21,8 @@ public class SearchTermsPanel extends JPanel implements IColorable {
     private JLabel info1 = new JLabel("Separate terms using commas, semicolons, or new lines.");
     private JLabel info2 = new JLabel("Scanning is case insensitive. Irregular spacing is ignored.");
 
-    public JTextArea searchTermsInput = new JTextArea(4, 45);
-    public JTextArea ignoreTermsInput = new JTextArea(4, 45);
+    public JTextArea searchTermsInput = new CustomTextArea(4, 45);
+    public JTextArea ignoreTermsInput = new CustomTextArea(4, 45);
 
     public SearchTermsPanel() {
         super(FrameManager.gridBag);
@@ -61,10 +62,6 @@ public class SearchTermsPanel extends JPanel implements IColorable {
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
-        searchTermsInput.setBorder(ColorManager.BORDER_TEXT);
-        ignoreTermsInput.setBorder(ColorManager.BORDER_TEXT);
-        searchTermsLabel.setForeground(ColorManager.TEXT);
-        ignoreTermsLabel.setForeground(ColorManager.TEXT);
         info1.setForeground(ColorManager.TEXT);
         info2.setForeground(ColorManager.TEXT);
     }

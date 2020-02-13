@@ -8,12 +8,14 @@ public class DenyButton extends BasicButton {
 
 	public DenyButton(String text){
 		super(text);
+		primaryColor = ColorManager.RED_DENY;
+		secondaryColor = ColorManager.BACKGROUND;
+		this.updateColor();
 	}
 	
 	@Override
 	public void updateColor() {
-		primaryColor = ColorManager.RED_DENY;
-		secondaryColor = ColorManager.BACKGROUND;
+		super.updateColor();
 	}
 	
 }

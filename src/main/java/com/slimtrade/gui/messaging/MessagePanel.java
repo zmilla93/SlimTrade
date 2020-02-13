@@ -195,17 +195,18 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 //                replyButton = new IconButton(PreloadedImage.REPLY.getImage(), rowHeight);
 //                buttonPanelTop.add(replyButton);
 
-                inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
+//                inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
+                warpButton = new IconButton(PreloadedImage.WARP.getImage(), rowHeight);
                 tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
                 thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
-                kickButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
+                leaveButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
 
                 if (listeners) {
-//                    this.registerPoeInteractionButton(replyButton, ButtonType.WHISPER, trade.playerName, null, null);
-                    this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
+//                    this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
+                    this.registerPoeInteractionButton(warpButton, ButtonType.WARP);
                     this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
                     this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
-                    this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
+                    this.registerPoeInteractionButton(leaveButton, ButtonType.LEAVE);
                 }
                 for (IconButton b : customButtonsTop) {
                     buttonPanelTop.add(b);
@@ -213,10 +214,11 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 for (IconButton b : customButtonsBottom) {
                     buttonPanelBottom.add(b);
                 }
-                buttonPanelBottom.add(inviteButton);
+//                buttonPanelBottom.add(inviteButton);
+                buttonPanelBottom.add(warpButton);
                 buttonPanelBottom.add(tradeButton);
                 buttonPanelBottom.add(thankButton);
-                buttonPanelBottom.add(kickButton);
+                buttonPanelBottom.add(leaveButton);
                 break;
             case INCOMING_TRADE:
                 buttonCountTop = 2;

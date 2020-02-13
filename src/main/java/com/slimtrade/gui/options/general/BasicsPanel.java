@@ -29,7 +29,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JCheckBox kickCheckbox = new CustomCheckbox();
     private JCheckBox quickPasteCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
-    //	private CustomComboBox<ColorTheme> colorThemeCombo = new JComboBox<>();
     private JButton editStashButton = new BasicButton();
     private JButton editOverlayButton = new BasicButton();
 
@@ -169,7 +168,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         load();
 
         colorThemeCombo.addActionListener(e -> {
-            System.out.println("COLINDEX:" + colorThemeCombo.getSelectedIndex());
             if(colorThemeCombo.getSelectedIndex() >= 0) {
                 App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
             }

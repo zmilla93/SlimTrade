@@ -24,8 +24,7 @@ public class CustomTextField extends JTextField implements IColorable {
 
     @Override
     public void updateColor() {
-        this.setBackground(ColorManager.LOW_CONTRAST_1);
-//        this.setBackground(Color.GREEN);
+        this.setBackground(ColorManager.TEXT_EDIT_BACKGROUND);
         this.setForeground(ColorManager.TEXT);
         this.setSelectionColor(ColorManager.PRIMARY);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
