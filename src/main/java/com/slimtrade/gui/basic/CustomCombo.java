@@ -6,8 +6,7 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.buttons.CustomArrowButton;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.plaf.basic.*;
 import java.awt.*;
 
 public class CustomCombo<E> extends JComboBox<E> implements IColorable {
@@ -15,23 +14,42 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
     private Color bg;
     private Color text;
 
-    public CustomCombo(){
+    public CustomCombo() {
         super();
         this.setOpaque(false);
         this.setFocusable(false);
-        this.setUI(new BasicComboBoxUI(){
-            @Override
 
+        this.setUI(new BasicComboBoxUI() {
+
+            // Arrow Button
+            @Override
             protected JButton createArrowButton() {
                 return new CustomArrowButton(BasicArrowButton.SOUTH);
             }
+
+            // Scrollbar
+            @Override
+            protected ComboPopup createPopup() {
+                return new BasicComboPopup(comboBox) {
+                    @Override
+                    protected JScrollPane createScroller() {
+                        JScrollPane scrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+                        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+                        return scrollPane;
+                    }
+                };
+            }
+
         });
+
+        // Color Rendering
         this.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
                 list.setBorder(null);
-                if(isSelected){
+                if (isSelected) {
                     list.setSelectionBackground(text);
                     list.setSelectionForeground(bg);
                 } else {

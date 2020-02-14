@@ -31,6 +31,7 @@ public class BasicButton extends JButton implements IColorable {
     public Color secondaryColor;
 
     private Border bufferBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
+    private Border bufferBorderSlim = BorderFactory.createEmptyBorder(4, 14, 4, 14);
 
     // TODO : Secondary Color
 
@@ -118,7 +119,8 @@ public class BasicButton extends JButton implements IColorable {
 
 //        borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
         borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
-        borderRollover = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(primaryColor), bufferBorder);
+        Border b1 = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_2), BorderFactory.createLineBorder(primaryColor));
+        borderRollover = BorderFactory.createCompoundBorder(b1, bufferBorderSlim);
         borderDisabled = BorderFactory.createCompoundBorder(ColorManager.BORDER_LOW_CONTRAST_1, bufferBorder);
 
     }

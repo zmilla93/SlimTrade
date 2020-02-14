@@ -16,6 +16,7 @@ public enum PreloadedImageCustom {
 	REPLY("icons/custom/replyx48.png"),
 	BOOKMARK("icons/custom/bookmarkx48.png"),
 	MAP("icons/custom/mapx64.png"),
+	BEAKER("icons/custom/beakerx48.png"),
 	FLOW2("icons/custom/flow-switchx48.png"),
 	MAIL1("icons/custom/mailx64.png"),
 	WATCH("icons/custom/watchx64.png"),

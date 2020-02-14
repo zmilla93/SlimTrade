@@ -41,9 +41,10 @@ public class ChatParser {
 	// REGEX
 	private final static String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(\\S+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
 	// TODO : Remove optional flag for global chat - guild returns null until
-//	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
+//	private final static String searchMessageMatchString;
+	private static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
 	// Allows for local chat
-	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
+//	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
 	private final static String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 
 	private String[] searchTerms;
@@ -63,6 +64,10 @@ public class ChatParser {
 	// TODO : Move path to options
 	public void init() {
 		App.debugger.log("Launching chat parser...");
+		if(App.debugMode) {
+			searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
+		}
+
 		int msgCount = 0;
 		updateTimer.stop();
 		if (App.saveManager.saveFile.validClientPath) {
@@ -101,6 +106,8 @@ public class ChatParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+
 		updateTimer.start();
 		App.debugger.log(totalLineCount + " total lines found.");
 		App.debugger.log("Chat parser sucessfully launched.");

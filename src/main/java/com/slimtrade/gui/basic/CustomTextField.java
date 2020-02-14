@@ -5,10 +5,11 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class CustomTextField extends JTextField implements IColorable {
 
-//    public Color backgroundColor = Color.GREEN;
+    public Border border = ColorManager.BORDER_TEXT;
 
     public CustomTextField(){
         super();
@@ -23,11 +24,17 @@ public class CustomTextField extends JTextField implements IColorable {
     }
 
     @Override
+    public void setBorder(Border border) {
+        super.setBorder(border);
+        this.border = border;
+    }
+
+    @Override
     public void updateColor() {
         this.setBackground(ColorManager.TEXT_EDIT_BACKGROUND);
         this.setForeground(ColorManager.TEXT);
         this.setSelectionColor(ColorManager.PRIMARY);
-        this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+        this.setBorder(border);
     }
 
 }

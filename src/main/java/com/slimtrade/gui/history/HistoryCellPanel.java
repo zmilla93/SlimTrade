@@ -23,7 +23,6 @@ public class HistoryCellPanel extends JPanel {
 	public HistoryCellPanel(String label) {
 		buildPanel();
 		setLabel(label);
-		
 	}
 	
 	public HistoryCellPanel(String label, int buffer) {

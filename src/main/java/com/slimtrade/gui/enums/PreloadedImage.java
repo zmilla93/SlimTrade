@@ -3,6 +3,7 @@ package com.slimtrade.gui.enums;
 import com.slimtrade.core.References;
 
 import java.awt.Image;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 
@@ -39,7 +40,7 @@ public enum PreloadedImage {
 
     public Image getImage(int size) {
         if(image == null || size != cachedSize) {
-            image = new ImageIcon(this.getClass().getClassLoader().getResource(path)).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
+            image = new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource(path))).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
             cachedSize = size;
         }
         return image;

@@ -9,11 +9,6 @@ import java.awt.*;
 
 public class PricePanel extends PaintedPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 //	private JLabel label = new JLabel();
 	
 	public PricePanel(String price, double quant, boolean paren) {

@@ -6,11 +6,16 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.ComponentResizeAdapter;
 import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.utility.TradeOffer;
+import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.CustomScrollPane;
+import com.slimtrade.gui.components.PanelWrapper;
+import com.slimtrade.gui.messaging.MessageDialogManager;
+import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.macros.CustomMacroRow;
 import com.slimtrade.gui.panels.ContainerPanel;
@@ -62,6 +67,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
     // Internal
     private ScannerMessage selectedMessage;
+    private MessagePanel sampleMessage;
 
     private boolean checkName;
     private boolean checkSearchTerms;
@@ -105,13 +111,12 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
         // Full Window
         borderPanel.add(containerPanel, gc);
-        gc.insets = new Insets(20, 20, 0, 20);
-
-        containerPanel.container.add(namePanel, gc);
+        refreshTrade();
         gc.gridy++;
         gc.insets = new Insets(bufferInner, 20, 0, 20);
+        containerPanel.container.add(namePanel, gc);
         gc.gridy++;
-//        gc.insets = new Insets(bufferInner, 20, 0, 20);
+
         containerPanel.container.add(termsPanel, gc);
         gc.gridy++;
         gc.insets.bottom = 20;
@@ -195,6 +200,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             } else {
                 selectedMessage = null;
             }
+            refreshTrade();
             refreshListeners();
             runAllChecks();
             refreshWindowState();
@@ -312,10 +318,11 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             refreshWindowState();
             refreshListeners();
 
-//            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
             App.saveManager.scannerSaveFile.messages.clear();
             App.saveManager.scannerSaveFile.messages.addAll(messageList);
             App.saveManager.saveScannerToDisk();
+
+            refreshTrade();
 
             macroPanel.revalidate();
             macroPanel.repaint();
@@ -565,8 +572,12 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             for (int i = 0; i < row.iconCombo.getItemCount(); i++) {
                 if (row.iconCombo.getItemAt(i).getImage().equals(b.image.getImage())) {
                     row.iconCombo.setSelectedIndex(i);
+                    found = true;
                     break;
                 }
+            }
+            if (!found && row.iconCombo.getItemCount() > 0) {
+                row.iconCombo.setSelectedIndex(0);
             }
             row.setTextLMB(b.leftMouseResponse);
             row.setTextRMB(b.rightMouseResponse);
@@ -584,6 +595,32 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         thankLeft.setText(null);
         thankRight.setText(null);
         addRemovePanel.removeAll();
+    }
+
+    private void refreshTrade() {
+//        GridBagConstraints gc = new GridBagConstraints();
+//        gc.gridx = 0;
+//        gc.gridy = 0;
+//        gc.insets = new Insets(20, 20, 0, 20);
+        if (sampleMessage != null) {
+            containerPanel.container.remove(sampleMessage);
+            App.eventManager.removeColorListener(sampleMessage);
+        }
+        String searchName = "Unnamed";
+        if (selectedMessage != null) {
+            searchName = selectedMessage.name;
+        }
+        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername123", searchName, "Example message text. Hover to view more if the message doesn't fit within the window.");
+        sampleMessage = new MessagePanel(trade, MessageDialogManager.defaultSize);
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.insets = new Insets(20, 20, 0, 20);
+        sampleMessage = new MessagePanel(trade, MessageDialogManager.defaultSize, false);
+        sampleMessage.stopTimer();
+        containerPanel.container.add(sampleMessage, gc);
+        this.revalidate();
+        this.repaint();
     }
 
     @Override

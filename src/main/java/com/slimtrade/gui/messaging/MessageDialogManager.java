@@ -17,7 +17,7 @@ import com.slimtrade.gui.enums.ExpandDirection;
 public class MessageDialogManager {
 
     private Point anchorPoint;
-    public Dimension defaultSize = new Dimension(400, 40);
+    public static Dimension defaultSize = new Dimension(400, 40);
     private ExpandDirection expandDirection;
 
     private final int BUFFER_SIZE = 2;

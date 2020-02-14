@@ -71,8 +71,8 @@ public class SearchMacroPanel extends JPanel implements IColorable {
         // Build Main Panel
         gc.fill = GridBagConstraints.BOTH;
         gc.insets.bottom = 2;
-//        presetMacroPanel.add(invitePreset, gc);
-//        gc.gridy++;
+        presetMacroPanel.add(invitePreset, gc);
+        gc.gridy++;
         presetMacroPanel.add(warpPreset, gc);
         gc.gridy++;
         presetMacroPanel.add(tradePreset, gc);

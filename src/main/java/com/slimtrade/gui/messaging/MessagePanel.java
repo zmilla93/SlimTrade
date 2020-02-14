@@ -154,9 +154,8 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         }
         switch (type) {
             case CHAT_SCANNER:
-                // respodButton =
                 buttonCountTop = 1;
-                buttonCountBottom = 4;
+                buttonCountBottom = 5;
                 ArrayList<ScannerMessage> messages = App.saveManager.scannerSaveFile.messages;
                 ArrayList<MacroButton> buttons = new ArrayList<>();
                 for(ScannerMessage m : messages) {
@@ -192,17 +191,14 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                     }
                 }
 
-//                replyButton = new IconButton(PreloadedImage.REPLY.getImage(), rowHeight);
-//                buttonPanelTop.add(replyButton);
-
-//                inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
+                inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
                 warpButton = new IconButton(PreloadedImage.WARP.getImage(), rowHeight);
                 tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
                 thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
                 leaveButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
 
                 if (listeners) {
-//                    this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
+                    this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
                     this.registerPoeInteractionButton(warpButton, ButtonType.WARP);
                     this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
                     this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
@@ -214,7 +210,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 for (IconButton b : customButtonsBottom) {
                     buttonPanelBottom.add(b);
                 }
-//                buttonPanelBottom.add(inviteButton);
+                buttonPanelBottom.add(inviteButton);
                 buttonPanelBottom.add(warpButton);
                 buttonPanelBottom.add(tradeButton);
                 buttonPanelBottom.add(thankButton);

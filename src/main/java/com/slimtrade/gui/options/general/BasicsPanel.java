@@ -135,12 +135,15 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
         // Color Combo
         gc.insets.bottom = 5;
-        container.add(colorThemeLabel, gc);
-        gc.gridx = 2;
+        if(App.debugMode) {
+            container.add(colorThemeLabel, gc);
+            gc.gridx = 2;
 
-        container.add(colorThemeContainer, gc);
-        gc.gridx = 0;
-        gc.gridy++;
+            container.add(colorThemeContainer, gc);
+            gc.gridx = 0;
+            gc.gridy++;
+        }
+
 
         // Edit Buttons
         gc.gridwidth = 3;
@@ -202,9 +205,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
         quickPasteCheckbox.setSelected(false);
         colorThemeCombo.setSelectedItem(ColorTheme.LIGHT_THEME);
-
-//		colorThemeCombo.getRenderer().getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus).setBackground(Color.ORANGE);
-//		colorThemeCombo.getColorModel.().;
     }
 
     @Override
@@ -212,70 +212,10 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         super.updateColor();
         this.setBackground(ColorManager.BACKGROUND);
         characterLabel.setForeground(ColorManager.TEXT);
-//        characterInput.setBackground(ColorManager.LOW_CONSTRAST_1);
-//        characterInput.setForeground(ColorManager.TEXT);
-//        characterInput.setSelectionColor(ColorManager.PRIMARY);
-//        characterInput.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
         guildLabel.setForeground(ColorManager.TEXT);
         kickLabel.setForeground(ColorManager.TEXT);
         quickPasteLabel.setForeground(ColorManager.TEXT);
         colorThemeLabel.setForeground(ColorManager.TEXT);
-
-
-        // COMBO BOX
-//        for(Component c : colorThemeCombo.getComponents()) {
-//            System.out.println("COMP : " + c);
-//            if(c instanceof MetalComboBoxButton){
-//                MetalComboBoxButton box = (MetalComboBoxButton) c;
-//                box.setBorderPainted(false);
-//                box.setVisible(false);
-//                box.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//            } else if(c instanceof CellRendererPane) {
-//                CellRendererPane pane = (CellRendererPane) c;
-//                pane.setBackground(Color.RED);
-//                pane.setFocusable(false);
-//            }
-//            c.setBackground(Color.RED);
-//        }
-
-        // Dropdown list + hover
-//        colorThemeCombo.setRenderer(new DefaultListCellRenderer() {
-//            @Override
-//            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
-//                Component c = super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
-//                list.setBorder(null);
-//                if(isSelected){
-//                    list.setSelectionBackground(ColorManager.TEXT);
-//                    list.setSelectionForeground(ColorManager.BACKGROUND);
-//                } else {
-//                    c.setBackground(ColorManager.BACKGROUND);
-//                    c.setForeground(ColorManager.TEXT);
-//                }
-//                return c;
-//            }
-//
-//        });
-
-        // TODO : Customize
-//        colorThemeCombo.setUI(new BasicComboBoxUI(){
-//            @Override
-//
-//            protected JButton createArrowButton() {
-//                return new CustomArrowButton(BasicArrowButton.SOUTH);
-//            }
-//        });
-//        colorThemeCombo.setUI(newnew CustomArrowButton(BasicArrowButton.SOUTH));
-
-//        colorThemeCombo.setPreferredSize(null);
-//        colorThemeCombo.setPreferredSize(new Dimension(colorThemeCombo.getPreferredSize().windowWidth + 10, colorThemeCombo.getPreferredSize().windowHeight + 2));
-
-//        colorThemeCombo.setRenderer(new CustomComboRenderer());
-//        colorThemeCombo.setEditor(new CustomComboEditor());
-
-
-//		guildCheckbox.setForeground(Color.RED);
-//		guildCheckbox.setBackground(Color.GREEN);
-//		guildCheckbox.selected
     }
 
 }

@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import com.slimtrade.App;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
@@ -124,34 +126,7 @@ public class HistoryRow extends JPanel {
 		refreshButton.addActionListener(e -> FrameManager.messageManager.addMessage(trade, false));
 		this.updateDate();
 		this.updateTime();
-		
-		
-		// TODO : Switch to paint
-		// TODO : This wastes a ton of GPU
-		// refreshButton.addMouseListener(new MouseAdapter(){
-		//
-		// public void mouseEntered(MouseEvent arg0) {
-		// rowPanel.setBackground(colorHover);
-		//
-		// }
-		//
-		// public void mouseExited(MouseEvent arg0) {
-		// rowPanel.setBackground(color);
-		// }
-		// });
-		//
-		// this.addMouseListener(new MouseAdapter(){
-		//
-		// public void mouseEntered(MouseEvent arg0) {
-		// rowPanel.setBackground(colorHover);
-		//
-		// }
-		//
-		// public void mouseExited(MouseEvent arg0) {
-		// rowPanel.setBackground(color);
-		// }
-		// });
-		
+
 		if(close){
 			JPanel buttonPanel = new JPanel(new GridBagLayout());
 			gc = new GridBagConstraints();
@@ -169,6 +144,7 @@ public class HistoryRow extends JPanel {
 		}
 		
 		this.add(rowPanel, BorderLayout.CENTER);
+
 	}
 
 	public void updateDate() {

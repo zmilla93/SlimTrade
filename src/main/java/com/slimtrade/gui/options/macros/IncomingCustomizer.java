@@ -192,11 +192,21 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         // Custom Macros
         int i = 0;
         for (MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
+
             CustomMacroRow row = addNewMacro();
-            ButtonRow buttonRow = macro.row;
-            PreloadedImageCustom buttonImage = macro.image;
-            row.setButtonRow(buttonRow);
-            row.setButtonImage(buttonImage);
+//            ButtonRow buttonRow = macro.row;
+//            row.setButtonRow(buttonRow);
+            boolean found = false;
+            for (int j = 0; j < row.iconCombo.getItemCount(); j++) {
+                if (row.iconCombo.getItemAt(j).getImage().equals(macro.image.getImage())) {
+                    row.iconCombo.setSelectedIndex(j);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found && row.iconCombo.getItemCount() > 0) {
+                row.iconCombo.setSelectedIndex(0);
+            }
             row.setTextLMB(macro.leftMouseResponse);
             row.setTextRMB(macro.rightMouseResponse);
             if (++i >= CUSTOM_MAX) {

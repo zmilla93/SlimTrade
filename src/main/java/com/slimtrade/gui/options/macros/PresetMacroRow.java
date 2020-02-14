@@ -111,7 +111,7 @@ public class PresetMacroRow extends JPanel implements IColorable{
 //        gc.insets.right = 1;
 		gc.gridx = 3;
 //		gc.fill = GridBagConstraints.HORIZONTAL;
-		JTextField textField;
+		CustomTextField textField;
 		if(title == null) {
 			textField = new CustomTextField(30);
 		}else {
