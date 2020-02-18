@@ -69,8 +69,6 @@ public class TrayButton {
             FrameManager.optionsWindow.setShow(true);
         });
 
-
-
         // Add Tray Button
         try {
             tray.add(trayIcon);

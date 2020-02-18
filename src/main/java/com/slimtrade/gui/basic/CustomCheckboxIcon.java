@@ -83,10 +83,10 @@ public class CustomCheckboxIcon implements IColorable, Icon {
         if (model.isEnabled()) {
             if (model.isPressed() && model.isArmed()) {
 //                g.setColor(UIManager.getColor("MyCheckBox.checkClickBackground"));
-                g.setColor(ColorManager.LOW_CONTRAST_1);
+                g.setColor(ColorManager.BACKGROUND);
                 g.fillRect( x, y, controlSize, controlSize);
             } else {
-                g.setColor(ColorManager.BACKGROUND);
+                g.setColor(ColorManager.LOW_CONTRAST_1);
                 g.fillRect( x, y, controlSize, controlSize);
             }
             // Border
@@ -163,7 +163,7 @@ public class CustomCheckboxIcon implements IColorable, Icon {
 	@Override
 	public void updateColor() {
 		primaryColor = ColorManager.PRIMARY;
-		secondaryColor = ColorManager.BACKGROUND;
+		secondaryColor = ColorManager.TEXT_EDIT_BACKGROUND;
 	}
 
 }

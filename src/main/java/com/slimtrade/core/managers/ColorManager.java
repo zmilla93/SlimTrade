@@ -46,6 +46,8 @@ public class ColorManager {
     // OTHER
     public static Color PLAYER_JOINED_INCOMING = new Color(0, 160, 0);
     public static Color PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
+    public static Color MESSAGE_NAME_BG;
+    public static Color MESSAGE_ITEM_BG;
 
     public static Border BORDER_PRIMARY;
     public static Border BORDER_TEXT;
@@ -81,8 +83,10 @@ public class ColorManager {
 //                ColorManager.LOW_CONTRAST_2 = new Color(214, 209, 199);
                 ColorManager.LOW_CONTRAST_2 = LOW_CONTRAST_1;
                 ColorManager.HIGH_CONTRAST_1 = new Color(60, 60, 60);
-
                 ColorManager.HIGH_CONTRAST_2 = new Color(102, 102, 102);
+
+                ColorManager.MESSAGE_NAME_BG = new Color(227, 222, 212);
+                ColorManager.MESSAGE_ITEM_BG = new Color(204, 199, 189);
 
                 // TODO : TESTING COLORS
 //                ColorManager.LOW_CONTRAST_2 = Color.GREEN;

@@ -13,6 +13,7 @@ import com.slimtrade.gui.options.OptionsWindow;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.overlay.OverlayManager;
 import com.slimtrade.gui.scanner.ChatScannerWindow;
+import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
 
@@ -34,6 +35,7 @@ public class FrameManager {
     public static StashWindow stashOverlayWindow;
     public static OverlayManager overlayManager;
     public static ChatScannerWindow chatScannerWindow;
+    public static SetupWindow setupWindow;
     private static TrayButton tray;
 
     //Ignore Items
@@ -41,9 +43,11 @@ public class FrameManager {
     public static ItemIgnorePanel itemIgnorePanel;
     public static AddRemovePanel ignoreItemAddRemovePanel;
 
+
     private static HideableDialog[] menuHideFrames;
     private static HideableDialog[] forceFrames;
     private static HideableDialog[] showHideDialogs;
+
 
     public static WindowState windowState = WindowState.NORMAL;
 
@@ -52,9 +56,12 @@ public class FrameManager {
         UIManager.put("ScrollBar.height", 12);
         FrameManager.gridBag = new GridBagLayout();
 
+
         // TODO : TEMP Image testing window
 //        ImageTestingWindow imageTestingWindow = new ImageTestingWindow();
 //        imageTestingWindow.setVisible(true);
+        setupWindow = new SetupWindow();
+        setupWindow.setVisible(true);
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();
@@ -75,6 +82,8 @@ public class FrameManager {
         overlayManager = new OverlayManager();
 
         stashHelperContainer.setShow(true);
+
+
 
 
         //TODO : ADD NEW MESSAGE MANAGER

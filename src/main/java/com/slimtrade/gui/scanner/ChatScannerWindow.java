@@ -606,11 +606,11 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             containerPanel.container.remove(sampleMessage);
             App.eventManager.removeColorListener(sampleMessage);
         }
-        String searchName = "Unnamed";
+        String searchName = "Search Name";
         if (selectedMessage != null) {
             searchName = selectedMessage.name;
         }
-        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername123", searchName, "Example message text. Hover to view more if the message doesn't fit within the window.");
+        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text lorem ipsum dolor sit amet, consectetur adipiscing elit");
         sampleMessage = new MessagePanel(trade, MessageDialogManager.defaultSize);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;

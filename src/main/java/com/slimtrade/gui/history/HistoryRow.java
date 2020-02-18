@@ -18,6 +18,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
@@ -33,7 +34,7 @@ public class HistoryRow extends JPanel {
 	HistoryCellPanel timePanel;
 	JPanel playerPanel;
 	JPanel itemPanel;
-	JPanel pricePanel;
+	PricePanel pricePanel;
 
 	private Color color = this.getBackground();
 	private Color colorHover = color.LIGHT_GRAY;
@@ -66,8 +67,6 @@ public class HistoryRow extends JPanel {
 		this.setMinimumSize(new Dimension(50, rowHeight));
 		this.setMaximumSize(new Dimension(1600, rowHeight));
 
-		this.setBackground(Color.RED);
-
 		datePanel = new HistoryCellPanel(trade.date);
 
 		// datePanel = new HistoryCellPanel(newDate);
@@ -88,11 +87,11 @@ public class HistoryRow extends JPanel {
 		itemPanel.setBorder(cellBorder);
 		pricePanel.setBorder(cellBorder);
 
-		datePanel.setOpaque(false);
-		timePanel.setOpaque(false);
-		playerPanel.setOpaque(false);
-		itemPanel.setOpaque(false);
-		pricePanel.setOpaque(false);
+		datePanel.setBackground(ColorManager.BACKGROUND);
+		timePanel.setBackground(ColorManager.BACKGROUND);
+		playerPanel.setBackground(ColorManager.BACKGROUND);
+		itemPanel.setBackground(ColorManager.BACKGROUND);
+		pricePanel.setBackgroundColor(ColorManager.BACKGROUND);
 
 		GridBagConstraints gc = rowPanel.gc;
 //		rowPanel.add(refreshButton, gc);

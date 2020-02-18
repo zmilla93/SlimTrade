@@ -417,14 +417,14 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         //MUTUAL COLORS
         this.setBackground(ColorManager.PRIMARY);
         // Name Panel
-        namePanel.setBackgroundColor(ColorManager.LOW_CONTRAST_1);
+        namePanel.setBackgroundColor(ColorManager.MESSAGE_NAME_BG);
         namePanel.backgroundHover = ColorManager.PRIMARY;
         namePanel.borderDefault = ColorManager.LOW_CONTRAST_1;
         namePanel.borderHover = ColorManager.TEXT;
         namePanel.borderClick = ColorManager.TEXT;
         namePanel.setTextColor(ColorManager.TEXT);
-        itemPanel.setBackgroundColor(ColorManager.LOW_CONTRAST_2);
-        itemPanel.setBorderColor(ColorManager.LOW_CONTRAST_2);
+        itemPanel.setBackgroundColor(ColorManager.MESSAGE_ITEM_BG);
+        itemPanel.setBorderColor(ColorManager.MESSAGE_ITEM_BG);
         itemPanel.setTextColor(ColorManager.TEXT);
         pricePanel.setTextColor(ColorManager.PRIMARY);
         switch (trade.messageType) {
