@@ -177,7 +177,7 @@ public class FrameManager {
         tutorialWindow.setAlwaysOnTop(true);
     }
 
-    public static void destoryTutorialWindow() {
+    public static void destroyTutorialWindow() {
         tutorialWindow.dispose();
         tutorialWindow = null;
     }

@@ -84,7 +84,7 @@ public class TutorialWindow extends AbstractResizableWindow {
                 setMinimumSize(getSize());
                 FrameManager.centerFrame(this);
             } else {
-                FrameManager.destoryTutorialWindow();
+                FrameManager.destroyTutorialWindow();
             }
         });
 
