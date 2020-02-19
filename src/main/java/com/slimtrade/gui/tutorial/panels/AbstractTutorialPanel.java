@@ -1,6 +1,7 @@
 package com.slimtrade.gui.tutorial.panels;
 
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,8 @@ public class AbstractTutorialPanel extends JPanel {
         this.add(container, gc);
         gc.insets = new Insets(0, 0, 0, 0);
 
+        this.setBackground(TutorialWindow.BACKGROUND_COLOR);
+        container.setBackground(TutorialWindow.BACKGROUND_COLOR);
     }
 
 }

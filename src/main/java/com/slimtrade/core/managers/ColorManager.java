@@ -77,6 +77,7 @@ public class ColorManager {
                 ColorManager.HIGH_CONTRAST_1 = Color.BLACK;
                 ColorManager.HIGH_CONTRAST_2 = Color.DARK_GRAY;
                 ColorManager.BACKGROUND = new Color(255, 245, 235);
+//                ColorManager.BACKGROUND = new Color(255, 245, 235);
 //                ColorManager.LOW_CONTRAST_1 = new Color(240, 235, 225);
                 ColorManager.LOW_CONTRAST_1 = new Color(227, 222, 212);
 //                ColorManager.LOW_CONTRAST_2 = new Color(197, 192, 182);
