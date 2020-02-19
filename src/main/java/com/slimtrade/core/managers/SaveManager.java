@@ -84,6 +84,7 @@ public class SaveManager {
             while (br.ready()) {
                 builder.append(br.readLine());
             }
+            br.close();
             saveFile = gson.fromJson(builder.toString(), SaveFile.class);
             if (saveFile == null) {
                 saveFile = new SaveFile();
@@ -117,6 +118,7 @@ public class SaveManager {
             while (br.ready()) {
                 builder.append(br.readLine());
             }
+            br.close();
             stashSaveFile = gson.fromJson(builder.toString(), StashSaveFile.class);
             if (stashSaveFile == null) {
                 stashSaveFile = new StashSaveFile();
@@ -149,6 +151,7 @@ public class SaveManager {
             while (br.ready()) {
                 builder.append(br.readLine());
             }
+            br.close();
             overlaySaveFile = gson.fromJson(builder.toString(), OverlaySaveFile.class);
             if (overlaySaveFile == null) {
                 overlaySaveFile = new OverlaySaveFile();
@@ -181,6 +184,7 @@ public class SaveManager {
             while (br.ready()) {
                 builder.append(br.readLine());
             }
+            br.close();
             scannerSaveFile = gson.fromJson(builder.toString(), ScannerSaveFile.class);
             if (scannerSaveFile == null) {
                 scannerSaveFile = new ScannerSaveFile();
@@ -191,7 +195,8 @@ public class SaveManager {
             return;
         } catch (IOException e2) {
             scannerSaveFile = new ScannerSaveFile();
-            System.out.println("IO Error with save file!");
+            saveScannerToDisk();
+//            System.out.println("IO Error with save file!");
             return;
         }
     }
@@ -208,8 +213,6 @@ public class SaveManager {
 
     public void validateClientPath() {
         String clientPath = saveFile.clientPath;
-
-
         if (clientPath != null) {
             File file = new File(clientPath);
             if (file.exists() && file.isFile()) {
@@ -225,7 +228,6 @@ public class SaveManager {
                 if (clientFile.exists() && clientFile.isFile()) {
                     saveFile.validClientPath = true;
                     saveFile.clientPath = drive + clientSteamStub;
-                    saveFile.clientDirectory = saveFile.clientPath.replaceFirst("Client\\.txt", "");
                     saveFile.clientCount++;
                     App.debugger.log("Valid client path found on " + drive + " drive. (Steam)");
                 }
@@ -235,7 +237,6 @@ public class SaveManager {
                 if (clientFile.exists() && clientFile.isFile()) {
                     saveFile.validClientPath = true;
                     saveFile.clientPath = drive + clientStandAloneStub;
-                    saveFile.clientDirectory = saveFile.clientPath.replaceFirst("Client\\.txt", "");
                     saveFile.clientCount++;
                     App.debugger.log("Valid client path found on " + drive + " drive. (Stand Alone)");
                 }

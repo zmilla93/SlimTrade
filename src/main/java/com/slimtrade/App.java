@@ -21,6 +21,8 @@ import com.slimtrade.core.utility.UpdateChecker;
 import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.enums.WindowState;
+import com.slimtrade.gui.setup.SetupWindow;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
@@ -71,8 +73,6 @@ public class App {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				//TODO : Load Color Theme
-//                UIManager.put("")
 				ColorManager.setTheme(ColorTheme.LIGHT_THEME);
 
                 //Debug Mode
@@ -87,13 +87,10 @@ public class App {
 
 				
 				Locale.setDefault(Locale.US);
-
 				saveManager = new SaveManager();
 				saveManager.loadFromDisk();
 				saveManager.loadStashFromDisk();
 				saveManager.loadOverlayFromDisk();
-
-
 
 				// POE Interface
 				try {
@@ -101,13 +98,9 @@ public class App {
 				} catch (AWTException e) {
 					e.printStackTrace();
 				}
-				
+
+				// Frames
 				frameManager = new FrameManager();
-
-				fileMonitor = new FileMonitor();
-				fileMonitor.startMonitor();
-                chatParser.init();
-
 				
 				// JNativeHook Setup
 				try {
@@ -119,9 +112,7 @@ public class App {
 				globalKeyboard = new GlobalKeyboardListener();
 				GlobalScreen.addNativeMouseListener(globalMouse);
 				GlobalScreen.addNativeKeyListener(globalKeyboard);
-				
-				//Clipboard listener for fast paste
-                // TODO : DEBUG OPTION
+
 //				ClipboardManager clipboard = new ClipboardManager();
 
 				// Alert about new update
@@ -129,6 +120,8 @@ public class App {
                     UpdateDialog d = new UpdateDialog();
                     d.setVisible(true);
                 }
+
+                // Setup
 
 
 			}
@@ -144,7 +137,25 @@ public class App {
 		loadingDialog.dispose();
         System.out.println("SlimTrade launched!\n");
 
+        App.launch();
+
 	}
+
+
+	public static void launch() {
+    	if(SetupManager.isSetupRequired()) {
+    		FrameManager.setupWindow = new SetupWindow();
+    		FrameManager.windowState = WindowState.SETUP;
+			FrameManager.setupWindow.setVisible(true);
+		} else {
+			FrameManager.windowState = WindowState.NORMAL;
+			fileMonitor = new FileMonitor();
+			fileMonitor.startMonitor();
+			chatParser.init();
+			FrameManager.menubar.setShow(true);
+		}
+	}
+
 	
 	private static void closeProgram() {
 		try {
@@ -152,7 +163,11 @@ public class App {
 		} catch (NativeHookException e) {
 			e.printStackTrace();
 		}
-		fileMonitor.stopMonitor();
+		try{
+			fileMonitor.stopMonitor();
+		} catch(NullPointerException e) {
+
+		}
 		System.out.println("SlimTrade Terminated");
 	}
 

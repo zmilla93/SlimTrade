@@ -1,16 +1,5 @@
 package com.slimtrade.gui.stash.helper;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
@@ -20,7 +9,14 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicPanel;
 
-public class StashHelper extends JPanel {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class StashHelper_OLD extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,22 +40,24 @@ public class StashHelper extends JPanel {
 
 	private PoeInteractionListener poeInteractionListener = App.macroEventManager;
 
-	public StashHelper(TradeOffer trade, Color colorBackground, Color colorForeground) {
-		this.setLayout(FrameManager.gridBag);
+	public StashHelper_OLD(TradeOffer trade, Color colorBackground, Color colorForeground) {
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, borderThickness));
 		this.setPreferredSize(new Dimension(width, height));
-		this.setBorder(BorderFactory.createLineBorder(colorForeground, borderThickness));
+		this.setBorder(BorderFactory.createLineBorder(colorForeground, borderThickness, true));
 
+		BasicPanel stashPanel = new BasicPanel(width, height / 3, new FlowLayout(FlowLayout.CENTER, 0, 0));
 		String fixedStashtabName = trade.stashtabName == null ? "(~price " + Double.toString(trade.priceCount).replaceAll("[.]0", "") + " " + trade.priceTypeString + ")" : trade.stashtabName;
 		JLabel stashLabel = new JLabel(fixedStashtabName);
 		stashLabel.setForeground(colorForeground);
+		stashPanel.add(stashLabel);
+
+		BasicPanel itemPanel = new BasicPanel(width, height / 3, new FlowLayout(FlowLayout.CENTER, 0, 0));
 		JLabel itemLabel = new JLabel(trade.itemName);
 		itemLabel.setForeground(colorForeground);
-		GridBagConstraints gc = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 0;
-		this.add(stashLabel, gc);
-		gc.gridy++;
-		this.add(itemLabel, gc);
+		itemPanel.add(itemLabel);
+		this.add(stashPanel);
+		this.add(itemPanel);
+		this.add(new BasicPanel(width, borderThickness));
 
 		// ITEM HIGHLIGHTER
 		this.setBackground(colorBackground);

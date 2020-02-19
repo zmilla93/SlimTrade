@@ -205,7 +205,7 @@ public enum POEImage {
 
     public Image getImage(int size) {
         if (image == null || size != this.cachedSize) {
-            System.out.println("\tGenerating Image : " + getPath());
+//            System.out.println("\tGenerating Image : " + getPath());
             cachedSize = size;
             image = new ImageIcon(getClass().getClassLoader().getResource(getPath())).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
         }

@@ -1,27 +1,160 @@
 package com.slimtrade.gui.setup;
 
 import com.slimtrade.App;
-import com.slimtrade.gui.basic.AbstractResizableWindow;
+import com.slimtrade.core.References;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.managers.SetupManager;
+import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.WindowState;
+import com.slimtrade.gui.setup.panels.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class SetupWindow extends JFrame {
 
-    private String nextText;
-    private String finishText;
+    private Container container;
+    private JPanel innerPanel;
+    private JPanel buttonPanel;
 
-    private BasicButton previousButton = new BasicButton("<< Back");
-    private BasicButton nextButton = new BasicButton();
+    private ClientPanel clientPanel = new ClientPanel(this);
+    private CharacterPanel characterPanel = new CharacterPanel();
+    private StashPanel stashPanel = new StashPanel();
+    private CompletePanel completePanel = new CompletePanel();
+
+    private ArrayList<JPanel> panels = new ArrayList<>();
+
+    private JButton backButton;
+    private JButton nextButton;
+
+    private final int BUTTON_BUFFER = 60;
+
+    public static final Color BACKGROUND_COLOR = ColorManager.BACKGROUND;
+
+    private int panelIndex = 0;
 
     public SetupWindow() {
-        this.setTitle("SlimTrade - Setup");
-        Container container = this.getContentPane();
-        container.setLayout(new GridBagLayout());
-        this.setIconImage(new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource("icons/default/tagx64.png"))).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+        this.setTitle(References.APP_NAME + " - Setup");
+        this.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("icons/default/tagx64.png")).getImage());
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setAlwaysOnTop(true);
+        container = this.getContentPane();
+        container.setLayout(new BorderLayout());
+        innerPanel = new JPanel(FrameManager.gridBag);
+
+        // Panel List
+        if(SetupManager.clientSetupCheck) {
+            panels.add(clientPanel);
+        }
+        if(SetupManager.characterNameCheck) {
+            panels.add(characterPanel);
+        }
+        if(SetupManager.stashOverlayCheck) {
+            panels.add(stashPanel);
+        }
+        if(SetupManager.clientSetupCheck) {
+
+        }
+        panels.add(completePanel);
+
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+
+        // Inner Panel
+        innerPanel.add(panels.get(0), gc);
+
+
+        // Button Panel
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING, 35, 5));
+        backButton = new BasicButton("Back");
+        nextButton = new BasicButton("Next");
+        buttonPanel.add(backButton);
+        buttonPanel.add(nextButton);
+
+        // Finish
+        refreshButtons();
+        createListeners();
+        container.add(innerPanel, BorderLayout.CENTER);
+        container.add(buttonPanel, BorderLayout.SOUTH);
+        this.pack();
+//        this.setSize(getPreferredSize().width+40, getPreferredSize().height+40);
+
+//        innerPanel.setBackground(Color.ORANGE);
+
+        this.setMinimumSize(new Dimension(550, 250));
+//        this.revalidate();
+//        this.repaint();
+        FrameManager.centerFrame(this);
+    }
+
+    public void refreshButtons() {
+        if(panelIndex == 0) {
+            backButton.setVisible(false);
+        } else {
+            backButton.setVisible(true);
+        }
+        if(panelIndex < panels.size()-1) {
+            nextButton.setText("Next");
+        } else {
+            nextButton.setText("Finish");
+        }
+        if(panels.get(panelIndex) instanceof ISetupValidator) {
+            if(((ISetupValidator) panels.get(panelIndex)).isValidInput()) {
+                nextButton.setEnabled(true);
+            } else {
+                nextButton.setEnabled(false);
+            }
+        }
+    }
+
+    private void createListeners(){
+        backButton.addActionListener(e -> {
+            if(panelIndex == 0) {
+                return;
+            }
+            innerPanel.remove(panels.get(panelIndex));
+            panelIndex--;
+            GridBagConstraints gc = new GridBagConstraints();
+            gc.gridx = 0;
+            gc.gridy = 0;
+            innerPanel.add(panels.get(panelIndex), gc);
+            refreshButtons();
+            revalidate();
+            repaint();
+        });
+
+        nextButton.addActionListener(e -> {
+            if(panels.get(panelIndex) instanceof ISetupValidator) {
+                ((ISetupValidator) panels.get(panelIndex)).save();
+            }
+            if(panelIndex < panels.size()-1) {
+                innerPanel.remove(panels.get(panelIndex));
+                panelIndex++;
+                GridBagConstraints gc = new GridBagConstraints();
+                gc.gridx = 0;
+                gc.gridy = 0;
+                innerPanel.add(panels.get(panelIndex), gc);
+                refreshButtons();
+                revalidate();
+                repaint();
+            } else if(panelIndex == panels.size()-1) {
+//                FrameManager.windowState = WindowState.NORMAL;
+                this.setAlwaysOnTop(false);
+//                FrameManager.showVisibleFrames();
+//                FrameManager.forceAllToTop();
+
+//                App.saveManager.validateClientPath();
+                App.saveManager.saveToDisk();
+                FrameManager.optionsWindow.reloadGeneral();
+                this.dispose();
+                App.launch();
+//
+
+            }
+        });
     }
 
 }

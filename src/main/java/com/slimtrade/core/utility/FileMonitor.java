@@ -30,11 +30,15 @@ public class FileMonitor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (!App.saveManager.saveFile.validClientPath) {
-            App.logger.log(Level.WARNING, "No valid client path found");
+        Path path;
+        File file = new File(App.saveManager.saveFile.clientPath);
+        if(file.exists() && file.isFile()) {
+            path = Paths.get(file.getParent());
+        } else {
+            App.logger.log(Level.WARNING, "Bad client path");
             return;
         }
-        Path path = Paths.get(App.saveManager.saveFile.clientDirectory);
+
         if (clientKey != null) {
             clientKey.cancel();
             clientKey = null;

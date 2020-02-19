@@ -77,7 +77,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
         buttonPanel.add(saveButton, gc);
         container.add(buttonPanel, BorderLayout.SOUTH);
 
-        HideableDialog local = this;
+
         infoButton.addActionListener(e ->{
                 int count = gridPanel.getGridCellCount();
                 if (count == 12) {
@@ -87,39 +87,30 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
                 } else {
                     gridPanel.setGridCellCount(12);
                 }
-                // gridPanel.pain
-                local.repaint();
-                // gridPanel.repaint();
+                repaint();
         });
 
         resetButton.addActionListener(e -> {
-                FrameManager.windowState = WindowState.NORMAL;
                 vis = true;
                 load();
-                local.setShow(false);
-                FrameManager.showVisibleFrames();
-                FrameManager.showOptionsWindow();
+                closeOverlay();
         });
 
         saveButton.addActionListener(e -> {
-            FrameManager.windowState = WindowState.NORMAL;
             save();
             FrameManager.stashHelperContainer.updateLocation();
-            local.setShow(false);
-            App.saveManager.saveToDisk();
-            FrameManager.showVisibleFrames();
-            FrameManager.showOptionsWindow();
+            closeOverlay();
         });
 
         this.load();
         App.eventManager.addColorListener(this);
         this.updateColor();
-
     }
 
     public void save() {
         Point winPos = this.getLocation();
         Dimension winSize = this.getSize();
+        App.saveManager.stashSaveFile.initialized = true;
         App.saveManager.stashSaveFile.windowX = winPos.x;
         App.saveManager.stashSaveFile.windowY = winPos.y;
         App.saveManager.stashSaveFile.windowWidth = winSize.width;
@@ -136,6 +127,22 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
         ItemHighlighter.setGridInfo(App.saveManager.stashSaveFile.gridX, App.saveManager.stashSaveFile.gridY, App.saveManager.stashSaveFile.gridWidth, App.saveManager.stashSaveFile.gridHeight);
         this.setLocation(App.saveManager.stashSaveFile.windowX, App.saveManager.stashSaveFile.windowY);
         this.setSize(App.saveManager.stashSaveFile.windowWidth, App.saveManager.stashSaveFile.windowHeight);
+    }
+
+    private void closeOverlay() {
+        this.setShow(false);
+        if(FrameManager.lastWindowState == WindowState.SETUP) {
+            FrameManager.windowState = WindowState.SETUP;
+            FrameManager.setupWindow.refreshButtons();
+            FrameManager.setupWindow.setVisible(true);
+            FrameManager.setupWindow.setAlwaysOnTop(false);
+            FrameManager.setupWindow.setAlwaysOnTop(true);
+        } else {
+            FrameManager.windowState = WindowState.NORMAL;
+            FrameManager.showVisibleFrames();
+            FrameManager.showOptionsWindow();
+        }
+        FrameManager.lastWindowState = WindowState.STASH_OVERLAY;
     }
 
 }

@@ -27,11 +27,11 @@ public class StashHelperContainer extends BasicDialog{
 				repaint();
 			}
 		});
-        this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.RED));
+//        this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.RED));
 	}
 
 	public void updateLocation() {
-        this.setLocation(App.saveManager.stashSaveFile.windowX, App.saveManager.stashSaveFile.windowY);
+        this.setLocation(App.saveManager.stashSaveFile.windowX, App.saveManager.stashSaveFile.windowY - 15);
         this.pack();
     }
 	

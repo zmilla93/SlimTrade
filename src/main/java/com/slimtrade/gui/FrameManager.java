@@ -31,11 +31,11 @@ public class FrameManager {
     public static MenubarDialog menubar;
     public static MenubarExpandButton menubarToggle;
     public static MessageDialogManager messageManager;
+    public static SetupWindow setupWindow;
     public static StashHelperContainer stashHelperContainer;
     public static StashWindow stashOverlayWindow;
     public static OverlayManager overlayManager;
     public static ChatScannerWindow chatScannerWindow;
-    public static SetupWindow setupWindow;
     private static TrayButton tray;
 
     //Ignore Items
@@ -50,6 +50,7 @@ public class FrameManager {
 
 
     public static WindowState windowState = WindowState.NORMAL;
+    public static WindowState lastWindowState = WindowState.NORMAL;
 
     public FrameManager() {
         UIManager.put("ScrollBar.width", 12);
@@ -60,8 +61,10 @@ public class FrameManager {
         // TODO : TEMP Image testing window
 //        ImageTestingWindow imageTestingWindow = new ImageTestingWindow();
 //        imageTestingWindow.setVisible(true);
-        setupWindow = new SetupWindow();
-        setupWindow.setVisible(true);
+
+
+//        setupWindow = new SetupWindow();
+//        setupWindow.setVisible(true);
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();
@@ -82,6 +85,7 @@ public class FrameManager {
         overlayManager = new OverlayManager();
 
         stashHelperContainer.setShow(true);
+        stashHelperContainer.updateLocation();
 
 
 
@@ -93,7 +97,7 @@ public class FrameManager {
         //TODO : ADD NEW MESSAGE MANAGER
         forceFrames = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, ignoreItemWindow};
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow};
-        menubar.setShow(true);
+
 
         tray = new TrayButton();
     }
@@ -141,7 +145,7 @@ public class FrameManager {
 
     }
 
-    public static void centerFrame(JDialog window) {
+    public static void centerFrame(Window window) {
         window.setLocation((TradeUtility.screenSize.width / 2) - (window.getWidth() / 2), (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2));
     }
 

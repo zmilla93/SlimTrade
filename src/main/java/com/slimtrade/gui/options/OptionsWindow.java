@@ -25,6 +25,7 @@ import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.components.CustomScrollPane;
+import com.slimtrade.gui.options.general.AdvancedPanel;
 import com.slimtrade.gui.options.general.GeneralPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macros.IncomingCustomizer;
@@ -46,6 +47,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 	private final JPanel menuPanelLower = new JPanel(new GridBagLayout());
 	private BasicButton checkUpdateButton = null;
 
+	private GeneralPanel generalPanel;
 	private boolean updateAvailable;
 
 	public OptionsWindow() {
@@ -94,7 +96,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 		bottomPanel.add(saveButton);
 
 		ListButton generalButton = new ListButton("General");
-		GeneralPanel generalPanel = new GeneralPanel();
+		generalPanel = new GeneralPanel();
 		link(generalButton, generalPanel);
 		display.add(generalPanel, gc);
 
@@ -303,5 +305,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             this.checkUpdateButton.primaryColor = Color.GREEN;
         }
     }
+
+    public void reloadGeneral() {
+		generalPanel.load();
+	}
 
 }

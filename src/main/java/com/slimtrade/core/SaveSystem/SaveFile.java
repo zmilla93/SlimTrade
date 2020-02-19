@@ -37,7 +37,6 @@ public class SaveFile {
 
     // Client
     public String clientPath = null;
-    public String clientDirectory = null;
     public boolean validClientPath = false;
     public int clientCount;
 
