@@ -5,16 +5,13 @@ import java.awt.event.MouseEvent;
 
 public class AdvancedMouseAdapter extends MouseAdapter {
 
-//	private MouseClickState clickState;
 	private MouseHoverState hoverState;
 
 	public void mousePressed(MouseEvent e) {
-//		clickState = MouseClickState.PRESSED;
 		hoverState = MouseHoverState.INBOUNDS;
 	}
 
 	public void mouseReleased(MouseEvent e) {
-//		clickState = MouseClickState.RELEASED;
 		if (hoverState == MouseHoverState.INBOUNDS) {
 			click(e);
 		}
@@ -29,7 +26,7 @@ public class AdvancedMouseAdapter extends MouseAdapter {
 	}
 
 	public void click(MouseEvent e) {
-		System.out.println("Successful click!");
+
 	}
 
 }

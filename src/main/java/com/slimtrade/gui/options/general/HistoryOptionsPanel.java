@@ -83,6 +83,12 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 		gc.gridx = 0;
 		gc.gridy++;
 
+		// Temp Warning
+		gc.fill = GridBagConstraints.NONE;
+		gc.gridwidth = 3;
+		gc.insets.top = 5;
+		container.add(new JLabel("History changes require restart"), gc);
+
 		this.updateColor();
 		App.eventManager.addColorListener(this);
 

@@ -16,16 +16,21 @@ public class SetupManager {
     public static boolean isSetupRequired() {
         boolean needsSetup = false;
         int count = App.saveManager.validateClientPath();
-        File file = new File(App.saveManager.saveFile.clientPath);
-        if(count != 1 || !file.exists() || !file.isFile()) {
+        if (count != 1) {
             SetupManager.clientSetupCheck = true;
             needsSetup = true;
+        } else {
+            File file = new File(App.saveManager.saveFile.clientPath);
+            if (!file.exists() || !file.isFile()) {
+                SetupManager.clientSetupCheck = true;
+                needsSetup = true;
+            }
         }
-        if(App.saveManager.saveFile.characterName == null || App.saveManager.saveFile.characterName.equals("")) {
+        if (App.saveManager.saveFile.characterName == null || App.saveManager.saveFile.characterName.equals("")) {
             SetupManager.characterNameCheck = true;
             needsSetup = true;
         }
-        if(!App.saveManager.stashSaveFile.initialized) {
+        if (!App.saveManager.stashSaveFile.initialized) {
             SetupManager.stashOverlayCheck = true;
             needsSetup = true;
         }

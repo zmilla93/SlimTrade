@@ -35,7 +35,9 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
         // Path Panel
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.weightx = 1;
+        gc.insets.right = 5;
         pathPanel.add(clientText, gc);
+        gc.insets.right = 0;
         gc.weightx = 0;
         gc.fill = GridBagConstraints.NONE;
         gc.gridx++;
@@ -50,7 +52,7 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
         gc.fill = GridBagConstraints.HORIZONTAL;
         container.add(pathPanel, gc);
         gc.gridy++;
-        container.add(Box.createHorizontalStrut(400), gc);
+        container.add(Box.createHorizontalStrut(450), gc);
 
 
         try {

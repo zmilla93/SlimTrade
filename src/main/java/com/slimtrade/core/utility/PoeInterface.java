@@ -82,7 +82,7 @@ public class PoeInterface extends Robot {
 					}
 					i++;
 				} while (true);
-				System.out.println("FOCUS TIME : " + i);
+//				System.out.println("FOCUS TIME : " + i);
 				if (curWindowTitle.equals("Path of Exile")) {
 					FrameManager.forceAllToTop();
 					robot.keyPress(KeyEvent.VK_ENTER);
@@ -94,7 +94,7 @@ public class PoeInterface extends Robot {
 					robot.keyPress(KeyEvent.VK_ENTER);
 					robot.keyRelease(KeyEvent.VK_ENTER);
 				}else{
-					App.logger.log(Level.WARNING, "Bad Window ::: " + curWindowTitle);
+//					App.logger.log(Level.WARNING, "Bad Window ::: " + curWindowTitle);
 				}
 			}
 		}).start();

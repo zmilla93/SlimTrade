@@ -29,12 +29,12 @@ public class UpdateDialog extends JDialog {
 
 	public UpdateDialog(){
 		this.setTitle("SlimTrade - Update");
-		VersionNumber newVersion = null;
-		if(App.updateChecker.isAllowPreReleases() && App.updateChecker.isNewPreReleaseAvailable()) {
-		    newVersion = App.updateChecker.getLatestPreRelease();
-        } else {
-            newVersion = App.updateChecker.getLatestRelease();
-        }
+		VersionNumber newVersion = App.updateChecker.getLatestRelease();
+//		if(App.updateChecker.isAllowPreReleases() && App.updateChecker.isNewPreReleaseAvailable()) {
+//		    newVersion = App.updateChecker.getLatestPreRelease();
+//        } else {
+//            newVersion = App.updateChecker.getLatestRelease();
+//        }
 		viewUpdateButton.setFocusable(false);
 		ContainerPanel containerPanel = new ContainerPanel();
 		JPanel container = containerPanel.container;
@@ -47,7 +47,7 @@ public class UpdateDialog extends JDialog {
 		
 		JLabel info1 = new JLabel("New version available!");
 		JLabel info2 = new JLabel("Currently Running: " + References.APP_VERSION);
-		JLabel info3 = new JLabel("Latest Version: " + App.updateChecker.getNewestVersion());
+		JLabel info3 = new JLabel("Latest Version: " + App.updateChecker.getLatestRelease());
 		
 		int bufferY = 10;
 		container.add(info1, gc);

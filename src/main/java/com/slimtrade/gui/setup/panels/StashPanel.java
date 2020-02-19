@@ -9,16 +9,19 @@ import javax.swing.*;
 
 public class StashPanel extends AbstractSetupPanel implements ISetupValidator {
 
-    JLabel info1 = new JLabel("The location of your stash needs to be marked for certain overlay items.");
-    JLabel info2 = new JLabel("This needs to be changed if you ever change resolution.");
+    JLabel info1 = new JLabel("The location of your stash needs to be marked and saved.");
+    JLabel info2 = new JLabel("Resize the overlay until it aligns with your stash in game.");
 
     JButton editButton = new BasicButton("Edit Stash Overlay");
 
     JPanel innerPanel = new JPanel(FrameManager.gridBag);
 
     public StashPanel() {
-        gc.insets.bottom = 15;
+
         container.add(info1, gc);
+        gc.gridy++;
+        gc.insets.bottom = 15;
+        container.add(info2, gc);
         gc.gridy++;
 
         gc.insets.bottom = 0;
@@ -41,6 +44,7 @@ public class StashPanel extends AbstractSetupPanel implements ISetupValidator {
             FrameManager.stashOverlayWindow.setShow(true);
             FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
             FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
+            FrameManager.stashOverlayWindow.repaint();
         });
 
     }

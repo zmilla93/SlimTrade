@@ -136,7 +136,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         this.setFocusableWindowState(true);
         this.setFocusable(true);
         this.pack();
-        this.setSize(650, 820);
+        this.setSize(650, 850);
         searchTermsInput.setLineWrap(true);
         searchTermsInput.setWrapStyleWord(true);
         FrameManager.centerFrame(this);
@@ -264,22 +264,16 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         });
 
         revertButton.addActionListener(e -> {
-            System.out.println("Reverting...");
             saving = true;
             if (searchCombo.getSelectedIndex() < 0) {
                 return;
             }
             ScannerMessage msg = (ScannerMessage) searchCombo.getSelectedItem();
-            System.out.println("\tLoading Message...");
             loadMessage(msg);
-            System.out.println("\tRefresh Message...");
             runAllChecks();
             refreshWindowState();
-            System.out.println("\tRefresh Listeners...");
             refreshListeners();
             saving = false;
-
-            System.out.println("Reverted!");
         });
 
         clearButton.addActionListener(e -> {
@@ -289,7 +283,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         });
 
         saveButton.addActionListener(e -> {
-            System.out.println("Saving Scanner...");
             saving = true;
             if (saveTextField.getText().matches("\\s*") || searchTermsInput.getText().matches("\\s*")) {
                 return;
@@ -328,7 +321,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             macroPanel.repaint();
 
             saving = false;
-            System.out.println("Scanner Saved!");
         });
     }
 
@@ -512,7 +504,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 //            }
 //        });
         addRemovePanel.addRemoveablePanel(row);
-        System.out.println("DOC:" + row.m2Text.getListeners(DocumentListener.class).length);
         return row;
     }
 

@@ -1,45 +1,38 @@
 package com.slimtrade.gui.stash;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.AbstractWindow;
+import com.slimtrade.gui.basic.AbstractResizableWindow;
+import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.buttons.ConfirmButton;
+import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.stash.helper.ItemHighlighter;
-import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.basic.HideableDialog;
 
-public class StashWindow extends AbstractResizableWindow implements ISaveable {
+import javax.swing.*;
+import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class StashWindow extends AbstractResizableWindow implements ISaveable, IColorable {
 
     private static final long serialVersionUID = 1L;
 
     private StashGridPanel gridPanel;
-    private boolean vis = false;
+
+    private JPanel buttonPanel = new JPanel();
+
 
     public StashWindow() {
         super("Stash Overlay", false);
-        this.setMinimumSize(new Dimension(300, 300));
+        this.setMinimumSize(new Dimension(400, 400));
         container.setBackground(ColorManager.CLEAR);
         center.setBackground(ColorManager.CLEAR);
         this.setBackground(ColorManager.CLEAR);
-
-        Logger.getAnonymousLogger().log(Level.ALL, "LOGGER");
 
         int buffer = 10;
         JPanel gridOuter = new JPanel();
@@ -57,10 +50,10 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
         container.add(gridOuter, BorderLayout.CENTER);
 
         GridBagConstraints gc = new GridBagConstraints();
-        JPanel buttonPanel = new JPanel();
-        JButton infoButton = new JButton("Grid");
-        JButton resetButton = new JButton("Cancel");
-        JButton saveButton = new JButton("Save");
+
+        JButton gridResizeButton = new BasicButton("Grid");
+        JButton resetButton = new DenyButton("Cancel");
+        JButton saveButton = new ConfirmButton("Save");
 
         buttonPanel.setLayout(new GridBagLayout());
 
@@ -69,16 +62,20 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
         Insets inset = new Insets(10, 0, 10, 60);
         gc.insets = inset;
 
-        buttonPanel.add(infoButton, gc);
+        buttonPanel.add(gridResizeButton, gc);
         gc.gridx++;
         buttonPanel.add(resetButton, gc);
         gc.gridx++;
         inset.right = 0;
         buttonPanel.add(saveButton, gc);
+//        gc.gridx = 0;
+//        gc.gridy++;
+//        gc.gridwidth = 3;
+//        buttonPanel.add(new JLabel("Move and resize this window until the grid aligns with POE's stash."), gc);
         container.add(buttonPanel, BorderLayout.SOUTH);
 
 
-        infoButton.addActionListener(e ->{
+        gridResizeButton.addActionListener(e ->{
                 int count = gridPanel.getGridCellCount();
                 if (count == 12) {
                     gridPanel.setGridCellCount(24);
@@ -91,7 +88,6 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
         });
 
         resetButton.addActionListener(e -> {
-                vis = true;
                 load();
                 closeOverlay();
         });
@@ -145,4 +141,9 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable {
         FrameManager.lastWindowState = WindowState.STASH_OVERLAY;
     }
 
+    @Override
+    public void updateColor() {
+        super.updateColor();
+        buttonPanel.setBackground(ColorManager.BACKGROUND);
+    }
 }

@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class HistoryTutorialPanel extends AbstractTutorialPanel {
 
-    private JLabel info1 = new JLabel("The trade history can be used reload recent trades.");
+    private JLabel info1 = new JLabel("The trade history can be used reopen recent trade popups.");
     private JLabel info2 = new JLabel("It loads using the client file, so it will even contain trades from when SlimTrade wasn't running.");
 
     public HistoryTutorialPanel() {
@@ -21,6 +21,7 @@ public class HistoryTutorialPanel extends AbstractTutorialPanel {
         gc.gridy++;
         gc.insets.top = 10;
         container.add(new ImageLabel("images/history.png"), gc);
+
     }
 
 }

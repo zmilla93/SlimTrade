@@ -116,10 +116,10 @@ public class App {
 //				ClipboardManager clipboard = new ClipboardManager();
 
 				// Alert about new update
-                if(updateChecker.isUpdateAvailable()){
-                    UpdateDialog d = new UpdateDialog();
-                    d.setVisible(true);
-                }
+//                if(updateChecker.isUpdateAvailable()){
+//                    UpdateDialog d = new UpdateDialog();
+//                    d.setVisible(true);
+//                }
 
                 // Setup
 
@@ -152,7 +152,8 @@ public class App {
 			fileMonitor = new FileMonitor();
 			fileMonitor.startMonitor();
 			chatParser.init();
-			FrameManager.menubar.setShow(true);
+//			FrameManager.menubar.setShow(true);
+			FrameManager.menubarToggle.setShow(true);
 		}
 	}
 

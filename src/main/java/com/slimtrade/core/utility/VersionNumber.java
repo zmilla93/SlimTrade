@@ -8,8 +8,6 @@ import com.slimtrade.core.References;
 
 public class VersionNumber {
 
-    //TODO : Add prerelease support?
-
     public final int major;
     public final int minor;
     public final int patch;
@@ -38,8 +36,8 @@ public class VersionNumber {
     }
 
     public String toString() {
-        String pre = this.pre ? "(Prerelease) " : "";
-        return pre + major + "." + minor + "." + patch;
+        String pre = this.pre ? "(PRE) " : "";
+        return pre + "v" + major + "." + minor + "." + patch;
     }
 
 //    public static boolean isNewVersion(VersionNumber v1) {
@@ -59,29 +57,29 @@ public class VersionNumber {
         return false;
     }
 
-    public void checkVersion() {
-        VersionNumber versionNumber;
-        boolean isNewVersion = false;
-        if (pre) {
-            versionNumber = App.updateChecker.getLatestPreRelease();
-        } else {
-            versionNumber = App.updateChecker.getLatestRelease();
-        }
-        if (major > versionNumber.major) {
-            isNewVersion = true;
-        } else if (major >= versionNumber.major && minor > versionNumber.minor) {
-            isNewVersion = true;
-        } else if (major >= versionNumber.major && minor >= versionNumber.minor && patch > versionNumber.patch) {
-            isNewVersion = true;
-        }
-        if(isNewVersion) {
-            if(pre){
-                App.updateChecker.setLatestPreRelease(this);
-            } else {
-                App.updateChecker.setLatestRelease(this);
-            }
-        }
-    }
+//    public void checkVersion() {
+//        VersionNumber versionNumber;
+//        boolean isNewVersion = false;
+////        if (pre) {
+////            versionNumber = App.updateChecker.getLatestPreRelease();
+////        } else {
+////            versionNumber = App.updateChecker.getLatestRelease();
+////        }
+//        if (major > versionNumber.major) {
+//            isNewVersion = true;
+//        } else if (major >= versionNumber.major && minor > versionNumber.minor) {
+//            isNewVersion = true;
+//        } else if (major >= versionNumber.major && minor >= versionNumber.minor && patch > versionNumber.patch) {
+//            isNewVersion = true;
+//        }
+//        if(isNewVersion) {
+//            if(pre){
+//                App.updateChecker.setLatestPreRelease(this);
+//            } else {
+//                App.updateChecker.setLatestRelease(this);
+//            }
+//        }
+//    }
 
 //    public boolean isNewVersion(VersionNumber v1, VersionNumber v2) {
 //        boolean isNewVersion = false;

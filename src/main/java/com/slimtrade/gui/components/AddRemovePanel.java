@@ -55,7 +55,6 @@ public class AddRemovePanel extends JPanel implements IColorable {
                 i++;
             }
         }
-        System.out.println("SIZE:" + i);
         this.revalidate();
         this.repaint();
     }

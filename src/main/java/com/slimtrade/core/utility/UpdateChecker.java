@@ -14,54 +14,37 @@ import java.net.URLConnection;
 
 public class UpdateChecker {
 
-	// TODO : Switch to /releases/latest with new versionMatchString in order to
-	// avoid detecting prereleases
     private VersionNumber currentVersion;
-    private VersionNumber latestRelease;
-    private VersionNumber latestPreRelease;
-    private boolean allowPreReleases;
+    private VersionNumber latestVersion;
+//    private VersionNumber latestRelease;
+//    private VersionNumber latestPreRelease;
+//    private boolean allowPreReleases = false;
 
-    //Github URLs
-	private final String latestReleaseURL = "https://github.com/zmilla93/SlimTrade/releases/latest";
-    private final String allReleases = "https://github.com/zmilla93/SlimTrade/releases";
+    private static final String gitUrl = "https://api.github.com/repos/zmilla93/slimtrade/tags";
 
-    //Regex match strings
-	private final String latestReleaseMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
-	private final String allReleasesMatchString = "zmilla93.SlimTrade.tree.(v\\d+\\.\\d+\\.\\d+)\"";
-	private static final String gitUrl = "https://api.github.com/repos/zmilla93/slimtrade/tags";
-
-	// private ArrayList<String> versions = new ArrayList<String>();
-
-	private boolean newVersion = false;
-	private VersionNumber latestVersion;
+	private boolean updateAvailable = false;
+//	private VersionNumber latestVersion;
 
 	public UpdateChecker() {
         currentVersion = new VersionNumber(References.APP_VERSION);
-        latestRelease = new VersionNumber(References.APP_VERSION);
-        latestPreRelease = new VersionNumber(References.APP_VERSION);
+        latestVersion = new VersionNumber(References.APP_VERSION);
 	}
 
-//	public VersionNumber getLatestVersion() {
-//		return latestVersion;
-//	}
-
-	public boolean checkForUpdates(){
-		return checkForUpdates(false);
+	public void checkForUpdates(){
+		checkForUpdates(false);
 	}
 
-	public boolean checkForUpdates(boolean allowPreReleases) {
-
+	public void checkForUpdates(boolean allowPreReleases) {
+//	    boolean updateAvailable = false;
 	    VersionNumber appVersion = new VersionNumber(References.APP_VERSION);
         currentVersion = appVersion;
-        latestRelease = appVersion;
-        latestPreRelease = appVersion;
-        if(allowPreReleases | App.debugMode) {
-            this.allowPreReleases = true;
+        latestVersion = appVersion;
+        if(App.debugMode) {
+            allowPreReleases = true;
         }
-//        this.allowPreReleases = (allowPreReleases | App.debugMode);
-
         try {
-            System.out.println("Checking for updates...");
+            // Get list of tags from GitHub
+            System.out.println("Getting version list from github...");
             URL url = new URL(gitUrl);
             URLConnection conn = url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -69,47 +52,26 @@ public class UpdateChecker {
             while (br.ready()) {
                 builder.append(br.readLine());
             }
-            System.out.println(builder.toString());
+            // Turn each tag into a version number, then check if is the latest version.
             JsonArray obj = new Gson().fromJson(builder.toString(), JsonArray.class);
-            System.out.println("HMM");
             for(int i = 0; i<obj.size(); i++) {
-                // Returns all tag names
                 JsonElement tag = obj.get(i).getAsJsonObject().get("name");
-                System.out.println("tag: " + tag);
                 VersionNumber v = new VersionNumber(tag.toString());
-                System.out.println(v.toString());
-                //TODO : CLEAN + PRE
-                v.checkVersion();
-//                if (VersionNumber.isNewVersion(v)) {
-//                    newVersion = true;
-//                    if (latestVersion != null) {
-//                        if (VersionNumber.isNewVersion(v, latestVersion)) {
-//                            latestVersion = v;
-//                        }
-//                    } else {
-//                        latestVersion = v;
-//                    }
-//                }
+                if(VersionNumber.isNewVersion(latestVersion, v)) {
+                    if(v.pre && !allowPreReleases) {
+                        continue;
+                    }
+                    latestVersion = v;
+                    updateAvailable = true;
+                }
             }
             br.close();
         } catch (IOException e) {
-            return false;
-//            e.printStackTrace();
+            return;
         }
-        System.out.println("Checked!");
-        System.out.println("Current : " + getCurrentVersion());
-        System.out.println("Ver : " + getLatestRelease());
-        System.out.println("Pre : " + getLatestPreRelease());
-        System.out.println("Allow Pre : " + this.isAllowPreReleases());
-        System.out.println("isNewVer : " + this.isNewReleaseAvailable());
-        System.out.println("isNewPre : " + this.isNewPreReleaseAvailable());
-
-        if(this.isAllowPreReleases()) {
-            return isNewReleaseAvailable();
-        } else {
-            return isNewPreReleaseAvailable();
-        }
-//        return newVersion;
+        System.out.println("Running... \t\t\t\t" + getCurrentVersion());
+        System.out.println("Latest Release... \t\t" + getLatestRelease());
+        return;
     }
 
     public VersionNumber getCurrentVersion(){
@@ -117,48 +79,47 @@ public class UpdateChecker {
     }
 
     public VersionNumber getLatestRelease(){
-        return latestRelease;
+        return latestVersion;
     }
+//
+//    public VersionNumber getLatestPreRelease(){
+//        return latestPreRelease;
+//    }
 
-    public VersionNumber getLatestPreRelease(){
-        return latestPreRelease;
-    }
+//    public boolean isNewReleaseAvailable() {
+//        if(VersionNumber.isNewVersion(currentVersion, latestRelease)) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public boolean isNewPreReleaseAvailable() {
+//        if(VersionNumber.isNewVersion(currentVersion, latestPreRelease)) {
+//            return true;
+//        }
+//        return false;
+//    }
 
-    public boolean isNewReleaseAvailable() {
-        if(VersionNumber.isNewVersion(currentVersion, latestRelease)) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isNewPreReleaseAvailable() {
-        if(VersionNumber.isNewVersion(currentVersion, latestPreRelease)) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isAllowPreReleases(){
-	    return this.allowPreReleases;
-    }
-
-    public void setLatestRelease(VersionNumber version) {
-	    latestRelease = version;
-    }
-    public void setLatestPreRelease(VersionNumber version) {
-	    latestPreRelease = version;
-    }
+//    public boolean isAllowPreReleases(){
+//	    return this.allowPreReleases;
+//    }
+//
+//    public void setLatestRelease(VersionNumber version) {
+//	    latestRelease = version;
+//    }
+//    public void setLatestPreRelease(VersionNumber version) {
+//	    latestPreRelease = version;
+//    }
 
     public boolean isUpdateAvailable() {
-	    boolean update = (this.allowPreReleases && this.isNewPreReleaseAvailable()) ? this.isNewPreReleaseAvailable() : this.isNewReleaseAvailable();
-	    return update;
+	    return updateAvailable;
     }
 
-    public VersionNumber getNewestVersion() {
-	    if(this.allowPreReleases && VersionNumber.isNewVersion(this.getLatestRelease(), this.getLatestPreRelease())){
-	        return this.getLatestPreRelease();
-        }
-        return this.getLatestRelease();
-    }
+//    public VersionNumber getNewestVersion() {
+//	    if(this.allowPreReleases && VersionNumber.isNewVersion(this.getLatestRelease(), this.getLatestPreRelease())){
+//	        return this.getLatestPreRelease();
+//        }
+//        return this.getLatestRelease();
+//    }
 
 }

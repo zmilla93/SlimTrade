@@ -159,6 +159,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
             FrameManager.stashOverlayWindow.setShow(true);
             FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
             FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
+            FrameManager.stashOverlayWindow.repaint();
         });
 
         editOverlayButton.addActionListener(e -> {
