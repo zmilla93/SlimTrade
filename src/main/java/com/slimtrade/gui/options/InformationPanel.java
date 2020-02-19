@@ -4,12 +4,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 public class InformationPanel extends ContainerPanel {
@@ -20,6 +21,7 @@ public class InformationPanel extends ContainerPanel {
 
     private JTextField gitText;
     private JTextField emailText;
+    private JButton tutorialButton = new BasicButton("Show Tutorial");
 
 	public InformationPanel(){
 		this.setVisible(false);
@@ -69,17 +71,26 @@ public class InformationPanel extends ContainerPanel {
 		gc.gridx = 0;
 		gc.gridy++;
 		
-		gc.insets.bottom = 0;
+
 		container.add(emailTitle, gc);
 		gc.gridx = 1;
 		container.add(emailText, gc);
 		gc.gridx = 0;
 		gc.gridy++;
 
+		gc.gridwidth = 2;
+		gc.insets.bottom = 0;
+		container.add(tutorialButton, gc);
+
 //		this.setBuffer(40, -1);
 //		this.autoResize();
         App.eventManager.addColorListener(this);
         updateColor();
+
+		tutorialButton.addActionListener(e -> {
+			FrameManager.optionsWindow.setVisible(false);
+			FrameManager.showTutorialWindow();
+		});
 		
 	}
 

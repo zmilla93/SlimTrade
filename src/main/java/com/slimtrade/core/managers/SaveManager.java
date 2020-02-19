@@ -91,10 +91,12 @@ public class SaveManager {
             }
         } catch (JsonSyntaxException e1) {
             saveFile = new SaveFile();
+            validateClientPath();
             System.out.println("Corrupted save file!");
             return;
         } catch (IOException e2) {
             saveFile = new SaveFile();
+            validateClientPath();
             System.out.println("IO Error with save file!");
             return;
         }
@@ -211,38 +213,36 @@ public class SaveManager {
         }
     }
 
-    public void validateClientPath() {
+    public int validateClientPath() {
+        int clientCount = 0;
         String clientPath = saveFile.clientPath;
         if (clientPath != null) {
             File file = new File(clientPath);
             if (file.exists() && file.isFile()) {
-                saveFile.validClientPath = true;
+                return 1;
             }
         }
-        if (!saveFile.validClientPath) {
-            String[] commonDrives = {"C", "D", "E", "F"};
-            String clientSteamStub = ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
-            String clientStandAloneStub = ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
-            for (String drive : commonDrives) {
-                File clientFile = new File(drive + clientSteamStub);
-                if (clientFile.exists() && clientFile.isFile()) {
-                    saveFile.validClientPath = true;
-                    saveFile.clientPath = drive + clientSteamStub;
-                    saveFile.clientCount++;
-                    App.debugger.log("Valid client path found on " + drive + " drive. (Steam)");
-                }
+        String[] commonDrives = {"C", "D", "E", "F"};
+        String clientSteamStub = ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
+        String clientStandAloneStub = ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
+        for (String drive : commonDrives) {
+            File clientFile = new File(drive + clientSteamStub);
+            if (clientFile.exists() && clientFile.isFile()) {
+                saveFile.clientPath = drive + clientSteamStub;
+                clientCount++;
+                App.debugger.log("Valid client path found on " + drive + " drive. (Steam)");
             }
-            for (String drive : commonDrives) {
-                File clientFile = new File(drive + clientStandAloneStub);
-                if (clientFile.exists() && clientFile.isFile()) {
-                    saveFile.validClientPath = true;
-                    saveFile.clientPath = drive + clientStandAloneStub;
-                    saveFile.clientCount++;
-                    App.debugger.log("Valid client path found on " + drive + " drive. (Stand Alone)");
-                }
-            }
-
         }
+        for (String drive : commonDrives) {
+            File clientFile = new File(drive + clientStandAloneStub);
+            if (clientFile.exists() && clientFile.isFile()) {
+                saveFile.clientPath = drive + clientStandAloneStub;
+                clientCount++;
+                App.debugger.log("Valid client path found on " + drive + " drive. (Stand Alone)");
+            }
+        }
+        return clientCount;
     }
+
 
 }

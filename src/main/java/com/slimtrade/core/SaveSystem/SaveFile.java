@@ -37,8 +37,8 @@ public class SaveFile {
 
     // Client
     public String clientPath = null;
-    public boolean validClientPath = false;
-    public int clientCount;
+//    public boolean validClientPath = false;
+//    public int clientCount;
 
     // Custom Macros
     public ArrayList<StashTab> stashTabs = new ArrayList<>();

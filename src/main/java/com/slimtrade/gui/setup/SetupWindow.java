@@ -29,8 +29,6 @@ public class SetupWindow extends JFrame {
     private JButton backButton;
     private JButton nextButton;
 
-    private final int BUTTON_BUFFER = 60;
-
     public static final Color BACKGROUND_COLOR = ColorManager.BACKGROUND;
 
     private int panelIndex = 0;
@@ -151,6 +149,7 @@ public class SetupWindow extends JFrame {
                 FrameManager.optionsWindow.reloadGeneral();
                 this.dispose();
                 App.launch();
+                FrameManager.showTutorialWindow();
 //
 
             }

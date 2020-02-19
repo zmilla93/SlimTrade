@@ -58,6 +58,9 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
 		pullRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
 		pullBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
 		local = this;
+
+//		this.updateColor();
+
 		pullRight.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				startingX = e.getXOnScreen();
@@ -149,4 +152,8 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
         pullBottom.setBackground(pullbarColor);
     }
 
+	@Override
+	public void pack() {
+		super.pack();
+	}
 }

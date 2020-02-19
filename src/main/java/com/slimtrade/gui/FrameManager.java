@@ -16,6 +16,7 @@ import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
+import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +29,7 @@ public class FrameManager {
 
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
+    public static TutorialWindow tutorialWindow;
     public static MenubarDialog menubar;
     public static MenubarExpandButton menubarToggle;
     public static MessageDialogManager messageManager;
@@ -36,6 +38,7 @@ public class FrameManager {
     public static StashWindow stashOverlayWindow;
     public static OverlayManager overlayManager;
     public static ChatScannerWindow chatScannerWindow;
+
     private static TrayButton tray;
 
     //Ignore Items
@@ -57,14 +60,8 @@ public class FrameManager {
         UIManager.put("ScrollBar.height", 12);
         FrameManager.gridBag = new GridBagLayout();
 
-
-        // TODO : TEMP Image testing window
-//        ImageTestingWindow imageTestingWindow = new ImageTestingWindow();
-//        imageTestingWindow.setVisible(true);
-
-
-//        setupWindow = new SetupWindow();
-//        setupWindow.setVisible(true);
+//        TutorialWindow tutorialWindow = new TutorialWindow();
+//        tutorialWindow.setVisible(true);
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();
@@ -170,6 +167,19 @@ public class FrameManager {
         optionsWindow.setVisible(true);
         optionsWindow.setAlwaysOnTop(true);
         optionsWindow.setAlwaysOnTop(false);
+    }
+
+    public static void showTutorialWindow() {
+        if(tutorialWindow == null) {
+            tutorialWindow = new TutorialWindow();
+        }
+        tutorialWindow.setVisible(true);
+        tutorialWindow.setAlwaysOnTop(true);
+    }
+
+    public static void destoryTutorialWindow() {
+        tutorialWindow.dispose();
+        tutorialWindow = null;
     }
 
 }

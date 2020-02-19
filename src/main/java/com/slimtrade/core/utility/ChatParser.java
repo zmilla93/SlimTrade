@@ -70,7 +70,8 @@ public class ChatParser {
 
 		int msgCount = 0;
 		updateTimer.stop();
-		if (App.saveManager.saveFile.validClientPath) {
+		File file = new File(App.saveManager.saveFile.clientPath);
+		if (file.exists() && file.isFile()) {
 			clientPath = App.saveManager.saveFile.clientPath;
 		} else {
 			App.debugger.log("[ERROR] No valid client file path found.");

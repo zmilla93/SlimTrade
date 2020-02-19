@@ -9,16 +9,26 @@ import java.awt.*;
 
 public class SectionHeader extends JPanel implements IColorable {
 
+    private final int WIDTH = 300;
+    private final int HEIGHT = 22;
+
     public SectionHeader(String title) {
         App.eventManager.addColorListener(this);
         this.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
-        gc.ipady = 0;
-        gc.fill = GridBagConstraints.BOTH;
+        gc.gridy = 0;
+//        gc.ipady = 0;
+//        gc.fill = GridBagConstraints.BOTH;
         JLabel label = new JLabel(title);
-        this.add(label);
-        this.setPreferredSize(new Dimension(400, 22));
+        this.add(label, gc);
+        gc.gridx++;
+        this.add(Box.createVerticalStrut(HEIGHT), gc);
+        gc.gridx = 0;
+        gc.gridy++;
+        this.add(Box.createHorizontalStrut(WIDTH), gc);
+
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.updateColor();
 
     }

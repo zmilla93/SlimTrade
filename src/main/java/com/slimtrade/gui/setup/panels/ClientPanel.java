@@ -88,9 +88,9 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
     @Override
     public void save() {
         App.saveManager.saveFile.clientPath = clientText.getText();
-        File file = new File(clientText.getText());
+//        File file = new File(clientText.getText());
 //        App.saveManager.saveFile.clientDirectory = file.getParent();
-        App.saveManager.saveFile.validClientPath = true;
+//        App.saveManager.saveFile.validClientPath = true;
     }
 
 }
