@@ -14,7 +14,8 @@ Incoming trades also cause an info window to appear above the stash with the ite
 ![](/src/main/resources/images/stash.png)<br>
 
 # Ignore Items
-Sick of the spam? Ignore specific items or generic terms.<br>
+Ignore specific item names or generic terms.<br>
+![](/src/main/resources/images/ignore.png)<br>
 
 # Chat Scanner
 The chat scanner allows you to search for custom phrases. These popups appear orange.<br>
@@ -23,6 +24,7 @@ You can ignore terms and create multiple search presets in the options.<br>
 
 # Customization
 All macro types come with inbuilt macros, but also allow you to add your own with custom response text.<br>
+![](/src/main/resources/images/macro-customizer.png)<br>
 
 # History
 Easily restore any recent trade message with the history panel.<br>
