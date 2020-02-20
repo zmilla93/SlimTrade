@@ -1,28 +1,30 @@
 # SlimTrade
+An overlay trade macro for Path of Exile<br>
 
-SlimTrade is a macro overlay program for Path of Exile, and is complient with the game's TOS. It is still currently in development and may contain bugs.
+## Setup
+- Ensure you have an up to date version of java: https://www.java.com/<br>
+- Download and run the latest version: https://github.com/zmilla93/SlimTrade/releases<br>
 
-# How to Run
-- Ensure you have an up to date version of java: https://www.java.com/
-- Delete any old versions of SlimTrade, then download and run the latest version: https://github.com/zmilla93/SlimTrade/releases
+# Incoming & Outgoing Trades
+Popups are automatically created when trade messages are sent or receieved.<br>
+Incoming trades are green, outgoing trades are red.<br>
+![](/src/main/resources/images/incoming-trade.png)<br>
+![](/src/main/resources/images/outgoing-trade.png)<br>
+Incoming trades also cause an info window to appear above the stash with the item and stand name. Color coding can be added in the options.<br>
+![](/src/main/resources/images/stash.png)<br>
 
-# Current Features 
-- Popup window for incoming and outgoing trades with many macros
-- Chat scanner that provides a popup for custom pieces of text
-- Stash highlighting and item name searching
-- Color coding based on stash tab
-- Retroactive history that can reload trade windows, even for trades you recieved while the program was not running
-- Ignore items list
-- Customizable macro messages, icons, and overlay position
-- Update checker to inform you when a new version is available
+# Ignore Items
+Sick of the spam? Ignore specific items or generic terms.<br>
 
-# Planned Features
-- Allow reordering of custom macros without the need to remake
-- Allow resizing of macro popup windows
-- Add color themes
-- Add optional price to ignored items
-- Improve UI
+# Chat Scanner
+The chat scanner allows you to search for custom phrases. These popups appear orange.<br>
+You can ignore terms and create multiple search presets in the options.<br>
+![](/src/main/resources/images/scanner-message.png)<br>
 
-# Known Issues
-- Korean characters display as boxes. This is purely visual, as all macros still work correctly.
-- Messages from players in certain regions do not appear in the client.txt file and thus cannot be parsed. This cannot be fixed without a change from GGG.
+# Customization
+All macro types come with inbuilt macros, but also allow you to add your own with custom response text.<br>
+
+# History
+Easily restore any recent trade message with the history panel.<br>
+![](/src/main/resources/images/history.png)<br>
+ 
