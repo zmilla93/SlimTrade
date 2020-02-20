@@ -24,4 +24,5 @@ SlimTrade is a macro overlay program for Path of Exile, and is complient with th
 - Improve UI
 
 # Known Issues
-- Korean characters display as boxes. Macros still work correctly
+- Korean characters display as boxes. This is purely visual, as all macros still work correctly.
+- Messages from players in certain regions do not appear in the client.txt file and thus cannot be parsed. This cannot be fixed without a change from GGG.
