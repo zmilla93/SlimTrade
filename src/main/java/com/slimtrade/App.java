@@ -18,6 +18,7 @@ import com.slimtrade.gui.components.TrayButton;
 import com.slimtrade.gui.dialogs.LoadingDialog;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.setup.SetupWindow;
+import com.slimtrade.gui.windows.UpdateDialog;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
@@ -42,6 +43,7 @@ public class App {
 	public static LoadingDialog loadingDialog;
 
 	public static boolean debugMode = false;
+	public static boolean checkUpdateOnLaunch = true;
 
     @SuppressWarnings("unused")
 	public static void main(String[] args) {
@@ -51,6 +53,11 @@ public class App {
 				switch (s){
 					case "debug":
 						debugMode = true;
+						break;
+				}
+				switch (s){
+					case "noupdate":
+						checkUpdateOnLaunch = false;
 						break;
 				}
 			}
@@ -131,17 +138,26 @@ public class App {
 
 	public static void launch() {
     	if(SetupManager.isSetupRequired()) {
+    		// Setup
     		FrameManager.setupWindow = new SetupWindow();
     		FrameManager.windowState = WindowState.SETUP;
 			FrameManager.setupWindow.setVisible(true);
 		} else {
+    		// Launch
 			FrameManager.windowState = WindowState.NORMAL;
 			fileMonitor = new FileMonitor();
 			fileMonitor.startMonitor();
 			chatParser.init();
-//			FrameManager.menubar.setShow(true);
 			FrameManager.menubarToggle.setShow(true);
 			FrameManager.trayButton = new TrayButton();
+			// Check for update
+			if(checkUpdateOnLaunch) {
+				updateChecker.checkForUpdates();
+				if(updateChecker.isUpdateAvailable()) {
+					UpdateDialog updateDialog = new UpdateDialog();
+					updateDialog.setVisible(true);
+				}
+			}
 		}
 	}
 

@@ -14,6 +14,7 @@ import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
+import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +25,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
     private static final long serialVersionUID = 1L;
 
-    private JTextField characterInput = new CustomTextField();
+    private JTextField characterInput = new LimitTextField(32);
     private JCheckBox guildCheckbox = new CustomCheckbox();
     private JCheckBox kickCheckbox = new CustomCheckbox();
     private JCheckBox quickPasteCheckbox = new CustomCheckbox();

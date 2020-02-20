@@ -1,4 +1,4 @@
-package com.slimtrade.gui.components;
+package com.slimtrade.gui.basic;
 
 import com.slimtrade.gui.basic.CustomScrollBarUI;
 

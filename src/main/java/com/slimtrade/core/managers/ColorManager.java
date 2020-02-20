@@ -14,11 +14,6 @@ public class ColorManager {
     private static ColorTheme currentColorTheme;
 
     // Mutual Colors
-//	public static Color PRIMARY = new Color(255,204,0); 						// MAIN COLORS
-//	public static Color PRIMARY = new Color(208, 255, 194); 						// MAIN COLORS
-//	public static Color PRIMARY = new Color(224, 239, 255); 						// MAIN COLORS
-//	public static Color PRIMARY = new Color(240, 235, 225); 						// MAIN COLORS
-//    public static Color PRIMARY = new Color(224, 136, 57);                        // MAIN COLORS
 //    public static Color PRIMARY = new Color(224, 136, 57);                        // MAIN COLORS
 //    public static Color PRIMARY = new Color(227, 255, 212);                        // MAIN COLORS
 //    public static Color PRIMARY = new Color(196, 183, 215); //Purp
@@ -57,7 +52,7 @@ public class ColorManager {
     // TODO : Remove clear as it causes massive drawing issues!
     //TODO : Check uses of clear
     public static Color CLEAR = new Color(0, 0, 0, 0);
-//    public static Color CLEAR_CLICKABLE = new Color(1.0f, 1.0f, 1.0f, 0.002f);
+    //    public static Color CLEAR_CLICKABLE = new Color(1.0f, 1.0f, 1.0f, 0.002f);
     public static Color POE_TEXT_DARK = new Color(53, 28, 13);
     public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
 

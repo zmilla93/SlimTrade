@@ -1,4 +1,4 @@
-package com.slimtrade.gui;
+package com.slimtrade.gui.dialogs;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import com.slimtrade.App;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
@@ -68,6 +69,7 @@ public class IgnoreItemWindow extends AbstractResizableWindow implements IColora
 		innerContainer.add(buttonPanel, gc);
 		
 		container.add(innerPanel);
+		this.updateColor();
 		
 		cancelButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -100,7 +102,7 @@ public class IgnoreItemWindow extends AbstractResizableWindow implements IColora
 
 	@Override
 	public void updateColor() {
-		
+		super.updateColor();
 	}
 
 	

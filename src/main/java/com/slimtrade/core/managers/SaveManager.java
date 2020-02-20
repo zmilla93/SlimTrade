@@ -190,7 +190,7 @@ public class SaveManager {
             return;
         } catch (IOException e2) {
             scannerSaveFile = new ScannerSaveFile();
-//            saveScannerToDisk();
+            saveScannerToDisk();
 //            System.out.println("Creating new save file.");
             return;
         }
