@@ -1,70 +1,82 @@
 package com.slimtrade.gui.windows;
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import com.slimtrade.App;
+import com.slimtrade.core.References;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.buttons.ConfirmButton;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+public class UpdateDialog extends JFrame {
 
-import com.slimtrade.App;
-import com.slimtrade.core.References;
-import com.slimtrade.core.utility.UpdateChecker;
-import com.slimtrade.core.utility.VersionNumber;
-import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.panels.BufferPanel;
-import com.slimtrade.gui.panels.ContainerPanel;
+    private JPanel borderPanel = new JPanel(FrameManager.gridBag);
+    private JPanel container = new JPanel(FrameManager.gridBag);
+    private JButton viewUpdateButton = new ConfirmButton("View on Github");
 
-public class UpdateDialog extends JDialog {
+    private JLabel info1 = new JLabel("Update Available!");
+    private JLabel info2 = new JLabel("Currently Running: " + References.APP_VERSION);
+    private JLabel info3 = new JLabel("Latest Version: " + App.updateChecker.getLatestRelease());
 
-	private static final long serialVersionUID = 1L;
-	private JButton viewUpdateButton = new JButton("View on Github");
+    private final int BUFFER = 30;
 
-	public UpdateDialog(){
-		this.setTitle("SlimTrade - Update");
-		VersionNumber newVersion = App.updateChecker.getLatestRelease();
-//		if(App.updateChecker.isAllowPreReleases() && App.updateChecker.isNewPreReleaseAvailable()) {
-//		    newVersion = App.updateChecker.getLatestPreRelease();
-//        } else {
-//            newVersion = App.updateChecker.getLatestRelease();
-//        }
-		viewUpdateButton.setFocusable(false);
-		ContainerPanel containerPanel = new ContainerPanel();
-		JPanel container = containerPanel.container;
-		this.getContentPane().add(containerPanel);
-		
-		container.setLayout(new GridBagLayout());
-		GridBagConstraints gc = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 0;
-		
-		JLabel info1 = new JLabel("New version available!");
-		JLabel info2 = new JLabel("Currently Running: " + References.APP_VERSION);
-		JLabel info3 = new JLabel("Latest Version: " + App.updateChecker.getLatestRelease());
-		
-		int bufferY = 10;
-		container.add(info1, gc);
-		gc.gridy++;
-		container.add(new BufferPanel(0, bufferY), gc);
-		gc.gridy++;
-		container.add(info2, gc);
-		gc.gridy++;
-		container.add(new BufferPanel(0, bufferY), gc);
-		gc.gridy++;
-		container.add(info3, gc);
-		gc.gridy++;
-		container.add(new BufferPanel(0, 20), gc);
-		gc.gridy++;
-		container.add(viewUpdateButton, gc);
+    public UpdateDialog() {
 
-		viewUpdateButton.addActionListener(e -> {
+        this.setTitle(References.APP_NAME + " - Update");
+        this.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("icons/default/tagx64.png")).getImage());
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+
+        // Container
+        gc.insets.bottom = 15;
+        container.add(info1, gc);
+        gc.gridy++;
+        gc.insets.bottom = 5;
+        container.add(info2, gc);
+        gc.gridy++;
+        gc.insets.bottom = 20;
+        container.add(info3, gc);
+        gc.gridy++;
+        gc.insets.bottom = 0;
+        container.add(viewUpdateButton, gc);
+
+        // Border Panel
+        gc.gridy = 0;
+        gc.insets = new Insets(BUFFER, BUFFER, BUFFER, BUFFER);
+//        this.getContentPane().setLayout(FrameManager.gridBag);
+        borderPanel.add(container, gc);
+
+        // Content Pane
+        gc.insets = new Insets(0, 0, 0, 0);
+        this.getContentPane().setLayout(new BorderLayout());
+        this.getContentPane().add(borderPanel, BorderLayout.CENTER);
+        this.getContentPane().add(Box.createVerticalStrut(BUFFER), BorderLayout.NORTH);
+        this.getContentPane().add(Box.createVerticalStrut(BUFFER), BorderLayout.SOUTH);
+        this.getContentPane().add(Box.createHorizontalStrut(BUFFER), BorderLayout.EAST);
+        this.getContentPane().add(Box.createHorizontalStrut(BUFFER), BorderLayout.WEST);
+
+        // Colors
+        this.getContentPane().setBackground(ColorManager.BACKGROUND);
+        container.setBackground(ColorManager.LOW_CONTRAST_1);
+        borderPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+        borderPanel.setBorder(ColorManager.BORDER_TEXT);
+
+        // Finish
+        this.pack();
+        this.setMinimumSize(this.getSize());
+        this.setSize(getWidth() + 60, getHeight() + 20);
+        this.setAlwaysOnTop(true);
+        FrameManager.centerFrame(this);
+
+        // Listener
+        viewUpdateButton.addActionListener(e -> {
             try {
                 URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
                 Desktop.getDesktop().browse(uri);
@@ -72,12 +84,7 @@ public class UpdateDialog extends JDialog {
                 err.printStackTrace();
             }
         });
-		
-		this.setAlwaysOnTop(true);
-		this.toFront();
-		this.setPreferredSize(new Dimension(400, 200));
-		this.pack();
-		FrameManager.centerFrame(this);
-	}
-	
+
+    }
+
 }

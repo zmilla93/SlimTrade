@@ -4,6 +4,7 @@ import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
+import com.slimtrade.gui.dialogs.IgnoreItemWindow;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.history.HistoryWindow;
 import com.slimtrade.gui.menubar.MenubarDialog;
@@ -38,8 +39,7 @@ public class FrameManager {
     public static StashWindow stashOverlayWindow;
     public static OverlayManager overlayManager;
     public static ChatScannerWindow chatScannerWindow;
-
-    private static TrayButton tray;
+    public static TrayButton trayButton;
 
     //Ignore Items
     public static IgnoreItemWindow ignoreItemWindow;
@@ -96,7 +96,7 @@ public class FrameManager {
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow};
 
 
-        tray = new TrayButton();
+//        trayButton = new TrayButton();
     }
 
     public static void hideMenuFrames() {

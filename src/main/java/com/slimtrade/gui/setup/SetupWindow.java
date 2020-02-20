@@ -82,7 +82,7 @@ public class SetupWindow extends JFrame {
 
 //        innerPanel.setBackground(Color.ORANGE);
 
-        this.setMinimumSize(new Dimension(550, 250));
+        this.setMinimumSize(new Dimension(600, 300));
 //        this.revalidate();
 //        this.repaint();
         FrameManager.centerFrame(this);
@@ -150,8 +150,6 @@ public class SetupWindow extends JFrame {
                 this.dispose();
                 App.launch();
                 FrameManager.showTutorialWindow();
-//
-
             }
         });
     }

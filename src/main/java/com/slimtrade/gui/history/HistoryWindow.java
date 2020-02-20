@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -13,11 +12,9 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.DateStyle;
-import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomScrollBarUI;
-import com.slimtrade.gui.components.CustomScrollPane;
+import com.slimtrade.gui.basic.CustomScrollPane;
 import com.slimtrade.gui.options.ListButton;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.basic.AbstractResizableWindow;

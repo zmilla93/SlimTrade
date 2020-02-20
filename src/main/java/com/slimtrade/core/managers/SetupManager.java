@@ -6,10 +6,7 @@ import java.io.File;
 
 public class SetupManager {
 
-    public volatile boolean setupRunning = false;
-
     public static boolean clientSetupCheck = false;
-    public static int clientCount = 0;
     public static boolean characterNameCheck = false;
     public static boolean stashOverlayCheck = false;
 

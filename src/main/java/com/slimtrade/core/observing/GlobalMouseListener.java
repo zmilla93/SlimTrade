@@ -1,19 +1,14 @@
 package com.slimtrade.core.observing;
 
 import com.slimtrade.App;
+import com.slimtrade.core.References;
+import com.slimtrade.core.utility.User32Custom;
 import com.slimtrade.enums.WindowType;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.core.References;
-import com.slimtrade.gui.enums.WindowState;
-import org.jnativehook.mouse.NativeMouseEvent;
-import org.jnativehook.mouse.NativeMouseInputListener;
-
 import com.sun.jna.Native;
 import com.sun.jna.PointerType;
-
-import com.slimtrade.core.utility.User32Custom;
-
-import java.awt.*;
+import org.jnativehook.mouse.NativeMouseEvent;
+import org.jnativehook.mouse.NativeMouseInputListener;
 
 public class GlobalMouseListener implements NativeMouseInputListener {
 
@@ -44,7 +39,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         } while (true);
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
-//        System.out.println("window : " +  curWindowTitle);
+//        System.out.println("win:" + curWindowTitle);
         if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.debugMode) {
             switch (FrameManager.windowState) {
                 case NORMAL:

@@ -5,6 +5,7 @@ import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.setup.SetupWindow;
+import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,7 @@ public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidat
     private JLabel info2 = new JLabel("Be sure to update it when creating a new character.");
     private JLabel nameLabel = new JLabel("Character Name");
 
-    private JTextField nameInput = new CustomTextField();
+    private JTextField nameInput = new LimitTextField(32);
 
     public CharacterPanel() {
 
