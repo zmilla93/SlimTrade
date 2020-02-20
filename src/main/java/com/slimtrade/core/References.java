@@ -9,6 +9,4 @@ public class References {
 
 	public static final int DEFAULT_IMAGE_SIZE = 18;
 
-
-	
 }
