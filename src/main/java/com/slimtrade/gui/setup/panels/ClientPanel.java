@@ -47,7 +47,6 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
         gc.gridx = 0;
 
         // Multi Path Panel
-        System.out.println("LENGGGG" + App.saveManager.clientPaths.size());
         if(App.saveManager.clientPaths.size() > 1) {
             for(String s : App.saveManager.clientPaths) {
                 gc.insets.bottom = 5;

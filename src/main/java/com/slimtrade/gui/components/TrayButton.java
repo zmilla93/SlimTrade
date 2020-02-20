@@ -15,21 +15,26 @@ import com.slimtrade.gui.enums.WindowState;
 
 public class TrayButton {
 
+    private final SystemTray tray = SystemTray.getSystemTray();
+    private final TrayIcon trayIcon = new TrayIcon(PreloadedImage.TAG.getImage());
+    private final PopupMenu popup = new PopupMenu();
+
+    private final MenuItem historyButton = new MenuItem("History");
+    private final MenuItem chatScannerButton = new MenuItem("Chat Scanner");
+    private final MenuItem optionsButton = new MenuItem("Options");
+    private final MenuItem resetUIButton = new MenuItem("Reset UI to Defaults");
+    private final MenuItem exitButton = new MenuItem("Exit " + References.APP_NAME);
+
     public TrayButton() {
 
         if (!SystemTray.isSupported()) {
             return;
         }
 
-        final SystemTray tray = SystemTray.getSystemTray();
-        final TrayIcon trayIcon = new TrayIcon(PreloadedImage.TAG.getImage());
-        final PopupMenu popup = new PopupMenu();
-
-        final MenuItem optionsButton = new MenuItem("Options");
-        final MenuItem resetUIButton = new MenuItem("Reset UI to Defaults");
-        final MenuItem exitButton = new MenuItem("Exit " + References.APP_NAME);
-
+        popup.add(historyButton);
+        popup.add(chatScannerButton);
         popup.add(optionsButton);
+        popup.addSeparator();
         popup.add(resetUIButton);
         popup.addSeparator();
         popup.add(exitButton);
@@ -48,6 +53,20 @@ public class TrayButton {
             FrameManager.centerFrame(FrameManager.historyWindow);
             FrameManager.centerFrame(FrameManager.chatScannerWindow);
             App.saveManager.saveOverlayToDisk();
+        });
+
+        historyButton.addActionListener(e -> {
+            FrameManager.centerFrame(FrameManager.historyWindow);
+            FrameManager.hideMenuFrames();
+            FrameManager.windowState = WindowState.NORMAL;
+            FrameManager.historyWindow.setShow(true);
+        });
+
+        chatScannerButton.addActionListener(e -> {
+            FrameManager.centerFrame(FrameManager.chatScannerWindow);
+            FrameManager.hideMenuFrames();
+            FrameManager.windowState = WindowState.NORMAL;
+            FrameManager.chatScannerWindow.setShow(true);
         });
 
         optionsButton.addActionListener(e -> {

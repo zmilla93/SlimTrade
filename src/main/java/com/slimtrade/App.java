@@ -14,6 +14,7 @@ import com.slimtrade.core.utility.UpdateChecker;
 import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.components.TrayButton;
 import com.slimtrade.gui.dialogs.LoadingDialog;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.setup.SetupWindow;
@@ -122,12 +123,9 @@ public class App {
 				closeProgram();
 			}
 		}));
-
 		loadingDialog.dispose();
-        System.out.println("SlimTrade launched!\n");
-
         App.launch();
-
+		System.out.println("SlimTrade launched!");
 	}
 
 
@@ -143,6 +141,7 @@ public class App {
 			chatParser.init();
 //			FrameManager.menubar.setShow(true);
 			FrameManager.menubarToggle.setShow(true);
+			FrameManager.trayButton = new TrayButton();
 		}
 	}
 

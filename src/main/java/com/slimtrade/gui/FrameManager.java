@@ -38,8 +38,7 @@ public class FrameManager {
     public static StashWindow stashOverlayWindow;
     public static OverlayManager overlayManager;
     public static ChatScannerWindow chatScannerWindow;
-
-    private static TrayButton tray;
+    public static TrayButton trayButton;
 
     //Ignore Items
     public static IgnoreItemWindow ignoreItemWindow;
@@ -96,7 +95,7 @@ public class FrameManager {
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow};
 
 
-        tray = new TrayButton();
+//        trayButton = new TrayButton();
     }
 
     public static void hideMenuFrames() {
