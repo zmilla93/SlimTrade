@@ -1,18 +1,14 @@
 package com.slimtrade.core.managers;
 
-import com.google.gson.*;
-import com.slimtrade.App;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.slimtrade.core.SaveSystem.OverlaySaveFile;
 import com.slimtrade.core.SaveSystem.SaveFile;
 import com.slimtrade.core.SaveSystem.ScannerSaveFile;
 import com.slimtrade.core.SaveSystem.StashSaveFile;
-import com.slimtrade.gui.scanner.ScannerMessage;
 
 import java.io.*;
-import java.lang.reflect.Type;
-import java.time.*;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class SaveManager {
 
@@ -26,6 +22,8 @@ public class SaveManager {
     public StashSaveFile stashSaveFile = new StashSaveFile();
     public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
     public ScannerSaveFile scannerSaveFile = new ScannerSaveFile();
+
+    public ArrayList<String> clientPaths = new ArrayList<>();
 
     //Internal
     private final String folderWin = "SlimTrade";
@@ -42,6 +40,9 @@ public class SaveManager {
     private BufferedReader br;
     private FileWriter fw;
     private Gson gson;
+
+    // TODO : OPTIMIZE :    Combine all saving and loading functions into one using wildcars?
+    // TODO :               Also need to add file.exists() check to avoid try/catch
 
     public SaveManager() {
 
@@ -86,9 +87,10 @@ public class SaveManager {
             System.out.println("Corrupted save file!");
             return;
         } catch (IOException e2) {
+//            System.out.println("Creating new save file.");
             saveFile = new SaveFile();
             validateClientPath();
-            System.out.println("IO Error with save file!");
+
             return;
         }
         validateClientPath();
@@ -122,7 +124,7 @@ public class SaveManager {
             return;
         } catch (IOException e2) {
             stashSaveFile = new StashSaveFile();
-            System.out.println("IO Error with save file!");
+//            System.out.println("Creating new save file.");
             return;
         }
     }
@@ -155,7 +157,7 @@ public class SaveManager {
             return;
         } catch (IOException e2) {
             overlaySaveFile = new OverlaySaveFile();
-            System.out.println("IO Error with save file!");
+//            System.out.println("Creating new save file.");
             return;
         }
     }
@@ -188,8 +190,8 @@ public class SaveManager {
             return;
         } catch (IOException e2) {
             scannerSaveFile = new ScannerSaveFile();
-            saveScannerToDisk();
-//            System.out.println("IO Error with save file!");
+//            saveScannerToDisk();
+//            System.out.println("Creating new save file.");
             return;
         }
     }
@@ -221,23 +223,20 @@ public class SaveManager {
         stubs.add(":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
         stubs.add(":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
         stubs.add(":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+        clientPaths.clear();
         for (String drive : commonDrives) {
             for(String stub : stubs) {
                 File clientFile = new File(drive + stub);
                 if (clientFile.exists() && clientFile.isFile()) {
-                    saveFile.clientPath = drive + stub;
+//                    System.out.println("Found : " + drive + stub);
+                    clientPaths.add(drive + stub);
                     clientCount++;
                 }
             }
-
         }
-//        for (String drive : commonDrives) {
-//            File clientFile = new File(drive + clientStandAloneStub);
-//            if (clientFile.exists() && clientFile.isFile()) {
-//                saveFile.clientPath = drive + clientStandAloneStub;
-//                clientCount++;
-//            }
-//        }
+        if(clientCount == 1) {
+            saveFile.clientPath = clientPaths.get(0);
+        }
         return clientCount;
     }
 

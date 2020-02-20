@@ -48,7 +48,6 @@ public class SaveFile {
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
     public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
 
-
     public static int dateDifference(Date d1, Date d2) {
         try {
             long diff = d2.getTime() - d1.getTime();
