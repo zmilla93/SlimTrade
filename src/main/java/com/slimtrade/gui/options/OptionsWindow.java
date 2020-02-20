@@ -66,14 +66,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         menuBorder.add(menuPanel, BorderLayout.NORTH);
         menuBorder.add(menuPanelLower, BorderLayout.SOUTH);
 
-//		scrollDisplay = new CustomScrollPane(display);
         scrollDisplay = new CustomScrollPane(display);
         scrollDisplay.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//		scrollDisplay.getVerticalScrollBar().setUI(new CustomScrollBarUI(scrollDisplay.getVerticalScrollBar()));
-//        scrollDisplay.getVerticalScrollBar().setUnitIncrement(CustomScrollBarUI.DEFAULT_SCROLL_SPEED);
-//        scrollDisplay.getHorizontalScrollBar().setUI(new CustomScrollBarUI(scrollDisplay.getVerticalScrollBar()));
-//        scrollDisplay.getHorizontalScrollBar().setUnitIncrement(14);
-//        scrollDisplay.setHorizontalScrollBarPolicy(JScrollBar.);
         display.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -188,7 +182,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 		App.eventManager.addColorListener(this);
 
         checkUpdateButton.addActionListener(e -> {
-            //TODO : allowPrerelease
             if (App.updateChecker.isUpdateAvailable()) {
                 //UPDATE
                 try {
@@ -249,10 +242,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
     }
 
-    // TODO : Make on press down?
-    // switch type to list button for less casting
     private void link(JButton b, JPanel p) {
-        OptionsWindow local = this;
         b.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
                 ListButton lb;
@@ -265,8 +255,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 hideAllWindows();
                 p.setVisible(true);
                 menuPanel.repaint();
-                // lb.repaint();
-//				local.repaint();
             }
         });
     }
@@ -290,8 +278,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         super.updateColor();
         container.setBackground(ColorManager.BACKGROUND);
         display.setBackground(ColorManager.BACKGROUND);
-//        pullRight.setBackground(AbstractResizableWindow.pullbarColor);
-//        pullBottom.setBackground(AbstractResizableWindow.pullbarColor);
     }
 
     private void recolorUpdateButton() {

@@ -35,7 +35,6 @@ public class UpdateChecker {
 	}
 
 	public void checkForUpdates(boolean allowPreReleases) {
-//	    boolean updateAvailable = false;
 	    VersionNumber appVersion = new VersionNumber(References.APP_VERSION);
         currentVersion = appVersion;
         latestVersion = appVersion;
@@ -81,45 +80,9 @@ public class UpdateChecker {
     public VersionNumber getLatestRelease(){
         return latestVersion;
     }
-//
-//    public VersionNumber getLatestPreRelease(){
-//        return latestPreRelease;
-//    }
-
-//    public boolean isNewReleaseAvailable() {
-//        if(VersionNumber.isNewVersion(currentVersion, latestRelease)) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean isNewPreReleaseAvailable() {
-//        if(VersionNumber.isNewVersion(currentVersion, latestPreRelease)) {
-//            return true;
-//        }
-//        return false;
-//    }
-
-//    public boolean isAllowPreReleases(){
-//	    return this.allowPreReleases;
-//    }
-//
-//    public void setLatestRelease(VersionNumber version) {
-//	    latestRelease = version;
-//    }
-//    public void setLatestPreRelease(VersionNumber version) {
-//	    latestPreRelease = version;
-//    }
 
     public boolean isUpdateAvailable() {
 	    return updateAvailable;
     }
-
-//    public VersionNumber getNewestVersion() {
-//	    if(this.allowPreReleases && VersionNumber.isNewVersion(this.getLatestRelease(), this.getLatestPreRelease())){
-//	        return this.getLatestPreRelease();
-//        }
-//        return this.getLatestRelease();
-//    }
 
 }

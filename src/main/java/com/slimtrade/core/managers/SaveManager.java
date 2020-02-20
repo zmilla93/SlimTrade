@@ -11,6 +11,8 @@ import com.slimtrade.gui.scanner.ScannerMessage;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class SaveManager {
 
@@ -62,19 +64,8 @@ public class SaveManager {
             validSavePath = true;
         }
 
-        // Gson instance with added support for LocalDateTime
-        gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
-            @Override
-            public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-                Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
-//                return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-                return ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()).toLocalDateTime();
-            }
-        }).create();
-//        System.out.println("Save Directory : " + saveDirectory);
-//        System.out.println("Save path : " + savePath);
-//        loadFromDisk();
-//        saveToDisk();
+        gson = new Gson();
+
     }
 
     public void loadFromDisk() {
@@ -223,24 +214,30 @@ public class SaveManager {
             }
         }
         String[] commonDrives = {"C", "D", "E", "F"};
-        String clientSteamStub = ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt";
-        String clientStandAloneStub = ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
+        ArrayList<String> stubs = new ArrayList<>();
+        stubs.add(":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+        stubs.add(":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+        stubs.add(":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
+        stubs.add(":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
+        stubs.add(":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+        stubs.add(":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
         for (String drive : commonDrives) {
-            File clientFile = new File(drive + clientSteamStub);
-            if (clientFile.exists() && clientFile.isFile()) {
-                saveFile.clientPath = drive + clientSteamStub;
-                clientCount++;
-                App.debugger.log("Valid client path found on " + drive + " drive. (Steam)");
+            for(String stub : stubs) {
+                File clientFile = new File(drive + stub);
+                if (clientFile.exists() && clientFile.isFile()) {
+                    saveFile.clientPath = drive + stub;
+                    clientCount++;
+                }
             }
+
         }
-        for (String drive : commonDrives) {
-            File clientFile = new File(drive + clientStandAloneStub);
-            if (clientFile.exists() && clientFile.isFile()) {
-                saveFile.clientPath = drive + clientStandAloneStub;
-                clientCount++;
-                App.debugger.log("Valid client path found on " + drive + " drive. (Stand Alone)");
-            }
-        }
+//        for (String drive : commonDrives) {
+//            File clientFile = new File(drive + clientStandAloneStub);
+//            if (clientFile.exists() && clientFile.isFile()) {
+//                saveFile.clientPath = drive + clientStandAloneStub;
+//                clientCount++;
+//            }
+//        }
         return clientCount;
     }
 

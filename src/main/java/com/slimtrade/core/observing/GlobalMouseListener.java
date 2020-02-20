@@ -22,10 +22,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
     }
 
-    //TODO : This throws an error if mouse is clicked during loading
     public void nativeMousePressed(NativeMouseEvent e) {
-//		new Thread(refreshRunner).start();
-
         try {
             Thread.sleep(1);
         } catch (InterruptedException e1) {
@@ -47,47 +44,30 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         } while (true);
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
-
-//        System.out.println("Click : " +  click);
-//        click++;
 //        System.out.println("window : " +  curWindowTitle);
-//        System.out.println("STATE : " + FrameManager.windowState);
-//		if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || curWindowTitle.startsWith(References.APP_NAME) || App.debugMode) {
-//            FrameManager.showVisibleFrames();
-//			FrameManager.forceAllToTop();
-//		}else{
-//		    FrameManager.hideAllFrames();
-//        }
-        // TODO : CLEAN UP
-
-        if (curWindowTitle.equals(References.POE_WINDOW_TITLE)
-                || App.debugMode) {
-            if (FrameManager.windowState == WindowState.NORMAL) {
-//                System.out.println("P1");
-                FrameManager.showVisibleFrames();
-//                System.out.println("P2");
-                FrameManager.forceAllToTop();
-//                System.out.println("P3");
-            } else if (FrameManager.windowState == WindowState.LAYOUT_MANAGER) {
-                FrameManager.overlayManager.showAll();
-                FrameManager.overlayManager.allToFront();
-            } else if (FrameManager.windowState == WindowState.STASH_OVERLAY) {
-                FrameManager.stashOverlayWindow.setVisible(true);
-                FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
-                FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
+        if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.debugMode) {
+            switch (FrameManager.windowState) {
+                case NORMAL:
+                    FrameManager.showVisibleFrames();
+                    FrameManager.forceAllToTop();
+                    break;
+                case LAYOUT_MANAGER:
+                    FrameManager.overlayManager.showAll();
+                    FrameManager.overlayManager.allToFront();
+                    break;
+                case STASH_OVERLAY:
+                    FrameManager.stashOverlayWindow.setVisible(true);
+                    FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
+                    FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
+                    break;
             }
         } else if (curWindowTitle.equals("Open") || curWindowTitle.equals(References.APP_NAME + " - Options") || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")) {
-//            FrameManager.optionsWindow.setAlwaysOnTop(false);
-//            FrameManager.optionsWindow.setAlwaysOnTop(true);
             FrameManager.showVisibleFrames();
             FrameManager.forceAllToTop();
         } else {
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideAll();
-//            FrameManager.stashOverlayWindow.setVisible(false);
-//            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
         }
-
 
     }
 

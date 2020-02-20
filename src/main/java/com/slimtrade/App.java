@@ -1,15 +1,8 @@
 package com.slimtrade;
 
-import java.awt.AWTException;
-import java.awt.Frame;
-import java.util.Date;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.*;
-
-import com.slimtrade.core.managers.*;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.managers.SetupManager;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.observing.MacroEventManager;
@@ -21,17 +14,20 @@ import com.slimtrade.core.utility.UpdateChecker;
 import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.dialogs.LoadingDialog;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.setup.SetupWindow;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
-import com.slimtrade.gui.dialogs.LoadingDialog;
-import com.slimtrade.gui.windows.UpdateDialog;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class App {
-	
-	// TODO : move to invoke later?
+
 	public static Debugger debugger;
 	public static FrameManager frameManager;
 	public static MacroEventManager macroEventManager = new MacroEventManager();
@@ -43,14 +39,11 @@ public class App {
 	public static UpdateChecker updateChecker;
 	public static GlobalKeyboardListener globalKeyboard;
 	public static LoadingDialog loadingDialog;
-//	public static ColorManager colorManager = new ColorManager();
-//	public static SaveFile saveFile = new SaveFile();
 
 	public static boolean debugMode = false;
 
     @SuppressWarnings("unused")
 	public static void main(String[] args) {
-        Date date = new Date();
 		// Command line args
 		if(args.length>0){
 			for(String s : args){
@@ -68,8 +61,6 @@ public class App {
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
 		logger.setLevel(Level.WARNING);
 		logger.setUseParentHandlers(false);
-
-//		Runtime.getRuntime().traceMethodCalls(true);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -120,8 +111,6 @@ public class App {
 //                    UpdateDialog d = new UpdateDialog();
 //                    d.setVisible(true);
 //                }
-
-                // Setup
 
 
 			}

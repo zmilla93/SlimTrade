@@ -29,15 +29,6 @@ public class StashPanel extends AbstractSetupPanel implements ISetupValidator {
         gc.gridy = 0;
 
         editButton.addActionListener(e -> {
-
-            ////
-//            FrameManager.windowState = WindowState.STASH_OVERLAY;
-//            FrameManager.hideAllFrames();
-//            FrameManager.stashOverlayWindow.setShow(true);
-//            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
-//            FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
-            ////
-
             FrameManager.setupWindow.setVisible(false);
             FrameManager.lastWindowState = WindowState.SETUP;
             FrameManager.windowState = WindowState.STASH_OVERLAY;
@@ -56,6 +47,6 @@ public class StashPanel extends AbstractSetupPanel implements ISetupValidator {
 
     @Override
     public void save() {
-        // Saving is already handled
+        // Saving is already handled elsewhere
     }
 }

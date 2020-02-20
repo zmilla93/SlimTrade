@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class MenuBarPanel extends AbstractTutorialPanel {
 
-    JLabel info1 = new JLabel("SlimTrade only appears when POE is focused, but can always be access from the system tray.");
+    JLabel info1 = new JLabel("SlimTrade only appears when POE is focused, but can always be accessed from the system tray.");
     JLabel info2 = new JLabel("Hover over the button in the upper left to start customizing!");
 
     public MenuBarPanel() {
