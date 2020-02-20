@@ -3,7 +3,7 @@ An overlay trade macro for Path of Exile<br>
 
 ## Setup
 - Ensure you have an up to date version of java: https://www.java.com/<br>
-- Download and run the latest version: https://github.com/zmilla93/SlimTrade/releases<br>
+- Download and run the latest version of 'SlimTrade.jar' : https://github.com/zmilla93/SlimTrade/releases<br>
 
 # Incoming & Outgoing Trades
 Popups are automatically created when trade messages are sent or receieved.<br>
