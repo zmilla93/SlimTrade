@@ -77,9 +77,6 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, IColorabl
 //		FrameManager.linkToggle(historyButton, historyPanel);
 //		FrameManager.linkToggle(audioButton, audioPanel);
 //		FrameManager.linkToggle(advancedButton, advancedPanel);
-//
-		App.eventManager.addColorListener(this);
-		this.updateColor();
 		
 	}
 

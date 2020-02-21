@@ -43,7 +43,6 @@ public class StashTabRow extends RemovablePanel implements IColorable {
         gc.gridy = 0;
 
         removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), ROW_HEIGHT);
-        App.eventManager.addColorListener(removeButton);
         this.setRemoveButton(removeButton);
 
         int stashTextWidth = 250;
@@ -82,8 +81,6 @@ public class StashTabRow extends RemovablePanel implements IColorable {
         this.add(typeCombo, gc);
         gc.gridx++;
         this.add(colorCombo, gc);
-        App.eventManager.addColorListener(this);
-        updateColor();
 
     }
 

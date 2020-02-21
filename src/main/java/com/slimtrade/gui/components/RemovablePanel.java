@@ -20,8 +20,6 @@ public class RemovablePanel extends JPanel implements IColorable {
 	
 	public RemovablePanel(AddRemovePanel parent){
 		this.parent = parent;
-        App.eventManager.addColorListener(this);
-        updateColor();
 	}
 	
 	//TODO : REMOVE THIS ADD DO ACTIONS LOCALLY

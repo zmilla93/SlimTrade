@@ -30,52 +30,63 @@ import java.util.logging.Logger;
 
 public class App {
 
-	public static Debugger debugger;
-	public static FrameManager frameManager;
-	public static MacroEventManager macroEventManager = new MacroEventManager();
-	public static EventManager eventManager = new EventManager();
-	public static SaveManager saveManager;
-	public static ChatParser chatParser = new ChatParser();
-	public static FileMonitor fileMonitor;
-	public static Logger logger = Logger.getLogger("slim");
-	public static UpdateChecker updateChecker;
-	public static GlobalKeyboardListener globalKeyboard;
-	public static LoadingDialog loadingDialog;
+    public static Debugger debugger;
+    public static FrameManager frameManager;
+    public static MacroEventManager macroEventManager = new MacroEventManager();
+    public static EventManager eventManager = new EventManager();
+    public static SaveManager saveManager;
+    public static ChatParser chatParser = new ChatParser();
+    public static FileMonitor fileMonitor;
+    public static Logger logger = Logger.getLogger("slim");
+    public static UpdateChecker updateChecker;
+    public static GlobalKeyboardListener globalKeyboard;
+    public static GlobalMouseListener globalMouse;
+    public static LoadingDialog loadingDialog;
 
-	public static boolean debugMode = false;
-	public static boolean checkUpdateOnLaunch = true;
+    // Flags
+    public static boolean checkUpdateOnLaunch = true;
+    public static boolean debugMode = false;
+    public static boolean forceUI = false;
+    public static boolean testFeatures = false;
 
-    @SuppressWarnings("unused")
-	public static void main(String[] args) {
-		// Command line args
-		if(args.length>0){
-			for(String s : args){
-				switch (s){
-					case "debug":
-						debugMode = true;
-						break;
-				}
-				switch (s){
-					case "noupdate":
-						checkUpdateOnLaunch = false;
-						break;
-				}
-			}
-		}
+    public static void main(String[] args) {
+        // Command line args
+        if (args.length > 0) {
+            for (String s : args) {
+                switch (s) {
+                    // Debug
+                    case "-d":
+                        debugMode = true;
+                        break;
+                    // No update check on launch
+                    case "-nu":
+                        checkUpdateOnLaunch = false;
+                        break;
+                    // Force the overlay to always be shown
+                    case "-ui":
+                        forceUI = true;
+                        break;
+                    // Force the overlay to always be shown
+                    case "-f":
+                        testFeatures = true;
+                        break;
+                }
+            }
+        }
 
 
-		//Loading Dialog
-		loadingDialog = new LoadingDialog();
-		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
-		logger.setLevel(Level.WARNING);
-		logger.setUseParentHandlers(false);
+        //Loading Dialog
+        loadingDialog = new LoadingDialog();
+        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+        logger.setLevel(Level.WARNING);
+        logger.setUseParentHandlers(false);
 
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				ColorManager.setTheme(ColorTheme.LIGHT_THEME);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ColorManager.setTheme(ColorTheme.LIGHT_THEME);
 
                 //Debug Mode
-                if(debugMode){
+                if (debugMode) {
                     debugger = new Debugger();
                     debugger.setState(Frame.ICONIFIED);
                 }
@@ -84,97 +95,97 @@ public class App {
                 updateChecker = new UpdateChecker();
 //                updateChecker.checkForUpdates();
 
-				
-				Locale.setDefault(Locale.US);
-				saveManager = new SaveManager();
-				saveManager.loadFromDisk();
-				saveManager.loadStashFromDisk();
-				saveManager.loadOverlayFromDisk();
 
-				// POE Interface
-				try {
-					PoeInterface poe = new PoeInterface();
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}
+                Locale.setDefault(Locale.US);
+                saveManager = new SaveManager();
+                saveManager.loadFromDisk();
+                saveManager.loadStashFromDisk();
+                saveManager.loadOverlayFromDisk();
 
-				// Frames
-				frameManager = new FrameManager();
-				eventManager.updateAllColors(ColorTheme.LIGHT_THEME);
-				
-				// JNativeHook Setup
-				try {
-					GlobalScreen.registerNativeHook();
-				} catch (NativeHookException e) {
-					e.printStackTrace();
-				}
-				GlobalMouseListener globalMouse = new GlobalMouseListener();
-				globalKeyboard = new GlobalKeyboardListener();
-				GlobalScreen.addNativeMouseListener(globalMouse);
-				GlobalScreen.addNativeKeyListener(globalKeyboard);
+                // POE Interface
+                try {
+                    PoeInterface poe = new PoeInterface();
+                } catch (AWTException e) {
+                    e.printStackTrace();
+                }
+
+                // Frames
+                frameManager = new FrameManager();
+                eventManager.updateAllColors(ColorTheme.LIGHT_THEME);
+
+                // JNativeHook Setup
+                try {
+                    GlobalScreen.registerNativeHook();
+                } catch (NativeHookException e) {
+                    e.printStackTrace();
+                }
+                globalMouse = new GlobalMouseListener();
+                globalKeyboard = new GlobalKeyboardListener();
+                GlobalScreen.addNativeMouseListener(globalMouse);
+                GlobalScreen.addNativeKeyListener(globalKeyboard);
 
 //				ClipboardManager clipboard = new ClipboardManager();
 
-				// Alert about new update
+                // Alert about new update
 //                if(updateChecker.isUpdateAvailable()){
 //                    UpdateDialog d = new UpdateDialog();
 //                    d.setVisible(true);
 //                }
 
 
-			}
-		});
+            }
+        });
 
 
-		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-			public void run() {
-				closeProgram();
-			}
-		}));
-		loadingDialog.dispose();
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                closeProgram();
+            }
+        }));
+        loadingDialog.dispose();
         App.launch();
-		System.out.println("SlimTrade launched!");
-	}
+        System.out.println("SlimTrade launched!");
+    }
 
 
-	public static void launch() {
-    	if(SetupManager.isSetupRequired()) {
-    		// Setup
-    		FrameManager.setupWindow = new SetupWindow();
-    		FrameManager.windowState = WindowState.SETUP;
-			FrameManager.setupWindow.setVisible(true);
-		} else {
-    		// Launch
-			FrameManager.windowState = WindowState.NORMAL;
-			fileMonitor = new FileMonitor();
-			fileMonitor.startMonitor();
-			chatParser.init();
-			FrameManager.menubarToggle.setShow(true);
-			FrameManager.trayButton = new TrayButton();
-			// Check for update
-			if(checkUpdateOnLaunch) {
-				updateChecker.checkForUpdates();
-				if(updateChecker.isUpdateAvailable()) {
-					UpdateDialog updateDialog = new UpdateDialog();
-					updateDialog.setVisible(true);
-				}
-			}
-		}
-	}
+    public static void launch() {
+        if (SetupManager.isSetupRequired()) {
+            // Setup
+            FrameManager.setupWindow = new SetupWindow();
+            FrameManager.windowState = WindowState.SETUP;
+            FrameManager.setupWindow.setVisible(true);
+        } else {
+            // Launch
+            FrameManager.windowState = WindowState.NORMAL;
+            fileMonitor = new FileMonitor();
+            fileMonitor.startMonitor();
+            chatParser.init();
+            FrameManager.menubarToggle.setShow(true);
+            FrameManager.trayButton = new TrayButton();
+            // Check for update
+            if (checkUpdateOnLaunch) {
+                updateChecker.checkForUpdates();
+                if (updateChecker.isUpdateAvailable()) {
+                    UpdateDialog updateDialog = new UpdateDialog();
+                    updateDialog.setVisible(true);
+                }
+            }
+        }
+    }
 
-	
-	private static void closeProgram() {
-		try {
-			GlobalScreen.unregisterNativeHook();
-		} catch (NativeHookException e) {
-			e.printStackTrace();
-		}
-		try{
-			fileMonitor.stopMonitor();
-		} catch(NullPointerException e) {
 
-		}
-		System.out.println("SlimTrade Terminated");
-	}
+    private static void closeProgram() {
+        try {
+            GlobalScreen.unregisterNativeHook();
+        } catch (NativeHookException e) {
+            e.printStackTrace();
+        }
+        try {
+            fileMonitor.stopMonitor();
+        } catch (NullPointerException e) {
+
+        }
+        System.out.println("SlimTrade Terminated");
+    }
 
 }

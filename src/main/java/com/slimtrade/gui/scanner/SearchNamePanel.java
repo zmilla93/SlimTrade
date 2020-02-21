@@ -109,13 +109,7 @@ public class SearchNamePanel extends JPanel implements IColorable {
         gc = new GridBagConstraints();
         gc.insets = new Insets(bufferOuter, bufferOuter, bufferOuter, bufferOuter);
         this.add(outerPanel, gc);
-
-
-
         namePanel.setBackground(ColorManager.CLEAR);
-
-        App.eventManager.addColorListener(this);
-        this.updateColor();
 
     }
 

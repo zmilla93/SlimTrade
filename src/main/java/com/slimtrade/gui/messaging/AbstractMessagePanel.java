@@ -21,10 +21,7 @@ import com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import com.slimtrade.core.observing.poe.PoeInteractionListener;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.basic.BasicTextPanel;
-import com.slimtrade.gui.basic.ColorPanel;
-import com.slimtrade.gui.basic.PaintedPanel;
-import com.slimtrade.gui.basic.PaintedTextPanel;
+import com.slimtrade.gui.basic.*;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.PreloadedImage;
 
@@ -98,7 +95,7 @@ public class AbstractMessagePanel extends ColorPanel {
 	});
 
 	public AbstractMessagePanel(TradeOffer trade) {
-		timerPanel.setLabel(new JLabel("0s"));
+		timerPanel.setLabel(new CustomLabel("0s"));
 		timerLabel = timerPanel.getLabel();
 		this.trade = trade;
 		this.setLayout(gb);

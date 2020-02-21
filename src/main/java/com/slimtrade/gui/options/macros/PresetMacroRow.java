@@ -95,8 +95,6 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		gc.gridy = 0;
 		this.setPreferredSize(null);
 		this.revalidate();
-        App.eventManager.addColorListener(this);
-        this.updateColor();
 	}
 
 

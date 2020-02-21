@@ -118,17 +118,12 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 			}
 		});
 
-
 		innerPanel.add(incomingScroll, BorderLayout.CENTER);
 		innerPanel.revalidate();
 		innerPanel.repaint();
 
-		App.eventManager.addColorListener(this);
-		this.updateColor();
-
 		this.pack();
 		FrameManager.centerFrame(this);
-
 	}
 
 	public void setDateStyle(DateStyle style) {

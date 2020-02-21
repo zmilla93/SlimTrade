@@ -42,7 +42,7 @@ public class ListButton extends JButton implements IColorable {
 		Dimension size = this.getPreferredSize();
 		size.height = 30;
 		this.setPreferredSize(size);
-		this.setBackground(colorInactive);
+		this.setBackground(ColorManager.LOW_CONTRAST_1);
 //		this.setBorder(borderInactive);
 
 		JButton local = this;
@@ -79,13 +79,13 @@ public class ListButton extends JButton implements IColorable {
 		
 		if(getModel().isPressed()) {
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
-			g.setColor(colorPressed);
+			g.setColor(ColorManager.BACKGROUND);
 		}else{
 			if (active) {
-				g.setColor(colorActive);
+				g.setColor(ColorManager.PRIMARY);
 				this.setBorder(borderDefault);
 			}else{
-				g.setColor(colorInactive);
+				g.setColor(ColorManager.LOW_CONTRAST_1);
 			}
 		}
 		if (getModel().isRollover()) {

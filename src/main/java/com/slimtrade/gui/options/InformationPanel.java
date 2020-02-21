@@ -84,11 +84,6 @@ public class InformationPanel extends ContainerPanel {
 		gc.insets.bottom = 0;
 		container.add(tutorialButton, gc);
 
-//		this.setBuffer(40, -1);
-//		this.autoResize();
-        App.eventManager.addColorListener(this);
-        updateColor();
-
 		tutorialButton.addActionListener(e -> {
 			FrameManager.optionsWindow.setVisible(false);
 			FrameManager.showTutorialWindow();

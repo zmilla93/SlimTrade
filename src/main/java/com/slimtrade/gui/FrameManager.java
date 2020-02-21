@@ -1,5 +1,6 @@
 package com.slimtrade.gui;
 
+import com.slimtrade.App;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
@@ -172,6 +173,7 @@ public class FrameManager {
     public static void showTutorialWindow() {
         if(tutorialWindow == null) {
             tutorialWindow = new TutorialWindow();
+            App.eventManager.recursiveColor(tutorialWindow);
         }
         tutorialWindow.setVisible(true);
         tutorialWindow.setAlwaysOnTop(true);

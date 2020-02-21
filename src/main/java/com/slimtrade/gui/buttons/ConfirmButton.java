@@ -2,6 +2,8 @@ package com.slimtrade.gui.buttons;
 
 import com.slimtrade.core.managers.ColorManager;
 
+import java.awt.*;
+
 public class ConfirmButton extends BasicButton {
 
 	private static final long serialVersionUID = 1L;
@@ -10,12 +12,12 @@ public class ConfirmButton extends BasicButton {
 		super(text);
 		primaryColor = ColorManager.GREEN_APPROVE;
 		secondaryColor = ColorManager.BACKGROUND;
-		this.updateColor();
 	}
-	
+
 	@Override
-	public void updateColor() {
-		super.updateColor();
+	protected void paintComponent(Graphics g) {
+		primaryColor = ColorManager.GREEN_APPROVE;
+		super.paintComponent(g);
 	}
 	
 }

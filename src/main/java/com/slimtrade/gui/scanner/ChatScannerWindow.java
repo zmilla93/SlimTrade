@@ -594,7 +594,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 //        gc.insets = new Insets(20, 20, 0, 20);
         if (sampleMessage != null) {
             containerPanel.container.remove(sampleMessage);
-            App.eventManager.removeColorListener(sampleMessage);
         }
         String searchName = "Search Name";
         if (selectedMessage != null) {

@@ -8,7 +8,6 @@ import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCheckbox;
 import com.slimtrade.gui.basic.CustomCombo;
-import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
@@ -18,8 +17,6 @@ import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable {
 
@@ -136,7 +133,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
         // Color Combo
         gc.insets.bottom = 5;
-        if(App.debugMode) {
+        if(App.testFeatures) {
             container.add(colorThemeLabel, gc);
             gc.gridx = 2;
 
@@ -178,9 +175,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
             }
         });
-
-        App.eventManager.addColorListener(this);
-        this.updateColor();
     }
 
     @Override
@@ -212,6 +206,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     @Override
     public void updateColor() {
         super.updateColor();
+        this.setBackground(ColorManager.BACKGROUND);
         characterLabel.setForeground(ColorManager.TEXT);
         guildLabel.setForeground(ColorManager.TEXT);
         kickLabel.setForeground(ColorManager.TEXT);

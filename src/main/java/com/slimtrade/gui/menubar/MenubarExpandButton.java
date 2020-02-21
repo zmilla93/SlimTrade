@@ -44,8 +44,6 @@ public class MenubarExpandButton extends BasicDialog implements IColorable {
             }
         });
 
-        App.eventManager.addColorListener(this);
-        this.updateColor();
     }
 
     public void updateLocation() {

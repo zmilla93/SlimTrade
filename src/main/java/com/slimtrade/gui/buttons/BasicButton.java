@@ -27,8 +27,8 @@ public class BasicButton extends JButton implements IColorable {
     private Border borderRollover;
     private Border borderDisabled;
 
-    public volatile Color primaryColor;
-    public volatile Color secondaryColor;
+    public Color primaryColor = ColorManager.PRIMARY;
+    public Color secondaryColor = ColorManager.BACKGROUND;
 
     private Border bufferBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
     private Border bufferBorderSlim = BorderFactory.createEmptyBorder(4, 14, 4, 14);
@@ -72,8 +72,6 @@ public class BasicButton extends JButton implements IColorable {
                 model.setPressed(false);
             }
         });
-        App.eventManager.addColorListener(this);
-        updateColor();
     }
 
     @Override
@@ -99,7 +97,7 @@ public class BasicButton extends JButton implements IColorable {
         } else if (model.isPressed() && !model.isRollover()) {
             g2.setPaint(ColorManager.LOW_CONTRAST_1);
         } else {
-            g2.setPaint(new GradientPaint(new Point(0, 0), ColorManager.BACKGROUND, new Point(0, getHeight()), curPrimary));
+            g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), curPrimary));
         }
         g2.fillRect(0, 0, getWidth(), getHeight());
         g2.dispose();
@@ -108,9 +106,9 @@ public class BasicButton extends JButton implements IColorable {
 
     @Override
     public void updateColor() {
+        primaryColor = ColorManager.PRIMARY;
+        secondaryColor = ColorManager.BUTTON_SECONDARY_COLOR;
         this.setForeground(ColorManager.TEXT);
-        primaryColor = primaryColor == null ? ColorManager.PRIMARY : primaryColor;
-        secondaryColor = secondaryColor == null ? ColorManager.BACKGROUND : secondaryColor;
         borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
         Border b1 = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_2), BorderFactory.createLineBorder(primaryColor));
         borderRollover = BorderFactory.createCompoundBorder(b1, bufferBorderSlim);

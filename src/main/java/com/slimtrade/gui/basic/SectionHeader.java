@@ -14,7 +14,6 @@ public class SectionHeader extends JPanel implements IColorable {
     private JLabel label;
 
     public SectionHeader(String title) {
-        App.eventManager.addColorListener(this);
         this.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -28,9 +27,7 @@ public class SectionHeader extends JPanel implements IColorable {
         gc.gridx = 0;
         gc.gridy++;
         this.add(Box.createHorizontalStrut(WIDTH), gc);
-
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
     }
 
     @Override

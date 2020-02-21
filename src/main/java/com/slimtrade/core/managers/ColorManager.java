@@ -43,7 +43,9 @@ public class ColorManager {
     public static Color PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
     public static Color MESSAGE_NAME_BG;
     public static Color MESSAGE_ITEM_BG;
+    public static Color BUTTON_SECONDARY_COLOR;
 
+    // BORDERS
     public static Border BORDER_PRIMARY;
     public static Border BORDER_TEXT;
     public static Border BORDER_LOW_CONTRAST_1;
@@ -67,6 +69,7 @@ public class ColorManager {
         switch (theme) {
             default:
             case LIGHT_THEME:
+                PRIMARY = new Color(215, 206, 169); //Purp
                 ColorManager.BACKGROUND = Color.WHITE;
                 ColorManager.LOW_CONTRAST_1 = Color.LIGHT_GRAY;
                 ColorManager.HIGH_CONTRAST_1 = Color.BLACK;
@@ -83,8 +86,9 @@ public class ColorManager {
 
                 ColorManager.MESSAGE_NAME_BG = new Color(227, 222, 212);
                 ColorManager.MESSAGE_ITEM_BG = new Color(204, 199, 189);
-
-                TEXT = Color.RED;
+                TEXT = ColorManager.HIGH_CONTRAST_1;
+                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
+//                TEXT = Color.RED;
                 // TODO : TESTING COLORS
 //                ColorManager.LOW_CONTRAST_2 = Color.GREEN;
 //                ColorManager.HIGH_CONTRAST_2 = Color.ORANGE;
@@ -92,12 +96,15 @@ public class ColorManager {
 
             case DARK_THEME:
 //			ColorManager.BACKGROUND = new Color(64, 64, 64);
+                PRIMARY = new Color(107, 93, 145);
                 ColorManager.BACKGROUND = new Color(43, 43, 43);
-                ColorManager.LOW_CONTRAST_1 = Color.DARK_GRAY;
-                ColorManager.LOW_CONTRAST_2 = new Color(80, 80, 80);
+                ColorManager.LOW_CONTRAST_1 = new Color(80, 80, 80);
+                ColorManager.LOW_CONTRAST_2 = new Color(112, 112, 112);
                 ColorManager.HIGH_CONTRAST_1 = Color.WHITE;
                 ColorManager.HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
-                TEXT = Color.YELLOW;
+                BUTTON_SECONDARY_COLOR = new Color(140, 140, 140);
+                TEXT = new Color(180, 180, 180);
+//                TEXT = Color.YELLOW;
                 break;
 
         }

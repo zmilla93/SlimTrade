@@ -43,10 +43,6 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
 		container.add(scannerRow, gc);
 		gc.gridy++;
 		load();
-		
-		this.updateColor();
-		App.eventManager.addColorListener(this);
-		
 	}
 
 	public void save() {

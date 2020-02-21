@@ -128,9 +128,6 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
                 addRemovePanel.addRemoveablePanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
             }
         });
-
-        App.eventManager.addColorListener(this);
-        updateColor();
     }
 
     public void revertChanges() {

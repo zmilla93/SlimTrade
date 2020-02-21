@@ -101,9 +101,6 @@ public class SearchMacroPanel extends JPanel implements IColorable {
         outerPanel.setBackground(ColorManager.CLEAR);
         presetMacroPanel.setBackground(ColorManager.CLEAR);
         addRemovePanel.setBackground(ColorManager.CLEAR);
-
-        App.eventManager.addColorListener(this);
-        this.updateColor();
     }
 
     @Override

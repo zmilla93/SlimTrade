@@ -177,10 +177,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         this.setMaximumSize(new Dimension(1600, 900));
         FrameManager.centerFrame(this);
 
-		updateColor();
-//		recolorUpdateButton();
-		App.eventManager.addColorListener(this);
-
         checkUpdateButton.addActionListener(e -> {
             if (App.updateChecker.isUpdateAvailable()) {
                 //UPDATE

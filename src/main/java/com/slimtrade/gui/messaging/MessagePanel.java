@@ -124,9 +124,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
         // Finalize
         this.startTimer();
-        App.eventManager.addColorListener(this);
         this.updateColor();
-
     }
 
     private void calculateSizes(Dimension size) {
@@ -427,6 +425,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         itemPanel.setBorderColor(ColorManager.MESSAGE_ITEM_BG);
         itemPanel.setTextColor(ColorManager.TEXT);
         pricePanel.setTextColor(ColorManager.PRIMARY);
+        timerLabel.setForeground(ColorManager.TEXT);
         switch (trade.messageType) {
             case CHAT_SCANNER:
                 // TODO : Custom tooltip

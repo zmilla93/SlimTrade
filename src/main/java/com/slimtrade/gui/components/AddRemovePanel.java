@@ -21,8 +21,6 @@ public class AddRemovePanel extends JPanel implements IColorable {
 		this.setBackground(new Color(1, 1, 1, 0));
 		gc.gridx = 0;
 		gc.gridy = 0;
-        App.eventManager.addColorListener(this);
-        updateColor();
 	}
 
 	public void addRemoveablePanel(JPanel panel) {
@@ -64,7 +62,6 @@ public class AddRemovePanel extends JPanel implements IColorable {
 			if (c instanceof RemovablePanel) {
 				RemovablePanel panel = (RemovablePanel) c;
 				if (panel.isToBeDeleted()) {
-				    panel.removeListener();
 					this.remove(panel);
 				} else if (panel.isNewPanel()) {
 					panel.setNewPanel(false);
@@ -112,9 +109,6 @@ public class AddRemovePanel extends JPanel implements IColorable {
     @Override
     public void removeAll() {
         for(Component c : this.getComponents()) {
-            if(c instanceof IColorable) {
-                ((IColorable) c).removeListener();
-            }
             this.remove(c);
         }
         super.removeAll();

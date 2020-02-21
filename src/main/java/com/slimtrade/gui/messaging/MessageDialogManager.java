@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.components.PanelWrapper;
 import com.slimtrade.gui.enums.ExpandDirection;
+
+import javax.swing.*;
 
 public class MessageDialogManager {
 
@@ -56,7 +59,12 @@ public class MessageDialogManager {
                 }
             }
         });
+        wrapper.setVisible(true);
+        System.out.println("VIS : " + App.globalMouse.isGameFocused());
         wrapper.setShow(true);
+        if(!App.globalMouse.isGameFocused()) {
+            wrapper.setVisible(false);
+        }
     }
 
     public void refreshPanelLocations() {
@@ -202,8 +210,6 @@ public class MessageDialogManager {
                 FrameManager.stashHelperContainer.pack();
             }
         }
-        App.eventManager.removeColorListener(msgPanel);
-        ((MessagePanel)wrapperList.get(index).getPanel()).removeListener();
         wrapperList.get(index).dispose();
         wrapperList.remove(index);
     }
@@ -240,6 +246,12 @@ public class MessageDialogManager {
                 }
 
             }
+        }
+    }
+
+    public void updateMessageColors() {
+        for(PanelWrapper w : wrapperList) {
+            App.eventManager.recursiveColor(w);
         }
     }
 }

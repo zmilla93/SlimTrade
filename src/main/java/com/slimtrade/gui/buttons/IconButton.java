@@ -72,12 +72,6 @@ public class IconButton extends JButton implements IColorable {
 				localButton.getModel().setPressed(false);
 			}
 		});
-		App.eventManager.addColorListener(this);
-//		this.addMouseListener(new AdvancedMouseAdapter() {
-//			public void click(MouseEvent e){
-//				AudioManager.play(SoundComponentOLD.BUTTON_CLICK);
-//			}
-//		});
 	}
 
 	//TODO : Switch to normal background stuff??

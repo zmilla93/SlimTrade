@@ -45,9 +45,6 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
 
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(borderColor);
-		titlebarPanel.setBackground(borderColor);
-		center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, borderColor));
-		center.setBackground(Color.CYAN);
 
 		titlebarPanel.setLayout(new BorderLayout());
 		center.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -115,6 +112,8 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
 	@Override
 	public void updateColor() {
 		super.updateColor();
+		titlebarPanel.setBackground(ColorManager.PRIMARY);
 		titleLabel.setForeground(ColorManager.TEXT);
+		center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, ColorManager.PRIMARY));
 	}
 }

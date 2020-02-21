@@ -15,27 +15,27 @@ public class EventManager {
     private ArrayList<ISaveable> saveListenerList = new ArrayList<>();
     private ArrayList<IColorable> colorListenerList = new ArrayList<>();
 
-    public void addColorListener(IColorable listener) {
-        if (colorListenerList.contains(listener)) {
-            return;
-        }
-//        int i = colorListenerList.size();
-        colorListenerList.add(listener);
-//        System.out.print("IColor");
-//        if (i == colorListenerList.size()) {
-//            System.out.print("!");
+//    public void addColorListener(IColorable listener) {
+//        if (colorListenerList.contains(listener)) {
+//            return;
 //        }
-//        System.out.println("++(" + colorListenerList.size() + "):" + listener);
-    }
+////        int i = colorListenerList.size();
+//        colorListenerList.add(listener);
+////        System.out.print("IColor");
+////        if (i == colorListenerList.size()) {
+////            System.out.print("!");
+////        }
+////        System.out.println("++(" + colorListenerList.size() + "):" + listener);
+//    }
 
-    public void removeColorListener(IColorable listener) {
-//        int i = colorListenerList.size();
-        colorListenerList.remove(listener);
-//        if (i == colorListenerList.size()) {
-//            System.out.print("!");
-//        }
-//        System.out.println("--(" + colorListenerList.size() + "):" + listener);
-    }
+//    public void removeColorListener(IColorable listener) {
+////        int i = colorListenerList.size();
+//        colorListenerList.remove(listener);
+////        if (i == colorListenerList.size()) {
+////            System.out.print("!");
+////        }
+////        System.out.println("--(" + colorListenerList.size() + "):" + listener);
+//    }
 
     public void addSaveListener(ISaveable listener) {
         saveListenerList.add(listener);
@@ -51,16 +51,21 @@ public class EventManager {
         recursiveColor(FrameManager.optionsWindow);
         recursiveColor(FrameManager.chatScannerWindow);
         recursiveColor(FrameManager.historyWindow);
+        recursiveColor(FrameManager.stashOverlayWindow);
         recursiveColor(FrameManager.menubar);
         recursiveColor(FrameManager.menubarToggle);
+        FrameManager.overlayManager.updateColor();
+        FrameManager.messageManager.updateMessageColors();
     }
 
-    public void recursiveColor(Container container) {
-        if(container instanceof IColorable) {
-            ((IColorable) container).updateColor();
+    public void recursiveColor(Object o) {
+        if(o instanceof IColorable) {
+            ((IColorable) o).updateColor();
         }
-        for(Component c : container.getComponents()) {
-            recursiveColor((Container) c);
+        if(o instanceof Container) {
+            for(Component c : ((Container) o).getComponents()) {
+                recursiveColor(c);
+            }
         }
     }
 

@@ -12,6 +12,7 @@ import org.jnativehook.mouse.NativeMouseInputListener;
 
 public class GlobalMouseListener implements NativeMouseInputListener {
 
+    private boolean isGameFocused = false;
 
     public void nativeMouseClicked(NativeMouseEvent e) {
 
@@ -39,8 +40,10 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         } while (true);
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
-//        System.out.println("win:" + curWindowTitle);
-        if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.debugMode) {
+        System.out.println("win:" + curWindowTitle);
+        isGameFocused = false;
+        if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.forceUI) {
+            isGameFocused = true;
             switch (FrameManager.windowState) {
                 case NORMAL:
                     FrameManager.showVisibleFrames();
@@ -57,6 +60,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                     break;
             }
         } else if (curWindowTitle.equals("Open") || curWindowTitle.equals(References.APP_NAME + " - Options") || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")) {
+            isGameFocused = true;
             FrameManager.showVisibleFrames();
             FrameManager.forceAllToTop();
         } else {
@@ -86,6 +90,10 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         } else {
             return WindowType.OTHER;
         }
+    }
+
+    public boolean isGameFocused() {
+        return this.isGameFocused;
     }
 
 }

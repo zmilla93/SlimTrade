@@ -76,7 +76,6 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         this.add(m2Label, gc);
         gc.gridx += 2;
         this.add(m2Text, gc);
-        App.eventManager.addColorListener(this);
         App.eventManager.recursiveColor(this);
     }
 

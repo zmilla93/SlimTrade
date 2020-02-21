@@ -10,8 +10,6 @@ public class CustomTextArea extends JTextArea implements IColorable {
 
     public CustomTextArea(int rows, int columns) {
         super(rows, columns);
-        App.eventManager.addColorListener(this);
-        this.updateColor();
     }
 
     @Override

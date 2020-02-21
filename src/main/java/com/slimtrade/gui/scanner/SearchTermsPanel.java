@@ -54,9 +54,6 @@ public class SearchTermsPanel extends JPanel implements IColorable {
         this.add(outerPanel, gc);
 
         outerPanel.setBackground(ColorManager.CLEAR);
-
-        App.eventManager.addColorListener(this);
-        this.updateColor();
     }
 
     @Override

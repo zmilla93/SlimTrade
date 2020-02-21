@@ -55,8 +55,6 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
             }
         });
         load();
-        App.eventManager.addColorListener(this);
-        updateColor();
     }
 
     private StashTabRow addNewRow() {

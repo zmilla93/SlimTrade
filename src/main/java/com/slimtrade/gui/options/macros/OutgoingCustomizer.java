@@ -128,14 +128,11 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         container.add(customPanel, gc);
         addButton.addActionListener(e -> addNewMacro());
         load();
-        App.eventManager.addColorListener(this);
-        this.updateColor();
     }
 
     private void refreshTrade() {
         if(exampleTradeIn != null){
             container.remove(exampleTradeIn);
-            App.eventManager.removeColorListener(exampleTradeIn);
         }
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -225,8 +222,10 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         customPanel.updateColor();
     }
 
-//    @Override
-//    public void updateColor() {
-//        this.setBackground(ColorManager.LOW_CONTRAST_1);
-//    }
+    @Override
+    public void updateColor() {
+        super.updateColor();
+        presetPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+        presetTextPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+    }
 }

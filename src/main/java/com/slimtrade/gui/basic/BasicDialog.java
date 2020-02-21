@@ -26,7 +26,6 @@ public class BasicDialog extends HideableDialog implements IColorable {
 		this.setUndecorated(true);
 		this.setAlwaysOnTop(true);
 		this.setType(JDialog.Type.UTILITY);
-		App.eventManager.addColorListener(this);
 	}
 	
 	public void forceToTop(){
