@@ -100,6 +100,7 @@ public class App {
 
 				// Frames
 				frameManager = new FrameManager();
+				eventManager.updateAllColors(ColorTheme.LIGHT_THEME);
 				
 				// JNativeHook Setup
 				try {

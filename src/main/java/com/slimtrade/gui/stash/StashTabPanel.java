@@ -4,6 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.SaveSystem.StashTab;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.options.ISaveable;
@@ -38,10 +39,10 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
         JButton addButton = new BasicButton("Add Stash Tab");
 
         gc.insets.bottom = 0;
-        container.add(new JLabel("Add stash names for color coding or marking quad tabs."), gc);
+        container.add(new CustomLabel("Add stash names for color coding or marking quad tabs."), gc);
         gc.gridy++;
         gc.insets.bottom = 10;
-        container.add(new JLabel("Default white ignores color coding if you only want to mark a quad tab."), gc);
+        container.add(new CustomLabel("Default white ignores color coding if you only want to mark a quad tab."), gc);
         gc.gridy++;
         container.add(addButton, gc);
         gc.gridy++;

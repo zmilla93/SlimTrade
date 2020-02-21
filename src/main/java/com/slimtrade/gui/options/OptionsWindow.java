@@ -24,6 +24,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomScrollPane;
 import com.slimtrade.gui.options.general.GeneralPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
@@ -154,7 +155,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.insets.bottom = 0;
 
         gc.fill = GridBagConstraints.NONE;
-        menuPanelLower.add(new JLabel(References.APP_NAME + " v" + References.APP_VERSION), gc);
+        menuPanelLower.add(new CustomLabel(References.APP_NAME + " v" + References.APP_VERSION), gc);
         gc.gridy++;
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.gridy++;

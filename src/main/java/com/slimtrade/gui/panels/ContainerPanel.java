@@ -16,7 +16,6 @@ public class ContainerPanel extends JPanel implements IColorable {
 	
 	public JPanel container = new JPanel(FrameManager.gridBag);
 	private static final int defaultBorderSize = 15;
-	private Border defaultBorder = BorderFactory.createLineBorder(Color.black);
 	
 	public ContainerPanel(){
 		this(defaultBorderSize);
@@ -24,7 +23,6 @@ public class ContainerPanel extends JPanel implements IColorable {
 	
 	private ContainerPanel(int borderSize){
 		container.setOpaque(false);
-		this.setBorder(defaultBorder);
 		this.setLayout(new BorderLayout());
 		this.add(new BufferPanel(0, borderSize), BorderLayout.NORTH);
 		this.add(new BufferPanel(borderSize, 0), BorderLayout.WEST);
@@ -35,8 +33,8 @@ public class ContainerPanel extends JPanel implements IColorable {
 
     @Override
     public void updateColor() {
-        this.setBackground(ColorManager.LOW_CONTRAST_2);
-//		this.setBackground(ColorManager.modify(ColorManager.PRIMARY, 20));
-		setForeground(ColorManager.TEXT);
+        this.setBackground(ColorManager.BACKGROUND);
+		this.setForeground(ColorManager.TEXT);
+		this.setBorder(ColorManager.BORDER_TEXT);
     }
 }

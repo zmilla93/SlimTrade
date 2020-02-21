@@ -10,6 +10,8 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.panels.ContainerPanel;
 
@@ -28,9 +30,9 @@ public class InformationPanel extends ContainerPanel {
 		//TODO : Might need to change background color of text areas
 //		super(false);
 		
-		JLabel versionLabel = new JLabel(References.APP_NAME);
+		JLabel versionLabel = new CustomLabel(References.APP_NAME);
 		
-		JLabel gitLabel = new JLabel("GitHub");
+		JLabel gitLabel = new CustomLabel("GitHub");
 		gitText = new JTextField("https://github.com/zmilla93/SlimTrade");
 		Dimension gitSize = gitText.getPreferredSize();
 		gitSize.width++;
@@ -38,7 +40,7 @@ public class InformationPanel extends ContainerPanel {
 		gitText.setBorder(null);
 		gitText.setEditable(false);
 		
-		JLabel emailTitle = new JLabel("E-Mail");
+		JLabel emailTitle = new CustomLabel("E-Mail");
         emailText = new JTextField("slimtradepoe@gmail.com");
 		Dimension emailSize = emailText.getPreferredSize();
 		emailSize.width++;
@@ -91,13 +93,14 @@ public class InformationPanel extends ContainerPanel {
 			FrameManager.optionsWindow.setVisible(false);
 			FrameManager.showTutorialWindow();
 		});
-		
+		gitText.setOpaque(false);
+		emailText.setOpaque(false);
 	}
 
     @Override
     public void updateColor() {
         super.updateColor();
-        gitText.setBackground(ColorManager.LOW_CONTRAST_1);
-        emailText.setBackground(ColorManager.LOW_CONTRAST_1);
+		gitText.setForeground(ColorManager.TEXT);
+		emailText.setForeground(ColorManager.TEXT);
     }
 }

@@ -15,12 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.panels.BufferPanel;
 
-public abstract class AbstractWindow extends BasicMovableDialog {
+public abstract class AbstractWindow extends BasicMovableDialog implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	public final int TITLEBAR_HEIGHT = 20;
@@ -110,4 +111,10 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 	    this.setTitle(title);
 	    titleLabel.setText(title);
     }
+
+	@Override
+	public void updateColor() {
+		super.updateColor();
+		titleLabel.setForeground(ColorManager.TEXT);
+	}
 }

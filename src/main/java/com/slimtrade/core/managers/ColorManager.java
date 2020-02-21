@@ -84,6 +84,7 @@ public class ColorManager {
                 ColorManager.MESSAGE_NAME_BG = new Color(227, 222, 212);
                 ColorManager.MESSAGE_ITEM_BG = new Color(204, 199, 189);
 
+                TEXT = Color.RED;
                 // TODO : TESTING COLORS
 //                ColorManager.LOW_CONTRAST_2 = Color.GREEN;
 //                ColorManager.HIGH_CONTRAST_2 = Color.ORANGE;
@@ -96,11 +97,13 @@ public class ColorManager {
                 ColorManager.LOW_CONTRAST_2 = new Color(80, 80, 80);
                 ColorManager.HIGH_CONTRAST_1 = Color.WHITE;
                 ColorManager.HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
+                TEXT = Color.YELLOW;
                 break;
 
         }
         //MUTUAL
-        TEXT = HIGH_CONTRAST_1;
+//        TEXT = HIGH_CONTRAST_1;
+//        TEXT = HIGH_CONTRAST_1;
         TEXT_EDIT_BACKGROUND = LOW_CONTRAST_1;
 //        TEXT_EDIT_BACKGROUND = ColorManager.LOW_CONTRAST_1;
         BORDER_PRIMARY = BorderFactory.createLineBorder(ColorManager.PRIMARY);

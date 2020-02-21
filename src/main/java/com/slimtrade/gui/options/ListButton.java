@@ -34,7 +34,7 @@ public class ListButton extends JButton implements IColorable {
 
 	public ListButton(String title) {
 		super(title);
-		this.setForeground(ColorManager.TEXT);
+
 //		borderOuter = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
 //		borderInner = BorderFactory.createLineBorder(ColorManager.LOW_CONSTRAST_1);
 		this.setContentAreaFilled(false);
@@ -99,11 +99,12 @@ public class ListButton extends JButton implements IColorable {
 
 	@Override
 	public void updateColor() {
+		this.setForeground(ColorManager.TEXT);
 		borderOuter = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
-		borderInner = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
+		borderInner = BorderFactory.createLineBorder(ColorManager.TEXT);
 		b = BorderFactory.createCompoundBorder(borderOuter, borderInner);
 
-		borderOuter2 = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
+		borderOuter2 = BorderFactory.createLineBorder(ColorManager.TEXT);
 		borderInner2 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
 		borderDefault = BorderFactory.createCompoundBorder(borderOuter2, borderInner2);
 		

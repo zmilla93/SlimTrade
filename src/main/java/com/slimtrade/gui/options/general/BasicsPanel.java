@@ -175,6 +175,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         colorThemeCombo.addActionListener(e -> {
             if(colorThemeCombo.getSelectedIndex() >= 0) {
                 App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
+
             }
         });
 
@@ -195,7 +196,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         App.saveManager.saveFile.closeOnKick = kickCheckbox.isSelected();
         App.saveManager.saveFile.quickPasteTrades = guildCheckbox.isSelected();
         App.saveManager.saveFile.colorTheme = colorTheme;
-
     }
 
     @Override
@@ -212,7 +212,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     @Override
     public void updateColor() {
         super.updateColor();
-        this.setBackground(ColorManager.BACKGROUND);
         characterLabel.setForeground(ColorManager.TEXT);
         guildLabel.setForeground(ColorManager.TEXT);
         kickLabel.setForeground(ColorManager.TEXT);

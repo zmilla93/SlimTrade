@@ -5,6 +5,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
@@ -28,8 +29,8 @@ public class SearchNamePanel extends JPanel implements IColorable {
     public BasicButton deleteButton = new DenyButton("Delete");
 
     // Private Labels
-    private JLabel info1 = new JLabel("Create a save by entering a name and search terms.");
-    private JLabel searchNameLabel = new JLabel("Search Name");
+    private JLabel info1 = new CustomLabel("Create a save by entering a name and search terms.");
+    private JLabel searchNameLabel = new CustomLabel("Search Name");
 
     // Internal
     private JPanel buttonPanel = new JPanel(FrameManager.gridBag);
@@ -129,6 +130,5 @@ public class SearchNamePanel extends JPanel implements IColorable {
 
         // Foreground
         this.setBorder(ColorManager.BORDER_TEXT);
-        searchNameLabel.setForeground(ColorManager.TEXT);
     }
 }

@@ -10,6 +10,7 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomSpinner;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.OrderType;
@@ -87,7 +88,7 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 		gc.fill = GridBagConstraints.NONE;
 		gc.gridwidth = 3;
 		gc.insets.top = 5;
-		container.add(new JLabel("History changes require restart"), gc);
+		container.add(new CustomLabel("History changes require restart"), gc);
 
 		this.updateColor();
 		App.eventManager.addColorListener(this);
@@ -117,7 +118,7 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 
 	@Override
 	public void updateColor() {
-		this.setBackground(ColorManager.BACKGROUND);
+		super.updateColor();
 		timeLabel.setForeground(ColorManager.TEXT);
 		dateLabel.setForeground(ColorManager.TEXT);
 		orderLabel.setForeground(ColorManager.TEXT);

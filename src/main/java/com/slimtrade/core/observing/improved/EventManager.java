@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.options.ISaveable;
+
+import javax.swing.*;
 
 public class EventManager {
 
@@ -43,43 +46,22 @@ public class EventManager {
         saveListenerList.add(listener);
     }
 
-    public void saveAll() {
-        for(ISaveable s : saveListenerList) {
-            s.save();
-        }
-    }
-
-    public void loadAll() {
-        for(ISaveable s : saveListenerList) {
-            s.load();
-        }
-    }
-
     public void updateAllColors(ColorTheme theme) {
-        // TODO : Testing
-//        System.out.println("Updaing All Colors");
         ColorManager.setTheme(theme);
-        ArrayList<IColorable> temp = new ArrayList<>();
-//        int bad = 0;
-        for (int i = 0;i<colorListenerList.size();i++) {
-            IColorable c  = colorListenerList.get(i);
-            c.updateColor();
-            if(c != null) {
-                temp.add(c);
-//                if(c instanceof Component) {
-//                    ((Component)c).repaint();
-//                }
-            } else {
-//                bad++;
-            }
+        recursiveColor(FrameManager.optionsWindow);
+        recursiveColor(FrameManager.chatScannerWindow);
+        recursiveColor(FrameManager.historyWindow);
+        recursiveColor(FrameManager.menubar);
+        recursiveColor(FrameManager.menubarToggle);
+    }
+
+    public void recursiveColor(Container container) {
+        if(container instanceof IColorable) {
+            ((IColorable) container).updateColor();
         }
-//        System.out.println("Bad Listeners : " + bad);
-//        for (IColorable l : colorListenerList) {
-//            l.updateColor();
-//            if(l instanceof Component) {
-//                ((Component) l).repaint();
-//            }
-//        }
+        for(Component c : container.getComponents()) {
+            recursiveColor((Container) c);
+        }
     }
 
 }

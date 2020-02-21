@@ -174,5 +174,11 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		super.updateColor();
 		buttonPanel.setBackground(ColorManager.BACKGROUND);
 		innerPanel.setBackground(ColorManager.BACKGROUND);
+		if(!incomingPanel.isVisible()) {
+			App.eventManager.recursiveColor(incomingPanel);
+		}
+		if(!outgoingPanel.isVisible()) {
+			App.eventManager.recursiveColor(outgoingPanel);
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.slimtrade.gui.history;
 
+import com.slimtrade.gui.basic.CustomLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -40,7 +42,7 @@ public class HistoryCellPanel extends JPanel {
 
 	public void setLabel(String s) {
 		this.removeAll();
-		defaultLabel = new JLabel(s);
+		defaultLabel = new CustomLabel(s);
 		this.add(defaultLabel, gc);
 	}
 	

@@ -72,12 +72,6 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
                 clientRow.setText(App.saveManager.saveFile.clientPath);
             }
         }
-
-	}
-
-	@Override
-	public void updateColor() {
-		this.setBackground(ColorManager.BACKGROUND);
 	}
 
 }

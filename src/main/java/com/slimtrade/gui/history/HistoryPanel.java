@@ -29,7 +29,6 @@ public class HistoryPanel extends JPanel {
 	
 	HistoryPanel() {
 		this.setLayout(new BorderLayout());
-		this.setBackground(Color.RED);
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 		this.add(contentPanel, BorderLayout.CENTER);
@@ -61,12 +60,14 @@ public class HistoryPanel extends JPanel {
 		// Add new trade
 		trades.add(trade);
 		if (updateUI) {
-			tradePanels.add(new HistoryRow(trade, close));
+			HistoryRow row = new HistoryRow(trade, close);
+			tradePanels.add(row);
 			if(HistoryWindow.orderType == OrderType.NEW_FIRST){
 				contentPanel.add(tradePanels.get(tradePanels.size() - 1), 0);
 			}else{
 				contentPanel.add(tradePanels.get(tradePanels.size() - 1));
 			}
+			App.eventManager.recursiveColor(row);
 			this.revalidate();
 			this.repaint();
 		}
@@ -85,6 +86,7 @@ public class HistoryPanel extends JPanel {
 			}
 			tradePanels.add(row);
 		}
+		App.eventManager.recursiveColor(this);
 //		App.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
 		this.revalidate();
 		this.repaint();
