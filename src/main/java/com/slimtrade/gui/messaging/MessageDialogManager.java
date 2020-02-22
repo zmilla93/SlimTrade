@@ -3,6 +3,7 @@ package com.slimtrade.gui.messaging;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
@@ -25,7 +26,7 @@ public class MessageDialogManager {
 
     private final int BUFFER_SIZE = 2;
     private final int MAX_MESSAGE_COUNT = 20;
-    private static final ArrayList<PanelWrapper> wrapperList = new ArrayList<>();
+    private static final CopyOnWriteArrayList<PanelWrapper> wrapperList = new CopyOnWriteArrayList<PanelWrapper>();
 
     public MessageDialogManager() {
         expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
@@ -59,12 +60,13 @@ public class MessageDialogManager {
                 }
             }
         });
-        wrapper.setVisible(true);
-        System.out.println("VIS : " + App.globalMouse.isGameFocused());
+        App.eventManager.recursiveColor(wrapper);
         wrapper.setShow(true);
         if(!App.globalMouse.isGameFocused()) {
             wrapper.setVisible(false);
         }
+        FrameManager.showVisibleFrames();
+        FrameManager.forceAllToTop();
     }
 
     public void refreshPanelLocations() {
@@ -225,7 +227,7 @@ public class MessageDialogManager {
         return this.anchorPoint;
     }
 
-    public static ArrayList<PanelWrapper> getDialogList() {
+    public static CopyOnWriteArrayList<PanelWrapper> getDialogList() {
         return MessageDialogManager.wrapperList;
     }
 
@@ -238,11 +240,13 @@ public class MessageDialogManager {
 //                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
+                    panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                 }
                 else if(panel.getTrade().messageType == MessageType.INCOMING_TRADE.OUTGOING_TRADE) {
 //                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_OUTGOING);
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
+                    panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_OUTGOING);
                 }
 
             }

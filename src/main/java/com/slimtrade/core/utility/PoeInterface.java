@@ -4,9 +4,14 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.slimtrade.gui.FrameManager;
 import com.sun.jna.Native;
@@ -29,6 +34,25 @@ public class PoeInterface extends Robot {
 			// robot.setAutoDelay(100);
 		} catch (AWTException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static void attemptQuickPaste() {
+		String text = null;
+		try {
+			text = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+		} catch (UnsupportedFlavorException e) {
+			return;
+		} catch (IOException e) {
+			return;
+		}
+		if(text == null) {
+			return;
+		}
+		String matchString = "@(\\S+) ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
+		Matcher matcher = Pattern.compile(matchString).matcher(text);
+		if(matcher.matches()) {
+			pasteWithFocus(text);
 		}
 	}
 

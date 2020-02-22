@@ -83,11 +83,18 @@ public class MenubarDialog extends BasicDialog {
             public void click(MouseEvent evt) {
                 Random rng = new Random();
                 TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "IncomingTrader123", "Whispering Leer Hypnotic Eye Jewel", 1, "chaos", 60, "sale", 1, 1, "", "");
-                TradeOffer t2 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "OutgoingTrader456", "Item Name", 1, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-                TradeOffer t3 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ScannerTrader789", "Search Name", "Chat message text. Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+                TradeOffer t2 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "HighlightTrader123", "Whispering Leer Hypnotic Eye Jewel", 1, "chaos", 60, "sale", 1, 1, "", "");
+                TradeOffer t3 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "OutgoingTrader456", "Item Name", 1, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+                TradeOffer t4 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "HighlightTrader123", "Item Name", 1, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+                TradeOffer t5 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ScannerTrader789", "Search Name", "Chat message text. Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+                TradeOffer t6 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "HighlightTrader123", "Search Name", "Chat message text. Lorem ipsum dolor sit amet, consectetur adipiscing elit");
                 FrameManager.messageManager.addMessage(t, false);
                 FrameManager.messageManager.addMessage(t2, false);
                 FrameManager.messageManager.addMessage(t3, false);
+                FrameManager.messageManager.addMessage(t4, false);
+                FrameManager.messageManager.addMessage(t5, false);
+                FrameManager.messageManager.addMessage(t6, false);
+                FrameManager.messageManager.setPlayerJoinedArea("HighlightTrader123");
             }
         });
 
@@ -172,7 +179,7 @@ public class MenubarDialog extends BasicDialog {
         int count = buttons.size() + 1;
         if(loc == MenubarButtonLocation.SW || loc == MenubarButtonLocation.SE) {
             flip = true;
-            y = App.debugMode ? count + 1 : count;
+            y = App.testFeatures ? count + 1 : count;
             modY = -1;
         }
         GridBagConstraints gc = new GridBagConstraints();
@@ -188,7 +195,7 @@ public class MenubarDialog extends BasicDialog {
             container.add(b, gc);
             gc.gridy += modY;
         }
-        if(App.debugMode) {
+        if(App.testFeatures) {
             container.add(testButton, gc);
             gc.gridy += modY;
         }

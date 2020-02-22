@@ -59,4 +59,10 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
 //        buttonRow.setValue(App.saveManager.saveFile.buttonSound.sound, App.saveManager.saveFile.buttonSound.volume);
 	}
 
+	@Override
+	public void updateColor() {
+		super.updateColor();
+		this.setBackground(ColorManager.BACKGROUND);
+	}
+
 }

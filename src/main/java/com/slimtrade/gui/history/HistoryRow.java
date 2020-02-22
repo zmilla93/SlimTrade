@@ -91,7 +91,7 @@ public class HistoryRow extends JPanel {
 		timePanel.setBackground(ColorManager.BACKGROUND);
 		playerPanel.setBackground(ColorManager.BACKGROUND);
 		itemPanel.setBackground(ColorManager.BACKGROUND);
-		pricePanel.setBackgroundColor(ColorManager.BACKGROUND);
+		pricePanel.setBackground(ColorManager.BACKGROUND);
 
 		GridBagConstraints gc = rowPanel.gc;
 //		rowPanel.add(refreshButton, gc);

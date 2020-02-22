@@ -27,11 +27,6 @@ public class BasicDialog extends HideableDialog implements IColorable {
 		this.setAlwaysOnTop(true);
 		this.setType(JDialog.Type.UTILITY);
 	}
-	
-	public void forceToTop(){
-		this.setAlwaysOnTop(false);
-		this.setAlwaysOnTop(true);
-	}
 
     @Override
     public void updateColor() {

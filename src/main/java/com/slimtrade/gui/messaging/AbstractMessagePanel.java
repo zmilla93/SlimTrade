@@ -24,6 +24,7 @@ import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.basic.*;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.panels.PricePanel;
 
 public class AbstractMessagePanel extends ColorPanel {
 
@@ -49,7 +50,7 @@ public class AbstractMessagePanel extends ColorPanel {
 
 	// Panels
 	protected PaintedPanel namePanel = new PaintedPanel();
-	protected PaintedPanel pricePanel = new PaintedPanel();
+	protected PricePanel pricePanel = new PricePanel();
 	protected PaintedPanel itemPanel = new PaintedPanel();
 
 	protected JPanel borderPanel = new ColorPanel();

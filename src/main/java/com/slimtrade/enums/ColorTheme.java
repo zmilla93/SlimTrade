@@ -4,7 +4,7 @@ public enum ColorTheme {
 	
 	LIGHT_THEME("Light"),
 	DARK_THEME("Dark"),
-	ALT1("alt1"),
+	MONOKAI("Monokai"),
 	ALT2("alt2");
 
 	

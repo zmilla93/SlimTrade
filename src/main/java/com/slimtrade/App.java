@@ -50,7 +50,8 @@ public class App {
     public static boolean testFeatures = false;
 
     public static void main(String[] args) {
-        // Command line args
+
+        // Launch Args
         if (args.length > 0) {
             for (String s : args) {
                 switch (s) {
@@ -66,20 +67,22 @@ public class App {
                     case "-ui":
                         forceUI = true;
                         break;
-                    // Force the overlay to always be shown
-                    case "-f":
+                    // Enable test features
+                    case "-tf":
                         testFeatures = true;
                         break;
                 }
             }
         }
 
-
         //Loading Dialog
         loadingDialog = new LoadingDialog();
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+        loadingDialog.setAlwaysOnTop(false);
+        loadingDialog.setAlwaysOnTop(true);
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
+
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -111,7 +114,7 @@ public class App {
 
                 // Frames
                 frameManager = new FrameManager();
-                eventManager.updateAllColors(ColorTheme.LIGHT_THEME);
+                eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
 
                 // JNativeHook Setup
                 try {

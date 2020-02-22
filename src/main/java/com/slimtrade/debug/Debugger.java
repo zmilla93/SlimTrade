@@ -46,7 +46,6 @@ public class Debugger extends JFrame {
 				FrameManager.forceAllToTop();
 			}
 		});
-		
 		this.revalidate();
 		this.repaint();
 

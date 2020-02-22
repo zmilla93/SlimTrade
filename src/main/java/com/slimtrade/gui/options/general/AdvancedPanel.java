@@ -70,4 +70,9 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
         }
 	}
 
+	@Override
+	public void updateColor() {
+		super.updateColor();
+		this.setBackground(ColorManager.BACKGROUND);
+	}
 }

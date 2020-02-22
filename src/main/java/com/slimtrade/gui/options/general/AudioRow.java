@@ -104,7 +104,6 @@ public class AudioRow extends JPanel implements IColorable {
 
 	@Override
 	public void updateColor() {
-		this.setBackground(ColorManager.BACKGROUND);
 		label.setForeground(ColorManager.TEXT);
 	}
 

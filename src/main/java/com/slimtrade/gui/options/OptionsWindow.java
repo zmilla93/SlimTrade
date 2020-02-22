@@ -53,10 +53,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     public OptionsWindow() {
         super("Options");
         this.setAlwaysOnTop(false);
-//	    this.setAlwaysOnTop(true);
-        if (App.debugMode) {
-            this.setTitleText(this.getTitle() + " - DEBUG");
-        }
         this.setFocusable(true);
         this.setFocusableWindowState(true);
 
@@ -274,6 +270,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         super.updateColor();
         container.setBackground(ColorManager.BACKGROUND);
         display.setBackground(ColorManager.BACKGROUND);
+        display.setBorder(ColorManager.BORDER_TEXT);
     }
 
     private void recolorUpdateButton() {

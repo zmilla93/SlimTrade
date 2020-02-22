@@ -75,15 +75,15 @@ public class PaintedPanel extends JPanel {
 		if(mouseDown){
 			bg = backgroundClick;
 			border = borderClick;
-			text = ColorManager.TEXT;
+			text = textDefault;
 		}else if(hover){
 			bg = backgroundHover;
 			border = borderHover;
-			text = ColorManager.TEXT;
+			text = textDefault;
 		}else{
 			bg = backgroundDefault;
 			border = borderDefault;
-			text = ColorManager.TEXT;
+			text = textDefault;
 		}
 		g.setColor(border);
 		g.fillRect(0, 0, getWidth(), getHeight());

@@ -114,6 +114,7 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 	@Override
 	public void updateColor() {
 		super.updateColor();
+		this.setBackground(ColorManager.BACKGROUND);
 		timeLabel.setForeground(ColorManager.TEXT);
 		dateLabel.setForeground(ColorManager.TEXT);
 		orderLabel.setForeground(ColorManager.TEXT);

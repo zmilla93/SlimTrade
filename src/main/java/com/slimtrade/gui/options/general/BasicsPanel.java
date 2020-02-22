@@ -200,7 +200,15 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
         quickPasteCheckbox.setSelected(false);
-        colorThemeCombo.setSelectedItem(ColorTheme.LIGHT_THEME);
+        System.out.println("VALEEEE: " + App.saveManager.saveFile.colorTheme);
+        colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
+        if(App.saveManager.saveFile.colorTheme == null) {
+            if(colorThemeCombo.getItemCount()>0) {
+                colorThemeCombo.setSelectedIndex(0);
+            }
+        } else {
+            colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
+        }
     }
 
     @Override

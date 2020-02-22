@@ -417,27 +417,29 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         // Name Panel
         namePanel.setBackgroundColor(ColorManager.MESSAGE_NAME_BG);
         namePanel.backgroundHover = ColorManager.PRIMARY;
-        namePanel.borderDefault = ColorManager.LOW_CONTRAST_1;
+        namePanel.borderDefault = ColorManager.MESSAGE_NAME_BG;
         namePanel.borderHover = ColorManager.TEXT;
         namePanel.borderClick = ColorManager.TEXT;
         namePanel.setTextColor(ColorManager.TEXT);
         itemPanel.setBackgroundColor(ColorManager.MESSAGE_ITEM_BG);
         itemPanel.setBorderColor(ColorManager.MESSAGE_ITEM_BG);
         itemPanel.setTextColor(ColorManager.TEXT);
-        pricePanel.setTextColor(ColorManager.PRIMARY);
-        timerLabel.setForeground(ColorManager.TEXT);
+        pricePanel.setTextColor(ColorManager.MESSAGE_PRICE_TEXT);
+        timerPanel.setTextColor(ColorManager.TEXT);
+        timerPanel.setBackgroundColor(ColorManager.MESSAGE_TIMER_BG);
+        timerPanel.setBorderColor(ColorManager.MESSAGE_TIMER_BG);
         switch (trade.messageType) {
             case CHAT_SCANNER:
                 // TODO : Custom tooltip
                 itemPanel.setToolTipText(trade.searchMessage);
                 borderPanel.setBackground(ColorManager.SCANNER_BACKGROUND);
-                pricePanel.setBackgroundColor(ColorManager.SCANNER_BACKGROUND);
-                pricePanel.setBorderColor(ColorManager.SCANNER_BACKGROUND);
+                pricePanel.setBackground(ColorManager.SCANNER_BACKGROUND);
                 break;
             case INCOMING_TRADE:
                 color = StashTabColor.TWENTYSIX.getBackground();
                 colorText = StashTabColor.TWENTYSIX.getForeground();
-                itemPanel.backgroundHover = ColorManager.PRIMARY;
+//                itemPanel.setBorderColor(ColorManager.TEXT);
+//                itemPanel.backgroundHover = ColorManager.PRIMARY;
                 itemPanel.borderHover = ColorManager.TEXT;
                 itemPanel.borderClick = ColorManager.TEXT;
                 if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
@@ -458,13 +460,12 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 stashHelper.setVisible(false);
                 FrameManager.stashHelperContainer.add(stashHelper);
                 borderPanel.setBackground(ColorManager.GREEN_SALE);
-                pricePanel.setBackgroundColor(ColorManager.GREEN_SALE);
-                pricePanel.setBorderColor(ColorManager.GREEN_SALE);
+                pricePanel.setBackground(ColorManager.GREEN_SALE);
+
                 break;
             case OUTGOING_TRADE:
                 borderPanel.setBackground(ColorManager.RED_SALE);
-                pricePanel.setBackgroundColor(ColorManager.RED_SALE);
-                pricePanel.setBorderColor(ColorManager.RED_SALE);
+                pricePanel.setBackground(ColorManager.RED_SALE);
                 break;
         }
     }
