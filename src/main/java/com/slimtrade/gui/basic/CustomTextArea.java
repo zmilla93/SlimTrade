@@ -14,6 +14,7 @@ public class CustomTextArea extends JTextArea implements IColorable {
 
     @Override
     public void updateColor() {
+        this.setCaretColor(ColorManager.TEXT);
         this.setBackground(ColorManager.TEXT_EDIT_BACKGROUND);
         this.setForeground(ColorManager.TEXT);
         this.setBorder(ColorManager.BORDER_TEXT);

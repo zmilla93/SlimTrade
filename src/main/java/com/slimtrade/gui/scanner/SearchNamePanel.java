@@ -29,7 +29,8 @@ public class SearchNamePanel extends JPanel implements IColorable {
     public BasicButton deleteButton = new DenyButton("Delete");
 
     // Private Labels
-    private JLabel info1 = new CustomLabel("Create a save by entering a name and search terms.");
+    private JLabel info1 = new CustomLabel("Create a new preset by entering a name, terms, and pressing save.");
+    private JLabel info2 = new CustomLabel("Once a preset is created, press search to being scanning chat.");
     private JLabel searchNameLabel = new CustomLabel("Search Name");
 
     // Internal
@@ -77,8 +78,10 @@ public class SearchNamePanel extends JPanel implements IColorable {
 
         // Full Panel
         gc.gridwidth = 2;
-        gc.insets.bottom = 8;
         outerPanel.add(info1, gc);
+        gc.gridy++;
+        gc.insets.bottom = 8;
+        outerPanel.add(info2, gc);
         gc.insets.bottom = 0;
         gc.gridy++;
         gc.fill = GridBagConstraints.BOTH;

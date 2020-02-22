@@ -85,15 +85,11 @@ public class MenubarDialog extends BasicDialog {
                 TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "IncomingTrader123", "Whispering Leer Hypnotic Eye Jewel", 1, "chaos", 60, "sale", 1, 1, "", "");
                 TradeOffer t2 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "HighlightTrader123", "Whispering Leer Hypnotic Eye Jewel", 1, "chaos", 60, "sale", 1, 1, "", "");
                 TradeOffer t3 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "OutgoingTrader456", "Item Name", 1, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-                TradeOffer t4 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "HighlightTrader123", "Item Name", 1, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
                 TradeOffer t5 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ScannerTrader789", "Search Name", "Chat message text. Lorem ipsum dolor sit amet, consectetur adipiscing elit");
-                TradeOffer t6 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "HighlightTrader123", "Search Name", "Chat message text. Lorem ipsum dolor sit amet, consectetur adipiscing elit");
                 FrameManager.messageManager.addMessage(t, false);
                 FrameManager.messageManager.addMessage(t2, false);
                 FrameManager.messageManager.addMessage(t3, false);
-                FrameManager.messageManager.addMessage(t4, false);
                 FrameManager.messageManager.addMessage(t5, false);
-                FrameManager.messageManager.addMessage(t6, false);
                 FrameManager.messageManager.setPlayerJoinedArea("HighlightTrader123");
             }
         });

@@ -54,7 +54,7 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
         } else if (isThumbRollover()) {
             color = ColorManager.LOW_CONTRAST_2;
         } else {
-            color = ColorManager.PRIMARY;
+            color = ColorManager.SCROLL_BAR;
         }
         g2.setPaint(ColorManager.BACKGROUND);
         g2.fillRect(r.x, r.y, r.width, r.height);

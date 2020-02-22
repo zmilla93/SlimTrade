@@ -136,6 +136,6 @@ public class PresetMacroRow extends JPanel implements IColorable{
     @Override
     public void updateColor() {
 	    this.setBackground(ColorManager.BACKGROUND);
-	    this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+	    this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
     }
 }

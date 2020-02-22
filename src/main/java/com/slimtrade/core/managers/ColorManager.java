@@ -7,18 +7,19 @@ import com.slimtrade.core.utility.TradeUtility;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.plaf.ColorUIResource;
 
 public class ColorManager {
 
-    // General Colors
-    public static Color PRIMARY;
+    // Mutual
     public static Color GREEN_SALE = new Color(0, 100, 0);
     public static Color GREEN_APPROVE = new Color(73, 156, 84);
     public static Color RED_SALE = new Color(100, 0, 0);
     public static Color RED_DENY = new Color(199, 84, 80);
     public static Color SCANNER_BACKGROUND = new Color(200, 128, 0);
 
-    // Exclusive Colors
+    // General
+    public static Color PRIMARY;
     public static Color BACKGROUND;                 // DARK/LIGHT THEME
     public static Color LOW_CONTRAST_1;             // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
     public static Color LOW_CONTRAST_2;             // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
@@ -27,7 +28,7 @@ public class ColorManager {
     public static Color TEXT;                       // DEFAULT TEXT
     public static Color TEXT_EDIT_BACKGROUND;       // DEFAULT TEXT
 
-    // OTHER
+    // Specific
     public static Color PLAYER_JOINED_INCOMING;
     public static Color PLAYER_JOINED_OUTGOING;
     public static Color PLAYER_JOINED_BACKGROUND;
@@ -36,6 +37,7 @@ public class ColorManager {
     public static Color MESSAGE_TIMER_BG;
     public static Color MESSAGE_PRICE_TEXT;
     public static Color BUTTON_SECONDARY_COLOR;
+    public static Color SCROLL_BAR;
 
     // BORDERS
     public static Border BORDER_PRIMARY;
@@ -50,11 +52,14 @@ public class ColorManager {
     // Internal
     private static final int OFFSET_COLOR_AMOUNT = 60;
     private static ColorTheme currentColorTheme;
-    private static boolean colorBlindMode = true;
+    private static boolean colorBlindMode = false;
 
     public static void setTheme(ColorTheme theme) {
         if (currentColorTheme == theme) {
             return;
+        }
+        if(theme == null) {
+            theme = ColorTheme.values()[0];
         }
         currentColorTheme = theme;
 
@@ -66,19 +71,18 @@ public class ColorManager {
         PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
         RED_DENY = new Color(199, 84, 80);
         SCANNER_BACKGROUND = new Color(200, 128, 0);
-
 //        public static Color PLAYER_JOINED_INCOMING = new Color(0, 160, 0);
 //        public static Color PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
 
         switch (theme) {
 
             // Light Theme
-            case LIGHT_THEME:
+            case SOLARIZED_LIGHT:
                 // General
                 PRIMARY = new Color(215, 206, 169);
                 BACKGROUND = new Color(255, 245, 235);
                 LOW_CONTRAST_1 = new Color(227, 222, 212);
-                LOW_CONTRAST_2 = LOW_CONTRAST_1;
+                LOW_CONTRAST_2 = new Color(191, 186, 176);
                 HIGH_CONTRAST_1 = new Color(60, 60, 60);
                 HIGH_CONTRAST_2 = new Color(102, 102, 102);
                 // Specific
@@ -88,6 +92,7 @@ public class ColorManager {
                 MESSAGE_PRICE_TEXT = PRIMARY;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
                 BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
+                SCROLL_BAR = PRIMARY;
                 break;
 
             // Dark Theme
@@ -107,13 +112,14 @@ public class ColorManager {
                 MESSAGE_PRICE_TEXT = TEXT;
                 BUTTON_SECONDARY_COLOR = new Color(197, 187, 178);
                 BUTTON_SECONDARY_COLOR = new Color(153, 143, 135);
-
+                SCROLL_BAR = LOW_CONTRAST_1;
                 break;
 
             // Monika
             case MONOKAI:
                 // General
                 PRIMARY = new Color(32, 33, 32);
+                PRIMARY = new Color(30, 31, 28);
                 BACKGROUND = new Color(39, 40, 34);
                 LOW_CONTRAST_1 = new Color(65, 67, 57);
                 LOW_CONTRAST_2 = new Color(52, 53, 47);
@@ -126,6 +132,7 @@ public class ColorManager {
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
                 MESSAGE_PRICE_TEXT = TEXT;
                 BUTTON_SECONDARY_COLOR = LOW_CONTRAST_1;
+                SCROLL_BAR = LOW_CONTRAST_1;
                 break;
 
         }
@@ -133,6 +140,7 @@ public class ColorManager {
         TEXT_EDIT_BACKGROUND = LOW_CONTRAST_1;
         BORDER_PRIMARY = BorderFactory.createLineBorder(ColorManager.PRIMARY);
         BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.TEXT);
+//        BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
         BORDER_LOW_CONTRAST_1 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
         if(colorBlindMode) {
             GREEN_SALE = new Color(30, 136, 229);
@@ -143,6 +151,7 @@ public class ColorManager {
             RED_DENY = new Color(199, 84, 80);
             SCANNER_BACKGROUND = new Color(209, 151, 7);
         }
+//        UIManager.put("TextField.caretForeground", new ColorUIResource(ColorManager.TEXT));
     }
 
     public static Color modify(Color c, int mod) {

@@ -1,8 +1,8 @@
 package com.slimtrade.enums;
 
 public enum ColorTheme {
-	
-	LIGHT_THEME("Light"),
+
+	SOLARIZED_LIGHT("Solarized Light"),
 	DARK_THEME("Dark"),
 	MONOKAI("Monokai"),
 	ALT2("alt2");

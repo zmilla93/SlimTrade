@@ -86,7 +86,7 @@ public class App {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                ColorManager.setTheme(ColorTheme.LIGHT_THEME);
+                ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT);
 
                 //Debug Mode
                 if (debugMode) {

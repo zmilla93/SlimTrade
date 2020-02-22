@@ -149,7 +149,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
     }
 
 }

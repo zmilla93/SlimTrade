@@ -21,7 +21,7 @@ public class SaveFile {
     public boolean showGuildName = false;
     public boolean closeOnKick = false;
     public boolean quickPasteTrades = false;
-    public ColorTheme colorTheme = ColorTheme.LIGHT_THEME;
+    public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
 
     // History
     public TimeStyle timeStyle = TimeStyle.H12;

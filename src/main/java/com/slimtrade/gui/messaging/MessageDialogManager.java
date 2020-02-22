@@ -236,19 +236,10 @@ public class MessageDialogManager {
             MessagePanel panel = (MessagePanel) wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
                 if(panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
-                    // TODO : Color names!
-//                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                 }
-                else if(panel.getTrade().messageType == MessageType.INCOMING_TRADE.OUTGOING_TRADE) {
-//                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_OUTGOING);
-                    panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
-                    panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
-                    panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_OUTGOING);
-                }
-
             }
         }
     }
