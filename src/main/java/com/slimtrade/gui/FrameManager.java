@@ -5,6 +5,7 @@ import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
+import com.slimtrade.gui.dialogs.BetrayalTest;
 import com.slimtrade.gui.dialogs.IgnoreItemWindow;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.history.HistoryWindow;
@@ -60,9 +61,9 @@ public class FrameManager {
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
         FrameManager.gridBag = new GridBagLayout();
-
-//        TutorialWindow tutorialWindow = new TutorialWindow();
-//        tutorialWindow.setVisible(true);
+        
+//        BetrayalTest betrayalTest = new BetrayalTest();
+//        betrayalTest.setVisible(true);
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();
