@@ -62,7 +62,7 @@ public class MessageDialogManager {
         });
         App.eventManager.recursiveColor(wrapper);
         wrapper.setShow(true);
-        if(!App.globalMouse.isGameFocused()) {
+        if (!App.globalMouse.isGameFocused()) {
             wrapper.setVisible(false);
         }
         FrameManager.showVisibleFrames();
@@ -72,6 +72,7 @@ public class MessageDialogManager {
     public void refreshPanelLocations() {
         Point targetPoint = new Point(anchorPoint);
         for (PanelWrapper w : wrapperList) {
+
             w.setLocation(targetPoint);
             w.setAlwaysOnTop(false);
             w.setAlwaysOnTop(true);
@@ -100,7 +101,7 @@ public class MessageDialogManager {
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel msg = (MessagePanel) wrapper.getPanel();
             TradeOffer tradeB = msg.trade;
-            if(tradeA.equals(tradeB)){
+            if (tradeA.equals(tradeB)) {
                 this.removeMessage(i);
                 break;
             }
@@ -205,7 +206,7 @@ public class MessageDialogManager {
         if (msgPanel.getMessageType() == MessageType.INCOMING_TRADE) {
             if (msgPanel.getStashHelper() != null) {
                 // TODO :
-                if(msgPanel.getStashHelper().itemHighlighter != null) {
+                if (msgPanel.getStashHelper().itemHighlighter != null) {
                     msgPanel.getStashHelper().itemHighlighter.dispose();
                 }
                 FrameManager.stashHelperContainer.remove(msgPanel.getStashHelper());
@@ -223,6 +224,7 @@ public class MessageDialogManager {
     public void setAnchorPoint(Point point) {
         this.anchorPoint = point;
     }
+
     public Point getAnchorPoint() {
         return this.anchorPoint;
     }
@@ -235,7 +237,7 @@ public class MessageDialogManager {
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel panel = (MessagePanel) wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
-                if(panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
+                if (panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
@@ -245,7 +247,7 @@ public class MessageDialogManager {
     }
 
     public void updateMessageColors() {
-        for(PanelWrapper w : wrapperList) {
+        for (PanelWrapper w : wrapperList) {
             App.eventManager.recursiveColor(w);
         }
     }

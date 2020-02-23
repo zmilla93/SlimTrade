@@ -1,13 +1,14 @@
 package com.slimtrade.gui.tutorial.panels;
 
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.SectionHeader;
 
 import javax.swing.*;
 
 public class HistoryTutorialPanel extends AbstractTutorialPanel {
 
-    private JLabel info1 = new JLabel("The trade history can be used reopen recent trade popups.");
-    private JLabel info2 = new JLabel("It loads using the client file, so it will even contain trades from when SlimTrade wasn't running.");
+    private JLabel info1 = new CustomLabel("The trade history can be used reopen recent trade popups.");
+    private JLabel info2 = new CustomLabel("It loads using the client file, so it will even contain trades from when SlimTrade wasn't running.");
 
     public HistoryTutorialPanel() {
 

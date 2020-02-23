@@ -5,6 +5,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.tutorial.panels.*;
 
@@ -17,7 +18,7 @@ public class TutorialWindow extends AbstractResizableWindow implements IColorabl
     private JPanel buttonPanel;
     private JPanel countPanel;
 
-    private JLabel countLabel = new JLabel();
+    private JLabel countLabel = new CustomLabel();
     private JButton backButton;
     private JButton nextButton;
 

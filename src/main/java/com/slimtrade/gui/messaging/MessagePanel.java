@@ -439,7 +439,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 color = StashTabColor.TWENTYSIX.getBackground();
                 colorText = StashTabColor.TWENTYSIX.getForeground();
 //                itemPanel.setBorderColor(ColorManager.TEXT);
-//                itemPanel.backgroundHover = ColorManager.PRIMARY;
+                itemPanel.backgroundHover = ColorManager.PRIMARY;
                 itemPanel.borderHover = ColorManager.TEXT;
                 itemPanel.borderClick = ColorManager.TEXT;
                 if (trade.stashtabName != null && !trade.stashtabName.equals("")) {

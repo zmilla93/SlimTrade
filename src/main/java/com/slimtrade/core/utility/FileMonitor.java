@@ -66,7 +66,6 @@ public class FileMonitor {
                         break;
                     }
                     for (WatchEvent<?> event : key.pollEvents()) {
-                        // TODO : Check context before parsing
                         if (event.context().toString().toLowerCase().equals("client.txt")) {
                             App.chatParser.update();
                             if (event.kind() == StandardWatchEventKinds.OVERFLOW) {

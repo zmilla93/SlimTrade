@@ -8,6 +8,7 @@ import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCheckbox;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
@@ -25,6 +26,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JTextField characterInput = new LimitTextField(32);
     private JCheckBox guildCheckbox = new CustomCheckbox();
     private JCheckBox kickCheckbox = new CustomCheckbox();
+    private JCheckBox colorBlindCheckbox = new CustomCheckbox();
     private JCheckBox quickPasteCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
     private JButton editStashButton = new BasicButton();
@@ -34,6 +36,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JLabel characterLabel;
     private JLabel guildLabel;
     private JLabel kickLabel;
+    private JLabel colorBlindLabel;
     private JLabel quickPasteLabel;
     private JLabel colorThemeLabel;
 
@@ -41,6 +44,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         characterLabel = new JLabel("Character Name");
         guildLabel = new JLabel("Show Guild Name");
         kickLabel = new JLabel("Close on Kick");
+        colorBlindLabel = new CustomLabel("Color Blind Mode");
         quickPasteLabel = new JLabel("Quick Paste Trades");
         colorThemeLabel = new JLabel("Color Theme");
 
@@ -63,6 +67,11 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         kickContainer.setOpaque(false);
         kickCheckbox.setOpaque(false);
         kickContainer.add(kickCheckbox, BorderLayout.EAST);
+
+        JPanel colorBlindContainer = new JPanel(new BorderLayout());
+        colorBlindContainer.setOpaque(false);
+        colorBlindCheckbox.setOpaque(false);
+        colorBlindContainer.add(colorBlindCheckbox, BorderLayout.EAST);
 
         JPanel quickPasteContainer = new JPanel(new BorderLayout());
         quickPasteContainer.setOpaque(false);
@@ -123,6 +132,14 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         gc.gridx = 0;
         gc.gridy++;
 
+        // Colorblind Mode
+        container.add(colorBlindLabel, gc);
+        gc.gridx = 2;
+
+        container.add(colorBlindContainer, gc);
+        gc.gridx = 0;
+        gc.gridy++;
+
         // Quick Paste
 //        container.add(quickPasteLabel, gc);
 //        gc.gridx = 2;
@@ -175,6 +192,12 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
             }
         });
+
+        colorBlindCheckbox.addActionListener(e -> {
+            ColorManager.setColorBlindMode(colorBlindCheckbox.isSelected());
+            ColorManager.setTheme(ColorManager.getCurrentColorTheme());
+            App.eventManager.updateAllColors(ColorManager.getCurrentColorTheme());
+        });
     }
 
     @Override
@@ -188,6 +211,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         App.saveManager.saveFile.characterName = characterName;
         App.saveManager.saveFile.showGuildName = guildCheckbox.isSelected();
         App.saveManager.saveFile.closeOnKick = kickCheckbox.isSelected();
+        App.saveManager.saveFile.colorBlindMode = colorBlindCheckbox.isSelected();
         App.saveManager.saveFile.quickPasteTrades = guildCheckbox.isSelected();
         App.saveManager.saveFile.colorTheme = colorTheme;
     }
@@ -199,6 +223,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         characterInput.setText(characterName);
         guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
+        colorBlindCheckbox.setSelected(App.saveManager.saveFile.colorBlindMode);
         quickPasteCheckbox.setSelected(false);
         System.out.println("VALEEEE: " + App.saveManager.saveFile.colorTheme);
         colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);

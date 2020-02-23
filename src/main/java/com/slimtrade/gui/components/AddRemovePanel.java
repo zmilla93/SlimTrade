@@ -35,7 +35,8 @@ public class AddRemovePanel extends JPanel implements IColorable {
 
         }
 		this.add(panel, gc);
-		updateColor();
+//		updateColor();
+		App.eventManager.recursiveColor(panel);
 		this.revalidate();
 		this.repaint();
 	}

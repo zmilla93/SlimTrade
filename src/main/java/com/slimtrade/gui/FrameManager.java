@@ -61,8 +61,9 @@ public class FrameManager {
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
         FrameManager.gridBag = new GridBagLayout();
-        
+
 //        BetrayalTest betrayalTest = new BetrayalTest();
+//        centerFrame(betrayalTest);
 //        betrayalTest.setVisible(true);
 
         stashHelperContainer = new StashHelperContainer();
@@ -87,18 +88,11 @@ public class FrameManager {
         stashHelperContainer.updateLocation();
 
 
-
-
-        //TODO : ADD NEW MESSAGE MANAGER
 //        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
         showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle};
-
-        //TODO : ADD NEW MESSAGE MANAGER
         forceFrames = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, ignoreItemWindow};
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow};
 
-
-//        trayButton = new TrayButton();
     }
 
     public static void hideMenuFrames() {

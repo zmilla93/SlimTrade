@@ -114,6 +114,7 @@ public class App {
 
                 // Frames
                 frameManager = new FrameManager();
+                ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
                 eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
 
                 // JNativeHook Setup

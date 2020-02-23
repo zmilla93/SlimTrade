@@ -1,13 +1,14 @@
 package com.slimtrade.gui.tutorial.panels;
 
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.SectionHeader;
 
 import javax.swing.*;
 
 public class MenuBarPanel extends AbstractTutorialPanel {
 
-    JLabel info1 = new JLabel("SlimTrade only appears when POE is focused, but can always be accessed from the system tray.");
-    JLabel info2 = new JLabel("Hover over the button in the upper left to start customizing!");
+    JLabel info1 = new CustomLabel("SlimTrade only appears when POE is focused, but can always be accessed from the system tray.");
+    JLabel info2 = new CustomLabel("Hover over the button in the upper left to start customizing!");
 
     public MenuBarPanel() {
         gc.insets.bottom = 10;

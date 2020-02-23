@@ -24,132 +24,130 @@ import com.sun.jna.platform.win32.User32;
 
 public class PoeInterface extends Robot {
 
-	private static StringSelection pasteString;
-	private static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-	private static Robot robot;
+    private static StringSelection pasteString;
+    private static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    private static Robot robot;
 
-	public PoeInterface() throws AWTException {
-		try {
-			robot = new Robot();
-			// robot.setAutoDelay(100);
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
-	}
+    public PoeInterface() throws AWTException {
+        try {
+            robot = new Robot();
+            // robot.setAutoDelay(100);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public static void attemptQuickPaste() {
-		String text = null;
-		try {
-			text = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-		} catch (UnsupportedFlavorException e) {
-			return;
-		} catch (IOException e) {
-			return;
-		}
-		if(text == null) {
-			return;
-		}
-		String matchString = "@(\\S+) ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
-		Matcher matcher = Pattern.compile(matchString).matcher(text);
-		if(matcher.matches()) {
-			pasteWithFocus(text);
-		}
-	}
+    public static void attemptQuickPaste() {
+        String text = null;
+        try {
+            text = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            return;
+        } catch (IOException e) {
+            return;
+        }
+        if (text == null) {
+            return;
+        }
+        String matchString = "@(\\S+) ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
+        Matcher matcher = Pattern.compile(matchString).matcher(text);
+        if (matcher.matches()) {
+            pasteWithFocus(text);
+        }
+    }
 
-	public static void paste(String s, boolean... send) {
-		pasteString = new StringSelection(s);
-		clipboard.setContents(pasteString, null);
-		PoeInterface.focus();
-		robot.keyPress(KeyEvent.VK_ENTER);
-		robot.keyRelease(KeyEvent.VK_ENTER);
-		robot.keyPress(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_CONTROL);
-		if (send.length == 0 || send[0] == true) {
-			robot.keyPress(KeyEvent.VK_ENTER);
-			robot.keyRelease(KeyEvent.VK_ENTER);
-		}
-		FrameManager.forceAllToTop();
-	}
+    public static void paste(String s, boolean... send) {
+        pasteString = new StringSelection(s);
+        clipboard.setContents(pasteString, null);
+        PoeInterface.focus();
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        if (send.length == 0 || send[0] == true) {
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+        }
+        FrameManager.forceAllToTop();
+    }
 
-	public static void pasteWithFocus(String s) {
-		new Thread(new Runnable() {
-			public void run() {
-				focus();
-				try {
-					Thread.sleep(5);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
+    public static void pasteWithFocus(String s) {
+        new Thread(new Runnable() {
+            public void run() {
+                focus();
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
 //				robot.mouseMove(100, 100);
 //				robot.mousePress(InputEvent.BUTTON1_MASK);
 //				robot.mouseRelease(InputEvent.BUTTON1_MASK);
-				PointerType hwnd = null;
-				byte[] windowText = new byte[512];
-				int i = 0;
-				String curWindowTitle = null;
-				do {
-					hwnd = User32.INSTANCE.GetForegroundWindow();
-					if (hwnd != null) {
-						User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
-						curWindowTitle = Native.toString(windowText);
-						if(i>1000 || curWindowTitle.equals(References.POE_WINDOW_TITLE)){
-							break;
-						}
-					} else {
-						try {
-							Thread.sleep(1);
-						} catch (InterruptedException e1) {
-							e1.printStackTrace();
-						}
-					}
-					i++;
-				} while (true);
-//				System.out.println("FOCUS TIME : " + i);
-				if (curWindowTitle.equals("Path of Exile")) {
-					FrameManager.forceAllToTop();
-					robot.keyPress(KeyEvent.VK_ENTER);
-					robot.keyRelease(KeyEvent.VK_ENTER);
-					robot.keyPress(KeyEvent.VK_CONTROL);
-					robot.keyPress(KeyEvent.VK_V);
-					robot.keyRelease(KeyEvent.VK_V);
-					robot.keyRelease(KeyEvent.VK_CONTROL);
-					robot.keyPress(KeyEvent.VK_ENTER);
-					robot.keyRelease(KeyEvent.VK_ENTER);
-				}else{
-//					App.logger.log(Level.WARNING, "Bad Window ::: " + curWindowTitle);
-				}
-			}
-		}).start();
-	}
+                PointerType hwnd = null;
+                byte[] windowText = new byte[512];
+                int i = 0;
+                String curWindowTitle = null;
+                do {
+                    hwnd = User32.INSTANCE.GetForegroundWindow();
+                    if (hwnd != null) {
+                        User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+                        curWindowTitle = Native.toString(windowText);
+                        if (curWindowTitle.equals(References.POE_WINDOW_TITLE)) {
+                            break;
+                        } else if (i > 400) {
+                            return;
+                        }
+                    } else {
+                        try {
+                            Thread.sleep(1);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                    i++;
+                } while (true);
+                System.out.println("POE Focus Time : " + i);
+                FrameManager.forceAllToTop();
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+                robot.keyPress(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+            }
+        }).start();
+    }
 
-	public static void findInStash(String s) {
-		focus();
-		pasteString = new StringSelection(s);
-		clipboard.setContents(pasteString, null);
-		robot.keyPress(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_F);
-		robot.keyRelease(KeyEvent.VK_F);
-		robot.keyPress(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_CONTROL);
-		FrameManager.forceAllToTop();
-	}
+    public static void findInStash(String s) {
+        focus();
+        pasteString = new StringSelection(s);
+        clipboard.setContents(pasteString, null);
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_F);
+        robot.keyRelease(KeyEvent.VK_F);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        FrameManager.forceAllToTop();
+    }
 
-	public static void focus() {
-		User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
-			char[] className = new char[512];
-			User32.INSTANCE.GetClassName(hWnd, className, 512);
-			String wText = Native.toString(className);
-			if (wText.isEmpty()) {
-				return true;
-			}
-			if (wText.equals("POEWindowClass")) {
-				User32.INSTANCE.SetForegroundWindow(hWnd);
-				return false;
-			}
-			return true;
-		}, null);
-	}
+    public static void focus() {
+        User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
+            char[] className = new char[512];
+            User32.INSTANCE.GetClassName(hWnd, className, 512);
+            String wText = Native.toString(className);
+            if (wText.isEmpty()) {
+                return true;
+            }
+            if (wText.equals("POEWindowClass")) {
+                User32.INSTANCE.SetForegroundWindow(hWnd);
+                return false;
+            }
+            return true;
+        }, null);
+    }
 }

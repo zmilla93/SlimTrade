@@ -271,6 +271,10 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         container.setBackground(ColorManager.BACKGROUND);
         display.setBackground(ColorManager.BACKGROUND);
         display.setBorder(ColorManager.BORDER_TEXT);
+        display.setBorder(BorderFactory.createLineBorder(Color.RED));
+        display.setBorder(null);
+        scrollDisplay.setBorder(ColorManager.BORDER_TEXT);
+//        container.setBorder();
     }
 
     private void recolorUpdateButton() {

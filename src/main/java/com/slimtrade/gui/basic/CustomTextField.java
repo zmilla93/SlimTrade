@@ -30,7 +30,7 @@ public class CustomTextField extends JTextField implements IColorable {
         this.setCaretColor(ColorManager.TEXT);
         this.setBackground(ColorManager.TEXT_EDIT_BACKGROUND);
         this.setForeground(ColorManager.TEXT);
-        this.setSelectionColor(ColorManager.PRIMARY);
+        this.setSelectionColor(ColorManager.TEXT_SELECTION);
         if(enableBorder) {
             this.setBorder(ColorManager.BORDER_TEXT);
         } else {

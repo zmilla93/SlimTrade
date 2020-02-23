@@ -20,18 +20,18 @@ public class ColorManager {
 
     // General
     public static Color PRIMARY;
-    public static Color BACKGROUND;                 // DARK/LIGHT THEME
-    public static Color LOW_CONTRAST_1;             // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
-    public static Color LOW_CONTRAST_2;             // SUBTLE BACKGROUND	- SIDEBAR/FORUM FIELD
-    public static Color HIGH_CONTRAST_1;            // DEFINE WHITE/BLACK 	- CAN BE BACKGROUND OF OPPO
-    public static Color HIGH_CONTRAST_2;            // LESSER WHITE/BLACK 	- CAN BE LOW CONSTAST OF OPPO
-    public static Color TEXT;                       // DEFAULT TEXT
-    public static Color TEXT_EDIT_BACKGROUND;       // DEFAULT TEXT
+    public static Color BACKGROUND;
+    public static Color LOW_CONTRAST_1;
+    public static Color LOW_CONTRAST_2;
+    public static Color HIGH_CONTRAST_1;
+    public static Color HIGH_CONTRAST_2;
+    public static Color TEXT;
+    public static Color TEXT_EDIT_BACKGROUND;
+    public static Color TEXT_SELECTION;
 
     // Specific
     public static Color PLAYER_JOINED_INCOMING;
     public static Color PLAYER_JOINED_OUTGOING;
-    public static Color PLAYER_JOINED_BACKGROUND;
     public static Color MESSAGE_NAME_BG;
     public static Color MESSAGE_ITEM_BG;
     public static Color MESSAGE_TIMER_BG;
@@ -52,12 +52,12 @@ public class ColorManager {
     // Internal
     private static final int OFFSET_COLOR_AMOUNT = 60;
     private static ColorTheme currentColorTheme;
-    private static boolean colorBlindMode = false;
+    private static boolean colorBlindMode;
 
     public static void setTheme(ColorTheme theme) {
-        if (currentColorTheme == theme) {
-            return;
-        }
+//        if (currentColorTheme == theme) {
+//            return;
+//        }
         if(theme == null) {
             theme = ColorTheme.values()[0];
         }
@@ -87,6 +87,7 @@ public class ColorManager {
                 HIGH_CONTRAST_2 = new Color(102, 102, 102);
                 // Specific
                 TEXT = ColorManager.HIGH_CONTRAST_1;
+                TEXT_SELECTION = PRIMARY;
                 MESSAGE_NAME_BG = new Color(227, 222, 212);
                 MESSAGE_ITEM_BG = new Color(204, 199, 189);
                 MESSAGE_PRICE_TEXT = PRIMARY;
@@ -106,6 +107,7 @@ public class ColorManager {
                 HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
                 // Specific
                 TEXT = new Color(200, 185, 97);
+                TEXT_SELECTION = TEXT;
                 MESSAGE_NAME_BG = LOW_CONTRAST_1;
                 MESSAGE_ITEM_BG = BACKGROUND;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
@@ -127,6 +129,7 @@ public class ColorManager {
                 HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
                 // Specific
                 TEXT = new Color(204, 204, 199);
+                TEXT_SELECTION = TEXT;
                 MESSAGE_NAME_BG = LOW_CONTRAST_1;
                 MESSAGE_ITEM_BG = BACKGROUND;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
@@ -140,18 +143,19 @@ public class ColorManager {
         TEXT_EDIT_BACKGROUND = LOW_CONTRAST_1;
         BORDER_PRIMARY = BorderFactory.createLineBorder(ColorManager.PRIMARY);
         BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.TEXT);
-//        BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
         BORDER_LOW_CONTRAST_1 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
+
+        // Color Blind Mode
         if(colorBlindMode) {
             GREEN_SALE = new Color(30, 136, 229);
             PLAYER_JOINED_INCOMING = GREEN_SALE;
-            GREEN_APPROVE = new Color(30, 136, 229);
+            GREEN_APPROVE = GREEN_SALE;
             RED_SALE = new Color(216, 27, 96);
             PLAYER_JOINED_OUTGOING = RED_SALE;
-            RED_DENY = new Color(199, 84, 80);
+            RED_DENY = RED_SALE;
             SCANNER_BACKGROUND = new Color(209, 151, 7);
         }
-//        UIManager.put("TextField.caretForeground", new ColorUIResource(ColorManager.TEXT));
+
     }
 
     public static Color modify(Color c, int mod) {
@@ -170,5 +174,14 @@ public class ColorManager {
     public static Color darker(Color c) {
         return modify(c, -OFFSET_COLOR_AMOUNT);
     }
+
+    public static ColorTheme getCurrentColorTheme() {
+        return currentColorTheme;
+    }
+
+    public static void setColorBlindMode(boolean state) {
+        colorBlindMode = state;
+    }
+
 
 }

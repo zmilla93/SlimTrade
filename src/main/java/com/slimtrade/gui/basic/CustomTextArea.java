@@ -18,6 +18,7 @@ public class CustomTextArea extends JTextArea implements IColorable {
         this.setBackground(ColorManager.TEXT_EDIT_BACKGROUND);
         this.setForeground(ColorManager.TEXT);
         this.setBorder(ColorManager.BORDER_TEXT);
+        this.setSelectionColor(ColorManager.TEXT_SELECTION);
     }
 
 }
