@@ -1,8 +1,8 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.MacroButton;
-import com.slimtrade.core.SaveSystem.StashTab;
+import com.slimtrade.core.saving.MacroButton;
+import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
@@ -431,7 +431,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         switch (trade.messageType) {
             case CHAT_SCANNER:
                 // TODO : Custom tooltip
-                itemPanel.setToolTipText(trade.searchMessage);
+                itemPanel.getLabel().setToolTipText(trade.searchMessage);
                 borderPanel.setBackground(ColorManager.SCANNER_BACKGROUND);
                 pricePanel.setBackground(ColorManager.SCANNER_BACKGROUND);
                 break;

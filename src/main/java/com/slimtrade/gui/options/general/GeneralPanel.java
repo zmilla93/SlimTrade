@@ -3,8 +3,6 @@ package com.slimtrade.gui.options.general;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import com.slimtrade.App;
-import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.options.ISaveable;

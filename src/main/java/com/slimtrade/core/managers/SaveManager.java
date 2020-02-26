@@ -2,10 +2,11 @@ package com.slimtrade.core.managers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.slimtrade.core.SaveSystem.OverlaySaveFile;
-import com.slimtrade.core.SaveSystem.SaveFile;
-import com.slimtrade.core.SaveSystem.ScannerSaveFile;
-import com.slimtrade.core.SaveSystem.StashSaveFile;
+import com.slimtrade.core.saving.OverlaySaveFile;
+import com.slimtrade.core.saving.SaveFile;
+import com.slimtrade.core.saving.ScannerSaveFile;
+import com.slimtrade.core.saving.StashSaveFile;
+import com.slimtrade.gui.options.ISaveable;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class SaveManager {
     private final String stashFileName = "stash.json";
     private final String overlayFileName = "overlay.json";
     private final String scannerFileName = "scanner.json";
+
+    private ArrayList<ISaveable> saveList = new ArrayList<>();
 
     private boolean validSavePath = false;
 
@@ -240,5 +243,20 @@ public class SaveManager {
         return clientCount;
     }
 
+    public void addSaveableObject(ISaveable obj) {
+        this.saveList.add(obj);
+    }
+
+    public void saveAll() {
+        for(ISaveable s : saveList) {
+            s.save();
+        }
+    }
+
+    public void loadAll() {
+        for(ISaveable s : saveList) {
+            s.load();
+        }
+    }
 
 }

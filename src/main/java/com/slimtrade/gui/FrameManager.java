@@ -58,9 +58,14 @@ public class FrameManager {
     public static WindowState lastWindowState = WindowState.NORMAL;
 
     public FrameManager() {
+        FrameManager.gridBag = new GridBagLayout();
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
-        FrameManager.gridBag = new GridBagLayout();
+        System.out.println("Initial Delay : " + ToolTipManager.sharedInstance().getInitialDelay());
+        System.out.println("Dismiss Delay : " + ToolTipManager.sharedInstance().getDismissDelay());
+        ToolTipManager.sharedInstance().setInitialDelay(250);
+        ToolTipManager.sharedInstance().setDismissDelay(10000);
+
 
 //        BetrayalTest betrayalTest = new BetrayalTest();
 //        centerFrame(betrayalTest);

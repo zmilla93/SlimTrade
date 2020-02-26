@@ -12,9 +12,9 @@ import javax.swing.border.Border;
 
 public class ContainerPanel extends JPanel implements IColorable {
 
-	private static final long serialVersionUID = 1L;
-	
 	public JPanel container = new JPanel(FrameManager.gridBag);
+	public GridBagConstraints gc = new GridBagConstraints();
+
 	private static final int defaultBorderSize = 15;
 	
 	public ContainerPanel(){
@@ -29,6 +29,8 @@ public class ContainerPanel extends JPanel implements IColorable {
 		this.add(new BufferPanel(0, borderSize), BorderLayout.SOUTH);
 		this.add(new BufferPanel(borderSize, 0), BorderLayout.EAST);
 		this.add(container, BorderLayout.CENTER);
+		gc.gridx = 0;
+		gc.gridy = 0;
 	}
 
     @Override

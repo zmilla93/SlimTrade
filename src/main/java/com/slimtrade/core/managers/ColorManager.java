@@ -58,7 +58,7 @@ public class ColorManager {
 //        if (currentColorTheme == theme) {
 //            return;
 //        }
-        if(theme == null) {
+        if (theme == null) {
             theme = ColorTheme.values()[0];
         }
         currentColorTheme = theme;
@@ -92,6 +92,26 @@ public class ColorManager {
                 MESSAGE_ITEM_BG = new Color(204, 199, 189);
                 MESSAGE_PRICE_TEXT = PRIMARY;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
+                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
+                SCROLL_BAR = PRIMARY;
+                break;
+
+            // Light Theme
+            case SOLARIZED_DARK:
+                // General
+                PRIMARY = new Color(0, 44, 57);
+                BACKGROUND = new Color(3, 56, 70);
+                LOW_CONTRAST_1 = new Color(0, 43, 54);
+                LOW_CONTRAST_2 = new Color(60, 125, 131);
+                HIGH_CONTRAST_1 = new Color(57, 140, 161);
+                HIGH_CONTRAST_2 = new Color(102, 102, 102);
+                // Specific
+                TEXT = new Color(184, 188, 189);
+                TEXT_SELECTION = TEXT;
+                MESSAGE_NAME_BG = LOW_CONTRAST_1;
+                MESSAGE_ITEM_BG = BACKGROUND;
+                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
+                MESSAGE_PRICE_TEXT = TEXT;
                 BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
                 SCROLL_BAR = PRIMARY;
                 break;
@@ -146,7 +166,7 @@ public class ColorManager {
         BORDER_LOW_CONTRAST_1 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
 
         // Color Blind Mode
-        if(colorBlindMode) {
+        if (colorBlindMode) {
             GREEN_SALE = new Color(30, 136, 229);
             PLAYER_JOINED_INCOMING = GREEN_SALE;
             GREEN_APPROVE = GREEN_SALE;

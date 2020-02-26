@@ -1,10 +1,9 @@
 package com.slimtrade.gui.overlay;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.OverlaySaveFile;
+import com.slimtrade.core.saving.OverlaySaveFile;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.improved.EventManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;

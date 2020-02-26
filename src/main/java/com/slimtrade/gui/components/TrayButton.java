@@ -1,14 +1,10 @@
 package com.slimtrade.gui.components;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
-import com.slimtrade.core.SaveSystem.OverlaySaveFile;
-import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.saving.OverlaySaveFile;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.enums.WindowState;

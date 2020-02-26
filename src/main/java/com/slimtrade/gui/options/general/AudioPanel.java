@@ -4,7 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.SoundElement;
+import com.slimtrade.core.saving.SoundElement;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;

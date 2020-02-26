@@ -1,4 +1,4 @@
-package com.slimtrade.core.SaveSystem;
+package com.slimtrade.core.saving;
 
 import java.awt.*;
 

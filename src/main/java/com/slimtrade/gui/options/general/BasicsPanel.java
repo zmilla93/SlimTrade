@@ -40,6 +40,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JLabel quickPasteLabel;
     private JLabel colorThemeLabel;
 
+    // TODO : Remove quick paste trades checkbox
     public BasicsPanel() {
         characterLabel = new JLabel("Character Name");
         guildLabel = new JLabel("Show Guild Name");
@@ -212,7 +213,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         App.saveManager.saveFile.showGuildName = guildCheckbox.isSelected();
         App.saveManager.saveFile.closeOnKick = kickCheckbox.isSelected();
         App.saveManager.saveFile.colorBlindMode = colorBlindCheckbox.isSelected();
-        App.saveManager.saveFile.quickPasteTrades = guildCheckbox.isSelected();
         App.saveManager.saveFile.colorTheme = colorTheme;
     }
 
@@ -224,6 +224,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
         colorBlindCheckbox.setSelected(App.saveManager.saveFile.colorBlindMode);
+        ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
         quickPasteCheckbox.setSelected(false);
         System.out.println("VALEEEE: " + App.saveManager.saveFile.colorTheme);
         colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);

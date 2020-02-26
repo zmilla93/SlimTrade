@@ -1,7 +1,7 @@
 package com.slimtrade.gui.stash;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.StashTab;
+import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.CustomLabel;

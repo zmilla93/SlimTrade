@@ -1,10 +1,8 @@
 package com.slimtrade.gui.options.ignore;
 
-import com.slimtrade.core.SaveSystem.SaveFile;
+import com.slimtrade.core.saving.SaveFile;
 import com.slimtrade.gui.enums.MatchType;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 

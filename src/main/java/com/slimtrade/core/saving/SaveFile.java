@@ -1,7 +1,8 @@
-package com.slimtrade.core.SaveSystem;
+package com.slimtrade.core.saving;
 
 import com.slimtrade.core.References;
 import com.slimtrade.core.audio.Sound;
+import com.slimtrade.core.observing.HotkeyData;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
@@ -20,7 +21,7 @@ public class SaveFile {
     public String characterName = "";
     public boolean showGuildName = false;
     public boolean closeOnKick = false;
-    public boolean quickPasteTrades = false;
+//    public boolean quickPasteTrades = false;
     public boolean colorBlindMode = false;
     public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
 
@@ -38,8 +39,6 @@ public class SaveFile {
 
     // Client
     public String clientPath = null;
-//    public boolean validClientPath = false;
-//    public int clientCount;
 
     // Custom Macros
     public ArrayList<StashTab> stashTabs = new ArrayList<>();
@@ -49,6 +48,11 @@ public class SaveFile {
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
     public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
 
+    // Hotkeys
+    public HotkeyData betrayalHotkey = null;
+    public HotkeyData quickPasteHotkey = null;
+
+    // TODO : Should move this to somewhere more logical
     public static int dateDifference(Date d1, Date d2) {
         try {
             long diff = d2.getTime() - d1.getTime();
@@ -59,7 +63,6 @@ public class SaveFile {
             long diffSeconds = diff / 1000 % 60;
             long diffMinutes = diff / (60 * 1000) % 60;
             long diffHours = diff / (60 * 60 * 1000) % 24;
-//            long diffDays = diff / (24 * 60 * 60 * 1000);
 
 //            System.out.print(diffDays + " days, ");
 //            System.out.print(diffHours + " hours, ");

@@ -99,6 +99,9 @@ public class App {
 //                updateChecker.checkForUpdates();
 
 
+                globalMouse = new GlobalMouseListener();
+                globalKeyboard = new GlobalKeyboardListener();
+
                 Locale.setDefault(Locale.US);
                 saveManager = new SaveManager();
                 saveManager.loadFromDisk();
@@ -117,18 +120,17 @@ public class App {
                 ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
                 eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
 
+                saveManager.loadAll();
+
                 // JNativeHook Setup
                 try {
                     GlobalScreen.registerNativeHook();
                 } catch (NativeHookException e) {
                     e.printStackTrace();
                 }
-                globalMouse = new GlobalMouseListener();
-                globalKeyboard = new GlobalKeyboardListener();
+
                 GlobalScreen.addNativeMouseListener(globalMouse);
                 GlobalScreen.addNativeKeyListener(globalKeyboard);
-
-//				ClipboardManager clipboard = new ClipboardManager();
 
                 // Alert about new update
 //                if(updateChecker.isUpdateAvailable()){
@@ -141,11 +143,7 @@ public class App {
         });
 
 
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-                closeProgram();
-            }
-        }));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
         loadingDialog.dispose();
         App.launch();
         System.out.println("SlimTrade launched!");

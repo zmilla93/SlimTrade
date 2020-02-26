@@ -1,32 +1,81 @@
 package com.slimtrade.core.observing;
 
+import com.slimtrade.App;
 import com.slimtrade.core.utility.PoeInterface;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
-public class GlobalKeyboardListener implements NativeKeyListener{
+public class GlobalKeyboardListener implements NativeKeyListener {
 
-	@Override
-	public void nativeKeyPressed(NativeKeyEvent e) {
+    private HotkeyListener hotkeyListener = null;
 
-//		System.out.println("Key Pressed!");
-//		System.out.println("\t" + NativeKeyEvent.getKeyText(e.getKeyCode()));
-//		System.out.println("\t" + NativeKeyEvent.getModifiersText(e.getModifiers()));
+    @Override
+    public void nativeKeyPressed(NativeKeyEvent e) {
 
-		if(e.getKeyCode() == NativeKeyEvent.VC_F2) {
-			PoeInterface.attemptQuickPaste();
-		}
+        // Useful Print stuff
+//        System.out.println("Key Pressed!");
+//        System.out.println("\t" + NativeKeyEvent.getKeyText(e.getKeyCode()));
+//        System.out.println("\t" + NativeKeyEvent.getModifiersText(e.getModifiers()));
 
-	}
+        // Ignore modifier keys on their own
+        if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL
+                || e.getKeyCode() == NativeKeyEvent.VC_ALT
+                || e.getKeyCode() == NativeKeyEvent.VC_SHIFT
+                || e.getKeyCode() == NativeKeyEvent.VC_CAPS_LOCK
+                || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED) {
+            return;
+        }
 
-	@Override
-	public void nativeKeyReleased(NativeKeyEvent e) {
+        // If a UI element is waiting for hotkey data, return the data and skip the hotkey logic.
+        if (hotkeyListener != null) {
+            HotkeyData data = new HotkeyData(e.getKeyCode(), e.getModifiers());
+            hotkeyListener.updateHotkey(data);
+            hotkeyListener = null;
+            return;
+        }
 
-	}
+        // Betrayal
+        if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
 
-	@Override
-	public void nativeKeyTyped(NativeKeyEvent e) {
+        }
 
-	}
+        //
+        if (checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
+            PoeInterface.attemptQuickPaste();
+        }
+
+    }
+
+    @Override
+    public void nativeKeyReleased(NativeKeyEvent e) {
+        // Unused
+    }
+
+    @Override
+    public void nativeKeyTyped(NativeKeyEvent e) {
+        // Unused
+    }
+
+    public void listenForHotkey(HotkeyListener hotkeyListener) {
+        if (this.hotkeyListener != null) {
+            this.hotkeyListener.updateHotkey(null);
+        }
+        this.hotkeyListener = hotkeyListener;
+    }
+
+    public void clearHotkeyListener() {
+        this.hotkeyListener = null;
+    }
+
+    private boolean checkKey(NativeKeyEvent e, HotkeyData data) {
+        if (data == null) {
+            return false;
+        }
+        if (e.getKeyCode() == data.keyCode && e.getModifiers() == data.modifiers) {
+            return true;
+        }
+        return false;
+    }
+
 
 }

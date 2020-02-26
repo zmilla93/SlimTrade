@@ -1,7 +1,7 @@
 package com.slimtrade.gui.scanner;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.MacroButton;
+import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.ComponentResizeAdapter;
 import com.slimtrade.core.observing.DocumentUpdateListener;
@@ -599,7 +599,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         if (selectedMessage != null) {
             searchName = selectedMessage.name;
         }
-        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text lorem ipsum dolor sit amet, consectetur adipiscing elit");
+        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text. Hover to view the entire message!");
         sampleMessage = new MessagePanel(trade, MessageDialogManager.defaultSize);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;

@@ -16,7 +16,15 @@ public class CustomLabel extends JLabel implements IColorable {
     }
 
     @Override
+    public JToolTip createToolTip() {
+        return new CustomToolTip(this);
+    }
+
+    @Override
     public void updateColor() {
         this.setForeground(ColorManager.TEXT);
+        createToolTip();
     }
+
+
 }

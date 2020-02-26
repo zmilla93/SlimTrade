@@ -1,4 +1,4 @@
-package com.slimtrade.core.SaveSystem;
+package com.slimtrade.core.saving;
 
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;

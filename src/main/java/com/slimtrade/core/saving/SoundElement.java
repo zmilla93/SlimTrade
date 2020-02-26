@@ -1,4 +1,4 @@
-package com.slimtrade.core.SaveSystem;
+package com.slimtrade.core.saving;
 
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.Sound;

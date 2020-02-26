@@ -27,6 +27,7 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomScrollPane;
 import com.slimtrade.gui.options.general.GeneralPanel;
+import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macros.IncomingCustomizer;
 import com.slimtrade.gui.options.macros.OutgoingCustomizer;
@@ -48,7 +49,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     private BasicButton checkUpdateButton = null;
 
     private GeneralPanel generalPanel;
-    private boolean updateAvailable;
+    private HotkeyPanel hotkeyPanel;
 
     public OptionsWindow() {
         super("Options");
@@ -68,7 +69,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        // gc.fill = GridBagConstraints.BOTH;
 
         int buffer = 6;
         JPanel bottomPanel = new JPanel();
@@ -78,10 +78,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         menuBorder.setOpaque(false);
 
         bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, buffer));
-        // JButton resizeButton = new JButton("RESIZE");
         DenyButton revertButton = new DenyButton("Revert Changes");
         ConfirmButton saveButton = new ConfirmButton("Save");
-        // bottomPanel.add(resizeButton);
         bottomPanel.add(revertButton);
         bottomPanel.add(saveButton);
 
@@ -109,6 +107,11 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         ItemIgnorePanel ignorePanel = new ItemIgnorePanel();
         link(ignoreButton, ignorePanel);
         display.add(ignorePanel, gc);
+
+        ListButton hotKeyButton = new ListButton("Hotkeys");
+        HotkeyPanel hotkeyPanel = new HotkeyPanel();
+        link(hotKeyButton, hotkeyPanel);
+        display.add(hotkeyPanel, gc);
 
         JButton contactButton = new ListButton("Information");
         InformationPanel contactPanel = new InformationPanel();
@@ -141,6 +144,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         menuPanel.add(outgoingButton, gc);
         gc.gridy++;
         menuPanel.add(ignoreButton, gc);
+        gc.gridy++;
+        menuPanel.add(hotKeyButton, gc);
         gc.gridy++;
         menuPanel.add(contactButton, gc);
         gc.gridy++;
@@ -214,6 +219,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 outgoingPanel.revertChanges();
                 stashPanel.revertChanges();
                 ignorePanel.revertChanges();
+                App.saveManager.loadAll();
                 FrameManager.optionsWindow.revalidate();
                 FrameManager.optionsWindow.repaint();
             }
@@ -226,6 +232,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 outgoingPanel.save();
                 stashPanel.save();
                 ignorePanel.save();
+                App.saveManager.saveAll();
                 App.saveManager.saveToDisk();
             }
         });

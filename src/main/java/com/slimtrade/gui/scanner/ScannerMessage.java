@@ -1,6 +1,6 @@
 package com.slimtrade.gui.scanner;
 
-import com.slimtrade.core.SaveSystem.MacroButton;
+import com.slimtrade.core.saving.MacroButton;
 
 import java.util.ArrayList;
 

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Random;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.MacroButton;
+import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
@@ -14,9 +14,7 @@ import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.PreloadedImage;
-import com.slimtrade.gui.enums.PreloadedImageCustom;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
