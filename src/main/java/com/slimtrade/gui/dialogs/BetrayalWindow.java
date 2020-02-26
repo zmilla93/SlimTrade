@@ -5,9 +5,9 @@ import com.slimtrade.gui.basic.BasicMovableDialog;
 import javax.swing.*;
 import java.awt.*;
 
-public class BetrayalTest extends BasicMovableDialog {
+public class BetrayalWindow extends BasicMovableDialog {
 
-    public BetrayalTest() {
+    public BetrayalWindow() {
         super(true);
         JLabel label = new JLabel();
         Image image = new ImageIcon(this.getClass().getClassLoader().getResource("images/betrayal.png")).getImage();

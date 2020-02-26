@@ -5,7 +5,7 @@ import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
-import com.slimtrade.gui.dialogs.BetrayalTest;
+import com.slimtrade.gui.dialogs.BetrayalWindow;
 import com.slimtrade.gui.dialogs.IgnoreItemWindow;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.history.HistoryWindow;
@@ -42,6 +42,7 @@ public class FrameManager {
     public static OverlayManager overlayManager;
     public static ChatScannerWindow chatScannerWindow;
     public static TrayButton trayButton;
+    public static BetrayalWindow betrayalWindow;
 
     //Ignore Items
     public static IgnoreItemWindow ignoreItemWindow;
@@ -67,9 +68,9 @@ public class FrameManager {
         ToolTipManager.sharedInstance().setDismissDelay(10000);
 
 
-//        BetrayalTest betrayalTest = new BetrayalTest();
-//        centerFrame(betrayalTest);
-//        betrayalTest.setVisible(true);
+        betrayalWindow = new BetrayalWindow();
+        centerFrame(betrayalWindow);
+        betrayalWindow.setShow(false);
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();

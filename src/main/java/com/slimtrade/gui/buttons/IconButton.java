@@ -94,7 +94,7 @@ public class IconButton extends JButton implements IColorable {
     @Override
     public void updateColor() {
         colorDefault = ColorManager.LOW_CONTRAST_1;
-        colorHover = Color.LIGHT_GRAY;
-        colorPressed = Color.WHITE;
+        colorHover = ColorManager.LOW_CONTRAST_2;
+        colorPressed = ColorManager.HIGH_CONTRAST_1;
     }
 }

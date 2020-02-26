@@ -4,8 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
@@ -36,10 +35,10 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 
 	private JPanel innerPanel = new JPanel();
 	private JPanel buttonPanel = new JPanel();
-	// private ArrayList<TradeOffer> incomingTradeData = new
-	// ArrayList<TradeOffer>();
-	
-//	private int maxTrades = 50;
+
+	private JScrollPane incomingScroll;
+	private JScrollPane outgoingScroll;
+
 	
 	public HistoryWindow() {
 		super("History");
@@ -55,10 +54,11 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		gc.insets = inset;
 		container.setLayout(new BorderLayout());
 
-		JScrollPane incomingScroll = new CustomScrollPane(incomingPanel);
-		JScrollPane outgoingScroll = new CustomScrollPane(outgoingPanel);
+		incomingScroll = new CustomScrollPane(incomingPanel);
+		outgoingScroll = new CustomScrollPane(outgoingPanel);
 
-
+//		incomingScroll.setBorder(null);
+//		outgoingScroll.setBorder(null);
 
 		// incomingPanel.setBackground(Color.GREEN);
 
@@ -169,11 +169,13 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		super.updateColor();
 		buttonPanel.setBackground(ColorManager.BACKGROUND);
 		innerPanel.setBackground(ColorManager.BACKGROUND);
-		if(!incomingPanel.isVisible()) {
-			App.eventManager.recursiveColor(incomingPanel);
-		}
-		if(!outgoingPanel.isVisible()) {
+		if(incomingPanel.isVisible()) {
 			App.eventManager.recursiveColor(outgoingPanel);
 		}
+		if(outgoingPanel.isVisible()) {
+			App.eventManager.recursiveColor(incomingPanel);
+		}
+		incomingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
+		outgoingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
 	}
 }

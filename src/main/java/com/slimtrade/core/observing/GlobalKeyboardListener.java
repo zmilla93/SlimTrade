@@ -2,8 +2,11 @@ package com.slimtrade.core.observing;
 
 import com.slimtrade.App;
 import com.slimtrade.core.utility.PoeInterface;
+import com.slimtrade.gui.FrameManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
+
+import java.awt.*;
 
 public class GlobalKeyboardListener implements NativeKeyListener {
 
@@ -36,7 +39,8 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
         // Betrayal
         if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
-
+            FrameManager.betrayalWindow.toggleShow();
+            FrameManager.betrayalWindow.refreshVisibility();
         }
 
         //

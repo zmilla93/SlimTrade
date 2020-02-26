@@ -13,20 +13,21 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
 
     JLabel info1 = new CustomLabel("Hotkeys can be given control, alt, and shift as modifiers.");
     JLabel info2 = new CustomLabel("Use escape to clear a hotkey.");
-    JLabel betrayalLabel = new CustomLabel("Betrayal Info");
+
+    JLabel betrayalLabel = new CustomLabel("Betrayal Cheat Sheet");
     HotkeyInputPane betrayalHotkeyInput = new HotkeyInputPane();
 
     JLabel pasteLabel = new CustomLabel("Quick Paste Trade");
     HotkeyInputPane pasteHotkeyInput = new HotkeyInputPane();
 
 
-
     public HotkeyPanel() {
+        this.setVisible(false);
 
         // Quick Paste
         LabelComponentPanel betrayalPanel = new LabelComponentPanel(betrayalLabel, betrayalHotkeyInput);
         LabelComponentPanel quickPastePanel = new LabelComponentPanel(pasteLabel, pasteHotkeyInput);
-        pasteLabel.setToolTipText("If you have a trade message copied, it will be pasted into POE.");
+        pasteLabel.setToolTipText("If you have a trade message copied, it will be pasted into Path of Exile.");
 //        pasteLabel.createToolTip();
 
         container.add(info1, gc);
