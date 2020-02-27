@@ -35,7 +35,6 @@ public class HotkeyInputPane extends BasicButton implements HotkeyListener {
             this.hotkeyData = null;
         }
         // Update button text
-        System.out.println("HOTKEY : " + this.hotkeyData);
         if (this.hotkeyData != null) {
             this.setText(this.hotkeyData.toString());
         } else {

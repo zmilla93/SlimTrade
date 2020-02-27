@@ -194,7 +194,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
         colorBlindCheckbox.setSelected(App.saveManager.saveFile.colorBlindMode);
         ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
-        System.out.println("VALEEEE: " + App.saveManager.saveFile.colorTheme);
         colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
         if (App.saveManager.saveFile.colorTheme == null) {
             if (colorThemeCombo.getItemCount() > 0) {

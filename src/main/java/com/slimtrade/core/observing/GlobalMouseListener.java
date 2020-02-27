@@ -25,12 +25,13 @@ public class GlobalMouseListener implements NativeMouseInputListener {
     }
 
     public void nativeMousePressed(NativeMouseEvent e) {
+        boolean wasFocused = isGameFocused;
         try {
             Thread.sleep(1);
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
-        PointerType hwnd = null;
+        PointerType hwnd;
         byte[] windowText = new byte[512];
         int i = 0;
         do {
@@ -51,7 +52,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         } while (true);
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
-//        System.out.println("win:" + curWindowTitle);
+//        System.out.println("window:" + curWindowTitle);
         isGameFocused = false;
         if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.forceUI) {
             isGameFocused = true;
@@ -78,7 +79,9 @@ public class GlobalMouseListener implements NativeMouseInputListener {
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideAll();
         }
-
+        if(!wasFocused && isGameFocused) {
+            FrameManager.refreshMenuFrames();
+        }
     }
 
     public void nativeMouseReleased(NativeMouseEvent e) {

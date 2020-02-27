@@ -92,21 +92,21 @@ public class FrameManager {
 
 
 //        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
-        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle};
-        forceFrames = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, ignoreItemWindow};
+        showHideDialogs = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle};
+        forceFrames = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, ignoreItemWindow};
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow};
 
     }
 
     public static void hideMenuFrames() {
         for (HideableDialog d : menuHideFrames) {
-            d.setShow(false);
+            d.setVisible(false);
         }
     }
 
     public static void hideAllFrames() {
         for (HideableDialog d : menuHideFrames) {
-            d.setShow(false);
+            d.setVisible(false);
         }
         for (HideableDialog d : showHideDialogs) {
             d.setVisible(false);
@@ -163,6 +163,12 @@ public class FrameManager {
                     h.setAlwaysOnTop(true);
                 }
             }
+        }
+    }
+
+    public static void refreshMenuFrames() {
+        for (HideableDialog h : menuHideFrames) {
+            h.refreshVisibility();
         }
     }
 

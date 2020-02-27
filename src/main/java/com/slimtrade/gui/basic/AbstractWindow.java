@@ -75,17 +75,21 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
 			AbstractWindow local = this;
 			closeButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-					new Thread(new Runnable(){
-						public void run() {
-							local.setShow(false);
-							try {
-								Thread.sleep(50);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							FrameManager.forceAllToTop();
-						}
-					}).start();
+
+					local.setShow(false);
+					FrameManager.refreshMenuFrames();
+
+//					new Thread(new Runnable(){
+//						public void run() {
+//							local.setShow(false);
+////							try {
+////								Thread.sleep(50);
+////							} catch (InterruptedException e) {
+////								e.printStackTrace();
+////							}
+//							FrameManager.forceAllToTop();
+//						}
+//					}).start();
 				}
 			});
 

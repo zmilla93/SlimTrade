@@ -62,7 +62,7 @@ public class MenubarDialog extends BasicDialog {
         historyButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
                 if (!FrameManager.historyWindow.isVisible()) {
-                    FrameManager.hideMenuFrames();
+//                    FrameManager.hideMenuFrames();
                     FrameManager.historyWindow.setShow(true);
                 }
             }
@@ -72,7 +72,7 @@ public class MenubarDialog extends BasicDialog {
         chatScannerButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
                 if (!FrameManager.chatScannerWindow.isVisible()) {
-                    FrameManager.hideMenuFrames();
+//                    FrameManager.hideMenuFrames();
                     FrameManager.chatScannerWindow.setShow(true);
                 }
             }
@@ -98,7 +98,7 @@ public class MenubarDialog extends BasicDialog {
         optionsButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
                 if (!FrameManager.optionsWindow.isVisible()) {
-                    FrameManager.hideMenuFrames();
+//                    FrameManager.hideMenuFrames();
                     FrameManager.optionsWindow.setShow(true);
                 }
             }

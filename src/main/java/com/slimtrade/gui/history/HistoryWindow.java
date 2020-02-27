@@ -43,6 +43,8 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 	public HistoryWindow() {
 		super("History");
 		this.setAlwaysOnTop(false);
+		this.setFocusable(true);
+		this.setFocusableWindowState(true);
 		timeStyle = TimeStyle.H24;
 		dateStyle = DateStyle.DDMMYY;
 		timeStyle = App.saveManager.saveFile.timeStyle;
