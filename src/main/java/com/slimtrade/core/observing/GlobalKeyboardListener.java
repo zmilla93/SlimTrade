@@ -6,28 +6,32 @@ import com.slimtrade.gui.FrameManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
-import java.awt.*;
-
 public class GlobalKeyboardListener implements NativeKeyListener {
 
     private HotkeyListener hotkeyListener = null;
+    private static final int[] removeMasks = {256, 512, 1024, 2048, 4096};
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
 
-        // Useful Print stuff
-//        System.out.println("Key Pressed!");
-//        System.out.println("\t" + NativeKeyEvent.getKeyText(e.getKeyCode()));
-//        System.out.println("\t" + NativeKeyEvent.getModifiersText(e.getModifiers()));
+        // Remove mouse button modifiers
+        e.setModifiers(cleanModifiers(e.getModifiers()));
+
 
         // Ignore modifier keys on their own
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL
                 || e.getKeyCode() == NativeKeyEvent.VC_ALT
                 || e.getKeyCode() == NativeKeyEvent.VC_SHIFT
+                || e.getKeyCode() == NativeKeyEvent.VC_NUM_LOCK
+                || e.getKeyCode() == NativeKeyEvent.VC_SCROLL_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_CAPS_LOCK
+                || e.getKeyCode() == NativeKeyEvent.VC_META
                 || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED) {
             return;
         }
+
+        // Print stuff
+//        System.out.println("Key Pressed! : " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " | " + NativeKeyEvent.getModifiersText(e.getModifiers()));
 
         // If a UI element is waiting for hotkey data, return the data and skip the hotkey logic.
         if (hotkeyListener != null) {
@@ -37,13 +41,17 @@ public class GlobalKeyboardListener implements NativeKeyListener {
             return;
         }
 
+        // Hotkeys
+
         // Betrayal
         if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
-            FrameManager.betrayalWindow.toggleShow();
-            FrameManager.betrayalWindow.refreshVisibility();
+            if(App.globalMouse.isGameFocused()) {
+                FrameManager.betrayalWindow.toggleShow();
+                FrameManager.betrayalWindow.refreshVisibility();
+            }
         }
 
-        //
+        // Quick Paste Trade
         if (checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
             PoeInterface.attemptQuickPaste();
         }
@@ -81,5 +89,14 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         return false;
     }
 
+    // Removes the 5 mouse buttons as modifiers for key events
+    public static int cleanModifiers(int mods) {
+        for(int mask : removeMasks) {
+            if((mods & mask) > 0) {
+                mods -= mask;
+            }
+        }
+        return mods;
+    }
 
 }

@@ -62,11 +62,8 @@ public class FrameManager {
         FrameManager.gridBag = new GridBagLayout();
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
-        System.out.println("Initial Delay : " + ToolTipManager.sharedInstance().getInitialDelay());
-        System.out.println("Dismiss Delay : " + ToolTipManager.sharedInstance().getDismissDelay());
         ToolTipManager.sharedInstance().setInitialDelay(250);
         ToolTipManager.sharedInstance().setDismissDelay(10000);
-
 
         betrayalWindow = new BetrayalWindow();
         centerFrame(betrayalWindow);
@@ -145,7 +142,11 @@ public class FrameManager {
     }
 
     public static void centerFrame(Window window) {
-        window.setLocation((TradeUtility.screenSize.width / 2) - (window.getWidth() / 2), (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2));
+        int x = (TradeUtility.screenSize.width / 2) - (window.getWidth() / 2);
+        if (x < 0) x = 0;
+        int y = (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2);
+        if (y < 0) y = 0;
+        window.setLocation(x, y);
     }
 
     public static void forceAllToTop() {
@@ -172,7 +173,7 @@ public class FrameManager {
     }
 
     public static void showTutorialWindow() {
-        if(tutorialWindow == null) {
+        if (tutorialWindow == null) {
             tutorialWindow = new TutorialWindow();
             App.eventManager.recursiveColor(tutorialWindow);
         }

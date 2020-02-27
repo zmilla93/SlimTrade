@@ -14,7 +14,7 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
     JLabel info1 = new CustomLabel("Hotkeys can be given control, alt, and shift as modifiers.");
     JLabel info2 = new CustomLabel("Use escape to clear a hotkey.");
 
-    JLabel betrayalLabel = new CustomLabel("Betrayal Cheat Sheet");
+    JLabel betrayalLabel = new CustomLabel("Toggle Betrayal Guide");
     HotkeyInputPane betrayalHotkeyInput = new HotkeyInputPane();
 
     JLabel pasteLabel = new CustomLabel("Quick Paste Trade");

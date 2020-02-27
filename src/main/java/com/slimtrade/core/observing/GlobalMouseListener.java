@@ -2,6 +2,7 @@ package com.slimtrade.core.observing;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.User32Custom;
 import com.slimtrade.enums.WindowType;
 import com.slimtrade.gui.FrameManager;
@@ -12,7 +13,12 @@ import org.jnativehook.mouse.NativeMouseInputListener;
 
 public class GlobalMouseListener implements NativeMouseInputListener {
 
-    private boolean isGameFocused = false;
+    private boolean isGameFocused;
+
+    public GlobalMouseListener() {
+        super();
+        isGameFocused = PoeInterface.isPoeFocused();
+    }
 
     public void nativeMouseClicked(NativeMouseEvent e) {
 

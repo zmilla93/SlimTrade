@@ -15,12 +15,11 @@ public class HotkeyInputPane extends BasicButton implements HotkeyListener {
         super("Unset");
         this.setFocusable(false);
         this.addActionListener(e -> {
-            System.out.println("Data... " + fetchingData);
             if (fetchingData) {
                 return;
             }
             fetchingData = true;
-            this.setText("Press any key");
+            this.setText("Press Any Key");
             App.globalKeyboard.listenForHotkey(this);
         });
     }

@@ -135,7 +135,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         this.setFocusableWindowState(true);
         this.setFocusable(true);
         this.pack();
-        this.setSize(650, 850);
+        this.setSize(650, 900);
         searchTermsInput.setLineWrap(true);
         searchTermsInput.setWrapStyleWord(true);
         FrameManager.centerFrame(this);

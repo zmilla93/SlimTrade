@@ -141,25 +141,14 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         gc.gridx = 0;
         gc.gridy++;
 
-        // Quick Paste
-//        container.add(quickPasteLabel, gc);
-//        gc.gridx = 2;
-//
-//        container.add(quickPasteContainer, gc);
-//        gc.gridx = 0;
-//        gc.gridy++;
-
         // Color Combo
         gc.insets.bottom = 5;
-        if(App.testFeatures) {
-            container.add(colorThemeLabel, gc);
-            gc.gridx = 2;
+        container.add(colorThemeLabel, gc);
+        gc.gridx = 2;
 
-            container.add(colorThemeContainer, gc);
-            gc.gridx = 0;
-            gc.gridy++;
-        }
-
+        container.add(colorThemeContainer, gc);
+        gc.gridx = 0;
+        gc.gridy++;
 
         // Edit Buttons
         gc.gridwidth = 3;
@@ -188,7 +177,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         load();
 
         colorThemeCombo.addActionListener(e -> {
-            if(colorThemeCombo.getSelectedIndex() >= 0) {
+            if (colorThemeCombo.getSelectedIndex() >= 0) {
                 App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
 
             }
@@ -228,8 +217,8 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         quickPasteCheckbox.setSelected(false);
         System.out.println("VALEEEE: " + App.saveManager.saveFile.colorTheme);
         colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
-        if(App.saveManager.saveFile.colorTheme == null) {
-            if(colorThemeCombo.getItemCount()>0) {
+        if (App.saveManager.saveFile.colorTheme == null) {
+            if (colorThemeCombo.getItemCount() > 0) {
                 colorThemeCombo.setSelectedIndex(0);
             }
         } else {

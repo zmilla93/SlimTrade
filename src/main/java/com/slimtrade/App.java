@@ -83,7 +83,6 @@ public class App {
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
 
-
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT);

@@ -12,6 +12,7 @@ public class BetrayalWindow extends BasicMovableDialog {
         JLabel label = new JLabel();
         Image image = new ImageIcon(this.getClass().getClassLoader().getResource("images/betrayal.png")).getImage();
         label.setIcon(new ImageIcon(image));
+        this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
         this.add(label);
         this.pack();
     }
