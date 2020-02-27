@@ -9,6 +9,7 @@ import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
+import com.slimtrade.gui.buttons.ToggleButton;
 import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class SearchNamePanel extends JPanel implements IColorable {
     public JTextField saveTextField = new LimitTextField(32);
     public JComboBox<ScannerMessage> searchCombo = new CustomCombo<>();
 
-    public BasicButton searchButton = new ConfirmButton("Search");
+    public ToggleButton searchButton = new ToggleButton("Search", "Cancel Search");
     public BasicButton saveButton = new ConfirmButton("Save");
     public BasicButton clearButton = new BasicButton("Clear");
     public BasicButton revertButton = new BasicButton("Revert");
@@ -39,10 +40,7 @@ public class SearchNamePanel extends JPanel implements IColorable {
     private JPanel outerPanel = new JPanel(FrameManager.gridBag);
 
     public SearchNamePanel() {
-
         super(FrameManager.gridBag);
-
-
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

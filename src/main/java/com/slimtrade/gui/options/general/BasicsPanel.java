@@ -27,7 +27,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JCheckBox guildCheckbox = new CustomCheckbox();
     private JCheckBox kickCheckbox = new CustomCheckbox();
     private JCheckBox colorBlindCheckbox = new CustomCheckbox();
-    private JCheckBox quickPasteCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
     private JButton editStashButton = new BasicButton();
     private JButton editOverlayButton = new BasicButton();
@@ -37,27 +36,14 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JLabel guildLabel;
     private JLabel kickLabel;
     private JLabel colorBlindLabel;
-    private JLabel quickPasteLabel;
     private JLabel colorThemeLabel;
 
-    // TODO : Remove quick paste trades checkbox
     public BasicsPanel() {
         characterLabel = new JLabel("Character Name");
         guildLabel = new JLabel("Show Guild Name");
         kickLabel = new JLabel("Close on Kick");
         colorBlindLabel = new CustomLabel("Color Blind Mode");
-        quickPasteLabel = new JLabel("Quick Paste Trades");
         colorThemeLabel = new JLabel("Color Theme");
-
-//		this.setBackground(Color.LIGHT_GRAY);
-
-//        App.saveFile.characterName = new SaveElement("charName", characterInput);
-
-//        guildCheckbox.setFocusable(false);
-//        kickCheckbox.setFocusable(false);
-//        colorThemeCombo.setFocusable(false);
-//        editStashButton.setFocusable(false);
-//        editOverlayButton.setFocusable(false);
 
         JPanel showGuildContainer = new JPanel(new BorderLayout());
         guildCheckbox.setOpaque(false);
@@ -74,14 +60,8 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         colorBlindCheckbox.setOpaque(false);
         colorBlindContainer.add(colorBlindCheckbox, BorderLayout.EAST);
 
-        JPanel quickPasteContainer = new JPanel(new BorderLayout());
-        quickPasteContainer.setOpaque(false);
-        quickPasteCheckbox.setOpaque(false);
-        quickPasteContainer.add(quickPasteCheckbox, BorderLayout.EAST);
-
         JPanel colorThemeContainer = new JPanel(new BorderLayout());
         colorThemeContainer.setOpaque(false);
-//        colorThemeCombo.setOpaque(false);
         colorThemeContainer.add(colorThemeCombo, BorderLayout.EAST);
 
 
@@ -214,7 +194,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
         colorBlindCheckbox.setSelected(App.saveManager.saveFile.colorBlindMode);
         ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
-        quickPasteCheckbox.setSelected(false);
         System.out.println("VALEEEE: " + App.saveManager.saveFile.colorTheme);
         colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
         if (App.saveManager.saveFile.colorTheme == null) {
@@ -233,7 +212,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         characterLabel.setForeground(ColorManager.TEXT);
         guildLabel.setForeground(ColorManager.TEXT);
         kickLabel.setForeground(ColorManager.TEXT);
-        quickPasteLabel.setForeground(ColorManager.TEXT);
         colorThemeLabel.setForeground(ColorManager.TEXT);
     }
 

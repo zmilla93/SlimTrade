@@ -21,7 +21,6 @@ public class SaveFile {
     public String characterName = "";
     public boolean showGuildName = false;
     public boolean closeOnKick = false;
-//    public boolean quickPasteTrades = false;
     public boolean colorBlindMode = false;
     public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
 

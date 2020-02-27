@@ -11,6 +11,7 @@ import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.buttons.ToggleButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.basic.CustomScrollPane;
 import com.slimtrade.gui.messaging.MessageDialogManager;
@@ -50,7 +51,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private SearchTermsPanel termsPanel = new SearchTermsPanel();
     private SearchMacroPanel macroPanel = new SearchMacroPanel();
 
-    private BasicButton searchButton;
+    private ToggleButton searchButton;
     private JComboBox<ScannerMessage> searchCombo;
     private JTextField saveTextField;
 
@@ -207,6 +208,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
         searchButton.addActionListener(e -> {
             searching = !searching;
+            searchButton.setState(searching);
             if (searching && selectedMessage != null) {
                 App.chatParser.setSearchName(selectedMessage.name);
                 App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
@@ -222,9 +224,9 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 searchTermsInput.setEnabled(false);
                 ignoreTermsInput.setEnabled(false);
                 addRemovePanel.setEnabledAll(false);
-                searchButton.setText("Cancel Search");
-                searchButton.primaryColor = ColorManager.RED_DENY;
-                searchButton.updateColor();
+//                searchButton.setText("Cancel Search");
+//                searchButton.primaryColor = ColorManager.RED_DENY;
+//                searchButton.updateColor();
             } else {
                 saveTextField.setEnabled(true);
                 searchCombo.setEnabled(true);
@@ -234,9 +236,9 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 searchTermsInput.setEnabled(true);
                 ignoreTermsInput.setEnabled(true);
                 addRemovePanel.setEnabledAll(true);
-                searchButton.setText("Search");
-                searchButton.primaryColor = ColorManager.GREEN_APPROVE;
-                searchButton.updateColor();
+//                searchButton.setText("Search");
+//                searchButton.primaryColor = ColorManager.GREEN_APPROVE;
+//                searchButton.updateColor();
             }
             refreshListeners();
             refreshWindowState();
