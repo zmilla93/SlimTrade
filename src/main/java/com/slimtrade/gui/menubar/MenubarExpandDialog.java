@@ -17,7 +17,7 @@ import com.slimtrade.gui.enums.PreloadedImage;
 
 import javax.swing.*;
 
-public class MenubarExpandDialog extends BasicDialog implements IColorable {
+public class MenubarExpandDialog extends BasicDialog {
 
     private static final long serialVersionUID = 1L;
     private int size = MenubarButton.HEIGHT;
@@ -29,8 +29,6 @@ public class MenubarExpandDialog extends BasicDialog implements IColorable {
 //        expandButton = new IconButton(PreloadedImage.TAG.getImage(), size);
         expandButton = new MenubarExpandButton();
         this.add(expandButton);
-
-
         expandButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
                 FrameManager.menubar.setShow(true);
@@ -44,7 +42,7 @@ public class MenubarExpandDialog extends BasicDialog implements IColorable {
                 FrameManager.menubarToggle.setShow(false);
             }
         });
-
+        this.updateColor();
     }
 
     public void updateLocation() {
@@ -76,12 +74,4 @@ public class MenubarExpandDialog extends BasicDialog implements IColorable {
         this.repaint();
     }
 
-    @Override
-    public void updateColor() {
-//        super.updateColor();
-        expandButton.colorDefault = ColorManager.PRIMARY;
-        expandButton.colorDefault = Color.RED;
-        this.setBackground(Color.YELLOW);
-        this.getContentPane().setBackground(Color.GREEN);
-    }
 }

@@ -62,8 +62,7 @@ public class PoeInterface extends Robot {
         boolean valid = false;
         if(text.startsWith("@")) {
             for(String s : wtbTextArray) {
-                if(text
-                        .contains(s)) {
+                if(text.contains(s)) {
                     valid = true;
                     break;
                 }
@@ -103,6 +102,8 @@ public class PoeInterface extends Robot {
     public static void pasteWithFocus(String s) {
         new Thread(new Runnable() {
             public void run() {
+                pasteString = new StringSelection(s);
+                clipboard.setContents(pasteString, null);
                 focus();
                 try {
                     Thread.sleep(5);

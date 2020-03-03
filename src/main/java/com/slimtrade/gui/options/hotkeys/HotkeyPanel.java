@@ -14,6 +14,9 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
     JLabel info1 = new CustomLabel("Hotkeys can be given control, alt, and shift as modifiers.");
     JLabel info2 = new CustomLabel("Use escape to clear a hotkey.");
 
+    JLabel hideoutLabel = new CustomLabel("Warp to Hideout");
+    HotkeyInputPane hideoutHotkeyInput = new HotkeyInputPane();
+
     JLabel betrayalLabel = new CustomLabel("Toggle Betrayal Guide");
     HotkeyInputPane betrayalHotkeyInput = new HotkeyInputPane();
 
@@ -25,6 +28,7 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         this.setVisible(false);
 
         // Quick Paste
+        LabelComponentPanel hideoutPanel = new LabelComponentPanel(hideoutLabel, hideoutHotkeyInput);
         LabelComponentPanel betrayalPanel = new LabelComponentPanel(betrayalLabel, betrayalHotkeyInput);
         LabelComponentPanel quickPastePanel = new LabelComponentPanel(pasteLabel, pasteHotkeyInput);
 
@@ -38,9 +42,11 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         gc.gridy++;
         gc.fill = GridBagConstraints.BOTH;
         gc.insets.top = 10;
-        container.add(betrayalPanel, gc);
+        container.add(hideoutPanel, gc);
         gc.gridy++;
         gc.insets.top = 4;
+        container.add(betrayalPanel, gc);
+        gc.gridy++;
         container.add(quickPastePanel, gc);
         gc.gridy++;
 
@@ -50,12 +56,14 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
 
     @Override
     public void save() {
+        App.saveManager.saveFile.hideoutHotkey = hideoutHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.betrayalHotkey = betrayalHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.quickPasteHotkey = pasteHotkeyInput.getHotkeyData();
     }
 
     @Override
     public void load() {
+        hideoutHotkeyInput.updateHotkey(App.saveManager.saveFile.hideoutHotkey);
         betrayalHotkeyInput.updateHotkey(App.saveManager.saveFile.betrayalHotkey);
         pasteHotkeyInput.updateHotkey(App.saveManager.saveFile.quickPasteHotkey);
         App.globalKeyboard.clearHotkeyListener();

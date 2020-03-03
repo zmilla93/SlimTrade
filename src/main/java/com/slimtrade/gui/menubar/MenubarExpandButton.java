@@ -13,9 +13,9 @@ public class MenubarExpandButton extends IconButton {
 
     @Override
     public void updateColor() {
-        colorDefault = ColorManager.PRIMARY;
-        colorHover = ColorManager.PRIMARY;
-        colorPressed = ColorManager.PRIMARY;
+        colorDefault = ColorManager.MENUBAR_EXPAND_BUTTON;
+        colorHover = ColorManager.MENUBAR_EXPAND_BUTTON;
+        colorPressed = ColorManager.MENUBAR_EXPAND_BUTTON;
         this.repaint();
     }
 

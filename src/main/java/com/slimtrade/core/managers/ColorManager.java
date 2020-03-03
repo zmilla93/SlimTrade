@@ -65,11 +65,11 @@ public class ColorManager {
         currentColorTheme = theme;
 
         // Some defaults
-        GREEN_SALE = new Color(0, 100, 0);
-        PLAYER_JOINED_INCOMING = new Color(0, 160, 0);
+        GREEN_SALE = new Color(0, 130, 0);
+        PLAYER_JOINED_INCOMING = new Color(0, 140, 0);
         GREEN_APPROVE = new Color(73, 156, 84);
-        RED_SALE = new Color(100, 0, 0);
-        PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
+        RED_SALE = new Color(130, 0, 0);
+        PLAYER_JOINED_OUTGOING = RED_SALE;
         RED_DENY = new Color(199, 84, 80);
         SCANNER_BACKGROUND = new Color(200, 128, 0);
 
@@ -106,8 +106,8 @@ public class ColorManager {
                 PRIMARY = new Color(0, 44, 57);
                 BACKGROUND = new Color(3, 56, 70);
                 LOW_CONTRAST_1 = new Color(0, 43, 54);
-                LOW_CONTRAST_2 = new Color(60, 125, 131);
-                HIGH_CONTRAST_1 = new Color(57, 140, 161);
+                LOW_CONTRAST_2 = new Color(59, 94, 118);
+                HIGH_CONTRAST_1 = new Color(56, 116, 137);
                 HIGH_CONTRAST_2 = new Color(102, 102, 102);
                 // Specific
                 TEXT = new Color(184, 188, 189);
@@ -148,7 +148,7 @@ public class ColorManager {
             // Stormy Theme
             case STORMY:
                 // General
-                PRIMARY = new Color(59, 71, 84);
+                PRIMARY = new Color(53, 70, 91);
                 BACKGROUND = new Color(43, 43, 43);
                 LOW_CONTRAST_1 = new Color(89, 91, 93);
                 LOW_CONTRAST_1 = new Color(64, 66, 68);
@@ -158,7 +158,7 @@ public class ColorManager {
                 // Specific
                 TEXT = new Color(184, 188, 189);
                 TEXT_SELECTION = TEXT;
-                MESSAGE_BORDER = PRIMARY;
+                MESSAGE_BORDER = BACKGROUND;
                 MESSAGE_NAME_BG = LOW_CONTRAST_1;
                 MESSAGE_ITEM_BG = BACKGROUND;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
@@ -168,28 +168,28 @@ public class ColorManager {
                 SCROLL_BAR = PRIMARY;
                 break;
 
-            // Vaal Theme
-            case VAAL:
-                // General
-                PRIMARY = new Color(84, 25, 12);
-                BACKGROUND = new Color(43, 43, 43);
-                LOW_CONTRAST_1 = new Color(89, 91, 93);
-                LOW_CONTRAST_1 = new Color(64, 66, 68);
-                LOW_CONTRAST_2 = new Color(116, 111, 102);
-                HIGH_CONTRAST_1 = new Color(175, 177, 179);
-                HIGH_CONTRAST_2 = new Color(102, 102, 102);
-                // Specific
-                TEXT = new Color(184, 188, 189);
-                TEXT_SELECTION = TEXT;
-                MESSAGE_BORDER = PRIMARY;
-                MESSAGE_NAME_BG = LOW_CONTRAST_1;
-                MESSAGE_ITEM_BG = BACKGROUND;
-                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
-                MESSAGE_PRICE_TEXT = TEXT;
-                MENUBAR_EXPAND_BUTTON = PRIMARY;
-                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
-                SCROLL_BAR = PRIMARY;
-                break;
+//            // Vaal Theme
+//            case VAAL:
+//                // General
+//                PRIMARY = new Color(84, 25, 12);
+//                BACKGROUND = new Color(43, 43, 43);
+//                LOW_CONTRAST_1 = new Color(89, 91, 93);
+//                LOW_CONTRAST_1 = new Color(64, 66, 68);
+//                LOW_CONTRAST_2 = new Color(116, 111, 102);
+//                HIGH_CONTRAST_1 = new Color(175, 177, 179);
+//                HIGH_CONTRAST_2 = new Color(102, 102, 102);
+//                // Specific
+//                TEXT = new Color(184, 188, 189);
+//                TEXT_SELECTION = TEXT;
+//                MESSAGE_BORDER = PRIMARY;
+//                MESSAGE_NAME_BG = LOW_CONTRAST_1;
+//                MESSAGE_ITEM_BG = BACKGROUND;
+//                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
+//                MESSAGE_PRICE_TEXT = TEXT;
+//                MENUBAR_EXPAND_BUTTON = PRIMARY;
+//                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
+//                SCROLL_BAR = PRIMARY;
+//                break;
 
             // Monika
             case MONOKAI:
@@ -209,7 +209,7 @@ public class ColorManager {
                 MESSAGE_ITEM_BG = BACKGROUND;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
                 MESSAGE_PRICE_TEXT = TEXT;
-                MENUBAR_EXPAND_BUTTON = PRIMARY;
+                MENUBAR_EXPAND_BUTTON = LOW_CONTRAST_1;
                 BUTTON_SECONDARY_COLOR = LOW_CONTRAST_1;
                 SCROLL_BAR = LOW_CONTRAST_1;
                 break;

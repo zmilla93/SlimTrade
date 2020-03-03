@@ -43,6 +43,13 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
         // Hotkeys
 
+        // Hideout
+        if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {
+            if(App.globalMouse.isGameFocused()) {
+                PoeInterface.paste("/hideout");
+            }
+        }
+
         // Betrayal
         if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
             if(App.globalMouse.isGameFocused()) {

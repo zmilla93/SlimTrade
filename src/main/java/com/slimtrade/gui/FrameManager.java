@@ -98,7 +98,7 @@ public class FrameManager {
 //        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
         showHideDialogs = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle};
         forceFrames = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, ignoreItemWindow};
-        menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow};
+        menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow, betrayalWindow};
 
     }
 
