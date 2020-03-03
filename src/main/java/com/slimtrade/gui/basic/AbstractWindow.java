@@ -15,12 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.panels.BufferPanel;
 
-public abstract class AbstractWindow extends BasicMovableDialog {
+public abstract class AbstractWindow extends BasicMovableDialog implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	public final int TITLEBAR_HEIGHT = 20;
@@ -44,9 +45,6 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(borderColor);
-		titlebarPanel.setBackground(borderColor);
-		center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, borderColor));
-		center.setBackground(Color.CYAN);
 
 		titlebarPanel.setLayout(new BorderLayout());
 		center.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -77,17 +75,21 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 			AbstractWindow local = this;
 			closeButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-					new Thread(new Runnable(){
-						public void run() {
-							local.setShow(false);
-							try {
-								Thread.sleep(50);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							FrameManager.forceAllToTop();
-						}
-					}).start();
+
+					local.setShow(false);
+					FrameManager.refreshMenuFrames();
+
+//					new Thread(new Runnable(){
+//						public void run() {
+//							local.setShow(false);
+////							try {
+////								Thread.sleep(50);
+////							} catch (InterruptedException e) {
+////								e.printStackTrace();
+////							}
+//							FrameManager.forceAllToTop();
+//						}
+//					}).start();
 				}
 			});
 
@@ -110,4 +112,12 @@ public abstract class AbstractWindow extends BasicMovableDialog {
 	    this.setTitle(title);
 	    titleLabel.setText(title);
     }
+
+	@Override
+	public void updateColor() {
+		super.updateColor();
+		titlebarPanel.setBackground(ColorManager.PRIMARY);
+		titleLabel.setForeground(ColorManager.TEXT);
+		center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, ColorManager.PRIMARY));
+	}
 }

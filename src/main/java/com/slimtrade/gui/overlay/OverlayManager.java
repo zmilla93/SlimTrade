@@ -1,7 +1,7 @@
 package com.slimtrade.gui.overlay;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.OverlaySaveFile;
+import com.slimtrade.core.saving.OverlaySaveFile;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
@@ -169,9 +169,6 @@ public class OverlayManager implements ISaveable, IColorable {
 
 //        helpDialog.setSize(helpDialog.getPreferredSize());
         FrameManager.centerFrame(helpDialog);
-        App.eventManager.addColorListener(this);
-        updateColor();
-
     }
 
     public void showAll() {
@@ -231,6 +228,17 @@ public class OverlayManager implements ISaveable, IColorable {
         }
     }
 
+    public void resetToDefault() {
+        OverlaySaveFile defaults = new OverlaySaveFile();
+        menubarDialog.setLocation(defaults.menubarX, defaults.menubarY);
+        messageDialog.setLocation(defaults.messageX, defaults.messageY);
+        menubarCombo.setSelectedItem(defaults.menubarButtonLocation);
+        messageCombo.setSelectedItem(defaults.messageExpandDirection);
+        this.menubarScreenLock = defaults.menubarScreenLock;
+        this.messageScreenLock = defaults.messageScreenLock;
+        updateMenubarButton(defaults.menubarButtonLocation);
+    }
+
     @Override
     public void save() {
         App.saveManager.overlaySaveFile.menubarScreenLock = menubarScreenLock;
@@ -259,8 +267,10 @@ public class OverlayManager implements ISaveable, IColorable {
         updateMenubarButton(App.saveManager.overlaySaveFile.menubarButtonLocation);
     }
 
+    // TODO : Switch to recursive coloring
     @Override
     public void updateColor() {
+        App.eventManager.recursiveColor(helpDialog);
         menubarButtonDummy.setBackground(borderColor);
         menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
         messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
@@ -289,19 +299,8 @@ public class OverlayManager implements ISaveable, IColorable {
         // Menubar Button
 
         updateMenubarButton((MenubarButtonLocation) menubarCombo.getSelectedItem());
-//        menubarDialog.setBackground(new Color(1, 1, 1, 0.5f));
-//        messageDialog.setBackground(new Color(1, 1, 1, 0.5f));
     }
 
-    public void resetToDefault() {
-        OverlaySaveFile defaults = new OverlaySaveFile();
-        menubarDialog.setLocation(defaults.menubarX, defaults.menubarY);
-        messageDialog.setLocation(defaults.messageX, defaults.messageY);
-        menubarCombo.setSelectedItem(defaults.menubarButtonLocation);
-        messageCombo.setSelectedItem(defaults.messageExpandDirection);
-        this.menubarScreenLock = defaults.menubarScreenLock;
-        this.messageScreenLock = defaults.messageScreenLock;
-        updateMenubarButton(defaults.menubarButtonLocation);
-    }
+
 
 }

@@ -18,6 +18,8 @@ public class HideableDialog extends JDialog{
 	
 	public void refreshVisibility(){
 		this.setVisible(visible);
+		this.setAlwaysOnTop(false);
+		this.setAlwaysOnTop(true);
 	}
 	
 }

@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
@@ -27,7 +24,7 @@ import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.panels.PricePanel;
 
-public class HistoryRow extends JPanel {
+public class HistoryRow extends JPanel implements IColorable{
 
 	private static final long serialVersionUID = 1L;
 	HistoryCellPanel datePanel;
@@ -39,15 +36,17 @@ public class HistoryRow extends JPanel {
 	private Color color = this.getBackground();
 	private Color colorHover = color.LIGHT_GRAY;
 
-	final int rowHeight = 20;
+	public static final int ROW_HEIGHT = 20;
 
 	public static final int MIN_WIDTH = 500;
 
-	IconButton refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
-	IconButton closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), rowHeight);
+	IconButton refreshButton = new HistoryRefreshButton();
+	IconButton closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), ROW_HEIGHT);
 	// public HistoryRow()
 
 	TradeOffer trade;
+
+	HistoryCellPanel rowPanel;
 	
 	private Border cellBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED);
 	
@@ -62,10 +61,10 @@ public class HistoryRow extends JPanel {
 	private void buildRow(TradeOffer trade, boolean close) {
 		this.trade = trade;
 		this.setLayout(new BorderLayout());
-		HistoryCellPanel rowPanel = new HistoryCellPanel();
+		rowPanel = new HistoryCellPanel();
 
-		this.setMinimumSize(new Dimension(50, rowHeight));
-		this.setMaximumSize(new Dimension(1600, rowHeight));
+		this.setMinimumSize(new Dimension(50, ROW_HEIGHT));
+		this.setMaximumSize(new Dimension(1600, ROW_HEIGHT));
 
 		datePanel = new HistoryCellPanel(trade.date);
 
@@ -75,11 +74,11 @@ public class HistoryRow extends JPanel {
 		itemPanel = new HistoryCellPanel(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
 		pricePanel = new PricePanel(trade.priceTypeString, trade.priceCount, false);
 
-		datePanel.setPreferredSize(new Dimension(60, rowHeight));
-		timePanel.setPreferredSize(new Dimension(60, rowHeight));
-		playerPanel.setPreferredSize(new Dimension(160, rowHeight));
-		itemPanel.setPreferredSize(new Dimension(200, rowHeight));
-		pricePanel.setPreferredSize(new Dimension(100, rowHeight));
+		datePanel.setPreferredSize(new Dimension(60, ROW_HEIGHT));
+		timePanel.setPreferredSize(new Dimension(60, ROW_HEIGHT));
+		playerPanel.setPreferredSize(new Dimension(160, ROW_HEIGHT));
+		itemPanel.setPreferredSize(new Dimension(200, ROW_HEIGHT));
+		pricePanel.setPreferredSize(new Dimension(100, ROW_HEIGHT));
 
 		datePanel.setBorder(cellBorder);
 		timePanel.setBorder(cellBorder);
@@ -87,11 +86,7 @@ public class HistoryRow extends JPanel {
 		itemPanel.setBorder(cellBorder);
 		pricePanel.setBorder(cellBorder);
 
-		datePanel.setBackground(ColorManager.BACKGROUND);
-		timePanel.setBackground(ColorManager.BACKGROUND);
-		playerPanel.setBackground(ColorManager.BACKGROUND);
-		itemPanel.setBackground(ColorManager.BACKGROUND);
-		pricePanel.setBackgroundColor(ColorManager.BACKGROUND);
+
 
 		GridBagConstraints gc = rowPanel.gc;
 //		rowPanel.add(refreshButton, gc);
@@ -114,13 +109,11 @@ public class HistoryRow extends JPanel {
 		gc.weightx = 0.2;
 		rowPanel.add(pricePanel, gc);
 
-		// this.setBackground(Color.GREEN);
 
-		refreshButton.borderDefault = BorderFactory.createSoftBevelBorder(BevelBorder.RAISED);
-		refreshButton.borderHover = BorderFactory.createSoftBevelBorder(BevelBorder.RAISED);
-		refreshButton.borderPressed = BorderFactory.createSoftBevelBorder(BevelBorder.LOWERED);
-		// refreshButton.setMaximumSize(new Dimension(rowHeight, rowHeight));
-		// this.setMaximumSize(2000,);
+
+//		refreshButton.borderDefault = ColorManager.BORDER_LOW_CONTRAST_1;
+//		refreshButton.borderHover = ColorManager.BORDER_TEXT;
+//		refreshButton.borderPressed = ColorManager.BORDER_TEXT;
 
 		refreshButton.addActionListener(e -> FrameManager.messageManager.addMessage(trade, false));
 		this.updateDate();
@@ -169,4 +162,21 @@ public class HistoryRow extends JPanel {
 		}
 	}
 
+	@Override
+	public void updateColor() {
+
+		rowPanel.setBackground(ColorManager.BACKGROUND);
+
+		refreshButton.setBackground(ColorManager.LOW_CONTRAST_1);
+		refreshButton.borderDefault = BorderFactory.createSoftBevelBorder(BevelBorder.RAISED);
+		refreshButton.borderHover = BorderFactory.createSoftBevelBorder(BevelBorder.LOWERED);
+		refreshButton.borderPressed = BorderFactory.createSoftBevelBorder(BevelBorder.LOWERED);
+
+		datePanel.setBackground(ColorManager.BACKGROUND);
+		timePanel.setBackground(ColorManager.BACKGROUND);
+		playerPanel.setBackground(ColorManager.BACKGROUND);
+		itemPanel.setBackground(ColorManager.BACKGROUND);
+		pricePanel.setBackground(ColorManager.BACKGROUND);
+		pricePanel.getLabel().setForeground(ColorManager.TEXT);
+	}
 }

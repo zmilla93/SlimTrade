@@ -18,31 +18,7 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
         super();
         this.setOpaque(false);
         this.setFocusable(false);
-
-        this.setUI(new BasicComboBoxUI() {
-
-            // Arrow Button
-            @Override
-            protected JButton createArrowButton() {
-                return new CustomArrowButton(BasicArrowButton.SOUTH);
-            }
-
-            // Scrollbar
-            @Override
-            protected ComboPopup createPopup() {
-                return new BasicComboPopup(comboBox) {
-                    @Override
-                    protected JScrollPane createScroller() {
-                        JScrollPane scrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-                        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
-                        return scrollPane;
-                    }
-                };
-            }
-
-        });
-
+        this.setUI(new CustomComboBoxUI());
         // Color Rendering
         this.setRenderer(new DefaultListCellRenderer() {
             @Override
@@ -59,8 +35,6 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
                 return c;
             }
         });
-        App.eventManager.addColorListener(this);
-        updateColor();
     }
 
     @Override
@@ -70,5 +44,6 @@ public class CustomCombo<E> extends JComboBox<E> implements IColorable {
         this.setForeground(ColorManager.TEXT);
         this.setBackground(ColorManager.TEXT_EDIT_BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
+        this.setUI(new CustomComboBoxUI());
     }
 }

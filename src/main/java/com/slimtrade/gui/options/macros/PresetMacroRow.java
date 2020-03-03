@@ -7,6 +7,7 @@ import javax.swing.*;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
 
@@ -84,7 +85,7 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		gc.gridx = 0;
 		gc.gridy = 0;
 		if(img == null) {
-			JLabel label = new JLabel(title);
+			JLabel label = new CustomLabel(title);
 			this.add(label, gc);
 		} else {
 			exampleButton = new IconButton(img, 20);
@@ -94,8 +95,6 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		gc.gridy = 0;
 		this.setPreferredSize(null);
 		this.revalidate();
-        App.eventManager.addColorListener(this);
-        this.updateColor();
 	}
 
 
@@ -105,7 +104,7 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		namePanel.setLayout(new GridBagLayout());
 		namePanel.setPreferredSize(new Dimension(mouseWidth, rowHeight));
 		namePanel.setOpaque(false);
-		JLabel nameLabel = new JLabel(name);
+		JLabel nameLabel = new CustomLabel(name);
 		namePanel.add(nameLabel);
 		this.add(namePanel, gc);
 //        gc.insets.right = 1;
@@ -123,6 +122,7 @@ public class PresetMacroRow extends JPanel implements IColorable{
 			textField.setOpaque(false);
 			textField.setFocusable(false);
 			textField.setBorder(null);
+			textField.enableBorder = false;
 		}
 		textField.setText(text);
         gc.insets.right = 1;
@@ -136,6 +136,6 @@ public class PresetMacroRow extends JPanel implements IColorable{
     @Override
     public void updateColor() {
 	    this.setBackground(ColorManager.BACKGROUND);
-	    this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+	    this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
     }
 }

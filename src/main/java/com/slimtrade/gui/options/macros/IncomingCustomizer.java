@@ -6,7 +6,7 @@ import java.util.Random;
 import javax.swing.*;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.MacroButton;
+import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
@@ -18,8 +18,6 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.basic.AbstractWindow;
-import com.slimtrade.gui.enums.ButtonRow;
-import com.slimtrade.gui.enums.PreloadedImageCustom;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
 
@@ -141,14 +139,11 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         container.add(customPanel, gc);
         addButton.addActionListener(e -> addNewMacro());
         load();
-        App.eventManager.addColorListener(this);
-        this.updateColor();
     }
 
     private void refreshTrade() {
         if (exampleTradeIn != null) {
             container.remove(exampleTradeIn);
-            App.eventManager.removeColorListener(exampleTradeIn);
         }
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -236,11 +231,11 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         customPanel.updateColor();
     }
 
-//    @Override
-//    public void updateColor() {
-//        super.updateColor();
-////        presetPanel.setBackground(ColorManager.LOW_CONTRAST_1);
-////        presetTextPanel.setBackground(ColorManager.LOW_CONTRAST_1);
-//    }
+    @Override
+    public void updateColor() {
+        super.updateColor();
+        presetPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+        presetTextPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+    }
 
 }

@@ -192,4 +192,11 @@ public class TradeUtility {
 
 	}
 
+	public boolean validateEnumValue(int value, Enum en) {
+//		for(int i : en) {
+//
+//		}
+		return false;
+	}
+
 }

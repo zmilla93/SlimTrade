@@ -82,10 +82,6 @@ public class AudioRow extends JPanel implements IColorable {
             float volume = TradeUtility.getAudioVolume(slider.getValue());
             AudioManager.playRaw(sound, volume);
         });
-		
-		this.updateColor();
-		App.eventManager.addColorListener(this);
-		
 	}
 
 	public void addSound(Sound sound) {
@@ -108,7 +104,6 @@ public class AudioRow extends JPanel implements IColorable {
 
 	@Override
 	public void updateColor() {
-		this.setBackground(ColorManager.BACKGROUND);
 		label.setForeground(ColorManager.TEXT);
 	}
 

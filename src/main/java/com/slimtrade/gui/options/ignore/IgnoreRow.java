@@ -13,13 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.PreloadedImage;
 import com.slimtrade.gui.panels.BufferPanel;
 
-public class IgnoreRow extends RemovablePanel implements ActionListener {
+public class IgnoreRow extends RemovablePanel implements ActionListener, IColorable {
 
     private static final long serialVersionUID = 1L;
     private final int ITEM_MAX_WIDTH = 300;
@@ -40,14 +42,14 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         IconButton removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), 20);
         this.setRemoveButton(removeButton);
-        JLabel itemLabel = new JLabel(ignoreData.getItemName());
+        JLabel itemLabel = new CustomLabel(ignoreData.getItemName());
         JPanel itemPanel = new JPanel(new GridBagLayout());
         itemPanel.setPreferredSize(new Dimension(ITEM_MAX_WIDTH, itemLabel.getPreferredSize().height));
-        JLabel matchLabel = new JLabel(ignoreData.getMatchType().toString());
+        JLabel matchLabel = new CustomLabel(ignoreData.getMatchType().toString());
         if (ignoreData.getIndefinite()) {
-            timerLabel = new JLabel("~");
+            timerLabel = new CustomLabel("~");
         } else {
-            timerLabel = new JLabel(ignoreData.getRemainingTime() + "m");
+            timerLabel = new CustomLabel(ignoreData.getRemainingTime() + "m");
         }
 
         itemPanel.setBackground(ColorManager.CLEAR);
@@ -80,6 +82,7 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
         if (!ignoreData.indefinite) {
             timer.start();
         }
+
     }
 
     public IgnoreData getIgnoreData() {
@@ -99,5 +102,12 @@ public class IgnoreRow extends RemovablePanel implements ActionListener {
             timerLabel.setText(time + "m");
         }
     }
+
+    @Override
+    public void updateColor() {
+        super.updateColor();
+        this.setBorder(ColorManager.BORDER_TEXT);
+    }
+
 
 }

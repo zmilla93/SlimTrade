@@ -19,7 +19,6 @@ public class PaintedTextPanel extends PaintedPanel implements IColorable {
         label.setText(text);
         this.setLayout(new GridBagLayout());
         this.add(label);
-        App.eventManager.addColorListener(this);
     }
 
     public void setText(String text) {

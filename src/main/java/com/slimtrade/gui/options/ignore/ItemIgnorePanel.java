@@ -12,6 +12,7 @@ import javax.swing.*;
 import com.slimtrade.App;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomSpinner;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.components.AddRemovePanel;
@@ -43,9 +44,9 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         JPanel entryPanel = new JPanel(new GridBagLayout());
         entryPanel.setOpaque(false);
 
-        JLabel itemLabel = new JLabel("Item Name");
-        JLabel typeLabel = new JLabel("Match Type");
-        JLabel timerLabel = new JLabel("Minutes");
+        JLabel itemLabel = new CustomLabel("Item Name");
+        JLabel typeLabel = new CustomLabel("Match Type");
+        JLabel timerLabel = new CustomLabel("Minutes");
 
         for (MatchType type : MatchType.values()) {
             typeCombo.addItem(type);
@@ -127,9 +128,6 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
                 addRemovePanel.addRemoveablePanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
             }
         });
-
-        App.eventManager.addColorListener(this);
-        updateColor();
     }
 
     public void revertChanges() {

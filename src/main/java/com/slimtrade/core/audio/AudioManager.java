@@ -1,8 +1,6 @@
 package com.slimtrade.core.audio;
 
-import com.slimtrade.core.SaveSystem.SoundElement;
-
-import java.lang.annotation.ElementType;
+import com.slimtrade.core.saving.SoundElement;
 
 public class AudioManager {
 

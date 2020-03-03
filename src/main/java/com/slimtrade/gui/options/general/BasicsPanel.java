@@ -8,7 +8,7 @@ import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCheckbox;
 import com.slimtrade.gui.basic.CustomCombo;
-import com.slimtrade.gui.basic.CustomTextField;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
@@ -18,8 +18,6 @@ import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable {
 
@@ -28,7 +26,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JTextField characterInput = new LimitTextField(32);
     private JCheckBox guildCheckbox = new CustomCheckbox();
     private JCheckBox kickCheckbox = new CustomCheckbox();
-    private JCheckBox quickPasteCheckbox = new CustomCheckbox();
+    private JCheckBox colorBlindCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
     private JButton editStashButton = new BasicButton();
     private JButton editOverlayButton = new BasicButton();
@@ -37,25 +35,15 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JLabel characterLabel;
     private JLabel guildLabel;
     private JLabel kickLabel;
-    private JLabel quickPasteLabel;
+    private JLabel colorBlindLabel;
     private JLabel colorThemeLabel;
 
     public BasicsPanel() {
         characterLabel = new JLabel("Character Name");
         guildLabel = new JLabel("Show Guild Name");
         kickLabel = new JLabel("Close on Kick");
-        quickPasteLabel = new JLabel("Quick Paste Trades");
+        colorBlindLabel = new CustomLabel("Color Blind Mode");
         colorThemeLabel = new JLabel("Color Theme");
-
-//		this.setBackground(Color.LIGHT_GRAY);
-
-//        App.saveFile.characterName = new SaveElement("charName", characterInput);
-
-//        guildCheckbox.setFocusable(false);
-//        kickCheckbox.setFocusable(false);
-//        colorThemeCombo.setFocusable(false);
-//        editStashButton.setFocusable(false);
-//        editOverlayButton.setFocusable(false);
 
         JPanel showGuildContainer = new JPanel(new BorderLayout());
         guildCheckbox.setOpaque(false);
@@ -67,14 +55,13 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         kickCheckbox.setOpaque(false);
         kickContainer.add(kickCheckbox, BorderLayout.EAST);
 
-        JPanel quickPasteContainer = new JPanel(new BorderLayout());
-        quickPasteContainer.setOpaque(false);
-        quickPasteCheckbox.setOpaque(false);
-        quickPasteContainer.add(quickPasteCheckbox, BorderLayout.EAST);
+        JPanel colorBlindContainer = new JPanel(new BorderLayout());
+        colorBlindContainer.setOpaque(false);
+        colorBlindCheckbox.setOpaque(false);
+        colorBlindContainer.add(colorBlindCheckbox, BorderLayout.EAST);
 
         JPanel colorThemeContainer = new JPanel(new BorderLayout());
         colorThemeContainer.setOpaque(false);
-//        colorThemeCombo.setOpaque(false);
         colorThemeContainer.add(colorThemeCombo, BorderLayout.EAST);
 
 
@@ -126,25 +113,22 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         gc.gridx = 0;
         gc.gridy++;
 
-        // Quick Paste
-//        container.add(quickPasteLabel, gc);
-//        gc.gridx = 2;
-//
-//        container.add(quickPasteContainer, gc);
-//        gc.gridx = 0;
-//        gc.gridy++;
+        // Colorblind Mode
+        container.add(colorBlindLabel, gc);
+        gc.gridx = 2;
+
+        container.add(colorBlindContainer, gc);
+        gc.gridx = 0;
+        gc.gridy++;
 
         // Color Combo
         gc.insets.bottom = 5;
-        if(App.debugMode) {
-            container.add(colorThemeLabel, gc);
-            gc.gridx = 2;
+        container.add(colorThemeLabel, gc);
+        gc.gridx = 2;
 
-            container.add(colorThemeContainer, gc);
-            gc.gridx = 0;
-            gc.gridy++;
-        }
-
+        container.add(colorThemeContainer, gc);
+        gc.gridx = 0;
+        gc.gridy++;
 
         // Edit Buttons
         gc.gridwidth = 3;
@@ -173,13 +157,17 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         load();
 
         colorThemeCombo.addActionListener(e -> {
-            if(colorThemeCombo.getSelectedIndex() >= 0) {
+            if (colorThemeCombo.getSelectedIndex() >= 0) {
                 App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
+
             }
         });
 
-        App.eventManager.addColorListener(this);
-        this.updateColor();
+        colorBlindCheckbox.addActionListener(e -> {
+            ColorManager.setColorBlindMode(colorBlindCheckbox.isSelected());
+            ColorManager.setTheme(ColorManager.getCurrentColorTheme());
+            App.eventManager.updateAllColors(ColorManager.getCurrentColorTheme());
+        });
     }
 
     @Override
@@ -193,9 +181,8 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         App.saveManager.saveFile.characterName = characterName;
         App.saveManager.saveFile.showGuildName = guildCheckbox.isSelected();
         App.saveManager.saveFile.closeOnKick = kickCheckbox.isSelected();
-        App.saveManager.saveFile.quickPasteTrades = guildCheckbox.isSelected();
+        App.saveManager.saveFile.colorBlindMode = colorBlindCheckbox.isSelected();
         App.saveManager.saveFile.colorTheme = colorTheme;
-
     }
 
     @Override
@@ -205,8 +192,16 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         characterInput.setText(characterName);
         guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
-        quickPasteCheckbox.setSelected(false);
-        colorThemeCombo.setSelectedItem(ColorTheme.LIGHT_THEME);
+        colorBlindCheckbox.setSelected(App.saveManager.saveFile.colorBlindMode);
+        ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
+        colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
+        if (App.saveManager.saveFile.colorTheme == null) {
+            if (colorThemeCombo.getItemCount() > 0) {
+                colorThemeCombo.setSelectedIndex(0);
+            }
+        } else {
+            colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
+        }
     }
 
     @Override
@@ -216,7 +211,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         characterLabel.setForeground(ColorManager.TEXT);
         guildLabel.setForeground(ColorManager.TEXT);
         kickLabel.setForeground(ColorManager.TEXT);
-        quickPasteLabel.setForeground(ColorManager.TEXT);
         colorThemeLabel.setForeground(ColorManager.TEXT);
     }
 

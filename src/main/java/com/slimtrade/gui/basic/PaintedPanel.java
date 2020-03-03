@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class PaintedPanel extends JPanel  {
+public class PaintedPanel extends JPanel {
 
 	public static final int BORDER_SIZE = 1;
 	
@@ -26,7 +26,7 @@ public class PaintedPanel extends JPanel  {
 	private boolean hover;
 	private boolean mouseDown;
 
-	protected JLabel label = new JLabel();
+	protected JLabel label = new CustomLabel();
 
 	public PaintedPanel(){
 		backgroundDefault = ColorManager.LOW_CONTRAST_1;
@@ -75,11 +75,11 @@ public class PaintedPanel extends JPanel  {
 		if(mouseDown){
 			bg = backgroundClick;
 			border = borderClick;
-			text = textClick;
+			text = textDefault;
 		}else if(hover){
 			bg = backgroundHover;
 			border = borderHover;
-			text = textHover;
+			text = textDefault;
 		}else{
 			bg = backgroundDefault;
 			border = borderDefault;

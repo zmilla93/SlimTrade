@@ -2,6 +2,7 @@ package com.slimtrade.core.observing;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.User32Custom;
 import com.slimtrade.enums.WindowType;
 import com.slimtrade.gui.FrameManager;
@@ -12,20 +13,29 @@ import org.jnativehook.mouse.NativeMouseInputListener;
 
 public class GlobalMouseListener implements NativeMouseInputListener {
 
+    private boolean isGameFocused;
+
+    public GlobalMouseListener() {
+        super();
+        isGameFocused = PoeInterface.isPoeFocused();
+    }
 
     public void nativeMouseClicked(NativeMouseEvent e) {
 
     }
 
     public void nativeMousePressed(NativeMouseEvent e) {
+        boolean wasFocused = isGameFocused;
         try {
             Thread.sleep(1);
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
-        PointerType hwnd = null;
+        PointerType hwnd;
         byte[] windowText = new byte[512];
+        int i = 0;
         do {
+            i++;
             hwnd = User32Custom.INSTANCE.GetForegroundWindow();
             if (hwnd != null) {
                 break;
@@ -35,12 +45,16 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
+                if(i>20) {
+                    return;
+                }
             }
         } while (true);
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
-//        System.out.println("win:" + curWindowTitle);
-        if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.debugMode) {
+//        System.out.println("window:" + curWindowTitle);
+        if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.forceUI) {
+            isGameFocused = true;
             switch (FrameManager.windowState) {
                 case NORMAL:
                     FrameManager.showVisibleFrames();
@@ -57,13 +71,17 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                     break;
             }
         } else if (curWindowTitle.equals("Open") || curWindowTitle.equals(References.APP_NAME + " - Options") || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")) {
+            isGameFocused = true;
             FrameManager.showVisibleFrames();
             FrameManager.forceAllToTop();
         } else {
+            isGameFocused = false;
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideAll();
         }
-
+        if(!wasFocused && isGameFocused) {
+            FrameManager.refreshMenuFrames();
+        }
     }
 
     public void nativeMouseReleased(NativeMouseEvent e) {
@@ -86,6 +104,10 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         } else {
             return WindowType.OTHER;
         }
+    }
+
+    public boolean isGameFocused() {
+        return this.isGameFocused;
     }
 
 }

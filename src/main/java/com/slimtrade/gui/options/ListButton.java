@@ -34,7 +34,7 @@ public class ListButton extends JButton implements IColorable {
 
 	public ListButton(String title) {
 		super(title);
-		this.setForeground(ColorManager.TEXT);
+
 //		borderOuter = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
 //		borderInner = BorderFactory.createLineBorder(ColorManager.LOW_CONSTRAST_1);
 		this.setContentAreaFilled(false);
@@ -42,7 +42,7 @@ public class ListButton extends JButton implements IColorable {
 		Dimension size = this.getPreferredSize();
 		size.height = 30;
 		this.setPreferredSize(size);
-		this.setBackground(colorInactive);
+		this.setBackground(ColorManager.LOW_CONTRAST_1);
 //		this.setBorder(borderInactive);
 
 		JButton local = this;
@@ -79,13 +79,13 @@ public class ListButton extends JButton implements IColorable {
 		
 		if(getModel().isPressed()) {
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
-			g.setColor(colorPressed);
+			g.setColor(ColorManager.BACKGROUND);
 		}else{
 			if (active) {
-				g.setColor(colorActive);
+				g.setColor(ColorManager.PRIMARY);
 				this.setBorder(borderDefault);
 			}else{
-				g.setColor(colorInactive);
+				g.setColor(ColorManager.LOW_CONTRAST_1);
 			}
 		}
 		if (getModel().isRollover()) {
@@ -99,11 +99,12 @@ public class ListButton extends JButton implements IColorable {
 
 	@Override
 	public void updateColor() {
+		this.setForeground(ColorManager.TEXT);
 		borderOuter = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
-		borderInner = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
+		borderInner = BorderFactory.createLineBorder(ColorManager.TEXT);
 		b = BorderFactory.createCompoundBorder(borderOuter, borderInner);
 
-		borderOuter2 = BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_1);
+		borderOuter2 = BorderFactory.createLineBorder(ColorManager.TEXT);
 		borderInner2 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
 		borderDefault = BorderFactory.createCompoundBorder(borderOuter2, borderInner2);
 		

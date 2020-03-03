@@ -27,8 +27,8 @@ public class BasicButton extends JButton implements IColorable {
     private Border borderRollover;
     private Border borderDisabled;
 
-    public Color primaryColor;
-    public Color secondaryColor;
+    public Color primaryColor = ColorManager.PRIMARY;
+    public Color secondaryColor = ColorManager.BACKGROUND;
 
     private Border bufferBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
     private Border bufferBorderSlim = BorderFactory.createEmptyBorder(4, 14, 4, 14);
@@ -46,16 +46,11 @@ public class BasicButton extends JButton implements IColorable {
         buildButton();
     }
 
-//    public void setColor(Color color) {
-//        this.primaryColor = color;
-//    }
-
     //TODO : Check mouse button?
     //TODO : Currently paints twice per action...
     // TODO : Adjust border
     private void buildButton() {
 
-//        this.setBorder(borderDefault);
         setContentAreaFilled(false);
         setFocusPainted(false);
         this.addMouseListener(new MouseListener() {
@@ -77,8 +72,6 @@ public class BasicButton extends JButton implements IColorable {
                 model.setPressed(false);
             }
         });
-        App.eventManager.addColorListener(this);
-        updateColor();
     }
 
     @Override
@@ -113,11 +106,9 @@ public class BasicButton extends JButton implements IColorable {
 
     @Override
     public void updateColor() {
-        primaryColor = primaryColor == null ? ColorManager.PRIMARY : primaryColor;
-        secondaryColor = secondaryColor == null ? ColorManager.BACKGROUND : secondaryColor;
-
-
-//        borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
+        primaryColor = ColorManager.PRIMARY;
+        secondaryColor = ColorManager.BUTTON_SECONDARY_COLOR;
+        this.setForeground(ColorManager.TEXT);
         borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
         Border b1 = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_2), BorderFactory.createLineBorder(primaryColor));
         borderRollover = BorderFactory.createCompoundBorder(b1, bufferBorderSlim);

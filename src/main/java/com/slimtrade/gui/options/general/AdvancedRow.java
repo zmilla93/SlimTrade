@@ -93,11 +93,6 @@ public class AdvancedRow extends JPanel implements IColorable {
         gc.fill = GridBagConstraints.NONE;
 		gc.gridx++;
 		this.add(editButton, gc);
-		
-
-		App.eventManager.addColorListener(this);
-		updateColor();
-
 	}
 
 	public String getText() {

@@ -3,16 +3,20 @@ package com.slimtrade.gui.messaging;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.components.PanelWrapper;
 import com.slimtrade.gui.enums.ExpandDirection;
+
+import javax.swing.*;
 
 public class MessageDialogManager {
 
@@ -22,7 +26,7 @@ public class MessageDialogManager {
 
     private final int BUFFER_SIZE = 2;
     private final int MAX_MESSAGE_COUNT = 20;
-    private static final ArrayList<PanelWrapper> wrapperList = new ArrayList<>();
+    private static final CopyOnWriteArrayList<PanelWrapper> wrapperList = new CopyOnWriteArrayList<PanelWrapper>();
 
     public MessageDialogManager() {
         expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
@@ -56,12 +60,19 @@ public class MessageDialogManager {
                 }
             }
         });
+        App.eventManager.recursiveColor(wrapper);
         wrapper.setShow(true);
+        if (!App.globalMouse.isGameFocused()) {
+            wrapper.setVisible(false);
+        }
+        FrameManager.showVisibleFrames();
+        FrameManager.forceAllToTop();
     }
 
     public void refreshPanelLocations() {
         Point targetPoint = new Point(anchorPoint);
         for (PanelWrapper w : wrapperList) {
+
             w.setLocation(targetPoint);
             w.setAlwaysOnTop(false);
             w.setAlwaysOnTop(true);
@@ -90,7 +101,7 @@ public class MessageDialogManager {
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel msg = (MessagePanel) wrapper.getPanel();
             TradeOffer tradeB = msg.trade;
-            if(tradeA.equals(tradeB)){
+            if (tradeA.equals(tradeB)) {
                 this.removeMessage(i);
                 break;
             }
@@ -195,15 +206,13 @@ public class MessageDialogManager {
         if (msgPanel.getMessageType() == MessageType.INCOMING_TRADE) {
             if (msgPanel.getStashHelper() != null) {
                 // TODO :
-                if(msgPanel.getStashHelper().itemHighlighter != null) {
+                if (msgPanel.getStashHelper().itemHighlighter != null) {
                     msgPanel.getStashHelper().itemHighlighter.dispose();
                 }
                 FrameManager.stashHelperContainer.remove(msgPanel.getStashHelper());
                 FrameManager.stashHelperContainer.pack();
             }
         }
-        App.eventManager.removeColorListener(msgPanel);
-        ((MessagePanel)wrapperList.get(index).getPanel()).removeListener();
         wrapperList.get(index).dispose();
         wrapperList.remove(index);
     }
@@ -215,11 +224,12 @@ public class MessageDialogManager {
     public void setAnchorPoint(Point point) {
         this.anchorPoint = point;
     }
+
     public Point getAnchorPoint() {
         return this.anchorPoint;
     }
 
-    public static ArrayList<PanelWrapper> getDialogList() {
+    public static CopyOnWriteArrayList<PanelWrapper> getDialogList() {
         return MessageDialogManager.wrapperList;
     }
 
@@ -227,19 +237,18 @@ public class MessageDialogManager {
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel panel = (MessagePanel) wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
-                if(panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
-                    // TODO : Color names!
-//                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_INCOMING);
+                if (panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
+                    panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                 }
-                else if(panel.getTrade().messageType == MessageType.INCOMING_TRADE.OUTGOING_TRADE) {
-//                    panel.nameLabel.setForeground(ColorManager.PLAYER_JOINED_OUTGOING);
-                    panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
-                    panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_OUTGOING);
-                }
-
             }
+        }
+    }
+
+    public void updateMessageColors() {
+        for (PanelWrapper w : wrapperList) {
+            App.eventManager.recursiveColor(w);
         }
     }
 }

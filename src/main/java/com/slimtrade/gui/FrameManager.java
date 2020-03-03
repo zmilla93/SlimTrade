@@ -1,14 +1,16 @@
 package com.slimtrade.gui;
 
+import com.slimtrade.App;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
+import com.slimtrade.gui.dialogs.BetrayalWindow;
 import com.slimtrade.gui.dialogs.IgnoreItemWindow;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.history.HistoryWindow;
 import com.slimtrade.gui.menubar.MenubarDialog;
-import com.slimtrade.gui.menubar.MenubarExpandButton;
+import com.slimtrade.gui.menubar.MenubarExpandDialog;
 import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.options.OptionsWindow;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
@@ -17,6 +19,7 @@ import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
+import com.slimtrade.gui.stash_search.StashSearchWindow;
 import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;
@@ -32,7 +35,7 @@ public class FrameManager {
     public static HistoryWindow historyWindow;
     public static TutorialWindow tutorialWindow;
     public static MenubarDialog menubar;
-    public static MenubarExpandButton menubarToggle;
+    public static MenubarExpandDialog menubarToggle;
     public static MessageDialogManager messageManager;
     public static SetupWindow setupWindow;
     public static StashHelperContainer stashHelperContainer;
@@ -40,6 +43,8 @@ public class FrameManager {
     public static OverlayManager overlayManager;
     public static ChatScannerWindow chatScannerWindow;
     public static TrayButton trayButton;
+    public static BetrayalWindow betrayalWindow;
+    public static StashSearchWindow stashSearchWindow;
 
     //Ignore Items
     public static IgnoreItemWindow ignoreItemWindow;
@@ -56,12 +61,14 @@ public class FrameManager {
     public static WindowState lastWindowState = WindowState.NORMAL;
 
     public FrameManager() {
+        FrameManager.gridBag = new GridBagLayout();
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
-        FrameManager.gridBag = new GridBagLayout();
+        ToolTipManager.sharedInstance().setInitialDelay(250);
+        ToolTipManager.sharedInstance().setDismissDelay(10000);
 
-//        TutorialWindow tutorialWindow = new TutorialWindow();
-//        tutorialWindow.setVisible(true);
+//        stashSearchWindow = new StashSearchWindow();
+//        stashSearchWindow.setShow(true);
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();
@@ -69,7 +76,7 @@ public class FrameManager {
 
         // Menu Bar
         menubar = new MenubarDialog();
-        menubarToggle = new MenubarExpandButton();
+        menubarToggle = new MenubarExpandDialog();
         menubar.init();
         menubarToggle.updateLocation();
 
@@ -84,30 +91,26 @@ public class FrameManager {
         stashHelperContainer.setShow(true);
         stashHelperContainer.updateLocation();
 
+        betrayalWindow = new BetrayalWindow();
+        centerFrame(betrayalWindow);
 
 
-
-        //TODO : ADD NEW MESSAGE MANAGER
 //        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
-        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle};
+        showHideDialogs = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle};
+        forceFrames = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, ignoreItemWindow};
+        menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow, betrayalWindow};
 
-        //TODO : ADD NEW MESSAGE MANAGER
-        forceFrames = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, ignoreItemWindow};
-        menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow};
-
-
-//        trayButton = new TrayButton();
     }
 
     public static void hideMenuFrames() {
         for (HideableDialog d : menuHideFrames) {
-            d.setShow(false);
+            d.setVisible(false);
         }
     }
 
     public static void hideAllFrames() {
         for (HideableDialog d : menuHideFrames) {
-            d.setShow(false);
+            d.setVisible(false);
         }
         for (HideableDialog d : showHideDialogs) {
             d.setVisible(false);
@@ -143,7 +146,11 @@ public class FrameManager {
     }
 
     public static void centerFrame(Window window) {
-        window.setLocation((TradeUtility.screenSize.width / 2) - (window.getWidth() / 2), (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2));
+        int x = (TradeUtility.screenSize.width / 2) - (window.getWidth() / 2);
+        if (x < 0) x = 0;
+        int y = (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2);
+        if (y < 0) y = 0;
+        window.setLocation(x, y);
     }
 
     public static void forceAllToTop() {
@@ -163,6 +170,12 @@ public class FrameManager {
         }
     }
 
+    public static void refreshMenuFrames() {
+        for (HideableDialog h : menuHideFrames) {
+            h.refreshVisibility();
+        }
+    }
+
     public static void showOptionsWindow() {
         optionsWindow.setVisible(true);
         optionsWindow.setAlwaysOnTop(true);
@@ -170,8 +183,9 @@ public class FrameManager {
     }
 
     public static void showTutorialWindow() {
-        if(tutorialWindow == null) {
+        if (tutorialWindow == null) {
             tutorialWindow = new TutorialWindow();
+            App.eventManager.recursiveColor(tutorialWindow);
         }
         tutorialWindow.setVisible(true);
         tutorialWindow.setAlwaysOnTop(true);

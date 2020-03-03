@@ -5,10 +5,11 @@ import java.awt.*;
 import javax.swing.*;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.MacroButton;
+import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
@@ -21,9 +22,9 @@ import com.slimtrade.gui.panels.BufferPanel;
 public class CustomMacroRow extends RemovablePanel implements IColorable {
 
     private static final long serialVersionUID = 1L;
-    private JLabel nameLabel = new JLabel("Custom");
-    private JLabel m1Label = new JLabel("Left Mouse");
-    private JLabel m2Label = new JLabel("Right Mouse");
+    private JLabel nameLabel = new CustomLabel("Custom");
+    private JLabel m1Label = new CustomLabel("Left Mouse");
+    private JLabel m2Label = new CustomLabel("Right Mouse");
     public JTextField m1Text = new CustomTextField(26);
     public JTextField m2Text = new CustomTextField(26);
     public JComboBox<ImageIcon> iconCombo;
@@ -75,8 +76,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         this.add(m2Label, gc);
         gc.gridx += 2;
         this.add(m2Text, gc);
-        App.eventManager.addColorListener(this);
-        updateColor();
+        App.eventManager.recursiveColor(this);
     }
 
     public ButtonRow getButtonRow() {
@@ -149,7 +149,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
     }
 
 }

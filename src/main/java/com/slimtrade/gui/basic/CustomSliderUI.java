@@ -8,16 +8,12 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
 
-public class CustomSliderUI extends BasicSliderUI implements IColorable {
-    //    private BasicStroke stroke = new BasicStroke(1f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0f, new float[]{1f, 2f}, 0f);
+public class CustomSliderUI extends BasicSliderUI {
     private BasicStroke stroke = new BasicStroke(BasicStroke.CAP_ROUND);
     private Color color;
 
     public CustomSliderUI(JSlider b) {
         super(b);
-        App.eventManager.addColorListener(this);
-        updateColor();
-//        this.stroke = new BasicStroke();
     }
 
     @Override
@@ -35,7 +31,7 @@ public class CustomSliderUI extends BasicSliderUI implements IColorable {
 
     @Override
     public void paintTrack(Graphics g) {
-        g.setColor(color);
+        g.setColor(ColorManager.TEXT);
         Graphics2D g2d = (Graphics2D) g;
         Stroke old = g2d.getStroke();
         g2d.setStroke(stroke);
@@ -51,7 +47,7 @@ public class CustomSliderUI extends BasicSliderUI implements IColorable {
 
         Rectangle tickBounds = tickRect;
 
-        g.setColor(color);
+        g.setColor(ColorManager.TEXT);
         g.translate(0, tickBounds.y);
 
         if (slider.getMinorTickSpacing() > 0) {
@@ -96,36 +92,10 @@ public class CustomSliderUI extends BasicSliderUI implements IColorable {
         int w = knobBounds.width;
         int h = knobBounds.height;
         g.translate(knobBounds.x, knobBounds.y);
-        g.setColor(color);
+        g.setColor(ColorManager.TEXT);
 
-        // Simple
         g.fillRect(w / 4, 0, w / 2, h);
 
-        // Pointer
-//        int cw = w / 2;
-//        g.fillRect(1, 1, w - 3, h - 1 - cw);
-//        Polygon p = new Polygon();
-//        p.addPoint(1, h - cw);
-//        p.addPoint(cw - 1, h - 1);
-//        p.addPoint(w - 2, h - 1 - cw);
-//        g.fillPolygon(p);
-//
-//        g.setColor(color);
-//        g.drawLine(0, 0, w - 2, 0);
-//        g.drawLine(0, 1, 0, h - 1 - cw);
-//        g.drawLine(0, h - cw, cw - 1, h - 1);
-//
-//        g.setColor(color);
-//        g.drawLine(w - 1, 0, w - 1, h - 2 - cw);
-//        g.drawLine(w - 1, h - 1 - cw, w - 1 - cw, h - 1);
-//
-//        g.setColor(color);
-//        g.drawLine(w - 2, 1, w - 2, h - 2 - cw);
-//        g.drawLine(w - 2, h - 1 - cw, w - 1 - cw, h - 2);
     }
 
-    @Override
-    public void updateColor() {
-        color = ColorManager.TEXT;
-    }
 }

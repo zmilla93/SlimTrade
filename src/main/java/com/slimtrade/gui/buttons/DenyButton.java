@@ -2,6 +2,8 @@ package com.slimtrade.gui.buttons;
 
 import com.slimtrade.core.managers.ColorManager;
 
+import java.awt.*;
+
 public class DenyButton extends BasicButton {
 
 	private static final long serialVersionUID = 1L;
@@ -12,10 +14,11 @@ public class DenyButton extends BasicButton {
 		secondaryColor = ColorManager.BACKGROUND;
 		this.updateColor();
 	}
-	
+
 	@Override
-	public void updateColor() {
-		super.updateColor();
+	protected void paintComponent(Graphics g) {
+		primaryColor = ColorManager.RED_DENY;
+		super.paintComponent(g);
 	}
 	
 }

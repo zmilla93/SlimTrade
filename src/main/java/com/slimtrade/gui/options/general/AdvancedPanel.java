@@ -34,10 +34,6 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
 				}
 			}
 		});
-
-		this.updateColor();
-		App.eventManager.addColorListener(this);
-		
 		this.load();
 	}
 
@@ -72,12 +68,11 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
                 clientRow.setText(App.saveManager.saveFile.clientPath);
             }
         }
-
 	}
 
 	@Override
 	public void updateColor() {
+		super.updateColor();
 		this.setBackground(ColorManager.BACKGROUND);
 	}
-
 }

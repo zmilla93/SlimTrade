@@ -4,7 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.SoundElement;
+import com.slimtrade.core.saving.SoundElement;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
@@ -43,10 +43,6 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
 		container.add(scannerRow, gc);
 		gc.gridy++;
 		load();
-		
-		this.updateColor();
-		App.eventManager.addColorListener(this);
-		
 	}
 
 	public void save() {
@@ -65,6 +61,7 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
 
 	@Override
 	public void updateColor() {
+		super.updateColor();
 		this.setBackground(ColorManager.BACKGROUND);
 	}
 

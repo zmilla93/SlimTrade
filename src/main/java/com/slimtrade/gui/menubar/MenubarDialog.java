@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 
 public class MenubarDialog extends BasicDialog {
 
-    private static final long serialVersionUID = 1L;
 //    private static int buttonCount = 4;
 //    private static int spacerCount = 1;
 //    private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.3);
@@ -62,9 +61,9 @@ public class MenubarDialog extends BasicDialog {
         historyButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
                 if (!FrameManager.historyWindow.isVisible()) {
-                    FrameManager.hideMenuFrames();
                     FrameManager.historyWindow.setShow(true);
                 }
+                FrameManager.historyWindow.toFront();
             }
         });
 
@@ -72,9 +71,10 @@ public class MenubarDialog extends BasicDialog {
         chatScannerButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
                 if (!FrameManager.chatScannerWindow.isVisible()) {
-                    FrameManager.hideMenuFrames();
+//                    FrameManager.hideMenuFrames();
                     FrameManager.chatScannerWindow.setShow(true);
                 }
+                FrameManager.chatScannerWindow.toFront();
             }
         });
 
@@ -82,12 +82,15 @@ public class MenubarDialog extends BasicDialog {
         testButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
                 Random rng = new Random();
-                TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "IncomingTrader123", "Whispering Leer Hypnotic Eye Jewel", 1, "chaos", 60, "sale", 1, 1, "", "");
-                TradeOffer t2 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "OutgoingTrader456", "Item Name", 1, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
-                TradeOffer t3 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ScannerTrader789", "Search Name", "Chat message text. Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+                TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "IncomingTrader123", "Item Name", 1, "chaos", 60, "sale", 1, 1, "", "");
+                TradeOffer t2 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "HighlightTrader123", "Item Name", 1, "chaos", 60, "sale", 1, 1, "", "");
+                TradeOffer t3 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "OutgoingTrader456", "Item Name", 1, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+                TradeOffer t5 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ScannerTrader789", "Search Name", "Chat message text. Lorem ipsum dolor sit amet, consectetur adipiscing elit");
                 FrameManager.messageManager.addMessage(t, false);
                 FrameManager.messageManager.addMessage(t2, false);
                 FrameManager.messageManager.addMessage(t3, false);
+                FrameManager.messageManager.addMessage(t5, false);
+                FrameManager.messageManager.setPlayerJoinedArea("HighlightTrader123");
             }
         });
 
@@ -95,8 +98,9 @@ public class MenubarDialog extends BasicDialog {
         optionsButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
                 if (!FrameManager.optionsWindow.isVisible()) {
-                    FrameManager.hideMenuFrames();
+//                    FrameManager.hideMenuFrames();
                     FrameManager.optionsWindow.setShow(true);
+                    FrameManager.optionsWindow.toFront();
                 }
             }
         });
@@ -172,7 +176,7 @@ public class MenubarDialog extends BasicDialog {
         int count = buttons.size() + 1;
         if(loc == MenubarButtonLocation.SW || loc == MenubarButtonLocation.SE) {
             flip = true;
-            y = App.debugMode ? count + 1 : count;
+            y = App.testFeatures ? count + 1 : count;
             modY = -1;
         }
         GridBagConstraints gc = new GridBagConstraints();
@@ -188,7 +192,7 @@ public class MenubarDialog extends BasicDialog {
             container.add(b, gc);
             gc.gridy += modY;
         }
-        if(App.debugMode) {
+        if(App.testFeatures) {
             container.add(testButton, gc);
             gc.gridy += modY;
         }

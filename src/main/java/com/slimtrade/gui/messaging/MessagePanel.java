@@ -1,8 +1,8 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.MacroButton;
-import com.slimtrade.core.SaveSystem.StashTab;
+import com.slimtrade.core.saving.MacroButton;
+import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
@@ -124,9 +124,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
         // Finalize
         this.startTimer();
-        App.eventManager.addColorListener(this);
         this.updateColor();
-
     }
 
     private void calculateSizes(Dimension size) {
@@ -415,29 +413,32 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         Color color = null;
         Color colorText = null;
         //MUTUAL COLORS
-        this.setBackground(ColorManager.PRIMARY);
+        this.setBackground(ColorManager.MESSAGE_BORDER);
         // Name Panel
         namePanel.setBackgroundColor(ColorManager.MESSAGE_NAME_BG);
         namePanel.backgroundHover = ColorManager.PRIMARY;
-        namePanel.borderDefault = ColorManager.LOW_CONTRAST_1;
+        namePanel.borderDefault = ColorManager.MESSAGE_NAME_BG;
         namePanel.borderHover = ColorManager.TEXT;
         namePanel.borderClick = ColorManager.TEXT;
         namePanel.setTextColor(ColorManager.TEXT);
         itemPanel.setBackgroundColor(ColorManager.MESSAGE_ITEM_BG);
         itemPanel.setBorderColor(ColorManager.MESSAGE_ITEM_BG);
         itemPanel.setTextColor(ColorManager.TEXT);
-        pricePanel.setTextColor(ColorManager.PRIMARY);
+        pricePanel.setTextColor(ColorManager.MESSAGE_PRICE_TEXT);
+        timerPanel.setTextColor(ColorManager.TEXT);
+        timerPanel.setBackgroundColor(ColorManager.MESSAGE_TIMER_BG);
+        timerPanel.setBorderColor(ColorManager.MESSAGE_TIMER_BG);
         switch (trade.messageType) {
             case CHAT_SCANNER:
                 // TODO : Custom tooltip
-                itemPanel.setToolTipText(trade.searchMessage);
+                itemPanel.getLabel().setToolTipText(trade.searchMessage);
                 borderPanel.setBackground(ColorManager.SCANNER_BACKGROUND);
-                pricePanel.setBackgroundColor(ColorManager.SCANNER_BACKGROUND);
-                pricePanel.setBorderColor(ColorManager.SCANNER_BACKGROUND);
+                pricePanel.setBackground(ColorManager.SCANNER_BACKGROUND);
                 break;
             case INCOMING_TRADE:
                 color = StashTabColor.TWENTYSIX.getBackground();
                 colorText = StashTabColor.TWENTYSIX.getForeground();
+//                itemPanel.setBorderColor(ColorManager.TEXT);
                 itemPanel.backgroundHover = ColorManager.PRIMARY;
                 itemPanel.borderHover = ColorManager.TEXT;
                 itemPanel.borderClick = ColorManager.TEXT;
@@ -459,13 +460,12 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 stashHelper.setVisible(false);
                 FrameManager.stashHelperContainer.add(stashHelper);
                 borderPanel.setBackground(ColorManager.GREEN_SALE);
-                pricePanel.setBackgroundColor(ColorManager.GREEN_SALE);
-                pricePanel.setBorderColor(ColorManager.GREEN_SALE);
+                pricePanel.setBackground(ColorManager.GREEN_SALE);
+
                 break;
             case OUTGOING_TRADE:
                 borderPanel.setBackground(ColorManager.RED_SALE);
-                pricePanel.setBackgroundColor(ColorManager.RED_SALE);
-                pricePanel.setBorderColor(ColorManager.RED_SALE);
+                pricePanel.setBackground(ColorManager.RED_SALE);
                 break;
         }
     }

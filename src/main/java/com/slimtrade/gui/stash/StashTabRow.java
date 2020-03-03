@@ -2,12 +2,10 @@ package com.slimtrade.gui.stash;
 
 import java.awt.*;
 
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-import com.slimtrade.App;
-import com.slimtrade.core.SaveSystem.StashTab;
+import com.slimtrade.core.saving.StashTab;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
@@ -37,20 +35,19 @@ public class StashTabRow extends RemovablePanel implements IColorable {
     public StashTabRow(AddRemovePanel parent) {
         super(parent);
         this.setLayout(new GridBagLayout());
-        this.setPreferredSize(new Dimension(400, ROW_HEIGHT));
+//        this.setPreferredSize(new Dimension(400, ROW_HEIGHT));
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
 
         removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), ROW_HEIGHT);
-        App.eventManager.addColorListener(removeButton);
         this.setRemoveButton(removeButton);
 
         int stashTextWidth = 250;
             JPanel stashTabTextPanel = new ColorPanel(FrameManager.gridBag){
 
         };
-        stashTabTextPanel.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT));
+//        stashTabTextPanel.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT));
         stashTabTextPanel.setBackground(Color.RED);
 
         // Text Field
@@ -75,15 +72,14 @@ public class StashTabRow extends RemovablePanel implements IColorable {
 
         this.add(removeButton, gc);
         gc.gridx++;
-//		gc.fill = GridBagConstraints.BOTH;
+        gc.insets.left = 5;
         this.add(stashTabTextPanel, gc);
-//        gc.fill = GridBagConstraints.NONE;
         gc.gridx++;
         this.add(typeCombo, gc);
         gc.gridx++;
         this.add(colorCombo, gc);
-        App.eventManager.addColorListener(this);
-        updateColor();
+
+
 
     }
 
@@ -113,6 +109,12 @@ public class StashTabRow extends RemovablePanel implements IColorable {
 
     public StashTab getStashTabData() {
         return new StashTab(getText(), getType(), getColor());
+    }
+
+    @Override
+    public void updateColor() {
+        super.updateColor();
+        this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
     }
 
 }
