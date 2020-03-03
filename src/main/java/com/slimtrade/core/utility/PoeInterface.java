@@ -109,9 +109,6 @@ public class PoeInterface extends Robot {
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
-//				robot.mouseMove(100, 100);
-//				robot.mousePress(InputEvent.BUTTON1_MASK);
-//				robot.mouseRelease(InputEvent.BUTTON1_MASK);
                 PointerType hwnd = null;
                 byte[] windowText = new byte[512];
                 int i = 0;

@@ -35,6 +35,7 @@ import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
+import com.slimtrade.gui.options.stash_search.StashSearchPanel;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.stash.StashTabPanel;
 
@@ -49,7 +50,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     private BasicButton checkUpdateButton = null;
 
     private GeneralPanel generalPanel;
-    private HotkeyPanel hotkeyPanel;
+//    private HotkeyPanel hotkeyPanel;
 
     public OptionsWindow() {
         super("Options");
@@ -113,6 +114,11 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         link(hotKeyButton, hotkeyPanel);
         display.add(hotkeyPanel, gc);
 
+        ListButton stashSearcherButton = new ListButton("Stash Searcher");
+        StashSearchPanel stashSearchPanel = new StashSearchPanel();
+        link(stashSearcherButton, stashSearchPanel);
+        display.add(stashSearchPanel, gc);
+
         JButton contactButton = new ListButton("Information");
         InformationPanel contactPanel = new InformationPanel();
         link(contactButton, contactPanel);
@@ -147,6 +153,10 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy++;
         menuPanel.add(hotKeyButton, gc);
         gc.gridy++;
+        if(App.testFeatures) {
+            menuPanel.add(stashSearcherButton, gc);
+            gc.gridy++;
+        }
         menuPanel.add(contactButton, gc);
         gc.gridy++;
 

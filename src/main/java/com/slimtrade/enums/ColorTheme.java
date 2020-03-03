@@ -4,9 +4,12 @@ public enum ColorTheme {
 
 	SOLARIZED_LIGHT("Solarized Light"),
 	SOLARIZED_DARK("Solarized Dark"),
-	DARK_THEME("Dark"),
+	STORMY("Stormy"),
+	VAAL("Vaal"),
 	MONOKAI("Monokai"),
-	ALT2("alt2");
+//	MONOKAI_ALT_1("Monokai Alt"),
+//	ALT2("alt2"),
+	;
 
 	
 	private String name;

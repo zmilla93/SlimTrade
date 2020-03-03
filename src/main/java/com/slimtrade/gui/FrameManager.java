@@ -10,7 +10,7 @@ import com.slimtrade.gui.dialogs.IgnoreItemWindow;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.history.HistoryWindow;
 import com.slimtrade.gui.menubar.MenubarDialog;
-import com.slimtrade.gui.menubar.MenubarExpandButton;
+import com.slimtrade.gui.menubar.MenubarExpandDialog;
 import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.options.OptionsWindow;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
@@ -19,6 +19,7 @@ import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
+import com.slimtrade.gui.stash_search.StashSearchWindow;
 import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;
@@ -34,7 +35,7 @@ public class FrameManager {
     public static HistoryWindow historyWindow;
     public static TutorialWindow tutorialWindow;
     public static MenubarDialog menubar;
-    public static MenubarExpandButton menubarToggle;
+    public static MenubarExpandDialog menubarToggle;
     public static MessageDialogManager messageManager;
     public static SetupWindow setupWindow;
     public static StashHelperContainer stashHelperContainer;
@@ -43,6 +44,7 @@ public class FrameManager {
     public static ChatScannerWindow chatScannerWindow;
     public static TrayButton trayButton;
     public static BetrayalWindow betrayalWindow;
+    public static StashSearchWindow stashSearchWindow;
 
     //Ignore Items
     public static IgnoreItemWindow ignoreItemWindow;
@@ -65,9 +67,8 @@ public class FrameManager {
         ToolTipManager.sharedInstance().setInitialDelay(250);
         ToolTipManager.sharedInstance().setDismissDelay(10000);
 
-        betrayalWindow = new BetrayalWindow();
-        centerFrame(betrayalWindow);
-        betrayalWindow.setShow(false);
+//        stashSearchWindow = new StashSearchWindow();
+//        stashSearchWindow.setShow(true);
 
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();
@@ -75,7 +76,7 @@ public class FrameManager {
 
         // Menu Bar
         menubar = new MenubarDialog();
-        menubarToggle = new MenubarExpandButton();
+        menubarToggle = new MenubarExpandDialog();
         menubar.init();
         menubarToggle.updateLocation();
 
@@ -89,6 +90,9 @@ public class FrameManager {
 
         stashHelperContainer.setShow(true);
         stashHelperContainer.updateLocation();
+
+        betrayalWindow = new BetrayalWindow();
+        centerFrame(betrayalWindow);
 
 
 //        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};

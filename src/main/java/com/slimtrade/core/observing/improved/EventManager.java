@@ -56,6 +56,10 @@ public class EventManager {
         recursiveColor(FrameManager.menubarToggle);
         FrameManager.overlayManager.updateColor();
         FrameManager.messageManager.updateMessageColors();
+
+        // Temp fix for menubar not repainting when switching between stormy and vaal themes. This can be removed
+        // once menubar not being hidden is fixed.
+        FrameManager.menubar.repaint();
     }
 
     public void recursiveColor(Object o) {

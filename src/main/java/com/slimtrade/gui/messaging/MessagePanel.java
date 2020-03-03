@@ -413,7 +413,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         Color color = null;
         Color colorText = null;
         //MUTUAL COLORS
-        this.setBackground(ColorManager.PRIMARY);
+        this.setBackground(ColorManager.MESSAGE_BORDER);
         // Name Panel
         namePanel.setBackgroundColor(ColorManager.MESSAGE_NAME_BG);
         namePanel.backgroundHover = ColorManager.PRIMARY;

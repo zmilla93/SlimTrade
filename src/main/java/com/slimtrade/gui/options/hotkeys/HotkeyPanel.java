@@ -27,6 +27,8 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         // Quick Paste
         LabelComponentPanel betrayalPanel = new LabelComponentPanel(betrayalLabel, betrayalHotkeyInput);
         LabelComponentPanel quickPastePanel = new LabelComponentPanel(pasteLabel, pasteHotkeyInput);
+
+
         pasteLabel.setToolTipText("If you have a trade message copied, it will be pasted into Path of Exile.");
 //        pasteLabel.createToolTip();
 

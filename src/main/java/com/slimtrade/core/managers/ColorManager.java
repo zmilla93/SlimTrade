@@ -7,7 +7,6 @@ import com.slimtrade.core.utility.TradeUtility;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
 
 public class ColorManager {
 
@@ -32,10 +31,12 @@ public class ColorManager {
     // Specific
     public static Color PLAYER_JOINED_INCOMING;
     public static Color PLAYER_JOINED_OUTGOING;
+    public static Color MESSAGE_BORDER;
     public static Color MESSAGE_NAME_BG;
     public static Color MESSAGE_ITEM_BG;
     public static Color MESSAGE_TIMER_BG;
     public static Color MESSAGE_PRICE_TEXT;
+    public static Color MENUBAR_EXPAND_BUTTON;
     public static Color BUTTON_SECONDARY_COLOR;
     public static Color SCROLL_BAR;
 
@@ -71,6 +72,7 @@ public class ColorManager {
         PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
         RED_DENY = new Color(199, 84, 80);
         SCANNER_BACKGROUND = new Color(200, 128, 0);
+
 //        public static Color PLAYER_JOINED_INCOMING = new Color(0, 160, 0);
 //        public static Color PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
 
@@ -88,10 +90,12 @@ public class ColorManager {
                 // Specific
                 TEXT = ColorManager.HIGH_CONTRAST_1;
                 TEXT_SELECTION = PRIMARY;
+                MESSAGE_BORDER = PRIMARY;
                 MESSAGE_NAME_BG = new Color(227, 222, 212);
                 MESSAGE_ITEM_BG = new Color(204, 199, 189);
-                MESSAGE_PRICE_TEXT = PRIMARY;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
+                MESSAGE_PRICE_TEXT = PRIMARY;
+                MENUBAR_EXPAND_BUTTON = PRIMARY;
                 BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
                 SCROLL_BAR = PRIMARY;
                 break;
@@ -108,33 +112,83 @@ public class ColorManager {
                 // Specific
                 TEXT = new Color(184, 188, 189);
                 TEXT_SELECTION = TEXT;
+                MESSAGE_BORDER = PRIMARY;
                 MESSAGE_NAME_BG = LOW_CONTRAST_1;
                 MESSAGE_ITEM_BG = BACKGROUND;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
                 MESSAGE_PRICE_TEXT = TEXT;
+                MENUBAR_EXPAND_BUTTON = PRIMARY;
                 BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
                 SCROLL_BAR = PRIMARY;
                 break;
 
             // Dark Theme
-            case DARK_THEME:
+//            case DARK_THEME_1:
+//                // General
+//                PRIMARY = new Color(77, 77, 77);
+//                BACKGROUND = new Color(43, 43, 43);
+//                LOW_CONTRAST_1 = new Color(80, 80, 80);
+//                LOW_CONTRAST_2 = new Color(112, 112, 112);
+//                HIGH_CONTRAST_1 = Color.WHITE;
+//                HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
+//                // Specific
+//                TEXT = new Color(200, 185, 97);
+//                TEXT_SELECTION = TEXT;
+//                MESSAGE_BORDER = PRIMARY;
+//                MESSAGE_NAME_BG = LOW_CONTRAST_1;
+//                MESSAGE_ITEM_BG = BACKGROUND;
+//                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
+//                MESSAGE_PRICE_TEXT = TEXT;
+//                MENUBAR_EXPAND_BUTTON = PRIMARY;
+//                BUTTON_SECONDARY_COLOR = new Color(197, 187, 178);
+//                BUTTON_SECONDARY_COLOR = new Color(153, 143, 135);
+//                SCROLL_BAR = LOW_CONTRAST_1;
+//                break;
+
+            // Stormy Theme
+            case STORMY:
                 // General
-                PRIMARY = new Color(77, 77, 77);
+                PRIMARY = new Color(59, 71, 84);
                 BACKGROUND = new Color(43, 43, 43);
-                LOW_CONTRAST_1 = new Color(80, 80, 80);
-                LOW_CONTRAST_2 = new Color(112, 112, 112);
-                HIGH_CONTRAST_1 = Color.WHITE;
-                HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
+                LOW_CONTRAST_1 = new Color(89, 91, 93);
+                LOW_CONTRAST_1 = new Color(64, 66, 68);
+                LOW_CONTRAST_2 = new Color(116, 111, 102);
+                HIGH_CONTRAST_1 = new Color(175, 177, 179);
+                HIGH_CONTRAST_2 = new Color(102, 102, 102);
                 // Specific
-                TEXT = new Color(200, 185, 97);
+                TEXT = new Color(184, 188, 189);
                 TEXT_SELECTION = TEXT;
+                MESSAGE_BORDER = PRIMARY;
                 MESSAGE_NAME_BG = LOW_CONTRAST_1;
                 MESSAGE_ITEM_BG = BACKGROUND;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
                 MESSAGE_PRICE_TEXT = TEXT;
-                BUTTON_SECONDARY_COLOR = new Color(197, 187, 178);
-                BUTTON_SECONDARY_COLOR = new Color(153, 143, 135);
-                SCROLL_BAR = LOW_CONTRAST_1;
+                MENUBAR_EXPAND_BUTTON = PRIMARY;
+                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
+                SCROLL_BAR = PRIMARY;
+                break;
+
+            // Vaal Theme
+            case VAAL:
+                // General
+                PRIMARY = new Color(84, 25, 12);
+                BACKGROUND = new Color(43, 43, 43);
+                LOW_CONTRAST_1 = new Color(89, 91, 93);
+                LOW_CONTRAST_1 = new Color(64, 66, 68);
+                LOW_CONTRAST_2 = new Color(116, 111, 102);
+                HIGH_CONTRAST_1 = new Color(175, 177, 179);
+                HIGH_CONTRAST_2 = new Color(102, 102, 102);
+                // Specific
+                TEXT = new Color(184, 188, 189);
+                TEXT_SELECTION = TEXT;
+                MESSAGE_BORDER = PRIMARY;
+                MESSAGE_NAME_BG = LOW_CONTRAST_1;
+                MESSAGE_ITEM_BG = BACKGROUND;
+                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
+                MESSAGE_PRICE_TEXT = TEXT;
+                MENUBAR_EXPAND_BUTTON = PRIMARY;
+                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
+                SCROLL_BAR = PRIMARY;
                 break;
 
             // Monika
@@ -150,13 +204,39 @@ public class ColorManager {
                 // Specific
                 TEXT = new Color(204, 204, 199);
                 TEXT_SELECTION = TEXT;
+                MESSAGE_BORDER = PRIMARY;
                 MESSAGE_NAME_BG = LOW_CONTRAST_1;
                 MESSAGE_ITEM_BG = BACKGROUND;
                 MESSAGE_TIMER_BG = LOW_CONTRAST_2;
                 MESSAGE_PRICE_TEXT = TEXT;
+                MENUBAR_EXPAND_BUTTON = PRIMARY;
                 BUTTON_SECONDARY_COLOR = LOW_CONTRAST_1;
                 SCROLL_BAR = LOW_CONTRAST_1;
                 break;
+
+            // Monika
+//            case MONOKAI_ALT_1:
+//                // General
+//                PRIMARY = new Color(69, 52, 73);
+//                PRIMARY = new Color(153, 89, 27);
+//                BACKGROUND = new Color(39, 40, 34);
+//                LOW_CONTRAST_1 = new Color(65, 67, 57);
+//                LOW_CONTRAST_2 = new Color(52, 53, 47);
+//                HIGH_CONTRAST_1 = Color.WHITE;
+//                HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
+//                // Specific
+//                TEXT = new Color(204, 204, 199);
+//                TEXT_SELECTION = TEXT;
+//                MESSAGE_BORDER = BACKGROUND;
+//                MESSAGE_NAME_BG = LOW_CONTRAST_1;
+//                MESSAGE_ITEM_BG = BACKGROUND;
+//                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
+//                MESSAGE_PRICE_TEXT = TEXT;
+//                MENUBAR_EXPAND_BUTTON = PRIMARY;
+//                BUTTON_SECONDARY_COLOR = lighter(PRIMARY);
+//                SCROLL_BAR = LOW_CONTRAST_1;
+//                break;
+
 
         }
         // Mutual

@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 
 public class MenubarDialog extends BasicDialog {
 
-    private static final long serialVersionUID = 1L;
 //    private static int buttonCount = 4;
 //    private static int spacerCount = 1;
 //    private static int spacerHeight = (int) (MenubarButton.HEIGHT * 0.3);
@@ -62,9 +61,9 @@ public class MenubarDialog extends BasicDialog {
         historyButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
                 if (!FrameManager.historyWindow.isVisible()) {
-//                    FrameManager.hideMenuFrames();
                     FrameManager.historyWindow.setShow(true);
                 }
+                FrameManager.historyWindow.toFront();
             }
         });
 
@@ -75,6 +74,7 @@ public class MenubarDialog extends BasicDialog {
 //                    FrameManager.hideMenuFrames();
                     FrameManager.chatScannerWindow.setShow(true);
                 }
+                FrameManager.chatScannerWindow.toFront();
             }
         });
 
@@ -100,6 +100,7 @@ public class MenubarDialog extends BasicDialog {
                 if (!FrameManager.optionsWindow.isVisible()) {
 //                    FrameManager.hideMenuFrames();
                     FrameManager.optionsWindow.setShow(true);
+                    FrameManager.optionsWindow.toFront();
                 }
             }
         });
