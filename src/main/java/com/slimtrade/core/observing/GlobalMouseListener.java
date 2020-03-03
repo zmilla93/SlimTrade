@@ -53,7 +53,6 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
 //        System.out.println("window:" + curWindowTitle);
-        isGameFocused = false;
         if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.forceUI) {
             isGameFocused = true;
             switch (FrameManager.windowState) {
@@ -76,6 +75,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
             FrameManager.showVisibleFrames();
             FrameManager.forceAllToTop();
         } else {
+            isGameFocused = false;
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideAll();
         }
