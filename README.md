@@ -10,7 +10,7 @@ Popups are automatically created when trade messages are sent or receieved.<br>
 Incoming trades are green, outgoing trades are red.<br>
 ![](/src/main/resources/images/incoming-trade.png)<br>
 ![](/src/main/resources/images/outgoing-trade.png)<br>
-Incoming trades also cause an info window to appear above the stash with the item and stand name. Color coding can be added in the options.<br>
+Incoming trades also cause an info window to appear above the stash with the item and stash name. This can be hovered to highlight the item, and clicked to search the name in the stash. Color coding can be added in the options.<br>
 ![](/src/main/resources/images/stash.png)<br>
 
 ## Ignore Items
@@ -29,4 +29,3 @@ All macro types come with inbuilt macros, but also allow you to add your own wit
 ## History
 Easily restore any recent trade message with the history panel.<br>
 ![](/src/main/resources/images/history.png)<br>
- 
