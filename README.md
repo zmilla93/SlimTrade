@@ -1,5 +1,5 @@
 # SlimTrade
-An overlay for Path of Exile that creates macro popups for trade messages. Can also scan for custom phrases, track trade history, ignore items, and more!<br>
+An overlay for Path of Exile that creates macro popups for trade messages. Can also scan for custom phrases, track trade history, ignore items, and more! While not yet pictured, multiple color themes are supported.<br>
 
 ## Setup
 - Ensure you have Jave : https://www.java.com/<br>
