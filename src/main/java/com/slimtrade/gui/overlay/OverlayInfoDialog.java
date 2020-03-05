@@ -1,10 +1,12 @@
 package com.slimtrade.gui.overlay;
 
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.basic.CustomCombo;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
@@ -13,14 +15,14 @@ import com.slimtrade.gui.enums.ExpandDirection;
 import javax.swing.*;
 import java.awt.*;
 
-public class OverlayInfoDialog extends BasicDialog {
+public class OverlayInfoDialog extends BasicDialog implements IColorable {
 
     //Labels
-    private JLabel title = new JLabel("Overlay Manager");
-    private JLabel info1 = new JLabel("Left click to move panels.");
-    private JLabel info2 = new JLabel("Right click to toggle panels going off screen.");
-    private JLabel menubarLabel = new JLabel("Menubar Button");
-    private JLabel messageLabel = new JLabel("Message Expand Direction");
+    private JLabel title = new CustomLabel("Overlay Manager");
+    private JLabel info1 = new CustomLabel("Left click to move panels.");
+    private JLabel info2 = new CustomLabel("Right click to toggle panels going off screen.");
+    private JLabel menubarLabel = new CustomLabel("Menubar Button");
+    private JLabel messageLabel = new CustomLabel("Message Expand Direction");
 
     public JButton defaultsButton = new BasicButton("Restore Defaults");
     public JButton cancelButton = new DenyButton("Cancel");
@@ -81,10 +83,15 @@ public class OverlayInfoDialog extends BasicDialog {
         gc.gridx = 2;
         this.add(saveButton, gc);
 
+
+
+    }
+
+    public void updateColor() {
+        super.updateColor();
         int i = 4;
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(i, i, i, i, ColorManager.PRIMARY));
     }
-
 
 
 }

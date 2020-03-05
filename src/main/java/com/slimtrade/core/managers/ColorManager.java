@@ -29,6 +29,7 @@ public class ColorManager {
     public static Color TEXT_SELECTION;
 
     // Specific
+    public static Color OVERLAY_EDIT_TEXT;
     public static Color PLAYER_JOINED_INCOMING;
     public static Color PLAYER_JOINED_OUTGOING;
     public static Color MESSAGE_BORDER;
@@ -65,6 +66,7 @@ public class ColorManager {
         currentColorTheme = theme;
 
         // Some defaults
+        OVERLAY_EDIT_TEXT = new Color(203, 205, 207);
         GREEN_SALE = new Color(0, 130, 0);
         PLAYER_JOINED_INCOMING = new Color(0, 140, 0);
         GREEN_APPROVE = new Color(73, 156, 84);
@@ -121,29 +123,6 @@ public class ColorManager {
                 BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
                 SCROLL_BAR = PRIMARY;
                 break;
-
-            // Dark Theme
-//            case DARK_THEME_1:
-//                // General
-//                PRIMARY = new Color(77, 77, 77);
-//                BACKGROUND = new Color(43, 43, 43);
-//                LOW_CONTRAST_1 = new Color(80, 80, 80);
-//                LOW_CONTRAST_2 = new Color(112, 112, 112);
-//                HIGH_CONTRAST_1 = Color.WHITE;
-//                HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
-//                // Specific
-//                TEXT = new Color(200, 185, 97);
-//                TEXT_SELECTION = TEXT;
-//                MESSAGE_BORDER = PRIMARY;
-//                MESSAGE_NAME_BG = LOW_CONTRAST_1;
-//                MESSAGE_ITEM_BG = BACKGROUND;
-//                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
-//                MESSAGE_PRICE_TEXT = TEXT;
-//                MENUBAR_EXPAND_BUTTON = PRIMARY;
-//                BUTTON_SECONDARY_COLOR = new Color(197, 187, 178);
-//                BUTTON_SECONDARY_COLOR = new Color(153, 143, 135);
-//                SCROLL_BAR = LOW_CONTRAST_1;
-//                break;
 
             // Stormy Theme
             case STORMY:
@@ -213,30 +192,6 @@ public class ColorManager {
                 BUTTON_SECONDARY_COLOR = LOW_CONTRAST_1;
                 SCROLL_BAR = LOW_CONTRAST_1;
                 break;
-
-            // Monika
-//            case MONOKAI_ALT_1:
-//                // General
-//                PRIMARY = new Color(69, 52, 73);
-//                PRIMARY = new Color(153, 89, 27);
-//                BACKGROUND = new Color(39, 40, 34);
-//                LOW_CONTRAST_1 = new Color(65, 67, 57);
-//                LOW_CONTRAST_2 = new Color(52, 53, 47);
-//                HIGH_CONTRAST_1 = Color.WHITE;
-//                HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
-//                // Specific
-//                TEXT = new Color(204, 204, 199);
-//                TEXT_SELECTION = TEXT;
-//                MESSAGE_BORDER = BACKGROUND;
-//                MESSAGE_NAME_BG = LOW_CONTRAST_1;
-//                MESSAGE_ITEM_BG = BACKGROUND;
-//                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
-//                MESSAGE_PRICE_TEXT = TEXT;
-//                MENUBAR_EXPAND_BUTTON = PRIMARY;
-//                BUTTON_SECONDARY_COLOR = lighter(PRIMARY);
-//                SCROLL_BAR = LOW_CONTRAST_1;
-//                break;
-
 
         }
         // Mutual
