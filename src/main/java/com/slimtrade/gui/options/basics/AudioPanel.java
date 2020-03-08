@@ -1,4 +1,4 @@
-package com.slimtrade.gui.options.general;
+package com.slimtrade.gui.options.basics;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

@@ -30,7 +30,13 @@ public class SaveFile {
     public OrderType orderType = OrderType.NEW_FIRST;
     public int historyLimit = 25;
 
-    //Audio
+    // Disable Features
+    public boolean enableIncomingTrades = true;
+    public boolean enableOutgoingTrades = true;
+    public boolean enableItemHighlighter = true;
+    public boolean enableMenubar = true;
+
+    // Audio
     public SoundElement incomingMessageSound = new SoundElement(Sound.PING1, 50);
     public SoundElement outgoingMessageSound = new SoundElement(Sound.PING1, 50);
     public SoundElement scannerMessageSound = new SoundElement(Sound.PING2, 50);

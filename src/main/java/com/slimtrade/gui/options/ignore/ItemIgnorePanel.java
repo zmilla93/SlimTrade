@@ -47,6 +47,8 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         JLabel itemLabel = new CustomLabel("Item Name");
         JLabel typeLabel = new CustomLabel("Match Type");
         JLabel timerLabel = new CustomLabel("Minutes");
+        JLabel info1 = new CustomLabel("Set minutes to 0 to ignore items indefinitely.");
+        JLabel info2 = new CustomLabel("Click on the item name of an incoming trade to quickly ignore that item for 1 hour.");
 
         for (MatchType type : MatchType.values()) {
             typeCombo.addItem(type);
@@ -94,9 +96,13 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         // Container
         container.add(entryPanel, gc);
         gc.gridy++;
-        container.add(new BufferPanel(0, 15), gc);
+        container.add(info1, gc);
         gc.gridy++;
+        container.add(info2, gc);
+        gc.gridy++;
+        gc.insets.top = 15;
         container.add(addRemovePanel, gc);
+        gc.insets.top = 0;
         gc.gridy++;
 
         load();

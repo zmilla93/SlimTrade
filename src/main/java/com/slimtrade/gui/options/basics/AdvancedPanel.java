@@ -1,15 +1,18 @@
-package com.slimtrade.gui.options.general;
+package com.slimtrade.gui.options.basics;
 
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
 
@@ -17,11 +20,14 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
 
 	private static final long serialVersionUID = 1L;
 
-	AdvancedRow clientRow = new AdvancedRow("Client Path");
+	private JButton editStashButton = new BasicButton("Edit Stash Location");
+	private AdvancedRow clientRow = new AdvancedRow("Client Path");
 
 	public AdvancedPanel() {
-		GridBagConstraints gc = new GridBagConstraints();
 
+		this.container.add(editStashButton, gc);
+		gc.gridy++;
+		gc.insets.top = 10;
 		this.container.add(clientRow, gc);
 
 		clientRow.getEditButton().addActionListener(new ActionListener() {
@@ -34,6 +40,16 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
 				}
 			}
 		});
+
+		editStashButton.addActionListener(e -> {
+			FrameManager.windowState = WindowState.STASH_OVERLAY;
+			FrameManager.hideAllFrames();
+			FrameManager.stashOverlayWindow.setShow(true);
+			FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
+			FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
+			FrameManager.stashOverlayWindow.repaint();
+		});
+
 		this.load();
 	}
 

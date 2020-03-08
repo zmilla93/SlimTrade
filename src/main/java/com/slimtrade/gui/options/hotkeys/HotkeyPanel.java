@@ -1,9 +1,9 @@
 package com.slimtrade.gui.options.hotkeys;
 
 import com.slimtrade.App;
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
+import com.slimtrade.gui.options.basics.LabelComponentPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;

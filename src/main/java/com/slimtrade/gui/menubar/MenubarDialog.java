@@ -117,9 +117,11 @@ public class MenubarDialog extends BasicDialog {
             public void mouseExited(MouseEvent e) {
                 Rectangle bounds = FrameManager.menubar.getBounds();
                 if (!bounds.contains(MouseInfo.getPointerInfo().getLocation())) {
-                    FrameManager.menubarToggle.setShow(true);
                     FrameManager.menubar.setShow(false);
-                    FrameManager.menubarToggle.repaint();
+                    if(App.saveManager.saveFile.enableMenubar) {
+                        FrameManager.menubarToggle.setShow(true);
+                        FrameManager.menubarToggle.repaint();
+                    }
                 }
             }
         });

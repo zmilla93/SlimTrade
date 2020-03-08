@@ -1,14 +1,14 @@
-package com.slimtrade.gui.options.general;
+package com.slimtrade.gui.options.basics;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.options.ISaveable;
+import com.slimtrade.gui.options.toggle.ToggleOptionsPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
-public class GeneralPanel extends ContainerPanel implements ISaveable, IColorable {
+public class GeneralPanel extends ContainerPanel implements ISaveable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,26 +16,23 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, IColorabl
 	private HistoryOptionsPanel historyPanel;
 	private AudioPanel audioPanel;
 	private AdvancedPanel advancedPanel;
+	private ToggleOptionsPanel toggleOptionsPanel;
 
 	private final int smallGap = 4;
 	private final int largeGap = 15;
 
 	public GeneralPanel(){
 		this.setVisible(false);
-//		this.setBorder(null);
-		
-//		ToggleButton basicsButton = new ToggleButton("Basics", true);
-//		ToggleButton historyButton = new ToggleButton("History", true);
-//		ToggleButton audioButton = new ToggleButton("Audio", true);
-//		ToggleButton advancedButton = new ToggleButton("Save Path", true);
 		SectionHeader basicsHeader = new SectionHeader("Basics");
 		SectionHeader historyHeader = new SectionHeader("History");
 		SectionHeader audioHeader = new SectionHeader("Audio");
-		SectionHeader clientHeader = new SectionHeader("Client");
+		SectionHeader disableOptionsHeader = new SectionHeader("Toggle Features");
+		SectionHeader clientHeader = new SectionHeader("Path of Exile");
 
 		basicsPanel = new BasicsPanel();
 		historyPanel = new HistoryOptionsPanel();
 		audioPanel = new AudioPanel();
+		toggleOptionsPanel = new ToggleOptionsPanel();
 		advancedPanel = new AdvancedPanel();
 		
 		container.setLayout(new GridBagLayout());
@@ -64,18 +61,20 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, IColorabl
 		container.add(audioPanel, gc);
 		gc.gridy++;
 
+		gc.insets.bottom = smallGap;
+		container.add(disableOptionsHeader, gc);
+		gc.insets.bottom = largeGap;
+		gc.gridy++;
+		container.add(toggleOptionsPanel, gc);
+		gc.gridy++;
+
         gc.insets.bottom = smallGap;
 		container.add(clientHeader, gc);
 		gc.gridy++;
         gc.insets.bottom = 0;
 		container.add(advancedPanel, gc);
 		gc.gridy++;
-		
-//		FrameManager.linkToggle(basicsButton, basicsPanel);
-//		FrameManager.linkToggle(historyButton, historyPanel);
-//		FrameManager.linkToggle(audioButton, audioPanel);
-//		FrameManager.linkToggle(advancedButton, advancedPanel);
-		
+
 	}
 
 	@Override
@@ -93,12 +92,5 @@ public class GeneralPanel extends ContainerPanel implements ISaveable, IColorabl
 		audioPanel.load();
 		advancedPanel.load();
 	}
-
-//	@Override
-//	public void updateColor() {
-//	    this.setBackground(ColorManager.LOW_CONTRAST_1);
-//
-////	    this.setBackground();
-//	}
 	
 }
