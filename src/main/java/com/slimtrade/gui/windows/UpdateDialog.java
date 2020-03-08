@@ -4,6 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.ConfirmButton;
 
 import javax.swing.*;
@@ -18,9 +19,9 @@ public class UpdateDialog extends JFrame {
     private JPanel container = new JPanel(FrameManager.gridBag);
     private JButton viewUpdateButton = new ConfirmButton("View on Github");
 
-    private JLabel info1 = new JLabel("Update Available!");
-    private JLabel info2 = new JLabel("Currently Running: " + References.APP_VERSION);
-    private JLabel info3 = new JLabel("Latest Version: " + App.updateChecker.getLatestRelease());
+    private JLabel info1 = new CustomLabel("Update Available!");
+    private JLabel info2 = new CustomLabel("Currently Running: " + References.APP_VERSION);
+    private JLabel info3 = new CustomLabel("Latest Version: " + App.updateChecker.getLatestRelease());
 
     private final int BUFFER = 30;
 
@@ -45,6 +46,7 @@ public class UpdateDialog extends JFrame {
         container.add(info3, gc);
         gc.gridy++;
         gc.insets.bottom = 0;
+        gc.fill = GridBagConstraints.BOTH;
         container.add(viewUpdateButton, gc);
 
         // Border Panel
@@ -73,6 +75,7 @@ public class UpdateDialog extends JFrame {
         this.setMinimumSize(this.getSize());
         this.setSize(getWidth() + 60, getHeight() + 20);
         this.setAlwaysOnTop(true);
+        App.eventManager.recursiveColor(this);
         FrameManager.centerFrame(this);
 
         // Listener

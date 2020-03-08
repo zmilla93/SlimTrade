@@ -85,6 +85,11 @@ public class SetupWindow extends JFrame {
         this.setMinimumSize(new Dimension(600, 300));
 //        this.revalidate();
 //        this.repaint();
+        App.eventManager.recursiveColor(this);
+        App.eventManager.recursiveColor(clientPanel);
+        App.eventManager.recursiveColor(stashPanel);
+        App.eventManager.recursiveColor(characterPanel);
+        App.eventManager.recursiveColor(completePanel);
         FrameManager.centerFrame(this);
     }
 
