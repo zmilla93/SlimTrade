@@ -26,7 +26,7 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomScrollPane;
-import com.slimtrade.gui.options.general.GeneralPanel;
+import com.slimtrade.gui.options.basics.GeneralPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macros.IncomingCustomizer;
@@ -242,8 +242,14 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 outgoingPanel.save();
                 stashPanel.save();
                 ignorePanel.save();
+
                 App.saveManager.saveAll();
                 App.saveManager.saveToDisk();
+                if(App.saveManager.saveFile.enableMenubar) {
+                    FrameManager.menubarToggle.setShow(true);
+                } else {
+                    FrameManager.menubarToggle.setShow(false);
+                }
             }
         });
 

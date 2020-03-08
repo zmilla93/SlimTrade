@@ -1,7 +1,6 @@
 package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
-import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.MatchType;
@@ -139,7 +138,12 @@ public class ChatParser {
 						App.debugger.log(curLine);
 						TradeOffer trade = getTradeOffer(curLine);
 						if (trade != null) {
-							FrameManager.messageManager.addMessage(trade);
+							if((!App.saveManager.saveFile.enableIncomingTrades && trade.messageType == MessageType.INCOMING_TRADE)
+									|| (!App.saveManager.saveFile.enableOutgoingTrades && trade.messageType == MessageType.OUTGOING_TRADE)) {
+								// Ignore trades if option has been disabled, but still add them to history
+							} else {
+								FrameManager.messageManager.addMessage(trade);
+							}
 							FrameManager.historyWindow.addTrade(trade, true);
 						}
 					} else if (chatScannerRunning) {
@@ -156,9 +160,6 @@ public class ChatParser {
                                 }
                             }
                         }
-						//TODO : Player joined indicator
-//                        System.out.println("PLAYER JOINED!");
-//
 					}
 				}
 			}

@@ -8,6 +8,7 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicMovableDialog;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.enums.ExpandDirection;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.messaging.AbstractMessagePanel;
@@ -30,8 +31,8 @@ public class OverlayManager implements ISaveable, IColorable {
     private Color backgroundDefault = new Color(0.5f, 0.6f, 0.5f, 0.8f);
     private Color backgroundLocked = new Color(0.6f, 0.5f, 0.5f, 0.8f);
 
-    private JLabel menubarLabel = new JLabel("Menu bar");
-    private JLabel messageLabel = new JLabel("Message Panel");
+    private JLabel menubarLabel = new CustomLabel("Menubar");
+    private JLabel messageLabel = new CustomLabel("Message Panel");
 
     //Input
     private JComboBox menubarCombo;
@@ -39,9 +40,8 @@ public class OverlayManager implements ISaveable, IColorable {
 
     //Other
     JPanel menubarButtonDummy = new JPanel();
-    private Color borderColor = ColorManager.PRIMARY;
-    private Color borderColorLock = ColorManager.PRIMARY;
-    private Color dummyButtonColor = ColorManager.HIGH_CONTRAST_2;
+    private Color borderColor = ColorManager.OVERLAY_EDIT_TEXT;
+    private Color borderColorLock = ColorManager.OVERLAY_EDIT_TEXT;
 
     private final int BORDER_SIZE = 2;
 

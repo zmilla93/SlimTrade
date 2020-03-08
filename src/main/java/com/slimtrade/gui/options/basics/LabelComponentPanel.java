@@ -1,4 +1,4 @@
-package com.slimtrade.gui.options.hotkeys;
+package com.slimtrade.gui.options.basics;
 
 import com.slimtrade.gui.FrameManager;
 

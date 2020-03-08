@@ -264,6 +264,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                                 FrameManager.ignoreItemWindow.setItem(trade.itemName);
                                 FrameManager.ignoreItemWindow.pack();
                                 FrameManager.centerFrame(FrameManager.ignoreItemWindow);
+                                App.eventManager.recursiveColor(FrameManager.ignoreItemWindow);
                                 FrameManager.ignoreItemWindow.setVisible(true);
                             }
 

@@ -1,4 +1,4 @@
-package com.slimtrade.gui.options.general;
+package com.slimtrade.gui.options.basics;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
@@ -28,7 +28,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JCheckBox kickCheckbox = new CustomCheckbox();
     private JCheckBox colorBlindCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
-    private JButton editStashButton = new BasicButton();
+//    private JButton editStashButton = new BasicButton();
     private JButton editOverlayButton = new BasicButton();
 
     //Labels
@@ -64,9 +64,8 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         colorThemeContainer.setOpaque(false);
         colorThemeContainer.add(colorThemeCombo, BorderLayout.EAST);
 
+        editOverlayButton.setText("Edit Overlay Location");
 
-        editStashButton.setText("Edit Stash");
-        editOverlayButton.setText("Edit Overlay");
         for (ColorTheme theme : ColorTheme.values()) {
             colorThemeCombo.addItem(theme);
         }
@@ -122,7 +121,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         gc.gridy++;
 
         // Color Combo
-        gc.insets.bottom = 5;
+        gc.insets.bottom = 20;
         container.add(colorThemeLabel, gc);
         gc.gridx = 2;
 
@@ -132,20 +131,20 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
         // Edit Buttons
         gc.gridwidth = 3;
-        container.add(editStashButton, gc);
-        gc.gridy++;
+//        container.add(editStashButton, gc);
+//        gc.gridy++;
         gc.insets.bottom = 0;
         container.add(editOverlayButton, gc);
         gc.gridy++;
 
-        editStashButton.addActionListener(e -> {
-            FrameManager.windowState = WindowState.STASH_OVERLAY;
-            FrameManager.hideAllFrames();
-            FrameManager.stashOverlayWindow.setShow(true);
-            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
-            FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
-            FrameManager.stashOverlayWindow.repaint();
-        });
+//        editStashButton.addActionListener(e -> {
+//            FrameManager.windowState = WindowState.STASH_OVERLAY;
+//            FrameManager.hideAllFrames();
+//            FrameManager.stashOverlayWindow.setShow(true);
+//            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
+//            FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
+//            FrameManager.stashOverlayWindow.repaint();
+//        });
 
         editOverlayButton.addActionListener(e -> {
             FrameManager.windowState = WindowState.LAYOUT_MANAGER;

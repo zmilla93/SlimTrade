@@ -64,8 +64,8 @@ public class FrameManager {
         FrameManager.gridBag = new GridBagLayout();
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
-        ToolTipManager.sharedInstance().setInitialDelay(250);
-        ToolTipManager.sharedInstance().setDismissDelay(10000);
+        ToolTipManager.sharedInstance().setInitialDelay(0);
+        ToolTipManager.sharedInstance().setDismissDelay(20000);
 
 //        stashSearchWindow = new StashSearchWindow();
 //        stashSearchWindow.setShow(true);
@@ -94,8 +94,6 @@ public class FrameManager {
         betrayalWindow = new BetrayalWindow();
         centerFrame(betrayalWindow);
 
-
-//        showHideDialogs = new HideableDialog[]{stashHelperContainer, historyWindow, menubar, menubarToggle, chatScannerWindow, ignoreItemWindow};
         showHideDialogs = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle};
         forceFrames = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, ignoreItemWindow};
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow, betrayalWindow};

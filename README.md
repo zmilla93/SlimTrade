@@ -2,11 +2,11 @@
 An overlay for Path of Exile that creates macro popups for trade messages. Can also scan for custom phrases, track trade history, ignore items, and more! While not yet pictured, multiple color themes are supported.<br>
 
 ## Setup
-- Ensure you have Jave : https://www.java.com/<br>
+- Ensure you have Java : https://www.java.com/<br>
 - Download and run 'SlimTrade.jar' : https://github.com/zmilla93/SlimTrade/releases/latest<br>
 
 ## Incoming & Outgoing Trades
-Popups are automatically created when trade messages are sent or receieved.<br>
+Popups are automatically created when trade messages are sent or received.<br>
 Incoming trades are green, outgoing trades are red.<br>
 ![](/src/main/resources/images/incoming-trade.png)<br>
 ![](/src/main/resources/images/outgoing-trade.png)<br>

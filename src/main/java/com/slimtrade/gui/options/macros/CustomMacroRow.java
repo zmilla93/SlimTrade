@@ -23,8 +23,8 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
 
     private static final long serialVersionUID = 1L;
     private JLabel nameLabel = new CustomLabel("Custom");
-    private JLabel m1Label = new CustomLabel("Left Mouse");
-    private JLabel m2Label = new CustomLabel("Right Mouse");
+    private JLabel m1Label = new CustomLabel("Left Click");
+    private JLabel m2Label = new CustomLabel("Right Click");
     public JTextField m1Text = new CustomTextField(26);
     public JTextField m2Text = new CustomTextField(26);
     public JComboBox<ImageIcon> iconCombo;
