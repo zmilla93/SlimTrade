@@ -25,7 +25,7 @@ Ignore specific item names or generic terms.<br>
 ![](/src/main/resources/images/ignore.png)<br>
 
 ## Customization
-Several different color themes are supported, some of which are shown below.
+Several different color themes are supported, some of which are shown below.<br>
 There are inbuilt macros for preset commands, and custom macros for everything else!<br>
 ![](/src/main/resources/images/macro-customizer.png)<br>
 Theme: Stormy
