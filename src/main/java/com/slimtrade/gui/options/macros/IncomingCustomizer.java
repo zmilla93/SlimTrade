@@ -15,7 +15,7 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.options.ISaveable;
@@ -50,20 +50,20 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         refreshTrade();
 
         // INCOMING PRESETS
-        PresetMacroRow refreshInPreset = new PresetMacroRow(PreloadedImage.REFRESH.getImage(), true);
+        PresetMacroRow refreshInPreset = new PresetMacroRow(DefaultIcons.REFRESH, true);
         refreshInPreset.getRow(either, "Hi, are you still interested in my [item] listed for [price]?");
-        PresetMacroRow closePreset = new PresetMacroRow(PreloadedImage.CLOSE.getImage());
+        PresetMacroRow closePreset = new PresetMacroRow(DefaultIcons.CLOSE);
         closePreset.getRow(left, "Close trade");
         closePreset.getRow(right, "Close trade + all similar trades");
 
-        PresetMacroRow invitePreset = new PresetMacroRow(PreloadedImage.INVITE.getImage(), true);
+        PresetMacroRow invitePreset = new PresetMacroRow(DefaultIcons.INVITE, true);
         invitePreset.getRow(either, "Invite to Party");
-        PresetMacroRow tradePreset = new PresetMacroRow(PreloadedImage.CART.getImage(), true);
+        PresetMacroRow tradePreset = new PresetMacroRow(DefaultIcons.CART, true);
         tradePreset.getRow(either, "Send Trade Offer");
-        PresetMacroRow thankPreset = new PresetMacroRow(PreloadedImage.THUMB.getImage());
+        PresetMacroRow thankPreset = new PresetMacroRow(DefaultIcons.THUMB);
         thankLeft = thankPreset.getRow(left, "", true);
         thankRight = thankPreset.getRow(right, "", true);
-        PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
+        PresetMacroRow leavePreset = new PresetMacroRow(DefaultIcons.LEAVE, true);
         leavePreset.getRow(either, "Leave Party");
 
         PresetMacroRow usernamePreset = new PresetMacroRow("Username");

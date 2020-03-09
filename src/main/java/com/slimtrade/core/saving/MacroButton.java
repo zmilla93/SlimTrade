@@ -1,16 +1,16 @@
 package com.slimtrade.core.saving;
 
 import com.slimtrade.gui.enums.ButtonRow;
-import com.slimtrade.gui.enums.PreloadedImageCustom;
+import com.slimtrade.gui.enums.CustomIcons;
 
 public class MacroButton {
 
     public ButtonRow row;
     public String leftMouseResponse;
     public String rightMouseResponse;
-    public PreloadedImageCustom image;
+    public CustomIcons image;
 
-    public MacroButton(ButtonRow row, String leftMouseResponse, String rightMouseResponse, PreloadedImageCustom image) {
+    public MacroButton(ButtonRow row, String leftMouseResponse, String rightMouseResponse, CustomIcons image) {
         this.row = row;
         this.leftMouseResponse = leftMouseResponse;
         this.rightMouseResponse = rightMouseResponse;

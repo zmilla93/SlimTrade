@@ -23,7 +23,7 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.basic.*;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.PricePanel;
 
 public class AbstractMessagePanel extends ColorPanel {
@@ -113,9 +113,9 @@ public class AbstractMessagePanel extends ColorPanel {
 
 	public void setCloseButton(int size, boolean... forceNew) {
 		if (forceNew.length > 0 && forceNew[0]) {
-			this.closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), size);
+			this.closeButton = new IconButton(DefaultIcons.CLOSE, size);
 		} else {
-			this.closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), size);
+			this.closeButton = new IconButton(DefaultIcons.CLOSE, size);
 		}
 		closeButton.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {

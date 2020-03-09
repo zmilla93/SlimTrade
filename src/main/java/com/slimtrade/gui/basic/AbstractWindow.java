@@ -18,7 +18,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.BufferPanel;
 
 public abstract class AbstractWindow extends BasicMovableDialog implements IColorable {
@@ -69,7 +69,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
 		
 		if (makeCloseButton) {
 			gc.anchor = GridBagConstraints.LINE_END;
-			closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), TITLEBAR_HEIGHT);
+			closeButton = new IconButton(DefaultIcons.CLOSE, TITLEBAR_HEIGHT);
 //			titlebarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			titlebarPanel.add(closeButton, BorderLayout.EAST);
 			AbstractWindow local = this;

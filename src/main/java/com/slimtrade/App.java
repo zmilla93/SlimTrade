@@ -85,7 +85,9 @@ public class App {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+
                 ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT);
+                Locale.setDefault(Locale.US);
 
                 //Debug Mode
                 if (debugMode) {
@@ -93,19 +95,19 @@ public class App {
                     debugger.setState(Frame.ICONIFIED);
                 }
 
-                // Check for Updates
                 updateChecker = new UpdateChecker();
-//                updateChecker.checkForUpdates();
-
-
                 globalMouse = new GlobalMouseListener();
                 globalKeyboard = new GlobalKeyboardListener();
 
-                Locale.setDefault(Locale.US);
                 saveManager = new SaveManager();
                 saveManager.loadFromDisk();
                 saveManager.loadStashFromDisk();
                 saveManager.loadOverlayFromDisk();
+
+                frameManager = new FrameManager();
+                ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
+                eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
+                saveManager.loadAll();
 
                 // POE Interface
                 try {
@@ -113,13 +115,6 @@ public class App {
                 } catch (AWTException e) {
                     e.printStackTrace();
                 }
-
-                // Frames
-                frameManager = new FrameManager();
-                ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
-                eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
-
-                saveManager.loadAll();
 
                 // JNativeHook Setup
                 try {
@@ -131,27 +126,21 @@ public class App {
                 GlobalScreen.addNativeMouseListener(globalMouse);
                 GlobalScreen.addNativeKeyListener(globalKeyboard);
 
-                // Alert about new update
-//                if(updateChecker.isUpdateAvailable()){
-//                    UpdateDialog d = new UpdateDialog();
-//                    d.setVisible(true);
-//                }
-
-
             }
-        });
 
+        });
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
         loadingDialog.dispose();
         App.launch();
         System.out.println("SlimTrade launched!");
+
     }
 
 
     public static void launch() {
         if (SetupManager.isSetupRequired()) {
-            // Setup
+            // First time setup window
             FrameManager.setupWindow = new SetupWindow();
             FrameManager.windowState = WindowState.SETUP;
             FrameManager.setupWindow.setVisible(true);

@@ -3,13 +3,14 @@ package com.slimtrade.gui.buttons;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.enums.DefaultIcons;
+import com.slimtrade.gui.enums.ICacheImage;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,37 +32,23 @@ public class IconButton extends JButton implements IColorable {
 	public Border borderPressed = borderHover;
 
 	private Image image;
-	
-	public IconButton(String path) {
-		getNewImage(path, DEFAULT_SIZE);
-		buildButton(image, DEFAULT_SIZE);
-	}
+	private BufferedImage bufferedImage;
 
-	public IconButton(String path, int size) {
-		getNewImage(path, size);
-		buildButton(image, size);
-	}
-	
-	public IconButton(Image image, int size){
-		buildButton(image, size);
-	}
+	private ICacheImage cacheImage;
 
-	private void getNewImage(String path, int size) {
-//		System.out.println("NEW IMAGE");
-		int imageSize = (int)(size*IMAGE_SCALE);
-//        System.out.println("PATH : " + path);
-        ClassLoader loader = getClass().getClassLoader();
-		image = new ImageIcon(loader.getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
-//		this.setPreferredSize(new Dimension(size, size));
-		
-	}
-	
-	private void buildButton(Image image, int size){
+//	public IconButton(Image image, int size){
+//		buildButton(image, size);
+//	}
+
+	public IconButton(ICacheImage image, int size) {
+		this.cacheImage = image;
 		this.setPreferredSize(new Dimension(size, size));
 		this.setContentAreaFilled(false);
 		this.setFocusable(false);
 		this.setBorder(borderDefault);
-		this.setIcon(new ImageIcon(image));
+//		this.setIcon(new ImageIcon(image));
+
+
 		final IconButton localButton = this;
 		this.addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e) {
@@ -72,6 +59,42 @@ public class IconButton extends JButton implements IColorable {
 				localButton.getModel().setPressed(false);
 			}
 		});
+
+		updateColor();
+	}
+
+	
+	private void buildButton(Image image, int size){
+		if(cacheImage == null) {
+			cacheImage = DefaultIcons.THUMB;
+		}
+		this.image = image;
+		this.setPreferredSize(new Dimension(size, size));
+		this.setContentAreaFilled(false);
+		this.setFocusable(false);
+		this.setBorder(borderDefault);
+
+		bufferedImage = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D bGr = bufferedImage.createGraphics();
+		bGr.drawImage(image, 1, 1, null);
+		bGr.dispose();
+		this.setIcon(new ImageIcon(cacheImage.getColorImage(ColorManager.TEXT)));
+//		bufferedImage = colorImage(bufferedImage);
+
+//		image = bufferedImage;
+
+//		this.setIcon(new ImageIcon(image));
+		this.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e) {
+				getModel().setPressed(true);
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				getModel().setPressed(false);
+			}
+		});
+
+//		updateColor();
 	}
 
 	//TODO : Switch to normal background stuff??
@@ -96,5 +119,25 @@ public class IconButton extends JButton implements IColorable {
         colorDefault = ColorManager.LOW_CONTRAST_1;
         colorHover = ColorManager.LOW_CONTRAST_2;
         colorPressed = ColorManager.HIGH_CONTRAST_1;
+//        this.setIcon(new ImageIcon(colorImage(bufferedImage)));
+		this.setIcon(new ImageIcon(cacheImage.getColorImage(ColorManager.TEXT)));
     }
+
+	private static BufferedImage colorImage(BufferedImage image) {
+		int width = image.getWidth();
+		int height = image.getHeight();
+		WritableRaster raster = image.getRaster();
+
+		for (int xx = 0; xx < width; xx++) {
+			for (int yy = 0; yy < height; yy++) {
+				int[] pixels = raster.getPixel(xx, yy, (int[]) null);
+				pixels[0] = ColorManager.TEXT.getRed();
+				pixels[1] = ColorManager.TEXT.getGreen();
+				pixels[2] = ColorManager.TEXT.getBlue();
+				raster.setPixel(xx, yy, pixels);
+			}
+		}
+		return image;
+	}
+
 }

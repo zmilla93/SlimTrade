@@ -21,7 +21,7 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.PricePanel;
 
 public class HistoryRow extends JPanel implements IColorable{
@@ -41,7 +41,7 @@ public class HistoryRow extends JPanel implements IColorable{
 	public static final int MIN_WIDTH = 500;
 
 	IconButton refreshButton = new HistoryRefreshButton();
-	IconButton closeButton = new IconButton(PreloadedImage.CLOSE.getImage(), ROW_HEIGHT);
+	IconButton closeButton = new IconButton(DefaultIcons.CLOSE, ROW_HEIGHT);
 	// public HistoryRow()
 
 	TradeOffer trade;

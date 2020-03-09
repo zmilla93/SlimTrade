@@ -16,7 +16,7 @@ import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.basic.CustomSliderUI;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 
 public class AudioRow extends JPanel implements IColorable {
 
@@ -34,7 +34,7 @@ public class AudioRow extends JPanel implements IColorable {
 	public AudioRow(String title) {
         slider.setUI(new CustomSliderUI(slider));
 		// Sample Button
-		IconButton sampleButton = new IconButton(PreloadedImage.PLAY.getImage(), BUTTON_SIZE);
+		IconButton sampleButton = new IconButton(DefaultIcons.PLAY, BUTTON_SIZE);
 
 		// Label
 		JPanel labelPanel = new JPanel(new GridBagLayout());

@@ -16,7 +16,7 @@ import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 
 public class StashTabRow extends RemovablePanel implements IColorable {
 
@@ -40,7 +40,7 @@ public class StashTabRow extends RemovablePanel implements IColorable {
         gc.gridx = 0;
         gc.gridy = 0;
 
-        removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), ROW_HEIGHT);
+        removeButton = new IconButton(DefaultIcons.CLOSE, ROW_HEIGHT);
         this.setRemoveButton(removeButton);
 
         int stashTextWidth = 250;

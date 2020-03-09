@@ -1,21 +1,15 @@
 package com.slimtrade.gui.menubar;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.slimtrade.App;
-import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.enums.PreloadedImage;
-
-import javax.swing.*;
 
 public class MenubarExpandDialog extends BasicDialog {
 

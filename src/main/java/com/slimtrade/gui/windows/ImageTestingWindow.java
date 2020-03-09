@@ -3,8 +3,8 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.POEImage;
-import com.slimtrade.gui.enums.PreloadedImage;
-import com.slimtrade.gui.enums.PreloadedImageCustom;
+import com.slimtrade.gui.enums.DefaultIcons;
+import com.slimtrade.gui.enums.CustomIcons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,19 +18,19 @@ public class ImageTestingWindow extends JFrame {
     public ImageTestingWindow() {
 
         // Default Images
-        for (PreloadedImage i : PreloadedImage.values()) {
-            p1.add(new IconButton(i.getImage(), 20));
+        for (DefaultIcons i : DefaultIcons.values()) {
+            p1.add(new IconButton(i, 20));
         }
         // Custom Images
-        for (PreloadedImageCustom i : PreloadedImageCustom.values()) {
-            p2.add(new IconButton(i.getImage(), 20));
+        for (CustomIcons i : CustomIcons.values()) {
+            p2.add(new IconButton(i, 20));
         }
-        // POE Images
-        for (POEImage t : POEImage.values()) {
-            if(t.isValid()) {
-                p3.add(new IconButton(t.getImage(30), 30));
-            }
-        }
+//        // POE Images
+//        for (POEImage t : POEImage.values()) {
+//            if(t.isValid()) {
+//                p3.add(new IconButton(t, 30));
+//            }
+//        }
 
         this.setLayout(FrameManager.gridBag);
         GridBagConstraints gc = new GridBagConstraints();

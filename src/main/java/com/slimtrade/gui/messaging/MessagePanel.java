@@ -16,8 +16,8 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.ColorPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ButtonRow;
-import com.slimtrade.gui.enums.PreloadedImage;
-import com.slimtrade.gui.enums.PreloadedImageCustom;
+import com.slimtrade.gui.enums.DefaultIcons;
+import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.panels.PricePanel;
 import com.slimtrade.gui.scanner.ScannerMessage;
 import com.slimtrade.gui.stash.helper.StashHelper;
@@ -162,14 +162,14 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                     }
                 }
                 for (MacroButton macro : buttons) {
-                    PreloadedImageCustom img = macro.image;
+                    CustomIcons img = macro.image;
                     if(img == null) {
-                        for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
+                        for(CustomIcons c : CustomIcons.values()) {
                             img = c;
                             break;
                         }
                     }
-                    IconButton button = new IconButton(img.getImage(), rowHeight);
+                    IconButton button = new IconButton(img, rowHeight);
                     if (macro.row == ButtonRow.TOP) {
                         buttonCountTop++;
                         String lmb = macro.leftMouseResponse;
@@ -189,11 +189,11 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                     }
                 }
 
-                inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
-                warpButton = new IconButton(PreloadedImage.WARP.getImage(), rowHeight);
-                tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
-                thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
-                leaveButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
+                inviteButton = new IconButton(DefaultIcons.INVITE, rowHeight);
+                warpButton = new IconButton(DefaultIcons.WARP, rowHeight);
+                tradeButton = new IconButton(DefaultIcons.CART, rowHeight);
+                thankButton = new IconButton(DefaultIcons.THUMB, rowHeight);
+                leaveButton = new IconButton(DefaultIcons.LEAVE, rowHeight);
 
                 if (listeners) {
                     this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
@@ -218,14 +218,14 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 buttonCountTop = 2;
                 buttonCountBottom = 4;
                 for (MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
-                    PreloadedImageCustom img = macro.image;
+                    CustomIcons img = macro.image;
                     if(img == null) {
-                        for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
+                        for(CustomIcons c : CustomIcons.values()) {
                             img = c;
                             break;
                         }
                     }
-                    IconButton button = new IconButton(img.getImage(), rowHeight);
+                    IconButton button = new IconButton(img, rowHeight);
                     if (macro.row == ButtonRow.TOP) {
                         buttonCountTop++;
                         String lmb = macro.leftMouseResponse;
@@ -244,11 +244,11 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                         customButtonsBottom.add(button);
                     }
                 }
-                refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
-                inviteButton = new IconButton(PreloadedImage.INVITE.getImage(), rowHeight);
-                tradeButton = new IconButton(PreloadedImage.CART.getImage(), rowHeight);
-                thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
-                kickButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
+                refreshButton = new IconButton(DefaultIcons.REFRESH, rowHeight);
+                inviteButton = new IconButton(DefaultIcons.INVITE, rowHeight);
+                tradeButton = new IconButton(DefaultIcons.CART, rowHeight);
+                thankButton = new IconButton(DefaultIcons.THUMB, rowHeight);
+                kickButton = new IconButton(DefaultIcons.LEAVE, rowHeight);
                 if (listeners) {
                     this.registerPoeInteractionButton(refreshButton, ButtonType.REFRESH);
                     this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
@@ -297,14 +297,14 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 buttonCountTop = 2;
                 buttonCountBottom = 4;
                 for (MacroButton macro : App.saveManager.saveFile.outgoingMacroButtons) {
-                    PreloadedImageCustom img = macro.image;
+                    CustomIcons img = macro.image;
                     if(img == null) {
-                        for(PreloadedImageCustom c : PreloadedImageCustom.values()) {
+                        for(CustomIcons c : CustomIcons.values()) {
                             img = c;
                             break;
                         }
                     }
-                    IconButton button = new IconButton(img.getImage(), rowHeight);
+                    IconButton button = new IconButton(img, rowHeight);
                     if (macro.row == ButtonRow.TOP) {
                         buttonCountTop++;
                         String lmb = macro.leftMouseResponse;
@@ -323,11 +323,11 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                         customButtonsBottom.add(button);
                     }
                 }
-                refreshButton = new IconButton(PreloadedImage.REFRESH.getImage(), rowHeight);
-                warpButton = new IconButton(PreloadedImage.WARP.getImage(), rowHeight);
-                thankButton = new IconButton(PreloadedImage.THUMB.getImage(), rowHeight);
-                leaveButton = new IconButton(PreloadedImage.LEAVE.getImage(), rowHeight);
-                homeButton = new IconButton(PreloadedImage.HOME.getImage(), rowHeight);
+                refreshButton = new IconButton(DefaultIcons.REFRESH, rowHeight);
+                warpButton = new IconButton(DefaultIcons.WARP, rowHeight);
+                thankButton = new IconButton(DefaultIcons.THUMB, rowHeight);
+                leaveButton = new IconButton(DefaultIcons.LEAVE, rowHeight);
+                homeButton = new IconButton(DefaultIcons.HOME, rowHeight);
 
                 for (IconButton b : customButtonsTop) {
                     buttonPanelTop.add(b);

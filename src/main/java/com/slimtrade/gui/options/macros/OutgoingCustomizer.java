@@ -14,7 +14,7 @@ import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
@@ -47,20 +47,20 @@ public class OutgoingCustomizer extends ContainerPanel implements ISaveable, ICo
         refreshTrade();
 
         // INCOMING PRESETS
-        PresetMacroRow refreshInPreset = new PresetMacroRow(PreloadedImage.REFRESH.getImage(), true);
+        PresetMacroRow refreshInPreset = new PresetMacroRow(DefaultIcons.REFRESH, true);
         refreshInPreset.getRow(left, "Resend Trade Whisper");
-        PresetMacroRow closePreset = new PresetMacroRow(PreloadedImage.CLOSE.getImage());
+        PresetMacroRow closePreset = new PresetMacroRow(DefaultIcons.CLOSE);
         closePreset.getRow(left, "Close Trade");
         closePreset.getRow(right, "Save Trade + close all other similar trades");
-        PresetMacroRow warpPreset = new PresetMacroRow(PreloadedImage.WARP.getImage(), true);
+        PresetMacroRow warpPreset = new PresetMacroRow(DefaultIcons.WARP, true);
         warpPreset.getRow(left, "Warp to Seller");
 
-        PresetMacroRow thankPreset = new PresetMacroRow(PreloadedImage.THUMB.getImage());
+        PresetMacroRow thankPreset = new PresetMacroRow(DefaultIcons.THUMB);
         thankLeft = thankPreset.getRow(left, "", true);
         thankRight = thankPreset.getRow(right, "", true);
-        PresetMacroRow leavePreset = new PresetMacroRow(PreloadedImage.LEAVE.getImage(), true);
+        PresetMacroRow leavePreset = new PresetMacroRow(DefaultIcons.LEAVE, true);
         leavePreset.getRow(left, "Leave Party");
-        PresetMacroRow homePreset = new PresetMacroRow(PreloadedImage.HOME.getImage(), true);
+        PresetMacroRow homePreset = new PresetMacroRow(DefaultIcons.HOME, true);
         homePreset.getRow(left, "Warp to Hideout");
 
         PresetMacroRow usernamePreset = new PresetMacroRow("Username");

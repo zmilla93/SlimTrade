@@ -10,6 +10,7 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.enums.ICacheImage;
 
 public class PresetMacroRow extends JPanel implements IColorable{
 
@@ -45,15 +46,15 @@ public class PresetMacroRow extends JPanel implements IColorable{
 		this(title, null, thin);
 	}
 
-	public PresetMacroRow(Image img) {
+	public PresetMacroRow(ICacheImage img) {
 		this(null, img, false);
 	}
 
-	public PresetMacroRow(Image img, boolean thin) {
+	public PresetMacroRow(ICacheImage img, boolean thin) {
 		this(null, img, thin);
 	}
 
-	public PresetMacroRow(String title, Image img, boolean thin) {
+	public PresetMacroRow(String title, ICacheImage img, boolean thin) {
 		this.title = title;
 		this.setLayout(new GridBagLayout());
 		if (thin) {

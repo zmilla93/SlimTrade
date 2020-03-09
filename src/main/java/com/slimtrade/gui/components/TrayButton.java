@@ -6,13 +6,13 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.saving.OverlaySaveFile;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.WindowState;
 
 public class TrayButton {
 
     private final SystemTray tray = SystemTray.getSystemTray();
-    private final TrayIcon trayIcon = new TrayIcon(PreloadedImage.TAG.getImage());
+    private final TrayIcon trayIcon = new TrayIcon(DefaultIcons.TAG.getImage());
     private final PopupMenu popup = new PopupMenu();
 
     private final MenuItem historyButton = new MenuItem("History");

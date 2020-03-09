@@ -18,7 +18,7 @@ import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.enums.PreloadedImage;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.BufferPanel;
 
 public class IgnoreRow extends RemovablePanel implements ActionListener, IColorable {
@@ -40,7 +40,7 @@ public class IgnoreRow extends RemovablePanel implements ActionListener, IColora
         }
         this.ignoreData = ignoreData;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        IconButton removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), 20);
+        IconButton removeButton = new IconButton(DefaultIcons.CLOSE, 20);
         this.setRemoveButton(removeButton);
         JLabel itemLabel = new CustomLabel(ignoreData.getItemName());
         JPanel itemPanel = new JPanel(new GridBagLayout());

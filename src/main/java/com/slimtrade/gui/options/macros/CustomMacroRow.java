@@ -15,8 +15,8 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ButtonRow;
-import com.slimtrade.gui.enums.PreloadedImage;
-import com.slimtrade.gui.enums.PreloadedImageCustom;
+import com.slimtrade.gui.enums.DefaultIcons;
+import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.panels.BufferPanel;
 
 public class CustomMacroRow extends RemovablePanel implements IColorable {
@@ -29,7 +29,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     public JTextField m2Text = new CustomTextField(26);
     public JComboBox<ImageIcon> iconCombo;
     public JComboBox<ButtonRow> rowCombo;
-    public IconButton removeButton = new IconButton(PreloadedImage.CLOSE.getImage(), 20);
+    public IconButton removeButton = new IconButton(DefaultIcons.CLOSE, 20);
 
 //	private boolean unsaved = true;
 //	private boolean delete;
@@ -43,10 +43,11 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         gc.gridy = 0;
         gc.gridheight = 1;
         iconCombo = new CustomCombo<>();
-        for (PreloadedImageCustom i : PreloadedImageCustom.values()) {
-            ImageIcon icon = new ImageIcon(i.getImage());
-            iconCombo.addItem(icon);
-        }
+//        for (CustomIcons i : CustomIcons.values()) {
+//            ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
+//            iconCombo.addItem(icon);
+//        }
+
         rowCombo = new CustomCombo<>();
         for (ButtonRow row : ButtonRow.values()) {
             rowCombo.addItem(row);
@@ -76,7 +77,6 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         this.add(m2Label, gc);
         gc.gridx += 2;
         this.add(m2Text, gc);
-        App.eventManager.recursiveColor(this);
     }
 
     public ButtonRow getButtonRow() {
@@ -85,9 +85,9 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         return (ButtonRow) rowCombo.getSelectedItem();
     }
 
-    public PreloadedImageCustom getButtonImage() {
+    public CustomIcons getButtonImage() {
         int index = iconCombo.getSelectedIndex();
-        PreloadedImageCustom img = PreloadedImageCustom.values()[index];
+        CustomIcons img = CustomIcons.values()[index];
 //        System.out.println("\tGetting Image from CustomMacroRow : (" + index + ") " + img);
         return img;
     }
@@ -104,7 +104,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         rowCombo.setSelectedItem(row);
     }
 
-    public void setButtonImage(PreloadedImageCustom img) {
+    public void setButtonImage(CustomIcons img) {
         System.out.println("Setting combo... " + img);
         iconCombo.setSelectedItem(img);
     }
@@ -148,8 +148,15 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
 
     @Override
     public void updateColor() {
+        super.updateColor();
         this.setBackground(ColorManager.BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
+        iconCombo.removeAll();
+        iconCombo.removeAllItems();
+        for (CustomIcons i : CustomIcons.values()) {
+            ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
+            iconCombo.addItem(icon);
+        }
     }
 
 }

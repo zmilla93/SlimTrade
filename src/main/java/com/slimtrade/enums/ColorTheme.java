@@ -19,5 +19,9 @@ public enum ColorTheme {
 	public String toString(){
 		return this.name;
 	}
+
+	public String toPathString() {
+		return this.name.toLowerCase().replaceAll("\\w+", "_");
+	}
 	
 }
