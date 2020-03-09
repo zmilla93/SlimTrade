@@ -15,7 +15,7 @@ public class MenuBarPanel extends AbstractTutorialPanel {
         container.add(new SectionHeader("Getting Started"), gc);
         gc.gridy++;
         gc.insets.bottom = 10;
-        container.add(new ImageLabel("images/menubar-toggle.png"), gc);
+        container.add(new ImageLabel("images/menubar-button.png"), gc);
         gc.insets.bottom = 0;
         gc.gridy++;
         container.add(info1, gc);

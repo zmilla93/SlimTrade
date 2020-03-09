@@ -133,6 +133,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
 
         //Finalize
+        scrollPane.setBorder(null);
+
         this.setFocusableWindowState(true);
         this.setFocusable(true);
         this.pack();
