@@ -39,5 +39,6 @@ Theme: Monokai
 The chat scanner allows you to search for custom phrases. These popups appear orange.<br>
 ![](/src/main/resources/images/scanner-message.png)<br>
 
-You can ignore terms and create multiple search presets in the options. Theme : S<br>
+You can ignore terms and create multiple search presets in the options.<br>
 ![](/src/main/resources/images/scanner-example.png)<br>
+Theme : Solarized Dark<br>
