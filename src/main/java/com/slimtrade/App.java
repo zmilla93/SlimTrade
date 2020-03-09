@@ -150,7 +150,9 @@ public class App {
             fileMonitor = new FileMonitor();
             fileMonitor.startMonitor();
             chatParser.init();
-            FrameManager.menubarToggle.setShow(true);
+            if(App.saveManager.saveFile.enableMenubar) {
+                FrameManager.menubarToggle.setShow(true);
+            }
             FrameManager.trayButton = new TrayButton();
             // Check for update
             if (checkUpdateOnLaunch) {
