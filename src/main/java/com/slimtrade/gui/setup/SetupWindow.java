@@ -79,13 +79,7 @@ public class SetupWindow extends JFrame implements IColorable {
         container.add(buttonPanel, BorderLayout.SOUTH);
 
         this.pack();
-//        this.setSize(getPreferredSize().width+40, getPreferredSize().height+40);
-
-//        innerPanel.setBackground(Color.ORANGE);
-
         this.setMinimumSize(new Dimension(600, 300));
-//        this.revalidate();
-//        this.repaint();
         App.eventManager.recursiveColor(this);
         App.eventManager.recursiveColor(clientPanel);
         App.eventManager.recursiveColor(stashPanel);
@@ -145,14 +139,8 @@ public class SetupWindow extends JFrame implements IColorable {
                 revalidate();
                 repaint();
             } else if(panelIndex == panels.size()-1) {
-//                FrameManager.windowState = WindowState.NORMAL;
                 this.setAlwaysOnTop(false);
-//                FrameManager.showVisibleFrames();
-//                FrameManager.forceAllToTop();
-
-//                App.saveManager.validateClientPath();
                 App.saveManager.saveToDisk();
-//                FrameManager.optionsWindow.reloadGeneral();
                 this.dispose();
                 App.launch();
                 FrameManager.showTutorialWindow();

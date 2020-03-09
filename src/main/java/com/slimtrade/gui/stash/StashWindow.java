@@ -69,12 +69,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
         gc.gridx++;
         inset.right = 0;
         buttonPanel.add(saveButton, gc);
-//        gc.gridx = 0;
-//        gc.gridy++;
-//        gc.gridwidth = 3;
-//        buttonPanel.add(new JLabel("Move and resize this window until the grid aligns with POE's stash."), gc);
         container.add(buttonPanel, BorderLayout.SOUTH);
-
 
         gridResizeButton.addActionListener(e ->{
                 int count = gridPanel.getGridCellCount();
@@ -98,6 +93,9 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
             FrameManager.stashHelperContainer.updateLocation();
             closeOverlay();
         });
+
+        this.load();
+
     }
 
     public void save() {

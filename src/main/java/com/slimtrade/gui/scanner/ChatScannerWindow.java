@@ -13,6 +13,7 @@ import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.ToggleButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.basic.CustomScrollPane;
+import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.ISaveable;
@@ -121,11 +122,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         gc.insets.bottom = 20;
         containerPanel.container.add(macroPanel, gc);
         gc.gridy = 0;
-//        gc.fill = GridBagConstraints.BOTH;
-
-
-//        gc.insets = new Insets(0, 0, 0, 0);
-
 
         container.setLayout(new BorderLayout());
         container.add(scrollPane, BorderLayout.CENTER);
@@ -225,9 +221,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 searchTermsInput.setEnabled(false);
                 ignoreTermsInput.setEnabled(false);
                 addRemovePanel.setEnabledAll(false);
-//                searchButton.setText("Cancel Search");
-//                searchButton.primaryColor = ColorManager.RED_DENY;
-//                searchButton.updateColor();
             } else {
                 saveTextField.setEnabled(true);
                 searchCombo.setEnabled(true);
@@ -237,9 +230,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 searchTermsInput.setEnabled(true);
                 ignoreTermsInput.setEnabled(true);
                 addRemovePanel.setEnabledAll(true);
-//                searchButton.setText("Search");
-//                searchButton.primaryColor = ColorManager.GREEN_APPROVE;
-//                searchButton.updateColor();
             }
             refreshListeners();
             refreshWindowState();
@@ -336,16 +326,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     }
 
     private void refreshWindowState() {
-        // TEMP
+        // TODO : Optimize?
         boolean matchingMessage = checkName && checkSearchTerms && checkIgnoreTerms && checkThankLeft && checkThankRight && checkMacros;
-//        System.out.print("MATCH : " + matchingMessage + "\t");
-//        System.out.print("checkName[" + checkName + "]\t");
-//        System.out.print("checkSearchTerms[" + checkSearchTerms + "]\t");
-//        System.out.print("checkIgnoreTerms[" + checkIgnoreTerms + "]\t");
-//        System.out.print("checkThankLeft[" + checkThankLeft + "]\t");
-//        System.out.print("checkThankRight[" + checkThankRight + "]\t");
-//        System.out.print("checkMacros[" + checkMacros + "]\t");
-//        System.out.println();
         if (searching) {
             searchButton.setEnabled(false);
             deleteButton.setEnabled(false);
@@ -490,21 +472,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             return null;
         }
         CustomMacroRow row = new CustomMacroRow(addRemovePanel);
-        // Listeners
-//        thankLeft.getDocument().addDocumentListener(new DocumentUpdateListener() {
-//            public void update() {
-//                System.out.println("#t1");
-//                checkMacros();
-//                refreshWindowState();
-//            }
-//        });
-//        thankRight.getDocument().addDocumentListener(new DocumentUpdateListener() {
-//            public void update() {
-//                System.out.println("#t2");
-//                checkMacros();
-//                refreshWindowState();
-//            }
-//        });
         addRemovePanel.addRemoveablePanel(row);
         return row;
     }
@@ -562,9 +529,9 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             CustomMacroRow row = new CustomMacroRow(addRemovePanel);
             row.rowCombo.setSelectedItem(b.row);
             boolean found = false;
-            for (int i = 0; i < row.iconCombo.getItemCount(); i++) {
-                if (row.iconCombo.getItemAt(i).getImage().equals(b.image.getImage())) {
-                    row.iconCombo.setSelectedIndex(i);
+            for(int j = 0; j< CustomIcons.values().length; j++) {
+                if(CustomIcons.values()[j] == b.image) {
+                    row.iconCombo.setSelectedIndex(j);
                     found = true;
                     break;
                 }
@@ -591,10 +558,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     }
 
     private void refreshTrade() {
-//        GridBagConstraints gc = new GridBagConstraints();
-//        gc.gridx = 0;
-//        gc.gridy = 0;
-//        gc.insets = new Insets(20, 20, 0, 20);
         if (sampleMessage != null) {
             containerPanel.container.remove(sampleMessage);
         }
@@ -627,9 +590,11 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         messageList.addAll(App.saveManager.scannerSaveFile.messages);
         Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
         searchCombo.removeAllItems();
+
         for (ScannerMessage msg : messageList) {
             searchCombo.addItem(msg);
         }
+
         searchCombo.setSelectedIndex(-1);
     }
 
