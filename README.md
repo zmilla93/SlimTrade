@@ -11,11 +11,13 @@ Incoming trades are green, outgoing trades are red.<br>
 ![](/src/main/resources/images/incoming-trade.png)<br>
 ![](/src/main/resources/images/outgoing-trade.png)<br>
 
-There is also a colorblind option to swap green and red for blue and pink respectively. This works independently of the color theme system shown elsewhere.<br>
+There is a colorblind option to swap green and red for blue and pink respectively.<br>
 ![](/src/main/resources/images/incoming-trade-cb.png)<br>
 ![](/src/main/resources/images/outgoing-trade-cb.png)<br>
 
-Incoming trades will turn the buyer's name green and create an info window above the stash with the item and stash name. This info popup can be hovered to highlight the item, or clicked to search the name in the stash. Color coding can be added in the options.<br>
+Incoming trades highlight the buyer's name and create an info window with item and stash names.<br>
+This info popup can be hovered to highlight the item, or clicked to search the name in the stash.<br>
+Stash color coding can be added in the options.<br>
 ![](/src/main/resources/images/stash.png)<br>
 
 ## Ignore Items
@@ -23,7 +25,8 @@ Ignore specific item names or generic terms.<br>
 ![](/src/main/resources/images/ignore.png)<br>
 
 ## Customization
-All macro types come with inbuilt macros, but also allow you to add your own with custom response text.<br>
+Several different color themes are supported, some of which are shown below.
+There are inbuilt macros for preset commands, and custom macros for everything else!<br>
 ![](/src/main/resources/images/macro-customizer.png)<br>
 Theme: Stormy
 
