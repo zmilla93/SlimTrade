@@ -1,7 +1,10 @@
 package com.slimtrade.gui.setup.panels;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.setup.SetupWindow;
@@ -11,18 +14,18 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
+public class ClientPanel extends AbstractSetupPanel implements ISetupValidator, IColorable {
 
     private JPanel browsePanel = new JPanel(FrameManager.gridBag);
     private JPanel multiPathPanel = new JPanel(FrameManager.gridBag);
 
-    private JLabel pathLabel = new JLabel("Client Path");
+    private JLabel pathLabel = new CustomLabel("Client Path");
     public JTextField clientText = new CustomTextField();
     public JButton editButton = new BasicButton("Browse");
 
-    private JLabel info1 = new JLabel("Enter the location of Path of Exile's Client.txt file.");
-    private JLabel info2a = new JLabel("Multiple client files detected. Selected the one being used, or enter a new one.");
-    private JLabel info2b = new JLabel("If this file was recently deleted, launch POE before running SlimTrade.");
+    private JLabel info1 = new CustomLabel("Enter the location of Path of Exile's Client.txt file.");
+    private JLabel info2a = new CustomLabel("Multiple client files detected. Selected the one being used, or enter a new one.");
+    private JLabel info2b = new CustomLabel("If this file was recently deleted, launch POE before running SlimTrade.");
 
 //    private JLabel info2 = new JLabel("If this file was recently deleted, launch POE to recreate it.");
 
@@ -51,7 +54,7 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
             for(String s : App.saveManager.clientPaths) {
                 gc.insets.bottom = 5;
                 gc.insets.right = 5;
-                multiPathPanel.add(new JLabel(s), gc);
+                multiPathPanel.add(new CustomLabel(s), gc);
                 gc.insets.right = 0;
                 gc.gridx++;
                 JButton b = new BasicButton("Select");
@@ -89,6 +92,7 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
         gc.gridy++;
         container.add(Box.createHorizontalStrut(450), gc);
 
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             fileChooser = new JFileChooser();
@@ -107,9 +111,7 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
             }
         });
 
-        container.setBackground(SetupWindow.BACKGROUND_COLOR);
-        multiPathPanel.setBackground(SetupWindow.BACKGROUND_COLOR);
-        browsePanel.setBackground(SetupWindow.BACKGROUND_COLOR);
+
 //        clientText.setBackground(SetupWindow.BACKGROUND_COLOR);
     }
 
@@ -125,9 +127,13 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator{
     @Override
     public void save() {
         App.saveManager.saveFile.clientPath = clientText.getText();
-//        File file = new File(clientText.getText());
-//        App.saveManager.saveFile.clientDirectory = file.getParent();
-//        App.saveManager.saveFile.validClientPath = true;
     }
 
+    @Override
+    public void updateColor() {
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
+        container.setBackground(ColorManager.LOW_CONTRAST_1);
+        multiPathPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+        browsePanel.setBackground(ColorManager.LOW_CONTRAST_1);
+    }
 }

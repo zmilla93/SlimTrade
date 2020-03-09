@@ -1,13 +1,16 @@
 package com.slimtrade.gui.setup.panels;
 
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class CompletePanel extends AbstractSetupPanel {
+public class CompletePanel extends AbstractSetupPanel implements IColorable {
 
-    private JLabel info1 = new JLabel("SlimTrade setup complete!");
+    private JLabel info1 = new CustomLabel("SlimTrade setup complete!");
 
     public CompletePanel() {
         this.add(info1, gc);
@@ -15,4 +18,8 @@ public class CompletePanel extends AbstractSetupPanel {
         this.add(Box.createHorizontalStrut(400), gc);
     }
 
+    @Override
+    public void updateColor() {
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
+    }
 }

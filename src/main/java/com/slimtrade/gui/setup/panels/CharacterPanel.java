@@ -1,8 +1,11 @@
 package com.slimtrade.gui.setup.panels;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.DocumentUpdateListener;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.LimitTextField;
@@ -10,13 +13,13 @@ import com.slimtrade.gui.stash.LimitTextField;
 import javax.swing.*;
 import java.awt.*;
 
-public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidator {
+public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidator, IColorable {
 
     private JPanel namePanel = new JPanel(FrameManager.gridBag);
 
-    private JLabel info1 = new JLabel("Your character name is used to leave the party during certain trades.");
-    private JLabel info2 = new JLabel("Be sure to update it when creating a new character.");
-    private JLabel nameLabel = new JLabel("Character Name");
+    private JLabel info1 = new CustomLabel("Your character name is used to leave the party during certain trades.");
+    private JLabel info2 = new CustomLabel("Be sure to update it when creating a new character.");
+    private JLabel nameLabel = new CustomLabel("Character Name");
 
     private JTextField nameInput = new LimitTextField(32);
 
@@ -51,7 +54,7 @@ public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidat
             }
         });
 
-        namePanel.setBackground(SetupWindow.BACKGROUND_COLOR);
+//        namePanel.setBackground(SetupWindow.BACKGROUND_COLOR);
 
     }
 
@@ -68,4 +71,10 @@ public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidat
         App.saveManager.saveFile.characterName = nameInput.getText();
     }
 
+    @Override
+    public void updateColor() {
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
+        container.setBackground(ColorManager.LOW_CONTRAST_1);
+        namePanel.setBackground(ColorManager.LOW_CONTRAST_1);
+    }
 }

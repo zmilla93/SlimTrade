@@ -1,16 +1,19 @@
 package com.slimtrade.gui.setup.panels;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.enums.WindowState;
 
 import javax.swing.*;
 
-public class StashPanel extends AbstractSetupPanel implements ISetupValidator {
+public class StashPanel extends AbstractSetupPanel implements ISetupValidator, IColorable {
 
-    JLabel info1 = new JLabel("The location of your stash needs to be marked and saved.");
-    JLabel info2 = new JLabel("Resize the overlay until it aligns with your stash in game.");
+    JLabel info1 = new CustomLabel("The location of your stash needs to be marked and saved.");
+    JLabel info2 = new CustomLabel("Resize the overlay until it aligns with your stash in game.");
 
     JButton editButton = new BasicButton("Edit Stash Overlay");
 
@@ -48,5 +51,11 @@ public class StashPanel extends AbstractSetupPanel implements ISetupValidator {
     @Override
     public void save() {
         // Saving is already handled elsewhere
+    }
+
+    @Override
+    public void updateColor() {
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
+        container.setBackground(ColorManager.LOW_CONTRAST_1);
     }
 }

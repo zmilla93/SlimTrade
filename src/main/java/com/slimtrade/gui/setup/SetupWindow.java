@@ -4,8 +4,10 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SetupManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.enums.ICacheImage;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.setup.panels.*;
 
@@ -13,7 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class SetupWindow extends JFrame {
+public class SetupWindow extends JFrame implements IColorable {
 
     private Container container;
     private JPanel innerPanel;
@@ -28,8 +30,6 @@ public class SetupWindow extends JFrame {
 
     private JButton backButton;
     private JButton nextButton;
-
-    public static final Color BACKGROUND_COLOR = ColorManager.BACKGROUND;
 
     private int panelIndex = 0;
 
@@ -77,6 +77,7 @@ public class SetupWindow extends JFrame {
         createListeners();
         container.add(innerPanel, BorderLayout.CENTER);
         container.add(buttonPanel, BorderLayout.SOUTH);
+
         this.pack();
 //        this.setSize(getPreferredSize().width+40, getPreferredSize().height+40);
 
@@ -157,6 +158,13 @@ public class SetupWindow extends JFrame {
                 FrameManager.showTutorialWindow();
             }
         });
+
+
     }
 
+    @Override
+    public void updateColor() {
+        innerPanel.setBackground(ColorManager.BACKGROUND);
+        buttonPanel.setBackground(ColorManager.BACKGROUND);
+    }
 }

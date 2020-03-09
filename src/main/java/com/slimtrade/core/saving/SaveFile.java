@@ -22,7 +22,7 @@ public class SaveFile {
     public boolean showGuildName = false;
     public boolean closeOnKick = false;
     public boolean colorBlindMode = false;
-    public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
+    public ColorTheme colorTheme = ColorTheme.MONOKAI;
 
     // History
     public TimeStyle timeStyle = TimeStyle.H12;
