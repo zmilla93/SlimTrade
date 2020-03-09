@@ -40,5 +40,5 @@ The chat scanner allows you to search for custom phrases. These popups appear or
 ![](/src/main/resources/images/scanner-message.png)<br>
 
 You can ignore terms and create multiple search presets in the options.<br>
-![](/src/main/resources/images/scanner-example.png)<br>
+![](/src/main/resources/images/scanner-full.png)<br>
 Theme : Solarized Dark<br>
