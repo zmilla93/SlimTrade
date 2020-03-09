@@ -46,6 +46,7 @@ public class App {
     // Flags
     public static boolean checkUpdateOnLaunch = true;
     public static boolean debugMode = false;
+    public static boolean allowPrerelease = false;
     public static boolean forceUI = false;
     public static boolean testFeatures = false;
 
@@ -70,6 +71,9 @@ public class App {
                     // Enable test features
                     case "-tf":
                         testFeatures = true;
+                        break;
+                    case "-pre":
+                        allowPrerelease = true;
                         break;
                 }
             }
@@ -107,7 +111,12 @@ public class App {
                 frameManager = new FrameManager();
                 ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
                 eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
-                saveManager.loadAll();
+                SaveManager.recursiveLoad(FrameManager.optionsWindow);
+
+                //TEST
+                App.eventManager.recursiveColor(FrameManager.optionsWindow);
+                FrameManager.optionsWindow.revalidate();
+                FrameManager.optionsWindow.repaint();
 
                 // POE Interface
                 try {
@@ -162,6 +171,7 @@ public class App {
                     updateDialog.setVisible(true);
                 }
             }
+            SaveManager.recursiveLoad(FrameManager.optionsWindow);
         }
     }
 

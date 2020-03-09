@@ -15,6 +15,7 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
+import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.basic.AbstractWindow;
@@ -138,7 +139,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.insets.bottom = 0;
         container.add(customPanel, gc);
         addButton.addActionListener(e -> addNewMacro());
-        load();
+        updateColor();
     }
 
     private void refreshTrade() {
@@ -173,11 +174,6 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         return row;
     }
 
-    public void revertChanges() {
-        customPanel.revertChanges();
-        load();
-    }
-
     private void loadFromSave() {
 
         // Thank Button
@@ -189,11 +185,10 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         for (MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
 
             CustomMacroRow row = addNewMacro();
-//            ButtonRow buttonRow = macro.row;
-//            row.setButtonRow(buttonRow);
             boolean found = false;
-            for (int j = 0; j < row.iconCombo.getItemCount(); j++) {
-                if (row.iconCombo.getItemAt(j).getImage().equals(macro.image.getImage())) {
+            for(int j = 0;j<CustomIcons.values().length;j++) {
+                System.out.println(CustomIcons.values()[j] + " - " + macro.image );
+                if(CustomIcons.values()[j] == macro.image) {
                     row.iconCombo.setSelectedIndex(j);
                     found = true;
                     break;
@@ -211,7 +206,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
     }
 
     public void save() {
-        customPanel.saveChanges();
+        customPanel.clearHiddenPanels();
         // PRESET BUTTONS
         App.saveManager.saveFile.thankIncomingLMB = thankLeft.getText();
         App.saveManager.saveFile.thankIncomingRMB = thankRight.getText();

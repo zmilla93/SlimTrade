@@ -50,8 +50,6 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         container.add(quickPastePanel, gc);
         gc.gridy++;
 
-        App.saveManager.addSaveableObject(this);
-
     }
 
     @Override

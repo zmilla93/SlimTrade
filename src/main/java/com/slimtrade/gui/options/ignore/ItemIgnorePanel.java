@@ -3,8 +3,6 @@ package com.slimtrade.gui.options.ignore;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -105,50 +103,43 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         gc.insets.top = 0;
         gc.gridy++;
 
-        load();
         FrameManager.itemIgnorePanel = this;
 
-        ignoreButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String text = itemText.getText().trim();
-                if (text.matches("")) {
-                    return;
-                }
-                int i = 0;
-                for (Component c : addRemovePanel.getComponents()) {
-                    if (c instanceof IgnoreRow) {
-                        IgnoreRow row = (IgnoreRow) c;
-                        if(!row.isToBeDeleted() && text.toLowerCase().matches(row.getIgnoreData().getItemName().toLowerCase())) {
-                            return;
-                        }
-                        if(row.isVisible()){
-                            i++;
-                        }
+        ignoreButton.addActionListener(e -> {
+            String text = itemText.getText().trim();
+            if (text.matches("")) {
+                return;
+            }
+            int i = 0;
+            for (Component c : addRemovePanel.getComponents()) {
+                if (c instanceof IgnoreRow) {
+                    IgnoreRow row = (IgnoreRow) c;
+                    if (!row.isToBeDeleted() && text.toLowerCase().matches(row.getIgnoreData().getItemName().toLowerCase())) {
+                        return;
+                    }
+                    if (row.isVisible()) {
+                        i++;
                     }
                 }
-                if(i >= MAX_IGNORE_COUNT) {
-                    return;
-                }
-                i = (int)timerSpinner.getValue();
-                itemText.setText("");
-                addRemovePanel.addRemoveablePanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
             }
+            if (i >= MAX_IGNORE_COUNT) {
+                return;
+            }
+            i = (int) timerSpinner.getValue();
+            itemText.setText("");
+            addRemovePanel.addRemoveablePanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
         });
-    }
-
-    public void revertChanges() {
-        addRemovePanel.revertChanges();
     }
 
     @Override
     public void save() {
-        addRemovePanel.saveChanges();
+        addRemovePanel.clearHiddenPanels();
         App.saveManager.saveFile.ignoreData.clear();
         for (Component c : addRemovePanel.getComponents()) {
             if (c instanceof IgnoreRow) {
                 IgnoreRow row = (IgnoreRow) c;
                 IgnoreData rowData = row.getIgnoreData();
-                if(rowData.getRemainingTime() > 0 || rowData.indefinite) {
+                if (rowData.getRemainingTime() > 0 || rowData.indefinite) {
                     App.saveManager.saveFile.ignoreData.add(rowData);
                 }
             }
@@ -158,14 +149,15 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
     @Override
     public void load() {
-        ArrayList<IgnoreData> fullData = new ArrayList<IgnoreData>();
+        ArrayList<IgnoreData> fullData = new ArrayList<>();
+        addRemovePanel.removeAll();
         for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
-            if(data.getRemainingTime() > -0 || data.indefinite) {
+            if (data.getRemainingTime() > -0 || data.indefinite) {
                 fullData.add(data);
                 addRemovePanel.addRemoveablePanel(new IgnoreRow(data, addRemovePanel));
             }
         }
-        addRemovePanel.saveChanges();
+//        addRemovePanel.saveChanges();
         App.chatParser.setWhisperIgnoreTerms(fullData);
     }
 

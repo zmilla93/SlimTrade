@@ -19,7 +19,7 @@ Several different color themes are supported. One dark theme example is shown he
 ![](/src/main/resources/images/incoming-trade-dark.png)<br>
 ![](/src/main/resources/images/outgoing-trade-dark.png)<br>
 
-Incoming trades highlight the buyer's name and create an info window with item and stash names.<br>
+Incoming trades highlight the buyer's name when joining your hideout, and create an info window with item and stash names.<br>
 This info popup can be hovered to highlight the item, or clicked to search the name in the stash.<br>
 Stash color coding can be added in the options.<br>
 ![](/src/main/resources/images/stash.png)<br>

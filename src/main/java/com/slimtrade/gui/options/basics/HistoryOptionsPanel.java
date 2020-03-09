@@ -89,7 +89,6 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 		gc.gridwidth = 3;
 		gc.insets.top = 5;
 		container.add(new CustomLabel("History changes require restart"), gc);
-		load();
 	}
 
 	@Override

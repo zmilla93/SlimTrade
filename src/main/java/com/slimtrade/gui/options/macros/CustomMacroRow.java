@@ -43,10 +43,10 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         gc.gridy = 0;
         gc.gridheight = 1;
         iconCombo = new CustomCombo<>();
-//        for (CustomIcons i : CustomIcons.values()) {
-//            ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
-//            iconCombo.addItem(icon);
-//        }
+        for (CustomIcons i : CustomIcons.values()) {
+            ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
+            iconCombo.addItem(icon);
+        }
 
         rowCombo = new CustomCombo<>();
         for (ButtonRow row : ButtonRow.values()) {
@@ -77,6 +77,9 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         this.add(m2Label, gc);
         gc.gridx += 2;
         this.add(m2Text, gc);
+
+        updateColor();
+
     }
 
     public ButtonRow getButtonRow() {
@@ -121,22 +124,6 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         return new MacroButton(getButtonRow(), getTextLMB(), getTextRMB(), getButtonImage());
     }
 
-    public static boolean checkMatchingRows(CustomMacroRow row1, CustomMacroRow row2) {
-        if(!(row1.getButtonRow() == row2.getButtonRow())) {
-            return false;
-        }
-        if(!(row1.getButtonImage() == row2.getButtonImage())) {
-            return false;
-        }
-        if(!(row1.getTextLMB().equals(row2.getTextLMB()))) {
-            return false;
-        }
-        if(!(row1.getTextRMB().equals(row2.getTextRMB()))) {
-            return false;
-        }
-        return true;
-    }
-
     public void setEnabledAll(boolean state) {
         rowCombo.setEnabled(state);
         iconCombo.setEnabled(state);
@@ -145,17 +132,20 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
         removeButton.setEnabled(state);
     }
 
-
     @Override
     public void updateColor() {
         super.updateColor();
         this.setBackground(ColorManager.BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
+        int sel = iconCombo.getSelectedIndex();
         iconCombo.removeAll();
         iconCombo.removeAllItems();
         for (CustomIcons i : CustomIcons.values()) {
             ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
             iconCombo.addItem(icon);
+        }
+        if(sel < iconCombo.getItemCount()) {
+            iconCombo.setSelectedIndex(sel);
         }
     }
 

@@ -10,7 +10,6 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ToggleButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.basic.CustomScrollPane;
@@ -290,7 +289,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             if (saveTextField.getText().matches("\\s*") || searchTermsInput.getText().matches("\\s*")) {
                 return;
             }
-            addRemovePanel.saveChanges();
+            addRemovePanel.clearHiddenPanels();
             ArrayList<MacroButton> macros = new ArrayList();
             // Get list of macros
             for (Component c : addRemovePanel.getComponents()) {
@@ -577,7 +576,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             row.setTextRMB(b.rightMouseResponse);
             addRemovePanel.addRemoveablePanel(row);
         }
-        addRemovePanel.saveChanges();
+        addRemovePanel.clearHiddenPanels();
     }
 
     private void clearWindow() {

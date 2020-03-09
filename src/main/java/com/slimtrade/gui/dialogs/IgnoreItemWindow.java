@@ -2,13 +2,10 @@ package com.slimtrade.gui.dialogs;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.xml.stream.FactoryConfigurationError;
 
 import com.slimtrade.App;
 import com.slimtrade.core.observing.improved.IColorable;
@@ -78,11 +75,11 @@ public class IgnoreItemWindow extends AbstractResizableWindow implements IColora
 			IgnoreData data = new IgnoreData(itemLabel.getText(), MatchType.EXACT, 60);
 			FrameManager.ignoreItemAddRemovePanel.add(new IgnoreRow(data, FrameManager.ignoreItemAddRemovePanel));
 
-			FrameManager.ignoreItemAddRemovePanel.saveChanges();
+			FrameManager.ignoreItemAddRemovePanel.clearHiddenPanels();
 			FrameManager.itemIgnorePanel.save();
 			FrameManager.messageManager.closeTradesByItem(itemLabel.getText());
 			App.saveManager.saveToDisk();
-			FrameManager.itemIgnorePanel.revertChanges();
+			FrameManager.itemIgnorePanel.load();
 			App.eventManager.recursiveColor(FrameManager.itemIgnorePanel);
 			setVisible(false);
 		});

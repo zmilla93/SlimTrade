@@ -6,6 +6,7 @@ import com.slimtrade.core.managers.ColorManager;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.sql.Ref;
 import javax.swing.ImageIcon;
 
 /**
@@ -34,6 +35,8 @@ public enum CustomIcons implements ICacheImage {
 	
 	CustomIcons(String path){
 		this.path = path;
+		getImage(References.DEFAULT_IMAGE_SIZE);
+		getColorImage(ColorManager.TEXT);
 	}
 
 	public Image getImage(){
@@ -51,7 +54,7 @@ public enum CustomIcons implements ICacheImage {
 	@Override
 	public Image getColorImage(Color color) {
 
-		if(image == null) {
+		if(image == null || References.DEFAULT_IMAGE_SIZE != cachedSize) {
 			getImage(References.DEFAULT_IMAGE_SIZE);
 		}
 

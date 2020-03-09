@@ -2,6 +2,7 @@ package com.slimtrade.gui.stash;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
@@ -97,8 +98,6 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
             FrameManager.stashHelperContainer.updateLocation();
             closeOverlay();
         });
-
-        this.load();
     }
 
     public void save() {

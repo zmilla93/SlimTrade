@@ -16,8 +16,6 @@ public class AddRemovePanel extends JPanel implements IColorable {
 
 	public AddRemovePanel() {
 		this.setLayout(FrameManager.gridBag);
-//		this.setLayout(new GridBagLayout());
-//		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBackground(new Color(1, 1, 1, 0));
 		gc.gridx = 0;
 		gc.gridy = 0;
@@ -35,7 +33,6 @@ public class AddRemovePanel extends JPanel implements IColorable {
 
         }
 		this.add(panel, gc);
-//		updateColor();
 		App.eventManager.recursiveColor(panel);
 		this.revalidate();
 		this.repaint();
@@ -58,39 +55,12 @@ public class AddRemovePanel extends JPanel implements IColorable {
         this.repaint();
     }
 
-	public void saveChanges() {
-		for (Component c : this.getComponents()) {
-			if (c instanceof RemovablePanel) {
-				RemovablePanel panel = (RemovablePanel) c;
-				if (panel.isToBeDeleted()) {
-					this.remove(panel);
-				} else if (panel.isNewPanel()) {
-					panel.setNewPanel(false);
-				}
+	public void clearHiddenPanels() {
+		for(Component c : this.getComponents()) {
+			if(!c.isVisible()) {
+				this.remove(c);
 			}
 		}
-        updateColor();
-		this.revalidate();
-		this.repaint();
-	}
-
-	public void revertChanges() {
-		for (Component c : this.getComponents()) {
-			if (c instanceof RemovablePanel) {
-				RemovablePanel panel = (RemovablePanel) c;
-				if (panel.isNewPanel()) {
-					this.remove(panel);
-				} else if (panel.isToBeDeleted()) {
-					panel.setVisible(true);
-					panel.setToBeDeleted(false);
-				}
-			}
-		}
-		this.refreshPanels();
-		updateColor();
-		this.revalidate();
-		this.repaint();
-
 	}
 
 	public void setEnabledAll(boolean state) {
@@ -107,13 +77,4 @@ public class AddRemovePanel extends JPanel implements IColorable {
 		this.repaint();
     }
 
-    @Override
-    public void removeAll() {
-        for(Component c : this.getComponents()) {
-            this.remove(c);
-        }
-        super.removeAll();
-        this.revalidate();
-        this.repaint();
-    }
 }

@@ -87,8 +87,6 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
         gc.gridx = 0;
         gc.gridy++;
 
-        App.saveManager.addSaveableObject(this);
-
     }
 
     @Override

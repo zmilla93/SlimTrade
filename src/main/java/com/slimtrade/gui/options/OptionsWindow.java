@@ -21,6 +21,7 @@ import javax.swing.*;
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
@@ -219,37 +220,19 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             }
         });
 
-        revertButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                generalPanel.load();
-                // incomingPanel.load();
-                // incomingPanel.rever
-                // stashPanel.load();
-                incomingPanel.revertChanges();
-                outgoingPanel.revertChanges();
-                stashPanel.revertChanges();
-                ignorePanel.revertChanges();
-                App.saveManager.loadAll();
-                FrameManager.optionsWindow.revalidate();
-                FrameManager.optionsWindow.repaint();
-            }
+        revertButton.addActionListener(e -> {
+            SaveManager.recursiveLoad(FrameManager.optionsWindow);
+            FrameManager.optionsWindow.revalidate();
+            FrameManager.optionsWindow.repaint();
         });
 
-        saveButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                generalPanel.save();
-                incomingPanel.save();
-                outgoingPanel.save();
-                stashPanel.save();
-                ignorePanel.save();
-
-                App.saveManager.saveAll();
-                App.saveManager.saveToDisk();
-                if(App.saveManager.saveFile.enableMenubar) {
-                    FrameManager.menubarToggle.setShow(true);
-                } else {
-                    FrameManager.menubarToggle.setShow(false);
-                }
+        saveButton.addActionListener(e -> {
+            SaveManager.recursiveSave(FrameManager.optionsWindow);
+            App.saveManager.saveToDisk();
+            if(App.saveManager.saveFile.enableMenubar) {
+                FrameManager.menubarToggle.setShow(true);
+            } else {
+                FrameManager.menubarToggle.setShow(false);
             }
         });
 
@@ -305,10 +288,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             this.checkUpdateButton.setText("Update Available!");
             this.checkUpdateButton.primaryColor = Color.GREEN;
         }
-    }
-
-    public void reloadGeneral() {
-        generalPanel.load();
     }
 
 }

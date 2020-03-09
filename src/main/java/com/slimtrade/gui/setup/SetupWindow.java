@@ -152,7 +152,7 @@ public class SetupWindow extends JFrame implements IColorable {
 
 //                App.saveManager.validateClientPath();
                 App.saveManager.saveToDisk();
-                FrameManager.optionsWindow.reloadGeneral();
+//                FrameManager.optionsWindow.reloadGeneral();
                 this.dispose();
                 App.launch();
                 FrameManager.showTutorialWindow();

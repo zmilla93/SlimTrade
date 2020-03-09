@@ -7,7 +7,6 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
 import com.slimtrade.gui.dialogs.BetrayalWindow;
 import com.slimtrade.gui.dialogs.IgnoreItemWindow;
-import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.history.HistoryWindow;
 import com.slimtrade.gui.menubar.MenubarDialog;

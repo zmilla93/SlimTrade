@@ -38,7 +38,7 @@ public class UpdateChecker {
 	    VersionNumber appVersion = new VersionNumber(References.APP_VERSION);
         currentVersion = appVersion;
         latestVersion = appVersion;
-        if(App.debugMode) {
+        if(App.allowPrerelease) {
             allowPreReleases = true;
         }
         try {

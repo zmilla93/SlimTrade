@@ -131,29 +131,15 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
         // Edit Buttons
         gc.gridwidth = 3;
-//        container.add(editStashButton, gc);
-//        gc.gridy++;
         gc.insets.bottom = 0;
         container.add(editOverlayButton, gc);
         gc.gridy++;
-
-//        editStashButton.addActionListener(e -> {
-//            FrameManager.windowState = WindowState.STASH_OVERLAY;
-//            FrameManager.hideAllFrames();
-//            FrameManager.stashOverlayWindow.setShow(true);
-//            FrameManager.stashOverlayWindow.setAlwaysOnTop(false);
-//            FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
-//            FrameManager.stashOverlayWindow.repaint();
-//        });
 
         editOverlayButton.addActionListener(e -> {
             FrameManager.windowState = WindowState.LAYOUT_MANAGER;
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.showAll();
         });
-
-
-        load();
 
         colorThemeCombo.addActionListener(e -> {
             if (colorThemeCombo.getSelectedIndex() >= 0) {

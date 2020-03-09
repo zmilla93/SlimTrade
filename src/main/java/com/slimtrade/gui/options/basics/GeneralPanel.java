@@ -8,7 +8,7 @@ import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.toggle.ToggleOptionsPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
-public class GeneralPanel extends ContainerPanel implements ISaveable {
+public class GeneralPanel extends ContainerPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -75,22 +75,6 @@ public class GeneralPanel extends ContainerPanel implements ISaveable {
 		container.add(advancedPanel, gc);
 		gc.gridy++;
 
-	}
-
-	@Override
-	public void save() {
-		basicsPanel.save();
-		historyPanel.save();
-		audioPanel.save();
-		advancedPanel.save();
-	}
-
-	@Override
-	public void load() {
-		basicsPanel.load();
-		historyPanel.load();
-		audioPanel.load();
-		advancedPanel.load();
 	}
 	
 }

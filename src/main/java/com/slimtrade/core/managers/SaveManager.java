@@ -7,7 +7,10 @@ import com.slimtrade.core.saving.SaveFile;
 import com.slimtrade.core.saving.ScannerSaveFile;
 import com.slimtrade.core.saving.StashSaveFile;
 import com.slimtrade.gui.options.ISaveable;
+import com.slimtrade.gui.panels.ContainerPanel;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -33,8 +36,6 @@ public class SaveManager {
     private final String stashFileName = "stash.json";
     private final String overlayFileName = "overlay.json";
     private final String scannerFileName = "scanner.json";
-
-    private ArrayList<ISaveable> saveList = new ArrayList<>();
 
     private boolean validSavePath = false;
 
@@ -243,19 +244,25 @@ public class SaveManager {
         return clientCount;
     }
 
-    public void addSaveableObject(ISaveable obj) {
-        this.saveList.add(obj);
-    }
-
-    public void saveAll() {
-        for(ISaveable s : saveList) {
-            s.save();
+    public static void recursiveSave(Component component) {
+        if(component instanceof ISaveable) {
+            ((ISaveable) component).save();
+        }
+        if(component instanceof Container) {
+            for(Component c : ((Container) component).getComponents()) {
+                recursiveSave(c);
+            }
         }
     }
 
-    public void loadAll() {
-        for(ISaveable s : saveList) {
-            s.load();
+    public static void recursiveLoad(Component component) {
+        if(component instanceof ISaveable) {
+            ((ISaveable) component).load();
+        }
+        if(component instanceof Container) {
+            for(Component c : ((Container) component).getComponents()) {
+                recursiveLoad(c);
+            }
         }
     }
 

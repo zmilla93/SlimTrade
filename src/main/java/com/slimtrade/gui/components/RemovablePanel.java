@@ -1,6 +1,5 @@
 package com.slimtrade.gui.components;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 

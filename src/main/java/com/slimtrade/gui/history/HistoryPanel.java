@@ -50,7 +50,7 @@ public class HistoryPanel extends JPanel {
 			i++;
 		}
 		// Delete oldest trade if at max trades
-		if (trades.size() >= maxTrades) {
+		if (trades.size() >= maxTrades && maxTrades > 0) {
 			trades.remove(0);
 			if (updateUI) {
 				contentPanel.remove(tradePanels.get(0));
@@ -75,8 +75,6 @@ public class HistoryPanel extends JPanel {
 
 	public void initUI() {
 //		Debugger.benchmarkStart();
-//		contentPanel.removeAll();
-//		tradePanels.clear();
 		for (TradeOffer trade : trades) {
 			HistoryRow row = new HistoryRow(trade, close);
 			if(HistoryWindow.orderType == OrderType.NEW_FIRST){
