@@ -15,7 +15,7 @@ There is a colorblind option to swap green and red for blue and pink respectivel
 ![](/src/main/resources/images/incoming-trade-cb.png)<br>
 ![](/src/main/resources/images/outgoing-trade-cb.png)<br>
 
-Several different color themes are supported. Monokai is shown here, more are shown below.<br>
+Several different color themes are supported. One dark theme example is shown here, more examples are shown below.<br>
 ![](/src/main/resources/images/incoming-trade-dark.png)<br>
 ![](/src/main/resources/images/outgoing-trade-dark.png)<br>
 
