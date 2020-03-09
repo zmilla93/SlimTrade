@@ -15,10 +15,9 @@ There is a colorblind option to swap green and red for blue and pink respectivel
 ![](/src/main/resources/images/incoming-trade-cb.png)<br>
 ![](/src/main/resources/images/outgoing-trade-cb.png)<br>
 
-Several different color themes are supported.<br>
+Several different color themes are supported. Monokai is shown here, more are shown below.<br>
 ![](/src/main/resources/images/incoming-trade-dark.png)<br>
 ![](/src/main/resources/images/outgoing-trade-dark.png)<br>
-Theme: Monokai<br>
 
 Incoming trades highlight the buyer's name and create an info window with item and stash names.<br>
 This info popup can be hovered to highlight the item, or clicked to search the name in the stash.<br>
@@ -30,7 +29,7 @@ Ignore specific item names or generic terms.<br>
 ![](/src/main/resources/images/ignore.png)<br>
 
 ## Customization
-Several different color themes are supported, some of which are shown below.<br>
+Additional color theme examples shown here.<br>
 There are inbuilt macros for preset commands, and custom macros for everything else!<br>
 ![](/src/main/resources/images/macro-customizer.png)<br>
 Theme: Stormy<br>
