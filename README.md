@@ -15,6 +15,11 @@ There is a colorblind option to swap green and red for blue and pink respectivel
 ![](/src/main/resources/images/incoming-trade-cb.png)<br>
 ![](/src/main/resources/images/outgoing-trade-cb.png)<br>
 
+Several different color themes are supported.<br>
+![](/src/main/resources/images/incoming-trade-dark.png)<br>
+![](/src/main/resources/images/outgoing-trade-dark.png)<br>
+Theme: Monokai<br>
+
 Incoming trades highlight the buyer's name and create an info window with item and stash names.<br>
 This info popup can be hovered to highlight the item, or clicked to search the name in the stash.<br>
 Stash color coding can be added in the options.<br>
@@ -28,12 +33,12 @@ Ignore specific item names or generic terms.<br>
 Several different color themes are supported, some of which are shown below.<br>
 There are inbuilt macros for preset commands, and custom macros for everything else!<br>
 ![](/src/main/resources/images/macro-customizer.png)<br>
-Theme: Stormy
+Theme: Stormy<br>
 
 ## History
 Easily restore any recent trade message with the history panel.<br>
 ![](/src/main/resources/images/history.png)<br>
-Theme: Monokai
+Theme: Monokai<br>
 
 ## Chat Scanner
 The chat scanner allows you to search for custom phrases. These popups appear orange.<br>
