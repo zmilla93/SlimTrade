@@ -187,7 +187,6 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
             CustomMacroRow row = addNewMacro();
             boolean found = false;
             for(int j = 0;j<CustomIcons.values().length;j++) {
-                System.out.println(CustomIcons.values()[j] + " - " + macro.image );
                 if(CustomIcons.values()[j] == macro.image) {
                     row.iconCombo.setSelectedIndex(j);
                     found = true;

@@ -121,11 +121,14 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         gc.gridy++;
 
         // Color Combo
-        gc.insets.bottom = 20;
+        gc.insets.top = 5;
+        gc.insets.bottom = 10;
         container.add(colorThemeLabel, gc);
+
         gc.gridx = 2;
 
         container.add(colorThemeContainer, gc);
+        gc.insets.top = 0;
         gc.gridx = 0;
         gc.gridy++;
 
