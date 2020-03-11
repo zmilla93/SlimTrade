@@ -2,7 +2,7 @@
 An overlay for Path of Exile that creates macro popups for trade messages. Also includes a chat scanner, trade history, item ignore feature, color themes, update checker, and more! POE must be run in 'Windowed Fullscreen' or 'Windowed' mode.<br>
 
 ## Download
-- Latest Version : https://github.com/zmilla93/SlimTrade/releases/latest<br>
+Latest Version : https://github.com/zmilla93/SlimTrade/releases/latest<br>
 
 ## Incoming & Outgoing Trades
 Popups are automatically created when trade messages are sent or received.<br>
