@@ -12,13 +12,9 @@ Incoming trades are green, outgoing trades are red.<br>
 ![](/src/main/resources/images/incoming-trade.png)<br>
 ![](/src/main/resources/images/outgoing-trade.png)<br>
 
-There is a colorblind option to swap green and red for blue and pink respectively.<br>
-![](/src/main/resources/images/incoming-trade-cb.png)<br>
-![](/src/main/resources/images/outgoing-trade-cb.png)<br>
-
-Several different color themes are supported. One dark theme example is shown here, more examples are shown below.<br>
-![](/src/main/resources/images/incoming-trade-dark.png)<br>
-![](/src/main/resources/images/outgoing-trade-dark.png)<br>
+There are multiple color themes, as well as a colorblind option to swap green and red for blue and pink respectively.<br>
+![](/src/main/resources/images/incoming-trade-dark-cb.png)<br>
+![](/src/main/resources/images/outgoing-trade-dark-cb.png)<br>
 
 Incoming trades highlight the buyer's name when joining your hideout, and create an info window with item and stash names.<br>
 This info popup can be hovered to highlight the item, or clicked to search the name in the stash.<br>
