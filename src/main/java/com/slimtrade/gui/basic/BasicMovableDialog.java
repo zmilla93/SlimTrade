@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.slimtrade.core.utility.TradeUtility;
 
@@ -91,7 +91,9 @@ public class BasicMovableDialog extends BasicDialog {
                     if(targetY<0) targetY = 0;
                     if(targetY>TradeUtility.screenSize.height-getHeight()-borderOffset*2) targetY = TradeUtility.screenSize.height-getHeight()-borderOffset*2;
                 }
-                moveWindow(new Point(targetX, targetY));
+				int finalTargetX = targetX;
+				int finalTargetY = targetY;
+				SwingUtilities.invokeLater(() -> moveWindow(new Point(finalTargetX, finalTargetY)));
             }
         }).start();
 	}
