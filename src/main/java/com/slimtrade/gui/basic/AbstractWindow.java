@@ -70,27 +70,11 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
 		if (makeCloseButton) {
 			gc.anchor = GridBagConstraints.LINE_END;
 			closeButton = new IconButton(DefaultIcons.CLOSE, TITLEBAR_HEIGHT);
-//			titlebarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			titlebarPanel.add(closeButton, BorderLayout.EAST);
 			AbstractWindow local = this;
-			closeButton.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e) {
-
-					local.setShow(false);
-					FrameManager.refreshMenuFrames();
-
-//					new Thread(new Runnable(){
-//						public void run() {
-//							local.setShow(false);
-////							try {
-////								Thread.sleep(50);
-////							} catch (InterruptedException e) {
-////								e.printStackTrace();
-////							}
-//							FrameManager.forceAllToTop();
-//						}
-//					}).start();
-				}
+			closeButton.addActionListener(e -> {
+				local.setShow(false);
+				FrameManager.refreshMenuFrames();
 			});
 
 		}

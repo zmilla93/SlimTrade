@@ -200,22 +200,25 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 }
             } else {
                 new Thread(() -> {
-                    checkUpdateButton.setText("Checking...");
-                    checkUpdateButton.setEnabled(false);
+                    SwingUtilities.invokeLater(() -> {
+                        checkUpdateButton.setText("Checking...");
+                        checkUpdateButton.setEnabled(false);
+                    });
                     App.updateChecker.checkForUpdates();
                     try {
                         // Added delay to discourage people from spamming github
                         Thread.sleep(2000);
                     } catch (InterruptedException e1) {
                     }
-                    if (App.updateChecker.isUpdateAvailable()) {
-                        checkUpdateButton.setText("Update Available!");
-                        checkUpdateButton.primaryColor = Color.GREEN;
-                    } else {
-                        checkUpdateButton.setText("Check for Updates");
-                    }
-                    checkUpdateButton.setEnabled(true);
-
+                    SwingUtilities.invokeLater(() -> {
+                        if (App.updateChecker.isUpdateAvailable()) {
+                            checkUpdateButton.setText("Update Available!");
+                            checkUpdateButton.primaryColor = Color.GREEN;
+                        } else {
+                            checkUpdateButton.setText("Check for Updates");
+                        }
+                        checkUpdateButton.setEnabled(true);
+                    });
                 }).start();
             }
         });
