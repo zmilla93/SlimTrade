@@ -6,6 +6,7 @@ public enum DateStyle {
 	DDMMYY("Day/Month/Year", "dd/MM/YY"),
 	MMDD("Month/Day", "MM/dd"),
 	MMDDYY("Month/Day/Year", "MM/dd/YY"),
+	YYMMDD("Year/Month/Day", "YY/MM/dd"),
 	;
 	
 	private final String name;
