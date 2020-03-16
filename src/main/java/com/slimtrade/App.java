@@ -24,6 +24,7 @@ import org.jnativehook.NativeHookException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +51,7 @@ public class App {
     public static boolean forceUI = false;
     public static boolean testFeatures = false;
 
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
 
         // Launch Args
@@ -80,17 +82,32 @@ public class App {
         }
 
         //Loading Dialog
-        loadingDialog = new LoadingDialog();
+        SwingUtilities.invokeLater(() -> {
+            loadingDialog = new LoadingDialog();
+            loadingDialog.setAlwaysOnTop(false);
+            loadingDialog.setAlwaysOnTop(true);
+        });
+
+        // Logger
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
-        loadingDialog.setAlwaysOnTop(false);
-        loadingDialog.setAlwaysOnTop(true);
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+        // Setup
+        ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT);
+        updateChecker = new UpdateChecker();
+        globalMouse = new GlobalMouseListener();
+        globalKeyboard = new GlobalKeyboardListener();
 
-                ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT);
+        // Save Manager
+        saveManager = new SaveManager();
+        saveManager.loadFromDisk();
+        saveManager.loadStashFromDisk();
+        saveManager.loadOverlayFromDisk();
+
+        // GUI
+        try {
+            SwingUtilities.invokeAndWait(() -> {
                 Locale.setDefault(Locale.US);
 
                 //Debug Mode
@@ -98,15 +115,6 @@ public class App {
                     debugger = new Debugger();
                     debugger.setState(Frame.ICONIFIED);
                 }
-
-                updateChecker = new UpdateChecker();
-                globalMouse = new GlobalMouseListener();
-                globalKeyboard = new GlobalKeyboardListener();
-
-                saveManager = new SaveManager();
-                saveManager.loadFromDisk();
-                saveManager.loadStashFromDisk();
-                saveManager.loadOverlayFromDisk();
 
                 frameManager = new FrameManager();
                 ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
@@ -125,20 +133,21 @@ public class App {
                     e.printStackTrace();
                 }
 
-                // JNativeHook Setup
-                try {
-                    GlobalScreen.registerNativeHook();
-                } catch (NativeHookException e) {
-                    e.printStackTrace();
-                }
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
-                GlobalScreen.addNativeMouseListener(globalMouse);
-                GlobalScreen.addNativeKeyListener(globalKeyboard);
+        // JNativeHook Setup
+        try {
+            GlobalScreen.registerNativeHook();
+        } catch (NativeHookException e) {
+            e.printStackTrace();
+        }
 
-            }
-
-        });
-
+        // Finalize
+        GlobalScreen.addNativeMouseListener(globalMouse);
+        GlobalScreen.addNativeKeyListener(globalKeyboard);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
         loadingDialog.dispose();
         App.launch();
