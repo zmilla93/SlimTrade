@@ -25,7 +25,7 @@ public class HistoryPanel extends JPanel implements IColorable {
 
 	private JPanel contentPanel;
 	
-	private static int maxTrades = 10;
+//	private static int maxTrades = 10;
 	
 	private boolean close = false;
 	
@@ -34,7 +34,6 @@ public class HistoryPanel extends JPanel implements IColorable {
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 		this.add(contentPanel, BorderLayout.CENTER);
-		this.setMaxTrades(App.saveManager.saveFile.historyLimit);
 	}
 
 	public void addTrade(TradeOffer trade, boolean updateUI) {
@@ -52,7 +51,7 @@ public class HistoryPanel extends JPanel implements IColorable {
 			i++;
 		}
 		// Delete oldest trade if at max trades
-		if (trades.size() >= maxTrades && maxTrades > 0) {
+		if (trades.size() >= App.saveManager.saveFile.historyLimit && App.saveManager.saveFile.historyLimit > 0) {
 			trades.remove(0);
 			if (updateUI) {
 				contentPanel.remove(tradePanels.get(0));
@@ -105,6 +104,12 @@ public class HistoryPanel extends JPanel implements IColorable {
 		this.revalidate();
 		this.repaint();
 	}
+
+	public void clearTrades() {
+		contentPanel.removeAll();
+		trades.clear();
+		tradePanels.clear();
+	}
 	
 	public void updateDate(){
 		for(HistoryRow row : tradePanels){
@@ -116,10 +121,6 @@ public class HistoryPanel extends JPanel implements IColorable {
 		for(HistoryRow row : tradePanels){
 			row.updateTime();
 		}
-	}
-	
-	public void setMaxTrades(int maxTrades){
-		HistoryPanel.maxTrades = maxTrades;
 	}
 	
 	public void setClose(boolean close){

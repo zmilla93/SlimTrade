@@ -1,6 +1,7 @@
 package com.slimtrade.gui.options.basics;
 
 import java.awt.*;
+import java.util.Date;
 
 import javax.swing.*;
 
@@ -84,11 +85,6 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 		gc.gridx = 0;
 		gc.gridy++;
 
-		// Temp Warning
-		gc.fill = GridBagConstraints.NONE;
-		gc.gridwidth = 3;
-		gc.insets.top = 5;
-		container.add(new CustomLabel("History changes require restart"), gc);
 	}
 
 	@Override
@@ -118,6 +114,22 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 		dateLabel.setForeground(ColorManager.TEXT);
 		orderLabel.setForeground(ColorManager.TEXT);
 		limitLabel.setForeground(ColorManager.TEXT);
+	}
+
+	public TimeStyle getTimeStyle() {
+		return (TimeStyle) timeCombo.getSelectedItem();
+	}
+
+	public DateStyle getDateStyle() {
+		return (DateStyle) dateCombo.getSelectedItem();
+	}
+
+	public OrderType getOrderType() {
+		return (OrderType) orderCombo.getSelectedItem();
+	}
+
+	public int getMessageLimit() {
+		return (int) limitSpinner.getValue();
 	}
 
 }

@@ -71,24 +71,26 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
         buttonPanel.add(saveButton, gc);
         container.add(buttonPanel, BorderLayout.SOUTH);
 
-        gridResizeButton.addActionListener(e ->{
-                int count = gridPanel.getGridCellCount();
-                if (count == 12) {
-                    gridPanel.setGridCellCount(24);
-                } else if (count == 24) {
-                    gridPanel.setGridCellCount(0);
-                } else {
-                    gridPanel.setGridCellCount(12);
-                }
-                repaint();
+        gridResizeButton.addActionListener(e -> {
+            int count = gridPanel.getGridCellCount();
+            if (count == 12) {
+                gridPanel.setGridCellCount(24);
+            } else if (count == 24) {
+                gridPanel.setGridCellCount(0);
+            } else {
+                gridPanel.setGridCellCount(12);
+            }
+            repaint();
         });
 
         resetButton.addActionListener(e -> {
-                load();
-                closeOverlay();
+            load();
+            closeOverlay();
         });
 
         saveButton.addActionListener(e -> {
+            this.setVisible(true);
+            ItemHighlighter.setGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
             save();
             FrameManager.stashHelperContainer.updateLocation();
             closeOverlay();
@@ -111,7 +113,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
         App.saveManager.stashSaveFile.gridWidth = gridPanel.getWidth();
         App.saveManager.stashSaveFile.gridHeight = gridPanel.getHeight();
         App.saveManager.saveStashToDisk();
-        ItemHighlighter.setGridInfo(gridPanel.getLocationOnScreen().x, gridPanel.getLocationOnScreen().y, gridPanel.getWidth(), gridPanel.getHeight());
+
     }
 
     public void load() {
@@ -122,7 +124,7 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
 
     private void closeOverlay() {
         this.setShow(false);
-        if(FrameManager.lastWindowState == WindowState.SETUP) {
+        if (FrameManager.lastWindowState == WindowState.SETUP) {
             FrameManager.windowState = WindowState.SETUP;
             FrameManager.setupWindow.refreshButtons();
             FrameManager.setupWindow.setVisible(true);

@@ -13,7 +13,7 @@ public class GeneralPanel extends ContainerPanel {
 	private static final long serialVersionUID = 1L;
 
 	private BasicsPanel basicsPanel;
-	private HistoryOptionsPanel historyPanel;
+	public HistoryOptionsPanel historyPanel;
 	private AudioPanel audioPanel;
 	private AdvancedPanel advancedPanel;
 	private ToggleOptionsPanel toggleOptionsPanel;
@@ -75,6 +75,10 @@ public class GeneralPanel extends ContainerPanel {
 		container.add(advancedPanel, gc);
 		gc.gridy++;
 
+	}
+
+	public String getClientPath() {
+		return advancedPanel.getClientText();
 	}
 	
 }

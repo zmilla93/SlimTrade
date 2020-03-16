@@ -9,8 +9,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
@@ -28,6 +26,7 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomScrollPane;
 import com.slimtrade.gui.options.basics.GeneralPanel;
+import com.slimtrade.gui.options.basics.HistoryOptionsPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macros.IncomingCustomizer;
@@ -154,7 +153,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy++;
         menuPanel.add(hotKeyButton, gc);
         gc.gridy++;
-        if(App.testFeatures) {
+        if (App.testFeatures) {
             menuPanel.add(stashSearcherButton, gc);
             gc.gridy++;
         }
@@ -230,15 +229,46 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         });
 
         saveButton.addActionListener(e -> {
+
+            // Reload history window if needed
+            // This is done on a new thread as it needs to reload the chat parser
+            boolean reloadHistory = false;
+            HistoryOptionsPanel historyOptionsPanel = FrameManager.optionsWindow.generalPanel.historyPanel;
+            if (App.saveManager.saveFile.timeStyle != historyOptionsPanel.getTimeStyle()
+                    || App.saveManager.saveFile.dateStyle != historyOptionsPanel.getDateStyle()
+                    || App.saveManager.saveFile.orderType != historyOptionsPanel.getOrderType()
+                    || App.saveManager.saveFile.historyLimit != historyOptionsPanel.getMessageLimit()
+                    || !App.saveManager.saveFile.clientPath.equals(FrameManager.optionsWindow.generalPanel.getClientPath())) {
+                FrameManager.historyWindow.setTimeStyle(historyOptionsPanel.getTimeStyle());
+                FrameManager.historyWindow.setDateStyle(historyOptionsPanel.getDateStyle());
+                FrameManager.historyWindow.setOrderType(historyOptionsPanel.getOrderType());
+                reloadHistory = true;
+//                FrameManager.historyWindow.(historyOptionsPanel.getDateStyle());
+            }
+
+            // Save all windows
             SaveManager.recursiveSave(FrameManager.optionsWindow);
             App.saveManager.saveToDisk();
-            if(App.saveManager.saveFile.enableMenubar) {
+
+            // Set menubar visibility
+            if (App.saveManager.saveFile.enableMenubar) {
                 FrameManager.menubarToggle.setShow(true);
             } else {
                 FrameManager.menubarToggle.setShow(false);
             }
-        });
 
+            if (reloadHistory) {
+                new Thread(() -> {
+
+                    // Restart file monitor
+                    App.fileMonitor.stopMonitor();
+                    App.chatParser.init();
+                    App.fileMonitor.startMonitor();
+
+                }).start();
+            }
+
+        });
 
 
     }

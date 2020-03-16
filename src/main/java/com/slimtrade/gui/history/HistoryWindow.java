@@ -131,11 +131,14 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 	public void setDateStyle(DateStyle style) {
 		HistoryWindow.dateStyle = style;
 		incomingPanel.updateDate();
+		outgoingPanel.updateDate();
 	}
 
 	public void setTimeStyle(TimeStyle style) {
+		System.out.println("TET" + SwingUtilities.isEventDispatchThread());
 		HistoryWindow.timeStyle = style;
 		incomingPanel.updateTime();
+		outgoingPanel.updateTime();
 	}
 	
 	public void setOrderType(OrderType type){
@@ -145,6 +148,9 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 	}
 
 	public void addTrade(TradeOffer trade, boolean updateUI) {
+		if(App.saveManager.saveFile.historyLimit == 0) {
+			return;
+		}
 		switch (trade.messageType) {
 		case CHAT_SCANNER:
 			break;
@@ -157,9 +163,14 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		}
 	}
 
+	public void clearHistory() {
+		incomingPanel.clearTrades();
+		outgoingPanel.clearTrades();
+	}
+
 	public void buildHistory() {
-		outgoingPanel.initUI();
 		incomingPanel.initUI();
+		outgoingPanel.initUI();
 		incomingPanel.revalidate();
 		incomingPanel.repaint();
 		this.revalidate();
