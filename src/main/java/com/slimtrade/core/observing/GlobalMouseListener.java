@@ -6,6 +6,7 @@ import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.User32Custom;
 import com.slimtrade.enums.WindowType;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.enums.WindowState;
 import com.sun.jna.Native;
 import com.sun.jna.PointerType;
 import org.jnativehook.mouse.NativeMouseEvent;
@@ -83,7 +84,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideAll();
         }
-        if(!wasFocused && isGameFocused) {
+        if(!wasFocused && isGameFocused && FrameManager.windowState == WindowState.NORMAL) {
             FrameManager.refreshMenuFrames();
         }
     }

@@ -116,6 +116,7 @@ public class FrameManager {
         for (HideableDialog d : MessageDialogManager.getDialogList()) {
             d.setVisible(false);
         }
+        FrameManager.stashOverlayWindow.setVisible(false);
         FrameManager.overlayManager.hideAll();
     }
 

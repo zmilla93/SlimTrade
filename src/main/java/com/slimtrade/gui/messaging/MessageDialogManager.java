@@ -15,6 +15,7 @@ import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.components.PanelWrapper;
 import com.slimtrade.gui.enums.ExpandDirection;
+import com.slimtrade.gui.enums.WindowState;
 
 import javax.swing.*;
 
@@ -62,7 +63,7 @@ public class MessageDialogManager {
         });
         App.eventManager.recursiveColor(wrapper);
         wrapper.setShow(true);
-        if (!App.globalMouse.isGameFocused()) {
+        if (!App.globalMouse.isGameFocused() || FrameManager.windowState != WindowState.NORMAL) {
             wrapper.setVisible(false);
         }
         FrameManager.showVisibleFrames();
