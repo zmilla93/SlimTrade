@@ -93,7 +93,7 @@ public class BasicMovableDialog extends BasicDialog {
                 }
 				int finalTargetX = targetX;
 				int finalTargetY = targetY;
-				SwingUtilities.invokeLater(() -> moveWindow(new Point(finalTargetX, finalTargetY)));
+				moveWindow(new Point(finalTargetX, finalTargetY));
             }
         }).start();
 	}
