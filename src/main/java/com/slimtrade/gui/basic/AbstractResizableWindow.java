@@ -16,46 +16,46 @@ import javax.swing.*;
 
 public abstract class AbstractResizableWindow extends AbstractWindow implements IColorable {
 
-    static final long serialVersionUID = 1L;
-    protected JPanel pullRight = new JPanel();
-    protected JPanel pullBottom = new JPanel();
-    protected JPanel container = new JPanel();
+	static final long serialVersionUID = 1L;
+	protected JPanel pullRight = new JPanel();
+	protected JPanel pullBottom = new JPanel();
+	protected JPanel container = new JPanel();
 
-    private int pullbarSize = 5;
+	private int pullbarSize = 5;
 
-    private int startingX;
-    private int startingY;
-    private int startingWidth;
-    private int startingHeight;
-    private boolean mousePressed = false;
-    private AbstractWindow local;
+	private int startingX;
+	private int startingY;
+	private int startingWidth;
+	private int startingHeight;
+	private boolean mousePressed = false;
+	private AbstractWindow local;
 
-    private final int SLEEP_DURATION = 10;
+	private final int SLEEP_DURATION = 20;
 
-    public AbstractResizableWindow(String title) {
-        super(title, true);
-        buildWindow(title, true);
-    }
+	public AbstractResizableWindow(String title) {
+		super(title, true);
+		buildWindow(title, true);
+	}
 
-    public AbstractResizableWindow(String title, boolean closeButton) {
-        super(title, closeButton);
-        buildWindow(title, closeButton);
-    }
+	public AbstractResizableWindow(String title, boolean closeButton) {
+		super(title, closeButton);
+		buildWindow(title, closeButton);
+	}
 
-    private void buildWindow(String title, boolean closeButton) {
-        // container.setOpaque(false);
+	private void buildWindow(String title, boolean closeButton) {
+		// container.setOpaque(false);
 
-        this.setMinimumSize(new Dimension(100, 100));
-        //TODO : COLOR!
-        pullRight.setPreferredSize(new Dimension(pullbarSize, 0));
-        pullBottom.setPreferredSize(new Dimension(0, pullbarSize));
-        center.setLayout(new BorderLayout());
-        center.add(pullRight, BorderLayout.LINE_END);
-        center.add(pullBottom, BorderLayout.PAGE_END);
-        center.add(container, BorderLayout.CENTER);
-        pullRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
-        pullBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
-        local = this;
+		this.setMinimumSize(new Dimension(100, 100));
+		//TODO : COLOR!
+		pullRight.setPreferredSize(new Dimension(pullbarSize, 0));
+		pullBottom.setPreferredSize(new Dimension(0, pullbarSize));
+		center.setLayout(new BorderLayout());
+		center.add(pullRight, BorderLayout.LINE_END);
+		center.add(pullBottom, BorderLayout.PAGE_END);
+		center.add(container, BorderLayout.CENTER);
+		pullRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
+		pullBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
+		local = this;
 
 //		this.updateColor();
 

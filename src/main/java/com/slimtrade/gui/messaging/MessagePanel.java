@@ -447,11 +447,15 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                     int i = 0;
                     for (StashTab tab : App.saveManager.saveFile.stashTabs) {
                         if (tab.name.toLowerCase().equals(trade.stashtabName.toLowerCase())) {
+
                             if (tab.color != StashTabColor.ZERO) {
                                 StashTabColor stashColor = tab.color;
                                 StashTabType type = tab.type;
                                 color = stashColor.getBackground();
                                 colorText = stashColor.getForeground();
+                            }
+                            if(tab.type == StashTabType.QUAD) {
+                                trade.stashType = StashTabType.QUAD;
                             }
                             break;
                         }

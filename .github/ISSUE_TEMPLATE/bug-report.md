@@ -13,8 +13,14 @@ A clear and concise description of what the bug is.
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'
-2. Click on '....'
+2. Click on '...'
 3. See error
+
+**Setting** 
+Operation System
+Graphics Card
+Language settings if not English
+Keyboard settings if not QWERTY
 
 **Screenshots**
 If your issue is graphics related, consider including a screenshot.
