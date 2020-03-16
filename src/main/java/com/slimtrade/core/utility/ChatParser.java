@@ -166,10 +166,10 @@ public class ChatParser {
 			bufferedReader.close();
 			reader.close();
 		} catch (NumberFormatException | IOException e) {
-			updateTimer.stop();
-			App.debugger.log("[ERROR] Exception encountered while attempting to update parser.");
-			App.debugger.log("Parser disabled.");
-			e.printStackTrace();
+//			updateTimer.stop();
+			App.debugger.log("[Chat Parser] Exception encountered while attempting to update parser.");
+//			App.debugger.log("Parser disabled.");
+//			e.printStackTrace();
 		}
 		// long end = System.currentTimeMillis();
 		// System.out.println("PARSER UPDATE TIME : " + (end-start));

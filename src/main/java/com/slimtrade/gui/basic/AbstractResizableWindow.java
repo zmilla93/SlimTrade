@@ -30,7 +30,7 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
 	private boolean mousePressed = false;
 	private AbstractWindow local;
 
-	private final int SLEEP_DURATION = 10;
+	private final int SLEEP_DURATION = 20;
 
 	public AbstractResizableWindow(String title) {
 		super(title, true);
