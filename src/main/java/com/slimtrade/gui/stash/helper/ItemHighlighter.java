@@ -27,6 +27,9 @@ public class ItemHighlighter extends BasicDialog{
 		this.type = type;
 		this.stashX = stashX;
 		this.stashY = stashY;
+		if(stashX > 12 || stashY > 12) {
+			this.type = StashTabType.QUAD;
+		}
 		this.setVisible(false);
 		this.setBackground(ColorManager.CLEAR);
 		this.getRootPane().setBorder(BorderFactory.createLineBorder(color, 4, false));
