@@ -179,5 +179,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		}
 		incomingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
 		outgoingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
+		incomingPanel.setBackground(Color.GREEN);
+		incomingScroll.getRootPane().setBackground(Color.GREEN);
 	}
 }

@@ -8,11 +8,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.options.OrderType;
 
-public class HistoryPanel extends JPanel {
+public class HistoryPanel extends JPanel implements IColorable {
 
 	private static final long serialVersionUID = 1L;
 	// private TradeOffer savedTrade;
@@ -123,5 +125,10 @@ public class HistoryPanel extends JPanel {
 	public void setClose(boolean close){
 		this.close = close;
 	}
-	
+
+
+	@Override
+	public void updateColor() {
+		contentPanel.setBackground(ColorManager.BACKGROUND);
+	}
 }
