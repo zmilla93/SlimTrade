@@ -19,6 +19,8 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.enums.DateStyle;
+import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.DefaultIcons;
@@ -142,7 +144,13 @@ public class HistoryRow extends JPanel implements IColorable{
 	public void updateDate() {
 		try {
 			LocalDate date = LocalDate.parse(trade.date, DateTimeFormatter.ISO_DATE);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(HistoryWindow.dateStyle.getFormat());
+			DateStyle style;
+			if(HistoryWindow.dateStyle == null) {
+				style = DateStyle.values()[0];
+			} else {
+				style = HistoryWindow.dateStyle;
+			}
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(style.getFormat());
 			String newDate = date.format(formatter);
 			datePanel.setLabel(newDate);
 		} catch (DateTimeParseException e) {
@@ -154,7 +162,13 @@ public class HistoryRow extends JPanel implements IColorable{
 	public void updateTime() {
 		try {
 			LocalTime time = LocalTime.parse(trade.time, DateTimeFormatter.ISO_TIME);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(HistoryWindow.timeStyle.getFormat());
+			TimeStyle style;
+			if(HistoryWindow.timeStyle == null) {
+				style = TimeStyle.values()[0];
+			} else {
+				style = HistoryWindow.timeStyle;
+			}
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(style.getFormat());
 			String newTime = time.format(formatter);
 			timePanel.setLabel(newTime);
 		} catch (DateTimeParseException e) {
