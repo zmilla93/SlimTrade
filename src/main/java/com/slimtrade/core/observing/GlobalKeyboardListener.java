@@ -43,10 +43,24 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
         // Hotkeys
 
+        // Remaining
+        if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
+            if(App.globalMouse.isGameFocused()) {
+                PoeInterface.paste("/remaining");
+            }
+        }
+
         // Hideout
         if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {
             if(App.globalMouse.isGameFocused()) {
                 PoeInterface.paste("/hideout");
+            }
+        }
+
+        // Leave Party
+        if (checkKey(e, App.saveManager.saveFile.leavePartyHotkey)) {
+            if(App.globalMouse.isGameFocused() && App.saveManager.saveFile.characterName != null && !App.saveManager.saveFile.characterName.equals("")) {
+                PoeInterface.paste("/kick " + App.saveManager.saveFile.characterName);
             }
         }
 

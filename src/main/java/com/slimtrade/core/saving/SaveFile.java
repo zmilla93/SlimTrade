@@ -54,7 +54,9 @@ public class SaveFile {
     public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
 
     // Hotkeys
+    public HotkeyData remainingHotkey = null;
     public HotkeyData hideoutHotkey = null;
+    public HotkeyData leavePartyHotkey = null;
     public HotkeyData betrayalHotkey = null;
     public HotkeyData quickPasteHotkey = null;
 

@@ -161,6 +161,9 @@ public class App {
             chatParser.init();
             if(App.saveManager.saveFile.enableMenubar) {
                 FrameManager.menubarToggle.setShow(true);
+                if(!globalMouse.isGameFocused()) {
+                    FrameManager.menubarToggle.setVisible(false);
+                }
             }
             FrameManager.trayButton = new TrayButton();
             // Check for update

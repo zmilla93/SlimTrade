@@ -52,7 +52,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         } while (true);
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
-//        System.out.println("window:" + curWindowTitle);
+        System.out.println("window:" + curWindowTitle);
         if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.forceUI) {
             isGameFocused = true;
             switch (FrameManager.windowState) {
@@ -70,7 +70,11 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                     FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
                     break;
             }
-        } else if (curWindowTitle.equals("Open") || curWindowTitle.equals(References.APP_NAME + " - Options") || curWindowTitle.equals(References.APP_NAME + " - History") || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")) {
+        } else if (curWindowTitle.equals("Open")
+                || curWindowTitle.equals(References.APP_NAME + " - Options")
+                || curWindowTitle.equals(References.APP_NAME + " - History")
+                || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
+                || curWindowTitle.equals(References.APP_NAME + " Window")) {
             isGameFocused = true;
             FrameManager.showVisibleFrames();
             FrameManager.forceAllToTop();
