@@ -27,12 +27,12 @@ public class TrayButton {
             return;
         }
 
-        popup.add(historyButton);
-        popup.add(chatScannerButton);
-        popup.add(optionsButton);
-        popup.addSeparator();
-        popup.add(resetUIButton);
-        popup.addSeparator();
+//        popup.add(historyButton);
+//        popup.add(chatScannerButton);
+//        popup.add(optionsButton);
+//        popup.addSeparator();
+//        popup.add(resetUIButton);
+//        popup.addSeparator();
         popup.add(exitButton);
         trayIcon.setPopupMenu(popup);
         trayIcon.setToolTip("SlimTrade");
@@ -77,6 +77,32 @@ public class TrayButton {
 
         // Tray Button Itself
         //TODO : if in nonnormal window state, reset stash/overlay
+
+
+    }
+
+    public void addToTray() {
+        try {
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeFromTray() {
+        tray.remove(trayIcon);
+    }
+
+    public void addAdditionalOptions() {
+        popup.removeAll();
+        popup.add(historyButton);
+        popup.add(chatScannerButton);
+        popup.add(optionsButton);
+        popup.addSeparator();
+        popup.add(resetUIButton);
+        popup.addSeparator();
+        popup.add(exitButton);
+
         trayIcon.addActionListener(e -> {
             FrameManager.centerFrame(FrameManager.optionsWindow);
             FrameManager.hideMenuFrames();
@@ -84,12 +110,6 @@ public class TrayButton {
             FrameManager.optionsWindow.setShow(true);
         });
 
-        // Add Tray Button
-        try {
-            tray.add(trayIcon);
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
     }
 
 }

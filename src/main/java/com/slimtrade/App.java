@@ -157,34 +157,37 @@ public class App {
 
 
     public static void launch() {
-        if (SetupManager.isSetupRequired()) {
-            // First time setup window
-            FrameManager.setupWindow = new SetupWindow();
-            FrameManager.windowState = WindowState.SETUP;
-            FrameManager.setupWindow.setVisible(true);
-        } else {
-            // Launch
-            FrameManager.windowState = WindowState.NORMAL;
-            fileMonitor = new FileMonitor();
-            fileMonitor.startMonitor();
-            chatParser.init();
-            if(App.saveManager.saveFile.enableMenubar) {
-                FrameManager.menubarToggle.setShow(true);
-                if(!globalMouse.isGameFocused()) {
-                    FrameManager.menubarToggle.setVisible(false);
+        SwingUtilities.invokeLater(() -> {
+            if (SetupManager.isSetupRequired()) {
+                // First time setup window
+                FrameManager.setupWindow = new SetupWindow();
+                FrameManager.windowState = WindowState.SETUP;
+                FrameManager.setupWindow.setVisible(true);
+            } else {
+                // Launch
+                FrameManager.windowState = WindowState.NORMAL;
+                fileMonitor = new FileMonitor();
+                fileMonitor.startMonitor();
+                chatParser.init();
+                if(App.saveManager.saveFile.enableMenubar) {
+                    FrameManager.menubarToggle.setShow(true);
+                    if(!globalMouse.isGameFocused()) {
+                        FrameManager.menubarToggle.setVisible(false);
+                    }
                 }
-            }
-            FrameManager.trayButton = new TrayButton();
-            // Check for update
-            if (checkUpdateOnLaunch) {
-                updateChecker.checkForUpdates();
-                if (updateChecker.isUpdateAvailable()) {
-                    UpdateDialog updateDialog = new UpdateDialog();
-                    updateDialog.setVisible(true);
+                FrameManager.trayButton.addAdditionalOptions();
+                // Check for update
+                if (checkUpdateOnLaunch) {
+                    updateChecker.checkForUpdates();
+                    if (updateChecker.isUpdateAvailable()) {
+                        UpdateDialog updateDialog = new UpdateDialog();
+                        updateDialog.setVisible(true);
+                        FrameManager.optionsWindow.recolorUpdateButton();
+                    }
                 }
+                SaveManager.recursiveLoad(FrameManager.optionsWindow);
             }
-            SaveManager.recursiveLoad(FrameManager.optionsWindow);
-        }
+        });
     }
 
 

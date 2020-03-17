@@ -11,11 +11,11 @@ import javax.swing.border.Border;
 public class ColorManager {
 
     // Mutual
-    public static Color GREEN_SALE = new Color(0, 100, 0);
-    public static Color GREEN_APPROVE = new Color(73, 156, 84);
-    public static Color RED_SALE = new Color(100, 0, 0);
-    public static Color RED_DENY = new Color(199, 84, 80);
-    public static Color SCANNER_BACKGROUND = new Color(200, 128, 0);
+    public static Color GREEN_APPROVE;
+    public static Color GREEN_SALE;
+    public static Color RED_SALE;
+    public static Color RED_DENY;
+    public static Color SCANNER_BACKGROUND;
 
     // General
     public static Color PRIMARY;
@@ -70,6 +70,7 @@ public class ColorManager {
         GREEN_SALE = new Color(0, 130, 0);
         PLAYER_JOINED_INCOMING = new Color(0, 140, 0);
         GREEN_APPROVE = new Color(73, 156, 84);
+        GREEN_APPROVE = new Color(106, 188, 58);
         RED_SALE = new Color(130, 0, 0);
         PLAYER_JOINED_OUTGOING = RED_SALE;
         RED_DENY = new Color(199, 84, 80);

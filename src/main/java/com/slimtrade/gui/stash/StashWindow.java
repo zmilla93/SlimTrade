@@ -30,6 +30,8 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
 
     public StashWindow() {
         super("Stash Overlay", false);
+        this.setFocusable(true);
+        this.setFocusableWindowState(true);
         this.setMinimumSize(new Dimension(400, 400));
         container.setBackground(ColorManager.CLEAR);
         center.setBackground(ColorManager.CLEAR);

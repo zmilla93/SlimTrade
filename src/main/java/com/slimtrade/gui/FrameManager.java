@@ -70,6 +70,9 @@ public class FrameManager {
 //        stashSearchWindow = new StashSearchWindow();
 //        stashSearchWindow.setShow(true);
 
+        trayButton = new TrayButton();
+        trayButton.addToTray();
+
         stashHelperContainer = new StashHelperContainer();
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();

@@ -47,7 +47,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
     private final JPanel menuPanel = new JPanel(new GridBagLayout());
     private final JPanel menuPanelLower = new JPanel(new GridBagLayout());
-    private BasicButton checkUpdateButton = null;
+    private BasicButton checkUpdateButton;
 
     private GeneralPanel generalPanel;
 //    private HotkeyPanel hotkeyPanel;
@@ -127,7 +127,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         // JButton updateButton = new BasicButton("Update Available!");
         // updateButton.setVisible(false);
 
-        checkUpdateButton = new BasicButton("Check for Updates");
+        checkUpdateButton = new CheckUpdateButton("Check for Updates");
         checkUpdateButton.setPreferredSize(checkUpdateButton.getPreferredSize());
         // TODO : Remove stash
         gc = new GridBagConstraints();
@@ -211,8 +211,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                     }
                     SwingUtilities.invokeLater(() -> {
                         if (App.updateChecker.isUpdateAvailable()) {
-                            checkUpdateButton.setText("Update Available!");
-                            checkUpdateButton.primaryColor = Color.GREEN;
+                            recolorUpdateButton();
                         } else {
                             checkUpdateButton.setText("Check for Updates");
                         }
@@ -313,14 +312,11 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         display.setBorder(BorderFactory.createLineBorder(Color.RED));
         display.setBorder(null);
         scrollDisplay.setBorder(ColorManager.BORDER_TEXT);
-//        container.setBorder();
     }
 
-    private void recolorUpdateButton() {
-        if (App.updateChecker.isUpdateAvailable()) {
-            this.checkUpdateButton.setText("Update Available!");
-            this.checkUpdateButton.primaryColor = Color.GREEN;
-        }
+    public void recolorUpdateButton() {
+        checkUpdateButton.setText("Update Available!");
+        checkUpdateButton.updateColor();
     }
 
 }

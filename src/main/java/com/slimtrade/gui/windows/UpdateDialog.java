@@ -3,9 +3,11 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.ConfirmButton;
+import com.slimtrade.gui.options.CheckUpdateButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +15,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class UpdateDialog extends JFrame {
+public class UpdateDialog extends JFrame implements IColorable {
 
     private JPanel borderPanel = new JPanel(FrameManager.gridBag);
     private JPanel container = new JPanel(FrameManager.gridBag);
@@ -64,12 +66,6 @@ public class UpdateDialog extends JFrame {
         this.getContentPane().add(Box.createHorizontalStrut(BUFFER), BorderLayout.EAST);
         this.getContentPane().add(Box.createHorizontalStrut(BUFFER), BorderLayout.WEST);
 
-        // Colors
-        this.getContentPane().setBackground(ColorManager.BACKGROUND);
-        container.setBackground(ColorManager.LOW_CONTRAST_1);
-        borderPanel.setBackground(ColorManager.LOW_CONTRAST_1);
-        borderPanel.setBorder(ColorManager.BORDER_TEXT);
-
         // Finish
         this.pack();
         this.setMinimumSize(this.getSize());
@@ -90,4 +86,12 @@ public class UpdateDialog extends JFrame {
 
     }
 
+    @Override
+    public void updateColor() {
+        // Colors
+        this.getContentPane().setBackground(ColorManager.BACKGROUND);
+        container.setBackground(ColorManager.LOW_CONTRAST_1);
+        borderPanel.setBackground(ColorManager.LOW_CONTRAST_1);
+        borderPanel.setBorder(ColorManager.BORDER_TEXT);
+    }
 }

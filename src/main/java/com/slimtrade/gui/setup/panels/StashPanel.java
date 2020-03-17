@@ -12,8 +12,8 @@ import javax.swing.*;
 
 public class StashPanel extends AbstractSetupPanel implements ISetupValidator, IColorable {
 
-    JLabel info1 = new CustomLabel("The location of your stash needs to be marked and saved.");
-    JLabel info2 = new CustomLabel("Resize the overlay until it aligns with your stash in game.");
+    JLabel info1 = new CustomLabel("Resize the overlay until it aligns with your stash in game.");
+    JLabel info2 = new CustomLabel("Path of Exile should be open for this step.");
 
     JButton editButton = new BasicButton("Edit Stash Overlay");
 
