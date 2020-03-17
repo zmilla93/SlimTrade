@@ -565,7 +565,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         if (selectedMessage != null) {
             searchName = selectedMessage.name;
         }
-        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text. Hover to view the entire message!");
+        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text. Lorem ipsum dolor sit amet, novum adipisci at vel, cum hinc iudico expetenda cu.");
         sampleMessage = new MessagePanel(trade, MessageDialogManager.defaultSize);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;

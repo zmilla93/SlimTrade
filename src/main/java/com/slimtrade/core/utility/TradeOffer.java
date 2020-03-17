@@ -95,7 +95,11 @@ public class TradeOffer {
         this.stashtabName = stashtabName;
         this.stashtabX = stashtabX;
         this.stashtabY = stashtabY;
-        this.bonusText = bonusText;
+        if(bonusText != null) {
+            this.bonusText = bonusText.trim();
+        } else {
+            this.bonusText = null;
+        }
         this.sentMessage = sentMessage;
         this.searchName = null;
         this.searchMessage = null;

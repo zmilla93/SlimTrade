@@ -26,7 +26,12 @@ public class PricePanel extends JPanel {
 		gc.gridx = 0;
 		gc.gridy = 0;
 		String num = quant > 0 ? TradeUtility.getFixedDouble(quant, paren) + " " : "" ;
-		POEImage poeImage = TradeUtility.getPOEImage(price.toLowerCase());
+		POEImage poeImage = null;
+		if(price == null) {
+			price = "Unpriced";
+		} else {
+			poeImage = TradeUtility.getPOEImage(price.toLowerCase());
+		}
 		if(poeImage!=null){
 			label.setText(num);
 			this.add(label, gc);

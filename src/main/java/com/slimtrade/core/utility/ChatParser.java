@@ -33,8 +33,10 @@ public class ChatParser {
     private Timer updateTimer = new Timer(500, updateAction);
 
     // REGEX
-    private static final String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(\\S+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
-    public static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
+//    private static final String tradeMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(\\S+): ((Hi, )?(I would|I'd) like to buy your ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\")?((.+)\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
+    private static final String tradeMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): (((Hi, )?(I would|I'd) like to buy your|wtb) ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\\?\\\")?((.+)\\\\?\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
+    private static final String unpricedTradeMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): (((Hi, )?(I would|I'd) like to buy your|wtb) ([\\d.]+)? ?(.+) (NULL)?(NULL)?(NULL)?in (\\w+( \\w+)?) ?([(]stash tab \\\\?\\\")?((.+)\\\\?\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)";
+    private static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
     // Allows for local chat
 //	private final static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
     private static final String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
@@ -54,7 +56,6 @@ public class ChatParser {
         if (App.debugMode) {
             searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$]?(<.+> )?(\\S+): (.+)";
         }
-
         int msgCount = 0;
         updateTimer.stop();
         File file = new File(App.saveManager.saveFile.clientPath);
@@ -164,8 +165,13 @@ public class ChatParser {
     }
 
     private TradeOffer getTradeOffer(String text) {
-        Matcher tradeMsgMatcher = Pattern.compile(tradeMessageMatchString).matcher(text);
-        TradeOffer trade = null;
+        Matcher tradeMsgMatcher;
+        if(text.contains("listed for") || text.contains("for my")) {
+            tradeMsgMatcher = Pattern.compile(tradeMatchString).matcher(text);
+        } else {
+            tradeMsgMatcher = Pattern.compile(unpricedTradeMatchString).matcher(text);
+        }
+        TradeOffer trade;
         if (tradeMsgMatcher.matches()) {
             // DEBUG
             // System.out.println("NEW TRADE OFFER");
@@ -183,24 +189,24 @@ public class ChatParser {
             double d1 = 0.0;
             double d2 = 0.0;
             // Item Count
-            if (tradeMsgMatcher.group(10) != null) {
-                d1 = Double.parseDouble(tradeMsgMatcher.group(10));
+            if (tradeMsgMatcher.group(11) != null) {
+                d1 = Double.parseDouble(tradeMsgMatcher.group(11));
             }
             // Price Count
-            if (tradeMsgMatcher.group(13) != null) {
-                d2 = Double.parseDouble(tradeMsgMatcher.group(13));
+            if (tradeMsgMatcher.group(14) != null) {
+                d2 = Double.parseDouble(tradeMsgMatcher.group(14));
             }
             int i1 = 0;
             int i2 = 0;
             // Stashtab X
-            if (tradeMsgMatcher.group(21) != null) {
-                i1 = Integer.parseInt(tradeMsgMatcher.group(21));
+            if (tradeMsgMatcher.group(22) != null) {
+                i1 = Integer.parseInt(tradeMsgMatcher.group(22));
             }
             // Stashtab Y
-            if (tradeMsgMatcher.group(23) != null) {
-                i2 = Integer.parseInt(tradeMsgMatcher.group(23));
+            if (tradeMsgMatcher.group(24) != null) {
+                i2 = Integer.parseInt(tradeMsgMatcher.group(24));
             }
-            trade = new TradeOffer(tradeMsgMatcher.group(2).replaceAll("/", "-"), tradeMsgMatcher.group(3), getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5), tradeMsgMatcher.group(6), tradeMsgMatcher.group(11), d1, tradeMsgMatcher.group(14), d2, tradeMsgMatcher.group(19), i1, i2, tradeMsgMatcher.group(24), tradeMsgMatcher.group(7));
+            trade = new TradeOffer(tradeMsgMatcher.group(2).replaceAll("/", "-"), tradeMsgMatcher.group(3), getMsgType(tradeMsgMatcher.group(4)), tradeMsgMatcher.group(5), tradeMsgMatcher.group(6), tradeMsgMatcher.group(12), d1, tradeMsgMatcher.group(15), d2, tradeMsgMatcher.group(20), i1, i2, tradeMsgMatcher.group(25), tradeMsgMatcher.group(7));
 //			if(trade.itemName)
             // System.out.println("TRADE OFFER : " + trade.guildName +
             // trade.playerName);
