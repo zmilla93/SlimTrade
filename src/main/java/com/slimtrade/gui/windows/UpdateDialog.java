@@ -22,7 +22,7 @@ public class UpdateDialog extends JFrame implements IColorable {
     private JButton viewUpdateButton = new ConfirmButton("View on Github");
 
     private JLabel info1 = new CustomLabel("Update Available!");
-    private JLabel info2 = new CustomLabel("Currently Running: " + References.APP_VERSION);
+    private JLabel info2 = new CustomLabel("Currently Running: " + References.getAppVersion());
     private JLabel info3 = new CustomLabel("Latest Version: " + App.updateChecker.getLatestRelease());
 
     private final int BUFFER = 30;

@@ -166,7 +166,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.insets.bottom = 0;
 
         gc.fill = GridBagConstraints.NONE;
-        menuPanelLower.add(new CustomLabel(References.APP_NAME + " v" + References.APP_VERSION), gc);
+        menuPanelLower.add(new CustomLabel(References.APP_NAME + " v" + References.getAppVersion()), gc);
         gc.gridy++;
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.gridy++;

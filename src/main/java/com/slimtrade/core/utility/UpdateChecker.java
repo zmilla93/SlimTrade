@@ -26,8 +26,8 @@ public class UpdateChecker {
 //	private VersionNumber latestVersion;
 
 	public UpdateChecker() {
-        currentVersion = new VersionNumber(References.APP_VERSION);
-        latestVersion = new VersionNumber(References.APP_VERSION);
+        currentVersion = new VersionNumber(References.getAppVersion());
+        latestVersion = new VersionNumber(References.getAppVersion());
 	}
 
 	public void checkForUpdates(){
@@ -35,7 +35,7 @@ public class UpdateChecker {
 	}
 
 	public void checkForUpdates(boolean allowPreReleases) {
-	    VersionNumber appVersion = new VersionNumber(References.APP_VERSION);
+	    VersionNumber appVersion = new VersionNumber(References.getAppVersion());
         currentVersion = appVersion;
         latestVersion = appVersion;
         if(App.allowPrerelease) {

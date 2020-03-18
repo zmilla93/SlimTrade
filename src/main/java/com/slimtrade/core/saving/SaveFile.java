@@ -15,7 +15,7 @@ import java.util.Date;
 public class SaveFile {
 
     //Version
-    public String versionNumber = References.APP_VERSION;
+    public String versionNumber = References.getAppVersion();
 
     // Basics
     public String characterName = "";
