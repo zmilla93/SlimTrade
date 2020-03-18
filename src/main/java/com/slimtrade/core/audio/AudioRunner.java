@@ -1,6 +1,7 @@
 package com.slimtrade.core.audio;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -24,13 +25,12 @@ public class AudioRunner implements Runnable {
 		Clip clip = null;
 		try {
 			clip = AudioSystem.getClip();
-			AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(sound.getPath()));
+			AudioInputStream stream = AudioSystem.getAudioInputStream(Objects.requireNonNull(this.getClass().getClassLoader().getResource(sound.getPath())));
 			clip.open(stream);
 			FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 			volumeControl.setValue(volume);
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-			System.out.println(e.getMessage());
-			System.err.println("[ERROR] Issue retriving audio file");
+			System.out.println("[SlimTrade] Issue retrieving audio file : " + e.getMessage());
 		}
 		clip.start();
 		try {
