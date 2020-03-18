@@ -1,6 +1,7 @@
 package com.slimtrade.core;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -13,11 +14,17 @@ public class References {
 
 	public static final int DEFAULT_IMAGE_SIZE = 18;
 
+	public static void loadAppVersion() {
+
+	}
+
 	public static String getAppVersion() {
 		if(APP_VERSION == null) {
 			final Properties properties = new Properties();
 			try {
-				properties.load(Objects.requireNonNull(References.class.getClassLoader().getResourceAsStream("project.properties")));
+				InputStream stream = References.class.getClassLoader().getResourceAsStream("project.properties");
+				properties.load(stream);
+				stream.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
