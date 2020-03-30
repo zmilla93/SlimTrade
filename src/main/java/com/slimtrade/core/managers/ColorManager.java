@@ -1,12 +1,11 @@
 package com.slimtrade.core.managers;
 
-import java.awt.Color;
-
-import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.enums.ColorTheme;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
 public class ColorManager {
 

@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options.macros;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public abstract class AbstractMacroPanel extends JPanel {
 

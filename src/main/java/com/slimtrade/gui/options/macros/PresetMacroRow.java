@@ -1,16 +1,14 @@
 package com.slimtrade.gui.options.macros;
 
-import java.awt.*;
-
-import javax.swing.*;
-
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ICacheImage;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class PresetMacroRow extends JPanel implements IColorable{
 

@@ -2,10 +2,8 @@ package com.slimtrade.gui.basic;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomScrollBarUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class CustomScrollPane extends JScrollPane implements IColorable {
 

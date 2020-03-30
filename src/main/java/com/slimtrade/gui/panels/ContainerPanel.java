@@ -4,11 +4,8 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 
+import javax.swing.*;
 import java.awt.*;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 public class ContainerPanel extends JPanel implements IColorable {
 

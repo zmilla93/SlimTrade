@@ -1,8 +1,6 @@
 package com.slimtrade.gui.panels;
 
-import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.utility.TradeUtility;
-import com.slimtrade.gui.basic.PaintedPanel;
 import com.slimtrade.gui.enums.POEImage;
 
 import javax.swing.*;

@@ -1,9 +1,5 @@
 package com.slimtrade.gui.options.general;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
@@ -15,6 +11,9 @@ import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IColorable {
 

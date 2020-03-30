@@ -1,9 +1,6 @@
 package com.slimtrade.gui.stash_search;
 
 import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.basic.AbstractWindow;
-import com.slimtrade.gui.basic.BasicDialog;
-import com.slimtrade.gui.basic.BasicMovableDialog;
 
 public class StashSearchWindow extends AbstractResizableWindow {
 

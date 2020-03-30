@@ -1,8 +1,8 @@
 package com.slimtrade.gui.options.stash_search;
 
 import com.slimtrade.gui.basic.CustomLabel;
-import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
 import com.slimtrade.gui.options.general.LabelComponentPanel;
+import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;

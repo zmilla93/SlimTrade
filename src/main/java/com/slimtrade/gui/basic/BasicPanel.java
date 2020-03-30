@@ -1,10 +1,7 @@
 package com.slimtrade.gui.basic;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class BasicPanel extends JPanel{
 	

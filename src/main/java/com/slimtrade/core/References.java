@@ -2,7 +2,6 @@ package com.slimtrade.core;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 import java.util.Properties;
 
 public class References {

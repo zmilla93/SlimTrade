@@ -1,11 +1,5 @@
 package com.slimtrade.gui.history;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
@@ -13,11 +7,16 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.basic.CustomScrollPane;
 import com.slimtrade.gui.options.ListButton;
 import com.slimtrade.gui.options.OrderType;
-import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.panels.BufferPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HistoryWindow extends AbstractResizableWindow implements IColorable {
 	private static final long serialVersionUID = 1L;

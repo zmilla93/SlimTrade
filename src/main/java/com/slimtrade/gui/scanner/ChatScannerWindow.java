@@ -1,18 +1,18 @@
 package com.slimtrade.gui.scanner;
 
 import com.slimtrade.App;
-import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.ComponentResizeAdapter;
 import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
+import com.slimtrade.gui.basic.CustomScrollPane;
 import com.slimtrade.gui.buttons.ToggleButton;
 import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.basic.CustomScrollPane;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.messaging.MessagePanel;

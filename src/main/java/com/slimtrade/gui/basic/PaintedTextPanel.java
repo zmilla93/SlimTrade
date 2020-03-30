@@ -1,7 +1,5 @@
 package com.slimtrade.gui.basic;
 
-import com.slimtrade.App;
-import com.slimtrade.core.observing.improved.EventManager;
 import com.slimtrade.core.observing.improved.IColorable;
 
 import javax.swing.*;

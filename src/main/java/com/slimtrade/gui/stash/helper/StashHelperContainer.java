@@ -1,14 +1,12 @@
 package com.slimtrade.gui.stash.helper;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.basic.BasicDialog;
 
-import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StashHelperContainer extends BasicDialog{
 	//TODO : Should probably get spacing X directly from stash overlay left buffer

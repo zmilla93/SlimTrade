@@ -5,8 +5,6 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.buttons.BasicButton;
 
-import java.awt.*;
-
 public class CheckUpdateButton extends BasicButton implements IColorable {
 
     public CheckUpdateButton(String text) {

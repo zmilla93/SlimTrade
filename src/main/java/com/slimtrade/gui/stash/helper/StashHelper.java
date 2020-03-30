@@ -1,16 +1,5 @@
 package com.slimtrade.gui.stash.helper;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
@@ -18,7 +7,13 @@ import com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import com.slimtrade.core.observing.poe.PoeInteractionListener;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.BasicPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StashHelper extends JPanel {
 

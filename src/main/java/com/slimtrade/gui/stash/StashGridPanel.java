@@ -1,13 +1,9 @@
 package com.slimtrade.gui.stash;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-
 import com.slimtrade.core.managers.ColorManager;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class StashGridPanel extends JPanel {
 	

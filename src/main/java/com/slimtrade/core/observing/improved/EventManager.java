@@ -1,14 +1,12 @@
 package com.slimtrade.core.observing.improved;
 
-import java.awt.*;
-import java.util.ArrayList;
-
-import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.options.ISaveable;
 
-import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class EventManager {
 

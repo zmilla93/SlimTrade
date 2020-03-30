@@ -1,19 +1,14 @@
 package com.slimtrade.gui.options;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.*;
-
-import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomLabel;
-import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.panels.ContainerPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class InformationPanel extends ContainerPanel {
 

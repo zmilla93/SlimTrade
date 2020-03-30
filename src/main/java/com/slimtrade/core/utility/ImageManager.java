@@ -1,6 +1,6 @@
 package com.slimtrade.core.utility;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class ImageManager {
 

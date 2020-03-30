@@ -1,12 +1,10 @@
 package com.slimtrade.gui.options.general;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.options.toggle.ToggleOptionsPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
+
+import java.awt.*;
 
 public class GeneralPanel extends ContainerPanel {
 

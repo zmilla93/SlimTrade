@@ -1,12 +1,12 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.App;
-import com.slimtrade.core.saving.MacroButton;
-import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.saving.MacroButton;
+import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
@@ -16,8 +16,8 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.ColorPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ButtonRow;
-import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.CustomIcons;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.PricePanel;
 import com.slimtrade.gui.scanner.ScannerMessage;
 import com.slimtrade.gui.stash.helper.StashHelper;
@@ -366,6 +366,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
     protected void resizeFrames() {
         this.setPreferredSize(new Dimension(totalWidth, totalHeight));
+        this.setMinimumSize(new Dimension(totalWidth, totalHeight));
         borderPanel.setPreferredSize(new Dimension(messageWidth + borderSize * 2, messageHeight + borderSize * 2));
         container.setPreferredSize(new Dimension(messageWidth, messageHeight));
         Dimension s = new Dimension(messageWidth, rowHeight);

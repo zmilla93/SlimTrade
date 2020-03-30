@@ -2,14 +2,12 @@ package com.slimtrade.gui.enums;
 
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.enums.ColorTheme;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.util.Objects;
-
-import javax.swing.ImageIcon;
 
 /**
  * Cached images used by the SlimTrade UI. These are intended for internal use only.

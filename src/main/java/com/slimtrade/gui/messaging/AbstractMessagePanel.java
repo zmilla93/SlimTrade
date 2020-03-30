@@ -1,18 +1,5 @@
 package com.slimtrade.gui.messaging;
 
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
@@ -21,10 +8,18 @@ import com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import com.slimtrade.core.observing.poe.PoeInteractionListener;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.basic.*;
+import com.slimtrade.gui.basic.ColorPanel;
+import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.basic.PaintedPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.PricePanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 public class AbstractMessagePanel extends ColorPanel {
 

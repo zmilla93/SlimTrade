@@ -1,8 +1,8 @@
 package com.slimtrade.enums;
 
-import java.awt.Color;
-
 import com.slimtrade.core.managers.ColorManager;
+
+import java.awt.*;
 
 public enum StashTabColor {
 	

@@ -1,17 +1,14 @@
 package com.slimtrade.gui.options.general;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.io.File;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.io.File;
 
 public class AdvancedRow extends JPanel implements IColorable {
 

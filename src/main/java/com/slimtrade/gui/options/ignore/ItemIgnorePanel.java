@@ -1,24 +1,21 @@
 package com.slimtrade.gui.options.ignore;
 
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.util.ArrayList;
-
-import javax.swing.*;
-
 import com.slimtrade.App;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomSpinner;
 import com.slimtrade.gui.basic.CustomTextField;
-import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.enums.MatchType;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 

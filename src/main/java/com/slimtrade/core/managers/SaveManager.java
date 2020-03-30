@@ -7,9 +7,7 @@ import com.slimtrade.core.saving.SaveFile;
 import com.slimtrade.core.saving.ScannerSaveFile;
 import com.slimtrade.core.saving.StashSaveFile;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.panels.ContainerPanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;

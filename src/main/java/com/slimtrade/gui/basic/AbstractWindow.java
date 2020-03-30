@@ -1,25 +1,14 @@
 package com.slimtrade.gui.basic;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.BufferPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class AbstractWindow extends BasicMovableDialog implements IColorable {
 

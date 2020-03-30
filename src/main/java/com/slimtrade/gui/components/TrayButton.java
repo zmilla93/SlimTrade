@@ -1,13 +1,13 @@
 package com.slimtrade.gui.components;
 
-import java.awt.*;
-
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.saving.OverlaySaveFile;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.WindowState;
+
+import java.awt.*;
 
 public class TrayButton {
 

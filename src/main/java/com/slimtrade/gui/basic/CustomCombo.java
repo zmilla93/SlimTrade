@@ -1,12 +1,9 @@
 package com.slimtrade.gui.basic;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.buttons.CustomArrowButton;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.*;
 import java.awt.*;
 
 public class CustomCombo<E> extends JComboBox<E> implements IColorable {

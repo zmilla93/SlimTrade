@@ -1,23 +1,21 @@
 package com.slimtrade.gui.options.macros;
 
-import java.awt.*;
-
-import javax.swing.*;
-
-import com.slimtrade.App;
-import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.gui.basic.CustomCombo;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomTextField;
+import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ButtonRow;
-import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.CustomIcons;
+import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.BufferPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class CustomMacroRow extends RemovablePanel implements IColorable {
 

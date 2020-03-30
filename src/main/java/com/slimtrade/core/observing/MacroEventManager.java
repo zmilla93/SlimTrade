@@ -1,16 +1,16 @@
 package com.slimtrade.core.observing;
 
-import java.awt.event.MouseEvent;
-
 import com.slimtrade.App;
 import com.slimtrade.core.observing.poe.PoeInteractionEvent;
 import com.slimtrade.core.observing.poe.PoeInteractionListener;
-import com.slimtrade.enums.MessageType;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.scanner.ScannerMessage;
+
+import java.awt.event.MouseEvent;
 
 public class MacroEventManager implements PoeInteractionListener {
 

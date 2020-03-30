@@ -7,8 +7,6 @@ import com.slimtrade.core.managers.SetupManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.enums.ICacheImage;
-import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.setup.panels.*;
 
 import javax.swing.*;

@@ -6,8 +6,6 @@ import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomLabel;
-import com.slimtrade.gui.basic.CustomTextField;
-import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;

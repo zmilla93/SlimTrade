@@ -1,26 +1,24 @@
 package com.slimtrade.gui.options.macros;
 
-import java.awt.*;
-import java.util.Random;
-
-import javax.swing.*;
-
 import com.slimtrade.App;
-import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.messaging.MessagePanel;
-import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 //TODO : CLEANUP
 public class IncomingCustomizer extends ContainerPanel implements ISaveable, IColorable {
@@ -150,8 +148,7 @@ public class IncomingCustomizer extends ContainerPanel implements ISaveable, ICo
         gc.gridx = 0;
         gc.gridy = 1;
         gc.insets.bottom = FrameManager.gapLarge;
-        Random rng = new Random();
-        TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "BuyerUsername", "Example Item", 1, "chaos", 20, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
+        TradeOffer tradeIn = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "BuyerUsername", "Example Item", 1, "chaos", 20, "STASH_TAB", 0, 0, "", "");
         exampleTradeIn = new MessagePanel(tradeIn, new Dimension(400, 40), false);
         exampleTradeIn.stopTimer();
         container.add(exampleTradeIn, gc);

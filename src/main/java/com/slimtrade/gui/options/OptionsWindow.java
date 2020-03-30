@@ -1,21 +1,6 @@
 
 package com.slimtrade.gui.options;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.swing.*;
-
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
@@ -23,21 +8,28 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomScrollPane;
+import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.buttons.ConfirmButton;
+import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.options.general.GeneralPanel;
 import com.slimtrade.gui.options.general.HistoryOptionsPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macros.IncomingCustomizer;
 import com.slimtrade.gui.options.macros.OutgoingCustomizer;
-import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.buttons.ConfirmButton;
-import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.options.stash_search.StashSearchPanel;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.stash.StashTabPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class OptionsWindow extends AbstractResizableWindow implements IColorable {
 

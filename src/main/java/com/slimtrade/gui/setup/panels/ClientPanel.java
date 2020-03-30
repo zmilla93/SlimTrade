@@ -7,7 +7,6 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.setup.SetupWindow;
 
 import javax.swing.*;
 import java.awt.*;

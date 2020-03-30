@@ -1,8 +1,8 @@
 package com.slimtrade.gui.components;
 
-import javax.swing.JPanel;
-
 import com.slimtrade.gui.basic.BasicDialog;
+
+import javax.swing.*;
 
 public class PanelWrapper extends BasicDialog {
 

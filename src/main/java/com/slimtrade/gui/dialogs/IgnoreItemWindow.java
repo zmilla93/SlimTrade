@@ -1,12 +1,5 @@
 package com.slimtrade.gui.dialogs;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import com.slimtrade.App;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
@@ -18,6 +11,9 @@ import com.slimtrade.gui.enums.MatchType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
 import com.slimtrade.gui.options.ignore.IgnoreRow;
 import com.slimtrade.gui.panels.ContainerPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class IgnoreItemWindow extends AbstractResizableWindow implements IColorable {
 

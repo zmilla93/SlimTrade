@@ -1,8 +1,5 @@
 package com.slimtrade.gui.menubar;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeUtility;
@@ -10,6 +7,9 @@ import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.buttons.IconButton;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MenubarExpandDialog extends BasicDialog {
 

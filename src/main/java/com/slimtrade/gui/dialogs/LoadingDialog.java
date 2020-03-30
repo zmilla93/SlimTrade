@@ -1,15 +1,11 @@
 package com.slimtrade.gui.dialogs;
 
-import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.border.BevelBorder;
-
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
 
 public class LoadingDialog extends BasicDialog {
 

@@ -1,10 +1,9 @@
 package com.slimtrade.gui.basic;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 
-import javax.swing.JDialog;
+import javax.swing.*;
 
 public class BasicDialog extends HideableDialog implements IColorable {
 

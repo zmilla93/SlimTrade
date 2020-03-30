@@ -1,17 +1,12 @@
 package com.slimtrade.debug;
 
-import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.gui.FrameManager;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class Debugger extends JFrame {
 
