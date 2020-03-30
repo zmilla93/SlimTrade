@@ -8,17 +8,14 @@ import com.slimtrade.core.saving.OverlaySaveFile;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicMovableDialog;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.enums.ExpandDirection;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.messaging.AbstractMessagePanel;
 import com.slimtrade.gui.options.ISaveable;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 

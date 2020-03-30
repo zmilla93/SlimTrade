@@ -7,19 +7,18 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.*;
+import com.slimtrade.gui.basic.BasicDialog;
+import com.slimtrade.gui.custom.CustomCombo;
+import com.slimtrade.gui.custom.CustomLabel;
+import com.slimtrade.gui.custom.CustomSlider;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.enums.ExpandDirection;
-import com.slimtrade.gui.messaging.AbstractMessagePanel;
-import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.general.LabelComponentPanel;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class OverlayInfoDialog extends BasicDialog implements IColorable {

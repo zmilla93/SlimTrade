@@ -2,7 +2,7 @@ package com.slimtrade.gui.options.general;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomTextField;
+import com.slimtrade.gui.custom.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
 
 import javax.swing.*;
