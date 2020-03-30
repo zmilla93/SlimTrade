@@ -79,7 +79,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         quickPasteHotkeyContainer.setOpaque(false);
         quickPasteHotkeyContainer.add(quickPasteHotkeyInput, BorderLayout.EAST);
 
-        editOverlayButton.setText("Edit Overlay Location");
+        editOverlayButton.setText("Edit Overlay Size & Location");
 
         for (ColorTheme theme : ColorTheme.values()) {
             colorThemeCombo.addItem(theme);

@@ -28,7 +28,12 @@ public class ClipboardManager implements ClipboardOwner{
                 if(App.saveManager.saveFile.quickPasteSetting != QuickPasteSetting.AUTOMATIC) {
                     return;
                 }
-                Transferable t = clipboard.getContents(this);
+                Transferable t;
+                try{
+                    t = clipboard.getContents(this);
+                } catch (IllegalStateException e1) {
+                    return;
+                }
                 String contents;
                 try {
                     contents = (String) clipboard.getData(DataFlavor.stringFlavor);

@@ -9,6 +9,7 @@ public class OverlaySaveFile {
     public boolean messageScreenLock = true;
     public int messageX = 400, messageY = 0;
     public ExpandDirection messageExpandDirection = ExpandDirection.DOWN;
+    public int messageSizeIncrease = 0;
 
     // MenuBar Info
     public boolean menubarScreenLock = true;

@@ -566,12 +566,12 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             searchName = selectedMessage.name;
         }
         TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text. Lorem ipsum dolor sit amet, novum adipisci at vel, cum hinc iudico expetenda cu.");
-        sampleMessage = new MessagePanel(trade, MessageDialogManager.defaultSize);
+        sampleMessage = new MessagePanel(trade, MessageDialogManager.DEFAULT_SIZE);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = new Insets(20, 20, 0, 20);
-        sampleMessage = new MessagePanel(trade, MessageDialogManager.defaultSize, false);
+        sampleMessage = new MessagePanel(trade, MessageDialogManager.DEFAULT_SIZE, false);
         sampleMessage.stopTimer();
         containerPanel.container.add(sampleMessage, gc);
         this.revalidate();

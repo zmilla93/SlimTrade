@@ -20,6 +20,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 
 public class OverlayManager implements ISaveable, IColorable {
 
@@ -35,8 +36,8 @@ public class OverlayManager implements ISaveable, IColorable {
     private JLabel messageLabel = new CustomLabel("Message Panel");
 
     //Input
-    private JComboBox menubarCombo;
-    private JComboBox messageCombo;
+    private JComboBox<MenubarButtonLocation> menubarCombo;
+    private JComboBox<ExpandDirection> messageCombo;
 
     //Other
     JPanel menubarButtonDummy = new JPanel();
@@ -54,12 +55,9 @@ public class OverlayManager implements ISaveable, IColorable {
         messageCombo = helpDialog.messageCombo;
 
         // Sizes
-        Border borderDefault = BorderFactory.createMatteBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, borderColor);
-
-        menubarDialog.setSize(App.frameManager.menubar.getWidth(), App.frameManager.menubar.getHeight());
-        messageDialog.setBorderOffset(BORDER_SIZE);
+        menubarDialog.setSize(FrameManager.menubar.getWidth(), FrameManager.menubar.getHeight());
         messageDialog.setSize(AbstractMessagePanel.totalWidth, AbstractMessagePanel.totalHeight);
-        menubarButtonDummy.setPreferredSize(new Dimension(App.frameManager.menubarToggle.getSize().width - BORDER_SIZE, App.frameManager.menubarToggle.getSize().height - BORDER_SIZE));
+        menubarButtonDummy.setPreferredSize(new Dimension(FrameManager.menubarToggle.getSize().width - BORDER_SIZE, FrameManager.menubarToggle.getSize().height - BORDER_SIZE));
 
         // Add Elements
         for (MenubarButtonLocation b : MenubarButtonLocation.values()) {
@@ -85,15 +83,11 @@ public class OverlayManager implements ISaveable, IColorable {
         messageDialog.getContentPane().setLayout(FrameManager.gridBag);
         menubarDialog.getContentPane().add(menubarLabel, gc);
         messageDialog.getContentPane().add(messageLabel, gc);
-
-
-
+        helpDialog.registerMessageDialog(messageDialog);
 
         //Buttons
-        menubarCombo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                updateMenubarButton(((MenubarButtonLocation) menubarCombo.getSelectedItem()));
-            }
+        menubarCombo.addActionListener(e -> {
+            updateMenubarButton(((MenubarButtonLocation) Objects.requireNonNull(menubarCombo.getSelectedItem())));
         });
 
         messageDialog.getContentPane().addMouseListener(new AdvancedMouseAdapter() {
@@ -103,7 +97,6 @@ public class OverlayManager implements ISaveable, IColorable {
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     messageScreenLock = !messageScreenLock;
                     messageDialog.setScreenLock(messageScreenLock);
-//                    messageDialog.forceOntoScreen();
                     updateColor();
                 }
             }
@@ -125,8 +118,6 @@ public class OverlayManager implements ISaveable, IColorable {
         helpDialog.cancelButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
                 FrameManager.windowState = WindowState.NORMAL;
-//                menubarDialog.setLocation(FrameManager.menubar.getX(), FrameManager.menubar.getY());
-//                messageDialog.setLocation(FrameManager.messageManager.getAnchorPoint());
                 load();
                 updateMenubarButton(App.saveManager.overlaySaveFile.menubarButtonLocation);
                 hideAll();
@@ -145,9 +136,9 @@ public class OverlayManager implements ISaveable, IColorable {
                 FrameManager.menubarToggle.updateLocation();
                 FrameManager.menubar.reorder();
 
-//				FrameManager.messageManager.updateLocation();
+                FrameManager.messageManager.setMessageIncrease(helpDialog.messageSizeSlider.getValue() * 2);
                 FrameManager.messageManager.setAnchorPoint(messageDialog.getLocation());
-                FrameManager.messageManager.setExpandDirection((ExpandDirection)messageCombo.getSelectedItem());
+                FrameManager.messageManager.setExpandDirection((ExpandDirection) messageCombo.getSelectedItem());
                 FrameManager.messageManager.refreshPanelLocations();
 
                 hideAll();
@@ -160,14 +151,11 @@ public class OverlayManager implements ISaveable, IColorable {
             this.resetToDefault();
         });
 
-
         //Finish
         load();
-        this.updateMenubarButton(((MenubarButtonLocation) menubarCombo.getSelectedItem()));
+        this.updateMenubarButton(((MenubarButtonLocation) Objects.requireNonNull(menubarCombo.getSelectedItem())));
         helpDialog.updateColor();
         helpDialog.pack();
-
-//        helpDialog.setSize(helpDialog.getPreferredSize());
         FrameManager.centerFrame(helpDialog);
     }
 
@@ -200,10 +188,6 @@ public class OverlayManager implements ISaveable, IColorable {
         gc.gridy = 0;
         gc.weightx = 1;
         gc.weighty = 1;
-        Color color = borderColor;
-        if (menubarScreenLock) {
-            color = borderColorLock;
-        }
         switch (location) {
             case NW:
                 gc.anchor = GridBagConstraints.NORTHWEST;
@@ -239,6 +223,32 @@ public class OverlayManager implements ISaveable, IColorable {
         updateMenubarButton(defaults.menubarButtonLocation);
     }
 
+    // TODO : Switch to recursive coloring
+    @Override
+    public void updateColor() {
+        App.eventManager.recursiveColor(helpDialog);
+        menubarButtonDummy.setBackground(borderColor);
+        menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
+        messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
+        // Message Screen Lock
+        if (messageScreenLock) {
+            messageDialog.setBackground(backgroundLocked);
+        } else {
+            messageDialog.setBackground(backgroundDefault);
+        }
+        // Menubar Screen Lock
+        if (menubarScreenLock) {
+            menubarDialog.setBackground(backgroundLocked);
+        } else {
+            menubarDialog.setBackground(backgroundDefault);
+        }
+        menubarLabel.setForeground(borderColor);
+        messageLabel.setForeground(borderColor);
+        // Menubar Button
+
+        updateMenubarButton((MenubarButtonLocation) menubarCombo.getSelectedItem());
+    }
+
     @Override
     public void save() {
         App.saveManager.overlaySaveFile.menubarScreenLock = menubarScreenLock;
@@ -251,6 +261,7 @@ public class OverlayManager implements ISaveable, IColorable {
         App.saveManager.overlaySaveFile.menubarHeight = menubarDialog.getHeight();
         App.saveManager.overlaySaveFile.messageX = messageDialog.getX();
         App.saveManager.overlaySaveFile.messageY = messageDialog.getY();
+        App.saveManager.overlaySaveFile.messageSizeIncrease = helpDialog.messageSizeSlider.getValue() * 2;
         App.saveManager.saveOverlayToDisk();
     }
 
@@ -264,43 +275,8 @@ public class OverlayManager implements ISaveable, IColorable {
         messageDialog.setLocation(App.saveManager.overlaySaveFile.messageX, App.saveManager.overlaySaveFile.messageY);
         menubarCombo.setSelectedItem(App.saveManager.overlaySaveFile.menubarButtonLocation);
         messageCombo.setSelectedItem(App.saveManager.overlaySaveFile.messageExpandDirection);
+        helpDialog.messageSizeSlider.setValue(App.saveManager.overlaySaveFile.messageSizeIncrease / 2);
         updateMenubarButton(App.saveManager.overlaySaveFile.menubarButtonLocation);
     }
-
-    // TODO : Switch to recursive coloring
-    @Override
-    public void updateColor() {
-        App.eventManager.recursiveColor(helpDialog);
-        menubarButtonDummy.setBackground(borderColor);
-        menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
-        messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
-        // Message Screen Lock
-        if (messageScreenLock) {
-//            messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColorLock, BORDER_SIZE));
-//            messageLabel.setForeground(borderColorLock);
-            messageDialog.setBackground(backgroundLocked);
-        } else {
-            messageDialog.setBackground(backgroundDefault);
-//            messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
-//            messageLabel.setForeground(borderColor);
-        }
-        // Menubar Screen Lock
-        if (menubarScreenLock) {
-//            menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColorLock, BORDER_SIZE));
-//            menubarLabel.setForeground(borderColorLock);
-            menubarDialog.setBackground(backgroundLocked);
-        } else {
-//            menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
-//            menubarLabel.setForeground(borderColor);
-            menubarDialog.setBackground(backgroundDefault);
-        }
-        menubarLabel.setForeground(borderColor);
-        messageLabel.setForeground(borderColor);
-        // Menubar Button
-
-        updateMenubarButton((MenubarButtonLocation) menubarCombo.getSelectedItem());
-    }
-
-
 
 }

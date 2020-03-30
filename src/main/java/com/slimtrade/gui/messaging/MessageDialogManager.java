@@ -19,18 +19,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class MessageDialogManager {
 
     private Point anchorPoint;
-    public static Dimension defaultSize = new Dimension(400, 40);
+    public static final Dimension DEFAULT_SIZE = new Dimension(400, 40);
+    private int sizeIncrease = 0;
     private ExpandDirection expandDirection;
 
     private final int BUFFER_SIZE = 2;
     private final int MAX_MESSAGE_COUNT = 20;
     private static final CopyOnWriteArrayList<PanelWrapper> wrapperList = new CopyOnWriteArrayList<PanelWrapper>();
+    public Dimension messageSize;
 
     public MessageDialogManager() {
         expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
         int x = App.saveManager.overlaySaveFile.messageX;
         int y = App.saveManager.overlaySaveFile.messageY;
         anchorPoint = new Point(x, y);
+        messageSize = new Dimension(DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease);
     }
 
     public void addMessage(TradeOffer trade) {
@@ -44,7 +47,7 @@ public class MessageDialogManager {
         if (playSound) {
             trade.playSound();
         }
-        final MessagePanel panel = new MessagePanel(trade, defaultSize);
+        final MessagePanel panel = new MessagePanel(trade, messageSize);
         final PanelWrapper wrapper = new PanelWrapper(panel, "SlimTrade Message Window");
         wrapperList.add(wrapper);
         refreshPanelLocations();
@@ -70,7 +73,6 @@ public class MessageDialogManager {
     public void refreshPanelLocations() {
         Point targetPoint = new Point(anchorPoint);
         for (PanelWrapper w : wrapperList) {
-
             w.setLocation(targetPoint);
             w.setAlwaysOnTop(false);
             w.setAlwaysOnTop(true);
@@ -249,4 +251,30 @@ public class MessageDialogManager {
             App.eventManager.recursiveColor(w);
         }
     }
+
+    public void setMessageIncrease(int sizeIncrease) {
+        messageSize = new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease);
+        int tempMax = 50;
+        if (sizeIncrease > tempMax) sizeIncrease = tempMax;
+        this.sizeIncrease = sizeIncrease;
+        for (PanelWrapper p : wrapperList) {
+            if (p.getPanel() instanceof MessagePanel) {
+                ((MessagePanel) p.getPanel()).resizeFrames(new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease));
+                ((MessagePanel) p.getPanel()).getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
+                    public void click(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON1) {
+                            removeMessage(wrapperList.indexOf(p));
+                            refreshPanelLocations();
+                        } else if (e.getButton() == MouseEvent.BUTTON3) {
+                            closeSimilarTrades(wrapperList.indexOf(p));
+                        }
+                    }
+                });
+            }
+            p.pack();
+
+        }
+        this.refreshPanelLocations();
+    }
+
 }

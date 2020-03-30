@@ -364,6 +364,19 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
     }
 
+    public void resizeFrames(Dimension size) {
+        calculateSizes(size);
+        refreshButtons(this.getMessageType(), true);
+        resizeFrames();
+        updateColor();
+    }
+
+    public void resizeFrames(Dimension size, boolean makeListeners) {
+        calculateSizes(size);
+        refreshButtons(this.getMessageType(), makeListeners);
+        resizeFrames();
+    }
+
     protected void resizeFrames() {
         this.setPreferredSize(new Dimension(totalWidth, totalHeight));
         this.setMinimumSize(new Dimension(totalWidth, totalHeight));
@@ -412,8 +425,8 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
     @Override
     public void updateColor() {
         super.updateColor();
-        Color color = null;
-        Color colorText = null;
+        Color color;
+        Color colorText;
         //MUTUAL COLORS
         this.setBackground(ColorManager.MESSAGE_BORDER);
         // Name Panel
@@ -440,7 +453,6 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
             case INCOMING_TRADE:
                 color = StashTabColor.TWENTYSIX.getBackground();
                 colorText = StashTabColor.TWENTYSIX.getForeground();
-//                itemPanel.setBorderColor(ColorManager.TEXT);
                 itemPanel.backgroundHover = ColorManager.PRIMARY;
                 itemPanel.borderHover = ColorManager.TEXT;
                 itemPanel.borderClick = ColorManager.TEXT;
@@ -451,7 +463,6 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
                             if (tab.color != StashTabColor.ZERO) {
                                 StashTabColor stashColor = tab.color;
-                                StashTabType type = tab.type;
                                 color = stashColor.getBackground();
                                 colorText = stashColor.getForeground();
                             }
