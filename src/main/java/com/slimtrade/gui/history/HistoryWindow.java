@@ -8,7 +8,7 @@ import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.basic.CustomScrollPane;
+import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.options.ListButton;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.panels.BufferPanel;

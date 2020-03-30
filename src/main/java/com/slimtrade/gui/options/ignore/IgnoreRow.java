@@ -2,7 +2,7 @@ package com.slimtrade.gui.options.ignore;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;

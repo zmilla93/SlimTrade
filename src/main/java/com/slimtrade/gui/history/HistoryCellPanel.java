@@ -1,6 +1,6 @@
 package com.slimtrade.gui.history;
 
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;

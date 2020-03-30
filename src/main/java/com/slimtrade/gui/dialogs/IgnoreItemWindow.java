@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.enums.MatchType;

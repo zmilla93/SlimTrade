@@ -2,8 +2,8 @@ package com.slimtrade.gui.options.macros;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomLabel;
-import com.slimtrade.gui.basic.CustomTextField;
+import com.slimtrade.gui.custom.CustomLabel;
+import com.slimtrade.gui.custom.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ICacheImage;
 

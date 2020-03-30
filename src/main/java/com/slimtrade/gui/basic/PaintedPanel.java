@@ -1,6 +1,7 @@
 package com.slimtrade.gui.basic;
 
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -3,8 +3,8 @@ package com.slimtrade.gui.options.toggle;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomCheckbox;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomCheckbox;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
 

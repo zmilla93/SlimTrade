@@ -9,7 +9,7 @@ import com.slimtrade.core.observing.poe.PoeInteractionListener;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.basic.ColorPanel;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.basic.PaintedPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.DefaultIcons;

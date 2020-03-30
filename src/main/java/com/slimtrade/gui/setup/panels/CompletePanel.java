@@ -2,7 +2,7 @@ package com.slimtrade.gui.setup.panels;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 

@@ -1,6 +1,6 @@
 package com.slimtrade.gui.stash;
 
-import com.slimtrade.gui.basic.CustomTextField;
+import com.slimtrade.gui.custom.CustomTextField;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

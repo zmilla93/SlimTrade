@@ -1,7 +1,7 @@
 package com.slimtrade.gui.options.hotkeys;
 
 import com.slimtrade.App;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.general.LabelComponentPanel;
 import com.slimtrade.gui.panels.ContainerPanel;

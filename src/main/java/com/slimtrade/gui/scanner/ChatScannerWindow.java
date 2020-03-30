@@ -10,7 +10,7 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.basic.CustomScrollPane;
+import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.buttons.ToggleButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.enums.CustomIcons;

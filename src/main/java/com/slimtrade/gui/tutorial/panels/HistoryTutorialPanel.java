@@ -1,6 +1,6 @@
 package com.slimtrade.gui.tutorial.panels;
 
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.basic.SectionHeader;
 
 import javax.swing.*;
