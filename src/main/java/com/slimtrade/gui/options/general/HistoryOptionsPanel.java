@@ -1,7 +1,6 @@
-package com.slimtrade.gui.options.basics;
+package com.slimtrade.gui.options.general;
 
 import java.awt.*;
-import java.util.Date;
 
 import javax.swing.*;
 
@@ -11,7 +10,6 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.basic.CustomCombo;
-import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.basic.CustomSpinner;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.OrderType;

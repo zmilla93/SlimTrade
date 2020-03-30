@@ -2,6 +2,7 @@ package com.slimtrade.core.observing;
 
 import com.slimtrade.App;
 import com.slimtrade.core.utility.PoeInterface;
+import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
@@ -9,6 +10,7 @@ import org.jnativehook.keyboard.NativeKeyListener;
 public class GlobalKeyboardListener implements NativeKeyListener {
 
     private HotkeyListener hotkeyListener = null;
+    // Masks for the 5 mouse buttons
     private static final int[] removeMasks = {256, 512, 1024, 2048, 4096};
 
     @Override
@@ -16,7 +18,6 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
         // Remove mouse button modifiers
         e.setModifiers(cleanModifiers(e.getModifiers()));
-
 
         // Ignore modifier keys on their own
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL
@@ -73,7 +74,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         }
 
         // Quick Paste Trade
-        if (checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
+        if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
             PoeInterface.attemptQuickPaste();
         }
 

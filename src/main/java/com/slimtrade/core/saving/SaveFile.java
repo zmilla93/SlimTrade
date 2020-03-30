@@ -5,6 +5,7 @@ import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.observing.HotkeyData;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.DateStyle;
+import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
@@ -23,6 +24,8 @@ public class SaveFile {
     public boolean closeOnKick = false;
     public boolean colorBlindMode = false;
     public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
+    public QuickPasteSetting quickPasteSetting = QuickPasteSetting.DISABLED;
+    public HotkeyData quickPasteHotkey = null;
 
     // History
     public TimeStyle timeStyle = TimeStyle.H12;
@@ -58,7 +61,6 @@ public class SaveFile {
     public HotkeyData hideoutHotkey = null;
     public HotkeyData leavePartyHotkey = null;
     public HotkeyData betrayalHotkey = null;
-    public HotkeyData quickPasteHotkey = null;
 
     // TODO : Should move this to somewhere more logical
     public static int dateDifference(Date d1, Date d2) {

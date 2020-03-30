@@ -26,7 +26,7 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
 
     public ToggleOptionsPanel() {
 
-        info1 = new CustomLabel("Uncheck boxes to disable features.");
+        info1 = new CustomLabel("Check boxes to enable features.");
         incomingLabel = new CustomLabel("Incoming Messages");
         outgoingLabel = new CustomLabel("Outgoing Messages");
         itemHighlighterLabel = new CustomLabel("Item Highlighter");

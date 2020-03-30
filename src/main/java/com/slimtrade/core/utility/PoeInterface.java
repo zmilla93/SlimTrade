@@ -45,6 +45,13 @@ public class PoeInterface extends Robot {
         if (text == null) {
             return;
         }
+        attemptQuickPaste(text);
+    }
+
+    public static void attemptQuickPaste(String text) {
+        if (text == null) {
+            return;
+        }
         boolean valid = false;
         if (text.startsWith("@")) {
             for (String s : wtbTextArray) {
@@ -61,7 +68,12 @@ public class PoeInterface extends Robot {
 
     public static void paste(String s, boolean... send) {
         pasteString = new StringSelection(s);
-        clipboard.setContents(pasteString, null);
+        try {
+            clipboard.setContents(pasteString, null);
+        } catch (IllegalStateException e) {
+            System.out.println("[SlimTrade] Failed to read clipboard, aborting.");
+            return;
+        }
         PoeInterface.focus();
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
@@ -71,7 +83,7 @@ public class PoeInterface extends Robot {
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
-        if (send.length == 0 || send[0] == true) {
+        if (send.length == 0 || send[0]) {
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
         }

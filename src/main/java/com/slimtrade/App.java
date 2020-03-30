@@ -1,5 +1,6 @@
 package com.slimtrade;
 
+import com.slimtrade.core.managers.ClipboardManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.managers.SetupManager;
@@ -14,7 +15,6 @@ import com.slimtrade.core.utility.UpdateChecker;
 import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.components.TrayButton;
 import com.slimtrade.gui.dialogs.LoadingDialog;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.setup.SetupWindow;
@@ -25,7 +25,6 @@ import org.jnativehook.NativeHookException;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -105,10 +104,11 @@ public class App {
         saveManager.loadStashFromDisk();
         saveManager.loadOverlayFromDisk();
 
+        ClipboardManager clipboardManager = new ClipboardManager();
+
         // GUI
         try {
             SwingUtilities.invokeAndWait(() -> {
-                Locale.setDefault(Locale.US);
 
                 //Debug Mode
                 if (debugMode) {
@@ -122,19 +122,19 @@ public class App {
                 SaveManager.recursiveLoad(FrameManager.optionsWindow);
 
                 //TEST
-                App.eventManager.recursiveColor(FrameManager.optionsWindow);
-                FrameManager.optionsWindow.revalidate();
-                FrameManager.optionsWindow.repaint();
-
-                // POE Interface
-                try {
-                    PoeInterface poe = new PoeInterface();
-                } catch (AWTException e) {
-                    e.printStackTrace();
-                }
+//                App.eventManager.recursiveColor(FrameManager.optionsWindow);
+//                FrameManager.optionsWindow.revalidate();
+//                FrameManager.optionsWindow.repaint();
 
             });
         } catch (InterruptedException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        // POE Interface
+        try {
+            PoeInterface poe = new PoeInterface();
+        } catch (AWTException e) {
             e.printStackTrace();
         }
 
@@ -197,10 +197,8 @@ public class App {
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
-        try {
+        if(fileMonitor != null) {
             fileMonitor.stopMonitor();
-        } catch (NullPointerException e) {
-
         }
         System.out.println("SlimTrade Terminated");
     }

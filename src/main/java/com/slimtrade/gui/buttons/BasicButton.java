@@ -76,6 +76,7 @@ public class BasicButton extends JButton implements IColorable {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         final Graphics2D g2 = (Graphics2D) g.create();
         ButtonModel model = getModel();
         //BORDER

@@ -76,7 +76,7 @@ public class ListButton extends JButton implements IColorable {
     }
 
 	protected void paintComponent(Graphics g) {
-		
+		super.paintComponent(g);
 		if(getModel().isPressed()) {
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			g.setColor(ColorManager.BACKGROUND);

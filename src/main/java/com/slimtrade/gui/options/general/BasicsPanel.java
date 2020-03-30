@@ -1,10 +1,11 @@
-package com.slimtrade.gui.options.basics;
+package com.slimtrade.gui.options.general;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.MacroEventManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.ColorTheme;
+import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.CustomCheckbox;
 import com.slimtrade.gui.basic.CustomCombo;
@@ -12,6 +13,7 @@ import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
+import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 import com.slimtrade.gui.stash.LimitTextField;
@@ -28,7 +30,8 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JCheckBox kickCheckbox = new CustomCheckbox();
     private JCheckBox colorBlindCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
-//    private JButton editStashButton = new BasicButton();
+    private CustomCombo<QuickPasteSetting> quickPasteCombo = new CustomCombo<>();
+    private HotkeyInputPane quickPasteHotkeyInput = new HotkeyInputPane();
     private JButton editOverlayButton = new BasicButton();
 
     //Labels
@@ -37,13 +40,17 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     private JLabel kickLabel;
     private JLabel colorBlindLabel;
     private JLabel colorThemeLabel;
+    private JLabel quickPasteLabel;
+    private JLabel quickPasteHotkeyLabel;
 
     public BasicsPanel() {
-        characterLabel = new JLabel("Character Name");
-        guildLabel = new JLabel("Show Guild Name");
-        kickLabel = new JLabel("Close on Kick");
+        characterLabel = new CustomLabel("Character Name");
+        guildLabel = new CustomLabel("Show Guild Name");
+        kickLabel = new CustomLabel("Close on Kick");
         colorBlindLabel = new CustomLabel("Color Blind Mode");
-        colorThemeLabel = new JLabel("Color Theme");
+        colorThemeLabel = new CustomLabel("Color Theme");
+        quickPasteLabel = new CustomLabel("Quick Paste");
+        quickPasteHotkeyLabel = new CustomLabel("Quick Paste Hotkey");
 
         JPanel showGuildContainer = new JPanel(new BorderLayout());
         guildCheckbox.setOpaque(false);
@@ -64,10 +71,21 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         colorThemeContainer.setOpaque(false);
         colorThemeContainer.add(colorThemeCombo, BorderLayout.EAST);
 
+        JPanel quickPasteContainer = new JPanel(new BorderLayout());
+        quickPasteContainer.setOpaque(false);
+        quickPasteContainer.add(quickPasteCombo, BorderLayout.EAST);
+
+        JPanel quickPasteHotkeyContainer = new JPanel(new BorderLayout());
+        quickPasteHotkeyContainer.setOpaque(false);
+        quickPasteHotkeyContainer.add(quickPasteHotkeyInput, BorderLayout.EAST);
+
         editOverlayButton.setText("Edit Overlay Location");
 
         for (ColorTheme theme : ColorTheme.values()) {
             colorThemeCombo.addItem(theme);
+        }
+        for (QuickPasteSetting s : QuickPasteSetting.values()) {
+            quickPasteCombo.addItem(s);
         }
 
         container.setLayout(new GridBagLayout());
@@ -132,7 +150,23 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         gc.gridx = 0;
         gc.gridy++;
 
-        // Edit Buttons
+        // Quick Paste
+        container.add(quickPasteLabel, gc);
+        gc.gridx = 2;
+
+        container.add(quickPasteContainer, gc);
+        gc.gridx = 0;
+        gc.gridy++;
+
+        // Quick Paste Hotkey
+        container.add(quickPasteHotkeyLabel, gc);
+        gc.gridx = 2;
+
+        container.add(quickPasteHotkeyContainer, gc);
+        gc.gridx = 0;
+        gc.gridy++;
+
+        // Edit Overlay Button
         gc.gridwidth = 3;
         gc.insets.bottom = 0;
         container.add(editOverlayButton, gc);
@@ -156,6 +190,21 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
             ColorManager.setTheme(ColorManager.getCurrentColorTheme());
             App.eventManager.updateAllColors(ColorManager.getCurrentColorTheme());
         });
+
+        quickPasteCombo.addActionListener(e -> {
+            updateQuickPasteVis();
+        });
+    }
+
+    private void updateQuickPasteVis() {
+        App.globalKeyboard.clearHotkeyListener();
+        if (quickPasteCombo.getSelectedIndex() >= 0 && quickPasteCombo.getSelectedItem() == QuickPasteSetting.HOTKEY) {
+            quickPasteHotkeyLabel.setVisible(true);
+            quickPasteHotkeyInput.setVisible(true);
+        } else {
+            quickPasteHotkeyLabel.setVisible(false);
+            quickPasteHotkeyInput.setVisible(false);
+        }
     }
 
     @Override
@@ -171,6 +220,8 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         App.saveManager.saveFile.closeOnKick = kickCheckbox.isSelected();
         App.saveManager.saveFile.colorBlindMode = colorBlindCheckbox.isSelected();
         App.saveManager.saveFile.colorTheme = colorTheme;
+        App.saveManager.saveFile.quickPasteSetting = (QuickPasteSetting) quickPasteCombo.getSelectedItem();
+        App.saveManager.saveFile.quickPasteHotkey = quickPasteHotkeyInput.getHotkeyData();
     }
 
     @Override
@@ -190,16 +241,15 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         } else {
             colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
         }
+        quickPasteCombo.setSelectedItem(App.saveManager.saveFile.quickPasteSetting);
+        quickPasteHotkeyInput.updateHotkey(App.saveManager.saveFile.quickPasteHotkey);
+        updateQuickPasteVis();
     }
 
     @Override
     public void updateColor() {
         super.updateColor();
         this.setBackground(ColorManager.BACKGROUND);
-        characterLabel.setForeground(ColorManager.TEXT);
-        guildLabel.setForeground(ColorManager.TEXT);
-        kickLabel.setForeground(ColorManager.TEXT);
-        colorThemeLabel.setForeground(ColorManager.TEXT);
     }
 
 }
