@@ -4,7 +4,6 @@ import com.slimtrade.core.managers.ClipboardManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.managers.SetupManager;
-import com.slimtrade.core.observing.CustomKeyboardListener;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.observing.MacroEventManager;
@@ -42,7 +41,6 @@ public class App {
     public static UpdateChecker updateChecker;
     public static GlobalKeyboardListener globalKeyboard;
     public static GlobalMouseListener globalMouse;
-    public static CustomKeyboardListener customKeyboardListener;
     public static LoadingDialog loadingDialog;
 
     // Flags
@@ -155,11 +153,6 @@ public class App {
         loadingDialog.dispose();
         App.launch();
         System.out.println("SlimTrade launched!");
-
-
-        // TODO : TEST
-        customKeyboardListener = new CustomKeyboardListener();
-
 
     }
 

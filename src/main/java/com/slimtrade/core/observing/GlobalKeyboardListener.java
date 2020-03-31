@@ -24,7 +24,6 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         System.out.println("RAW MOD : " + e.getModifiers());
         e.setModifiers(cleanModifiers(e.getModifiers()));
         System.out.println("CLEAN MOD : " + e.getModifiers());
-        System.out.println("TEST : " + CustomKeyboardListener.isCtrlPressed());
 
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
             ctrlPressed = true;
