@@ -13,12 +13,22 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     // Masks for the 5 mouse buttons
     private static final int[] removeMasks = {256, 512, 1024, 2048, 4096};
 
+    private static volatile boolean ctrlPressed;
+    private static volatile boolean altPressed;
+    private static volatile boolean shiftPressed;
+
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
 
         // Remove mouse button modifiers
+        System.out.println("RAW MOD : " + e.getModifiers());
         e.setModifiers(cleanModifiers(e.getModifiers()));
+        System.out.println("CLEAN MOD : " + e.getModifiers());
+        System.out.println("TEST : " + CustomKeyboardListener.isCtrlPressed());
 
+        if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+            ctrlPressed = true;
+        }
         // Ignore modifier keys on their own
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL
                 || e.getKeyCode() == NativeKeyEvent.VC_ALT
@@ -30,9 +40,6 @@ public class GlobalKeyboardListener implements NativeKeyListener {
                 || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED) {
             return;
         }
-
-        // Print stuff
-//        System.out.println("Key Pressed! : " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " | " + NativeKeyEvent.getModifiersText(e.getModifiers()));
 
         // If a UI element is waiting for hotkey data, return the data and skip the hotkey logic.
         if (hotkeyListener != null) {
@@ -46,28 +53,28 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
         // Remaining
         if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
-            if(App.globalMouse.isGameFocused()) {
+            if (App.globalMouse.isGameFocused()) {
                 PoeInterface.paste("/remaining");
             }
         }
 
         // Hideout
         if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {
-            if(App.globalMouse.isGameFocused()) {
+            if (App.globalMouse.isGameFocused()) {
                 PoeInterface.paste("/hideout");
             }
         }
 
         // Leave Party
         if (checkKey(e, App.saveManager.saveFile.leavePartyHotkey)) {
-            if(App.globalMouse.isGameFocused() && App.saveManager.saveFile.characterName != null && !App.saveManager.saveFile.characterName.equals("")) {
+            if (App.globalMouse.isGameFocused() && App.saveManager.saveFile.characterName != null && !App.saveManager.saveFile.characterName.equals("")) {
                 PoeInterface.paste("/kick " + App.saveManager.saveFile.characterName);
             }
         }
 
         // Betrayal
         if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
-            if(App.globalMouse.isGameFocused()) {
+            if (App.globalMouse.isGameFocused()) {
                 FrameManager.betrayalWindow.toggleShow();
                 FrameManager.betrayalWindow.refreshVisibility();
             }
@@ -82,7 +89,9 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {
-        // Unused
+        if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+            ctrlPressed = false;
+        }
     }
 
     @Override
@@ -113,10 +122,14 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
     // Removes the 5 mouse buttons as modifiers for key events
     public static int cleanModifiers(int mods) {
-        for(int mask : removeMasks) {
-            if((mods & mask) > 0) {
+        for (int mask : removeMasks) {
+            if ((mods & mask) > 0) {
                 mods -= mask;
             }
+        }
+        // Ctrl fix
+        if ((mods & 34) > 0 && !ctrlPressed) {
+            mods -= 2;
         }
         return mods;
     }
