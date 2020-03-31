@@ -180,11 +180,11 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
         generalPanel.setVisible(true);
         generalButton.active = true;
-        this.setPreferredSize(new Dimension(1000, 650));
+        this.setPreferredSize(new Dimension(1000, 720));
 
         this.refresh();
         //TODO : Resize doesn't respect maximum size
-        this.setMinimumSize(new Dimension(500, 400));
+        this.setMinimumSize(new Dimension(500, 550));
         this.setMaximumSize(new Dimension(1600, 900));
         FrameManager.centerFrame(this);
 

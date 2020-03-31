@@ -15,6 +15,11 @@ public class CustomSliderUI extends BasicSliderUI {
     }
 
     @Override
+    public void paintFocus(Graphics g) {
+        return;
+    }
+
+    @Override
     public void paint(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

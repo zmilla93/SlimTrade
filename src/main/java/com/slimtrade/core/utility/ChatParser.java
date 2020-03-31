@@ -1,6 +1,8 @@
 package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
+import com.slimtrade.core.audio.AudioManager;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
@@ -145,6 +147,7 @@ public class ChatParser {
                             for (int i = 0; i < joinAreaMatcher.groupCount(); i++) {
                                 if (joinAreaMatcher.groupCount() > 1) {
                                     FrameManager.messageManager.setPlayerJoinedArea(joinAreaMatcher.group(1));
+                                    AudioManager.play(App.saveManager.saveFile.playerJoinedSound);
                                 }
                             }
                         }

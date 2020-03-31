@@ -241,6 +241,7 @@ public class MessageDialogManager {
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
+                    panel.itemPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                 }
             }
         }

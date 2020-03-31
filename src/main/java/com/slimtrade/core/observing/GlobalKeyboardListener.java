@@ -14,16 +14,12 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     private static final int[] removeMasks = {256, 512, 1024, 2048, 4096};
 
     private static volatile boolean ctrlPressed;
-    private static volatile boolean altPressed;
-    private static volatile boolean shiftPressed;
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
 
         // Remove mouse button modifiers
-        System.out.println("RAW MOD : " + e.getModifiers());
         e.setModifiers(cleanModifiers(e.getModifiers()));
-        System.out.println("CLEAN MOD : " + e.getModifiers());
 
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
             ctrlPressed = true;
@@ -36,9 +32,13 @@ public class GlobalKeyboardListener implements NativeKeyListener {
                 || e.getKeyCode() == NativeKeyEvent.VC_SCROLL_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_CAPS_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_META
-                || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED) {
+                || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED
+                || NativeKeyEvent.getKeyText(e.getKeyCode()).contains("Unknown")) {
             return;
         }
+
+        // Print stuff
+        System.out.println("Key Pressed! : " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " | " + NativeKeyEvent.getModifiersText(e.getModifiers()));
 
         // If a UI element is waiting for hotkey data, return the data and skip the hotkey logic.
         if (hotkeyListener != null) {
