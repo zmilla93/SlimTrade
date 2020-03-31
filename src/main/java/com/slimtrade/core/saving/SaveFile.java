@@ -43,7 +43,7 @@ public class SaveFile {
     public SoundElement incomingMessageSound = new SoundElement(Sound.PING1, 50);
     public SoundElement outgoingMessageSound = new SoundElement(Sound.PING1, 50);
     public SoundElement scannerMessageSound = new SoundElement(Sound.PING2, 50);
-    public SoundElement playerJoinedSound = new SoundElement(Sound.PING2, 50);
+    public SoundElement playerJoinedSound = new SoundElement(Sound.BLIP2, 50);
 //    public SoundElement buttonSound = new SoundElement(Sound.CLICK1, 50);
 
     // Client
