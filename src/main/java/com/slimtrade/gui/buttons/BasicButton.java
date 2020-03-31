@@ -25,6 +25,8 @@ public class BasicButton extends JButton implements IColorable {
     private Border bufferBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
     private Border bufferBorderSlim = BorderFactory.createEmptyBorder(4, 14, 4, 14);
 
+    private boolean forcePress;
+
     // TODO : Secondary Color
 
     public BasicButton() {
@@ -68,7 +70,6 @@ public class BasicButton extends JButton implements IColorable {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
         final Graphics2D g2 = (Graphics2D) g.create();
         ButtonModel model = getModel();
         //BORDER
@@ -85,7 +86,7 @@ public class BasicButton extends JButton implements IColorable {
             this.setBorder(borderDisabled);
         }
         //FILL
-        if (model.isPressed() && model.isRollover()) {
+        if (model.isPressed() && model.isRollover() || forcePress) {
             g2.setPaint(curPrimary);
         } else if (model.isPressed() && !model.isRollover()) {
             g2.setPaint(ColorManager.LOW_CONTRAST_1);
@@ -106,6 +107,10 @@ public class BasicButton extends JButton implements IColorable {
         Border b1 = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_2), BorderFactory.createLineBorder(primaryColor));
         borderRollover = BorderFactory.createCompoundBorder(b1, bufferBorderSlim);
         borderDisabled = BorderFactory.createCompoundBorder(ColorManager.BORDER_LOW_CONTRAST_1, bufferBorder);
+    }
+
+    public void setForcePress(boolean state) {
+        this.forcePress = state;
     }
 
 }

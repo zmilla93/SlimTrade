@@ -93,7 +93,8 @@ public class App {
         logger.setUseParentHandlers(false);
 
         // Setup
-        ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT);
+        SwingUtilities.invokeLater(() -> ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT));
+
         updateChecker = new UpdateChecker();
         globalMouse = new GlobalMouseListener();
         globalKeyboard = new GlobalKeyboardListener();
@@ -120,7 +121,7 @@ public class App {
                 ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
                 eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
                 SaveManager.recursiveLoad(FrameManager.optionsWindow);
-
+                ColorManager.setTheme(ColorManager.getCurrentColorTheme());
                 //TEST
 //                App.eventManager.recursiveColor(FrameManager.optionsWindow);
 //                FrameManager.optionsWindow.revalidate();
@@ -153,6 +154,7 @@ public class App {
         App.launch();
         System.out.println("SlimTrade launched!");
 
+
     }
 
 
@@ -169,9 +171,9 @@ public class App {
                 fileMonitor = new FileMonitor();
                 fileMonitor.startMonitor();
                 chatParser.init();
-                if(App.saveManager.saveFile.enableMenubar) {
+                if (App.saveManager.saveFile.enableMenubar) {
                     FrameManager.menubarToggle.setShow(true);
-                    if(!globalMouse.isGameFocused()) {
+                    if (!globalMouse.isGameFocused()) {
                         FrameManager.menubarToggle.setVisible(false);
                     }
                 }
@@ -197,7 +199,7 @@ public class App {
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
-        if(fileMonitor != null) {
+        if (fileMonitor != null) {
             fileMonitor.stopMonitor();
         }
         System.out.println("SlimTrade Terminated");

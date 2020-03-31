@@ -46,7 +46,7 @@ public class OverlayInfoDialog extends BasicDialog implements IColorable {
     private JPanel sliderPanel;
 
     //TODO : Move this to message panel?
-    private static final int MAX_SIZE = 10;
+    private static final int MAX_SIZE = 8;
 
     public OverlayInfoDialog() {
 

@@ -45,7 +45,7 @@ public class ClipboardManager implements ClipboardOwner{
                     PoeInterface.attemptQuickPaste(contents);
                     new Thread(() -> {
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(250);
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
                         }

@@ -19,7 +19,6 @@ public class StashGridPanel extends JPanel {
 	}
 	
 	protected void paintComponent(Graphics g){
-		super.paintComponent(g);
 //		System.out.println(gridCellCount);
 //		g.dispose();
 		g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.2f));
@@ -37,6 +36,7 @@ public class StashGridPanel extends JPanel {
 		for(int i = 0;i<gridCellCount;i++){
 			g.drawLine(0, (int)(i*gridCellHeight), this.getWidth(), (int)(i*gridCellHeight));
 		}
+		super.paintComponent(g);
 	}
 	
 	public int getGridWidth(){

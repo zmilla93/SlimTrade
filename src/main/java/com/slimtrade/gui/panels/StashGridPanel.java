@@ -30,7 +30,6 @@ public class StashGridPanel extends JPanel{
 	}
 	
 	protected void paintComponent(Graphics g){
-		super.paintComponent(g);
 		g.setColor(lineColor);
 		for(int i = 0;i<=gridCellCount;i++){
 			g.drawLine((int)(i*gridCellWidth), 0, (int)(i*gridCellWidth), height);
@@ -38,6 +37,7 @@ public class StashGridPanel extends JPanel{
 		for(int i = 0;i<=gridCellCount;i++){
 			g.drawLine(0, (int)(i*gridCellHeight), width, (int)(i*gridCellHeight));
 		}
+		super.paintComponent(g);
 	}
 	
 	public void setLineColor(Color color){

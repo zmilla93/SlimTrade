@@ -55,45 +55,41 @@ public class IconButton extends JButton implements IColorable {
 				localButton.getModel().setPressed(false);
 			}
 		});
-
 		updateColor();
 	}
 
-	
-	private void buildButton(Image image, int size){
-		if(cacheImage == null) {
-			cacheImage = DefaultIcons.THUMB;
-		}
-		this.image = image;
-		this.setPreferredSize(new Dimension(size, size));
-		this.setContentAreaFilled(false);
-		this.setFocusable(false);
-		this.setBorder(borderDefault);
+//	private void buildButton(Image image, int size){
+//		if(cacheImage == null) {
+//			cacheImage = DefaultIcons.THUMB;
+//		}
+//		this.image = image;
+//		this.setPreferredSize(new Dimension(size, size));
+//		this.setContentAreaFilled(false);
+//		this.setFocusable(false);
+//		this.setBorder(borderDefault);
+//
+//		bufferedImage = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+//		Graphics2D bGr = bufferedImage.createGraphics();
+//		bGr.drawImage(image, 1, 1, null);
+//		bGr.dispose();
+//		this.setIcon(new ImageIcon(cacheImage.getColorImage(ColorManager.TEXT)));
+////		bufferedImage = colorImage(bufferedImage);
+////		image = bufferedImage;
+//
+////		this.setIcon(new ImageIcon(image));
+//		this.addMouseListener(new MouseAdapter(){
+//			public void mousePressed(MouseEvent e) {
+//				getModel().setPressed(true);
+//			}
+//
+//			public void mouseReleased(MouseEvent e) {
+//				getModel().setPressed(false);
+//			}
+//		});
+//
+////		updateColor();
+//	}
 
-		bufferedImage = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D bGr = bufferedImage.createGraphics();
-		bGr.drawImage(image, 1, 1, null);
-		bGr.dispose();
-		this.setIcon(new ImageIcon(cacheImage.getColorImage(ColorManager.TEXT)));
-//		bufferedImage = colorImage(bufferedImage);
-
-//		image = bufferedImage;
-
-//		this.setIcon(new ImageIcon(image));
-		this.addMouseListener(new MouseAdapter(){
-			public void mousePressed(MouseEvent e) {
-				getModel().setPressed(true);
-			}
-
-			public void mouseReleased(MouseEvent e) {
-				getModel().setPressed(false);
-			}
-		});
-
-//		updateColor();
-	}
-
-	//TODO : Switch to normal background stuff??
 	protected void paintComponent(Graphics g) {
 		if (getModel().isPressed()) {
 			g.setColor(colorPressed);

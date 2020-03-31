@@ -15,6 +15,8 @@ import java.util.Objects;
  */
 
 public enum DefaultIcons implements ICacheImage {
+    ARROW_DOWN("icons/default/arrow-down-outline.png"),
+    ARROW_UP("icons/default/arrow-up-outline.png"),
     CART("icons/default/cartx64.png"),
     CLOSE("icons/default/closex64.png"),
     HOME("icons/default/homex64.png"),

@@ -18,6 +18,7 @@ import com.slimtrade.gui.options.general.GeneralPanel;
 import com.slimtrade.gui.options.general.HistoryOptionsPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
+import com.slimtrade.gui.options.macro.MacroPanel;
 import com.slimtrade.gui.options.macros.IncomingCustomizer;
 import com.slimtrade.gui.options.macros.OutgoingCustomizer;
 import com.slimtrade.gui.options.stash_search.StashSearchPanel;
@@ -86,6 +87,11 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         link(stashButton, stashPanel);
         display.add(stashPanel, gc);
 
+        ListButton macroButton = new ListButton("Trade Macros");
+        MacroPanel macroPanel = new MacroPanel();
+        link(macroButton, macroPanel);
+        display.add(macroPanel, gc);
+
         ListButton incomingButton = new ListButton("Incoming Macros");
         IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
         link(incomingButton, incomingPanel);
@@ -136,6 +142,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         menuPanel.add(generalButton, gc);
         gc.gridy++;
         menuPanel.add(stashButton, gc);
+        gc.gridy++;
+        menuPanel.add(macroButton, gc);
         gc.gridy++;
         menuPanel.add(incomingButton, gc);
         gc.gridy++;

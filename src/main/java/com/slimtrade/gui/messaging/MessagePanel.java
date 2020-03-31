@@ -142,14 +142,16 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
     }
 
     protected void refreshButtons(MessageType type, boolean listeners) {
+        buttonPanelTop.removeAll();
+        buttonPanelBottom.removeAll();
+        customButtonsTop.clear();
+        customButtonsBottom.clear();
         for (Component c : buttonPanelTop.getComponents()) {
-            buttonPanelTop.remove(c);
-            c = null;
+            System.out.println("ASDF: " + c);
         }
-        for (Component c : buttonPanelBottom.getComponents()) {
-            buttonPanelBottom.remove(c);
-            c = null;
-        }
+//        for (Component c : buttonPanelBottom.getComponents()) {
+//            buttonPanelBottom.remove(c);
+//        }
         switch (type) {
             case CHAT_SCANNER:
                 buttonCountTop = 1;

@@ -116,7 +116,7 @@ public class PresetMacroRow extends JPanel implements IColorable{
 			gc.insets.left = 5;
 			textField = new CustomTextField(20);
 		}
-		if(editable.length==0 || editable[0]==false){
+		if(editable.length==0 || !editable[0]){
 			textField.setEditable(false);
 			textField.setOpaque(false);
 			textField.setFocusable(false);
