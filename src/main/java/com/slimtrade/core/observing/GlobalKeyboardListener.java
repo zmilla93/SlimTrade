@@ -1,6 +1,7 @@
 package com.slimtrade.core.observing;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.HotkeyManager;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
@@ -49,6 +50,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         }
 
         // Hotkeys
+        HotkeyManager.processHotkey(e);
 
         // Remaining
         if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {

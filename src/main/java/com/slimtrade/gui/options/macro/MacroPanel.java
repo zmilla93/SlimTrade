@@ -167,6 +167,8 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
                 break;
         }
         messagePanel.resizeFrames(MessageDialogManager.getMessageSize());
+        this.revalidate();
+        this.repaint();
     }
 
     @Override

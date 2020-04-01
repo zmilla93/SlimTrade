@@ -283,4 +283,11 @@ public class MessageDialogManager {
         return new Dimension(DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease);
     }
 
+    public TradeOffer getFirstTrade() {
+        if (wrapperList.size() > 0) {
+            return wrapperList.get(0).getPanel().trade;
+        }
+        return null;
+    }
+
 }
