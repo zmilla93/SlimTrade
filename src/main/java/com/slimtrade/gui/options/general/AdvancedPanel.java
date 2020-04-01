@@ -52,15 +52,12 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
     public void save() {
         if (!App.saveManager.saveFile.clientPath.equals(clientRow.getText())) {
             new Thread(() -> {
-
+                // Save Client Path
                 App.saveManager.saveFile.clientPath = clientRow.getText();
-                App.chatParser.setClientPath(clientRow.getText());
-
                 // Restart file monitor
                 App.fileMonitor.stopMonitor();
                 App.chatParser.init();
                 App.fileMonitor.startMonitor();
-
             }).start();
         }
     }
