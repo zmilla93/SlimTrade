@@ -5,7 +5,6 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.GridBagPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomLabel;
-import com.slimtrade.gui.custom.CustomTextField;
 import com.slimtrade.gui.custom.CustomTextFieldLabel;
 import com.slimtrade.gui.enums.ICacheImage;
 import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
@@ -20,11 +19,11 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
     private String textLMB;
     private String textRMB;
     private boolean addHotkey;
-
     private JPanel innerPanel = new JPanel(new GridBagLayout());
+    public HotkeyInputPane hotkeyInputPane = new HotkeyInputPane();
 
     int col = 20;
-    int colSmall = 12;
+    int colIncrease = 6;
 
     public PresetMacroRow(String text) {
         this.title = text;
@@ -48,7 +47,7 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
 
     public void buildPanel() {
         if (addHotkey) {
-            col = colSmall;
+            col += colIncrease;
         }
         gc.gridwidth = 4;
 //        innerPanel.add(Box.createHorizontalStrut(350), gc);
@@ -82,7 +81,7 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
         gc.gridy = 1;
         if (addHotkey) {
             gc.gridheight = 2;
-            innerPanel.add(new HotkeyInputPane(), gc);
+            innerPanel.add(hotkeyInputPane, gc);
             gc.gridheight = 1;
         }
 

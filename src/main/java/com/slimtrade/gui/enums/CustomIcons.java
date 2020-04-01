@@ -23,6 +23,14 @@ public enum CustomIcons implements ICacheImage {
 	MAIL1("icons/custom/mailx64.png"),
 	WATCH("icons/custom/watchx64.png"),
 	CLOCK("icons/custom/clockx64.png"),
+
+	CART("icons/default/cartx64.png"),  //
+	HOME("icons/default/homex64.png"),  //
+	INVITE("icons/default/invitex48.png"),  //
+	LEAVE("icons/default/leavex64.png"),    //
+	REFRESH("icons/default/refreshx64.png"),    //
+	THUMB("icons/default/thumbx64.png"),    //
+	WARP("icons/default/warpx64.png"),  //
 	;
 	
 	private Image image;
@@ -30,17 +38,18 @@ public enum CustomIcons implements ICacheImage {
 	private int cachedSize = 0;
 	private Color cachedColor;
 	private final String path;
+//	private boolean preCache = 0;
 
 	
 	CustomIcons(String path){
 		this.path = path;
-		getImage(References.DEFAULT_IMAGE_SIZE);
-		getColorImage(ColorManager.TEXT);
+//		getImage(References.DEFAULT_IMAGE_SIZE);
+//		getColorImage(ColorManager.TEXT);
 	}
 
-	public Image getImage(){
-		return this.getImage(References.DEFAULT_IMAGE_SIZE);
-	}
+//	public Image getImage(){
+//		return this.getImage(References.DEFAULT_IMAGE_SIZE);
+//	}
 	
 	public Image getImage(int size){
 		if(image == null || size != cachedSize) {
@@ -52,12 +61,15 @@ public enum CustomIcons implements ICacheImage {
 
 	@Override
 	public Image getColorImage(Color color) {
-
-		if(image == null || References.DEFAULT_IMAGE_SIZE != cachedSize) {
+		if(image == null || References.DEFAULT_IMAGE_SIZE != cachedSize || true) {
 			getImage(References.DEFAULT_IMAGE_SIZE);
+			System.out.println("CACHED IMAGE");
 		}
-
-		if(bufferedImage == null || color != cachedColor) {
+		if(bufferedImage == null || !ColorManager.matchingColors(color, cachedColor)) {
+			System.out.println("buf" + bufferedImage);
+			System.out.println("col" + color + " | " + cachedColor);
+			System.out.println("colcheck" + ColorManager.matchingColors(color, cachedColor));
+			System.out.println("GEN IMAGE");
 			bufferedImage = new BufferedImage(cachedSize, cachedSize, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D bGr = bufferedImage.createGraphics();
 			bGr.drawImage(image, 0, 0, null);
@@ -65,7 +77,6 @@ public enum CustomIcons implements ICacheImage {
 			bufferedImage = colorImage(bufferedImage);
 			cachedColor = color;
 		}
-
 		return bufferedImage;
 	}
 

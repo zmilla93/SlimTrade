@@ -38,7 +38,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         }
 
         // Print stuff
-        System.out.println("Key Pressed! : " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " | " + NativeKeyEvent.getModifiersText(e.getModifiers()));
+//        System.out.println("Key Pressed! : " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " | " + NativeKeyEvent.getModifiersText(e.getModifiers()));
 
         // If a UI element is waiting for hotkey data, return the data and skip the hotkey logic.
         if (hotkeyListener != null) {

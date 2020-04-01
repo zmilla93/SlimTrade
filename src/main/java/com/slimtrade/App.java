@@ -8,6 +8,7 @@ import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.observing.MacroEventManager;
 import com.slimtrade.core.observing.improved.EventManager;
+import com.slimtrade.core.observing.poe.CommandManager;
 import com.slimtrade.core.utility.ChatParser;
 import com.slimtrade.core.utility.FileMonitor;
 import com.slimtrade.core.utility.PoeInterface;
@@ -16,7 +17,10 @@ import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.dialogs.LoadingDialog;
+import com.slimtrade.gui.enums.CustomIcons;
+import com.slimtrade.gui.enums.ICacheImage;
 import com.slimtrade.gui.enums.WindowState;
+import com.slimtrade.gui.options.OptionsWindow;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.windows.UpdateDialog;
 import org.jnativehook.GlobalScreen;
@@ -25,6 +29,7 @@ import org.jnativehook.NativeHookException;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,7 +88,6 @@ public class App {
         //Loading Dialog
         SwingUtilities.invokeLater(() -> {
             loadingDialog = new LoadingDialog();
-            loadingDialog.setAlwaysOnTop(false);
             loadingDialog.setAlwaysOnTop(true);
         });
 
@@ -93,7 +97,11 @@ public class App {
         logger.setUseParentHandlers(false);
 
         // Setup
-        SwingUtilities.invokeLater(() -> ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT));
+        try {
+            SwingUtilities.invokeAndWait(() -> ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT));
+        } catch (InterruptedException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
         updateChecker = new UpdateChecker();
         globalMouse = new GlobalMouseListener();
@@ -110,6 +118,18 @@ public class App {
         // GUI
         try {
             SwingUtilities.invokeAndWait(() -> {
+                for (ICacheImage image : CustomIcons.values()) {
+                    image.getColorImage(ColorManager.TEXT);
+                }
+            });
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            SwingUtilities.invokeAndWait(() -> {
 
                 //Debug Mode
                 if (debugMode) {
@@ -119,7 +139,7 @@ public class App {
 
                 frameManager = new FrameManager();
                 ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
-                eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
+//                eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
                 SaveManager.recursiveLoad(FrameManager.optionsWindow);
                 ColorManager.setTheme(ColorManager.getCurrentColorTheme());
                 //TEST
@@ -145,6 +165,23 @@ public class App {
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
+
+        // TODO : TEST
+        CommandManager commandManager = new CommandManager();
+//        commandManager.runCommand("/tradewith player /kick PurpleCircleMage @{player} awsdf");
+//        commandManager.runCommand("/tradewith player");
+//        commandManager.runCommand("@player wtf");
+//        commandManager.runCommand("abcd");
+//        System.out.println(Arrays.toString(CommandManager.getCommandList("/tradewith player /kick PurpleCircleMage @{player} awsdf", "self", "player", "item", "price")));
+//        System.out.println(Arrays.toString(CommandManager.getCommandList("hello /tradewith player /kick PurpleCircleMage @{player} awsdf", "self", "player", "item", "price")));
+//        System.out.println(Arrays.toString(CommandManager.getCommandList("@{player} wtf", "self", "player", "item", "price")));
+//        System.out.println(Arrays.toString(CommandManager.getCommandList("thanks!", "self", "player", "item", "price")));
+//        System.out.println(Arrays.toString(CommandManager.getCommandList("/kick {player}", "self", "player", "item", "price")));
+//        CommandManager.runCommand(CommandManager.getCommandList("/tradewith {player} /kick {player}"), "PurpleCircleMage", "PurpleCircleMage", "", "");
+        String[] cmds = CommandManager.getCommandList("@{self} hello1 @{self} hello2 @{self} hello3 ");
+        System.out.println("COMMAND LIST : " + Arrays.toString(cmds));
+//        PoeInterface.runCommand(cmds, "PurpleCircleMage", "PurpleCircleMage", "", "");
+
 
         // Finalize
         GlobalScreen.addNativeMouseListener(globalMouse);
@@ -187,8 +224,16 @@ public class App {
                     }
                 }
                 SaveManager.recursiveLoad(FrameManager.optionsWindow);
+                ColorTheme colorTheme = App.saveManager.saveFile.colorTheme;
+                //  Temp fix for icons not loading properly on default theme
+                if (App.saveManager.saveFile.colorTheme == ColorTheme.SOLARIZED_LIGHT) {
+                    App.eventManager.updateAllColors(ColorTheme.MONOKAI);
+                }
+                //
+                App.eventManager.updateAllColors(colorTheme);
             }
         });
+
     }
 
 

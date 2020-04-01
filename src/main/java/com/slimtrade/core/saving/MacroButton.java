@@ -1,5 +1,6 @@
 package com.slimtrade.core.saving;
 
+import com.slimtrade.core.observing.HotkeyData;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
 
@@ -9,12 +10,16 @@ public class MacroButton {
     public String leftMouseResponse;
     public String rightMouseResponse;
     public CustomIcons image;
+    public HotkeyData hotkeyData;
+    public boolean closeOnClick;
 
-    public MacroButton(ButtonRow row, String leftMouseResponse, String rightMouseResponse, CustomIcons image) {
+    public MacroButton(ButtonRow row, String leftMouseResponse, String rightMouseResponse, CustomIcons image, HotkeyData hotkeyData, boolean closeOnClick) {
         this.row = row;
         this.leftMouseResponse = leftMouseResponse;
         this.rightMouseResponse = rightMouseResponse;
         this.image = image;
+        this.hotkeyData = hotkeyData;
+        this.closeOnClick = closeOnClick;
     }
 
     public static boolean doButtonsMatch(MacroButton b1, MacroButton b2) {

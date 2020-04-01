@@ -2,6 +2,8 @@ package com.slimtrade.gui.options.macro;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.saving.MacroButton;
+import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.basic.GridBagPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomCheckbox;
@@ -30,16 +32,21 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
     public JCheckBox closeCheckbox = new CustomCheckbox();
     public HotkeyInputPane hotkeyInput = new HotkeyInputPane();
 
-    public JTextField textLMB = new CustomTextField(20);
-    public JTextField textRMB = new CustomTextField(20);
+    public JTextField textLMB = new CustomTextField(25);
+    public JTextField textRMB = new CustomTextField(25);
 
     private JPanel innerPanel = new JPanel(new GridBagLayout());
+    private ColorTheme cachedColor;
 
     public MacroCustomizerRow() {
         upArrowButton = new IconButton(DefaultIcons.ARROW_UP, rowHeight);
         downArrowButton = new IconButton(DefaultIcons.ARROW_DOWN, rowHeight);
         for (ButtonRow b : ButtonRow.values()) {
             rowCombo.addItem(b);
+        }
+        for (CustomIcons i : CustomIcons.values()) {
+            ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
+            iconCombo.addItem(icon);
         }
         innerPanel.add(upArrowButton, gc);
         gc.gridy++;
@@ -72,24 +79,60 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
         gc.gridheight = 1;
         gc.gridx++;
         innerPanel.add(closeButton, gc);
-
         gc.gridx = 0;
         int i = 1;
         gc.insets = new Insets(i, i, i, i);
         this.add(innerPanel, gc);
 
         closeButton.addActionListener(e -> setVisible(false));
+
+    }
+
+    public MacroCustomizerRow(MacroButton data) {
+        this();
+        this.setMacroData(data);
+    }
+
+    public void setMacroData(MacroButton data) {
+        rowCombo.setSelectedItem(data.row);
+        // TODO : Icon
+        textLMB.setText(data.leftMouseResponse);
+        textRMB.setText(data.rightMouseResponse);
+        hotkeyInput.updateHotkey(data.hotkeyData);
+        closeCheckbox.setSelected(data.closeOnClick);
+        for (int i = 0; i < CustomIcons.values().length; i++) {
+            if (CustomIcons.values()[i] == data.image) {
+                iconCombo.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+
+    public MacroButton getMacroData() {
+        ButtonRow row = (ButtonRow) rowCombo.getSelectedItem();
+        int index = iconCombo.getSelectedIndex();
+        CustomIcons img = CustomIcons.values()[index];
+        return new MacroButton(row, textLMB.getText(), textRMB.getText(), img, hotkeyInput.getHotkeyData(), closeCheckbox.isSelected());
     }
 
     @Override
     public void updateColor() {
+        if(cachedColor == ColorManager.getCurrentColorTheme()) {
+            return;
+        }
+        cachedColor = ColorManager.getCurrentColorTheme();
+        System.out.println("COLOR");
         this.setBackground(ColorManager.BACKGROUND);
         innerPanel.setBackground(ColorManager.BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
+        int sel = iconCombo.getSelectedIndex();
         iconCombo.removeAllItems();
         for (CustomIcons i : CustomIcons.values()) {
             ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
             iconCombo.addItem(icon);
+        }
+        if (sel < iconCombo.getItemCount()) {
+            iconCombo.setSelectedIndex(sel);
         }
     }
 }

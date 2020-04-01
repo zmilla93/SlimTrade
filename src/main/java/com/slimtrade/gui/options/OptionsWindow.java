@@ -7,6 +7,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.custom.CustomLabel;
@@ -43,6 +44,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     private BasicButton checkUpdateButton;
 
     private GeneralPanel generalPanel;
+    public MacroPanel macroPanelIncoming;
+    public MacroPanel macroPanelOutgoing;
 //    private HotkeyPanel hotkeyPanel;
 
     public OptionsWindow() {
@@ -87,17 +90,22 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         link(stashButton, stashPanel);
         display.add(stashPanel, gc);
 
-        ListButton macroButton = new ListButton("Trade Macros");
-        MacroPanel macroPanel = new MacroPanel();
-        link(macroButton, macroPanel);
-        display.add(macroPanel, gc);
+        ListButton macroIncomingButton = new ListButton("Incoming Macros");
+        macroPanelIncoming = new MacroPanel(MessageType.INCOMING_TRADE);
+        link(macroIncomingButton, macroPanelIncoming);
+        display.add(macroPanelIncoming, gc);
 
-        ListButton incomingButton = new ListButton("Incoming Macros");
+        ListButton macroOutgoingButton = new ListButton("Outgoing Macros");
+        macroPanelOutgoing = new MacroPanel(MessageType.OUTGOING_TRADE);
+        link(macroOutgoingButton, macroPanelOutgoing);
+        display.add(macroPanelOutgoing, gc);
+
+        ListButton incomingButton = new ListButton("old in");
         IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
         link(incomingButton, incomingPanel);
         display.add(incomingPanel, gc);
 
-        ListButton outgoingButton = new ListButton("Outgoing Macros");
+        ListButton outgoingButton = new ListButton("old out");
         OutgoingCustomizer outgoingPanel = new OutgoingCustomizer(this);
         link(outgoingButton, outgoingPanel);
         display.add(outgoingPanel, gc);
@@ -143,7 +151,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy++;
         menuPanel.add(stashButton, gc);
         gc.gridy++;
-        menuPanel.add(macroButton, gc);
+        menuPanel.add(macroIncomingButton, gc);
+        gc.gridy++;
+        menuPanel.add(macroOutgoingButton, gc);
         gc.gridy++;
         menuPanel.add(incomingButton, gc);
         gc.gridy++;
@@ -296,7 +306,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     }
 
     public void refresh() {
-
         display.revalidate();
         scrollDisplay.revalidate();
         this.pack();

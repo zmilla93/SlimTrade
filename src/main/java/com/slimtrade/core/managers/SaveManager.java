@@ -20,7 +20,7 @@ public class SaveManager {
     public final String overlaySavePath;
     public final String scannerSavePath;
     public final String saveDirectory;
-    public SaveFile saveFile = new SaveFile();
+    public SaveFile saveFile;
     public StashSaveFile stashSaveFile = new StashSaveFile();
     public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
     public ScannerSaveFile scannerSaveFile = new ScannerSaveFile();

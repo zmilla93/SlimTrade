@@ -119,7 +119,7 @@ public class CustomMacroRow extends RemovablePanel implements IColorable {
     }
 
     public MacroButton getMacroData() {
-        return new MacroButton(getButtonRow(), getTextLMB(), getTextRMB(), getButtonImage());
+        return new MacroButton(getButtonRow(), getTextLMB(), getTextRMB(), getButtonImage(), null, false);
     }
 
     public void setEnabledAll(boolean state) {

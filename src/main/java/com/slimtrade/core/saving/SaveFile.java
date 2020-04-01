@@ -7,8 +7,11 @@ import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.enums.TimeStyle;
+import com.slimtrade.gui.enums.ButtonRow;
+import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
+import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,13 +52,30 @@ public class SaveFile {
     // Client
     public String clientPath = null;
 
-    // Custom Macros
+
     public ArrayList<StashTab> stashTabs = new ArrayList<>();
+    public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
+    // Custom Macros
+    public MacroButton[] incomingMacros = {
+            new MacroButton(ButtonRow.TOP, "Hi, are you still interested in my {item} listed for {price}??", "", CustomIcons.REFRESH, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/invite {player}", "", CustomIcons.INVITE, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/tradewith {player}", "", CustomIcons.CART, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/kick {player}", "", CustomIcons.LEAVE, null, false),
+    };
+    public MacroButton[] outgoingMacros = {
+            new MacroButton(ButtonRow.BOTTOM, "/hideout {player}", "", CustomIcons.WARP, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/kick {self}", "", CustomIcons.LEAVE, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/hideout", "", CustomIcons.HOME, null, false),
+    };
+
+    // Legacy for 0.2.4 and earlier
     public String thankIncomingLMB = "Thanks!", thankIncomingRMB;
     public String thankOutgoingLMB = "Thanks!", thankOutgoingRMB;
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
-    public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
+    // End Legacy
 
     // Hotkeys
     public HotkeyData remainingHotkey = null;

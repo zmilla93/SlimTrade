@@ -138,6 +138,82 @@ public class PoeInterface extends Robot {
         }).start();
     }
 
+    public static void runCommand(String[] commands, String self, String player, String item, String price) {
+        new Thread(() -> {
+//            pasteString = new StringSelection(s);
+//            clipboard.setContents(pasteString, null);
+            focus();
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            PointerType hwnd;
+            byte[] windowText = new byte[512];
+            int i = 0;
+            String curWindowTitle;
+            do {
+                hwnd = User32.INSTANCE.GetForegroundWindow();
+                if (hwnd != null) {
+                    User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+                    curWindowTitle = Native.toString(windowText);
+                    if (curWindowTitle.equals(References.POE_WINDOW_TITLE)) {
+                        break;
+                    } else if (i > 400) {
+                        return;
+                    }
+                } else {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                i++;
+            } while (true);
+            System.out.println("POE Focus Time : " + i);
+            FrameManager.forceAllToTop();
+            for(String cmd : commands) {
+                cmd = cmd.replaceAll("\\{self\\}", self);
+                cmd = cmd.replaceAll("\\{player\\}", player);
+                cmd = cmd.replaceAll("\\{item\\}", item);
+                cmd = cmd.replaceAll("\\{price\\}", price);
+                pasteString = new StringSelection(cmd);
+                int attempt = 1;
+                int MAX_ATTEMPTS = 3;
+                while(attempt <= MAX_ATTEMPTS) {
+                    try {
+                        clipboard.setContents(pasteString, null);
+                        break;
+                    } catch(IllegalStateException e) {
+                        // TODO : LOG
+                        System.out.println("Retrying clipboard...");
+                        if(attempt == MAX_ATTEMPTS) {
+                            System.out.println("Aborting clipboard...");
+                            return;
+                        }
+                    }
+                    attempt++;
+                }
+                robot.keyPress(KeyEvent.VK_ALT);
+                robot.keyRelease(KeyEvent.VK_ALT);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+                robot.keyPress(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     public static void findInStash(String s) {
         focus();
         pasteString = new StringSelection(s);
