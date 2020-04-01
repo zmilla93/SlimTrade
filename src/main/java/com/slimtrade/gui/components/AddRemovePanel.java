@@ -4,12 +4,11 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.options.macros.CustomMacroRow;
+import com.slimtrade.gui.options.macro.MacroCustomizerRow;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class AddRemovePanel extends JPanel implements IColorable {
@@ -82,8 +81,8 @@ public class AddRemovePanel extends JPanel implements IColorable {
 
     public void setEnabledAll(boolean state) {
         for (Component c : this.getComponents()) {
-            if (c instanceof CustomMacroRow) {
-                ((CustomMacroRow) c).setEnabledAll(state);
+            if (c instanceof MacroCustomizerRow) {
+                ((MacroCustomizerRow) c).setEnabledAll(state);
             }
         }
     }

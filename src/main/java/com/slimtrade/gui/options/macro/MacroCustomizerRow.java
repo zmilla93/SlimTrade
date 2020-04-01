@@ -88,6 +88,16 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
 
     }
 
+    public void setEnabledAll(boolean state) {
+        rowCombo.setEnabled(state);
+        iconCombo.setEnabled(state);
+        textLMB.setEnabled(state);
+        textRMB.setEnabled(state);
+        hotkeyInput.setEnabled(state);
+        closeCheckbox.setEnabled(state);
+        closeButton.setEnabled(state);
+    }
+
     public MacroCustomizerRow(MacroButton data) {
         this();
         this.setMacroData(data);

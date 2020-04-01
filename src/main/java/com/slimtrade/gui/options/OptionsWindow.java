@@ -10,18 +10,16 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.custom.CustomLabel;
-import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
+import com.slimtrade.gui.custom.CustomLabel;
+import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.options.general.GeneralPanel;
 import com.slimtrade.gui.options.general.HistoryOptionsPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macro.MacroPanel;
-import com.slimtrade.gui.options.macros.IncomingCustomizer;
-import com.slimtrade.gui.options.macros.OutgoingCustomizer;
 import com.slimtrade.gui.options.stash_search.StashSearchPanel;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.stash.StashTabPanel;
@@ -100,15 +98,15 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         link(macroOutgoingButton, macroPanelOutgoing);
         display.add(macroPanelOutgoing, gc);
 
-        ListButton incomingButton = new ListButton("old in");
-        IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
-        link(incomingButton, incomingPanel);
-        display.add(incomingPanel, gc);
-
-        ListButton outgoingButton = new ListButton("old out");
-        OutgoingCustomizer outgoingPanel = new OutgoingCustomizer(this);
-        link(outgoingButton, outgoingPanel);
-        display.add(outgoingPanel, gc);
+//        ListButton incomingButton = new ListButton("old in");
+//        IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
+//        link(incomingButton, incomingPanel);
+//        display.add(incomingPanel, gc);
+//
+//        ListButton outgoingButton = new ListButton("old out");
+//        OutgoingCustomizer outgoingPanel = new OutgoingCustomizer(this);
+//        link(outgoingButton, outgoingPanel);
+//        display.add(outgoingPanel, gc);
 
         ListButton ignoreButton = new ListButton("Ignore Items");
         ItemIgnorePanel ignorePanel = new ItemIgnorePanel();
@@ -155,10 +153,10 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy++;
         menuPanel.add(macroOutgoingButton, gc);
         gc.gridy++;
-        menuPanel.add(incomingButton, gc);
-        gc.gridy++;
-        menuPanel.add(outgoingButton, gc);
-        gc.gridy++;
+//        menuPanel.add(incomingButton, gc);
+//        gc.gridy++;
+//        menuPanel.add(outgoingButton, gc);
+//        gc.gridy++;
         menuPanel.add(ignoreButton, gc);
         gc.gridy++;
         menuPanel.add(hotKeyButton, gc);

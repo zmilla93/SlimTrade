@@ -21,8 +21,8 @@ public class SearchTermsPanel extends JPanel implements IColorable {
     private JLabel info1 = new CustomLabel("Separate terms using commas, semicolons, or new lines.");
     private JLabel info2 = new CustomLabel("Scanning is case insensitive. Irregular spacing is ignored.");
 
-    public JTextArea searchTermsInput = new CustomTextArea(4, 45);
-    public JTextArea ignoreTermsInput = new CustomTextArea(4, 45);
+    public JTextArea searchTermsInput = new CustomTextArea(2, 45);
+    public JTextArea ignoreTermsInput = new CustomTextArea(2, 45);
 
     public SearchTermsPanel() {
         super(FrameManager.gridBag);

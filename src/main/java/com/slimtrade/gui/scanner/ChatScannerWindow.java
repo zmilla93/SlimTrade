@@ -2,30 +2,23 @@ package com.slimtrade.gui.scanner;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.ComponentResizeAdapter;
-import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.saving.MacroButton;
-import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
-import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.buttons.ToggleButton;
 import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.enums.CustomIcons;
-import com.slimtrade.gui.messaging.MessageDialogManager;
+import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.options.macros.CustomMacroRow;
+import com.slimtrade.gui.options.macro.MacroPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,10 +39,10 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private ContainerPanel containerPanel = new ContainerPanel();
 
     private JScrollPane scrollPane = new CustomScrollPane(borderPanel);
-    private SearchNamePanel namePanel = new SearchNamePanel();
+    private SearchNamePanel searchSelectorPanel = new SearchNamePanel();
 
     private SearchTermsPanel termsPanel = new SearchTermsPanel();
-    private SearchMacroPanel macroPanel = new SearchMacroPanel();
+    private MacroPanel macroPanel = new MacroPanel(MessageType.CHAT_SCANNER);
 
     private ToggleButton searchButton;
     private JComboBox<ScannerMessage> searchCombo;
@@ -62,8 +55,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
     private AddRemovePanel addRemovePanel;
     private JButton addMacroButton;
-    private JTextField thankLeft;
-    private JTextField thankRight;
+//    private JTextField thankLeft;
+//    private JTextField thankRight;
 
     // Internal
     private ScannerMessage selectedMessage;
@@ -86,23 +79,32 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         super("Chat Scanner");
         // Get controls from child panels
         // Macro Panel Controls
-        addRemovePanel = macroPanel.addRemovePanel;
-        addMacroButton = macroPanel.addMacroButton;
-        thankLeft = macroPanel.thankLeft;
-        thankRight = macroPanel.thankRight;
+
+        /**
+         * START
+         */
+
+//        addRemovePanel = macroPanel.addRemovePanel;
+//        addMacroButton = macroPanel.addMacroButton;
+//        thankLeft = macroPanel.thankLeft;
+//        thankRight = macroPanel.thankRight;
 
         // Save Panel Controls
-        searchButton = namePanel.searchButton;
-        searchCombo = namePanel.searchCombo;
-        saveTextField = namePanel.saveTextField;
-        saveButton = namePanel.saveButton;
-        clearButton = namePanel.clearButton;
-        revertButton = namePanel.revertButton;
-        deleteButton = namePanel.deleteButton;
+        searchButton = searchSelectorPanel.searchButton;
+        searchCombo = searchSelectorPanel.searchCombo;
+        saveTextField = searchSelectorPanel.saveTextField;
+        saveButton = searchSelectorPanel.saveButton;
+        clearButton = searchSelectorPanel.clearButton;
+        revertButton = searchSelectorPanel.revertButton;
+        deleteButton = searchSelectorPanel.deleteButton;
 
         // Terms Panel Controls
         searchTermsInput = termsPanel.searchTermsInput;
         ignoreTermsInput = termsPanel.ignoreTermsInput;
+
+        // Macros
+        macroPanel.setVisible(true);
+//        MacroPanel macroPanel = new MacroPanel(MessageType.CHAT_SCANNER);
 
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -110,16 +112,19 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         gc.weightx = 1;
 
         // Full Window
+
+        // Search Selector Panel
         borderPanel.add(containerPanel, gc);
-        refreshTrade();
-        gc.gridy++;
         gc.insets = new Insets(bufferInner, 20, 0, 20);
-        containerPanel.container.add(namePanel, gc);
+        containerPanel.container.add(searchSelectorPanel, gc);
         gc.gridy++;
 
+        // Search Terms Panel
         containerPanel.container.add(termsPanel, gc);
         gc.gridy++;
         gc.insets.bottom = 20;
+
+        // Macro Panel
         containerPanel.container.add(macroPanel, gc);
         gc.gridy = 0;
 
@@ -133,195 +138,199 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         this.setFocusableWindowState(true);
         this.setFocusable(true);
         this.pack();
-        this.setSize(650, 900);
+        this.setSize(750, 900);
         searchTermsInput.setLineWrap(true);
         searchTermsInput.setWrapStyleWord(true);
         FrameManager.centerFrame(this);
         updateColor();
-        refreshWindowState();
+//        refreshWindowState();
 
-        load();
+//        load();
         // Listeners
 
-        saveTextField.getDocument().addDocumentListener(new DocumentUpdateListener() {
-            public void update() {
-                checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
-                refreshWindowState();
-            }
-        });
+//        saveTextField.getDocument().addDocumentListener(new DocumentUpdateListener() {
+//            public void update() {
+//                checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
+//                refreshWindowState();
+//            }
+//        });
+//
+//        searchTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
+//            public void update() {
+//                checkSearchTerms = selectedMessage != null && searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
+//                refreshWindowState();
+//            }
+//        });
+//
+//        ignoreTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
+//            public void update() {
+//                checkIgnoreTerms = selectedMessage != null && ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
+//                refreshWindowState();
+//            }
+//        });
+//
+////        thankLeft.getDocument().addDocumentListener(new DocumentUpdateListener() {
+////            public void update() {
+////                checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
+////                refreshWindowState();
+////            }
+////        });
+////
+////        thankRight.getDocument().addDocumentListener(new DocumentUpdateListener() {
+////            public void update() {
+////                checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
+////                refreshWindowState();
+////            }
+////        });
+//
+//        addRemovePanel.addComponentListener(new ComponentResizeAdapter() {
+//            public void componentResized(ComponentEvent e) {
+//                checkMacros = checkMacros();
+//                refreshWindowState();
+//            }
+//        });
+//
+//        addMacroButton.addActionListener(e -> {
+////            addNewMacro();
+//            refreshListeners();
+//        });
+//
+//        searchCombo.addActionListener(e -> {
+//            if (searchCombo.getSelectedIndex() >= 0) {
+//                loadMessage((ScannerMessage) searchCombo.getSelectedItem());
+//                selectedMessage = (ScannerMessage) searchCombo.getSelectedItem();
+//            } else {
+//                selectedMessage = null;
+//            }
+//            refreshTrade();
+//            refreshListeners();
+//            runAllChecks();
+//            refreshWindowState();
+//        });
+//
+//        searchButton.addActionListener(e -> {
+//            searching = !searching;
+//            searchButton.setState(searching);
+//            if (searching && selectedMessage != null) {
+//                App.chatParser.setSearchName(selectedMessage.name);
+//                App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
+//                App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
+//            }
+//            App.chatParser.setChatScannerRunning(searching);
+//            if (searching) {
+//                saveTextField.setEnabled(false);
+//                searchCombo.setEnabled(false);
+//                saveButton.setEnabled(false);
+//                clearButton.setEnabled(false);
+//                deleteButton.setEnabled(false);
+//                searchTermsInput.setEnabled(false);
+//                ignoreTermsInput.setEnabled(false);
+//                addRemovePanel.setEnabledAll(false);
+//            } else {
+//                saveTextField.setEnabled(true);
+//                searchCombo.setEnabled(true);
+//                saveButton.setEnabled(true);
+//                clearButton.setEnabled(true);
+//                deleteButton.setEnabled(true);
+//                searchTermsInput.setEnabled(true);
+//                ignoreTermsInput.setEnabled(true);
+//                addRemovePanel.setEnabledAll(true);
+//            }
+//            refreshListeners();
+//            refreshWindowState();
+//        });
+//
+//        deleteButton.addActionListener(e -> {
+//            if (searchCombo.getSelectedIndex() >= 0) {
+//                System.out.println("Deleting...");
+//                for (ScannerMessage m : messageList) {
+//                    if (selectedMessage.name.equals(m.name)) {
+//                        messageList.remove(m);
+//                        break;
+//                    }
+//                }
+//                App.saveManager.scannerSaveFile.messages.clear();
+//                App.saveManager.scannerSaveFile.messages.addAll(messageList);
+//                App.saveManager.saveScannerToDisk();
+//                refreshCombo();
+//                clearWindow();
+//                runAllChecks();
+//                refreshWindowState();
+//                System.out.println("Deleted!...");
+//            }
+//        });
+//
+//        revertButton.addActionListener(e -> {
+//            saving = true;
+//            if (searchCombo.getSelectedIndex() < 0) {
+//                return;
+//            }
+//            ScannerMessage msg = (ScannerMessage) searchCombo.getSelectedItem();
+//            loadMessage(msg);
+//            runAllChecks();
+//            refreshWindowState();
+//            refreshListeners();
+//            saving = false;
+//        });
+//
+//        clearButton.addActionListener(e -> {
+//            clearWindow();
+//            runAllChecks();
+//            refreshWindowState();
+//        });
+//
+//        saveButton.addActionListener(e -> {
+//            saving = true;
+//            if (saveTextField.getText().matches("\\s*") || searchTermsInput.getText().matches("\\s*")) {
+//                return;
+//            }
+//            addRemovePanel.clearHiddenPanels();
+//            ArrayList<MacroButton> macros = new ArrayList();
+//            // Get list of macros
+////            for (Component c : addRemovePanel.getComponents()) {
+////                if (c.isVisible() && c instanceof CustomMacroRow) {
+////                    macros.add(((CustomMacroRow) c).getMacroData());
+////                }
+////            }
+//            // Get current scanner window message
+//            ScannerMessage message = new ScannerMessage(saveTextField.getText().trim(), searchTermsInput.getText(), ignoreTermsInput.getText(), "", "", macros);
+//            // Delete old duplicate
+//            for (ScannerMessage m : messageList) {
+//                if (message.name.toLowerCase().equals(m.name.toLowerCase())) {
+//                    messageList.remove(m);
+//                    break;
+//                }
+//            }
+//            messageList.add(message);
+//            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
+//            refreshCombo(message);
+//            loadMessage(message);
+//            refreshWindowState();
+//            refreshListeners();
+//
+//            App.saveManager.scannerSaveFile.messages.clear();
+//            App.saveManager.scannerSaveFile.messages.addAll(messageList);
+//            App.saveManager.saveScannerToDisk();
+//
+//            refreshTrade();
+//
+//            macroPanel.revalidate();
+//            macroPanel.repaint();
+//
+//            saving = false;
+//        });
 
-        searchTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
-            public void update() {
-                checkSearchTerms = selectedMessage != null && searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
-                refreshWindowState();
-            }
-        });
-
-        ignoreTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
-            public void update() {
-                checkIgnoreTerms = selectedMessage != null && ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
-                refreshWindowState();
-            }
-        });
-
-        thankLeft.getDocument().addDocumentListener(new DocumentUpdateListener() {
-            public void update() {
-                checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
-                refreshWindowState();
-            }
-        });
-
-        thankRight.getDocument().addDocumentListener(new DocumentUpdateListener() {
-            public void update() {
-                checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
-                refreshWindowState();
-            }
-        });
-
-        addRemovePanel.addComponentListener(new ComponentResizeAdapter() {
-            public void componentResized(ComponentEvent e) {
-                checkMacros = checkMacros();
-                refreshWindowState();
-            }
-        });
-
-        addMacroButton.addActionListener(e -> {
-            addNewMacro();
-            refreshListeners();
-        });
-
-        searchCombo.addActionListener(e -> {
-            if (searchCombo.getSelectedIndex() >= 0) {
-                loadMessage((ScannerMessage) searchCombo.getSelectedItem());
-                selectedMessage = (ScannerMessage) searchCombo.getSelectedItem();
-            } else {
-                selectedMessage = null;
-            }
-            refreshTrade();
-            refreshListeners();
-            runAllChecks();
-            refreshWindowState();
-        });
-
-        searchButton.addActionListener(e -> {
-            searching = !searching;
-            searchButton.setState(searching);
-            if (searching && selectedMessage != null) {
-                App.chatParser.setSearchName(selectedMessage.name);
-                App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
-                App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
-            }
-            App.chatParser.setChatScannerRunning(searching);
-            if (searching) {
-                saveTextField.setEnabled(false);
-                searchCombo.setEnabled(false);
-                saveButton.setEnabled(false);
-                clearButton.setEnabled(false);
-                deleteButton.setEnabled(false);
-                searchTermsInput.setEnabled(false);
-                ignoreTermsInput.setEnabled(false);
-                addRemovePanel.setEnabledAll(false);
-            } else {
-                saveTextField.setEnabled(true);
-                searchCombo.setEnabled(true);
-                saveButton.setEnabled(true);
-                clearButton.setEnabled(true);
-                deleteButton.setEnabled(true);
-                searchTermsInput.setEnabled(true);
-                ignoreTermsInput.setEnabled(true);
-                addRemovePanel.setEnabledAll(true);
-            }
-            refreshListeners();
-            refreshWindowState();
-        });
-
-        deleteButton.addActionListener(e -> {
-            if (searchCombo.getSelectedIndex() >= 0) {
-                System.out.println("Deleting...");
-                for (ScannerMessage m : messageList) {
-                    if (selectedMessage.name.equals(m.name)) {
-                        messageList.remove(m);
-                        break;
-                    }
-                }
-                App.saveManager.scannerSaveFile.messages.clear();
-                App.saveManager.scannerSaveFile.messages.addAll(messageList);
-                App.saveManager.saveScannerToDisk();
-                refreshCombo();
-                clearWindow();
-                runAllChecks();
-                refreshWindowState();
-                System.out.println("Deleted!...");
-            }
-        });
-
-        revertButton.addActionListener(e -> {
-            saving = true;
-            if (searchCombo.getSelectedIndex() < 0) {
-                return;
-            }
-            ScannerMessage msg = (ScannerMessage) searchCombo.getSelectedItem();
-            loadMessage(msg);
-            runAllChecks();
-            refreshWindowState();
-            refreshListeners();
-            saving = false;
-        });
-
-        clearButton.addActionListener(e -> {
-            clearWindow();
-            runAllChecks();
-            refreshWindowState();
-        });
-
-        saveButton.addActionListener(e -> {
-            saving = true;
-            if (saveTextField.getText().matches("\\s*") || searchTermsInput.getText().matches("\\s*")) {
-                return;
-            }
-            addRemovePanel.clearHiddenPanels();
-            ArrayList<MacroButton> macros = new ArrayList();
-            // Get list of macros
-            for (Component c : addRemovePanel.getComponents()) {
-                if (c.isVisible() && c instanceof CustomMacroRow) {
-                    macros.add(((CustomMacroRow) c).getMacroData());
-                }
-            }
-            // Get current scanner window message
-            ScannerMessage message = new ScannerMessage(saveTextField.getText().trim(), searchTermsInput.getText(), ignoreTermsInput.getText(), thankLeft.getText(), thankRight.getText(), macros);
-            // Delete old duplicate
-            for (ScannerMessage m : messageList) {
-                if (message.name.toLowerCase().equals(m.name.toLowerCase())) {
-                    messageList.remove(m);
-                    break;
-                }
-            }
-            messageList.add(message);
-            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
-            refreshCombo(message);
-            loadMessage(message);
-            refreshWindowState();
-            refreshListeners();
-
-            App.saveManager.scannerSaveFile.messages.clear();
-            App.saveManager.scannerSaveFile.messages.addAll(messageList);
-            App.saveManager.saveScannerToDisk();
-
-            refreshTrade();
-
-            macroPanel.revalidate();
-            macroPanel.repaint();
-
-            saving = false;
-        });
+        /**
+         * END
+         */
     }
 
     private void runAllChecks() {
         checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
         checkSearchTerms = selectedMessage != null && searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
         checkIgnoreTerms = selectedMessage != null && ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
-        checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
-        checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
+//        checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
+//        checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
         checkMacros = checkMacros();
     }
 
@@ -336,15 +345,15 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             saveButton.setEnabled(false);
             searchTermsInput.setEnabled(false);
             ignoreTermsInput.setEnabled(false);
-            thankLeft.setEnabled(false);
-            thankRight.setEnabled(false);
+//            thankLeft.setEnabled(false);
+//            thankRight.setEnabled(false);
             addMacroButton.setEnabled(false);
             searchButton.setEnabled(true);
         } else {
             searchTermsInput.setEnabled(true);
             ignoreTermsInput.setEnabled(true);
-            thankLeft.setEnabled(true);
-            thankRight.setEnabled(true);
+//            thankLeft.setEnabled(true);
+//            thankRight.setEnabled(true);
             addMacroButton.setEnabled(true);
             if (matchingMessage) {
                 deleteButton.setEnabled(true);
@@ -369,8 +378,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             if (!saveTextField.getText().equals("") ||
                     !searchTermsInput.getText().equals("") ||
                     !ignoreTermsInput.getText().equals("") ||
-                    !thankLeft.getText().equals("") ||
-                    !thankRight.getText().equals("") ||
+//                    !thankLeft.getText().equals("") ||
+//                    !thankRight.getText().equals("") ||
                     addRemovePanel.getComponentCount() > 0) {
                 clearButton.setEnabled(true);
             } else {
@@ -385,11 +394,11 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             return false;
         }
         ArrayList<MacroButton> buttons = new ArrayList<>();
-        for (Component c : addRemovePanel.getComponents()) {
-            if (c.isVisible() && c instanceof CustomMacroRow) {
-                buttons.add(((CustomMacroRow) c).getMacroData());
-            }
-        }
+//        for (Component c : addRemovePanel.getComponents()) {
+//            if (c.isVisible() && c instanceof CustomMacroRow) {
+//                buttons.add(((CustomMacroRow) c).getMacroData());
+//            }
+//        }
         if (selectedMessage.macroButtons.size() != buttons.size()) {
             return false;
         }
@@ -461,20 +470,20 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         }
     }
 
-    private CustomMacroRow addNewMacro() {
-        int i = 0;
-        for (Component c : addRemovePanel.getComponents()) {
-            if (c.isVisible()) {
-                i++;
-            }
-        }
-        if (i >= MAX_MACROS) {
-            return null;
-        }
-        CustomMacroRow row = new CustomMacroRow(addRemovePanel);
-        addRemovePanel.addRemoveablePanel(row);
-        return row;
-    }
+//    private CustomMacroRow addNewMacro() {
+////        int i = 0;
+////        for (Component c : addRemovePanel.getComponents()) {
+////            if (c.isVisible()) {
+////                i++;
+////            }
+////        }
+////        if (i >= MAX_MACROS) {
+////            return null;
+////        }
+////        CustomMacroRow row = new CustomMacroRow(addRemovePanel);
+////        addRemovePanel.addRemoveablePanel(row);
+////        return row;
+//    }
 
     private void refreshListeners() {
         // Reset Listeners
@@ -487,34 +496,34 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             }
             docList.clear();
             docListenerList.clear();
-            if (c instanceof CustomMacroRow) {
-                CustomMacroRow row = ((CustomMacroRow) c);
-                MacroButton b = row.getMacroData();
-                if (row.rowCombo.getListeners(ActionListener.class).length < 1) {
-                    ((CustomMacroRow) c).rowCombo.addActionListener(e -> {
-                        checkMacros = checkMacros();
-                        refreshWindowState();
-                    });
-                }
-                if (row.iconCombo.getListeners(ActionListener.class).length < 1) {
-                    ((CustomMacroRow) c).iconCombo.addActionListener(e -> {
-                        checkMacros = checkMacros();
-                        refreshWindowState();
-                    });
-                }
-                row.m1Text.getDocument().addDocumentListener(new DocumentUpdateListener() {
-                    public void update() {
-                        checkMacros = checkMacros();
-                        refreshWindowState();
-                    }
-                });
-                row.m2Text.getDocument().addDocumentListener(new DocumentUpdateListener() {
-                    public void update() {
-                        checkMacros = checkMacros();
-                        refreshWindowState();
-                    }
-                });
-            }
+//            if (c instanceof CustomMacroRow) {
+//                CustomMacroRow row = ((CustomMacroRow) c);
+//                MacroButton b = row.getMacroData();
+//                if (row.rowCombo.getListeners(ActionListener.class).length < 1) {
+//                    ((CustomMacroRow) c).rowCombo.addActionListener(e -> {
+//                        checkMacros = checkMacros();
+//                        refreshWindowState();
+//                    });
+//                }
+//                if (row.iconCombo.getListeners(ActionListener.class).length < 1) {
+//                    ((CustomMacroRow) c).iconCombo.addActionListener(e -> {
+//                        checkMacros = checkMacros();
+//                        refreshWindowState();
+//                    });
+//                }
+//                row.m1Text.getDocument().addDocumentListener(new DocumentUpdateListener() {
+//                    public void update() {
+//                        checkMacros = checkMacros();
+//                        refreshWindowState();
+//                    }
+//                });
+//                row.m2Text.getDocument().addDocumentListener(new DocumentUpdateListener() {
+//                    public void update() {
+//                        checkMacros = checkMacros();
+//                        refreshWindowState();
+//                    }
+//                });
+//            }
         }
     }
 
@@ -522,27 +531,27 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         saveTextField.setText(message.name);
         searchTermsInput.setText(message.searchTermsRaw);
         ignoreTermsInput.setText(message.ignoreTermsRaw);
-        thankLeft.setText(message.thankLeft);
-        thankRight.setText(message.thankRight);
+//        thankLeft.setText(message.thankLeft);
+//        thankRight.setText(message.thankRight);
         addRemovePanel.removeAll();
-        for (MacroButton b : message.macroButtons) {
-            CustomMacroRow row = new CustomMacroRow(addRemovePanel);
-            row.rowCombo.setSelectedItem(b.row);
-            boolean found = false;
-            for(int j = 0; j< CustomIcons.values().length; j++) {
-                if(CustomIcons.values()[j] == b.image) {
-                    row.iconCombo.setSelectedIndex(j);
-                    found = true;
-                    break;
-                }
-            }
-            if (!found && row.iconCombo.getItemCount() > 0) {
-                row.iconCombo.setSelectedIndex(0);
-            }
-            row.setTextLMB(b.leftMouseResponse);
-            row.setTextRMB(b.rightMouseResponse);
-            addRemovePanel.addRemoveablePanel(row);
-        }
+//        for (MacroButton b : message.macroButtons) {
+//            CustomMacroRow row = new CustomMacroRow(addRemovePanel);
+//            row.rowCombo.setSelectedItem(b.row);
+//            boolean found = false;
+//            for(int j = 0; j< CustomIcons.values().length; j++) {
+//                if(CustomIcons.values()[j] == b.image) {
+//                    row.iconCombo.setSelectedIndex(j);
+//                    found = true;
+//                    break;
+//                }
+//            }
+//            if (!found && row.iconCombo.getItemCount() > 0) {
+//                row.iconCombo.setSelectedIndex(0);
+//            }
+//            row.setTextLMB(b.leftMouseResponse);
+//            row.setTextRMB(b.rightMouseResponse);
+//            addRemovePanel.addRemoveablePanel(row);
+//        }
         addRemovePanel.clearHiddenPanels();
     }
 
@@ -552,31 +561,31 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         searchCombo.setSelectedIndex(-1);
         searchTermsInput.setText(null);
         ignoreTermsInput.setText(null);
-        thankLeft.setText(null);
-        thankRight.setText(null);
+//        thankLeft.setText(null);
+//        thankRight.setText(null);
         addRemovePanel.removeAll();
     }
 
-    private void refreshTrade() {
-        if (sampleMessage != null) {
-            containerPanel.container.remove(sampleMessage);
-        }
-        String searchName = "Search Name";
-        if (selectedMessage != null) {
-            searchName = selectedMessage.name;
-        }
-        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text. Lorem ipsum dolor sit amet, novum adipisci at vel, cum hinc iudico expetenda cu.");
-        sampleMessage = new MessagePanel(trade, MessageDialogManager.DEFAULT_SIZE);
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = 0;
-        gc.gridy = 0;
-        gc.insets = new Insets(20, 20, 0, 20);
-        sampleMessage = new MessagePanel(trade, MessageDialogManager.DEFAULT_SIZE, false);
-        sampleMessage.stopTimer();
-        containerPanel.container.add(sampleMessage, gc);
-        this.revalidate();
-        this.repaint();
-    }
+//    private void refreshTrade() {
+//        if (sampleMessage != null) {
+//            containerPanel.container.remove(sampleMessage);
+//        }
+//        String searchName = "Search Name";
+//        if (selectedMessage != null) {
+//            searchName = selectedMessage.name;
+//        }
+//        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text. Lorem ipsum dolor sit amet, novum adipisci at vel, cum hinc iudico expetenda cu.");
+//        sampleMessage = new MessagePanel(trade, MessageDialogManager.DEFAULT_SIZE);
+//        GridBagConstraints gc = new GridBagConstraints();
+//        gc.gridx = 0;
+//        gc.gridy = 0;
+//        gc.insets = new Insets(20, 20, 0, 20);
+//        sampleMessage = new MessagePanel(trade, MessageDialogManager.DEFAULT_SIZE, false);
+//        sampleMessage.stopTimer();
+//        containerPanel.container.add(sampleMessage, gc);
+//        this.revalidate();
+//        this.repaint();
+//    }
 
     @Override
     public void save() {
