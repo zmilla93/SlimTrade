@@ -17,6 +17,7 @@ Steps to reproduce the behavior:
 3. See error
 
 **Setting** 
+SlimTrade Version
 Operation System
 Graphics Card
 Language settings if not English
