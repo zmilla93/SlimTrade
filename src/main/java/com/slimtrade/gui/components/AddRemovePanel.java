@@ -43,6 +43,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
 //            gc.insets.top = spacer;
 //            gc.gridy++;
 //        }
+//        gc.fill = GridBagConstraints.BOTH;gc.fill = GridBagConstraints.BOTH;
         gc.gridy = panelCount;
         gc.insets.top = panelCount > 0 ? spacer : 0;
         this.add(panel, gc);
@@ -124,7 +125,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
 
     @Override
     public void updateColor() {
-        this.setBackground(ColorManager.BACKGROUND);
+        this.setBackground(ColorManager.LOW_CONTRAST_1);
         this.revalidate();
         this.repaint();
     }

@@ -83,7 +83,7 @@ public class MenubarDialog extends BasicDialog {
             public void click(MouseEvent evt) {
                 Random rng = new Random();
                 TradeOffer t = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "IncomingTrader123", "Item Name", 1, "chaos", 60, "sale", 1, 1, "", "");
-                TradeOffer t2 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "HighlightTrader123", "Item Name", 1, "chaos", 60, "sale", 1, 1, "", "");
+                TradeOffer t2 = new TradeOffer("", "", MessageType.INCOMING_TRADE, "<GLD>", "HighlightTrader123", "Item Name", 1, "chaos", 60.5, "sale", 1, 1, "", "");
                 TradeOffer t3 = new TradeOffer("", "", MessageType.OUTGOING_TRADE, "<GLD>", "OutgoingTrader456", "Item Name", 1, "chaos", 5, "STASH_TAB", rng.nextInt(12) + 1, rng.nextInt(12) + 1, "", "");
                 TradeOffer t5 = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ScannerTrader789", "Search Name", "Chat message text. Lorem ipsum dolor sit amet, consectetur adipiscing elit");
                 FrameManager.messageManager.addMessage(t, false);

@@ -1,6 +1,7 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.App;
+import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
@@ -233,7 +234,7 @@ public class MessageDialogManager {
         return MessageDialogManager.wrapperList;
     }
 
-    public void setPlayerJoinedArea(String username) {
+    public void  setPlayerJoinedArea(String username) {
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel panel = (MessagePanel) wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
@@ -243,6 +244,7 @@ public class MessageDialogManager {
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.itemPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.timerPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
+                    AudioManager.play(App.saveManager.saveFile.playerJoinedSound);
                 }
             }
         }

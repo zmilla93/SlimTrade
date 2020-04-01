@@ -93,6 +93,10 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
 
     }
 
+    public HotkeyInputPane getHotkeyInputPane() {
+        return this.hotkeyInputPane;
+    }
+
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);

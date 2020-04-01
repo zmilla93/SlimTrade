@@ -82,9 +82,9 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         }
 
         // Quick Paste Trade
-        if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
-            PoeInterface.attemptQuickPaste();
-        }
+//        if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
+//            PoeInterface.attemptQuickPaste();
+//        }
 
     }
 

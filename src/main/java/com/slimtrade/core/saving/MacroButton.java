@@ -1,5 +1,6 @@
 package com.slimtrade.core.saving;
 
+import com.slimtrade.core.managers.HotkeyManager;
 import com.slimtrade.core.observing.HotkeyData;
 import com.slimtrade.core.observing.poe.CommandManager;
 import com.slimtrade.gui.enums.ButtonRow;
@@ -47,14 +48,14 @@ public class MacroButton {
 
     public String[] getCommandsLeft() {
         if(this.commandsLeft == null) {
-            commandsLeft = CommandManager.getCommandList(leftMouseResponse);
+            commandsLeft = HotkeyManager.getCommandList(leftMouseResponse);
         }
         return commandsLeft;
     }
 
     public String[] getCommandsRight() {
         if(this.commandsRight == null) {
-            commandsRight = CommandManager.getCommandList(rightMouseResponse);
+            commandsRight = HotkeyManager.getCommandList(rightMouseResponse);
         }
         return commandsRight;
     }

@@ -39,6 +39,7 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
     private ColorTheme cachedColor;
 
     public MacroCustomizerRow() {
+        gc.weightx = 1;
         upArrowButton = new IconButton(DefaultIcons.ARROW_UP, rowHeight);
         downArrowButton = new IconButton(DefaultIcons.ARROW_DOWN, rowHeight);
         for (ButtonRow b : ButtonRow.values()) {
@@ -48,9 +49,11 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
             ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
             iconCombo.addItem(icon);
         }
+        gc.anchor = GridBagConstraints.WEST;
         innerPanel.add(upArrowButton, gc);
         gc.gridy++;
         innerPanel.add(downArrowButton, gc);
+        gc.anchor = GridBagConstraints.CENTER;
         gc.insets.left = 5;
         gc.gridx++;
         gc.gridy = 0;
@@ -78,11 +81,18 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
         innerPanel.add(closeCheckbox, gc);
         gc.gridheight = 1;
         gc.gridx++;
+        gc.insets.right = 0;
+        gc.anchor = GridBagConstraints.EAST;
         innerPanel.add(closeButton, gc);
+        gc.anchor = GridBagConstraints.CENTER;
         gc.gridx = 0;
         int i = 1;
         gc.insets = new Insets(i, i, i, i);
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weightx = 1;
         this.add(innerPanel, gc);
+        gc.weightx = 0;
+        gc.fill = GridBagConstraints.NONE;
 
         closeButton.addActionListener(e -> setVisible(false));
 

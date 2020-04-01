@@ -181,13 +181,13 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                         @Override
                         public void click(MouseEvent e) {
                             System.out.println(e.getButton());
-                            if(e.getButton() == MouseEvent.BUTTON1) {
-                                PoeInterface.runCommand(b.getCommandsLeft(), App.saveManager.saveFile.characterName, trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true), (trade.priceCount + trade.priceTypeString));
+                            if (e.getButton() == MouseEvent.BUTTON1) {
+                                PoeInterface.runCommand(b.getCommandsLeft(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true), (trade.priceCount.toString().replace(".0", "") + " " + trade.priceTypeString));
                                 System.out.println(Arrays.toString(b.getCommandsLeft()));
-                            } else if(e.getButton() == MouseEvent.BUTTON3) {
+                            } else if (e.getButton() == MouseEvent.BUTTON3) {
                                 System.out.println(Arrays.toString(b.getCommandsRight()));
                             }
-                            if(b.closeOnClick) {
+                            if (b.closeOnClick) {
                                 FrameManager.messageManager.closeTrade(trade);
                             }
                         }

@@ -121,7 +121,6 @@ public class ChatParser {
                             for (int i = 0; i < joinAreaMatcher.groupCount(); i++) {
                                 if (joinAreaMatcher.groupCount() > 1) {
                                     FrameManager.messageManager.setPlayerJoinedArea(joinAreaMatcher.group(1));
-                                    AudioManager.play(App.saveManager.saveFile.playerJoinedSound);
                                 }
                             }
                         }

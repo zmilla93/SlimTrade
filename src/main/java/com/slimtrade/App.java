@@ -1,9 +1,6 @@
 package com.slimtrade;
 
-import com.slimtrade.core.managers.ClipboardManager;
-import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.managers.SetupManager;
+import com.slimtrade.core.managers.*;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.observing.MacroEventManager;
@@ -178,7 +175,7 @@ public class App {
 //        System.out.println(Arrays.toString(CommandManager.getCommandList("thanks!", "self", "player", "item", "price")));
 //        System.out.println(Arrays.toString(CommandManager.getCommandList("/kick {player}", "self", "player", "item", "price")));
 //        CommandManager.runCommand(CommandManager.getCommandList("/tradewith {player} /kick {player}"), "PurpleCircleMage", "PurpleCircleMage", "", "");
-        String[] cmds = CommandManager.getCommandList("@{self} hello1 @{self} hello2 @{self} hello3 ");
+        String[] cmds = HotkeyManager.getCommandList("@{self} hello1 @{self} hello2 @{self} hello3 ");
         System.out.println("COMMAND LIST : " + Arrays.toString(cmds));
 //        PoeInterface.runCommand(cmds, "PurpleCircleMage", "PurpleCircleMage", "", "");
 

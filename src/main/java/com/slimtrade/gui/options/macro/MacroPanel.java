@@ -37,6 +37,7 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
 
     // Internal
     private MessageType messageType;
+    PresetMacroRow closeMacro = null;
 
     public MacroPanel(MessageType messageType) {
         this.messageType = messageType;
@@ -65,7 +66,6 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         }
 
         // Close Button
-        PresetMacroRow closeMacro = null;
         if (messageType == MessageType.INCOMING_TRADE || messageType == MessageType.OUTGOING_TRADE) {
             closeMacro = new PresetMacroRow(DefaultIcons.CLOSE);
             closeMacro.setLMB("Close Trade");
@@ -157,9 +157,11 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         switch (messageType) {
             case INCOMING_TRADE:
                 App.saveManager.saveFile.incomingMacros = macros;
+                App.saveManager.saveFile.closeIncomingHotkey = closeMacro.hotkeyInputPane.getHotkeyData();
                 break;
             case OUTGOING_TRADE:
                 App.saveManager.saveFile.outgoingMacros = macros;
+                App.saveManager.saveFile.closeOutoingHotkey = closeMacro.hotkeyInputPane.getHotkeyData();
                 break;
             case CHAT_SCANNER:
                 break;
@@ -177,9 +179,11 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         switch (messageType) {
             case INCOMING_TRADE:
                 macros = App.saveManager.saveFile.incomingMacros;
+                closeMacro.hotkeyInputPane.updateHotkey(App.saveManager.saveFile.closeIncomingHotkey);
                 break;
             case OUTGOING_TRADE:
                 macros = App.saveManager.saveFile.outgoingMacros;
+                closeMacro.hotkeyInputPane.updateHotkey(App.saveManager.saveFile.closeOutoingHotkey);
                 break;
             case CHAT_SCANNER:
                 break;

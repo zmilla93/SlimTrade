@@ -1,5 +1,6 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.gui.FrameManager;
 import com.sun.jna.Native;
@@ -138,7 +139,7 @@ public class PoeInterface extends Robot {
         }).start();
     }
 
-    public static void runCommand(String[] commands, String self, String player, String item, String price) {
+    public static void runCommand(String[] commands, String player, String item, String price) {
         new Thread(() -> {
 //            pasteString = new StringSelection(s);
 //            clipboard.setContents(pasteString, null);
@@ -174,7 +175,7 @@ public class PoeInterface extends Robot {
             System.out.println("POE Focus Time : " + i);
             FrameManager.forceAllToTop();
             for(String cmd : commands) {
-                cmd = cmd.replaceAll("\\{self\\}", self);
+                cmd = cmd.replaceAll("\\{self\\}", App.saveManager.saveFile.characterName);
                 cmd = cmd.replaceAll("\\{player\\}", player);
                 cmd = cmd.replaceAll("\\{item\\}", item);
                 cmd = cmd.replaceAll("\\{price\\}", price);
