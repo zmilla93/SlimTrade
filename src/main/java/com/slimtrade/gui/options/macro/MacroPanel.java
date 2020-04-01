@@ -147,7 +147,6 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
     @Override
     public void save() {
         addRemovePanel.clearHiddenPanels();
-        System.out.println("TRE" + SwingUtilities.isEventDispatchThread());
         ArrayList<MacroButton> buttons = new ArrayList<>();
         for (Component c : addRemovePanel.getComponents()) {
             if (c instanceof MacroCustomizerRow) {

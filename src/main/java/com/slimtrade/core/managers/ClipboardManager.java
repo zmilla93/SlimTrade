@@ -21,11 +21,18 @@ public class ClipboardManager implements ClipboardOwner{
         ClipboardOwner owner = this;
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(clipboard.getContents(this), null);
-
+        System.out.println("Clipboard Init");
         clipboard.addFlavorListener(new FlavorListener() {
             @Override
             public void flavorsChanged(FlavorEvent e) {
+                System.out.println("Flavor Changed");
                 if(App.saveManager.saveFile.quickPasteSetting != QuickPasteSetting.AUTOMATIC) {
+                    try {
+                        String contents = (String) clipboard.getData(DataFlavor.stringFlavor);
+                        clipboard.setContents(clipboard.getContents(this), null);
+                    } catch (UnsupportedFlavorException | IOException ex) {
+                        return;
+                    }
                     return;
                 }
                 Transferable t;

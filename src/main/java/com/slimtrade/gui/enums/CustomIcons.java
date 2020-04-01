@@ -63,7 +63,6 @@ public enum CustomIcons implements ICacheImage {
 	public Image getColorImage(Color color) {
 		if(image == null || References.DEFAULT_IMAGE_SIZE != cachedSize || true) {
 			getImage(References.DEFAULT_IMAGE_SIZE);
-			System.out.println("CACHED IMAGE");
 		}
 		if(bufferedImage == null || !ColorManager.matchingColors(color, cachedColor)) {
 			System.out.println("buf" + bufferedImage);
