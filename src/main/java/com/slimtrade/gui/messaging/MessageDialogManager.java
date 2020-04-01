@@ -242,6 +242,7 @@ public class MessageDialogManager {
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.itemPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
+                    panel.timerPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                 }
             }
         }
@@ -276,6 +277,10 @@ public class MessageDialogManager {
 
         }
         this.refreshPanelLocations();
+    }
+
+    public static Dimension getMessageSize() {
+        return new Dimension(DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease);
     }
 
 }

@@ -27,6 +27,9 @@ public class CommandManager {
     public static String[] getCommandList(String text) {
         ArrayList<String> commands = new ArrayList<>();
         StringBuilder builder = new StringBuilder(255);
+        if(text.equals("")) {
+            return new String[0];
+        }
         if (!text.startsWith("/") && !text.startsWith("@")) {
             text = "@{player} " + text;
         }

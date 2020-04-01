@@ -5,8 +5,10 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.ButtonType;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.poe.CommandManager;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.saving.StashTab;
+import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
@@ -24,8 +26,11 @@ import com.slimtrade.gui.stash.helper.StashHelper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
@@ -40,13 +45,13 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
     // private IconButton saveToHistoryButton;
     // private IconButton waitButton;
-    private IconButton refreshButton;
-    private IconButton inviteButton;
-    private IconButton warpButton;
-    private IconButton tradeButton;
-    private IconButton thankButton;
+//    private IconButton refreshButton;
+//    private IconButton inviteButton;
+//    private IconButton warpButton;
+//    private IconButton tradeButton;
+//    private IconButton thankButton;
 
-    private IconButton homeButton;
+//    private IconButton homeButton;
 //    private IconButton replyButton;
 
     private ArrayList<IconButton> customButtonsTop = new ArrayList<IconButton>();
@@ -93,7 +98,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         }
 
         calculateSizes(size);
-        refreshButtons(this.getMessageType(), makeListeners);
+        refreshButtons(makeListeners);
         resizeFrames();
 
         timerPanel.setLayout(new BorderLayout());
@@ -141,241 +146,70 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         totalHeight = messageHeight + (borderSize * 4);
     }
 
-    protected void refreshButtons(MessageType type, boolean listeners) {
+    private void refreshButtons(boolean makeListeners) {
+        // Remove Buttons
         buttonPanelTop.removeAll();
         buttonPanelBottom.removeAll();
-        customButtonsTop.clear();
-        customButtonsBottom.clear();
-        for (Component c : buttonPanelTop.getComponents()) {
-            System.out.println("ASDF: " + c);
-        }
-//        for (Component c : buttonPanelBottom.getComponents()) {
-//            buttonPanelBottom.remove(c);
-//        }
-        switch (type) {
-            case CHAT_SCANNER:
-                buttonCountTop = 1;
-                buttonCountBottom = 5;
-                ArrayList<ScannerMessage> messages = App.saveManager.scannerSaveFile.messages;
-                ArrayList<MacroButton> buttons = new ArrayList<>();
-                for(ScannerMessage m : messages) {
-                    if(m.name.equals(trade.searchName)) {
-                        buttons = m.macroButtons;
-                    }
-                }
-                for (MacroButton macro : buttons) {
-                    CustomIcons img = macro.image;
-                    if(img == null) {
-                        for(CustomIcons c : CustomIcons.values()) {
-                            img = c;
-                            break;
-                        }
-                    }
-                    IconButton button = new IconButton(img, rowHeight);
-                    if (macro.row == ButtonRow.TOP) {
-                        buttonCountTop++;
-                        String lmb = macro.leftMouseResponse;
-                        String rmb = macro.rightMouseResponse;
-                        if (listeners) {
-                            this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
-                        }
-                        customButtonsTop.add(button);
-                    } else if (macro.row == ButtonRow.BOTTOM) {
-                        buttonCountBottom++;
-                        String lmb = macro.leftMouseResponse;
-                        String rmb = macro.rightMouseResponse;
-                        if (listeners) {
-                            this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
-                        }
-                        customButtonsBottom.add(button);
-                    }
-                }
-
-                inviteButton = new IconButton(DefaultIcons.INVITE, rowHeight);
-                warpButton = new IconButton(DefaultIcons.WARP, rowHeight);
-                tradeButton = new IconButton(DefaultIcons.CART, rowHeight);
-                thankButton = new IconButton(DefaultIcons.THUMB, rowHeight);
-                leaveButton = new IconButton(DefaultIcons.LEAVE, rowHeight);
-
-                if (listeners) {
-                    this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
-                    this.registerPoeInteractionButton(warpButton, ButtonType.WARP);
-                    this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
-                    this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
-                    this.registerPoeInteractionButton(leaveButton, ButtonType.LEAVE);
-                }
-                for (IconButton b : customButtonsTop) {
-                    buttonPanelTop.add(b);
-                }
-                for (IconButton b : customButtonsBottom) {
-                    buttonPanelBottom.add(b);
-                }
-                buttonPanelBottom.add(inviteButton);
-                buttonPanelBottom.add(warpButton);
-                buttonPanelBottom.add(tradeButton);
-                buttonPanelBottom.add(thankButton);
-                buttonPanelBottom.add(leaveButton);
-                break;
+        MacroButton[] macros = null;
+        switch (messageType) {
             case INCOMING_TRADE:
-                buttonCountTop = 2;
-                buttonCountBottom = 4;
-                for (MacroButton macro : App.saveManager.saveFile.incomingMacroButtons) {
-                    CustomIcons img = macro.image;
-                    if(img == null) {
-                        for(CustomIcons c : CustomIcons.values()) {
-                            img = c;
-                            break;
-                        }
-                    }
-                    IconButton button = new IconButton(img, rowHeight);
-                    if (macro.row == ButtonRow.TOP) {
-                        buttonCountTop++;
-                        String lmb = macro.leftMouseResponse;
-                        String rmb = macro.rightMouseResponse;
-                        if (listeners) {
-                            this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
-                        }
-                        customButtonsTop.add(button);
-                    } else if (macro.row == ButtonRow.BOTTOM) {
-                        buttonCountBottom++;
-                        String lmb = macro.leftMouseResponse;
-                        String rmb = macro.rightMouseResponse;
-                        if (listeners) {
-                            this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
-                        }
-                        customButtonsBottom.add(button);
-                    }
-                }
-                refreshButton = new IconButton(DefaultIcons.REFRESH, rowHeight);
-                inviteButton = new IconButton(DefaultIcons.INVITE, rowHeight);
-                tradeButton = new IconButton(DefaultIcons.CART, rowHeight);
-                thankButton = new IconButton(DefaultIcons.THUMB, rowHeight);
-                kickButton = new IconButton(DefaultIcons.LEAVE, rowHeight);
-                if (listeners) {
-                    this.registerPoeInteractionButton(refreshButton, ButtonType.REFRESH);
-                    this.registerPoeInteractionButton(inviteButton, ButtonType.INVITE);
-                    this.registerPoeInteractionButton(tradeButton, ButtonType.TRADE);
-                    this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
-                    this.registerPoeInteractionButton(kickButton, ButtonType.KICK);
-                    itemPanel.addMouseListener(new AdvancedMouseAdapter() {
-                        public void click(MouseEvent e) {
-                            if (e.getButton() == MouseEvent.BUTTON1) {
-                                stashHelper.setVisible(true);
-                                FrameManager.stashHelperContainer.pack();
-                            } else if (e.getButton() == MouseEvent.BUTTON3) {
-                                FrameManager.ignoreItemWindow.setItem(trade.itemName);
-                                FrameManager.ignoreItemWindow.pack();
-                                FrameManager.centerFrame(FrameManager.ignoreItemWindow);
-                                App.eventManager.recursiveColor(FrameManager.ignoreItemWindow);
-                                FrameManager.ignoreItemWindow.setVisible(true);
-                            }
-
-                        }
-                    });
-                    inviteButton.addMouseListener(new AdvancedMouseAdapter() {
-                        public void click(MouseEvent e) {
-                            stashHelper.setVisible(true);
-                            FrameManager.stashHelperContainer.pack();
-                        }
-                    });
-                }
-
-                for (IconButton b : customButtonsTop) {
-                    buttonPanelTop.add(b);
-                }
-                for (IconButton b : customButtonsBottom) {
-                    buttonPanelBottom.add(b);
-                }
-                // buttonPanelTop.add(saveToHistoryButton);
-                buttonPanelTop.add(refreshButton);
-
-                buttonPanelBottom.add(inviteButton);
-                buttonPanelBottom.add(tradeButton);
-                buttonPanelBottom.add(thankButton);
-                buttonPanelBottom.add(kickButton);
-
+                macros = App.saveManager.saveFile.incomingMacros;
                 break;
             case OUTGOING_TRADE:
-                buttonCountTop = 2;
-                buttonCountBottom = 4;
-                for (MacroButton macro : App.saveManager.saveFile.outgoingMacroButtons) {
-                    CustomIcons img = macro.image;
-                    if(img == null) {
-                        for(CustomIcons c : CustomIcons.values()) {
-                            img = c;
-                            break;
-                        }
-                    }
-                    IconButton button = new IconButton(img, rowHeight);
-                    if (macro.row == ButtonRow.TOP) {
-                        buttonCountTop++;
-                        String lmb = macro.leftMouseResponse;
-                        String rmb = macro.rightMouseResponse;
-                        if (listeners) {
-                            this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
-                        }
-                        customButtonsTop.add(button);
-                    } else if (macro.row == ButtonRow.BOTTOM) {
-                        buttonCountBottom++;
-                        String lmb = macro.leftMouseResponse;
-                        String rmb = macro.rightMouseResponse;
-                        if (listeners) {
-                            this.registerPoeInteractionButton(button, ButtonType.WHISPER, trade.playerName, lmb, rmb);
-                        }
-                        customButtonsBottom.add(button);
-                    }
-                }
-                refreshButton = new IconButton(DefaultIcons.REFRESH, rowHeight);
-                warpButton = new IconButton(DefaultIcons.WARP, rowHeight);
-                thankButton = new IconButton(DefaultIcons.THUMB, rowHeight);
-                leaveButton = new IconButton(DefaultIcons.LEAVE, rowHeight);
-                homeButton = new IconButton(DefaultIcons.HOME, rowHeight);
-
-                for (IconButton b : customButtonsTop) {
-                    buttonPanelTop.add(b);
-                }
-                for (IconButton b : customButtonsBottom) {
-                    buttonPanelBottom.add(b);
-                }
-
-                buttonPanelTop.add(refreshButton);
-                buttonPanelBottom.add(warpButton);
-                buttonPanelBottom.add(thankButton);
-                buttonPanelBottom.add(leaveButton);
-                buttonPanelBottom.add(homeButton);
-                if (listeners) {
-                    this.registerPoeInteractionButton(refreshButton, ButtonType.REFRESH);
-                    this.registerPoeInteractionButton(warpButton, ButtonType.WARP);
-                    this.registerPoeInteractionButton(thankButton, ButtonType.THANK);
-                    this.registerPoeInteractionButton(leaveButton, ButtonType.LEAVE);
-                    this.registerPoeInteractionButton(homeButton, ButtonType.HIDEOUT);
-                }
+                macros = App.saveManager.saveFile.outgoingMacros;
+                break;
+            case CHAT_SCANNER:
                 break;
             case UNKNOWN:
                 break;
-            default:
-                break;
         }
-        if (listeners) {
-            this.registerPoeInteractionButton(namePanel, ButtonType.NAME_PANEL);
+        // Add New Buttons
+        buttonCountTop = 1;
+        buttonCountBottom = 0;
+        if (macros != null) {
+            for (MacroButton b : macros) {
+                IconButton button = new IconButton(b.image, rowHeight);
+                if (b.row == ButtonRow.TOP) {
+                    buttonPanelTop.add(button);
+                    buttonCountTop++;
+                } else if (b.row == ButtonRow.BOTTOM) {
+                    buttonPanelBottom.add(button);
+                    buttonCountBottom++;
+                }
+                if (makeListeners) {
+                    button.addMouseListener(new AdvancedMouseAdapter() {
+                        @Override
+                        public void click(MouseEvent e) {
+                            System.out.println(e.getButton());
+                            if(e.getButton() == MouseEvent.BUTTON1) {
+                                PoeInterface.runCommand(b.getCommandsLeft(), App.saveManager.saveFile.characterName, trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true), (trade.priceCount + trade.priceTypeString));
+                                System.out.println(Arrays.toString(b.getCommandsLeft()));
+                            } else if(e.getButton() == MouseEvent.BUTTON3) {
+                                System.out.println(Arrays.toString(b.getCommandsRight()));
+                            }
+                            if(b.closeOnClick) {
+                                FrameManager.messageManager.closeTrade(trade);
+                            }
+                        }
+                    });
+                }
+            }
         }
-//        App.eventManager.addColorListener(this);
-        // TODO : update force
+        // Close Button
         this.setCloseButton(rowHeight);
         buttonPanelTop.add(closeButton);
-
     }
 
     public void resizeFrames(Dimension size) {
         calculateSizes(size);
-        refreshButtons(this.getMessageType(), true);
+        refreshButtons(true);
         resizeFrames();
         updateColor();
     }
 
     public void resizeFrames(Dimension size, boolean makeListeners) {
         calculateSizes(size);
-        refreshButtons(this.getMessageType(), makeListeners);
+        refreshButtons(makeListeners);
         resizeFrames();
     }
 
@@ -468,7 +302,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                                 color = stashColor.getBackground();
                                 colorText = stashColor.getForeground();
                             }
-                            if(tab.type == StashTabType.QUAD) {
+                            if (tab.type == StashTabType.QUAD) {
                                 trade.stashType = StashTabType.QUAD;
                             }
                             break;

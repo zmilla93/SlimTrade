@@ -55,8 +55,8 @@ public class AbstractMessagePanel extends ColorPanel {
 	protected IconButton closeButton;
 
 	// Buttons
-	protected IconButton kickButton;
-	protected IconButton leaveButton;
+//	protected IconButton kickButton;
+//	protected IconButton leaveButton;
 
 	// Labels
 //	protected JLabel nameLabel = new JLabel();
@@ -121,16 +121,6 @@ public class AbstractMessagePanel extends ColorPanel {
 		});
 	}
 
-	public JButton getKickLeaveButton() {
-		if (this.getMessageType() == MessageType.INCOMING_TRADE) {
-			return this.kickButton;
-		} else if (this.getMessageType() == MessageType.OUTGOING_TRADE) {
-			return this.leaveButton;
-		} else {
-			return null;
-		}
-	}
-
 	protected void registerPoeInteractionButton(JButton button, ButtonType type, String playerName, String clickLeft, String clickRight) {
 		if (type == ButtonType.WHISPER) {
 			button.addMouseListener(new AdvancedMouseAdapter() {
@@ -162,10 +152,6 @@ public class AbstractMessagePanel extends ColorPanel {
 	}
 
 	protected void resizeFrames() {
-
-	}
-
-	protected void resizeButtons() {
 
 	}
 

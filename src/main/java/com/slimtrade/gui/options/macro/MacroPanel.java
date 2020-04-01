@@ -2,11 +2,9 @@ package com.slimtrade.gui.options.macro;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.SectionHeader;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
@@ -19,8 +17,6 @@ import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MacroPanel extends ContainerPanel implements ISaveable {
@@ -145,7 +141,7 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
     }
 
     public void resizeMessage() {
-        messagePanel.resizeFrames(new Dimension(MessageDialogManager.DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, MessageDialogManager.DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease));
+        messagePanel.resizeFrames(new Dimension(MessageDialogManager.DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, MessageDialogManager.DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease), false);
     }
 
     @Override
@@ -153,8 +149,8 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         addRemovePanel.clearHiddenPanels();
         System.out.println("TRE" + SwingUtilities.isEventDispatchThread());
         ArrayList<MacroButton> buttons = new ArrayList<>();
-        for(Component c : addRemovePanel.getComponents()) {
-            if(c instanceof MacroCustomizerRow) {
+        for (Component c : addRemovePanel.getComponents()) {
+            if (c instanceof MacroCustomizerRow) {
                 buttons.add(((MacroCustomizerRow) c).getMacroData());
             }
         }
@@ -171,7 +167,7 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
             case UNKNOWN:
                 break;
         }
-
+        messagePanel.resizeFrames(MessageDialogManager.getMessageSize());
     }
 
     @Override
@@ -189,9 +185,9 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
             case UNKNOWN:
                 break;
         }
-        if(macros == null) return;
+        if (macros == null) return;
         addRemovePanel.removeAll();
-        for(MacroButton b : macros) {
+        for (MacroButton b : macros) {
             MacroCustomizerRow row = new MacroCustomizerRow(b);
             row.upArrowButton.addActionListener(e1 -> addRemovePanel.shiftUp(row));
             row.downArrowButton.addActionListener(e1 -> addRemovePanel.shiftDown(row));

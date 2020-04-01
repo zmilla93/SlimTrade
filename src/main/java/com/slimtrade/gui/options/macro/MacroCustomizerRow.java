@@ -112,7 +112,7 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
         ButtonRow row = (ButtonRow) rowCombo.getSelectedItem();
         int index = iconCombo.getSelectedIndex();
         CustomIcons img = CustomIcons.values()[index];
-        return new MacroButton(row, textLMB.getText(), textRMB.getText(), img, hotkeyInput.getHotkeyData(), closeCheckbox.isSelected());
+        return new MacroButton(row, textLMB.getText().trim(), textRMB.getText().trim(), img, hotkeyInput.getHotkeyData(), closeCheckbox.isSelected());
     }
 
     @Override
