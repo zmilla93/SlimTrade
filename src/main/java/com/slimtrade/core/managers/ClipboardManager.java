@@ -56,7 +56,12 @@ public class ClipboardManager implements ClipboardOwner{
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
                         }
+                        try {
                         clipboard.setContents(t, owner);
+                        } catch (IllegalStateException e1) {
+                            System.out.println("Clipboard Issue");
+                            e1.printStackTrace();
+                        }
                     }).start();
                 } else {
                     lastMessage = null;

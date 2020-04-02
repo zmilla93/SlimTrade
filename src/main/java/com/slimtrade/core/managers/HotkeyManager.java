@@ -6,7 +6,6 @@ import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
-import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 

@@ -15,19 +15,11 @@ import java.util.Objects;
  */
 
 public enum DefaultIcons implements ICacheImage {
-    ARROW_DOWN("icons/default/arrow-down-outline.png"),
-    ARROW_UP("icons/default/arrow-up-outline.png"),
-    CART("icons/default/cartx64.png"),  //
+    ARROW_DOWN("icons/default/arrow-downx48.png"),
+    ARROW_UP("icons/default/arrow-upx48.png"),
     CLOSE("icons/default/closex64.png"),
-    HOME("icons/default/homex64.png"),  //
-    INVITE("icons/default/invitex48.png"),  //
-    LEAVE("icons/default/leavex64.png"),    //
     PLAY("icons/default/playx64.png"),
-    REFRESH("icons/default/refreshx64.png"),    //
-//    REPLY("icons/custom/replyx48.png"),
     TAG("icons/default/tagx64.png"),
-    THUMB("icons/default/thumbx64.png"),    //
-    WARP("icons/default/warpx64.png"),  //
     ;
 
     private Image image;

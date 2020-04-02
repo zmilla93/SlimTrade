@@ -37,6 +37,12 @@ public class ChatParser {
     private String[] searchTerms;
     private String searchName;
 
+    private final String CONTAINS_ENG_1 = "like to buy";
+    private final String CONTAINS_ENG_2 = "wtb";
+    private final Pattern PAT_ENG_1 = Pattern.compile("((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): (((Hi, )?(I would|I'd) like to buy your|wtb) ([\\d.]+)? ?(.+) (listed for|for my) ([\\d.]+)? ?(.+) in (\\w+( \\w+)?) ?([(]stash tab \\\\?\\\")?((.+)\\\\?\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)");
+    private final Pattern PAT_ENG_2 = Pattern.compile("((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2}))?.*@(To|From) (<.+> )?(.+): (((Hi, )?(I would|I'd) like to buy your|wtb) ([\\d.]+)? ?(.+) (NULL)?(NULL)?(NULL)?in (\\w+( \\w+)?) ?([(]stash tab \\\\?\\\")?((.+)\\\\?\\\")?(; position: left )?(\\d+)?(, top )?(\\d+)?[)]?(.+)?)");
+//    private Matcher matcher;
+
     // TODO : Move path to options
     public void init() {
         Debugger.benchmarkStart();
@@ -56,9 +62,8 @@ public class ChatParser {
         totalLineCount = 0;
         try {
             while ((curLine = bufferedReader.readLine()) != null) {
-                ParserRegex r = validateTradeMessage(curLine);
-                if (curLine.contains("@") && r != null) {
-                    TradeOffer trade = getTradeOffer(curLine, r);
+                if (curLine.contains("@")) {
+                    TradeOffer trade = getTradeOffer(curLine);
                     if (trade != null) {
                         FrameManager.historyWindow.addTrade(trade, false);
                     }
@@ -96,10 +101,10 @@ public class ChatParser {
                 curLineCount++;
                 if (curLineCount > totalLineCount) {
                     totalLineCount++;
-                    ParserRegex r = validateTradeMessage(curLine);
-                    if (curLine.contains("@") && r != null) {
+//                    ParserRegex r = validateTradeMessage(curLine);
+                    if (curLine.contains("@")) {
                         App.debugger.log(curLine);
-                        TradeOffer trade = getTradeOffer(curLine, r);
+                        TradeOffer trade = getTradeOffer(curLine);
                         if (trade != null) {
                             if ((!App.saveManager.saveFile.enableIncomingTrades && trade.messageType == MessageType.INCOMING_TRADE)
                                     || (!App.saveManager.saveFile.enableOutgoingTrades && trade.messageType == MessageType.OUTGOING_TRADE)) {
@@ -143,19 +148,30 @@ public class ChatParser {
         return null;
     }
 
-    private TradeOffer getTradeOffer(String text, ParserRegex p) {
-        if (!text.contains(p.getContains())) {
-            return null;
+    private TradeOffer getTradeOffer(String text) {
+
+//        if (!text.contains(p.getContains())) {
+//            return null;
+//        }
+        Matcher matcher = null;
+        if(text.contains(CONTAINS_ENG_1) || text.contains(CONTAINS_ENG_2)) {
+            matcher = PAT_ENG_1.matcher(text);
+            if(!matcher.matches()) {
+                matcher = PAT_ENG_2.matcher(text);
+            }
+//            TradeOffer tradeOffer =
+        } else if (false) {
+
         }
-        System.out.println("TEST:::" + text.contains(p.getContains()) + " | " + text);
+//        System.out.println("TEST:::" + text.contains(p.getContains()) + " | " + text);
 //        if (text.contains("listed for") || text.contains("for my")) {
 //            tradeMsgMatcher = Pattern.compile(tradeMatchString).matcher(text);
 //        } else {
 //            tradeMsgMatcher = Pattern.compile(unpricedTradeMatchString).matcher(text);
 //        }
-        Matcher matcher = p.getPattern().matcher(text);
+//        Matcher matcher = p.getPattern().matcher(text);
         TradeOffer trade;
-        if (matcher.matches()) {
+        if (matcher != null && matcher.matches()) {
             System.out.println("PARSING : " + text);
             for (int i = 0; i < matcher.groupCount(); i++) {
                 System.out.println("G" + i + "|" + matcher.group(i));

@@ -24,13 +24,13 @@ public enum CustomIcons implements ICacheImage {
 	WATCH("icons/custom/watchx64.png"),
 	CLOCK("icons/custom/clockx64.png"),
 
-	CART("icons/default/cartx64.png"),  //
-	HOME("icons/default/homex64.png"),  //
-	INVITE("icons/default/invitex48.png"),  //
-	LEAVE("icons/default/leavex64.png"),    //
-	REFRESH("icons/default/refreshx64.png"),    //
-	THUMB("icons/default/thumbx64.png"),    //
-	WARP("icons/default/warpx64.png"),  //
+	CART("icons/custom/cartx64.png"),  //
+	HOME("icons/custom/homex64.png"),  //
+	INVITE("icons/custom/invitex48.png"),  //
+	LEAVE("icons/custom/leavex64.png"),    //
+	REFRESH("icons/custom/refreshx64.png"),    //
+	THUMB("icons/custom/thumbx64.png"),    //
+	WARP("icons/custom/warpx64.png"),  //
 	;
 	
 	private Image image;
