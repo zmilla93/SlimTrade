@@ -21,10 +21,10 @@ public class TradeOffer {
     public String priceTypeString;
     public Double priceQuantity = 0.0;
     public String stashtabName;
-    public int stashtabX;
-    public int stashtabY;
+    public int stashtabX = 0;
+    public int stashtabY = 0;
     public String bonusText;
-    public String sentMessage;
+    public String sentMessage = "";
 
     public POEImage priceType;
     public StashTabType stashType = StashTabType.NORMAL;

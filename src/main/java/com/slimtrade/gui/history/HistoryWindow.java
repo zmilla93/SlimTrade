@@ -134,7 +134,6 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 	}
 
 	public void setTimeStyle(TimeStyle style) {
-		System.out.println("TET" + SwingUtilities.isEventDispatchThread());
 		HistoryWindow.timeStyle = style;
 		incomingPanel.updateTime();
 		outgoingPanel.updateTime();

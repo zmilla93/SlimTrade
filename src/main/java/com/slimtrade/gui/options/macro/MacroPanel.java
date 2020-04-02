@@ -2,6 +2,7 @@ package com.slimtrade.gui.options.macro;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
@@ -13,16 +14,17 @@ import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.ISaveable;
+import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MacroPanel extends ContainerPanel implements ISaveable {
+public class MacroPanel extends ContainerPanel implements ISaveable, IColorable {
 
     // Info
-    private JLabel info1 = new CustomLabel("Send whispers or commands using {player}, {self}, {item}, and {price} as variables.", false);
+    private JLabel info1 = new CustomLabel("Run one or more commands using {player}, {self}, {item}, {price}, {resend}.", false);
     private JLabel info2 = new CustomLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey.", false);
     private JLabel info3 = new CustomLabel("Plain messages have @{player} added automatically. Check the box to close trade.", false);
 //    private JLabel info4 = new CustomLabel("");
@@ -37,7 +39,8 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
 
     // Internal
     private MessageType messageType;
-    PresetMacroRow closeMacro = null;
+    private PresetMacroRow closeMacro = null;
+    private HotkeyInputPane hotkeyInputPane;
 
     public MacroPanel(MessageType messageType) {
         this.messageType = messageType;
@@ -66,18 +69,16 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         }
 
         // Close Button
-        if (messageType == MessageType.INCOMING_TRADE || messageType == MessageType.OUTGOING_TRADE) {
-            closeMacro = new PresetMacroRow(DefaultIcons.CLOSE);
-            closeMacro.setLMB("Close Trade");
-            if (messageType == MessageType.INCOMING_TRADE) {
-                closeMacro.setRMB("Close Trade + All similar incoming trades");
-            } else {
-                closeMacro.setRMB("Keep Trade + Close all other outgoing trades");
-            }
-            closeMacro.setAddHotkey(true);
-            closeMacro.buildPanel();
+        closeMacro = new PresetMacroRow(DefaultIcons.CLOSE);
+        closeMacro.setLMB("Close Trade");
+        if (messageType == MessageType.INCOMING_TRADE) {
+            closeMacro.setRMB("Close Trade + All similar incoming trades");
+        } else if (messageType == MessageType.OUTGOING_TRADE) {
+            closeMacro.setRMB("Keep Trade + Close all other outgoing trades");
+        } else if (messageType == MessageType.CHAT_SCANNER) {
+            closeMacro.setRMB("Keep Message + Close all other scanner messages");
         }
-
+        closeMacro.buildPanel();
 
         gc.gridy++;
         container.add(tradeHeader, gc);
@@ -89,16 +90,14 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
 
         container.add(new SectionHeader("Preset Macros"), gc);
         gc.gridy++;
-        container.add(usernameMacro, gc);
-        gc.gridy++;
         if (messageType == MessageType.INCOMING_TRADE) {
             container.add(itemMacro, gc);
             gc.gridy++;
         }
-        if (messageType == MessageType.INCOMING_TRADE || messageType == MessageType.OUTGOING_TRADE) {
-            container.add(closeMacro, gc);
-            gc.gridy++;
-        }
+        container.add(usernameMacro, gc);
+        gc.gridy++;
+        container.add(closeMacro, gc);
+        gc.gridy++;
 
         container.add(new SectionHeader("Custom Macros"), gc);
         gc.gridy++;
@@ -117,8 +116,6 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         container.add(addRemovePanel, gc);
 
         TradeOffer t = new TradeOffer("", "", messageType, "<GLD>", "ExampleUser123", "Item Name", 1, "chaos", 60, "sale", 1, 1, "", "");
-//        MessagePanel msg = new MessagePanel(t, MessageDialogManager.DEFAULT_SIZE, false);
-//        msg.stopTimer();
         setExampleMessage(t);
 
         addButton.addActionListener(e -> {
@@ -129,7 +126,6 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
             row.upArrowButton.addActionListener(e1 -> addRemovePanel.shiftUp(row));
             row.downArrowButton.addActionListener(e1 -> addRemovePanel.shiftDown(row));
         });
-
     }
 
     public void setExampleMessage(TradeOffer trade) {
@@ -138,11 +134,10 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         messagePanel = p;
         messageWrapper.removeAll();
         messageWrapper.add(p, new GridBagConstraints());
-//        resizeMessage();
     }
 
     public void resizeMessage() {
-        messagePanel.resizeFrames(new Dimension(MessageDialogManager.DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, MessageDialogManager.DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease), false);
+        messagePanel.resizeFrames(MessageDialogManager.getMessageSize(), false);
     }
 
     @Override
@@ -158,11 +153,9 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         switch (messageType) {
             case INCOMING_TRADE:
                 App.saveManager.saveFile.incomingMacros = macros;
-                App.saveManager.saveFile.closeIncomingHotkey = closeMacro.hotkeyInputPane.getHotkeyData();
                 break;
             case OUTGOING_TRADE:
                 App.saveManager.saveFile.outgoingMacros = macros;
-                App.saveManager.saveFile.closeOutoingHotkey = closeMacro.hotkeyInputPane.getHotkeyData();
                 break;
             case CHAT_SCANNER:
                 break;
@@ -180,11 +173,9 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         switch (messageType) {
             case INCOMING_TRADE:
                 macros = App.saveManager.saveFile.incomingMacros;
-                closeMacro.hotkeyInputPane.updateHotkey(App.saveManager.saveFile.closeIncomingHotkey);
                 break;
             case OUTGOING_TRADE:
                 macros = App.saveManager.saveFile.outgoingMacros;
-                closeMacro.hotkeyInputPane.updateHotkey(App.saveManager.saveFile.closeOutoingHotkey);
                 break;
             case CHAT_SCANNER:
                 break;
@@ -203,4 +194,8 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         this.repaint();
     }
 
+    @Override
+    public void updateColor() {
+        super.updateColor();
+    }
 }

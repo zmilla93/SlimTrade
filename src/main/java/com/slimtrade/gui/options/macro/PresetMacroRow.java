@@ -20,7 +20,7 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
     private String textRMB;
     private boolean addHotkey;
     private JPanel innerPanel = new JPanel(new GridBagLayout());
-    public HotkeyInputPane hotkeyInputPane = new HotkeyInputPane();
+    public HotkeyInputPane hotkeyInputPane;
 
     int col = 20;
     int colIncrease = 6;
@@ -41,12 +41,12 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
         this.textRMB = text;
     }
 
-    public void setAddHotkey(boolean state) {
-        addHotkey = state;
-    }
+//    public void addHotkey(HotkeyInputPane hotkeyInputPane) {
+//        this.hotkeyInputPane = hotkeyInputPane;
+//    }
 
     public void buildPanel() {
-        if (addHotkey) {
+        if (hotkeyInputPane != null) {
             col += colIncrease;
         }
         gc.gridwidth = 4;
@@ -64,7 +64,7 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
         innerPanel.add(new CustomLabel(MacroCustomizerRow.LEFT_CLICK_TEXT), gc);
         gc.gridx++;
         gc.fill = GridBagConstraints.BOTH;
-        CustomTextFieldLabel textFieldLMB = new CustomTextFieldLabel(col);
+        JLabel textFieldLMB = new CustomLabel(false);
         textFieldLMB.setText(textLMB);
         innerPanel.add(textFieldLMB, gc);
         if (textRMB != null) {
@@ -72,14 +72,14 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
             gc.gridy++;
             innerPanel.add(new CustomLabel(MacroCustomizerRow.RIGHT_CLICK_TEXT), gc);
             gc.gridx++;
-            CustomTextFieldLabel textFieldRMB = new CustomTextFieldLabel(col);
+            JLabel textFieldRMB = new CustomLabel(false);
             textFieldRMB.setText(textRMB);
             innerPanel.add(textFieldRMB, gc);
         }
         gc.fill = GridBagConstraints.NONE;
         gc.gridx++;
         gc.gridy = 1;
-        if (addHotkey) {
+        if (hotkeyInputPane != null) {
             gc.gridheight = 2;
             innerPanel.add(hotkeyInputPane, gc);
             gc.gridheight = 1;
@@ -90,11 +90,6 @@ public class PresetMacroRow extends GridBagPanel implements IColorable {
         int i = 1;
         gc.insets = new Insets(i, i, i, i);
         this.add(innerPanel, gc);
-
-    }
-
-    public HotkeyInputPane getHotkeyInputPane() {
-        return this.hotkeyInputPane;
     }
 
     @Override

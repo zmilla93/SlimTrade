@@ -22,7 +22,6 @@ public class ClipboardManager implements ClipboardOwner{
         ClipboardOwner owner = this;
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(clipboard.getContents(this), null);
-        System.out.println("Clipboard Init");
         clipboard.addFlavorListener(new FlavorListener() {
             @Override
             public void flavorsChanged(FlavorEvent e) {

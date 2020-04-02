@@ -77,9 +77,9 @@ public class SaveFile {
     // End Legacy
 
     // Hotkeys
-    public HotkeyData closeIncomingHotkey = null;
-    public HotkeyData closeOutoingHotkey = null;
-    public HotkeyData closeScannerHotkey = null;
+    public HotkeyData closeTradeHotkey = null;
+//    public HotkeyData closeIncomingHotkey = null;
+//    public HotkeyData closeOutoingHotkey = null;
     public HotkeyData remainingHotkey = null;
     public HotkeyData hideoutHotkey = null;
     public HotkeyData leavePartyHotkey = null;

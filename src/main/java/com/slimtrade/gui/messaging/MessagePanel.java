@@ -169,7 +169,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 public void click(MouseEvent e) {
                     if (e.getButton() == MouseEvent.BUTTON1) {
 //                        PoeInterface.runCommand(new String[]{"/whois {player}"}, trade.playerName, "", "");
-                        PoeInterface.runCommand(new String[]{"/whois {player}"}, trade.playerName, "", "");
+                        PoeInterface.runCommand(new String[]{"/whois {player}"}, trade.playerName, "", "", "");
                     } else if (e.getButton() == MouseEvent.BUTTON3) {
                         PoeInterface.paste("@" + trade.playerName + " ", false);
 //                        PoeInterface.runCommand("", trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString));
@@ -211,11 +211,10 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                     button.addMouseListener(new AdvancedMouseAdapter() {
                         @Override
                         public void click(MouseEvent e) {
-                            System.out.println(e.getButton());
                             if (e.getButton() == MouseEvent.BUTTON1) {
-                                PoeInterface.runCommand(b.getCommandsLeft(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString));
+                                PoeInterface.runCommand(b.getCommandsLeft(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString), trade.sentMessage);
                             } else if (e.getButton() == MouseEvent.BUTTON3) {
-                                PoeInterface.runCommand(b.getCommandsRight(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString));
+                                PoeInterface.runCommand(b.getCommandsRight(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString), trade.sentMessage);
                             }
                             if (b.closeOnClick) {
                                 FrameManager.messageManager.closeTrade(trade);

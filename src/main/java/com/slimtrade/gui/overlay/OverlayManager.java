@@ -138,6 +138,8 @@ public class OverlayManager implements ISaveable, IColorable {
                 FrameManager.messageManager.setExpandDirection((ExpandDirection) messageCombo.getSelectedItem());
                 FrameManager.messageManager.refreshPanelLocations();
                 FrameManager.optionsWindow.macroPanelIncoming.resizeMessage();
+                FrameManager.optionsWindow.macroPanelOutgoing.resizeMessage();
+                FrameManager.chatScannerWindow.resizeMessage();
 
                 hideAll();
                 FrameManager.showVisibleFrames();

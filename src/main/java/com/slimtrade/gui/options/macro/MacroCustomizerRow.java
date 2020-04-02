@@ -30,7 +30,9 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
     public JComboBox<ButtonRow> rowCombo = new CustomCombo<>();
     public JComboBox<ImageIcon> iconCombo = new CustomCombo<>();
     public JCheckBox closeCheckbox = new CustomCheckbox();
-    public HotkeyInputPane hotkeyInput = new HotkeyInputPane();
+    public HotkeyInputPane hotkeyInput = new HotkeyInputPane(){
+
+    };
 
     public JTextField textLMB = new CustomTextField(25);
     public JTextField textRMB = new CustomTextField(25);

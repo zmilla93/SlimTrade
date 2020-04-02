@@ -92,7 +92,6 @@ public class AddRemovePanel extends JPanel implements IColorable {
         int i = panels.indexOf(panel);
         if (i > 0) {
             Collections.swap(panels, i, i - 1);
-            System.out.println("SHIFT UP");
         }
         this.removeAll();
         gc.gridy = 0;

@@ -15,6 +15,7 @@ import com.slimtrade.gui.custom.CustomCombo;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.custom.CustomSlider;
 import com.slimtrade.gui.enums.ExpandDirection;
+import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.general.LabelComponentPanel;
 
@@ -109,7 +110,7 @@ public class OverlayInfoDialog extends BasicDialog implements IColorable {
         messageWrapper.setPreferredSize(new Dimension(400 + 8 + MAX_SIZE * 2, 40 + 8 + MAX_SIZE * 2));
         messageWrapper.setMinimumSize(new Dimension(400 + 8 + MAX_SIZE * 2, 40 + 8 + MAX_SIZE * 2));
         TradeOffer trade = new TradeOffer("", "", MessageType.INCOMING_TRADE, null, "BuyerUsername", "Example Item", 1, "chaos", 20, "STASH_TAB", 0, 0, "", "");
-        MessagePanel messagePanel = new MessagePanel(trade, new Dimension(400 + App.saveManager.overlaySaveFile.messageSizeIncrease, 40 + App.saveManager.overlaySaveFile.messageSizeIncrease), false);
+        MessagePanel messagePanel = new MessagePanel(trade, MessageDialogManager.getMessageSize(), false);
 //        messagePanel.setSize(new Dimension(MessageDialogManager.DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, MessageDialogManager.DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease));
         messagePanel.stopTimer();
         messageWrapper.add(messagePanel);

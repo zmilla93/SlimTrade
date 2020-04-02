@@ -54,7 +54,13 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private SearchNamePanel searchSelectorPanel = new SearchNamePanel();
 
     private SearchTermsPanel termsPanel = new SearchTermsPanel();
-    private MacroPanel macroPanel = new MacroPanel(MessageType.CHAT_SCANNER);
+    private MacroPanel macroPanel = new MacroPanel(MessageType.CHAT_SCANNER){
+        @Override
+        public void updateColor() {
+            super.updateColor();
+            this.setBackground(ColorManager.BACKGROUND);
+        }
+    };
 
     private ToggleButton searchButton;
     private JComboBox<ScannerMessage> searchCombo;
@@ -377,7 +383,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             }
         }
         if (selectedMessage.macroButtons.length != buttons.size()) {
-            System.out.println("RET FALSE");
             return false;
         }
         int i = 0;
@@ -490,6 +495,10 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         trade.searchName = searchName;
         trade.searchMessage = "Example chat message. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
         macroPanel.setExampleMessage(trade);
+    }
+
+    public void resizeMessage(){
+        macroPanel.resizeMessage();
     }
 
     private void loadMessage(ScannerMessage message) {

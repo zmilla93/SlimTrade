@@ -7,6 +7,7 @@ import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.scanner.ScannerMessage;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.util.ArrayList;
@@ -14,12 +15,14 @@ import java.util.ArrayList;
 public class HotkeyManager {
 
     public static void processHotkey(NativeKeyEvent e) {
-        if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
-            PoeInterface.runCommand(new String[]{"/remaining"}, "", "", "");
+        if(checkKey(e, App.saveManager.saveFile.closeTradeHotkey)) {
+            FrameManager.messageManager.closeTrade(FrameManager.messageManager.getFirstTrade());
+        } else if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
+            PoeInterface.runCommand(new String[]{"/remaining"}, "", "", "", "");
         } else if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {
-            PoeInterface.runCommand(new String[]{"/hideout"}, "", "", "");
+            PoeInterface.runCommand(new String[]{"/hideout"}, "", "", "", "");
         } else if (checkKey(e, App.saveManager.saveFile.leavePartyHotkey)) {
-            PoeInterface.runCommand(new String[]{"/kick {self}"}, "", "", "");
+            PoeInterface.runCommand(new String[]{"/kick {self}"}, "", "", "", "");
         } else if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
             FrameManager.betrayalWindow.toggleShow();
             FrameManager.betrayalWindow.refreshVisibility();
@@ -33,13 +36,17 @@ public class HotkeyManager {
                 switch (firstTrade.messageType) {
                     case INCOMING_TRADE:
                         macros = App.saveManager.saveFile.incomingMacros;
-                        closeMacro = App.saveManager.saveFile.closeIncomingHotkey;
                         break;
                     case OUTGOING_TRADE:
                         macros = App.saveManager.saveFile.outgoingMacros;
-                        closeMacro = App.saveManager.saveFile.closeOutoingHotkey;
                         break;
                     case CHAT_SCANNER:
+                        for(ScannerMessage msg : App.saveManager.scannerSaveFile.messages) {
+                            if(firstTrade.searchName == msg.name) {
+                                macros = msg.macroButtons;
+                                break;
+                            }
+                        }
                         break;
                     case UNKNOWN:
                         break;
@@ -50,16 +57,11 @@ public class HotkeyManager {
                     for (MacroButton b : macros) {
                         if (b.hotkeyData != null && e.getKeyCode() == b.hotkeyData.keyCode) {
                             //TODO : RUN
-                            PoeInterface.runCommand(b.getCommandsLeft(), firstTrade.playerName, TradeUtility.getFixedItemName(firstTrade.itemName, firstTrade.itemQuantity, true), firstTrade.priceQuantity + " " + firstTrade.priceTypeString);
+                            PoeInterface.runCommand(b.getCommandsLeft(), firstTrade.playerName, TradeUtility.getFixedItemName(firstTrade.itemName, firstTrade.itemQuantity, true), firstTrade.priceQuantity + " " + firstTrade.priceTypeString, firstTrade.sentMessage);
                             if (b.closeOnClick) {
                                 FrameManager.messageManager.closeTrade(firstTrade);
                             }
                         }
-                    }
-
-                    // Close Button
-                    if(closeMacro != null && e.getKeyCode() == closeMacro.keyCode) {
-                        FrameManager.messageManager.closeTrade(firstTrade);
                     }
                 }
             }

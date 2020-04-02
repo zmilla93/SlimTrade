@@ -16,6 +16,9 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
     JLabel info2 = new CustomLabel("Use escape to clear a hotkey.");
 
     // Label + Hotkey Input
+    JLabel closeTradeLabel = new CustomLabel("Close Oldest Trade");
+    HotkeyInputPane closeTradeHotkeyInput = new HotkeyInputPane();
+
     JLabel remainingLabel = new CustomLabel("Remaining Monsters");
     HotkeyInputPane remainingHotkeyInput = new HotkeyInputPane();
 
@@ -35,6 +38,7 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         this.setVisible(false);
 
         // Combined Panel
+        LabelComponentPanel closeTradePanel = new LabelComponentPanel(closeTradeLabel, closeTradeHotkeyInput);
         LabelComponentPanel remainingPanel = new LabelComponentPanel(remainingLabel, remainingHotkeyInput);
         LabelComponentPanel hideoutPanel = new LabelComponentPanel(hideoutLabel, hideoutHotkeyInput);
         LabelComponentPanel leavePanel = new LabelComponentPanel(leavePartyLabel, leavePartyHotkeyInput);
@@ -54,6 +58,8 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         gc.gridy++;
         gc.fill = GridBagConstraints.BOTH;
         gc.insets.bottom = 4;
+        container.add(closeTradePanel, gc);
+        gc.gridy++;
         container.add(remainingPanel, gc);
         gc.gridy++;
         container.add(hideoutPanel, gc);
@@ -70,6 +76,7 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
 
     @Override
     public void save() {
+        App.saveManager.saveFile.closeTradeHotkey = closeTradeHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.remainingHotkey = remainingHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.hideoutHotkey = hideoutHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.leavePartyHotkey = leavePartyHotkeyInput.getHotkeyData();
@@ -80,6 +87,7 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
     @Override
     public void load() {
         App.globalKeyboard.clearHotkeyListener();
+        closeTradeHotkeyInput.updateHotkey(App.saveManager.saveFile.closeTradeHotkey);
         remainingHotkeyInput.updateHotkey(App.saveManager.saveFile.remainingHotkey);
         hideoutHotkeyInput.updateHotkey(App.saveManager.saveFile.hideoutHotkey);
         leavePartyHotkeyInput.updateHotkey(App.saveManager.saveFile.leavePartyHotkey);

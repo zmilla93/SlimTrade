@@ -29,7 +29,7 @@ public class ChatParser {
     private Timer updateTimer = new Timer(500, updateAction);
     //    private static final String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
 //    private static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
-    private static final Pattern SEARCH_PATTERN = Pattern.compile(References.REGEX_PREFIX_ALT + "(?<message>.+)");
+    private static final Pattern SEARCH_PATTERN = Pattern.compile(References.REGEX_PREFIX_SCANNER + "(?<scannerMessage>.+))");
     private static final Pattern JOINED_PATTERN = Pattern.compile(".+ : (.+) has joined the area(.)");
     private ArrayList<IgnoreData> whisperIgnoreData = new ArrayList<IgnoreData>();
     private boolean chatScannerRunning = false;
@@ -207,18 +207,13 @@ public class ChatParser {
         trade.stashtabX = cleanInt(cleanResult(matcher, "stashX"));
         trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));
         trade.bonusText = cleanResult(matcher, "bonusText");
-        trade.sentMessage = "";
+        trade.sentMessage = matcher.group("message");
         return trade;
     }
 
     private TradeOffer getSearchOffer(String text) {
         Matcher matcher = SEARCH_PATTERN.matcher(text);
-        System.out.println("SEARCH : " + text);
-//        TradeOffer trade = null;
         if (matcher.matches()) {
-            System.out.println("MATCH");
-//                public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String searchName, String searchMessage) {
-//            trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6));
             TradeOffer trade = new TradeOffer();
             trade.date = matcher.group("date");
             trade.time = matcher.group("time");
@@ -226,7 +221,7 @@ public class ChatParser {
             trade.guildName = matcher.group("guildName");
             trade.playerName = matcher.group("playerName");
             trade.searchName = this.searchName;
-            trade.searchMessage = matcher.group("message");
+            trade.searchMessage = matcher.group("scannerMessage");
             String chatMessage = trade.searchMessage.toLowerCase();
             if (this.searchIgnoreTerms != null) {
                 for (String s : this.searchIgnoreTerms) {

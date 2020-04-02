@@ -139,10 +139,11 @@ public class PoeInterface extends Robot {
         }).start();
     }
 
-    public static void runCommand(String[] commands, String player, String item, String price) {
+    public static void runCommand(String[] commands, String player, String item, String price, String fullMessage) {
+        if(commands.length == 0) {
+            return;
+        }
         new Thread(() -> {
-//            pasteString = new StringSelection(s);
-//            clipboard.setContents(pasteString, null);
             focus();
             try {
                 Thread.sleep(5);
@@ -178,6 +179,7 @@ public class PoeInterface extends Robot {
                 cmd = cmd.replaceAll("\\{player\\}", player);
                 cmd = cmd.replaceAll("\\{item\\}", item);
                 cmd = cmd.replaceAll("\\{price\\}", price);
+                cmd = cmd.replaceAll("\\{message\\}", fullMessage);
                 pasteString = new StringSelection(cmd);
                 int attempt = 1;
                 int MAX_ATTEMPTS = 3;
