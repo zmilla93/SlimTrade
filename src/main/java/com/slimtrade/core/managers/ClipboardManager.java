@@ -15,6 +15,7 @@ import java.io.IOException;
 public class ClipboardManager implements ClipboardOwner{
 
     private String lastMessage;
+    private volatile boolean disabled = false;
 
     public ClipboardManager() {
 
@@ -26,6 +27,9 @@ public class ClipboardManager implements ClipboardOwner{
             @Override
             public void flavorsChanged(FlavorEvent e) {
                 System.out.println("Flavor Changed");
+                if(disabled) {
+                    return;
+                }
                 if(App.saveManager.saveFile.quickPasteSetting != QuickPasteSetting.AUTOMATIC) {
                     try {
                         String contents = (String) clipboard.getData(DataFlavor.stringFlavor);
@@ -65,6 +69,15 @@ public class ClipboardManager implements ClipboardOwner{
                     }).start();
                 } else {
                     lastMessage = null;
+                    disabled = true;
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                        disabled = false;
+                    }).start();
                 }
             }
         });

@@ -17,7 +17,7 @@ public class TradeOffer {
     public String guildName;
     public String playerName;
     public String itemName;
-    public Double itemCount;
+    public Double itemQuantity;
     public String priceTypeString;
     public Double priceCount;
     public String stashtabName;
@@ -38,36 +38,15 @@ public class TradeOffer {
     }
 
     // Dummy Trade
-    public TradeOffer(MessageType messageType, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount) {
+    public TradeOffer(MessageType messageType, String playerName, String itemName, double itemQuantity, String priceTypeString, double priceCount) {
         this.messageType = messageType;
         this.playerName = playerName;
         this.itemName = itemName;
-        this.itemCount = itemCount;
+        this.itemQuantity = itemQuantity;
         this.priceTypeString = priceTypeString;
         this.priceType = TradeUtility.getPOEImage(priceTypeString);
         this.priceCount = priceCount;
     }
-
-//    // Full Trade
-//    public TradeOffer(String date, MessageType msgType, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount) {
-//        this.date = date;
-//        this.time = null;
-//        this.messageType = msgType;
-//        this.guildName = null;
-//        this.playerName = playerName;
-//        this.itemName = itemName;
-//        this.itemCount = itemCount;
-//        this.priceTypeString = priceTypeString;
-//        this.priceType = TradeUtility.getPOEImage(priceTypeString);
-//        this.priceCount = priceCount;
-//        this.stashtabName = null;
-//        this.stashtabX = 0;
-//        this.stashtabY = 0;
-//        this.bonusText = null;
-//        this.sentMessage = null;
-//        this.searchName = null;
-//        this.searchMessage = null;
-//    }
 
     //Chat Scanner Search
     public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String searchName, String searchMessage) {
@@ -77,7 +56,7 @@ public class TradeOffer {
         this.guildName = guildName;
         this.playerName = playerName;
         this.itemName = null;
-        this.itemCount = null;
+        this.itemQuantity = null;
         this.priceTypeString = null;
         this.priceCount = null;
         this.stashtabName = null;
@@ -90,14 +69,14 @@ public class TradeOffer {
     }
 
     //Trade
-    public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage) {
+    public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, double itemQuantity, String priceTypeString, double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage) {
         this.date = date;
         this.time = time;
         this.messageType = msgType;
         this.guildName = guildName;
         this.playerName = playerName;
         this.itemName = itemName;
-        this.itemCount = itemCount;
+        this.itemQuantity = itemQuantity;
         this.priceType = TradeUtility.getPOEImage(priceTypeString);
         this.priceTypeString = priceTypeString;
         this.priceCount = priceCount;

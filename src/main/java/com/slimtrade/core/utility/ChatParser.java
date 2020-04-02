@@ -6,7 +6,6 @@ import com.slimtrade.enums.LangRegex;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.ParserRegex;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.enums.MatchType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
 
 import javax.swing.*;
@@ -46,7 +45,7 @@ public class ChatParser {
     private final Pattern ENG_PAT_3 = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) in (?<league>.+) \\(stash tab \\\\?\"(?<stashtab>.+)\"; position: left (?<stashX>\\d+), top (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?");
     private final Pattern ENG_PAT_4 = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) (listed for|for my) ((?<priceQuantity>\\d+(.\\d+)?) (?<priceType>.+)) in (?<league>.+)\\.?(?<bonusText>.+)?");
     private final Pattern ENG_PAT_5 = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) in (?<league>.+)\\.?(?<bonusText>.+)?");
-    private final Pattern[] ENGLISH_PATTERNS = {ENG_PAT_1, ENG_PAT_1, ENG_PAT_3, ENG_PAT_4, ENG_PAT_5};
+//    private final Pattern[] ENGLISH_PATTERNS = {ENG_PAT_1, ENG_PAT_1, ENG_PAT_3, ENG_PAT_4, ENG_PAT_5};
 
     // Russian
     private final Pattern RUS_PAT = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) in (?<league>.+)\\.?(?<bonusText>.+)?");
@@ -117,6 +116,7 @@ public class ChatParser {
                         App.debugger.log(curLine);
                         TradeOffer trade = getTradeOffer(curLine, lang);
                         if (trade != null) {
+                            System.out.println("ADDING TRADE");
                             if ((!App.saveManager.saveFile.enableIncomingTrades && trade.messageType == MessageType.INCOMING_TRADE)
                                     || (!App.saveManager.saveFile.enableOutgoingTrades && trade.messageType == MessageType.OUTGOING_TRADE)) {
                                 // Ignore trades if option has been disabled, but still add them to history
@@ -194,7 +194,7 @@ public class ChatParser {
         trade.guildName = matcher.group("guildName");
         trade.playerName = matcher.group("playerName");
         trade.itemName = matcher.group("itemName");
-        trade.itemCount = cleanDouble(cleanResult(matcher, "itemCount"));
+        trade.itemQuantity = cleanDouble(cleanResult(matcher, "itemQuantity"));
         trade.priceTypeString = cleanResult(matcher, "priceType");
         trade.priceCount = cleanDouble(cleanResult(matcher, "priceQuantity"));
         trade.stashtabName = cleanResult(matcher, "stashtabName");
@@ -203,6 +203,7 @@ public class ChatParser {
         trade.bonusText = cleanResult(matcher, "bonusText");
         trade.sentMessage = "";
         System.out.println("ITEM : " + trade.itemName);
+        System.out.println("item q : " + trade.itemQuantity);
         System.out.println("X : " + trade.stashtabX);
         System.out.println("Y : " + trade.stashtabY);
 //        if (matcher != null && matcher.matches()) {

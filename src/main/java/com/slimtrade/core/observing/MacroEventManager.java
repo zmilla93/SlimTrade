@@ -62,7 +62,7 @@ public class MacroEventManager implements PoeInteractionListener {
                 if (mouseButton == MouseEvent.BUTTON1 || mouseButton == MouseEvent.BUTTON3) {
                     if (trade.messageType == MessageType.INCOMING_TRADE) {
                         PoeInterface.paste("@" + trade.playerName + " Hi, are you still interested in my "
-                                + TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, false) + " listed for "
+                                + TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, false) + " listed for "
                                 + TradeUtility.getFixedDouble(trade.priceCount, false) + " " + trade.priceTypeString + "?");
                     } else if (trade.messageType == MessageType.OUTGOING_TRADE) {
                         PoeInterface.paste("@" + trade.playerName + " " + trade.sentMessage);

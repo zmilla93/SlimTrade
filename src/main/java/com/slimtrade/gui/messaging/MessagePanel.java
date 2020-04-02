@@ -3,31 +3,23 @@ package com.slimtrade.gui.messaging;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.ButtonType;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.core.observing.poe.CommandManager;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
-import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.ColorPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ButtonRow;
-import com.slimtrade.gui.enums.CustomIcons;
-import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.PricePanel;
-import com.slimtrade.gui.scanner.ScannerMessage;
 import com.slimtrade.gui.stash.helper.StashHelper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,7 +78,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 break;
             case INCOMING_TRADE:
             case OUTGOING_TRADE:
-                itemPanel.setText(TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true));
+                itemPanel.setText(TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true));
 //                pricePanel.removeListener();
                 pricePanel = new PricePanel(trade.priceTypeString, trade.priceCount, true);
                 //TODO : PRICE PANEL
@@ -182,7 +174,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                         public void click(MouseEvent e) {
                             System.out.println(e.getButton());
                             if (e.getButton() == MouseEvent.BUTTON1) {
-                                PoeInterface.runCommand(b.getCommandsLeft(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemCount, true), (trade.priceCount.toString().replace(".0", "") + " " + trade.priceTypeString));
+                                PoeInterface.runCommand(b.getCommandsLeft(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceCount.toString().replace(".0", "") + " " + trade.priceTypeString));
                                 System.out.println(Arrays.toString(b.getCommandsLeft()));
                             } else if (e.getButton() == MouseEvent.BUTTON3) {
                                 System.out.println(Arrays.toString(b.getCommandsRight()));

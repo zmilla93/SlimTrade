@@ -2,6 +2,7 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.enums.LangRegex;
 import com.slimtrade.gui.FrameManager;
 import com.sun.jna.Native;
 import com.sun.jna.PointerType;
@@ -55,8 +56,8 @@ public class PoeInterface extends Robot {
         }
         boolean valid = false;
         if (text.startsWith("@")) {
-            for (String s : wtbTextArray) {
-                if (text.contains(s)) {
+            for (LangRegex l : LangRegex.values()) {
+                if (text.contains(l.CONTAINS_TEXT)) {
                     valid = true;
                     break;
                 }
