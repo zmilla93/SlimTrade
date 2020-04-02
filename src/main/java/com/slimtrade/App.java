@@ -34,7 +34,7 @@ public class App {
 
     public static Debugger debugger;
     public static FrameManager frameManager;
-    public static MacroEventManager macroEventManager = new MacroEventManager();
+//    public static MacroEventManager macroEventManager = new MacroEventManager();
     public static EventManager eventManager = new EventManager();
     public static SaveManager saveManager;
     public static ChatParser chatParser = new ChatParser();

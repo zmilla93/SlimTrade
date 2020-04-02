@@ -37,7 +37,7 @@ public class StashHelper extends JPanel {
 	};
 	public Timer highlighterTimer = new Timer(2000, hideHighlighter);
 
-	private PoeInteractionListener poeInteractionListener = App.macroEventManager;
+//	private PoeInteractionListener poeInteractionListener = App.macroEventManager;
 
 	public StashHelper(TradeOffer trade, Color colorBackground, Color colorForeground) {
 		this.setLayout(FrameManager.gridBag);
@@ -82,7 +82,8 @@ public class StashHelper extends JPanel {
 		this.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), ButtonType.SEARCH, trade));
+					// TODO : fixnow
+//					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), ButtonType.SEARCH, trade));
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
 					hideStashHelper();
 					FrameManager.stashHelperContainer.pack();

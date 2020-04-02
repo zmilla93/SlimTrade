@@ -27,7 +27,6 @@ public class AbstractMessagePanel extends ColorPanel {
 	// TODO Load from drive
 	// TODO : Move?
 	// TODO : switch totalwidth/windowHeight to use get/set?
-	private final PoeInteractionListener poeInteractionListener = App.macroEventManager;
 	protected MessageType messageType;
 	// Heights
 	// protected int minHeight;
@@ -121,24 +120,6 @@ public class AbstractMessagePanel extends ColorPanel {
 		});
 	}
 
-	protected void registerPoeInteractionButton(JButton button, ButtonType type, String playerName, String clickLeft, String clickRight) {
-		if (type == ButtonType.WHISPER) {
-			button.addMouseListener(new AdvancedMouseAdapter() {
-				public void click(MouseEvent e) {
-					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade.playerName, clickLeft, clickRight));
-				}
-			});
-		}
-	}
-
-	protected void registerPoeInteractionButton(Component c, ButtonType type) {
-		c.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent e) {
-				poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade));
-			}
-		});
-	}
-
 	public JButton getCloseButton() {
 		return this.closeButton;
 	}
@@ -151,9 +132,7 @@ public class AbstractMessagePanel extends ColorPanel {
 		this.messageType = messageType;
 	}
 
-	protected void resizeFrames() {
-
-	}
+	protected void resizeFrames() {	}
 
 	public void startTimer() {
 		secondTimer.start();

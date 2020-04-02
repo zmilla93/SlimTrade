@@ -62,7 +62,7 @@ public class HotkeyManager {
                     }
 
                     // Close Button
-                    if(e.getKeyCode() == closeMacro.keyCode) {
+                    if(closeMacro != null && e.getKeyCode() == closeMacro.keyCode) {
                         FrameManager.messageManager.closeTrade(firstTrade);
                     }
                 }
