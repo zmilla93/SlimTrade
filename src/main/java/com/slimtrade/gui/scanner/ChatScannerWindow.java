@@ -2,6 +2,8 @@ package com.slimtrade.gui.scanner;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.ComponentResizeAdapter;
+import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.enums.MessageType;
@@ -19,6 +21,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -85,7 +88,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
          */
 
 //        addRemovePanel = macroPanel.addRemovePanel;
-//        addMacroButton = macroPanel.addMacroButton;
+        addMacroButton = macroPanel.addButton;
 //        thankLeft = macroPanel.thankLeft;
 //        thankRight = macroPanel.thankRight;
 
@@ -125,6 +128,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         gc.insets.bottom = 20;
 
         // Macro Panel
+        addRemovePanel = macroPanel.addRemovePanel;
         containerPanel.container.add(macroPanel, gc);
         gc.gridy = 0;
 
@@ -143,182 +147,184 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         searchTermsInput.setWrapStyleWord(true);
         FrameManager.centerFrame(this);
         updateColor();
-//        refreshWindowState();
+        refreshWindowState();
 
-//        load();
+        load();
         // Listeners
 
-//        saveTextField.getDocument().addDocumentListener(new DocumentUpdateListener() {
+        saveTextField.getDocument().addDocumentListener(new DocumentUpdateListener() {
+            public void update() {
+                checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
+                refreshWindowState();
+            }
+        });
+
+        searchTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
+            public void update() {
+                checkSearchTerms = selectedMessage != null && searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
+                refreshWindowState();
+            }
+        });
+
+        ignoreTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
+            public void update() {
+                checkIgnoreTerms = selectedMessage != null && ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
+                refreshWindowState();
+            }
+        });
+
+//        thankLeft.getDocument().addDocumentListener(new DocumentUpdateListener() {
 //            public void update() {
-//                checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
+//                checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
 //                refreshWindowState();
 //            }
 //        });
 //
-//        searchTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
+//        thankRight.getDocument().addDocumentListener(new DocumentUpdateListener() {
 //            public void update() {
-//                checkSearchTerms = selectedMessage != null && searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
+//                checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
 //                refreshWindowState();
 //            }
 //        });
-//
-//        ignoreTermsInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
-//            public void update() {
-//                checkIgnoreTerms = selectedMessage != null && ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
-//                refreshWindowState();
-//            }
-//        });
-//
-////        thankLeft.getDocument().addDocumentListener(new DocumentUpdateListener() {
-////            public void update() {
-////                checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
-////                refreshWindowState();
-////            }
-////        });
-////
-////        thankRight.getDocument().addDocumentListener(new DocumentUpdateListener() {
-////            public void update() {
-////                checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
-////                refreshWindowState();
-////            }
-////        });
-//
-//        addRemovePanel.addComponentListener(new ComponentResizeAdapter() {
-//            public void componentResized(ComponentEvent e) {
-//                checkMacros = checkMacros();
-//                refreshWindowState();
-//            }
-//        });
-//
-//        addMacroButton.addActionListener(e -> {
-////            addNewMacro();
-//            refreshListeners();
-//        });
-//
-//        searchCombo.addActionListener(e -> {
-//            if (searchCombo.getSelectedIndex() >= 0) {
-//                loadMessage((ScannerMessage) searchCombo.getSelectedItem());
-//                selectedMessage = (ScannerMessage) searchCombo.getSelectedItem();
-//            } else {
-//                selectedMessage = null;
-//            }
+
+        addRemovePanel.addComponentListener(new ComponentResizeAdapter() {
+            public void componentResized(ComponentEvent e) {
+                checkMacros = checkMacros();
+                refreshWindowState();
+            }
+        });
+
+        addMacroButton.addActionListener(e -> {
+//            addNewMacro();
+            refreshListeners();
+        });
+
+        searchCombo.addActionListener(e -> {
+            if (searchCombo.getSelectedIndex() >= 0) {
+                loadMessage((ScannerMessage) searchCombo.getSelectedItem());
+                selectedMessage = (ScannerMessage) searchCombo.getSelectedItem();
+            } else {
+                selectedMessage = null;
+            }
+            // TODO : fixnow
 //            refreshTrade();
-//            refreshListeners();
-//            runAllChecks();
-//            refreshWindowState();
-//        });
-//
-//        searchButton.addActionListener(e -> {
-//            searching = !searching;
-//            searchButton.setState(searching);
-//            if (searching && selectedMessage != null) {
-//                App.chatParser.setSearchName(selectedMessage.name);
-//                App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
-//                App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
-//            }
-//            App.chatParser.setChatScannerRunning(searching);
-//            if (searching) {
-//                saveTextField.setEnabled(false);
-//                searchCombo.setEnabled(false);
-//                saveButton.setEnabled(false);
-//                clearButton.setEnabled(false);
-//                deleteButton.setEnabled(false);
-//                searchTermsInput.setEnabled(false);
-//                ignoreTermsInput.setEnabled(false);
-//                addRemovePanel.setEnabledAll(false);
-//            } else {
-//                saveTextField.setEnabled(true);
-//                searchCombo.setEnabled(true);
-//                saveButton.setEnabled(true);
-//                clearButton.setEnabled(true);
-//                deleteButton.setEnabled(true);
-//                searchTermsInput.setEnabled(true);
-//                ignoreTermsInput.setEnabled(true);
-//                addRemovePanel.setEnabledAll(true);
-//            }
-//            refreshListeners();
-//            refreshWindowState();
-//        });
-//
-//        deleteButton.addActionListener(e -> {
-//            if (searchCombo.getSelectedIndex() >= 0) {
-//                System.out.println("Deleting...");
-//                for (ScannerMessage m : messageList) {
-//                    if (selectedMessage.name.equals(m.name)) {
-//                        messageList.remove(m);
-//                        break;
-//                    }
-//                }
-//                App.saveManager.scannerSaveFile.messages.clear();
-//                App.saveManager.scannerSaveFile.messages.addAll(messageList);
-//                App.saveManager.saveScannerToDisk();
-//                refreshCombo();
-//                clearWindow();
-//                runAllChecks();
-//                refreshWindowState();
-//                System.out.println("Deleted!...");
-//            }
-//        });
-//
-//        revertButton.addActionListener(e -> {
-//            saving = true;
-//            if (searchCombo.getSelectedIndex() < 0) {
-//                return;
-//            }
-//            ScannerMessage msg = (ScannerMessage) searchCombo.getSelectedItem();
-//            loadMessage(msg);
-//            runAllChecks();
-//            refreshWindowState();
-//            refreshListeners();
-//            saving = false;
-//        });
-//
-//        clearButton.addActionListener(e -> {
-//            clearWindow();
-//            runAllChecks();
-//            refreshWindowState();
-//        });
-//
-//        saveButton.addActionListener(e -> {
-//            saving = true;
-//            if (saveTextField.getText().matches("\\s*") || searchTermsInput.getText().matches("\\s*")) {
-//                return;
-//            }
-//            addRemovePanel.clearHiddenPanels();
-//            ArrayList<MacroButton> macros = new ArrayList();
-//            // Get list of macros
-////            for (Component c : addRemovePanel.getComponents()) {
-////                if (c.isVisible() && c instanceof CustomMacroRow) {
-////                    macros.add(((CustomMacroRow) c).getMacroData());
-////                }
-////            }
-//            // Get current scanner window message
-//            ScannerMessage message = new ScannerMessage(saveTextField.getText().trim(), searchTermsInput.getText(), ignoreTermsInput.getText(), "", "", macros);
-//            // Delete old duplicate
-//            for (ScannerMessage m : messageList) {
-//                if (message.name.toLowerCase().equals(m.name.toLowerCase())) {
-//                    messageList.remove(m);
-//                    break;
+            refreshListeners();
+            runAllChecks();
+            refreshWindowState();
+        });
+
+        searchButton.addActionListener(e -> {
+            searching = !searching;
+            searchButton.setState(searching);
+            if (searching && selectedMessage != null) {
+                App.chatParser.setSearchName(selectedMessage.name);
+                App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
+                App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
+            }
+            App.chatParser.setChatScannerRunning(searching);
+            if (searching) {
+                saveTextField.setEnabled(false);
+                searchCombo.setEnabled(false);
+                saveButton.setEnabled(false);
+                clearButton.setEnabled(false);
+                deleteButton.setEnabled(false);
+                searchTermsInput.setEnabled(false);
+                ignoreTermsInput.setEnabled(false);
+                addRemovePanel.setEnabledAll(false);
+            } else {
+                saveTextField.setEnabled(true);
+                searchCombo.setEnabled(true);
+                saveButton.setEnabled(true);
+                clearButton.setEnabled(true);
+                deleteButton.setEnabled(true);
+                searchTermsInput.setEnabled(true);
+                ignoreTermsInput.setEnabled(true);
+                addRemovePanel.setEnabledAll(true);
+            }
+            refreshListeners();
+            refreshWindowState();
+        });
+
+        deleteButton.addActionListener(e -> {
+            if (searchCombo.getSelectedIndex() >= 0) {
+                System.out.println("Deleting...");
+                for (ScannerMessage m : messageList) {
+                    if (selectedMessage.name.equals(m.name)) {
+                        messageList.remove(m);
+                        break;
+                    }
+                }
+                App.saveManager.scannerSaveFile.messages.clear();
+                App.saveManager.scannerSaveFile.messages.addAll(messageList);
+                App.saveManager.saveScannerToDisk();
+                refreshCombo();
+                clearWindow();
+                runAllChecks();
+                refreshWindowState();
+                System.out.println("Deleted!...");
+            }
+        });
+
+        revertButton.addActionListener(e -> {
+            saving = true;
+            if (searchCombo.getSelectedIndex() < 0) {
+                return;
+            }
+            ScannerMessage msg = (ScannerMessage) searchCombo.getSelectedItem();
+            loadMessage(msg);
+            runAllChecks();
+            refreshWindowState();
+            refreshListeners();
+            saving = false;
+        });
+
+        clearButton.addActionListener(e -> {
+            clearWindow();
+            runAllChecks();
+            refreshWindowState();
+        });
+
+        saveButton.addActionListener(e -> {
+            saving = true;
+            if (saveTextField.getText().matches("\\s*") || searchTermsInput.getText().matches("\\s*")) {
+                return;
+            }
+            addRemovePanel.clearHiddenPanels();
+            ArrayList<MacroButton> macros = new ArrayList();
+            // Get list of macros
+//            for (Component c : addRemovePanel.getComponents()) {
+//                if (c.isVisible() && c instanceof CustomMacroRow) {
+//                    macros.add(((CustomMacroRow) c).getMacroData());
 //                }
 //            }
-//            messageList.add(message);
-//            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
-//            refreshCombo(message);
-//            loadMessage(message);
-//            refreshWindowState();
-//            refreshListeners();
-//
-//            App.saveManager.scannerSaveFile.messages.clear();
-//            App.saveManager.scannerSaveFile.messages.addAll(messageList);
-//            App.saveManager.saveScannerToDisk();
-//
+            // Get current scanner window message
+            ScannerMessage message = new ScannerMessage(saveTextField.getText().trim(), searchTermsInput.getText(), ignoreTermsInput.getText(), "", "", macros);
+            // Delete old duplicate
+            for (ScannerMessage m : messageList) {
+                if (message.name.toLowerCase().equals(m.name.toLowerCase())) {
+                    messageList.remove(m);
+                    break;
+                }
+            }
+            messageList.add(message);
+            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
+            refreshCombo(message);
+            loadMessage(message);
+            refreshWindowState();
+            refreshListeners();
+
+            App.saveManager.scannerSaveFile.messages.clear();
+            App.saveManager.scannerSaveFile.messages.addAll(messageList);
+            App.saveManager.saveScannerToDisk();
+
+            // TODO : fixnow
 //            refreshTrade();
-//
-//            macroPanel.revalidate();
-//            macroPanel.repaint();
-//
-//            saving = false;
-//        });
+
+            macroPanel.revalidate();
+            macroPanel.repaint();
+
+            saving = false;
+        });
 
         /**
          * END

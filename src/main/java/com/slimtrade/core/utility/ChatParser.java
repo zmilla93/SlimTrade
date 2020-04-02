@@ -139,6 +139,24 @@ public class ChatParser {
         return null;
     }
 
+
+//    App.chatParser.setSearchName(selectedMessage.name);
+//    App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
+//     App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
+
+
+    public void setSearchName(String searchName) {
+        this.searchName = searchName;
+    }
+
+    public void setSearchTerms(String[] terms) {
+        this.searchTerms = terms;
+    }
+
+    public void setSearchIgnoreTerms(String[] terms) {
+        this.searchIgnoreTerms = terms;
+    }
+
     private TradeOffer getTradeOffer(String text, LangRegex lang) {
         Matcher matcher = null;
         boolean found = false;
@@ -215,4 +233,7 @@ public class ChatParser {
         this.whisperIgnoreData = ignoreData;
     }
 
+    public void setChatScannerRunning(boolean state) {
+        this.chatScannerRunning = state;
+    }
 }

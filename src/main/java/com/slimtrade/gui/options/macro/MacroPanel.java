@@ -32,8 +32,8 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
     private JPanel messageWrapper = new JPanel(new GridBagLayout());
     private MessagePanel messagePanel;
 
-    private AddRemovePanel addRemovePanel = new AddRemovePanel();
-    private JButton addButton = new BasicButton("Add New Macro");
+    public AddRemovePanel addRemovePanel = new AddRemovePanel();
+    public JButton addButton = new BasicButton("Add New Macro");
 
     // Internal
     private MessageType messageType;
