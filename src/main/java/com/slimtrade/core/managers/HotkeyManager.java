@@ -14,18 +14,15 @@ import java.util.ArrayList;
 public class HotkeyManager {
 
     public static void processHotkey(NativeKeyEvent e) {
-//        public HotkeyData remainingHotkey = null;
-//        public HotkeyData hideoutHotkey = null;
-//        public HotkeyData leavePartyHotkey = null;
-//        public HotkeyData betrayalHotkey = null;
         if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
-
+            PoeInterface.runCommand(new String[]{"/remaining"}, "", "", "");
         } else if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {
-
+            PoeInterface.runCommand(new String[]{"/hideout"}, "", "", "");
         } else if (checkKey(e, App.saveManager.saveFile.leavePartyHotkey)) {
-
+            PoeInterface.runCommand(new String[]{"/kick {self}"}, "", "", "");
         } else if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
-
+            FrameManager.betrayalWindow.toggleShow();
+            FrameManager.betrayalWindow.refreshVisibility();
         }
         // TODO : CLOSE BUTTON
         else {

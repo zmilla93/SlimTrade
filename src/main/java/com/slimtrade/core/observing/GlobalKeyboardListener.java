@@ -51,40 +51,6 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         // Hotkeys
         HotkeyManager.processHotkey(e);
 
-        // Remaining
-        if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
-            if (App.globalMouse.isGameFocused()) {
-                PoeInterface.paste("/remaining");
-            }
-        }
-
-        // Hideout
-        if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {
-            if (App.globalMouse.isGameFocused()) {
-                PoeInterface.paste("/hideout");
-            }
-        }
-
-        // Leave Party
-        if (checkKey(e, App.saveManager.saveFile.leavePartyHotkey)) {
-            if (App.globalMouse.isGameFocused() && App.saveManager.saveFile.characterName != null && !App.saveManager.saveFile.characterName.equals("")) {
-                PoeInterface.paste("/kick " + App.saveManager.saveFile.characterName);
-            }
-        }
-
-        // Betrayal
-        if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
-            if (App.globalMouse.isGameFocused()) {
-                FrameManager.betrayalWindow.toggleShow();
-                FrameManager.betrayalWindow.refreshVisibility();
-            }
-        }
-
-        // Quick Paste Trade
-//        if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
-//            PoeInterface.attemptQuickPaste();
-//        }
-
     }
 
     @Override
