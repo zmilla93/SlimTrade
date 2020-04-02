@@ -3,12 +3,12 @@ package com.slimtrade.gui.scanner;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.custom.CustomCombo;
-import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.buttons.ToggleButton;
+import com.slimtrade.gui.custom.CustomCombo;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;

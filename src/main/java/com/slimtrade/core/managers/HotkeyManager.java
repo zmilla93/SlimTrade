@@ -54,7 +54,6 @@ public class HotkeyManager {
                         if (b.hotkeyData != null && e.getKeyCode() == b.hotkeyData.keyCode) {
                             //TODO : RUN
                             PoeInterface.runCommand(b.getCommandsLeft(), firstTrade.playerName, TradeUtility.getFixedItemName(firstTrade.itemName, firstTrade.itemQuantity, true), firstTrade.priceCount + " " + firstTrade.priceTypeString);
-                            System.out.println("HOTKEY RUN : " + b.leftMouseResponse);
                             if (b.closeOnClick) {
                                 FrameManager.messageManager.closeTrade(firstTrade);
                             }

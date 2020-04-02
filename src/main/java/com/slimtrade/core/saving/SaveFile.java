@@ -11,7 +11,6 @@ import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
-import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.util.ArrayList;
 import java.util.Date;

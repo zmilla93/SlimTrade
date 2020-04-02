@@ -5,10 +5,10 @@ import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomCombo;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.custom.CustomSlider;
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.DefaultIcons;
 
 import javax.swing.*;

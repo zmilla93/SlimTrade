@@ -3,8 +3,6 @@ package com.slimtrade.gui.components;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.messaging.MessagePanel;
 
-import javax.swing.*;
-
 public class PanelWrapper extends BasicDialog {
 
 	private static final long serialVersionUID = 1L;

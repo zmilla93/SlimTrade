@@ -3,7 +3,6 @@ package com.slimtrade.gui.history;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.CustomIcons;
-import com.slimtrade.gui.enums.DefaultIcons;
 
 public class HistoryRefreshButton extends IconButton {
 

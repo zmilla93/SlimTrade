@@ -3,8 +3,8 @@ package com.slimtrade.gui.options;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;

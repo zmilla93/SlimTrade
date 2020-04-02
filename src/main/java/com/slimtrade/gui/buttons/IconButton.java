@@ -2,7 +2,6 @@ package com.slimtrade.gui.buttons;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.ICacheImage;
 
 import javax.swing.*;

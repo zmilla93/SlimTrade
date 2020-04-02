@@ -7,11 +7,11 @@ import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.ColorPanel;
-import com.slimtrade.gui.custom.CustomCombo;
-import com.slimtrade.gui.custom.CustomTextField;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
+import com.slimtrade.gui.custom.CustomCombo;
+import com.slimtrade.gui.custom.CustomTextField;
 import com.slimtrade.gui.enums.DefaultIcons;
 
 import javax.swing.*;

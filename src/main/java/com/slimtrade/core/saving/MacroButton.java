@@ -2,7 +2,6 @@ package com.slimtrade.core.saving;
 
 import com.slimtrade.core.managers.HotkeyManager;
 import com.slimtrade.core.observing.HotkeyData;
-import com.slimtrade.core.observing.poe.CommandManager;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
 

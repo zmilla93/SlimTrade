@@ -5,8 +5,8 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.buttons.ConfirmButton;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;

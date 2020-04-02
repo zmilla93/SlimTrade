@@ -4,7 +4,6 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class CustomSlider extends JSlider implements IColorable {
 

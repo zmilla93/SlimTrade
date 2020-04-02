@@ -2,9 +2,6 @@ package com.slimtrade.gui.stash.helper;
 
 import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.ButtonType;
-import com.slimtrade.core.observing.poe.PoeInteractionEvent;
-import com.slimtrade.core.observing.poe.PoeInteractionListener;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.gui.FrameManager;
 

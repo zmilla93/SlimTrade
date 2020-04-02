@@ -125,7 +125,6 @@ public class PoeInterface extends Robot {
                 }
                 i++;
             } while (true);
-//            System.out.println("POE Focus Time : " + i);
             FrameManager.forceAllToTop();
             robot.keyPress(KeyEvent.VK_ALT);
             robot.keyRelease(KeyEvent.VK_ALT);
@@ -173,7 +172,6 @@ public class PoeInterface extends Robot {
                 }
                 i++;
             } while (true);
-            System.out.println("POE Focus Time : " + i);
             FrameManager.forceAllToTop();
             for(String cmd : commands) {
                 cmd = cmd.replaceAll("\\{self\\}", App.saveManager.saveFile.characterName);

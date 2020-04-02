@@ -4,7 +4,6 @@ import com.slimtrade.App;
 import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.LangRegex;
 import com.slimtrade.enums.MessageType;
-import com.slimtrade.enums.ParserRegex;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.options.ignore.IgnoreData;
 
@@ -34,24 +33,6 @@ public class ChatParser {
     private String[] searchTerms;
     private String searchName;
 
-    private final String CONTAINS_ENG_1 = "like to buy";
-    private final String CONTAINS_ENG_2 = "wtb";
-
-    private final String REG_PREFIX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*@(?<messageType>To|From) (<.+> )?(.+): ";
-
-    // English
-    private final Pattern ENG_PAT_1 = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) (listed for|for my) ((?<priceQuantity>\\d+(.\\d+)?) (?<priceType>.+)) in (?<league>.+) \\(stash tab \\\\?\"(?<stashtab>.+)\"; position: left (?<stashX>\\d+), top (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?");
-    private final Pattern ENG_PAT_2 = Pattern.compile(REG_PREFIX + "Hi, I'd like to buy your ((?<itemQuantity>\\d+(.\\d+)?) (?<itemName>.+)) for my ((?<priceQuantity>\\d+(.\\d+)?) (?<priceType>.+)) in (?<league>.+).");
-    private final Pattern ENG_PAT_3 = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) in (?<league>.+) \\(stash tab \\\\?\"(?<stashtab>.+)\"; position: left (?<stashX>\\d+), top (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?");
-    private final Pattern ENG_PAT_4 = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) (listed for|for my) ((?<priceQuantity>\\d+(.\\d+)?) (?<priceType>.+)) in (?<league>.+)\\.?(?<bonusText>.+)?");
-    private final Pattern ENG_PAT_5 = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) in (?<league>.+)\\.?(?<bonusText>.+)?");
-//    private final Pattern[] ENGLISH_PATTERNS = {ENG_PAT_1, ENG_PAT_1, ENG_PAT_3, ENG_PAT_4, ENG_PAT_5};
-
-    // Russian
-    private final Pattern RUS_PAT = Pattern.compile(REG_PREFIX + "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) in (?<league>.+)\\.?(?<bonusText>.+)?");
-
-
-    // TODO : Move path to options
     public void init() {
         Debugger.benchmarkStart();
         System.out.println("Launching chat parser...");
@@ -97,7 +78,6 @@ public class ChatParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void update() {
@@ -127,10 +107,6 @@ public class ChatParser {
                         }
                     } else if (chatScannerRunning) {
                         // TODO : Chat Scanner
-//                        TradeOffer trade = getSearchOffer(curLine);
-//                        if (trade != null) {
-//                            FrameManager.messageManager.addMessage(trade);
-//                        }
                     } else {
                         Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
                         if (joinAreaMatcher.matches()) {
@@ -163,15 +139,6 @@ public class ChatParser {
         return null;
     }
 
-    public ParserRegex validateTradeMessage(String message) {
-        for (ParserRegex r : ParserRegex.values()) {
-            if (message.contains(r.getContains())) {
-                return r;
-            }
-        }
-        return null;
-    }
-
     private TradeOffer getTradeOffer(String text, LangRegex lang) {
         Matcher matcher = null;
         boolean found = false;
@@ -186,8 +153,6 @@ public class ChatParser {
             return null;
         }
         TradeOffer trade = new TradeOffer();
-//            public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount,
-//        String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage) {
         trade.date = matcher.group("date").replaceAll("/", "-");
         trade.time = matcher.group("time");
         trade.messageType = getMessageType(matcher.group("messageType"));
@@ -198,71 +163,13 @@ public class ChatParser {
         trade.priceTypeString = cleanResult(matcher, "priceType");
         trade.priceCount = cleanDouble(cleanResult(matcher, "priceQuantity"));
         trade.stashtabName = cleanResult(matcher, "stashtabName");
-        trade.stashtabX = cleanInt(cleanResult(matcher, "stashX"));;
-        trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));;
+        trade.stashtabX = cleanInt(cleanResult(matcher, "stashX"));
+        ;
+        trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));
+        ;
         trade.bonusText = cleanResult(matcher, "bonusText");
         trade.sentMessage = "";
-        System.out.println("ITEM : " + trade.itemName);
-        System.out.println("item q : " + trade.itemQuantity);
-        System.out.println("X : " + trade.stashtabX);
-        System.out.println("Y : " + trade.stashtabY);
-//        if (matcher != null && matcher.matches()) {
-//        System.out.println("PARSING : " + text);
-//        for (int i = 0; i < matcher.groupCount(); i++) {
-//            System.out.println("G" + i + "|" + matcher.group(i));
-//        }
-        // DEBUG
-        // System.out.println("NEW TRADE OFFER");
-        // for (int i = 0; i < 24; i++) {
-        // System.out.println("GROUP #" + i + " : " +
-        // matcher.group(i));
-        // }
-        // System.out.println("");
-        // DEBUG END
-
-        // date, time, MessageType msgType, guildName, playerName
-        // itemName, Double itemCount, priceTypeString, Double priceCount
-        // stashtabName, int stashtabX, int stashtabY, bonusText,
-        // sentMessage
-//        double d1 = 0.0;
-//        double d2 = 0.0;
-//        // Item Count
-//        if (matcher.group(11) != null) {
-//            d1 = Double.parseDouble(matcher.group(11));
-//        }
-//        // Price Count
-//        if (matcher.group(14) != null) {
-//            d2 = Double.parseDouble(matcher.group(14));
-//        }
-//        int i1 = 0;
-//        int i2 = 0;
-//        // Stashtab X
-//        if (matcher.group(22) != null) {
-//            i1 = Integer.parseInt(matcher.group(22));
-//        }
-//        // Stashtab Y
-//        if (matcher.group(24) != null) {
-//            i2 =
-//            Integer.parseInt(matcher.group(24));
-//        }
-//        trade = new TradeOffer(matcher.group(2).replaceAll("/", "-"), matcher.group(3), getMessageType(matcher.group(4)), matcher.group(5), matcher.group(6), matcher.group(12), d1, matcher.group(15), d2, matcher.group(20), i1, i2, matcher.group(25), matcher.group(7));
-//        if (trade.messageType == MessageType.INCOMING_TRADE && this.whisperIgnoreData != null) {
-//            for (IgnoreData d : this.whisperIgnoreData) {
-//                if (d.getMatchType() == MatchType.CONTAINS) {
-//                    if (trade.itemName.toLowerCase().contains(d.getItemName().toLowerCase())) {
-//                        return null;
-//                    }
-//                } else if (d.getMatchType() == MatchType.EXACT) {
-//                    if (trade.itemName.toLowerCase().equals(d.getItemName().toLowerCase())) {
-//                        return null;
-//                    }
-//                }
-//            }
-//        }
         return trade;
-//        } else {
-//            return null;
-//        }
     }
 
     private <T> T cleanResult(Matcher matcher, String text) {
@@ -276,7 +183,7 @@ public class ChatParser {
     }
 
     private int cleanInt(String text) {
-        if(text == null) {
+        if (text == null) {
             return 0;
         }
         int i = Integer.parseInt(text);
@@ -284,7 +191,7 @@ public class ChatParser {
     }
 
     private double cleanDouble(String text) {
-        if(text == null) {
+        if (text == null) {
             return 0;
         }
         double d = Double.parseDouble(text);

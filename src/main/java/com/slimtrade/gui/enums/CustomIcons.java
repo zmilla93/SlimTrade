@@ -65,10 +65,6 @@ public enum CustomIcons implements ICacheImage {
 			getImage(References.DEFAULT_IMAGE_SIZE);
 		}
 		if(bufferedImage == null || !ColorManager.matchingColors(color, cachedColor)) {
-			System.out.println("buf" + bufferedImage);
-			System.out.println("col" + color + " | " + cachedColor);
-			System.out.println("colcheck" + ColorManager.matchingColors(color, cachedColor));
-			System.out.println("GEN IMAGE");
 			bufferedImage = new BufferedImage(cachedSize, cachedSize, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D bGr = bufferedImage.createGraphics();
 			bGr.drawImage(image, 0, 0, null);

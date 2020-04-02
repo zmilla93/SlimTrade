@@ -1,11 +1,12 @@
 package com.slimtrade;
 
-import com.slimtrade.core.managers.*;
+import com.slimtrade.core.managers.ClipboardManager;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.managers.SetupManager;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
-import com.slimtrade.core.observing.MacroEventManager;
 import com.slimtrade.core.observing.improved.EventManager;
-import com.slimtrade.core.observing.poe.CommandManager;
 import com.slimtrade.core.utility.ChatParser;
 import com.slimtrade.core.utility.FileMonitor;
 import com.slimtrade.core.utility.PoeInterface;
@@ -17,7 +18,6 @@ import com.slimtrade.gui.dialogs.LoadingDialog;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.enums.ICacheImage;
 import com.slimtrade.gui.enums.WindowState;
-import com.slimtrade.gui.options.OptionsWindow;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.windows.UpdateDialog;
 import org.jnativehook.GlobalScreen;
@@ -26,7 +26,6 @@ import org.jnativehook.NativeHookException;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -162,23 +161,6 @@ public class App {
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
-
-        // TODO : TEST
-        CommandManager commandManager = new CommandManager();
-//        commandManager.runCommand("/tradewith player /kick PurpleCircleMage @{player} awsdf");
-//        commandManager.runCommand("/tradewith player");
-//        commandManager.runCommand("@player wtf");
-//        commandManager.runCommand("abcd");
-//        System.out.println(Arrays.toString(CommandManager.getCommandList("/tradewith player /kick PurpleCircleMage @{player} awsdf", "self", "player", "item", "price")));
-//        System.out.println(Arrays.toString(CommandManager.getCommandList("hello /tradewith player /kick PurpleCircleMage @{player} awsdf", "self", "player", "item", "price")));
-//        System.out.println(Arrays.toString(CommandManager.getCommandList("@{player} wtf", "self", "player", "item", "price")));
-//        System.out.println(Arrays.toString(CommandManager.getCommandList("thanks!", "self", "player", "item", "price")));
-//        System.out.println(Arrays.toString(CommandManager.getCommandList("/kick {player}", "self", "player", "item", "price")));
-//        CommandManager.runCommand(CommandManager.getCommandList("/tradewith {player} /kick {player}"), "PurpleCircleMage", "PurpleCircleMage", "", "");
-        String[] cmds = HotkeyManager.getCommandList("@{self} hello1 @{self} hello2 @{self} hello3 ");
-        System.out.println("COMMAND LIST : " + Arrays.toString(cmds));
-//        PoeInterface.runCommand(cmds, "PurpleCircleMage", "PurpleCircleMage", "", "");
-
 
         // Finalize
         GlobalScreen.addNativeMouseListener(globalMouse);

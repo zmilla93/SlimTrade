@@ -141,7 +141,6 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
             return;
         }
         cachedColor = ColorManager.getCurrentColorTheme();
-        System.out.println("COLOR");
         this.setBackground(ColorManager.BACKGROUND);
         innerPanel.setBackground(ColorManager.BACKGROUND);
         this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));

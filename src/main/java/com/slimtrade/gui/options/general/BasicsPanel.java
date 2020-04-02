@@ -2,15 +2,14 @@ package com.slimtrade.gui.options.general;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.MacroEventManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.custom.CustomCheckbox;
 import com.slimtrade.gui.custom.CustomCombo;
 import com.slimtrade.gui.custom.CustomLabel;
-import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
@@ -213,7 +212,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         if (characterName.equals("")) {
             characterName = null;
         }
-        MacroEventManager.setCharacterName(characterName);
         ColorTheme colorTheme = (ColorTheme) colorThemeCombo.getSelectedItem();
         App.saveManager.saveFile.characterName = characterName;
         App.saveManager.saveFile.showGuildName = guildCheckbox.isSelected();
@@ -227,7 +225,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     @Override
     public void load() {
         String characterName = App.saveManager.saveFile.characterName;
-        MacroEventManager.setCharacterName(characterName);
         characterInput.setText(characterName);
         guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
         kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);

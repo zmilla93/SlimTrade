@@ -2,12 +2,12 @@ package com.slimtrade.gui.options.ignore;
 
 import com.slimtrade.App;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.custom.CustomCombo;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.custom.CustomSpinner;
 import com.slimtrade.gui.custom.CustomTextField;
-import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.enums.MatchType;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
