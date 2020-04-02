@@ -1,6 +1,7 @@
 package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
+import com.slimtrade.core.References;
 import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.LangRegex;
 import com.slimtrade.enums.MessageType;
@@ -26,7 +27,10 @@ public class ChatParser {
     private String curLine;
     private ActionListener updateAction = e -> procUpdate();
     private Timer updateTimer = new Timer(500, updateAction);
-    private static final String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
+    //    private static final String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
+//    private static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
+    private static final Pattern SEARCH_PATTERN = Pattern.compile(References.REGEX_PREFIX_ALT + "(?<message>.+)");
+    private static final Pattern JOINED_PATTERN = Pattern.compile(".+ : (.+) has joined the area(.)");
     private ArrayList<IgnoreData> whisperIgnoreData = new ArrayList<IgnoreData>();
     private boolean chatScannerRunning = false;
     private String[] searchIgnoreTerms;
@@ -81,7 +85,6 @@ public class ChatParser {
     }
 
     public void update() {
-        long start = System.currentTimeMillis();
         try {
             reader = new InputStreamReader(new FileInputStream(App.saveManager.saveFile.clientPath), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(reader);
@@ -90,33 +93,51 @@ public class ChatParser {
                 curLineCount++;
                 if (curLineCount > totalLineCount) {
                     totalLineCount++;
-//                    ParserRegex r = validateTradeMessage(curLine);
                     LangRegex lang;
                     if (curLine.contains("@") && (lang = getLang(curLine)) != null) {
-                        App.debugger.log(curLine);
                         TradeOffer trade = getTradeOffer(curLine, lang);
                         if (trade != null) {
-                            System.out.println("ADDING TRADE");
                             if ((!App.saveManager.saveFile.enableIncomingTrades && trade.messageType == MessageType.INCOMING_TRADE)
                                     || (!App.saveManager.saveFile.enableOutgoingTrades && trade.messageType == MessageType.OUTGOING_TRADE)) {
-                                // Ignore trades if option has been disabled, but still add them to history
+                                // Ignore disabled trades
                             } else {
                                 FrameManager.messageManager.addMessage(trade);
                             }
                             FrameManager.historyWindow.addTrade(trade, true);
                         }
                     } else if (chatScannerRunning) {
+                        TradeOffer trade = getSearchOffer(curLine);
+                        if(trade != null) {
+                            FrameManager.messageManager.addMessage(trade);
+                        }
                         // TODO : Chat Scanner
-                    } else {
-                        Matcher joinAreaMatcher = Pattern.compile(playerJoinedAreaString).matcher(curLine);
-                        if (joinAreaMatcher.matches()) {
-                            for (int i = 0; i < joinAreaMatcher.groupCount(); i++) {
-                                if (joinAreaMatcher.groupCount() > 1) {
-                                    FrameManager.messageManager.setPlayerJoinedArea(joinAreaMatcher.group(1));
-                                }
-                            }
+//                        boolean ignore = false;
+//                        String curLower = curLine.toLowerCase();
+////                        for (String s : searchIgnoreTerms) {
+////                            if (curLower.contains(s)) {
+////                                ignore = true;
+////                                break;
+////                            }
+////                        }
+//                        if (!ignore) {
+//                            for (String searchTerm : searchTerms) {
+//                                if (curLower.contains(searchTerm)) {
+////                                        public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String searchName, String searchMessage) {
+//
+////                                    trade.date = date;
+////                                    trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6));
+//
+//                                }
+//                            }
+//                        }
+                    }
+                    Matcher joinAreaMatcher = JOINED_PATTERN.matcher(curLine);
+                    if (joinAreaMatcher.matches()) {
+                        if (joinAreaMatcher.groupCount() > 1) {
+                            FrameManager.messageManager.setPlayerJoinedArea(joinAreaMatcher.group(1));
                         }
                     }
+
                 }
             }
             bufferedReader.close();
@@ -125,6 +146,8 @@ public class ChatParser {
             App.debugger.log("[Chat Parser] Exception encountered while attempting to update parser.");
         }
     }
+
+
 
     public LangRegex getLang(String text) {
         // Languages only support one contain text so 'wtb is checked separately to support legacy sites
@@ -179,22 +202,57 @@ public class ChatParser {
         trade.itemName = matcher.group("itemName");
         trade.itemQuantity = cleanDouble(cleanResult(matcher, "itemQuantity"));
         trade.priceTypeString = cleanResult(matcher, "priceType");
-        trade.priceCount = cleanDouble(cleanResult(matcher, "priceQuantity"));
+        trade.priceQuantity = cleanDouble(cleanResult(matcher, "priceQuantity"));
         trade.stashtabName = cleanResult(matcher, "stashtabName");
         trade.stashtabX = cleanInt(cleanResult(matcher, "stashX"));
-        ;
         trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));
-        ;
         trade.bonusText = cleanResult(matcher, "bonusText");
         trade.sentMessage = "";
         return trade;
     }
 
+    private TradeOffer getSearchOffer(String text) {
+        Matcher matcher = SEARCH_PATTERN.matcher(text);
+        System.out.println("SEARCH : " + text);
+//        TradeOffer trade = null;
+        if (matcher.matches()) {
+            System.out.println("MATCH");
+//                public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String searchName, String searchMessage) {
+//            trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6));
+            TradeOffer trade = new TradeOffer();
+            trade.date = matcher.group("date");
+            trade.time = matcher.group("time");
+            trade.messageType = MessageType.CHAT_SCANNER;
+            trade.guildName = matcher.group("guildName");
+            trade.playerName = matcher.group("playerName");
+            trade.searchName = this.searchName;
+            trade.searchMessage = matcher.group("message");
+            String chatMessage = trade.searchMessage.toLowerCase();
+            if (this.searchIgnoreTerms != null) {
+                for (String s : this.searchIgnoreTerms) {
+                    if (chatMessage.contains(s)) {
+                        return null;
+                    }
+                }
+            }
+            boolean found = false;
+            for (String s : this.searchTerms) {
+                if (!s.equals("")) {
+                    if (chatMessage.contains(s)) {
+                        found = true;
+                    }
+                }
+            }
+            if (found) {
+                return trade;
+            }
+        }
+        return null;
+    }
+
     private <T> T cleanResult(Matcher matcher, String text) {
         try {
-            T result;
-            result = (T) matcher.group(text);
-            return result;
+            return (T) matcher.group(text);
         } catch (IllegalArgumentException e) {
             return null;
         }
@@ -204,16 +262,14 @@ public class ChatParser {
         if (text == null) {
             return 0;
         }
-        int i = Integer.parseInt(text);
-        return i;
+        return Integer.parseInt(text);
     }
 
     private double cleanDouble(String text) {
         if (text == null) {
             return 0;
         }
-        double d = Double.parseDouble(text);
-        return d;
+        return Double.parseDouble(text);
     }
 
     private MessageType getMessageType(String s) {

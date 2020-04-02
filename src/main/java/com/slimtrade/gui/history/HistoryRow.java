@@ -68,7 +68,7 @@ public class HistoryRow extends JPanel implements IColorable{
 		timePanel = new HistoryCellPanel(trade.time);
 		playerPanel = new HistoryCellPanel(trade.playerName);
 		itemPanel = new HistoryCellPanel(TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true));
-		pricePanel = new PricePanel(trade.priceTypeString, trade.priceCount, false);
+		pricePanel = new PricePanel(trade.priceTypeString, trade.priceQuantity, false);
 
 		datePanel.setPreferredSize(new Dimension(60, ROW_HEIGHT));
 		timePanel.setPreferredSize(new Dimension(60, ROW_HEIGHT));

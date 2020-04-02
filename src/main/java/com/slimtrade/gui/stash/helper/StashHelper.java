@@ -41,7 +41,7 @@ public class StashHelper extends JPanel {
 		this.setPreferredSize(new Dimension(width, height));
 		this.setBorder(BorderFactory.createLineBorder(colorForeground, borderThickness));
 
-		String fixedStashtabName = trade.stashtabName == null ? "(~price " + Double.toString(trade.priceCount).replaceAll("[.]0", "") + " " + trade.priceTypeString + ")" : trade.stashtabName;
+		String fixedStashtabName = trade.stashtabName == null ? "(~price " + Double.toString(trade.priceQuantity).replaceAll("[.]0", "") + " " + trade.priceTypeString + ")" : trade.stashtabName;
 		JLabel stashLabel = new JLabel(fixedStashtabName);
 		stashLabel.setForeground(colorForeground);
 		JLabel itemLabel = new JLabel(trade.itemName);

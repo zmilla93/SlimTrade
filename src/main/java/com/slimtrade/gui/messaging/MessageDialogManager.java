@@ -161,7 +161,7 @@ public class MessageDialogManager {
                             if (tradeA.priceType.equals(tradeB.priceType)) {
                                 check++;
                             }
-                            if (tradeA.priceCount.equals(tradeB.priceCount)) {
+                            if (tradeA.priceQuantity.equals(tradeB.priceQuantity)) {
                                 check++;
                             }
                             if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {

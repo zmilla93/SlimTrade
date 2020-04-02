@@ -17,9 +17,9 @@ public class TradeOffer {
     public String guildName;
     public String playerName;
     public String itemName;
-    public Double itemQuantity;
+    public Double itemQuantity = 0.0;
     public String priceTypeString;
-    public Double priceCount;
+    public Double priceQuantity = 0.0;
     public String stashtabName;
     public int stashtabX;
     public int stashtabY;
@@ -38,14 +38,14 @@ public class TradeOffer {
     }
 
     // Dummy Trade
-    public TradeOffer(MessageType messageType, String playerName, String itemName, double itemQuantity, String priceTypeString, double priceCount) {
+    public TradeOffer(MessageType messageType, String playerName, String itemName, double itemQuantity, String priceTypeString, double priceQuantity) {
         this.messageType = messageType;
         this.playerName = playerName;
         this.itemName = itemName;
         this.itemQuantity = itemQuantity;
         this.priceTypeString = priceTypeString;
         this.priceType = TradeUtility.getPOEImage(priceTypeString);
-        this.priceCount = priceCount;
+        this.priceQuantity = priceQuantity;
     }
 
     //Chat Scanner Search
@@ -58,7 +58,7 @@ public class TradeOffer {
         this.itemName = null;
         this.itemQuantity = null;
         this.priceTypeString = null;
-        this.priceCount = null;
+        this.priceQuantity = null;
         this.stashtabName = null;
         this.stashtabX = 0;
         this.stashtabY = 0;
@@ -69,7 +69,7 @@ public class TradeOffer {
     }
 
     //Trade
-    public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, double itemQuantity, String priceTypeString, double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage) {
+    public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, double itemQuantity, String priceTypeString, double priceQuantity, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage) {
         this.date = date;
         this.time = time;
         this.messageType = msgType;
@@ -79,7 +79,7 @@ public class TradeOffer {
         this.itemQuantity = itemQuantity;
         this.priceType = TradeUtility.getPOEImage(priceTypeString);
         this.priceTypeString = priceTypeString;
-        this.priceCount = priceCount;
+        this.priceQuantity = priceQuantity;
         this.stashtabName = stashtabName;
         this.stashtabX = stashtabX;
         this.stashtabY = stashtabY;

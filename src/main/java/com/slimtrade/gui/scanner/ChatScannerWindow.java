@@ -6,14 +6,20 @@ import com.slimtrade.core.observing.ComponentResizeAdapter;
 import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.saving.MacroButton;
+import com.slimtrade.core.utility.TradeOffer;
+import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.ToggleButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.custom.CustomScrollPane;
+import com.slimtrade.gui.enums.ButtonRow;
+import com.slimtrade.gui.enums.CustomIcons;
+import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.ISaveable;
+import com.slimtrade.gui.options.macro.MacroCustomizerRow;
 import com.slimtrade.gui.options.macro.MacroPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
@@ -21,8 +27,11 @@ import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -68,8 +77,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private boolean checkName;
     private boolean checkSearchTerms;
     private boolean checkIgnoreTerms;
-    private boolean checkThankLeft;
-    private boolean checkThankRight;
     private boolean checkMacros;
 
     private final int MAX_MACROS = 8;
@@ -80,18 +87,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
     public ChatScannerWindow() {
         super("Chat Scanner");
-        // Get controls from child panels
-        // Macro Panel Controls
 
-        /**
-         * START
-         */
-
-//        addRemovePanel = macroPanel.addRemovePanel;
         addMacroButton = macroPanel.addButton;
-//        thankLeft = macroPanel.thankLeft;
-//        thankRight = macroPanel.thankRight;
-
         // Save Panel Controls
         searchButton = searchSelectorPanel.searchButton;
         searchCombo = searchSelectorPanel.searchCombo;
@@ -146,12 +143,12 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         searchTermsInput.setLineWrap(true);
         searchTermsInput.setWrapStyleWord(true);
         FrameManager.centerFrame(this);
+        refreshMessage("");
         updateColor();
         refreshWindowState();
-
         load();
-        // Listeners
 
+        // Listeners
         saveTextField.getDocument().addDocumentListener(new DocumentUpdateListener() {
             public void update() {
                 checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
@@ -173,20 +170,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             }
         });
 
-//        thankLeft.getDocument().addDocumentListener(new DocumentUpdateListener() {
-//            public void update() {
-//                checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
-//                refreshWindowState();
-//            }
-//        });
-//
-//        thankRight.getDocument().addDocumentListener(new DocumentUpdateListener() {
-//            public void update() {
-//                checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
-//                refreshWindowState();
-//            }
-//        });
-
         addRemovePanel.addComponentListener(new ComponentResizeAdapter() {
             public void componentResized(ComponentEvent e) {
                 checkMacros = checkMacros();
@@ -206,8 +189,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             } else {
                 selectedMessage = null;
             }
-            // TODO : fixnow
-//            refreshTrade();
             refreshListeners();
             runAllChecks();
             refreshWindowState();
@@ -254,9 +235,9 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                         break;
                     }
                 }
-                App.saveManager.scannerSaveFile.messages.clear();
-                App.saveManager.scannerSaveFile.messages.addAll(messageList);
+                App.saveManager.scannerSaveFile.messages = messageList.toArray(new ScannerMessage[0]);
                 App.saveManager.saveScannerToDisk();
+                refreshMessage("");
                 refreshCombo();
                 clearWindow();
                 runAllChecks();
@@ -272,6 +253,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             }
             ScannerMessage msg = (ScannerMessage) searchCombo.getSelectedItem();
             loadMessage(msg);
+            refreshMessage(msg.name);
             runAllChecks();
             refreshWindowState();
             refreshListeners();
@@ -280,8 +262,10 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
         clearButton.addActionListener(e -> {
             clearWindow();
+            addDefaults();
             runAllChecks();
             refreshWindowState();
+            refreshMessage("");
         });
 
         saveButton.addActionListener(e -> {
@@ -292,13 +276,13 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             addRemovePanel.clearHiddenPanels();
             ArrayList<MacroButton> macros = new ArrayList();
             // Get list of macros
-//            for (Component c : addRemovePanel.getComponents()) {
-//                if (c.isVisible() && c instanceof CustomMacroRow) {
-//                    macros.add(((CustomMacroRow) c).getMacroData());
-//                }
-//            }
+            for (Component c : addRemovePanel.getComponents()) {
+                if (c.isVisible() && c instanceof MacroCustomizerRow) {
+                    macros.add(((MacroCustomizerRow) c).getMacroData());
+                }
+            }
             // Get current scanner window message
-            ScannerMessage message = new ScannerMessage(saveTextField.getText().trim(), searchTermsInput.getText(), ignoreTermsInput.getText(), "", "", macros);
+            ScannerMessage message = new ScannerMessage(saveTextField.getText().trim(), searchTermsInput.getText(), ignoreTermsInput.getText(), macros.toArray(new MacroButton[0]));
             // Delete old duplicate
             for (ScannerMessage m : messageList) {
                 if (message.name.toLowerCase().equals(m.name.toLowerCase())) {
@@ -313,36 +297,29 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             refreshWindowState();
             refreshListeners();
 
-            App.saveManager.scannerSaveFile.messages.clear();
-            App.saveManager.scannerSaveFile.messages.addAll(messageList);
+            App.saveManager.scannerSaveFile.messages = messageList.toArray(new ScannerMessage[0]);
             App.saveManager.saveScannerToDisk();
 
-            // TODO : fixnow
-//            refreshTrade();
+            refreshMessage(message.name);
 
             macroPanel.revalidate();
             macroPanel.repaint();
 
             saving = false;
         });
-
-        /**
-         * END
-         */
+        addDefaults();
     }
 
     private void runAllChecks() {
         checkName = selectedMessage != null && saveTextField.getText().equals(selectedMessage.name);
         checkSearchTerms = selectedMessage != null && searchTermsInput.getText().equals(selectedMessage.searchTermsRaw);
         checkIgnoreTerms = selectedMessage != null && ignoreTermsInput.getText().equals(selectedMessage.ignoreTermsRaw);
-//        checkThankLeft = selectedMessage != null && thankLeft.getText().equals(selectedMessage.thankLeft);
-//        checkThankRight = selectedMessage != null && thankRight.getText().equals(selectedMessage.thankRight);
         checkMacros = checkMacros();
     }
 
     private void refreshWindowState() {
         // TODO : Optimize?
-        boolean matchingMessage = checkName && checkSearchTerms && checkIgnoreTerms && checkThankLeft && checkThankRight && checkMacros;
+        boolean matchingMessage = checkName && checkSearchTerms && checkIgnoreTerms && checkMacros;
         if (searching) {
             searchButton.setEnabled(false);
             deleteButton.setEnabled(false);
@@ -351,15 +328,11 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             saveButton.setEnabled(false);
             searchTermsInput.setEnabled(false);
             ignoreTermsInput.setEnabled(false);
-//            thankLeft.setEnabled(false);
-//            thankRight.setEnabled(false);
             addMacroButton.setEnabled(false);
             searchButton.setEnabled(true);
         } else {
             searchTermsInput.setEnabled(true);
             ignoreTermsInput.setEnabled(true);
-//            thankLeft.setEnabled(true);
-//            thankRight.setEnabled(true);
             addMacroButton.setEnabled(true);
             if (matchingMessage) {
                 deleteButton.setEnabled(true);
@@ -384,8 +357,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             if (!saveTextField.getText().equals("") ||
                     !searchTermsInput.getText().equals("") ||
                     !ignoreTermsInput.getText().equals("") ||
-//                    !thankLeft.getText().equals("") ||
-//                    !thankRight.getText().equals("") ||
                     addRemovePanel.getComponentCount() > 0) {
                 clearButton.setEnabled(true);
             } else {
@@ -400,60 +371,25 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             return false;
         }
         ArrayList<MacroButton> buttons = new ArrayList<>();
-//        for (Component c : addRemovePanel.getComponents()) {
-//            if (c.isVisible() && c instanceof CustomMacroRow) {
-//                buttons.add(((CustomMacroRow) c).getMacroData());
-//            }
-//        }
-        if (selectedMessage.macroButtons.size() != buttons.size()) {
+        for (Component c : addRemovePanel.getComponents()) {
+            if (c.isVisible() && c instanceof MacroCustomizerRow) {
+                buttons.add(((MacroCustomizerRow) c).getMacroData());
+            }
+        }
+        if (selectedMessage.macroButtons.length != buttons.size()) {
+            System.out.println("RET FALSE");
             return false;
         }
         int i = 0;
         for (MacroButton b1 : selectedMessage.macroButtons) {
             MacroButton b2 = buttons.get(i);
-            if (b1.row != b2.row ||
-                    b1.image != b2.image ||
-                    !b1.leftMouseResponse.equals(b2.leftMouseResponse) ||
-                    !b1.rightMouseResponse.equals(b2.rightMouseResponse)
+            if (b1.row != b2.row
+                    || b1.image != b2.image
+                    || !b1.leftMouseResponse.equals(b2.leftMouseResponse)
+                    || !b1.rightMouseResponse.equals(b2.rightMouseResponse)
+                    || !(b1.closeOnClick == b2.closeOnClick)
+                    || !(b1.hotkeyData == b2.hotkeyData)
             ) {
-                return false;
-            }
-            i++;
-        }
-        return true;
-    }
-
-    private boolean matchingMessages(ScannerMessage msg1, ScannerMessage msg2) {
-        // Name
-        if (msg1 == null || msg2 == null) {
-            return false;
-        }
-        if (!(msg1.name.equals(msg2.name))) {
-            return false;
-        }
-        // Macro Count
-        if (msg1.macroButtons.size() != msg2.macroButtons.size()) {
-            return false;
-        }
-        // Thank
-        if (!msg1.thankLeft.equals(msg2.thankLeft)) {
-            return false;
-        }
-        if (!msg1.thankRight.equals(msg2.thankRight)) {
-            return false;
-        }
-        // Search Terms
-        if (!(msg1.searchTermsRaw.equals(msg2.searchTermsRaw))) {
-            return false;
-        }
-        // Ignore Terms
-        if (!(msg1.ignoreTermsRaw.equals(msg2.ignoreTermsRaw))) {
-            return false;
-        }
-        // Macros
-        int i = 0;
-        for (MacroButton b1 : msg1.macroButtons) {
-            if (!MacroButton.doButtonsMatch(b1, msg2.macroButtons.get(i))) {
                 return false;
             }
             i++;
@@ -476,21 +412,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         }
     }
 
-//    private CustomMacroRow addNewMacro() {
-////        int i = 0;
-////        for (Component c : addRemovePanel.getComponents()) {
-////            if (c.isVisible()) {
-////                i++;
-////            }
-////        }
-////        if (i >= MAX_MACROS) {
-////            return null;
-////        }
-////        CustomMacroRow row = new CustomMacroRow(addRemovePanel);
-////        addRemovePanel.addRemoveablePanel(row);
-////        return row;
-//    }
-
     private void refreshListeners() {
         // Reset Listeners
         for (Component c : addRemovePanel.getComponents()) {
@@ -500,65 +421,105 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 d.removeDocumentListener(docListenerList.get(i));
                 i++;
             }
+            for(ComponentListener l : addRemovePanel.getComponentListeners()) {
+                addRemovePanel.removeComponentListener(l);
+            }
             docList.clear();
             docListenerList.clear();
-//            if (c instanceof CustomMacroRow) {
-//                CustomMacroRow row = ((CustomMacroRow) c);
-//                MacroButton b = row.getMacroData();
-//                if (row.rowCombo.getListeners(ActionListener.class).length < 1) {
-//                    ((CustomMacroRow) c).rowCombo.addActionListener(e -> {
-//                        checkMacros = checkMacros();
-//                        refreshWindowState();
-//                    });
-//                }
-//                if (row.iconCombo.getListeners(ActionListener.class).length < 1) {
-//                    ((CustomMacroRow) c).iconCombo.addActionListener(e -> {
-//                        checkMacros = checkMacros();
-//                        refreshWindowState();
-//                    });
-//                }
-//                row.m1Text.getDocument().addDocumentListener(new DocumentUpdateListener() {
-//                    public void update() {
-//                        checkMacros = checkMacros();
-//                        refreshWindowState();
-//                    }
-//                });
-//                row.m2Text.getDocument().addDocumentListener(new DocumentUpdateListener() {
-//                    public void update() {
-//                        checkMacros = checkMacros();
-//                        refreshWindowState();
-//                    }
-//                });
-//            }
+            // Change Listeners
+            if (c instanceof MacroCustomizerRow) {
+                MacroCustomizerRow row = ((MacroCustomizerRow) c);
+                MacroButton b = row.getMacroData();
+                if (row.rowCombo.getListeners(ActionListener.class).length < 1) {
+                    ((MacroCustomizerRow) c).rowCombo.addActionListener(e -> {
+                        checkMacros = checkMacros();
+                        refreshWindowState();
+                    });
+                }
+                if (row.iconCombo.getListeners(ActionListener.class).length < 1) {
+                    ((MacroCustomizerRow) c).iconCombo.addActionListener(e -> {
+                        checkMacros = checkMacros();
+                        refreshWindowState();
+                    });
+                }
+                row.textLMB.getDocument().addDocumentListener(new DocumentUpdateListener() {
+                    public void update() {
+                        checkMacros = checkMacros();
+                        refreshWindowState();
+                    }
+                });
+                row.textLMB.getDocument().addDocumentListener(new DocumentUpdateListener() {
+                    public void update() {
+                        checkMacros = checkMacros();
+                        refreshWindowState();
+                    }
+                });
+                addRemovePanel.addComponentListener(new ComponentListener() {
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+                        checkMacros = checkMacros();
+                        refreshWindowState();
+                    }
+
+                    @Override
+                    public void componentMoved(ComponentEvent e) {
+                        checkMacros = checkMacros();
+                        refreshWindowState();
+                    }
+
+                    @Override
+                    public void componentShown(ComponentEvent e) {
+
+                    }
+
+                    @Override
+                    public void componentHidden(ComponentEvent e) {
+
+                    }
+                });
+                row.closeCheckbox.addActionListener(e -> {
+                    checkMacros = checkMacros();
+                    refreshWindowState();
+                });
+            }
         }
+    }
+
+    private void refreshMessage(String searchName) {
+        TradeOffer trade = new TradeOffer(MessageType.CHAT_SCANNER, "ExampleUser123", "item", 0, "", 0);
+        trade.searchName = searchName;
+        trade.searchMessage = "Sample Message";
+//        new MessagePanel(trade, MessageDialogManager.getMessageSize(), false);
+        macroPanel.setExampleMessage(trade);
     }
 
     private void loadMessage(ScannerMessage message) {
         saveTextField.setText(message.name);
         searchTermsInput.setText(message.searchTermsRaw);
         ignoreTermsInput.setText(message.ignoreTermsRaw);
-//        thankLeft.setText(message.thankLeft);
-//        thankRight.setText(message.thankRight);
         addRemovePanel.removeAll();
-//        for (MacroButton b : message.macroButtons) {
-//            CustomMacroRow row = new CustomMacroRow(addRemovePanel);
-//            row.rowCombo.setSelectedItem(b.row);
-//            boolean found = false;
-//            for(int j = 0; j< CustomIcons.values().length; j++) {
-//                if(CustomIcons.values()[j] == b.image) {
-//                    row.iconCombo.setSelectedIndex(j);
-//                    found = true;
-//                    break;
-//                }
-//            }
-//            if (!found && row.iconCombo.getItemCount() > 0) {
-//                row.iconCombo.setSelectedIndex(0);
-//            }
-//            row.setTextLMB(b.leftMouseResponse);
-//            row.setTextRMB(b.rightMouseResponse);
-//            addRemovePanel.addRemoveablePanel(row);
-//        }
-        addRemovePanel.clearHiddenPanels();
+        for (MacroButton b : message.macroButtons) {
+            MacroCustomizerRow row = new MacroCustomizerRow();
+            row.rowCombo.setSelectedItem(b.row);
+            boolean found = false;
+            for (int j = 0; j < CustomIcons.values().length; j++) {
+                if (CustomIcons.values()[j] == b.image) {
+                    row.iconCombo.setSelectedIndex(j);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found && row.iconCombo.getItemCount() > 0) {
+                row.iconCombo.setSelectedIndex(0);
+            }
+            row.textLMB.setText(b.leftMouseResponse);
+            row.textRMB.setText(b.rightMouseResponse);
+            row.hotkeyInput.updateHotkey(b.hotkeyData);
+            row.closeCheckbox.setSelected(b.closeOnClick);
+            addRemovePanel.addRemoveablePanel(row);
+            refreshMessage(message.name);
+        }
+
     }
 
     private void clearWindow() {
@@ -567,31 +528,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         searchCombo.setSelectedIndex(-1);
         searchTermsInput.setText(null);
         ignoreTermsInput.setText(null);
-//        thankLeft.setText(null);
-//        thankRight.setText(null);
         addRemovePanel.removeAll();
     }
-
-//    private void refreshTrade() {
-//        if (sampleMessage != null) {
-//            containerPanel.container.remove(sampleMessage);
-//        }
-//        String searchName = "Search Name";
-//        if (selectedMessage != null) {
-//            searchName = selectedMessage.name;
-//        }
-//        TradeOffer trade = new TradeOffer("", "", MessageType.CHAT_SCANNER, "<GLD>", "ExampleUsername", searchName, "Example message text. Lorem ipsum dolor sit amet, novum adipisci at vel, cum hinc iudico expetenda cu.");
-//        sampleMessage = new MessagePanel(trade, MessageDialogManager.DEFAULT_SIZE);
-//        GridBagConstraints gc = new GridBagConstraints();
-//        gc.gridx = 0;
-//        gc.gridy = 0;
-//        gc.insets = new Insets(20, 20, 0, 20);
-//        sampleMessage = new MessagePanel(trade, MessageDialogManager.DEFAULT_SIZE, false);
-//        sampleMessage.stopTimer();
-//        containerPanel.container.add(sampleMessage, gc);
-//        this.revalidate();
-//        this.repaint();
-//    }
 
     @Override
     public void save() {
@@ -602,14 +540,12 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     public void load() {
         App.saveManager.loadScannerFromDisk();
         messageList.clear();
-        messageList.addAll(App.saveManager.scannerSaveFile.messages);
+        messageList.addAll(Arrays.asList(App.saveManager.scannerSaveFile.messages));
         Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
         searchCombo.removeAllItems();
-
         for (ScannerMessage msg : messageList) {
             searchCombo.addItem(msg);
         }
-
         searchCombo.setSelectedIndex(-1);
     }
 
@@ -620,5 +556,21 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         borderPanel.setBackground(ColorManager.BACKGROUND);
         containerPanel.setBorder(ColorManager.BORDER_TEXT);
     }
+
+    private void addDefaults() {
+        addRemovePanel.removeAll();
+        MacroButton[] defaultMacros = {
+                new MacroButton(ButtonRow.BOTTOM, "/invite {player}", "", CustomIcons.INVITE, null, false),
+                new MacroButton(ButtonRow.BOTTOM, "/tradewith {player}", "", CustomIcons.CART, null, false),
+                new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
+                new MacroButton(ButtonRow.BOTTOM, "/kick {player}", "", CustomIcons.LEAVE, null, false),
+        };
+        for (MacroButton b : defaultMacros) {
+            MacroCustomizerRow row = new MacroCustomizerRow();
+            row.setMacroData(b);
+            addRemovePanel.addRemoveablePanel(row);
+        }
+    }
+
 }
 

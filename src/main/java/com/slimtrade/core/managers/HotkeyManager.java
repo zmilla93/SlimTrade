@@ -50,7 +50,7 @@ public class HotkeyManager {
                     for (MacroButton b : macros) {
                         if (b.hotkeyData != null && e.getKeyCode() == b.hotkeyData.keyCode) {
                             //TODO : RUN
-                            PoeInterface.runCommand(b.getCommandsLeft(), firstTrade.playerName, TradeUtility.getFixedItemName(firstTrade.itemName, firstTrade.itemQuantity, true), firstTrade.priceCount + " " + firstTrade.priceTypeString);
+                            PoeInterface.runCommand(b.getCommandsLeft(), firstTrade.playerName, TradeUtility.getFixedItemName(firstTrade.itemName, firstTrade.itemQuantity, true), firstTrade.priceQuantity + " " + firstTrade.priceTypeString);
                             if (b.closeOnClick) {
                                 FrameManager.messageManager.closeTrade(firstTrade);
                             }

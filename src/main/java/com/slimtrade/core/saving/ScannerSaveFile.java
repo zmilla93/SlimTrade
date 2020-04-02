@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public class ScannerSaveFile {
 
-    public ArrayList<ScannerMessage> messages = new ArrayList<>();
+    public ScannerMessage[] messages = new ScannerMessage[0];
 
 }

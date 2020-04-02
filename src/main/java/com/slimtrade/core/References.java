@@ -13,6 +13,7 @@ public class References {
 
 	public static final int DEFAULT_IMAGE_SIZE = 18;
 	public static final String REGEX_PREFIX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*@(?<messageType>To|From) (?<guildName><.+> )?(?<playerName>.+):(\\s+)";
+	public static final String REGEX_PREFIX_ALT = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*(#|\\$)(?<guildName><.+> )?(?<playerName>.+):(\\s+)";
 
 	public static void loadAppVersion() {
 

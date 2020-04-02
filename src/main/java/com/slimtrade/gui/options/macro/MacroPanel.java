@@ -116,10 +116,10 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
         gc.gridy++;
         container.add(addRemovePanel, gc);
 
-        TradeOffer t = new TradeOffer("", "", messageType, "<GLD>", "PlayerName123", "Item Name", 1, "chaos", 60, "sale", 1, 1, "", "");
-        MessagePanel msg = new MessagePanel(t, MessageDialogManager.DEFAULT_SIZE, false);
-        msg.stopTimer();
-        setExampleMessage(msg);
+        TradeOffer t = new TradeOffer("", "", messageType, "<GLD>", "ExampleUser123", "Item Name", 1, "chaos", 60, "sale", 1, 1, "", "");
+//        MessagePanel msg = new MessagePanel(t, MessageDialogManager.DEFAULT_SIZE, false);
+//        msg.stopTimer();
+        setExampleMessage(t);
 
         addButton.addActionListener(e -> {
             MacroCustomizerRow row = new MacroCustomizerRow();
@@ -132,12 +132,13 @@ public class MacroPanel extends ContainerPanel implements ISaveable {
 
     }
 
-    public void setExampleMessage(MessagePanel panel) {
+    public void setExampleMessage(TradeOffer trade) {
+        MessagePanel p = new MessagePanel(trade, MessageDialogManager.getMessageSize(), false);
+        p.stopTimer();
+        messagePanel = p;
         messageWrapper.removeAll();
-        messagePanel = panel;
-        messageWrapper.add(panel, new GridBagConstraints());
-        resizeMessage();
-//        panel.repaint();
+        messageWrapper.add(p, new GridBagConstraints());
+//        resizeMessage();
     }
 
     public void resizeMessage() {

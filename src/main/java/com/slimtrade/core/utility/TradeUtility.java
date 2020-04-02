@@ -186,7 +186,7 @@ public class TradeUtility {
             } else if (trade1.priceTypeString.equals(trade2.priceTypeString)) {
                 check++;
             }
-            if (trade1.priceCount.equals(trade2.priceCount)) {
+            if (trade1.priceQuantity.equals(trade2.priceQuantity)) {
                 check++;
             }
             if (check == checkCount) {

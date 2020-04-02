@@ -9,18 +9,15 @@ public class ScannerMessage {
 	public String name;
 	public String searchTermsRaw;
 	public String ignoreTermsRaw;
-	public String thankLeft;
-	public String thankRight;
 	public String[] searchTermsArray;
 	public String[] ignoreTermsArray;
-	public ArrayList<MacroButton> macroButtons;
-	
-	public ScannerMessage(String name, String searchTermsRaw, String ignoreTermsRaw, String thankLeft, String thankRight, ArrayList<MacroButton> macroButtons) {
+//	public ArrayList<MacroButton> macroButtons;
+	public MacroButton[] macroButtons;
+
+	public ScannerMessage(String name, String searchTermsRaw, String ignoreTermsRaw, MacroButton[] macroButtons) {
 		this.name = name;
 		this.searchTermsRaw = searchTermsRaw;
 		this.ignoreTermsRaw = ignoreTermsRaw;
-		this.thankLeft = thankLeft;
-		this.thankRight = thankRight;
 		this.macroButtons = macroButtons;
 		this.searchTermsArray = cleanArray(searchTermsRaw);
 		this.ignoreTermsArray = cleanArray(ignoreTermsRaw);
