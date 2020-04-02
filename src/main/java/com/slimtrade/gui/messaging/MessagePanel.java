@@ -9,6 +9,7 @@ import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.FrameManager;
@@ -154,18 +155,46 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 for(ScannerMessage msg : App.saveManager.scannerSaveFile.messages) {
                     if(msg.name == trade.searchName) {
                         macros = msg.macroButtons;
-                        for (MacroButton b : msg.macroButtons) {
-
-                        }
                         break;
                     }
-
                 }
                 break;
             case UNKNOWN:
                 break;
         }
-        // Add New Buttons
+        // Preset Macros
+        if (makeListeners) {
+            namePanel.addMouseListener(new AdvancedMouseAdapter(){
+                @Override
+                public void click(MouseEvent e) {
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+//                        PoeInterface.runCommand(new String[]{"/whois {player}"}, trade.playerName, "", "");
+                        PoeInterface.runCommand(new String[]{"/whois {player}"}, trade.playerName, "", "");
+                    } else if (e.getButton() == MouseEvent.BUTTON3) {
+                        PoeInterface.paste("@" + trade.playerName + " ", false);
+//                        PoeInterface.runCommand("", trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString));
+                    }
+                }
+            });
+            if(messageType == MessageType.INCOMING_TRADE) {
+                itemPanel.addMouseListener(new AdvancedMouseAdapter(){
+                    @Override
+                    public void click(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON1) {
+                            stashHelper.setVisible(true);
+                            FrameManager.stashHelperContainer.pack();
+                        } else if (e.getButton() == MouseEvent.BUTTON3) {
+                            FrameManager.ignoreItemWindow.setItem(trade.itemName);
+                            FrameManager.ignoreItemWindow.pack();
+                            FrameManager.centerFrame(FrameManager.ignoreItemWindow);
+                            App.eventManager.recursiveColor(FrameManager.ignoreItemWindow);
+                            FrameManager.ignoreItemWindow.setVisible(true);
+                        }
+                    }
+                });
+            }
+        }
+        // Custom Macros
         buttonCountTop = 1;
         buttonCountBottom = 0;
         if (macros != null) {
@@ -184,10 +213,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                         public void click(MouseEvent e) {
                             System.out.println(e.getButton());
                             if (e.getButton() == MouseEvent.BUTTON1) {
-                                PoeInterface.runCommand(b.getCommandsLeft(),
-                                        trade.playerName,
-                                        TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true),
-                                        (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString));
+                                PoeInterface.runCommand(b.getCommandsLeft(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString));
                             } else if (e.getButton() == MouseEvent.BUTTON3) {
                                 PoeInterface.runCommand(b.getCommandsRight(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString));
                             }

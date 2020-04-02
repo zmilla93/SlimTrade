@@ -4,6 +4,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.BufferPanel;
 
@@ -46,7 +47,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
 		gc.ipady = 0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		titlebarPanel.add(new BufferPanel(5,0), BorderLayout.WEST);
-		titleLabel = new JLabel(fullTitle);
+		titleLabel = new CustomLabel(fullTitle);
 		gc.anchor = GridBagConstraints.LINE_START;
 		titlebarPanel.add(titleLabel, BorderLayout.CENTER);
 		JPanel p = new JPanel();

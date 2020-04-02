@@ -43,9 +43,9 @@ public class InformationPanel extends ContainerPanel {
 		emailText.setBorder(null);
 		emailText.setEditable(false);
 		
-		JLabel info1 = new JLabel("Bugs can be reported on github or via e-mail");
-		JLabel info2 = new JLabel("Design/feature feedback can be sent via e-mail.");
-		JLabel info3 = new JLabel("Please read the github post before sending feedback to avoid redundancy.");
+		JLabel info1 = new CustomLabel("Bugs can be reported on github or via e-mail");
+		JLabel info2 = new CustomLabel("Design/feature feedback can be sent via e-mail.");
+		JLabel info3 = new CustomLabel("Please read the github post before sending feedback to avoid redundancy.");
 
 		container.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
@@ -67,7 +67,6 @@ public class InformationPanel extends ContainerPanel {
         gc.insets.left = 0;
 		gc.gridx = 0;
 		gc.gridy++;
-		
 
 		container.add(emailTitle, gc);
 		gc.gridx = 1;

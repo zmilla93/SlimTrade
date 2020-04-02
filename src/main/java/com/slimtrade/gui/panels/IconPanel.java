@@ -1,6 +1,7 @@
 package com.slimtrade.gui.panels;
 
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +51,7 @@ public class IconPanel extends JPanel {
 		}
 		int imageSize = (int)(size*IMAGE_SCALE);
 //		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
-		JLabel imgLabel = new JLabel();
+		JLabel imgLabel = new CustomLabel();
 		imgLabel.setIcon(new ImageIcon(image));
 		this.add(imgLabel, BorderLayout.CENTER);
 	}

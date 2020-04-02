@@ -23,10 +23,6 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator, 
     public JButton editButton = new BasicButton("Browse");
 
     private JLabel info1 = new CustomLabel("Enter the location of Path of Exile's Client.txt file.");
-    private JLabel info2a = new CustomLabel("Multiple client files detected. Selected the one being used, or enter a new one.");
-    private JLabel info2b = new CustomLabel("If this file was recently deleted, launch POE before running SlimTrade.");
-
-//    private JLabel info2 = new JLabel("If this file was recently deleted, launch POE to recreate it.");
 
     private JFrame parent;
     private JFileChooser fileChooser;

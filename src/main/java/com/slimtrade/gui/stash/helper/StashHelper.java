@@ -4,6 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,9 +43,9 @@ public class StashHelper extends JPanel {
 		this.setBorder(BorderFactory.createLineBorder(colorForeground, borderThickness));
 
 		String fixedStashtabName = trade.stashtabName == null ? "(~price " + Double.toString(trade.priceQuantity).replaceAll("[.]0", "") + " " + trade.priceTypeString + ")" : trade.stashtabName;
-		JLabel stashLabel = new JLabel(fixedStashtabName);
+		JLabel stashLabel = new CustomLabel(fixedStashtabName);
 		stashLabel.setForeground(colorForeground);
-		JLabel itemLabel = new JLabel(trade.itemName);
+		JLabel itemLabel = new CustomLabel(trade.itemName);
 		itemLabel.setForeground(colorForeground);
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;

@@ -3,6 +3,7 @@ package com.slimtrade.gui.options.general;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.custom.CustomTextField;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class AdvancedRow extends JPanel implements IColorable {
 	private final int LABEL_WIDTH = 100;
 
 	private boolean changed = false;
-	private JLabel label = new JLabel();
+	private JLabel label = new CustomLabel();
 	private JTextField textField = new CustomTextField(30);
 	private JLabel pathLabel;
 	private JButton editButton;
@@ -38,7 +39,7 @@ public class AdvancedRow extends JPanel implements IColorable {
 
 		JPanel pathPanel = new JPanel(new GridBagLayout());
 //		pathPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		pathLabel = new JLabel("Unset");
+		pathLabel = new CustomLabel("Unset");
 		textField.setColumns(40);
 		textField.setText("Unset");
         textField.setText(labelText);

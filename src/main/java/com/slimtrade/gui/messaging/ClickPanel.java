@@ -1,5 +1,7 @@
 package com.slimtrade.gui.messaging;
 
+import com.slimtrade.gui.custom.CustomLabel;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -19,7 +21,7 @@ public class ClickPanel extends JPanel {
 	public Border borderDefault;
 	public Border borderHover;
 	
-	public JLabel label = new JLabel();
+	public JLabel label = new CustomLabel();
 
 	
 	//TODO : Add label?

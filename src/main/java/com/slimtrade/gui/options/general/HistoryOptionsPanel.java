@@ -6,6 +6,7 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.custom.CustomCombo;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.custom.CustomSpinner;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.OrderType;
@@ -25,10 +26,10 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
 	private SpinnerModel spinnerModel = new SpinnerNumberModel(50, 0, 100, 5);
 	private JSpinner limitSpinner = new CustomSpinner(spinnerModel);
 
-	private JLabel timeLabel = new JLabel("Time Format");
-	private JLabel dateLabel = new JLabel("Date Format");
-	private JLabel orderLabel = new JLabel("Order");
-	private JLabel limitLabel = new JLabel("Message Limit");
+	private JLabel timeLabel = new CustomLabel("Time Format");
+	private JLabel dateLabel = new CustomLabel("Date Format");
+	private JLabel orderLabel = new CustomLabel("Order");
+	private JLabel limitLabel = new CustomLabel("Message Limit");
 
 	public HistoryOptionsPanel() {
 		for (TimeStyle s : TimeStyle.values()) {

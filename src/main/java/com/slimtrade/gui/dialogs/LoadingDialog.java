@@ -2,6 +2,7 @@ package com.slimtrade.gui.dialogs;
 
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -22,7 +23,7 @@ public class LoadingDialog extends BasicDialog {
 		gc.gridx = 0;
 		gc.gridy = 0;
 		
-		container.add(new JLabel("Loading SlimTrade..."), gc);
+		container.add(new CustomLabel("Loading SlimTrade..."), gc);
 		
 		FrameManager.centerFrame(this);
 		this.setVisible(true);

@@ -488,8 +488,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private void refreshMessage(String searchName) {
         TradeOffer trade = new TradeOffer(MessageType.CHAT_SCANNER, "ExampleUser123", "item", 0, "", 0);
         trade.searchName = searchName;
-        trade.searchMessage = "Sample Message";
-//        new MessagePanel(trade, MessageDialogManager.getMessageSize(), false);
+        trade.searchMessage = "Example chat message. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
         macroPanel.setExampleMessage(trade);
     }
 

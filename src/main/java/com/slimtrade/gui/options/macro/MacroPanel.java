@@ -22,9 +22,9 @@ import java.util.ArrayList;
 public class MacroPanel extends ContainerPanel implements ISaveable {
 
     // Info
-    private JLabel info1 = new CustomLabel("Send whispers or commands using {player}, {self}, {item}, and {price} as variables.");
-    private JLabel info2 = new CustomLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey.");
-    private JLabel info3 = new CustomLabel("Plain messages have @{player} added automatically. Check the box to close trade.");
+    private JLabel info1 = new CustomLabel("Send whispers or commands using {player}, {self}, {item}, and {price} as variables.", false);
+    private JLabel info2 = new CustomLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey.", false);
+    private JLabel info3 = new CustomLabel("Plain messages have @{player} added automatically. Check the box to close trade.", false);
 //    private JLabel info4 = new CustomLabel("");
 
     private SectionHeader tradeHeader = new SectionHeader("Example");

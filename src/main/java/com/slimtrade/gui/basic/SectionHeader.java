@@ -2,6 +2,7 @@ package com.slimtrade.gui.basic;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,7 @@ public class SectionHeader extends JPanel implements IColorable {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        label = new JLabel(title);
+        label = new CustomLabel(title);
         this.add(label, gc);
         gc.gridx++;
         this.add(Box.createVerticalStrut(HEIGHT), gc);

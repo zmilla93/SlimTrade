@@ -49,21 +49,11 @@ public class AbstractMessagePanel extends ColorPanel {
 	protected JLabel timerLabel;
 	protected IconButton closeButton;
 
-	// Buttons
-//	protected IconButton kickButton;
-//	protected IconButton leaveButton;
-
-	// Labels
-//	protected JLabel nameLabel = new JLabel();
-//	protected JLabel priceLabel = new JLabel();
-//	protected JLabel itemLabel = new JLabel();
-
 	protected int buttonCountTop;
 	protected int buttonCountBottom;
 	// TODO : Change to generic offer
 	protected TradeOffer trade;
 
-	protected Font font;
 	private int second = 0;
 	private int minute = 1;
 	private Timer secondTimer = new Timer(1000, new ActionListener() {
