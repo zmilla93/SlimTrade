@@ -1,6 +1,5 @@
 package com.slimtrade.gui.tutorial.panels;
 
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;

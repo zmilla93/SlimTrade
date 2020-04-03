@@ -1,12 +1,10 @@
 package com.slimtrade.gui.overlay;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;

@@ -1,9 +1,6 @@
 package com.slimtrade.core.observing;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.HotkeyManager;
-import com.slimtrade.core.utility.PoeInterface;
-import com.slimtrade.gui.FrameManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 

@@ -5,7 +5,6 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.basic.GridBagPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomLabel;
-import com.slimtrade.gui.custom.CustomTextFieldLabel;
 import com.slimtrade.gui.enums.ICacheImage;
 import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
 

@@ -2,7 +2,6 @@ package com.slimtrade.gui.panels;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.FrameManager;
 
 import javax.swing.*;
 import java.awt.*;

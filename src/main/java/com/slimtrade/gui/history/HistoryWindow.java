@@ -15,8 +15,6 @@ import com.slimtrade.gui.panels.BufferPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class HistoryWindow extends AbstractResizableWindow implements IColorable {
 	private static final long serialVersionUID = 1L;

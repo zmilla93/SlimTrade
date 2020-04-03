@@ -1,7 +1,5 @@
 package com.slimtrade.gui.options.general;
 
-import com.slimtrade.gui.FrameManager;
-
 import javax.swing.*;
 import java.awt.*;
 

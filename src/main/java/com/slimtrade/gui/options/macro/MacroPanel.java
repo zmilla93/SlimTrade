@@ -117,6 +117,8 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
         TradeOffer t = new TradeOffer("", "", messageType, "<GLD>", "ExampleUser123", "Item Name", 1, "chaos", 60, "sale", 1, 1, "", "");
         setExampleMessage(t);
 
+        load();
+
         addButton.addActionListener(e -> {
             MacroCustomizerRow row = new MacroCustomizerRow();
             addRemovePanel.addRemoveablePanel(row);
@@ -196,5 +198,8 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
     @Override
     public void updateColor() {
         super.updateColor();
+        if(messageType == MessageType.CHAT_SCANNER) {
+            addRemovePanel.color = ColorManager.BACKGROUND;
+        }
     }
 }

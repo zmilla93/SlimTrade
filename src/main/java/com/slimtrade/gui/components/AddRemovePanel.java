@@ -3,7 +3,6 @@ package com.slimtrade.gui.components;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.options.macro.MacroCustomizerRow;
 
 import javax.swing.*;
@@ -18,6 +17,8 @@ public class AddRemovePanel extends JPanel implements IColorable {
     private int spacer = 2;
 
     private ArrayList<JPanel> panels = new ArrayList<>();
+
+    public Color color;
 
     public AddRemovePanel() {
         this.setLayout(new GridBagLayout());
@@ -124,7 +125,11 @@ public class AddRemovePanel extends JPanel implements IColorable {
 
     @Override
     public void updateColor() {
-        this.setBackground(ColorManager.LOW_CONTRAST_1);
+        if(color == null) {
+            this.setBackground(ColorManager.LOW_CONTRAST_1);
+        } else {
+            this.setBackground(color);
+        }
         this.revalidate();
         this.repaint();
     }

@@ -1,6 +1,5 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.enums.DefaultIcons;

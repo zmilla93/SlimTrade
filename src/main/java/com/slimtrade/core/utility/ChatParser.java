@@ -79,13 +79,13 @@ public class ChatParser {
     }
 
     private void procUpdate() {
-        if(procCount < MAX_PRINT) {
-            System.out.println("Parser proc...");
-            procCount++;
-        }else if(procCount == MAX_PRINT) {
-            System.out.println("Silencing proc");
-            procCount++;
-        }
+//        if(procCount < MAX_PRINT) {
+//            System.out.println("Parser proc...");
+//            procCount++;
+//        }else if(procCount == MAX_PRINT) {
+//            System.out.println("Silencing proc");
+//            procCount++;
+//        }
         try {
             reader = new InputStreamReader(new FileInputStream(App.saveManager.saveFile.clientPath), StandardCharsets.UTF_8);
             reader.close();
@@ -95,13 +95,13 @@ public class ChatParser {
     }
 
     public void update() {
-        if(updateCount < MAX_PRINT) {
-            System.out.println("Parser update...");
-            updateCount++;
-        } else if(updateCount == MAX_PRINT) {
-            System.out.println("Silencing update");
-            updateCount++;
-        }
+//        if(updateCount < MAX_PRINT) {
+//            System.out.println("Parser update...");
+//            updateCount++;
+//        } else if(updateCount == MAX_PRINT) {
+//            System.out.println("Silencing update");
+//            updateCount++;
+//        }
         try {
             reader = new InputStreamReader(new FileInputStream(App.saveManager.saveFile.clientPath), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(reader);

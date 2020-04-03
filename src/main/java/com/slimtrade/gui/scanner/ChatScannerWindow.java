@@ -575,6 +575,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         for (MacroButton b : defaultMacros) {
             MacroCustomizerRow row = new MacroCustomizerRow();
             row.setMacroData(b);
+            row.upArrowButton.addActionListener(e -> addRemovePanel.shiftUp(row));
+            row.downArrowButton.addActionListener(e -> addRemovePanel.shiftDown(row));
             addRemovePanel.addRemoveablePanel(row);
         }
     }

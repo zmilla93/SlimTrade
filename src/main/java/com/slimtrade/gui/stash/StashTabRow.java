@@ -5,7 +5,6 @@ import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.ColorPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
