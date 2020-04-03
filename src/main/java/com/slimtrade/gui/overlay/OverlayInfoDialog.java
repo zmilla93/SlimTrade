@@ -66,7 +66,7 @@ public class OverlayInfoDialog extends BasicDialog implements IColorable {
         LabelComponentPanel sizePanel = new LabelComponentPanel(sizeLabel, messageSizeSlider);
 
         // Init
-        container.setLayout(FrameManager.gridBag);
+        container.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

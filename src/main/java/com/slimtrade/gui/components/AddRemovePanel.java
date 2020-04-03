@@ -20,7 +20,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
     private ArrayList<JPanel> panels = new ArrayList<>();
 
     public AddRemovePanel() {
-        this.setLayout(FrameManager.gridBag);
+        this.setLayout(new GridBagLayout());
         gc.gridx = 0;
         gc.gridy = 0;
     }

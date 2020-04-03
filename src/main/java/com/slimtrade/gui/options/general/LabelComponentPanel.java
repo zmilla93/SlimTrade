@@ -8,7 +8,7 @@ import java.awt.*;
 public class LabelComponentPanel extends JPanel {
 
     public LabelComponentPanel(JLabel label, Component component) {
-        super(FrameManager.gridBag);
+        super(new GridBagLayout());
         this.setOpaque(false);
 
         GridBagConstraints gc = new GridBagConstraints();

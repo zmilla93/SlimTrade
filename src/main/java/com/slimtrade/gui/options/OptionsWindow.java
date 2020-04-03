@@ -81,22 +81,22 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         ListButton generalButton = new ListButton("General");
         generalPanel = new GeneralPanel();
         link(generalButton, generalPanel);
-        display.add(generalPanel, gc);
+//        display.add(generalPanel, gc);
 
         ListButton stashButton = new ListButton("Stash Tabs");
         StashTabPanel stashPanel = new StashTabPanel();
         link(stashButton, stashPanel);
-        display.add(stashPanel, gc);
+//        display.add(stashPanel, gc);
 
         ListButton macroIncomingButton = new ListButton("Incoming Macros");
         macroPanelIncoming = new MacroPanel(MessageType.INCOMING_TRADE);
         link(macroIncomingButton, macroPanelIncoming);
-        display.add(macroPanelIncoming, gc);
+//        display.add(macroPanelIncoming, gc);
 
         ListButton macroOutgoingButton = new ListButton("Outgoing Macros");
         macroPanelOutgoing = new MacroPanel(MessageType.OUTGOING_TRADE);
         link(macroOutgoingButton, macroPanelOutgoing);
-        display.add(macroPanelOutgoing, gc);
+//        display.add(macroPanelOutgoing, gc);
 
 //        ListButton incomingButton = new ListButton("old in");
 //        IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
@@ -111,22 +111,22 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         ListButton ignoreButton = new ListButton("Ignore Items");
         ItemIgnorePanel ignorePanel = new ItemIgnorePanel();
         link(ignoreButton, ignorePanel);
-        display.add(ignorePanel, gc);
+//        display.add(ignorePanel, gc);
 
         ListButton hotKeyButton = new ListButton("Hotkeys");
         HotkeyPanel hotkeyPanel = new HotkeyPanel();
         link(hotKeyButton, hotkeyPanel);
-        display.add(hotkeyPanel, gc);
+//        display.add(hotkeyPanel, gc);
 
         ListButton stashSearcherButton = new ListButton("Stash Searcher");
         StashSearchPanel stashSearchPanel = new StashSearchPanel();
         link(stashSearcherButton, stashSearchPanel);
-        display.add(stashSearchPanel, gc);
+//        display.add(stashSearchPanel, gc);
 
         JButton contactButton = new ListButton("Information");
         InformationPanel contactPanel = new InformationPanel();
         link(contactButton, contactPanel);
-        display.add(contactPanel, gc);
+//        display.add(contactPanel, gc);
 
         // JButton updateButton = new BasicButton("Update Available!");
         // updateButton.setVisible(false);
@@ -186,7 +186,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         container.add(menuBorder, BorderLayout.WEST);
         container.add(scrollDisplay, BorderLayout.CENTER);
 
-        generalPanel.setVisible(true);
+        display.add(generalPanel, gc);
+        App.eventManager.recursiveColor(generalPanel);
         generalButton.active = true;
         this.setPreferredSize(new Dimension(1000, 720));
 
@@ -290,9 +291,14 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 }
                 lb = (ListButton) b;
                 lb.active = true;
-                hideAllWindows();
-                p.setVisible(true);
-                menuPanel.repaint();
+                GridBagConstraints gc = new GridBagConstraints();
+                gc.gridx = 0;
+                gc.gridy = 0;
+                display.removeAll();
+                display.add(p, gc);
+                App.eventManager.recursiveColor(p);
+                revalidate();
+                repaint();
             }
         });
     }

@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidator, IColorable {
 
-    private JPanel namePanel = new JPanel(FrameManager.gridBag);
+    private JPanel namePanel = new JPanel(new GridBagLayout());
 
     private JLabel info1 = new CustomLabel("Your character name is used to leave the party during certain trades.");
     private JLabel info2 = new CustomLabel("Be sure to update it when creating a new character.");

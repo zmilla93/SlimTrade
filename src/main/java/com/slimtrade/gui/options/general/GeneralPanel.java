@@ -20,7 +20,6 @@ public class GeneralPanel extends ContainerPanel {
 	private final int largeGap = 15;
 
 	public GeneralPanel(){
-		this.setVisible(false);
 		SectionHeader basicsHeader = new SectionHeader("Basics");
 		SectionHeader historyHeader = new SectionHeader("History");
 		SectionHeader audioHeader = new SectionHeader("Audio");

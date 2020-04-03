@@ -23,7 +23,6 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
     private JPanel stashOptions;
 
     public StashTabPanel() {
-        this.setVisible(false);
         container.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gcRow = new GridBagConstraints();

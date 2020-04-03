@@ -29,7 +29,7 @@ public class FrameManager {
 
     public static int gapSmall = 4;
     public static int gapLarge = 14;
-    public static GridBagLayout gridBag;
+//    public static GridBagLayout gridBag;
 
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
@@ -61,7 +61,7 @@ public class FrameManager {
     public static WindowState lastWindowState = WindowState.NORMAL;
 
     public FrameManager() {
-        FrameManager.gridBag = new GridBagLayout();
+//        new GridBagLayout() = new GridBagLayout();
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
         ToolTipManager.sharedInstance().setInitialDelay(0);

@@ -34,12 +34,12 @@ public class SearchNamePanel extends JPanel implements IColorable {
     private JLabel searchNameLabel = new CustomLabel("Search Name");
 
     // Internal
-    private JPanel buttonPanel = new JPanel(FrameManager.gridBag);
-    private JPanel namePanel = new JPanel(FrameManager.gridBag);
-    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
+    private JPanel buttonPanel = new JPanel(new GridBagLayout());
+    private JPanel namePanel = new JPanel(new GridBagLayout());
+    private JPanel outerPanel = new JPanel(new GridBagLayout());
 
     public SearchNamePanel() {
-        super(FrameManager.gridBag);
+        super(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

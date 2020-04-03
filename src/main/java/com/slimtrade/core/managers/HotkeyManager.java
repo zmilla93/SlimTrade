@@ -18,11 +18,11 @@ public class HotkeyManager {
         if(checkKey(e, App.saveManager.saveFile.closeTradeHotkey)) {
             FrameManager.messageManager.closeTrade(FrameManager.messageManager.getFirstTrade());
         } else if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
-            PoeInterface.runCommand(new String[]{"/remaining"}, "", "", "", "");
+            PoeInterface.runCommand("/remaining");
         } else if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {
-            PoeInterface.runCommand(new String[]{"/hideout"}, "", "", "", "");
+            PoeInterface.runCommand("/hideout");
         } else if (checkKey(e, App.saveManager.saveFile.leavePartyHotkey)) {
-            PoeInterface.runCommand(new String[]{"/kick {self}"}, "", "", "", "");
+            PoeInterface.runCommand(new String[]{"/kick {self}"}, "", "", "", "", null);
         } else if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
             FrameManager.betrayalWindow.toggleShow();
             FrameManager.betrayalWindow.refreshVisibility();
@@ -57,7 +57,7 @@ public class HotkeyManager {
                     for (MacroButton b : macros) {
                         if (b.hotkeyData != null && e.getKeyCode() == b.hotkeyData.keyCode) {
                             //TODO : RUN
-                            PoeInterface.runCommand(b.getCommandsLeft(), firstTrade.playerName, TradeUtility.getFixedItemName(firstTrade.itemName, firstTrade.itemQuantity, true), firstTrade.priceQuantity + " " + firstTrade.priceTypeString, firstTrade.sentMessage);
+                            PoeInterface.runCommand(b.getCommandsLeft(), firstTrade.playerName, TradeUtility.getFixedItemName(firstTrade.itemName, firstTrade.itemQuantity, true), firstTrade.priceQuantity + " " + firstTrade.priceTypeString, firstTrade.sentMessage, firstTrade.messageType);
                             if (b.closeOnClick) {
                                 FrameManager.messageManager.closeTrade(firstTrade);
                             }

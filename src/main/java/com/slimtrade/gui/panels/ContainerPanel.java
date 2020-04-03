@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class ContainerPanel extends JPanel implements IColorable {
 
-	public JPanel container = new JPanel(FrameManager.gridBag);
+	public JPanel container = new JPanel(new GridBagLayout());
 	public GridBagConstraints gc = new GridBagConstraints();
 
 	private static final int defaultBorderSize = 15;

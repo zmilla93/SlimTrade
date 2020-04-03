@@ -87,7 +87,7 @@ public class MessageDialogManager {
 
     private boolean isDuplicateTrade(TradeOffer trade) {
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel msgPanel = (MessagePanel) wrapper.getPanel();
+            MessagePanel msgPanel = wrapper.getPanel();
             TradeOffer tradeB = msgPanel.getTrade();
             if (TradeUtility.isDuplicateTrade(trade, tradeB)) {
                 return true;
@@ -100,7 +100,7 @@ public class MessageDialogManager {
         int i = 0;
         final ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel msg = (MessagePanel) wrapper.getPanel();
+            MessagePanel msg = wrapper.getPanel();
             TradeOffer tradeB = msg.trade;
             if (tradeA.equals(tradeB)) {
                 this.removeMessage(i);
@@ -123,7 +123,7 @@ public class MessageDialogManager {
         int i = 0;
         final ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel msg = (MessagePanel) wrapper.getPanel();
+            MessagePanel msg = wrapper.getPanel();
             TradeOffer trade = msg.trade;
             String itemB = trade.itemName;
             if (trade.messageType == MessageType.INCOMING_TRADE && itemA.equals(itemB)) {
@@ -143,47 +143,45 @@ public class MessageDialogManager {
     }
 
     private void closeSimilarTrades(int index) {
-        MessagePanel msg = (MessagePanel) wrapperList.get(index).getPanel();
+        MessagePanel msg = wrapperList.get(index).getPanel();
         TradeOffer tradeA = msg.getTrade();
-//		ArrayList<int> toBeDeleted = new ArrayList<int>();
         final ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
         int i = 0;
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel msgB = (MessagePanel) wrapper.getPanel();
+            MessagePanel msgB = wrapper.getPanel();
             TradeOffer tradeB = msgB.getTrade();
-            if (msg != null && msg instanceof MessagePanel) {
-                if (i != index) {
-                    try {
-                        int checkCount = 0;
-                        int check = 0;
-                        if (tradeA.messageType == MessageType.INCOMING_TRADE) {
-                            checkCount = 4;
-                            if (tradeA.priceType.equals(tradeB.priceType)) {
-                                check++;
-                            }
-                            if (tradeA.priceQuantity.equals(tradeB.priceQuantity)) {
-                                check++;
-                            }
-                            if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
-                                check++;
-                            }
-                        } else if (tradeA.messageType == MessageType.OUTGOING_TRADE) {
-                            checkCount = 1;
-                        } else if (tradeA.messageType == MessageType.CHAT_SCANNER) {
-                            checkCount = 2;
-                            if (tradeA.searchName.equals(tradeB.searchName)) {
-                                check++;
-                            }
-                        }
-                        if (tradeA.messageType.equals(tradeB.messageType)) {
+
+            if (i != index) {
+                try {
+                    int checkCount = 0;
+                    int check = 0;
+                    if (tradeA.messageType == MessageType.INCOMING_TRADE) {
+                        checkCount = 4;
+                        if (tradeA.priceType.equals(tradeB.priceType)) {
                             check++;
                         }
-                        if (check == checkCount) {
-                            indexesToDelete.add(i);
+                        if (tradeA.priceQuantity.equals(tradeB.priceQuantity)) {
+                            check++;
                         }
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
+                        if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
+                            check++;
+                        }
+                    } else if (tradeA.messageType == MessageType.OUTGOING_TRADE) {
+                        checkCount = 1;
+                    } else if (tradeA.messageType == MessageType.CHAT_SCANNER) {
+                        checkCount = 2;
+                        if (tradeA.searchName.equals(tradeB.searchName)) {
+                            check++;
+                        }
                     }
+                    if (tradeA.messageType.equals(tradeB.messageType)) {
+                        check++;
+                    }
+                    if (check == checkCount) {
+                        indexesToDelete.add(i);
+                    }
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
                 }
             }
             i++;
@@ -203,7 +201,7 @@ public class MessageDialogManager {
     }
 
     private void removeMessage(int index) {
-        MessagePanel msgPanel = (MessagePanel) wrapperList.get(index).getPanel();
+        MessagePanel msgPanel = wrapperList.get(index).getPanel();
         if (msgPanel.getMessageType() == MessageType.INCOMING_TRADE) {
             if (msgPanel.getStashHelper() != null) {
                 // TODO :
@@ -234,9 +232,9 @@ public class MessageDialogManager {
         return MessageDialogManager.wrapperList;
     }
 
-    public void  setPlayerJoinedArea(String username) {
+    public void setPlayerJoinedArea(String username) {
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel panel = (MessagePanel) wrapper.getPanel();
+            MessagePanel panel = wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
                 if (panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
@@ -261,21 +259,20 @@ public class MessageDialogManager {
         int tempMax = 50;
         if (sizeIncrease > tempMax) sizeIncrease = tempMax;
         this.sizeIncrease = sizeIncrease;
-        for (PanelWrapper p : wrapperList) {
-            if (p.getPanel() instanceof MessagePanel) {
-                ((MessagePanel) p.getPanel()).resizeFrames(new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease));
-                ((MessagePanel) p.getPanel()).getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
-                    public void click(MouseEvent e) {
-                        if (e.getButton() == MouseEvent.BUTTON1) {
-                            removeMessage(wrapperList.indexOf(p));
-                            refreshPanelLocations();
-                        } else if (e.getButton() == MouseEvent.BUTTON3) {
-                            closeSimilarTrades(wrapperList.indexOf(p));
-                        }
+        for (PanelWrapper w : wrapperList) {
+            MessagePanel p = w.getPanel();
+            p.resizeFrames(new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease));
+            p.getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
+                public void click(MouseEvent e) {
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+                        removeMessage(wrapperList.indexOf(w));
+                        refreshPanelLocations();
+                    } else if (e.getButton() == MouseEvent.BUTTON3) {
+                        closeSimilarTrades(wrapperList.indexOf(w));
                     }
-                });
-            }
-            p.pack();
+                }
+            });
+            w.pack();
 
         }
         this.refreshPanelLocations();
@@ -290,6 +287,20 @@ public class MessageDialogManager {
             return wrapperList.get(0).getPanel().trade;
         }
         return null;
+    }
+
+    public void showStashHelper(String message, MessageType type) {
+        if(type != MessageType.INCOMING_TRADE) {
+            return;
+        }
+        for (PanelWrapper w : wrapperList) {
+            TradeOffer trade = w.getPanel().trade;
+            if(trade.messageType == MessageType.INCOMING_TRADE && trade.sentMessage.equals(message)) {
+                w.getPanel().stashHelper.setVisible(true);
+                FrameManager.stashHelperContainer.pack();
+                break;
+            }
+        }
     }
 
 }

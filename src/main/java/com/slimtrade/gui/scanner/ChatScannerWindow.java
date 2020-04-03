@@ -7,7 +7,6 @@ import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
-import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
@@ -16,7 +15,6 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
-import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.macro.MacroCustomizerRow;
@@ -47,7 +45,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private ArrayList<DocumentListener> docListenerList = new ArrayList<>();
 
     // Labels
-    private JPanel borderPanel = new JPanel(FrameManager.gridBag);
+    private JPanel borderPanel = new JPanel(new GridBagLayout());
     private ContainerPanel containerPanel = new ContainerPanel();
 
     private JScrollPane scrollPane = new CustomScrollPane(borderPanel);
@@ -568,6 +566,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private void addDefaults() {
         addRemovePanel.removeAll();
         MacroButton[] defaultMacros = {
+                new MacroButton(ButtonRow.TOP, "hello!", "", CustomIcons.REPLY, null, false),
                 new MacroButton(ButtonRow.BOTTOM, "/invite {player}", "", CustomIcons.INVITE, null, false),
                 new MacroButton(ButtonRow.BOTTOM, "/tradewith {player}", "", CustomIcons.CART, null, false),
                 new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),

@@ -31,7 +31,7 @@ public class ImageTestingWindow extends JFrame {
 //            }
 //        }
 
-        this.setLayout(FrameManager.gridBag);
+        this.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

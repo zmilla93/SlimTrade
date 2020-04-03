@@ -21,10 +21,6 @@ public class InformationPanel extends ContainerPanel {
     private JButton tutorialButton = new BasicButton("Show Tutorial");
 
 	public InformationPanel(){
-		this.setVisible(false);
-		//TODO : Might need to change background color of text areas
-//		super(false);
-		
 		JLabel versionLabel = new CustomLabel(References.APP_NAME);
 		
 		JLabel gitLabel = new CustomLabel("GitHub");

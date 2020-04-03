@@ -12,7 +12,6 @@ public class StashSearchPanel extends ContainerPanel {
     JLabel info1 = new CustomLabel("Stash Search Prototype");
 
     public StashSearchPanel() {
-        this.setVisible(false);
 
         JLabel toggleOverlayLabel = new CustomLabel("Toggle Search Overlay");
         HotkeyInputPane toggleInputPane = new HotkeyInputPane();

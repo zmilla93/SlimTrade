@@ -27,8 +27,6 @@ public class ChatParser {
     private String curLine;
     private ActionListener updateAction = e -> procUpdate();
     private Timer updateTimer = new Timer(500, updateAction);
-    //    private static final String playerJoinedAreaString = ".+ : (.+) has joined the area(.)";
-//    private static String searchMessageMatchString = "((\\d{4}\\/\\d{2}\\/\\d{2}) (\\d{2}:\\d{2}:\\d{2})) \\d+ [\\d\\w]+ \\[[\\w\\s\\d]+\\] [#$](<.+> )?(\\S+): (.+)";
     private static final Pattern SEARCH_PATTERN = Pattern.compile(References.REGEX_PREFIX_SCANNER + "(?<scannerMessage>.+))");
     private static final Pattern JOINED_PATTERN = Pattern.compile(".+ : (.+) has joined the area(.)");
     private ArrayList<IgnoreData> whisperIgnoreData = new ArrayList<IgnoreData>();
@@ -36,6 +34,11 @@ public class ChatParser {
     private String[] searchIgnoreTerms;
     private String[] searchTerms;
     private String searchName;
+
+    // Debugging
+    final int MAX_PRINT = 3;
+    int procCount = 0;
+    int updateCount = 0;
 
     public void init() {
         Debugger.benchmarkStart();
@@ -76,6 +79,13 @@ public class ChatParser {
     }
 
     private void procUpdate() {
+        if(procCount < MAX_PRINT) {
+            System.out.println("Parser proc...");
+            procCount++;
+        }else if(procCount == MAX_PRINT) {
+            System.out.println("Silencing proc");
+            procCount++;
+        }
         try {
             reader = new InputStreamReader(new FileInputStream(App.saveManager.saveFile.clientPath), StandardCharsets.UTF_8);
             reader.close();
@@ -85,6 +95,13 @@ public class ChatParser {
     }
 
     public void update() {
+        if(updateCount < MAX_PRINT) {
+            System.out.println("Parser update...");
+            updateCount++;
+        } else if(updateCount == MAX_PRINT) {
+            System.out.println("Silencing update");
+            updateCount++;
+        }
         try {
             reader = new InputStreamReader(new FileInputStream(App.saveManager.saveFile.clientPath), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(reader);
@@ -110,26 +127,6 @@ public class ChatParser {
                         if(trade != null) {
                             FrameManager.messageManager.addMessage(trade);
                         }
-                        // TODO : Chat Scanner
-//                        boolean ignore = false;
-//                        String curLower = curLine.toLowerCase();
-////                        for (String s : searchIgnoreTerms) {
-////                            if (curLower.contains(s)) {
-////                                ignore = true;
-////                                break;
-////                            }
-////                        }
-//                        if (!ignore) {
-//                            for (String searchTerm : searchTerms) {
-//                                if (curLower.contains(searchTerm)) {
-////                                        public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String searchName, String searchMessage) {
-//
-////                                    trade.date = date;
-////                                    trade = new TradeOffer(matcher.group(2), matcher.group(3), MessageType.CHAT_SCANNER, matcher.group(4), matcher.group(5), this.searchName, matcher.group(6));
-//
-//                                }
-//                            }
-//                        }
                     }
                     Matcher joinAreaMatcher = JOINED_PATTERN.matcher(curLine);
                     if (joinAreaMatcher.matches()) {
@@ -137,7 +134,6 @@ public class ChatParser {
                             FrameManager.messageManager.setPlayerJoinedArea(joinAreaMatcher.group(1));
                         }
                     }
-
                 }
             }
             bufferedReader.close();
@@ -146,8 +142,6 @@ public class ChatParser {
             App.debugger.log("[Chat Parser] Exception encountered while attempting to update parser.");
         }
     }
-
-
 
     public LangRegex getLang(String text) {
         // Languages only support one contain text so 'wtb is checked separately to support legacy sites
@@ -161,12 +155,6 @@ public class ChatParser {
         }
         return null;
     }
-
-
-//    App.chatParser.setSearchName(selectedMessage.name);
-//    App.chatParser.setSearchTerms(selectedMessage.searchTermsArray);
-//     App.chatParser.setSearchIgnoreTerms(selectedMessage.ignoreTermsArray);
-
 
     public void setSearchName(String searchName) {
         this.searchName = searchName;

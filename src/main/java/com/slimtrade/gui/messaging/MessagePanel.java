@@ -34,7 +34,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
     protected JPanel buttonPanelTop = new ColorPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
     protected JPanel buttonPanelBottom = new ColorPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-    private StashHelper stashHelper;
+    public StashHelper stashHelper;
 
     // private IconButton saveToHistoryButton;
     // private IconButton waitButton;
@@ -169,7 +169,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 public void click(MouseEvent e) {
                     if (e.getButton() == MouseEvent.BUTTON1) {
 //                        PoeInterface.runCommand(new String[]{"/whois {player}"}, trade.playerName, "", "");
-                        PoeInterface.runCommand(new String[]{"/whois {player}"}, trade.playerName, "", "", "");
+                        PoeInterface.runCommand(new String[]{"/whois {player}"}, trade.playerName, "", "", "", null);
                     } else if (e.getButton() == MouseEvent.BUTTON3) {
                         PoeInterface.paste("@" + trade.playerName + " ", false);
 //                        PoeInterface.runCommand("", trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString));
@@ -212,9 +212,9 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                         @Override
                         public void click(MouseEvent e) {
                             if (e.getButton() == MouseEvent.BUTTON1) {
-                                PoeInterface.runCommand(b.getCommandsLeft(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString), trade.sentMessage);
+                                PoeInterface.runCommand(b.getCommandsLeft(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString), trade.sentMessage, trade.messageType);
                             } else if (e.getButton() == MouseEvent.BUTTON3) {
-                                PoeInterface.runCommand(b.getCommandsRight(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString), trade.sentMessage);
+                                PoeInterface.runCommand(b.getCommandsRight(), trade.playerName, TradeUtility.getFixedItemName(trade.itemName, trade.itemQuantity, true), (trade.priceQuantity.toString().replace(".0", "") + " " + trade.priceTypeString), trade.sentMessage, trade.messageType);
                             }
                             if (b.closeOnClick) {
                                 FrameManager.messageManager.closeTrade(trade);

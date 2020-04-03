@@ -56,13 +56,14 @@ public class SaveFile {
     public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
     // Custom Macros
     public MacroButton[] incomingMacros = {
-            new MacroButton(ButtonRow.TOP, "Hi, are you still interested in my {item} listed for {price}??", "", CustomIcons.REFRESH, null, false),
+            new MacroButton(ButtonRow.TOP, "Hi, are you still interested in my {item} listed for {price}?", "", CustomIcons.REFRESH, null, false),
             new MacroButton(ButtonRow.BOTTOM, "/invite {player}", "", CustomIcons.INVITE, null, false),
             new MacroButton(ButtonRow.BOTTOM, "/tradewith {player}", "", CustomIcons.CART, null, false),
             new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
             new MacroButton(ButtonRow.BOTTOM, "/kick {player}", "", CustomIcons.LEAVE, null, false),
     };
     public MacroButton[] outgoingMacros = {
+            new MacroButton(ButtonRow.TOP, "{message}", "", CustomIcons.REFRESH, null, false),
             new MacroButton(ButtonRow.BOTTOM, "/hideout {player}", "", CustomIcons.WARP, null, false),
             new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
             new MacroButton(ButtonRow.BOTTOM, "/kick {self}", "", CustomIcons.LEAVE, null, false),

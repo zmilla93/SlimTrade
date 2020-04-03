@@ -41,7 +41,7 @@ public class MenubarDialog extends BasicDialog {
         // TODO : Modify constructor of menubar buttons
 
 //        this.setBounds(0, TradeUtility.screenSize.height - HEIGHT, WIDTH, HEIGHT);
-        container.setLayout(FrameManager.gridBag);
+        container.setLayout(new GridBagLayout());
 
         // TODO : Update Locale
         historyButton = new MenubarButton("");

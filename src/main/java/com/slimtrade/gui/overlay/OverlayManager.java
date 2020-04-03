@@ -72,12 +72,12 @@ public class OverlayManager implements ISaveable, IColorable {
 
         // MenuBar
         gc.anchor = GridBagConstraints.SOUTHEAST;
-        menubarDialog.getContentPane().setLayout(FrameManager.gridBag);
+        menubarDialog.getContentPane().setLayout(new GridBagLayout());
         menubarDialog.getContentPane().add(menubarButtonDummy, gc);
         gc.anchor = GridBagConstraints.CENTER;
 
         // Message
-        messageDialog.getContentPane().setLayout(FrameManager.gridBag);
+        messageDialog.getContentPane().setLayout(new GridBagLayout());
         menubarDialog.getContentPane().add(menubarLabel, gc);
         messageDialog.getContentPane().add(messageLabel, gc);
         helpDialog.registerMessageDialog(messageDialog);

@@ -32,8 +32,6 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
     private final int MAX_IGNORE_COUNT = 40;
 
     public ItemIgnorePanel() {
-        this.setVisible(false);
-
         FrameManager.ignoreItemAddRemovePanel = addRemovePanel;
 
         JPanel entryPanel = new JPanel(new GridBagLayout());

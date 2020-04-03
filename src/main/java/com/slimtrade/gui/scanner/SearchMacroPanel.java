@@ -13,7 +13,7 @@ import static com.slimtrade.gui.scanner.ChatScannerWindow.bufferOuter;
 
 public class SearchMacroPanel extends JPanel implements IColorable {
 
-    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
+    private JPanel outerPanel = new JPanel(new GridBagLayout());
     JPanel presetMacroPanel;
 
     public JButton addMacroButton = new BasicButton("Add Macro");
@@ -22,7 +22,7 @@ public class SearchMacroPanel extends JPanel implements IColorable {
     public JTextField thankRight;
 
     public SearchMacroPanel() {
-        super(FrameManager.gridBag);
+        super(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
@@ -33,7 +33,7 @@ public class SearchMacroPanel extends JPanel implements IColorable {
         String right = "Right Click";
 
         // Preset Macros
-        presetMacroPanel = new JPanel(FrameManager.gridBag);
+        presetMacroPanel = new JPanel(new GridBagLayout());
 
 //        PresetMacroRow closePreset = new PresetMacroRow(DefaultIcons.CLOSE);
 //        closePreset.getRow(left, "Close trade");

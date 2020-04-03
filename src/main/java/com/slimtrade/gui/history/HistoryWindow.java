@@ -93,36 +93,26 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 
 		container.add(innerPanel, BorderLayout.CENTER);
 
-		AbstractResizableWindow local = this;
-		incomingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				outgoingScroll.setVisible(false);
-//				savedScroll.setVisible(false);
-				incomingScroll.setVisible(true);
-				innerPanel.add(incomingScroll, BorderLayout.CENTER);
+		incomingButton.addActionListener(e -> {
+			innerPanel.remove(outgoingScroll);
+			innerPanel.add(incomingScroll, BorderLayout.CENTER);
+			App.eventManager.recursiveColor(innerPanel);
+			innerPanel.revalidate();
+			innerPanel.repaint();
 
-				innerPanel.revalidate();
-				innerPanel.repaint();
-
-			}
 		});
 		
-		outgoingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				incomingScroll.setVisible(false);
-//				savedScroll.setVisible(false);
-				outgoingScroll.setVisible(true);
-				innerPanel.add(outgoingScroll, BorderLayout.CENTER);
-
-				innerPanel.revalidate();
-				innerPanel.repaint();
-			}
+		outgoingButton.addActionListener(e -> {
+			innerPanel.remove(incomingScroll);
+			innerPanel.add(outgoingScroll, BorderLayout.CENTER);
+			App.eventManager.recursiveColor(innerPanel);
+			innerPanel.revalidate();
+			innerPanel.repaint();
 		});
 
 		innerPanel.add(incomingScroll, BorderLayout.CENTER);
 		innerPanel.revalidate();
 		innerPanel.repaint();
-
 		this.pack();
 		FrameManager.centerFrame(this);
 	}
@@ -180,15 +170,9 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		super.updateColor();
 		buttonPanel.setBackground(ColorManager.BACKGROUND);
 		innerPanel.setBackground(ColorManager.BACKGROUND);
-		if(incomingPanel.isVisible()) {
-			App.eventManager.recursiveColor(outgoingPanel);
-		}
-		if(outgoingPanel.isVisible()) {
-			App.eventManager.recursiveColor(incomingPanel);
-		}
+		App.eventManager.recursiveColor(innerPanel);
 		incomingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
 		outgoingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
-		incomingPanel.setBackground(Color.GREEN);
-		incomingScroll.getRootPane().setBackground(Color.GREEN);
 	}
+
 }

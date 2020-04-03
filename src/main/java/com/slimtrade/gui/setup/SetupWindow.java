@@ -38,7 +38,7 @@ public class SetupWindow extends JFrame implements IColorable {
         this.setAlwaysOnTop(true);
         container = this.getContentPane();
         container.setLayout(new BorderLayout());
-        innerPanel = new JPanel(FrameManager.gridBag);
+        innerPanel = new JPanel(new GridBagLayout());
 
         // Panel List
         if(SetupManager.clientSetupCheck) {

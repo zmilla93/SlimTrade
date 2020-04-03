@@ -9,6 +9,7 @@ import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.enums.WindowState;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class StashPanel extends AbstractSetupPanel implements ISetupValidator, IColorable {
 
@@ -17,7 +18,7 @@ public class StashPanel extends AbstractSetupPanel implements ISetupValidator, I
 
     JButton editButton = new BasicButton("Edit Stash Overlay");
 
-    JPanel innerPanel = new JPanel(FrameManager.gridBag);
+    JPanel innerPanel = new JPanel(new GridBagLayout());
 
     public StashPanel() {
 

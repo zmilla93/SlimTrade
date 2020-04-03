@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class MacroPanel extends ContainerPanel implements ISaveable, IColorable {
 
     // Info
-    private JLabel info1 = new CustomLabel("Run one or more commands using {player}, {self}, {item}, {price}, {resend}.", false);
+    private JLabel info1 = new CustomLabel("Run one or more commands using {player}, {self}, {item}, {price}, and {message}.", false);
     private JLabel info2 = new CustomLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey.", false);
     private JLabel info3 = new CustomLabel("Plain messages have @{player} added automatically. Check the box to close trade.", false);
 //    private JLabel info4 = new CustomLabel("");
@@ -47,7 +47,6 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
         if (messageType == MessageType.UNKNOWN) {
             return;
         }
-        this.setVisible(false);
         int spacer = 5;
 
         // Username

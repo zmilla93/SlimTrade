@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class ClientPanel extends AbstractSetupPanel implements ISetupValidator, IColorable {
 
-    private JPanel browsePanel = new JPanel(FrameManager.gridBag);
-    private JPanel multiPathPanel = new JPanel(FrameManager.gridBag);
+    private JPanel browsePanel = new JPanel(new GridBagLayout());
+    private JPanel multiPathPanel = new JPanel(new GridBagLayout());
 
     private JLabel pathLabel = new CustomLabel("Client Path");
     public JTextField clientText = new CustomTextField();

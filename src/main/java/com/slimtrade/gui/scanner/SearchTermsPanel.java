@@ -14,7 +14,7 @@ import static com.slimtrade.gui.scanner.ChatScannerWindow.bufferOuter;
 
 public class SearchTermsPanel extends JPanel implements IColorable {
 
-    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
+    private JPanel outerPanel = new JPanel(new GridBagLayout());
 
     private JLabel searchTermsLabel = new CustomLabel("Search Terms");
     private JLabel ignoreTermsLabel = new CustomLabel("Ignore Terms");
@@ -25,7 +25,7 @@ public class SearchTermsPanel extends JPanel implements IColorable {
     public JTextArea ignoreTermsInput = new CustomTextArea(2, 45);
 
     public SearchTermsPanel() {
-        super(FrameManager.gridBag);
+        super(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

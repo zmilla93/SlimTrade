@@ -2,7 +2,9 @@ package com.slimtrade.gui.stash.helper;
 
 import com.slimtrade.App;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
+import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.custom.CustomLabel;
 
@@ -38,7 +40,7 @@ public class StashHelper extends JPanel {
 //	private PoeInteractionListener poeInteractionListener = App.macroEventManager;
 
 	public StashHelper(TradeOffer trade, Color colorBackground, Color colorForeground) {
-		this.setLayout(FrameManager.gridBag);
+		this.setLayout(new GridBagLayout());
 		this.setPreferredSize(new Dimension(width, height));
 		this.setBorder(BorderFactory.createLineBorder(colorForeground, borderThickness));
 
@@ -80,8 +82,7 @@ public class StashHelper extends JPanel {
 		this.addMouseListener(new AdvancedMouseAdapter() {
 			public void click(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					// TODO : fixnow
-//					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), ButtonType.SEARCH, trade));
+					PoeInterface.findInStash(TradeUtility.cleanItemName(trade.itemName));
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
 					hideStashHelper();
 					FrameManager.stashHelperContainer.pack();

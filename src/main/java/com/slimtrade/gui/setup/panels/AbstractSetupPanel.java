@@ -9,11 +9,11 @@ import java.awt.*;
 public abstract class AbstractSetupPanel extends JPanel {
 
     protected GridBagConstraints gc = new GridBagConstraints();
-    protected JPanel container = new JPanel(FrameManager.gridBag);
+    protected JPanel container = new JPanel(new GridBagLayout());
     private final int BUFFER = 20;
 
     public AbstractSetupPanel() {
-        super(FrameManager.gridBag);
+        super(new GridBagLayout());
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = new Insets(BUFFER, BUFFER, BUFFER, BUFFER);
