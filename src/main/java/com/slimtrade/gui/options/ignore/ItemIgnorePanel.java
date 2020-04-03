@@ -124,6 +124,9 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
             itemText.setText("");
             addRemovePanel.addRemoveablePanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
         });
+
+        load();
+
     }
 
     @Override

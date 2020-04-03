@@ -28,7 +28,7 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
     public JButton downArrowButton = new IconButton(DefaultIcons.ARROW_DOWN, rowHeight);
     public JButton closeButton = new IconButton(DefaultIcons.CLOSE, rowHeight);
     public JComboBox<ButtonRow> rowCombo = new CustomCombo<>();
-    public JComboBox<ImageIcon> iconCombo = new CustomCombo<>();
+    public CustomCombo<ImageIcon> iconCombo = new CustomCombo<>();
     public JCheckBox closeCheckbox = new CustomCheckbox();
     public HotkeyInputPane hotkeyInput = new HotkeyInputPane(){
 
@@ -154,6 +154,7 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
         this.setBorder(BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2));
         int sel = iconCombo.getSelectedIndex();
         iconCombo.removeAllItems();
+        iconCombo.updateColor();
         for (CustomIcons i : CustomIcons.values()) {
             ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
             iconCombo.addItem(icon);

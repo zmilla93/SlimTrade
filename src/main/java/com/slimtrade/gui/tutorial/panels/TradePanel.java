@@ -8,7 +8,7 @@ import javax.swing.*;
 public class TradePanel extends AbstractTutorialPanel {
 
     JLabel info1 = new CustomLabel("Popups are created when a trade message is sent or received.");
-    JLabel info2 = new CustomLabel("Buttons can be customized in the options window, where preset macros are also explained.");
+    JLabel info2 = new CustomLabel("Buttons can be customized in the options window.");
     JLabel info3 = new CustomLabel("Incoming trades are green, outgoing trades are red.");
 
     public TradePanel() {

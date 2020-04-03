@@ -64,6 +64,7 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         gc.insets.bottom = 0;
         gc.gridy++;
 
+        load();
     }
 
     @Override

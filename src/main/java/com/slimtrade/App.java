@@ -15,8 +15,6 @@ import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.dialogs.LoadingDialog;
-import com.slimtrade.gui.enums.CustomIcons;
-import com.slimtrade.gui.enums.ICacheImage;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.windows.UpdateDialog;
@@ -91,13 +89,6 @@ public class App {
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
 
-        // Setup
-        try {
-            SwingUtilities.invokeAndWait(() -> ColorManager.setTheme(ColorTheme.SOLARIZED_LIGHT));
-        } catch (InterruptedException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
         updateChecker = new UpdateChecker();
         globalMouse = new GlobalMouseListener();
         globalKeyboard = new GlobalKeyboardListener();
@@ -110,19 +101,6 @@ public class App {
 
         ClipboardManager clipboardManager = new ClipboardManager();
 
-        // GUI
-        try {
-            SwingUtilities.invokeAndWait(() -> {
-                for (ICacheImage image : CustomIcons.values()) {
-                    image.getColorImage(ColorManager.TEXT);
-                }
-            });
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
         try {
             SwingUtilities.invokeAndWait(() -> {
 
@@ -131,17 +109,14 @@ public class App {
                     debugger = new Debugger();
                     debugger.setState(Frame.ICONIFIED);
                 }
-
+                // Loading using tempTheme fixes a bug where icon images are not correctly loaded into combo boxes in macro customizer
+                ColorTheme theme = App.saveManager.saveFile.colorTheme;
+                ColorTheme tempTheme = theme == ColorTheme.SOLARIZED_LIGHT ? ColorTheme.MONOKAI : ColorTheme.SOLARIZED_LIGHT;
+                ColorManager.setTheme(tempTheme);
                 frameManager = new FrameManager();
                 ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
-//                eventManager.updateAllColors(App.saveManager.saveFile.colorTheme);
                 SaveManager.recursiveLoad(FrameManager.optionsWindow);
-                ColorManager.setTheme(ColorManager.getCurrentColorTheme());
-                //TEST
-//                App.eventManager.recursiveColor(FrameManager.optionsWindow);
-//                FrameManager.optionsWindow.revalidate();
-//                FrameManager.optionsWindow.repaint();
-
+                ColorManager.setTheme(theme);
             });
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
@@ -165,52 +140,49 @@ public class App {
         GlobalScreen.addNativeMouseListener(globalMouse);
         GlobalScreen.addNativeKeyListener(globalKeyboard);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
-        loadingDialog.dispose();
+        SwingUtilities.invokeLater(() -> loadingDialog.dispose());
         App.launch();
         System.out.println("SlimTrade launched!");
+
 
     }
 
 
     public static void launch() {
-        SwingUtilities.invokeLater(() -> {
-            if (SetupManager.isSetupRequired()) {
-                // First time setup window
-                FrameManager.setupWindow = new SetupWindow();
-                FrameManager.windowState = WindowState.SETUP;
-                FrameManager.setupWindow.setVisible(true);
-            } else {
-                // Launch
-                FrameManager.windowState = WindowState.NORMAL;
-                fileMonitor = new FileMonitor();
-                fileMonitor.startMonitor();
-                chatParser.init();
-                if (App.saveManager.saveFile.enableMenubar) {
-                    FrameManager.menubarToggle.setShow(true);
-                    if (!globalMouse.isGameFocused()) {
-                        FrameManager.menubarToggle.setVisible(false);
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                if (SetupManager.isSetupRequired()) {
+                    // First time setup window
+                    FrameManager.setupWindow = new SetupWindow();
+                    FrameManager.windowState = WindowState.SETUP;
+                    FrameManager.setupWindow.setVisible(true);
+                } else {
+                    // Launch
+                    FrameManager.windowState = WindowState.NORMAL;
+                    fileMonitor = new FileMonitor();
+                    fileMonitor.startMonitor();
+                    chatParser.init();
+                    if (App.saveManager.saveFile.enableMenubar) {
+                        FrameManager.menubarToggle.setShow(true);
+                        if (!globalMouse.isGameFocused()) {
+                            FrameManager.menubarToggle.setVisible(false);
+                        }
+                    }
+                    FrameManager.trayButton.addAdditionalOptions();
+                    // Check for update
+                    if (checkUpdateOnLaunch) {
+                        updateChecker.checkForUpdates();
+                        if (updateChecker.isUpdateAvailable()) {
+                            UpdateDialog updateDialog = new UpdateDialog();
+                            updateDialog.setVisible(true);
+                            FrameManager.optionsWindow.recolorUpdateButton();
+                        }
                     }
                 }
-                FrameManager.trayButton.addAdditionalOptions();
-                // Check for update
-                if (checkUpdateOnLaunch) {
-                    updateChecker.checkForUpdates();
-                    if (updateChecker.isUpdateAvailable()) {
-                        UpdateDialog updateDialog = new UpdateDialog();
-                        updateDialog.setVisible(true);
-                        FrameManager.optionsWindow.recolorUpdateButton();
-                    }
-                }
-                SaveManager.recursiveLoad(FrameManager.optionsWindow);
-                ColorTheme colorTheme = App.saveManager.saveFile.colorTheme;
-                //  Temp fix for icons not loading properly on default theme
-                if (App.saveManager.saveFile.colorTheme == ColorTheme.SOLARIZED_LIGHT) {
-                    App.eventManager.updateAllColors(ColorTheme.MONOKAI);
-                }
-                //
-                App.eventManager.updateAllColors(colorTheme);
-            }
-        });
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
     }
 

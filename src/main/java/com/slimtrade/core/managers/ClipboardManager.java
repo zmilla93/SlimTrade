@@ -9,81 +9,84 @@ import java.awt.datatransfer.*;
 import java.io.IOException;
 
 /**
- *  Adds a flavor change listener to the system clipboard to monitor for trade messages being copied.
+ * Adds a flavor change listener to the system clipboard to monitor for trade messages being copied.
  */
 
-public class ClipboardManager implements ClipboardOwner{
+public class ClipboardManager implements ClipboardOwner {
 
     private String lastMessage;
     private volatile boolean disabled = false;
+    private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
     public ClipboardManager() {
 
         ClipboardOwner owner = this;
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(clipboard.getContents(this), null);
-        clipboard.addFlavorListener(new FlavorListener() {
-            @Override
-            public void flavorsChanged(FlavorEvent e) {
-                if(disabled) {
+        clipboard.setContents(clipboard.getContents(this), this);
+        clipboard.addFlavorListener(e -> {
+//            System.out.println("Flavor Changed");
+            new Thread(() -> {
+                if (disabled) {
                     return;
                 }
-                if(App.saveManager.saveFile.quickPasteSetting != QuickPasteSetting.AUTOMATIC) {
-                    try {
-                        String contents = (String) clipboard.getData(DataFlavor.stringFlavor);
-                        clipboard.setContents(clipboard.getContents(this), null);
-                    } catch (UnsupportedFlavorException | IOException ex) {
-                        return;
-                    }
-                    return;
-                }
-                Transferable t;
-                try{
-                    t = clipboard.getContents(this);
-                } catch (IllegalStateException e1) {
-                    return;
-                }
-                String contents;
                 try {
-                    contents = (String) clipboard.getData(DataFlavor.stringFlavor);
-                } catch (UnsupportedFlavorException | IOException ex) {
-                    return;
+                    Thread.sleep(50);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
-                if(lastMessage == null) {
+                String contents = getClipboardContents();
+                if (lastMessage == null) {
                     lastMessage = contents;
-                    PoeInterface.attemptQuickPaste(contents);
-                    new Thread(() -> {
-                        try {
-                            Thread.sleep(250);
-                        } catch (InterruptedException ex) {
-                            ex.printStackTrace();
-                        }
-                        try {
-                        clipboard.setContents(t, owner);
-                        } catch (IllegalStateException e1) {
-                            System.out.println("Clipboard Issue");
-                            e1.printStackTrace();
-                        }
-                    }).start();
+                    if(App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
+                        PoeInterface.attemptQuickPaste(contents);
+                    }
+                    try {
+                        Thread.sleep(250);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    refreshClipboard();
                 } else {
                     lastMessage = null;
                     disabled = true;
-                    new Thread(() -> {
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException ex) {
-                            ex.printStackTrace();
-                        }
-                        disabled = false;
-                    }).start();
+                    try {
+                        Thread.sleep(250);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    disabled = false;
                 }
-            }
+            }).start();
         });
+    }
 
+    private String getClipboardContents() {
+        String contents;
+        try {
+            contents = (String) clipboard.getData(DataFlavor.stringFlavor);
+            return contents;
+        } catch (UnsupportedFlavorException | IOException | IllegalStateException e) {
+            System.out.println("Failed to get clipboard contents");
+            return null;
+        }
+    }
+
+    private void refreshClipboard() {
+        Transferable transferable = null;
+        try {
+            transferable = clipboard.getContents(this);
+        } catch (IllegalStateException e) {
+            System.out.println("Failed to refresh clipboard (getContents)");
+        }
+        try {
+            clipboard.setContents(transferable, this);
+        } catch (IllegalStateException e) {
+            System.out.println("Failed to refresh clipboard (setContents)");
+        }
     }
 
     @Override
-    public void lostOwnership(Clipboard clipboard, Transferable contents) {
+    public void lostOwnership(Clipboard clipboard, Transferable transferable) {
         // Do Nothing
     }
+
 }

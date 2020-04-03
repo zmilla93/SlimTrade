@@ -53,6 +53,9 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
                 revalidate();
             }
         });
+
+        load();
+
     }
 
     private StashTabRow addNewRow() {

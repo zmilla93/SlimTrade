@@ -180,7 +180,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         colorThemeCombo.addActionListener(e -> {
             if (colorThemeCombo.getSelectedIndex() >= 0) {
                 App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
-
             }
         });
 
