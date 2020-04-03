@@ -25,7 +25,6 @@ public class ClipboardManager implements ClipboardOwner{
         clipboard.addFlavorListener(new FlavorListener() {
             @Override
             public void flavorsChanged(FlavorEvent e) {
-                System.out.println("Flavor Changed");
                 if(disabled) {
                     return;
                 }

@@ -51,7 +51,7 @@ public class IconPanel extends JPanel {
 		}
 		int imageSize = (int)(size*IMAGE_SCALE);
 //		Image image = new ImageIcon(this.getClass().getResource(path)).getImage().getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
-		JLabel imgLabel = new CustomLabel();
+		JLabel imgLabel = new JLabel();
 		imgLabel.setIcon(new ImageIcon(image));
 		this.add(imgLabel, BorderLayout.CENTER);
 	}

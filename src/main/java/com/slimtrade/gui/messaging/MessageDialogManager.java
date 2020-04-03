@@ -157,7 +157,11 @@ public class MessageDialogManager {
                     int check = 0;
                     if (tradeA.messageType == MessageType.INCOMING_TRADE) {
                         checkCount = 4;
-                        if (tradeA.priceType.equals(tradeB.priceType)) {
+                        if(tradeA.priceType == null || tradeB.priceType == null) {
+                            if(tradeA==null && tradeB == null) {
+                                check++;
+                            }
+                        } else if (tradeA.priceType.equals(tradeB.priceType)) {
                             check++;
                         }
                         if (tradeA.priceQuantity.equals(tradeB.priceQuantity)) {
