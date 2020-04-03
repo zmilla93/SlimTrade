@@ -1,14 +1,8 @@
 package com.slimtrade.core.audio;
 
+import javax.sound.sampled.*;
 import java.io.IOException;
 import java.util.Objects;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AudioRunner implements Runnable {
 

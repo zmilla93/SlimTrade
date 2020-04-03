@@ -5,7 +5,10 @@ import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.observing.HotkeyData;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.DateStyle;
+import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.enums.TimeStyle;
+import com.slimtrade.gui.enums.ButtonRow;
+import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
 
@@ -23,6 +26,8 @@ public class SaveFile {
     public boolean closeOnKick = false;
     public boolean colorBlindMode = false;
     public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
+    public QuickPasteSetting quickPasteSetting = QuickPasteSetting.DISABLED;
+    public HotkeyData quickPasteHotkey = null;
 
     // History
     public TimeStyle timeStyle = TimeStyle.H12;
@@ -40,25 +45,46 @@ public class SaveFile {
     public SoundElement incomingMessageSound = new SoundElement(Sound.PING1, 50);
     public SoundElement outgoingMessageSound = new SoundElement(Sound.PING1, 50);
     public SoundElement scannerMessageSound = new SoundElement(Sound.PING2, 50);
-    public SoundElement buttonSound = new SoundElement(Sound.CLICK1, 50);
+    public SoundElement playerJoinedSound = new SoundElement(Sound.BLIP1, 50);
+//    public SoundElement buttonSound = new SoundElement(Sound.CLICK1, 50);
 
     // Client
     public String clientPath = null;
 
-    // Custom Macros
+
     public ArrayList<StashTab> stashTabs = new ArrayList<>();
+    public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
+    // Custom Macros
+    public MacroButton[] incomingMacros = {
+            new MacroButton(ButtonRow.TOP, "Hi, are you still interested in my {item} listed for {price}?", "", CustomIcons.REFRESH, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/invite {player}", "", CustomIcons.INVITE, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/tradewith {player}", "", CustomIcons.CART, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/kick {player}", "", CustomIcons.LEAVE, null, false),
+    };
+    public MacroButton[] outgoingMacros = {
+            new MacroButton(ButtonRow.TOP, "{message}", "", CustomIcons.REFRESH, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/hideout {player}", "", CustomIcons.WARP, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/kick {self}", "", CustomIcons.LEAVE, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/hideout", "", CustomIcons.HOME, null, false),
+    };
+
+    // Legacy for 0.2.4 and earlier
     public String thankIncomingLMB = "Thanks!", thankIncomingRMB;
     public String thankOutgoingLMB = "Thanks!", thankOutgoingRMB;
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
-    public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
+    // End Legacy
 
     // Hotkeys
+    public HotkeyData closeTradeHotkey = null;
+//    public HotkeyData closeIncomingHotkey = null;
+//    public HotkeyData closeOutoingHotkey = null;
     public HotkeyData remainingHotkey = null;
     public HotkeyData hideoutHotkey = null;
     public HotkeyData leavePartyHotkey = null;
     public HotkeyData betrayalHotkey = null;
-    public HotkeyData quickPasteHotkey = null;
 
     // TODO : Should move this to somewhere more logical
     public static int dateDifference(Date d1, Date d2) {

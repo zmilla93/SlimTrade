@@ -1,21 +1,13 @@
 package com.slimtrade.gui.buttons;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonModel;
-import javax.swing.JButton;
-import javax.swing.border.Border;
-
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class BasicButton extends JButton implements IColorable {
 
@@ -32,6 +24,8 @@ public class BasicButton extends JButton implements IColorable {
 
     private Border bufferBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
     private Border bufferBorderSlim = BorderFactory.createEmptyBorder(4, 14, 4, 14);
+
+    private boolean forcePress;
 
     // TODO : Secondary Color
 
@@ -92,7 +86,7 @@ public class BasicButton extends JButton implements IColorable {
             this.setBorder(borderDisabled);
         }
         //FILL
-        if (model.isPressed() && model.isRollover()) {
+        if (model.isPressed() && model.isRollover() || forcePress) {
             g2.setPaint(curPrimary);
         } else if (model.isPressed() && !model.isRollover()) {
             g2.setPaint(ColorManager.LOW_CONTRAST_1);
@@ -113,6 +107,10 @@ public class BasicButton extends JButton implements IColorable {
         Border b1 = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_2), BorderFactory.createLineBorder(primaryColor));
         borderRollover = BorderFactory.createCompoundBorder(b1, bufferBorderSlim);
         borderDisabled = BorderFactory.createCompoundBorder(ColorManager.BORDER_LOW_CONTRAST_1, bufferBorder);
+    }
+
+    public void setForcePress(boolean state) {
+        this.forcePress = state;
     }
 
 }

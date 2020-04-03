@@ -3,9 +3,6 @@ package com.slimtrade.core.utility;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.slimtrade.App;
-import com.slimtrade.core.References;
-
 public class VersionNumber {
 
     public final int major;

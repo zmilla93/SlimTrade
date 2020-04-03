@@ -1,6 +1,6 @@
 package com.slimtrade.gui.basic;
 
-import javax.swing.JDialog;
+import javax.swing.*;
 
 public class HideableDialog extends JDialog{
 	

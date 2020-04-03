@@ -1,6 +1,5 @@
 package com.slimtrade.gui.tutorial.panels;
 
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;
@@ -9,11 +8,11 @@ import java.awt.*;
 public class AbstractTutorialPanel extends JPanel {
 
     protected GridBagConstraints gc = new GridBagConstraints();
-    protected JPanel container = new JPanel(FrameManager.gridBag);
+    protected JPanel container = new JPanel(new GridBagLayout());
     private final int BUFFER = 20;
 
     public AbstractTutorialPanel() {
-        super(FrameManager.gridBag);
+        super(new GridBagLayout());
         gc.gridx = 0;
         gc.gridy = 0;
 

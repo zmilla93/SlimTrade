@@ -41,9 +41,16 @@ public class HotkeyInputPane extends BasicButton implements HotkeyListener {
             this.setText("Unset");
         }
         fetchingData = false;
+        hotkeyChanged();
     }
 
     public HotkeyData getHotkeyData() {
         return this.hotkeyData;
     }
+
+    // Overwrite this function to run code after hotkey has been changed
+    public void hotkeyChanged() {
+
+    }
+
 }

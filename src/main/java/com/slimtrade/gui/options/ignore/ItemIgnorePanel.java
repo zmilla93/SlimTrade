@@ -1,24 +1,21 @@
 package com.slimtrade.gui.options.ignore;
 
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.util.ArrayList;
-
-import javax.swing.*;
-
 import com.slimtrade.App;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomCombo;
-import com.slimtrade.gui.basic.CustomLabel;
-import com.slimtrade.gui.basic.CustomSpinner;
-import com.slimtrade.gui.basic.CustomTextField;
-import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.buttons.BasicButton;
+import com.slimtrade.gui.components.AddRemovePanel;
+import com.slimtrade.gui.custom.CustomCombo;
+import com.slimtrade.gui.custom.CustomLabel;
+import com.slimtrade.gui.custom.CustomSpinner;
+import com.slimtrade.gui.custom.CustomTextField;
 import com.slimtrade.gui.enums.MatchType;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
@@ -35,8 +32,6 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
     private final int MAX_IGNORE_COUNT = 40;
 
     public ItemIgnorePanel() {
-        this.setVisible(false);
-
         FrameManager.ignoreItemAddRemovePanel = addRemovePanel;
 
         JPanel entryPanel = new JPanel(new GridBagLayout());
@@ -46,7 +41,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
         JLabel typeLabel = new CustomLabel("Match Type");
         JLabel timerLabel = new CustomLabel("Minutes");
         JLabel info1 = new CustomLabel("Set minutes to 0 to ignore items indefinitely.");
-        JLabel info2 = new CustomLabel("Click on the item name of an incoming trade to quickly ignore that item for 1 hour.");
+        JLabel info2 = new CustomLabel("Right click on the item name of an incoming trade to quickly ignore that item for 1 hour.");
 
         for (MatchType type : MatchType.values()) {
             typeCombo.addItem(type);
@@ -129,6 +124,9 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
             itemText.setText("");
             addRemovePanel.addRemoveablePanel(new IgnoreRow(new IgnoreData(text, (MatchType) typeCombo.getSelectedItem(), i), addRemovePanel));
         });
+
+        load();
+
     }
 
     @Override

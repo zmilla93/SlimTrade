@@ -1,12 +1,11 @@
 package com.slimtrade.core.managers;
 
-import java.awt.Color;
-
-import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.enums.ColorTheme;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
 public class ColorManager {
 
@@ -211,6 +210,22 @@ public class ColorManager {
 
     public static ColorTheme getCurrentColorTheme() {
         return currentColorTheme;
+    }
+
+    public static boolean matchingColors(Color colorA, Color colorB) {
+        int check = 0;
+        final int CHECK_COUNT = 4;
+        if(colorA == null || colorB == null) {
+            return false;
+        }
+        if(colorA.getRed() == colorB.getRed()) check++;
+        if(colorA.getGreen() == colorB.getGreen())check++;
+        if(colorA.getBlue() == colorB.getBlue())check++;
+        if(colorA.getAlpha() == colorB.getAlpha())check++;
+        if(check == CHECK_COUNT) {
+            return true;
+        }
+        return false;
     }
 
     public static void setColorBlindMode(boolean state) {

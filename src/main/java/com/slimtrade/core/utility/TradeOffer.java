@@ -11,51 +11,41 @@ import com.slimtrade.gui.enums.POEImage;
 
 public class TradeOffer {
 
-    public final String date;
-    public final String time;
-    public final MessageType messageType;
-    public final String guildName;
-    public final String playerName;
-    public final String itemName;
-    public final Double itemCount;
-    public final String priceTypeString;
-    public final Double priceCount;
-    public final String stashtabName;
-    public final int stashtabX;
-    public final int stashtabY;
-    public final String bonusText;
-    public final String sentMessage;
+    public String date;
+    public String time;
+    public MessageType messageType;
+    public String guildName;
+    public String playerName;
+    public String itemName;
+    public Double itemQuantity = 0.0;
+    public String priceTypeString;
+    public Double priceQuantity = 0.0;
+    public String stashtabName;
+    public int stashtabX = 0;
+    public int stashtabY = 0;
+    public String bonusText;
+    public String sentMessage = "";
 
     public POEImage priceType;
     public StashTabType stashType = StashTabType.NORMAL;
 
-    public final String searchName;
-    public final String searchMessage;
-//    public final String searchResponseLeft;
-//    public final String searchResponseRight;
-    //TODO : Trade response buttons?
+    public String searchName;
+    public String searchMessage;
 
     // Empty Trade
-    public TradeOffer(String date, MessageType msgType, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount) {
-        this.date = date;
-        this.time = null;
-        this.messageType = msgType;
-        this.guildName = null;
+    public TradeOffer() {
+
+    }
+
+    // Dummy Trade
+    public TradeOffer(MessageType messageType, String playerName, String itemName, double itemQuantity, String priceTypeString, double priceQuantity) {
+        this.messageType = messageType;
         this.playerName = playerName;
         this.itemName = itemName;
-        this.itemCount = itemCount;
-        this.priceType = TradeUtility.getPOEImage(priceTypeString);
+        this.itemQuantity = itemQuantity;
         this.priceTypeString = priceTypeString;
-        this.priceCount = priceCount;
-        this.stashtabName = null;
-        this.stashtabX = 0;
-        this.stashtabY = 0;
-        this.bonusText = null;
-        this.sentMessage = null;
-        this.searchName = null;
-        this.searchMessage = null;
-//        this.searchResponseLeft = null;
-//        this.searchResponseRight = null;
+        this.priceType = TradeUtility.getPOEImage(priceTypeString);
+        this.priceQuantity = priceQuantity;
     }
 
     //Chat Scanner Search
@@ -66,9 +56,9 @@ public class TradeOffer {
         this.guildName = guildName;
         this.playerName = playerName;
         this.itemName = null;
-        this.itemCount = null;
+        this.itemQuantity = null;
         this.priceTypeString = null;
-        this.priceCount = null;
+        this.priceQuantity = null;
         this.stashtabName = null;
         this.stashtabX = 0;
         this.stashtabY = 0;
@@ -76,26 +66,24 @@ public class TradeOffer {
         this.sentMessage = null;
         this.searchName = searchName;
         this.searchMessage = searchMessage;
-//        this.searchResponseLeft = responseLeft;
-//        this.searchResponseRight = responseRight;
     }
 
     //Trade
-    public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, double itemCount, String priceTypeString, double priceCount, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage) {
+    public TradeOffer(String date, String time, MessageType msgType, String guildName, String playerName, String itemName, double itemQuantity, String priceTypeString, double priceQuantity, String stashtabName, int stashtabX, int stashtabY, String bonusText, String sentMessage) {
         this.date = date;
         this.time = time;
         this.messageType = msgType;
         this.guildName = guildName;
         this.playerName = playerName;
         this.itemName = itemName;
-        this.itemCount = itemCount;
+        this.itemQuantity = itemQuantity;
         this.priceType = TradeUtility.getPOEImage(priceTypeString);
         this.priceTypeString = priceTypeString;
-        this.priceCount = priceCount;
+        this.priceQuantity = priceQuantity;
         this.stashtabName = stashtabName;
         this.stashtabX = stashtabX;
         this.stashtabY = stashtabY;
-        if(bonusText != null) {
+        if (bonusText != null) {
             this.bonusText = bonusText.trim();
         } else {
             this.bonusText = null;

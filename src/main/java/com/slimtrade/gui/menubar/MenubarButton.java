@@ -1,12 +1,8 @@
 package com.slimtrade.gui.menubar;
 
-import java.awt.*;
-
 import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.options.ListButton;
 
-import javax.swing.*;
-import javax.swing.border.LineBorder;
+import java.awt.*;
 
 public class MenubarButton extends BasicButton {
 

@@ -1,9 +1,9 @@
 package com.slimtrade.gui.options.hotkeys;
 
 import com.slimtrade.App;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.options.basics.LabelComponentPanel;
+import com.slimtrade.gui.options.general.LabelComponentPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
@@ -16,6 +16,9 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
     JLabel info2 = new CustomLabel("Use escape to clear a hotkey.");
 
     // Label + Hotkey Input
+    JLabel closeTradeLabel = new CustomLabel("Close Oldest Trade");
+    HotkeyInputPane closeTradeHotkeyInput = new HotkeyInputPane();
+
     JLabel remainingLabel = new CustomLabel("Remaining Monsters");
     HotkeyInputPane remainingHotkeyInput = new HotkeyInputPane();
 
@@ -28,23 +31,17 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
     JLabel betrayalLabel = new CustomLabel("Toggle Betrayal Guide");
     HotkeyInputPane betrayalHotkeyInput = new HotkeyInputPane();
 
-    JLabel pasteLabel = new CustomLabel("Quick Paste Trade");
-    HotkeyInputPane pasteHotkeyInput = new HotkeyInputPane();
-
     public HotkeyPanel() {
-        this.setVisible(false);
-
         // Combined Panel
+        LabelComponentPanel closeTradePanel = new LabelComponentPanel(closeTradeLabel, closeTradeHotkeyInput);
         LabelComponentPanel remainingPanel = new LabelComponentPanel(remainingLabel, remainingHotkeyInput);
         LabelComponentPanel hideoutPanel = new LabelComponentPanel(hideoutLabel, hideoutHotkeyInput);
         LabelComponentPanel leavePanel = new LabelComponentPanel(leavePartyLabel, leavePartyHotkeyInput);
         LabelComponentPanel betrayalPanel = new LabelComponentPanel(betrayalLabel, betrayalHotkeyInput);
-        LabelComponentPanel quickPastePanel = new LabelComponentPanel(pasteLabel, pasteHotkeyInput);
 
         // Tooltips
         remainingLabel.setToolTipText("Uses POE's /remaining command to tell you how many monsters are left in a zone.");
         leavePartyLabel.setToolTipText("Kick yourself from a party. Make sure your character name is set correctly.");
-        pasteLabel.setToolTipText("If you have a trade message copied to your clipboard, it will be pasted into Path of Exile.");
 
         // Build Panel
         container.add(info1, gc);
@@ -54,6 +51,8 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         gc.gridy++;
         gc.fill = GridBagConstraints.BOTH;
         gc.insets.bottom = 4;
+        container.add(closeTradePanel, gc);
+        gc.gridy++;
         container.add(remainingPanel, gc);
         gc.gridy++;
         container.add(hideoutPanel, gc);
@@ -63,28 +62,28 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable {
         container.add(betrayalPanel, gc);
         gc.gridy++;
         gc.insets.bottom = 0;
-        container.add(quickPastePanel, gc);
         gc.gridy++;
 
+        load();
     }
 
     @Override
     public void save() {
+        App.saveManager.saveFile.closeTradeHotkey = closeTradeHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.remainingHotkey = remainingHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.hideoutHotkey = hideoutHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.leavePartyHotkey = leavePartyHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.betrayalHotkey = betrayalHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.quickPasteHotkey = pasteHotkeyInput.getHotkeyData();
     }
 
     @Override
     public void load() {
         App.globalKeyboard.clearHotkeyListener();
+        closeTradeHotkeyInput.updateHotkey(App.saveManager.saveFile.closeTradeHotkey);
         remainingHotkeyInput.updateHotkey(App.saveManager.saveFile.remainingHotkey);
         hideoutHotkeyInput.updateHotkey(App.saveManager.saveFile.hideoutHotkey);
         leavePartyHotkeyInput.updateHotkey(App.saveManager.saveFile.leavePartyHotkey);
         betrayalHotkeyInput.updateHotkey(App.saveManager.saveFile.betrayalHotkey);
-        pasteHotkeyInput.updateHotkey(App.saveManager.saveFile.quickPasteHotkey);
     }
 
 }

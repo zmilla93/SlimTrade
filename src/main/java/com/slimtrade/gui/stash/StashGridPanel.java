@@ -1,13 +1,9 @@
 package com.slimtrade.gui.stash;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-
 import com.slimtrade.core.managers.ColorManager;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class StashGridPanel extends JPanel {
 	
@@ -23,7 +19,6 @@ public class StashGridPanel extends JPanel {
 	}
 	
 	protected void paintComponent(Graphics g){
-		super.paintComponent(g);
 //		System.out.println(gridCellCount);
 //		g.dispose();
 		g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.2f));
@@ -41,6 +36,7 @@ public class StashGridPanel extends JPanel {
 		for(int i = 0;i<gridCellCount;i++){
 			g.drawLine(0, (int)(i*gridCellHeight), this.getWidth(), (int)(i*gridCellHeight));
 		}
+		super.paintComponent(g);
 	}
 	
 	public int getGridWidth(){

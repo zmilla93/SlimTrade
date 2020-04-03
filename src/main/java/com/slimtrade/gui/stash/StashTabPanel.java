@@ -1,12 +1,12 @@
 package com.slimtrade.gui.stash;
 
 import com.slimtrade.App;
-import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
 
@@ -23,7 +23,6 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
     private JPanel stashOptions;
 
     public StashTabPanel() {
-        this.setVisible(false);
         container.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gcRow = new GridBagConstraints();
@@ -54,6 +53,9 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
                 revalidate();
             }
         });
+
+        load();
+
     }
 
     private StashTabRow addNewRow() {

@@ -1,13 +1,11 @@
 package com.slimtrade.gui.stash.helper;
 
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.BorderFactory;
-
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.basic.BasicDialog;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class ItemHighlighter extends BasicDialog{
 

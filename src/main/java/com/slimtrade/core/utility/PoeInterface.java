@@ -1,6 +1,9 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.enums.LangRegex;
+import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
 import com.sun.jna.Native;
 import com.sun.jna.PointerType;
@@ -45,10 +48,17 @@ public class PoeInterface extends Robot {
         if (text == null) {
             return;
         }
+        attemptQuickPaste(text);
+    }
+
+    public static void attemptQuickPaste(String text) {
+        if (text == null) {
+            return;
+        }
         boolean valid = false;
         if (text.startsWith("@")) {
-            for (String s : wtbTextArray) {
-                if (text.contains(s)) {
+            for (LangRegex l : LangRegex.values()) {
+                if (text.contains(l.CONTAINS_TEXT)) {
                     valid = true;
                     break;
                 }
@@ -61,7 +71,12 @@ public class PoeInterface extends Robot {
 
     public static void paste(String s, boolean... send) {
         pasteString = new StringSelection(s);
-        clipboard.setContents(pasteString, null);
+        try {
+            clipboard.setContents(pasteString, null);
+        } catch (IllegalStateException e) {
+            System.out.println("[SlimTrade] Failed to read clipboard, aborting.");
+            return;
+        }
         PoeInterface.focus();
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
@@ -71,7 +86,7 @@ public class PoeInterface extends Robot {
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
-        if (send.length == 0 || send[0] == true) {
+        if (send.length == 0 || send[0]) {
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
         }
@@ -111,7 +126,6 @@ public class PoeInterface extends Robot {
                 }
                 i++;
             } while (true);
-//            System.out.println("POE Focus Time : " + i);
             FrameManager.forceAllToTop();
             robot.keyPress(KeyEvent.VK_ALT);
             robot.keyRelease(KeyEvent.VK_ALT);
@@ -123,6 +137,165 @@ public class PoeInterface extends Robot {
             robot.keyRelease(KeyEvent.VK_CONTROL);
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
+        }).start();
+    }
+
+//    public static void runCommand(String[] commands, String player, String item, String price, String fullMessage) {
+//        runCommand(commands, player, item, price, fullMessage, mes);
+//    }
+
+    public static void runCommand(String command) {
+        runCommand(command, null);
+    }
+
+    public static void runCommand(String command, MessageType type) {
+        new Thread(() -> {
+            focus();
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            PointerType hwnd;
+            byte[] windowText = new byte[512];
+            int i = 0;
+            String curWindowTitle;
+            do {
+                hwnd = User32.INSTANCE.GetForegroundWindow();
+                if (hwnd != null) {
+                    User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+                    curWindowTitle = Native.toString(windowText);
+                    if (curWindowTitle.equals(References.POE_WINDOW_TITLE)) {
+                        break;
+                    } else if (i > 400) {
+                        return;
+                    }
+                } else {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                i++;
+            } while (true);
+            FrameManager.forceAllToTop();
+            pasteString = new StringSelection(command);
+            int attempt = 1;
+            int MAX_ATTEMPTS = 3;
+            while (attempt <= MAX_ATTEMPTS) {
+                try {
+                    clipboard.setContents(pasteString, null);
+                    break;
+                } catch (IllegalStateException e) {
+                    // TODO : LOG
+                    System.out.println("Retrying clipboard...");
+                    if (attempt == MAX_ATTEMPTS) {
+                        System.out.println("Aborting clipboard...");
+                        return;
+                    }
+                }
+                attempt++;
+            }
+            //TODO Open
+            robot.keyPress(KeyEvent.VK_ALT);
+            robot.keyRelease(KeyEvent.VK_ALT);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    public static void runCommand(String[] commands, String player, String item, String price, String fullMessage, MessageType messageType) {
+        if (commands.length == 0) {
+            return;
+        }
+        new Thread(() -> {
+            focus();
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            PointerType hwnd;
+            byte[] windowText = new byte[512];
+            int i = 0;
+            String curWindowTitle;
+            do {
+                hwnd = User32.INSTANCE.GetForegroundWindow();
+                if (hwnd != null) {
+                    User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+                    curWindowTitle = Native.toString(windowText);
+                    if (curWindowTitle.equals(References.POE_WINDOW_TITLE)) {
+                        break;
+                    } else if (i > 400) {
+                        return;
+                    }
+                } else {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                i++;
+            } while (true);
+            FrameManager.forceAllToTop();
+            for (String cmd : commands) {
+                cmd = cmd.replaceAll("\\{self\\}", App.saveManager.saveFile.characterName);
+                cmd = cmd.replaceAll("\\{player\\}", player);
+                cmd = cmd.replaceAll("\\{item\\}", item);
+                cmd = cmd.replaceAll("\\{price\\}", price);
+                cmd = cmd.replaceAll("\\{message\\}", fullMessage);
+                pasteString = new StringSelection(cmd);
+                int attempt = 1;
+                int MAX_ATTEMPTS = 3;
+                while (attempt <= MAX_ATTEMPTS) {
+                    try {
+                        clipboard.setContents(pasteString, null);
+                        break;
+                    } catch (IllegalStateException e) {
+                        // TODO : LOG
+                        System.out.println("Retrying clipboard...");
+                        if (attempt == MAX_ATTEMPTS) {
+                            System.out.println("Aborting clipboard...");
+                            return;
+                        }
+                    }
+                    attempt++;
+                }
+                System.out.println("CMD:" + cmd);
+                System.out.println("MSG:" + fullMessage);
+                if (cmd.contains("/invite")) {
+                    System.out.println("invite");
+                    FrameManager.messageManager.showStashHelper(fullMessage, messageType);
+                }
+                robot.keyPress(KeyEvent.VK_ALT);
+                robot.keyRelease(KeyEvent.VK_ALT);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+                robot.keyPress(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }).start();
     }
 

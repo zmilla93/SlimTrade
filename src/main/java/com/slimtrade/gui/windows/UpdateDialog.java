@@ -5,9 +5,8 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.ConfirmButton;
-import com.slimtrade.gui.options.CheckUpdateButton;
+import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +16,8 @@ import java.net.URISyntaxException;
 
 public class UpdateDialog extends JFrame implements IColorable {
 
-    private JPanel borderPanel = new JPanel(FrameManager.gridBag);
-    private JPanel container = new JPanel(FrameManager.gridBag);
+    private JPanel borderPanel = new JPanel(new GridBagLayout());
+    private JPanel container = new JPanel(new GridBagLayout());
     private JButton viewUpdateButton = new ConfirmButton("View on Github");
 
     private JLabel info1 = new CustomLabel("Update Available!");
@@ -54,7 +53,7 @@ public class UpdateDialog extends JFrame implements IColorable {
         // Border Panel
         gc.gridy = 0;
         gc.insets = new Insets(BUFFER, BUFFER, BUFFER, BUFFER);
-//        this.getContentPane().setLayout(FrameManager.gridBag);
+//        this.getContentPane().setLayout(new GridBagLayout());
         borderPanel.add(container, gc);
 
         // Content Pane

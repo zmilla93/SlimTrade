@@ -2,14 +2,12 @@ package com.slimtrade.gui.enums;
 
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.enums.ColorTheme;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.util.Objects;
-
-import javax.swing.ImageIcon;
 
 /**
  * Cached images used by the SlimTrade UI. These are intended for internal use only.
@@ -17,17 +15,11 @@ import javax.swing.ImageIcon;
  */
 
 public enum DefaultIcons implements ICacheImage {
-    CART("icons/default/cartx64.png"),
+    ARROW_DOWN("icons/default/arrow-downx48.png"),
+    ARROW_UP("icons/default/arrow-upx48.png"),
     CLOSE("icons/default/closex64.png"),
-    HOME("icons/default/homex64.png"),
-    INVITE("icons/default/invitex48.png"),
-    LEAVE("icons/default/leavex64.png"),
     PLAY("icons/default/playx64.png"),
-    REFRESH("icons/default/refreshx64.png"),
-    REPLY("icons/custom/replyx48.png"),
     TAG("icons/default/tagx64.png"),
-    THUMB("icons/default/thumbx64.png"),
-    WARP("icons/default/warpx64.png"),
     ;
 
     private Image image;

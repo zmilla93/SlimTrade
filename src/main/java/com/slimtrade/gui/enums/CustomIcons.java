@@ -3,11 +3,10 @@ package com.slimtrade.gui.enums;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.sql.Ref;
-import javax.swing.ImageIcon;
 
 /**
  * Icons for use by the user with custom macro buttons.
@@ -24,6 +23,14 @@ public enum CustomIcons implements ICacheImage {
 	MAIL1("icons/custom/mailx64.png"),
 	WATCH("icons/custom/watchx64.png"),
 	CLOCK("icons/custom/clockx64.png"),
+
+	CART("icons/custom/cartx64.png"),  //
+	HOME("icons/custom/homex64.png"),  //
+	INVITE("icons/custom/invitex48.png"),  //
+	LEAVE("icons/custom/leavex64.png"),    //
+	REFRESH("icons/custom/refreshx64.png"),    //
+	THUMB("icons/custom/thumbx64.png"),    //
+	WARP("icons/custom/warpx64.png"),  //
 	;
 	
 	private Image image;
@@ -31,17 +38,18 @@ public enum CustomIcons implements ICacheImage {
 	private int cachedSize = 0;
 	private Color cachedColor;
 	private final String path;
+//	private boolean preCache = 0;
 
 	
 	CustomIcons(String path){
 		this.path = path;
-		getImage(References.DEFAULT_IMAGE_SIZE);
-		getColorImage(ColorManager.TEXT);
+//		getImage(References.DEFAULT_IMAGE_SIZE);
+//		getColorImage(ColorManager.TEXT);
 	}
 
-	public Image getImage(){
-		return this.getImage(References.DEFAULT_IMAGE_SIZE);
-	}
+//	public Image getImage(){
+//		return this.getImage(References.DEFAULT_IMAGE_SIZE);
+//	}
 	
 	public Image getImage(int size){
 		if(image == null || size != cachedSize) {
@@ -53,12 +61,10 @@ public enum CustomIcons implements ICacheImage {
 
 	@Override
 	public Image getColorImage(Color color) {
-
-		if(image == null || References.DEFAULT_IMAGE_SIZE != cachedSize) {
+		if(image == null || References.DEFAULT_IMAGE_SIZE != cachedSize || true) {
 			getImage(References.DEFAULT_IMAGE_SIZE);
 		}
-
-		if(bufferedImage == null || color != cachedColor) {
+		if(bufferedImage == null || !ColorManager.matchingColors(color, cachedColor)) {
 			bufferedImage = new BufferedImage(cachedSize, cachedSize, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D bGr = bufferedImage.createGraphics();
 			bGr.drawImage(image, 0, 0, null);
@@ -66,7 +72,6 @@ public enum CustomIcons implements ICacheImage {
 			bufferedImage = colorImage(bufferedImage);
 			cachedColor = color;
 		}
-
 		return bufferedImage;
 	}
 

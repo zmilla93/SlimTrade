@@ -7,8 +7,6 @@ import com.slimtrade.core.managers.SetupManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.enums.ICacheImage;
-import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.setup.panels.*;
 
 import javax.swing.*;
@@ -40,7 +38,7 @@ public class SetupWindow extends JFrame implements IColorable {
         this.setAlwaysOnTop(true);
         container = this.getContentPane();
         container.setLayout(new BorderLayout());
-        innerPanel = new JPanel(FrameManager.gridBag);
+        innerPanel = new JPanel(new GridBagLayout());
 
         // Panel List
         if(SetupManager.clientSetupCheck) {

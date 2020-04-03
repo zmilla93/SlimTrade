@@ -7,9 +7,7 @@ import com.slimtrade.core.saving.SaveFile;
 import com.slimtrade.core.saving.ScannerSaveFile;
 import com.slimtrade.core.saving.StashSaveFile;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.panels.ContainerPanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class SaveManager {
     public final String overlaySavePath;
     public final String scannerSavePath;
     public final String saveDirectory;
-    public SaveFile saveFile = new SaveFile();
+    public SaveFile saveFile;
     public StashSaveFile stashSaveFile = new StashSaveFile();
     public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
     public ScannerSaveFile scannerSaveFile = new ScannerSaveFile();

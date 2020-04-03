@@ -1,43 +1,35 @@
 
 package com.slimtrade.gui.options;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.swing.*;
-
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomLabel;
-import com.slimtrade.gui.basic.CustomScrollPane;
-import com.slimtrade.gui.options.basics.GeneralPanel;
-import com.slimtrade.gui.options.basics.HistoryOptionsPanel;
-import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
-import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
-import com.slimtrade.gui.options.macros.IncomingCustomizer;
-import com.slimtrade.gui.options.macros.OutgoingCustomizer;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
+import com.slimtrade.gui.custom.CustomLabel;
+import com.slimtrade.gui.custom.CustomScrollPane;
+import com.slimtrade.gui.options.general.GeneralPanel;
+import com.slimtrade.gui.options.general.HistoryOptionsPanel;
+import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
+import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
+import com.slimtrade.gui.options.macro.MacroPanel;
 import com.slimtrade.gui.options.stash_search.StashSearchPanel;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.stash.StashTabPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class OptionsWindow extends AbstractResizableWindow implements IColorable {
 
@@ -50,6 +42,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     private BasicButton checkUpdateButton;
 
     private GeneralPanel generalPanel;
+    public MacroPanel macroPanelIncoming;
+    public MacroPanel macroPanelOutgoing;
 //    private HotkeyPanel hotkeyPanel;
 
     public OptionsWindow() {
@@ -87,42 +81,52 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         ListButton generalButton = new ListButton("General");
         generalPanel = new GeneralPanel();
         link(generalButton, generalPanel);
-        display.add(generalPanel, gc);
+//        display.add(generalPanel, gc);
 
         ListButton stashButton = new ListButton("Stash Tabs");
         StashTabPanel stashPanel = new StashTabPanel();
         link(stashButton, stashPanel);
-        display.add(stashPanel, gc);
+//        display.add(stashPanel, gc);
 
-        ListButton incomingButton = new ListButton("Incoming Macros");
-        IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
-        link(incomingButton, incomingPanel);
-        display.add(incomingPanel, gc);
+        ListButton macroIncomingButton = new ListButton("Incoming Macros");
+        macroPanelIncoming = new MacroPanel(MessageType.INCOMING_TRADE);
+        link(macroIncomingButton, macroPanelIncoming);
+//        display.add(macroPanelIncoming, gc);
 
-        ListButton outgoingButton = new ListButton("Outgoing Macros");
-        OutgoingCustomizer outgoingPanel = new OutgoingCustomizer(this);
-        link(outgoingButton, outgoingPanel);
-        display.add(outgoingPanel, gc);
+        ListButton macroOutgoingButton = new ListButton("Outgoing Macros");
+        macroPanelOutgoing = new MacroPanel(MessageType.OUTGOING_TRADE);
+        link(macroOutgoingButton, macroPanelOutgoing);
+//        display.add(macroPanelOutgoing, gc);
+
+//        ListButton incomingButton = new ListButton("old in");
+//        IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
+//        link(incomingButton, incomingPanel);
+//        display.add(incomingPanel, gc);
+//
+//        ListButton outgoingButton = new ListButton("old out");
+//        OutgoingCustomizer outgoingPanel = new OutgoingCustomizer(this);
+//        link(outgoingButton, outgoingPanel);
+//        display.add(outgoingPanel, gc);
 
         ListButton ignoreButton = new ListButton("Ignore Items");
         ItemIgnorePanel ignorePanel = new ItemIgnorePanel();
         link(ignoreButton, ignorePanel);
-        display.add(ignorePanel, gc);
+//        display.add(ignorePanel, gc);
 
         ListButton hotKeyButton = new ListButton("Hotkeys");
         HotkeyPanel hotkeyPanel = new HotkeyPanel();
         link(hotKeyButton, hotkeyPanel);
-        display.add(hotkeyPanel, gc);
+//        display.add(hotkeyPanel, gc);
 
         ListButton stashSearcherButton = new ListButton("Stash Searcher");
         StashSearchPanel stashSearchPanel = new StashSearchPanel();
         link(stashSearcherButton, stashSearchPanel);
-        display.add(stashSearchPanel, gc);
+//        display.add(stashSearchPanel, gc);
 
         JButton contactButton = new ListButton("Information");
         InformationPanel contactPanel = new InformationPanel();
         link(contactButton, contactPanel);
-        display.add(contactPanel, gc);
+//        display.add(contactPanel, gc);
 
         // JButton updateButton = new BasicButton("Update Available!");
         // updateButton.setVisible(false);
@@ -145,10 +149,14 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy++;
         menuPanel.add(stashButton, gc);
         gc.gridy++;
-        menuPanel.add(incomingButton, gc);
+        menuPanel.add(macroIncomingButton, gc);
         gc.gridy++;
-        menuPanel.add(outgoingButton, gc);
+        menuPanel.add(macroOutgoingButton, gc);
         gc.gridy++;
+//        menuPanel.add(incomingButton, gc);
+//        gc.gridy++;
+//        menuPanel.add(outgoingButton, gc);
+//        gc.gridy++;
         menuPanel.add(ignoreButton, gc);
         gc.gridy++;
         menuPanel.add(hotKeyButton, gc);
@@ -178,13 +186,14 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         container.add(menuBorder, BorderLayout.WEST);
         container.add(scrollDisplay, BorderLayout.CENTER);
 
-        generalPanel.setVisible(true);
+        display.add(generalPanel, gc);
+        App.eventManager.recursiveColor(generalPanel);
         generalButton.active = true;
-        this.setPreferredSize(new Dimension(1000, 650));
+        this.setPreferredSize(new Dimension(1000, 720));
 
         this.refresh();
         //TODO : Resize doesn't respect maximum size
-        this.setMinimumSize(new Dimension(500, 400));
+        this.setMinimumSize(new Dimension(500, 550));
         this.setMaximumSize(new Dimension(1600, 900));
         FrameManager.centerFrame(this);
 
@@ -282,9 +291,14 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 }
                 lb = (ListButton) b;
                 lb.active = true;
-                hideAllWindows();
-                p.setVisible(true);
-                menuPanel.repaint();
+                GridBagConstraints gc = new GridBagConstraints();
+                gc.gridx = 0;
+                gc.gridy = 0;
+                display.removeAll();
+                display.add(p, gc);
+                App.eventManager.recursiveColor(p);
+                revalidate();
+                repaint();
             }
         });
     }
@@ -296,7 +310,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     }
 
     public void refresh() {
-
         display.revalidate();
         scrollDisplay.revalidate();
         this.pack();

@@ -1,11 +1,9 @@
 package com.slimtrade.gui.scanner;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomLabel;
-import com.slimtrade.gui.basic.CustomTextArea;
+import com.slimtrade.gui.custom.CustomLabel;
+import com.slimtrade.gui.custom.CustomTextArea;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,18 +13,18 @@ import static com.slimtrade.gui.scanner.ChatScannerWindow.bufferOuter;
 
 public class SearchTermsPanel extends JPanel implements IColorable {
 
-    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
+    private JPanel outerPanel = new JPanel(new GridBagLayout());
 
     private JLabel searchTermsLabel = new CustomLabel("Search Terms");
     private JLabel ignoreTermsLabel = new CustomLabel("Ignore Terms");
     private JLabel info1 = new CustomLabel("Separate terms using commas, semicolons, or new lines.");
     private JLabel info2 = new CustomLabel("Scanning is case insensitive. Irregular spacing is ignored.");
 
-    public JTextArea searchTermsInput = new CustomTextArea(4, 45);
-    public JTextArea ignoreTermsInput = new CustomTextArea(4, 45);
+    public JTextArea searchTermsInput = new CustomTextArea(2, 45);
+    public JTextArea ignoreTermsInput = new CustomTextArea(2, 45);
 
     public SearchTermsPanel() {
-        super(FrameManager.gridBag);
+        super(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

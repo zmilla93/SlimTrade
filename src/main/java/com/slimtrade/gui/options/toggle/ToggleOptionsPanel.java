@@ -3,8 +3,8 @@ package com.slimtrade.gui.options.toggle;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomCheckbox;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.custom.CustomCheckbox;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
 
@@ -26,7 +26,7 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
 
     public ToggleOptionsPanel() {
 
-        info1 = new CustomLabel("Uncheck boxes to disable features.");
+        info1 = new CustomLabel("Check boxes to enable features.");
         incomingLabel = new CustomLabel("Incoming Messages");
         outgoingLabel = new CustomLabel("Outgoing Messages");
         itemHighlighterLabel = new CustomLabel("Item Highlighter");

@@ -1,25 +1,18 @@
 package com.slimtrade.gui.options.ignore;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomLabel;
+import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.RemovablePanel;
-import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.panels.BufferPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class IgnoreRow extends RemovablePanel implements ActionListener, IColorable {
 

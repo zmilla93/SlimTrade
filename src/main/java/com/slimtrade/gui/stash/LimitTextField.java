@@ -1,9 +1,7 @@
 package com.slimtrade.gui.stash;
 
-import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.basic.CustomTextField;
+import com.slimtrade.gui.custom.CustomTextField;
 
-import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;

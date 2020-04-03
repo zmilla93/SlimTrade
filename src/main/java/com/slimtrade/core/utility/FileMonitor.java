@@ -1,18 +1,11 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.App;
+
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.ClosedWatchServiceException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardWatchEventKinds;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
+import java.nio.file.*;
 import java.util.logging.Level;
-
-import com.slimtrade.App;
 
 public class FileMonitor {
 

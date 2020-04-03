@@ -1,41 +1,16 @@
 package com.slimtrade.core.observing.improved;
 
-import java.awt.*;
-import java.util.ArrayList;
-
-import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.options.ISaveable;
 
-import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class EventManager {
 
     private ArrayList<ISaveable> saveListenerList = new ArrayList<>();
-    private ArrayList<IColorable> colorListenerList = new ArrayList<>();
-
-//    public void addColorListener(IColorable listener) {
-//        if (colorListenerList.contains(listener)) {
-//            return;
-//        }
-////        int i = colorListenerList.size();
-//        colorListenerList.add(listener);
-////        System.out.print("IColor");
-////        if (i == colorListenerList.size()) {
-////            System.out.print("!");
-////        }
-////        System.out.println("++(" + colorListenerList.size() + "):" + listener);
-//    }
-
-//    public void removeColorListener(IColorable listener) {
-////        int i = colorListenerList.size();
-//        colorListenerList.remove(listener);
-////        if (i == colorListenerList.size()) {
-////            System.out.print("!");
-////        }
-////        System.out.println("--(" + colorListenerList.size() + "):" + listener);
-//    }
 
     public void addSaveListener(ISaveable listener) {
         saveListenerList.add(listener);

@@ -1,15 +1,13 @@
 package com.slimtrade.gui.scanner;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
-import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomCombo;
-import com.slimtrade.gui.basic.CustomLabel;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.buttons.ToggleButton;
+import com.slimtrade.gui.custom.CustomCombo;
+import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
@@ -35,12 +33,12 @@ public class SearchNamePanel extends JPanel implements IColorable {
     private JLabel searchNameLabel = new CustomLabel("Search Name");
 
     // Internal
-    private JPanel buttonPanel = new JPanel(FrameManager.gridBag);
-    private JPanel namePanel = new JPanel(FrameManager.gridBag);
-    private JPanel outerPanel = new JPanel(FrameManager.gridBag);
+    private JPanel buttonPanel = new JPanel(new GridBagLayout());
+    private JPanel namePanel = new JPanel(new GridBagLayout());
+    private JPanel outerPanel = new JPanel(new GridBagLayout());
 
     public SearchNamePanel() {
-        super(FrameManager.gridBag);
+        super(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

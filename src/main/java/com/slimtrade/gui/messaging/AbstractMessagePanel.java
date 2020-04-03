@@ -1,30 +1,21 @@
 package com.slimtrade.gui.messaging;
 
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.utility.TradeOffer;
+import com.slimtrade.enums.MessageType;
+import com.slimtrade.gui.basic.ColorPanel;
+import com.slimtrade.gui.basic.PaintedPanel;
+import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.custom.CustomLabel;
+import com.slimtrade.gui.enums.DefaultIcons;
+import com.slimtrade.gui.panels.PricePanel;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import com.slimtrade.App;
-import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.ButtonType;
-import com.slimtrade.core.observing.poe.PoeInteractionEvent;
-import com.slimtrade.core.observing.poe.PoeInteractionListener;
-import com.slimtrade.core.utility.TradeOffer;
-import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.basic.*;
-import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.enums.DefaultIcons;
-import com.slimtrade.gui.panels.PricePanel;
 
 public class AbstractMessagePanel extends ColorPanel {
 
@@ -32,7 +23,6 @@ public class AbstractMessagePanel extends ColorPanel {
 	// TODO Load from drive
 	// TODO : Move?
 	// TODO : switch totalwidth/windowHeight to use get/set?
-	private final PoeInteractionListener poeInteractionListener = App.macroEventManager;
 	protected MessageType messageType;
 	// Heights
 	// protected int minHeight;
@@ -59,21 +49,11 @@ public class AbstractMessagePanel extends ColorPanel {
 	protected JLabel timerLabel;
 	protected IconButton closeButton;
 
-	// Buttons
-	protected IconButton kickButton;
-	protected IconButton leaveButton;
-
-	// Labels
-//	protected JLabel nameLabel = new JLabel();
-//	protected JLabel priceLabel = new JLabel();
-//	protected JLabel itemLabel = new JLabel();
-
 	protected int buttonCountTop;
 	protected int buttonCountBottom;
 	// TODO : Change to generic offer
 	protected TradeOffer trade;
 
-	protected Font font;
 	private int second = 0;
 	private int minute = 1;
 	private Timer secondTimer = new Timer(1000, new ActionListener() {
@@ -126,34 +106,6 @@ public class AbstractMessagePanel extends ColorPanel {
 		});
 	}
 
-	public JButton getKickLeaveButton() {
-		if (this.getMessageType() == MessageType.INCOMING_TRADE) {
-			return this.kickButton;
-		} else if (this.getMessageType() == MessageType.OUTGOING_TRADE) {
-			return this.leaveButton;
-		} else {
-			return null;
-		}
-	}
-
-	protected void registerPoeInteractionButton(JButton button, ButtonType type, String playerName, String clickLeft, String clickRight) {
-		if (type == ButtonType.WHISPER) {
-			button.addMouseListener(new AdvancedMouseAdapter() {
-				public void click(MouseEvent e) {
-					poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade.playerName, clickLeft, clickRight));
-				}
-			});
-		}
-	}
-
-	protected void registerPoeInteractionButton(Component c, ButtonType type) {
-		c.addMouseListener(new AdvancedMouseAdapter() {
-			public void click(MouseEvent e) {
-				poeInteractionListener.poeInteractionPerformed(new PoeInteractionEvent(e.getButton(), type, trade));
-			}
-		});
-	}
-
 	public JButton getCloseButton() {
 		return this.closeButton;
 	}
@@ -166,13 +118,7 @@ public class AbstractMessagePanel extends ColorPanel {
 		this.messageType = messageType;
 	}
 
-	protected void resizeFrames() {
-
-	}
-
-	protected void resizeButtons() {
-
-	}
+	protected void resizeFrames() {	}
 
 	public void startTimer() {
 		secondTimer.start();

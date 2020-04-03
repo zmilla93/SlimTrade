@@ -1,15 +1,16 @@
 package com.slimtrade.core.observing;
 
-import com.slimtrade.App;
-import com.slimtrade.core.utility.PoeInterface;
-import com.slimtrade.gui.FrameManager;
+import com.slimtrade.core.managers.HotkeyManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
 public class GlobalKeyboardListener implements NativeKeyListener {
 
     private HotkeyListener hotkeyListener = null;
+    // Masks for the 5 mouse buttons
     private static final int[] removeMasks = {256, 512, 1024, 2048, 4096};
+
+    private static volatile boolean ctrlPressed;
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
@@ -17,7 +18,9 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         // Remove mouse button modifiers
         e.setModifiers(cleanModifiers(e.getModifiers()));
 
-
+        if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+            ctrlPressed = true;
+        }
         // Ignore modifier keys on their own
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL
                 || e.getKeyCode() == NativeKeyEvent.VC_ALT
@@ -26,7 +29,8 @@ public class GlobalKeyboardListener implements NativeKeyListener {
                 || e.getKeyCode() == NativeKeyEvent.VC_SCROLL_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_CAPS_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_META
-                || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED) {
+                || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED
+                || NativeKeyEvent.getKeyText(e.getKeyCode()).contains("Unknown")) {
             return;
         }
 
@@ -42,46 +46,15 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         }
 
         // Hotkeys
-
-        // Remaining
-        if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
-            if(App.globalMouse.isGameFocused()) {
-                PoeInterface.paste("/remaining");
-            }
-        }
-
-        // Hideout
-        if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {
-            if(App.globalMouse.isGameFocused()) {
-                PoeInterface.paste("/hideout");
-            }
-        }
-
-        // Leave Party
-        if (checkKey(e, App.saveManager.saveFile.leavePartyHotkey)) {
-            if(App.globalMouse.isGameFocused() && App.saveManager.saveFile.characterName != null && !App.saveManager.saveFile.characterName.equals("")) {
-                PoeInterface.paste("/kick " + App.saveManager.saveFile.characterName);
-            }
-        }
-
-        // Betrayal
-        if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
-            if(App.globalMouse.isGameFocused()) {
-                FrameManager.betrayalWindow.toggleShow();
-                FrameManager.betrayalWindow.refreshVisibility();
-            }
-        }
-
-        // Quick Paste Trade
-        if (checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
-            PoeInterface.attemptQuickPaste();
-        }
+        HotkeyManager.processHotkey(e);
 
     }
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {
-        // Unused
+        if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+            ctrlPressed = false;
+        }
     }
 
     @Override
@@ -112,10 +85,14 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
     // Removes the 5 mouse buttons as modifiers for key events
     public static int cleanModifiers(int mods) {
-        for(int mask : removeMasks) {
-            if((mods & mask) > 0) {
+        for (int mask : removeMasks) {
+            if ((mods & mask) > 0) {
                 mods -= mask;
             }
+        }
+        // Ctrl fix
+        if ((mods & 34) > 0 && !ctrlPressed) {
+            mods -= 2;
         }
         return mods;
     }

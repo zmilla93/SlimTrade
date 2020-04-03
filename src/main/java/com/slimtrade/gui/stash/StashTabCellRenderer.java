@@ -1,13 +1,7 @@
 package com.slimtrade.gui.stash;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-
-import javax.swing.BorderFactory;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
+import javax.swing.*;
+import java.awt.*;
 
 class StashTabCellRenderer extends JPanel implements ListCellRenderer<Object> {
 

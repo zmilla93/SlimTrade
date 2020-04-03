@@ -1,14 +1,9 @@
 package com.slimtrade.gui.messaging;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.slimtrade.App;
+import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
@@ -17,23 +12,29 @@ import com.slimtrade.gui.components.PanelWrapper;
 import com.slimtrade.gui.enums.ExpandDirection;
 import com.slimtrade.gui.enums.WindowState;
 
-import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MessageDialogManager {
 
     private Point anchorPoint;
-    public static Dimension defaultSize = new Dimension(400, 40);
+    public static final Dimension DEFAULT_SIZE = new Dimension(400, 40);
+    private int sizeIncrease = 0;
     private ExpandDirection expandDirection;
 
     private final int BUFFER_SIZE = 2;
     private final int MAX_MESSAGE_COUNT = 20;
     private static final CopyOnWriteArrayList<PanelWrapper> wrapperList = new CopyOnWriteArrayList<PanelWrapper>();
+    public Dimension messageSize;
 
     public MessageDialogManager() {
         expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
         int x = App.saveManager.overlaySaveFile.messageX;
         int y = App.saveManager.overlaySaveFile.messageY;
         anchorPoint = new Point(x, y);
+        messageSize = new Dimension(DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease);
     }
 
     public void addMessage(TradeOffer trade) {
@@ -47,7 +48,7 @@ public class MessageDialogManager {
         if (playSound) {
             trade.playSound();
         }
-        final MessagePanel panel = new MessagePanel(trade, defaultSize);
+        final MessagePanel panel = new MessagePanel(trade, messageSize);
         final PanelWrapper wrapper = new PanelWrapper(panel, "SlimTrade Message Window");
         wrapperList.add(wrapper);
         refreshPanelLocations();
@@ -73,7 +74,6 @@ public class MessageDialogManager {
     public void refreshPanelLocations() {
         Point targetPoint = new Point(anchorPoint);
         for (PanelWrapper w : wrapperList) {
-
             w.setLocation(targetPoint);
             w.setAlwaysOnTop(false);
             w.setAlwaysOnTop(true);
@@ -87,7 +87,7 @@ public class MessageDialogManager {
 
     private boolean isDuplicateTrade(TradeOffer trade) {
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel msgPanel = (MessagePanel) wrapper.getPanel();
+            MessagePanel msgPanel = wrapper.getPanel();
             TradeOffer tradeB = msgPanel.getTrade();
             if (TradeUtility.isDuplicateTrade(trade, tradeB)) {
                 return true;
@@ -100,7 +100,7 @@ public class MessageDialogManager {
         int i = 0;
         final ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel msg = (MessagePanel) wrapper.getPanel();
+            MessagePanel msg = wrapper.getPanel();
             TradeOffer tradeB = msg.trade;
             if (tradeA.equals(tradeB)) {
                 this.removeMessage(i);
@@ -123,7 +123,7 @@ public class MessageDialogManager {
         int i = 0;
         final ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel msg = (MessagePanel) wrapper.getPanel();
+            MessagePanel msg = wrapper.getPanel();
             TradeOffer trade = msg.trade;
             String itemB = trade.itemName;
             if (trade.messageType == MessageType.INCOMING_TRADE && itemA.equals(itemB)) {
@@ -143,47 +143,49 @@ public class MessageDialogManager {
     }
 
     private void closeSimilarTrades(int index) {
-        MessagePanel msg = (MessagePanel) wrapperList.get(index).getPanel();
+        MessagePanel msg = wrapperList.get(index).getPanel();
         TradeOffer tradeA = msg.getTrade();
-//		ArrayList<int> toBeDeleted = new ArrayList<int>();
         final ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
         int i = 0;
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel msgB = (MessagePanel) wrapper.getPanel();
+            MessagePanel msgB = wrapper.getPanel();
             TradeOffer tradeB = msgB.getTrade();
-            if (msg != null && msg instanceof MessagePanel) {
-                if (i != index) {
-                    try {
-                        int checkCount = 0;
-                        int check = 0;
-                        if (tradeA.messageType == MessageType.INCOMING_TRADE) {
-                            checkCount = 4;
-                            if (tradeA.priceType.equals(tradeB.priceType)) {
+
+            if (i != index) {
+                try {
+                    int checkCount = 0;
+                    int check = 0;
+                    if (tradeA.messageType == MessageType.INCOMING_TRADE) {
+                        checkCount = 4;
+                        if(tradeA.priceType == null || tradeB.priceType == null) {
+                            if(tradeA==null && tradeB == null) {
                                 check++;
                             }
-                            if (tradeA.priceCount.equals(tradeB.priceCount)) {
-                                check++;
-                            }
-                            if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
-                                check++;
-                            }
-                        } else if (tradeA.messageType == MessageType.OUTGOING_TRADE) {
-                            checkCount = 1;
-                        } else if (tradeA.messageType == MessageType.CHAT_SCANNER) {
-                            checkCount = 2;
-                            if (tradeA.searchName.equals(tradeB.searchName)) {
-                                check++;
-                            }
-                        }
-                        if (tradeA.messageType.equals(tradeB.messageType)) {
+                        } else if (tradeA.priceType.equals(tradeB.priceType)) {
                             check++;
                         }
-                        if (check == checkCount) {
-                            indexesToDelete.add(i);
+                        if (tradeA.priceQuantity.equals(tradeB.priceQuantity)) {
+                            check++;
                         }
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
+                        if (TradeUtility.cleanItemName(tradeA.itemName).equals(TradeUtility.cleanItemName(tradeB.itemName))) {
+                            check++;
+                        }
+                    } else if (tradeA.messageType == MessageType.OUTGOING_TRADE) {
+                        checkCount = 1;
+                    } else if (tradeA.messageType == MessageType.CHAT_SCANNER) {
+                        checkCount = 2;
+                        if (tradeA.searchName.equals(tradeB.searchName)) {
+                            check++;
+                        }
                     }
+                    if (tradeA.messageType.equals(tradeB.messageType)) {
+                        check++;
+                    }
+                    if (check == checkCount) {
+                        indexesToDelete.add(i);
+                    }
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
                 }
             }
             i++;
@@ -203,7 +205,7 @@ public class MessageDialogManager {
     }
 
     private void removeMessage(int index) {
-        MessagePanel msgPanel = (MessagePanel) wrapperList.get(index).getPanel();
+        MessagePanel msgPanel = wrapperList.get(index).getPanel();
         if (msgPanel.getMessageType() == MessageType.INCOMING_TRADE) {
             if (msgPanel.getStashHelper() != null) {
                 // TODO :
@@ -236,12 +238,15 @@ public class MessageDialogManager {
 
     public void setPlayerJoinedArea(String username) {
         for (PanelWrapper wrapper : wrapperList) {
-            MessagePanel panel = (MessagePanel) wrapper.getPanel();
+            MessagePanel panel = wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
                 if (panel.getTrade().messageType == MessageType.INCOMING_TRADE) {
                     panel.pricePanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.borderPanel.setBackground(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
+                    panel.itemPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
+                    panel.timerPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
+                    AudioManager.play(App.saveManager.saveFile.playerJoinedSound);
                 }
             }
         }
@@ -252,4 +257,54 @@ public class MessageDialogManager {
             App.eventManager.recursiveColor(w);
         }
     }
+
+    public void setMessageIncrease(int sizeIncrease) {
+        messageSize = new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease);
+        int tempMax = 50;
+        if (sizeIncrease > tempMax) sizeIncrease = tempMax;
+        this.sizeIncrease = sizeIncrease;
+        for (PanelWrapper w : wrapperList) {
+            MessagePanel p = w.getPanel();
+            p.resizeFrames(new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease));
+            p.getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
+                public void click(MouseEvent e) {
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+                        removeMessage(wrapperList.indexOf(w));
+                        refreshPanelLocations();
+                    } else if (e.getButton() == MouseEvent.BUTTON3) {
+                        closeSimilarTrades(wrapperList.indexOf(w));
+                    }
+                }
+            });
+            w.pack();
+
+        }
+        this.refreshPanelLocations();
+    }
+
+    public static Dimension getMessageSize() {
+        return new Dimension(DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease);
+    }
+
+    public TradeOffer getFirstTrade() {
+        if (wrapperList.size() > 0) {
+            return wrapperList.get(0).getPanel().trade;
+        }
+        return null;
+    }
+
+    public void showStashHelper(String message, MessageType type) {
+        if(type != MessageType.INCOMING_TRADE) {
+            return;
+        }
+        for (PanelWrapper w : wrapperList) {
+            TradeOffer trade = w.getPanel().trade;
+            if(trade.messageType == MessageType.INCOMING_TRADE && trade.sentMessage.equals(message)) {
+                w.getPanel().stashHelper.setVisible(true);
+                FrameManager.stashHelperContainer.pack();
+                break;
+            }
+        }
+    }
+
 }

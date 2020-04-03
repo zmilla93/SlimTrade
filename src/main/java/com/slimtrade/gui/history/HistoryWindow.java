@@ -1,11 +1,5 @@
 package com.slimtrade.gui.history;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
@@ -13,11 +7,14 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomScrollPane;
+import com.slimtrade.gui.basic.AbstractResizableWindow;
+import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.options.ListButton;
 import com.slimtrade.gui.options.OrderType;
-import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.panels.BufferPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class HistoryWindow extends AbstractResizableWindow implements IColorable {
 	private static final long serialVersionUID = 1L;
@@ -94,36 +91,26 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 
 		container.add(innerPanel, BorderLayout.CENTER);
 
-		AbstractResizableWindow local = this;
-		incomingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				outgoingScroll.setVisible(false);
-//				savedScroll.setVisible(false);
-				incomingScroll.setVisible(true);
-				innerPanel.add(incomingScroll, BorderLayout.CENTER);
+		incomingButton.addActionListener(e -> {
+			innerPanel.remove(outgoingScroll);
+			innerPanel.add(incomingScroll, BorderLayout.CENTER);
+			App.eventManager.recursiveColor(innerPanel);
+			innerPanel.revalidate();
+			innerPanel.repaint();
 
-				innerPanel.revalidate();
-				innerPanel.repaint();
-
-			}
 		});
 		
-		outgoingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				incomingScroll.setVisible(false);
-//				savedScroll.setVisible(false);
-				outgoingScroll.setVisible(true);
-				innerPanel.add(outgoingScroll, BorderLayout.CENTER);
-
-				innerPanel.revalidate();
-				innerPanel.repaint();
-			}
+		outgoingButton.addActionListener(e -> {
+			innerPanel.remove(incomingScroll);
+			innerPanel.add(outgoingScroll, BorderLayout.CENTER);
+			App.eventManager.recursiveColor(innerPanel);
+			innerPanel.revalidate();
+			innerPanel.repaint();
 		});
 
 		innerPanel.add(incomingScroll, BorderLayout.CENTER);
 		innerPanel.revalidate();
 		innerPanel.repaint();
-
 		this.pack();
 		FrameManager.centerFrame(this);
 	}
@@ -135,7 +122,6 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 	}
 
 	public void setTimeStyle(TimeStyle style) {
-		System.out.println("TET" + SwingUtilities.isEventDispatchThread());
 		HistoryWindow.timeStyle = style;
 		incomingPanel.updateTime();
 		outgoingPanel.updateTime();
@@ -182,15 +168,9 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		super.updateColor();
 		buttonPanel.setBackground(ColorManager.BACKGROUND);
 		innerPanel.setBackground(ColorManager.BACKGROUND);
-		if(incomingPanel.isVisible()) {
-			App.eventManager.recursiveColor(outgoingPanel);
-		}
-		if(outgoingPanel.isVisible()) {
-			App.eventManager.recursiveColor(incomingPanel);
-		}
+		App.eventManager.recursiveColor(innerPanel);
 		incomingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
 		outgoingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
-		incomingPanel.setBackground(Color.GREEN);
-		incomingScroll.getRootPane().setBackground(Color.GREEN);
 	}
+
 }

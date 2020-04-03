@@ -1,10 +1,8 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.enums.POEImage;
-import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.CustomIcons;
+import com.slimtrade.gui.enums.DefaultIcons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +30,7 @@ public class ImageTestingWindow extends JFrame {
 //            }
 //        }
 
-        this.setLayout(FrameManager.gridBag);
+        this.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;

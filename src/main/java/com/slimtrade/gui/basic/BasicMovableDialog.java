@@ -1,13 +1,11 @@
 package com.slimtrade.gui.basic;
 
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import com.slimtrade.core.utility.TradeUtility;
 
 import javax.swing.*;
-
-import com.slimtrade.core.utility.TradeUtility;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 //TODO : REVIEW THIS CODE!!
 public class BasicMovableDialog extends BasicDialog {

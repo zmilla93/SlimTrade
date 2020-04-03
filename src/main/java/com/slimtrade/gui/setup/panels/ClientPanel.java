@@ -4,10 +4,9 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.CustomLabel;
-import com.slimtrade.gui.basic.CustomTextField;
 import com.slimtrade.gui.buttons.BasicButton;
-import com.slimtrade.gui.setup.SetupWindow;
+import com.slimtrade.gui.custom.CustomLabel;
+import com.slimtrade.gui.custom.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,18 +15,14 @@ import java.util.ArrayList;
 
 public class ClientPanel extends AbstractSetupPanel implements ISetupValidator, IColorable {
 
-    private JPanel browsePanel = new JPanel(FrameManager.gridBag);
-    private JPanel multiPathPanel = new JPanel(FrameManager.gridBag);
+    private JPanel browsePanel = new JPanel(new GridBagLayout());
+    private JPanel multiPathPanel = new JPanel(new GridBagLayout());
 
     private JLabel pathLabel = new CustomLabel("Client Path");
     public JTextField clientText = new CustomTextField();
     public JButton editButton = new BasicButton("Browse");
 
     private JLabel info1 = new CustomLabel("Enter the location of Path of Exile's Client.txt file.");
-    private JLabel info2a = new CustomLabel("Multiple client files detected. Selected the one being used, or enter a new one.");
-    private JLabel info2b = new CustomLabel("If this file was recently deleted, launch POE before running SlimTrade.");
-
-//    private JLabel info2 = new JLabel("If this file was recently deleted, launch POE to recreate it.");
 
     private JFrame parent;
     private JFileChooser fileChooser;
