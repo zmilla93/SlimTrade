@@ -6,7 +6,7 @@
 
     <groupId>com.slimtrade</groupId>
     <artifactId>slim-trade</artifactId>
-    <version>0.2.5</version>
+    <version>0.2.6</version>
     <packaging>jar</packaging>
 
     <name>slimtrade</name>
