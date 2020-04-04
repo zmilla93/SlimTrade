@@ -103,7 +103,6 @@ public class App {
 
         try {
             SwingUtilities.invokeAndWait(() -> {
-
                 //Debug Mode
                 if (debugMode) {
                     debugger = new Debugger();
@@ -140,50 +139,45 @@ public class App {
         GlobalScreen.addNativeMouseListener(globalMouse);
         GlobalScreen.addNativeKeyListener(globalKeyboard);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
-        SwingUtilities.invokeLater(() -> loadingDialog.dispose());
-        App.launch();
+        SwingUtilities.invokeLater(() -> {
+                    loadingDialog.dispose();
+                    App.launch();
+                }
+        );
         System.out.println("SlimTrade launched!");
-
 
     }
 
 
     public static void launch() {
-        try {
-            SwingUtilities.invokeAndWait(() -> {
-                if (SetupManager.isSetupRequired()) {
-                    // First time setup window
-                    FrameManager.setupWindow = new SetupWindow();
-                    FrameManager.windowState = WindowState.SETUP;
-                    FrameManager.setupWindow.setVisible(true);
-                } else {
-                    // Launch
-                    FrameManager.windowState = WindowState.NORMAL;
-                    fileMonitor = new FileMonitor();
-                    fileMonitor.startMonitor();
-                    chatParser.init();
-                    if (App.saveManager.saveFile.enableMenubar) {
-                        FrameManager.menubarToggle.setShow(true);
-                        if (!globalMouse.isGameFocused()) {
-                            FrameManager.menubarToggle.setVisible(false);
-                        }
-                    }
-                    FrameManager.trayButton.addAdditionalOptions();
-                    // Check for update
-                    if (checkUpdateOnLaunch) {
-                        updateChecker.checkForUpdates();
-                        if (updateChecker.isUpdateAvailable()) {
-                            UpdateDialog updateDialog = new UpdateDialog();
-                            updateDialog.setVisible(true);
-                            FrameManager.optionsWindow.recolorUpdateButton();
-                        }
-                    }
+        if (SetupManager.isSetupRequired()) {
+            // First time setup window
+            FrameManager.setupWindow = new SetupWindow();
+            FrameManager.windowState = WindowState.SETUP;
+            FrameManager.setupWindow.setVisible(true);
+        } else {
+            // Launch
+            FrameManager.windowState = WindowState.NORMAL;
+            fileMonitor = new FileMonitor();
+            fileMonitor.startMonitor();
+            chatParser.init();
+            if (App.saveManager.saveFile.enableMenubar) {
+                FrameManager.menubarToggle.setShow(true);
+                if (!globalMouse.isGameFocused()) {
+                    FrameManager.menubarToggle.setVisible(false);
                 }
-            });
-        } catch (InterruptedException | InvocationTargetException e) {
-            e.printStackTrace();
+            }
+            FrameManager.trayButton.addAdditionalOptions();
+            // Check for update
+            if (checkUpdateOnLaunch) {
+                updateChecker.checkForUpdates();
+                if (updateChecker.isUpdateAvailable()) {
+                    UpdateDialog updateDialog = new UpdateDialog();
+                    updateDialog.setVisible(true);
+                    FrameManager.optionsWindow.recolorUpdateButton();
+                }
+            }
         }
-
     }
 
 

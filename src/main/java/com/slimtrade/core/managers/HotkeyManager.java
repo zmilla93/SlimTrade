@@ -6,6 +6,7 @@ import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.scanner.ScannerMessage;
 import org.jnativehook.keyboard.NativeKeyEvent;
@@ -26,6 +27,8 @@ public class HotkeyManager {
         } else if (checkKey(e, App.saveManager.saveFile.betrayalHotkey)) {
             FrameManager.betrayalWindow.toggleShow();
             FrameManager.betrayalWindow.refreshVisibility();
+        } else if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
+            PoeInterface.attemptQuickPaste();
         }
         // TODO : CLOSE BUTTON
         else {
