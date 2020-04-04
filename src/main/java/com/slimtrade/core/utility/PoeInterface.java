@@ -58,7 +58,8 @@ public class PoeInterface extends Robot {
         boolean valid = false;
         if (text.startsWith("@")) {
             for (LangRegex l : LangRegex.values()) {
-                if (text.contains(l.CONTAINS_TEXT)) {
+//                TradeOffer trade = App.chatParser.validateQuickPaste(text, l);
+                if (text.contains(l.CONTAINS_TEXT) && App.chatParser.validateQuickPaste(text, l)) {
                     valid = true;
                     break;
                 }

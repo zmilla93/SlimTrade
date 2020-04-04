@@ -27,7 +27,7 @@ public class ChatParser {
     private String curLine;
     private ActionListener updateAction = e -> procUpdate();
     private Timer updateTimer = new Timer(500, updateAction);
-    private static final Pattern SEARCH_PATTERN = Pattern.compile(References.REGEX_PREFIX_SCANNER + "(?<scannerMessage>.+))");
+    private static final Pattern SEARCH_PATTERN = Pattern.compile(References.REGEX_SCANNER_PREFIX + "(?<scannerMessage>.+))");
     private static final Pattern JOINED_PATTERN = Pattern.compile(".+ : (.+) has joined the area(.)");
     private ArrayList<IgnoreData> whisperIgnoreData = new ArrayList<IgnoreData>();
     private boolean chatScannerRunning = false;
@@ -124,7 +124,7 @@ public class ChatParser {
                         }
                     } else if (chatScannerRunning) {
                         TradeOffer trade = getSearchOffer(curLine);
-                        if(trade != null) {
+                        if (trade != null) {
                             FrameManager.messageManager.addMessage(trade);
                         }
                     }
@@ -168,10 +168,42 @@ public class ChatParser {
         this.searchIgnoreTerms = terms;
     }
 
-    private TradeOffer getTradeOffer(String text, LangRegex lang) {
+    public boolean validateQuickPaste(String text, LangRegex lang) {
         Matcher matcher = null;
         boolean found = false;
-        for (Pattern p : lang.PATTERNS) {
+        for (Pattern p : lang.QUICK_PASTE_PATTERNS) {
+            matcher = p.matcher(text);
+            if (matcher.matches()) {
+                return true;
+            }
+        }
+        return false;
+//        if (!found) {
+//            return null;
+//        }
+//        TradeOffer trade = new TradeOffer();
+//        trade.date = matcher.group("date").replaceAll("/", "-");
+//        trade.time = matcher.group("time");
+//        trade.time = cleanResult(matcher, "time");
+//        trade.messageType = getMessageType(matcher.group("messageType"));
+//        trade.guildName = matcher.group("guildName");
+//        trade.playerName = matcher.group("playerName");
+//        trade.itemName = matcher.group("itemName");
+//        trade.itemQuantity = cleanDouble(cleanResult(matcher, "itemQuantity"));
+//        trade.priceTypeString = cleanResult(matcher, "priceType");
+//        trade.priceQuantity = cleanDouble(cleanResult(matcher, "priceQuantity"));
+//        trade.stashtabName = cleanResult(matcher, "stashtabName");
+//        trade.stashtabX = cleanInt(cleanResult(matcher, "stashX"));
+//        trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));
+//        trade.bonusText = cleanResult(matcher, "bonusText");
+//        trade.sentMessage = matcher.group("message");
+//        return trade;
+    }
+
+    public TradeOffer getTradeOffer(String text, LangRegex lang) {
+        Matcher matcher = null;
+        boolean found = false;
+        for (Pattern p : lang.CLIENT_PATTERNS) {
             matcher = p.matcher(text);
             if (matcher.matches()) {
                 found = true;
@@ -184,6 +216,7 @@ public class ChatParser {
         TradeOffer trade = new TradeOffer();
         trade.date = matcher.group("date").replaceAll("/", "-");
         trade.time = matcher.group("time");
+        trade.time = cleanResult(matcher, "time");
         trade.messageType = getMessageType(matcher.group("messageType"));
         trade.guildName = matcher.group("guildName");
         trade.playerName = matcher.group("playerName");
@@ -231,6 +264,14 @@ public class ChatParser {
             }
         }
         return null;
+    }
+
+    private String cleanDate(Matcher matcher, String text) {
+        try {
+            return matcher.group(text).replaceAll("/", "-");
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     private <T> T cleanResult(Matcher matcher, String text) {

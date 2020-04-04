@@ -17,46 +17,68 @@ public class ClipboardManager implements ClipboardOwner {
     private String lastMessage;
     private volatile boolean disabled = false;
     private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    private FlavorListener listener;
 
     public ClipboardManager() {
-
-        ClipboardOwner owner = this;
-        clipboard.setContents(clipboard.getContents(this), this);
-        clipboard.addFlavorListener(e -> {
-//            System.out.println("Flavor Changed");
-            new Thread(() -> {
-                if (disabled) {
-                    return;
+        listener = e -> new Thread(() -> {
+            if (disabled) {
+                return;
+            }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            String contents = getClipboardContents();
+            if (lastMessage == null) {
+                lastMessage = contents;
+                if(App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
+                    PoeInterface.attemptQuickPaste(contents);
                 }
                 try {
-                    Thread.sleep(50);
+                    Thread.sleep(250);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-                String contents = getClipboardContents();
-                if (lastMessage == null) {
-                    lastMessage = contents;
-                    if(App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
-                        PoeInterface.attemptQuickPaste(contents);
-                    }
-                    try {
-                        Thread.sleep(250);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    refreshClipboard();
-                } else {
-                    lastMessage = null;
-                    disabled = true;
-                    try {
-                        Thread.sleep(250);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    disabled = false;
+                refreshClipboard();
+            } else {
+                lastMessage = null;
+                disabled = true;
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
-            }).start();
-        });
+                disabled = false;
+            }
+        }).start();
+    }
+
+    public void setListeningState(boolean state) {
+        clipboard.removeFlavorListener(listener);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            clipboard.setContents(clipboard.getContents(this), this);
+        } catch (IllegalStateException e) {
+            System.out.println("Issue while initializing clipboard");
+        }
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (state) {
+                clipboard.addFlavorListener(listener);
+            } else {
+                return;
+            }
+        }).start();
+
     }
 
     private String getClipboardContents() {

@@ -13,6 +13,7 @@ import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.UpdateChecker;
 import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.ColorTheme;
+import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.dialogs.LoadingDialog;
 import com.slimtrade.gui.enums.WindowState;
@@ -39,6 +40,7 @@ public class App {
     public static UpdateChecker updateChecker;
     public static GlobalKeyboardListener globalKeyboard;
     public static GlobalMouseListener globalMouse;
+    public static ClipboardManager clipboardManager;
     public static LoadingDialog loadingDialog;
 
     // Flags
@@ -99,7 +101,8 @@ public class App {
         saveManager.loadStashFromDisk();
         saveManager.loadOverlayFromDisk();
 
-        ClipboardManager clipboardManager = new ClipboardManager();
+        clipboardManager = new ClipboardManager();
+        clipboardManager.setListeningState(saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 
         try {
             SwingUtilities.invokeAndWait(() -> {
@@ -140,10 +143,9 @@ public class App {
         GlobalScreen.addNativeKeyListener(globalKeyboard);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
         SwingUtilities.invokeLater(() -> {
-                    loadingDialog.dispose();
-                    App.launch();
-                }
-        );
+            loadingDialog.dispose();
+            App.launch();
+        });
         System.out.println("SlimTrade launched!");
 
     }

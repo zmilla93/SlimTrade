@@ -8,6 +8,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.MessageType;
+import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -257,6 +258,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             // Save all windows
             SaveManager.recursiveSave(FrameManager.optionsWindow);
             App.saveManager.saveToDisk();
+
+            // Update Clipboard Listener
+            App.clipboardManager.setListeningState(App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 
             // Set menubar visibility
             if (App.saveManager.saveFile.enableMenubar) {
