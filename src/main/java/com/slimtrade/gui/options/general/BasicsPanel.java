@@ -26,7 +26,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
     private JTextField characterInput = new LimitTextField(32);
     private JCheckBox guildCheckbox = new CustomCheckbox();
-    private JCheckBox kickCheckbox = new CustomCheckbox();
     private JCheckBox colorBlindCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
     private CustomCombo<QuickPasteSetting> quickPasteCombo = new CustomCombo<>();
@@ -36,7 +35,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     //Labels
     private JLabel characterLabel;
     private JLabel guildLabel;
-    private JLabel kickLabel;
     private JLabel colorBlindLabel;
     private JLabel colorThemeLabel;
     private JLabel quickPasteLabel;
@@ -45,7 +43,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     public BasicsPanel() {
         characterLabel = new CustomLabel("Character Name");
         guildLabel = new CustomLabel("Show Guild Name");
-        kickLabel = new CustomLabel("Close on Kick");
         colorBlindLabel = new CustomLabel("Color Blind Mode");
         colorThemeLabel = new CustomLabel("Color Theme");
         quickPasteLabel = new CustomLabel("Quick Paste");
@@ -55,11 +52,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         guildCheckbox.setOpaque(false);
         showGuildContainer.setOpaque(false);
         showGuildContainer.add(guildCheckbox, BorderLayout.EAST);
-
-        JPanel kickContainer = new JPanel(new BorderLayout());
-        kickContainer.setOpaque(false);
-        kickCheckbox.setOpaque(false);
-        kickContainer.add(kickCheckbox, BorderLayout.EAST);
 
         JPanel colorBlindContainer = new JPanel(new BorderLayout());
         colorBlindContainer.setOpaque(false);
@@ -118,14 +110,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         gc.gridx = 2;
 
         container.add(showGuildContainer, gc);
-        gc.gridx = 0;
-        gc.gridy++;
-
-        // Kick on Close
-        container.add(kickLabel, gc);
-        gc.gridx = 2;
-
-        container.add(kickContainer, gc);
         gc.gridx = 0;
         gc.gridy++;
 
@@ -214,7 +198,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         ColorTheme colorTheme = (ColorTheme) colorThemeCombo.getSelectedItem();
         App.saveManager.saveFile.characterName = characterName;
         App.saveManager.saveFile.showGuildName = guildCheckbox.isSelected();
-        App.saveManager.saveFile.closeOnKick = kickCheckbox.isSelected();
         App.saveManager.saveFile.colorBlindMode = colorBlindCheckbox.isSelected();
         App.saveManager.saveFile.colorTheme = colorTheme;
         App.saveManager.saveFile.quickPasteSetting = (QuickPasteSetting) quickPasteCombo.getSelectedItem();
@@ -226,7 +209,6 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         String characterName = App.saveManager.saveFile.characterName;
         characterInput.setText(characterName);
         guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
-        kickCheckbox.setSelected(App.saveManager.saveFile.closeOnKick);
         colorBlindCheckbox.setSelected(App.saveManager.saveFile.colorBlindMode);
         ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
         colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);

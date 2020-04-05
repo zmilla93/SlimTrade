@@ -23,7 +23,6 @@ public class SaveFile {
     // Basics
     public String characterName = "";
     public boolean showGuildName = false;
-    public boolean closeOnKick = false;
     public boolean colorBlindMode = false;
     public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
     public QuickPasteSetting quickPasteSetting = QuickPasteSetting.DISABLED;
@@ -60,14 +59,14 @@ public class SaveFile {
             new MacroButton(ButtonRow.BOTTOM, "/invite {player}", "", CustomIcons.INVITE, null, false),
             new MacroButton(ButtonRow.BOTTOM, "/tradewith {player}", "", CustomIcons.CART, null, false),
             new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
-            new MacroButton(ButtonRow.BOTTOM, "/kick {player}", "", CustomIcons.LEAVE, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/kick {player}", "", CustomIcons.LEAVE, null, true),
     };
     public MacroButton[] outgoingMacros = {
             new MacroButton(ButtonRow.TOP, "{message}", "", CustomIcons.REFRESH, null, false),
             new MacroButton(ButtonRow.BOTTOM, "/hideout {player}", "", CustomIcons.WARP, null, false),
             new MacroButton(ButtonRow.BOTTOM, "thanks", "", CustomIcons.THUMB, null, false),
             new MacroButton(ButtonRow.BOTTOM, "/kick {self}", "", CustomIcons.LEAVE, null, false),
-            new MacroButton(ButtonRow.BOTTOM, "/hideout", "", CustomIcons.HOME, null, false),
+            new MacroButton(ButtonRow.BOTTOM, "/hideout", "", CustomIcons.HOME, null, true),
     };
 
     // Legacy for 0.2.4 and earlier
