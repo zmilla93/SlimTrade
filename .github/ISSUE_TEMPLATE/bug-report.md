@@ -27,7 +27,9 @@ Operation System
 If your issue is graphics related, consider including a screenshot.
 
 **Command Line Errors**
-Optionally, you can try [running SlimTrade from the command line](https://github.com/zmilla93/SlimTrade/wiki/Running-from-Command-Line). This will allow you to see any error messages while the program is running which can massively speed up the debugging process, although many bugs don't actually cause error messages.
+Optionally, you can try running SlimTrade from the command line:
+https://github.com/zmilla93/SlimTrade/wiki/Running-from-Command-Line
+This will allow you to see any error messages while the program is running which can massively speed up the debugging process, although many bugs don't actually cause error messages.
 
 **Additional context**
 Add any other context about the problem here.
