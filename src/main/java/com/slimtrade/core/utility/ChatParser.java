@@ -293,7 +293,6 @@ public class ChatParser {
         if (text == null) {
             return 0;
         }
-        text = text.replaceAll(",", ".");
         return Double.parseDouble(text);
     }
 
