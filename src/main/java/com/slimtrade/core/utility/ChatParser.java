@@ -266,14 +266,6 @@ public class ChatParser {
         return null;
     }
 
-    private String cleanDate(Matcher matcher, String text) {
-        try {
-            return matcher.group(text).replaceAll("/", "-");
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
-
     private <T> T cleanResult(Matcher matcher, String text) {
         try {
             return (T) matcher.group(text);
@@ -293,6 +285,7 @@ public class ChatParser {
         if (text == null) {
             return 0;
         }
+        text = text.replaceAll(",", ".");
         return Double.parseDouble(text);
     }
 
