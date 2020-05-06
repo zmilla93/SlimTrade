@@ -229,6 +229,9 @@ public class ChatParser {
         trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));
         trade.bonusText = cleanResult(matcher, "bonusText");
         trade.sentMessage = matcher.group("message");
+        if (trade.messageType == MessageType.UNKNOWN) {
+            return null;
+        }
         return trade;
     }
 
@@ -291,11 +294,22 @@ public class ChatParser {
 
     private MessageType getMessageType(String s) {
         MessageType type = MessageType.UNKNOWN;
+        System.out.println("TYPE : " + s);
+        System.out.println("TYPE : " + s.toLowerCase());
         switch (s.toLowerCase()) {
             case "to":
+            case "à":       // French
+            case "an":      // German
+            case "para":    // Portuguese & Spanish
+            case "кому":    // Russian
+            case "ถึง":      // Thai
                 type = MessageType.OUTGOING_TRADE;
                 break;
             case "from":
+            case "de":      // French, Portuguese & Spanish
+            case "von":     // German
+            case "от кого": // Russian
+            case "จาก":     // Thai
                 type = MessageType.INCOMING_TRADE;
                 break;
         }
