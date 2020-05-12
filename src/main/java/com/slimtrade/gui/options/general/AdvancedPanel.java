@@ -2,6 +2,7 @@ package com.slimtrade.gui.options.general;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -27,6 +28,7 @@ public class AdvancedPanel extends ContainerPanel implements ISaveable, IColorab
         this.container.add(clientRow, gc);
 
         clientRow.getEditButton().addActionListener(e -> {
+            App.globalMouse.setIgnoreUntilNextFocusClick(true);
             int action = clientRow.getFileChooser().showOpenDialog(clientRow);
             if (action == JFileChooser.APPROVE_OPTION) {
                 File clientFile = clientRow.getFileChooser().getSelectedFile();

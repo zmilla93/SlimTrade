@@ -41,8 +41,6 @@ public class ChatParser {
     int updateCount = 0;
 
     public void init() {
-        Debugger.benchmarkStart();
-        System.out.println("Launching chat parser...");
         FrameManager.historyWindow.clearHistory();
         int msgCount = 0;
         updateTimer.stop();

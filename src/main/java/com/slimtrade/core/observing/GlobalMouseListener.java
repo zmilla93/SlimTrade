@@ -15,6 +15,7 @@ import org.jnativehook.mouse.NativeMouseInputListener;
 public class GlobalMouseListener implements NativeMouseInputListener {
 
     private boolean isGameFocused;
+    private boolean ignoreUntilNextFocusClick = false;
 
     public GlobalMouseListener() {
         super();
@@ -55,6 +56,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         String curWindowTitle = Native.toString(windowText);
 //        System.out.println("window:" + curWindowTitle);
         if (curWindowTitle.equals(References.POE_WINDOW_TITLE) || App.forceUI) {
+            ignoreUntilNextFocusClick = false;
             isGameFocused = true;
             switch (FrameManager.windowState) {
                 case NORMAL:
@@ -71,17 +73,18 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                     FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
                     break;
             }
-        } else if (curWindowTitle.equals("Open")
-                || curWindowTitle.equals(References.APP_NAME + " - Options")
+        } else if (
+                curWindowTitle.equals(References.APP_NAME + " - Options")
                 || curWindowTitle.equals(References.APP_NAME + " - History")
                 || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
                 || curWindowTitle.equals(References.APP_NAME + " - Stash Overlay")
                 || curWindowTitle.equals(References.APP_NAME + " - Update")
                 || curWindowTitle.equals(References.APP_NAME + " Window")) {
+            ignoreUntilNextFocusClick = false;
             isGameFocused = true;
             FrameManager.showVisibleFrames();
             FrameManager.forceAllToTop();
-        } else {
+        } else if (!ignoreUntilNextFocusClick) {
             isGameFocused = false;
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideAll();
@@ -115,6 +118,10 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
     public boolean isGameFocused() {
         return this.isGameFocused;
+    }
+
+    public void setIgnoreUntilNextFocusClick(boolean state) {
+        ignoreUntilNextFocusClick = true;
     }
 
 }

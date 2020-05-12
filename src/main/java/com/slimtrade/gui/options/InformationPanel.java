@@ -24,7 +24,7 @@ public class InformationPanel extends ContainerPanel {
 
 		JLabel tutorialLabel = new CustomLabel("A brief overview of the program.", false);
 		JLabel gitLabel = new CustomLabel("Submit feedback & bug reports on github.", false);
-		JLabel emailLabel = new CustomLabel("Send an e-mail to slimtradepoe@gmail.com", false);
+		JLabel emailLabel = new CustomLabel("Send an e-mail to slimtradepoe@gmail.com.", false);
 		JLabel donateLabel = new CustomLabel("Donate with PayPal if you wish to support the developer.", false);
 
 		container.setLayout(new GridBagLayout());
