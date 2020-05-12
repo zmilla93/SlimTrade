@@ -7,7 +7,7 @@ import com.sun.jna.win32.StdCallLibrary;
 
 public interface User32Custom extends StdCallLibrary {
 
-    User32Custom INSTANCE = Native.loadLibrary("user32", User32Custom.class);
+    User32Custom INSTANCE = Native.load("user32", User32Custom.class);
 
     HWND GetForegroundWindow();
 
