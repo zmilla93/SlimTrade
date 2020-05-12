@@ -275,10 +275,7 @@ public class PoeInterface extends Robot {
                     }
                     attempt++;
                 }
-                System.out.println("CMD:" + cmd);
-                System.out.println("MSG:" + fullMessage);
                 if (cmd.contains("/invite")) {
-                    System.out.println("invite");
                     FrameManager.messageManager.showStashHelper(fullMessage, messageType);
                 }
                 robot.keyPress(KeyEvent.VK_ALT);
