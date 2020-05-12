@@ -294,8 +294,6 @@ public class ChatParser {
 
     private MessageType getMessageType(String s) {
         MessageType type = MessageType.UNKNOWN;
-        System.out.println("TYPE : " + s);
-        System.out.println("TYPE : " + s.toLowerCase());
         switch (s.toLowerCase()) {
             case "to":
             case "à":       // French

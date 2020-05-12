@@ -6,6 +6,7 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.observing.improved.EventManager;
 import com.slimtrade.core.observing.improved.IColorable;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.QuickPasteSetting;
@@ -334,6 +335,10 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     public void recolorUpdateButton() {
         checkUpdateButton.setText("Update Available!");
         checkUpdateButton.updateColor();
+    }
+
+    public void reloadGeneralPanel() {
+        SaveManager.recursiveLoad(generalPanel);
     }
 
 }

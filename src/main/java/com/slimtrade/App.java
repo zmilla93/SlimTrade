@@ -158,6 +158,7 @@ public class App {
             FrameManager.windowState = WindowState.SETUP;
             FrameManager.setupWindow.setVisible(true);
         } else {
+            FrameManager.optionsWindow.reloadGeneralPanel();
             // Launch
             FrameManager.windowState = WindowState.NORMAL;
             fileMonitor = new FileMonitor();
