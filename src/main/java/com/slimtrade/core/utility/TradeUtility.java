@@ -1,6 +1,7 @@
 package com.slimtrade.core.utility;
 
 import com.slimtrade.core.audio.AudioManager;
+import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.enums.POEImage;
 
 import java.awt.*;
@@ -161,15 +162,15 @@ public class TradeUtility {
     // TODO : check more stuff?
     // TODO : THIS THROWS AN ERROR IF A VALUE IS NULL
     // TODO : Add chat scanner messages
-    public static boolean isDuplicateTrade(TradeOffer trade1, TradeOffer trade2) {
-        try {
-            final int checkCount = 6;
-            int check = 0;
-            if (trade1.messageType.equals(trade2.messageType)) {
-                check++;
-            } else {
-                return false;
-            }
+    public static boolean isMatchingTrades(TradeOffer trade1, TradeOffer trade2) {
+        if (trade1.messageType != trade2.messageType) {
+            return false;
+        }
+        int totalCheckCount;
+        int check = 0;
+        // Incoming & Outgoing Trades
+        if (trade1.messageType == MessageType.INCOMING_TRADE || trade1.messageType == MessageType.OUTGOING_TRADE) {
+            totalCheckCount = 5;
             if (trade1.playerName.equals(trade2.playerName)) {
                 check++;
             }
@@ -189,20 +190,12 @@ public class TradeUtility {
             if (trade1.priceQuantity.equals(trade2.priceQuantity)) {
                 check++;
             }
-            if (check == checkCount) {
-                return true;
-            }
-            return false;
-        } catch (NullPointerException e) {
-            return false;
+            return check == totalCheckCount;
         }
-
-    }
-
-    public boolean validateEnumValue(int value, Enum en) {
-//		for(int i : en) {
-//
-//		}
+        // Chat Scanner Trades
+        else if (trade1.messageType == MessageType.CHAT_SCANNER) {
+            return trade1.playerName.equals(trade2.playerName);
+        }
         return false;
     }
 

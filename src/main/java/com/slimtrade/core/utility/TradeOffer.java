@@ -6,7 +6,7 @@ import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.enums.POEImage;
 
-//TODO : Would be nice to seperate this into several offer types, but would require a fairly large refactory to do so
+//TODO : Would be nice to separate this into several offer types, but would require a fairly large refactor to do so
 //TODO : Could switch to getting/setting to make constructor less horrible, but would lose constants
 
 public class TradeOffer {
@@ -26,7 +26,7 @@ public class TradeOffer {
     public String bonusText;
     public String sentMessage = "";
 
-    public POEImage priceType;
+    public POEImage poePriceType;
     public StashTabType stashType = StashTabType.NORMAL;
 
     public String searchName;
@@ -44,7 +44,7 @@ public class TradeOffer {
         this.itemName = itemName;
         this.itemQuantity = itemQuantity;
         this.priceTypeString = priceTypeString;
-        this.priceType = TradeUtility.getPOEImage(priceTypeString);
+        this.poePriceType = TradeUtility.getPOEImage(priceTypeString);
         this.priceQuantity = priceQuantity;
     }
 
@@ -77,7 +77,7 @@ public class TradeOffer {
         this.playerName = playerName;
         this.itemName = itemName;
         this.itemQuantity = itemQuantity;
-        this.priceType = TradeUtility.getPOEImage(priceTypeString);
+        this.poePriceType = TradeUtility.getPOEImage(priceTypeString);
         this.priceTypeString = priceTypeString;
         this.priceQuantity = priceQuantity;
         this.stashtabName = stashtabName;

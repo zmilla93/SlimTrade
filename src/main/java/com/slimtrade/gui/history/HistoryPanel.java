@@ -37,7 +37,7 @@ public class HistoryPanel extends JPanel implements IColorable {
         int i = 0;
         // Delete old duplicate
         for (TradeOffer savedTrade : trades) {
-            if (TradeUtility.isDuplicateTrade(trade, savedTrade)) {
+            if (TradeUtility.isMatchingTrades(trade, savedTrade)) {
                 trades.remove(i);
                 if (updateUI) {
                     contentPanel.remove(tradePanels.get(i));
