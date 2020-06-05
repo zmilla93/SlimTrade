@@ -42,7 +42,7 @@ public class StashTabRow extends RemovablePanel implements IColorable {
         this.setRemoveButton(removeButton);
 
         int stashTextWidth = 250;
-            JPanel stashTabTextPanel = new ColorPanel(new GridBagLayout()){
+        JPanel stashTabTextPanel = new ColorPanel(new GridBagLayout()) {
 
         };
 //        stashTabTextPanel.setPreferredSize(new Dimension(stashTextWidth, ROW_HEIGHT));
@@ -76,7 +76,6 @@ public class StashTabRow extends RemovablePanel implements IColorable {
         this.add(typeCombo, gc);
         gc.gridx++;
         this.add(colorCombo, gc);
-
 
 
     }

@@ -10,7 +10,7 @@ public class CustomScrollPane extends JScrollPane implements IColorable {
     public static int DEFAULT_SCROLL_SPEED = 14;
     private JPanel cornerPanel = new JPanel();
 
-    public CustomScrollPane(JPanel panel){
+    public CustomScrollPane(JPanel panel) {
         super(panel);
 //        this.setVerticalScrollBar(this.createVerticalScrollBar());
 //        this.setHorizontalScrollBar(this.createHorizontalScrollBar());

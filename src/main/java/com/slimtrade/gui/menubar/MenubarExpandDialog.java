@@ -56,7 +56,7 @@ public class MenubarExpandDialog extends BasicDialog {
                 break;
             case SW:
                 modX = 0;
-                modY = FrameManager.menubar.getHeight()-this.getHeight();
+                modY = FrameManager.menubar.getHeight() - this.getHeight();
                 break;
             case SE:
                 modX = FrameManager.menubar.getWidth() - this.getWidth();

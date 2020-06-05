@@ -45,8 +45,8 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator, 
         gc.gridx = 0;
 
         // Multi Path Panel
-        if(App.saveManager.clientPaths.size() > 1) {
-            for(String s : App.saveManager.clientPaths) {
+        if (App.saveManager.clientPaths.size() > 1) {
+            for (String s : App.saveManager.clientPaths) {
                 gc.insets.bottom = 5;
                 gc.insets.right = 5;
                 multiPathPanel.add(new CustomLabel(s), gc);
@@ -113,7 +113,7 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator, 
     @Override
     public boolean isValidInput() {
         File file = new File(clientText.getText());
-        if(file.exists() && file.isFile()) {
+        if (file.exists() && file.isFile()) {
             return true;
         }
         return false;

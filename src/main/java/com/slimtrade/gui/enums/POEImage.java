@@ -162,17 +162,17 @@ public enum POEImage {
     private String[] tags = null;
 
     POEImage(String... inTags) {
-        if(inTags.length > 0) {
+        if (inTags.length > 0) {
             tags = new String[inTags.length + 1];
             tags[0] = this.name().toLowerCase().replaceAll("_", " ");
-            for(int i = 0; i<inTags.length; i++) {
-                tags[i+1] = inTags[i];
+            for (int i = 0; i < inTags.length; i++) {
+                tags[i + 1] = inTags[i];
             }
         }
     }
 
     public boolean isValid() {
-        if(tags != null) {
+        if (tags != null) {
             return true;
         }
         return false;
@@ -181,11 +181,11 @@ public enum POEImage {
     private String getPath() {
         StringBuilder builder = new StringBuilder();
         boolean cap = true;
-        for(char c : this.name().toCharArray()) {
-            if(cap){
+        for (char c : this.name().toCharArray()) {
+            if (cap) {
                 builder.append(Character.toUpperCase(c));
                 cap = false;
-            } else if (c == '_'){
+            } else if (c == '_') {
                 builder.append(c);
                 cap = true;
             } else {

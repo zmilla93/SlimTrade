@@ -41,16 +41,16 @@ public class SetupWindow extends JFrame implements IColorable {
         innerPanel = new JPanel(new GridBagLayout());
 
         // Panel List
-        if(SetupManager.clientSetupCheck) {
+        if (SetupManager.clientSetupCheck) {
             panels.add(clientPanel);
         }
-        if(SetupManager.characterNameCheck) {
+        if (SetupManager.characterNameCheck) {
             panels.add(characterPanel);
         }
-        if(SetupManager.stashOverlayCheck) {
+        if (SetupManager.stashOverlayCheck) {
             panels.add(stashPanel);
         }
-        if(SetupManager.clientSetupCheck) {
+        if (SetupManager.clientSetupCheck) {
 
         }
         panels.add(completePanel);
@@ -87,18 +87,18 @@ public class SetupWindow extends JFrame implements IColorable {
     }
 
     public void refreshButtons() {
-        if(panelIndex == 0) {
+        if (panelIndex == 0) {
             backButton.setVisible(false);
         } else {
             backButton.setVisible(true);
         }
-        if(panelIndex < panels.size()-1) {
+        if (panelIndex < panels.size() - 1) {
             nextButton.setText("Next");
         } else {
             nextButton.setText("Finish");
         }
-        if(panels.get(panelIndex) instanceof ISetupValidator) {
-            if(((ISetupValidator) panels.get(panelIndex)).isValidInput()) {
+        if (panels.get(panelIndex) instanceof ISetupValidator) {
+            if (((ISetupValidator) panels.get(panelIndex)).isValidInput()) {
                 nextButton.setEnabled(true);
             } else {
                 nextButton.setEnabled(false);
@@ -106,9 +106,9 @@ public class SetupWindow extends JFrame implements IColorable {
         }
     }
 
-    private void createListeners(){
+    private void createListeners() {
         backButton.addActionListener(e -> {
-            if(panelIndex == 0) {
+            if (panelIndex == 0) {
                 return;
             }
             innerPanel.remove(panels.get(panelIndex));
@@ -123,10 +123,10 @@ public class SetupWindow extends JFrame implements IColorable {
         });
 
         nextButton.addActionListener(e -> {
-            if(panels.get(panelIndex) instanceof ISetupValidator) {
+            if (panels.get(panelIndex) instanceof ISetupValidator) {
                 ((ISetupValidator) panels.get(panelIndex)).save();
             }
-            if(panelIndex < panels.size()-1) {
+            if (panelIndex < panels.size() - 1) {
                 innerPanel.remove(panels.get(panelIndex));
                 panelIndex++;
                 GridBagConstraints gc = new GridBagConstraints();
@@ -136,7 +136,7 @@ public class SetupWindow extends JFrame implements IColorable {
                 refreshButtons();
                 revalidate();
                 repaint();
-            } else if(panelIndex == panels.size()-1) {
+            } else if (panelIndex == panels.size() - 1) {
                 this.setAlwaysOnTop(false);
                 App.saveManager.saveToDisk();
                 this.dispose();

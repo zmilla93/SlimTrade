@@ -2,6 +2,6 @@ package com.slimtrade.enums;
 
 public enum ButtonState {
 
-	ACTIVE, INACTIVE, HOVER
-	
+    ACTIVE, INACTIVE, HOVER
+
 }

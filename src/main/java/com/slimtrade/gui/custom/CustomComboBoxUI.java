@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class CustomComboBoxUI extends BasicComboBoxUI {
 
-    public  CustomComboBoxUI() {
+    public CustomComboBoxUI() {
         super();
     }
 

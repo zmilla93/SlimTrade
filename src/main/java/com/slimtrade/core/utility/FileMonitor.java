@@ -25,7 +25,7 @@ public class FileMonitor {
         }
         Path path;
         File file = new File(App.saveManager.saveFile.clientPath);
-        if(file.exists() && file.isFile()) {
+        if (file.exists() && file.isFile()) {
             path = Paths.get(file.getParent());
         } else {
             App.logger.log(Level.WARNING, "Bad client path");

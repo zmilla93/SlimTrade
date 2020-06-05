@@ -30,7 +30,7 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
     public JComboBox<ButtonRow> rowCombo = new CustomCombo<>();
     public CustomCombo<ImageIcon> iconCombo = new CustomCombo<>();
     public JCheckBox closeCheckbox = new CustomCheckbox();
-    public HotkeyInputPane hotkeyInput = new HotkeyInputPane(){
+    public HotkeyInputPane hotkeyInput = new HotkeyInputPane() {
 
     };
 
@@ -134,7 +134,7 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
         ButtonRow row = (ButtonRow) rowCombo.getSelectedItem();
         int index = iconCombo.getSelectedIndex();
         CustomIcons img;
-        if(index < 0) {
+        if (index < 0) {
             img = CustomIcons.values()[0];
         } else {
             img = CustomIcons.values()[index];
@@ -145,7 +145,7 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
 
     @Override
     public void updateColor() {
-        if(cachedColor == ColorManager.getCurrentColorTheme()) {
+        if (cachedColor == ColorManager.getCurrentColorTheme()) {
             return;
         }
         cachedColor = ColorManager.getCurrentColorTheme();

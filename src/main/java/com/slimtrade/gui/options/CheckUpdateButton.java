@@ -14,7 +14,7 @@ public class CheckUpdateButton extends BasicButton implements IColorable {
     @Override
     public void updateColor() {
         super.updateColor();
-        if(App.updateChecker.isUpdateAvailable()) {
+        if (App.updateChecker.isUpdateAvailable()) {
             primaryColor = ColorManager.GREEN_APPROVE;
         }
     }

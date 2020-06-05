@@ -32,7 +32,7 @@ public class ClipboardManager implements ClipboardOwner {
             String contents = getClipboardContents();
             if (lastMessage == null) {
                 lastMessage = contents;
-                if(App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
+                if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
                     PoeInterface.attemptQuickPaste(contents);
                 }
                 try {

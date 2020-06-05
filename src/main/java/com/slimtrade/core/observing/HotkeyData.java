@@ -14,7 +14,7 @@ public class HotkeyData {
 
     @Override
     public String toString() {
-        if(modifiers > 0) {
+        if (modifiers > 0) {
             return NativeKeyEvent.getModifiersText(modifiers) + "+" + NativeKeyEvent.getKeyText(keyCode);
         }
         return NativeKeyEvent.getKeyText(keyCode);

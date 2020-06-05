@@ -227,7 +227,7 @@ public class SaveManager {
         stubs.add(":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
         clientPaths.clear();
         for (String drive : commonDrives) {
-            for(String stub : stubs) {
+            for (String stub : stubs) {
                 File clientFile = new File(drive + stub);
                 if (clientFile.exists() && clientFile.isFile()) {
 //                    System.out.println("Found : " + drive + stub);
@@ -236,29 +236,29 @@ public class SaveManager {
                 }
             }
         }
-        if(clientCount == 1) {
+        if (clientCount == 1) {
             saveFile.clientPath = clientPaths.get(0);
         }
         return clientCount;
     }
 
     public static void recursiveSave(Component component) {
-        if(component instanceof ISaveable) {
+        if (component instanceof ISaveable) {
             ((ISaveable) component).save();
         }
-        if(component instanceof Container) {
-            for(Component c : ((Container) component).getComponents()) {
+        if (component instanceof Container) {
+            for (Component c : ((Container) component).getComponents()) {
                 recursiveSave(c);
             }
         }
     }
 
     public static void recursiveLoad(Component component) {
-        if(component instanceof ISaveable) {
+        if (component instanceof ISaveable) {
             ((ISaveable) component).load();
         }
-        if(component instanceof Container) {
-            for(Component c : ((Container) component).getComponents()) {
+        if (component instanceof Container) {
+            for (Component c : ((Container) component).getComponents()) {
                 recursiveLoad(c);
             }
         }

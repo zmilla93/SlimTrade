@@ -22,23 +22,23 @@ public class UpdateChecker {
 
     private static final String gitUrl = "https://api.github.com/repos/zmilla93/slimtrade/tags";
 
-	private boolean updateAvailable = false;
+    private boolean updateAvailable = false;
 //	private VersionNumber latestVersion;
 
-	public UpdateChecker() {
+    public UpdateChecker() {
         currentVersion = new VersionNumber(References.getAppVersion());
         latestVersion = new VersionNumber(References.getAppVersion());
-	}
+    }
 
-	public void checkForUpdates(){
-		checkForUpdates(false);
-	}
+    public void checkForUpdates() {
+        checkForUpdates(false);
+    }
 
-	public void checkForUpdates(boolean allowPreReleases) {
-	    VersionNumber appVersion = new VersionNumber(References.getAppVersion());
+    public void checkForUpdates(boolean allowPreReleases) {
+        VersionNumber appVersion = new VersionNumber(References.getAppVersion());
         currentVersion = appVersion;
         latestVersion = appVersion;
-        if(App.allowPrerelease) {
+        if (App.allowPrerelease) {
             allowPreReleases = true;
         }
         try {
@@ -53,11 +53,11 @@ public class UpdateChecker {
             }
             // Turn each tag into a version number, then check if is the latest version.
             JsonArray obj = new Gson().fromJson(builder.toString(), JsonArray.class);
-            for(int i = 0; i<obj.size(); i++) {
+            for (int i = 0; i < obj.size(); i++) {
                 JsonElement tag = obj.get(i).getAsJsonObject().get("name");
                 VersionNumber v = new VersionNumber(tag.toString());
-                if(VersionNumber.isNewVersion(latestVersion, v)) {
-                    if(v.pre && !allowPreReleases) {
+                if (VersionNumber.isNewVersion(latestVersion, v)) {
+                    if (v.pre && !allowPreReleases) {
                         continue;
                     }
                     latestVersion = v;
@@ -73,16 +73,16 @@ public class UpdateChecker {
         return;
     }
 
-    public VersionNumber getCurrentVersion(){
+    public VersionNumber getCurrentVersion() {
         return currentVersion;
     }
 
-    public VersionNumber getLatestRelease(){
+    public VersionNumber getLatestRelease() {
         return latestVersion;
     }
 
     public boolean isUpdateAvailable() {
-	    return updateAvailable;
+        return updateAvailable;
     }
 
 }

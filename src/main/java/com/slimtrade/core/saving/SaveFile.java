@@ -78,7 +78,7 @@ public class SaveFile {
 
     // Hotkeys
     public HotkeyData closeTradeHotkey = null;
-//    public HotkeyData closeIncomingHotkey = null;
+    //    public HotkeyData closeIncomingHotkey = null;
 //    public HotkeyData closeOutoingHotkey = null;
     public HotkeyData remainingHotkey = null;
     public HotkeyData hideoutHotkey = null;

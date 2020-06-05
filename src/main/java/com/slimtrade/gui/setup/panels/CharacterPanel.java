@@ -11,7 +11,7 @@ import com.slimtrade.gui.stash.LimitTextField;
 import javax.swing.*;
 import java.awt.*;
 
-public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidator, IColorable {
+public class CharacterPanel extends AbstractSetupPanel implements ISetupValidator, IColorable {
 
     private JPanel namePanel = new JPanel(new GridBagLayout());
 
@@ -45,9 +45,9 @@ public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidat
         gc.insets.bottom = 0;
         container.add(namePanel, gc);
 
-        nameInput.getDocument().addDocumentListener(new DocumentUpdateListener(){
+        nameInput.getDocument().addDocumentListener(new DocumentUpdateListener() {
             @Override
-            public void update(){
+            public void update() {
                 FrameManager.setupWindow.refreshButtons();
             }
         });
@@ -58,7 +58,7 @@ public class CharacterPanel extends  AbstractSetupPanel implements ISetupValidat
 
     @Override
     public boolean isValidInput() {
-        if(nameInput.getText().matches("\\s*")) {
+        if (nameInput.getText().matches("\\s*")) {
             return false;
         }
         return true;

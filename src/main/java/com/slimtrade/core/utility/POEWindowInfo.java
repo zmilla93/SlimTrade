@@ -8,17 +8,17 @@ import java.awt.*;
 
 public class POEWindowInfo {
 
-	boolean isOpen;
-	boolean isVisible;
-	
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	
-	private static Point centerPoint;
+    boolean isOpen;
+    boolean isVisible;
 
-	//TODO : Seperate actions
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+
+    private static Point centerPoint;
+
+    //TODO : Seperate actions
 //	public POEWindowInfo(){
 //		Rectangle r = null;
 //		//TODO : Throws Invalid Window Handle sometimes?
@@ -44,36 +44,36 @@ public class POEWindowInfo {
 //			}
 //		}
 //	}
-	
-	public static boolean getIsOpen(){
-	    if(getWindow() != null){
-	        return true;
+
+    public static boolean getIsOpen() {
+        if (getWindow() != null) {
+            return true;
         }
         return false;
-	}
-	
-	public static boolean getIsVisible(){
+    }
+
+    public static boolean getIsVisible() {
         DesktopWindow window = getWindow();
-        if(window != null){
+        if (window != null) {
             Rectangle windowBounds = window.getLocAndSize();
-            if(windowBounds.x != -32000 && windowBounds.y != -32000){
+            if (windowBounds.x != -32000 && windowBounds.y != -32000) {
                 return true;
             }
         }
         return false;
-	}
-	
-	public static Point getCenterPoint(){
-		return centerPoint;
-	}
+    }
 
-	private static DesktopWindow getWindow(){
-        for(DesktopWindow w : WindowUtils.getAllWindows(true)){
-            if(w.getTitle().equals(References.POE_WINDOW_TITLE)){
+    public static Point getCenterPoint() {
+        return centerPoint;
+    }
+
+    private static DesktopWindow getWindow() {
+        for (DesktopWindow w : WindowUtils.getAllWindows(true)) {
+            if (w.getTitle().equals(References.POE_WINDOW_TITLE)) {
                 return w;
             }
         }
         return null;
     }
-	
+
 }

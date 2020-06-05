@@ -27,7 +27,7 @@ public class ToggleButton extends BasicButton {
     @Override
     public void updateColor() {
         super.updateColor();
-        if(state) {
+        if (state) {
             primaryColor = ColorManager.RED_DENY;
             this.setText(textSecondary);
         } else {

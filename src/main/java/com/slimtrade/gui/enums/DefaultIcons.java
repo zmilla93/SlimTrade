@@ -37,9 +37,8 @@ public enum DefaultIcons implements ICacheImage {
     }
 
     public Image getImage(int size) {
-        if(image == null || size != cachedSize) {
+        if (image == null || size != cachedSize) {
             image = new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource(path))).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
-
 
 
             cachedSize = size;
@@ -50,11 +49,11 @@ public enum DefaultIcons implements ICacheImage {
     @Override
     public Image getColorImage(Color color) {
 
-        if(image == null) {
+        if (image == null) {
             getImage(References.DEFAULT_IMAGE_SIZE);
         }
 
-        if(bufferedImage == null || color != cachedColor) {
+        if (bufferedImage == null || color != cachedColor) {
 
             bufferedImage = new BufferedImage(cachedSize, cachedSize, BufferedImage.TYPE_INT_ARGB);
             Graphics2D bGr = bufferedImage.createGraphics();

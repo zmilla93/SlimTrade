@@ -2,7 +2,8 @@ package com.slimtrade.enums;
 
 import java.util.regex.Pattern;
 
-import static com.slimtrade.core.References.*;
+import static com.slimtrade.core.References.REGEX_CLIENT_PREFIX;
+import static com.slimtrade.core.References.REGEX_QUICK_PASTE_PREFIX;
 
 /**
  * An enum for storing language specific regex. Use 'CONTAINS_TEXT' to see if a message is valid to scan, then iterate through the respective array of patterns to extract trade data.

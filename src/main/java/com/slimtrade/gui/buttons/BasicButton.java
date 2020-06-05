@@ -50,6 +50,7 @@ public class BasicButton extends JButton implements IColorable {
         this.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
             }
+
             public void mouseEntered(MouseEvent e) {
                 model.setRollover(true);
             }

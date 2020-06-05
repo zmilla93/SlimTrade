@@ -157,8 +157,8 @@ public class MessageDialogManager {
                     int check = 0;
                     if (tradeA.messageType == MessageType.INCOMING_TRADE) {
                         checkCount = 4;
-                        if(tradeA.priceType == null || tradeB.priceType == null) {
-                            if(tradeA==null && tradeB == null) {
+                        if (tradeA.priceType == null || tradeB.priceType == null) {
+                            if (tradeA == null && tradeB == null) {
                                 check++;
                             }
                         } else if (tradeA.priceType.equals(tradeB.priceType)) {
@@ -294,12 +294,12 @@ public class MessageDialogManager {
     }
 
     public void showStashHelper(String message, MessageType type) {
-        if(type != MessageType.INCOMING_TRADE) {
+        if (type != MessageType.INCOMING_TRADE) {
             return;
         }
         for (PanelWrapper w : wrapperList) {
             TradeOffer trade = w.getPanel().trade;
-            if(trade.messageType == MessageType.INCOMING_TRADE && trade.sentMessage.equals(message)) {
+            if (trade.messageType == MessageType.INCOMING_TRADE && trade.sentMessage.equals(message)) {
                 w.getPanel().stashHelper.setVisible(true);
                 FrameManager.stashHelperContainer.pack();
                 break;

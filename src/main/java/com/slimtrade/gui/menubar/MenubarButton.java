@@ -16,7 +16,7 @@ public class MenubarButton extends BasicButton {
 
     public MenubarButton(String text) {
         super(text);
-		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
 }

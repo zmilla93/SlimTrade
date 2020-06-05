@@ -16,74 +16,73 @@ import java.awt.*;
 
 public class AudioRow extends JPanel implements IColorable {
 
-	private static final long serialVersionUID = 1L;
-	private final int WIDTH = 200;
-	private final int HEIGHT = 25;
-	private final int BUTTON_SIZE = HEIGHT - 5;
-	private final int LABEL_WIDTH = 120;
+    private static final long serialVersionUID = 1L;
+    private final int WIDTH = 200;
+    private final int HEIGHT = 25;
+    private final int BUTTON_SIZE = HEIGHT - 5;
+    private final int LABEL_WIDTH = 120;
 
-	private JPanel labelPanel;
-	private JLabel label = new CustomLabel();
+    private JPanel labelPanel;
+    private JLabel label = new CustomLabel();
 
-	private JSlider slider = new CustomSlider();
-	private CustomCombo<Sound> soundCombo = new CustomCombo<Sound>();
+    private JSlider slider = new CustomSlider();
+    private CustomCombo<Sound> soundCombo = new CustomCombo<Sound>();
 
 
+    public AudioRow(String title) {
 
-	public AudioRow(String title) {
+        // Sample Button
+        IconButton sampleButton = new IconButton(DefaultIcons.PLAY, BUTTON_SIZE);
 
-		// Sample Button
-		IconButton sampleButton = new IconButton(DefaultIcons.PLAY, BUTTON_SIZE);
+        // Label
+        labelPanel = new JPanel(new GridBagLayout());
+        label.setText(title);
+        labelPanel.setPreferredSize(new Dimension(LABEL_WIDTH, HEIGHT));
 
-		// Label
-		labelPanel = new JPanel(new GridBagLayout());
-		label.setText(title);
-		labelPanel.setPreferredSize(new Dimension(LABEL_WIDTH, HEIGHT));
+        // Layout
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
 
-		// Layout
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints gc = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 0;
+        labelPanel.add(label);
+        this.add(sampleButton, gc);
+        gc.gridx++;
+        this.add(labelPanel, gc);
+        gc.gridx++;
+        this.add(slider, gc);
+        gc.gridx++;
+        this.add(soundCombo, gc);
 
-		labelPanel.add(label);
-		this.add(sampleButton, gc);
-		gc.gridx++;
-		this.add(labelPanel, gc);
-		gc.gridx++;
-		this.add(slider, gc);
-		gc.gridx++;
-		this.add(soundCombo, gc);
-
-		sampleButton.addActionListener(e -> {
+        sampleButton.addActionListener(e -> {
             Sound sound = (Sound) soundCombo.getSelectedItem();
             float volume = TradeUtility.getAudioVolume(slider.getValue());
             AudioManager.playRaw(sound, volume);
         });
-	}
+    }
 
-	public void addSound(Sound sound) {
-		soundCombo.addItem(sound);
-	}
+    public void addSound(Sound sound) {
+        soundCombo.addItem(sound);
+    }
 
-	public void setValue(Sound sound, int volume) {
-		soundCombo.setSelectedItem(sound);
-		slider.setValue(volume);
-	}
+    public void setValue(Sound sound, int volume) {
+        soundCombo.setSelectedItem(sound);
+        slider.setValue(volume);
+    }
 
-	public int getVolume() {
-		return slider.getValue();
-	}
+    public int getVolume() {
+        return slider.getValue();
+    }
 
-	public Sound getSound() {
-		Sound s = (Sound) soundCombo.getSelectedItem();
-		return s;
-	}
+    public Sound getSound() {
+        Sound s = (Sound) soundCombo.getSelectedItem();
+        return s;
+    }
 
-	@Override
-	public void updateColor() {
-		this.setBackground(ColorManager.BACKGROUND);
-		labelPanel.setBackground(ColorManager.BACKGROUND);
-	}
+    @Override
+    public void updateColor() {
+        this.setBackground(ColorManager.BACKGROUND);
+        labelPanel.setBackground(ColorManager.BACKGROUND);
+    }
 
 }

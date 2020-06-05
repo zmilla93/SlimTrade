@@ -1,6 +1,5 @@
 package com.slimtrade.gui.tutorial;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.gui.FrameManager;
@@ -80,12 +79,12 @@ public class TutorialWindow extends AbstractResizableWindow implements IColorabl
     }
 
     private void updateButtons() {
-        if(panelIndex == 0) {
+        if (panelIndex == 0) {
             backButton.setVisible(false);
         } else {
             backButton.setVisible(true);
         }
-        if(panelIndex == panels.size()-1) {
+        if (panelIndex == panels.size() - 1) {
             nextButton.setText("Finish");
         } else {
             nextButton.setText("Next");
@@ -95,7 +94,7 @@ public class TutorialWindow extends AbstractResizableWindow implements IColorabl
 
     private void createListeners() {
         nextButton.addActionListener(e -> {
-            if(panelIndex < panels.size()-1) {
+            if (panelIndex < panels.size() - 1) {
                 container.remove(panels.get(panelIndex));
                 panelIndex++;
                 container.add(panels.get(panelIndex), BorderLayout.CENTER);
@@ -113,7 +112,7 @@ public class TutorialWindow extends AbstractResizableWindow implements IColorabl
         });
 
         backButton.addActionListener(e -> {
-            if(panelIndex > 0) {
+            if (panelIndex > 0) {
                 container.remove(panels.get(panelIndex));
                 panelIndex--;
                 container.add(panels.get(panelIndex), BorderLayout.CENTER);
@@ -132,7 +131,7 @@ public class TutorialWindow extends AbstractResizableWindow implements IColorabl
     @Override
     public void updateColor() {
         super.updateColor();
-        for(JPanel p : panels) {
+        for (JPanel p : panels) {
             ColorManager.recursiveColor(p);
         }
     }

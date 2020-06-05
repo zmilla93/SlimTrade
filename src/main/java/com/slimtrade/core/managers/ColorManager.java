@@ -217,14 +217,14 @@ public class ColorManager {
     public static boolean matchingColors(Color colorA, Color colorB) {
         int check = 0;
         final int CHECK_COUNT = 4;
-        if(colorA == null || colorB == null) {
+        if (colorA == null || colorB == null) {
             return false;
         }
-        if(colorA.getRed() == colorB.getRed()) check++;
-        if(colorA.getGreen() == colorB.getGreen())check++;
-        if(colorA.getBlue() == colorB.getBlue())check++;
-        if(colorA.getAlpha() == colorB.getAlpha())check++;
-        if(check == CHECK_COUNT) {
+        if (colorA.getRed() == colorB.getRed()) check++;
+        if (colorA.getGreen() == colorB.getGreen()) check++;
+        if (colorA.getBlue() == colorB.getBlue()) check++;
+        if (colorA.getAlpha() == colorB.getAlpha()) check++;
+        if (check == CHECK_COUNT) {
             return true;
         }
         return false;
@@ -247,11 +247,11 @@ public class ColorManager {
     }
 
     public static void recursiveColor(Object o) {
-        if(o instanceof IColorable) {
+        if (o instanceof IColorable) {
             ((IColorable) o).updateColor();
         }
-        if(o instanceof Container) {
-            for(Component c : ((Container) o).getComponents()) {
+        if (o instanceof Container) {
+            for (Component c : ((Container) o).getComponents()) {
                 recursiveColor(c);
             }
         }

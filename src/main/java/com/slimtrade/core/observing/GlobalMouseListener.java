@@ -47,7 +47,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
-                if(i>20) {
+                if (i > 20) {
                     return;
                 }
             }
@@ -75,11 +75,11 @@ public class GlobalMouseListener implements NativeMouseInputListener {
             }
         } else if (
                 curWindowTitle.equals(References.APP_NAME + " - Options")
-                || curWindowTitle.equals(References.APP_NAME + " - History")
-                || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
-                || curWindowTitle.equals(References.APP_NAME + " - Stash Overlay")
-                || curWindowTitle.equals(References.APP_NAME + " - Update")
-                || curWindowTitle.equals(References.APP_NAME + " Window")) {
+                        || curWindowTitle.equals(References.APP_NAME + " - History")
+                        || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
+                        || curWindowTitle.equals(References.APP_NAME + " - Stash Overlay")
+                        || curWindowTitle.equals(References.APP_NAME + " - Update")
+                        || curWindowTitle.equals(References.APP_NAME + " Window")) {
             ignoreUntilNextFocusClick = false;
             isGameFocused = true;
             FrameManager.showVisibleFrames();
@@ -89,7 +89,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
             FrameManager.hideAllFrames();
             FrameManager.overlayManager.hideAll();
         }
-        if(!wasFocused && isGameFocused && FrameManager.windowState == WindowState.NORMAL) {
+        if (!wasFocused && isGameFocused && FrameManager.windowState == WindowState.NORMAL) {
             FrameManager.refreshMenuFrames();
         }
     }

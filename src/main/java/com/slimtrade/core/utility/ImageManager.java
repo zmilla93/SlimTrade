@@ -4,9 +4,9 @@ import javax.swing.*;
 
 public class ImageManager {
 
-	public static ImageIcon getImage(String path){
-		
-		return null;
-	}
-	
+    public static ImageIcon getImage(String path) {
+
+        return null;
+    }
+
 }

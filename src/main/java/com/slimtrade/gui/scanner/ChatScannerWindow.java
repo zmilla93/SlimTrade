@@ -52,7 +52,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     private SearchNamePanel searchSelectorPanel = new SearchNamePanel();
 
     private SearchTermsPanel termsPanel = new SearchTermsPanel();
-    private MacroPanel macroPanel = new MacroPanel(MessageType.CHAT_SCANNER){
+    private MacroPanel macroPanel = new MacroPanel(MessageType.CHAT_SCANNER) {
         @Override
         public void updateColor() {
             super.updateColor();
@@ -424,7 +424,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
                 d.removeDocumentListener(docListenerList.get(i));
                 i++;
             }
-            for(ComponentListener l : addRemovePanel.getComponentListeners()) {
+            for (ComponentListener l : addRemovePanel.getComponentListeners()) {
                 addRemovePanel.removeComponentListener(l);
             }
             docList.clear();
@@ -495,7 +495,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         macroPanel.setExampleMessage(trade);
     }
 
-    public void resizeMessage(){
+    public void resizeMessage() {
         macroPanel.resizeMessage();
     }
 

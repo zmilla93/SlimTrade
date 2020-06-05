@@ -20,7 +20,7 @@ public class DocumentUpdateListener implements DocumentListener {
         update();
     }
 
-    public void update(){
+    public void update() {
 
     }
 

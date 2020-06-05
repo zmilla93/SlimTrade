@@ -1,6 +1,5 @@
 package com.slimtrade.gui;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;

@@ -7,11 +7,11 @@ import java.awt.*;
 
 public class ColorPanel extends JPanel implements IColorable {
 
-    public ColorPanel(){
+    public ColorPanel() {
         super();
     }
 
-    public ColorPanel(LayoutManager layout){
+    public ColorPanel(LayoutManager layout) {
         super(layout);
     }
 

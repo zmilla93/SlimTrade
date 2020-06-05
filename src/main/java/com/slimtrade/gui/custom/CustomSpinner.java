@@ -21,9 +21,9 @@ public class CustomSpinner extends JSpinner implements IColorable {
         this.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
         this.getEditor().getComponent(0).setForeground(ColorManager.TEXT);
         this.getEditor().getComponent(0).setBackground(ColorManager.TEXT_EDIT_BACKGROUND);
-        for(Component c : this.getComponents()) {
-            if(c instanceof BasicArrowButton) {
-                BasicArrowButton b = (BasicArrowButton)c;
+        for (Component c : this.getComponents()) {
+            if (c instanceof BasicArrowButton) {
+                BasicArrowButton b = (BasicArrowButton) c;
                 b.setBackground(ColorManager.LOW_CONTRAST_1);
                 b.setBorder(BorderFactory.createLineBorder(ColorManager.TEXT));
             }

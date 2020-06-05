@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class HotkeyManager {
 
     public static void processHotkey(NativeKeyEvent e) {
-        if(checkKey(e, App.saveManager.saveFile.closeTradeHotkey)) {
+        if (checkKey(e, App.saveManager.saveFile.closeTradeHotkey)) {
             FrameManager.messageManager.closeTrade(FrameManager.messageManager.getFirstTrade());
         } else if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
             PoeInterface.runCommand("/remaining");
@@ -44,8 +44,8 @@ public class HotkeyManager {
                         macros = App.saveManager.saveFile.outgoingMacros;
                         break;
                     case CHAT_SCANNER:
-                        for(ScannerMessage msg : App.saveManager.scannerSaveFile.messages) {
-                            if(firstTrade.searchName == msg.name) {
+                        for (ScannerMessage msg : App.saveManager.scannerSaveFile.messages) {
+                            if (firstTrade.searchName == msg.name) {
                                 macros = msg.macroButtons;
                                 break;
                             }

@@ -33,7 +33,7 @@ public class MenubarDialog extends BasicDialog {
 
     private ArrayList<JButton> buttons = new ArrayList<>();
 
-//    private Component[] componentList;
+    //    private Component[] componentList;
     private Container container = this.getContentPane();
 
     public MenubarDialog() {
@@ -118,7 +118,7 @@ public class MenubarDialog extends BasicDialog {
                 Rectangle bounds = FrameManager.menubar.getBounds();
                 if (!bounds.contains(MouseInfo.getPointerInfo().getLocation())) {
                     FrameManager.menubar.setShow(false);
-                    if(App.saveManager.saveFile.enableMenubar) {
+                    if (App.saveManager.saveFile.enableMenubar) {
                         FrameManager.menubarToggle.setShow(true);
                         FrameManager.menubarToggle.repaint();
                     }
@@ -139,7 +139,7 @@ public class MenubarDialog extends BasicDialog {
 
     public void updateLocation() {
         this.setLocation(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
-        if(FrameManager.menubarToggle != null) {
+        if (FrameManager.menubarToggle != null) {
             FrameManager.menubarToggle.updateLocation();
         }
     }
@@ -176,7 +176,7 @@ public class MenubarDialog extends BasicDialog {
         int y = 0;
         int modY = 1;
         int count = buttons.size() + 1;
-        if(loc == MenubarButtonLocation.SW || loc == MenubarButtonLocation.SE) {
+        if (loc == MenubarButtonLocation.SW || loc == MenubarButtonLocation.SE) {
             flip = true;
             y = App.testFeatures ? count + 1 : count;
             modY = -1;
@@ -185,20 +185,20 @@ public class MenubarDialog extends BasicDialog {
         gc.gridx = 0;
         gc.gridy = y;
         gc.fill = GridBagConstraints.BOTH;
-        if(flip) {
+        if (flip) {
             gc.insets = new Insets(0, 2, 2, 2);
         } else {
             gc.insets = new Insets(2, 2, 0, 2);
         }
-        for(JButton b : buttons) {
+        for (JButton b : buttons) {
             container.add(b, gc);
             gc.gridy += modY;
         }
-        if(App.testFeatures) {
+        if (App.testFeatures) {
             container.add(testButton, gc);
             gc.gridy += modY;
         }
-        if(flip) {
+        if (flip) {
             gc.insets = new Insets(2, 2, 12, 2);
         } else {
             gc.insets = new Insets(12, 2, 2, 2);

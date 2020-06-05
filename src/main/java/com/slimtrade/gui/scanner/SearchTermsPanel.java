@@ -31,7 +31,7 @@ public class SearchTermsPanel extends JPanel implements IColorable {
         outerPanel.add(info1, gc);
         gc.insets.top = 0;
         gc.gridy++;
-        gc.insets.bottom = bufferInner*2;
+        gc.insets.bottom = bufferInner * 2;
         outerPanel.add(info2, gc);
         gc.insets.bottom = 0;
         gc.gridy++;

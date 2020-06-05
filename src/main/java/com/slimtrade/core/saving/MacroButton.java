@@ -27,33 +27,33 @@ public class MacroButton {
 
     public static boolean doButtonsMatch(MacroButton b1, MacroButton b2) {
         int check = 0;
-        if(b1.row == b2.row) {
+        if (b1.row == b2.row) {
             check++;
         }
-        if(b1.leftMouseResponse.equals(b2.leftMouseResponse)) {
+        if (b1.leftMouseResponse.equals(b2.leftMouseResponse)) {
             check++;
         }
-        if(b1.rightMouseResponse.equals(b2.rightMouseResponse)) {
+        if (b1.rightMouseResponse.equals(b2.rightMouseResponse)) {
             check++;
         }
-        if(b1.image == b2.image) {
+        if (b1.image == b2.image) {
             check++;
         }
-        if(check == 4) {
+        if (check == 4) {
             return true;
         }
         return false;
     }
 
     public String[] getCommandsLeft() {
-        if(this.commandsLeft == null) {
+        if (this.commandsLeft == null) {
             commandsLeft = HotkeyManager.getCommandList(leftMouseResponse);
         }
         return commandsLeft;
     }
 
     public String[] getCommandsRight() {
-        if(this.commandsRight == null) {
+        if (this.commandsRight == null) {
             commandsRight = HotkeyManager.getCommandList(rightMouseResponse);
         }
         return commandsRight;

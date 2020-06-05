@@ -7,7 +7,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 
 public class CustomScrollBarUI extends BasicScrollBarUI {
-    
+
     @Override
     protected void configureScrollBarColors() {
         this.trackColor = ColorManager.LOW_CONTRAST_1;
@@ -69,7 +69,6 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
         g2.fillRect(r.x, r.y, r.width, r.height);
         g2.dispose();
     }
-
 
 
 }

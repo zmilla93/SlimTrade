@@ -198,7 +198,7 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
     @Override
     public void updateColor() {
         super.updateColor();
-        if(messageType == MessageType.CHAT_SCANNER) {
+        if (messageType == MessageType.CHAT_SCANNER) {
             addRemovePanel.color = ColorManager.BACKGROUND;
         }
     }

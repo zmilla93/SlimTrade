@@ -18,84 +18,83 @@ import java.awt.*;
 
 public class IgnoreItemWindow extends AbstractResizableWindow implements IColorable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private JLabel sureLabel = new CustomLabel("The following item will be ignored for 1 hour :");
-	private JLabel itemLabel = new CustomLabel("TEST");
-	
-	private JButton cancelButton = new DenyButton("Cancel");
-	private JButton confirmButton = new ConfirmButton("Ignore Item");
+    private static final long serialVersionUID = 1L;
 
-	public IgnoreItemWindow() {
-		super("Ignore Item", false);
-		
-		container.setLayout(new GridBagLayout());
-		
-		ContainerPanel innerPanel = new ContainerPanel();
-		JPanel innerContainer = innerPanel.container;
-		
-		JPanel buttonPanel = new JPanel(new GridBagLayout());
-		buttonPanel.setOpaque(false);
-		
-		innerContainer.setLayout(new GridBagLayout());
-		GridBagConstraints gc = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 0;
-		gc.insets.bottom = 20;
-		
-		//Button Panel
-		gc.insets.right = 40;
-		buttonPanel.add(cancelButton, gc);
-		gc.gridx++;
-		gc.insets.right = 0;
-		buttonPanel.add(confirmButton, gc);
-		
-		//Reset GC
-		gc.gridx = 0;
-		gc.gridy = 0;
-		
-		//Container
-		innerContainer.add(sureLabel, gc);
-		gc.gridy++;
-		innerContainer.add(itemLabel, gc);
-		gc.gridy++;
-		gc.insets.bottom = 0;
-		innerContainer.add(buttonPanel, gc);
-		
-		container.add(innerPanel);
+    private JLabel sureLabel = new CustomLabel("The following item will be ignored for 1 hour :");
+    private JLabel itemLabel = new CustomLabel("TEST");
 
-		// Cancel Button
-		cancelButton.addActionListener(e -> setVisible(false));
+    private JButton cancelButton = new DenyButton("Cancel");
+    private JButton confirmButton = new ConfirmButton("Ignore Item");
 
-		// Confirm Button
-		confirmButton.addActionListener(e -> {
-			IgnoreData data = new IgnoreData(itemLabel.getText(), MatchType.EXACT, 60);
-			FrameManager.ignoreItemAddRemovePanel.add(new IgnoreRow(data, FrameManager.ignoreItemAddRemovePanel));
+    public IgnoreItemWindow() {
+        super("Ignore Item", false);
 
-			FrameManager.ignoreItemAddRemovePanel.clearHiddenPanels();
-			FrameManager.itemIgnorePanel.save();
-			FrameManager.messageManager.closeTradesByItem(itemLabel.getText());
-			App.saveManager.saveToDisk();
-			FrameManager.itemIgnorePanel.load();
-			ColorManager.recursiveColor(FrameManager.itemIgnorePanel);
-			setVisible(false);
-		});
+        container.setLayout(new GridBagLayout());
 
-		this.pack();
-		this.setMinimumSize(this.getPreferredSize());
-		ColorManager.recursiveColor(this);
+        ContainerPanel innerPanel = new ContainerPanel();
+        JPanel innerContainer = innerPanel.container;
 
-	}
-	
-	public void setItem(String itemName){
-		itemLabel.setText(itemName);
-	}
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setOpaque(false);
 
-	@Override
-	public void updateColor() {
-		super.updateColor();
-	}
+        innerContainer.setLayout(new GridBagLayout());
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.insets.bottom = 20;
 
-	
-	
+        //Button Panel
+        gc.insets.right = 40;
+        buttonPanel.add(cancelButton, gc);
+        gc.gridx++;
+        gc.insets.right = 0;
+        buttonPanel.add(confirmButton, gc);
+
+        //Reset GC
+        gc.gridx = 0;
+        gc.gridy = 0;
+
+        //Container
+        innerContainer.add(sureLabel, gc);
+        gc.gridy++;
+        innerContainer.add(itemLabel, gc);
+        gc.gridy++;
+        gc.insets.bottom = 0;
+        innerContainer.add(buttonPanel, gc);
+
+        container.add(innerPanel);
+
+        // Cancel Button
+        cancelButton.addActionListener(e -> setVisible(false));
+
+        // Confirm Button
+        confirmButton.addActionListener(e -> {
+            IgnoreData data = new IgnoreData(itemLabel.getText(), MatchType.EXACT, 60);
+            FrameManager.ignoreItemAddRemovePanel.add(new IgnoreRow(data, FrameManager.ignoreItemAddRemovePanel));
+
+            FrameManager.ignoreItemAddRemovePanel.clearHiddenPanels();
+            FrameManager.itemIgnorePanel.save();
+            FrameManager.messageManager.closeTradesByItem(itemLabel.getText());
+            App.saveManager.saveToDisk();
+            FrameManager.itemIgnorePanel.load();
+            ColorManager.recursiveColor(FrameManager.itemIgnorePanel);
+            setVisible(false);
+        });
+
+        this.pack();
+        this.setMinimumSize(this.getPreferredSize());
+        ColorManager.recursiveColor(this);
+
+    }
+
+    public void setItem(String itemName) {
+        itemLabel.setText(itemName);
+    }
+
+    @Override
+    public void updateColor() {
+        super.updateColor();
+    }
+
+
 }

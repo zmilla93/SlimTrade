@@ -152,8 +152,8 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 macros = App.saveManager.saveFile.outgoingMacros;
                 break;
             case CHAT_SCANNER:
-                for(ScannerMessage msg : App.saveManager.scannerSaveFile.messages) {
-                    if(msg.name == trade.searchName) {
+                for (ScannerMessage msg : App.saveManager.scannerSaveFile.messages) {
+                    if (msg.name == trade.searchName) {
                         macros = msg.macroButtons;
                         break;
                     }
@@ -164,7 +164,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         }
         // Preset Macros
         if (makeListeners) {
-            namePanel.addMouseListener(new AdvancedMouseAdapter(){
+            namePanel.addMouseListener(new AdvancedMouseAdapter() {
                 @Override
                 public void click(MouseEvent e) {
                     if (e.getButton() == MouseEvent.BUTTON1) {
@@ -176,8 +176,8 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                     }
                 }
             });
-            if(messageType == MessageType.INCOMING_TRADE) {
-                itemPanel.addMouseListener(new AdvancedMouseAdapter(){
+            if (messageType == MessageType.INCOMING_TRADE) {
+                itemPanel.addMouseListener(new AdvancedMouseAdapter() {
                     @Override
                     public void click(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {

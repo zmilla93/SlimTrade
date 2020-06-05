@@ -6,18 +6,18 @@ import java.awt.*;
 
 public class ConfirmButton extends BasicButton {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public ConfirmButton(String text){
-		super(text);
-		primaryColor = ColorManager.GREEN_APPROVE;
-		secondaryColor = ColorManager.BACKGROUND;
-	}
+    public ConfirmButton(String text) {
+        super(text);
+        primaryColor = ColorManager.GREEN_APPROVE;
+        secondaryColor = ColorManager.BACKGROUND;
+    }
 
-	@Override
-	protected void paintComponent(Graphics g) {
-		primaryColor = ColorManager.GREEN_APPROVE;
-		super.paintComponent(g);
-	}
-	
+    @Override
+    protected void paintComponent(Graphics g) {
+        primaryColor = ColorManager.GREEN_APPROVE;
+        super.paintComponent(g);
+    }
+
 }
