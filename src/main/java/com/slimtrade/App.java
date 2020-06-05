@@ -6,7 +6,6 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.managers.SetupManager;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
-import com.slimtrade.core.observing.improved.EventManager;
 import com.slimtrade.core.utility.ChatParser;
 import com.slimtrade.core.utility.FileMonitor;
 import com.slimtrade.core.utility.PoeInterface;
@@ -32,7 +31,6 @@ public class App {
 
     public static Debugger debugger;
     public static FrameManager frameManager;
-    public static EventManager eventManager = new EventManager();
     public static SaveManager saveManager;
     public static ChatParser chatParser = new ChatParser();
     public static FileMonitor fileMonitor;

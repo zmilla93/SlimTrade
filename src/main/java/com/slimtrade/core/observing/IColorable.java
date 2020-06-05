@@ -1,4 +1,4 @@
-package com.slimtrade.core.observing.improved;
+package com.slimtrade.core.observing;
 
 public interface IColorable {
 

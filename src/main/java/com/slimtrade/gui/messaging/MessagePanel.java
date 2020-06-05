@@ -3,7 +3,7 @@ package com.slimtrade.gui.messaging;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.utility.PoeInterface;
@@ -187,7 +187,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                             FrameManager.ignoreItemWindow.setItem(trade.itemName);
                             FrameManager.ignoreItemWindow.pack();
                             FrameManager.centerFrame(FrameManager.ignoreItemWindow);
-                            App.eventManager.recursiveColor(FrameManager.ignoreItemWindow);
+                            ColorManager.recursiveColor(FrameManager.ignoreItemWindow);
                             FrameManager.ignoreItemWindow.setVisible(true);
                         }
                     }

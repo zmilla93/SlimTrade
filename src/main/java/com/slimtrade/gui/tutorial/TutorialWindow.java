@@ -2,7 +2,7 @@ package com.slimtrade.gui.tutorial;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -133,7 +133,7 @@ public class TutorialWindow extends AbstractResizableWindow implements IColorabl
     public void updateColor() {
         super.updateColor();
         for(JPanel p : panels) {
-            App.eventManager.recursiveColor(p);
+            ColorManager.recursiveColor(p);
         }
     }
 

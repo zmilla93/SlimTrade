@@ -1,7 +1,8 @@
 package com.slimtrade.gui.dialogs;
 
 import com.slimtrade.App;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.buttons.ConfirmButton;
@@ -76,13 +77,13 @@ public class IgnoreItemWindow extends AbstractResizableWindow implements IColora
 			FrameManager.messageManager.closeTradesByItem(itemLabel.getText());
 			App.saveManager.saveToDisk();
 			FrameManager.itemIgnorePanel.load();
-			App.eventManager.recursiveColor(FrameManager.itemIgnorePanel);
+			ColorManager.recursiveColor(FrameManager.itemIgnorePanel);
 			setVisible(false);
 		});
 
 		this.pack();
 		this.setMinimumSize(this.getPreferredSize());
-		App.eventManager.recursiveColor(this);
+		ColorManager.recursiveColor(this);
 
 	}
 	

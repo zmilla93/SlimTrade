@@ -1,7 +1,7 @@
 package com.slimtrade.gui.scanner;
 
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 

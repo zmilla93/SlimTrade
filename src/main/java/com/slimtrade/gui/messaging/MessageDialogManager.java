@@ -62,7 +62,7 @@ public class MessageDialogManager {
                 }
             }
         });
-        App.eventManager.recursiveColor(wrapper);
+        ColorManager.recursiveColor(wrapper);
         wrapper.setShow(true);
         if (!App.globalMouse.isGameFocused() || FrameManager.windowState != WindowState.NORMAL) {
             wrapper.setVisible(false);
@@ -254,7 +254,7 @@ public class MessageDialogManager {
 
     public void updateMessageColors() {
         for (PanelWrapper w : wrapperList) {
-            App.eventManager.recursiveColor(w);
+            ColorManager.recursiveColor(w);
         }
     }
 

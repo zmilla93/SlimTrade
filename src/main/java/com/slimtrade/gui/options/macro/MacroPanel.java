@@ -2,7 +2,7 @@ package com.slimtrade.gui.options.macro;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
@@ -123,7 +123,7 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
             MacroCustomizerRow row = new MacroCustomizerRow();
             addRemovePanel.addRemoveablePanel(row);
             ColorManager.setTheme(ColorManager.getCurrentColorTheme());
-            App.eventManager.recursiveColor(row);
+            ColorManager.recursiveColor(row);
             row.upArrowButton.addActionListener(e1 -> addRemovePanel.shiftUp(row));
             row.downArrowButton.addActionListener(e1 -> addRemovePanel.shiftDown(row));
         });

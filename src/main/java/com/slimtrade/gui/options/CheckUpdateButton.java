@@ -2,7 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.gui.buttons.BasicButton;
 
 public class CheckUpdateButton extends BasicButton implements IColorable {

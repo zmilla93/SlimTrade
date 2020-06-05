@@ -2,7 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 
 import javax.swing.*;
 import javax.swing.border.Border;

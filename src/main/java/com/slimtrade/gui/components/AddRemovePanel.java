@@ -2,7 +2,7 @@ package com.slimtrade.gui.components;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.gui.options.macro.MacroCustomizerRow;
 
 import javax.swing.*;
@@ -50,7 +50,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
         this.add(panel, gc);
 //        if(panelCount > 0) {
 //        if(recolor) {
-            App.eventManager.recursiveColor(panel);
+            ColorManager.recursiveColor(panel);
             this.revalidate();
             this.repaint();
 //        }

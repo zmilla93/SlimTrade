@@ -3,7 +3,7 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.custom.CustomLabel;
@@ -70,7 +70,7 @@ public class UpdateDialog extends JFrame implements IColorable {
         this.setMinimumSize(this.getSize());
         this.setSize(getWidth() + 60, getHeight() + 20);
         this.setAlwaysOnTop(true);
-        App.eventManager.recursiveColor(this);
+        ColorManager.recursiveColor(this);
         FrameManager.centerFrame(this);
 
         // Listener

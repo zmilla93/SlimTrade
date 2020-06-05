@@ -2,7 +2,7 @@ package com.slimtrade.gui.history;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.options.OrderType;
@@ -65,7 +65,7 @@ public class HistoryPanel extends JPanel implements IColorable {
 			}else{
 				contentPanel.add(tradePanels.get(tradePanels.size() - 1));
 			}
-			App.eventManager.recursiveColor(row);
+			ColorManager.recursiveColor(row);
 			this.revalidate();
 			this.repaint();
 		}
@@ -82,7 +82,7 @@ public class HistoryPanel extends JPanel implements IColorable {
 			}
 			tradePanels.add(row);
 		}
-		App.eventManager.recursiveColor(this);
+		ColorManager.recursiveColor(this);
 //		App.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
 		this.revalidate();
 		this.repaint();

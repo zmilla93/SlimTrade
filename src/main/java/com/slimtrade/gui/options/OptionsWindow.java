@@ -6,8 +6,7 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.improved.EventManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
@@ -189,7 +188,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         container.add(scrollDisplay, BorderLayout.CENTER);
 
         display.add(generalPanel, gc);
-        App.eventManager.recursiveColor(generalPanel);
+        ColorManager.recursiveColor(generalPanel);
         generalButton.active = true;
         this.setPreferredSize(new Dimension(1000, 720));
 
@@ -301,7 +300,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
                 gc.gridy = 0;
                 display.removeAll();
                 display.add(p, gc);
-                App.eventManager.recursiveColor(p);
+                ColorManager.recursiveColor(p);
                 revalidate();
                 repaint();
             }

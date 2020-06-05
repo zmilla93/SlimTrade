@@ -1,7 +1,9 @@
 package com.slimtrade.core.managers;
 
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.ColorTheme;
+import com.slimtrade.gui.FrameManager;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -230,6 +232,29 @@ public class ColorManager {
 
     public static void setColorBlindMode(boolean state) {
         colorBlindMode = state;
+    }
+
+    public static void updateAllColors(ColorTheme theme) {
+        ColorManager.setTheme(theme);
+        recursiveColor(FrameManager.optionsWindow);
+        recursiveColor(FrameManager.chatScannerWindow);
+        recursiveColor(FrameManager.historyWindow);
+        recursiveColor(FrameManager.stashOverlayWindow);
+        recursiveColor(FrameManager.menubar);
+        recursiveColor(FrameManager.menubarToggle);
+        FrameManager.overlayManager.updateColor();
+        FrameManager.messageManager.updateMessageColors();
+    }
+
+    public static void recursiveColor(Object o) {
+        if(o instanceof IColorable) {
+            ((IColorable) o).updateColor();
+        }
+        if(o instanceof Container) {
+            for(Component c : ((Container) o).getComponents()) {
+                recursiveColor(c);
+            }
+        }
     }
 
 

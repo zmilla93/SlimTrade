@@ -3,7 +3,7 @@ package com.slimtrade.gui.options.general;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomCombo;

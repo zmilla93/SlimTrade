@@ -3,7 +3,7 @@ package com.slimtrade.gui.overlay;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.OverlaySaveFile;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
@@ -226,7 +226,7 @@ public class OverlayManager implements ISaveable, IColorable {
     // TODO : Switch to recursive coloring
     @Override
     public void updateColor() {
-        App.eventManager.recursiveColor(helpDialog);
+        ColorManager.recursiveColor(helpDialog);
         menubarButtonDummy.setBackground(borderColor);
         menubarDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));
         messageDialog.getRootPane().setBorder(BorderFactory.createLineBorder(borderColor, BORDER_SIZE));

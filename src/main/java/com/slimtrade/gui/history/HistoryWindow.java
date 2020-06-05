@@ -2,7 +2,7 @@ package com.slimtrade.gui.history;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
@@ -94,7 +94,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		incomingButton.addActionListener(e -> {
 			innerPanel.remove(outgoingScroll);
 			innerPanel.add(incomingScroll, BorderLayout.CENTER);
-			App.eventManager.recursiveColor(innerPanel);
+			ColorManager.recursiveColor(innerPanel);
 			innerPanel.revalidate();
 			innerPanel.repaint();
 
@@ -103,7 +103,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		outgoingButton.addActionListener(e -> {
 			innerPanel.remove(incomingScroll);
 			innerPanel.add(outgoingScroll, BorderLayout.CENTER);
-			App.eventManager.recursiveColor(innerPanel);
+			ColorManager.recursiveColor(innerPanel);
 			innerPanel.revalidate();
 			innerPanel.repaint();
 		});
@@ -168,7 +168,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 		super.updateColor();
 		buttonPanel.setBackground(ColorManager.BACKGROUND);
 		innerPanel.setBackground(ColorManager.BACKGROUND);
-		App.eventManager.recursiveColor(innerPanel);
+		ColorManager.recursiveColor(innerPanel);
 		incomingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
 		outgoingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
 	}

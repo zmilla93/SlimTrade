@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.ComponentResizeAdapter;
 import com.slimtrade.core.observing.DocumentUpdateListener;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;

@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SetupManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.setup.panels.*;
@@ -78,11 +78,11 @@ public class SetupWindow extends JFrame implements IColorable {
 
         this.pack();
         this.setMinimumSize(new Dimension(600, 300));
-        App.eventManager.recursiveColor(this);
-        App.eventManager.recursiveColor(clientPanel);
-        App.eventManager.recursiveColor(stashPanel);
-        App.eventManager.recursiveColor(characterPanel);
-        App.eventManager.recursiveColor(completePanel);
+        ColorManager.recursiveColor(this);
+        ColorManager.recursiveColor(clientPanel);
+        ColorManager.recursiveColor(stashPanel);
+        ColorManager.recursiveColor(characterPanel);
+        ColorManager.recursiveColor(completePanel);
         FrameManager.centerFrame(this);
     }
 

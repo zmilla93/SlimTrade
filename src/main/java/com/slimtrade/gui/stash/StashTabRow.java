@@ -1,7 +1,7 @@
 package com.slimtrade.gui.stash;
 
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;

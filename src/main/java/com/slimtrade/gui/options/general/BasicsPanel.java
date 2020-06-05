@@ -2,7 +2,7 @@ package com.slimtrade.gui.options.general;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
@@ -163,14 +163,14 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
         colorThemeCombo.addActionListener(e -> {
             if (colorThemeCombo.getSelectedIndex() >= 0) {
-                App.eventManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
+                ColorManager.updateAllColors((ColorTheme) colorThemeCombo.getSelectedItem());
             }
         });
 
         colorBlindCheckbox.addActionListener(e -> {
             ColorManager.setColorBlindMode(colorBlindCheckbox.isSelected());
             ColorManager.setTheme(ColorManager.getCurrentColorTheme());
-            App.eventManager.updateAllColors(ColorManager.getCurrentColorTheme());
+            ColorManager.updateAllColors(ColorManager.getCurrentColorTheme());
         });
 
         quickPasteCombo.addActionListener(e -> {

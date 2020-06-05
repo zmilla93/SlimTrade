@@ -1,7 +1,7 @@
 package com.slimtrade.gui.custom;
 
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.improved.IColorable;
+import com.slimtrade.core.observing.IColorable;
 
 import javax.swing.*;
 import javax.swing.border.Border;
