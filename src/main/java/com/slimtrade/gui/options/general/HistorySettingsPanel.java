@@ -16,7 +16,7 @@ import com.slimtrade.gui.panels.ContainerPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IColorable {
+public class HistorySettingsPanel extends ContainerPanel implements ISaveable, IColorable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class HistoryOptionsPanel extends ContainerPanel implements ISaveable, IC
     private JLabel orderLabel = new CustomLabel("Order");
     private JLabel limitLabel = new CustomLabel("Message Limit");
 
-    public HistoryOptionsPanel() {
+    public HistorySettingsPanel() {
         for (TimeStyle s : TimeStyle.values()) {
             timeCombo.addItem(s);
         }

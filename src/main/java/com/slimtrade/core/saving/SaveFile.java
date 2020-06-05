@@ -28,6 +28,13 @@ public class SaveFile {
     public QuickPasteSetting quickPasteSetting = QuickPasteSetting.DISABLED;
     public HotkeyData quickPasteHotkey = null;
 
+    // Messaging
+    public boolean collapseExcessiveMessages = false;
+    public int messageCountBeforeCollapse = 3;
+    public boolean fadeAfterDuration = false;
+    public double secondsBeforeFading = 3;
+    public int fadeOpacityPercent = 50;
+
     // History
     public TimeStyle timeStyle = TimeStyle.H12;
     public DateStyle dateStyle = DateStyle.DDMMYY;

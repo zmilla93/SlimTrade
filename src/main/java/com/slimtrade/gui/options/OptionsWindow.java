@@ -17,7 +17,7 @@ import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.options.general.GeneralPanel;
-import com.slimtrade.gui.options.general.HistoryOptionsPanel;
+import com.slimtrade.gui.options.general.HistorySettingsPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macro.MacroPanel;
@@ -242,15 +242,15 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             // Reload history window if needed
             // This is done on a new thread as it needs to reload the chat parser
             boolean reloadHistory = false;
-            HistoryOptionsPanel historyOptionsPanel = FrameManager.optionsWindow.generalPanel.historyPanel;
-            if (App.saveManager.saveFile.timeStyle != historyOptionsPanel.getTimeStyle()
-                    || App.saveManager.saveFile.dateStyle != historyOptionsPanel.getDateStyle()
-                    || App.saveManager.saveFile.orderType != historyOptionsPanel.getOrderType()
-                    || App.saveManager.saveFile.historyLimit != historyOptionsPanel.getMessageLimit()
+            HistorySettingsPanel historySettingsPanel = FrameManager.optionsWindow.generalPanel.historyPanel;
+            if (App.saveManager.saveFile.timeStyle != historySettingsPanel.getTimeStyle()
+                    || App.saveManager.saveFile.dateStyle != historySettingsPanel.getDateStyle()
+                    || App.saveManager.saveFile.orderType != historySettingsPanel.getOrderType()
+                    || App.saveManager.saveFile.historyLimit != historySettingsPanel.getMessageLimit()
                     || !App.saveManager.saveFile.clientPath.equals(FrameManager.optionsWindow.generalPanel.getClientPath())) {
-                FrameManager.historyWindow.setTimeStyle(historyOptionsPanel.getTimeStyle());
-                FrameManager.historyWindow.setDateStyle(historyOptionsPanel.getDateStyle());
-                FrameManager.historyWindow.setOrderType(historyOptionsPanel.getOrderType());
+                FrameManager.historyWindow.setTimeStyle(historySettingsPanel.getTimeStyle());
+                FrameManager.historyWindow.setDateStyle(historySettingsPanel.getDateStyle());
+                FrameManager.historyWindow.setOrderType(historySettingsPanel.getOrderType());
                 reloadHistory = true;
 //                FrameManager.historyWindow.(historyOptionsPanel.getDateStyle());
             }

@@ -11,7 +11,8 @@ public class GeneralPanel extends ContainerPanel {
     private static final long serialVersionUID = 1L;
 
     private BasicsPanel basicsPanel;
-    public HistoryOptionsPanel historyPanel;
+    private MessageSettingsPanel messageSettingsPanel;
+    public HistorySettingsPanel historyPanel;
     private AudioPanel audioPanel;
     private AdvancedPanel advancedPanel;
     private ToggleOptionsPanel toggleOptionsPanel;
@@ -21,13 +22,15 @@ public class GeneralPanel extends ContainerPanel {
 
     public GeneralPanel() {
         SectionHeader basicsHeader = new SectionHeader("Basics");
+        SectionHeader messagingHeader = new SectionHeader("Message Popups");
         SectionHeader historyHeader = new SectionHeader("History");
         SectionHeader audioHeader = new SectionHeader("Audio");
         SectionHeader disableOptionsHeader = new SectionHeader("Toggle Features");
         SectionHeader clientHeader = new SectionHeader("Path of Exile");
 
         basicsPanel = new BasicsPanel();
-        historyPanel = new HistoryOptionsPanel();
+        messageSettingsPanel = new MessageSettingsPanel();
+        historyPanel = new HistorySettingsPanel();
         audioPanel = new AudioPanel();
         toggleOptionsPanel = new ToggleOptionsPanel();
         advancedPanel = new AdvancedPanel();
@@ -42,6 +45,13 @@ public class GeneralPanel extends ContainerPanel {
         gc.gridy++;
         gc.insets.bottom = largeGap;
         container.add(basicsPanel, gc);
+        gc.gridy++;
+
+        gc.insets.bottom = smallGap;
+        container.add(messagingHeader, gc);
+        gc.gridy++;
+        gc.insets.bottom = largeGap;
+        container.add(messageSettingsPanel, gc);
         gc.gridy++;
 
         gc.insets.bottom = smallGap;

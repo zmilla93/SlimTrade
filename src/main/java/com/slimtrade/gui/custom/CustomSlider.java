@@ -13,7 +13,6 @@ public class CustomSlider extends JSlider implements IColorable {
         this.setMaximum(100);
         this.setMajorTickSpacing(25);
         this.setMinorTickSpacing(5);
-        this.setSnapToTicks(true);
         this.setPaintTicks(true);
     }
 
