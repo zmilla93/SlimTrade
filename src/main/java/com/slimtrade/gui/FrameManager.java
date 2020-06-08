@@ -116,9 +116,7 @@ public class FrameManager {
         for (HideableDialog d : showHideDialogs) {
             d.setVisible(false);
         }
-        for (HideableDialog d : MessageDialogManager.getDialogList()) {
-            d.setVisible(false);
-        }
+        FrameManager.messageManager.hideAll();
         FrameManager.stashOverlayWindow.setVisible(false);
         FrameManager.overlayManager.hideAll();
     }
@@ -132,16 +130,10 @@ public class FrameManager {
                 overlayManager.allToFront();
                 break;
             case NORMAL:
-//                System.out.println("VIS1");
                 for (HideableDialog d : showHideDialogs) {
-//                    System.out.println("DIG:" + d);
                     d.setVisible(d.visible);
                 }
-//                System.out.println("VIS2");
-                for (HideableDialog d : MessageDialogManager.getDialogList()) {
-                    d.setVisible(d.visible);
-                }
-//                System.out.println("VIS3");
+                FrameManager.messageManager.showAll();
                 break;
         }
 
@@ -156,12 +148,7 @@ public class FrameManager {
     }
 
     public static void forceAllToTop() {
-        for (HideableDialog h : MessageDialogManager.getDialogList()) {
-            if (h.isVisible()) {
-                h.setAlwaysOnTop(false);
-                h.setAlwaysOnTop(true);
-            }
-        }
+        FrameManager.messageManager.forceAllToTop();
         if (FrameManager.windowState == WindowState.NORMAL) {
             for (HideableDialog h : forceFrames) {
                 if (h != null && h.isVisible()) {

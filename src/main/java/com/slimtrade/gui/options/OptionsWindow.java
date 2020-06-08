@@ -259,6 +259,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             SaveManager.recursiveSave(FrameManager.optionsWindow);
             App.saveManager.saveToDisk();
 
+            // Refresh messages
+            FrameManager.messageManager.refreshPanelLocations();
+
             // Update Clipboard Listener
             App.clipboardManager.setListeningState(App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 

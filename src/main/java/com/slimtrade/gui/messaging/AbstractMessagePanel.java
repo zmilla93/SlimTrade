@@ -29,7 +29,7 @@ public class AbstractMessagePanel extends ColorPanel {
     // protected int maxHeight;
     protected int messageWidth;
     protected int messageHeight;
-    protected int borderSize = 2;
+    public static final int BORDER_SIZE = 2;
     protected int rowHeight;
     public static int totalWidth;
     public static int totalHeight;

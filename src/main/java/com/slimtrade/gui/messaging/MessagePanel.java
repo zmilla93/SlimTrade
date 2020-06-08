@@ -135,8 +135,8 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         messageWidth = size.width;
         messageHeight = size.height;
         rowHeight = messageHeight / 2;
-        totalWidth = messageWidth + (borderSize * 4);
-        totalHeight = messageHeight + (borderSize * 4);
+        totalWidth = messageWidth + (BORDER_SIZE * 4);
+        totalHeight = messageHeight + (BORDER_SIZE * 4);
     }
 
     private void refreshButtons(boolean makeListeners) {
@@ -245,7 +245,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
     protected void resizeFrames() {
         this.setPreferredSize(new Dimension(totalWidth, totalHeight));
         this.setMinimumSize(new Dimension(totalWidth, totalHeight));
-        borderPanel.setPreferredSize(new Dimension(messageWidth + borderSize * 2, messageHeight + borderSize * 2));
+        borderPanel.setPreferredSize(new Dimension(messageWidth + BORDER_SIZE * 2, messageHeight + BORDER_SIZE * 2));
         container.setPreferredSize(new Dimension(messageWidth, messageHeight));
         Dimension s = new Dimension(messageWidth, rowHeight);
         topPanel.setPreferredSize(s);

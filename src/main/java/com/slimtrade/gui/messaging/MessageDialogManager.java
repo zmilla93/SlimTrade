@@ -4,10 +4,12 @@ import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
+import com.slimtrade.core.saving.SaveFile;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.PanelWrapper;
 import com.slimtrade.gui.enums.ExpandDirection;
 import com.slimtrade.gui.enums.WindowState;
@@ -28,6 +30,10 @@ public class MessageDialogManager {
     private final int MAX_MESSAGE_COUNT = 20;
     private static final CopyOnWriteArrayList<PanelWrapper> wrapperList = new CopyOnWriteArrayList<PanelWrapper>();
     public Dimension messageSize;
+    private ExpandPanel expandPanel = new ExpandPanel();
+    private boolean expanded = false;
+
+    private SaveFile saveFile = App.saveManager.saveFile;
 
     public MessageDialogManager() {
         expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
@@ -35,6 +41,14 @@ public class MessageDialogManager {
         int y = App.saveManager.overlaySaveFile.messageY;
         anchorPoint = new Point(x, y);
         messageSize = new Dimension(DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease);
+        expandPanel.setSize(getTotalMessageSize().width, expandPanel.getHeight());
+        expandPanel.getLabelPanel().addMouseListener(new AdvancedMouseAdapter() {
+            @Override
+            public void click(MouseEvent e) {
+                expanded = !expanded;
+                refreshPanelLocations();
+            }
+        });
     }
 
     public void addMessage(TradeOffer trade) {
@@ -42,46 +56,75 @@ public class MessageDialogManager {
     }
 
     public void addMessage(TradeOffer trade, boolean playSound) {
-        if (wrapperList.size() >= MAX_MESSAGE_COUNT || isDuplicateTrade(trade)) {
+        // TODO : enable dupe check
+        // Ignore Duplicates
+//        if (wrapperList.size() >= MAX_MESSAGE_COUNT || isDuplicateTrade(trade)) {
+//            return;
+//        }
+        if (wrapperList.size() >= MAX_MESSAGE_COUNT) {
             return;
         }
         if (playSound) {
             trade.playSound();
         }
+
+        // Init Panel
         final MessagePanel panel = new MessagePanel(trade, messageSize);
         final PanelWrapper wrapper = new PanelWrapper(panel, "SlimTrade Message Window");
         wrapperList.add(wrapper);
-        refreshPanelLocations();
-        panel.getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
-            public void click(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    removeMessage(wrapperList.indexOf(wrapper));
-                    refreshPanelLocations();
-                } else if (e.getButton() == MouseEvent.BUTTON3) {
-                    closeSimilarTrades(wrapperList.indexOf(wrapper));
-                }
-            }
-        });
+        addCloseButtonListener(wrapper);
         ColorManager.recursiveColor(wrapper);
         wrapper.setShow(true);
+
+        // Hide message if game isn't focused
         if (!App.globalMouse.isGameFocused() || FrameManager.windowState != WindowState.NORMAL) {
             wrapper.setVisible(false);
+//            expandPanel.setVisible(false);
         }
+
+        // Hide message if collapsed
+        if (saveFile.collapseExcessiveMessages && wrapperList.size() > saveFile.messageCountBeforeCollapse) {
+            wrapper.setShow(false);
+        }
+
+        refreshPanelLocations();
         FrameManager.showVisibleFrames();
         FrameManager.forceAllToTop();
     }
 
     public void refreshPanelLocations() {
         Point targetPoint = new Point(anchorPoint);
+        int i = 0;
+
+        // Set location for all messages
         for (PanelWrapper w : wrapperList) {
             w.setLocation(targetPoint);
             w.setAlwaysOnTop(false);
             w.setAlwaysOnTop(true);
-            if (expandDirection == ExpandDirection.DOWN) {
-                targetPoint.y += w.getHeight() + BUFFER_SIZE;
+            if (saveFile.collapseExcessiveMessages && i >= saveFile.messageCountBeforeCollapse && !expanded) {
+                w.setShow(false);
             } else {
-                targetPoint.y -= w.getHeight() + BUFFER_SIZE;
+                if (expandDirection == ExpandDirection.DOWN) {
+                    targetPoint.y += w.getHeight() + BUFFER_SIZE;
+                } else {
+                    targetPoint.y -= w.getHeight() + BUFFER_SIZE;
+                }
+                w.setShow(true);
             }
+            i++;
+        }
+        // Set location of collapse bar
+        if (expandDirection == ExpandDirection.UP) {
+            targetPoint.y += getTotalMessageSize().height;
+            targetPoint.y -= expandPanel.getHeight();
+        }
+        expandPanel.setLocation(targetPoint);
+        if (saveFile.collapseExcessiveMessages && wrapperList.size() > saveFile.messageCountBeforeCollapse) {
+            expandPanel.updateMessage(wrapperList.size(), expanded);
+            expandPanel.setShow(true);
+        } else {
+            expandPanel.setShow(false);
+            expanded = false;
         }
     }
 
@@ -212,9 +255,38 @@ public class MessageDialogManager {
         this.anchorPoint = point;
     }
 
-    public static CopyOnWriteArrayList<PanelWrapper> getDialogList() {
-        return MessageDialogManager.wrapperList;
+    public void forceAllToTop() {
+        for (HideableDialog d : wrapperList) {
+            if (d.isVisible()) {
+                d.setAlwaysOnTop(false);
+                d.setAlwaysOnTop(true);
+            }
+        }
+        if (expandPanel.isVisible()) {
+            expandPanel.setAlwaysOnTop(false);
+            expandPanel.setAlwaysOnTop(true);
+        }
     }
+
+    public void showAll() {
+        for (HideableDialog d : wrapperList) {
+            if (d.visible) {
+                d.setVisible(true);
+            }
+        }
+        if (saveFile.collapseExcessiveMessages && wrapperList.size() > saveFile.messageCountBeforeCollapse && expandPanel.visible) {
+            expandPanel.setVisible(true);
+            expandPanel.repaint();
+        }
+    }
+
+    public void hideAll() {
+        for (HideableDialog d : wrapperList) {
+            d.setVisible(false);
+        }
+        expandPanel.setVisible(false);
+    }
+
 
     public void setPlayerJoinedArea(String username) {
         for (PanelWrapper wrapper : wrapperList) {
@@ -226,7 +298,7 @@ public class MessageDialogManager {
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.itemPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.timerPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
-                    AudioManager.play(App.saveManager.saveFile.playerJoinedSound);
+                    AudioManager.play(saveFile.playerJoinedSound);
                 }
             }
         }
@@ -236,33 +308,40 @@ public class MessageDialogManager {
         for (PanelWrapper w : wrapperList) {
             ColorManager.recursiveColor(w);
         }
+        ColorManager.recursiveColor(expandPanel);
     }
 
     public void setMessageIncrease(int sizeIncrease) {
+        expandPanel.setSize(getTotalMessageSize().width, expandPanel.getHeight());
         messageSize = new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease);
-        int tempMax = 50;
+        int tempMax = 80;
         if (sizeIncrease > tempMax) sizeIncrease = tempMax;
         this.sizeIncrease = sizeIncrease;
         for (PanelWrapper w : wrapperList) {
             MessagePanel p = w.getPanel();
             p.resizeFrames(new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease));
-            p.getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
-                public void click(MouseEvent e) {
-                    if (e.getButton() == MouseEvent.BUTTON1) {
-                        removeMessage(wrapperList.indexOf(w));
-                        refreshPanelLocations();
-                    } else if (e.getButton() == MouseEvent.BUTTON3) {
-                        closeSimilarTrades(wrapperList.indexOf(w));
-                    }
-                }
-            });
+            addCloseButtonListener(w);
             w.pack();
         }
         this.refreshPanelLocations();
     }
 
+    /**
+     * Returns message size, excluding border size. Use this for creating new message panels.
+     *
+     * @return Message Size EXCLUDING border
+     */
     public static Dimension getMessageSize() {
         return new Dimension(DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease, DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease);
+    }
+
+    /**
+     * Returns message size, including border size. Use this for calculations.
+     *
+     * @return Message size INCLUDING border
+     */
+    public static Dimension getTotalMessageSize() {
+        return new Dimension(DEFAULT_SIZE.width + App.saveManager.overlaySaveFile.messageSizeIncrease + AbstractMessagePanel.BORDER_SIZE * 4, DEFAULT_SIZE.height + App.saveManager.overlaySaveFile.messageSizeIncrease + AbstractMessagePanel.BORDER_SIZE * 4);
     }
 
     public TradeOffer getFirstTrade() {
@@ -284,6 +363,19 @@ public class MessageDialogManager {
                 break;
             }
         }
+    }
+
+    private void addCloseButtonListener(PanelWrapper wrapper) {
+        wrapper.panel.getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    removeMessage(wrapperList.indexOf(wrapper));
+                    refreshPanelLocations();
+                } else if (e.getButton() == MouseEvent.BUTTON3) {
+                    closeSimilarTrades(wrapperList.indexOf(wrapper));
+                }
+            }
+        });
     }
 
 }

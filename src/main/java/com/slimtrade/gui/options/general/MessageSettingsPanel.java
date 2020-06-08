@@ -10,8 +10,6 @@ import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
@@ -35,21 +33,21 @@ public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
          */
 
         // Create Collapse Toggle
-        JLabel collapseCheckboxLabel = new CustomLabel("Collapse excessive messages");
+        JLabel collapseCheckboxLabel = new CustomLabel("Collapse Excessive Messages");
         collapseCheckbox = new CustomCheckbox();
         collapseCheckbox.addActionListener(e -> updateCollapseToggle());
 
         // Create Collapse Spinner
-        collapseSpinnerLabel = new CustomLabel("Messages shown before collapse");
+        collapseSpinnerLabel = new CustomLabel("Messages Shown Before Collapse");
         collapseSpinner = new CustomSpinner(new SpinnerNumberModel(3, 1, 10, 1));
 
         // Create Opacity Toggle
-        JLabel opacityCheckboxLabel = new CustomLabel("Fade messages after duration");
+        JLabel opacityCheckboxLabel = new CustomLabel("Fade Messages After Duration");
         opacityCheckbox = new CustomCheckbox();
         opacityCheckbox.addActionListener(e -> updateOpacityToggle());
 
         // Create Opacity Delay
-        opacityDelayLabel = new CustomLabel("Seconds before fading");
+        opacityDelayLabel = new CustomLabel("Seconds Before Fading");
         opacityDelaySpinner = new CustomSpinner(new SpinnerNumberModel(3, 0.5, 8, 0.5));
 
         // Create Opacity Slider
