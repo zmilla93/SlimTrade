@@ -1,4 +1,4 @@
-package com.slimtrade.gui.options.stash_search;
+package com.slimtrade.gui.options.stashsearch;
 
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.general.LabelComponentPanel;

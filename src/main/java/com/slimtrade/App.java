@@ -1,9 +1,6 @@
 package com.slimtrade;
 
-import com.slimtrade.core.managers.ClipboardManager;
-import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.managers.SetupManager;
+import com.slimtrade.core.managers.*;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.utility.ChatParser;
@@ -138,6 +135,7 @@ public class App {
 
         // Finalize
         GlobalScreen.addNativeMouseListener(globalMouse);
+        GlobalScreen.addNativeMouseMotionListener(globalMouse);
         GlobalScreen.addNativeKeyListener(globalKeyboard);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
         SwingUtilities.invokeLater(() -> {

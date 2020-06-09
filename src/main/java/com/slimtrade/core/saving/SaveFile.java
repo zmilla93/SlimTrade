@@ -32,7 +32,7 @@ public class SaveFile {
     public boolean collapseExcessiveMessages = false;
     public int messageCountBeforeCollapse = 3;
     public boolean fadeAfterDuration = false;
-    public double secondsBeforeFading = 3;
+    public double secondsBeforeFading = 2;
     public int fadeOpacityPercent = 50;
 
     // History

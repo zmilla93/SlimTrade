@@ -115,6 +115,14 @@ public class TradeUtility {
     public static int intWithinRange(int value, int min, int max) {
         return Math.min(Math.max(value, min), max);
     }
+    public static float floatWithinRange(float value, float min, float max) {
+        if(value < min) {
+            return min;
+        } else if (value > max) {
+            return max;
+        }
+        return value;
+    }
 
     public static String capitalizeString(String s) {
         return capitalizeString(s, false);

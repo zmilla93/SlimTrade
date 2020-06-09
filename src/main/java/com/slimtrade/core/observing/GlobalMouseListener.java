@@ -12,10 +12,14 @@ import com.sun.jna.PointerType;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;
 
+import java.awt.*;
+
 public class GlobalMouseListener implements NativeMouseInputListener {
 
     private boolean isGameFocused;
     private boolean ignoreUntilNextFocusClick = false;
+
+    private boolean hoveringMessageManager = false;
 
     public GlobalMouseListener() {
         super();
@@ -103,16 +107,27 @@ public class GlobalMouseListener implements NativeMouseInputListener {
     }
 
     public void nativeMouseMoved(NativeMouseEvent e) {
-
-    }
-
-    private WindowType getWindowType(String win) {
-        if (win.equals("Path of Exile")) {
-            return WindowType.POE;
-        } else if (win.contains("SlimTrade")) {
-            return WindowType.SLIMTRADE;
+        Rectangle bounds = FrameManager.messageManager.getBounds();
+        int x = e.getX();
+        int y = e.getY();
+        int lowerX = bounds.x;
+        int upperX = lowerX + bounds.width;
+        int lowerY = bounds.y;
+        int upperY = lowerY + bounds.height;
+        if (bounds.height > 0 && x >= lowerX && x <= upperX && y >= lowerY && y <= upperY) {
+            if (!hoveringMessageManager) {
+                hoveringMessageManager = true;
+                FrameManager.messageManager.setFaded(false);
+                FrameManager.messageManager.stopTimer();
+                FrameManager.messageManager.setTargetOpacity(1f);
+            }
         } else {
-            return WindowType.OTHER;
+            if (hoveringMessageManager) {
+                hoveringMessageManager = false;
+                if (App.saveManager.saveFile.fadeAfterDuration && FrameManager.messageManager.messageCount() > 0) {
+                    FrameManager.messageManager.runOpacityTimer();
+                }
+            }
         }
     }
 
@@ -121,7 +136,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
     }
 
     public void setIgnoreUntilNextFocusClick(boolean state) {
-        ignoreUntilNextFocusClick = true;
+        ignoreUntilNextFocusClick = state;
     }
 
 }

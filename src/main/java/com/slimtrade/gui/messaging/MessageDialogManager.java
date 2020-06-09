@@ -14,10 +14,13 @@ import com.slimtrade.gui.components.PanelWrapper;
 import com.slimtrade.gui.enums.ExpandDirection;
 import com.slimtrade.gui.enums.WindowState;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MessageDialogManager {
 
@@ -32,8 +35,30 @@ public class MessageDialogManager {
     public Dimension messageSize;
     private ExpandPanel expandPanel = new ExpandPanel();
     private boolean expanded = false;
+    private Rectangle bounds = new Rectangle(0, 0, 0, 0);
 
     private SaveFile saveFile = App.saveManager.saveFile;
+
+    // Opacity Variables
+    private float targetOpacity = 1f;
+    private float opacity = 1f;
+    private final float OPACITY_STEP = 0.02F;
+    private Timer fadeTimer;
+    private boolean faded = false;
+    private boolean fading = false;
+    private ExecutorService fadeExecutor = Executors.newSingleThreadExecutor();
+    private Runnable fadeTask = () -> {
+        fading = true;
+        while(FrameManager.messageManager.isFading() && FrameManager.messageManager.messageCount() > 0) {
+            FrameManager.messageManager.stepOpacity();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        fading = false;
+    };
 
     public MessageDialogManager() {
         expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
@@ -49,7 +74,15 @@ public class MessageDialogManager {
                 refreshPanelLocations();
             }
         });
+
     }
+
+    public Rectangle getBounds() {
+        return this.bounds;
+    }
+
+
+    // Add Messages
 
     public void addMessage(TradeOffer trade) {
         addMessage(trade, true);
@@ -67,7 +100,6 @@ public class MessageDialogManager {
         if (playSound) {
             trade.playSound();
         }
-
         // Init Panel
         final MessagePanel panel = new MessagePanel(trade, messageSize);
         final PanelWrapper wrapper = new PanelWrapper(panel, "SlimTrade Message Window");
@@ -79,7 +111,6 @@ public class MessageDialogManager {
         // Hide message if game isn't focused
         if (!App.globalMouse.isGameFocused() || FrameManager.windowState != WindowState.NORMAL) {
             wrapper.setVisible(false);
-//            expandPanel.setVisible(false);
         }
 
         // Hide message if collapsed
@@ -87,15 +118,82 @@ public class MessageDialogManager {
             wrapper.setShow(false);
         }
 
+        // Run Fade Timer
+        if (saveFile.fadeAfterDuration && wrapperList.size() == 1) {
+            if (saveFile.secondsBeforeFading == 0) {
+                setFaded(true);
+                opacity = (float) saveFile.fadeOpacityPercent / 100;
+                setOpacity((float) saveFile.fadeOpacityPercent / 100);
+            } else {
+                runOpacityTimer();
+            }
+        } else {
+            wrapper.setOpacity(opacity);
+        }
         refreshPanelLocations();
         FrameManager.showVisibleFrames();
         FrameManager.forceAllToTop();
     }
 
+    // Opacity Stuff
+    public int messageCount() {
+        return wrapperList.size();
+    }
+
+    public boolean isFading() {
+        if (faded && opacity > targetOpacity) {
+            return true;
+        } else return !faded && opacity < targetOpacity;
+    }
+
+    public void setTargetOpacity(float opacity) {
+        this.targetOpacity = TradeUtility.floatWithinRange(opacity, 0.1f, 1f);
+        fade();
+    }
+
+    public void setFaded(boolean state) {
+        this.faded = state;
+    }
+
+    public void runOpacityTimer() {
+        fadeTimer = new Timer((int) (App.saveManager.saveFile.secondsBeforeFading * 1000), e -> {
+            setFaded(true);
+            float opacity = (float) App.saveManager.saveFile.fadeOpacityPercent / 100;
+            setTargetOpacity(opacity);
+        });
+        fadeTimer.setRepeats(false);
+        fadeTimer.start();
+    }
+
+    public void stopTimer() {
+        if (fadeTimer != null) {
+            fadeTimer.stop();
+        }
+    }
+
+    private void setOpacity(float opacity) {
+        for (PanelWrapper w : wrapperList) {
+            w.setOpacity(opacity);
+        }
+        expandPanel.setOpacity(opacity);
+    }
+
+    public void stepOpacity() {
+        if (faded && opacity > targetOpacity) {
+            opacity = TradeUtility.floatWithinRange(opacity - OPACITY_STEP, 0f, 1f);
+            setOpacity(opacity);
+        } else if (!faded && opacity < targetOpacity) {
+            opacity = TradeUtility.floatWithinRange(opacity + OPACITY_STEP, 0f, 1f);
+            setOpacity(opacity);
+        }
+    }
+
+    // Redraw all panels
+
     public void refreshPanelLocations() {
         Point targetPoint = new Point(anchorPoint);
         int i = 0;
-
+        int shownMessages = 0;
         // Set location for all messages
         for (PanelWrapper w : wrapperList) {
             w.setLocation(targetPoint);
@@ -110,6 +208,7 @@ public class MessageDialogManager {
                     targetPoint.y -= w.getHeight() + BUFFER_SIZE;
                 }
                 w.setShow(true);
+                shownMessages++;
             }
             i++;
         }
@@ -125,6 +224,31 @@ public class MessageDialogManager {
         } else {
             expandPanel.setShow(false);
             expanded = false;
+        }
+
+        // Calculate Bounds
+        if (wrapperList.size() == 0) {
+            bounds = new Rectangle(0, 0, 0, 0);
+            return;
+        }
+        int x;
+        int y;
+        int width = getTotalMessageSize().width;
+        int height;
+        if (expandDirection == ExpandDirection.DOWN) {
+            height = shownMessages * getTotalMessageSize().height + ((shownMessages - 1) * BUFFER_SIZE);
+            if (expandPanel.visible) {
+                height += expandPanel.getHeight() + BUFFER_SIZE;
+            }
+            bounds = new Rectangle(anchorPoint.x, anchorPoint.y, width, height);
+        } else {
+            int tempY = ((shownMessages - 1) * getTotalMessageSize().height + ((shownMessages - 1) * BUFFER_SIZE));
+            height = (shownMessages * getTotalMessageSize().height + ((shownMessages - 1) * BUFFER_SIZE));
+            if (expandPanel.visible) {
+                height += expandPanel.getHeight() + BUFFER_SIZE;
+                tempY += (expandPanel.getHeight() + BUFFER_SIZE);
+            }
+            bounds = new Rectangle(anchorPoint.x, anchorPoint.y - tempY, width, height);
         }
     }
 
@@ -376,6 +500,12 @@ public class MessageDialogManager {
                 }
             }
         });
+    }
+
+    private void fade() {
+        if(!fading) {
+            fadeExecutor.execute(fadeTask);
+        }
     }
 
 }

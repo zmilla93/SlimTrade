@@ -21,7 +21,7 @@ import com.slimtrade.gui.options.general.HistorySettingsPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.options.macro.MacroPanel;
-import com.slimtrade.gui.options.stash_search.StashSearchPanel;
+import com.slimtrade.gui.options.stashsearch.StashSearchPanel;
 import com.slimtrade.gui.panels.BufferPanel;
 import com.slimtrade.gui.stash.StashTabPanel;
 

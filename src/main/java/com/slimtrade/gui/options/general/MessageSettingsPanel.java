@@ -11,22 +11,25 @@ import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.nio.file.DirectoryNotEmptyException;
+import java.security.DigestException;
 
 public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
 
     // Collapse
     private final JCheckBox collapseCheckbox;
     private final JLabel collapseSpinnerLabel;
-    private final JSpinner collapseSpinner;
+    private JSpinner collapseSpinner;
 
     // Opacity
     private final JCheckBox opacityCheckbox;
     private final JLabel opacityDelayLabel;
-    private final JSpinner opacityDelaySpinner;
+    private JSpinner opacityDelaySpinner;
     private final JLabel opacitySliderLabel;
     private final JSlider opacitySlider;
 
     public MessageSettingsPanel() {
+        JSpinner opacityDelaySpinner1;
 
         /*
          * Create UI
@@ -38,8 +41,12 @@ public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
         collapseCheckbox.addActionListener(e -> updateCollapseToggle());
 
         // Create Collapse Spinner
+        Dimension size;
         collapseSpinnerLabel = new CustomLabel("Messages Shown Before Collapse");
         collapseSpinner = new CustomSpinner(new SpinnerNumberModel(3, 1, 10, 1));
+        size = collapseSpinner.getPreferredSize();
+        collapseSpinner = new CustomSpinner(new SpinnerNumberModel(3, 1, 8, 1));
+        collapseSpinner.setPreferredSize(size);
 
         // Create Opacity Toggle
         JLabel opacityCheckboxLabel = new CustomLabel("Fade Messages After Duration");
@@ -48,7 +55,10 @@ public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
 
         // Create Opacity Delay
         opacityDelayLabel = new CustomLabel("Seconds Before Fading");
-        opacityDelaySpinner = new CustomSpinner(new SpinnerNumberModel(3, 0.5, 8, 0.5));
+        opacityDelaySpinner = new CustomSpinner(new SpinnerNumberModel(3, 0.5f, 5, 0.5));
+        size = opacityDelaySpinner.getPreferredSize();
+        opacityDelaySpinner = new CustomSpinner(new SpinnerNumberModel(3, 0, 5, 0.5));
+        opacityDelaySpinner.setPreferredSize(size);
 
         // Create Opacity Slider
         opacitySliderLabel = new CustomLabel();
