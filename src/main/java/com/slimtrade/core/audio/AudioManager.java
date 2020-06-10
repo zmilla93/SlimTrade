@@ -1,6 +1,6 @@
 package com.slimtrade.core.audio;
 
-import com.slimtrade.core.saving.SoundElement;
+import com.slimtrade.core.saving.elements.SoundElement;
 
 public class AudioManager {
 

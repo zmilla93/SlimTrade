@@ -135,7 +135,6 @@ public class OverlayManager implements ISaveable, IColorable {
 
                 FrameManager.messageManager.setMessageIncrease(helpDialog.messageSizeSlider.getValue() * 2);
                 FrameManager.messageManager.setAnchorPoint(messageDialog.getLocation());
-                FrameManager.messageManager.setExpandDirection((ExpandDirection) messageCombo.getSelectedItem());
                 FrameManager.messageManager.refreshPanelLocations();
                 FrameManager.optionsWindow.macroPanelIncoming.resizeMessage();
                 FrameManager.optionsWindow.macroPanelOutgoing.resizeMessage();

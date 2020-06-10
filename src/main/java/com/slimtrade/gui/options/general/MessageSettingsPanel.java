@@ -11,8 +11,6 @@ import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.nio.file.DirectoryNotEmptyException;
-import java.security.DigestException;
 
 public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
 

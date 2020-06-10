@@ -3,20 +3,23 @@ package com.slimtrade.gui.history;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
+import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.custom.CustomScrollPane;
+import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.ListButton;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.panels.BufferPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
-public class HistoryWindow extends AbstractResizableWindow implements IColorable {
+public class HistoryWindow extends AbstractResizableWindow implements IColorable, ISaveable {
     private static final long serialVersionUID = 1L;
 
     protected static TimeStyle timeStyle;
@@ -38,7 +41,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
 
 
     public HistoryWindow() {
-        super("History");
+        super("History", true, true);
         this.setAlwaysOnTop(false);
         this.setFocusable(true);
         this.setFocusableWindowState(true);
@@ -47,7 +50,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
         timeStyle = App.saveManager.saveFile.timeStyle;
         dateStyle = App.saveManager.saveFile.dateStyle;
         orderType = App.saveManager.saveFile.orderType;
-        this.setPreferredSize(new Dimension(900, 550));
+        this.setDefaultSize(new Dimension(900, 550));
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = inset;
@@ -112,6 +115,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
         innerPanel.repaint();
         this.pack();
         FrameManager.centerFrame(this);
+        load();
     }
 
     public void setDateStyle(DateStyle style) {
@@ -170,6 +174,29 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
         ColorManager.recursiveColor(innerPanel);
         incomingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
         outgoingScroll.setBorder(ColorManager.BORDER_LOW_CONTRAST_1);
+    }
+
+    @Override
+    public void pinAction(MouseEvent e) {
+        super.pinAction(e);
+        save();
+    }
+
+    @Override
+    public void save() {
+        App.saveManager.pinSaveFile.historyPin = getPinElement();
+        App.saveManager.savePinsToDisk();
+    }
+
+    @Override
+    public void load() {
+        App.saveManager.loadPinsFromDisk();
+        PinElement pin = App.saveManager.pinSaveFile.historyPin;
+        this.pinned = pin.pinned;
+        if (this.pinned) {
+            applyPinElement(pin);
+        }
+        updatePullbars();
     }
 
 }

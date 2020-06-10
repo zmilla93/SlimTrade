@@ -28,10 +28,10 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
     private JSpinner timerSpinner = new CustomSpinner(spinnerModel);
     private JButton ignoreButton = new BasicButton("Ignore Item");
 
-    // TODO : Impose max?
     private final int MAX_IGNORE_COUNT = 40;
 
     public ItemIgnorePanel() {
+        // TODO : remove this assignment and expose through method
         FrameManager.ignoreItemAddRemovePanel = addRemovePanel;
 
         JPanel entryPanel = new JPanel(new GridBagLayout());
@@ -80,7 +80,7 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
 
         // Reset gc
         gc.fill = GridBagConstraints.NONE;
-        gc.gridx = 0;
+//        gc.gridx = 0;
         gc.gridy = 0;
         gc.gridwidth = 1;
         gc.insets.left = 0;

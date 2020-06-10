@@ -3,6 +3,7 @@ package com.slimtrade.core.saving;
 import com.slimtrade.core.References;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.observing.HotkeyData;
+import com.slimtrade.core.saving.elements.SoundElement;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.QuickPasteSetting;
@@ -103,11 +104,6 @@ public class SaveFile {
             long diffSeconds = diff / 1000 % 60;
             long diffMinutes = diff / (60 * 1000) % 60;
             long diffHours = diff / (60 * 60 * 1000) % 24;
-
-//            System.out.print(diffDays + " days, ");
-//            System.out.print(diffHours + " hours, ");
-//            System.out.print(diffMinutes + " minutes, ");
-//            System.out.print(diffSeconds + " seconds.");
 
             diffMinutes += diffHours * 60;
             if (diffSeconds > 30) {

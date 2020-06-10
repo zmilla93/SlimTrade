@@ -95,6 +95,9 @@ public class AbstractResizableWindow extends AbstractWindow implements IColorabl
     protected Runnable runnerRight = new Runnable() {
         public void run() {
             while (mousePressed) {
+                if (pinned) {
+                    return;
+                }
                 int mouseX = MouseInfo.getPointerInfo().getLocation().x;
                 int width = startingWidth - (startingX - mouseX);
                 if (width % 2 != 0) width++;
@@ -116,6 +119,9 @@ public class AbstractResizableWindow extends AbstractWindow implements IColorabl
     protected Runnable runnerBottom = new Runnable() {
         public void run() {
             while (mousePressed) {
+                if (pinned) {
+                    return;
+                }
                 int mouseY = MouseInfo.getPointerInfo().getLocation().y;
                 int height = startingHeight - (startingY - mouseY);
                 if (height % 2 != 0) height++;
@@ -133,6 +139,22 @@ public class AbstractResizableWindow extends AbstractWindow implements IColorabl
             }
         }
     };
+
+    protected void updatePullbars() {
+        if (pinned) {
+            pullRight.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            pullBottom.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } else {
+            pullRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
+            pullBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
+        }
+    }
+
+    @Override
+    public void pinAction(MouseEvent e) {
+        super.pinAction(e);
+        updatePullbars();
+    }
 
     @Override
     public void updateColor() {

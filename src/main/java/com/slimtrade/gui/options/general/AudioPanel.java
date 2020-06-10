@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
-import com.slimtrade.core.saving.SoundElement;
+import com.slimtrade.core.saving.elements.SoundElement;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.ContainerPanel;
 

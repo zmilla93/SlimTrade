@@ -27,7 +27,7 @@ public class MessageDialogManager {
     private Point anchorPoint;
     public static final Dimension DEFAULT_SIZE = new Dimension(400, 40);
     private int sizeIncrease = 0;
-    private ExpandDirection expandDirection;
+//    private ExpandDirection expandDirection;
 
     private final int BUFFER_SIZE = 2;
     private final int MAX_MESSAGE_COUNT = 20;
@@ -49,7 +49,7 @@ public class MessageDialogManager {
     private ExecutorService fadeExecutor = Executors.newSingleThreadExecutor();
     private Runnable fadeTask = () -> {
         fading = true;
-        while(FrameManager.messageManager.isFading() && FrameManager.messageManager.messageCount() > 0) {
+        while (FrameManager.messageManager.isFading() && FrameManager.messageManager.messageCount() > 0) {
             FrameManager.messageManager.stepOpacity();
             try {
                 Thread.sleep(10);
@@ -61,7 +61,6 @@ public class MessageDialogManager {
     };
 
     public MessageDialogManager() {
-        expandDirection = App.saveManager.overlaySaveFile.messageExpandDirection;
         int x = App.saveManager.overlaySaveFile.messageX;
         int y = App.saveManager.overlaySaveFile.messageY;
         anchorPoint = new Point(x, y);
@@ -202,7 +201,7 @@ public class MessageDialogManager {
             if (saveFile.collapseExcessiveMessages && i >= saveFile.messageCountBeforeCollapse && !expanded) {
                 w.setShow(false);
             } else {
-                if (expandDirection == ExpandDirection.DOWN) {
+                if (App.saveManager.overlaySaveFile.messageExpandDirection == ExpandDirection.DOWN) {
                     targetPoint.y += w.getHeight() + BUFFER_SIZE;
                 } else {
                     targetPoint.y -= w.getHeight() + BUFFER_SIZE;
@@ -213,7 +212,7 @@ public class MessageDialogManager {
             i++;
         }
         // Set location of collapse bar
-        if (expandDirection == ExpandDirection.UP) {
+        if (App.saveManager.overlaySaveFile.messageExpandDirection == ExpandDirection.UP) {
             targetPoint.y += getTotalMessageSize().height;
             targetPoint.y -= expandPanel.getHeight();
         }
@@ -235,7 +234,7 @@ public class MessageDialogManager {
         int y;
         int width = getTotalMessageSize().width;
         int height;
-        if (expandDirection == ExpandDirection.DOWN) {
+        if (App.saveManager.overlaySaveFile.messageExpandDirection == ExpandDirection.DOWN) {
             height = shownMessages * getTotalMessageSize().height + ((shownMessages - 1) * BUFFER_SIZE);
             if (expandPanel.visible) {
                 height += expandPanel.getHeight() + BUFFER_SIZE;
@@ -371,9 +370,9 @@ public class MessageDialogManager {
         wrapperList.remove(index);
     }
 
-    public void setExpandDirection(ExpandDirection dir) {
-        this.expandDirection = dir;
-    }
+//    public void setExpandDirection(ExpandDirection dir) {
+//        this.expandDirection = dir;
+//    }
 
     public void setAnchorPoint(Point point) {
         this.anchorPoint = point;
@@ -503,7 +502,7 @@ public class MessageDialogManager {
     }
 
     private void fade() {
-        if(!fading) {
+        if (!fading) {
             fadeExecutor.execute(fadeTask);
         }
     }

@@ -239,6 +239,7 @@ public class ColorManager {
         recursiveColor(FrameManager.optionsWindow);
         recursiveColor(FrameManager.chatScannerWindow);
         recursiveColor(FrameManager.historyWindow);
+        recursiveColor(FrameManager.betrayalWindow);
         recursiveColor(FrameManager.stashOverlayWindow);
         recursiveColor(FrameManager.menubar);
         recursiveColor(FrameManager.menubarToggle);

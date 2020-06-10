@@ -2,7 +2,6 @@ package com.slimtrade.gui;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.utility.TradeUtility;
-import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
@@ -51,7 +50,6 @@ public class FrameManager {
     public static IgnoreItemWindow ignoreItemWindow;
     public static ItemIgnorePanel itemIgnorePanel;
     public static AddRemovePanel ignoreItemAddRemovePanel;
-
 
     private static HideableDialog[] menuHideFrames;
     private static HideableDialog[] forceFrames;

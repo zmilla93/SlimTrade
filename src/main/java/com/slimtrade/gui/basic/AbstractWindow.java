@@ -1,7 +1,9 @@
 package com.slimtrade.gui.basic;
 
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.IColorable;
+import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomLabel;
@@ -10,12 +12,14 @@ import com.slimtrade.gui.panels.BufferPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public abstract class AbstractWindow extends BasicMovableDialog implements IColorable {
 
     private static final long serialVersionUID = 1L;
     public final int TITLEBAR_HEIGHT = 20;
     public final int BORDER_THICKNESS = 1;
+    private Dimension defaultSize;
 
     private JPanel titlebarPanel = new JPanel();
     private JPanel buttonPanel = new JPanel(new FlowLayout(0, 0, 0));
@@ -24,7 +28,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
 
     protected IconButton closeButton;
     protected IconButton pinButton;
-    private boolean pinned = false;
+    //    private boolean pinned = false;
     private ImageIcon pinIcon1;
     private ImageIcon pinIcon2;
     protected Container contentPane = this.getContentPane();
@@ -69,15 +73,31 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
             pinButton = new IconButton(DefaultIcons.PIN2, TITLEBAR_HEIGHT);
             pinButton = new IconButton(DefaultIcons.PIN1, TITLEBAR_HEIGHT);
             buttonPanel.add(pinButton);
-            pinButton.addActionListener(e -> {
-                pinned = !pinned;
-                if (pinned) {
-                    pinButton.setIcon(pinIcon2);
-                } else {
-                    pinButton.setIcon(pinIcon1);
+            AbstractWindow local = this;
+            pinButton.addMouseListener(new AdvancedMouseAdapter() {
+                @Override
+                public void click(MouseEvent ev) {
+                    if (ev.getButton() == MouseEvent.BUTTON1) {
+                        pinned = !pinned;
+                        if (pinned) {
+                            pinButton.setIcon(pinIcon2);
+                        } else {
+                            pinButton.setIcon(pinIcon1);
+                        }
+                    } else if (ev.getButton() == MouseEvent.BUTTON2) {
+                        FrameManager.centerFrame(local);
+                        pinned = false;
+                        pinButton.setIcon(pinIcon1);
+                    } else if (ev.getButton() == MouseEvent.BUTTON3) {
+                        resizeToDefault();
+                        FrameManager.centerFrame(local);
+                        pinned = false;
+                        pinButton.setIcon(pinIcon1);
+                    }
+                    pinAction(ev);
                 }
-                pinButton.repaint();
             });
+
         }
 
         if (makeCloseButton) {
@@ -107,6 +127,41 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
         titleLabel.setText(title);
     }
 
+    public void resizeToDefault() {
+        if (defaultSize != null) {
+            this.setPreferredSize(defaultSize);
+            pack();
+        }
+    }
+
+    public void setDefaultSize(Dimension defaultSize) {
+        this.defaultSize = defaultSize;
+        this.setPreferredSize(defaultSize);
+    }
+
+    /**
+     * Override this function to add functionality to the pin button
+     */
+    public void pinAction(MouseEvent e) {
+
+    }
+
+    public PinElement getPinElement() {
+        PinElement element = new PinElement();
+        element.pinned = this.pinned;
+        element.anchor = this.getLocation();
+        element.size = this.getSize();
+        return element;
+    }
+
+    public void applyPinElement(PinElement pinElement) {
+        this.pinned = pinElement.pinned;
+        if (pinned) {
+            this.setLocation(pinElement.anchor);
+            this.setSize(pinElement.size);
+        }
+    }
+
     @Override
     public void updateColor() {
         super.updateColor();
@@ -125,4 +180,5 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
         titleLabel.setForeground(ColorManager.TEXT);
         center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, ColorManager.PRIMARY));
     }
+
 }

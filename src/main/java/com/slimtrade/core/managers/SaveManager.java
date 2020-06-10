@@ -2,10 +2,7 @@ package com.slimtrade.core.managers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.slimtrade.core.saving.OverlaySaveFile;
-import com.slimtrade.core.saving.SaveFile;
-import com.slimtrade.core.saving.ScannerSaveFile;
-import com.slimtrade.core.saving.StashSaveFile;
+import com.slimtrade.core.saving.*;
 import com.slimtrade.gui.options.ISaveable;
 
 import java.awt.*;
@@ -19,9 +16,11 @@ public class SaveManager {
     public final String stashSavePath;
     public final String overlaySavePath;
     public final String scannerSavePath;
+    public final String pinSavePath;
     public final String saveDirectory;
     public SaveFile saveFile;
     public StashSaveFile stashSaveFile = new StashSaveFile();
+    public PinSaveFile pinSaveFile = new PinSaveFile();
     public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
     public ScannerSaveFile scannerSaveFile = new ScannerSaveFile();
 
@@ -32,6 +31,7 @@ public class SaveManager {
     private final String folderOther = ".slimtrade";
     private final String fileName = "settings.json";
     private final String stashFileName = "stash.json";
+    private final String pinSaveFileName = "pins.json";
     private final String overlayFileName = "overlay.json";
     private final String scannerFileName = "scanner.json";
 
@@ -57,6 +57,7 @@ public class SaveManager {
         }
         savePath = saveDirectory + File.separator + fileName;
         stashSavePath = saveDirectory + File.separator + stashFileName;
+        pinSavePath = saveDirectory + File.separator + pinSaveFileName;
         overlaySavePath = saveDirectory + File.separator + overlayFileName;
         scannerSavePath = saveDirectory + File.separator + scannerFileName;
         File saveDir = new File(saveDirectory);
@@ -202,6 +203,39 @@ public class SaveManager {
         try {
             fw = new FileWriter(scannerSavePath);
             fw.write(gson.toJson(scannerSaveFile));
+            fw.close();
+        } catch (IOException e) {
+            return;
+        }
+    }
+
+    public void loadPinsFromDisk() {
+        StringBuilder builder = new StringBuilder();
+        try {
+            br = new BufferedReader(new FileReader(pinSavePath));
+            while (br.ready()) {
+                builder.append(br.readLine());
+            }
+            br.close();
+            pinSaveFile = gson.fromJson(builder.toString(), PinSaveFile.class);
+            if (pinSaveFile == null) {
+                pinSaveFile = new PinSaveFile();
+            }
+        } catch (JsonSyntaxException e1) {
+            pinSaveFile = new PinSaveFile();
+            System.out.println("Corrupted save file!");
+            return;
+        } catch (IOException e2) {
+            pinSaveFile = new PinSaveFile();
+//            System.out.println("Creating new save file.");
+            return;
+        }
+    }
+
+    public void savePinsToDisk() {
+        try {
+            fw = new FileWriter(pinSavePath);
+            fw.write(gson.toJson(pinSaveFile));
             fw.close();
         } catch (IOException e) {
             return;

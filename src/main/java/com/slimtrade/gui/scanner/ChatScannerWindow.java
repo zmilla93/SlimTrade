@@ -6,6 +6,7 @@ import com.slimtrade.core.observing.ComponentResizeAdapter;
 import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.MacroButton;
+import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
@@ -28,6 +29,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -90,7 +92,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
 
 
     public ChatScannerWindow() {
-        super("Chat Scanner");
+        super("Chat Scanner", true, true);
 
         addMacroButton = macroPanel.addButton;
         // Save Panel Controls
@@ -140,17 +142,19 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         //Finalize
         scrollPane.setBorder(null);
 
-        this.setFocusableWindowState(true);
-        this.setFocusable(true);
-        this.pack();
-        this.setSize(750, 900);
+        setFocusableWindowState(true);
+        setFocusable(true);
+        pack();
+        setDefaultSize(new Dimension(750, 900));
         searchTermsInput.setLineWrap(true);
         searchTermsInput.setWrapStyleWord(true);
-        FrameManager.centerFrame(this);
+
         refreshMessage("");
         updateColor();
         refreshWindowState();
         load();
+        pack();
+        FrameManager.centerFrame(this);
 
         // Listeners
         saveTextField.getDocument().addDocumentListener(new DocumentUpdateListener() {
@@ -312,6 +316,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             saving = false;
         });
         addDefaults();
+
+        load();
     }
 
     private void runAllChecks() {
@@ -538,8 +544,15 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     }
 
     @Override
-    public void save() {
+    public void pinAction(MouseEvent e) {
+        super.pinAction(e);
+        save();
+    }
 
+    @Override
+    public void save() {
+        App.saveManager.pinSaveFile.chatScannerPin = getPinElement();
+        App.saveManager.savePinsToDisk();
     }
 
     @Override
@@ -553,6 +566,14 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             searchCombo.addItem(msg);
         }
         searchCombo.setSelectedIndex(-1);
+
+        App.saveManager.loadPinsFromDisk();
+        PinElement pin = App.saveManager.pinSaveFile.chatScannerPin;
+        this.pinned = pin.pinned;
+        if (this.pinned) {
+            applyPinElement(pin);
+        }
+        updatePullbars();
     }
 
     @Override

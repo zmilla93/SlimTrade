@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options.stashsearch;
 
+import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.general.LabelComponentPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
@@ -9,7 +10,10 @@ import javax.swing.*;
 
 public class StashSearchPanel extends ContainerPanel {
 
-    JLabel info1 = new CustomLabel("Stash Search Prototype");
+    JLabel info1 = new CustomLabel("Quickly search phrases inside your stash to help with sorting.");
+
+    JButton addButton = new BasicButton("Add Terms");
+
 
     public StashSearchPanel() {
 
@@ -20,6 +24,8 @@ public class StashSearchPanel extends ContainerPanel {
         container.add(info1, gc);
         gc.gridy++;
         container.add(togglePanel, gc);
+
+
     }
 
 }

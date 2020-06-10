@@ -7,6 +7,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.IColorable;
+import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
@@ -32,7 +33,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class OptionsWindow extends AbstractResizableWindow implements IColorable {
+public class OptionsWindow extends AbstractResizableWindow implements IColorable, ISaveable {
 
     private static final long serialVersionUID = 1L;
     private final JPanel display = new JPanel();
@@ -190,7 +191,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         display.add(generalPanel, gc);
         ColorManager.recursiveColor(generalPanel);
         generalButton.active = true;
-        this.setPreferredSize(new Dimension(1000, 720));
+        this.setDefaultSize(new Dimension(1000, 720));
 
         this.refresh();
         //TODO : Resize doesn't respect maximum size
@@ -285,6 +286,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
         });
 
+        load();
 
     }
 
@@ -323,6 +325,15 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         this.repaint();
     }
 
+    public void recolorUpdateButton() {
+        checkUpdateButton.setText("Update Available!");
+        checkUpdateButton.updateColor();
+    }
+
+    public void reloadGeneralPanel() {
+        SaveManager.recursiveLoad(generalPanel);
+    }
+
     @Override
     public void updateColor() {
         super.updateColor();
@@ -334,13 +345,26 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         scrollDisplay.setBorder(ColorManager.BORDER_TEXT);
     }
 
-    public void recolorUpdateButton() {
-        checkUpdateButton.setText("Update Available!");
-        checkUpdateButton.updateColor();
+    @Override
+    public void pinAction(MouseEvent e) {
+        super.pinAction(e);
+        save();
     }
 
-    public void reloadGeneralPanel() {
-        SaveManager.recursiveLoad(generalPanel);
+    @Override
+    public void save() {
+        App.saveManager.pinSaveFile.optionsPin = getPinElement();
+        App.saveManager.savePinsToDisk();
     }
 
+    @Override
+    public void load() {
+        App.saveManager.loadPinsFromDisk();
+        PinElement pin = App.saveManager.pinSaveFile.optionsPin;
+        this.pinned = pin.pinned;
+        if (this.pinned) {
+            applyPinElement(pin);
+        }
+        updatePullbars();
+    }
 }
