@@ -50,7 +50,7 @@ public class MessageDialogManager {
     private Runnable fadeTask = () -> {
         fading = true;
         while (FrameManager.messageManager.isFading() && FrameManager.messageManager.messageCount() > 0) {
-            FrameManager.messageManager.stepOpacity();
+            SwingUtilities.invokeLater(() -> FrameManager.messageManager.stepOpacity());
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {

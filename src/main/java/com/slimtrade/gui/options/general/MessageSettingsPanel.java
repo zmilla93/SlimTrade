@@ -34,20 +34,20 @@ public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
          */
 
         // Create Collapse Toggle
-        JLabel collapseCheckboxLabel = new CustomLabel("Collapse Excessive Messages");
+        JLabel collapseCheckboxLabel = new CustomLabel("Collapse Messages");
         collapseCheckbox = new CustomCheckbox();
         collapseCheckbox.addActionListener(e -> updateCollapseToggle());
 
         // Create Collapse Spinner
         Dimension size;
-        collapseSpinnerLabel = new CustomLabel("Messages Shown Before Collapse");
+        collapseSpinnerLabel = new CustomLabel("Messages Before Collapse");
         collapseSpinner = new CustomSpinner(new SpinnerNumberModel(3, 1, 10, 1));
         size = collapseSpinner.getPreferredSize();
         collapseSpinner = new CustomSpinner(new SpinnerNumberModel(3, 1, 8, 1));
         collapseSpinner.setPreferredSize(size);
 
         // Create Opacity Toggle
-        JLabel opacityCheckboxLabel = new CustomLabel("Fade Messages After Duration");
+        JLabel opacityCheckboxLabel = new CustomLabel("Fade Messages");
         opacityCheckbox = new CustomCheckbox();
         opacityCheckbox.addActionListener(e -> updateOpacityToggle());
 
