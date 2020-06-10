@@ -2,11 +2,13 @@ package com.slimtrade.gui.components;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.saving.OverlaySaveFile;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.WindowState;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class TrayButton {
@@ -39,6 +41,13 @@ public class TrayButton {
 
         // Reset UI Button
         resetUIButton.addActionListener(e -> {
+            App.saveManager.pinSaveFile.optionsPin.pinned = false;
+            App.saveManager.pinSaveFile.historyPin.pinned = false;
+            App.saveManager.pinSaveFile.chatScannerPin.pinned = false;
+            App.saveManager.savePinsToDisk();
+            FrameManager.optionsWindow.load();
+            FrameManager.historyWindow.load();
+            FrameManager.chatScannerWindow.load();
             App.saveManager.overlaySaveFile = new OverlaySaveFile();
             FrameManager.overlayManager.resetToDefault();
             FrameManager.menubar.updateLocation();
@@ -49,6 +58,7 @@ public class TrayButton {
             FrameManager.centerFrame(FrameManager.historyWindow);
             FrameManager.centerFrame(FrameManager.chatScannerWindow);
             App.saveManager.saveOverlayToDisk();
+            ColorManager.updateAllColors(ColorManager.getCurrentColorTheme());
         });
 
         historyButton.addActionListener(e -> {

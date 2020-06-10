@@ -8,13 +8,14 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.enums.DefaultIcons;
+import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public abstract class AbstractWindow extends BasicMovableDialog implements IColorable {
+public class AbstractWindow extends BasicMovableDialog implements IColorable {
 
     private static final long serialVersionUID = 1L;
     public final int TITLEBAR_HEIGHT = 20;
@@ -140,7 +141,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
     }
 
     /**
-     * Override this function to add functionality to the pin button
+     * Override to add functionality to the pin button
      */
     public void pinAction(MouseEvent e) {
 
@@ -179,6 +180,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
         titlebarPanel.setBackground(ColorManager.PRIMARY);
         titleLabel.setForeground(ColorManager.TEXT);
         center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, ColorManager.PRIMARY));
+
     }
 
 }
