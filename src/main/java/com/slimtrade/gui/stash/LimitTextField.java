@@ -17,6 +17,12 @@ public class LimitTextField extends CustomTextField {
         this.limit = limit;
     }
 
+    public LimitTextField(int limit, int columns) {
+        super(columns);
+        this.limit = limit;
+    }
+
+    @Override
     protected Document createDefaultModel() {
         return new LimitDocument();
     }

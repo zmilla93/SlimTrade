@@ -60,7 +60,7 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
 
     private StashTabRow addNewRow() {
         StashTabRow row = new StashTabRow(rowContainer);
-        rowContainer.addRemoveablePanel(row);
+        rowContainer.addRemovablePanel(row);
         return row;
     }
 

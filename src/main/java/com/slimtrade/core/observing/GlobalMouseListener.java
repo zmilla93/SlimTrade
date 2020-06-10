@@ -21,7 +21,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
     public GlobalMouseListener() {
         super();
-        isGameFocused = PoeInterface.isPoeFocused();
+        isGameFocused = PoeInterface.isPoeFocused(true);
     }
 
     public void nativeMouseClicked(NativeMouseEvent e) {
@@ -75,13 +75,13 @@ public class GlobalMouseListener implements NativeMouseInputListener {
                     FrameManager.stashOverlayWindow.setAlwaysOnTop(true);
                     break;
             }
-        } else if (
-                curWindowTitle.equals(References.APP_NAME + " - Options")
-                        || curWindowTitle.equals(References.APP_NAME + " - History")
-                        || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
-                        || curWindowTitle.equals(References.APP_NAME + " - Stash Overlay")
-                        || curWindowTitle.equals(References.APP_NAME + " - Update")
-                        || curWindowTitle.equals(References.APP_NAME + " Window")) {
+        } else if (curWindowTitle.startsWith(References.APP_NAME)) {
+//                curWindowTitle.equals(References.APP_NAME + " - Options")
+//                        || curWindowTitle.equals(References.APP_NAME + " - History")
+//                        || curWindowTitle.equals(References.APP_NAME + " - Chat Scanner")
+//                        || curWindowTitle.equals(References.APP_NAME + " - Stash Overlay")
+//                        || curWindowTitle.equals(References.APP_NAME + " - Update")
+//                        || curWindowTitle.equals(References.APP_NAME + " Window")) {
             ignoreUntilNextFocusClick = false;
             isGameFocused = true;
             FrameManager.showVisibleFrames();
@@ -94,6 +94,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         if (!wasFocused && isGameFocused && FrameManager.windowState == WindowState.NORMAL) {
             FrameManager.refreshMenuFrames();
         }
+
     }
 
     public void nativeMouseReleased(NativeMouseEvent e) {

@@ -18,6 +18,9 @@ public class HotkeyManager {
     public static void processHotkey(NativeKeyEvent e) {
         if (checkKey(e, App.saveManager.saveFile.closeTradeHotkey)) {
             FrameManager.messageManager.closeTrade(FrameManager.messageManager.getFirstTrade());
+        } else if (checkKey(e, App.saveManager.saveFile.stashSearchHotkey)) {
+            FrameManager.stashSearchWindow.toggleShow();
+            FrameManager.stashSearchWindow.refreshVisibility();
         } else if (checkKey(e, App.saveManager.saveFile.remainingHotkey)) {
             PoeInterface.runCommand("/remaining");
         } else if (checkKey(e, App.saveManager.saveFile.hideoutHotkey)) {

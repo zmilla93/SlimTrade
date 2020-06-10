@@ -121,7 +121,7 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
 
         addButton.addActionListener(e -> {
             MacroCustomizerRow row = new MacroCustomizerRow();
-            addRemovePanel.addRemoveablePanel(row);
+            addRemovePanel.addRemovablePanel(row);
             ColorManager.setTheme(ColorManager.getCurrentColorTheme());
             ColorManager.recursiveColor(row);
             row.upArrowButton.addActionListener(e1 -> addRemovePanel.shiftUp(row));
@@ -189,7 +189,7 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
             MacroCustomizerRow row = new MacroCustomizerRow(b);
             row.upArrowButton.addActionListener(e1 -> addRemovePanel.shiftUp(row));
             row.downArrowButton.addActionListener(e1 -> addRemovePanel.shiftDown(row));
-            addRemovePanel.addRemoveablePanel(row);
+            addRemovePanel.addRemovablePanel(row);
         }
         this.revalidate();
         this.repaint();

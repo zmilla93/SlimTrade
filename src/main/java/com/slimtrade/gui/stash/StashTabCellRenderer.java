@@ -3,7 +3,7 @@ package com.slimtrade.gui.stash;
 import javax.swing.*;
 import java.awt.*;
 
-class StashTabCellRenderer extends JPanel implements ListCellRenderer<Object> {
+public class StashTabCellRenderer extends JPanel implements ListCellRenderer<Object> {
 
     private static final long serialVersionUID = 1L;
 

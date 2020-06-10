@@ -21,6 +21,7 @@ public class ColorManager {
     // General
     public static Color PRIMARY;
     public static Color BACKGROUND;
+    public static Color BUTTON_HOVER;
     public static Color LOW_CONTRAST_1;
     public static Color LOW_CONTRAST_2;
     public static Color HIGH_CONTRAST_1;
@@ -53,7 +54,7 @@ public class ColorManager {
     public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
 
     // Internal
-    private static final int OFFSET_COLOR_AMOUNT = 60;
+    private static final int OFFSET_COLOR_AMOUNT = 40;
     private static ColorTheme currentColorTheme;
     private static boolean colorBlindMode;
 
@@ -68,6 +69,7 @@ public class ColorManager {
 
         // Some defaults
         OVERLAY_EDIT_TEXT = new Color(203, 205, 207);
+        BUTTON_HOVER = new Color(180, 180, 180);
         GREEN_SALE = new Color(0, 130, 0);
         PLAYER_JOINED_INCOMING = new Color(0, 140, 0);
         GREEN_APPROVE = new Color(73, 156, 84);
@@ -206,6 +208,10 @@ public class ColorManager {
         return modify(c, OFFSET_COLOR_AMOUNT);
     }
 
+    public static Color lighter(Color c, int offset) {
+        return modify(c, offset);
+    }
+
     public static Color darker(Color c) {
         return modify(c, -OFFSET_COLOR_AMOUNT);
     }
@@ -241,6 +247,7 @@ public class ColorManager {
         recursiveColor(FrameManager.historyWindow);
         recursiveColor(FrameManager.betrayalWindow);
         recursiveColor(FrameManager.stashOverlayWindow);
+        recursiveColor(FrameManager.stashSearchWindow);
         recursiveColor(FrameManager.menubar);
         recursiveColor(FrameManager.menubarToggle);
         FrameManager.overlayManager.updateColor();

@@ -12,6 +12,7 @@ import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
+import com.slimtrade.gui.options.stashsearch.StashSearchData;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,9 +56,12 @@ public class SaveFile {
     public SoundElement playerJoinedSound = new SoundElement(Sound.BLIP1, 50);
 //    public SoundElement buttonSound = new SoundElement(Sound.CLICK1, 50);
 
+    // Stash Search
+    public HotkeyData stashSearchHotkey = null;
+    public ArrayList<StashSearchData> stashSearchData = new ArrayList<>();
+
     // Client
     public String clientPath = null;
-
 
     public ArrayList<StashTab> stashTabs = new ArrayList<>();
     public ArrayList<IgnoreData> ignoreData = new ArrayList<>();

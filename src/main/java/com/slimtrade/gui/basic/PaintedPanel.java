@@ -30,6 +30,7 @@ public class PaintedPanel extends JPanel {
     protected JLabel label = new CustomLabel();
 
     public PaintedPanel() {
+
         backgroundDefault = ColorManager.LOW_CONTRAST_1;
         backgroundHover = backgroundDefault;
         backgroundClick = backgroundDefault;
@@ -67,9 +68,11 @@ public class PaintedPanel extends JPanel {
                 repaint();
             }
         });
-        this.add(label);
-//		App.eventManager.addColorListener(this);
-//		this.updateColor();
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.insets = new Insets(2, 6, 2, 6);
+        this.add(label, gc);
     }
 
     @Override
@@ -97,11 +100,6 @@ public class PaintedPanel extends JPanel {
         g.fillRect(1, 1, getWidth() - 2, getHeight() - 2);
         label.setForeground(text);
     }
-
-//	@Override
-//	public void updateColor() {
-//
-//	}
 
     public void setText(String text) {
         label.setText(text);

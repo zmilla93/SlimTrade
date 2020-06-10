@@ -85,10 +85,6 @@ public class TrayButton {
         // Exit Button
         exitButton.addActionListener(e -> System.exit(0));
 
-        // Tray Button Itself
-        //TODO : if in nonnormal window state, reset stash/overlay
-
-
     }
 
     public void addToTray() {
@@ -114,7 +110,6 @@ public class TrayButton {
         popup.add(exitButton);
 
         trayIcon.addActionListener(e -> {
-            FrameManager.centerFrame(FrameManager.optionsWindow);
             FrameManager.hideMenuFrames();
             FrameManager.windowState = WindowState.NORMAL;
             FrameManager.optionsWindow.setShow(true);

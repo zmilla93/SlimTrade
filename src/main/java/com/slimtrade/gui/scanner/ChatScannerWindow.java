@@ -528,7 +528,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             row.textRMB.setText(b.rightMouseResponse);
             row.hotkeyInput.updateHotkey(b.hotkeyData);
             row.closeCheckbox.setSelected(b.closeOnClick);
-            addRemovePanel.addRemoveablePanel(row);
+            addRemovePanel.addRemovablePanel(row);
             refreshMessage(message.name);
         }
 
@@ -598,7 +598,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             row.setMacroData(b);
             row.upArrowButton.addActionListener(e -> addRemovePanel.shiftUp(row));
             row.downArrowButton.addActionListener(e -> addRemovePanel.shiftDown(row));
-            addRemovePanel.addRemoveablePanel(row);
+            addRemovePanel.addRemovablePanel(row);
         }
     }
 

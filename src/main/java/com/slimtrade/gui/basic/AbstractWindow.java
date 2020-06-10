@@ -8,23 +8,23 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.enums.DefaultIcons;
-import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.panels.BufferPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class AbstractWindow extends BasicMovableDialog implements IColorable {
+public abstract class AbstractWindow extends BasicMovableDialog implements IColorable {
 
     private static final long serialVersionUID = 1L;
     public final int TITLEBAR_HEIGHT = 20;
     public final int BORDER_THICKNESS = 1;
     private Dimension defaultSize;
 
+
     private JPanel titlebarPanel = new JPanel();
     private JPanel buttonPanel = new JPanel(new FlowLayout(0, 0, 0));
-    protected JPanel center = new JPanel();
+    protected JPanel center = new JPanel(new GridBagLayout());
     private JLabel titleLabel;
 
     protected IconButton closeButton;
@@ -52,11 +52,8 @@ public class AbstractWindow extends BasicMovableDialog implements IColorable {
 
         contentPane.setLayout(new BorderLayout());
         contentPane.setBackground(borderColor);
-
         titlebarPanel.setLayout(new BorderLayout());
-        center.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        //TODO : Container color
-        center.setBackground(borderColor);
+        center.setLayout(new BorderLayout());
 
         gc.gridx = 0;
         gc.gridy = 0;
@@ -64,7 +61,7 @@ public class AbstractWindow extends BasicMovableDialog implements IColorable {
         gc.ipady = 0;
         gc.fill = GridBagConstraints.HORIZONTAL;
         titlebarPanel.add(new BufferPanel(5, 0), BorderLayout.WEST);
-        titleLabel = new CustomLabel(fullTitle);
+        titleLabel = new CustomLabel(title);
         gc.anchor = GridBagConstraints.LINE_START;
         titlebarPanel.add(titleLabel, BorderLayout.CENTER);
         gc.insets = new Insets(0, 0, 0, 0);
@@ -144,7 +141,7 @@ public class AbstractWindow extends BasicMovableDialog implements IColorable {
      * Override to add functionality to the pin button
      */
     public void pinAction(MouseEvent e) {
-
+        
     }
 
     public PinElement getPinElement() {
@@ -180,6 +177,7 @@ public class AbstractWindow extends BasicMovableDialog implements IColorable {
         titlebarPanel.setBackground(ColorManager.PRIMARY);
         titleLabel.setForeground(ColorManager.TEXT);
         center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, ColorManager.PRIMARY));
+        center.setBackground(ColorManager.BACKGROUND);
 
     }
 

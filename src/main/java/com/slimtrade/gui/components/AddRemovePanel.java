@@ -29,7 +29,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
 //        addRemoveablePanel(panel, true);
 //    }
 
-    public void addRemoveablePanel(JPanel panel) {
+    public void addRemovablePanel(JPanel panel) {
         panels.clear();
         for (Component c : this.getComponents()) {
             if (c.isVisible()) {
@@ -44,8 +44,10 @@ public class AddRemovePanel extends JPanel implements IColorable {
 //            gc.gridy++;
 //        }
 //        gc.fill = GridBagConstraints.BOTH;gc.fill = GridBagConstraints.BOTH;
+        gc.fill = GridBagConstraints.BOTH;
         gc.gridy = panelCount;
         gc.insets.top = panelCount > 0 ? spacer : 0;
+        gc.weightx = 1;
         this.add(panel, gc);
 //        if(panelCount > 0) {
 //        if(recolor) {

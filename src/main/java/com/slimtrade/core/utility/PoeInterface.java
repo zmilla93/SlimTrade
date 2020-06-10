@@ -301,6 +301,8 @@ public class PoeInterface extends Robot {
         focus();
         pasteString = new StringSelection(s);
         clipboard.setContents(pasteString, null);
+        robot.keyPress(KeyEvent.VK_BACK_SPACE);
+        robot.keyRelease(KeyEvent.VK_BACK_SPACE);
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_F);
         robot.keyRelease(KeyEvent.VK_F);
@@ -328,15 +330,14 @@ public class PoeInterface extends Robot {
         }, null);
     }
 
-    public static boolean isPoeFocused() {
-
+    public static boolean isPoeFocused(boolean checkApp) {
         byte[] windowText = new byte[512];
         PointerType hwnd = User32Custom.INSTANCE.GetForegroundWindow();
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
-        if (curWindowTitle.equals(References.POE_WINDOW_TITLE)) {
+        if (curWindowTitle.startsWith(References.POE_WINDOW_TITLE)) {
             return true;
         }
-        return false;
+        return checkApp && curWindowTitle.startsWith(References.APP_NAME);
     }
 }

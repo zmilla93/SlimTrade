@@ -46,7 +46,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     private GeneralPanel generalPanel;
     public MacroPanel macroPanelIncoming;
     public MacroPanel macroPanelOutgoing;
-//    private HotkeyPanel hotkeyPanel;
 
     public OptionsWindow() {
         super("Options", true, true);
@@ -83,61 +82,38 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         ListButton generalButton = new ListButton("General");
         generalPanel = new GeneralPanel();
         link(generalButton, generalPanel);
-//        display.add(generalPanel, gc);
 
         ListButton stashButton = new ListButton("Stash Tabs");
         StashTabPanel stashPanel = new StashTabPanel();
         link(stashButton, stashPanel);
-//        display.add(stashPanel, gc);
 
         ListButton macroIncomingButton = new ListButton("Incoming Macros");
         macroPanelIncoming = new MacroPanel(MessageType.INCOMING_TRADE);
         link(macroIncomingButton, macroPanelIncoming);
-//        display.add(macroPanelIncoming, gc);
 
         ListButton macroOutgoingButton = new ListButton("Outgoing Macros");
         macroPanelOutgoing = new MacroPanel(MessageType.OUTGOING_TRADE);
         link(macroOutgoingButton, macroPanelOutgoing);
-//        display.add(macroPanelOutgoing, gc);
-
-//        ListButton incomingButton = new ListButton("old in");
-//        IncomingCustomizer incomingPanel = new IncomingCustomizer(this);
-//        link(incomingButton, incomingPanel);
-//        display.add(incomingPanel, gc);
-//
-//        ListButton outgoingButton = new ListButton("old out");
-//        OutgoingCustomizer outgoingPanel = new OutgoingCustomizer(this);
-//        link(outgoingButton, outgoingPanel);
-//        display.add(outgoingPanel, gc);
 
         ListButton ignoreButton = new ListButton("Ignore Items");
         ItemIgnorePanel ignorePanel = new ItemIgnorePanel();
         link(ignoreButton, ignorePanel);
-//        display.add(ignorePanel, gc);
 
         ListButton hotKeyButton = new ListButton("Hotkeys");
         HotkeyPanel hotkeyPanel = new HotkeyPanel();
         link(hotKeyButton, hotkeyPanel);
-//        display.add(hotkeyPanel, gc);
 
-        ListButton stashSearcherButton = new ListButton("Stash Searcher");
+        ListButton stashSearcherButton = new ListButton("Stash Sorting");
         StashSearchPanel stashSearchPanel = new StashSearchPanel();
         link(stashSearcherButton, stashSearchPanel);
-//        display.add(stashSearchPanel, gc);
 
         JButton contactButton = new ListButton("Information");
         InformationPanel contactPanel = new InformationPanel();
         link(contactButton, contactPanel);
-//        display.add(contactPanel, gc);
-
-        // JButton updateButton = new BasicButton("Update Available!");
-        // updateButton.setVisible(false);
 
         checkUpdateButton = new CheckUpdateButton("Check for Updates");
         checkUpdateButton.setPreferredSize(checkUpdateButton.getPreferredSize());
-        // TODO : Remove stash
         gc = new GridBagConstraints();
-        // gc.anchor = GridBagConstraints.NORTH;
 
         gc.weightx = 1;
         gc.weighty = 1;
@@ -155,18 +131,12 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy++;
         menuPanel.add(macroOutgoingButton, gc);
         gc.gridy++;
-//        menuPanel.add(incomingButton, gc);
-//        gc.gridy++;
-//        menuPanel.add(outgoingButton, gc);
-//        gc.gridy++;
         menuPanel.add(ignoreButton, gc);
         gc.gridy++;
         menuPanel.add(hotKeyButton, gc);
         gc.gridy++;
-        if (App.testFeatures) {
-            menuPanel.add(stashSearcherButton, gc);
-            gc.gridy++;
-        }
+        menuPanel.add(stashSearcherButton, gc);
+        gc.gridy++;
         menuPanel.add(contactButton, gc);
         gc.gridy++;
 
