@@ -1,4 +1,4 @@
-package com.slimtrade.gui.stash_search;
+package com.slimtrade.gui.stashsearch;
 
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 

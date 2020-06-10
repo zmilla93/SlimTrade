@@ -2,6 +2,7 @@ package com.slimtrade.gui;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
@@ -19,7 +20,7 @@ import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashWindow;
 import com.slimtrade.gui.stash.helper.StashHelperContainer;
-import com.slimtrade.gui.stash_search.StashSearchWindow;
+import com.slimtrade.gui.stashsearch.StashSearchWindow;
 import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;
@@ -100,7 +101,6 @@ public class FrameManager {
         showHideDialogs = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle};
         forceFrames = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, ignoreItemWindow};
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow, betrayalWindow};
-
     }
 
     public static void hideMenuFrames() {

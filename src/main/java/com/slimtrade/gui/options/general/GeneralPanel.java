@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options.general;
 
-import com.slimtrade.gui.basic.SectionHeader;
+import com.slimtrade.gui.components.SectionHeader;
 import com.slimtrade.gui.options.toggle.ToggleOptionsPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
 

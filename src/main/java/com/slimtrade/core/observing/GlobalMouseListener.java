@@ -18,7 +18,6 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
     private boolean isGameFocused;
     private boolean ignoreUntilNextFocusClick = false;
-
     private boolean hoveringMessageManager = false;
 
     public GlobalMouseListener() {

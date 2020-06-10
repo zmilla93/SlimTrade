@@ -2,7 +2,7 @@ package com.slimtrade.gui.options.macro;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
-import com.slimtrade.gui.basic.GridBagPanel;
+import com.slimtrade.gui.components.GridBagPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.enums.ICacheImage;

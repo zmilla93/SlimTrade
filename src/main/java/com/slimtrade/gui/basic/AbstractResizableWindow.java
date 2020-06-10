@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public abstract class AbstractResizableWindow extends AbstractWindow implements IColorable {
+public class AbstractResizableWindow extends AbstractWindow implements IColorable {
 
     static final long serialVersionUID = 1L;
     protected JPanel pullRight = new JPanel();
@@ -22,25 +22,29 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
     private int startingWidth;
     private int startingHeight;
     private boolean mousePressed = false;
-    private AbstractWindow local;
+//    private AbstractWindow local;
 
     private final int SLEEP_DURATION = 20;
 
     public AbstractResizableWindow(String title) {
         super(title, true);
-        buildWindow(title, true);
+        buildWindow();
     }
 
-    public AbstractResizableWindow(String title, boolean closeButton) {
-        super(title, closeButton);
-        buildWindow(title, closeButton);
+    public AbstractResizableWindow(String title, boolean makeCloseButton) {
+        super(title, makeCloseButton);
+        buildWindow();
     }
 
-    private void buildWindow(String title, boolean closeButton) {
+    public AbstractResizableWindow(String title, boolean makeCloseButton, boolean makePinButton) {
+        super(title, makeCloseButton, makePinButton);
+        buildWindow();
+    }
+
+    private void buildWindow() {
         // container.setOpaque(false);
 
         this.setMinimumSize(new Dimension(100, 100));
-        //TODO : COLOR!
         pullRight.setPreferredSize(new Dimension(pullbarSize, 0));
         pullBottom.setPreferredSize(new Dimension(0, pullbarSize));
         center.setLayout(new BorderLayout());
@@ -49,16 +53,13 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
         center.add(container, BorderLayout.CENTER);
         pullRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
         pullBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
-        local = this;
-
-//		this.updateColor();
 
         pullRight.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 startingX = e.getXOnScreen();
                 startingY = e.getY();
-                startingWidth = local.getWidth();
-                startingHeight = local.getHeight();
+                startingWidth = getWidth();
+                startingHeight = getHeight();
                 mousePressed = true;
                 new Thread(runnerRight).start();
             }
@@ -70,11 +71,10 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
 
         pullBottom.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                // bufferX = e.getX();
                 startingX = e.getXOnScreen();
                 startingY = e.getYOnScreen();
-                startingWidth = local.getWidth();
-                startingHeight = local.getHeight();
+                startingWidth = getWidth();
+                startingHeight = getHeight();
                 mousePressed = true;
                 new Thread(runnerBottom).start();
             }
@@ -100,9 +100,9 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
                 if (width % 2 != 0) width++;
                 final int finalWidth = width;
                 SwingUtilities.invokeLater(() -> {
-                    local.setPreferredSize(new Dimension(finalWidth, startingHeight));
-                    local.pack();
-                    local.repaint();
+                    setPreferredSize(new Dimension(finalWidth, startingHeight));
+                    pack();
+                    repaint();
                 });
                 try {
                     Thread.sleep(SLEEP_DURATION);
@@ -121,9 +121,9 @@ public abstract class AbstractResizableWindow extends AbstractWindow implements 
                 if (height % 2 != 0) height++;
                 final int finalHeight = height;
                 SwingUtilities.invokeLater(() -> {
-                    local.setPreferredSize(new Dimension(startingWidth, finalHeight));
-                    local.pack();
-                    local.repaint();
+                    setPreferredSize(new Dimension(startingWidth, finalHeight));
+                    pack();
+                    repaint();
                 });
                 try {
                     Thread.sleep(SLEEP_DURATION);

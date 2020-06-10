@@ -1,4 +1,4 @@
-package com.slimtrade.gui.basic;
+package com.slimtrade.gui.components;
 
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;

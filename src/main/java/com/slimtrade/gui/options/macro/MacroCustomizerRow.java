@@ -4,7 +4,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.enums.ColorTheme;
-import com.slimtrade.gui.basic.GridBagPanel;
+import com.slimtrade.gui.components.GridBagPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomCheckbox;
 import com.slimtrade.gui.custom.CustomCombo;

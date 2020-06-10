@@ -11,13 +11,15 @@ import java.util.Objects;
 
 /**
  * Cached images used by the SlimTrade UI. These are intended for internal use only.
- * CustomIcons is for icons used by the user when custom buttons.
+ * CustomIcons is for icons used by the user when making custom buttons.
  */
 
 public enum DefaultIcons implements ICacheImage {
     ARROW_DOWN("icons/default/arrow-downx48.png"),
     ARROW_UP("icons/default/arrow-upx48.png"),
     CLOSE("icons/default/closex64.png"),
+    PIN1("icons/default/pin1x48.png"),
+    PIN2("icons/default/pin2x48.png"),
     PLAY("icons/default/playx64.png"),
     TAG("icons/default/tagx64.png"),
     ;
@@ -39,8 +41,6 @@ public enum DefaultIcons implements ICacheImage {
     public Image getImage(int size) {
         if (image == null || size != cachedSize) {
             image = new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource(path))).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
-
-
             cachedSize = size;
         }
         return image;
@@ -54,13 +54,11 @@ public enum DefaultIcons implements ICacheImage {
         }
 
         if (bufferedImage == null || color != cachedColor) {
-
             bufferedImage = new BufferedImage(cachedSize, cachedSize, BufferedImage.TYPE_INT_ARGB);
             Graphics2D bGr = bufferedImage.createGraphics();
             bGr.drawImage(image, 0, 0, null);
             bGr.dispose();
             bufferedImage = colorImage(bufferedImage);
-
             cachedColor = color;
         }
 

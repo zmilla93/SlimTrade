@@ -1,5 +1,6 @@
 package com.slimtrade.gui.basic;
 
+import com.slimtrade.App;
 import com.slimtrade.core.utility.TradeUtility;
 
 import javax.swing.*;
@@ -85,7 +86,7 @@ public class BasicMovableDialog extends BasicDialog {
             while (mouseDown) {
                 int targetX = MouseInfo.getPointerInfo().getLocation().x - offsetX - borderOffset;
                 int targetY = MouseInfo.getPointerInfo().getLocation().y - offsetY - borderOffset;
-                if (screenLock) {
+                if (screenLock || App.globalKeyboard.isShiftPressed()) {
                     if (targetX < 0) targetX = 0;
                     if (targetX > TradeUtility.screenSize.width - getWidth() - borderOffset * 2)
                         targetX = TradeUtility.screenSize.width - getWidth() - borderOffset * 2;

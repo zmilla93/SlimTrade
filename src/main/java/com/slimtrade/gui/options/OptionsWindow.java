@@ -48,7 +48,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 //    private HotkeyPanel hotkeyPanel;
 
     public OptionsWindow() {
-        super("Options");
+        super("Options", true, true);
         this.setAlwaysOnTop(false);
         this.setFocusable(true);
         this.setFocusableWindowState(true);

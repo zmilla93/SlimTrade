@@ -18,20 +18,32 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
     public final int BORDER_THICKNESS = 1;
 
     private JPanel titlebarPanel = new JPanel();
+    private JPanel buttonPanel = new JPanel(new FlowLayout(0, 0, 0));
     protected JPanel center = new JPanel();
     private JLabel titleLabel;
 
     protected IconButton closeButton;
+    protected IconButton pinButton;
+    private boolean pinned = false;
+    private ImageIcon pinIcon1;
+    private ImageIcon pinIcon2;
     protected Container contentPane = this.getContentPane();
 
     private Color borderColor = ColorManager.PRIMARY;
 
     private GridBagConstraints gc = new GridBagConstraints();
 
+    public AbstractWindow(String title) {
+        this(title, true, false);
+    }
+
     public AbstractWindow(String title, boolean makeCloseButton) {
+        this(title, makeCloseButton, false);
+    }
+
+    public AbstractWindow(String title, boolean makeCloseButton, boolean makePinButton) {
         String fullTitle = "SlimTrade - " + title;
         this.setTitle(fullTitle);
-//		this.createListeners(titlebarPanel);
 
         contentPane.setLayout(new BorderLayout());
         contentPane.setBackground(borderColor);
@@ -50,25 +62,33 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
         titleLabel = new CustomLabel(fullTitle);
         gc.anchor = GridBagConstraints.LINE_START;
         titlebarPanel.add(titleLabel, BorderLayout.CENTER);
-        JPanel p = new JPanel();
-
-
         gc.insets = new Insets(0, 0, 0, 0);
-
         gc.gridx++;
 
-        if (makeCloseButton) {
-            gc.anchor = GridBagConstraints.LINE_END;
-            closeButton = new IconButton(DefaultIcons.CLOSE, TITLEBAR_HEIGHT);
-            titlebarPanel.add(closeButton, BorderLayout.EAST);
-            AbstractWindow local = this;
-            closeButton.addActionListener(e -> {
-                local.setShow(false);
-                FrameManager.refreshMenuFrames();
+        if (makePinButton) {
+            pinButton = new IconButton(DefaultIcons.PIN2, TITLEBAR_HEIGHT);
+            pinButton = new IconButton(DefaultIcons.PIN1, TITLEBAR_HEIGHT);
+            buttonPanel.add(pinButton);
+            pinButton.addActionListener(e -> {
+                pinned = !pinned;
+                if (pinned) {
+                    pinButton.setIcon(pinIcon2);
+                } else {
+                    pinButton.setIcon(pinIcon1);
+                }
+                pinButton.repaint();
             });
-
         }
 
+        if (makeCloseButton) {
+            closeButton = new IconButton(DefaultIcons.CLOSE, TITLEBAR_HEIGHT);
+            buttonPanel.add(closeButton);
+            closeButton.addActionListener(e -> {
+                setShow(false);
+                FrameManager.refreshMenuFrames();
+            });
+        }
+        titlebarPanel.add(buttonPanel, BorderLayout.EAST);
         contentPane.add(titlebarPanel, BorderLayout.NORTH);
         contentPane.add(center, BorderLayout.CENTER);
 
@@ -90,6 +110,17 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
     @Override
     public void updateColor() {
         super.updateColor();
+        pinIcon1 = new ImageIcon(DefaultIcons.PIN1.getColorImage(ColorManager.TEXT));
+        pinIcon2 = new ImageIcon(DefaultIcons.PIN2.getColorImage(ColorManager.TEXT));
+        if (pinButton != null) {
+            if (pinned) {
+                pinButton.setIcon(pinIcon2);
+                pinButton.setCachedImage(DefaultIcons.PIN2);
+            } else {
+                pinButton.setIcon(pinIcon1);
+                pinButton.setCachedImage(DefaultIcons.PIN1);
+            }
+        }
         titlebarPanel.setBackground(ColorManager.PRIMARY);
         titleLabel.setForeground(ColorManager.TEXT);
         center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, ColorManager.PRIMARY));

@@ -1,4 +1,4 @@
-package com.slimtrade.gui.basic;
+package com.slimtrade.gui.components;
 
 import javax.swing.*;
 import java.awt.*;

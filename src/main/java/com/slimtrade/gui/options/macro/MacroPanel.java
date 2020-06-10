@@ -6,7 +6,7 @@ import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.MacroButton;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.basic.SectionHeader;
+import com.slimtrade.gui.components.SectionHeader;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.custom.CustomLabel;
