@@ -22,7 +22,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
             ctrlPressed = true;
         }
-        if(e.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
+        if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
             shiftPressed = true;
         }
         // Ignore modifier keys on their own
@@ -59,7 +59,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
             ctrlPressed = false;
         }
-        if(e.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
+        if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
             shiftPressed = false;
         }
     }

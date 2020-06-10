@@ -4,7 +4,6 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.User32Custom;
-import com.slimtrade.enums.WindowType;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.WindowState;
 import com.sun.jna.Native;

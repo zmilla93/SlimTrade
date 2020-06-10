@@ -45,6 +45,7 @@ public class IconButton extends JButton implements IColorable {
     /**
      * Sets the icon of this button to an {@link ICacheImage} to be redrawn using the correct color theme.
      * This should be used instead of the JButton setIcon() method.
+     *
      * @param image
      */
     public void setCachedImage(ICacheImage image) {
