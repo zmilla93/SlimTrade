@@ -1,7 +1,8 @@
 package com.slimtrade.gui.options.cheatsheet;
 
 import com.slimtrade.App;
-import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.BasicRemovablePanel;
@@ -20,11 +21,13 @@ import java.util.Objects;
 public class CheatSheetPanel extends ContainerPanel implements ISaveable {
 
     private AddRemovePanel addRemovePanel = new AddRemovePanel();
+    private boolean disposeFrames = false;
 
     public CheatSheetPanel() {
 
         // Components
-        JLabel info1 = new CustomLabel("Add images to the image folder, refresh, add a hotkey, then save.");
+        JLabel info1 = new CustomLabel("Add images to the image folder, then refresh.");
+        JLabel info2 = new CustomLabel("Assign a hotkey to view the image. Clear a hotkey with escape.");
         JButton openFolderButton = new BasicButton("Open Folder");
         JButton refreshButton = new BasicButton("Refresh");
 
@@ -40,7 +43,9 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
         openFolderButton.addActionListener(e -> {
             File file = new File(App.saveManager.getImageFolder());
             if (!file.exists()) {
-                file.mkdirs();
+                if (!(file.mkdirs())) {
+                    return;
+                }
             }
             try {
                 Desktop.getDesktop().open(new File(App.saveManager.getImageFolder()));
@@ -50,7 +55,7 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
         });
 
         refreshButton.addActionListener(e -> {
-            refreshPanels();
+            refreshFromFolder();
         });
 
         load();
@@ -70,16 +75,19 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
         addRemovePanel.addRemovablePanel(panel);
     }
 
-    private void refreshPanels() {
+    private void refreshFromFolder() {
+        for(CheatSheetWindow w : FrameManager.cheatSheetWindows) {
+            w.dispose();
+        }
+        disposeFrames = true;
         addRemovePanel.removeAll();
         File file = new File(App.saveManager.getImageFolder());
         if (file.exists()) {
             for (File f : Objects.requireNonNull(file.listFiles())) {
-                System.out.println("str" + f.toString());
-                System.out.println("str" + f.getName());
-                System.out.println("str" + f.getAbsolutePath());
-                System.out.println("str" + f.getPath());
-                CheatSheetData data = new CheatSheetData(f.toString());
+                if(!TradeUtility.isValidImagePath(f.getAbsolutePath())) {
+                    continue;
+                }
+                CheatSheetData data = new CheatSheetData(f.getAbsolutePath());
                 addPanel(data);
                 System.out.println(f);
                 try {
@@ -90,10 +98,15 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
                 }
             }
         }
+        revalidate();
+        repaint();
     }
 
     @Override
     public void save() {
+        if(disposeFrames) {
+            FrameManager.disposeCheatSheets();
+        }
         App.saveManager.saveFile.cheatSheetData.clear();
         for (Component c : addRemovePanel.getComponents()) {
             if (c instanceof DataPanel) {
@@ -102,11 +115,15 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
                 App.saveManager.saveFile.cheatSheetData.add(panel.data);
             }
         }
+        if(disposeFrames) {
+            FrameManager.generateCheatSheets();
+            disposeFrames = false;
+        }
     }
 
     @Override
     public void load() {
-        refreshPanels();
+        refreshFromFolder();
     }
 
     private class DataPanel extends BasicRemovablePanel {

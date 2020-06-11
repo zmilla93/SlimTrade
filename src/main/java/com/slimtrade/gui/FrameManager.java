@@ -1,6 +1,8 @@
 package com.slimtrade.gui;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
@@ -13,6 +15,8 @@ import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.menubar.MenubarExpandDialog;
 import com.slimtrade.gui.messaging.MessageDialogManager;
 import com.slimtrade.gui.options.OptionsWindow;
+import com.slimtrade.gui.options.cheatsheet.CheatSheetData;
+import com.slimtrade.gui.options.cheatsheet.CheatSheetWindow;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.overlay.OverlayManager;
 import com.slimtrade.gui.scanner.ChatScannerWindow;
@@ -24,6 +28,10 @@ import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class FrameManager {
 
@@ -45,6 +53,8 @@ public class FrameManager {
     public static TrayButton trayButton;
     public static BetrayalWindow betrayalWindow;
     public static StashSearchWindow stashSearchWindow;
+//    public static ArrayList<CheatSheetData> cheatSheetData = new ArrayList<>();
+    public static CopyOnWriteArrayList<CheatSheetWindow> cheatSheetWindows;
 
     //Ignore Items
     public static IgnoreItemWindow ignoreItemWindow;
@@ -68,6 +78,8 @@ public class FrameManager {
 
 //        stashSearchWindow = new StashSearchWindow();
 //        stashSearchWindow.setShow(true);
+        // TODO : try and remove
+        cheatSheetWindows = new CopyOnWriteArrayList<>();
 
         trayButton = new TrayButton();
         trayButton.addToTray();
@@ -101,6 +113,40 @@ public class FrameManager {
         showHideDialogs = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, stashSearchWindow};
         forceFrames = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, ignoreItemWindow, stashSearchWindow};
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow, betrayalWindow};
+    }
+
+    public static void generateCheatSheets() {
+        for(CheatSheetData data : App.saveManager.saveFile.cheatSheetData) {
+//            File f = new File(data.fileName);
+//            String contentType = null;
+//            try {
+//                contentType = Files.probeContentType(f.toPath());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            if(!f.exists() || contentType == null || !contentType.startsWith("image")) {
+//                return;
+//            }
+            if(!TradeUtility.isValidImagePath(data.fileName)) {
+                return;
+            }
+            CheatSheetWindow w = new CheatSheetWindow(data);
+            FrameManager.cheatSheetWindows.add(w);
+            FrameManager.centerFrame(w);
+            for(PinElement p : App.saveManager.pinSaveFile.cheatSheetPins) {
+                if(p.name.equals(data.fileName)) {
+                    w.applyPinElement(p);
+                    w.pack();
+                }
+            }
+        }
+    }
+
+    public static void disposeCheatSheets() {
+        for(CheatSheetWindow w : FrameManager.cheatSheetWindows) {
+            w.dispose();
+            FrameManager.cheatSheetWindows.remove(w);
+        }
     }
 
     public static void hideMenuFrames() {

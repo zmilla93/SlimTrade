@@ -8,7 +8,6 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.WindowState;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class TrayButton {

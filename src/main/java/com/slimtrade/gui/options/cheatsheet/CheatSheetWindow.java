@@ -1,6 +1,9 @@
 package com.slimtrade.gui.options.cheatsheet;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.saving.elements.PinElement;
+import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
@@ -14,7 +17,7 @@ import java.io.IOException;
 
 public class CheatSheetWindow extends AbstractWindow implements ISaveable {
 
-    private CheatSheetData data;
+    public CheatSheetData data;
 
     public CheatSheetWindow(CheatSheetData data) {
         super(data.getCleanName(), true, true);
@@ -33,19 +36,24 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void pinAction(MouseEvent e) {
         super.pinAction(e);
-//        load();
-        System.out.println("PIN : " + pinned);
+        save();
     }
 
     @Override
     public void save() {
-
+        App.saveManager.pinSaveFile.cheatSheetPins.clear();
+        for(CheatSheetWindow w : FrameManager.cheatSheetWindows) {
+            PinElement pin = w.getPinElement();
+            pin.name = w.data.fileName;
+            App.saveManager.pinSaveFile.cheatSheetPins.add(pin);
+        }
+        App.saveManager.savePinsToDisk();
+        System.out.println("SAVING PIN!!!");
     }
 
     @Override

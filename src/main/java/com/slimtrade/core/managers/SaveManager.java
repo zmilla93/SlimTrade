@@ -233,11 +233,9 @@ public class SaveManager {
         } catch (JsonSyntaxException e1) {
             pinSaveFile = new PinSaveFile();
             System.out.println("Corrupted save file!");
-            return;
         } catch (IOException e2) {
             pinSaveFile = new PinSaveFile();
 //            System.out.println("Creating new save file.");
-            return;
         }
     }
 
@@ -283,6 +281,11 @@ public class SaveManager {
             saveFile.clientPath = clientPaths.get(0);
         }
         return clientCount;
+    }
+
+    public <T> T getSafe() {
+
+        return null;
     }
 
     public static void recursiveSave(Component component) {

@@ -4,7 +4,6 @@ import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.custom.CustomCombo;
 import com.slimtrade.gui.custom.CustomLabel;
-import com.slimtrade.gui.custom.CustomTextField;
 import com.slimtrade.gui.stash.LimitTextField;
 import com.slimtrade.gui.stash.StashTabCellRenderer;
 

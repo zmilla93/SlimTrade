@@ -142,6 +142,7 @@ public class App {
         GlobalScreen.addNativeKeyListener(globalKeyboard);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
         SwingUtilities.invokeLater(() -> {
+            FrameManager.generateCheatSheets();
             loadingDialog.dispose();
             App.launch();
         });

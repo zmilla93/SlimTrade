@@ -8,7 +8,7 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.options.cheatsheet.CheatSheetData;
+import com.slimtrade.gui.options.cheatsheet.CheatSheetWindow;
 import com.slimtrade.gui.scanner.ScannerMessage;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -40,11 +40,10 @@ public class HotkeyManager {
         else {
 
             // Cheat Sheets
-            for (CheatSheetData data : App.saveManager.saveFile.cheatSheetData) {
-                if (checkKey(e, data.hotkeyData)) {
-//                    data.getWindow().setVisible(true);
-                    data.getWindow().visible = ! data.getWindow().visible;
-                    data.getWindow().refreshVisibility();
+            for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
+                if (checkKey(e, w.data.hotkeyData)) {
+                    w.visible = ! w.visible;
+                    w.refreshVisibility();
                 }
             }
 

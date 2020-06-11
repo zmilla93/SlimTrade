@@ -157,6 +157,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
             this.setLocation(pinElement.anchor);
             this.setSize(pinElement.size);
         }
+        updateColor();
     }
 
     @Override

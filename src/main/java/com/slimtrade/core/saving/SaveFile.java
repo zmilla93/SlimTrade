@@ -89,9 +89,10 @@ public class SaveFile {
     public HotkeyData betrayalHotkey = null;
 
     public SaveFile() {
+        // Stash Search Defaults
         stashSearchData.add(new StashSearchData("map", "maps", StashTabColor.FIVE));
         stashSearchData.add(new StashSearchData("div", "divination card", StashTabColor.TWENTYFIVE));
-        stashSearchData.add(new StashSearchData("frag", "sacrifice at", StashTabColor.SEVEN));
+        stashSearchData.add(new StashSearchData("sac", "sacrifice at", StashTabColor.SEVEN));
         stashSearchData.add(new StashSearchData("ess", "essence", StashTabColor.FIFTEEN));
         stashSearchData.add(new StashSearchData("$$$", "currency", StashTabColor.TWENTYTWO));
         stashSearchData.add(new StashSearchData("headhunter", "headhunter", StashTabColor.ZERO));

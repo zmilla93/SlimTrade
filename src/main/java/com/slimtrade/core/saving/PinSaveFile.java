@@ -10,6 +10,6 @@ public class PinSaveFile {
     public PinElement historyPin = new PinElement();
     public PinElement chatScannerPin = new PinElement();
     public PinElement stashSearchPin = new PinElement();
-    public ArrayList<PinElement> customImagePins = new ArrayList<>();
+    public ArrayList<PinElement> cheatSheetPins = new ArrayList<>();
 
 }

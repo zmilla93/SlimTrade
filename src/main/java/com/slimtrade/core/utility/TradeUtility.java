@@ -5,22 +5,13 @@ import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.enums.POEImage;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class TradeUtility {
 
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-    // public static String getFixedCurrencyString(String input) {
-    // String[] currency = { "alch", "chaos", "ex" };
-    // String fixedString = input.replaceAll("\\s",
-    // "").replaceAll("(?i)(orb|of)", "");
-    // for (String s : currency) {
-    // if (fixedString.toLowerCase().matches(s + ".*")) {
-    // return s;
-    // }
-    // }
-    // return input;
-    // }
 
     public static String getFixedItemName(String item, double count, boolean paren) {
         String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");
@@ -38,25 +29,6 @@ public class TradeUtility {
         }
         return fixedDouble;
     }
-
-//	// TODO : Could remove empty string check
-//	public static CurrencyType getCurrencyType(String input) {
-//		input = input.toLowerCase();
-//		String[] terms = input.split("\\s+");
-//		for (CurrencyType type : CurrencyType.values()) {
-//			for (String tag : type.getTags()) {
-//				if (tag == "") {
-//					break;
-//				}
-//				for (int i = 0; i < terms.length; i++) {
-//					if (terms[i].equals(tag)) {
-//						return type;
-//					}
-//				}
-//			}
-//		}
-//		return null;
-//	}
 
     public static POEImage getPOEImage(String input) {
         if (input == null) {
@@ -90,7 +62,6 @@ public class TradeUtility {
         if (input == null) {
             return null;
         }
-//		System.out.println("INPUT : " + input);
         String cleanString = input.replaceAll("(?i)superior( )?", "").replaceAll("( )?\\(.+\\)", "");
         return cleanString;
     }
@@ -149,25 +120,6 @@ public class TradeUtility {
         return builder.toString();
     }
 
-    // public static ExpandDirection getExpandDirection(String input){
-    // for(ExpandDirection dir : ExpandDirection.values()){
-    // if(dir.toString().equals(input)){
-    // return dir;
-    // }
-    // }
-    // return null;
-    // }
-
-    // public static MenubarButtonLocation getMenubarButtonLocation(String
-    // input){
-    // for(MenubarButtonLocation location : MenubarButtonLocation.values()){
-    // if(location.getText().equals(input)){
-    // return location;
-    // }
-    // }
-    // return null;
-    // }
-
     // TODO : check more stuff?
     // TODO : THIS THROWS AN ERROR IF A VALUE IS NULL
     // TODO : Add chat scanner messages
@@ -206,6 +158,20 @@ public class TradeUtility {
             return trade1.playerName.equals(trade2.playerName);
         }
         return false;
+    }
+
+    public static boolean isValidImagePath(String path) {
+        File f = new File(path);
+        String contentType = null;
+        try {
+            contentType = Files.probeContentType(f.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(!f.exists() || contentType == null || !contentType.startsWith("image")) {
+            return false;
+        }
+        return true;
     }
 
 }
