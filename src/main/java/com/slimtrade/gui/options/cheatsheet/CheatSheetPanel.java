@@ -5,10 +5,8 @@ import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.components.BasicRemovablePanel;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.options.hotkeys.HotkeyInputPane;
 import com.slimtrade.gui.panels.ContainerPanel;
 
 import javax.swing.*;
@@ -27,16 +25,33 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
 
         // Components
         JLabel info1 = new CustomLabel("Add images to the image folder, then refresh.");
-        JLabel info2 = new CustomLabel("Assign a hotkey to view the image. Clear a hotkey with escape.");
+        JLabel info2 = new CustomLabel("Assign a hotkey to view the image. Clear hotkeys with escape.");
         JButton openFolderButton = new BasicButton("Open Folder");
         JButton refreshButton = new BasicButton("Refresh");
 
         // Build UI
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setOpaque(false);
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.BOTH;
+        buttonPanel.add(openFolderButton, gc);
+        gc.gridx++;
+        buttonPanel.add(Box.createHorizontalStrut(20), gc);
+        gc.gridx++;
+        buttonPanel.add(refreshButton, gc);
+
+
+        gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
         container.add(info1, gc);
         gc.gridy++;
-        container.add(openFolderButton, gc);
+        container.add(info2, gc);
         gc.gridy++;
-        container.add(refreshButton, gc);
+        gc.insets.top = 10;
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.BOTH;
+        container.add(buttonPanel, gc);
         gc.gridy++;
         container.add(addRemovePanel, gc);
 
@@ -63,10 +78,7 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
     }
 
     private void addPanel(CheatSheetData data) {
-//        CheatSheetData data = new CheatSheetData(fileName);
-        DataPanel panel = new DataPanel(data);
-        panel.add(new CustomLabel(data.getCleanName()));
-        panel.add(panel.hotkeyInputPane);
+        CheatSheetRow panel = new CheatSheetRow(data);
         for (CheatSheetData d : App.saveManager.saveFile.cheatSheetData) {
             if (d.fileName.equals(data.fileName)) {
                 panel.hotkeyInputPane.updateHotkey(d.hotkeyData);
@@ -109,8 +121,8 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
         }
         App.saveManager.saveFile.cheatSheetData.clear();
         for (Component c : addRemovePanel.getComponents()) {
-            if (c instanceof DataPanel) {
-                DataPanel panel = (DataPanel) c;
+            if (c instanceof CheatSheetRow) {
+                CheatSheetRow panel = (CheatSheetRow) c;
                 panel.data.hotkeyData = panel.hotkeyInputPane.getHotkeyData();
                 App.saveManager.saveFile.cheatSheetData.add(panel.data);
             }
@@ -124,18 +136,6 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
     @Override
     public void load() {
         refreshFromFolder();
-    }
-
-    private class DataPanel extends BasicRemovablePanel {
-
-        public CheatSheetData data;
-        public HotkeyInputPane hotkeyInputPane = new HotkeyInputPane();
-
-        public DataPanel(CheatSheetData data) {
-            super();
-            this.data = data;
-        }
-
     }
 
 }
