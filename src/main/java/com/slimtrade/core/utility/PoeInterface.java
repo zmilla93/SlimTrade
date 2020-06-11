@@ -9,6 +9,7 @@ import com.sun.jna.Native;
 import com.sun.jna.PointerType;
 import com.sun.jna.platform.win32.User32;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -16,6 +17,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PoeInterface extends Robot {
 
@@ -28,6 +31,7 @@ public class PoeInterface extends Robot {
     private static String wtbText_Korean = "구매하고 싶습니다";
     private static String wtbText_Thai = "สวัสดี, เราต้องการจะชื้อของคุณ";
     private static String[] wtbTextArray;
+    private static ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public PoeInterface() throws AWTException {
         try {
@@ -78,7 +82,7 @@ public class PoeInterface extends Robot {
             System.out.println("[SlimTrade] Failed to read clipboard, aborting.");
             return;
         }
-        PoeInterface.focus();
+        focus();
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
         robot.keyPress(KeyEvent.VK_ENTER);
@@ -95,7 +99,7 @@ public class PoeInterface extends Robot {
     }
 
     public static void pasteWithFocus(String s) {
-        new Thread(() -> {
+        executor.execute(() -> {
             pasteString = new StringSelection(s);
             clipboard.setContents(pasteString, null);
             focus();
@@ -138,19 +142,15 @@ public class PoeInterface extends Robot {
             robot.keyRelease(KeyEvent.VK_CONTROL);
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
-        }).start();
+        });
     }
-
-//    public static void runCommand(String[] commands, String player, String item, String price, String fullMessage) {
-//        runCommand(commands, player, item, price, fullMessage, mes);
-//    }
 
     public static void runCommand(String command) {
         runCommand(command, null);
     }
 
     public static void runCommand(String command, MessageType type) {
-        new Thread(() -> {
+        executor.execute(() -> {
             focus();
             try {
                 Thread.sleep(5);
@@ -214,14 +214,14 @@ public class PoeInterface extends Robot {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }).start();
+        });
     }
 
     public static void runCommand(String[] commands, String player, String item, String price, String fullMessage, MessageType messageType) {
         if (commands.length == 0) {
             return;
         }
-        new Thread(() -> {
+        executor.execute(() -> {
             focus();
             try {
                 Thread.sleep(5);
@@ -294,27 +294,38 @@ public class PoeInterface extends Robot {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
     }
 
     public static void findInStash(String s) {
-        focus();
-        pasteString = new StringSelection(s);
-        clipboard.setContents(pasteString, null);
-        robot.keyPress(KeyEvent.VK_BACK_SPACE);
-        robot.keyRelease(KeyEvent.VK_BACK_SPACE);
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_F);
-        robot.keyRelease(KeyEvent.VK_F);
-        robot.keyPress(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
-        FrameManager.forceAllToTop();
+        executor.execute(() -> {
+            focus();
+            if (!isPoeFocused(false)) {
+                return;
+            }
+            pasteString = new StringSelection(s);
+            clipboard.setContents(pasteString, null);
+            robot.keyPress(KeyEvent.VK_BACK_SPACE);
+            robot.keyRelease(KeyEvent.VK_BACK_SPACE);
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_F);
+            robot.keyRelease(KeyEvent.VK_F);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            SwingUtilities.invokeLater(FrameManager::forceAllToTop);
+        });
+
     }
 
-    public static void focus() {
+    private static void focus() {
         User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
             char[] className = new char[512];
             User32.INSTANCE.GetClassName(hWnd, className, 512);
@@ -340,4 +351,5 @@ public class PoeInterface extends Robot {
         }
         return checkApp && curWindowTitle.startsWith(References.APP_NAME);
     }
+
 }

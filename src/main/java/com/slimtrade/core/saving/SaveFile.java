@@ -4,10 +4,7 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.observing.HotkeyData;
 import com.slimtrade.core.saving.elements.SoundElement;
-import com.slimtrade.enums.ColorTheme;
-import com.slimtrade.enums.DateStyle;
-import com.slimtrade.enums.QuickPasteSetting;
-import com.slimtrade.enums.TimeStyle;
+import com.slimtrade.enums.*;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.options.OrderType;
@@ -96,6 +93,14 @@ public class SaveFile {
     public HotkeyData hideoutHotkey = null;
     public HotkeyData leavePartyHotkey = null;
     public HotkeyData betrayalHotkey = null;
+
+    public SaveFile() {
+        stashSearchData.add(new StashSearchData("map", "maps", StashTabColor.FIVE));
+        stashSearchData.add(new StashSearchData("div", "divination card", StashTabColor.TWENTYFIVE));
+        stashSearchData.add(new StashSearchData("frag", "sacrifice at", StashTabColor.SEVEN));
+        stashSearchData.add(new StashSearchData("ess", "essence", StashTabColor.FIFTEEN));
+        stashSearchData.add(new StashSearchData("$$$", "currency", StashTabColor.TWENTYTWO));
+    }
 
     // TODO : Should move this to somewhere more logical
     public static int dateDifference(Date d1, Date d2) {

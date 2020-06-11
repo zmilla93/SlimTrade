@@ -141,7 +141,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
      * Override to add functionality to the pin button
      */
     public void pinAction(MouseEvent e) {
-        
+
     }
 
     public PinElement getPinElement() {

@@ -2,12 +2,10 @@ package com.slimtrade.gui.options.stashsearch;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.BasicRemovablePanel;
-import com.slimtrade.gui.components.IRemovablePanelData;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.general.LabelComponentPanel;
@@ -28,7 +26,7 @@ public class StashSearchPanel extends ContainerPanel implements ISaveable {
 
     public StashSearchPanel() {
 
-        JLabel toggleOverlayLabel = new CustomLabel("Show Search Window Hotkey");
+        JLabel toggleOverlayLabel = new CustomLabel("Show Sorting Window Hotkey");
         LabelComponentPanel togglePanel = new LabelComponentPanel(toggleOverlayLabel, hotkeyInputPane, 40);
 
         container.add(searchInputPanel, gc);
@@ -57,7 +55,7 @@ public class StashSearchPanel extends ContainerPanel implements ISaveable {
         JPanel colorPanel = new JPanel(new GridBagLayout());
         panel.addItem(new CustomLabel(searchName), 100);
         panel.addItem(new CustomLabel(searchTerms, false), 200);
-        if(color == StashTabColor.ZERO) {
+        if (color == StashTabColor.ZERO) {
             colorPanel.add(new CustomLabel("~"));
             colorPanel.setOpaque(false);
             panel.addItem(colorPanel, 30);
@@ -94,6 +92,7 @@ public class StashSearchPanel extends ContainerPanel implements ISaveable {
 
     @Override
     public void load() {
+        addRemovePanel.removeAll();
         for (StashSearchData data : App.saveManager.saveFile.stashSearchData) {
             addRow(data.searchName, data.searchTerms, data.color);
         }
