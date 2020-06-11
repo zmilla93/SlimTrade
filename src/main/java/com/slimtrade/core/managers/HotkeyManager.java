@@ -18,6 +18,10 @@ public class HotkeyManager {
 
     public static void processHotkey(NativeKeyEvent e) {
 
+        if(!PoeInterface.isPoeFocused(true)) {
+            return;
+        }
+
         // Inbuilt Macros
         if (checkKey(e, App.saveManager.saveFile.closeTradeHotkey)) {
             FrameManager.messageManager.closeTrade(FrameManager.messageManager.getFirstTrade());

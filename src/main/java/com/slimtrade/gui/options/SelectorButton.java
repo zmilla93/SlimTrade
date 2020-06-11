@@ -25,6 +25,7 @@ public class SelectorButton extends BasicButton implements IColorable {
                     }
                 }
                 selected = true;
+                repaint();
             }
         });
     }

@@ -22,7 +22,7 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
     public CheatSheetWindow(CheatSheetData data) {
         super(data.getCleanName(), true, true);
         this.data = data;
-        JLabel label = new CustomLabel();
+        JLabel label = new JLabel();
         try {
             File file = new File(data.fileName);
             if (!file.exists()) {
@@ -30,8 +30,8 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
             }
             Image image = ImageIO.read(file.toURI().toURL());
             label.setIcon(new ImageIcon(image));
-            this.add(label);
-            this.pack();
+            center.add(label);
+            pack();
             ColorManager.recursiveColor(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,15 +53,12 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
             App.saveManager.pinSaveFile.cheatSheetPins.add(pin);
         }
         App.saveManager.savePinsToDisk();
-        System.out.println("SAVING PIN!!!");
     }
 
     @Override
     public void load() {
         if (data.pinElement.pinned) {
             setLocation(data.pinElement.anchor);
-//            data.pinElement.anchor
-
         }
     }
 }

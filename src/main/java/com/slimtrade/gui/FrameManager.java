@@ -159,13 +159,15 @@ public class FrameManager {
         for (HideableDialog d : showHideDialogs) {
             d.setVisible(false);
         }
+        for(HideableDialog d: cheatSheetWindows) {
+            d.setVisible(false);
+        }
         FrameManager.messageManager.hideAll();
         FrameManager.stashOverlayWindow.setVisible(false);
         FrameManager.overlayManager.hideAll();
     }
 
     public static void showVisibleFrames() {
-
         switch (windowState) {
             case STASH_OVERLAY:
                 break;
@@ -176,10 +178,12 @@ public class FrameManager {
                 for (HideableDialog d : showHideDialogs) {
                     d.setVisible(d.visible);
                 }
+                for(HideableDialog d : FrameManager.cheatSheetWindows) {
+                    d.setVisible(d.visible);
+                }
                 FrameManager.messageManager.showAll();
                 break;
         }
-
     }
 
     public static void centerFrame(Window window) {
