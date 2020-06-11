@@ -4,6 +4,7 @@ import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.options.cheatsheet.CheatSheetWindow;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -250,6 +251,9 @@ public class ColorManager {
         recursiveColor(FrameManager.stashSearchWindow);
         recursiveColor(FrameManager.menubar);
         recursiveColor(FrameManager.menubarToggle);
+        for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
+            recursiveColor(w);
+        }
         FrameManager.overlayManager.updateColor();
         FrameManager.messageManager.updateMessageColors();
     }

@@ -80,39 +80,39 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         bottomPanel.add(revertButton);
         bottomPanel.add(saveButton);
 
-        ListButton generalButton = new ListButton("General");
+        SelectorButton generalButton = new SelectorButton("General");
         generalPanel = new GeneralPanel();
         link(generalButton, generalPanel);
 
-        ListButton hotKeyButton = new ListButton("Hotkeys");
+        SelectorButton hotKeyButton = new SelectorButton("Hotkeys");
         HotkeyPanel hotkeyPanel = new HotkeyPanel();
         link(hotKeyButton, hotkeyPanel);
 
-        ListButton macroIncomingButton = new ListButton("Incoming Macros");
+        SelectorButton macroIncomingButton = new SelectorButton("Incoming Macros");
         macroPanelIncoming = new MacroPanel(MessageType.INCOMING_TRADE);
         link(macroIncomingButton, macroPanelIncoming);
 
-        ListButton macroOutgoingButton = new ListButton("Outgoing Macros");
+        SelectorButton macroOutgoingButton = new SelectorButton("Outgoing Macros");
         macroPanelOutgoing = new MacroPanel(MessageType.OUTGOING_TRADE);
         link(macroOutgoingButton, macroPanelOutgoing);
 
-        ListButton ignoreButton = new ListButton("Ignore Items");
+        SelectorButton ignoreButton = new SelectorButton("Ignore Items");
         ItemIgnorePanel ignorePanel = new ItemIgnorePanel();
         link(ignoreButton, ignorePanel);
 
-        ListButton stashButton = new ListButton("Stash Tabs");
+        SelectorButton stashButton = new SelectorButton("Stash Tabs");
         StashTabPanel stashPanel = new StashTabPanel();
         link(stashButton, stashPanel);
 
-        ListButton stashSearcherButton = new ListButton("Stash Sorting");
+        SelectorButton stashSearcherButton = new SelectorButton("Stash Sorting");
         StashSearchPanel stashSearchPanel = new StashSearchPanel();
         link(stashSearcherButton, stashSearchPanel);
 
-        ListButton cheatSheetButton = new ListButton("Cheat Sheets");
+        SelectorButton cheatSheetButton = new SelectorButton("Cheat Sheets");
         CheatSheetPanel cheatSheetPanel = new CheatSheetPanel();
         link(cheatSheetButton, cheatSheetPanel);
 
-        JButton contactButton = new ListButton("Information");
+        JButton contactButton = new SelectorButton("Information");
         InformationPanel contactPanel = new InformationPanel();
         link(contactButton, contactPanel);
 
@@ -167,7 +167,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
         display.add(generalPanel, gc);
         ColorManager.recursiveColor(generalPanel);
-        generalButton.active = true;
+        generalButton.selected = true;
         this.setDefaultSize(new Dimension(1000, 720));
 
         this.refresh();
@@ -270,21 +270,14 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     private void link(JButton b, JPanel p) {
         b.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
-                ListButton lb;
-                for (Component c : menuPanel.getComponents()) {
-                    lb = (ListButton) c;
-                    lb.active = false;
-                }
-                lb = (ListButton) b;
-                lb.active = true;
                 GridBagConstraints gc = new GridBagConstraints();
                 gc.gridx = 0;
                 gc.gridy = 0;
                 display.removeAll();
                 display.add(p, gc);
                 ColorManager.recursiveColor(p);
-                revalidate();
-                repaint();
+                display.revalidate();
+                display.repaint();
             }
         });
     }

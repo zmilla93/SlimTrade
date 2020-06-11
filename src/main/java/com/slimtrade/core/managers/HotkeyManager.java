@@ -35,14 +35,12 @@ public class HotkeyManager {
             FrameManager.betrayalWindow.refreshVisibility();
         } else if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
             PoeInterface.attemptQuickPaste();
-        }
-
-        else {
+        } else {
 
             // Cheat Sheets
             for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
                 if (checkKey(e, w.data.hotkeyData)) {
-                    w.visible = ! w.visible;
+                    w.visible = !w.visible;
                     w.refreshVisibility();
                 }
             }

@@ -76,7 +76,7 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
     }
 
     private void refreshFromFolder() {
-        for(CheatSheetWindow w : FrameManager.cheatSheetWindows) {
+        for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
             w.dispose();
         }
         disposeFrames = true;
@@ -84,7 +84,7 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
         File file = new File(App.saveManager.getImageFolder());
         if (file.exists()) {
             for (File f : Objects.requireNonNull(file.listFiles())) {
-                if(!TradeUtility.isValidImagePath(f.getAbsolutePath())) {
+                if (!TradeUtility.isValidImagePath(f.getAbsolutePath())) {
                     continue;
                 }
                 CheatSheetData data = new CheatSheetData(f.getAbsolutePath());
@@ -104,7 +104,7 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
 
     @Override
     public void save() {
-        if(disposeFrames) {
+        if (disposeFrames) {
             FrameManager.disposeCheatSheets();
         }
         App.saveManager.saveFile.cheatSheetData.clear();
@@ -115,7 +115,7 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
                 App.saveManager.saveFile.cheatSheetData.add(panel.data);
             }
         }
-        if(disposeFrames) {
+        if (disposeFrames) {
             FrameManager.generateCheatSheets();
             disposeFrames = false;
         }

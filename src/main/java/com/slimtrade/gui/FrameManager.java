@@ -28,9 +28,6 @@ import com.slimtrade.gui.tutorial.TutorialWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class FrameManager {
@@ -53,7 +50,7 @@ public class FrameManager {
     public static TrayButton trayButton;
     public static BetrayalWindow betrayalWindow;
     public static StashSearchWindow stashSearchWindow;
-//    public static ArrayList<CheatSheetData> cheatSheetData = new ArrayList<>();
+    //    public static ArrayList<CheatSheetData> cheatSheetData = new ArrayList<>();
     public static CopyOnWriteArrayList<CheatSheetWindow> cheatSheetWindows;
 
     //Ignore Items
@@ -116,7 +113,7 @@ public class FrameManager {
     }
 
     public static void generateCheatSheets() {
-        for(CheatSheetData data : App.saveManager.saveFile.cheatSheetData) {
+        for (CheatSheetData data : App.saveManager.saveFile.cheatSheetData) {
 //            File f = new File(data.fileName);
 //            String contentType = null;
 //            try {
@@ -127,14 +124,14 @@ public class FrameManager {
 //            if(!f.exists() || contentType == null || !contentType.startsWith("image")) {
 //                return;
 //            }
-            if(!TradeUtility.isValidImagePath(data.fileName)) {
+            if (!TradeUtility.isValidImagePath(data.fileName)) {
                 return;
             }
             CheatSheetWindow w = new CheatSheetWindow(data);
             FrameManager.cheatSheetWindows.add(w);
             FrameManager.centerFrame(w);
-            for(PinElement p : App.saveManager.pinSaveFile.cheatSheetPins) {
-                if(p.name.equals(data.fileName)) {
+            for (PinElement p : App.saveManager.pinSaveFile.cheatSheetPins) {
+                if (p.name.equals(data.fileName)) {
                     w.applyPinElement(p);
                     w.pack();
                 }
@@ -143,7 +140,7 @@ public class FrameManager {
     }
 
     public static void disposeCheatSheets() {
-        for(CheatSheetWindow w : FrameManager.cheatSheetWindows) {
+        for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
             w.dispose();
             FrameManager.cheatSheetWindows.remove(w);
         }

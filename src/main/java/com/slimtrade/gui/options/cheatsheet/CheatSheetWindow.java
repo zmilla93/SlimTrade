@@ -25,7 +25,7 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
         JLabel label = new CustomLabel();
         try {
             File file = new File(data.fileName);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 return;
             }
             Image image = ImageIO.read(file.toURI().toURL());
@@ -47,7 +47,7 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
     @Override
     public void save() {
         App.saveManager.pinSaveFile.cheatSheetPins.clear();
-        for(CheatSheetWindow w : FrameManager.cheatSheetWindows) {
+        for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
             PinElement pin = w.getPinElement();
             pin.name = w.data.fileName;
             App.saveManager.pinSaveFile.cheatSheetPins.add(pin);
@@ -58,7 +58,7 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
 
     @Override
     public void load() {
-        if(data.pinElement.pinned) {
+        if (data.pinElement.pinned) {
             setLocation(data.pinElement.anchor);
 //            data.pinElement.anchor
 

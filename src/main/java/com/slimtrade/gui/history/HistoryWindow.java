@@ -11,7 +11,7 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.options.ListButton;
+import com.slimtrade.gui.options.SelectorButton;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.panels.BufferPanel;
 
@@ -70,17 +70,18 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
         innerPanel.add(new BufferPanel(0, 10), BorderLayout.SOUTH);
         innerPanel.add(new BufferPanel(10, 0), BorderLayout.EAST);
 
-        ListButton incomingButton = new ListButton("Incoming");
-        ListButton outgoingButton = new ListButton("Outgoing");
+        SelectorButton incomingButton = new SelectorButton("Incoming");
+        SelectorButton outgoingButton = new SelectorButton("Outgoing");
 
 
 //		JButton savedButton = new JButton("Saved");
 
         buttonPanel.add(incomingButton);
         buttonPanel.add(outgoingButton);
-        ListButton.link(buttonPanel, incomingButton);
-        ListButton.link(buttonPanel, outgoingButton);
-        incomingButton.active = true;
+//        ListButton.link(buttonPanel, incomingButton);
+//        ListButton.link(buttonPanel, outgoingButton);
+
+        incomingButton.selected = true;
 //		buttonPanel.add(savedButton);
 
 //        incomingScroll.getVerticalScrollBar().setUI(new CustomScrollBarUI(incomingScroll.getVerticalScrollBar()));

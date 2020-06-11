@@ -168,7 +168,7 @@ public class TradeUtility {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(!f.exists() || contentType == null || !contentType.startsWith("image")) {
+        if (!f.exists() || contentType == null || !contentType.startsWith("image")) {
             return false;
         }
         return true;

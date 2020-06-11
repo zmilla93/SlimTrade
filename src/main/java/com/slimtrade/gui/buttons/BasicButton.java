@@ -7,68 +7,34 @@ import com.slimtrade.gui.custom.CustomToolTip;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class BasicButton extends JButton implements IColorable {
 
     private static final long serialVersionUID = 1L;
 
-    private final ButtonModel model;
+    protected Color primaryColor = ColorManager.PRIMARY;
+    protected Color secondaryColor = ColorManager.BACKGROUND;
+    protected Color inactiveColor = ColorManager.LOW_CONTRAST_1;
+//    protected GradientPaint gradientPaint = new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), primaryColor);
 
-    private Border borderDefault;
-    private Border borderRollover;
-    private Border borderDisabled;
+    protected Border borderDefault;
+    protected Border borderRollover;
+    protected Border borderDisabled;
 
-    public Color primaryColor = ColorManager.PRIMARY;
-    public Color secondaryColor = ColorManager.BACKGROUND;
+    protected Border bufferBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
+    protected Border bufferBorderSlim = BorderFactory.createEmptyBorder(4, 14, 4, 14);
 
-    private Border bufferBorder = BorderFactory.createEmptyBorder(5, 15, 5, 15);
-    private Border bufferBorderSlim = BorderFactory.createEmptyBorder(4, 14, 4, 14);
-
-    private boolean forcePress;
-
-    // TODO : Secondary Color
+    public boolean selected;
+    protected boolean useGradient = true;
 
     public BasicButton() {
-        this.model = this.getModel();
-        buildButton();
+        this(null);
     }
 
     public BasicButton(String text) {
         super(text);
-        this.model = this.getModel();
-        buildButton();
-    }
-
-    //TODO : Check mouse button?
-    //TODO : Currently paints twice per action...
-    // TODO : Adjust border
-    private void buildButton() {
-
         setContentAreaFilled(false);
         setFocusPainted(false);
-        this.addMouseListener(new MouseListener() {
-            public void mouseClicked(MouseEvent e) {
-                
-            }
-
-            public void mouseEntered(MouseEvent e) {
-                model.setRollover(true);
-            }
-
-            public void mouseExited(MouseEvent e) {
-                model.setRollover(false);
-            }
-
-            public void mousePressed(MouseEvent e) {
-                model.setPressed(true);
-            }
-
-            public void mouseReleased(MouseEvent e) {
-                model.setPressed(false);
-            }
-        });
     }
 
     @Override
@@ -89,12 +55,28 @@ public class BasicButton extends JButton implements IColorable {
             this.setBorder(borderDisabled);
         }
         //FILL
-        if (model.isPressed() && model.isRollover() || forcePress) {
+        if (model.isPressed() && model.isRollover()) {
             g2.setPaint(curPrimary);
         } else if (model.isPressed() && !model.isRollover()) {
             g2.setPaint(ColorManager.LOW_CONTRAST_1);
         } else {
-            g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), curPrimary));
+            if (selected) {
+                g2.setPaint(primaryColor);
+            } else {
+                if (useGradient) {
+                    if (model.isRollover()) {
+                        g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), ColorManager.lighter(primaryColor, 10)));
+                    } else {
+                        g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), primaryColor));
+                    }
+                } else {
+                    if (model.isRollover()) {
+                        g2.setPaint(ColorManager.lighter(inactiveColor, 15));
+                    } else {
+                        g2.setPaint(inactiveColor);
+                    }
+                }
+            }
         }
         g2.fillRect(0, 0, getWidth(), getHeight());
         g2.dispose();
@@ -105,20 +87,16 @@ public class BasicButton extends JButton implements IColorable {
     public void updateColor() {
         primaryColor = ColorManager.PRIMARY;
         secondaryColor = ColorManager.BUTTON_SECONDARY_COLOR;
+        inactiveColor = ColorManager.LOW_CONTRAST_1;
         this.setForeground(ColorManager.TEXT);
         borderDefault = BorderFactory.createCompoundBorder(ColorManager.BORDER_TEXT, bufferBorder);
-        Border b1 = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(ColorManager.HIGH_CONTRAST_2), BorderFactory.createLineBorder(primaryColor));
-        borderRollover = BorderFactory.createCompoundBorder(b1, bufferBorderSlim);
+        borderRollover = borderDefault;
         borderDisabled = BorderFactory.createCompoundBorder(ColorManager.BORDER_LOW_CONTRAST_1, bufferBorder);
     }
 
     @Override
     public JToolTip createToolTip() {
         return new CustomToolTip(this);
-    }
-
-    public void setForcePress(boolean state) {
-        this.forcePress = state;
     }
 
 }

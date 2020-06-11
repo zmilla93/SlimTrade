@@ -5,5 +5,4 @@ import javax.swing.*;
 public class CheatSheetDataPanel extends JPanel {
 
 
-
 }
