@@ -7,6 +7,7 @@ import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.enums.StashTabColor;
+import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.PaintedPanel;
 import com.slimtrade.gui.custom.CustomLabel;
@@ -30,8 +31,9 @@ public class StashSearchWindow extends AbstractWindow implements IColorable, ISa
         gc.gridx = 0;
         gc.gridy = 0;
         gc.fill = GridBagConstraints.BOTH;
-        load();
         refresh();
+        FrameManager.centerFrame(this);
+        load();
     }
 
     public void refresh() {

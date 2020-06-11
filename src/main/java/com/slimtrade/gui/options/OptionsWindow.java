@@ -17,6 +17,7 @@ import com.slimtrade.gui.buttons.ConfirmButton;
 import com.slimtrade.gui.buttons.DenyButton;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.custom.CustomScrollPane;
+import com.slimtrade.gui.options.cheatsheet.CheatSheetPanel;
 import com.slimtrade.gui.options.general.GeneralPanel;
 import com.slimtrade.gui.options.general.HistorySettingsPanel;
 import com.slimtrade.gui.options.hotkeys.HotkeyPanel;
@@ -83,9 +84,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         generalPanel = new GeneralPanel();
         link(generalButton, generalPanel);
 
-        ListButton stashButton = new ListButton("Stash Tabs");
-        StashTabPanel stashPanel = new StashTabPanel();
-        link(stashButton, stashPanel);
+        ListButton hotKeyButton = new ListButton("Hotkeys");
+        HotkeyPanel hotkeyPanel = new HotkeyPanel();
+        link(hotKeyButton, hotkeyPanel);
 
         ListButton macroIncomingButton = new ListButton("Incoming Macros");
         macroPanelIncoming = new MacroPanel(MessageType.INCOMING_TRADE);
@@ -99,13 +100,17 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         ItemIgnorePanel ignorePanel = new ItemIgnorePanel();
         link(ignoreButton, ignorePanel);
 
-        ListButton hotKeyButton = new ListButton("Hotkeys");
-        HotkeyPanel hotkeyPanel = new HotkeyPanel();
-        link(hotKeyButton, hotkeyPanel);
+        ListButton stashButton = new ListButton("Stash Tabs");
+        StashTabPanel stashPanel = new StashTabPanel();
+        link(stashButton, stashPanel);
 
         ListButton stashSearcherButton = new ListButton("Stash Sorting");
         StashSearchPanel stashSearchPanel = new StashSearchPanel();
         link(stashSearcherButton, stashSearchPanel);
+
+        ListButton cheatSheetButton = new ListButton("Cheat Sheets");
+        CheatSheetPanel cheatSheetPanel = new CheatSheetPanel();
+        link(cheatSheetButton, cheatSheetPanel);
 
         JButton contactButton = new ListButton("Information");
         InformationPanel contactPanel = new InformationPanel();
@@ -125,7 +130,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy = 0;
         menuPanel.add(generalButton, gc);
         gc.gridy++;
-        menuPanel.add(stashButton, gc);
+        menuPanel.add(hotKeyButton, gc);
         gc.gridy++;
         menuPanel.add(macroIncomingButton, gc);
         gc.gridy++;
@@ -133,9 +138,11 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy++;
         menuPanel.add(ignoreButton, gc);
         gc.gridy++;
-        menuPanel.add(hotKeyButton, gc);
+        menuPanel.add(stashButton, gc);
         gc.gridy++;
         menuPanel.add(stashSearcherButton, gc);
+        gc.gridy++;
+        menuPanel.add(cheatSheetButton, gc);
         gc.gridy++;
         menuPanel.add(contactButton, gc);
         gc.gridy++;

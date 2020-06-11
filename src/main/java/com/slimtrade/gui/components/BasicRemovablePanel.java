@@ -20,6 +20,10 @@ public class BasicRemovablePanel extends JPanel implements IColorable {
     private JButton shiftDownButton;
     private IRemovablePanelData data;
 
+    public BasicRemovablePanel() {
+        this(false);
+    }
+
     public BasicRemovablePanel(boolean shiftButtons) {
         super(new GridBagLayout());
         buttonPanel.setOpaque(false);

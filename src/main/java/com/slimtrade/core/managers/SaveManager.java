@@ -29,6 +29,7 @@ public class SaveManager {
     //Internal
     private final String folderWin = "SlimTrade";
     private final String folderOther = ".slimtrade";
+    private final String imageFolder = "images";
     private final String fileName = "settings.json";
     private final String stashFileName = "stash.json";
     private final String pinSaveFileName = "pins.json";
@@ -61,8 +62,12 @@ public class SaveManager {
         overlaySavePath = saveDirectory + File.separator + overlayFileName;
         scannerSavePath = saveDirectory + File.separator + scannerFileName;
         File saveDir = new File(saveDirectory);
+        File imageDir = new File(saveDirectory + File.separator + imageFolder);
         if (!saveDir.exists()) {
             saveDir.mkdirs();
+        }
+        if (!imageDir.exists()) {
+            imageDir.mkdirs();
         }
         if (saveDir.exists()) {
             validSavePath = true;
@@ -70,6 +75,10 @@ public class SaveManager {
 
         gson = new Gson();
 
+    }
+
+    public String getImageFolder() {
+        return saveDirectory + File.separator + imageFolder;
     }
 
     public void loadFromDisk() {

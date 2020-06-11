@@ -8,6 +8,7 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.options.cheatsheet.CheatSheetData;
 import com.slimtrade.gui.scanner.ScannerMessage;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class HotkeyManager {
 
     public static void processHotkey(NativeKeyEvent e) {
+
+        // Inbuilt Macros
         if (checkKey(e, App.saveManager.saveFile.closeTradeHotkey)) {
             FrameManager.messageManager.closeTrade(FrameManager.messageManager.getFirstTrade());
         } else if (checkKey(e, App.saveManager.saveFile.stashSearchHotkey)) {
@@ -33,8 +36,19 @@ public class HotkeyManager {
         } else if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, App.saveManager.saveFile.quickPasteHotkey)) {
             PoeInterface.attemptQuickPaste();
         }
-        // TODO : CLOSE BUTTON
+
         else {
+
+            // Cheat Sheets
+            for (CheatSheetData data : App.saveManager.saveFile.cheatSheetData) {
+                if (checkKey(e, data.hotkeyData)) {
+//                    data.getWindow().setVisible(true);
+                    data.getWindow().visible = ! data.getWindow().visible;
+                    data.getWindow().refreshVisibility();
+                }
+            }
+
+            // Close Button
             TradeOffer firstTrade = FrameManager.messageManager.getFirstTrade();
             if (firstTrade != null) {
                 HotkeyData closeMacro = null;
@@ -57,8 +71,9 @@ public class HotkeyManager {
                     case UNKNOWN:
                         break;
                 }
-                if (macros != null) {
 
+                // Custom Macros
+                if (macros != null) {
                     // Macros
                     for (MacroButton b : macros) {
                         if (b.hotkeyData != null && e.getKeyCode() == b.hotkeyData.keyCode) {

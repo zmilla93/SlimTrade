@@ -17,12 +17,12 @@ import java.awt.*;
 
 public class StashSearchPanel extends ContainerPanel implements ISaveable {
 
-    JLabel info1 = new CustomLabel("Quickly search phrases inside your stash to help with sorting.");
+    JLabel info1 = new CustomLabel("Create buttons to paste search terms into your stash to help with sorting.");
+    JLabel info2 = new CustomLabel("Add a hotkey to open the actual sorting window. Default white ignores color coding.");
 
     private SearchInputPanel searchInputPanel = new SearchInputPanel();
     private AddRemovePanel addRemovePanel = new AddRemovePanel();
     private HotkeyInputPane hotkeyInputPane = new HotkeyInputPane();
-
 
     public StashSearchPanel() {
 
@@ -33,6 +33,10 @@ public class StashSearchPanel extends ContainerPanel implements ISaveable {
         gc.gridy++;
         gc.insets.top = 5;
         container.add(info1, gc);
+        gc.gridy++;
+        gc.insets.top = 0;
+        container.add(info2, gc);
+        gc.insets.top = 5;
         gc.gridy++;
         container.add(togglePanel, gc);
         gc.gridy++;

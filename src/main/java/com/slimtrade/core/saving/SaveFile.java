@@ -8,6 +8,7 @@ import com.slimtrade.enums.*;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.options.OrderType;
+import com.slimtrade.gui.options.cheatsheet.CheatSheetData;
 import com.slimtrade.gui.options.ignore.IgnoreData;
 import com.slimtrade.gui.options.stashsearch.StashSearchData;
 
@@ -51,11 +52,13 @@ public class SaveFile {
     public SoundElement outgoingMessageSound = new SoundElement(Sound.PING1, 50);
     public SoundElement scannerMessageSound = new SoundElement(Sound.PING2, 50);
     public SoundElement playerJoinedSound = new SoundElement(Sound.BLIP1, 50);
-//    public SoundElement buttonSound = new SoundElement(Sound.CLICK1, 50);
 
     // Stash Search
     public HotkeyData stashSearchHotkey = null;
     public ArrayList<StashSearchData> stashSearchData = new ArrayList<>();
+
+    // Cheat Sheets
+    public ArrayList<CheatSheetData> cheatSheetData = new ArrayList<>();
 
     // Client
     public String clientPath = null;
@@ -78,17 +81,8 @@ public class SaveFile {
             new MacroButton(ButtonRow.BOTTOM, "/hideout", "", CustomIcons.HOME, null, true),
     };
 
-    // Legacy for 0.2.4 and earlier
-    public String thankIncomingLMB = "Thanks!", thankIncomingRMB;
-    public String thankOutgoingLMB = "Thanks!", thankOutgoingRMB;
-    public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
-    public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
-    // End Legacy
-
     // Hotkeys
     public HotkeyData closeTradeHotkey = null;
-    //    public HotkeyData closeIncomingHotkey = null;
-//    public HotkeyData closeOutoingHotkey = null;
     public HotkeyData remainingHotkey = null;
     public HotkeyData hideoutHotkey = null;
     public HotkeyData leavePartyHotkey = null;
@@ -100,6 +94,7 @@ public class SaveFile {
         stashSearchData.add(new StashSearchData("frag", "sacrifice at", StashTabColor.SEVEN));
         stashSearchData.add(new StashSearchData("ess", "essence", StashTabColor.FIFTEEN));
         stashSearchData.add(new StashSearchData("$$$", "currency", StashTabColor.TWENTYTWO));
+        stashSearchData.add(new StashSearchData("headhunter", "headhunter", StashTabColor.ZERO));
     }
 
     // TODO : Should move this to somewhere more logical

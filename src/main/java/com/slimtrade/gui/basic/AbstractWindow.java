@@ -21,7 +21,6 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
     public final int BORDER_THICKNESS = 1;
     private Dimension defaultSize;
 
-
     private JPanel titlebarPanel = new JPanel();
     private JPanel buttonPanel = new JPanel(new FlowLayout(0, 0, 0));
     protected JPanel center = new JPanel(new GridBagLayout());
