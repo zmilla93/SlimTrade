@@ -31,8 +31,9 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
         this.setFocusableWindowState(true);
         this.setMinimumSize(new Dimension(400, 400));
         container.setBackground(ColorManager.CLEAR);
-        center.setBackground(ColorManager.CLEAR);
+        center.setOpaque(false);
         this.setBackground(ColorManager.CLEAR);
+        getContentPane().setBackground(ColorManager.CLEAR);
 
         int buffer = 10;
         JPanel gridOuter = new JPanel();
@@ -141,5 +142,6 @@ public class StashWindow extends AbstractResizableWindow implements ISaveable, I
     public void updateColor() {
         super.updateColor();
         buttonPanel.setBackground(ColorManager.BACKGROUND);
+        repaint();
     }
 }

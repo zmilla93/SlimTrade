@@ -30,6 +30,5 @@ public class BasicDialog extends HideableDialog implements IColorable {
     @Override
     public void updateColor() {
         this.getContentPane().setBackground(ColorManager.BACKGROUND);
-        this.getContentPane().setForeground(ColorManager.TEXT);
     }
 }

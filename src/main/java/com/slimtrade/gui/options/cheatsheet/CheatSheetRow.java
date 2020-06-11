@@ -19,26 +19,31 @@ public class CheatSheetRow extends JPanel implements IColorable {
 
         // Components
         JPanel labelPanel = new JPanel(new GridBagLayout());
-        labelPanel.add(new CustomLabel(data.getCleanName()));
-        labelPanel.setOpaque(false);
-
-        // Build UI
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        gc.anchor = GridBagConstraints.WEST;
         gc.weightx = 1;
         gc.fill = GridBagConstraints.BOTH;
-        gc.insets.left = 40;
-        gc.insets.right = 40;
+//        gc.insets.left = 100;
+        labelPanel.add(new CustomLabel(data.getCleanName()), gc);
+        labelPanel.setOpaque(false);
+
+        // Build UI
+//        gc.fill = GridBagConstraints.BOTH;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.weightx = 1;
+
+        gc.insets.left = 20;
+        gc.insets.right = 20;
+        gc.fill = GridBagConstraints.BOTH;
         add(labelPanel, gc);
 
         gc.gridx++;
-        gc.anchor = GridBagConstraints.EAST;
-        gc.fill = GridBagConstraints.NONE;
-        gc.weightx = 0;
         int i = 2;
         gc.insets = new Insets(i, 0, i, i);
+        gc.weightx = 0;
+        gc.anchor = GridBagConstraints.EAST;
+        gc.fill = GridBagConstraints.NONE;
         add(hotkeyInputPane, gc);
 
     }

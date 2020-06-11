@@ -3,6 +3,7 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.enums.DefaultIcons;
+import com.slimtrade.gui.enums.POEImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,12 +24,17 @@ public class ImageTestingWindow extends JFrame {
         for (CustomIcons i : CustomIcons.values()) {
             p2.add(new IconButton(i, 20));
         }
-//        // POE Images
-//        for (POEImage t : POEImage.values()) {
-//            if(t.isValid()) {
-//                p3.add(new IconButton(t, 30));
-//            }
-//        }
+        // POE Images
+        for (POEImage t : POEImage.values()) {
+            if(t.isValid()) {
+                JLabel label = new JLabel();
+                label.setIcon(new ImageIcon(t.getImage()));
+                p3.add(label);
+            }
+        }
+        JLabel label = new JLabel();
+//        label.setIcon(new ImageIcon(DefaultIcons.PAYPAL.getImage(32)));
+        p3.add(label);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();

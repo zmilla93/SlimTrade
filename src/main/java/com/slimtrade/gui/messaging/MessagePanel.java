@@ -310,8 +310,6 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         timerPanel.setBorderColor(ColorManager.MESSAGE_TIMER_BG);
         switch (trade.messageType) {
             case CHAT_SCANNER:
-                // TODO : Custom tooltip
-                itemPanel.getLabel().setToolTipText(trade.searchMessage);
                 borderPanel.setBackground(ColorManager.SCANNER_BACKGROUND);
                 pricePanel.setBackground(ColorManager.SCANNER_BACKGROUND);
                 break;
