@@ -37,7 +37,7 @@ import java.net.URISyntaxException;
 public class OptionsWindow extends AbstractResizableWindow implements IColorable, ISaveable {
 
     private static final long serialVersionUID = 1L;
-    private final JPanel display = new JPanel();
+    private final JPanel display = new JPanel(new GridBagLayout());
     private final JScrollPane scrollDisplay;
 
     private final JPanel menuPanel = new JPanel(new GridBagLayout());
@@ -165,7 +165,26 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         container.add(menuBorder, BorderLayout.WEST);
         container.add(scrollDisplay, BorderLayout.CENTER);
 
+        gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
         display.add(generalPanel, gc);
+        gc.gridy++;
+        display.add(hotkeyPanel, gc);
+        gc.gridy++;
+        display.add(macroPanelIncoming, gc);
+        gc.gridy++;
+        display.add(macroPanelOutgoing, gc);
+        gc.gridy++;
+        display.add(ignorePanel, gc);
+        gc.gridy++;
+        display.add(stashPanel, gc);
+        gc.gridy++;
+        display.add(stashSearchPanel, gc);
+        gc.gridy++;
+        display.add(cheatSheetPanel, gc);
+        gc.gridy++;
+        display.add(contactPanel, gc);
         ColorManager.recursiveColor(generalPanel);
         generalButton.selected = true;
         this.setDefaultSize(new Dimension(1000, 720));
@@ -270,14 +289,10 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     private void link(JButton b, JPanel p) {
         b.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
-                GridBagConstraints gc = new GridBagConstraints();
-                gc.gridx = 0;
-                gc.gridy = 0;
-                display.removeAll();
-                display.add(p, gc);
-                ColorManager.recursiveColor(p);
-                display.revalidate();
-                display.repaint();
+                for (Component c : display.getComponents()) {
+                    c.setVisible(false);
+                }
+                p.setVisible(true);
             }
         });
     }
