@@ -6,19 +6,18 @@ import java.awt.*;
 public class LabelComponentPanel extends JPanel {
 
     public LabelComponentPanel(JLabel label, Component component) {
-        super(new GridBagLayout());
+        super(new BorderLayout());
         this.setOpaque(false);
 
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = 0;
-        gc.gridy = 0;
-        gc.weightx = 1;
-
-        gc.anchor = GridBagConstraints.WEST;
-        this.add(label, gc);
-        gc.gridx++;
-        gc.anchor = GridBagConstraints.EAST;
-        this.add(component, gc);
+//        GridBagConstraints gc = new GridBagConstraints();
+//        gc.gridx = 0;
+//        gc.gridy = 0;
+//        gc.weightx = 1;
+//        gc.anchor = GridBagConstraints.WEST;
+        this.add(label, BorderLayout.WEST);
+//        gc.gridx++;
+//        gc.anchor = GridBagConstraints.EAST;
+        this.add(component, BorderLayout.EAST);
 
     }
 

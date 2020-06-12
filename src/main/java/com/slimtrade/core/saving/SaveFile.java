@@ -82,11 +82,15 @@ public class SaveFile {
     };
 
     // Hotkeys
+    public HotkeyData optionsHotkey = null;
+    public HotkeyData historyHotkey = null;
+    public HotkeyData chatScannerHotkey = null;
     public HotkeyData closeTradeHotkey = null;
     public HotkeyData remainingHotkey = null;
     public HotkeyData hideoutHotkey = null;
     public HotkeyData leavePartyHotkey = null;
     public HotkeyData betrayalHotkey = null;
+    public HotkeyData dndHotkey = null;
 
     public SaveFile() {
         // Stash Search Defaults

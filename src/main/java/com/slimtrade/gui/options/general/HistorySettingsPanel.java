@@ -61,6 +61,7 @@ public class HistorySettingsPanel extends ContainerPanel implements ISaveable, I
         gc.gridy++;
 
         // Date Style
+        gc.insets.top = 5;
         container.add(dateLabel, gc);
         gc.gridx = 2;
         container.add(dateCombo, gc);

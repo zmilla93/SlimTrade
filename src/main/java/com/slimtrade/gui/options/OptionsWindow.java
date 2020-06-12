@@ -185,14 +185,16 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         display.add(cheatSheetPanel, gc);
         gc.gridy++;
         display.add(contactPanel, gc);
-        ColorManager.recursiveColor(generalPanel);
+        for(Component c : display.getComponents()) {
+            c.setVisible(false);
+        }
+        generalPanel.setVisible(true);
         generalButton.selected = true;
-        this.setDefaultSize(new Dimension(1000, 720));
+        this.setDefaultSize(new Dimension(1000, 780));
 
         this.refresh();
         //TODO : Resize doesn't respect maximum size
         this.setMinimumSize(new Dimension(500, 550));
-        this.setMaximumSize(new Dimension(1600, 900));
         FrameManager.centerFrame(this);
 
         checkUpdateButton.addActionListener(e -> {

@@ -11,6 +11,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     private static final int[] removeMasks = {256, 512, 1024, 2048, 4096};
 
     private static volatile boolean ctrlPressed;
+    private static volatile boolean atlPressed;
     private static volatile boolean shiftPressed;
 
     @Override
@@ -20,8 +21,9 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
             ctrlPressed = true;
-        }
-        if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
+        } else if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
+            atlPressed = true;
+        } else if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
             shiftPressed = true;
         }
         // Ignore modifier keys on their own
@@ -57,8 +59,9 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     public void nativeKeyReleased(NativeKeyEvent e) {
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
             ctrlPressed = false;
-        }
-        if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
+        } else if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
+            atlPressed = false;
+        } else if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
             shiftPressed = false;
         }
     }
@@ -66,6 +69,14 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     @Override
     public void nativeKeyTyped(NativeKeyEvent e) {
         // Unused
+    }
+
+    public boolean isCtrlPressed() {
+        return ctrlPressed;
+    }
+
+    public boolean isAtlPressed() {
+        return atlPressed;
     }
 
     public boolean isShiftPressed() {

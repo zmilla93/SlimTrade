@@ -33,8 +33,8 @@ public class CheatSheetRow extends JPanel implements IColorable {
         gc.anchor = GridBagConstraints.WEST;
         gc.weightx = 1;
 
-        gc.insets.left = 20;
-        gc.insets.right = 20;
+        gc.insets.left = 5;
+//        gc.insets.right = 20;
         gc.fill = GridBagConstraints.BOTH;
         add(labelPanel, gc);
 

@@ -26,14 +26,14 @@ public class MessageDialogManager {
 
     private Point anchorPoint;
     public static final Dimension DEFAULT_SIZE = new Dimension(400, 40);
-    private int sizeIncrease = 0;
+//    private int sizeIncrease = 0;
 //    private ExpandDirection expandDirection;
 
     private final int BUFFER_SIZE = 2;
     private final int MAX_MESSAGE_COUNT = 20;
     private static final CopyOnWriteArrayList<PanelWrapper> wrapperList = new CopyOnWriteArrayList<PanelWrapper>();
     public Dimension messageSize;
-    private ExpandPanel expandPanel = new ExpandPanel();
+    private final ExpandPanel expandPanel = new ExpandPanel();
     private boolean expanded = false;
     private Rectangle bounds = new Rectangle(0, 0, 0, 0);
 
@@ -439,7 +439,6 @@ public class MessageDialogManager {
         messageSize = new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease);
         int tempMax = 80;
         if (sizeIncrease > tempMax) sizeIncrease = tempMax;
-        this.sizeIncrease = sizeIncrease;
         for (PanelWrapper w : wrapperList) {
             MessagePanel p = w.getPanel();
             p.resizeFrames(new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease));

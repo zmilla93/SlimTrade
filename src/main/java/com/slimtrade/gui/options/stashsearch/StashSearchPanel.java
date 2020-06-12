@@ -26,7 +26,7 @@ public class StashSearchPanel extends ContainerPanel implements ISaveable {
 
     public StashSearchPanel() {
 
-        JLabel toggleOverlayLabel = new CustomLabel("Show Sorting Window Hotkey");
+        JLabel toggleOverlayLabel = new CustomLabel("Window Hotkey");
         LabelComponentPanel togglePanel = new LabelComponentPanel(toggleOverlayLabel, hotkeyInputPane, 40);
 
         container.add(searchInputPanel, gc);
