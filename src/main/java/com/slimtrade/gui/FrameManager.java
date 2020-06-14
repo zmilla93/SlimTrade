@@ -19,6 +19,7 @@ import com.slimtrade.gui.options.cheatsheet.CheatSheetData;
 import com.slimtrade.gui.options.cheatsheet.CheatSheetWindow;
 import com.slimtrade.gui.options.ignore.ItemIgnorePanel;
 import com.slimtrade.gui.overlay.OverlayManager;
+import com.slimtrade.gui.popups.PatchNotesWindow;
 import com.slimtrade.gui.scanner.ChatScannerWindow;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashWindow;
@@ -29,6 +30,8 @@ import com.slimtrade.gui.tutorial.TutorialWindow;
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import static com.slimtrade.core.utility.TradeUtility.screenSize;
 
 public class FrameManager {
 
@@ -50,6 +53,7 @@ public class FrameManager {
     public static TrayButton trayButton;
     public static BetrayalWindow betrayalWindow;
     public static StashSearchWindow stashSearchWindow;
+    public static PatchNotesWindow patchNotesWindow;
     //    public static ArrayList<CheatSheetData> cheatSheetData = new ArrayList<>();
     public static CopyOnWriteArrayList<CheatSheetWindow> cheatSheetWindows;
 
@@ -159,7 +163,7 @@ public class FrameManager {
         for (HideableDialog d : showHideDialogs) {
             d.setVisible(false);
         }
-        for(HideableDialog d: cheatSheetWindows) {
+        for (HideableDialog d : cheatSheetWindows) {
             d.setVisible(false);
         }
         FrameManager.messageManager.hideAll();
@@ -178,7 +182,7 @@ public class FrameManager {
                 for (HideableDialog d : showHideDialogs) {
                     d.setVisible(d.visible);
                 }
-                for(HideableDialog d : FrameManager.cheatSheetWindows) {
+                for (HideableDialog d : FrameManager.cheatSheetWindows) {
                     d.setVisible(d.visible);
                 }
                 FrameManager.messageManager.showAll();
@@ -187,9 +191,9 @@ public class FrameManager {
     }
 
     public static void centerFrame(Window window) {
-        int x = (TradeUtility.screenSize.width / 2) - (window.getWidth() / 2);
+        int x = (screenSize.width / 2) - (window.getWidth() / 2);
         if (x < 0) x = 0;
-        int y = (TradeUtility.screenSize.height / 2) - (window.getHeight() / 2);
+        int y = (screenSize.height / 2) - (window.getHeight() / 2);
         if (y < 0) y = 0;
         window.setLocation(x, y);
     }
@@ -230,6 +234,24 @@ public class FrameManager {
     public static void destroyTutorialWindow() {
         tutorialWindow.dispose();
         tutorialWindow = null;
+    }
+
+    public static void fitWindowToScreen(Window w) {
+        boolean move = false;
+        int width = w.getWidth();
+        int height = w.getHeight();
+        if (width > screenSize.width) {
+            width = screenSize.width;
+            move = true;
+        }
+        if (height > screenSize.height) {
+            height = screenSize.height;
+            move = true;
+        }
+        if (move) {
+            w.setSize(new Dimension(width, height));
+        }
+        FrameManager.centerFrame(w);
     }
 
 }

@@ -16,6 +16,9 @@ public class References {
     public static final String REGEX_CLIENT_PREFIX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*@(?<messageType>От кого|\\S+) (?<guildName><.+> )?(?<playerName>.+):(\\s+)(?<message>";
     public static final String REGEX_QUICK_PASTE_PREFIX = "@(?<guildName><.+> )?(?<playerName>.+)(\\s+)(?<message>";
     public static final String REGEX_SCANNER_PREFIX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*(#|\\$)(?<guildName><.+> )?(?<playerName>.+):(\\s+)(?<message>";
+    public static final String GITHUB = "https://github.com/zmilla93/SlimTrade";
+    public static final String DISCORD = "https://discord.gg/yKdExMe";
+    public static final String PAYPAL = "https://www.paypal.me/zmilla93";
 
     public static String getAppVersion() {
         if (APP_VERSION == null) {

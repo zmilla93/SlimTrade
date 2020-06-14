@@ -2,7 +2,6 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
-import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.enums.LangRegex;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;

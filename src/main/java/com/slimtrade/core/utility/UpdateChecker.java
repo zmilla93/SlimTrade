@@ -3,6 +3,7 @@ package com.slimtrade.core.utility;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonSyntaxException;
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 
@@ -52,7 +53,13 @@ public class UpdateChecker {
                 builder.append(br.readLine());
             }
             // Turn each tag into a version number, then check if is the latest version.
-            JsonArray obj = new Gson().fromJson(builder.toString(), JsonArray.class);
+            JsonArray obj = null;
+            try {
+                obj = new Gson().fromJson(builder.toString(), JsonArray.class);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+                return;
+            }
             for (int i = 0; i < obj.size(); i++) {
                 JsonElement tag = obj.get(i).getAsJsonObject().get("name");
                 VersionNumber v = new VersionNumber(tag.toString());

@@ -6,6 +6,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.managers.SetupManager;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
+import com.slimtrade.core.updating.UpdateManager;
 import com.slimtrade.core.utility.ChatParser;
 import com.slimtrade.core.utility.FileMonitor;
 import com.slimtrade.core.utility.PoeInterface;
@@ -16,8 +17,9 @@ import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.dialogs.LoadingDialog;
 import com.slimtrade.gui.enums.WindowState;
+import com.slimtrade.gui.popups.PatchNotesWindow;
+import com.slimtrade.gui.popups.UpdateDialog;
 import com.slimtrade.gui.setup.SetupWindow;
-import com.slimtrade.gui.windows.UpdateDialog;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
@@ -40,8 +42,10 @@ public class App {
     public static GlobalMouseListener globalMouse;
     public static ClipboardManager clipboardManager;
     public static LoadingDialog loadingDialog;
+    public static UpdateManager updateManager;
 
     // Flags
+    public static boolean patchNotes = false;
     public static boolean checkUpdateOnLaunch = true;
     public static boolean debugMode = false;
     public static boolean allowPrerelease = false;
@@ -50,11 +54,14 @@ public class App {
 
     @SuppressWarnings("unused")
     public static void main(String[] args) {
-
         // Launch Args
         if (args.length > 0) {
             for (String s : args) {
                 switch (s) {
+                    // Patch Notes
+                    case "patchnotes":
+                        patchNotes = true;
+                        break;
                     // Debug
                     case "-d":
                         debugMode = true;
@@ -98,6 +105,8 @@ public class App {
         saveManager.loadFromDisk();
         saveManager.loadStashFromDisk();
         saveManager.loadOverlayFromDisk();
+
+        updateManager = new UpdateManager();
 
         clipboardManager = new ClipboardManager();
         clipboardManager.setListeningState(saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
@@ -179,6 +188,15 @@ public class App {
                     updateDialog.setVisible(true);
                     FrameManager.optionsWindow.recolorUpdateButton();
                 }
+            }
+            if (patchNotes) {
+                SwingUtilities.invokeLater(() -> {
+                    FrameManager.patchNotesWindow = new PatchNotesWindow();
+                    ColorManager.recursiveColor(FrameManager.patchNotesWindow);
+                    FrameManager.patchNotesWindow.setVisible(true);
+                    FrameManager.patchNotesWindow.setAlwaysOnTop(true);
+                    FrameManager.patchNotesWindow.setAlwaysOnTop(false);
+                });
             }
         }
     }

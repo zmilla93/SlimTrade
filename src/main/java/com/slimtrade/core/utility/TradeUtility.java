@@ -7,11 +7,14 @@ import com.slimtrade.gui.enums.POEImage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 
 public class TradeUtility {
 
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static Desktop desktop = Desktop.getDesktop();
 
     public static String getFixedItemName(String item, double count, boolean paren) {
         String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");
@@ -173,5 +176,23 @@ public class TradeUtility {
         }
         return true;
     }
+
+    public static void openLink(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            openLink(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void openLink(URL url) {
+        try {
+            desktop.browse(url.toURI());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
 }

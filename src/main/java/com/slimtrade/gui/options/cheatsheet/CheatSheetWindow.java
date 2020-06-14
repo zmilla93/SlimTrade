@@ -5,7 +5,6 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractWindow;
-import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.ISaveable;
 
 import javax.imageio.ImageIO;

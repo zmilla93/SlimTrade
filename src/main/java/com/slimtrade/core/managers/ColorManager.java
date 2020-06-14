@@ -256,6 +256,9 @@ public class ColorManager {
         }
         FrameManager.overlayManager.updateColor();
         FrameManager.messageManager.updateMessageColors();
+//        if(FrameManager.patchNotesWindow != null) {
+//            recursiveColor(FrameManager.patchNotesWindow);
+//        }
     }
 
     public static void recursiveColor(Object o) {

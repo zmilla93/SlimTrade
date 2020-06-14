@@ -65,7 +65,7 @@ public class BasicButton extends JButton implements IColorable {
             } else {
                 if (useGradient) {
                     if (model.isRollover()) {
-                        g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), ColorManager.lighter(primaryColor, 10)));
+                        g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), ColorManager.lighter(primaryColor, 20)));
                     } else {
                         g2.setPaint(new GradientPaint(new Point(0, 0), secondaryColor, new Point(0, getHeight()), primaryColor));
                     }

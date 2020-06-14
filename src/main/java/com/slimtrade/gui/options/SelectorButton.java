@@ -15,10 +15,10 @@ public class SelectorButton extends BasicButton implements IColorable {
         addMouseListener(new AdvancedMouseAdapter() {
             @Override
             public void click(MouseEvent e) {
-                for(Component c : getParent().getComponents()) {
-                    if(c instanceof SelectorButton) {
+                for (Component c : getParent().getComponents()) {
+                    if (c instanceof SelectorButton) {
                         SelectorButton b = (SelectorButton) c;
-                        if(b.selected) {
+                        if (b.selected) {
                             b.selected = false;
                             b.repaint();
                         }

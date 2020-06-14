@@ -17,7 +17,7 @@ public class SaveManager {
     public final String overlaySavePath;
     public final String scannerSavePath;
     public final String pinSavePath;
-    public final String saveDirectory;
+    public final String installDirectory;
     public SaveFile saveFile;
     public StashSaveFile stashSaveFile = new StashSaveFile();
     public PinSaveFile pinSaveFile = new PinSaveFile();
@@ -52,17 +52,17 @@ public class SaveManager {
         // Set save directory
         String os = (System.getProperty("os.name")).toUpperCase();
         if (os.contains("WIN")) {
-            saveDirectory = System.getenv("LocalAppData") + File.separator + folderWin;
+            installDirectory = System.getenv("LocalAppData") + File.separator + folderWin;
         } else {
-            saveDirectory = System.getProperty("user.home") + File.separator + folderOther;
+            installDirectory = System.getProperty("user.home") + File.separator + folderOther;
         }
-        savePath = saveDirectory + File.separator + fileName;
-        stashSavePath = saveDirectory + File.separator + stashFileName;
-        pinSavePath = saveDirectory + File.separator + pinSaveFileName;
-        overlaySavePath = saveDirectory + File.separator + overlayFileName;
-        scannerSavePath = saveDirectory + File.separator + scannerFileName;
-        File saveDir = new File(saveDirectory);
-        File imageDir = new File(saveDirectory + File.separator + imageFolder);
+        savePath = installDirectory + File.separator + fileName;
+        stashSavePath = installDirectory + File.separator + stashFileName;
+        pinSavePath = installDirectory + File.separator + pinSaveFileName;
+        overlaySavePath = installDirectory + File.separator + overlayFileName;
+        scannerSavePath = installDirectory + File.separator + scannerFileName;
+        File saveDir = new File(installDirectory);
+        File imageDir = new File(installDirectory + File.separator + imageFolder);
         if (!saveDir.exists()) {
             saveDir.mkdirs();
         }
@@ -78,7 +78,7 @@ public class SaveManager {
     }
 
     public String getImageFolder() {
-        return saveDirectory + File.separator + imageFolder;
+        return installDirectory + File.separator + imageFolder;
     }
 
     public void loadFromDisk() {
@@ -116,6 +116,14 @@ public class SaveManager {
         } catch (IOException e) {
             return;
         }
+    }
+
+    public void loadLauncherDataFromDisk() {
+
+    }
+
+    public void saveLauncherDataToDisk() {
+
     }
 
     public void loadStashFromDisk() {

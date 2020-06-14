@@ -26,7 +26,7 @@ public class HotkeyManager {
             return;
         }
 
-        if(!PoeInterface.isPoeFocused(true)) {
+        if (!PoeInterface.isPoeFocused(true)) {
             return;
         }
 
@@ -36,21 +36,21 @@ public class HotkeyManager {
         } else if (checkKey(e, saveFile.betrayalHotkey)) {
             FrameManager.betrayalWindow.toggleShow();
             FrameManager.betrayalWindow.refreshVisibility();
-        }else if (checkKey(e, saveFile.chatScannerHotkey)) {
+        } else if (checkKey(e, saveFile.chatScannerHotkey)) {
             FrameManager.chatScannerWindow.toggleShow();
             FrameManager.chatScannerWindow.refreshVisibility();
-        }else if (checkKey(e, saveFile.historyHotkey)) {
+        } else if (checkKey(e, saveFile.historyHotkey)) {
             FrameManager.historyWindow.toggleShow();
             FrameManager.historyWindow.refreshVisibility();
-        }else if (checkKey(e, saveFile.optionsHotkey)) {
+        } else if (checkKey(e, saveFile.optionsHotkey)) {
             FrameManager.optionsWindow.toggleShow();
             FrameManager.optionsWindow.refreshVisibility();
-        }else if (checkKey(e, saveFile.stashSearchHotkey)) {
+        } else if (checkKey(e, saveFile.stashSearchHotkey)) {
             FrameManager.stashSearchWindow.toggleShow();
             FrameManager.stashSearchWindow.refreshVisibility();
         } else if (checkKey(e, saveFile.dndHotkey)) {
             PoeInterface.runCommand("/dnd");
-        }else if (checkKey(e, saveFile.remainingHotkey)) {
+        } else if (checkKey(e, saveFile.remainingHotkey)) {
             PoeInterface.runCommand("/remaining");
         } else if (checkKey(e, saveFile.hideoutHotkey)) {
             PoeInterface.runCommand("/hideout");
@@ -59,7 +59,7 @@ public class HotkeyManager {
         } else if (checkKey(e, saveFile.betrayalHotkey)) {
             FrameManager.betrayalWindow.toggleShow();
             FrameManager.betrayalWindow.refreshVisibility();
-        }  else {
+        } else {
             // Cheat Sheets
             for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
                 if (checkKey(e, w.data.hotkeyData)) {

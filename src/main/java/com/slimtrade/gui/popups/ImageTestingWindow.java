@@ -1,4 +1,4 @@
-package com.slimtrade.gui.windows;
+package com.slimtrade.gui.popups;
 
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.CustomIcons;
@@ -26,7 +26,7 @@ public class ImageTestingWindow extends JFrame {
         }
         // POE Images
         for (POEImage t : POEImage.values()) {
-            if(t.isValid()) {
+            if (t.isValid()) {
                 JLabel label = new JLabel();
                 label.setIcon(new ImageIcon(t.getImage()));
                 p3.add(label);

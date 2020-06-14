@@ -11,8 +11,8 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.options.ISaveable;
-import com.slimtrade.gui.options.SelectorButton;
 import com.slimtrade.gui.options.OrderType;
+import com.slimtrade.gui.options.SelectorButton;
 import com.slimtrade.gui.panels.BufferPanel;
 
 import javax.swing.*;

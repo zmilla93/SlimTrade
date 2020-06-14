@@ -1,4 +1,4 @@
-package com.slimtrade.gui.windows;
+package com.slimtrade.gui.popups;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
@@ -31,7 +31,6 @@ public class UpdateDialog extends JFrame implements IColorable {
         this.setTitle(References.APP_NAME + " - Update");
         this.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("icons/default/tagx64.png")).getImage());
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
