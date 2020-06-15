@@ -3,14 +3,12 @@ package com.slimtrade.gui.history;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
-import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.DateStyle;
 import com.slimtrade.enums.TimeStyle;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractResizableWindow;
 import com.slimtrade.gui.custom.CustomScrollPane;
-import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.OrderType;
 import com.slimtrade.gui.options.SelectorButton;
 import com.slimtrade.gui.panels.BufferPanel;
@@ -19,7 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class HistoryWindow extends AbstractResizableWindow implements IColorable, ISaveable {
+public class HistoryWindow extends AbstractResizableWindow implements IColorable {
     private static final long serialVersionUID = 1L;
 
     protected static TimeStyle timeStyle;
@@ -114,9 +112,8 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
         innerPanel.add(incomingScroll, BorderLayout.CENTER);
         innerPanel.revalidate();
         innerPanel.repaint();
-        this.pack();
-        FrameManager.centerFrame(this);
-        load();
+        pack();
+
     }
 
     public void setDateStyle(DateStyle style) {
@@ -180,24 +177,24 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
     @Override
     public void pinAction(MouseEvent e) {
         super.pinAction(e);
-        save();
+        FrameManager.saveWindowPins();
     }
 
-    @Override
-    public void save() {
-        App.saveManager.pinSaveFile.historyPin = getPinElement();
-        App.saveManager.savePinsToDisk();
-    }
-
-    @Override
-    public void load() {
-        App.saveManager.loadPinsFromDisk();
-        PinElement pin = App.saveManager.pinSaveFile.historyPin;
-        this.pinned = pin.pinned;
-        if (this.pinned) {
-            applyPinElement(pin);
-        }
-        updatePullbars();
-    }
+//    @Override
+//    public void save() {
+//        App.saveManager.pinSaveFile.historyPin = getPinElement();
+//        App.saveManager.savePinsToDisk();
+//    }
+//
+//    @Override
+//    public void load() {
+//        App.saveManager.loadPinsFromDisk();
+//        PinElement pin = App.saveManager.pinSaveFile.historyPin;
+//        this.pinned = pin.pinned;
+//        if (this.pinned) {
+//            applyPinElement(pin);
+//        }
+//        updatePullbars();
+//    }
 
 }

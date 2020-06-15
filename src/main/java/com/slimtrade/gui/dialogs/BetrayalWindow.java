@@ -1,11 +1,13 @@
 package com.slimtrade.gui.dialogs;
 
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 public class BetrayalWindow extends AbstractWindow {
@@ -18,6 +20,12 @@ public class BetrayalWindow extends AbstractWindow {
         this.add(label);
         this.pack();
         ColorManager.recursiveColor(this);
+    }
+
+    @Override
+    public void pinAction(MouseEvent e) {
+        super.pinAction(e);
+        FrameManager.saveWindowPins();
     }
 
 }

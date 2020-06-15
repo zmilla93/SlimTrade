@@ -4,20 +4,18 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.IColorable;
-import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.PaintedPanel;
 import com.slimtrade.gui.custom.CustomLabel;
-import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.stashsearch.StashSearchData;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class StashSearchWindow extends AbstractWindow implements IColorable, ISaveable {
+public class StashSearchWindow extends AbstractWindow implements IColorable {
 
     //    private Container container;
     private GridBagConstraints gc = new GridBagConstraints();
@@ -33,7 +31,6 @@ public class StashSearchWindow extends AbstractWindow implements IColorable, ISa
         gc.fill = GridBagConstraints.BOTH;
         refresh();
         FrameManager.centerFrame(this);
-        load();
     }
 
     public void refresh() {
@@ -89,23 +86,7 @@ public class StashSearchWindow extends AbstractWindow implements IColorable, ISa
     @Override
     public void pinAction(MouseEvent e) {
         super.pinAction(e);
-        save();
-    }
-
-    @Override
-    public void save() {
-        App.saveManager.pinSaveFile.stashSearchPin = getPinElement();
-        App.saveManager.savePinsToDisk();
-    }
-
-    @Override
-    public void load() {
-        App.saveManager.loadPinsFromDisk();
-        PinElement pin = App.saveManager.pinSaveFile.stashSearchPin;
-        this.pinned = pin.pinned;
-        if (this.pinned) {
-            applyPinElement(pin);
-        }
+        FrameManager.saveWindowPins();
     }
 
     private class DataPanel extends PaintedPanel {

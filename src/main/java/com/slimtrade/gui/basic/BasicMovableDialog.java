@@ -82,12 +82,16 @@ public class BasicMovableDialog extends BasicDialog {
         this.setLocation(p);
     }
 
+    public void unpin() {
+        this.pinned = false;
+    }
+
     private void runWindowMover() {
+        if (pinned) {
+            return;
+        }
         new Thread(() -> {
             while (mouseDown) {
-                if (pinned) {
-                    return;
-                }
                 int targetX = MouseInfo.getPointerInfo().getLocation().x - offsetX - borderOffset;
                 int targetY = MouseInfo.getPointerInfo().getLocation().y - offsetY - borderOffset;
                 if (screenLock || App.globalKeyboard.isShiftPressed()) {

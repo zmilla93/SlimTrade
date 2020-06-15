@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class UpdateManager {
 
-    private ArrayList<ReleaseData> releases = new ArrayList<>();
+    private ArrayList<ReleaseData> releases;
 
     File launcherJSONFile;
     JSONObject launcherJSON;
@@ -67,6 +67,9 @@ public class UpdateManager {
     }
 
     public ArrayList<ReleaseData> getReleaseData() {
+        if (releases == null) {
+            fetchReleaseData();
+        }
         return releases;
     }
 

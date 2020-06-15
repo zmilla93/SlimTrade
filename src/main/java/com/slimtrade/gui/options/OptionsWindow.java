@@ -7,7 +7,6 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.IColorable;
-import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
@@ -34,7 +33,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class OptionsWindow extends AbstractResizableWindow implements IColorable, ISaveable {
+public class OptionsWindow extends AbstractResizableWindow implements IColorable {
 
     private static final long serialVersionUID = 1L;
     private final JPanel display = new JPanel(new GridBagLayout());
@@ -185,7 +184,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         display.add(cheatSheetPanel, gc);
         gc.gridy++;
         display.add(contactPanel, gc);
-        for(Component c : display.getComponents()) {
+        for (Component c : display.getComponents()) {
             c.setVisible(false);
         }
         generalPanel.setVisible(true);
@@ -195,7 +194,6 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         this.refresh();
         //TODO : Resize doesn't respect maximum size
         this.setMinimumSize(new Dimension(500, 550));
-        FrameManager.centerFrame(this);
 
         checkUpdateButton.addActionListener(e -> {
             if (App.updateChecker.isUpdateAvailable()) {
@@ -281,11 +279,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
                 }).start();
             }
-
         });
-
-        load();
-
     }
 
     private void link(JButton b, JPanel p) {
@@ -335,23 +329,23 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     @Override
     public void pinAction(MouseEvent e) {
         super.pinAction(e);
-        save();
+        FrameManager.saveWindowPins();
     }
 
-    @Override
-    public void save() {
-        App.saveManager.pinSaveFile.optionsPin = getPinElement();
-        App.saveManager.savePinsToDisk();
-    }
-
-    @Override
-    public void load() {
-        App.saveManager.loadPinsFromDisk();
-        PinElement pin = App.saveManager.pinSaveFile.optionsPin;
-        this.pinned = pin.pinned;
-        if (this.pinned) {
-            applyPinElement(pin);
-        }
-        updatePullbars();
-    }
+//    @Override
+//    public void save() {
+//        App.saveManager.pinSaveFile.optionsPin = getPinElement();
+//        App.saveManager.savePinsToDisk();
+//    }
+//
+//    @Override
+//    public void load() {
+//        App.saveManager.loadPinsFromDisk();
+//        PinElement pin = App.saveManager.pinSaveFile.optionsPin;
+//        this.pinned = pin.pinned;
+//        if (this.pinned) {
+//            applyPinElement(pin);
+//        }
+//        updatePullbars();
+//    }
 }

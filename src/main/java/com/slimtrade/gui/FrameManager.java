@@ -4,6 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.core.utility.TradeUtility;
+import com.slimtrade.gui.basic.AbstractWindow;
 import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
@@ -65,6 +66,7 @@ public class FrameManager {
     private static HideableDialog[] menuHideFrames;
     private static HideableDialog[] forceFrames;
     private static HideableDialog[] showHideDialogs;
+    private static AbstractWindow[] pinWindows;
 
 
     public static WindowState windowState = WindowState.NORMAL;
@@ -107,27 +109,21 @@ public class FrameManager {
         stashHelperContainer.updateLocation();
 
         betrayalWindow = new BetrayalWindow();
-        centerFrame(betrayalWindow);
+//        centerFrame(betrayalWindow);
 
         stashSearchWindow = new StashSearchWindow();
 
         showHideDialogs = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, stashSearchWindow};
         forceFrames = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, ignoreItemWindow, stashSearchWindow};
         menuHideFrames = new HideableDialog[]{optionsWindow, historyWindow, chatScannerWindow, betrayalWindow};
+        pinWindows = new AbstractWindow[]{optionsWindow, historyWindow, chatScannerWindow, stashSearchWindow, betrayalWindow};
+
+        loadWindowPins();
+
     }
 
     public static void generateCheatSheets() {
         for (CheatSheetData data : App.saveManager.saveFile.cheatSheetData) {
-//            File f = new File(data.fileName);
-//            String contentType = null;
-//            try {
-//                contentType = Files.probeContentType(f.toPath());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            if(!f.exists() || contentType == null || !contentType.startsWith("image")) {
-//                return;
-//            }
             if (!TradeUtility.isValidImagePath(data.fileName)) {
                 return;
             }
@@ -147,6 +143,29 @@ public class FrameManager {
         for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
             w.dispose();
             FrameManager.cheatSheetWindows.remove(w);
+        }
+    }
+
+    public static void saveWindowPins() {
+        App.saveManager.pinSaveFile.windowPins.clear();
+        for (AbstractWindow w : pinWindows) {
+            PinElement pin = w.getPinElement();
+            pin.name = w.getTitle();
+            App.saveManager.pinSaveFile.windowPins.add(pin);
+        }
+        App.saveManager.savePinsToDisk();
+    }
+
+    public static void loadWindowPins() {
+        App.saveManager.loadPinsFromDisk();
+        for (AbstractWindow w : pinWindows) {
+            FrameManager.centerFrame(w);
+            for (PinElement pin : App.saveManager.pinSaveFile.windowPins) {
+                if (w.getTitle().equals(pin.name)) {
+                    w.applyPinElement(pin);
+                    break;
+                }
+            }
         }
     }
 

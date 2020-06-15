@@ -28,7 +28,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
 
     protected IconButton closeButton;
     protected IconButton pinButton;
-    //    private boolean pinned = false;
+    private boolean pinnable = false;
     private ImageIcon pinIcon1;
     private ImageIcon pinIcon2;
     protected Container contentPane = this.getContentPane();
@@ -154,8 +154,8 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
     public void applyPinElement(PinElement pinElement) {
         this.pinned = pinElement.pinned;
         if (pinned) {
-            this.setLocation(pinElement.anchor);
-            this.setSize(pinElement.size);
+            setLocation(pinElement.anchor);
+            setSize(pinElement.size);
         }
         updateColor();
     }
@@ -177,9 +177,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
         titlebarPanel.setBackground(ColorManager.PRIMARY);
         titleLabel.setForeground(ColorManager.TEXT);
         center.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, ColorManager.PRIMARY));
-//        center.setBackground(ColorManager.BACKGROUND);
         center.setBackground(ColorManager.BACKGROUND);
-//        center.setOpaque(true);
     }
 
 }

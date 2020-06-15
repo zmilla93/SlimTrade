@@ -13,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Objects;
 
 public class CheatSheetPanel extends ContainerPanel implements ISaveable {
@@ -101,13 +100,6 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
                 }
                 CheatSheetData data = new CheatSheetData(f.getAbsolutePath());
                 addPanel(data);
-                System.out.println(f);
-                try {
-                    System.out.println(Files.probeContentType(f.toPath()));
-                    System.out.println(f.getName().replaceFirst("\\.\\w+$", "").replaceAll("_", " "));
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
             }
         }
         revalidate();

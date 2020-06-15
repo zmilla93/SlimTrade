@@ -6,7 +6,6 @@ import com.slimtrade.core.observing.ComponentResizeAdapter;
 import com.slimtrade.core.observing.DocumentUpdateListener;
 import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.saving.MacroButton;
-import com.slimtrade.core.saving.elements.PinElement;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
@@ -17,7 +16,6 @@ import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
 import com.slimtrade.gui.messaging.MessagePanel;
-import com.slimtrade.gui.options.ISaveable;
 import com.slimtrade.gui.options.macro.MacroCustomizerRow;
 import com.slimtrade.gui.options.macro.MacroPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
@@ -31,11 +29,10 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ChatScannerWindow extends AbstractResizableWindow implements ISaveable, IColorable {
+public class ChatScannerWindow extends AbstractResizableWindow implements IColorable {
 
     // TODO : inner panel could be containerpanel for consistency
     public static final int bufferOuter = 8;
@@ -152,9 +149,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
         refreshMessage("");
         updateColor();
         refreshWindowState();
-        load();
         pack();
-        FrameManager.centerFrame(this);
 
         // Listeners
         saveTextField.getDocument().addDocumentListener(new DocumentUpdateListener() {
@@ -316,8 +311,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
             saving = false;
         });
         addDefaults();
-
-        load();
     }
 
     private void runAllChecks() {
@@ -546,34 +539,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements ISavea
     @Override
     public void pinAction(MouseEvent e) {
         super.pinAction(e);
-        save();
-    }
-
-    @Override
-    public void save() {
-        App.saveManager.pinSaveFile.chatScannerPin = getPinElement();
-        App.saveManager.savePinsToDisk();
-    }
-
-    @Override
-    public void load() {
-        App.saveManager.loadScannerFromDisk();
-        messageList.clear();
-        messageList.addAll(Arrays.asList(App.saveManager.scannerSaveFile.messages));
-        Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
-        searchCombo.removeAllItems();
-        for (ScannerMessage msg : messageList) {
-            searchCombo.addItem(msg);
-        }
-        searchCombo.setSelectedIndex(-1);
-
-        App.saveManager.loadPinsFromDisk();
-        PinElement pin = App.saveManager.pinSaveFile.chatScannerPin;
-        this.pinned = pin.pinned;
-        if (this.pinned) {
-            applyPinElement(pin);
-        }
-        updatePullbars();
+        FrameManager.saveWindowPins();
     }
 
     @Override

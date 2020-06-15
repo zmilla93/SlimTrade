@@ -40,13 +40,10 @@ public class TrayButton {
 
         // Reset UI Button
         resetUIButton.addActionListener(e -> {
-            App.saveManager.pinSaveFile.optionsPin.pinned = false;
-            App.saveManager.pinSaveFile.historyPin.pinned = false;
-            App.saveManager.pinSaveFile.chatScannerPin.pinned = false;
-            App.saveManager.savePinsToDisk();
-            FrameManager.optionsWindow.load();
-            FrameManager.historyWindow.load();
-            FrameManager.chatScannerWindow.load();
+            // TODO : PINS
+            FrameManager.optionsWindow.resizeToDefault();
+            FrameManager.chatScannerWindow.resizeToDefault();
+            FrameManager.historyWindow.resizeToDefault();
             App.saveManager.overlaySaveFile = new OverlaySaveFile();
             FrameManager.overlayManager.resetToDefault();
             FrameManager.menubar.updateLocation();
@@ -56,26 +53,28 @@ public class TrayButton {
             FrameManager.centerFrame(FrameManager.optionsWindow);
             FrameManager.centerFrame(FrameManager.historyWindow);
             FrameManager.centerFrame(FrameManager.chatScannerWindow);
+            FrameManager.optionsWindow.unpin();
+            FrameManager.historyWindow.unpin();
+            FrameManager.chatScannerWindow.unpin();
+            FrameManager.optionsWindow.unpin();
+            FrameManager.saveWindowPins();
             App.saveManager.saveOverlayToDisk();
             ColorManager.updateAllColors(ColorManager.getCurrentColorTheme());
         });
 
         historyButton.addActionListener(e -> {
-            FrameManager.centerFrame(FrameManager.historyWindow);
             FrameManager.hideMenuFrames();
             FrameManager.windowState = WindowState.NORMAL;
             FrameManager.historyWindow.setShow(true);
         });
 
         chatScannerButton.addActionListener(e -> {
-            FrameManager.centerFrame(FrameManager.chatScannerWindow);
             FrameManager.hideMenuFrames();
             FrameManager.windowState = WindowState.NORMAL;
             FrameManager.chatScannerWindow.setShow(true);
         });
 
         optionsButton.addActionListener(e -> {
-            FrameManager.centerFrame(FrameManager.optionsWindow);
             FrameManager.hideMenuFrames();
             FrameManager.windowState = WindowState.NORMAL;
             FrameManager.optionsWindow.setShow(true);
