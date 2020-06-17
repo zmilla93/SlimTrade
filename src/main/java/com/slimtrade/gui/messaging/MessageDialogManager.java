@@ -320,7 +320,9 @@ public class MessageDialogManager {
                         if (tradeA.priceTypeString == null && tradeB.priceTypeString == null) {
                             check++;
                         }
-                    } else if (tradeA.poePriceType.equals(tradeB.poePriceType)) {
+                    } else if ((tradeA.poePriceType == null && tradeB.poePriceType == null) ||
+                            ((tradeA.poePriceType != null && tradeB.poePriceType != null) && tradeA.poePriceType.equals(tradeB.poePriceType)))
+                    {
                         check++;
                     }
                     if (tradeA.priceQuantity.equals(tradeB.priceQuantity)) {
