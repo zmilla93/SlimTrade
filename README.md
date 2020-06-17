@@ -1,6 +1,14 @@
 # SlimTrade
 An overlay for Path of Exile that creates macro popups for trade messages. Also includes a chat scanner, trade history, item ignore feature, color themes, update checker, and more! POE must be run in 'Windowed Fullscreen' or 'Windowed' mode.<br><br>
+[**Donate with PayPal**](https://www.paypal.me/zmilla93)<br>
 [**Download Latest Version**](https://github.com/zmilla93/SlimTrade/releases/latest)<br>
+
+## Vulkan Renderer
+- Currently POE's new Vulkan renderer only works with 3rd party tools while in windowed mode. However, you can fake windowed borderless using an AutoHotkey script.
+1. Download & Run "[poe_borderless.ahk](https://cdn.discordapp.com/attachments/721037187361144882/722805074606162050/poe_borderless.ahk)" (Requires AutoHotkey to be installed)
+1. Run POE with Vulkan enabled in windowed mode
+1. Focus POE and press **ctrl+ alt + w** to toggle window full screen
+- Hotkey can be modified by editing the script.
 
 ## Incoming & Outgoing Trades
 Popups are automatically created when trade messages are sent or received.<br>
