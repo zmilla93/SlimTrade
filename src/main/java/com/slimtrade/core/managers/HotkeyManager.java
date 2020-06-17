@@ -9,6 +9,7 @@ import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.options.cheatsheet.CheatSheetWindow;
 import com.slimtrade.gui.scanner.ScannerMessage;
 import org.jnativehook.keyboard.NativeKeyEvent;
@@ -20,7 +21,9 @@ public class HotkeyManager {
     private static final SaveFile saveFile = App.saveManager.saveFile;
 
     public static void processHotkey(NativeKeyEvent e) {
-
+        if(FrameManager.windowState != WindowState.NORMAL) {
+            return;
+        }
         if (saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, saveFile.quickPasteHotkey)) {
             PoeInterface.attemptQuickPaste();
             return;

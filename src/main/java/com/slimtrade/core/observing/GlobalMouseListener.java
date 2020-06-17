@@ -130,6 +130,10 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         }
     }
 
+    public void setGameFocusedFlag(boolean state) {
+        isGameFocused = state;
+    }
+
     public boolean isGameFocused() {
         return this.isGameFocused;
     }

@@ -131,7 +131,8 @@ public class PoeInterface extends Robot {
                 }
                 i++;
             } while (true);
-            FrameManager.forceAllToTop();
+//            FrameManager.showVisibleFrames();
+//            FrameManager.forceAllToTop();
             robot.keyPress(KeyEvent.VK_ALT);
             robot.keyRelease(KeyEvent.VK_ALT);
             robot.keyPress(KeyEvent.VK_ENTER);
@@ -142,6 +143,11 @@ public class PoeInterface extends Robot {
             robot.keyRelease(KeyEvent.VK_CONTROL);
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
+            App.globalMouse.setGameFocusedFlag(true);
+            SwingUtilities.invokeLater(() -> {
+                FrameManager.showVisibleFrames();
+                FrameManager.forceAllToTop();
+            });
         });
     }
 

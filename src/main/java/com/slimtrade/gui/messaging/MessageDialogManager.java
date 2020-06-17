@@ -46,8 +46,8 @@ public class MessageDialogManager {
     private Timer fadeTimer;
     private boolean faded = false;
     private boolean fading = false;
-    private ExecutorService fadeExecutor = Executors.newSingleThreadExecutor();
-    private Runnable fadeTask = () -> {
+    private final ExecutorService fadeExecutor = Executors.newSingleThreadExecutor();
+    private final Runnable fadeTask = () -> {
         fading = true;
         while (FrameManager.messageManager.isFading() && FrameManager.messageManager.messageCount() > 0) {
             SwingUtilities.invokeLater(() -> FrameManager.messageManager.stepOpacity());
@@ -88,14 +88,13 @@ public class MessageDialogManager {
     }
 
     public void addMessage(TradeOffer trade, boolean playSound) {
-        // TODO : enable dupe check
         // Ignore Duplicates
-//        if (wrapperList.size() >= MAX_MESSAGE_COUNT || isDuplicateTrade(trade)) {
-//            return;
-//        }
-        if (wrapperList.size() >= MAX_MESSAGE_COUNT) {
+        if (wrapperList.size() >= MAX_MESSAGE_COUNT || isDuplicateTrade(trade)) {
             return;
         }
+//        if (wrapperList.size() >= MAX_MESSAGE_COUNT) {
+//            return;
+//        }
         if (playSound) {
             trade.playSound();
         }
@@ -105,7 +104,7 @@ public class MessageDialogManager {
         wrapperList.add(wrapper);
         addCloseButtonListener(wrapper);
         ColorManager.recursiveColor(wrapper);
-        wrapper.setShow(true);
+        wrapper.visible = true;
 
         // Hide message if game isn't focused
         if (!App.globalMouse.isGameFocused() || FrameManager.windowState != WindowState.NORMAL) {
@@ -129,8 +128,11 @@ public class MessageDialogManager {
         } else {
             wrapper.setOpacity(opacity);
         }
+
         refreshPanelLocations();
-        if (App.globalMouse.isGameFocused() && FrameManager.windowState == WindowState.NORMAL) {
+        if (!App.globalMouse.isGameFocused() || FrameManager.windowState != WindowState.NORMAL) {
+            hideAll();
+        } else {
             FrameManager.showVisibleFrames();
             FrameManager.forceAllToTop();
         }
