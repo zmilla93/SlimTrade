@@ -11,7 +11,6 @@ public class MarkdownParser {
     private static final Pattern boldItalicPattern = Pattern.compile("(.*)(\\*){3}(.+)(\\*){3}(.*)");
     private static final Pattern boldPattern = Pattern.compile("(.*)(\\*){2}(.+)(\\*){2}(.*)");
     private static final Pattern italicsPattern = Pattern.compile("(.*)(\\*)(.+)(\\*)(.*)");
-    //    private static final Pattern linkPattern = Pattern.compile("(\\[)(.+)(\\])(\\()(.+)(\\()");
     private static final Pattern linkPattern = Pattern.compile("(.*)\\[(.+)\\]\\((.+)\\)(.*)");
     private static Matcher matcher;
     private static boolean header;

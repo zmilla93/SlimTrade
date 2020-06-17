@@ -7,6 +7,7 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.IColorable;
+import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
@@ -42,6 +43,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
     private final JPanel menuPanel = new JPanel(new GridBagLayout());
     private final JPanel menuPanelLower = new JPanel(new GridBagLayout());
     private BasicButton checkUpdateButton;
+    private BasicButton donateButton;
 
     private GeneralPanel generalPanel;
     public MacroPanel macroPanelIncoming;
@@ -116,7 +118,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         link(contactButton, contactPanel);
 
         checkUpdateButton = new CheckUpdateButton("Check for Updates");
-        checkUpdateButton.setPreferredSize(checkUpdateButton.getPreferredSize());
+        donateButton = new ConfirmButton("Donate with PayPal");
         gc = new GridBagConstraints();
 
         gc.weightx = 1;
@@ -157,6 +159,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.gridy++;
         menuPanelLower.add(checkUpdateButton, gc);
+        gc.gridy++;
+        gc.insets.top = 10;
+        menuPanelLower.add(donateButton, gc);
 
         container.add(new BufferPanel(0, buffer), BorderLayout.NORTH);
         container.add(new BufferPanel(buffer, 0), BorderLayout.EAST);
@@ -195,6 +200,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         //TODO : Resize doesn't respect maximum size
         this.setMinimumSize(new Dimension(500, 550));
 
+        donateButton.addActionListener(e -> TradeUtility.openLink(References.PAYPAL));
         checkUpdateButton.addActionListener(e -> {
             if (App.updateChecker.isUpdateAvailable()) {
                 //UPDATE

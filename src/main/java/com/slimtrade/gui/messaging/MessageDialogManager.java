@@ -130,8 +130,10 @@ public class MessageDialogManager {
             wrapper.setOpacity(opacity);
         }
         refreshPanelLocations();
-        FrameManager.showVisibleFrames();
-        FrameManager.forceAllToTop();
+        if (App.globalMouse.isGameFocused() && FrameManager.windowState == WindowState.NORMAL) {
+            FrameManager.showVisibleFrames();
+            FrameManager.forceAllToTop();
+        }
     }
 
     // Opacity Stuff

@@ -36,7 +36,7 @@ public class ReleaseData {
     }
 
     private String getCleanPatchNotes() {
-        String[] lines = rawPatchNotes.split("(\\\\r\\\\n|\\n)");
+        String[] lines = rawPatchNotes.split("(\\n|\\\\r\\\\n)");
         StringBuilder builder = new StringBuilder();
         Color c = ColorManager.TEXT;
         builder.append("<body style=\"color:rgb({RBG})\">");
