@@ -23,6 +23,7 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
     private final int rowHeight = 20;
     public static final String LEFT_CLICK_TEXT = "Left Click";
     public static final String RIGHT_CLICK_TEXT = "Right Click";
+    public static final String CLOSE_TEXT = "Close";
 
     public JButton upArrowButton = new IconButton(DefaultIcons.ARROW_UP, rowHeight);
     public JButton downArrowButton = new IconButton(DefaultIcons.ARROW_DOWN, rowHeight);
@@ -41,7 +42,8 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
     private ColorTheme cachedColor;
 
     public MacroCustomizerRow() {
-        gc.weightx = 1;
+
+        // Create UI
         upArrowButton = new IconButton(DefaultIcons.ARROW_UP, rowHeight);
         downArrowButton = new IconButton(DefaultIcons.ARROW_DOWN, rowHeight);
         for (ButtonRow b : ButtonRow.values()) {
@@ -51,6 +53,9 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
             ImageIcon icon = new ImageIcon(i.getColorImage(ColorManager.TEXT));
             iconCombo.addItem(icon);
         }
+
+        // Build UI
+        gc.weightx = 1;
         gc.anchor = GridBagConstraints.WEST;
         innerPanel.add(upArrowButton, gc);
         gc.gridy++;
@@ -79,6 +84,9 @@ public class MacroCustomizerRow extends GridBagPanel implements IColorable {
         gc.gridy = 0;
         gc.gridheight = 2;
         innerPanel.add(hotkeyInput, gc);
+        gc.gridx++;
+
+        innerPanel.add(new CustomLabel(CLOSE_TEXT), gc);
         gc.gridx++;
         innerPanel.add(closeCheckbox, gc);
         gc.gridheight = 1;
