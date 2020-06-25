@@ -32,7 +32,8 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
             center.add(label);
             pack();
             ColorManager.recursiveColor(this);
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            System.out.println("Error while loading cheat sheet : " + data.fileName);
             e.printStackTrace();
         }
     }
