@@ -17,6 +17,7 @@ import java.io.IOException;
 public class CheatSheetWindow extends AbstractWindow implements ISaveable {
 
     public CheatSheetData data;
+    private boolean valid = false;
 
     public CheatSheetWindow(CheatSheetData data) {
         super(data.getCleanName(), true, true);
@@ -32,10 +33,15 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
             center.add(label);
             pack();
             ColorManager.recursiveColor(this);
+            valid = true;
         } catch (IOException | NullPointerException e) {
             System.out.println("Error while loading cheat sheet : " + data.fileName);
             e.printStackTrace();
         }
+    }
+
+    public boolean isValid() {
+        return valid;
     }
 
     @Override

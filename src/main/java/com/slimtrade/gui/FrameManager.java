@@ -124,10 +124,13 @@ public class FrameManager {
 
     public static void generateCheatSheets() {
         for (CheatSheetData data : App.saveManager.saveFile.cheatSheetData) {
-            if (!TradeUtility.isValidImagePath(data.fileName)) {
-                return;
+            if (data == null || !TradeUtility.isValidImagePath(data.fileName)) {
+                continue;
             }
             CheatSheetWindow w = new CheatSheetWindow(data);
+            if(!w.isValid()) {
+                continue;
+            }
             FrameManager.cheatSheetWindows.add(w);
             FrameManager.centerFrame(w);
             for (PinElement p : App.saveManager.pinSaveFile.cheatSheetPins) {
