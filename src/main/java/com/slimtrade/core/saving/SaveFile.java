@@ -81,16 +81,23 @@ public class SaveFile {
             new MacroButton(ButtonRow.BOTTOM, "/hideout", "", CustomIcons.HOME, null, true),
     };
 
-    // Hotkeys
-    public HotkeyData optionsHotkey = null;
-    public HotkeyData historyHotkey = null;
+    // SlimTrade Hotkeys
+    public HotkeyData betrayalHotkey = null;
     public HotkeyData chatScannerHotkey = null;
     public HotkeyData closeTradeHotkey = null;
+    public HotkeyData historyHotkey = null;
+    public HotkeyData optionsHotkey = null;
+
+    // POE Hotkeys
+    public HotkeyData delveHotkey = null;
+    public HotkeyData dndHotkey = null;
+    public HotkeyData exitHotkey = null;
+    public HotkeyData harvestHotkey = null;
+    public HotkeyData leavePartyHotkey = null;
+    public HotkeyData menagerieHotkey = null;
+    public HotkeyData metamorphHotkey = null;
     public HotkeyData remainingHotkey = null;
     public HotkeyData hideoutHotkey = null;
-    public HotkeyData leavePartyHotkey = null;
-    public HotkeyData betrayalHotkey = null;
-    public HotkeyData dndHotkey = null;
 
     public SaveFile() {
         // Stash Search Defaults

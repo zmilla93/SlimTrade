@@ -76,7 +76,7 @@ public class FrameManager {
 //        new GridBagLayout() = new GridBagLayout();
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
-        ToolTipManager.sharedInstance().setInitialDelay(0);
+        ToolTipManager.sharedInstance().setInitialDelay(500);
         ToolTipManager.sharedInstance().setDismissDelay(20000);
 
 //        stashSearchWindow = new StashSearchWindow();
