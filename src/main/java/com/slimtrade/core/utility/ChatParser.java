@@ -115,11 +115,13 @@ public class ChatParser {
                             if ((App.saveManager.saveFile.enableIncomingTrades || trade.messageType != MessageType.INCOMING_TRADE)
                                     && (App.saveManager.saveFile.enableOutgoingTrades || trade.messageType != MessageType.OUTGOING_TRADE)) {
                                 boolean ignore = false;
-                                for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
-                                    if ((data.matchType == MatchType.CONTAINS && trade.itemName.contains(data.itemName))
-                                            || (data.matchType == MatchType.EXACT && trade.itemName.matches(data.itemName))) {
-                                        ignore = true;
-                                        break;
+                                if(trade.messageType == MessageType.INCOMING_TRADE) {
+                                    for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
+                                        if ((data.matchType == MatchType.CONTAINS && trade.itemName.contains(data.itemName))
+                                                || (data.matchType == MatchType.EXACT && trade.itemName.matches(data.itemName))) {
+                                            ignore = true;
+                                            break;
+                                        }
                                     }
                                 }
                                 if (!ignore) {
