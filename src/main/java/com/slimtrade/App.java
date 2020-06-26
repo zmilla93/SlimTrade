@@ -103,6 +103,7 @@ public class App {
         // Save Manager
         saveManager = new SaveManager();
         saveManager.loadFromDisk();
+        saveManager.loadScannerFromDisk();
         saveManager.loadStashFromDisk();
         saveManager.loadOverlayFromDisk();
 
