@@ -32,22 +32,29 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable, IColorable
     HotkeyInputPane optionsHotkeyInput = new HotkeyInputPane();
 
     // POE
+    JLabel delveLabel = new CustomLabel("Delve");
     JLabel dndLabel = new CustomLabel("Do Not Disturb");
+    JLabel harvestLabel = new CustomLabel("Harvest");
+    JLabel hideoutLabel = new CustomLabel("Hideout");
     JLabel leavePartyLabel = new CustomLabel("Leave Party");
+    JLabel menagerieLabel = new CustomLabel("Menagerie");
+    JLabel metamorphLabel = new CustomLabel("Metamorph");
     JLabel remainingLabel = new CustomLabel("Remaining Monsters");
-    JLabel hideoutLabel = new CustomLabel("Warp to Hideout");
 
+    HotkeyInputPane delveHotkeyInput = new HotkeyInputPane();
     HotkeyInputPane dndHotkeyInput = new HotkeyInputPane();
-    HotkeyInputPane leavePartyHotkeyInput = new HotkeyInputPane();
-    HotkeyInputPane remainingHotkeyInput = new HotkeyInputPane();
+    HotkeyInputPane harvestHotkeyInput = new HotkeyInputPane();
     HotkeyInputPane hideoutHotkeyInput = new HotkeyInputPane();
+    HotkeyInputPane leavePartyHotkeyInput = new HotkeyInputPane();
+    HotkeyInputPane menagerieHotkeyInput = new HotkeyInputPane();
+    HotkeyInputPane metamorphHotkeyInput = new HotkeyInputPane();
+    HotkeyInputPane remainingHotkeyInput = new HotkeyInputPane();
 
     // Containers
     JPanel slimTradeInner = new JPanel(new GridBagLayout());
     JPanel slimTradeOuter = new JPanel(new GridBagLayout());
     JPanel poeInner = new JPanel(new GridBagLayout());
     JPanel poeOuter = new JPanel(new GridBagLayout());
-
 
     public HotkeyPanel() {
         poeInner.setOpaque(false);
@@ -65,10 +72,14 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable, IColorable
         LabelComponentPanel optionsPanel = new LabelComponentPanel(optionsLabel, optionsHotkeyInput);
 
         // POE
+        LabelComponentPanel delvePanel = new LabelComponentPanel(delveLabel, delveHotkeyInput);
         LabelComponentPanel dndPanel = new LabelComponentPanel(dndLabel, dndHotkeyInput);
-        LabelComponentPanel leavePanel = new LabelComponentPanel(leavePartyLabel, leavePartyHotkeyInput);
-        LabelComponentPanel remainingPanel = new LabelComponentPanel(remainingLabel, remainingHotkeyInput);
+        LabelComponentPanel harvestPanel = new LabelComponentPanel(harvestLabel, harvestHotkeyInput);
         LabelComponentPanel hideoutPanel = new LabelComponentPanel(hideoutLabel, hideoutHotkeyInput);
+        LabelComponentPanel leavePanel = new LabelComponentPanel(leavePartyLabel, leavePartyHotkeyInput);
+        LabelComponentPanel menageriePanel = new LabelComponentPanel(menagerieLabel, menagerieHotkeyInput);
+        LabelComponentPanel metamorphPanel = new LabelComponentPanel(metamorphLabel, metamorphHotkeyInput);
+        LabelComponentPanel remainingPanel = new LabelComponentPanel(remainingLabel, remainingHotkeyInput);
 
         int i = 10;
         GridBagConstraints gc = new GridBagConstraints();
@@ -95,15 +106,22 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable, IColorable
 
         // POE Panel
         gc.gridy = 0;
-        poeInner.add(dndPanel, gc);
+        poeInner.add(delvePanel, gc);
         gc.insets.top = 4;
+        gc.gridy++;
+        poeInner.add(dndPanel, gc);
+        gc.gridy++;
+        poeInner.add(harvestPanel, gc);
+        gc.gridy++;
+        poeInner.add(hideoutPanel, gc);
         gc.gridy++;
         poeInner.add(leavePanel, gc);
         gc.gridy++;
-        poeInner.add(remainingPanel, gc);
+        poeInner.add(menageriePanel, gc);
         gc.gridy++;
-        poeInner.add(hideoutPanel, gc);
-
+        poeInner.add(metamorphPanel, gc);
+        gc.gridy++;
+        poeInner.add(remainingPanel, gc);
 
         // Build Panel
         gc = new GridBagConstraints();
@@ -139,10 +157,14 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable, IColorable
         App.saveManager.saveFile.historyHotkey = historyHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.optionsHotkey = optionsHotkeyInput.getHotkeyData();
 
+        App.saveManager.saveFile.delveHotkey = delveHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.dndHotkey = dndHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.leavePartyHotkey = leavePartyHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.remainingHotkey = remainingHotkeyInput.getHotkeyData();
+        App.saveManager.saveFile.harvestHotkey = harvestHotkeyInput.getHotkeyData();
         App.saveManager.saveFile.hideoutHotkey = hideoutHotkeyInput.getHotkeyData();
+        App.saveManager.saveFile.leavePartyHotkey = leavePartyHotkeyInput.getHotkeyData();
+        App.saveManager.saveFile.menagerieHotkey = menagerieHotkeyInput.getHotkeyData();
+        App.saveManager.saveFile.metamorphHotkey = metamorphHotkeyInput.getHotkeyData();
+        App.saveManager.saveFile.remainingHotkey = remainingHotkeyInput.getHotkeyData();
     }
 
     @Override
@@ -155,10 +177,15 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable, IColorable
         historyHotkeyInput.updateHotkey(App.saveManager.saveFile.historyHotkey);
         optionsHotkeyInput.updateHotkey(App.saveManager.saveFile.optionsHotkey);
 
+        delveHotkeyInput.updateHotkey(App.saveManager.saveFile.delveHotkey);
         dndHotkeyInput.updateHotkey(App.saveManager.saveFile.dndHotkey);
-        leavePartyHotkeyInput.updateHotkey(App.saveManager.saveFile.leavePartyHotkey);
-        remainingHotkeyInput.updateHotkey(App.saveManager.saveFile.remainingHotkey);
+        harvestHotkeyInput.updateHotkey(App.saveManager.saveFile.harvestHotkey);
         hideoutHotkeyInput.updateHotkey(App.saveManager.saveFile.hideoutHotkey);
+        leavePartyHotkeyInput.updateHotkey(App.saveManager.saveFile.leavePartyHotkey);
+        menagerieHotkeyInput.updateHotkey(App.saveManager.saveFile.menagerieHotkey);
+        metamorphHotkeyInput.updateHotkey(App.saveManager.saveFile.metamorphHotkey);
+        remainingHotkeyInput.updateHotkey(App.saveManager.saveFile.remainingHotkey);
+
     }
 
     @Override

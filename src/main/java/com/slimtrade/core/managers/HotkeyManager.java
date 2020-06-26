@@ -57,6 +57,14 @@ public class HotkeyManager {
             PoeInterface.runCommand("/remaining");
         } else if (checkKey(e, saveFile.hideoutHotkey)) {
             PoeInterface.runCommand("/hideout");
+        }else if (checkKey(e, saveFile.delveHotkey)) {
+            PoeInterface.runCommand("/delve");
+        }else if (checkKey(e, saveFile.harvestHotkey)) {
+            PoeInterface.runCommand("/harvest");
+        }else if (checkKey(e, saveFile.menagerieHotkey)) {
+            PoeInterface.runCommand("/menagerie");
+        }else if (checkKey(e, saveFile.metamorphHotkey)) {
+            PoeInterface.runCommand("/metamorph");
         } else if (checkKey(e, saveFile.leavePartyHotkey)) {
             PoeInterface.runCommand(new String[]{"/kick {self}"}, "", "", "", "", null);
         } else if (checkKey(e, saveFile.betrayalHotkey)) {
