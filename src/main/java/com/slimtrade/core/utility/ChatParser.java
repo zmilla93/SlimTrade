@@ -5,6 +5,7 @@ import com.slimtrade.core.References;
 import com.slimtrade.enums.LangRegex;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.FrameManager;
+import com.slimtrade.gui.enums.MatchType;
 import com.slimtrade.gui.options.ignore.IgnoreData;
 
 import javax.swing.*;
@@ -111,13 +112,21 @@ public class ChatParser {
                     if (curLine.contains("@") && (lang = getLang(curLine)) != null) {
                         TradeOffer trade = getTradeOffer(curLine, lang);
                         if (trade != null) {
-                            if ((!App.saveManager.saveFile.enableIncomingTrades && trade.messageType == MessageType.INCOMING_TRADE)
-                                    || (!App.saveManager.saveFile.enableOutgoingTrades && trade.messageType == MessageType.OUTGOING_TRADE)) {
-                                // Ignore disabled trades
-                            } else {
-                                FrameManager.messageManager.addMessage(trade);
+                            if ((App.saveManager.saveFile.enableIncomingTrades || trade.messageType != MessageType.INCOMING_TRADE)
+                                    && (App.saveManager.saveFile.enableOutgoingTrades || trade.messageType != MessageType.OUTGOING_TRADE)) {
+                                boolean ignore = false;
+                                for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
+                                    if ((data.matchType == MatchType.CONTAINS && trade.itemName.contains(data.itemName))
+                                            || (data.matchType == MatchType.EXACT && trade.itemName.matches(data.itemName))) {
+                                        ignore = true;
+                                        break;
+                                    }
+                                }
+                                if (!ignore) {
+                                    FrameManager.messageManager.addMessage(trade);
+                                    FrameManager.historyWindow.addTrade(trade, true);
+                                }
                             }
-                            FrameManager.historyWindow.addTrade(trade, true);
                         }
                     } else if (chatScannerRunning) {
                         TradeOffer trade = getSearchOffer(curLine);
