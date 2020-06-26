@@ -53,9 +53,9 @@ public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
 
         // Create Opacity Delay
         opacityDelayLabel = new CustomLabel("Seconds Before Fading");
-        opacityDelaySpinner = new CustomSpinner(new SpinnerNumberModel(3, 0.5f, 5, 0.5));
+        opacityDelaySpinner = new CustomSpinner(new SpinnerNumberModel(3, 0.5f, 20, 0.5));
         size = opacityDelaySpinner.getPreferredSize();
-        opacityDelaySpinner = new CustomSpinner(new SpinnerNumberModel(3, 0, 5, 0.5));
+        opacityDelaySpinner = new CustomSpinner(new SpinnerNumberModel(3, 0, 20, 0.5));
         opacityDelaySpinner.setPreferredSize(size);
 
         // Create Opacity Slider
