@@ -118,7 +118,7 @@ public class ChatParser {
                                 if(trade.messageType == MessageType.INCOMING_TRADE) {
                                     for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
                                         if ((data.matchType == MatchType.CONTAINS && trade.itemName.contains(data.itemName))
-                                                || (data.matchType == MatchType.EXACT && trade.itemName.matches(data.itemName))) {
+                                                || (data.matchType == MatchType.EXACT && trade.itemName.equals(data.itemName))) {
                                             ignore = true;
                                             break;
                                         }
