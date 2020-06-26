@@ -65,6 +65,8 @@ public class HotkeyManager {
             PoeInterface.runCommand("/menagerie");
         }else if (checkKey(e, saveFile.metamorphHotkey)) {
             PoeInterface.runCommand("/metamorph");
+        }else if (checkKey(e, saveFile.exitHotkey)) {
+            PoeInterface.runCommand("/exit");
         } else if (checkKey(e, saveFile.leavePartyHotkey)) {
             PoeInterface.runCommand(new String[]{"/kick {self}"}, "", "", "", "", null);
         } else if (checkKey(e, saveFile.betrayalHotkey)) {
