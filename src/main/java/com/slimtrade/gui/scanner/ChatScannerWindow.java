@@ -29,7 +29,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class ChatScannerWindow extends AbstractResizableWindow implements IColorable {
@@ -146,7 +146,12 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
         searchTermsInput.setLineWrap(true);
         searchTermsInput.setWrapStyleWord(true);
 
-        refreshMessage("");
+        // Load Scanner Messages
+        messageList.addAll(Arrays.asList(App.saveManager.scannerSaveFile.messages));
+        messageList.sort(Comparator.comparing(ScannerMessage::getNameLower));
+        refreshCombo();
+        searchCombo.setSelectedIndex(-1);
+        refreshDisplayMessage("");
         updateColor();
         refreshWindowState();
         pack();
@@ -240,7 +245,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
                 }
                 App.saveManager.scannerSaveFile.messages = messageList.toArray(new ScannerMessage[0]);
                 App.saveManager.saveScannerToDisk();
-                refreshMessage("");
+                refreshDisplayMessage("");
                 refreshCombo();
                 clearWindow();
                 runAllChecks();
@@ -256,7 +261,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
             }
             ScannerMessage msg = (ScannerMessage) searchCombo.getSelectedItem();
             loadMessage(msg);
-            refreshMessage(msg.name);
+            refreshDisplayMessage(msg.name);
             runAllChecks();
             refreshWindowState();
             refreshListeners();
@@ -268,7 +273,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
             addDefaults();
             runAllChecks();
             refreshWindowState();
-            refreshMessage("");
+            refreshDisplayMessage("");
         });
 
         saveButton.addActionListener(e -> {
@@ -294,7 +299,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
                 }
             }
             messageList.add(message);
-            Collections.sort(messageList, Comparator.comparing(ScannerMessage::getNameLower));
+            messageList.sort(Comparator.comparing(ScannerMessage::getNameLower));
             refreshCombo(message);
             loadMessage(message);
             refreshWindowState();
@@ -303,7 +308,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
             App.saveManager.scannerSaveFile.messages = messageList.toArray(new ScannerMessage[0]);
             App.saveManager.saveScannerToDisk();
 
-            refreshMessage(message.name);
+            refreshDisplayMessage(message.name);
 
             macroPanel.revalidate();
             macroPanel.repaint();
@@ -487,7 +492,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
         }
     }
 
-    private void refreshMessage(String searchName) {
+    private void refreshDisplayMessage(String searchName) {
         TradeOffer trade = new TradeOffer(MessageType.CHAT_SCANNER, "ExampleUser123", "item", 0, "", 0);
         trade.searchName = searchName;
         trade.searchMessage = "Example chat message. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
@@ -522,7 +527,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
             row.hotkeyInput.updateHotkey(b.hotkeyData);
             row.closeCheckbox.setSelected(b.closeOnClick);
             addRemovePanel.addRemovablePanel(row);
-            refreshMessage(message.name);
+            refreshDisplayMessage(message.name);
         }
 
     }
