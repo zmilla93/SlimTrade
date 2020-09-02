@@ -304,6 +304,7 @@ public class ChatParser {
         MessageType type = MessageType.UNKNOWN;
         switch (s.toLowerCase()) {
             case "to":
+            case "向":      // Chinese
             case "à":       // French
             case "an":      // German
             case "para":    // Portuguese & Spanish
@@ -312,6 +313,7 @@ public class ChatParser {
                 type = MessageType.OUTGOING_TRADE;
                 break;
             case "from":
+            case "來自":     // Chinese
             case "de":      // French, Portuguese & Spanish
             case "von":     // German
             case "от кого": // Russian

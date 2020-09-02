@@ -48,12 +48,12 @@ public class PatchNotesWindow extends JFrame implements IColorable {
         ArrayList<ReleaseData> releases = App.updateManager.getReleaseData();
         PatchNotesWindow local = this;
         comboBox.addActionListener(e -> {
-            ArrayList<ReleaseData> releaseData = releases;
-            for (ReleaseData data : releaseData) {
-                if (comboBox.getSelectedItem().equals(data.tag)) {
+            for (ReleaseData data : releases) {
+                if (comboBox.getSelectedItem() != null && comboBox.getSelectedItem().equals(data.tag)) {
                     currentData = data;
                     textPane.setText(data.getColorPatchNotes(ColorManager.TEXT));
-                    local.pack();
+                    revalidate();
+                    pack();
                     FrameManager.fitWindowToScreen(local);
                 }
             }
@@ -134,6 +134,7 @@ public class PatchNotesWindow extends JFrame implements IColorable {
 //        currentData = releases.get(index);
 //        textPane.setText(releases.get(index).getColorPatchNotes(ColorManager.TEXT));
         textPane.setCaretPosition(0);
+        revalidate();
         pack();
         FrameManager.fitWindowToScreen(this);
     }
