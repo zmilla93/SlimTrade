@@ -113,19 +113,20 @@ public class MenubarDialog extends BasicDialog {
         });
 
         // Listeners
-        this.addMouseListener(new MouseAdapter() {
+        addMouseListener(new MouseAdapter() {
             public void mouseExited(MouseEvent e) {
                 Rectangle bounds = FrameManager.menubar.getBounds();
                 if (!bounds.contains(MouseInfo.getPointerInfo().getLocation())) {
                     FrameManager.menubar.setShow(false);
                     if (App.saveManager.saveFile.enableMenubar) {
-                        FrameManager.menubarToggle.setShow(true);
+                        revalidate();
                         FrameManager.menubarToggle.repaint();
+                        FrameManager.menubarToggle.setShow(true);
                     }
                 }
             }
         });
-        this.refreshButtonText();
+        refreshButtonText();
     }
 
     private void refreshButtonText() {

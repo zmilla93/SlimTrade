@@ -268,16 +268,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             // Update Clipboard Listener
             App.clipboardManager.setListeningState(App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 
-            // Set menubar visibility
-            if (App.saveManager.saveFile.enableMenubar) {
-                FrameManager.menubarToggle.setShow(true);
-            } else {
-                FrameManager.menubarToggle.setShow(false);
-            }
-
             if (reloadHistory) {
                 new Thread(() -> {
-
                     // Restart file monitor
                     App.fileMonitor.stopMonitor();
                     App.chatParser.init();

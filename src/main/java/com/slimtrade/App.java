@@ -168,15 +168,16 @@ public class App {
             FrameManager.windowState = WindowState.SETUP;
             FrameManager.setupWindow.setVisible(true);
         } else {
-            FrameManager.optionsWindow.reloadGeneralPanel();
             // Launch
+            // Reload to get correct client path
+            FrameManager.optionsWindow.reloadGeneralPanel();
             FrameManager.windowState = WindowState.NORMAL;
             fileMonitor = new FileMonitor();
             fileMonitor.startMonitor();
             chatParser.init();
             if (App.saveManager.saveFile.enableMenubar) {
                 FrameManager.menubarToggle.setShow(true);
-                if (!globalMouse.isGameFocused()) {
+                if (!globalMouse.isGameFocused() && !PoeInterface.isPoeFocused(false)) {
                     FrameManager.menubarToggle.setVisible(false);
                 }
             }
@@ -191,13 +192,11 @@ public class App {
                 }
             }
             if (patchNotes) {
-                SwingUtilities.invokeLater(() -> {
-                    FrameManager.patchNotesWindow = new PatchNotesWindow();
-                    ColorManager.recursiveColor(FrameManager.patchNotesWindow);
-                    FrameManager.patchNotesWindow.setVisible(true);
-                    FrameManager.patchNotesWindow.setAlwaysOnTop(true);
-                    FrameManager.patchNotesWindow.setAlwaysOnTop(false);
-                });
+                FrameManager.patchNotesWindow = new PatchNotesWindow();
+                ColorManager.recursiveColor(FrameManager.patchNotesWindow);
+                FrameManager.patchNotesWindow.setVisible(true);
+                FrameManager.patchNotesWindow.setAlwaysOnTop(true);
+                FrameManager.patchNotesWindow.setAlwaysOnTop(false);
             }
         }
     }
