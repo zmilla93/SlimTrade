@@ -246,11 +246,11 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             // This is done on a new thread as it needs to reload the chat parser
             boolean reloadHistory = false;
             HistorySettingsPanel historySettingsPanel = FrameManager.optionsWindow.generalPanel.historyPanel;
-            if (App.saveManager.saveFile.timeStyle != historySettingsPanel.getTimeStyle()
-                    || App.saveManager.saveFile.dateStyle != historySettingsPanel.getDateStyle()
-                    || App.saveManager.saveFile.orderType != historySettingsPanel.getOrderType()
-                    || App.saveManager.saveFile.historyLimit != historySettingsPanel.getMessageLimit()
-                    || !App.saveManager.saveFile.clientPath.equals(FrameManager.optionsWindow.generalPanel.getClientPath())) {
+            if (App.saveManager.settingsSaveFile.timeStyle != historySettingsPanel.getTimeStyle()
+                    || App.saveManager.settingsSaveFile.dateStyle != historySettingsPanel.getDateStyle()
+                    || App.saveManager.settingsSaveFile.orderType != historySettingsPanel.getOrderType()
+                    || App.saveManager.settingsSaveFile.historyLimit != historySettingsPanel.getMessageLimit()
+                    || !App.saveManager.settingsSaveFile.clientPath.equals(FrameManager.optionsWindow.generalPanel.getClientPath())) {
                 FrameManager.historyWindow.setTimeStyle(historySettingsPanel.getTimeStyle());
                 FrameManager.historyWindow.setDateStyle(historySettingsPanel.getDateStyle());
                 FrameManager.historyWindow.setOrderType(historySettingsPanel.getOrderType());
@@ -266,10 +266,10 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             FrameManager.messageManager.refreshPanelLocations();
 
             // Update Clipboard Listener
-            App.clipboardManager.setListeningState(App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
+            App.clipboardManager.setListeningState(App.saveManager.settingsSaveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 
             // Set menubar visibility
-            if (App.saveManager.saveFile.enableMenubar) {
+            if (App.saveManager.settingsSaveFile.enableMenubar) {
                 FrameManager.menubarToggle.setShow(true);
             } else {
                 FrameManager.menubarToggle.setShow(false);

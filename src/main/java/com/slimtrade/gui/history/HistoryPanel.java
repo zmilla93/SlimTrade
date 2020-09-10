@@ -48,7 +48,7 @@ public class HistoryPanel extends JPanel implements IColorable {
             i++;
         }
         // Delete oldest trade if at max trades
-        if (trades.size() >= App.saveManager.saveFile.historyLimit && App.saveManager.saveFile.historyLimit > 0) {
+        if (trades.size() >= App.saveManager.settingsSaveFile.historyLimit && App.saveManager.settingsSaveFile.historyLimit > 0) {
             trades.remove(0);
             if (updateUI) {
                 contentPanel.remove(tradePanels.get(0));

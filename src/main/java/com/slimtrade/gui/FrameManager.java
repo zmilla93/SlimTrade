@@ -123,12 +123,12 @@ public class FrameManager {
     }
 
     public static void generateCheatSheets() {
-        for (CheatSheetData data : App.saveManager.saveFile.cheatSheetData) {
+        for (CheatSheetData data : App.saveManager.settingsSaveFile.cheatSheetData) {
             if (data == null || !TradeUtility.isValidImagePath(data.fileName)) {
                 continue;
             }
             CheatSheetWindow w = new CheatSheetWindow(data);
-            if(!w.isValid()) {
+            if (!w.isValid()) {
                 continue;
             }
             FrameManager.cheatSheetWindows.add(w);

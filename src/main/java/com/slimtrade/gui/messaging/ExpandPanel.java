@@ -56,7 +56,7 @@ public class ExpandPanel extends BasicDialog implements IColorable {
             labelPanel.setText("Hide Extra Messages");
         } else {
             String s = "";
-            int i = tradeCount - App.saveManager.saveFile.messageCountBeforeCollapse;
+            int i = tradeCount - App.saveManager.settingsSaveFile.messageCountBeforeCollapse;
             if (i > 1) {
                 s = "s";
             }

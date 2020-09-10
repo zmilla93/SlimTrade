@@ -196,31 +196,31 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
             characterName = null;
         }
         ColorTheme colorTheme = (ColorTheme) colorThemeCombo.getSelectedItem();
-        App.saveManager.saveFile.characterName = characterName;
-        App.saveManager.saveFile.showGuildName = guildCheckbox.isSelected();
-        App.saveManager.saveFile.colorBlindMode = colorBlindCheckbox.isSelected();
-        App.saveManager.saveFile.colorTheme = colorTheme;
-        App.saveManager.saveFile.quickPasteSetting = (QuickPasteSetting) quickPasteCombo.getSelectedItem();
-        App.saveManager.saveFile.quickPasteHotkey = quickPasteHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.characterName = characterName;
+        App.saveManager.settingsSaveFile.showGuildName = guildCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.colorBlindMode = colorBlindCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.colorTheme = colorTheme;
+        App.saveManager.settingsSaveFile.quickPasteSetting = (QuickPasteSetting) quickPasteCombo.getSelectedItem();
+        App.saveManager.settingsSaveFile.quickPasteHotkey = quickPasteHotkeyInput.getHotkeyData();
     }
 
     @Override
     public void load() {
-        String characterName = App.saveManager.saveFile.characterName;
+        String characterName = App.saveManager.settingsSaveFile.characterName;
         characterInput.setText(characterName);
-        guildCheckbox.setSelected(App.saveManager.saveFile.showGuildName);
-        colorBlindCheckbox.setSelected(App.saveManager.saveFile.colorBlindMode);
-        ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
-        colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
-        if (App.saveManager.saveFile.colorTheme == null) {
+        guildCheckbox.setSelected(App.saveManager.settingsSaveFile.showGuildName);
+        colorBlindCheckbox.setSelected(App.saveManager.settingsSaveFile.colorBlindMode);
+        ColorManager.setColorBlindMode(App.saveManager.settingsSaveFile.colorBlindMode);
+        colorThemeCombo.setSelectedItem(App.saveManager.settingsSaveFile.colorTheme);
+        if (App.saveManager.settingsSaveFile.colorTheme == null) {
             if (colorThemeCombo.getItemCount() > 0) {
                 colorThemeCombo.setSelectedIndex(0);
             }
         } else {
-            colorThemeCombo.setSelectedItem(App.saveManager.saveFile.colorTheme);
+            colorThemeCombo.setSelectedItem(App.saveManager.settingsSaveFile.colorTheme);
         }
-        quickPasteCombo.setSelectedItem(App.saveManager.saveFile.quickPasteSetting);
-        quickPasteHotkeyInput.updateHotkey(App.saveManager.saveFile.quickPasteHotkey);
+        quickPasteCombo.setSelectedItem(App.saveManager.settingsSaveFile.quickPasteSetting);
+        quickPasteHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.quickPasteHotkey);
         updateQuickPasteVis();
     }
 

@@ -17,13 +17,13 @@ public class SetupManager {
             SetupManager.clientSetupCheck = true;
             needsSetup = true;
         } else {
-            File file = new File(App.saveManager.saveFile.clientPath);
+            File file = new File(App.saveManager.settingsSaveFile.clientPath);
             if (!file.exists() || !file.isFile()) {
                 SetupManager.clientSetupCheck = true;
                 needsSetup = true;
             }
         }
-        if (App.saveManager.saveFile.characterName == null || App.saveManager.saveFile.characterName.equals("")) {
+        if (App.saveManager.settingsSaveFile.characterName == null || App.saveManager.settingsSaveFile.characterName.equals("")) {
             SetupManager.characterNameCheck = true;
             needsSetup = true;
         }

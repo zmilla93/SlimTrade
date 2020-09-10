@@ -32,7 +32,7 @@ public class ClipboardManager implements ClipboardOwner {
             String contents = getClipboardContents();
             if (lastMessage == null) {
                 lastMessage = contents;
-                if (App.saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
+                if (App.saveManager.settingsSaveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
                     PoeInterface.attemptQuickPaste(contents);
                 }
                 try {
@@ -98,6 +98,7 @@ public class ClipboardManager implements ClipboardOwner {
             transferable = clipboard.getContents(this);
         } catch (IllegalStateException e) {
             System.out.println("Failed to refresh clipboard (getContents)");
+            return;
         }
         try {
             clipboard.setContents(transferable, this);

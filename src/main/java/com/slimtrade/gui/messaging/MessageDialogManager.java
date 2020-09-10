@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
-import com.slimtrade.core.saving.SaveFile;
+import com.slimtrade.core.saving.SettingsSaveFile;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.MessageType;
@@ -37,7 +37,7 @@ public class MessageDialogManager {
     private boolean expanded = false;
     private Rectangle bounds = new Rectangle(0, 0, 0, 0);
 
-    private SaveFile saveFile = App.saveManager.saveFile;
+    private SettingsSaveFile settingsSaveFile = App.saveManager.settingsSaveFile;
 
     // Opacity Variables
     private float targetOpacity = 1f;
@@ -112,16 +112,16 @@ public class MessageDialogManager {
         }
 
         // Hide message if collapsed
-        if (saveFile.collapseExcessiveMessages && wrapperList.size() > saveFile.messageCountBeforeCollapse) {
+        if (settingsSaveFile.collapseExcessiveMessages && wrapperList.size() > settingsSaveFile.messageCountBeforeCollapse) {
             wrapper.setShow(false);
         }
 
         // Run Fade Timer
-        if (saveFile.fadeAfterDuration && wrapperList.size() == 1) {
-            if (saveFile.secondsBeforeFading == 0) {
+        if (settingsSaveFile.fadeAfterDuration && wrapperList.size() == 1) {
+            if (settingsSaveFile.secondsBeforeFading == 0) {
                 setFaded(true);
-                opacity = (float) saveFile.fadeOpacityPercent / 100;
-                setOpacity((float) saveFile.fadeOpacityPercent / 100);
+                opacity = (float) settingsSaveFile.fadeOpacityPercent / 100;
+                setOpacity((float) settingsSaveFile.fadeOpacityPercent / 100);
             } else {
                 runOpacityTimer();
             }
@@ -159,9 +159,9 @@ public class MessageDialogManager {
     }
 
     public void runOpacityTimer() {
-        fadeTimer = new Timer((int) (App.saveManager.saveFile.secondsBeforeFading * 1000), e -> {
+        fadeTimer = new Timer((int) (App.saveManager.settingsSaveFile.secondsBeforeFading * 1000), e -> {
             setFaded(true);
-            float opacity = (float) App.saveManager.saveFile.fadeOpacityPercent / 100;
+            float opacity = (float) App.saveManager.settingsSaveFile.fadeOpacityPercent / 100;
             setTargetOpacity(opacity);
         });
         fadeTimer.setRepeats(false);
@@ -202,7 +202,7 @@ public class MessageDialogManager {
             w.setLocation(targetPoint);
             w.setAlwaysOnTop(false);
             w.setAlwaysOnTop(true);
-            if (saveFile.collapseExcessiveMessages && i >= saveFile.messageCountBeforeCollapse && !expanded) {
+            if (settingsSaveFile.collapseExcessiveMessages && i >= settingsSaveFile.messageCountBeforeCollapse && !expanded) {
                 w.setShow(false);
             } else {
                 if (App.saveManager.overlaySaveFile.messageExpandDirection == ExpandDirection.DOWN) {
@@ -221,7 +221,7 @@ public class MessageDialogManager {
             targetPoint.y -= expandPanel.getHeight();
         }
         expandPanel.setLocation(targetPoint);
-        if (saveFile.collapseExcessiveMessages && wrapperList.size() > saveFile.messageCountBeforeCollapse) {
+        if (settingsSaveFile.collapseExcessiveMessages && wrapperList.size() > settingsSaveFile.messageCountBeforeCollapse) {
             expandPanel.updateMessage(wrapperList.size(), expanded);
             expandPanel.setShow(true);
         } else {
@@ -323,8 +323,7 @@ public class MessageDialogManager {
                             check++;
                         }
                     } else if ((tradeA.poePriceType == null && tradeB.poePriceType == null) ||
-                            ((tradeA.poePriceType != null && tradeB.poePriceType != null) && tradeA.poePriceType.equals(tradeB.poePriceType)))
-                    {
+                            ((tradeA.poePriceType != null && tradeB.poePriceType != null) && tradeA.poePriceType.equals(tradeB.poePriceType))) {
                         check++;
                     }
                     if (tradeA.priceQuantity.equals(tradeB.priceQuantity)) {
@@ -403,7 +402,7 @@ public class MessageDialogManager {
                 d.setVisible(true);
             }
         }
-        if (saveFile.collapseExcessiveMessages && wrapperList.size() > saveFile.messageCountBeforeCollapse && expandPanel.visible) {
+        if (settingsSaveFile.collapseExcessiveMessages && wrapperList.size() > settingsSaveFile.messageCountBeforeCollapse && expandPanel.visible) {
             expandPanel.setVisible(true);
             expandPanel.repaint();
         }
@@ -427,7 +426,7 @@ public class MessageDialogManager {
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.itemPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.timerPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
-                    AudioManager.play(saveFile.playerJoinedSound);
+                    AudioManager.play(settingsSaveFile.playerJoinedSound);
                 }
             }
         }

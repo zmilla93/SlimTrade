@@ -65,17 +65,17 @@ public class StashTabPanel extends ContainerPanel implements ISaveable, IColorab
     }
 
     public void save() {
-        App.saveManager.saveFile.stashTabs.clear();
+        App.saveManager.settingsSaveFile.stashTabs.clear();
         rowContainer.clearHiddenPanels();
         for (Component c : rowContainer.getComponents()) {
             StashTabRow row = (StashTabRow) c;
-            App.saveManager.saveFile.stashTabs.add(row.getStashTabData());
+            App.saveManager.settingsSaveFile.stashTabs.add(row.getStashTabData());
         }
     }
 
     public void load() {
         rowContainer.removeAll();
-        for (StashTab tab : App.saveManager.saveFile.stashTabs) {
+        for (StashTab tab : App.saveManager.settingsSaveFile.stashTabs) {
             StashTabRow row = addNewRow();
             row.setText(tab.name);
             row.setType(tab.type);

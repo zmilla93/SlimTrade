@@ -3,7 +3,7 @@ package com.slimtrade.core.managers;
 import com.slimtrade.App;
 import com.slimtrade.core.observing.HotkeyData;
 import com.slimtrade.core.saving.MacroButton;
-import com.slimtrade.core.saving.SaveFile;
+import com.slimtrade.core.saving.SettingsSaveFile;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;
@@ -18,13 +18,13 @@ import java.util.ArrayList;
 
 public class HotkeyManager {
 
-    private static final SaveFile saveFile = App.saveManager.saveFile;
+    private static final SettingsSaveFile SETTINGS_SAVE_FILE = App.saveManager.settingsSaveFile;
 
     public static void processHotkey(NativeKeyEvent e) {
-        if(FrameManager.windowState != WindowState.NORMAL) {
+        if (FrameManager.windowState != WindowState.NORMAL) {
             return;
         }
-        if (saveFile.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, saveFile.quickPasteHotkey)) {
+        if (SETTINGS_SAVE_FILE.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, SETTINGS_SAVE_FILE.quickPasteHotkey)) {
             PoeInterface.attemptQuickPaste();
             return;
         }
@@ -34,42 +34,42 @@ public class HotkeyManager {
         }
 
         // Inbuilt Macros
-        if (checkKey(e, saveFile.closeTradeHotkey)) {
+        if (checkKey(e, SETTINGS_SAVE_FILE.closeTradeHotkey)) {
             FrameManager.messageManager.closeTrade(FrameManager.messageManager.getFirstTrade());
-        } else if (checkKey(e, saveFile.betrayalHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.betrayalHotkey)) {
             FrameManager.betrayalWindow.toggleShow();
             FrameManager.betrayalWindow.refreshVisibility();
-        } else if (checkKey(e, saveFile.chatScannerHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.chatScannerHotkey)) {
             FrameManager.chatScannerWindow.toggleShow();
             FrameManager.chatScannerWindow.refreshVisibility();
-        } else if (checkKey(e, saveFile.historyHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.historyHotkey)) {
             FrameManager.historyWindow.toggleShow();
             FrameManager.historyWindow.refreshVisibility();
-        } else if (checkKey(e, saveFile.optionsHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.optionsHotkey)) {
             FrameManager.optionsWindow.toggleShow();
             FrameManager.optionsWindow.refreshVisibility();
-        } else if (checkKey(e, saveFile.stashSearchHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.stashSearchHotkey)) {
             FrameManager.stashSearchWindow.toggleShow();
             FrameManager.stashSearchWindow.refreshVisibility();
-        } else if (checkKey(e, saveFile.dndHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.dndHotkey)) {
             PoeInterface.runCommand("/dnd");
-        } else if (checkKey(e, saveFile.remainingHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.remainingHotkey)) {
             PoeInterface.runCommand("/remaining");
-        } else if (checkKey(e, saveFile.hideoutHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.hideoutHotkey)) {
             PoeInterface.runCommand("/hideout");
-        }else if (checkKey(e, saveFile.delveHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.delveHotkey)) {
             PoeInterface.runCommand("/delve");
-        }else if (checkKey(e, saveFile.harvestHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.harvestHotkey)) {
             PoeInterface.runCommand("/harvest");
-        }else if (checkKey(e, saveFile.menagerieHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.menagerieHotkey)) {
             PoeInterface.runCommand("/menagerie");
-        }else if (checkKey(e, saveFile.metamorphHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.metamorphHotkey)) {
             PoeInterface.runCommand("/metamorph");
-        }else if (checkKey(e, saveFile.exitHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.exitHotkey)) {
             PoeInterface.runCommand("/exit");
-        } else if (checkKey(e, saveFile.leavePartyHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.leavePartyHotkey)) {
             PoeInterface.runCommand(new String[]{"/kick {self}"}, "", "", "", "", null);
-        } else if (checkKey(e, saveFile.betrayalHotkey)) {
+        } else if (checkKey(e, SETTINGS_SAVE_FILE.betrayalHotkey)) {
             FrameManager.betrayalWindow.toggleShow();
             FrameManager.betrayalWindow.refreshVisibility();
         } else {
@@ -88,10 +88,10 @@ public class HotkeyManager {
                 MacroButton[] macros = null;
                 switch (firstTrade.messageType) {
                     case INCOMING_TRADE:
-                        macros = saveFile.incomingMacros;
+                        macros = SETTINGS_SAVE_FILE.incomingMacros;
                         break;
                     case OUTGOING_TRADE:
-                        macros = saveFile.outgoingMacros;
+                        macros = SETTINGS_SAVE_FILE.outgoingMacros;
                         break;
                     case CHAT_SCANNER:
                         for (ScannerMessage msg : App.saveManager.scannerSaveFile.messages) {

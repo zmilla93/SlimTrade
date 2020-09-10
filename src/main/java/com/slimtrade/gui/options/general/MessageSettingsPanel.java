@@ -160,20 +160,20 @@ public class MessageSettingsPanel extends ContainerPanel implements ISaveable {
 
     @Override
     public void save() {
-        App.saveManager.saveFile.collapseExcessiveMessages = collapseCheckbox.isSelected();
-        App.saveManager.saveFile.messageCountBeforeCollapse = (int) collapseSpinner.getValue();
-        App.saveManager.saveFile.fadeAfterDuration = opacityCheckbox.isSelected();
-        App.saveManager.saveFile.secondsBeforeFading = (double) opacityDelaySpinner.getValue();
-        App.saveManager.saveFile.fadeOpacityPercent = opacitySlider.getValue();
+        App.saveManager.settingsSaveFile.collapseExcessiveMessages = collapseCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.messageCountBeforeCollapse = (int) collapseSpinner.getValue();
+        App.saveManager.settingsSaveFile.fadeAfterDuration = opacityCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.secondsBeforeFading = (double) opacityDelaySpinner.getValue();
+        App.saveManager.settingsSaveFile.fadeOpacityPercent = opacitySlider.getValue();
     }
 
     @Override
     public void load() {
-        collapseCheckbox.setSelected(App.saveManager.saveFile.collapseExcessiveMessages);
-        collapseSpinner.setValue(App.saveManager.saveFile.messageCountBeforeCollapse);
-        opacityCheckbox.setSelected(App.saveManager.saveFile.fadeAfterDuration);
-        opacityDelaySpinner.setValue(App.saveManager.saveFile.secondsBeforeFading);
-        opacitySlider.setValue(App.saveManager.saveFile.fadeOpacityPercent);
+        collapseCheckbox.setSelected(App.saveManager.settingsSaveFile.collapseExcessiveMessages);
+        collapseSpinner.setValue(App.saveManager.settingsSaveFile.messageCountBeforeCollapse);
+        opacityCheckbox.setSelected(App.saveManager.settingsSaveFile.fadeAfterDuration);
+        opacityDelaySpinner.setValue(App.saveManager.settingsSaveFile.secondsBeforeFading);
+        opacitySlider.setValue(App.saveManager.settingsSaveFile.fadeOpacityPercent);
         updateCollapseToggle();
         updateOpacityToggle();
         updateOpacityText();

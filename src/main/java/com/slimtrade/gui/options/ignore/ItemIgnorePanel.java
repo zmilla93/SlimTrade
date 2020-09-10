@@ -132,24 +132,24 @@ public class ItemIgnorePanel extends ContainerPanel implements ISaveable {
     @Override
     public void save() {
         addRemovePanel.clearHiddenPanels();
-        App.saveManager.saveFile.ignoreData.clear();
+        App.saveManager.settingsSaveFile.ignoreData.clear();
         for (Component c : addRemovePanel.getComponents()) {
             if (c instanceof IgnoreRow) {
                 IgnoreRow row = (IgnoreRow) c;
                 IgnoreData rowData = row.getIgnoreData();
                 if (rowData.getRemainingTime() > 0 || rowData.indefinite) {
-                    App.saveManager.saveFile.ignoreData.add(rowData);
+                    App.saveManager.settingsSaveFile.ignoreData.add(rowData);
                 }
             }
         }
-        App.chatParser.setWhisperIgnoreTerms(App.saveManager.saveFile.ignoreData);
+        App.chatParser.setWhisperIgnoreTerms(App.saveManager.settingsSaveFile.ignoreData);
     }
 
     @Override
     public void load() {
         ArrayList<IgnoreData> fullData = new ArrayList<>();
         addRemovePanel.removeAll();
-        for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
+        for (IgnoreData data : App.saveManager.settingsSaveFile.ignoreData) {
             if (data.getRemainingTime() > -0 || data.indefinite) {
                 fullData.add(data);
                 addRemovePanel.addRemovablePanel(new IgnoreRow(data, addRemovePanel));

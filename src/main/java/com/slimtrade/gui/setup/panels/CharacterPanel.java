@@ -66,7 +66,7 @@ public class CharacterPanel extends AbstractSetupPanel implements ISetupValidato
 
     @Override
     public void save() {
-        App.saveManager.saveFile.characterName = nameInput.getText();
+        App.saveManager.settingsSaveFile.characterName = nameInput.getText();
     }
 
     @Override

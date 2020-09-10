@@ -63,7 +63,7 @@ public class StashHelper extends JPanel {
 
             this.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(MouseEvent e) {
-                    if (App.saveManager.saveFile.enableItemHighlighter) {
+                    if (App.saveManager.settingsSaveFile.enableItemHighlighter) {
                         highlighterTimer.stop();
                         itemHighlighter.updatePos(12);
                         itemHighlighter.setVisible(true);

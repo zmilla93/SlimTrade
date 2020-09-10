@@ -24,7 +24,7 @@ public class FileMonitor {
             e.printStackTrace();
         }
         Path path;
-        File file = new File(App.saveManager.saveFile.clientPath);
+        File file = new File(App.saveManager.settingsSaveFile.clientPath);
         if (file.exists() && file.isFile()) {
             path = Paths.get(file.getParent());
         } else {
