@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options.ignore;
 
-import com.slimtrade.core.saving.SettingsSaveFile;
+import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.gui.enums.MatchType;
 
 import java.util.Calendar;

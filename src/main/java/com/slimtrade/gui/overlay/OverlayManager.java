@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.observing.IColorable;
-import com.slimtrade.core.saving.OverlaySaveFile;
+import com.slimtrade.core.saving.savefiles.OverlaySaveFile;
 import com.slimtrade.enums.MenubarButtonLocation;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicMovableDialog;

@@ -8,7 +8,7 @@ import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.update.UpdateManager;
 import com.slimtrade.core.utility.ChatParser;
-import com.slimtrade.core.utility.Debugger;
+import com.slimtrade.core.debug.Debugger;
 import com.slimtrade.core.utility.FileMonitor;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.enums.ColorTheme;
@@ -47,15 +47,14 @@ public class App {
     public static LoadingDialog loadingDialog;
 
     public static String versionTag = null;
+    public static String debuggerTimestamp = null;
     public static String launcherPath = null;
 
-    public static boolean append = false;
     public static boolean update = false;
     public static boolean clean = false;
     public static boolean patch = false;
     public static boolean patchNotes = false;
     public static boolean ignoreUpdate = false;
-    public static boolean debugMode = false;
     public static boolean forceUI = false;
     public static boolean testFeatures = false;
 
@@ -68,12 +67,10 @@ public class App {
                     launcherPath = s.replace("launcher:", "");
                 } else if (s.startsWith("versionTag:")) {
                     versionTag = s.replace("versionTag:", "");
+                } else if (s.startsWith("debugger:")) {
+                    debuggerTimestamp = s.replace("debugger:", "");
                 }
                 switch (s) {
-                    // Update
-                    case "append":
-                        append = true;
-                        break;
                     case "update":
                         update = true;
                         break;
@@ -83,15 +80,9 @@ public class App {
                     case "patch":
                         patch = true;
                         break;
-                    // Patch Notes
                     case "patchNotes":
                         patchNotes = true;
                         break;
-                    // Debug
-                    case "-d":
-                        debugMode = true;
-                        break;
-                    // No update check on launch
                     case "ignoreUpdate":
                         ignoreUpdate = true;
                         break;
@@ -119,7 +110,14 @@ public class App {
         // Save Manager
         saveManager = new SaveManager();
         saveManager.loadSettingsFromDisk();
-        debugger = new Debugger(saveManager.INSTALL_DIRECTORY + File.separator + "logs" + File.separator + "log.txt", append);
+
+        // Debugger
+        if(debuggerTimestamp == null) {
+            debugger = new Debugger();
+            debuggerTimestamp = debugger.getTimestamp();
+        } else {
+            debugger = new Debugger(debuggerTimestamp);
+        }
 
         // Auto Update
         updateManager = new UpdateManager();
@@ -158,7 +156,6 @@ public class App {
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
 
-//        updateChecker = new UpdateChecker();
         globalMouse = new GlobalMouseListener();
         globalKeyboard = new GlobalKeyboardListener();
 
@@ -236,7 +233,6 @@ public class App {
             // Show Patch Notes
             if (patchNotes) {
                 FrameManager.patchNotesWindow = new PatchNotesWindow();
-
             }
             // Check for update if auto updates are off
             else if (!ignoreUpdate && !saveManager.settingsSaveFile.autoUpdate) {

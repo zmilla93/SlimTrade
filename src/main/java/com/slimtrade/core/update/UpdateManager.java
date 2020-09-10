@@ -109,14 +109,13 @@ public class UpdateManager {
                     releases.add(new ReleaseData(obj));
                 }
             }
-//            foundReleaseData = true;
             return true;
         } finally {
             if (br != null) {
                 try {
                     br.close();
-                } catch (IOException e) {
-//                    App.debugger.log(e.getStackTrace());
+                } catch (IOException ignored) {
+
                 }
             }
         }
@@ -133,7 +132,9 @@ public class UpdateManager {
         if (App.launcherPath != null) {
             launchArgs.add("launcher:" + App.launcherPath);
         }
-        launchArgs.add("append");
+        if (App.debuggerTimestamp != null) {
+            launchArgs.add("debugger:" + App.debuggerTimestamp);
+        }
         App.debugger.log("Running Process: " + Arrays.toString(launchArgs.toArray()) + "\n");
         App.debugger.close();
         try {

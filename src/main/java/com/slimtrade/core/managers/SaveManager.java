@@ -2,7 +2,7 @@ package com.slimtrade.core.managers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.slimtrade.core.saving.*;
+import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.gui.options.ISaveable;
 
 import java.awt.*;
@@ -31,6 +31,7 @@ public class SaveManager {
     private final String folderWin = "SlimTrade";
     private final String folderOther = ".slimtrade";
     private final String imageFolder = "images";
+    private final String logsFolder = "logs";
     private final String fileName = "settings.json";
     private final String stashFileName = "stash.json";
     private final String pinSaveFileName = "pins.json";
@@ -66,10 +67,14 @@ public class SaveManager {
         scannerSavePath = INSTALL_DIRECTORY + File.separator + scannerFileName;
         File saveDir = new File(INSTALL_DIRECTORY);
         File imageDir = new File(INSTALL_DIRECTORY + File.separator + imageFolder);
+        File logsDir = new File(INSTALL_DIRECTORY + File.separator + logsFolder);
         if (!saveDir.exists()) {
             saveDir.mkdirs();
         }
         if (!imageDir.exists()) {
+            imageDir.mkdirs();
+        }
+        if (!logsDir.exists()) {
             imageDir.mkdirs();
         }
         if (saveDir.exists()) {

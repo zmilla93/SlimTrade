@@ -2,7 +2,7 @@ package com.slimtrade.core.update;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
-import com.slimtrade.core.utility.Debugger;
+import com.slimtrade.core.debug.Debugger;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -47,9 +47,9 @@ public class Patcher {
 //    private PatchData patchData;
     private Debugger debugger;
 
-    public Patcher() {
-        this(new Debugger());
-    }
+//    public Patcher() {
+//        this(new Debugger());
+//    }
 
     public Patcher(Debugger debugger) {
 //        this.argHandler = argHandler;

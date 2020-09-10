@@ -1,8 +1,10 @@
-package com.slimtrade.core.saving;
+package com.slimtrade.core.saving.savefiles;
 
 import com.slimtrade.core.References;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.observing.HotkeyData;
+import com.slimtrade.core.saving.MacroButton;
+import com.slimtrade.core.saving.StashTab;
 import com.slimtrade.core.saving.elements.SoundElement;
 import com.slimtrade.enums.*;
 import com.slimtrade.gui.enums.ButtonRow;

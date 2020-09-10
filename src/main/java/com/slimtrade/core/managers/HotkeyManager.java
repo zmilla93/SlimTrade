@@ -3,7 +3,7 @@ package com.slimtrade.core.managers;
 import com.slimtrade.App;
 import com.slimtrade.core.observing.HotkeyData;
 import com.slimtrade.core.saving.MacroButton;
-import com.slimtrade.core.saving.SettingsSaveFile;
+import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.core.utility.TradeUtility;

@@ -1,5 +1,6 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.enums.POEImage;
@@ -191,6 +192,14 @@ public class TradeUtility {
             desktop.browse(url.toURI());
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public static void openFolder(String path) {
+        try {
+            Desktop.getDesktop().open(new File(path));
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 

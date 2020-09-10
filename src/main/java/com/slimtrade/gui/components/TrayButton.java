@@ -3,7 +3,7 @@ package com.slimtrade.gui.components;
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.saving.OverlaySaveFile;
+import com.slimtrade.core.saving.savefiles.OverlaySaveFile;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.enums.DefaultIcons;
 import com.slimtrade.gui.enums.WindowState;
