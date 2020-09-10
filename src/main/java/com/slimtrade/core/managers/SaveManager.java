@@ -17,7 +17,8 @@ public class SaveManager {
     public final String overlaySavePath;
     public final String scannerSavePath;
     public final String pinSavePath;
-    public final String installDirectory;
+    public final String patcherSavePath;
+    public final String INSTALL_DIRECTORY;
     public SettingsSaveFile settingsSaveFile;
     public StashSaveFile stashSaveFile = new StashSaveFile();
     public PinSaveFile pinSaveFile = new PinSaveFile();
@@ -33,6 +34,7 @@ public class SaveManager {
     private final String fileName = "settings.json";
     private final String stashFileName = "stash.json";
     private final String pinSaveFileName = "pins.json";
+    private final String patcherFileName = "patcher.json";
     private final String overlayFileName = "overlay.json";
     private final String scannerFileName = "scanner.json";
 
@@ -52,17 +54,18 @@ public class SaveManager {
         // Set save directory
         String os = (System.getProperty("os.name")).toUpperCase();
         if (os.contains("WIN")) {
-            installDirectory = System.getenv("LocalAppData") + File.separator + folderWin;
+            INSTALL_DIRECTORY = System.getenv("LocalAppData") + File.separator + folderWin;
         } else {
-            installDirectory = System.getProperty("user.home") + File.separator + folderOther;
+            INSTALL_DIRECTORY = System.getProperty("user.home") + File.separator + folderOther;
         }
-        savePath = installDirectory + File.separator + fileName;
-        stashSavePath = installDirectory + File.separator + stashFileName;
-        pinSavePath = installDirectory + File.separator + pinSaveFileName;
-        overlaySavePath = installDirectory + File.separator + overlayFileName;
-        scannerSavePath = installDirectory + File.separator + scannerFileName;
-        File saveDir = new File(installDirectory);
-        File imageDir = new File(installDirectory + File.separator + imageFolder);
+        savePath = INSTALL_DIRECTORY + File.separator + fileName;
+        stashSavePath = INSTALL_DIRECTORY + File.separator + stashFileName;
+        pinSavePath = INSTALL_DIRECTORY + File.separator + pinSaveFileName;
+        patcherSavePath = INSTALL_DIRECTORY + File.separator + patcherFileName;
+        overlaySavePath = INSTALL_DIRECTORY + File.separator + overlayFileName;
+        scannerSavePath = INSTALL_DIRECTORY + File.separator + scannerFileName;
+        File saveDir = new File(INSTALL_DIRECTORY);
+        File imageDir = new File(INSTALL_DIRECTORY + File.separator + imageFolder);
         if (!saveDir.exists()) {
             saveDir.mkdirs();
         }
@@ -77,7 +80,7 @@ public class SaveManager {
     }
 
     public String getImageFolder() {
-        return installDirectory + File.separator + imageFolder;
+        return INSTALL_DIRECTORY + File.separator + imageFolder;
     }
 
     public void loadSettingsFromDisk() {
@@ -154,7 +157,7 @@ public class SaveManager {
         }
     }
 
-    public void saveToDisk() {
+    public void saveSettingsToDisk() {
         try {
             fw = new FileWriter(savePath);
             fw.write(gson.toJson(settingsSaveFile));

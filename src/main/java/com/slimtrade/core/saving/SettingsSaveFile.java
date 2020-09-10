@@ -27,6 +27,7 @@ public class SettingsSaveFile {
     public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
     public QuickPasteSetting quickPasteSetting = QuickPasteSetting.DISABLED;
     public HotkeyData quickPasteHotkey = null;
+    public boolean autoUpdate = true;
 
     // Messaging
     public boolean collapseExcessiveMessages = false;

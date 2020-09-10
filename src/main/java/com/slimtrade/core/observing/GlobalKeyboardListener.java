@@ -33,7 +33,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
                 || e.getKeyCode() == NativeKeyEvent.VC_NUM_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_SCROLL_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_CAPS_LOCK
-                || e.getKeyCode() == NativeKeyEvent.META_L_MASK ||  e.getKeyCode() == NativeKeyEvent.META_R_MASK
+                || e.getKeyCode() == NativeKeyEvent.META_L_MASK || e.getKeyCode() == NativeKeyEvent.META_R_MASK
                 || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED
                 || NativeKeyEvent.getKeyText(e.getKeyCode()).contains("Unknown")) {
             return;

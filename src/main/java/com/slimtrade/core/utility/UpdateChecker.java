@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
-import com.slimtrade.App;
 import com.slimtrade.core.References;
 
 import java.io.BufferedReader;
@@ -39,9 +38,6 @@ public class UpdateChecker {
         VersionNumber appVersion = new VersionNumber(References.getAppVersion());
         currentVersion = appVersion;
         latestVersion = appVersion;
-        if (App.allowPrerelease) {
-            allowPreReleases = true;
-        }
         try {
             // Get list of tags from GitHub
             System.out.println("Getting version list from github...");

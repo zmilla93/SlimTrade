@@ -1,6 +1,5 @@
-package com.slimtrade.core.updating;
+package com.slimtrade.core.update;
 
-import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.utility.MarkdownParser;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +37,6 @@ public class ReleaseData {
     private String getCleanPatchNotes() {
         String[] lines = rawPatchNotes.split("(\\n|\\\\r\\\\n)");
         StringBuilder builder = new StringBuilder();
-        Color c = ColorManager.TEXT;
         builder.append("<body style=\"color:rgb({RBG})\">");
         builder.append("<h1>SlimTrade ").append(tag).append("</h1>");
         for (String s : lines) {

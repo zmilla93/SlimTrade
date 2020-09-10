@@ -138,7 +138,7 @@ public class SetupWindow extends JFrame implements IColorable {
                 repaint();
             } else if (panelIndex == panels.size() - 1) {
                 this.setAlwaysOnTop(false);
-                App.saveManager.saveToDisk();
+                App.saveManager.saveSettingsToDisk();
                 this.dispose();
                 App.launch();
                 FrameManager.showTutorialWindow();

@@ -14,7 +14,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.ResourceBundle;
 
 public class MenubarDialog extends BasicDialog {
 
@@ -118,7 +117,7 @@ public class MenubarDialog extends BasicDialog {
                 Rectangle bounds = FrameManager.menubar.getBounds();
                 if (!bounds.contains(MouseInfo.getPointerInfo().getLocation())) {
                     FrameManager.menubar.setShow(false);
-                    if (App.saveManager.saveFile.enableMenubar) {
+                    if (App.saveManager.settingsSaveFile.enableMenubar) {
                         revalidate();
                         FrameManager.menubarToggle.repaint();
                         FrameManager.menubarToggle.setShow(true);
@@ -130,12 +129,12 @@ public class MenubarDialog extends BasicDialog {
     }
 
     private void refreshButtonText() {
-        ResourceBundle lang = ResourceBundle.getBundle("lang");
-        optionsButton.setText(lang.getString("optionsButton"));
-        historyButton.setText(lang.getString("historyButton"));
-//        testButton.setText(lang.getString("testButton"));
+//        ResourceBundle lang = ResourceBundle.getBundle("lang");
+//        optionsButton.setText(lang.getString("optionsButton"));
+        optionsButton.setText("Options");
+        historyButton.setText("History");
         testButton.setText("Test");
-        quitButton.setText(lang.getString("quitButton"));
+        quitButton.setText("Quit");
     }
 
     public void updateLocation() {

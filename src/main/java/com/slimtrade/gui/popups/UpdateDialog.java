@@ -10,26 +10,24 @@ import com.slimtrade.gui.custom.CustomLabel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.Objects;
 
 public class UpdateDialog extends JFrame implements IColorable {
 
     private JPanel borderPanel = new JPanel(new GridBagLayout());
     private JPanel container = new JPanel(new GridBagLayout());
-    private JButton viewUpdateButton = new ConfirmButton("View on Github");
+    private JButton updateButton = new ConfirmButton("Update");
 
     private JLabel info1 = new CustomLabel("Update Available!");
-    private JLabel info2 = new CustomLabel("Currently Running: " + App.updateChecker.getCurrentVersion());
-    private JLabel info3 = new CustomLabel("Latest Version: " + App.updateChecker.getLatestRelease());
+    private JLabel info2 = new CustomLabel("Currently Running: v" + References.getAppVersion());
+    private JLabel info3 = new CustomLabel("Latest Version: " + App.updateManager.getVersionTag());
 
     private final int BUFFER = 30;
 
     public UpdateDialog() {
 
         this.setTitle(References.APP_NAME + " - Update");
-        this.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("icons/default/tagx64.png")).getImage());
+        this.setIconImage(new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource("icons/default/tagx64.png"))).getImage());
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -47,7 +45,7 @@ public class UpdateDialog extends JFrame implements IColorable {
         gc.gridy++;
         gc.insets.bottom = 0;
         gc.fill = GridBagConstraints.BOTH;
-        container.add(viewUpdateButton, gc);
+        container.add(updateButton, gc);
 
         // Border Panel
         gc.gridy = 0;
@@ -73,13 +71,8 @@ public class UpdateDialog extends JFrame implements IColorable {
         FrameManager.centerFrame(this);
 
         // Listener
-        viewUpdateButton.addActionListener(e -> {
-            try {
-                URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
-                Desktop.getDesktop().browse(uri);
-            } catch (URISyntaxException | IOException err) {
-                err.printStackTrace();
-            }
+        updateButton.addActionListener(e -> {
+            App.updateManager.runProcess(App.launcherPath, "update");
         });
 
     }

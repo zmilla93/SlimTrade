@@ -14,11 +14,13 @@ import java.awt.*;
 public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, IColorable {
 
     private JLabel info1;
+    private JLabel updateLabel;
     private JLabel incomingLabel;
     private JLabel outgoingLabel;
     private JLabel itemHighlighterLabel;
     private JLabel menubarLabel;
 
+    private JCheckBox updateCheckbox;
     private JCheckBox incomingCheckbox;
     private JCheckBox outgoingCheckbox;
     private JCheckBox itemHighlighterCheckbox;
@@ -27,6 +29,7 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
     public ToggleOptionsPanel() {
 
         info1 = new CustomLabel("Check boxes to enable features.");
+        updateLabel = new CustomLabel("Update Automatically");
         incomingLabel = new CustomLabel("Incoming Messages");
         outgoingLabel = new CustomLabel("Outgoing Messages");
         itemHighlighterLabel = new CustomLabel("Item Highlighter");
@@ -35,6 +38,7 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
         itemHighlighterLabel.setToolTipText("Disables SlimTrade's item highlighter shown during incoming trades. The stash info window and search features are unaffected.");
         menubarLabel.setToolTipText("Hides the small icon button used to access the options. Use the system tray for all of the same features.");
 
+        updateCheckbox = new CustomCheckbox();
         incomingCheckbox = new CustomCheckbox();
         outgoingCheckbox = new CustomCheckbox();
         itemHighlighterCheckbox = new CustomCheckbox();
@@ -50,6 +54,15 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
         gc.insets.bottom = 0;
         gc.gridy++;
         gc.gridwidth = 1;
+
+        // Auto Update
+        gc.anchor = GridBagConstraints.WEST;
+        container.add(updateLabel, gc);
+        gc.gridx++;
+        gc.anchor = GridBagConstraints.EAST;
+        container.add(updateCheckbox, gc);
+        gc.gridx = 0;
+        gc.gridy++;
 
         // Incoming Messages
         gc.anchor = GridBagConstraints.WEST;
@@ -97,6 +110,7 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
 
     @Override
     public void save() {
+        App.saveManager.settingsSaveFile.autoUpdate = updateCheckbox.isSelected();
         App.saveManager.settingsSaveFile.enableIncomingTrades = incomingCheckbox.isSelected();
         App.saveManager.settingsSaveFile.enableOutgoingTrades = outgoingCheckbox.isSelected();
         App.saveManager.settingsSaveFile.enableItemHighlighter = itemHighlighterCheckbox.isSelected();
@@ -105,9 +119,11 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
 
     @Override
     public void load() {
+        updateCheckbox.setSelected(App.saveManager.settingsSaveFile.autoUpdate);
         incomingCheckbox.setSelected(App.saveManager.settingsSaveFile.enableIncomingTrades);
         outgoingCheckbox.setSelected(App.saveManager.settingsSaveFile.enableOutgoingTrades);
         itemHighlighterCheckbox.setSelected(App.saveManager.settingsSaveFile.enableItemHighlighter);
         menubarCheckbox.setSelected(App.saveManager.settingsSaveFile.enableMenubar);
     }
+
 }

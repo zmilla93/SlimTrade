@@ -75,7 +75,7 @@ public class IgnoreItemWindow extends AbstractResizableWindow implements IColora
             FrameManager.ignoreItemAddRemovePanel.clearHiddenPanels();
             FrameManager.itemIgnorePanel.save();
             FrameManager.messageManager.closeTradesByItem(itemLabel.getText());
-            App.saveManager.saveToDisk();
+            App.saveManager.saveSettingsToDisk();
             FrameManager.itemIgnorePanel.load();
             ColorManager.recursiveColor(FrameManager.itemIgnorePanel);
             setVisible(false);

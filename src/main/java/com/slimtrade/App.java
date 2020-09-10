@@ -6,12 +6,11 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.managers.SetupManager;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
-import com.slimtrade.core.updating.UpdateManager;
+import com.slimtrade.core.update.UpdateManager;
 import com.slimtrade.core.utility.ChatParser;
+import com.slimtrade.core.utility.Debugger;
 import com.slimtrade.core.utility.FileMonitor;
 import com.slimtrade.core.utility.PoeInterface;
-import com.slimtrade.core.utility.UpdateChecker;
-import com.slimtrade.debug.Debugger;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.enums.QuickPasteSetting;
 import com.slimtrade.gui.FrameManager;
@@ -25,41 +24,67 @@ import org.jnativehook.NativeHookException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class App {
 
     public static Debugger debugger;
+    public static UpdateManager updateManager;
     public static FrameManager frameManager;
     public static SaveManager saveManager;
     public static ChatParser chatParser = new ChatParser();
     public static FileMonitor fileMonitor;
     public static Logger logger = Logger.getLogger("slim");
-    public static UpdateChecker updateChecker;
     public static GlobalKeyboardListener globalKeyboard;
     public static GlobalMouseListener globalMouse;
     public static ClipboardManager clipboardManager;
     public static LoadingDialog loadingDialog;
-    public static UpdateManager updateManager;
 
-    // Flags
+    public static String versionTag = null;
+    public static String launcherPath = null;
+
+    public static boolean append = false;
+    public static boolean update = false;
+    public static boolean clean = false;
+    public static boolean patch = false;
     public static boolean patchNotes = false;
-    public static boolean checkUpdateOnLaunch = true;
+    public static boolean ignoreUpdate = false;
     public static boolean debugMode = false;
-    public static boolean allowPrerelease = false;
     public static boolean forceUI = false;
     public static boolean testFeatures = false;
 
-    @SuppressWarnings("unused")
     public static void main(String[] args) {
+
         // Launch Args
         if (args.length > 0) {
             for (String s : args) {
+                if (s.startsWith("launcher:")) {
+                    launcherPath = s.replace("launcher:", "");
+                } else if (s.startsWith("versionTag:")) {
+                    versionTag = s.replace("versionTag:", "");
+                }
                 switch (s) {
+                    // Update
+                    case "append":
+                        append = true;
+                        break;
+                    case "update":
+                        update = true;
+                        break;
+                    case "clean":
+                        clean = true;
+                        break;
+                    case "patch":
+                        patch = true;
+                        break;
                     // Patch Notes
-                    case "patchnotes":
+                    case "patchNotes":
                         patchNotes = true;
                         break;
                     // Debug
@@ -67,8 +92,8 @@ public class App {
                         debugMode = true;
                         break;
                     // No update check on launch
-                    case "-nu":
-                        checkUpdateOnLaunch = false;
+                    case "ignoreUpdate":
+                        ignoreUpdate = true;
                         break;
                     // Force the overlay to always be shown
                     case "-ui":
@@ -78,47 +103,75 @@ public class App {
                     case "-tf":
                         testFeatures = true;
                         break;
-                    case "-pre":
-                        allowPrerelease = true;
-                        break;
                 }
             }
         }
 
-        //Loading Dialog
+        // Set Launcher Path
+        if (launcherPath == null) {
+            try {
+                launcherPath = URLDecoder.decode(new File(App.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath(), "UTF-8");
+            } catch (UnsupportedEncodingException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Save Manager
+        saveManager = new SaveManager();
+        saveManager.loadSettingsFromDisk();
+        debugger = new Debugger(saveManager.INSTALL_DIRECTORY + File.separator + "logs" + File.separator + "log.txt", append);
+
+        // Auto Update
+        updateManager = new UpdateManager();
+        if (update) {
+            App.debugger.log("Force updating...");
+            updateManager.update();
+        } else if (patch) {
+            App.debugger.log("Patching...");
+            updateManager.patch();
+        } else if (clean) {
+            App.debugger.log("Cleaning...");
+            updateManager.clean();
+        } else {
+            if (!ignoreUpdate && saveManager.settingsSaveFile.autoUpdate) {
+                if (updateManager.isUpdateAvailable()) {
+                    if (versionTag == null) {
+                        versionTag = updateManager.getVersionTag();
+                    }
+                    App.debugger.log("Auto updating...");
+                    updateManager.update();
+                }
+            }
+        }
+        if (versionTag != null && updateManager.getLatestVersion() == null) {
+            updateManager.setLatestVersion(versionTag);
+        }
+
+        // Show Loading Dialog
         SwingUtilities.invokeLater(() -> {
             loadingDialog = new LoadingDialog();
             loadingDialog.setAlwaysOnTop(true);
         });
 
-        // Logger
+        // Reduce logging level for JNativeHook
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
 
-        updateChecker = new UpdateChecker();
+//        updateChecker = new UpdateChecker();
         globalMouse = new GlobalMouseListener();
         globalKeyboard = new GlobalKeyboardListener();
 
-        // Save Manager
-        saveManager = new SaveManager();
-        saveManager.loadSettingsFromDisk();
+        // Load save files from disk
         saveManager.loadScannerFromDisk();
         saveManager.loadStashFromDisk();
         saveManager.loadOverlayFromDisk();
-
-        updateManager = new UpdateManager();
 
         clipboardManager = new ClipboardManager();
         clipboardManager.setListeningState(saveManager.settingsSaveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 
         try {
             SwingUtilities.invokeAndWait(() -> {
-                //Debug Mode
-                if (debugMode) {
-                    debugger = new Debugger();
-                    debugger.setState(Frame.ICONIFIED);
-                }
                 // Loading using tempTheme fixes a bug where icon images are not correctly loaded into combo boxes in macro customizer
                 ColorTheme theme = App.saveManager.settingsSaveFile.colorTheme;
                 ColorTheme tempTheme = theme == ColorTheme.SOLARIZED_LIGHT ? ColorTheme.MONOKAI : ColorTheme.SOLARIZED_LIGHT;
@@ -150,16 +203,14 @@ public class App {
         GlobalScreen.addNativeMouseListener(globalMouse);
         GlobalScreen.addNativeMouseMotionListener(globalMouse);
         GlobalScreen.addNativeKeyListener(globalKeyboard);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> closeProgram()));
+        Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
         SwingUtilities.invokeLater(() -> {
             FrameManager.generateCheatSheets();
             loadingDialog.dispose();
             App.launch();
         });
-        System.out.println("SlimTrade launched!");
-
+        App.debugger.log("SlimTrade launched!");
     }
-
 
     public static void launch() {
         if (SetupManager.isSetupRequired()) {
@@ -182,25 +233,24 @@ public class App {
                 }
             }
             FrameManager.trayButton.addAdditionalOptions();
-            // Check for update
-            if (checkUpdateOnLaunch) {
-                updateChecker.checkForUpdates();
-                if (updateChecker.isUpdateAvailable()) {
-                    UpdateDialog updateDialog = new UpdateDialog();
-                    updateDialog.setVisible(true);
-                    FrameManager.optionsWindow.recolorUpdateButton();
-                }
-            }
+            // Show Patch Notes
             if (patchNotes) {
                 FrameManager.patchNotesWindow = new PatchNotesWindow();
-                ColorManager.recursiveColor(FrameManager.patchNotesWindow);
-                FrameManager.patchNotesWindow.setVisible(true);
-                FrameManager.patchNotesWindow.setAlwaysOnTop(true);
-                FrameManager.patchNotesWindow.setAlwaysOnTop(false);
+
+            }
+            // Check for update if auto updates are off
+            else if (!ignoreUpdate && !saveManager.settingsSaveFile.autoUpdate) {
+                if (updateManager.isUpdateAvailable()) {
+                    FrameManager.optionsWindow.showUpdateButton();
+                    UpdateDialog updateDialog = new UpdateDialog();
+                    updateDialog.setVisible(true);
+                    if (versionTag == null) {
+                        versionTag = updateManager.getVersionTag();
+                    }
+                }
             }
         }
     }
-
 
     private static void closeProgram() {
         try {
@@ -211,7 +261,8 @@ public class App {
         if (fileMonitor != null) {
             fileMonitor.stopMonitor();
         }
-        System.out.println("SlimTrade Terminated");
+        debugger.log("SlimTrade Terminated\n");
+        debugger.close();
     }
 
 }

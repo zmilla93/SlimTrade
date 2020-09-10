@@ -7,6 +7,7 @@ import java.util.Properties;
 public class References {
 
     public static final String APP_NAME = "SlimTrade";
+    public static final String AUTHOR_NAME = "zmilla93";
     private static String APP_VERSION = null;
 
     public static final String POE_WINDOW_TITLE = "Path of Exile";
@@ -26,6 +27,7 @@ public class References {
             try {
                 InputStream stream = References.class.getClassLoader().getResourceAsStream("project.properties");
                 properties.load(stream);
+                assert stream != null;
                 stream.close();
             } catch (IOException e) {
                 e.printStackTrace();

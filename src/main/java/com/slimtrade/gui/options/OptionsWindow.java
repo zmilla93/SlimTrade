@@ -30,9 +30,6 @@ import com.slimtrade.gui.stash.StashTabPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class OptionsWindow extends AbstractResizableWindow implements IColorable {
 
@@ -42,12 +39,14 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
     private final JPanel menuPanel = new JPanel(new GridBagLayout());
     private final JPanel menuPanelLower = new JPanel(new GridBagLayout());
-    private BasicButton checkUpdateButton;
+    private BasicButton updateButton;
     private BasicButton donateButton;
 
     private GeneralPanel generalPanel;
     public MacroPanel macroPanelIncoming;
     public MacroPanel macroPanelOutgoing;
+
+    private Component strut = Box.createVerticalStrut(10);
 
     public OptionsWindow() {
         super("Options", true, true);
@@ -117,7 +116,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         InformationPanel contactPanel = new InformationPanel();
         link(contactButton, contactPanel);
 
-        checkUpdateButton = new CheckUpdateButton("Check for Updates");
+        updateButton = new ConfirmButton("Update");
+        updateButton.setVisible(false);
+        strut.setVisible(false);
         donateButton = new ConfirmButton("Donate with PayPal");
         gc = new GridBagConstraints();
 
@@ -152,15 +153,14 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets.bottom = 0;
-
         gc.fill = GridBagConstraints.NONE;
         menuPanelLower.add(new CustomLabel(References.APP_NAME + " v" + References.getAppVersion()), gc);
-        gc.gridy++;
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.gridy++;
-        menuPanelLower.add(checkUpdateButton, gc);
+        menuPanelLower.add(updateButton, gc);
         gc.gridy++;
-        gc.insets.top = 10;
+        menuPanelLower.add(strut, gc);
+        gc.gridy++;
         menuPanelLower.add(donateButton, gc);
 
         container.add(new BufferPanel(0, buffer), BorderLayout.NORTH);
@@ -201,37 +201,8 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         this.setMinimumSize(new Dimension(500, 550));
 
         donateButton.addActionListener(e -> TradeUtility.openLink(References.PAYPAL));
-        checkUpdateButton.addActionListener(e -> {
-            if (App.updateChecker.isUpdateAvailable()) {
-                //UPDATE
-                try {
-                    URI uri = new URI("https://github.com/zmilla93/SlimTrade/releases/latest");
-                    Desktop.getDesktop().browse(uri);
-                } catch (URISyntaxException | IOException err) {
-                    err.printStackTrace();
-                }
-            } else {
-                new Thread(() -> {
-                    SwingUtilities.invokeLater(() -> {
-                        checkUpdateButton.setText("Checking...");
-                        checkUpdateButton.setEnabled(false);
-                    });
-                    App.updateChecker.checkForUpdates();
-                    try {
-                        // Added delay to discourage people from spamming github
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e1) {
-                    }
-                    SwingUtilities.invokeLater(() -> {
-                        if (App.updateChecker.isUpdateAvailable()) {
-                            recolorUpdateButton();
-                        } else {
-                            checkUpdateButton.setText("Check for Updates");
-                        }
-                        checkUpdateButton.setEnabled(true);
-                    });
-                }).start();
-            }
+        updateButton.addActionListener(e -> {
+            App.updateManager.runProcess(App.launcherPath, "update");
         });
 
         revertButton.addActionListener(e -> {
@@ -260,7 +231,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
             // Save all windows
             SaveManager.recursiveSave(FrameManager.optionsWindow);
-            App.saveManager.saveToDisk();
+            App.saveManager.saveSettingsToDisk();
 
             // Refresh messages
             FrameManager.messageManager.refreshPanelLocations();
@@ -269,11 +240,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             App.clipboardManager.setListeningState(App.saveManager.settingsSaveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 
             // Set menubar visibility
-            if (App.saveManager.settingsSaveFile.enableMenubar) {
-                FrameManager.menubarToggle.setShow(true);
-            } else {
-                FrameManager.menubarToggle.setShow(false);
-            }
+            FrameManager.menubarToggle.setShow(App.saveManager.settingsSaveFile.enableMenubar);
 
             if (reloadHistory) {
                 new Thread(() -> {
@@ -311,9 +278,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         this.repaint();
     }
 
-    public void recolorUpdateButton() {
-        checkUpdateButton.setText("Update Available!");
-        checkUpdateButton.updateColor();
+    public void showUpdateButton() {
+        updateButton.setVisible(true);
+        strut.setVisible(true);
     }
 
     public void reloadGeneralPanel() {
@@ -337,20 +304,4 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         FrameManager.saveWindowPins();
     }
 
-//    @Override
-//    public void save() {
-//        App.saveManager.pinSaveFile.optionsPin = getPinElement();
-//        App.saveManager.savePinsToDisk();
-//    }
-//
-//    @Override
-//    public void load() {
-//        App.saveManager.loadPinsFromDisk();
-//        PinElement pin = App.saveManager.pinSaveFile.optionsPin;
-//        this.pinned = pin.pinned;
-//        if (this.pinned) {
-//            applyPinElement(pin);
-//        }
-//        updatePullbars();
-//    }
 }

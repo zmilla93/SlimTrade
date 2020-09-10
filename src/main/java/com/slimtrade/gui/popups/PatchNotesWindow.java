@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
-import com.slimtrade.core.updating.ReleaseData;
+import com.slimtrade.core.update.ReleaseData;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -31,7 +31,16 @@ public class PatchNotesWindow extends JFrame implements IColorable {
 
     private ReleaseData currentData;
 
+    private boolean markForDeletion = false;
+
     public PatchNotesWindow() {
+
+        ArrayList<ReleaseData> releases = App.updateManager.getReleaseData();
+        if (releases.size() == 0) {
+            this.dispose();
+            return;
+        }
+
         setTitle("SlimTrade - Patch Notes");
         setIconImage(new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource("icons/default/tagx64.png"))).getImage());
         getContentPane().setLayout(new BorderLayout());
@@ -45,7 +54,7 @@ public class PatchNotesWindow extends JFrame implements IColorable {
                 TradeUtility.openLink(e.getURL());
             }
         });
-        ArrayList<ReleaseData> releases = App.updateManager.getReleaseData();
+
         PatchNotesWindow local = this;
         comboBox.addActionListener(e -> {
             for (ReleaseData data : releases) {
@@ -121,7 +130,6 @@ public class PatchNotesWindow extends JFrame implements IColorable {
         container.add(innerPanel, gc);
         setMaximumSize(TradeUtility.screenSize);
 
-//        releases = App.updateManager.getReleaseData();
         for (ReleaseData data : releases) {
             System.out.println("REL : " + data.tag);
             if (data.tag.toLowerCase().contains("pre")) {
@@ -137,6 +145,10 @@ public class PatchNotesWindow extends JFrame implements IColorable {
         revalidate();
         pack();
         FrameManager.fitWindowToScreen(this);
+        ColorManager.recursiveColor(this);
+        setVisible(true);
+        setAlwaysOnTop(true);
+        setAlwaysOnTop(false);
     }
 
     @Override
