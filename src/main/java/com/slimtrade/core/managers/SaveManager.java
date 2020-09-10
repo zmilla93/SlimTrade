@@ -18,7 +18,7 @@ public class SaveManager {
     public final String scannerSavePath;
     public final String pinSavePath;
     public final String installDirectory;
-    public SaveFile saveFile;
+    public SettingsSaveFile settingsSaveFile;
     public StashSaveFile stashSaveFile = new StashSaveFile();
     public PinSaveFile pinSaveFile = new PinSaveFile();
     public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
@@ -72,7 +72,6 @@ public class SaveManager {
         if (saveDir.exists()) {
             validSavePath = true;
         }
-
         gson = new Gson();
 
     }
@@ -81,70 +80,86 @@ public class SaveManager {
         return installDirectory + File.separator + imageFolder;
     }
 
-    public void loadFromDisk() {
+    public void loadSettingsFromDisk() {
+        boolean err = false;
+        try {
+            settingsSaveFile = gson.fromJson(getJsonString(savePath), SettingsSaveFile.class);
+        } catch (JsonSyntaxException e) {
+            err = true;
+        }
+        if (settingsSaveFile == null || err) {
+            settingsSaveFile = new SettingsSaveFile();
+        }
+    }
+
+    public void loadStashFromDisk() {
+        boolean err = false;
+        try {
+            stashSaveFile = gson.fromJson(getJsonString(stashSavePath), StashSaveFile.class);
+        } catch (JsonSyntaxException e) {
+            err = true;
+        }
+        if (stashSaveFile == null || err) {
+            stashSaveFile = new StashSaveFile();
+        }
+    }
+
+    public void loadOverlayFromDisk() {
+        boolean err = false;
+        try {
+            overlaySaveFile = gson.fromJson(getJsonString(overlaySavePath), OverlaySaveFile.class);
+        } catch (JsonSyntaxException e) {
+            err = true;
+        }
+        if (overlaySaveFile == null || err) {
+            overlaySaveFile = new OverlaySaveFile();
+        }
+    }
+
+    public void loadScannerFromDisk() {
+        boolean err = false;
+        try {
+            scannerSaveFile = gson.fromJson(getJsonString(scannerSavePath), ScannerSaveFile.class);
+        } catch (JsonSyntaxException e) {
+            err = true;
+        }
+        if (scannerSaveFile == null || err) {
+            scannerSaveFile = new ScannerSaveFile();
+        }
+    }
+
+    public void loadPinsFromDisk() {
+        boolean err = false;
+        try {
+            pinSaveFile = gson.fromJson(getJsonString(pinSavePath), PinSaveFile.class);
+        } catch (JsonSyntaxException e) {
+            err = true;
+        }
+        if (pinSaveFile == null || err) {
+            pinSaveFile = new PinSaveFile();
+        }
+    }
+
+    private String getJsonString(String path) {
         StringBuilder builder = new StringBuilder();
         try {
-            br = new BufferedReader(new FileReader(savePath));
+            br = new BufferedReader(new FileReader(path));
             while (br.ready()) {
                 builder.append(br.readLine());
             }
             br.close();
-            saveFile = gson.fromJson(builder.toString(), SaveFile.class);
-            if (saveFile == null) {
-                saveFile = new SaveFile();
-            }
-        } catch (JsonSyntaxException e1) {
-            saveFile = new SaveFile();
-            validateClientPath();
-            System.out.println("Corrupted save file!");
-            return;
-        } catch (IOException e2) {
-//            System.out.println("Creating new save file.");
-            saveFile = new SaveFile();
-            validateClientPath();
-
-            return;
+            return builder.toString();
+        } catch (JsonSyntaxException | IOException e) {
+            return null;
         }
-        validateClientPath();
     }
 
     public void saveToDisk() {
         try {
             fw = new FileWriter(savePath);
-            fw.write(gson.toJson(saveFile));
+            fw.write(gson.toJson(settingsSaveFile));
             fw.close();
         } catch (IOException e) {
-            return;
-        }
-    }
-
-    public void loadLauncherDataFromDisk() {
-
-    }
-
-    public void saveLauncherDataToDisk() {
-
-    }
-
-    public void loadStashFromDisk() {
-        StringBuilder builder = new StringBuilder();
-        try {
-            br = new BufferedReader(new FileReader(stashSavePath));
-            while (br.ready()) {
-                builder.append(br.readLine());
-            }
-            br.close();
-            stashSaveFile = gson.fromJson(builder.toString(), StashSaveFile.class);
-            if (stashSaveFile == null) {
-                stashSaveFile = new StashSaveFile();
-            }
-        } catch (JsonSyntaxException e1) {
-            stashSaveFile = new StashSaveFile();
-            System.out.println("Corrupted save file!");
-            return;
-        } catch (IOException e2) {
-            stashSaveFile = new StashSaveFile();
-//            System.out.println("Creating new save file.");
             return;
         }
     }
@@ -159,59 +174,12 @@ public class SaveManager {
         }
     }
 
-    public void loadOverlayFromDisk() {
-        StringBuilder builder = new StringBuilder();
-        try {
-            br = new BufferedReader(new FileReader(overlaySavePath));
-            while (br.ready()) {
-                builder.append(br.readLine());
-            }
-            br.close();
-            overlaySaveFile = gson.fromJson(builder.toString(), OverlaySaveFile.class);
-            if (overlaySaveFile == null) {
-                overlaySaveFile = new OverlaySaveFile();
-            }
-        } catch (JsonSyntaxException e1) {
-            overlaySaveFile = new OverlaySaveFile();
-            System.out.println("Corrupted save file!");
-            return;
-        } catch (IOException e2) {
-            overlaySaveFile = new OverlaySaveFile();
-//            System.out.println("Creating new save file.");
-            return;
-        }
-    }
-
     public void saveOverlayToDisk() {
         try {
             fw = new FileWriter(overlaySavePath);
             fw.write(gson.toJson(overlaySaveFile));
             fw.close();
         } catch (IOException e) {
-            return;
-        }
-    }
-
-    public void loadScannerFromDisk() {
-        StringBuilder builder = new StringBuilder();
-        try {
-            br = new BufferedReader(new FileReader(scannerSavePath));
-            while (br.ready()) {
-                builder.append(br.readLine());
-            }
-            br.close();
-            scannerSaveFile = gson.fromJson(builder.toString(), ScannerSaveFile.class);
-            if (scannerSaveFile == null) {
-                scannerSaveFile = new ScannerSaveFile();
-            }
-        } catch (JsonSyntaxException e1) {
-            scannerSaveFile = new ScannerSaveFile();
-            System.out.println("Corrupted save file!");
-            return;
-        } catch (IOException e2) {
-            scannerSaveFile = new ScannerSaveFile();
-            saveScannerToDisk();
-//            System.out.println("Creating new save file.");
             return;
         }
     }
@@ -223,27 +191,6 @@ public class SaveManager {
             fw.close();
         } catch (IOException e) {
             return;
-        }
-    }
-
-    public void loadPinsFromDisk() {
-        StringBuilder builder = new StringBuilder();
-        try {
-            br = new BufferedReader(new FileReader(pinSavePath));
-            while (br.ready()) {
-                builder.append(br.readLine());
-            }
-            br.close();
-            pinSaveFile = gson.fromJson(builder.toString(), PinSaveFile.class);
-            if (pinSaveFile == null) {
-                pinSaveFile = new PinSaveFile();
-            }
-        } catch (JsonSyntaxException e1) {
-            pinSaveFile = new PinSaveFile();
-            System.out.println("Corrupted save file!");
-        } catch (IOException e2) {
-            pinSaveFile = new PinSaveFile();
-//            System.out.println("Creating new save file.");
         }
     }
 
@@ -259,7 +206,7 @@ public class SaveManager {
 
     public int validateClientPath() {
         int clientCount = 0;
-        String clientPath = saveFile.clientPath;
+        String clientPath = settingsSaveFile.clientPath;
         if (clientPath != null) {
             File file = new File(clientPath);
             if (file.exists() && file.isFile()) {
@@ -286,14 +233,9 @@ public class SaveManager {
             }
         }
         if (clientCount == 1) {
-            saveFile.clientPath = clientPaths.get(0);
+            settingsSaveFile.clientPath = clientPaths.get(0);
         }
         return clientCount;
-    }
-
-    public <T> T getSafe() {
-
-        return null;
     }
 
     public static void recursiveSave(Component component) {

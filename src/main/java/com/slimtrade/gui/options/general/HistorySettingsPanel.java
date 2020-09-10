@@ -92,18 +92,18 @@ public class HistorySettingsPanel extends ContainerPanel implements ISaveable, I
         DateStyle dateStyle = (DateStyle) dateCombo.getSelectedItem();
         OrderType orderType = (OrderType) orderCombo.getSelectedItem();
 
-        App.saveManager.saveFile.timeStyle = timeStyle;
-        App.saveManager.saveFile.dateStyle = dateStyle;
-        App.saveManager.saveFile.orderType = orderType;
-        App.saveManager.saveFile.historyLimit = ((int) limitSpinner.getValue());
+        App.saveManager.settingsSaveFile.timeStyle = timeStyle;
+        App.saveManager.settingsSaveFile.dateStyle = dateStyle;
+        App.saveManager.settingsSaveFile.orderType = orderType;
+        App.saveManager.settingsSaveFile.historyLimit = ((int) limitSpinner.getValue());
     }
 
     @Override
     public void load() {
-        timeCombo.setSelectedItem(App.saveManager.saveFile.timeStyle);
-        dateCombo.setSelectedItem(App.saveManager.saveFile.dateStyle);
-        orderCombo.setSelectedItem(App.saveManager.saveFile.orderType);
-        limitSpinner.setValue(App.saveManager.saveFile.historyLimit);
+        timeCombo.setSelectedItem(App.saveManager.settingsSaveFile.timeStyle);
+        dateCombo.setSelectedItem(App.saveManager.settingsSaveFile.dateStyle);
+        orderCombo.setSelectedItem(App.saveManager.settingsSaveFile.orderType);
+        limitSpinner.setValue(App.saveManager.settingsSaveFile.historyLimit);
     }
 
     @Override

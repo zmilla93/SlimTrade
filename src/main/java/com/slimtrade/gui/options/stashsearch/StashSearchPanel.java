@@ -79,28 +79,28 @@ public class StashSearchPanel extends ContainerPanel implements ISaveable {
 
     @Override
     public void save() {
-        App.saveManager.saveFile.stashSearchData.clear();
+        App.saveManager.settingsSaveFile.stashSearchData.clear();
         for (Component c : addRemovePanel.getComponents()) {
             if (c instanceof BasicRemovablePanel) {
                 if (c.isVisible()) {
                     StashSearchData data = (StashSearchData) ((BasicRemovablePanel) c).getData();
-                    App.saveManager.saveFile.stashSearchData.add(data);
+                    App.saveManager.settingsSaveFile.stashSearchData.add(data);
                 }
             } else {
                 remove(c);
             }
         }
-        App.saveManager.saveFile.stashSearchHotkey = hotkeyInputPane.getHotkeyData();
+        App.saveManager.settingsSaveFile.stashSearchHotkey = hotkeyInputPane.getHotkeyData();
         FrameManager.stashSearchWindow.refresh();
     }
 
     @Override
     public void load() {
         addRemovePanel.removeAll();
-        for (StashSearchData data : App.saveManager.saveFile.stashSearchData) {
+        for (StashSearchData data : App.saveManager.settingsSaveFile.stashSearchData) {
             addRow(data.searchName, data.searchTerms, data.color);
         }
-        hotkeyInputPane.updateHotkey(App.saveManager.saveFile.stashSearchHotkey);
+        hotkeyInputPane.updateHotkey(App.saveManager.settingsSaveFile.stashSearchHotkey);
     }
 
 }

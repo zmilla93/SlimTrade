@@ -66,7 +66,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         this.trade = trade;
         this.setMessageType(trade.messageType);
 
-        if (trade.guildName != null && App.saveManager.saveFile.showGuildName) {
+        if (trade.guildName != null && App.saveManager.settingsSaveFile.showGuildName) {
             namePanel.setText(trade.guildName + " " + trade.playerName);
         } else {
             namePanel.setText(trade.playerName);
@@ -146,10 +146,10 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         MacroButton[] macros = null;
         switch (messageType) {
             case INCOMING_TRADE:
-                macros = App.saveManager.saveFile.incomingMacros;
+                macros = App.saveManager.settingsSaveFile.incomingMacros;
                 break;
             case OUTGOING_TRADE:
-                macros = App.saveManager.saveFile.outgoingMacros;
+                macros = App.saveManager.settingsSaveFile.outgoingMacros;
                 break;
             case CHAT_SCANNER:
                 for (ScannerMessage msg : App.saveManager.scannerSaveFile.messages) {
@@ -321,7 +321,7 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 itemPanel.borderClick = ColorManager.TEXT;
                 if (trade.stashtabName != null && !trade.stashtabName.equals("")) {
                     int i = 0;
-                    for (StashTab tab : App.saveManager.saveFile.stashTabs) {
+                    for (StashTab tab : App.saveManager.settingsSaveFile.stashTabs) {
                         if (tab.name.toLowerCase().equals(trade.stashtabName.toLowerCase())) {
 
                             if (tab.color != StashTabColor.ZERO) {

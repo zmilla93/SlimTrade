@@ -102,7 +102,7 @@ public class App {
 
         // Save Manager
         saveManager = new SaveManager();
-        saveManager.loadFromDisk();
+        saveManager.loadSettingsFromDisk();
         saveManager.loadScannerFromDisk();
         saveManager.loadStashFromDisk();
         saveManager.loadOverlayFromDisk();
@@ -110,7 +110,7 @@ public class App {
         updateManager = new UpdateManager();
 
         clipboardManager = new ClipboardManager();
-        clipboardManager.setListeningState(saveManager.saveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
+        clipboardManager.setListeningState(saveManager.settingsSaveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 
         try {
             SwingUtilities.invokeAndWait(() -> {
@@ -120,11 +120,11 @@ public class App {
                     debugger.setState(Frame.ICONIFIED);
                 }
                 // Loading using tempTheme fixes a bug where icon images are not correctly loaded into combo boxes in macro customizer
-                ColorTheme theme = App.saveManager.saveFile.colorTheme;
+                ColorTheme theme = App.saveManager.settingsSaveFile.colorTheme;
                 ColorTheme tempTheme = theme == ColorTheme.SOLARIZED_LIGHT ? ColorTheme.MONOKAI : ColorTheme.SOLARIZED_LIGHT;
                 ColorManager.setTheme(tempTheme);
                 frameManager = new FrameManager();
-                ColorManager.setColorBlindMode(App.saveManager.saveFile.colorBlindMode);
+                ColorManager.setColorBlindMode(App.saveManager.settingsSaveFile.colorBlindMode);
                 SaveManager.recursiveLoad(FrameManager.optionsWindow);
                 ColorManager.setTheme(theme);
             });
@@ -175,7 +175,7 @@ public class App {
             fileMonitor = new FileMonitor();
             fileMonitor.startMonitor();
             chatParser.init();
-            if (App.saveManager.saveFile.enableMenubar) {
+            if (App.saveManager.settingsSaveFile.enableMenubar) {
                 FrameManager.menubarToggle.setShow(true);
                 if (!globalMouse.isGameFocused() && !PoeInterface.isPoeFocused(false)) {
                     FrameManager.menubarToggle.setVisible(false);

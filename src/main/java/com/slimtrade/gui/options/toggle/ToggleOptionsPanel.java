@@ -97,17 +97,17 @@ public class ToggleOptionsPanel extends ContainerPanel implements ISaveable, ICo
 
     @Override
     public void save() {
-        App.saveManager.saveFile.enableIncomingTrades = incomingCheckbox.isSelected();
-        App.saveManager.saveFile.enableOutgoingTrades = outgoingCheckbox.isSelected();
-        App.saveManager.saveFile.enableItemHighlighter = itemHighlighterCheckbox.isSelected();
-        App.saveManager.saveFile.enableMenubar = menubarCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.enableIncomingTrades = incomingCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.enableOutgoingTrades = outgoingCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.enableItemHighlighter = itemHighlighterCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.enableMenubar = menubarCheckbox.isSelected();
     }
 
     @Override
     public void load() {
-        incomingCheckbox.setSelected(App.saveManager.saveFile.enableIncomingTrades);
-        outgoingCheckbox.setSelected(App.saveManager.saveFile.enableOutgoingTrades);
-        itemHighlighterCheckbox.setSelected(App.saveManager.saveFile.enableItemHighlighter);
-        menubarCheckbox.setSelected(App.saveManager.saveFile.enableMenubar);
+        incomingCheckbox.setSelected(App.saveManager.settingsSaveFile.enableIncomingTrades);
+        outgoingCheckbox.setSelected(App.saveManager.settingsSaveFile.enableOutgoingTrades);
+        itemHighlighterCheckbox.setSelected(App.saveManager.settingsSaveFile.enableItemHighlighter);
+        menubarCheckbox.setSelected(App.saveManager.settingsSaveFile.enableMenubar);
     }
 }

@@ -98,13 +98,13 @@ public class TradeOffer {
     public void playSound() {
         switch (this.messageType) {
             case CHAT_SCANNER:
-                AudioManager.play(App.saveManager.saveFile.scannerMessageSound);
+                AudioManager.play(App.saveManager.settingsSaveFile.scannerMessageSound);
                 break;
             case INCOMING_TRADE:
-                AudioManager.play(App.saveManager.saveFile.incomingMessageSound);
+                AudioManager.play(App.saveManager.settingsSaveFile.incomingMessageSound);
                 break;
             case OUTGOING_TRADE:
-                AudioManager.play(App.saveManager.saveFile.outgoingMessageSound);
+                AudioManager.play(App.saveManager.settingsSaveFile.outgoingMessageSound);
                 break;
         }
     }

@@ -38,14 +38,14 @@ public class StashSearchWindow extends AbstractWindow implements IColorable {
         center.removeAll();
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 1;
-        if (App.saveManager.saveFile.stashSearchData.size() == 0) {
+        if (App.saveManager.settingsSaveFile.stashSearchData.size() == 0) {
             center.add(new CustomLabel("No Stash Data Found"), gc);
             gc.gridy++;
             center.add(new CustomLabel("Options > Stash Sorter"), gc);
             gc.gridy++;
         } else {
             gc.insets = new Insets(2, 2, 2, 2);
-            for (StashSearchData data : App.saveManager.saveFile.stashSearchData) {
+            for (StashSearchData data : App.saveManager.settingsSaveFile.stashSearchData) {
                 addPanel(data);
                 gc.insets.top = 0;
                 gc.gridy++;

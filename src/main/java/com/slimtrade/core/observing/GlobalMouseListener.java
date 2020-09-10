@@ -123,7 +123,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         } else {
             if (hoveringMessageManager) {
                 hoveringMessageManager = false;
-                if (App.saveManager.saveFile.fadeAfterDuration && FrameManager.messageManager.messageCount() > 0) {
+                if (App.saveManager.settingsSaveFile.fadeAfterDuration && FrameManager.messageManager.messageCount() > 0) {
                     FrameManager.messageManager.runOpacityTimer();
                 }
             }

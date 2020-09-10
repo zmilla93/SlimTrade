@@ -45,7 +45,7 @@ public class ChatParser {
         int msgCount = 0;
         updateTimer.stop();
         try {
-            reader = new InputStreamReader(new FileInputStream(App.saveManager.saveFile.clientPath), StandardCharsets.UTF_8);
+            reader = new InputStreamReader(new FileInputStream(App.saveManager.settingsSaveFile.clientPath), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(reader);
         } catch (FileNotFoundException e) {
             App.debugger.log("[ERROR] Chat parser failed to launch.");
@@ -85,7 +85,7 @@ public class ChatParser {
 //            procCount++;
 //        }
         try {
-            reader = new InputStreamReader(new FileInputStream(App.saveManager.saveFile.clientPath), StandardCharsets.UTF_8);
+            reader = new InputStreamReader(new FileInputStream(App.saveManager.settingsSaveFile.clientPath), StandardCharsets.UTF_8);
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class ChatParser {
 //            updateCount++;
 //        }
         try {
-            reader = new InputStreamReader(new FileInputStream(App.saveManager.saveFile.clientPath), StandardCharsets.UTF_8);
+            reader = new InputStreamReader(new FileInputStream(App.saveManager.settingsSaveFile.clientPath), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(reader);
             curLineCount = 0;
             while ((curLine = bufferedReader.readLine()) != null) {
@@ -112,11 +112,11 @@ public class ChatParser {
                     if (curLine.contains("@") && (lang = getLang(curLine)) != null) {
                         TradeOffer trade = getTradeOffer(curLine, lang);
                         if (trade != null) {
-                            if ((App.saveManager.saveFile.enableIncomingTrades || trade.messageType != MessageType.INCOMING_TRADE)
-                                    && (App.saveManager.saveFile.enableOutgoingTrades || trade.messageType != MessageType.OUTGOING_TRADE)) {
+                            if ((App.saveManager.settingsSaveFile.enableIncomingTrades || trade.messageType != MessageType.INCOMING_TRADE)
+                                    && (App.saveManager.settingsSaveFile.enableOutgoingTrades || trade.messageType != MessageType.OUTGOING_TRADE)) {
                                 boolean ignore = false;
-                                if(trade.messageType == MessageType.INCOMING_TRADE) {
-                                    for (IgnoreData data : App.saveManager.saveFile.ignoreData) {
+                                if (trade.messageType == MessageType.INCOMING_TRADE) {
+                                    for (IgnoreData data : App.saveManager.settingsSaveFile.ignoreData) {
                                         if ((data.matchType == MatchType.CONTAINS && trade.itemName.contains(data.itemName))
                                                 || (data.matchType == MatchType.EXACT && trade.itemName.equals(data.itemName))) {
                                             ignore = true;

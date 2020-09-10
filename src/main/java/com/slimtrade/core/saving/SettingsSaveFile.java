@@ -15,7 +15,7 @@ import com.slimtrade.gui.options.stashsearch.StashSearchData;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SaveFile {
+public class SettingsSaveFile {
 
     //Version
     public String versionNumber = References.getAppVersion();
@@ -99,7 +99,7 @@ public class SaveFile {
     public HotkeyData remainingHotkey = null;
     public HotkeyData hideoutHotkey = null;
 
-    public SaveFile() {
+    public SettingsSaveFile() {
         // Stash Search Defaults
         stashSearchData.add(new StashSearchData("map", "maps", StashTabColor.FIVE));
         stashSearchData.add(new StashSearchData("div", "divination card", StashTabColor.TWENTYFIVE));

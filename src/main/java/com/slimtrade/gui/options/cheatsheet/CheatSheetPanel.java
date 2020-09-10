@@ -78,7 +78,7 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
 
     private void addPanel(CheatSheetData data) {
         CheatSheetRow panel = new CheatSheetRow(data);
-        for (CheatSheetData d : App.saveManager.saveFile.cheatSheetData) {
+        for (CheatSheetData d : App.saveManager.settingsSaveFile.cheatSheetData) {
             if (d.fileName.equals(data.fileName)) {
                 panel.hotkeyInputPane.updateHotkey(d.hotkeyData);
             }
@@ -111,12 +111,12 @@ public class CheatSheetPanel extends ContainerPanel implements ISaveable {
         if (disposeFrames) {
             FrameManager.disposeCheatSheets();
         }
-        App.saveManager.saveFile.cheatSheetData.clear();
+        App.saveManager.settingsSaveFile.cheatSheetData.clear();
         for (Component c : addRemovePanel.getComponents()) {
             if (c instanceof CheatSheetRow) {
                 CheatSheetRow panel = (CheatSheetRow) c;
                 panel.data.hotkeyData = panel.hotkeyInputPane.getHotkeyData();
-                App.saveManager.saveFile.cheatSheetData.add(panel.data);
+                App.saveManager.settingsSaveFile.cheatSheetData.add(panel.data);
             }
         }
         if (disposeFrames) {

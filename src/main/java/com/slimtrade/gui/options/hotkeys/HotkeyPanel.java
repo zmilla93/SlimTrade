@@ -156,42 +156,42 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable, IColorable
 
     @Override
     public void save() {
-        App.saveManager.saveFile.betrayalHotkey = betrayalHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.chatScannerHotkey = chatScannerHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.closeTradeHotkey = closeTradeHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.historyHotkey = historyHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.optionsHotkey = optionsHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.betrayalHotkey = betrayalHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.chatScannerHotkey = chatScannerHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.closeTradeHotkey = closeTradeHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.historyHotkey = historyHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.optionsHotkey = optionsHotkeyInput.getHotkeyData();
 
-        App.saveManager.saveFile.delveHotkey = delveHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.dndHotkey = dndHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.exitHotkey = exitHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.harvestHotkey = harvestHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.hideoutHotkey = hideoutHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.leavePartyHotkey = leavePartyHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.menagerieHotkey = menagerieHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.metamorphHotkey = metamorphHotkeyInput.getHotkeyData();
-        App.saveManager.saveFile.remainingHotkey = remainingHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.delveHotkey = delveHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.dndHotkey = dndHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.exitHotkey = exitHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.harvestHotkey = harvestHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.hideoutHotkey = hideoutHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.leavePartyHotkey = leavePartyHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.menagerieHotkey = menagerieHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.metamorphHotkey = metamorphHotkeyInput.getHotkeyData();
+        App.saveManager.settingsSaveFile.remainingHotkey = remainingHotkeyInput.getHotkeyData();
     }
 
     @Override
     public void load() {
         App.globalKeyboard.clearHotkeyListener();
 
-        betrayalHotkeyInput.updateHotkey(App.saveManager.saveFile.betrayalHotkey);
-        chatScannerHotkeyInput.updateHotkey(App.saveManager.saveFile.chatScannerHotkey);
-        closeTradeHotkeyInput.updateHotkey(App.saveManager.saveFile.closeTradeHotkey);
-        historyHotkeyInput.updateHotkey(App.saveManager.saveFile.historyHotkey);
-        optionsHotkeyInput.updateHotkey(App.saveManager.saveFile.optionsHotkey);
+        betrayalHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.betrayalHotkey);
+        chatScannerHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.chatScannerHotkey);
+        closeTradeHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.closeTradeHotkey);
+        historyHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.historyHotkey);
+        optionsHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.optionsHotkey);
 
-        delveHotkeyInput.updateHotkey(App.saveManager.saveFile.delveHotkey);
-        dndHotkeyInput.updateHotkey(App.saveManager.saveFile.dndHotkey);
-        exitHotkeyInput.updateHotkey(App.saveManager.saveFile.exitHotkey);
-        harvestHotkeyInput.updateHotkey(App.saveManager.saveFile.harvestHotkey);
-        hideoutHotkeyInput.updateHotkey(App.saveManager.saveFile.hideoutHotkey);
-        leavePartyHotkeyInput.updateHotkey(App.saveManager.saveFile.leavePartyHotkey);
-        menagerieHotkeyInput.updateHotkey(App.saveManager.saveFile.menagerieHotkey);
-        metamorphHotkeyInput.updateHotkey(App.saveManager.saveFile.metamorphHotkey);
-        remainingHotkeyInput.updateHotkey(App.saveManager.saveFile.remainingHotkey);
+        delveHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.delveHotkey);
+        dndHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.dndHotkey);
+        exitHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.exitHotkey);
+        harvestHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.harvestHotkey);
+        hideoutHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.hideoutHotkey);
+        leavePartyHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.leavePartyHotkey);
+        menagerieHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.menagerieHotkey);
+        metamorphHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.metamorphHotkey);
+        remainingHotkeyInput.updateHotkey(App.saveManager.settingsSaveFile.remainingHotkey);
 
     }
 

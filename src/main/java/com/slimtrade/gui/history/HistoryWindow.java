@@ -45,9 +45,9 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
         this.setFocusableWindowState(true);
         timeStyle = TimeStyle.H24;
         dateStyle = DateStyle.DDMMYY;
-        timeStyle = App.saveManager.saveFile.timeStyle;
-        dateStyle = App.saveManager.saveFile.dateStyle;
-        orderType = App.saveManager.saveFile.orderType;
+        timeStyle = App.saveManager.settingsSaveFile.timeStyle;
+        dateStyle = App.saveManager.settingsSaveFile.dateStyle;
+        orderType = App.saveManager.settingsSaveFile.orderType;
         this.setDefaultSize(new Dimension(900, 550));
         gc.gridx = 0;
         gc.gridy = 0;
@@ -135,7 +135,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
     }
 
     public void addTrade(TradeOffer trade, boolean updateUI) {
-        if (App.saveManager.saveFile.historyLimit == 0) {
+        if (App.saveManager.settingsSaveFile.historyLimit == 0) {
             return;
         }
         switch (trade.messageType) {

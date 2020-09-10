@@ -153,10 +153,10 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
         MacroButton[] macros = buttons.toArray(new MacroButton[0]);
         switch (messageType) {
             case INCOMING_TRADE:
-                App.saveManager.saveFile.incomingMacros = macros;
+                App.saveManager.settingsSaveFile.incomingMacros = macros;
                 break;
             case OUTGOING_TRADE:
-                App.saveManager.saveFile.outgoingMacros = macros;
+                App.saveManager.settingsSaveFile.outgoingMacros = macros;
                 break;
             case CHAT_SCANNER:
                 break;
@@ -173,10 +173,10 @@ public class MacroPanel extends ContainerPanel implements ISaveable, IColorable 
         MacroButton[] macros = null;
         switch (messageType) {
             case INCOMING_TRADE:
-                macros = App.saveManager.saveFile.incomingMacros;
+                macros = App.saveManager.settingsSaveFile.incomingMacros;
                 break;
             case OUTGOING_TRADE:
-                macros = App.saveManager.saveFile.outgoingMacros;
+                macros = App.saveManager.settingsSaveFile.outgoingMacros;
                 break;
             case CHAT_SCANNER:
                 break;

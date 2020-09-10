@@ -259,7 +259,7 @@ public class PoeInterface extends Robot {
             } while (true);
             FrameManager.forceAllToTop();
             for (String cmd : commands) {
-                cmd = cmd.replaceAll("\\{self\\}", App.saveManager.saveFile.characterName);
+                cmd = cmd.replaceAll("\\{self\\}", App.saveManager.settingsSaveFile.characterName);
                 cmd = cmd.replaceAll("\\{player\\}", player);
                 cmd = cmd.replaceAll("\\{item\\}", item);
                 cmd = cmd.replaceAll("\\{price\\}", price);
