@@ -50,7 +50,7 @@ public class PoeInterface extends Robot {
         String text;
         try {
             text = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-        } catch (UnsupportedFlavorException | IOException e) {
+        } catch (UnsupportedFlavorException | IOException | IllegalStateException e) {
             return;
         }
         if (text == null) {
@@ -325,9 +325,9 @@ public class PoeInterface extends Robot {
     public static void clickForceFocusWindow() {
         try {
             SwingUtilities.invokeAndWait(() -> {
+                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                 FrameManager.forceFocusDialog.moveToMouse();
                 FrameManager.forceFocusDialog.setVisible(true);
-                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                 FrameManager.forceFocusDialog.setVisible(false);
@@ -335,8 +335,6 @@ public class PoeInterface extends Robot {
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static void focus() {

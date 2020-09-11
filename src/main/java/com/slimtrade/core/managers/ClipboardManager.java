@@ -20,18 +20,16 @@ public class ClipboardManager implements ClipboardOwner {
     private FlavorListener listener;
 
     public ClipboardManager() {
+        if (disabled) {
+            return;
+        }
         listener = e -> new Thread(() -> {
-            if (disabled) {
-                return;
-            }
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException ex) {
-//                ex.printStackTrace();
-//            }
-            String contents = getClipboardContents();
             if (lastMessage == null) {
-                lastMessage = contents;
+                lastMessage = getClipboardContents();
+                if(lastMessage == null) {
+                    refreshClipboard();
+                    return;
+                }
                 if (App.saveManager.settingsSaveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
 //                    PoeInterface.attemptQuickPaste(contents);
                     PoeInterface.attemptQuickPaste();
@@ -75,8 +73,6 @@ public class ClipboardManager implements ClipboardOwner {
             }
             if (state) {
                 clipboard.addFlavorListener(listener);
-            } else {
-                return;
             }
         }).start();
 
@@ -88,7 +84,6 @@ public class ClipboardManager implements ClipboardOwner {
             contents = (String) clipboard.getData(DataFlavor.stringFlavor);
             return contents;
         } catch (UnsupportedFlavorException | IOException | IllegalStateException e) {
-            System.out.println("Failed to get clipboard contents");
             return null;
         }
     }
@@ -98,13 +93,13 @@ public class ClipboardManager implements ClipboardOwner {
         try {
             transferable = clipboard.getContents(this);
         } catch (IllegalStateException e) {
-            System.out.println("Failed to refresh clipboard (getContents)");
+//            System.out.println("Failed to refresh clipboard (getContents)");
             return;
         }
         try {
             clipboard.setContents(transferable, this);
         } catch (IllegalStateException e) {
-            System.out.println("Failed to refresh clipboard (setContents)");
+//            System.out.println("Failed to refresh clipboard (setContents)");
         }
     }
 

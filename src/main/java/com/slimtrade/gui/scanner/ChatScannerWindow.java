@@ -142,7 +142,7 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
         setFocusableWindowState(true);
         setFocusable(true);
         pack();
-        setDefaultSize(new Dimension(750, 900));
+        setDefaultSize(new Dimension(800, 900));
         searchTermsInput.setLineWrap(true);
         searchTermsInput.setWrapStyleWord(true);
 
