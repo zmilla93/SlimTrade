@@ -109,6 +109,8 @@ public class ChatParser {
                 if (curLineCount > totalLineCount) {
                     totalLineCount++;
                     LangRegex lang;
+
+                    // Trade Message
                     if (curLine.contains("@") && (lang = getLang(curLine)) != null) {
                         TradeOffer trade = getTradeOffer(curLine, lang);
                         if (trade != null) {
@@ -130,16 +132,21 @@ public class ChatParser {
                                 }
                             }
                         }
-                    } else if (chatScannerRunning) {
+                    }
+                    // Chat Scanner
+                    else if (chatScannerRunning) {
                         TradeOffer trade = getSearchOffer(curLine);
                         if (trade != null) {
                             FrameManager.messageManager.addMessage(trade);
                         }
                     }
-                    Matcher joinAreaMatcher = JOINED_PATTERN.matcher(curLine);
-                    if (joinAreaMatcher.matches()) {
-                        if (joinAreaMatcher.groupCount() > 1) {
-                            FrameManager.messageManager.setPlayerJoinedArea(joinAreaMatcher.group(1));
+                    // Player Joined Area
+                    for (LangRegex l : LangRegex.values()) {
+                        if (l.JOINED_AREA_PATTERN == null) continue;
+                        Matcher matcher = l.JOINED_AREA_PATTERN.matcher(curLine);
+                        if (matcher.matches()) {
+                            FrameManager.messageManager.setPlayerJoinedArea(matcher.group("username"));
+                            break;
                         }
                     }
                 }
@@ -177,8 +184,7 @@ public class ChatParser {
     }
 
     public boolean validateQuickPaste(String text, LangRegex lang) {
-        Matcher matcher = null;
-        boolean found = false;
+        Matcher matcher;
         for (Pattern p : lang.QUICK_PASTE_PATTERNS) {
             matcher = p.matcher(text);
             if (matcher.matches()) {
@@ -186,26 +192,6 @@ public class ChatParser {
             }
         }
         return false;
-//        if (!found) {
-//            return null;
-//        }
-//        TradeOffer trade = new TradeOffer();
-//        trade.date = matcher.group("date").replaceAll("/", "-");
-//        trade.time = matcher.group("time");
-//        trade.time = cleanResult(matcher, "time");
-//        trade.messageType = getMessageType(matcher.group("messageType"));
-//        trade.guildName = matcher.group("guildName");
-//        trade.playerName = matcher.group("playerName");
-//        trade.itemName = matcher.group("itemName");
-//        trade.itemQuantity = cleanDouble(cleanResult(matcher, "itemQuantity"));
-//        trade.priceTypeString = cleanResult(matcher, "priceType");
-//        trade.priceQuantity = cleanDouble(cleanResult(matcher, "priceQuantity"));
-//        trade.stashtabName = cleanResult(matcher, "stashtabName");
-//        trade.stashtabX = cleanInt(cleanResult(matcher, "stashX"));
-//        trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));
-//        trade.bonusText = cleanResult(matcher, "bonusText");
-//        trade.sentMessage = matcher.group("message");
-//        return trade;
     }
 
     public TradeOffer getTradeOffer(String text, LangRegex lang) {
