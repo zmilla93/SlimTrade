@@ -1,5 +1,6 @@
 package com.slimtrade;
 
+import com.slimtrade.core.debug.Debugger;
 import com.slimtrade.core.managers.ClipboardManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.managers.SaveManager;
@@ -8,7 +9,6 @@ import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.update.UpdateManager;
 import com.slimtrade.core.utility.ChatParser;
-import com.slimtrade.core.debug.Debugger;
 import com.slimtrade.core.utility.FileMonitor;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.enums.ColorTheme;
@@ -112,7 +112,7 @@ public class App {
         saveManager.loadSettingsFromDisk();
 
         // Debugger
-        if(debuggerTimestamp == null) {
+        if (debuggerTimestamp == null) {
             debugger = new Debugger();
             debuggerTimestamp = debugger.getTimestamp();
         } else {

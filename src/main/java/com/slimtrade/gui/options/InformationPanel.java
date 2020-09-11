@@ -123,10 +123,10 @@ public class InformationPanel extends ContainerPanel {
         });
 
         patchNotesButton.addActionListener(e -> {
+            FrameManager.optionsWindow.setVisible(false);
             if (FrameManager.patchNotesWindow == null) {
                 FrameManager.patchNotesWindow = new PatchNotesWindow();
             } else {
-                FrameManager.optionsWindow.setVisible(false);
                 FrameManager.patchNotesWindow.setVisible(true);
             }
         });

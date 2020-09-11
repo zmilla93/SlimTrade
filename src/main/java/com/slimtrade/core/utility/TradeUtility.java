@@ -1,6 +1,5 @@
 package com.slimtrade.core.utility;
 
-import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.gui.enums.POEImage;

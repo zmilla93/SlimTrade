@@ -24,16 +24,17 @@ public class ClipboardManager implements ClipboardOwner {
             if (disabled) {
                 return;
             }
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException ex) {
+//                ex.printStackTrace();
+//            }
             String contents = getClipboardContents();
             if (lastMessage == null) {
                 lastMessage = contents;
                 if (App.saveManager.settingsSaveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC) {
-                    PoeInterface.attemptQuickPaste(contents);
+//                    PoeInterface.attemptQuickPaste(contents);
+                    PoeInterface.attemptQuickPaste();
                 }
                 try {
                     Thread.sleep(250);
@@ -93,7 +94,7 @@ public class ClipboardManager implements ClipboardOwner {
     }
 
     private void refreshClipboard() {
-        Transferable transferable = null;
+        Transferable transferable;
         try {
             transferable = clipboard.getContents(this);
         } catch (IllegalStateException e) {

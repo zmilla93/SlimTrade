@@ -1,7 +1,6 @@
 package com.slimtrade.core.debug;
 
 import com.slimtrade.App;
-import com.slimtrade.core.update.Patcher;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,12 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Keeps a timestamped log for the last 10 runs of the program.
- *
  */
 
 public class Debugger {

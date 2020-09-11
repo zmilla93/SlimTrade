@@ -15,8 +15,10 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,6 +34,8 @@ public class PoeInterface extends Robot {
     private static String wtbText_Thai = "สวัสดี, เราต้องการจะชื้อของคุณ";
     private static String[] wtbTextArray;
     private static ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    private static boolean quickPasteSuccess = false;
 
     public PoeInterface() throws AWTException {
         try {
@@ -62,7 +66,6 @@ public class PoeInterface extends Robot {
         boolean valid = false;
         if (text.startsWith("@")) {
             for (LangRegex l : LangRegex.values()) {
-//                TradeOffer trade = App.chatParser.validateQuickPaste(text, l);
                 if (text.contains(l.CONTAINS_TEXT) && App.chatParser.validateQuickPaste(text, l)) {
                     valid = true;
                     break;
@@ -72,6 +75,47 @@ public class PoeInterface extends Robot {
         if (valid) {
             pasteWithFocus(text);
         }
+    }
+
+//    static volatile boolean blocker = false;
+
+    private static void pasteWithFocus(String s) {
+        new Thread(() -> {
+            pasteString = new StringSelection(s);
+            clipboard.setContents(pasteString, null);
+            clickForceFocusWindow();
+            focus();
+            int i = 0;
+            while (!isPoeFocused(false)) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                i++;
+                if (i > 20) {
+                    break;
+                }
+            }
+            if (isPoeFocused(false)) {
+                robot.keyPress(KeyEvent.VK_ALT);
+                robot.keyRelease(KeyEvent.VK_ALT);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+                robot.keyPress(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+            }
+            SwingUtilities.invokeLater(() -> {
+                FrameManager.showVisibleFrames();
+                FrameManager.forceAllToTop();
+            });
+            quickPasteSuccess = true;
+            App.globalMouse.setGameFocusedFlag(true);
+        }).start();
     }
 
     public static void paste(String s, boolean... send) {
@@ -96,59 +140,6 @@ public class PoeInterface extends Robot {
             robot.keyRelease(KeyEvent.VK_ENTER);
         }
         FrameManager.forceAllToTop();
-    }
-
-    public static void pasteWithFocus(String s) {
-        executor.execute(() -> {
-            pasteString = new StringSelection(s);
-            clipboard.setContents(pasteString, null);
-            focus();
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-            PointerType hwnd;
-            byte[] windowText = new byte[512];
-            int i = 0;
-            String curWindowTitle;
-            do {
-                hwnd = User32.INSTANCE.GetForegroundWindow();
-                if (hwnd != null) {
-                    User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
-                    curWindowTitle = Native.toString(windowText);
-                    if (curWindowTitle.equals(References.POE_WINDOW_TITLE)) {
-                        break;
-                    } else if (i > 400) {
-                        return;
-                    }
-                } else {
-                    try {
-                        Thread.sleep(1);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                i++;
-            } while (true);
-//            FrameManager.showVisibleFrames();
-//            FrameManager.forceAllToTop();
-            robot.keyPress(KeyEvent.VK_ALT);
-            robot.keyRelease(KeyEvent.VK_ALT);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-            App.globalMouse.setGameFocusedFlag(true);
-            SwingUtilities.invokeLater(() -> {
-                FrameManager.showVisibleFrames();
-                FrameManager.forceAllToTop();
-            });
-        });
     }
 
     public static void runCommand(String command) {
@@ -198,7 +189,7 @@ public class PoeInterface extends Robot {
                     // TODO : LOG
                     System.out.println("Retrying clipboard...");
                     if (attempt == MAX_ATTEMPTS) {
-                        System.out.println("Aborting clipboard...");
+                        System.out.println("Failed to get clipboard contents.");
                         return;
                     }
                 }
@@ -331,7 +322,24 @@ public class PoeInterface extends Robot {
 
     }
 
-    private static void focus() {
+    public static void clickForceFocusWindow() {
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                FrameManager.forceFocusDialog.moveToMouse();
+                FrameManager.forceFocusDialog.setVisible(true);
+                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                FrameManager.forceFocusDialog.setVisible(false);
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static void focus() {
         User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
             char[] className = new char[512];
             User32.INSTANCE.GetClassName(hWnd, className, 512);
@@ -340,7 +348,9 @@ public class PoeInterface extends Robot {
                 return true;
             }
             if (wText.equals("POEWindowClass")) {
+                User32.INSTANCE.ShowWindow(hWnd, User32.SW_SHOW);
                 User32.INSTANCE.SetForegroundWindow(hWnd);
+                User32.INSTANCE.SetFocus(hWnd);
                 return false;
             }
             return true;
@@ -349,7 +359,7 @@ public class PoeInterface extends Robot {
 
     public static boolean isPoeFocused(boolean checkApp) {
         byte[] windowText = new byte[512];
-        PointerType hwnd = User32Custom.INSTANCE.GetForegroundWindow();
+        PointerType hwnd = User32.INSTANCE.GetForegroundWindow();
         User32Custom.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
         String curWindowTitle = Native.toString(windowText);
         if (curWindowTitle.startsWith(References.POE_WINDOW_TITLE)) {

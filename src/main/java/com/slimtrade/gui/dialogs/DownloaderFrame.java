@@ -36,9 +36,8 @@ public class DownloaderFrame extends JFrame implements IDownloadTracker {
 
         gc.gridx = 0;
         gc.gridy = 0;
+        gc.weightx = 1;
         container.add(label, gc);
-        gc.insets.left = 0;
-        gc.gridx = 0;
         gc.gridy++;
 
         gc.weightx = 1;

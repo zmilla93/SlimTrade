@@ -9,6 +9,7 @@ import com.slimtrade.gui.basic.HideableDialog;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.TrayButton;
 import com.slimtrade.gui.dialogs.BetrayalWindow;
+import com.slimtrade.gui.dialogs.ForceFocusDialog;
 import com.slimtrade.gui.dialogs.IgnoreItemWindow;
 import com.slimtrade.gui.enums.WindowState;
 import com.slimtrade.gui.history.HistoryWindow;
@@ -63,6 +64,9 @@ public class FrameManager {
     public static ItemIgnorePanel itemIgnorePanel;
     public static AddRemovePanel ignoreItemAddRemovePanel;
 
+    // Force Focus
+    public static ForceFocusDialog forceFocusDialog;
+
     private static HideableDialog[] menuHideFrames;
     private static HideableDialog[] forceFrames;
     private static HideableDialog[] showHideDialogs;
@@ -112,6 +116,7 @@ public class FrameManager {
 //        centerFrame(betrayalWindow);
 
         stashSearchWindow = new StashSearchWindow();
+        forceFocusDialog = new ForceFocusDialog();
 
         showHideDialogs = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, stashSearchWindow};
         forceFrames = new HideableDialog[]{stashHelperContainer, menubar, menubarToggle, ignoreItemWindow, stashSearchWindow};
