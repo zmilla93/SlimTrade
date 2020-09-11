@@ -51,13 +51,13 @@ public enum LangRegex {
             Pattern.compile(REGEX_QUICK_PASTE_PREFIX + "Hi, ich möchte '(?<itemName>.+)' in der '?(?<league>.+)'?-Liga kaufen\\.?(?<bonusText>.+)?)"),
     }),
     KOREAN("올려놓은", new Pattern[]{
-            Pattern.compile(REGEX_CLIENT_PREFIX + "안녕하세요, 환영\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+))\\(으\\)로 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다)"),
+            Pattern.compile(REGEX_CLIENT_PREFIX + "안녕하세요, (?<league>.+)\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+))\\(으\\)로 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다)"),
             Pattern.compile(REGEX_CLIENT_PREFIX + "안녕하세요, (?<league>.+)에 올려놓은(?<itemQuantity>\\d+) (?<itemName>.+) 오브\\(을\\)를 제 (?<priceQuantity>\\d+(\\.\\d+)?) (?<priceType>.+) 오브\\(으\\)로 구매하고 싶습니다)"),
-            Pattern.compile(REGEX_CLIENT_PREFIX + "안녕하세요, 환영\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다)"),
+            Pattern.compile(REGEX_CLIENT_PREFIX + "안녕하세요, (?<league>.+)\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다)"),
     }, new Pattern[]{
-            Pattern.compile(REGEX_QUICK_PASTE_PREFIX + "안녕하세요, 환영\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+))\\(으\\)로 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다)"),
+            Pattern.compile(REGEX_QUICK_PASTE_PREFIX + "안녕하세요, (?<league>.+)\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+))\\(으\\)로 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다)"),
             Pattern.compile(REGEX_QUICK_PASTE_PREFIX + "안녕하세요, (?<league>.+)에 올려놓은(?<itemQuantity>\\d+) (?<itemName>.+) 오브\\(을\\)를 제 (?<priceQuantity>\\d+(\\.\\d+)?) (?<priceType>.+) 오브\\(으\\)로 구매하고 싶습니다)"),
-            Pattern.compile(REGEX_QUICK_PASTE_PREFIX + "안녕하세요, 환영\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다)"),
+            Pattern.compile(REGEX_QUICK_PASTE_PREFIX + "안녕하세요, (?<league>.+)\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다)"),
     }),
     PORTUGUESE("eu gostaria de comprar", new Pattern[]{
             Pattern.compile(REGEX_CLIENT_PREFIX + "Olá, eu gostaria de comprar o seu item (?<itemName>.+) listado por ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) na (?<league>.+) \\(aba do baú: \\\\?\"(?<stashtabName>.+)\"; posição: esquerda (?<stashX>\\d+), topo (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?)"),
