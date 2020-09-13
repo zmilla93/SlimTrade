@@ -51,6 +51,6 @@ public class CheatSheetRow extends JPanel implements IColorable {
     @Override
     public void updateColor() {
         setBackground(ColorManager.BACKGROUND);
-        setBorder(ColorManager.BORDER_TEXT);
+        setBorder(ColorManager.BORDER_LOW_CONTRAST_2);
     }
 }

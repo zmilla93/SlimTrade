@@ -48,6 +48,7 @@ public class ColorManager {
     public static Border BORDER_PRIMARY;
     public static Border BORDER_TEXT;
     public static Border BORDER_LOW_CONTRAST_1;
+    public static Border BORDER_LOW_CONTRAST_2;
 
     // TODO : Check uses of clear as it can cause drawing issues.
     public static Color CLEAR = new Color(0, 0, 0, 0);
@@ -182,6 +183,7 @@ public class ColorManager {
         BORDER_PRIMARY = BorderFactory.createLineBorder(ColorManager.PRIMARY);
         BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.TEXT);
         BORDER_LOW_CONTRAST_1 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
+        BORDER_LOW_CONTRAST_2 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2);
 
         // Color Blind Mode
         if (colorBlindMode) {

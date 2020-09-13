@@ -95,12 +95,12 @@ public class BasicMovableDialog extends BasicDialog {
                 int targetX = MouseInfo.getPointerInfo().getLocation().x - offsetX - borderOffset;
                 int targetY = MouseInfo.getPointerInfo().getLocation().y - offsetY - borderOffset;
                 if (screenLock || App.globalKeyboard.isShiftPressed()) {
-                    if (targetX < 0) targetX = 0;
                     if (targetX > TradeUtility.screenSize.width - getWidth() - borderOffset * 2)
                         targetX = TradeUtility.screenSize.width - getWidth() - borderOffset * 2;
-                    if (targetY < 0) targetY = 0;
+                    if (targetX < 0) targetX = 0;
                     if (targetY > TradeUtility.screenSize.height - getHeight() - borderOffset * 2)
                         targetY = TradeUtility.screenSize.height - getHeight() - borderOffset * 2;
+                    if (targetY < 0) targetY = 0;
                 }
                 int finalTargetX = targetX;
                 int finalTargetY = targetY;

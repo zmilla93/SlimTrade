@@ -31,8 +31,6 @@ public class PatchNotesWindow extends JFrame implements IColorable {
 
     private ReleaseData currentData;
 
-    private boolean markForDeletion = false;
-
     public PatchNotesWindow() {
 
         ArrayList<ReleaseData> releases = App.updateManager.getReleaseData();
@@ -138,9 +136,6 @@ public class PatchNotesWindow extends JFrame implements IColorable {
             comboBox.addItem(data.tag);
         }
 
-        int index = 8;
-//        currentData = releases.get(index);
-//        textPane.setText(releases.get(index).getColorPatchNotes(ColorManager.TEXT));
         textPane.setCaretPosition(0);
         revalidate();
         pack();

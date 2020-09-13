@@ -2,11 +2,12 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
 import com.slimtrade.gui.components.SectionHeader;
-import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.panels.ContainerPanel;
 import com.slimtrade.gui.popups.PatchNotesWindow;
 
@@ -17,106 +18,94 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static com.slimtrade.gui.FrameManager.*;
+
+
 public class InformationPanel extends ContainerPanel {
 
     private static final long serialVersionUID = 1L;
 
+//    JPanel aboutOuterPanel = new JPanel(new GridBagLayout());
+//    JPanel aboutInnerPanel = new JPanel(new GridBagLayout());
+//    JPanel contactOuterPanel = new JPanel(new GridBagLayout());
+//    JPanel contactInnerPanel = new JPanel(new GridBagLayout());
+    ContainerPanel aboutPanel = new ColorPanel();
+    JPanel aboutContainer = aboutPanel.container;
+    ContainerPanel contactPanel = new ColorPanel();
+    JPanel contactContainer = contactPanel.container;
+
     public InformationPanel() {
 
+        container.setLayout(new GridBagLayout());
+
+        SectionHeader aboutHeader = new SectionHeader("About");
         JButton tutorialButton = new BasicButton("Tutorial");
         JButton patchNotesButton = new BasicButton("Patch Notes");
         JButton logsButtons = new BasicButton("Log Folder");
 
-
+        SectionHeader contactHeader = new SectionHeader("Contact");
         JButton gitButton = new BasicButton("GitHub");
         JButton emailButton = new BasicButton("E-Mail");
-//        JButton donateButton = new BasicButton("Donate");
         JButton discordButton = new BasicButton("Discord");
 
-        JLabel tutorialLabel = new CustomLabel("A brief overview of the program.", false);
-        JLabel patchNotesLabel = new CustomLabel("View the SlimTrade patch notes.", false);
-        JLabel logsLabel = new CustomLabel("Open the logs folder.", false);
-        JLabel gitLabel = new CustomLabel("Submit feedback & bug reports on GitHub.", false);
-        JLabel emailLabel = new CustomLabel("Send an e-mail to slimtradepoe@gmail.com.", false);
-        JLabel donateLabel = new CustomLabel("Donate with PayPal if you wish to support the developer.", false);
-        JLabel discordLabel = new CustomLabel("Join the official discord for discussion and feedback.", false);
+//        JLabel tutorialLabel = new CustomLabel("A brief overview of the program.", false);
+//        JLabel patchNotesLabel = new CustomLabel("View the SlimTrade patch notes.", false);
+//        JLabel logsLabel = new CustomLabel("Open the logs folder.", false);
+//        JLabel gitLabel = new CustomLabel("Submit feedback & bug reports on GitHub.", false);
+//        JLabel emailLabel = new CustomLabel("Send an e-mail to slimtradepoe@gmail.com.", false);
+//        JLabel donateLabel = new CustomLabel("Donate with PayPal if you wish to support the developer.", false);
+//        JLabel discordLabel = new CustomLabel("Join the official discord for discussion and feedback.", false);
 
-        container.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        gc.weightx = 1;
-
-//        container.add(Box.createHorizontalStrut(250), gc);
-        gc.gridy++;
-
-
-        // Tutorial
-//        gc.gridwidth = 2;
-        int i = 5;
-        gc.insets.bottom = i;
         gc.fill = GridBagConstraints.BOTH;
-        container.add(new SectionHeader("About"), gc);
-        gc.gridy++;
-        gc.insets.bottom = 5;
+        gc.weightx = 1;
+        gc.weighty = 1;
+//        gc.insets = new Insets(BORDER_GAP_SMALL, BORDER_GAP_SMALL, BORDER_GAP_SMALL, BORDER_GAP_SMALL);
+//        aboutOuterPanel.add(aboutInnerPanel, gc);
+//        contactOuterPanel.add(contactInnerPanel, gc);
 
-        int sideInset = 20;
-        gc.insets.left = sideInset;
-        gc.insets.right = sideInset;
+        gc.insets = new Insets(0, 0, 0, 0);
+        int inset = 20;
 
-        container.add(tutorialButton, gc);
-        gc.gridy++;
+        // Main Container
+        container.add(aboutHeader, gc);
+        gc.gridy+=2;
+        gc.insets.top = 20;
+        container.add(contactHeader, gc);
+        gc.gridy--;
 
-        container.add(patchNotesButton, gc);
-        gc.gridy++;
-
-        gc.insets.bottom = 30;
-        container.add(logsButtons, gc);
-        gc.gridy++;
-
+        gc.insets.top = 5;
+        gc.insets.left = inset;
+        gc.insets.right = inset;
+        container.add(aboutPanel, gc);
+        gc.gridy+=2;
+        container.add(contactPanel, gc);
         gc.insets.left = 0;
         gc.insets.right = 0;
-        gc.insets.bottom = i;
-        container.add(new SectionHeader("Contact"), gc);
-        gc.insets.left = sideInset;
-        gc.insets.right = sideInset;
-        gc.insets.bottom = 5;
+
+        // About Buttons
+        gc.gridy = 0;
+        gc.insets.top = 0;
+        aboutContainer.add(tutorialButton, gc);
+        gc.insets.top = 5;
         gc.gridy++;
-
-        // Github
-//        gc.fill = GridBagConstraints.BOTH;
-        container.add(gitButton, gc);
-
-        gc.fill = GridBagConstraints.NONE;
-//        gc.gridx++;
-//        gc.insets.left = 30;
-//        container.add(gitLabel, gc);
-//        gc.insets.left = 0;
-//        gc.gridx = 0;
+        aboutContainer.add(patchNotesButton, gc);
         gc.gridy++;
+        aboutContainer.add(logsButtons, gc);
 
-        // E-Mail
-        gc.fill = GridBagConstraints.BOTH;
-        container.add(emailButton, gc);
-        gc.fill = GridBagConstraints.NONE;
-//        gc.gridx++;
-//        gc.insets.left = 30;
-//        container.add(emailLabel, gc);
-//        gc.insets.left = 0;
-//        gc.gridx = 0;
+        // Contact Buttons
+        gc.gridy = 0;
+        gc.insets.top = 0;
+        contactContainer.add(gitButton, gc);
+        gc.insets.top = 5;
         gc.gridy++;
-
-        // Discord
-        gc.fill = GridBagConstraints.BOTH;
-        container.add(discordButton, gc);
-        gc.fill = GridBagConstraints.NONE;
-//        gc.gridx++;
-//        gc.insets.left = 30;
-//        container.add(discordLabel, gc);
-//        gc.insets.left = 0;
-//        gc.gridx = 0;
+        contactContainer.add(emailButton, gc);
         gc.gridy++;
+        contactContainer.add(discordButton, gc);
 
+        // Listeners
         tutorialButton.addActionListener(e -> {
             FrameManager.optionsWindow.setVisible(false);
             FrameManager.showTutorialWindow();
@@ -150,6 +139,14 @@ public class InformationPanel extends ContainerPanel {
         discordButton.addActionListener(e -> {
             TradeUtility.openLink(References.DISCORD);
         });
+    }
+
+    private static class ColorPanel extends ContainerPanel {
+        @Override
+        public void updateColor() {
+            super.updateColor();
+            setBackground(ColorManager.BACKGROUND);
+        }
     }
 
 }

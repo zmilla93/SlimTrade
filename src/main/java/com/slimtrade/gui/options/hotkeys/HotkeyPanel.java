@@ -200,7 +200,7 @@ public class HotkeyPanel extends ContainerPanel implements ISaveable, IColorable
         super.updateColor();
         poeOuter.setBackground(ColorManager.BACKGROUND);
         slimTradeOuter.setBackground(ColorManager.BACKGROUND);
-        poeOuter.setBorder(ColorManager.BORDER_TEXT);
-        slimTradeOuter.setBorder(ColorManager.BORDER_TEXT);
+        poeOuter.setBorder(ColorManager.BORDER_LOW_CONTRAST_2);
+        slimTradeOuter.setBorder(ColorManager.BORDER_LOW_CONTRAST_2);
     }
 }

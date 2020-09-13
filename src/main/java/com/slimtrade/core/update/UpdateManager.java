@@ -81,7 +81,7 @@ public class UpdateManager {
         BufferedReader br = null;
         InputStream is = null;
         try {
-            is = new URL("https://api.github.com/repos/" + References.AUTHOR_NAME + "/" + TARGET_REPO + "/releases").openStream();
+            is = new URL("https://api.github.com/repos/" + References.AUTHOR_NAME + "/" + References.APP_NAME + "/releases").openStream();
         } catch (IOException e) {
             return false;
         }

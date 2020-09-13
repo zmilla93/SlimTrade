@@ -92,7 +92,7 @@ public class BasicRemovablePanel extends JPanel implements IColorable {
     @Override
     public void updateColor() {
         this.setBackground(ColorManager.BACKGROUND);
-        this.setBorder(ColorManager.BORDER_TEXT);
+        this.setBorder(ColorManager.BORDER_LOW_CONTRAST_2);
     }
 
     public void setData(IRemovablePanelData data) {

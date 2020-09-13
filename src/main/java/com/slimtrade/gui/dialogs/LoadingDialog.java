@@ -1,5 +1,6 @@
 package com.slimtrade.gui.dialogs;
 
+import com.slimtrade.core.References;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.custom.CustomLabel;
@@ -10,23 +11,22 @@ import java.awt.*;
 
 public class LoadingDialog extends BasicDialog {
 
-    private static final long serialVersionUID = 1L;
-
     public LoadingDialog() {
-        this.setLayout(new GridBagLayout());
-        this.getRootPane().setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
-        this.setSize(200, 80);
+        setTitle(References.APP_NAME + " - Loading");
+        setLayout(new GridBagLayout());
+        getRootPane().setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        setSize(230, 90);
 
         Container container = this.getContentPane();
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
 
-        container.add(new CustomLabel("Loading SlimTrade..."), gc);
+        container.add(new CustomLabel("Loading " + References.APP_NAME + " v" + References.getAppVersion() + "..."), gc);
 
         FrameManager.centerFrame(this);
-        this.setVisible(true);
+        setVisible(true);
     }
 
 }

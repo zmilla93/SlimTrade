@@ -68,13 +68,17 @@ public class StashTabRow extends RemovablePanel implements IColorable {
             colorCombo.addItem(c.getBackground());
         }
 
+        int borderInset = 1;
+        gc.insets = new Insets(borderInset, borderInset, borderInset, 0);
         this.add(removeButton, gc);
+        gc.insets = new Insets(0, 0, 0, 0);
         gc.gridx++;
-        gc.insets.left = 5;
+        gc.insets.left = 25;
         this.add(stashTabTextPanel, gc);
         gc.gridx++;
         this.add(typeCombo, gc);
         gc.gridx++;
+        gc.insets.right = borderInset;
         this.add(colorCombo, gc);
 
 
