@@ -1,6 +1,5 @@
 package com.slimtrade.enums;
 
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import static com.slimtrade.core.References.REGEX_CLIENT_PREFIX;

@@ -13,20 +13,20 @@ import java.util.Collections;
 import java.util.Date;
 
 /**
- * Keeps a timestamped log for the last 10 runs of the program.
+ * Keeps a timestamped log for the last 5 runs of the program.
  */
 
 public class Debugger {
 
     public static final String DIRECTORY = App.saveManager.INSTALL_DIRECTORY + File.separator + "logs";
+    private final String reg = "log_\\d{4}-\\d{2}-\\d{2}_\\d{2}'\\d{2}'\\d{2}\\.txt";
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private String path;
+    boolean enabled = true;
 
     private FileWriter fw;
     private BufferedWriter bw;
-    boolean enabled = true;
-    private DebugFile debugFile;
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    private String path;
-    private final String reg = "log_\\d{4}-\\d{2}-\\d{2}_\\d{2}'\\d{2}'\\d{2}\\.txt";
+    private final DebugFile debugFile;
 
     public Debugger() {
         this(null);
@@ -63,6 +63,7 @@ public class Debugger {
         try {
             String timestamp = timeFormat.format(new Date());
             bw.write(timestamp + " | " + message + "\n");
+            bw.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,7 +109,7 @@ public class Debugger {
         }
         final int MAX_ATTEMPTS = 20;
         int i = 0;
-        while (dates.size() >= 10 && i < MAX_ATTEMPTS) {
+        while (dates.size() > 5 && i < MAX_ATTEMPTS) {
             Date minDate = Collections.min(dates);
             String minDateString = timeFormat.format(minDate);
             DebugFile debugFile = new DebugFile(minDateString);

@@ -3,7 +3,6 @@ package com.slimtrade.gui.options;
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.IColorable;
 import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.buttons.BasicButton;
@@ -18,14 +17,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static com.slimtrade.gui.FrameManager.*;
-
 
 public class InformationPanel extends ContainerPanel {
 
     private static final long serialVersionUID = 1L;
 
-//    JPanel aboutOuterPanel = new JPanel(new GridBagLayout());
+    //    JPanel aboutOuterPanel = new JPanel(new GridBagLayout());
 //    JPanel aboutInnerPanel = new JPanel(new GridBagLayout());
 //    JPanel contactOuterPanel = new JPanel(new GridBagLayout());
 //    JPanel contactInnerPanel = new JPanel(new GridBagLayout());
@@ -71,7 +68,7 @@ public class InformationPanel extends ContainerPanel {
 
         // Main Container
         container.add(aboutHeader, gc);
-        gc.gridy+=2;
+        gc.gridy += 2;
         gc.insets.top = 20;
         container.add(contactHeader, gc);
         gc.gridy--;
@@ -80,7 +77,7 @@ public class InformationPanel extends ContainerPanel {
         gc.insets.left = inset;
         gc.insets.right = inset;
         container.add(aboutPanel, gc);
-        gc.gridy+=2;
+        gc.gridy += 2;
         container.add(contactPanel, gc);
         gc.insets.left = 0;
         gc.insets.right = 0;

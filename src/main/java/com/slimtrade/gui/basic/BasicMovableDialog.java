@@ -50,14 +50,9 @@ public class BasicMovableDialog extends BasicDialog {
         });
     }
 
-    //TODO : Make this function cleaner, then use it for runWindowMover
     public void forceOntoScreen() {
-        forceOntoScreen(this.getX(), this.getY());
-    }
-
-    public void forceOntoScreen(int x, int y) {
-        int targetX = x;
-        int targetY = y;
+        int targetX = getX();
+        int targetY = getY();
         if (targetX < 0) targetX = 0;
         if (targetX > TradeUtility.screenSize.width - getWidth())
             targetX = TradeUtility.screenSize.width - getWidth() - borderOffset * 2;

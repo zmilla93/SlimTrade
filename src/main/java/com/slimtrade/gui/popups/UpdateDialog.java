@@ -19,7 +19,7 @@ public class UpdateDialog extends JFrame implements IColorable {
     private JButton updateButton = new ConfirmButton("Update");
 
     private JLabel info1 = new CustomLabel("Update Available!");
-    private JLabel info2 = new CustomLabel("Currently Running: v" + References.getAppVersion());
+    private JLabel info2 = new CustomLabel("Currently Running: " + References.getAppVersion());
     private JLabel info3 = new CustomLabel("Latest Version: " + App.updateManager.getVersionTag());
 
     private final int BUFFER = 30;
@@ -71,9 +71,7 @@ public class UpdateDialog extends JFrame implements IColorable {
         FrameManager.centerFrame(this);
 
         // Listener
-        updateButton.addActionListener(e -> {
-            App.updateManager.runProcess(App.launcherPath, "update");
-        });
+        updateButton.addActionListener(e -> App.updateManager.runUpdateProcess());
 
     }
 

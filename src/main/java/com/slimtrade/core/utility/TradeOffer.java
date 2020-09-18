@@ -32,9 +32,19 @@ public class TradeOffer {
     public String searchName;
     public String searchMessage;
 
+//    public String message;
+
     // Empty Trade
     public TradeOffer() {
 
+    }
+
+    // Notification
+    public TradeOffer(MessageType messageType, String messageUpper, String messageLower) {
+        this.messageType = messageType;
+//        this.message = messageUpper;
+        playerName = messageUpper;
+        itemName = messageLower;
     }
 
     // Dummy Trade
@@ -105,6 +115,9 @@ public class TradeOffer {
                 break;
             case OUTGOING_TRADE:
                 AudioManager.play(App.saveManager.settingsSaveFile.outgoingMessageSound);
+                break;
+            case NOTIFICATION:
+                AudioManager.play(App.saveManager.settingsSaveFile.updateSound);
                 break;
         }
     }

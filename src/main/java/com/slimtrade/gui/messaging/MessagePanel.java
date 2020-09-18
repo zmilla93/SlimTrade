@@ -84,6 +84,9 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 pricePanel = new PricePanel(trade.priceTypeString, trade.priceQuantity, true);
                 //TODO : PRICE PANEL
                 break;
+            case NOTIFICATION:
+                itemPanel.setText(trade.itemName);
+                break;
             case UNKNOWN:
                 break;
             default:
@@ -121,7 +124,9 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         bottomPanel.add(buttonPanelBottom, gc);
 
         // Finalize
-        this.startTimer();
+        if (messageType != MessageType.NOTIFICATION) {
+            this.startTimer();
+        }
         this.updateColor();
     }
 
@@ -261,10 +266,19 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         int timerWidth = (int) (messageWidth * timerWeight);
         int itemWidth = messageWidth - timerWidth - buttonSizeBottom.width;
 
-        namePanel.setPreferredSize(new Dimension(nameWidth, rowHeight));
-        pricePanel.setPreferredSize(new Dimension(priceWidth, rowHeight));
-        timerPanel.setPreferredSize(new Dimension(timerWidth, rowHeight));
-        itemPanel.setPreferredSize(new Dimension(itemWidth, rowHeight));
+        if (trade.messageType == MessageType.NOTIFICATION) {
+            namePanel.setPreferredSize(new Dimension(nameWidth + priceWidth, rowHeight));
+            pricePanel.setPreferredSize(new Dimension(0, rowHeight));
+            itemPanel.setPreferredSize(new Dimension(itemWidth + timerWidth, rowHeight));
+            timerPanel.setPreferredSize(new Dimension(0, rowHeight));
+        } else {
+            namePanel.setPreferredSize(new Dimension(nameWidth, rowHeight));
+            pricePanel.setPreferredSize(new Dimension(priceWidth, rowHeight));
+            itemPanel.setPreferredSize(new Dimension(itemWidth, rowHeight));
+            timerPanel.setPreferredSize(new Dimension(timerWidth, rowHeight));
+        }
+
+
     }
 
     public JButton getCloseButton() {
@@ -296,10 +310,12 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
         this.setBackground(ColorManager.MESSAGE_BORDER);
         // Name Panel
         namePanel.setBackgroundColor(ColorManager.MESSAGE_NAME_BG);
-        namePanel.backgroundHover = ColorManager.PRIMARY;
         namePanel.borderDefault = ColorManager.MESSAGE_NAME_BG;
-        namePanel.borderHover = ColorManager.TEXT;
-        namePanel.borderClick = ColorManager.TEXT;
+        if (messageType != MessageType.NOTIFICATION) {
+            namePanel.backgroundHover = ColorManager.PRIMARY;
+            namePanel.borderHover = ColorManager.TEXT;
+            namePanel.borderClick = ColorManager.TEXT;
+        }
         namePanel.setTextColor(ColorManager.TEXT);
         itemPanel.setBackgroundColor(ColorManager.MESSAGE_ITEM_BG);
         itemPanel.setBorderColor(ColorManager.MESSAGE_ITEM_BG);
@@ -347,6 +363,8 @@ public class MessagePanel extends AbstractMessagePanel implements IColorable {
                 borderPanel.setBackground(ColorManager.RED_SALE);
                 pricePanel.setBackground(ColorManager.RED_SALE);
                 break;
+            case NOTIFICATION:
+                borderPanel.setBackground(ColorManager.PURPLE_UPDATE);
         }
     }
 

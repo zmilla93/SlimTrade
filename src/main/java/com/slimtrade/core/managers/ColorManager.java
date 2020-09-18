@@ -17,6 +17,7 @@ public class ColorManager {
     public static Color GREEN_SALE;
     public static Color RED_SALE;
     public static Color RED_DENY;
+    public static Color PURPLE_UPDATE;
     public static Color SCANNER_BACKGROUND;
 
     // General
@@ -75,6 +76,7 @@ public class ColorManager {
         GREEN_SALE = new Color(0, 130, 0);
         PLAYER_JOINED_INCOMING = new Color(0, 140, 0);
         GREEN_APPROVE = new Color(73, 156, 84);
+        PURPLE_UPDATE = new Color(108, 35, 158);
 //        GREEN_APPROVE = new Color(106, 188, 58);
         RED_SALE = new Color(130, 0, 0);
         PLAYER_JOINED_OUTGOING = RED_SALE;

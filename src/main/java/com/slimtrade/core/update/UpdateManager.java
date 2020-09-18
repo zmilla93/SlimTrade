@@ -2,37 +2,69 @@ package com.slimtrade.core.update;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.utility.TradeOffer;
+import com.slimtrade.enums.MessageType;
+import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.dialogs.DownloaderFrame;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.swing.*;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class UpdateManager {
 
-    private final Patcher patcher = new Patcher(App.debugger);
+    public final Patcher patcher = new Patcher(App.debugger);
     private boolean updateChecked = false;
     private boolean updateAvailable = false;
     private final String fileName = References.APP_NAME + ".jar";
     private String latestVersion;
     private ArrayList<ReleaseData> releases;
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     // TODO : Switch to main repo
     public static final String TARGET_REPO = References.APP_NAME.toLowerCase() + "-tester";
     private String downloadURL = "https://github.com/" + References.AUTHOR_NAME + "/" + TARGET_REPO + "/releases/download/%tag%/" + fileName;
+    private DownloaderFrame downloaderFrame;
 
     public void update() {
-        String version = patcher.getLatestVersion() == null ? App.versionTag : patcher.getLatestVersion();
+        String version = patcher.getLatestVersion() == null ? App.updateTargetVersion : patcher.getLatestVersion();
+        if (version == null) {
+            runProcess(App.launcherPath);
+        }
+        assert version != null;
         downloadURL = downloadURL.replaceAll("%tag%", version);
-        DownloaderFrame downloaderFrame = new DownloaderFrame(References.APP_NAME, version);
-        downloaderFrame.setVisible(true);
-        patcher.downloadFile(fileName, downloadURL, downloaderFrame);
-        downloaderFrame.dispose();
-        runProcess(App.saveManager.INSTALL_DIRECTORY + File.separator + fileName, "patch");
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                downloaderFrame = new DownloaderFrame(References.APP_NAME, version);
+                downloaderFrame.setVisible(true);
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            App.debugger.log(e.getStackTrace());
+            runProcess(App.launcherPath);
+        }
+        boolean downloadResult = patcher.downloadFile(fileName, downloadURL, downloaderFrame);
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                downloaderFrame.dispose();
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            App.debugger.log(e.getStackTrace());
+            runProcess(App.launcherPath);
+        }
+        if (downloadResult) {
+            runProcess(App.saveManager.INSTALL_DIRECTORY + File.separator + fileName, "patch");
+        } else {
+            runProcess(App.launcherPath, "clean");
+        }
     }
 
     public void patch() {
@@ -48,7 +80,11 @@ public class UpdateManager {
     }
 
     public boolean isUpdateAvailable() {
-        if (!updateChecked) {
+        return isUpdateAvailable(false);
+    }
+
+    public boolean isUpdateAvailable(boolean clearCache) {
+        if (!updateChecked || clearCache) {
             updateAvailable = patcher.isUpdateAvailable();
             latestVersion = patcher.getLatestVersion();
             updateChecked = true;
@@ -60,35 +96,33 @@ public class UpdateManager {
         return patcher.getLatestVersion();
     }
 
-    public void setLatestVersion(String version) {
-        latestVersion = version;
-    }
+//    public void setLatestVersion(String version) {
+//        latestVersion = version;
+//    }
 
-    public String getLatestVersion() {
-        return latestVersion;
-    }
+//    public String getLatestVersion() {
+//        return latestVersion;
+//    }
 
     public ArrayList<ReleaseData> getReleaseData() {
         if (releases == null) {
-            fetchReleaseData();
+            releases = fetchReleaseData();
         }
         return releases;
     }
 
-    public boolean fetchReleaseData() {
-//        String version;
-        releases = new ArrayList<>();
+    public ArrayList<ReleaseData> fetchReleaseData() {
+        ArrayList<ReleaseData> releases = new ArrayList<>();
         BufferedReader br = null;
-        InputStream is = null;
+        InputStream is;
         try {
             is = new URL("https://api.github.com/repos/" + References.AUTHOR_NAME + "/" + References.APP_NAME + "/releases").openStream();
         } catch (IOException e) {
-            return false;
+            return releases;
         }
         if (is == null) {
-            // TODO : This will catch rate limit
-//            App.debugger.log("NULL::::");
-            return false;
+            // This catches rate limit
+            return releases;
         }
         try {
             br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
@@ -99,7 +133,7 @@ public class UpdateManager {
                 }
             } catch (IOException e) {
                 App.debugger.log("Error while fetching latest version : " + e.getMessage());
-                return false;
+                return releases;
             }
             System.out.println("STR : " + builder.toString());
             JSONArray json = new JSONArray(builder.toString());
@@ -109,13 +143,12 @@ public class UpdateManager {
                     releases.add(new ReleaseData(obj));
                 }
             }
-            return true;
+            return releases;
         } finally {
             if (br != null) {
                 try {
                     br.close();
                 } catch (IOException ignored) {
-
                 }
             }
         }
@@ -126,9 +159,6 @@ public class UpdateManager {
         launchArgs.add("java");
         launchArgs.add("-jar");
         launchArgs.addAll(Arrays.asList(args));
-        if (App.versionTag != null) {
-            launchArgs.add("versionTag:" + App.versionTag);
-        }
         if (App.launcherPath != null) {
             launchArgs.add("launcher:" + App.launcherPath);
         }
@@ -146,6 +176,29 @@ public class UpdateManager {
             e.printStackTrace();
         }
         System.exit(0);
+    }
+
+    public void runDelayedUpdateCheck() {
+        scheduler.schedule(() -> {
+            App.update = App.updateManager.isUpdateAvailable(true);
+            System.out.println("CHECKING UPDATE!!");
+            System.out.println("Latest Version : " + App.updateManager.patcher.getLatestVersion());
+            if (App.update) {
+                FrameManager.optionsWindow.showUpdateButton();
+                FrameManager.messageManager.addMessage(new TradeOffer(MessageType.NOTIFICATION, "Update Available!", "Check the options menu to install."));
+            } else {
+                runDelayedUpdateCheck();
+            }
+        }, 30, TimeUnit.SECONDS);
+    }
+
+    public void runUpdateProcess() {
+        String version = App.updateManager.patcher.getLatestVersion();
+        if (version != null) {
+            runProcess(App.launcherPath, "update:" + version);
+        } else {
+            runProcess(App.launcherPath, "update");
+        }
     }
 
 }

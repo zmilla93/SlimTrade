@@ -6,6 +6,7 @@ public enum Sound {
     PING2("Ping 2", "audio/ping2.wav"),
     BLIP1("Blip 1", "audio/blip1.wav"),
     BLIP2("Blip 2", "audio/blip2.wav"),
+    BLIP3("Blip 3", "audio/blip3.wav"),
 //	BLIP2("Blip 2", "audio/clicknew.wav"),
 //	CLICK1("Click 1", "audio/click3.wav"),
     ;

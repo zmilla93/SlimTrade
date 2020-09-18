@@ -91,12 +91,8 @@ public class AbstractMessagePanel extends ColorPanel {
         System.out.println("Abstract Resize");
     }
 
-    public void setCloseButton(int size, boolean... forceNew) {
-        if (forceNew.length > 0 && forceNew[0]) {
-            this.closeButton = new IconButton(DefaultIcons.CLOSE, size);
-        } else {
-            this.closeButton = new IconButton(DefaultIcons.CLOSE, size);
-        }
+    public void setCloseButton(int size) {
+        this.closeButton = new IconButton(DefaultIcons.CLOSE, size);
         closeButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1 || messageType == MessageType.INCOMING_TRADE) {

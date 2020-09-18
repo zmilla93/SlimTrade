@@ -154,7 +154,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         gc.gridy = 0;
         gc.insets.bottom = 0;
         gc.fill = GridBagConstraints.NONE;
-        menuPanelLower.add(new CustomLabel(References.APP_NAME + " v" + References.getAppVersion()), gc);
+        menuPanelLower.add(new CustomLabel(References.APP_NAME + " " + References.getAppVersion()), gc);
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.gridy++;
         menuPanelLower.add(updateButton, gc);
@@ -202,7 +202,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
 
         donateButton.addActionListener(e -> TradeUtility.openLink(References.PAYPAL));
         updateButton.addActionListener(e -> {
-            App.updateManager.runProcess(App.launcherPath, "update");
+            App.updateManager.runUpdateProcess();
         });
 
         revertButton.addActionListener(e -> {

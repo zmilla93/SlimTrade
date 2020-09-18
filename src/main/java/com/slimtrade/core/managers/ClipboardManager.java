@@ -26,7 +26,7 @@ public class ClipboardManager implements ClipboardOwner {
         listener = e -> new Thread(() -> {
             if (lastMessage == null) {
                 lastMessage = getClipboardContents();
-                if(lastMessage == null) {
+                if (lastMessage == null) {
                     refreshClipboard();
                     return;
                 }

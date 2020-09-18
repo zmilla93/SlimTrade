@@ -17,105 +17,28 @@ import java.nio.file.StandardCopyOption;
 
 public class Patcher {
 
-    // Config
-//    public final String APP_NAME = "SlimTrade-Tester";
-//    public final String AUTHOR_NAME = "zmilla93";
-//    public final String FOLDER_NAME = "SlimTrade";
-
     // Github Stuff
     private final String GIT_TAG_KEY = "tag_name";
     private final String API_LATEST_VERSION;
     private final String BLANK_DOWNLOAD;
 
     // Internal
-//    private String currentVersion = "";
     private String latestVersion;
-    public static final String LOG_FOLDER_NAME = "logs";
-
     private boolean autoUpdate = true;
     private boolean apiRateLimited = false;
-    //    private final File launcherJSONFile;
-//    private final File coreFile;
     private boolean coreFileExists;
     private String launcherPath;
     private String launcherFileName;
     private JSONObject launcherJSON;
     private final int MAX_ATTEMPTS = 5;
 
-
-    //    private ArgHandler argHandler;
-//    private PatchData patchData;
     private Debugger debugger;
 
-//    public Patcher() {
-//        this(new Debugger());
-//    }
 
     public Patcher(Debugger debugger) {
-//        this.argHandler = argHandler;
-//        this.patchData = patchData;
         this.debugger = debugger;
         API_LATEST_VERSION = "https://api.github.com/repos/" + References.AUTHOR_NAME + "/" + UpdateManager.TARGET_REPO + "/releases/latest";
         BLANK_DOWNLOAD = "https://github.com/" + References.AUTHOR_NAME + "/" + UpdateManager.TARGET_REPO + "/releases/download/%tag%/%file%";
-
-
-        // Create folders if needed
-//        File installFolder = new File(App.saveManager.INSTALL_DIRECTORY);
-//        File logsFolder = new File(App.saveManager.INSTALL_DIRECTORY + File.separator + LOG_FOLDER_NAME);
-//        if (!installFolder.exists()) {
-//            if (!installFolder.mkdirs()) {
-//                System.out.println("Failed to create install folder!");
-//                System.out.println("Location : " + installFolder.getPath());
-//                System.exit(1);
-//            }
-//        }
-//        if (!logsFolder.exists()) {
-//            if (!logsFolder.mkdirs()) {
-//                System.out.println("Failed to create logs folder!");
-//                System.out.println("Location : " + logsFolder.getPath());
-//            }
-//        }
-
-        // Core File
-//        coreFile = new File(App.saveManager.INSTALL_DIRECTORY, References.APP_NAME.toLowerCase() + "-core.jar");
-//        coreFileExists = coreFile.exists() && coreFile.isFile();
-
-        // Fetch existing JSON data
-//        launcherJSONFile = new File(App.saveManager.INSTALL_DIRECTORY, "launcher.json");
-//        boolean existingJSON = false;
-//        if (launcherJSONFile.exists()) {
-//            try {
-//                FileReader fr = new FileReader(launcherJSONFile);
-//                BufferedReader br = new BufferedReader(fr);
-//                StringBuilder builder = new StringBuilder();
-//                while (br.ready()) {
-//                    builder.append(br.readLine());
-//                }
-//                br.close();
-//                fr.close();
-//                launcherJSON = new JSONObject(builder.toString());
-//                autoUpdate = launcherJSON.getBoolean("autoUpdate");
-//                currentVersion = launcherJSON.getString("versionTag");
-//                existingJSON = true;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        // Initialize JSON if needed
-//        if (!existingJSON) {
-//            launcherJSON = new JSONObject();
-//            autoUpdate = true;
-//            currentVersion = "";
-//            launcherJSON.put("autoUpdate", true);
-//            launcherJSON.put("versionTag", currentVersion);
-//            try {
-//                FileWriter fw = new FileWriter(launcherJSONFile);
-//                fw.write(launcherJSON.toString());
-//                fw.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         // Save launcher path
         try {
@@ -128,37 +51,17 @@ public class Patcher {
         }
     }
 
-//    public void saveVersionToJSON(String versionTag) {
-//        launcherJSON.put("versionTag", versionTag);
-//        try {
-//            FileWriter fw = new FileWriter(launcherJSONFile);
-//            fw.write(launcherJSON.toString());
-//            fw.close();
-//        } catch (IOException e) {
-//            debugger.log("Error saving version tag '" + versionTag + "' to launcher JSON file.");
-//            debugger.log(e.getStackTrace());
-//        }
-//    }
-
     public boolean isUpdateAvailable() {
         debugger.log("Checking for update...");
-        debugger.log("Current Version: v" + References.getAppVersion());
+        debugger.log("Current Version: " + References.getAppVersion());
         latestVersion = fetchLatestVersion();
         if (latestVersion == null) {
             apiRateLimited = true;
             debugger.log("API rate exceeded.");
             return false;
         }
-//        argHandler.setVersionTag(latestVersion);
-//        if (!launcherJSONFile.exists()) {
-//            debugger.log("Launcher JSON file is missing.");
-//            return true;
-//        } else if (!coreFile.exists()) {
-//            debugger.log("Core file is missing.");
-//            return true;
-//        } else
         debugger.log("Latest Version: " + latestVersion);
-        if (!latestVersion.contains(References.getAppVersion())) {
+        if (!latestVersion.matches(References.getAppVersion())) {
             debugger.log("New Version Available : " + latestVersion);
             return true;
         }
@@ -321,17 +224,6 @@ public class Patcher {
 
     public boolean isCoreFileExists() {
         return coreFileExists;
-    }
-
-    public String getLauncherDownloadURL() {
-        String url = BLANK_DOWNLOAD.replaceAll("%tag%", App.versionTag);
-        url = url.replaceAll("%file%", References.APP_NAME + ".jar");
-        return url;
-    }
-
-    public String getCoreDownloadURL() {
-        String url = BLANK_DOWNLOAD.replaceAll("%tag%", App.versionTag).replaceAll("%file%", References.APP_NAME + ".jar");
-        return url;
     }
 
 }

@@ -55,6 +55,7 @@ public class SettingsSaveFile {
     public SoundElement outgoingMessageSound = new SoundElement(Sound.PING1, 50);
     public SoundElement scannerMessageSound = new SoundElement(Sound.PING2, 50);
     public SoundElement playerJoinedSound = new SoundElement(Sound.BLIP1, 50);
+    public SoundElement updateSound = new SoundElement(Sound.BLIP3, 50);
 
     // Stash Search
     public HotkeyData stashSearchHotkey = null;

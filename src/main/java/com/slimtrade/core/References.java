@@ -32,7 +32,7 @@ public class References {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            APP_VERSION = properties.getProperty("version");
+            APP_VERSION = "v" + properties.getProperty("version");
         }
 
         return APP_VERSION;

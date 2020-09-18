@@ -46,7 +46,8 @@ public class App {
     public static ClipboardManager clipboardManager;
     public static LoadingDialog loadingDialog;
 
-    public static String versionTag = null;
+    //    public static String versionTag = null;
+    public static String updateTargetVersion = null;
     public static String debuggerTimestamp = null;
     public static String launcherPath = null;
 
@@ -65,8 +66,9 @@ public class App {
             for (String s : args) {
                 if (s.startsWith("launcher:")) {
                     launcherPath = s.replace("launcher:", "");
-                } else if (s.startsWith("versionTag:")) {
-                    versionTag = s.replace("versionTag:", "");
+                } else if (s.startsWith("update:")) {
+                    update = true;
+                    updateTargetVersion = s.replace("update:", "");
                 } else if (s.startsWith("debugger:")) {
                     debuggerTimestamp = s.replace("debugger:", "");
                 }
@@ -130,19 +132,14 @@ public class App {
         } else if (clean) {
             App.debugger.log("Cleaning...");
             updateManager.clean();
+//            versionTag = null;
         } else {
             if (!ignoreUpdate && saveManager.settingsSaveFile.autoUpdate) {
                 if (updateManager.isUpdateAvailable()) {
-                    if (versionTag == null) {
-                        versionTag = updateManager.getVersionTag();
-                    }
                     App.debugger.log("Auto updating...");
                     updateManager.update();
                 }
             }
-        }
-        if (versionTag != null && updateManager.getLatestVersion() == null) {
-            updateManager.setLatestVersion(versionTag);
         }
 
         // Show Loading Dialog
@@ -240,11 +237,9 @@ public class App {
                     FrameManager.optionsWindow.showUpdateButton();
                     UpdateDialog updateDialog = new UpdateDialog();
                     updateDialog.setVisible(true);
-                    if (versionTag == null) {
-                        versionTag = updateManager.getVersionTag();
-                    }
                 }
             }
+            updateManager.runDelayedUpdateCheck();
         }
     }
 

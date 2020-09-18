@@ -19,6 +19,7 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
     private final AudioRow outgoingRow = new AudioRow("Outgoing Trade");
     private final AudioRow scannerRow = new AudioRow("Chat Scanner");
     private final AudioRow joinedRow = new AudioRow("Player Joined Area");
+    private final AudioRow updateRow = new AudioRow("Update Alert");
 
     public AudioPanel() {
 
@@ -27,6 +28,7 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
             outgoingRow.addSound(s);
             scannerRow.addSound(s);
             joinedRow.addSound(s);
+            updateRow.addSound(s);
         }
 
         container.setLayout(new GridBagLayout());
@@ -44,6 +46,8 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
         gc.gridy++;
         container.add(joinedRow, gc);
         gc.gridy++;
+        container.add(updateRow, gc);
+        gc.gridy++;
     }
 
     public void save() {
@@ -51,7 +55,7 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
         App.saveManager.settingsSaveFile.outgoingMessageSound = new SoundElement(outgoingRow.getSound(), outgoingRow.getVolume());
         App.saveManager.settingsSaveFile.scannerMessageSound = new SoundElement(scannerRow.getSound(), scannerRow.getVolume());
         App.saveManager.settingsSaveFile.playerJoinedSound = new SoundElement(joinedRow.getSound(), joinedRow.getVolume());
-//        App.saveManager.saveFile.buttonSound = new SoundElement(buttonRow.getSound(), buttonRow.getVolume());
+        App.saveManager.settingsSaveFile.updateSound = new SoundElement(updateRow.getSound(), updateRow.getVolume());
     }
 
     public void load() {
@@ -59,7 +63,7 @@ public class AudioPanel extends ContainerPanel implements ISaveable, IColorable 
         outgoingRow.setValue(App.saveManager.settingsSaveFile.outgoingMessageSound.sound, App.saveManager.settingsSaveFile.outgoingMessageSound.volume);
         scannerRow.setValue(App.saveManager.settingsSaveFile.scannerMessageSound.sound, App.saveManager.settingsSaveFile.scannerMessageSound.volume);
         joinedRow.setValue(App.saveManager.settingsSaveFile.playerJoinedSound.sound, App.saveManager.settingsSaveFile.playerJoinedSound.volume);
-//        buttonRow.setValue(App.saveManager.saveFile.buttonSound.sound, App.saveManager.saveFile.buttonSound.volume);
+        updateRow.setValue(App.saveManager.settingsSaveFile.updateSound.sound, App.saveManager.settingsSaveFile.updateSound.volume);
     }
 
     @Override

@@ -88,6 +88,8 @@ public class MenubarDialog extends BasicDialog {
                 FrameManager.messageManager.addMessage(t, false);
                 FrameManager.messageManager.addMessage(t2, false);
                 FrameManager.messageManager.addMessage(t3, false);
+
+                FrameManager.messageManager.addMessage(new TradeOffer(MessageType.NOTIFICATION, "Update Available!", "Check the options menu to install."));
 //                FrameManager.messageManager.addMessage(t5, false);
 //                FrameManager.messageManager.setPlayerJoinedArea("HighlightTrader123");
             }

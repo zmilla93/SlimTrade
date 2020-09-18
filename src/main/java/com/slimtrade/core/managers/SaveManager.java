@@ -75,13 +75,12 @@ public class SaveManager {
             imageDir.mkdirs();
         }
         if (!logsDir.exists()) {
-            imageDir.mkdirs();
+            logsDir.mkdirs();
         }
         if (saveDir.exists()) {
             validSavePath = true;
         }
         gson = new Gson();
-
     }
 
     public String getImageFolder() {
