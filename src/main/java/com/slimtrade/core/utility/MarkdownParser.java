@@ -52,7 +52,6 @@ public class MarkdownParser {
     private static String convertLinks(String string) {
         matcher = linkPattern.matcher(string);
         while (matcher.matches()) {
-            System.out.println("LINK");
             string = matcher.replaceFirst("$1<a href=\"$3\">$2</a>$4");
             matcher = linkPattern.matcher(string);
         }

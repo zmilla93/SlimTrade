@@ -278,7 +278,6 @@ public class FrameManager {
         if (move) {
             w.setSize(new Dimension(width, height));
         }
-        FrameManager.centerFrame(w);
     }
 
 }

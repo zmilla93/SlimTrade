@@ -4,14 +4,15 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class CustomScrollPane extends JScrollPane implements IColorable {
 
     public static int DEFAULT_SCROLL_SPEED = 14;
     private JPanel cornerPanel = new JPanel();
 
-    public CustomScrollPane(JPanel panel) {
-        super(panel);
+    public CustomScrollPane(Component view) {
+        super(view);
 //        this.setVerticalScrollBar(this.createVerticalScrollBar());
 //        this.setHorizontalScrollBar(this.createHorizontalScrollBar());
         this.getVerticalScrollBar().setUI(new CustomScrollBarUI());

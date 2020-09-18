@@ -245,7 +245,9 @@ public class App {
                     updateDialog.setVisible(true);
                 }
             }
-            updateManager.runDelayedUpdateCheck();
+            if (!ignoreUpdate) {
+                updateManager.runDelayedUpdateCheck();
+            }
         }
     }
 
@@ -260,6 +262,8 @@ public class App {
         }
         debugger.log("SlimTrade Terminated\n");
         debugger.close();
+        lockManager.closeLock();
+        lockManager.deleteLock();
     }
 
 }

@@ -31,7 +31,8 @@ public class UpdateManager {
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     // TODO : Switch to main repo
-    public static final String TARGET_REPO = References.APP_NAME.toLowerCase() + "-tester";
+//    public static final String TARGET_REPO = References.APP_NAME.toLowerCase() + "-tester";
+    public static final String TARGET_REPO = References.APP_NAME.toLowerCase();
     private String downloadURL = "https://github.com/" + References.AUTHOR_NAME + "/" + TARGET_REPO + "/releases/download/%tag%/" + fileName;
     private DownloaderFrame downloaderFrame;
 
@@ -135,7 +136,6 @@ public class UpdateManager {
                 App.debugger.log("Error while fetching latest version : " + e.getMessage());
                 return releases;
             }
-            System.out.println("STR : " + builder.toString());
             JSONArray json = new JSONArray(builder.toString());
             for (Object o : json) {
                 if (o instanceof JSONObject) {
@@ -168,6 +168,7 @@ public class UpdateManager {
         App.debugger.log("Running Process: " + Arrays.toString(launchArgs.toArray()) + "\n");
         App.debugger.close();
         App.lockManager.closeLock();
+        App.lockManager.deleteLock();
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(launchArgs);
             processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
@@ -190,7 +191,7 @@ public class UpdateManager {
             } else {
                 runDelayedUpdateCheck();
             }
-        }, 30, TimeUnit.SECONDS);
+        }, 24, TimeUnit.HOURS);
     }
 
     public void runUpdateProcess() {

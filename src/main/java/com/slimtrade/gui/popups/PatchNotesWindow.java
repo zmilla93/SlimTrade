@@ -61,7 +61,7 @@ public class PatchNotesWindow extends JFrame implements IColorable {
                     textPane.setText(data.getColorPatchNotes(ColorManager.TEXT));
                     revalidate();
                     pack();
-                    FrameManager.fitWindowToScreen(local);
+                    FrameManager.centerFrame(local);
                 }
             }
         });
@@ -129,17 +129,19 @@ public class PatchNotesWindow extends JFrame implements IColorable {
         setMaximumSize(TradeUtility.screenSize);
 
         for (ReleaseData data : releases) {
-            System.out.println("REL : " + data.tag);
-            if (data.tag.toLowerCase().contains("pre")) {
+//            System.out.println("REL : " + data.tag);
+            if (data.tag.toLowerCase().contains("pre") || data.tag.toLowerCase().contains("test")) {
                 continue;
             }
             comboBox.addItem(data.tag);
         }
 
         textPane.setCaretPosition(0);
+        setMinimumSize(new Dimension(900, 600));
         revalidate();
         pack();
         FrameManager.fitWindowToScreen(this);
+        FrameManager.centerFrame(this);
         ColorManager.recursiveColor(this);
         setVisible(true);
         setAlwaysOnTop(true);
