@@ -167,6 +167,7 @@ public class UpdateManager {
         }
         App.debugger.log("Running Process: " + Arrays.toString(launchArgs.toArray()) + "\n");
         App.debugger.close();
+        App.lockManager.closeLock();
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(launchArgs);
             processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);

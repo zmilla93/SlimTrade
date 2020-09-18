@@ -1,10 +1,7 @@
 package com.slimtrade;
 
 import com.slimtrade.core.debug.Debugger;
-import com.slimtrade.core.managers.ClipboardManager;
-import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.managers.SetupManager;
+import com.slimtrade.core.managers.*;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
 import com.slimtrade.core.observing.GlobalMouseListener;
 import com.slimtrade.core.update.UpdateManager;
@@ -35,6 +32,7 @@ import java.util.logging.Logger;
 public class App {
 
     public static Debugger debugger;
+    public static LockManager lockManager;
     public static UpdateManager updateManager;
     public static FrameManager frameManager;
     public static SaveManager saveManager;
@@ -60,6 +58,18 @@ public class App {
     public static boolean testFeatures = false;
 
     public static void main(String[] args) {
+
+        // Save Manager
+        saveManager = new SaveManager();
+        saveManager.loadSettingsFromDisk();
+
+        lockManager = new LockManager(saveManager.INSTALL_DIRECTORY);
+        boolean lock = lockManager.tryAndLock("app.lock");
+        if (!lock) {
+            System.out.println("Slimtrade is already running. Terminating new instance.");
+            System.exit(0);
+            return;
+        }
 
         // Launch Args
         if (args.length > 0) {
@@ -108,10 +118,6 @@ public class App {
                 e.printStackTrace();
             }
         }
-
-        // Save Manager
-        saveManager = new SaveManager();
-        saveManager.loadSettingsFromDisk();
 
         // Debugger
         if (debuggerTimestamp == null) {

@@ -116,7 +116,7 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
         InformationPanel contactPanel = new InformationPanel();
         link(contactButton, contactPanel);
 
-        updateButton = new ConfirmButton("Update");
+        updateButton = new ConfirmButton("Install Update");
         updateButton.setVisible(false);
         strut.setVisible(false);
         donateButton = new ConfirmButton("Donate with PayPal");

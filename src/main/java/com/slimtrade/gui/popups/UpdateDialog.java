@@ -16,7 +16,7 @@ public class UpdateDialog extends JFrame implements IColorable {
 
     private JPanel borderPanel = new JPanel(new GridBagLayout());
     private JPanel container = new JPanel(new GridBagLayout());
-    private JButton updateButton = new ConfirmButton("Update");
+    private JButton updateButton = new ConfirmButton("Install Update");
 
     private JLabel info1 = new CustomLabel("Update Available!");
     private JLabel info2 = new CustomLabel("Currently Running: " + References.getAppVersion());
