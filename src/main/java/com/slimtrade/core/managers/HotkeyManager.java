@@ -21,18 +21,19 @@ public class HotkeyManager {
     private static final SettingsSaveFile SETTINGS_SAVE_FILE = App.saveManager.settingsSaveFile;
 
     public static void processHotkey(NativeKeyEvent e) {
+        // Ignore hotkeys when not in normal window state
         if (FrameManager.windowState != WindowState.NORMAL) {
             return;
         }
+        // Quick Paste
         if (SETTINGS_SAVE_FILE.quickPasteSetting == QuickPasteSetting.HOTKEY && checkKey(e, SETTINGS_SAVE_FILE.quickPasteHotkey)) {
             PoeInterface.attemptQuickPaste();
             return;
         }
-
+        // Ignore hotkeys while tabbed out
         if (!PoeInterface.isPoeFocused(true)) {
             return;
         }
-
         // Inbuilt Macros
         if (checkKey(e, SETTINGS_SAVE_FILE.closeTradeHotkey)) {
             FrameManager.messageManager.closeTrade(FrameManager.messageManager.getFirstTrade());

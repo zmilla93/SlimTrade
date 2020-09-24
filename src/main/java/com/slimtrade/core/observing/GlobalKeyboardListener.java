@@ -26,6 +26,11 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         } else if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT_L || e.getKeyCode() == NativeKeyEvent.VC_SHIFT_L) {
             shiftPressed = true;
         }
+
+        // Print stuff
+//        System.out.println("Key Code : " + e.getKeyCode());
+//        System.out.println("Key Pressed! : " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " | " + NativeKeyEvent.getModifiersText(e.getModifiers()));
+
         // Ignore modifier keys on their own
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL_L || e.getKeyCode() == NativeKeyEvent.VC_CONTROL_R
                 || e.getKeyCode() == NativeKeyEvent.VC_ALT_L || e.getKeyCode() == NativeKeyEvent.VC_ALT_R
@@ -33,14 +38,11 @@ public class GlobalKeyboardListener implements NativeKeyListener {
                 || e.getKeyCode() == NativeKeyEvent.VC_NUM_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_SCROLL_LOCK
                 || e.getKeyCode() == NativeKeyEvent.VC_CAPS_LOCK
-                || e.getKeyCode() == NativeKeyEvent.META_L_MASK || e.getKeyCode() == NativeKeyEvent.META_R_MASK
+                || e.getKeyCode() == NativeKeyEvent.META_L_MASK //|| e.getKeyCode() == NativeKeyEvent.META_R_MASK
                 || e.getKeyCode() == NativeKeyEvent.VC_UNDEFINED
                 || NativeKeyEvent.getKeyText(e.getKeyCode()).contains("Unknown")) {
             return;
         }
-
-        // Print stuff
-//        System.out.println("Key Pressed! : " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " | " + NativeKeyEvent.getModifiersText(e.getModifiers()));
 
         // If a UI element is waiting for hotkey data, return the data and skip the hotkey logic.
         if (hotkeyListener != null) {

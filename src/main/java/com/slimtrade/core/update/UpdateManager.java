@@ -30,7 +30,6 @@ public class UpdateManager {
     private ArrayList<ReleaseData> releases;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    // TODO : Switch to main repo
 //    public static final String TARGET_REPO = References.APP_NAME.toLowerCase() + "-tester";
     public static final String TARGET_REPO = References.APP_NAME.toLowerCase();
     private String downloadURL = "https://github.com/" + References.AUTHOR_NAME + "/" + TARGET_REPO + "/releases/download/%tag%/" + fileName;

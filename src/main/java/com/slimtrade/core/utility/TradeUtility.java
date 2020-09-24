@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Date;
 
 public class TradeUtility {
 
@@ -202,5 +203,27 @@ public class TradeUtility {
         }
     }
 
+    public static int dateDifference(Date d1, Date d2) {
+        try {
+            long diff = d2.getTime() - d1.getTime();
+            if (diff < 0) {
+                return -1;
+            }
+
+            long diffSeconds = diff / 1000 % 60;
+            long diffMinutes = diff / (60 * 1000) % 60;
+            long diffHours = diff / (60 * 60 * 1000) % 24;
+
+            diffMinutes += diffHours * 60;
+            if (diffSeconds > 30) {
+                diffMinutes++;
+            }
+            return (int) diffMinutes;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
 }

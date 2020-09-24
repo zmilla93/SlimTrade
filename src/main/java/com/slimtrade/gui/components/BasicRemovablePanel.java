@@ -32,12 +32,7 @@ public class BasicRemovablePanel extends JPanel implements IColorable {
             shiftUpButton = new IconButton(DefaultIcons.ARROW_UP, References.DEFAULT_IMAGE_SIZE);
             shiftDownButton = new IconButton(DefaultIcons.ARROW_DOWN, References.DEFAULT_IMAGE_SIZE);
         }
-        closeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
-        });
+        closeButton.addActionListener(e -> setVisible(false));
 
         // Build UI
         buttonPanel.add(closeButton);

@@ -23,11 +23,7 @@ public class RemovablePanel extends JPanel implements IColorable {
 
     //TODO : REMOVE THIS ADD DO ACTIONS LOCALLY
     public void setRemoveButton(JButton button) {
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        button.addActionListener(e -> dispose());
     }
 
     public void markForDeletion() {

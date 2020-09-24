@@ -84,7 +84,6 @@ public class AbstractMessagePanel extends ColorPanel {
         container.setLayout(gb);
         gc.gridx = 0;
         gc.gridy = 0;
-//		App.eventManager.addColorListener(this);
     }
 
     public void resizeMessage(int i) {

@@ -1,6 +1,7 @@
 package com.slimtrade.gui.options.ignore;
 
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
+import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.gui.enums.MatchType;
 
 import java.util.Calendar;
@@ -69,7 +70,7 @@ public class IgnoreData {
     public int getRemainingTime() {
 //	    return duration;
         Date now = new Date();
-        int diff = SettingsSaveFile.dateDifference(now, expireTime);
+        int diff = TradeUtility.dateDifference(now, expireTime);
         return diff;
     }
 

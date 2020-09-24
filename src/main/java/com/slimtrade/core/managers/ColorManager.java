@@ -51,7 +51,6 @@ public class ColorManager {
     public static Border BORDER_LOW_CONTRAST_1;
     public static Border BORDER_LOW_CONTRAST_2;
 
-    // TODO : Check uses of clear as it can cause drawing issues.
     public static Color CLEAR = new Color(0, 0, 0, 0);
     public static Color POE_TEXT_DARK = new Color(53, 28, 13);
     public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
