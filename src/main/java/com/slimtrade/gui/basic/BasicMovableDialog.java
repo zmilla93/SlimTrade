@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-//TODO : REVIEW THIS CODE!!
 public class BasicMovableDialog extends BasicDialog {
 
     private static final long serialVersionUID = 1L;
@@ -21,7 +20,7 @@ public class BasicMovableDialog extends BasicDialog {
     private int borderOffset = 0;
 
     public BasicMovableDialog() {
-
+        this(true);
     }
 
     public BasicMovableDialog(boolean createListeners) {

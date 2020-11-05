@@ -20,7 +20,6 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
@@ -159,6 +158,7 @@ public class App {
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
 
+        // Hook into mouse and keyboard
         globalMouse = new GlobalMouseListener();
         globalKeyboard = new GlobalKeyboardListener();
 
@@ -167,9 +167,11 @@ public class App {
         saveManager.loadStashFromDisk();
         saveManager.loadOverlayFromDisk();
 
+        // Clipboard Manager
         clipboardManager = new ClipboardManager();
         clipboardManager.setListeningState(saveManager.settingsSaveFile.quickPasteSetting == QuickPasteSetting.AUTOMATIC);
 
+        // Set Color Theme
         try {
             SwingUtilities.invokeAndWait(() -> {
                 // Loading using tempTheme fixes a bug where icon images are not correctly loaded into combo boxes in macro customizer
@@ -186,11 +188,7 @@ public class App {
         }
 
         // POE Interface
-        try {
-            PoeInterface poe = new PoeInterface();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
+        PoeInterface.init();
 
         // JNativeHook Setup
         try {

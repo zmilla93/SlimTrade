@@ -52,7 +52,6 @@ public class ChatParser {
             App.logger.log(Level.SEVERE, "Chat parser failed to launch");
             return;
         }
-        // TODO : Init history
         totalLineCount = 0;
         try {
             while ((curLine = bufferedReader.readLine()) != null) {

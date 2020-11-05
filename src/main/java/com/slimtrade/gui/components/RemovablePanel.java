@@ -4,9 +4,9 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+// TODO : Remove
+@Deprecated
 public class RemovablePanel extends JPanel implements IColorable {
 
     private static final long serialVersionUID = 1L;

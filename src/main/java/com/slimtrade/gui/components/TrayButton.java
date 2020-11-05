@@ -40,7 +40,6 @@ public class TrayButton {
 
         // Reset UI Button
         resetUIButton.addActionListener(e -> {
-            // TODO : PINS
             FrameManager.optionsWindow.resizeToDefault();
             FrameManager.chatScannerWindow.resizeToDefault();
             FrameManager.historyWindow.resizeToDefault();

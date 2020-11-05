@@ -13,7 +13,6 @@ import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.StashTabColor;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.FrameManager;
-import com.slimtrade.gui.basic.ColorPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.panels.PricePanel;
@@ -28,11 +27,11 @@ import java.util.ArrayList;
 public class MessagePanel extends AbstractMessagePanel implements IColorable {
 
     private static final long serialVersionUID = 1L;
-    private JPanel topPanel = new ColorPanel(gb);
-    private JPanel bottomPanel = new ColorPanel(gb);
+    private JPanel topPanel = new JPanel(gb);
+    private JPanel bottomPanel = new JPanel(gb);
 
-    protected JPanel buttonPanelTop = new ColorPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-    protected JPanel buttonPanelBottom = new ColorPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+    protected JPanel buttonPanelTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+    protected JPanel buttonPanelBottom = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
     public StashHelper stashHelper;
 

@@ -4,7 +4,6 @@ import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.utility.TradeOffer;
 import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.basic.ColorPanel;
 import com.slimtrade.gui.basic.PaintedPanel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.custom.CustomLabel;
@@ -17,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-public class AbstractMessagePanel extends ColorPanel {
+public class AbstractMessagePanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     // TODO Load from drive
@@ -43,8 +42,8 @@ public class AbstractMessagePanel extends ColorPanel {
     protected PricePanel pricePanel = new PricePanel();
     protected PaintedPanel itemPanel = new PaintedPanel();
 
-    protected JPanel borderPanel = new ColorPanel();
-    protected JPanel container = new ColorPanel();
+    protected JPanel borderPanel = new JPanel();
+    protected JPanel container = new JPanel();
     protected PaintedPanel timerPanel = new PaintedPanel();
     protected JLabel timerLabel;
     protected IconButton closeButton;
@@ -128,9 +127,7 @@ public class AbstractMessagePanel extends ColorPanel {
         secondTimer.restart();
     }
 
-    @Override
     public void updateColor() {
-        super.updateColor();
         timerPanel.setBackgroundColor(ColorManager.BACKGROUND);
         timerPanel.setBorderColor(ColorManager.BACKGROUND);
     }

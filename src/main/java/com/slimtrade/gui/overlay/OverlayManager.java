@@ -22,8 +22,8 @@ import java.util.Objects;
 public class OverlayManager implements ISaveable, IColorable {
 
     private OverlayInfoDialog helpDialog;
-    private BasicMovableDialog menubarDialog = new BasicMovableDialog(true);
-    private BasicMovableDialog messageDialog = new BasicMovableDialog(true);
+    private BasicMovableDialog menubarDialog = new BasicMovableDialog();
+    private BasicMovableDialog messageDialog = new BasicMovableDialog();
     private GridBagConstraints gc = new GridBagConstraints();
 
     private Color backgroundDefault = new Color(0.5f, 0.6f, 0.5f, 0.8f);

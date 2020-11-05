@@ -223,7 +223,9 @@ public class SaveManager {
         String[] commonDrives = {"C", "D", "E", "F"};
         ArrayList<String> stubs = new ArrayList<>();
         stubs.add(":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+        stubs.add(":/Program Files/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
         stubs.add(":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+        stubs.add(":/Program Files (x86)/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
         stubs.add(":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
         stubs.add(":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
         stubs.add(":/Steam/steamapps/common/Path of Exile/logs/Client.txt");

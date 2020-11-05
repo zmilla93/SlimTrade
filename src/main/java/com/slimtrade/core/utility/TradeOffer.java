@@ -11,6 +11,7 @@ import com.slimtrade.gui.enums.POEImage;
 
 public class TradeOffer {
 
+
     public String date;
     public String time;
     public MessageType messageType;

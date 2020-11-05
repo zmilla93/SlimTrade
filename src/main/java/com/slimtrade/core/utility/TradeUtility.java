@@ -124,9 +124,7 @@ public class TradeUtility {
         return builder.toString();
     }
 
-    // TODO : check more stuff?
-    // TODO : THIS THROWS AN ERROR IF A VALUE IS NULL
-    // TODO : Add chat scanner messages
+    // TODO : switch to .equals()
     public static boolean isMatchingTrades(TradeOffer trade1, TradeOffer trade2) {
         if (trade1.messageType != trade2.messageType) {
             return false;

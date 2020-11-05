@@ -22,7 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class PoeInterface extends Robot {
+public class PoeInterface {
 
     private static StringSelection pasteString;
     private static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -37,7 +37,7 @@ public class PoeInterface extends Robot {
 
     private static boolean quickPasteSuccess = false;
 
-    public PoeInterface() throws AWTException {
+    public static void init() {
         try {
             robot = new Robot();
         } catch (AWTException e) {
@@ -186,16 +186,14 @@ public class PoeInterface extends Robot {
                     clipboard.setContents(pasteString, null);
                     break;
                 } catch (IllegalStateException e) {
-                    // TODO : LOG
-                    System.out.println("Retrying clipboard...");
+                    App.debugger.log("Retrying clipboard...");
                     if (attempt == MAX_ATTEMPTS) {
-                        System.out.println("Failed to get clipboard contents.");
+                        App.debugger.log("Failed to get clipboard contents.");
                         return;
                     }
                 }
                 attempt++;
             }
-            //TODO Open
             robot.keyPress(KeyEvent.VK_ALT);
             robot.keyRelease(KeyEvent.VK_ALT);
             robot.keyPress(KeyEvent.VK_ENTER);
@@ -263,10 +261,9 @@ public class PoeInterface extends Robot {
                         clipboard.setContents(pasteString, null);
                         break;
                     } catch (IllegalStateException e) {
-                        // TODO : LOG
-                        System.out.println("Retrying clipboard...");
+                        App.debugger.log("Retrying clipboard...");
                         if (attempt == MAX_ATTEMPTS) {
-                            System.out.println("Aborting clipboard...");
+                            App.debugger.log("Aborting clipboard...");
                             return;
                         }
                     }
@@ -288,7 +285,8 @@ public class PoeInterface extends Robot {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    App.debugger.log("Error while running command...");
+                    App.debugger.log(e.getStackTrace());
                 }
             }
         });
