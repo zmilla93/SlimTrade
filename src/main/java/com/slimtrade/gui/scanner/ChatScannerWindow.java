@@ -59,34 +59,25 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
         }
     };
 
-    private ToggleButton searchButton;
-    private JComboBox<ScannerMessage> searchCombo;
-    private JTextField saveTextField;
+    private final ToggleButton searchButton;
+    private final JComboBox<ScannerMessage> searchCombo;
+    private final JTextField saveTextField;
 
     // Controls from child panels
-    private JButton saveButton, clearButton, revertButton, deleteButton;
-    private JTextArea searchTermsInput, ignoreTermsInput;
+    private final JButton saveButton, clearButton, revertButton, deleteButton;
+    private final JTextArea searchTermsInput, ignoreTermsInput;
 
 
-    private AddRemovePanel addRemovePanel;
-    private JButton addMacroButton;
-//    private JTextField thankLeft;
-//    private JTextField thankRight;
+    private final AddRemovePanel addRemovePanel;
+    private final JButton addMacroButton;
 
     // Internal
     private ScannerMessage selectedMessage;
-    private MessagePanel sampleMessage;
-
     private boolean checkName;
     private boolean checkSearchTerms;
     private boolean checkIgnoreTerms;
     private boolean checkMacros;
-
-    private final int MAX_MACROS = 8;
     private boolean searching = false;
-    // TODO : Saving?
-    private volatile boolean saving = false;
-
 
     public ChatScannerWindow() {
         super("Chat Scanner", true, true);
@@ -255,7 +246,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
         });
 
         revertButton.addActionListener(e -> {
-            saving = true;
             if (searchCombo.getSelectedIndex() < 0) {
                 return;
             }
@@ -265,7 +255,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
             runAllChecks();
             refreshWindowState();
             refreshListeners();
-            saving = false;
         });
 
         clearButton.addActionListener(e -> {
@@ -277,7 +266,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
         });
 
         saveButton.addActionListener(e -> {
-            saving = true;
             if (saveTextField.getText().matches("\\s*") || searchTermsInput.getText().matches("\\s*")) {
                 return;
             }
@@ -312,8 +300,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
 
             macroPanel.revalidate();
             macroPanel.repaint();
-
-            saving = false;
         });
         addDefaults();
     }
@@ -370,7 +356,6 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
             } else {
                 clearButton.setEnabled(false);
             }
-            // TODO : Clear button
         }
     }
 
@@ -525,6 +510,8 @@ public class ChatScannerWindow extends AbstractResizableWindow implements IColor
             row.textLMB.setText(b.leftMouseResponse);
             row.textRMB.setText(b.rightMouseResponse);
             row.hotkeyInput.updateHotkey(b.hotkeyData);
+            row.upArrowButton.addActionListener(e -> addRemovePanel.shiftUp(row));
+            row.downArrowButton.addActionListener(e -> addRemovePanel.shiftDown(row));
             row.closeCheckbox.setSelected(b.closeOnClick);
             addRemovePanel.addRemovablePanel(row);
             refreshDisplayMessage(message.name);

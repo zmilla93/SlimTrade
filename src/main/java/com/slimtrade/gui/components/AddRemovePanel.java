@@ -11,9 +11,8 @@ import java.util.Collections;
 
 public class AddRemovePanel extends JPanel implements IColorable {
 
-    private static final long serialVersionUID = 1L;
     private GridBagConstraints gc = new GridBagConstraints();
-    private int spacer = 2;
+    private final int SPACER = 2;
 
     private ArrayList<JPanel> panels = new ArrayList<>();
 
@@ -46,7 +45,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
 //        gc.fill = GridBagConstraints.BOTH;gc.fill = GridBagConstraints.BOTH;
         gc.fill = GridBagConstraints.BOTH;
         gc.gridy = panelCount;
-        gc.insets.top = panelCount > 0 ? spacer : 0;
+        gc.insets.top = panelCount > 0 ? SPACER : 0;
         gc.weightx = 1;
         this.add(panel, gc);
 //        if(panelCount > 0) {
@@ -65,7 +64,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
         for (Component c : this.getComponents()) {
             if (c.isVisible()) {
                 this.add(c, gc);
-                gc.insets.top = spacer;
+                gc.insets.top = SPACER;
                 gc.gridy++;
                 i++;
             }
@@ -100,7 +99,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
         gc.insets.top = 0;
         for (JPanel p : panels) {
             this.add(p, gc);
-            gc.insets.top = spacer;
+            gc.insets.top = SPACER;
             gc.gridy++;
         }
         this.getParent().revalidate();
@@ -117,7 +116,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
         gc.insets.top = 0;
         for (JPanel p : panels) {
             this.add(p, gc);
-            gc.insets.top = spacer;
+            gc.insets.top = SPACER;
             gc.gridy++;
         }
         this.getParent().revalidate();
