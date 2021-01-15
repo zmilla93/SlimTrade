@@ -242,6 +242,9 @@ public class OptionsWindow extends AbstractResizableWindow implements IColorable
             // Set menubar visibility
             FrameManager.menubarToggle.setShow(App.saveManager.settingsSaveFile.enableMenubar);
 
+            // Update Stash Helper Container
+            FrameManager.stashHelperContainer.updateLocation();
+
             if (reloadHistory) {
                 new Thread(() -> {
                     // Restart file monitor

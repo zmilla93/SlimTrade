@@ -25,6 +25,7 @@ public class SettingsSaveFile {
     // Basics
     public String characterName = "";
     public boolean showGuildName = false;
+    public boolean folderOffset = true;
     public boolean colorBlindMode = false;
     public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
     public QuickPasteSetting quickPasteSetting = QuickPasteSetting.DISABLED;
