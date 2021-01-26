@@ -117,7 +117,6 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
             gc.insets = new Insets(0, 1, 0, 0);
             titlebarPanel.add(closeButton, gc);
         }
-        // TODO : not sure this line actually does anything...?
         this.createListeners(titlebarPanel);
     }
 
@@ -157,7 +156,6 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
         this.pinned = pinElement.pinned;
         if (pinned) {
             setLocation(pinElement.anchor);
-            setSize(pinElement.size);
         }
         updateColor();
     }

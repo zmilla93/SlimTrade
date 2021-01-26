@@ -141,7 +141,6 @@ public class FrameManager {
             for (PinElement p : App.saveManager.pinSaveFile.cheatSheetPins) {
                 if (p.name.equals(data.fileName)) {
                     w.applyPinElement(p);
-                    w.pack();
                 }
             }
         }
