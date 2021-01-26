@@ -27,7 +27,7 @@ public enum POEImage {
     GEMCUTTERS_PRISM("Gemcutter's Prism", "gcp", "gemc"),
     GLASSBLOWERS_BAUBLE("Glassblower's Bauble", "glass", "bauble"),
     HUNTERS_EXALTED_ORB(),
-    JEWELLERS_ORB("Jeweller's Orb", "jeweller", "jew"),
+    JEWELLERS_ORB("Jeweller's Orb", "jewellers", "jeweller", "jew"),
     MIRROR_OF_KALANDRA("mirror", "kalandra"),
     ORB_OF_ALCHEMY("alchemy", "alch"),
     ORB_OF_ALTERATION("alt"),

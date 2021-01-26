@@ -6,8 +6,8 @@ package com.slimtrade.core.update;
 
 public interface IDownloadTracker {
 
-    public void downloadPercentCallback(int progress);
+    void downloadPercentCallback(int progress);
 
-    public void textCallback(String message);
+    void textCallback(String message);
 
 }
