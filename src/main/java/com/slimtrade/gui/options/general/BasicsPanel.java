@@ -26,6 +26,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
     private JTextField characterInput = new LimitTextField(32);
     private JCheckBox guildCheckbox = new CustomCheckbox();
+    private JCheckBox folderOffsetCheckbox = new CustomCheckbox();
     private JCheckBox colorBlindCheckbox = new CustomCheckbox();
     private CustomCombo<ColorTheme> colorThemeCombo = new CustomCombo<>();
     private CustomCombo<QuickPasteSetting> quickPasteCombo = new CustomCombo<>();
@@ -35,6 +36,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
     //Labels
     private JLabel characterLabel;
     private JLabel guildLabel;
+    private JLabel folderOffsetLabel;
     private JLabel colorBlindLabel;
     private JLabel colorThemeLabel;
     private JLabel quickPasteLabel;
@@ -46,7 +48,10 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         colorBlindLabel = new CustomLabel("Color Blind Mode");
         colorThemeLabel = new CustomLabel("Color Theme");
         quickPasteLabel = new CustomLabel("Quick Paste");
+        folderOffsetLabel = new CustomLabel("Folder Offset");
         quickPasteHotkeyLabel = new CustomLabel("Quick Paste Hotkey");
+
+        folderOffsetLabel.setToolTipText("Increases the stash helper offset to account for tabs inside folders");
 
         JPanel showGuildContainer = new JPanel(new BorderLayout());
         guildCheckbox.setOpaque(false);
@@ -69,6 +74,10 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         JPanel quickPasteHotkeyContainer = new JPanel(new BorderLayout());
         quickPasteHotkeyContainer.setOpaque(false);
         quickPasteHotkeyContainer.add(quickPasteHotkeyInput, BorderLayout.EAST);
+
+        JPanel folderOffsetContainer = new JPanel(new BorderLayout());
+        folderOffsetContainer.setOpaque(false);
+        folderOffsetContainer.add(folderOffsetCheckbox, BorderLayout.EAST);
 
         editOverlayButton.setText("Edit Overlay Size & Location");
 
@@ -104,12 +113,20 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         gc.gridx = 0;
         gc.gridy++;
 
-        // show Guild
+        // Show Guild
         gc.insets.bottom = 0;
         container.add(guildLabel, gc);
         gc.gridx = 2;
 
         container.add(showGuildContainer, gc);
+        gc.gridx = 0;
+        gc.gridy++;
+
+        // Folder Offset
+        container.add(folderOffsetLabel, gc);
+        gc.gridx = 2;
+
+        container.add(folderOffsetContainer, gc);
         gc.gridx = 0;
         gc.gridy++;
 
@@ -198,6 +215,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         ColorTheme colorTheme = (ColorTheme) colorThemeCombo.getSelectedItem();
         App.saveManager.settingsSaveFile.characterName = characterName;
         App.saveManager.settingsSaveFile.showGuildName = guildCheckbox.isSelected();
+        App.saveManager.settingsSaveFile.folderOffset = folderOffsetCheckbox.isSelected();
         App.saveManager.settingsSaveFile.colorBlindMode = colorBlindCheckbox.isSelected();
         App.saveManager.settingsSaveFile.colorTheme = colorTheme;
         App.saveManager.settingsSaveFile.quickPasteSetting = (QuickPasteSetting) quickPasteCombo.getSelectedItem();
@@ -209,6 +227,7 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
         String characterName = App.saveManager.settingsSaveFile.characterName;
         characterInput.setText(characterName);
         guildCheckbox.setSelected(App.saveManager.settingsSaveFile.showGuildName);
+        folderOffsetCheckbox.setSelected(App.saveManager.settingsSaveFile.folderOffset);
         colorBlindCheckbox.setSelected(App.saveManager.settingsSaveFile.colorBlindMode);
         ColorManager.setColorBlindMode(App.saveManager.settingsSaveFile.colorBlindMode);
         colorThemeCombo.setSelectedItem(App.saveManager.settingsSaveFile.colorTheme);

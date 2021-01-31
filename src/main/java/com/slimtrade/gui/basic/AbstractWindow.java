@@ -46,6 +46,7 @@ public abstract class AbstractWindow extends BasicMovableDialog implements IColo
     }
 
     public AbstractWindow(String title, boolean makeCloseButton, boolean makePinButton) {
+        super(false);
         String fullTitle = "SlimTrade - " + title;
         this.setTitle(fullTitle);
 

@@ -96,14 +96,6 @@ public class UpdateManager {
         return patcher.getLatestVersion();
     }
 
-//    public void setLatestVersion(String version) {
-//        latestVersion = version;
-//    }
-
-//    public String getLatestVersion() {
-//        return latestVersion;
-//    }
-
     public ArrayList<ReleaseData> getReleaseData() {
         if (releases == null) {
             releases = fetchReleaseData();
@@ -181,8 +173,8 @@ public class UpdateManager {
 
     public void runDelayedUpdateCheck() {
         scheduler.schedule(() -> {
+            System.out.println("Running daily update check...");
             App.update = App.updateManager.isUpdateAvailable(true);
-            System.out.println("CHECKING UPDATE!!");
             System.out.println("Latest Version : " + App.updateManager.patcher.getLatestVersion());
             if (App.update) {
                 FrameManager.optionsWindow.showUpdateButton();
