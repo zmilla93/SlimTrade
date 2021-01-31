@@ -82,7 +82,7 @@ public class PoeInterface {
     private static void pasteWithFocus(String s) {
         new Thread(() -> {
             pasteString = new StringSelection(s);
-            try{
+            try {
                 clipboard.setContents(pasteString, null);
             } catch (IllegalStateException ignored) {
             }

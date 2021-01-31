@@ -1,7 +1,6 @@
 package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
-import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.enums.MessageType;
 import com.slimtrade.enums.StashTabType;
 import com.slimtrade.gui.enums.POEImage;
@@ -102,23 +101,21 @@ public class TradeOffer {
         this.sentMessage = sentMessage;
         this.searchName = null;
         this.searchMessage = null;
-//        this.searchResponseLeft = null;
-//        this.searchResponseRight = null;
     }
 
     public void playSound() {
         switch (this.messageType) {
             case CHAT_SCANNER:
-                AudioManager.play(App.saveManager.settingsSaveFile.scannerMessageSound);
+                App.audioManager.playSound(App.saveManager.settingsSaveFile.scannerMessageSound);
                 break;
             case INCOMING_TRADE:
-                AudioManager.play(App.saveManager.settingsSaveFile.incomingMessageSound);
+                App.audioManager.playSound(App.saveManager.settingsSaveFile.incomingMessageSound);
                 break;
             case OUTGOING_TRADE:
-                AudioManager.play(App.saveManager.settingsSaveFile.outgoingMessageSound);
+                App.audioManager.playSound(App.saveManager.settingsSaveFile.outgoingMessageSound);
                 break;
             case NOTIFICATION:
-                AudioManager.play(App.saveManager.settingsSaveFile.updateSound);
+                App.audioManager.playSound(App.saveManager.settingsSaveFile.updateSound);
                 break;
         }
     }

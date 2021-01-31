@@ -7,12 +7,20 @@ public class SoundElement {
 
     public Sound sound;
     public int volume;
-    public float volumeF;
+    private int cachedVolume;
+    private float volumeF;
 
     public SoundElement(Sound sound, int volume) {
         this.sound = sound;
         this.volume = volume;
-        this.volumeF = (float) AudioManager.MIN_VOLUME + ((float) AudioManager.RANGE / 100.0f * (float) this.volume);
+    }
+
+    public float getVolumeF() {
+        if (volume != cachedVolume) {
+            volumeF = (float) AudioManager.MIN_VOLUME + ((float) AudioManager.RANGE / 100.0f * (float) this.volume);
+            cachedVolume = volume;
+        }
+        return volumeF;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.slimtrade.core.audio;
 
+import java.net.URL;
+
 public enum Sound {
 
     PING1("Ping 1", "audio/ping1.wav"),
@@ -7,26 +9,27 @@ public enum Sound {
     BLIP1("Blip 1", "audio/blip1.wav"),
     BLIP2("Blip 2", "audio/blip2.wav"),
     BLIP3("Blip 3", "audio/blip3.wav"),
-//	BLIP2("Blip 2", "audio/clicknew.wav"),
-//	CLICK1("Click 1", "audio/click3.wav"),
     ;
 
-    private String name;
-    private String path;
+    private final String name;
+    private final String path;
+    private final URL url;
 
     Sound(String name, String path) {
         this.name = name;
         this.path = path;
-    }
-
-    public String getName() {
-        return name.toUpperCase().replaceAll("\\s+", "");
+        url = this.getClass().getClassLoader().getResource(path);
     }
 
     public String getPath() {
         return path;
     }
 
+    public URL getURL() {
+        return url;
+    }
+
+    @Override
     public String toString() {
         return name;
     }

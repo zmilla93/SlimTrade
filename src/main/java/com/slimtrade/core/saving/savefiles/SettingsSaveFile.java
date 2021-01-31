@@ -15,7 +15,6 @@ import com.slimtrade.gui.options.ignore.IgnoreData;
 import com.slimtrade.gui.options.stashsearch.StashSearchData;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class SettingsSaveFile {
 
