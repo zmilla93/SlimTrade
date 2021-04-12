@@ -1,5 +1,6 @@
 package com.slimtrade;
 
+import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.debug.Debugger;
 import com.slimtrade.core.managers.*;
 import com.slimtrade.core.observing.GlobalKeyboardListener;
@@ -31,6 +32,7 @@ import java.util.logging.Logger;
 public class App {
 
     public static Debugger debugger;
+    public static AudioManager audioManager;
     public static LockManager lockManager;
     public static UpdateManager updateManager;
     public static FrameManager frameManager;
@@ -196,6 +198,9 @@ public class App {
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
+
+        // Audio
+        audioManager = new AudioManager();
 
         // Finalize
         GlobalScreen.addNativeMouseListener(globalMouse);

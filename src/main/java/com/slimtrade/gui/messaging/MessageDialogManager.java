@@ -1,7 +1,6 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.App;
-import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.AdvancedMouseAdapter;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
@@ -92,9 +91,6 @@ public class MessageDialogManager {
         if (wrapperList.size() >= MAX_MESSAGE_COUNT || isDuplicateTrade(trade)) {
             return;
         }
-//        if (wrapperList.size() >= MAX_MESSAGE_COUNT) {
-//            return;
-//        }
         if (playSound) {
             trade.playSound();
         }
@@ -375,10 +371,6 @@ public class MessageDialogManager {
         wrapperList.remove(index);
     }
 
-//    public void setExpandDirection(ExpandDirection dir) {
-//        this.expandDirection = dir;
-//    }
-
     public void setAnchorPoint(Point point) {
         this.anchorPoint = point;
     }
@@ -426,7 +418,7 @@ public class MessageDialogManager {
                     panel.namePanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.itemPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
                     panel.timerPanel.setTextColor(ColorManager.PLAYER_JOINED_INCOMING);
-                    AudioManager.play(settingsSaveFile.playerJoinedSound);
+                    App.audioManager.playSound(settingsSaveFile.playerJoinedSound);
                 }
             }
         }

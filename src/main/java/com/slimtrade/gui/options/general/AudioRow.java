@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options.general;
 
-import com.slimtrade.core.audio.AudioManager;
+import com.slimtrade.App;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
@@ -57,7 +57,7 @@ public class AudioRow extends JPanel implements IColorable {
         sampleButton.addActionListener(e -> {
             Sound sound = (Sound) soundCombo.getSelectedItem();
             float volume = TradeUtility.getAudioVolume(slider.getValue());
-            AudioManager.playRaw(sound, volume);
+            App.audioManager.playSoundRaw(sound, volume);
         });
     }
 

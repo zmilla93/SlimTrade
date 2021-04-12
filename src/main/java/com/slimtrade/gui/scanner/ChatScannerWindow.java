@@ -15,7 +15,6 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.custom.CustomScrollPane;
 import com.slimtrade.gui.enums.ButtonRow;
 import com.slimtrade.gui.enums.CustomIcons;
-import com.slimtrade.gui.messaging.MessagePanel;
 import com.slimtrade.gui.options.macro.MacroCustomizerRow;
 import com.slimtrade.gui.options.macro.MacroPanel;
 import com.slimtrade.gui.panels.ContainerPanel;
