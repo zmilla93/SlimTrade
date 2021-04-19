@@ -13,6 +13,9 @@ public class AudioManager {
     public static final int RANGE = Math.abs(MIN_VOLUME) + MAX_VOLUME;
 
     public void playSound(SoundElement component) {
+        if(component.volume <= 0) {
+            return;
+        }
         playSoundRaw(component.sound, component.getVolumeF());
     }
 

@@ -1,5 +1,6 @@
 package com.slimtrade.core.saving.elements;
 
+import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.Sound;
 
@@ -7,8 +8,8 @@ public class SoundElement {
 
     public Sound sound;
     public int volume;
-    private int cachedVolume;
-    private float volumeF;
+    private transient int cachedVolume = -1;
+    private transient float volumeF;
 
     public SoundElement(Sound sound, int volume) {
         this.sound = sound;
