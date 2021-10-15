@@ -8,6 +8,7 @@ import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.basic.BasicDialog;
 import com.slimtrade.gui.buttons.IconButton;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,9 +19,8 @@ public class MenubarExpandDialog extends BasicDialog {
     private IconButton expandButton;
 
     public MenubarExpandDialog() {
+        assert(SwingUtilities.isEventDispatchThread());
         this.setBounds(0, TradeUtility.screenSize.height - size, size, size);
-//        this.getContentPane().setBackground(Color.RED);
-//        expandButton = new IconButton(PreloadedImage.TAG.getImage(), size);
         expandButton = new MenubarExpandButton();
         this.add(expandButton);
         expandButton.addMouseListener(new AdvancedMouseAdapter() {
@@ -40,6 +40,7 @@ public class MenubarExpandDialog extends BasicDialog {
     }
 
     public void updateLocation() {
+        assert(SwingUtilities.isEventDispatchThread());
         int x = App.saveManager.overlaySaveFile.menubarX;
         int y = App.saveManager.overlaySaveFile.menubarY;
         MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation == null ? MenubarButtonLocation.NW : App.saveManager.overlaySaveFile.menubarButtonLocation;

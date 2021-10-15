@@ -36,7 +36,7 @@ public class MenubarDialog extends BasicDialog {
     private Container container = this.getContentPane();
 
     public MenubarDialog() {
-
+        assert(SwingUtilities.isEventDispatchThread());
         // TODO : Modify constructor of menubar buttons
 
 //        this.setBounds(0, TradeUtility.screenSize.height - HEIGHT, WIDTH, HEIGHT);
@@ -96,6 +96,7 @@ public class MenubarDialog extends BasicDialog {
         // Options
         optionsButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
+                System.out.println("OptionsClick:" + SwingUtilities.isEventDispatchThread());
                 if (!FrameManager.optionsWindow.isVisible()) {
 //                    FrameManager.hideMenuFrames();
                     FrameManager.optionsWindow.setShow(true);
@@ -129,8 +130,7 @@ public class MenubarDialog extends BasicDialog {
     }
 
     private void refreshButtonText() {
-//        ResourceBundle lang = ResourceBundle.getBundle("lang");
-//        optionsButton.setText(lang.getString("optionsButton"));
+        assert(SwingUtilities.isEventDispatchThread());
         optionsButton.setText("Options");
         historyButton.setText("History");
         testButton.setText("Test");
@@ -138,6 +138,7 @@ public class MenubarDialog extends BasicDialog {
     }
 
     public void updateLocation() {
+        assert(SwingUtilities.isEventDispatchThread());
         this.setLocation(App.saveManager.overlaySaveFile.menubarX, App.saveManager.overlaySaveFile.menubarY);
         if (FrameManager.menubarToggle != null) {
             FrameManager.menubarToggle.updateLocation();
@@ -147,6 +148,7 @@ public class MenubarDialog extends BasicDialog {
     // If the MenuBar changes sizes, the anchor point is shifted based on the location
     // of the expand button to ensure that the expand button never moves off screen.
     public void init() {
+        assert(SwingUtilities.isEventDispatchThread());
         this.reorder();
         boolean hasChanges = false;
         if (this.getWidth() != App.saveManager.overlaySaveFile.menubarWidth) {
@@ -171,6 +173,7 @@ public class MenubarDialog extends BasicDialog {
 
 
     public void reorder() {
+        assert(SwingUtilities.isEventDispatchThread());
         MenubarButtonLocation loc = App.saveManager.overlaySaveFile.menubarButtonLocation;
         boolean flip = false;
         int y = 0;

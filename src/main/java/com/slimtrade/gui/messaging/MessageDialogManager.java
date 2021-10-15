@@ -60,6 +60,7 @@ public class MessageDialogManager {
     };
 
     public MessageDialogManager() {
+        assert(SwingUtilities.isEventDispatchThread());
         int x = App.saveManager.overlaySaveFile.messageX;
         int y = App.saveManager.overlaySaveFile.messageY;
         anchorPoint = new Point(x, y);
@@ -87,6 +88,7 @@ public class MessageDialogManager {
     }
 
     public void addMessage(TradeOffer trade, boolean playSound) {
+        assert(SwingUtilities.isEventDispatchThread());
         // Ignore Duplicates
         if (wrapperList.size() >= MAX_MESSAGE_COUNT || isDuplicateTrade(trade)) {
             return;
@@ -171,6 +173,7 @@ public class MessageDialogManager {
     }
 
     private void setOpacity(float opacity) {
+        assert(SwingUtilities.isEventDispatchThread());
         for (PanelWrapper w : wrapperList) {
             w.setOpacity(opacity);
         }
@@ -178,6 +181,7 @@ public class MessageDialogManager {
     }
 
     public void stepOpacity() {
+        assert(SwingUtilities.isEventDispatchThread());
         if (faded && opacity > targetOpacity) {
             opacity = TradeUtility.floatWithinRange(opacity - OPACITY_STEP, 0f, 1f);
             setOpacity(opacity);
@@ -188,8 +192,8 @@ public class MessageDialogManager {
     }
 
     // Redraw all panels
-
     public void refreshPanelLocations() {
+        assert(SwingUtilities.isEventDispatchThread());
         Point targetPoint = new Point(anchorPoint);
         int i = 0;
         int shownMessages = 0;
@@ -252,6 +256,8 @@ public class MessageDialogManager {
     }
 
     private boolean isDuplicateTrade(TradeOffer tradeA) {
+        // TODO : This is logic, not UI. Should probably be moved elsewhere
+        // Since this is a boolean check, it does not need EDT assert
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel msgPanel = wrapper.getPanel();
             TradeOffer tradeB = msgPanel.getTrade();
@@ -263,6 +269,7 @@ public class MessageDialogManager {
     }
 
     public void closeTrade(TradeOffer tradeA) {
+        assert(SwingUtilities.isEventDispatchThread());
         int i = 0;
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel msg = wrapper.getPanel();
@@ -277,6 +284,7 @@ public class MessageDialogManager {
     }
 
     public void closeTradesByItem(String itemA) {
+        assert(SwingUtilities.isEventDispatchThread());
         int i = 0;
         final ArrayList<Integer> indexesToDelete = new ArrayList<>();
         for (PanelWrapper wrapper : wrapperList) {
@@ -298,6 +306,7 @@ public class MessageDialogManager {
     }
 
     private void closeSimilarTrades(int index) {
+        assert(SwingUtilities.isEventDispatchThread());
         MessagePanel msg = wrapperList.get(index).getPanel();
         TradeOffer tradeA = msg.getTrade();
         final ArrayList<Integer> indexesToDelete = new ArrayList<>();
@@ -357,6 +366,7 @@ public class MessageDialogManager {
     }
 
     private void removeMessage(int index) {
+        assert(SwingUtilities.isEventDispatchThread());
         MessagePanel msgPanel = wrapperList.get(index).getPanel();
         if (msgPanel.getMessageType() == MessageType.INCOMING_TRADE) {
             if (msgPanel.getStashHelper() != null) {
@@ -372,10 +382,12 @@ public class MessageDialogManager {
     }
 
     public void setAnchorPoint(Point point) {
+        assert(SwingUtilities.isEventDispatchThread());
         this.anchorPoint = point;
     }
 
     public void forceAllToTop() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (HideableDialog d : wrapperList) {
             if (d.isVisible()) {
                 d.setAlwaysOnTop(false);
@@ -389,6 +401,7 @@ public class MessageDialogManager {
     }
 
     public void showAll() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (HideableDialog d : wrapperList) {
             if (d.visible) {
                 d.setVisible(true);
@@ -401,6 +414,7 @@ public class MessageDialogManager {
     }
 
     public void hideAll() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (HideableDialog d : wrapperList) {
             d.setVisible(false);
         }
@@ -409,6 +423,7 @@ public class MessageDialogManager {
 
 
     public void setPlayerJoinedArea(String username) {
+        assert(SwingUtilities.isEventDispatchThread());
         for (PanelWrapper wrapper : wrapperList) {
             MessagePanel panel = wrapper.getPanel();
             if (panel.getTrade().playerName.equals(username)) {
@@ -425,6 +440,7 @@ public class MessageDialogManager {
     }
 
     public void updateMessageColors() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (PanelWrapper w : wrapperList) {
             ColorManager.recursiveColor(w);
         }
@@ -432,6 +448,7 @@ public class MessageDialogManager {
     }
 
     public void setMessageIncrease(int sizeIncrease) {
+        assert(SwingUtilities.isEventDispatchThread());
         expandPanel.setSize(getTotalMessageSize().width, expandPanel.getHeight());
         messageSize = new Dimension(DEFAULT_SIZE.width + sizeIncrease, DEFAULT_SIZE.height + sizeIncrease);
         int tempMax = 80;
@@ -471,20 +488,23 @@ public class MessageDialogManager {
     }
 
     public void showStashHelper(String message, MessageType type) {
-        if (type != MessageType.INCOMING_TRADE) {
-            return;
-        }
-        for (PanelWrapper w : wrapperList) {
-            TradeOffer trade = w.getPanel().trade;
-            if (trade.messageType == MessageType.INCOMING_TRADE && trade.sentMessage.equals(message)) {
-                w.getPanel().stashHelper.setVisible(true);
-                FrameManager.stashHelperContainer.pack();
-                break;
+        SwingUtilities.invokeLater(() -> {
+            if (type != MessageType.INCOMING_TRADE) {
+                return;
             }
-        }
+            for (PanelWrapper w : wrapperList) {
+                TradeOffer trade = w.getPanel().trade;
+                if (trade.messageType == MessageType.INCOMING_TRADE && trade.sentMessage.equals(message)) {
+                    w.getPanel().stashHelper.setVisible(true);
+                    FrameManager.stashHelperContainer.pack();
+                    break;
+                }
+            }
+        });
     }
 
     private void addCloseButtonListener(PanelWrapper wrapper) {
+        assert(SwingUtilities.isEventDispatchThread());
         wrapper.panel.getCloseButton().addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {

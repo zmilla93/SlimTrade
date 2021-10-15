@@ -41,7 +41,7 @@ public class ChatParser {
     int updateCount = 0;
 
     public void init() {
-        FrameManager.historyWindow.clearHistory();
+        SwingUtilities.invokeLater(() -> FrameManager.historyWindow.clearHistory());
         int msgCount = 0;
         updateTimer.stop();
         try {
@@ -59,13 +59,13 @@ public class ChatParser {
                 if (curLine.contains("@") && (lang = getLang(curLine)) != null) {
                     TradeOffer trade = getTradeOffer(curLine, lang);
                     if (trade != null) {
-                        FrameManager.historyWindow.addTrade(trade, false);
+                        SwingUtilities.invokeLater(() -> FrameManager.historyWindow.addTrade(trade, false));
                     }
                     msgCount++;
                 }
                 totalLineCount++;
             }
-            FrameManager.historyWindow.buildHistory();
+            SwingUtilities.invokeLater(() -> FrameManager.historyWindow.buildHistory());
             App.debugger.log(msgCount + " whisper messages found.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,13 +76,6 @@ public class ChatParser {
     }
 
     private void procUpdate() {
-//        if(procCount < MAX_PRINT) {
-//            System.out.println("Parser proc...");
-//            procCount++;
-//        }else if(procCount == MAX_PRINT) {
-//            System.out.println("Silencing proc");
-//            procCount++;
-//        }
         try {
             reader = new InputStreamReader(new FileInputStream(App.saveManager.settingsSaveFile.clientPath), StandardCharsets.UTF_8);
             reader.close();
@@ -92,13 +85,6 @@ public class ChatParser {
     }
 
     public void update() {
-//        if(updateCount < MAX_PRINT) {
-//            System.out.println("Parser update...");
-//            updateCount++;
-//        } else if(updateCount == MAX_PRINT) {
-//            System.out.println("Silencing update");
-//            updateCount++;
-//        }
         try {
             reader = new InputStreamReader(new FileInputStream(App.saveManager.settingsSaveFile.clientPath), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(reader);
@@ -126,8 +112,10 @@ public class ChatParser {
                                     }
                                 }
                                 if (!ignore) {
-                                    FrameManager.messageManager.addMessage(trade);
-                                    FrameManager.historyWindow.addTrade(trade, true);
+                                    SwingUtilities.invokeLater(() -> {
+                                        FrameManager.messageManager.addMessage(trade);
+                                        FrameManager.historyWindow.addTrade(trade, true);
+                                    });
                                 }
                             }
                         }
@@ -136,7 +124,7 @@ public class ChatParser {
                     else if (chatScannerRunning) {
                         TradeOffer trade = getSearchOffer(curLine);
                         if (trade != null) {
-                            FrameManager.messageManager.addMessage(trade);
+                            SwingUtilities.invokeLater(() -> FrameManager.messageManager.addMessage(trade));
                         }
                     }
                     // Player Joined Area
@@ -144,7 +132,7 @@ public class ChatParser {
                         if (l.JOINED_AREA_PATTERN == null) continue;
                         Matcher matcher = l.JOINED_AREA_PATTERN.matcher(curLine);
                         if (matcher.matches()) {
-                            FrameManager.messageManager.setPlayerJoinedArea(matcher.group("username"));
+                            SwingUtilities.invokeLater(() -> FrameManager.messageManager.setPlayerJoinedArea(matcher.group("username")));
                             break;
                         }
                     }

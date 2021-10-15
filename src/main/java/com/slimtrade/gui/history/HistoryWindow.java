@@ -135,6 +135,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
     }
 
     public void addTrade(TradeOffer trade, boolean updateUI) {
+        assert(SwingUtilities.isEventDispatchThread());
         if (App.saveManager.settingsSaveFile.historyLimit == 0) {
             return;
         }
@@ -151,6 +152,7 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
     }
 
     public void clearHistory() {
+        System.out.println("Clear history : " + SwingUtilities.isEventDispatchThread());
         incomingPanel.clearTrades();
         outgoingPanel.clearTrades();
     }

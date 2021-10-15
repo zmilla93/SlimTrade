@@ -77,14 +77,11 @@ public class FrameManager {
     public static WindowState lastWindowState = WindowState.NORMAL;
 
     public FrameManager() {
-//        new GridBagLayout() = new GridBagLayout();
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
         ToolTipManager.sharedInstance().setInitialDelay(500);
         ToolTipManager.sharedInstance().setDismissDelay(20000);
 
-//        stashSearchWindow = new StashSearchWindow();
-//        stashSearchWindow.setShow(true);
         // TODO : try and remove
         cheatSheetWindows = new CopyOnWriteArrayList<>();
 
@@ -128,6 +125,7 @@ public class FrameManager {
     }
 
     public static void generateCheatSheets() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (CheatSheetData data : App.saveManager.settingsSaveFile.cheatSheetData) {
             if (data == null || !TradeUtility.isValidImagePath(data.fileName)) {
                 continue;
@@ -147,6 +145,7 @@ public class FrameManager {
     }
 
     public static void disposeCheatSheets() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (CheatSheetWindow w : FrameManager.cheatSheetWindows) {
             w.dispose();
             FrameManager.cheatSheetWindows.remove(w);
@@ -154,6 +153,7 @@ public class FrameManager {
     }
 
     public static void saveWindowPins() {
+        assert(SwingUtilities.isEventDispatchThread());
         App.saveManager.pinSaveFile.windowPins.clear();
         for (AbstractWindow w : pinWindows) {
             PinElement pin = w.getPinElement();
@@ -164,6 +164,7 @@ public class FrameManager {
     }
 
     public static void loadWindowPins() {
+        assert(SwingUtilities.isEventDispatchThread());
         App.saveManager.loadPinsFromDisk();
         for (AbstractWindow w : pinWindows) {
             FrameManager.centerFrame(w);
@@ -177,12 +178,14 @@ public class FrameManager {
     }
 
     public static void hideMenuFrames() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (HideableDialog d : menuHideFrames) {
             d.setVisible(false);
         }
     }
 
     public static void hideAllFrames() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (HideableDialog d : menuHideFrames) {
             d.setVisible(false);
         }
@@ -198,25 +201,29 @@ public class FrameManager {
     }
 
     public static void showVisibleFrames() {
-        switch (windowState) {
-            case STASH_OVERLAY:
-                break;
-            case LAYOUT_MANAGER:
-                overlayManager.allToFront();
-                break;
-            case NORMAL:
-                for (HideableDialog d : showHideDialogs) {
-                    d.setVisible(d.visible);
-                }
-                for (HideableDialog d : FrameManager.cheatSheetWindows) {
-                    d.setVisible(d.visible);
-                }
-                FrameManager.messageManager.showAll();
-                break;
-        }
+        SwingUtilities.invokeLater(() -> {
+            switch (windowState) {
+                case STASH_OVERLAY:
+                    break;
+                case LAYOUT_MANAGER:
+                    overlayManager.allToFront();
+                    break;
+                case NORMAL:
+                    for (HideableDialog d : showHideDialogs) {
+                        d.setVisible(d.visible);
+                    }
+                    for (HideableDialog d : FrameManager.cheatSheetWindows) {
+                        d.setVisible(d.visible);
+                    }
+                    FrameManager.messageManager.showAll();
+                    break;
+            }
+        });
+
     }
 
     public static void centerFrame(Window window) {
+        assert(SwingUtilities.isEventDispatchThread());
         int x = (screenSize.width / 2) - (window.getWidth() / 2);
         if (x < 0) x = 0;
         int y = (screenSize.height / 2) - (window.getHeight() / 2);
@@ -225,30 +232,38 @@ public class FrameManager {
     }
 
     public static void forceAllToTop() {
-        FrameManager.messageManager.forceAllToTop();
-        if (FrameManager.windowState == WindowState.NORMAL) {
-            for (HideableDialog h : forceFrames) {
-                if (h != null && h.isVisible()) {
-                    h.setAlwaysOnTop(false);
-                    h.setAlwaysOnTop(true);
+        SwingUtilities.invokeLater(() -> {
+            FrameManager.messageManager.forceAllToTop();
+            if (FrameManager.windowState == WindowState.NORMAL) {
+                for (HideableDialog h : forceFrames) {
+                    if (h != null && h.isVisible()) {
+                        h.setAlwaysOnTop(false);
+                        h.setAlwaysOnTop(true);
+                    }
                 }
             }
-        }
+        });
+
     }
 
     public static void refreshMenuFrames() {
-        for (HideableDialog h : menuHideFrames) {
-            h.refreshVisibility();
-        }
+        SwingUtilities.invokeLater(() -> {
+            for (HideableDialog h : menuHideFrames) {
+                h.refreshVisibility();
+            }
+        });
+
     }
 
     public static void showOptionsWindow() {
+        assert(SwingUtilities.isEventDispatchThread());
         optionsWindow.setVisible(true);
         optionsWindow.setAlwaysOnTop(true);
         optionsWindow.setAlwaysOnTop(false);
     }
 
     public static void showTutorialWindow() {
+        assert(SwingUtilities.isEventDispatchThread());
         if (tutorialWindow == null) {
             tutorialWindow = new TutorialWindow();
             ColorManager.recursiveColor(tutorialWindow);
@@ -258,11 +273,13 @@ public class FrameManager {
     }
 
     public static void destroyTutorialWindow() {
+        assert(SwingUtilities.isEventDispatchThread());
         tutorialWindow.dispose();
         tutorialWindow = null;
     }
 
     public static void fitWindowToScreen(Window w) {
+        assert(SwingUtilities.isEventDispatchThread());
         boolean move = false;
         int width = w.getWidth();
         int height = w.getHeight();

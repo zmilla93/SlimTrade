@@ -12,6 +12,7 @@ import com.slimtrade.gui.basic.PaintedPanel;
 import com.slimtrade.gui.custom.CustomLabel;
 import com.slimtrade.gui.options.stashsearch.StashSearchData;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
@@ -22,6 +23,7 @@ public class StashSearchWindow extends AbstractWindow implements IColorable {
 
     public StashSearchWindow() {
         super("Sorting", true, true);
+        assert(SwingUtilities.isEventDispatchThread());
         this.setFocusable(false);
         this.setFocusableWindowState(false);
         this.setMinimumSize(new Dimension(100, 40));
@@ -34,6 +36,7 @@ public class StashSearchWindow extends AbstractWindow implements IColorable {
     }
 
     public void refresh() {
+        assert(SwingUtilities.isEventDispatchThread());
         gc.gridy = 0;
         center.removeAll();
         gc.fill = GridBagConstraints.BOTH;
@@ -56,6 +59,7 @@ public class StashSearchWindow extends AbstractWindow implements IColorable {
     }
 
     private void addPanel(StashSearchData data) {
+        assert(SwingUtilities.isEventDispatchThread());
         DataPanel panel = new DataPanel(data);
         center.add(panel, gc);
         gc.gridy++;
@@ -63,6 +67,7 @@ public class StashSearchWindow extends AbstractWindow implements IColorable {
 
     @Override
     public void updateColor() {
+        assert(SwingUtilities.isEventDispatchThread());
         super.updateColor();
         for (Component c : center.getComponents()) {
             if (c instanceof DataPanel) {
@@ -91,8 +96,8 @@ public class StashSearchWindow extends AbstractWindow implements IColorable {
 
     private class DataPanel extends PaintedPanel {
         public StashSearchData data;
-
         private DataPanel(StashSearchData data) {
+            assert(SwingUtilities.isEventDispatchThread());
             this.data = data;
             setText(data.searchName);
             this.setPreferredSize(new Dimension(this.getPreferredSize().width, this.getPreferredSize().height + 4));
