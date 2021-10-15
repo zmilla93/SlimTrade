@@ -29,6 +29,7 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator, 
     private ArrayList<JCheckBox> checkboxList = new ArrayList<>();
 
     public ClientPanel(JFrame parent) {
+        assert(SwingUtilities.isEventDispatchThread());
         this.parent = parent;
         clientText.setEditable(false);
 
@@ -126,6 +127,7 @@ public class ClientPanel extends AbstractSetupPanel implements ISetupValidator, 
 
     @Override
     public void updateColor() {
+        assert(SwingUtilities.isEventDispatchThread());
         this.setBackground(ColorManager.LOW_CONTRAST_1);
         container.setBackground(ColorManager.LOW_CONTRAST_1);
         multiPathPanel.setBackground(ColorManager.LOW_CONTRAST_1);

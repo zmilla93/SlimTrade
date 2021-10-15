@@ -96,7 +96,6 @@ public class MenubarDialog extends BasicDialog {
         // Options
         optionsButton.addMouseListener(new AdvancedMouseAdapter() {
             public void click(MouseEvent evt) {
-                System.out.println("OptionsClick:" + SwingUtilities.isEventDispatchThread());
                 if (!FrameManager.optionsWindow.isVisible()) {
 //                    FrameManager.hideMenuFrames();
                     FrameManager.optionsWindow.setShow(true);

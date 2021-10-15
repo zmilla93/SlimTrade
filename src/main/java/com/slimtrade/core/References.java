@@ -6,10 +6,13 @@ import java.util.Properties;
 
 public class References {
 
+    // App Data
     public static final String APP_NAME = "SlimTrade";
     public static final String AUTHOR_NAME = "zmilla93";
-    public static final String POE_WINDOW_TITLE = "Path of Exile";
     private static String APP_VERSION = null;
+
+    // Internal
+    public static final String POE_WINDOW_TITLE = "Path of Exile";
     public static final int DEFAULT_IMAGE_SIZE = 18;
     // Currently the russian from message (От кого) is handled separately from other to/from messages due to being two words
     public static final String REGEX_CLIENT_PREFIX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*@(?<messageType>От кого|\\S+) (?<guildName><.+> )?(?<playerName>.+):(\\s+)(?<message>";

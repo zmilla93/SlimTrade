@@ -77,6 +77,7 @@ public class FrameManager {
     public static WindowState lastWindowState = WindowState.NORMAL;
 
     public FrameManager() {
+        assert(SwingUtilities.isEventDispatchThread());
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.height", 12);
         ToolTipManager.sharedInstance().setInitialDelay(500);
@@ -185,19 +186,20 @@ public class FrameManager {
     }
 
     public static void hideAllFrames() {
-        assert(SwingUtilities.isEventDispatchThread());
-        for (HideableDialog d : menuHideFrames) {
-            d.setVisible(false);
-        }
-        for (HideableDialog d : showHideDialogs) {
-            d.setVisible(false);
-        }
-        for (HideableDialog d : cheatSheetWindows) {
-            d.setVisible(false);
-        }
-        FrameManager.messageManager.hideAll();
-        FrameManager.stashOverlayWindow.setVisible(false);
-        FrameManager.overlayManager.hideAll();
+        SwingUtilities.invokeLater(() -> {
+            for (HideableDialog d : menuHideFrames) {
+                d.setVisible(false);
+            }
+            for (HideableDialog d : showHideDialogs) {
+                d.setVisible(false);
+            }
+            for (HideableDialog d : cheatSheetWindows) {
+                d.setVisible(false);
+            }
+            FrameManager.messageManager.hideAll();
+            FrameManager.stashOverlayWindow.setVisible(false);
+            FrameManager.overlayManager.hideAll();
+        });
     }
 
     public static void showVisibleFrames() {

@@ -21,7 +21,7 @@ public class StashPanel extends AbstractSetupPanel implements ISetupValidator, I
     JPanel innerPanel = new JPanel(new GridBagLayout());
 
     public StashPanel() {
-
+        assert(SwingUtilities.isEventDispatchThread());
         container.add(info1, gc);
         gc.gridy++;
         gc.insets.bottom = 15;

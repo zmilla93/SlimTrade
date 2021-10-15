@@ -152,7 +152,6 @@ public class HistoryWindow extends AbstractResizableWindow implements IColorable
     }
 
     public void clearHistory() {
-        System.out.println("Clear history : " + SwingUtilities.isEventDispatchThread());
         incomingPanel.clearTrades();
         outgoingPanel.clearTrades();
     }

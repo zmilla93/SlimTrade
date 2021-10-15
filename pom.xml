@@ -6,10 +6,8 @@
 
     <groupId>com.slimtrade</groupId>
     <artifactId>slim-trade</artifactId>
-    <version>0.3.3</version>
+    <version>0.3.4</version>
     <packaging>jar</packaging>
-
-    <name>slimtrade</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

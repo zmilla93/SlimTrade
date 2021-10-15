@@ -22,7 +22,7 @@ public class CharacterPanel extends AbstractSetupPanel implements ISetupValidato
     private JTextField nameInput = new LimitTextField(32);
 
     public CharacterPanel() {
-
+        assert(SwingUtilities.isEventDispatchThread());
         // Name Panel
         gc.insets.right = 5;
         namePanel.add(nameLabel, gc);
@@ -71,6 +71,7 @@ public class CharacterPanel extends AbstractSetupPanel implements ISetupValidato
 
     @Override
     public void updateColor() {
+        assert(SwingUtilities.isEventDispatchThread());
         this.setBackground(ColorManager.LOW_CONTRAST_1);
         container.setBackground(ColorManager.LOW_CONTRAST_1);
         namePanel.setBackground(ColorManager.LOW_CONTRAST_1);

@@ -13,6 +13,7 @@ public abstract class AbstractSetupPanel extends JPanel {
 
     public AbstractSetupPanel() {
         super(new GridBagLayout());
+        assert(SwingUtilities.isEventDispatchThread());
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = new Insets(BUFFER, BUFFER, BUFFER, BUFFER);

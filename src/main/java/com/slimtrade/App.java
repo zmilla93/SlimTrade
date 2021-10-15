@@ -30,26 +30,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class App {
-
+    // Logic
     public static Debugger debugger;
+    public static Logger logger = Logger.getLogger("slim");
+    public static ChatParser chatParser = new ChatParser();
+    public static FileMonitor fileMonitor;
+    // Managers
     public static AudioManager audioManager;
     public static LockManager lockManager;
     public static UpdateManager updateManager;
     public static FrameManager frameManager;
     public static SaveManager saveManager;
-    public static ChatParser chatParser = new ChatParser();
-    public static FileMonitor fileMonitor;
-    public static Logger logger = Logger.getLogger("slim");
+    public static ClipboardManager clipboardManager;
+    // JNativeHook
     public static GlobalKeyboardListener globalKeyboard;
     public static GlobalMouseListener globalMouse;
-    public static ClipboardManager clipboardManager;
-    public static LoadingDialog loadingDialog;
-
-    //    public static String versionTag = null;
-    public static String updateTargetVersion = null;
-    public static String debuggerTimestamp = null;
-    public static String launcherPath = null;
-
+    // Launch arguments
     public static boolean update = false;
     public static boolean clean = false;
     public static boolean patch = false;
@@ -57,13 +53,18 @@ public class App {
     public static boolean ignoreUpdate = false;
     public static boolean forceUI = false;
     public static boolean testFeatures = false;
+    public static String updateTargetVersion = null;
+    public static String debuggerTimestamp = null;
+    public static String launcherPath = null;
+    // Loading
+    public static LoadingDialog loadingDialog;
 
     public static void main(String[] args) {
 
         // Save Manager
         saveManager = new SaveManager();
         saveManager.loadSettingsFromDisk();
-
+        // Lock File
         lockManager = new LockManager(saveManager.INSTALL_DIRECTORY);
         boolean lock = lockManager.tryAndLock("app.lock");
         if (!lock) {
@@ -71,8 +72,7 @@ public class App {
             System.exit(0);
             return;
         }
-
-        // Launch Args
+        // Handle Launch Args
         if (args.length > 0) {
             for (String s : args) {
                 if (s.startsWith("launcher:")) {
@@ -97,6 +97,7 @@ public class App {
                         patchNotes = true;
                         break;
                     case "ignoreUpdate":
+                    case "-nu":
                         ignoreUpdate = true;
                         break;
                     // Force the overlay to always be shown
@@ -111,7 +112,7 @@ public class App {
             }
         }
 
-        // Set Launcher Path
+        // Set launcher path
         if (launcherPath == null) {
             try {
                 launcherPath = URLDecoder.decode(new File(App.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath(), "UTF-8");
