@@ -5,6 +5,7 @@ import com.slimtrade.core.utility.TradeUtility;
 import com.slimtrade.enums.ColorTheme;
 import com.slimtrade.gui.FrameManager;
 import com.slimtrade.gui.options.cheatsheet.CheatSheetWindow;
+import com.slimtrade.gui.themes.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -61,15 +62,12 @@ public class ColorManager {
     private static boolean colorBlindMode;
 
     public static void setTheme(ColorTheme theme) {
-//        if (currentColorTheme == theme) {
-//            return;
-//        }
         if (theme == null) {
             theme = ColorTheme.values()[0];
         }
         currentColorTheme = theme;
 
-        // Some defaults
+        // Apply some default colors
         OVERLAY_EDIT_TEXT = new Color(203, 205, 207);
         BUTTON_HOVER = new Color(180, 180, 180);
         GREEN_SALE = new Color(0, 130, 0);
@@ -82,111 +80,30 @@ public class ColorManager {
         RED_DENY = new Color(199, 84, 80);
         SCANNER_BACKGROUND = new Color(200, 128, 0);
 
-//        public static Color PLAYER_JOINED_INCOMING = new Color(0, 160, 0);
-//        public static Color PLAYER_JOINED_OUTGOING = new Color(160, 0, 0);
-
+        // Apply theme colors
         switch (theme) {
-
-            // Light Theme
             case SOLARIZED_LIGHT:
-                // General
-                PRIMARY = new Color(215, 206, 169);
-                BACKGROUND = new Color(255, 245, 235);
-                LOW_CONTRAST_1 = new Color(227, 222, 212);
-                LOW_CONTRAST_2 = new Color(191, 186, 176);
-                HIGH_CONTRAST_1 = new Color(60, 60, 60);
-                HIGH_CONTRAST_2 = new Color(102, 102, 102);
-                // Specific
-                TEXT = ColorManager.HIGH_CONTRAST_1;
-                TEXT_SELECTION = PRIMARY;
-                MESSAGE_BORDER = PRIMARY;
-                MESSAGE_NAME_BG = new Color(227, 222, 212);
-                MESSAGE_ITEM_BG = new Color(204, 199, 189);
-                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
-                MESSAGE_PRICE_TEXT = PRIMARY;
-                MENUBAR_EXPAND_BUTTON = PRIMARY;
-                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
-                SCROLL_BAR = PRIMARY;
+                ApplyColorTheme(new SolarizedLightTheme());
                 break;
-
-            // Light Theme
             case SOLARIZED_DARK:
-                // General
-                PRIMARY = new Color(0, 44, 57);
-                BACKGROUND = new Color(3, 56, 70);
-                LOW_CONTRAST_1 = new Color(0, 43, 54);
-                LOW_CONTRAST_2 = new Color(59, 94, 118);
-                HIGH_CONTRAST_1 = new Color(56, 116, 137);
-                HIGH_CONTRAST_2 = new Color(102, 102, 102);
-                // Specific
-                TEXT = new Color(197, 197, 192);
-                TEXT_SELECTION = TEXT;
-                MESSAGE_BORDER = PRIMARY;
-                MESSAGE_NAME_BG = LOW_CONTRAST_1;
-                MESSAGE_ITEM_BG = BACKGROUND;
-                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
-                MESSAGE_PRICE_TEXT = TEXT;
-                MENUBAR_EXPAND_BUTTON = PRIMARY;
-                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
-                SCROLL_BAR = PRIMARY;
+                ApplyColorTheme(new SolarizedDarkTheme());
                 break;
-
-            // Stormy Theme
             case STORMY:
-                // General
-                PRIMARY = new Color(53, 70, 91);
-                BACKGROUND = new Color(43, 43, 43);
-                LOW_CONTRAST_1 = new Color(89, 91, 93);
-                LOW_CONTRAST_1 = new Color(64, 66, 68);
-                LOW_CONTRAST_2 = new Color(116, 111, 102);
-                HIGH_CONTRAST_1 = new Color(175, 177, 179);
-                HIGH_CONTRAST_2 = new Color(102, 102, 102);
-                // Specific
-                TEXT = new Color(197, 197, 192);
-//                TEXT = new Color(204, 204, 199);
-                TEXT_SELECTION = TEXT;
-                MESSAGE_BORDER = BACKGROUND;
-                MESSAGE_NAME_BG = LOW_CONTRAST_1;
-                MESSAGE_ITEM_BG = BACKGROUND;
-                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
-                MESSAGE_PRICE_TEXT = TEXT;
-                MENUBAR_EXPAND_BUTTON = PRIMARY;
-                BUTTON_SECONDARY_COLOR = ColorManager.BACKGROUND;
-                SCROLL_BAR = PRIMARY;
+                ApplyColorTheme(new StormyTheme());
                 break;
-
-            // Monika
             case MONOKAI:
-                // General
-                PRIMARY = new Color(32, 33, 32);
-                PRIMARY = new Color(30, 31, 28);
-                BACKGROUND = new Color(39, 40, 34);
-                LOW_CONTRAST_1 = new Color(65, 67, 57);
-                LOW_CONTRAST_2 = new Color(52, 53, 47);
-                HIGH_CONTRAST_1 = Color.WHITE;
-                HIGH_CONTRAST_2 = Color.LIGHT_GRAY;
-                // Specific
-                TEXT = new Color(197, 197, 192);
-                TEXT_SELECTION = TEXT;
-                MESSAGE_BORDER = PRIMARY;
-                MESSAGE_NAME_BG = LOW_CONTRAST_1;
-                MESSAGE_ITEM_BG = BACKGROUND;
-                MESSAGE_TIMER_BG = LOW_CONTRAST_2;
-                MESSAGE_PRICE_TEXT = TEXT;
-                MENUBAR_EXPAND_BUTTON = LOW_CONTRAST_1;
-                BUTTON_SECONDARY_COLOR = LOW_CONTRAST_1;
-                SCROLL_BAR = LOW_CONTRAST_1;
+                ApplyColorTheme(new MonokaiTheme());
                 break;
-
         }
-        // Mutual
+
+        // Generate some stuff based on theme color
         TEXT_EDIT_BACKGROUND = LOW_CONTRAST_1;
         BORDER_PRIMARY = BorderFactory.createLineBorder(ColorManager.PRIMARY);
         BORDER_TEXT = BorderFactory.createLineBorder(ColorManager.TEXT);
         BORDER_LOW_CONTRAST_1 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_1);
         BORDER_LOW_CONTRAST_2 = BorderFactory.createLineBorder(ColorManager.LOW_CONTRAST_2);
 
-        // Color Blind Mode
+        // Apply colorblind overrides
         if (colorBlindMode) {
             GREEN_SALE = new Color(30, 136, 229);
             PLAYER_JOINED_INCOMING = GREEN_SALE;
@@ -197,6 +114,27 @@ public class ColorManager {
             SCANNER_BACKGROUND = new Color(209, 151, 7);
         }
 
+    }
+
+    private static void ApplyColorTheme(BaseColorTheme colorTheme) {
+        // General
+        PRIMARY = colorTheme.PRIMARY;
+        BACKGROUND = colorTheme.BACKGROUND;
+        LOW_CONTRAST_1 = colorTheme.LOW_CONTRAST_1;
+        LOW_CONTRAST_2 = colorTheme.LOW_CONTRAST_2;
+        HIGH_CONTRAST_1 = colorTheme.HIGH_CONTRAST_1;
+        HIGH_CONTRAST_2 = colorTheme.HIGH_CONTRAST_2;
+        // Specific
+        TEXT = colorTheme.TEXT;
+        TEXT_SELECTION = colorTheme.TEXT_SELECTION;
+        MESSAGE_BORDER = colorTheme.MESSAGE_BORDER;
+        MESSAGE_NAME_BG = colorTheme.MESSAGE_NAME_BG;
+        MESSAGE_ITEM_BG = colorTheme.MESSAGE_ITEM_BG;
+        MESSAGE_TIMER_BG = colorTheme.MESSAGE_TIMER_BG;
+        MESSAGE_PRICE_TEXT = colorTheme.MESSAGE_PRICE_TEXT;
+        MENUBAR_EXPAND_BUTTON = colorTheme.MENUBAR_EXPAND_BUTTON;
+        BUTTON_SECONDARY_COLOR = colorTheme.BUTTON_SECONDARY_COLOR;
+        SCROLL_BAR = colorTheme.SCROLL_BAR;
     }
 
     public static Color modify(Color c, int mod) {
