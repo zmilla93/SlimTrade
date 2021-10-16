@@ -29,6 +29,7 @@ public class CheatSheetWindow extends AbstractWindow implements ISaveable {
                 return;
             }
             Image image = ImageIO.read(file.toURI().toURL());
+            if(image == null) return;
             label.setIcon(new ImageIcon(image));
             center.add(label);
             pack();
