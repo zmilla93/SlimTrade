@@ -29,11 +29,13 @@ public class FontManager {
             lines = new String[]{text};
         }
         for (String str : lines) {
-            if(str.matches("\\s*")) continue;
+            if (str.matches("\\s*")) continue;
+            int style = defaultFont != null ? defaultFont.getStyle() : 0;
+            int size = defaultFont != null ? defaultFont.getSize() : 12;
             if (str.matches(References.KOREAN_CHAR_REGEX)) {
-                return koreanBaseFont.deriveFont(defaultFont.getStyle(), defaultFont.getSize());
+                return koreanBaseFont.deriveFont(style, size);
             } else if (str.matches(References.THAI_CHAR_REGEX)) {
-                return thaiBaseFont.deriveFont(defaultFont.getStyle(), defaultFont.getSize());
+                return thaiBaseFont.deriveFont(style, size);
             }
         }
         return defaultFont;

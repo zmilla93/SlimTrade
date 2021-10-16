@@ -9,6 +9,8 @@ import java.awt.*;
 
 public class CustomLabel extends JLabel implements IColorable {
 
+    private Font defaultFont;
+
     public CustomLabel() {
         this(true);
     }
@@ -28,6 +30,7 @@ public class CustomLabel extends JLabel implements IColorable {
     }
 
     private void buildLabel(boolean bold) {
+        defaultFont = getFont();
         setFont(App.fontManager.getFont(getText(), getFont()));
         setBold(bold);
     }
@@ -52,5 +55,10 @@ public class CustomLabel extends JLabel implements IColorable {
         createToolTip();
     }
 
-
+    @Override
+    public void setText(String text) {
+        super.setText(text);
+        if (defaultFont == null) defaultFont = getFont();
+        setFont(App.fontManager.getFont(getText(), defaultFont));
+    }
 }
