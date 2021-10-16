@@ -30,6 +30,7 @@ public class HistoryCellPanel extends JPanel {
     }
 
     private void buildPanel() {
+        assert(SwingUtilities.isEventDispatchThread());
         this.setLayout(new GridBagLayout());
         gc.gridx = 0;
         gc.gridy = 0;
@@ -37,6 +38,7 @@ public class HistoryCellPanel extends JPanel {
     }
 
     public void setLabel(String s) {
+        assert(SwingUtilities.isEventDispatchThread());
         this.removeAll();
         defaultLabel = new CustomLabel(s);
         this.add(defaultLabel, gc);

@@ -27,6 +27,7 @@ public class HistoryPanel extends JPanel implements IColorable {
     private boolean close = false;
 
     HistoryPanel() {
+        assert(SwingUtilities.isEventDispatchThread());
         this.setLayout(new BorderLayout());
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -34,6 +35,7 @@ public class HistoryPanel extends JPanel implements IColorable {
     }
 
     public void addTrade(TradeOffer trade, boolean updateUI) {
+        assert(SwingUtilities.isEventDispatchThread());
         int i = 0;
         // Delete old duplicate
         for (TradeOffer savedTrade : trades) {
@@ -72,7 +74,7 @@ public class HistoryPanel extends JPanel implements IColorable {
     }
 
     public void initUI() {
-//		Debugger.benchmarkStart();
+        assert(SwingUtilities.isEventDispatchThread());
         for (TradeOffer trade : trades) {
             HistoryRow row = new HistoryRow(trade, close);
             if (HistoryWindow.orderType == OrderType.NEW_FIRST) {
@@ -89,6 +91,7 @@ public class HistoryPanel extends JPanel implements IColorable {
     }
 
     public void refreshOrder() {
+        assert(SwingUtilities.isEventDispatchThread());
         if (HistoryWindow.orderType == OrderType.NEW_FIRST) {
             for (HistoryRow row : tradePanels) {
                 contentPanel.add(row, 0);
@@ -103,18 +106,21 @@ public class HistoryPanel extends JPanel implements IColorable {
     }
 
     public void clearTrades() {
+        assert(SwingUtilities.isEventDispatchThread());
         contentPanel.removeAll();
         trades.clear();
         tradePanels.clear();
     }
 
     public void updateDate() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (HistoryRow row : tradePanels) {
             row.updateDate();
         }
     }
 
     public void updateTime() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (HistoryRow row : tradePanels) {
             row.updateTime();
         }
