@@ -36,6 +36,7 @@ public class App {
     public static ChatParser chatParser = new ChatParser();
     public static FileMonitor fileMonitor;
     // Managers
+    public static FontManager fontManager;
     public static AudioManager audioManager;
     public static LockManager lockManager;
     public static UpdateManager updateManager;
@@ -149,6 +150,10 @@ public class App {
                 }
             }
         }
+
+        // Load Fonts
+        fontManager = new FontManager();
+        fontManager.loadFonts();
 
         // Show Loading Dialog
         SwingUtilities.invokeLater(() -> {

@@ -1,5 +1,6 @@
 package com.slimtrade.gui.custom;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
 import com.slimtrade.core.observing.IColorable;
 
@@ -27,9 +28,8 @@ public class CustomLabel extends JLabel implements IColorable {
     }
 
     private void buildLabel(boolean bold) {
-        if (!bold) {
-            setBold(false);
-        }
+        setFont(App.fontManager.getFont(getText(), getFont()));
+        setBold(bold);
     }
 
     public void setBold(boolean state) {

@@ -19,16 +19,14 @@ public class AddRemovePanel extends JPanel implements IColorable {
     public Color color;
 
     public AddRemovePanel() {
+        assert(SwingUtilities.isEventDispatchThread());
         this.setLayout(new GridBagLayout());
         gc.gridx = 0;
         gc.gridy = 0;
     }
 
-//    public void addRemoveablePanel(JPanel panel) {
-//        addRemoveablePanel(panel, true);
-//    }
-
     public void addRemovablePanel(JPanel panel) {
+        assert(SwingUtilities.isEventDispatchThread());
         panels.clear();
         for (Component c : this.getComponents()) {
             if (c.isVisible()) {
@@ -37,26 +35,18 @@ public class AddRemovePanel extends JPanel implements IColorable {
         }
         panels.add(panel);
         int panelCount = this.getComponentCount();
-//        for (JPanel p : panels) {
-//            this.add(p, gc);
-//            gc.insets.top = spacer;
-//            gc.gridy++;
-//        }
-//        gc.fill = GridBagConstraints.BOTH;gc.fill = GridBagConstraints.BOTH;
         gc.fill = GridBagConstraints.BOTH;
         gc.gridy = panelCount;
         gc.insets.top = panelCount > 0 ? SPACER : 0;
         gc.weightx = 1;
         this.add(panel, gc);
-//        if(panelCount > 0) {
-//        if(recolor) {
         ColorManager.recursiveColor(panel);
         this.revalidate();
         this.repaint();
-//        }
     }
 
     public void refreshPanels() {
+        assert(SwingUtilities.isEventDispatchThread());
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets.top = 0;
@@ -74,6 +64,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
     }
 
     public void clearHiddenPanels() {
+        assert(SwingUtilities.isEventDispatchThread());
         for (Component c : this.getComponents()) {
             if (!c.isVisible()) {
                 this.remove(c);
@@ -82,6 +73,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
     }
 
     public void setEnabledAll(boolean state) {
+        assert(SwingUtilities.isEventDispatchThread());
         for (Component c : this.getComponents()) {
             if (c instanceof MacroCustomizerRow) {
                 ((MacroCustomizerRow) c).setEnabledAll(state);
@@ -90,6 +82,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
     }
 
     public void shiftUp(JPanel panel) {
+        assert(SwingUtilities.isEventDispatchThread());
         int i = panels.indexOf(panel);
         if (i > 0) {
             Collections.swap(panels, i, i - 1);
@@ -107,6 +100,7 @@ public class AddRemovePanel extends JPanel implements IColorable {
     }
 
     public void shiftDown(JPanel panel) {
+        assert(SwingUtilities.isEventDispatchThread());
         int i = panels.indexOf(panel);
         if (i < panels.size() - 1) {
             Collections.swap(panels, i, i + 1);

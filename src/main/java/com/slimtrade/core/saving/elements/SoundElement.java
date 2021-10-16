@@ -1,6 +1,5 @@
 package com.slimtrade.core.saving.elements;
 
-import com.slimtrade.App;
 import com.slimtrade.core.audio.AudioManager;
 import com.slimtrade.core.audio.Sound;
 
