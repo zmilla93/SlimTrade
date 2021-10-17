@@ -19,6 +19,8 @@ import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
 import java.awt.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable {
 
@@ -208,11 +210,22 @@ public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable
 
     @Override
     public void save() {
+        byte[] source = characterInput.getText().getBytes(Charset.defaultCharset());
+        System.out.println("C1:" + (int)characterInput.getText().charAt(0));
+        System.out.println("src" + source);
+        String good = new String(source);
+        System.out.println("GOOD: " + good);
+
+        System.out.println("charSET:" + Charset.defaultCharset());
+//        System.out.println("data:" + data);
+        System.out.println("charText:" + characterInput.getText());
+        System.out.println("thrd:" + SwingUtilities.isEventDispatchThread());
         String characterName = characterInput.getText().replaceAll("\\s+", "");
         if (characterName.equals("")) {
             characterName = null;
         }
         ColorTheme colorTheme = (ColorTheme) colorThemeCombo.getSelectedItem();
+        System.out.println("charName:" + characterName);
         App.saveManager.settingsSaveFile.characterName = characterName;
         App.saveManager.settingsSaveFile.showGuildName = guildCheckbox.isSelected();
         App.saveManager.settingsSaveFile.folderOffset = folderOffsetCheckbox.isSelected();

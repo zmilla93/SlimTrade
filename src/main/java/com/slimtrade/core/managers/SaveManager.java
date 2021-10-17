@@ -7,6 +7,8 @@ import com.slimtrade.gui.options.ISaveable;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class SaveManager {
@@ -44,7 +46,8 @@ public class SaveManager {
     // File Stuff
     private FileReader fr;
     private BufferedReader br;
-    private FileWriter fw;
+    private Writer fw;
+    private BufferedWriter bw;
     private Gson gson;
 
     // TODO : OPTIMIZE :    Combine all saving and loading functions into one using wildcars?
@@ -150,7 +153,7 @@ public class SaveManager {
     private String getJsonString(String path) {
         StringBuilder builder = new StringBuilder();
         try {
-            br = new BufferedReader(new FileReader(path));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
             while (br.ready()) {
                 builder.append(br.readLine());
             }
@@ -163,7 +166,7 @@ public class SaveManager {
 
     public void saveSettingsToDisk() {
         try {
-            fw = new FileWriter(savePath);
+            fw = new OutputStreamWriter(new FileOutputStream(savePath), StandardCharsets.UTF_8);
             fw.write(gson.toJson(settingsSaveFile));
             fw.close();
         } catch (IOException e) {
@@ -173,7 +176,7 @@ public class SaveManager {
 
     public void saveStashToDisk() {
         try {
-            fw = new FileWriter(stashSavePath);
+            fw = new OutputStreamWriter(new FileOutputStream(stashSavePath), StandardCharsets.UTF_8);
             fw.write(gson.toJson(stashSaveFile));
             fw.close();
         } catch (IOException e) {
@@ -183,7 +186,7 @@ public class SaveManager {
 
     public void saveOverlayToDisk() {
         try {
-            fw = new FileWriter(overlaySavePath);
+            fw = new OutputStreamWriter(new FileOutputStream(overlaySavePath), StandardCharsets.UTF_8);
             fw.write(gson.toJson(overlaySaveFile));
             fw.close();
         } catch (IOException e) {
@@ -193,7 +196,7 @@ public class SaveManager {
 
     public void saveScannerToDisk() {
         try {
-            fw = new FileWriter(scannerSavePath);
+            fw = new OutputStreamWriter(new FileOutputStream(scannerSavePath), StandardCharsets.UTF_8);
             fw.write(gson.toJson(scannerSaveFile));
             fw.close();
         } catch (IOException e) {
@@ -203,7 +206,7 @@ public class SaveManager {
 
     public void savePinsToDisk() {
         try {
-            fw = new FileWriter(pinSavePath);
+            fw = new OutputStreamWriter(new FileOutputStream(pinSavePath), StandardCharsets.UTF_8);
             fw.write(gson.toJson(pinSaveFile));
             fw.close();
         } catch (IOException e) {
