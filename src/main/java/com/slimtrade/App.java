@@ -152,8 +152,8 @@ public class App {
         }
 
         // Load Fonts
-        fontManager = new FontManager();
-        fontManager.loadFonts();
+//        fontManager = new FontManager();
+        FontManager.loadFonts();
 
         // Show Loading Dialog
         SwingUtilities.invokeLater(() -> {

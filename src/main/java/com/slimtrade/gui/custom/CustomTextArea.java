@@ -2,6 +2,7 @@ package com.slimtrade.gui.custom;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
+import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.observing.IColorable;
 
 import javax.swing.*;
@@ -20,24 +21,20 @@ public class CustomTextArea extends JTextArea implements IColorable {
 
     private void buildTextArea() {
         assert (SwingUtilities.isEventDispatchThread());
-        defaultFont = getFont();
-        getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-//                if (getText() == null || getText().matches("\\s+")) return;
-//                setFont(App.fontManager.getFont(getText(), defaultFont));
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-//                if (getText() == null || getText().matches("\\s*")) return;
-//                setFont(App.fontManager.getFont(getText(), defaultFont));
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
+//        defaultFont = getFont();
+//        getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//            }
+//        });
     }
 
     @Override
