@@ -62,8 +62,6 @@ public class HotkeyManager {
             PoeInterface.runCommand("/guild");
         } else if (checkKey(e, SETTINGS_SAVE_FILE.delveHotkey)) {
             PoeInterface.runCommand("/delve");
-        } else if (checkKey(e, SETTINGS_SAVE_FILE.harvestHotkey)) {
-            PoeInterface.runCommand("/harvest");
         } else if (checkKey(e, SETTINGS_SAVE_FILE.menagerieHotkey)) {
             PoeInterface.runCommand("/menagerie");
         } else if (checkKey(e, SETTINGS_SAVE_FILE.metamorphHotkey)) {

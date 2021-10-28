@@ -97,7 +97,6 @@ public class SettingsSaveFile {
     public HotkeyData dndHotkey = null;
     public HotkeyData exitHotkey = null;
     public HotkeyData guildHotkey = null;
-    public HotkeyData harvestHotkey = null;
     public HotkeyData leavePartyHotkey = null;
     public HotkeyData menagerieHotkey = null;
     public HotkeyData metamorphHotkey = null;
