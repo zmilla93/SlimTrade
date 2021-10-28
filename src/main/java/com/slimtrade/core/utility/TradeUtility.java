@@ -67,6 +67,7 @@ public class TradeUtility {
             return null;
         }
         String cleanString = input.replaceAll("(?i)superior( )?", "").replaceAll("( )?\\(.+\\)", "");
+        if (cleanString.endsWith(" Map")) cleanString = cleanString.replaceFirst("[ ]Map", "");
         return cleanString;
     }
 

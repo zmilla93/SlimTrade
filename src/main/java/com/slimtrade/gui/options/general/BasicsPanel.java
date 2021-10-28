@@ -20,7 +20,6 @@ import com.slimtrade.gui.stash.LimitTextField;
 import javax.swing.*;
 import java.awt.*;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable {
 

@@ -1,13 +1,9 @@
 package com.slimtrade.gui.custom;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.observing.IColorable;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class CustomTextArea extends JTextArea implements IColorable {
