@@ -19,7 +19,6 @@ import com.slimtrade.gui.stash.LimitTextField;
 
 import javax.swing.*;
 import java.awt.*;
-import java.nio.charset.Charset;
 
 public class BasicsPanel extends ContainerPanel implements ISaveable, IColorable {
 
