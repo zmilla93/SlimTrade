@@ -22,7 +22,8 @@ public class References {
     public static final String DISCORD = "https://discord.gg/yKdExMe";
     public static final String PAYPAL = "https://www.paypal.me/zmilla93";
 
-    public static final String KOREAN_CHAR_REGEX = ".*[\\u3040-\\u30ff\\u3400-\\u4dbf\\u4e00-\\u9fff\\uf900-\\ufaff\\uff66-\\uff9f\\u3131-\\uD79D].*";
+//    public static final String KOREAN_CHAR_REGEX = ".*[\\u3040-\\u30ff\\u3400-\\u4dbf\\u4e00-\\u9fff\\uf900-\\ufaff\\uff66-\\uff9f\\u3131-\\uD79D].*";
+    public static final String KOREAN_CHAR_REGEX = ".*[\\uAC00-\\uD7AF].*";
     public static final String THAI_CHAR_REGEX = ".*[\\u0E00-\\u0E7F].*";
 
     public static String getAppVersion() {
