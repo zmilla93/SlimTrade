@@ -29,7 +29,7 @@ public class BasicsPanel extends GridBagPanel {
         JButton editOverlayButton = new JButton("Edit Overlay");
         colorTheme.setMaximumRowCount(10);
         for (ColorTheme theme : ColorTheme.values()) colorTheme.addItem(theme);
-        colorTheme.addItemListener(e -> ColorManager.setTheme((ColorTheme) colorTheme.getSelectedItem()));
+
 
         gc.gridwidth = 2;
         JComponent guildCheckbox = addCheckbox("Show Guild Name", showGuildName);
@@ -44,6 +44,8 @@ public class BasicsPanel extends GridBagPanel {
         addComponent(editOverlayButton);
 
         add(outerPanel, BorderLayout.WEST);
+
+        colorTheme.addActionListener(e -> ColorManager.setTheme((ColorTheme) colorTheme.getSelectedItem()));
 
         App.saveManager.registerSaveElement(guildCheckbox, "showGuildName", App.saveManager.settingsSaveFile);
         App.saveManager.registerSaveElement(folderCheckbox, "folderOffset", App.saveManager.settingsSaveFile);

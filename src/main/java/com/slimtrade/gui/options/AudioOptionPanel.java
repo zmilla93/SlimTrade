@@ -2,6 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.App;
 import com.slimtrade.core.audio.Sound;
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.saving.AudioSaveComponent;
 import com.slimtrade.core.utility.GUIReferences;
@@ -39,7 +40,7 @@ public class AudioOptionPanel extends AbstractOptionPanel {
     private void addRow(String title, String saveFieldName) {
         gc.insets = new Insets(0, GUIReferences.INSET, 2, GUIReferences.INSET);
 
-        JButton previewButton = new IconButton();
+        JButton previewButton = new IconButton(DefaultIcon.PLAY.path);
         JComboBox<Sound> soundCombo = new JComboBox<Sound>();
         JSlider volumeSlider = new JSlider();
         for (Sound sound : App.audioManager.soundfiles)

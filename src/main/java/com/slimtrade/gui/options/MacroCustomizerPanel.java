@@ -2,6 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.options.general.GridBagPanel;
@@ -29,9 +30,9 @@ public class MacroCustomizerPanel extends GridBagPanel {
 
     // Internal
     JPanel parent;
-    JButton shiftUpButton = new IconButton();
-    JButton shiftDownButton = new IconButton();
-    JButton deleteButton = new IconButton();
+    JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP.path);
+    JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN.path);
+    JButton deleteButton = new IconButton(DefaultIcon.CLOSE.path);
 
     public MacroCustomizerPanel(JPanel parent) {
         this.parent = parent;

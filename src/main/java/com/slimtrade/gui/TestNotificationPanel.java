@@ -1,6 +1,5 @@
 package com.slimtrade.gui;
 
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.buttons.SlimButton;
 
 import javax.swing.*;
@@ -47,9 +46,6 @@ public class TestNotificationPanel extends JPanel {
         addElement(new JLabel("WEW"), 10);
         addElement(new SlimButton("inv"));
         addElement(new SlimButton("ty"));
-        addElement(new IconButton());
-        addElement(new IconButton());
-        addElement(new IconButton());
         newLine();
 
         // Test Row
@@ -77,7 +73,6 @@ public class TestNotificationPanel extends JPanel {
 
         addElement(new SlimButton("cool"));
         addElement(new SlimButton("beans"));
-        addElement(new IconButton());
         addElement(new JSlider());
 
         setPreferredSize(new Dimension(targetWidth, getPreferredSize().height));

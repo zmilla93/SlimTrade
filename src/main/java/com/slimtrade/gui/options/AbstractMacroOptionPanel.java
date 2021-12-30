@@ -16,7 +16,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
     protected final JPanel macroContainer;
 
 
-    private final JPanel exampleTradeContainer = new JPanel(new BorderLayout());
+    private final JPanel exampleTradeContainer = new JPanel(new GridBagLayout());
     private GridBagConstraints gc = new GridBagConstraints();
 
 
@@ -25,7 +25,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         addHeader("Macro Preview");
 //        gc.gridy++;
 
-        addComponent(exampleTradeContainer);
+        addPanel(exampleTradeContainer);
 //        addPreviewMessage(MessageType.INCOMING_TRADE);
 
         addHeader("Inbuild Macros");
@@ -48,15 +48,13 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
                 repaint();
             }
         });
-        addComponent(addMacroButton);
-        addComponent(macroContainer);
+        addPanel(addMacroButton);
+        addPanel(macroContainer);
 
 
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = new Insets(0, 0, 2, 0);
-
-        reloadExampleTrade();
     }
 
 
@@ -64,26 +62,14 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         exampleTradeContainer.removeAll();
         switch (messageType) {
             case INCOMING_TRADE:
-                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)), BorderLayout.CENTER);
+                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
 //                addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
                 break;
             case OUTGOING_TRADE:
 //                addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
-                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)), BorderLayout.CENTER);
+                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
                 break;
         }
-    }
-
-    private void addPreviewMessage(MessageType messageType) {
-        switch (messageType) {
-            case INCOMING_TRADE:
-                addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
-                break;
-            case OUTGOING_TRADE:
-                addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
-                break;
-        }
-        gc.gridy++;
     }
 
     public void clearMacros() {

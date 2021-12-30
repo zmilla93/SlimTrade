@@ -23,39 +23,8 @@ public class AbstractOptionPanel extends JPanel {
         scrollPane.getVerticalScrollBar().setUnitIncrement(scrollSpeed);
         scrollPane.getHorizontalScrollBar().setUnitIncrement(scrollSpeed);
         add(scrollPane, BorderLayout.CENTER);
-
         gc.gridx = 0;
         gc.gridy = 0;
-//        gc.weightx = 1;
-//        gc.weighty = 1;
-//        gc.fill = GridBagConstraints.BOTH;
-    }
-
-    protected JPanel createHeader(String title) {
-        JPanel panel = new JPanel(new GridBagLayout());
-        JPanel labelPanel = new JPanel(new BorderLayout());
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = 0;
-        gc.gridy = 0;
-        gc.insets = new Insets(0, 10, 0, 0);
-//        labelPanel.add(Box.createHorizontalStrut(10), BorderLayout.WEST);
-        JLabel label = new JLabel(title);
-//        label.setForeground(UIManager.getColor("Menu.foreground"));\
-        Color col = UIManager.getColor("TitledBorder.titleColor");
-        label.setForeground(col);
-//        label.setForeground(Color.RED);
-        labelPanel.add(label, BorderLayout.CENTER);
-
-        gc.weightx = 1;
-        gc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(labelPanel, gc);
-        gc.gridy++;
-        JSeparator sep = new JSeparator(SwingConstants.HORIZONTAL);
-        gc.fill = GridBagConstraints.BOTH;
-//        separators.add(sep);
-        gc.insets = new Insets(0, 10, 0, 10);
-        panel.add(sep, gc);
-        return panel;
     }
 
     protected void addHeader(String title) {
@@ -66,7 +35,7 @@ public class AbstractOptionPanel extends JPanel {
         headerGC.gridy = 0;
         headerGC.insets = new Insets(0, GUIReferences.INSET, 0, 0);
         JLabel label = new JLabel(title);
-        Color col = UIManager.getColor("TitledBorder.titleColor");
+        Color col = UIManager.getColor("Label.foreground");
         label.setForeground(col);
         labelPanel.add(label, BorderLayout.CENTER);
         headerGC.weightx = 1;
@@ -87,7 +56,7 @@ public class AbstractOptionPanel extends JPanel {
         gc.gridy++;
     }
 
-    public void addComponent(JComponent component){
+    protected void addPanel(JComponent component){
         int prevFill = gc.fill;
         double prevWeight = gc.weightx;
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -101,8 +70,6 @@ public class AbstractOptionPanel extends JPanel {
         gc.fill = prevFill;
         gc.weightx = prevWeight;
         gc.gridy++;
-//        getParent().revalidate();
-//        getParent().repaint();
     }
 
 }

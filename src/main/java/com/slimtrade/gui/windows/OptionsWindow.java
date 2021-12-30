@@ -68,8 +68,7 @@ public class OptionsWindow extends AbstractWindow {
         saveButton.addActionListener(e ->
         {
             App.saveManager.saveToFile();
-            incomingMacroPanel.reloadExampleTrade();
-            outgoingMacroPanel.reloadExampleTrade();
+            reloadExampleTrades();
             revalidate();
 //            FrameManager.optionsWindow
         });
@@ -109,6 +108,11 @@ public class OptionsWindow extends AbstractWindow {
 
     private void ShowPanel(OptionPanel panel) {
         cardLayout.show(cardPanel, panel.title);
+    }
+
+    public void reloadExampleTrades(){
+        incomingMacroPanel.reloadExampleTrade();
+        outgoingMacroPanel.reloadExampleTrade();
     }
 
 }

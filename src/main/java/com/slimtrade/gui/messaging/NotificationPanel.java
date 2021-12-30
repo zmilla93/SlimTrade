@@ -1,7 +1,9 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.MacroButton;
+import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.gui.managers.FrameManager;
 
 import javax.swing.*;
@@ -12,13 +14,12 @@ import java.util.ArrayList;
 
 public abstract class NotificationPanel extends JPanel {
 
-    private int targetWidth = 400;
+    private final int targetWidth = 400;
 
-    ArrayList<WeightedPanel> topPanels = new ArrayList<>();
-    ArrayList<WeightedPanel> bottomPanels = new ArrayList<>();
+    private final ArrayList<WeightedPanel> topPanels = new ArrayList<>();
+    private final ArrayList<WeightedPanel> bottomPanels = new ArrayList<>();
 
-    //    ArrayList<MacroButton> topMacros = new ArrayList<>();
-//    ArrayList<MacroButton> bottomMacros = new ArrayList<>();
+    protected TradeOffer tradeOffer;
     protected MacroButton[] topMacros = new MacroButton[0];
     protected MacroButton[] bottomMacros = new MacroButton[0];
     protected Color borderColor = Color.RED;
@@ -26,11 +27,32 @@ public abstract class NotificationPanel extends JPanel {
     private JPanel topButtons;
     private JPanel bottomButtons;
 
+    private JPanel timerPanel;
 
-//    GridBagConstraints buttonGC = new GridBagConstraints();
+    private int second;
+    private int minute;
+    StringBuilder timerBuilder = new StringBuilder();
+    private Timer secondTimer;
+    private Timer minuteTimer;
 
-    public NotificationPanel() {
-    }
+//    private Timer secondTimer = new Timer(1000, new ActionListener() {
+//        public void actionPerformed(ActionEvent e) {
+//            second++;
+//            if (second > 59) {
+//                secondTimer.stop();
+//                minuteTimer.start();
+//                timerLabel.setText("1m");
+//            } else {
+//                timerLabel.setText(second + "s");
+//            }
+//        }
+//    });
+//    private Timer minuteTimer = new Timer(60000, new ActionListener() {
+//        public void actionPerformed(ActionEvent e) {
+//            minute++;
+//            timerLabel.setText(minute + "m");
+//        }
+//    });
 
     protected void buildPanel() {
         setLayout(new GridBagLayout());
@@ -109,15 +131,18 @@ public abstract class NotificationPanel extends JPanel {
             else
 //                button = new NotificationIconButton(macro.icon.path);
                 button = new NotificationIconButton(macro.icon.path);
+            button.addActionListener(e -> PoeInterface.runCommand(macro.lmbResponse, tradeOffer));
             if (button.getPreferredSize().height > strutHeight) strutHeight = button.getPreferredSize().height;
             topButtons.add(button, gc);
             gc.gridx++;
         }
+
         topStrutX = gc.gridx;
 
         // Close Button
         JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE.path);
         topButtons.add(closeButton, gc);
+        if (closeButton.getPreferredSize().height > strutHeight) strutHeight = closeButton.getPreferredSize().height;
         gc.gridx = 0;
 
         for (MacroButton macro : bottomMacros) {
@@ -125,22 +150,17 @@ public abstract class NotificationPanel extends JPanel {
             if (macro.buttonType == MacroButton.MacroButtonType.TEXT)
                 button = new NotificationTextButton(macro.text);
             else
-//                button = new NotificationIconButton(macro.icon.path);
                 button = new NotificationIconButton(macro.icon.path);
+            button.addActionListener(e -> PoeInterface.runCommand(macro.lmbResponse, tradeOffer));
             if (button.getPreferredSize().height > strutHeight) strutHeight = button.getPreferredSize().height;
             bottomButtons.add(button, gc);
             gc.gridx++;
         }
-//        bottomButtons.add(Box.createVerticalStrut(strutHeight), gc);
-//        gc.gridx = topStrutX;
-//        topButtons.add(Box.createVerticalStrut(strutHeight), gc);
+        bottomButtons.add(Box.createVerticalStrut(strutHeight), gc);
+        gc.gridx = topStrutX;
+        topButtons.add(Box.createVerticalStrut(strutHeight), gc);
         JPanel self = this;
-        closeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FrameManager.messageManager.removeMessage(self);
-            }
-        });
+        closeButton.addActionListener(e -> FrameManager.messageManager.removeMessage(self));
     }
 
     protected void addTopPanel(JPanel panel, float weight) {
@@ -159,6 +179,38 @@ public abstract class NotificationPanel extends JPanel {
 
     protected void addBottomButton(JButton button) {
 //        bottomButtons.add(button);
+    }
+
+    protected JPanel getTimerPanel() {
+        if (timerPanel == null) {
+            timerPanel = new JPanel(new GridBagLayout());
+            JLabel timerLabel = new JLabel("0s");
+            timerPanel.add(timerLabel);
+            secondTimer = new Timer(1000, e -> {
+                second++;
+                if (second > 59) {
+                    secondTimer.stop();
+                    minuteTimer.start();
+                    timerLabel.setText("1m");
+                } else {
+                    timerLabel.setText(second + "s");
+                }
+            });
+            minuteTimer = new Timer(60000, e -> {
+                minute++;
+                timerLabel.setText(minute + "m");
+            });
+        }
+        return timerPanel;
+    }
+
+    public void startTimer() {
+        secondTimer.start();
+    }
+
+    public void stopTimer() {
+        secondTimer.stop();
+        minuteTimer.stop();
     }
 
 }

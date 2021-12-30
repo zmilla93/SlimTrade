@@ -28,8 +28,9 @@ public class SystemTrayManager implements ActionListener {
             e.printStackTrace();
             return;
         }
-        trayIcon = new TrayIcon(img);
+        trayIcon = new TrayIcon(img);   // First assignment is to get icon size, second assignment scales the image accordingly
         trayIcon = new TrayIcon(img.getScaledInstance(trayIcon.getSize().width, trayIcon.getSize().height, Image.SCALE_SMOOTH));
+        trayIcon.setToolTip("SlimTrade");
         trayIcon.setPopupMenu(popupMenu);
         trayIcon.addActionListener(this);
         try {

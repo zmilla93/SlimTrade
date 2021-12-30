@@ -39,8 +39,8 @@ public class HistoryTable extends JTable {
         }
 
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setDefaultRenderer(IconButton.class, new ButtonCell());
-        setDefaultRenderer(double.class, new ButtonCell());
+//        setDefaultRenderer(IconButton.class, new ButtonCell());
+//        setDefaultRenderer(double.class, new ButtonCell());
         DefaultTableCellRenderer stringRenderer = new DefaultTableCellRenderer();
         stringRenderer.setHorizontalAlignment(JLabel.CENTER);
         setDefaultRenderer(String.class, stringRenderer);

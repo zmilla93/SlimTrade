@@ -1,12 +1,13 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MessageManager extends JFrame {
+public class MessageManager extends JFrame implements ITradeListener {
 
     public Point anchorPoint = new Point(800, 0);
     boolean expandUp = false;
@@ -40,9 +41,11 @@ public class MessageManager extends JFrame {
 
     public void addMessage(TradeOffer tradeOffer) {
         assert (SwingUtilities.isEventDispatchThread());
+        System.out.println("MSG:" + tradeOffer.offerType);
         gc.insets = new Insets(0, 0, MESSAGE_GAP, 0);
         gc.gridy = container.getComponentCount();
-        JPanel panel = new TradeMessagePanel(tradeOffer);
+        TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);
+        panel.startTimer();
         container.add(panel, gc);
         pack();
         adjustPosition();
@@ -65,5 +68,10 @@ public class MessageManager extends JFrame {
         } else {
             setLocation(p);
         }
+    }
+
+    @Override
+    public void handleTrade(TradeOffer tradeOffer) {
+            SwingUtilities.invokeLater(() -> addMessage(tradeOffer));
     }
 }
