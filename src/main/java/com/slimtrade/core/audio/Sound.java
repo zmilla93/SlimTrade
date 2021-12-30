@@ -1,24 +1,38 @@
 package com.slimtrade.core.audio;
 
+import com.slimtrade.core.managers.SaveManager;
+
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-public enum Sound {
+public class Sound {
 
-    PING1("Ping 1", "audio/ping1.wav"),
-    PING2("Ping 2", "audio/ping2.wav"),
-    BLIP1("Blip 1", "audio/blip1.wav"),
-    BLIP2("Blip 2", "audio/blip2.wav"),
-    BLIP3("Blip 3", "audio/blip3.wav"),
-    ;
+    public enum SoundType {INBUILT, CUSTOM}
 
     private final String name;
-    private final String path;
-    private final URL url;
+    private SoundType soundType;
+    private transient final String path;
+    private transient URL url;
 
-    Sound(String name, String path) {
-        this.name = name;
+    public Sound(String name, String path, SoundType soundType) {
+        if (soundType == SoundType.CUSTOM)
+            this.name = "*" + name;
+        else
+            this.name = name;
         this.path = path;
-        url = this.getClass().getClassLoader().getResource(path);
+        this.soundType = soundType;
+
+        if (soundType == SoundType.INBUILT) {
+            this.url = getClass().getClassLoader().getResource(path);
+        } else {
+            File file = new File(SaveManager.getAudioDirectory() + path);
+            try {
+                url = file.toURI().toURL();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public String getPath() {

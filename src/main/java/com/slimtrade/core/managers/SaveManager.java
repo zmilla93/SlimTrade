@@ -1,156 +1,123 @@
 package com.slimtrade.core.managers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.slimtrade.core.saving.savefiles.*;
-import com.slimtrade.gui.options.ISaveable;
+import com.slimtrade.core.saving.*;
+import com.slimtrade.gui.managers.FrameManager;
 
-import java.awt.*;
+import javax.swing.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class SaveManager {
 
-    // Public Info
-    public final String savePath;
-    public final String stashSavePath;
-    public final String overlaySavePath;
-    public final String scannerSavePath;
-    public final String pinSavePath;
-    public final String patcherSavePath;
-    public final String INSTALL_DIRECTORY;
+    // Save Directory
+    private static String saveDirectory;
+    private static final String folderWin = "SlimTrade-Rebuild";
+    private static final String folderOther = ".slimtrade-rebuild";
+
+    // Save Files
+    private final String settingsSaveName = "settings.json";
     public SettingsSaveFile settingsSaveFile;
-    public StashSaveFile stashSaveFile = new StashSaveFile();
-    public PinSaveFile pinSaveFile = new PinSaveFile();
-    public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
-    public ScannerSaveFile scannerSaveFile = new ScannerSaveFile();
 
-    public ArrayList<String> clientPaths = new ArrayList<>();
+    // Subfolder Names
+    private static final String audioFolderName = "audio";
+    private static final String imagesFolderName = "images";
 
-    //Internal
-    private final String folderWin = "SlimTrade";
-    private final String folderOther = ".slimtrade";
-    private final String imageFolder = "images";
-    private final String logsFolder = "logs";
-    private final String fileName = "settings.json";
-    private final String stashFileName = "stash.json";
-    private final String pinSaveFileName = "pins.json";
-    private final String patcherFileName = "patcher.json";
-    private final String overlayFileName = "overlay.json";
-    private final String scannerFileName = "scanner.json";
-
-    private boolean validSavePath = false;
-
-    // File Stuff
-    private FileReader fr;
-    private BufferedReader br;
-    private Writer fw;
-    private BufferedWriter bw;
-    private Gson gson;
-
-    // TODO : OPTIMIZE :    Combine all saving and loading functions into one using wildcars?
-    // TODO :               Also need to add file.exists() check to avoid try/catch
+    // Parsing
+    private final Gson gson;
+    private final ArrayList<SavableComponent> savableComponents = new ArrayList<>();
+    private final ArrayList<ISavable> savables = new ArrayList<>();
 
     public SaveManager() {
+//        gson = new Gson();
+        gson = new GsonBuilder().setPrettyPrinting().create();
+        getSaveDirectory();
+        loadSaveSettings();
+        File file = new File(saveDirectory);
+        if (!file.exists()) {
+            boolean success = file.mkdirs();
+            if (!success) {
+                // TODO : log error
+                System.out.println("ERRRR");
+            }
+        }
+    }
 
-        // Set save directory
-        String os = (System.getProperty("os.name")).toUpperCase();
-        if (os.contains("WIN")) {
-            INSTALL_DIRECTORY = System.getenv("LocalAppData") + File.separator + folderWin;
+    public void registerSavable(ISavable savable) {
+        savables.add(savable);
+    }
+
+    public void registerSaveElement(JComponent component, String fieldName, Object saveFileClass) {
+        savableComponents.add(new BasicSavableComponent(component, fieldName, saveFileClass));
+    }
+
+//    public void registerAudioRow(JComboBox<?> soundCombo, JSlider volumeSlider, String fieldName, Object saveFileClass) {
+////        savableComponents.add(new (component, fieldName, saveFileClass));
+//    }
+
+    public void registerAudioRow(AudioSaveComponent audioSaveComponent) {
+        savableComponents.add(audioSaveComponent);
+    }
+
+    public void saveToFile() {
+        try {
+            for (SavableComponent c : savableComponents) {
+                c.save();
+            }
+            for (ISavable c : savables) {
+                c.save();
+            }
+            File file = new File(saveDirectory + settingsSaveName);
+            Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
+            writer.write(gson.toJson(settingsSaveFile));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void revertChanges() {
+        for (SavableComponent c : savableComponents) {
+            c.load();
+        }
+        for (ISavable c : savables) {
+            c.load();
+        }
+        FrameManager.optionsWindow.revalidate();
+    }
+
+
+    public static String getAudioDirectory() {
+        return getSaveDirectory() + audioFolderName + File.separator;
+    }
+
+    public static String getSaveDirectory() {
+        if (saveDirectory == null) {
+            String os = (System.getProperty("os.name")).toUpperCase();
+            if (os.contains("WIN")) {
+                saveDirectory = System.getenv("LocalAppData") + File.separator + folderWin + File.separator;
+            } else {
+                saveDirectory = System.getProperty("user.home") + File.separator + folderOther + File.separator;
+            }
+        }
+        return saveDirectory;
+    }
+
+    private void loadSaveSettings() {
+        File file = new File(getSaveDirectory() + settingsSaveName);
+        if (file.exists()) {
+            settingsSaveFile = gson.fromJson(getJsonString(file.getPath()), SettingsSaveFile.class);
         } else {
-            INSTALL_DIRECTORY = System.getProperty("user.home") + File.separator + folderOther;
-        }
-        savePath = INSTALL_DIRECTORY + File.separator + fileName;
-        stashSavePath = INSTALL_DIRECTORY + File.separator + stashFileName;
-        pinSavePath = INSTALL_DIRECTORY + File.separator + pinSaveFileName;
-        patcherSavePath = INSTALL_DIRECTORY + File.separator + patcherFileName;
-        overlaySavePath = INSTALL_DIRECTORY + File.separator + overlayFileName;
-        scannerSavePath = INSTALL_DIRECTORY + File.separator + scannerFileName;
-        File saveDir = new File(INSTALL_DIRECTORY);
-        File imageDir = new File(INSTALL_DIRECTORY + File.separator + imageFolder);
-        File logsDir = new File(INSTALL_DIRECTORY + File.separator + logsFolder);
-        if (!saveDir.exists()) {
-            saveDir.mkdirs();
-        }
-        if (!imageDir.exists()) {
-            imageDir.mkdirs();
-        }
-        if (!logsDir.exists()) {
-            logsDir.mkdirs();
-        }
-        if (saveDir.exists()) {
-            validSavePath = true;
-        }
-        gson = new Gson();
-    }
-
-    public String getImageFolder() {
-        return INSTALL_DIRECTORY + File.separator + imageFolder;
-    }
-
-    public void loadSettingsFromDisk() {
-        boolean err = false;
-        try {
-            settingsSaveFile = gson.fromJson(getJsonString(savePath), SettingsSaveFile.class);
-        } catch (JsonSyntaxException e) {
-            err = true;
-        }
-        if (settingsSaveFile == null || err) {
             settingsSaveFile = new SettingsSaveFile();
-        }
-    }
-
-    public void loadStashFromDisk() {
-        boolean err = false;
-        try {
-            stashSaveFile = gson.fromJson(getJsonString(stashSavePath), StashSaveFile.class);
-        } catch (JsonSyntaxException e) {
-            err = true;
-        }
-        if (stashSaveFile == null || err) {
-            stashSaveFile = new StashSaveFile();
-        }
-    }
-
-    public void loadOverlayFromDisk() {
-        boolean err = false;
-        try {
-            overlaySaveFile = gson.fromJson(getJsonString(overlaySavePath), OverlaySaveFile.class);
-        } catch (JsonSyntaxException e) {
-            err = true;
-        }
-        if (overlaySaveFile == null || err) {
-            overlaySaveFile = new OverlaySaveFile();
-        }
-    }
-
-    public void loadScannerFromDisk() {
-        boolean err = false;
-        try {
-            scannerSaveFile = gson.fromJson(getJsonString(scannerSavePath), ScannerSaveFile.class);
-        } catch (JsonSyntaxException e) {
-            err = true;
-        }
-        if (scannerSaveFile == null || err) {
-            scannerSaveFile = new ScannerSaveFile();
-        }
-    }
-
-    public void loadPinsFromDisk() {
-        boolean err = false;
-        try {
-            pinSaveFile = gson.fromJson(getJsonString(pinSavePath), PinSaveFile.class);
-        } catch (JsonSyntaxException e) {
-            err = true;
-        }
-        if (pinSaveFile == null || err) {
-            pinSaveFile = new PinSaveFile();
         }
     }
 
     private String getJsonString(String path) {
         StringBuilder builder = new StringBuilder();
+        BufferedReader br;
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
             while (br.ready()) {
@@ -162,113 +129,4 @@ public class SaveManager {
             return null;
         }
     }
-
-    public void saveSettingsToDisk() {
-        try {
-            fw = new OutputStreamWriter(new FileOutputStream(savePath), StandardCharsets.UTF_8);
-            fw.write(gson.toJson(settingsSaveFile));
-            fw.close();
-        } catch (IOException e) {
-            return;
-        }
-    }
-
-    public void saveStashToDisk() {
-        try {
-            fw = new OutputStreamWriter(new FileOutputStream(stashSavePath), StandardCharsets.UTF_8);
-            fw.write(gson.toJson(stashSaveFile));
-            fw.close();
-        } catch (IOException e) {
-            return;
-        }
-    }
-
-    public void saveOverlayToDisk() {
-        try {
-            fw = new OutputStreamWriter(new FileOutputStream(overlaySavePath), StandardCharsets.UTF_8);
-            fw.write(gson.toJson(overlaySaveFile));
-            fw.close();
-        } catch (IOException e) {
-            return;
-        }
-    }
-
-    public void saveScannerToDisk() {
-        try {
-            fw = new OutputStreamWriter(new FileOutputStream(scannerSavePath), StandardCharsets.UTF_8);
-            fw.write(gson.toJson(scannerSaveFile));
-            fw.close();
-        } catch (IOException e) {
-            return;
-        }
-    }
-
-    public void savePinsToDisk() {
-        try {
-            fw = new OutputStreamWriter(new FileOutputStream(pinSavePath), StandardCharsets.UTF_8);
-            fw.write(gson.toJson(pinSaveFile));
-            fw.close();
-        } catch (IOException e) {
-            return;
-        }
-    }
-
-    public int validateClientPath() {
-        int clientCount = 0;
-        String clientPath = settingsSaveFile.clientPath;
-        if (clientPath != null) {
-            File file = new File(clientPath);
-            if (file.exists() && file.isFile()) {
-                return 1;
-            }
-        }
-        String[] commonDrives = {"C", "D", "E", "F"};
-        ArrayList<String> stubs = new ArrayList<>();
-        stubs.add(":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-        stubs.add(":/Program Files/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-        stubs.add(":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-        stubs.add(":/Program Files (x86)/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-        stubs.add(":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
-        stubs.add(":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
-        stubs.add(":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-        stubs.add(":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-        clientPaths.clear();
-        for (String drive : commonDrives) {
-            for (String stub : stubs) {
-                File clientFile = new File(drive + stub);
-                if (clientFile.exists() && clientFile.isFile()) {
-//                    System.out.println("Found : " + drive + stub);
-                    clientPaths.add(drive + stub);
-                    clientCount++;
-                }
-            }
-        }
-        if (clientCount == 1) {
-            settingsSaveFile.clientPath = clientPaths.get(0);
-        }
-        return clientCount;
-    }
-
-    public static void recursiveSave(Component component) {
-        if (component instanceof ISaveable) {
-            ((ISaveable) component).save();
-        }
-        if (component instanceof Container) {
-            for (Component c : ((Container) component).getComponents()) {
-                recursiveSave(c);
-            }
-        }
-    }
-
-    public static void recursiveLoad(Component component) {
-        if (component instanceof ISaveable) {
-            ((ISaveable) component).load();
-        }
-        if (component instanceof Container) {
-            for (Component c : ((Container) component).getComponents()) {
-                recursiveLoad(c);
-            }
-        }
-    }
-
 }

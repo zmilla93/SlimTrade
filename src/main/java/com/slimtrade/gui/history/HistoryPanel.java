@@ -1,138 +1,100 @@
 package com.slimtrade.gui.history;
 
-import com.slimtrade.App;
-import com.slimtrade.core.managers.ColorManager;
-import com.slimtrade.core.observing.IColorable;
-import com.slimtrade.core.utility.TradeOffer;
-import com.slimtrade.core.utility.TradeUtility;
-import com.slimtrade.gui.options.OrderType;
+import com.slimtrade.core.trading.TradeOffer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class HistoryPanel extends JPanel implements IColorable {
+public class HistoryPanel extends JPanel {
 
-    private static final long serialVersionUID = 1L;
-    // private TradeOffer savedTrade;
+    JPanel contentPanel = new JPanel(new BorderLayout());
+    ArrayList<HistoryRowData> data = new ArrayList();
+    public static int maxMessageCount = 50;
+    private HistoryTable table;
 
-    private ArrayList<TradeOffer> trades = new ArrayList<TradeOffer>();
-    private ArrayList<HistoryRow> tradePanels = new ArrayList<HistoryRow>();
+    public HistoryPanel() {
 
 
-    private JPanel contentPanel;
+        // Dummy Data
+        String[] columnNames = new String[]{"Date", "Time", "Player", "Item", "Price"};
+        TradeOffer t1 = new TradeOffer();
+        t1.offerType = TradeOffer.TradeOfferType.INCOMING;
+        t1.time = "10:30 PM";
+        t1.date = "10/3/20";
+        t1.playerName = "Haksalaow";
+        t1.itemName = "Tabula";
+        t1.priceTypeString = "5C";
+        t1.priceQuantity = 20.0f;
 
-//	private static int maxTrades = 10;
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        JButton reloadButton = new JButton("Reload");
+        JButton messageButton = new JButton("Message");
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        buttonPanel.add(reloadButton, gc);
+        gc.gridx++;
+        buttonPanel.add(messageButton, gc);
+        bottomPanel.add(buttonPanel, BorderLayout.EAST);
 
-    private boolean close = false;
+        ArrayList<HistoryRowData> testData = new ArrayList<>();
+//        HistoryRowData[]{
+        testData.add(new HistoryRowData(t1));
+        testData.add(new HistoryRowData(t1));
+        testData.add(new HistoryRowData(t1));
+//            {new IconButton(), "10:30", "10/3/10", "NeatPlayer", "Brambled Jack Carcass", "10 chaos", 4},
+//            {new IconButton(), "10:14", "10/3/10", "JimPlayer", "Brambled Jack Carcass", "10 chaos", 3},
+//            {new IconButton(), "10:52", "10/3/10", "Weirdness", "Tabula Jack Carcass", "10 chaos", 1},
+//            {new IconButton(), "1:30pm", "10/3/10", "cooldude", "Jack Carcass", "10 chaos", 5},
 
-    HistoryPanel() {
-        assert(SwingUtilities.isEventDispatchThread());
-        this.setLayout(new BorderLayout());
-        contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-        this.add(contentPanel, BorderLayout.CENTER);
+
+        ;
+
+        setLayout(new BorderLayout());
+        table = new HistoryTable(columnNames, testData);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        add(scrollPane, BorderLayout.CENTER);
+
+        add(bottomPanel, BorderLayout.SOUTH);
+
+//        contentPanel.add(table, BorderLayout.CENTER);
     }
 
-    public void addTrade(TradeOffer trade, boolean updateUI) {
-        assert(SwingUtilities.isEventDispatchThread());
-        int i = 0;
-        // Delete old duplicate
-        for (TradeOffer savedTrade : trades) {
-            if (TradeUtility.isMatchingTrades(trade, savedTrade)) {
-                trades.remove(i);
-                if (updateUI) {
-                    contentPanel.remove(tradePanels.get(i));
-                    tradePanels.remove(i);
-                }
-                break;
-            }
-            i++;
+    public void reloadUI() {
+//        clearAllRows();
+        table.getHistoryTableModel().setRowData(data);
+        table.getHistoryTableModel().fireTableDataChanged();
+    }
+
+    public void preloadRow() {
+
+    }
+
+    public void addRow(TradeOffer tradeOffer) {
+        addRow(tradeOffer, true);
+    }
+
+    public void addRow(TradeOffer tradeOffer, boolean updateUI) {
+        boolean remove = false;
+        if (data.size() >= maxMessageCount) {
+            data.remove(0);
+            remove = true;
         }
-        // Delete oldest trade if at max trades
-        if (trades.size() >= App.saveManager.settingsSaveFile.historyLimit && App.saveManager.settingsSaveFile.historyLimit > 0) {
-            trades.remove(0);
-            if (updateUI) {
-                contentPanel.remove(tradePanels.get(0));
-                tradePanels.remove(0);
-            }
-        }
-        // Add new trade
-        trades.add(trade);
+        HistoryRowData rowData = new HistoryRowData(tradeOffer);
+        data.add(rowData);
         if (updateUI) {
-            HistoryRow row = new HistoryRow(trade, close);
-            tradePanels.add(row);
-            if (HistoryWindow.orderType == OrderType.NEW_FIRST) {
-                contentPanel.add(tradePanels.get(tradePanels.size() - 1), 0);
-            } else {
-                contentPanel.add(tradePanels.get(tradePanels.size() - 1));
-            }
-            ColorManager.recursiveColor(row);
-            this.revalidate();
-            this.repaint();
+            if (remove) table.getHistoryTableModel().removeRow(0);
+//            table.getHistoryTableModel().addRow(rowData);
+            table.getHistoryTableModel().fireTableDataChanged();
         }
     }
 
-    public void initUI() {
-        assert(SwingUtilities.isEventDispatchThread());
-        for (TradeOffer trade : trades) {
-            HistoryRow row = new HistoryRow(trade, close);
-            if (HistoryWindow.orderType == OrderType.NEW_FIRST) {
-                contentPanel.add(row, 0);
-            } else {
-                contentPanel.add(row);
-            }
-            tradePanels.add(row);
-        }
-        ColorManager.recursiveColor(this);
-//		App.logger.log(Level.INFO, "HISTORY BUILD TIME : " + Debugger.benchmark());
-        this.revalidate();
-        this.repaint();
+    public void clearAllRows() {
+        data.clear();
     }
 
-    public void refreshOrder() {
-        assert(SwingUtilities.isEventDispatchThread());
-        if (HistoryWindow.orderType == OrderType.NEW_FIRST) {
-            for (HistoryRow row : tradePanels) {
-                contentPanel.add(row, 0);
-            }
-        } else {
-            for (HistoryRow row : tradePanels) {
-                contentPanel.add(row);
-            }
-        }
-        this.revalidate();
-        this.repaint();
-    }
-
-    public void clearTrades() {
-        assert(SwingUtilities.isEventDispatchThread());
-        contentPanel.removeAll();
-        trades.clear();
-        tradePanels.clear();
-    }
-
-    public void updateDate() {
-        assert(SwingUtilities.isEventDispatchThread());
-        for (HistoryRow row : tradePanels) {
-            row.updateDate();
-        }
-    }
-
-    public void updateTime() {
-        assert(SwingUtilities.isEventDispatchThread());
-        for (HistoryRow row : tradePanels) {
-            row.updateTime();
-        }
-    }
-
-    public void setClose(boolean close) {
-        this.close = close;
-    }
-
-
-    @Override
-    public void updateColor() {
-        contentPanel.setBackground(ColorManager.BACKGROUND);
-    }
 }
