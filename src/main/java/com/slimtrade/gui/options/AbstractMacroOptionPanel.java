@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
-    public MessageType messageType = MessageType.INCOMING_TRADE;
+    private MessageType messageType = MessageType.INCOMING_TRADE;
     protected final JPanel macroContainer;
 
 
@@ -20,8 +20,8 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
     private GridBagConstraints gc = new GridBagConstraints();
 
 
-    public AbstractMacroOptionPanel() {
-
+    public AbstractMacroOptionPanel(MessageType messageType) {
+        this.messageType = messageType;
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = new Insets(0, 0, 2, 0);

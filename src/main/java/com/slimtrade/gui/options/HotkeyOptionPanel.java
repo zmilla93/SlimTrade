@@ -1,8 +1,8 @@
 package com.slimtrade.gui.options;
 
+import com.slimtrade.App;
 import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.utility.GUIReferences;
-import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.basic.HotkeyButton;
 
 import javax.swing.*;
@@ -11,21 +11,21 @@ import java.awt.*;
 public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
 
     // SlimTrade Hotkeys
-    private HotkeyButton options = new HotkeyButton();
-    private HotkeyButton history = new HotkeyButton();
-    private HotkeyButton chatScanner = new HotkeyButton();
-    private HotkeyButton closeOldestTrade = new HotkeyButton();
+    private final HotkeyButton options = new HotkeyButton();
+    private final HotkeyButton history = new HotkeyButton();
+    private final HotkeyButton chatScanner = new HotkeyButton();
+    private final HotkeyButton closeOldestTrade = new HotkeyButton();
 
     // POE Hotkeys
-    private HotkeyButton delve = new HotkeyButton();
-    private HotkeyButton doNotDisturb = new HotkeyButton();
-    private HotkeyButton exitToMenu = new HotkeyButton();
-    private HotkeyButton guildHideout = new HotkeyButton();
-    private HotkeyButton hideout = new HotkeyButton();
-    private HotkeyButton leaveParty = new HotkeyButton();
-    private HotkeyButton menagerie = new HotkeyButton();
-    private HotkeyButton metamorph = new HotkeyButton();
-    private HotkeyButton remainingMonsters = new HotkeyButton();
+    private final HotkeyButton delve = new HotkeyButton();
+    private final HotkeyButton doNotDisturb = new HotkeyButton();
+    private final HotkeyButton exitToMenu = new HotkeyButton();
+    private final HotkeyButton guildHideout = new HotkeyButton();
+    private final HotkeyButton hideout = new HotkeyButton();
+    private final HotkeyButton leaveParty = new HotkeyButton();
+    private final HotkeyButton menagerie = new HotkeyButton();
+    private final HotkeyButton metamorph = new HotkeyButton();
+    private final HotkeyButton remainingMonsters = new HotkeyButton();
 
     JPanel appHotkeyPanel = new JPanel(new GridBagLayout());
     JPanel poeHotkeyPanel = new JPanel(new GridBagLayout());
@@ -61,6 +61,8 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         addPanel(Box.createVerticalStrut(GUIReferences.INSET));
         addHeader("Path of Exile Hotkeys");
         addPanel(poeHotkeyPanel);
+
+        App.saveManager.registerSavable(this);
     }
 
     private void addHotkey(JPanel panel, String name, HotkeyButton hotkey) {
@@ -75,11 +77,39 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
 
     @Override
     public void save() {
-//        options.getData()
+        // SlimTrade
+        App.saveManager.settingsSaveFile.optionsHotkey = options.getData();
+        App.saveManager.settingsSaveFile.historyHotkey = history.getData();
+        App.saveManager.settingsSaveFile.chatScannerHotkey = chatScanner.getData();
+        App.saveManager.settingsSaveFile.closeTradeHotkey = closeOldestTrade.getData();
+        // POE
+        App.saveManager.settingsSaveFile.delveHotkey = delve.getData();
+        App.saveManager.settingsSaveFile.doNotDisturbHotkey = doNotDisturb.getData();
+        App.saveManager.settingsSaveFile.exitToMenuHotkey = exitToMenu.getData();
+        App.saveManager.settingsSaveFile.guildHideoutHotkey = guildHideout.getData();
+        App.saveManager.settingsSaveFile.hideoutHotkey = hideout.getData();
+        App.saveManager.settingsSaveFile.leavePartyHotkey = leaveParty.getData();
+        App.saveManager.settingsSaveFile.menagerieHotkey = menagerie.getData();
+        App.saveManager.settingsSaveFile.metamorphHotkey = metamorph.getData();
+        App.saveManager.settingsSaveFile.remainingMonstersHotkey = remainingMonsters.getData();
     }
 
     @Override
     public void load() {
-
+        // SlimTrade
+        options.updateHotkey(App.saveManager.settingsSaveFile.optionsHotkey);
+        history.updateHotkey(App.saveManager.settingsSaveFile.historyHotkey);
+        chatScanner.updateHotkey(App.saveManager.settingsSaveFile.chatScannerHotkey);
+        closeOldestTrade.updateHotkey(App.saveManager.settingsSaveFile.closeTradeHotkey);
+        // POE
+        delve.updateHotkey(App.saveManager.settingsSaveFile.delveHotkey);
+        doNotDisturb.updateHotkey(App.saveManager.settingsSaveFile.doNotDisturbHotkey);
+        exitToMenu.updateHotkey(App.saveManager.settingsSaveFile.exitToMenuHotkey);
+        guildHideout.updateHotkey(App.saveManager.settingsSaveFile.guildHideoutHotkey);
+        hideout.updateHotkey(App.saveManager.settingsSaveFile.hideoutHotkey);
+        leaveParty.updateHotkey(App.saveManager.settingsSaveFile.leavePartyHotkey);
+        menagerie.updateHotkey(App.saveManager.settingsSaveFile.menagerieHotkey);
+        metamorph.updateHotkey(App.saveManager.settingsSaveFile.metamorphHotkey);
+        remainingMonsters.updateHotkey(App.saveManager.settingsSaveFile.remainingMonstersHotkey);
     }
 }

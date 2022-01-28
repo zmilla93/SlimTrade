@@ -130,7 +130,6 @@ public class MacroCustomizerPanel extends GridBagPanel {
             parent.remove(self);
             parent.revalidate();
         });
-
     }
 
     public MacroButton getMacroButton() {

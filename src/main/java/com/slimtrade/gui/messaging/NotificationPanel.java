@@ -2,14 +2,14 @@ package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.gui.managers.FrameManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public abstract class NotificationPanel extends JPanel {
@@ -73,6 +73,7 @@ public abstract class NotificationPanel extends JPanel {
 
         JPanel topPanel = new JPanel(new BorderLayout());
         JPanel topInfo = new JPanel(new GridBagLayout());
+        topInfo.setBackground(Color.RED);
         topButtons = new JPanel(new GridBagLayout());
         JPanel bottomPanel = new JPanel(new BorderLayout());
         JPanel bottomInfo = new JPanel(new GridBagLayout());
@@ -81,6 +82,7 @@ public abstract class NotificationPanel extends JPanel {
         // Build
         topPanel.add(topInfo, BorderLayout.CENTER);
         topPanel.add(topButtons, BorderLayout.EAST);
+
         bottomPanel.add(bottomInfo, BorderLayout.CENTER);
         bottomPanel.add(bottomButtons, BorderLayout.EAST);
 
@@ -94,11 +96,13 @@ public abstract class NotificationPanel extends JPanel {
         gc.gridy = 0;
         gc.weightx = 1;
         gc.weighty = 1;
-//        gc.fill = GridBagConstraints.BOTH;
+        gc.fill = GridBagConstraints.BOTH;
         for (WeightedPanel panel : topPanels) {
             gc.weightx = panel.weight;
+            gc.anchor = GridBagConstraints.EAST;
             topInfo.add(panel.panel, gc);
             gc.gridx++;
+
         }
         gc.gridx = 0;
         for (WeightedPanel panel : bottomPanels) {
@@ -111,11 +115,8 @@ public abstract class NotificationPanel extends JPanel {
     }
 
     private void buildButtonPanels() {
-//        JPanel topButtons = new JPanel(new GridBagLayout());
-//        JPanel bottomButtons = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
-        gc.gridy = 0;
         gc.gridy = 0;
         gc.weighty = 1;
         gc.fill = GridBagConstraints.VERTICAL;
@@ -123,35 +124,48 @@ public abstract class NotificationPanel extends JPanel {
         int topStrutX;
         for (MacroButton macro : topMacros) {
             JButton button;
-            System.out.println("PATH:" + DefaultIcon.PLAY.path);
-            System.out.println("icon:" + macro.icon);
-//            System.out.println("PATH:" + macro.icon.path);
             if (macro.buttonType == MacroButton.MacroButtonType.TEXT)
                 button = new NotificationTextButton(macro.text);
             else
-//                button = new NotificationIconButton(macro.icon.path);
                 button = new NotificationIconButton(macro.icon.path);
-            button.addActionListener(e -> PoeInterface.runCommand(macro.lmbResponse, tradeOffer));
+            button.addMouseListener(new AdvancedMouseListener() {
+                @Override
+                public void click(MouseEvent e) {
+                    if (e.getButton() == MouseEvent.BUTTON1){
+                        PoeInterface.runCommand(macro.lmbResponse, tradeOffer);
+                    }
+                    else if (e.getButton() == MouseEvent.BUTTON3) {
+                        PoeInterface.runCommand(macro.rmbResponse, tradeOffer);
+                    }
+                }
+            });
             if (button.getPreferredSize().height > strutHeight) strutHeight = button.getPreferredSize().height;
             topButtons.add(button, gc);
             gc.gridx++;
         }
-
         topStrutX = gc.gridx;
-
         // Close Button
         JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE.path);
         topButtons.add(closeButton, gc);
         if (closeButton.getPreferredSize().height > strutHeight) strutHeight = closeButton.getPreferredSize().height;
         gc.gridx = 0;
-
         for (MacroButton macro : bottomMacros) {
             JButton button;
             if (macro.buttonType == MacroButton.MacroButtonType.TEXT)
                 button = new NotificationTextButton(macro.text);
             else
                 button = new NotificationIconButton(macro.icon.path);
-            button.addActionListener(e -> PoeInterface.runCommand(macro.lmbResponse, tradeOffer));
+            button.addMouseListener(new AdvancedMouseListener() {
+                @Override
+                public void click(MouseEvent e) {
+                    if (e.getButton() == MouseEvent.BUTTON1){
+                        PoeInterface.runCommand(macro.lmbResponse, tradeOffer);
+                    }
+                    else if (e.getButton() == MouseEvent.BUTTON3) {
+                        PoeInterface.runCommand(macro.rmbResponse, tradeOffer);
+                    }
+                }
+            });
             if (button.getPreferredSize().height > strutHeight) strutHeight = button.getPreferredSize().height;
             bottomButtons.add(button, gc);
             gc.gridx++;
@@ -171,14 +185,6 @@ public abstract class NotificationPanel extends JPanel {
     protected void addBottomPanel(JPanel panel, float weight) {
         WeightedPanel weightedPanel = new WeightedPanel(panel, weight);
         bottomPanels.add(weightedPanel);
-    }
-
-    protected void addTopButton(JButton button) {
-//        topButtons.add(button);
-    }
-
-    protected void addBottomButton(JButton button) {
-//        bottomButtons.add(button);
     }
 
     protected JPanel getTimerPanel() {

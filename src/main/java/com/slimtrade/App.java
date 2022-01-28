@@ -8,6 +8,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -25,6 +26,7 @@ public class App {
     public static AudioManager audioManager;
     public static SystemTrayManager systemTrayManager;
     public static GlobalKeyboardListener globalKeyboardListener;
+    public static HotkeyManager hotkeyManager;
 
     public static boolean initialized;
 
@@ -40,6 +42,7 @@ public class App {
         saveManager = new SaveManager();
         languageManager = new LanguageManager();
         audioManager = new AudioManager();
+        hotkeyManager = new HotkeyManager();
         PoeInterface.init();
 
         // Swing
@@ -88,6 +91,7 @@ public class App {
         parser.addTradeListener(FrameManager.messageManager);
         // Chat Parser Init
         parser.init();
+        HotkeyManager.loadHotkeys();
 
         initialized = true;
         System.out.println("Slimtrade Rebuild!");

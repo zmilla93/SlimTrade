@@ -89,39 +89,14 @@ public class TradeMessagePanel extends NotificationPanel {
         i++;
         addTopPanel(playerPanel, 0.8f);
         addTopPanel(pricePanel, 0.2f);
-
         addBottomPanel(getTimerPanel(), 0.05f);
         addBottomPanel(itemPanel, 0.95f);
 
         buildPanel();
-
-        updateUI();
     }
-
 
     public TradeOffer getTradeOffer() {
         return tradeOffer;
-    }
-
-    @Override
-    public void updateUI() {
-        super.updateUI();
-//        if (priceLabel != null)
-//            priceLabel.setForeground(UIManager.getColor("TextArea.background"));
-//        if (pricePanel != null){
-//            System.out.println("COL:::::" + UIManager.getColor("TextArea.background"));
-//            pricePanel.setForeground(UIManager.getColor("TextArea.background"));
-//        }
-
-//
-//        revalidate();
-//        repaint();
-
-//        Color color = UIManager.getColor("Menu.foreground");
-//        if (playerPanel != null && color != null) {
-//            if (tradeOffer != null)
-//                System.out.println("trd:" + tradeOffer.playerName);
-//            playerPanel.setBackground(color);
     }
 
 }

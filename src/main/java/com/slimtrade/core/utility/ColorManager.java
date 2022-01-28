@@ -111,6 +111,7 @@ public class ColorManager <T> {
 
     private static void setUIFont(Font f) {
         Enumeration<Object> keys = UIManager.getDefaults().keys();
+//        f=f.deriveFont(f.getStyle(), 24);
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);

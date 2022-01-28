@@ -3,6 +3,7 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.buttons.ColorButton;
+import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
 
 import javax.swing.*;
@@ -69,6 +70,7 @@ public class OptionsWindow extends AbstractWindow {
         saveButton.addActionListener(e ->
         {
             App.saveManager.saveToFile();
+            HotkeyManager.loadHotkeys();
             reloadExampleTrades();
             revalidate();
 //            FrameManager.optionsWindow

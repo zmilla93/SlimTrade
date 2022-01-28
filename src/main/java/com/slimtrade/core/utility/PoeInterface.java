@@ -29,6 +29,7 @@ public class PoeInterface {
     }
 
     public static void paste(String text) {
+        if(!isGameFocused()) return;
         StringSelection pasteString = new StringSelection(text);
         try {
             clipboard.setContents(pasteString, null);
@@ -44,6 +45,8 @@ public class PoeInterface {
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
     }
 
     public static void runCommand(String input, TradeOffer tradeOffer) {
@@ -118,6 +121,7 @@ public class PoeInterface {
     }
 
     public static boolean isGameFocused() {
+        System.out.println("Wintitle:" + getFocusedWindowTitle());
         return getFocusedWindowTitle().equals("Path of Exile");
     }
 

@@ -1,13 +1,14 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.App;
+import com.slimtrade.core.enums.MessageType;
 import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.utility.MacroButton;
 
 public class IncomingMacroPanel extends AbstractMacroOptionPanel implements ISavable {
 
     public IncomingMacroPanel() {
-        super();
+        super(MessageType.INCOMING_TRADE);
         App.saveManager.registerSavable(this);
     }
 
@@ -19,6 +20,7 @@ public class IncomingMacroPanel extends AbstractMacroOptionPanel implements ISav
     @Override
     public void load() {
         clearMacros();
+        if(App.saveManager.settingsSaveFile.incomingMacroButtons == null) return;
         for(MacroButton macro : App.saveManager.settingsSaveFile.incomingMacroButtons){
             addMacro(macro);
         }
