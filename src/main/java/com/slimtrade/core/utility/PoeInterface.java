@@ -62,7 +62,7 @@ public class PoeInterface {
             }
             if(!isGameFocused()) return;
             System.out.println("Waited: " + wait);
-            ArrayList<String> commands = SlimUtil.getCommandList(input, tradeOffer);
+            ArrayList<String> commands = ZUtil.getCommandList(input, tradeOffer);
             if (commands.size() == 1) paste(commands.get(0));
             else {
                 for (String s : commands) {
@@ -83,7 +83,7 @@ public class PoeInterface {
             focusGame();
         if(!isGameFocused())
             return;
-        ArrayList<String> commands = SlimUtil.getCommandList(input, tradeOffer);
+        ArrayList<String> commands = ZUtil.getCommandList(input, tradeOffer);
         if (commands.size() == 1) paste(commands.get(0));
         else {
             executor.execute(() -> {

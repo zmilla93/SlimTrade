@@ -54,14 +54,6 @@ public class SaveManager {
         savableComponents.add(new BasicSavableComponent(component, fieldName, saveFileClass));
     }
 
-//    public void registerAudioRow(JComboBox<?> soundCombo, JSlider volumeSlider, String fieldName, Object saveFileClass) {
-////        savableComponents.add(new (component, fieldName, saveFileClass));
-//    }
-
-    public void registerAudioRow(AudioSaveComponent audioSaveComponent) {
-        savableComponents.add(audioSaveComponent);
-    }
-
     public void saveToFile() {
         try {
             for (SavableComponent c : savableComponents) {

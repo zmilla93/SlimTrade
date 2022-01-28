@@ -3,9 +3,10 @@ package com.slimtrade.core.utility;
 import com.slimtrade.App;
 import com.slimtrade.core.trading.TradeOffer;
 
+import java.awt.*;
 import java.util.ArrayList;
 
-public class SlimUtil {
+public class ZUtil {
 
     /**
      * Returns a printable version of an enum name.
@@ -52,6 +53,19 @@ public class SlimUtil {
         }
         System.out.println("COMMANDS :: " + commands);
         return commands;
+    }
+
+    /**
+     * Returns a new GridBagConstraint with gridX and gridY initialized to 0.
+     * This is needed to allow incrementing either variable to work correctly.
+     *
+     * @return
+     */
+    public static GridBagConstraints getGC() {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        return gc;
     }
 
     public static <T> int safeEnumIndex(Class<T> enumClass, int index) {

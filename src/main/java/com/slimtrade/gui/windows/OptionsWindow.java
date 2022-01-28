@@ -32,8 +32,9 @@ public class OptionsWindow extends AbstractWindow {
         OptionPanel information = new OptionPanel("Information", new InformationOptionPanel());
         OptionPanel incomingMacros = new OptionPanel("Incoming Macros", incomingMacroPanel);
         OptionPanel outgoingMacros = new OptionPanel("Outgoing Macros", outgoingMacroPanel);
+        OptionPanel hotkeys = new OptionPanel("Hotkeys", new HotkeyOptionPanel());
         OptionPanel ignoreItems = new OptionPanel("Ignore Items", new IgnoreItemOptionPanel());
-        OptionPanel[] panelList = new OptionPanel[]{general, audio, stash, incomingMacros, outgoingMacros, ignoreItems, information};
+        OptionPanel[] panelList = new OptionPanel[]{general, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, information};
 
         JPanel sidebar = createSidebar(panelList);
 
@@ -110,7 +111,7 @@ public class OptionsWindow extends AbstractWindow {
         cardLayout.show(cardPanel, panel.title);
     }
 
-    public void reloadExampleTrades(){
+    public void reloadExampleTrades() {
         incomingMacroPanel.reloadExampleTrade();
         outgoingMacroPanel.reloadExampleTrade();
     }

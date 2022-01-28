@@ -1,6 +1,6 @@
 package com.slimtrade.core.enums;
 
-import com.slimtrade.core.utility.SlimUtil;
+import com.slimtrade.core.utility.ZUtil;
 
 public enum ButtonRow {
 
@@ -11,6 +11,6 @@ public enum ButtonRow {
 
     @Override
     public String toString() {
-        return SlimUtil.enumToString(name());
+        return ZUtil.enumToString(name());
     }
 }

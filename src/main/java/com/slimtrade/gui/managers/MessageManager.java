@@ -1,5 +1,6 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.App;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
@@ -41,6 +42,7 @@ public class MessageManager extends JFrame implements ITradeListener {
 
     public void addMessage(TradeOffer tradeOffer) {
         assert (SwingUtilities.isEventDispatchThread());
+        App.audioManager.playSoundPercent(App.saveManager.settingsSaveFile.incomingSound.sound, App.saveManager.settingsSaveFile.incomingSound.volume);
         System.out.println("MSG:" + tradeOffer.offerType);
         gc.insets = new Insets(0, 0, MESSAGE_GAP, 0);
         gc.gridy = container.getComponentCount();

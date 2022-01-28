@@ -1,25 +1,34 @@
 package com.slimtrade.gui.buttons;
 
+import com.formdev.flatlaf.ui.FlatButtonBorder;
 import com.slimtrade.core.utility.ColorManager;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.util.Objects;
 
 public class IconButton extends JButton {
 
-    public IconButton(String path){
+    private String path;
+
+    public IconButton(String path) {
         super();
-        setIcon(ColorManager.getIcon(path));
-//        setPreferredSize(new Dimension(30,30));
+        this.path = path;
+        updateUI();
     }
 
     @Override
     public void updateUI() {
         super.updateUI();
-//        setPreferredSize(new Dimension(24,24));
-        setBorder(null);
+        if (path != null)
+            setIcon(ColorManager.getIcon(path));
+        int borderInset = 3;
+        setBorder(new FlatButtonBorder() {
+            @Override
+            public Insets getBorderInsets(Component c, Insets insets) {
+                return new Insets(borderInset, borderInset, borderInset, borderInset);
+            }
+        });
     }
+
+
 }

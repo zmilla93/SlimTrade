@@ -1,6 +1,7 @@
 package com.slimtrade.core.saving;
 
 import com.slimtrade.core.audio.SoundComponent;
+import com.slimtrade.core.data.HotkeyData;
 import com.slimtrade.core.utility.ColorTheme;
 import com.slimtrade.core.utility.MacroButton;
 
@@ -23,5 +24,24 @@ public class SettingsSaveFile {
 
     public MacroButton[] incomingMacroButtons;
     public MacroButton[] outgoingMacroButtons;
+
+    // SlimTrade Hotkeys
+    public HotkeyData optionsHotkey;
+    public HotkeyData historyHotkey;
+    public HotkeyData chatScannerHotkey;
+    public HotkeyData closeTradeHotkey;
+
+    // POE Hotkeys
+    public HotkeyData delveHotkey;
+    public HotkeyData doNotDisturbHotkey;
+    public HotkeyData exitToMenuHotkey;
+    public HotkeyData guildHideoutHotkey;
+    public HotkeyData hideoutHotkey;
+    public HotkeyData leavePartyHotkey;
+    public HotkeyData menagerieHotkey;
+    public HotkeyData metamorphHotkey;
+    public HotkeyData remainingMonstersHotkey;
+
+    // Link Hotkeys
 
 }

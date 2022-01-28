@@ -22,39 +22,29 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
     public AbstractMacroOptionPanel() {
 
-        addHeader("Macro Preview");
-//        gc.gridy++;
-
-        addPanel(exampleTradeContainer);
-//        addPreviewMessage(MessageType.INCOMING_TRADE);
-
-        addHeader("Inbuild Macros");
-//        gc.gridy++;
-        addHeader("Custom Macros");
-//        gc.gridy++;
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.insets = new Insets(0, 0, 2, 0);
 
         macroContainer = new JPanel();
-//        macroContainer.setLayout(new BoxLayout(macroContainer, BoxLayout.PAGE_AXIS));
         macroContainer.setLayout(new GridBagLayout());
 
         JPanel buttonPanel = new JPanel();
         JButton addMacroButton = new JButton("Add New Macro");
-        addMacroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                macroContainer.add(new MacroCustomizerPanel(macroContainer), gc);
-                gc.gridy++;
-                revalidate();
-                repaint();
-            }
+        addMacroButton.addActionListener(e -> {
+            macroContainer.add(new MacroCustomizerPanel(macroContainer), gc);
+            gc.gridy++;
+            revalidate();
+            repaint();
         });
+
+        addHeader("Macro Preview");
+        addPanel(exampleTradeContainer);
+        addHeader("Inbuilt Macros");
+        addHeader("Custom Macros");
         addPanel(addMacroButton);
         addPanel(macroContainer);
 
-
-        gc.gridx = 0;
-        gc.gridy = 0;
-        gc.insets = new Insets(0, 0, 2, 0);
     }
 
 

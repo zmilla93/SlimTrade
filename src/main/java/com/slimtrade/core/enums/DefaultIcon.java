@@ -9,7 +9,7 @@ public enum DefaultIcon{
     PIN2("/icons/default/pin2x48.png"),
     PLAY("/icons/default/playx64.png"),
     TAG("/icons/default/tagx64.png"),
-    SLIM_ICON("/icons/slim-icon.png"),
+    SLIM_ICON("/icons/slim-icon-2.png"),
     ;
 
     public String path;

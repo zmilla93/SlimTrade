@@ -9,7 +9,7 @@ public class AbstractOptionPanel extends JPanel {
 
     protected JPanel contentPanel;
     private final int scrollSpeed = 10;
-    protected GridBagConstraints gc = new GridBagConstraints();
+    private GridBagConstraints gc = new GridBagConstraints();
 
     public AbstractOptionPanel() {
         setLayout(new BorderLayout());
@@ -56,7 +56,7 @@ public class AbstractOptionPanel extends JPanel {
         gc.gridy++;
     }
 
-    protected void addPanel(JComponent component){
+    protected void addPanel(Component component) {
         int prevFill = gc.fill;
         double prevWeight = gc.weightx;
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -70,6 +70,10 @@ public class AbstractOptionPanel extends JPanel {
         gc.fill = prevFill;
         gc.weightx = prevWeight;
         gc.gridy++;
+    }
+
+    protected void addVerticalStrut() {
+        addPanel(Box.createVerticalStrut(GUIReferences.INSET));
     }
 
 }

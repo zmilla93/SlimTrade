@@ -3,8 +3,10 @@ package com.slimtrade.gui.options;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.components.CustomCombo;
 import com.slimtrade.gui.options.general.GridBagPanel;
 
 import javax.swing.*;
@@ -18,7 +20,7 @@ public class MacroCustomizerPanel extends GridBagPanel {
     private int textFieldWidth = 20;
 
     // Macro Button
-    JComboBox<ImageIcon> iconCombo = new JComboBox<>();
+    CustomCombo<ImageIcon> iconCombo = new CustomCombo();
     JTextField buttonText = new JTextField();
 
     JTextField lmbInput = new JTextField(textFieldWidth);
@@ -40,6 +42,7 @@ public class MacroCustomizerPanel extends GridBagPanel {
         JLabel lmbLabel = new JLabel("LMB");
         JLabel rmbLabel = new JLabel("RMB");
         JLabel closeLabel = new JLabel("Close");
+        ColorManager.addStickyCombo(iconCombo);
         buttonText.setText("~");
 
         // Card Type Panel
@@ -122,12 +125,10 @@ public class MacroCustomizerPanel extends GridBagPanel {
         });
 
         JPanel self = this;
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.remove(self);
-                parent.revalidate();
-            }
+        deleteButton.addActionListener(e -> {
+            ColorManager.removeStickyCombo(iconCombo);
+            parent.remove(self);
+            parent.revalidate();
         });
 
     }
@@ -166,4 +167,6 @@ public class MacroCustomizerPanel extends GridBagPanel {
         }
         setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground")));
     }
+
+
 }

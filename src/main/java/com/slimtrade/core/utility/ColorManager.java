@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
-public class ColorManager {
+public class ColorManager <T> {
 
     private static List<JFrame> frames = new ArrayList<>();
     private static ColorTheme currentTheme;
@@ -20,6 +20,8 @@ public class ColorManager {
     public static final Color DENY_COLOR = new Color(199, 84, 80);
     public static final Color GREEN_SALE = new Color(0, 130, 0);
     public static final Color RED_SALE = new Color(130, 0, 0);
+
+    private static ArrayList<JComboBox> stickyCombos = new ArrayList<>();
 
 
     private static HashMap<String, ImageIcon> iconMap = new HashMap<>();
@@ -35,7 +37,14 @@ public class ColorManager {
 
     public static boolean removeFrame(JFrame frame) {
         return frames.remove(frame);
+    }
 
+    public static void addStickyCombo(JComboBox combo){
+        stickyCombos.add(combo);
+    }
+
+    public static void removeStickyCombo(JComboBox combo){
+        stickyCombos.remove(combo);
     }
 
     public static void setTheme(ColorTheme theme) {
@@ -43,6 +52,10 @@ public class ColorManager {
     }
 
     public static void setTheme(ColorTheme theme, boolean forceRefresh) {
+        int[] comboIcons = new int[stickyCombos.size()];
+        for(int i = 0;i<stickyCombos.size();i++){
+            comboIcons[i] = stickyCombos.get(i).getSelectedIndex();
+        }
         iconMap.clear();
         if (theme == currentTheme && !forceRefresh) return;
         currentTheme = theme;
@@ -52,10 +65,13 @@ public class ColorManager {
             e.printStackTrace();
         }
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
-        setUIFont(font);
+        ColorManager.setUIFont(font);
         for (JFrame frame : frames) {
             SwingUtilities.updateComponentTreeUI(frame.getRootPane());
             frame.revalidate();
+        }
+        for(int i = 0;i<stickyCombos.size();i++){
+            stickyCombos.get(i).setSelectedIndex(comboIcons[i]);
         }
     }
 
@@ -77,20 +93,7 @@ public class ColorManager {
         return null;
     }
 
-//    public Image getImage(String path) {
-//        Image image;
-//        if (image == null) {
-//            try {
-//                image = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
-//                return image;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return null;
-//    }
-
-    public static Image getColorImage(BufferedImage image, Color color) {
+    private static Image getColorImage(BufferedImage image, Color color) {
         int width = image.getWidth();
         int height = image.getHeight();
         WritableRaster raster = image.getRaster();
@@ -106,7 +109,7 @@ public class ColorManager {
         return image;
     }
 
-    public static void setUIFont(Font f) {
+    private static void setUIFont(Font f) {
         Enumeration<Object> keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();

@@ -5,41 +5,72 @@ import com.slimtrade.core.managers.SaveManager;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 
 public class Sound {
 
     public enum SoundType {INBUILT, CUSTOM}
 
-    private final String name;
-    private SoundType soundType;
-    private transient final String path;
+    public final String name;
+    public SoundType soundType;
+    private transient String path;
     private transient URL url;
 
-    public Sound(String name, String path, SoundType soundType) {
-        if (soundType == SoundType.CUSTOM)
-            this.name = "*" + name;
-        else
-            this.name = name;
-        this.path = path;
+    public Sound(String name, SoundType soundType) {
         this.soundType = soundType;
-
         if (soundType == SoundType.INBUILT) {
-            this.url = getClass().getClassLoader().getResource(path);
+            this.name = name;
+        } else if (soundType == SoundType.CUSTOM) {
+            this.name = name.replaceFirst("\\.wav\\Z", "");
+            path = SaveManager.getAudioDirectory() + name;
         } else {
-            File file = new File(SaveManager.getAudioDirectory() + path);
-            try {
-                url = file.toURI().toURL();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            this.name = "UNKNOWN";
         }
+
+//        if (soundType == SoundType.INBUILT) {
+//            path = "audio" + File.separator + name.toLowerCase(Locale.ROOT).replaceAll(" ", "") + ".wav";
+//            this.name = name;
+//            this.url = getClass().getClassLoader().getResource(path);
+//        } else if (soundType == SoundType.CUSTOM) {
+//            path = SaveManager.getAudioDirectory() + name;
+//            this.name = name.replaceFirst("\\.wav\\Z", "");
+//            File file = new File(path);
+//            try {
+//                url = file.toURI().toURL();
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            path = null;
+//            this.name = "UNKNOWN";
+//        }
     }
 
     public String getPath() {
+        if(path == null){
+            if (soundType == SoundType.INBUILT) {
+                path = "audio" + File.separator + name.toLowerCase(Locale.ROOT).replaceAll(" ", "") + ".wav";
+            } else if (soundType == SoundType.CUSTOM) {
+                path = SaveManager.getAudioDirectory() + name + ".wav";
+            }
+        }
         return path;
     }
 
     public URL getURL() {
+        if(url == null){
+            if (soundType == SoundType.INBUILT) {
+                this.url = getClass().getClassLoader().getResource(getPath());
+            } else if (soundType == SoundType.CUSTOM) {
+                File file = new File(getPath());
+                try {
+                    url = file.toURI().toURL();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
         return url;
     }
 
