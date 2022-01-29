@@ -69,7 +69,6 @@ public class AudioManager {
 
     // Expected volume is MIN_VOLUME - MAX_VOLUME
     private void playSoundRaw(Sound sound, float volume) {
-        System.out.println("Playing sound...");
         if (volume <= MIN_VOLUME) {
             return;
         }
@@ -77,7 +76,6 @@ public class AudioManager {
             volume = MAX_VOLUME;
         }
         Clip clip = getClip(sound);
-        System.out.println("CLIp:" + clip);
         if (clip == null) return;
         FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         volumeControl.setValue(volume);
@@ -88,7 +86,6 @@ public class AudioManager {
         AudioInputStream stream;
         try {
             Clip clip = AudioSystem.getClip();
-            System.out.println("path:" + sound.getPath());
             if(sound.soundType == Sound.SoundType.CUSTOM){
                 File file = new File(sound.getPath());
                 if(!file.exists()) return null;

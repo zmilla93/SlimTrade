@@ -103,7 +103,6 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         gc.gridy++;
 
         previewButton.addActionListener(e -> {
-            System.out.println(volumeSlider.getValue());
             App.audioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue());
         });
 
@@ -119,12 +118,10 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     private SoundComponent getAudioRow(int index) {
-        SoundComponent row = new SoundComponent((Sound) comboList.get(index).getSelectedItem(), sliderList.get(index).getValue());
-        return row;
+        return new SoundComponent((Sound) comboList.get(index).getSelectedItem(), sliderList.get(index).getValue());
     }
 
     private void setAudioRow(int index, SoundComponent row) {
-        System.out.println("row:" + row.sound);
         if(row.sound == null) return;
         int soundIndex = App.audioManager.indexOfSound(row.sound.name);
         comboList.get(index).setSelectedIndex(soundIndex);
@@ -148,8 +145,6 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         setAudioRow(2, App.saveManager.settingsSaveFile.chatScannerSound);
         setAudioRow(3, App.saveManager.settingsSaveFile.playerJoinedAreaSound);
         setAudioRow(4, App.saveManager.settingsSaveFile.updateSound);
-//        comboList.set()
     }
-
 
 }

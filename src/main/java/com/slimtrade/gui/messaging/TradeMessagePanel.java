@@ -15,41 +15,22 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TradeMessagePanel extends NotificationPanel {
-    static int i = 7;
-
-//    private TradeOffer tradeOffer;
 
     JPanel playerPanel = new ColorPanel("ComboBox.background");
     JPanel pricePanel = new JPanel(new GridBagLayout());
-    //JPanel pricePanel = new JPanel();
-//    private JLabel priceLabel;
 
     public TradeMessagePanel(TradeOffer tradeOffer) {
         super();
         this.tradeOffer = tradeOffer;
 
         // Player Panel
-
         Random rng = new Random();
         playerPanel.setLayout(new GridBagLayout());
         playerPanel.add(new JLabel(tradeOffer.playerName + ThreadLocalRandom.current().nextInt(0, 100)));
-//        playerPanel.setBackground(UIManager.getColor("Menu.background"));
-//        System.out.println(UIManager.get("Menu.background"));
-//        System.out.println(UIManager.get("Menu.foreground"));
-//        playerPanel.setBackground(UIManager.getColor("Menu.foreground"));
 
         // Price Panel
         JLabel priceLabel = new ColorLabel("(" + tradeOffer.priceQuantity + ")" + tradeOffer.priceTypeString, "TextArea.background");
         pricePanel.add(priceLabel);
-//        pricePanel.setForegroundKey("TextArea.background");
-
-        System.out.println("COL:::::" + UIManager.getColor("TextArea.background"));
-
-
-//        panel2.add(new JLabel("c" + i));
-
-        // Timer Panel
-
 
         // Item Panel
         JPanel itemPanel = new JPanel(new GridBagLayout());
@@ -85,13 +66,10 @@ public class TradeMessagePanel extends NotificationPanel {
         }
         topMacros = topButtons.toArray(topMacros);
         bottomMacros = bottomButtons.toArray(bottomMacros);
-
-        i++;
         addTopPanel(playerPanel, 0.8f);
         addTopPanel(pricePanel, 0.2f);
         addBottomPanel(getTimerPanel(), 0.05f);
         addBottomPanel(itemPanel, 0.95f);
-
         buildPanel();
     }
 

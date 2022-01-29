@@ -11,7 +11,7 @@ import java.util.*;
 
 public class ColorManager <T> {
 
-    private static List<JFrame> frames = new ArrayList<>();
+    private static List<Component> frames = new ArrayList<>();
     private static ColorTheme currentTheme;
 
     //    public static final Color CONFIRM_COLOR = new Color(58, 150, 47, 255);
@@ -28,7 +28,7 @@ public class ColorManager <T> {
 
     public static int iconSize = 18;
 
-    public static boolean addFrame(JFrame frame) {
+    public static boolean addFrame(Component frame) {
         if (!frames.contains(frame)) {
             return frames.add(frame);
         }
@@ -39,6 +39,8 @@ public class ColorManager <T> {
         return frames.remove(frame);
     }
 
+    // Sticky combos are JComboBoxes that contain colored icons.
+    // These combos need to be manually updated when switching themes.
     public static void addStickyCombo(JComboBox combo){
         stickyCombos.add(combo);
     }
@@ -66,9 +68,13 @@ public class ColorManager <T> {
         }
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
         ColorManager.setUIFont(font);
-        for (JFrame frame : frames) {
-            SwingUtilities.updateComponentTreeUI(frame.getRootPane());
-            frame.revalidate();
+        for (Component frame : frames) {
+            JRootPane rootPane = null;
+            if(frame instanceof RootPaneContainer) rootPane = ((RootPaneContainer) frame).getRootPane();
+            if(rootPane != null){
+                SwingUtilities.updateComponentTreeUI(rootPane);
+                frame.revalidate();
+            }
         }
         for(int i = 0;i<stickyCombos.size();i++){
             stickyCombos.get(i).setSelectedIndex(comboIcons[i]);
@@ -82,7 +88,6 @@ public class ColorManager <T> {
         }
         // Generate new image
         try {
-            System.out.println("Generating image... " + path);
             BufferedImage img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
             ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
             iconMap.put(path, icon);

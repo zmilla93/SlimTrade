@@ -35,7 +35,9 @@ public class OptionsWindow extends AbstractWindow {
         OptionPanel outgoingMacros = new OptionPanel("Outgoing Macros", outgoingMacroPanel);
         OptionPanel hotkeys = new OptionPanel("Hotkeys", new HotkeyOptionPanel());
         OptionPanel ignoreItems = new OptionPanel("Ignore Items", new IgnoreItemOptionPanel());
-        OptionPanel[] panelList = new OptionPanel[]{general, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, information};
+        OptionPanel cheatSheets = new OptionPanel("Cheat Sheets", new CheatSheetsOptionPanel());
+        OptionPanel stashSorting = new OptionPanel("Stash Sorting", new StashSortingOptionPanel());
+        OptionPanel[] panelList = new OptionPanel[]{general, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSorting, information};
 
         JPanel sidebar = createSidebar(panelList);
 

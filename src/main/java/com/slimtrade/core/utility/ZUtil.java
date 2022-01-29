@@ -68,15 +68,21 @@ public class ZUtil {
         return gc;
     }
 
-    public static <T> int safeEnumIndex(Class<T> enumClass, int index) {
-        System.out.println("enum len" + enumClass.getFields().length);
-        return 0;
-    }
-
-    public static <T> void test(Class<T> e, int index) {
-        System.out.println("WOW");
-
-
+    /**
+     * Given a point on the screen, returns the bounds of the monitor containing that point.
+     * @param point
+     * @return
+     */
+    public static Rectangle getScreenBoundsFromPoint(Point point) {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] devices = ge.getScreenDevices();
+        for (GraphicsDevice device : devices) {
+            Rectangle bounds = device.getDefaultConfiguration().getBounds();
+            if (bounds.contains(point)) {
+                return bounds;
+            }
+        }
+        return null;
     }
 
 }

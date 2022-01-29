@@ -7,6 +7,5 @@ public class CustomCombo<T> extends JComboBox<T>{
     @Override
     public void updateUI() {
         super.updateUI();
-        System.out.println("INDEX:" + getSelectedIndex());
     }
 }

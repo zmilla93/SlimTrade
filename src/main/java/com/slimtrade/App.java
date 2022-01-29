@@ -9,6 +9,7 @@ import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
+import com.slimtrade.gui.managers.OverlayManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -51,12 +52,14 @@ public class App {
                 // Init System Tray Button
                 systemTrayManager = new SystemTrayManager();
                 // Initialize all GUI windows
-                FrameManager.Init();
+                FrameManager.init();
+                OverlayManager.init();
                 // Load save file to GUI
                 ColorManager.setTheme(saveManager.settingsSaveFile.colorTheme);
                 saveManager.revertChanges();
                 FrameManager.optionsWindow.reloadExampleTrades();
                 FrameManager.optionsWindow.revalidate();
+
 
                 // Show Windows
                 FrameManager.messageManager.setVisible(true);

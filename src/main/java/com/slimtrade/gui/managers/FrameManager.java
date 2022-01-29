@@ -5,6 +5,8 @@ import com.slimtrade.gui.windows.DebugWindow;
 import com.slimtrade.gui.windows.HistoryWindow;
 import com.slimtrade.gui.windows.OptionsWindow;
 
+import java.awt.*;
+
 public class FrameManager {
 
     public static MessageManager messageManager;
@@ -12,7 +14,7 @@ public class FrameManager {
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
 
-    public static void Init(){
+    public static void init(){
         messageManager = new MessageManager();
         debugWindow = new DebugWindow();
         optionsWindow = new OptionsWindow();
@@ -21,6 +23,12 @@ public class FrameManager {
         ColorManager.addFrame(debugWindow);
         ColorManager.addFrame(optionsWindow);
         ColorManager.addFrame(historyWindow);
+    }
+
+    public static void centerWindow(Window window){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension windowSize = window.getSize();
+        window.setLocation(new Point(screenSize.width/2 - windowSize.width/2, screenSize.height/2 - windowSize.height/2));
     }
 
 }
