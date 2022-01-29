@@ -48,6 +48,7 @@ public enum ColorTheme {
     ;
 
     public final IntelliJTheme.ThemeLaf lookAndFeel;
+    private String cleanName;
 
     ColorTheme(IntelliJTheme.ThemeLaf lookAndFeel) {
         this.lookAndFeel = lookAndFeel;
@@ -56,6 +57,9 @@ public enum ColorTheme {
 
     @Override
     public String toString() {
-        return name();
+        if(cleanName == null){
+            cleanName = ZUtil.enumToString(name());
+        }
+        return cleanName;
     }
 }
