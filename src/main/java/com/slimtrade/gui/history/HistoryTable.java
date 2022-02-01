@@ -1,7 +1,5 @@
 package com.slimtrade.gui.history;
 
-import com.slimtrade.gui.buttons.IconButton;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;

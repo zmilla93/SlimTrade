@@ -1,11 +1,10 @@
-package com.slimtrade.core.data;
+package com.slimtrade.core.hotkeys;
 
-import com.slimtrade.App;
 import com.slimtrade.gui.managers.FrameManager;
 
 import java.awt.*;
 
-public class AppHotkey implements IHotkeyAction{
+public class AppHotkey implements IHotkeyAction {
 
     public enum AppWindow{OPTIONS, HISTORY, CHAT_SCANNER}
     private AppWindow window;

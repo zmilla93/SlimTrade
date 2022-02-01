@@ -1,6 +1,6 @@
 package com.slimtrade.core.jna;
 
-import com.slimtrade.core.data.KeystrokeData;
+import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.gui.basic.HotkeyButton;
 import com.slimtrade.gui.managers.HotkeyManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
@@ -43,8 +43,8 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
         // If a UI element is waiting for hotkey data, return the data and skip the hotkey logic
         if (hotkeyListener != null) {
-            KeystrokeData data = new KeystrokeData(e.getKeyCode(), e.getModifiers());
-            hotkeyListener.updateHotkey(data);
+            HotkeyData data = new HotkeyData(e.getKeyCode(), e.getModifiers());
+            hotkeyListener.setData(data);
             hotkeyListener = null;
             return;
         }
@@ -83,7 +83,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
     public void listenForHotkey(HotkeyButton hotkeyListener) {
         if (this.hotkeyListener != null) {
-            this.hotkeyListener.updateHotkey(null);
+            this.hotkeyListener.setData(null);
         }
         this.hotkeyListener = hotkeyListener;
     }

@@ -11,8 +11,6 @@ import com.slimtrade.gui.options.general.GridBagPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MacroCustomizerPanel extends GridBagPanel {

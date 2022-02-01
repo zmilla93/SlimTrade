@@ -1,4 +1,4 @@
-package com.slimtrade.core.data;
+package com.slimtrade.core.hotkeys;
 
 public interface IHotkeyAction {
 

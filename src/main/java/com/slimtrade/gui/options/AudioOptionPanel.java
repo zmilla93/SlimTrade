@@ -4,7 +4,6 @@ import com.slimtrade.App;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.enums.DefaultIcon;
-import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.utility.GUIReferences;

@@ -1,7 +1,6 @@
 package com.slimtrade.core.managers;
 
 import com.slimtrade.core.audio.Sound;
-import com.slimtrade.core.audio.SoundComponent;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -11,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-// TODO : Should make clips cacheable, but current implementation leads to buggy playback under certain conditions
 public class AudioManager {
 
+    // TODO : Should make clips cacheable, but current implementation leads to buggy playback under certain conditions
     private final ArrayList<Sound> soundFiles = new ArrayList<>();
     public static final int MIN_VOLUME = -30;
     public static final int MAX_VOLUME = 6;
@@ -22,8 +21,15 @@ public class AudioManager {
     private final HashMap<Sound, Clip> clipCache = new HashMap<>();
     private final HashMap<Clip, AudioInputStream> streamCache = new HashMap<>();
 
+    /**
+     * Handles playback of audio clips.
+     */
     public AudioManager() {
         rebuildSoundList();
+    }
+
+    public ArrayList<Sound> getSoundFiles(){
+        return soundFiles;
     }
 
     public void rebuildSoundList() {
@@ -152,10 +158,6 @@ public class AudioManager {
         }
         clipCache.clear();
         streamCache.clear();
-    }
-
-    public ArrayList<Sound> getSoundFiles(){
-        return soundFiles;
     }
 
     private float percentToRange(int percent) {

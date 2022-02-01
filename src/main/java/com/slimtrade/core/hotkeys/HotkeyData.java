@@ -1,13 +1,13 @@
-package com.slimtrade.core.data;
+package com.slimtrade.core.hotkeys;
 
 import org.jnativehook.keyboard.NativeKeyEvent;
 
-public class KeystrokeData {
+public class HotkeyData {
 
     public final int keyCode;
     public final int modifiers;
 
-    public KeystrokeData(int keyCode, int modifiers) {
+    public HotkeyData(int keyCode, int modifiers) {
         this.keyCode = keyCode;
         this.modifiers = modifiers;
     }

@@ -1,14 +1,14 @@
 package com.slimtrade.gui.basic;
 
 import com.slimtrade.App;
-import com.slimtrade.core.data.KeystrokeData;
+import com.slimtrade.core.hotkeys.HotkeyData;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import javax.swing.*;
 
 public class HotkeyButton extends JButton {
 
-    private KeystrokeData data;
+    private HotkeyData data;
 
     public HotkeyButton() {
         super("Unset");
@@ -19,7 +19,7 @@ public class HotkeyButton extends JButton {
         });
     }
 
-    public void updateHotkey(KeystrokeData data) {
+    public void setData(HotkeyData data) {
         // Update data
         if (data != null) {
             this.data = data;
@@ -36,7 +36,7 @@ public class HotkeyButton extends JButton {
         }
     }
 
-    public KeystrokeData getData() {
+    public HotkeyData getData() {
         return data;
     }
 

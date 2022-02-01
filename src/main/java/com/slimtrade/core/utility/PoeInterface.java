@@ -1,14 +1,18 @@
 package com.slimtrade.core.utility;
 
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.gui.managers.FrameManager;
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -23,7 +27,33 @@ public class PoeInterface {
     public static void init() {
         try {
             robot = new Robot();
+            robot.setAutoWaitForIdle(true);
         } catch (AWTException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void paste() {
+        if(!isGameFocused()) return;
+        robot.keyPress(KeyEvent.VK_ALT);
+        robot.keyRelease(KeyEvent.VK_ALT);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        robot.waitForIdle();
+        try {
+            System.out.println("pasty:" + Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
+        } catch (UnsupportedFlavorException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -103,6 +133,11 @@ public class PoeInterface {
     }
 
     public static void focusGame(){
+        FrameManager.dummyWindow.setVisible(true);
+        FrameManager.dummyWindow.setLocation(MouseInfo.getPointerInfo().getLocation());
+        robot.mousePress(0);
+        robot.mouseRelease(0);
+        FrameManager.dummyWindow.setVisible(false);
         User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
             char[] className = new char[512];
             User32.INSTANCE.GetClassName(hWnd, className, 512);
@@ -111,13 +146,25 @@ public class PoeInterface {
                 return true;
             }
             if (wText.equals("POEWindowClass")) {
-                User32.INSTANCE.ShowWindow(hWnd, User32.SW_SHOW);
                 User32.INSTANCE.SetForegroundWindow(hWnd);
                 User32.INSTANCE.SetFocus(hWnd);
+                User32.INSTANCE.ShowWindow(hWnd, User32.SW_SHOW);
                 return false;
             }
             return true;
         }, null);
+        int i = 0;
+        while (!isGameFocused()) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            i++;
+            if (i > 100) {
+                break;
+            }
+        }
     }
 
     public static boolean isGameFocused() {

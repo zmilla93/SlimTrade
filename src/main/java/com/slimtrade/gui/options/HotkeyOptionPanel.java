@@ -97,19 +97,19 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
     @Override
     public void load() {
         // SlimTrade
-        options.updateHotkey(App.saveManager.settingsSaveFile.optionsHotkey);
-        history.updateHotkey(App.saveManager.settingsSaveFile.historyHotkey);
-        chatScanner.updateHotkey(App.saveManager.settingsSaveFile.chatScannerHotkey);
-        closeOldestTrade.updateHotkey(App.saveManager.settingsSaveFile.closeTradeHotkey);
+        options.setData(App.saveManager.settingsSaveFile.optionsHotkey);
+        history.setData(App.saveManager.settingsSaveFile.historyHotkey);
+        chatScanner.setData(App.saveManager.settingsSaveFile.chatScannerHotkey);
+        closeOldestTrade.setData(App.saveManager.settingsSaveFile.closeTradeHotkey);
         // POE
-        delve.updateHotkey(App.saveManager.settingsSaveFile.delveHotkey);
-        doNotDisturb.updateHotkey(App.saveManager.settingsSaveFile.doNotDisturbHotkey);
-        exitToMenu.updateHotkey(App.saveManager.settingsSaveFile.exitToMenuHotkey);
-        guildHideout.updateHotkey(App.saveManager.settingsSaveFile.guildHideoutHotkey);
-        hideout.updateHotkey(App.saveManager.settingsSaveFile.hideoutHotkey);
-        leaveParty.updateHotkey(App.saveManager.settingsSaveFile.leavePartyHotkey);
-        menagerie.updateHotkey(App.saveManager.settingsSaveFile.menagerieHotkey);
-        metamorph.updateHotkey(App.saveManager.settingsSaveFile.metamorphHotkey);
-        remainingMonsters.updateHotkey(App.saveManager.settingsSaveFile.remainingMonstersHotkey);
+        delve.setData(App.saveManager.settingsSaveFile.delveHotkey);
+        doNotDisturb.setData(App.saveManager.settingsSaveFile.doNotDisturbHotkey);
+        exitToMenu.setData(App.saveManager.settingsSaveFile.exitToMenuHotkey);
+        guildHideout.setData(App.saveManager.settingsSaveFile.guildHideoutHotkey);
+        hideout.setData(App.saveManager.settingsSaveFile.hideoutHotkey);
+        leaveParty.setData(App.saveManager.settingsSaveFile.leavePartyHotkey);
+        menagerie.setData(App.saveManager.settingsSaveFile.menagerieHotkey);
+        metamorph.setData(App.saveManager.settingsSaveFile.metamorphHotkey);
+        remainingMonsters.setData(App.saveManager.settingsSaveFile.remainingMonstersHotkey);
     }
 }

@@ -3,7 +3,7 @@ package com.slimtrade.core.saving;
 import javax.swing.*;
 import java.lang.reflect.Field;
 
-public class BasicSavableComponent implements SavableComponent{
+public class BasicSavableComponent implements SavableComponent {
 
     private Object saveFile;
     private JComponent component;
@@ -14,7 +14,7 @@ public class BasicSavableComponent implements SavableComponent{
         this.component = component;
         try {
             this.field = saveFile.getClass().getField(fieldName);
-        } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException | NullPointerException e) {
             e.printStackTrace();
         }
     }

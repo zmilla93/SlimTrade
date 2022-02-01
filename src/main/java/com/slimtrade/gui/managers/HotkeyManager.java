@@ -1,14 +1,14 @@
 package com.slimtrade.gui.managers;
 
 import com.slimtrade.App;
-import com.slimtrade.core.data.*;
+import com.slimtrade.core.hotkeys.*;
+import com.slimtrade.core.managers.QuickPasteManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.util.HashMap;
 
 public class HotkeyManager {
 
-    private static HashMap<Integer, HotkeyActionMeh> hotkeyMapOld;
     private static HashMap<Integer, IHotkeyAction> hotkeyMap;
 
     public static void loadHotkeys() {
@@ -27,14 +27,12 @@ public class HotkeyManager {
         registerHotkey(App.saveManager.settingsSaveFile.menagerieHotkey, new PoeHotkey("/menagerie"));
         registerHotkey(App.saveManager.settingsSaveFile.metamorphHotkey, new PoeHotkey("/metamorph"));
         registerHotkey(App.saveManager.settingsSaveFile.remainingMonstersHotkey, new PoeHotkey("/remaining"));
+        // Quick Paste
+        if (App.saveManager.settingsSaveFile.quickPasteMode == QuickPasteManager.QuickPasteMode.HOTKEY)
+            registerHotkey(App.saveManager.settingsSaveFile.quickPasteHotkey, new QuickPasteHotkey());
     }
 
-    private static void addHotkey(KeystrokeData keystroke, HotkeyActionMeh action) {
-        if (keystroke == null) return;
-        hotkeyMapOld.put(keystroke.keyCode, action);
-    }
-
-    private static void registerHotkey(KeystrokeData keystroke, IHotkeyAction action) {
+    private static void registerHotkey(HotkeyData keystroke, IHotkeyAction action) {
         if (keystroke == null) return;
         hotkeyMap.put(keystroke.keyCode, action);
     }

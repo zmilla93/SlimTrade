@@ -1,7 +1,8 @@
 package com.slimtrade.core.saving;
 
 import com.slimtrade.core.audio.SoundComponent;
-import com.slimtrade.core.data.KeystrokeData;
+import com.slimtrade.core.hotkeys.HotkeyData;
+import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.ColorTheme;
 import com.slimtrade.core.utility.MacroButton;
 
@@ -15,6 +16,8 @@ public class SettingsSaveFile {
     public boolean colorBlindMode;
     public String characterName;
     public ColorTheme colorTheme;
+    public QuickPasteManager.QuickPasteMode quickPasteMode;
+    public HotkeyData quickPasteHotkey;
 
     public SoundComponent incomingSound;
     public SoundComponent outgoingSound;
@@ -26,21 +29,21 @@ public class SettingsSaveFile {
     public MacroButton[] outgoingMacroButtons;
 
     // SlimTrade Hotkeys
-    public KeystrokeData optionsHotkey;
-    public KeystrokeData historyHotkey;
-    public KeystrokeData chatScannerHotkey;
-    public KeystrokeData closeTradeHotkey;
+    public HotkeyData optionsHotkey;
+    public HotkeyData historyHotkey;
+    public HotkeyData chatScannerHotkey;
+    public HotkeyData closeTradeHotkey;
 
     // POE Hotkeys
-    public KeystrokeData delveHotkey;
-    public KeystrokeData doNotDisturbHotkey;
-    public KeystrokeData exitToMenuHotkey;
-    public KeystrokeData guildHideoutHotkey;
-    public KeystrokeData hideoutHotkey;
-    public KeystrokeData leavePartyHotkey;
-    public KeystrokeData menagerieHotkey;
-    public KeystrokeData metamorphHotkey;
-    public KeystrokeData remainingMonstersHotkey;
+    public HotkeyData delveHotkey;
+    public HotkeyData doNotDisturbHotkey;
+    public HotkeyData exitToMenuHotkey;
+    public HotkeyData guildHideoutHotkey;
+    public HotkeyData hideoutHotkey;
+    public HotkeyData leavePartyHotkey;
+    public HotkeyData menagerieHotkey;
+    public HotkeyData metamorphHotkey;
+    public HotkeyData remainingMonstersHotkey;
 
     // Link Hotkeys
 

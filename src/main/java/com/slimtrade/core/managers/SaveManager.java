@@ -3,7 +3,10 @@ package com.slimtrade.core.managers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.slimtrade.core.saving.*;
+import com.slimtrade.core.saving.BasicSavableComponent;
+import com.slimtrade.core.saving.ISavable;
+import com.slimtrade.core.saving.SavableComponent;
+import com.slimtrade.core.saving.SettingsSaveFile;
 import com.slimtrade.gui.managers.FrameManager;
 
 import javax.swing.*;
