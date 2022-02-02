@@ -26,24 +26,6 @@ public class Sound {
         } else {
             this.name = "UNKNOWN";
         }
-
-//        if (soundType == SoundType.INBUILT) {
-//            path = "audio" + File.separator + name.toLowerCase(Locale.ROOT).replaceAll(" ", "") + ".wav";
-//            this.name = name;
-//            this.url = getClass().getClassLoader().getResource(path);
-//        } else if (soundType == SoundType.CUSTOM) {
-//            path = SaveManager.getAudioDirectory() + name;
-//            this.name = name.replaceFirst("\\.wav\\Z", "");
-//            File file = new File(path);
-//            try {
-//                url = file.toURI().toURL();
-//            } catch (MalformedURLException e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            path = null;
-//            this.name = "UNKNOWN";
-//        }
     }
 
     public String getPath() {

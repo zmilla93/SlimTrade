@@ -1,11 +1,13 @@
 package com.slimtrade.gui.options.general;
 
 import com.slimtrade.App;
+import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ColorTheme;
 import com.slimtrade.gui.basic.HotkeyButton;
+import com.slimtrade.gui.managers.FrameManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +44,6 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
         outerPanel.setLayout(new GridBagLayout());
 
 
-
         // Add values to combos
         for (ColorTheme theme : ColorTheme.values()) colorTheme.addItem(theme);
         for (QuickPasteManager.QuickPasteMode mode : QuickPasteManager.QuickPasteMode.values())
@@ -64,6 +65,7 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
         add(outerPanel, BorderLayout.WEST);
 
         colorTheme.addActionListener(e -> ColorManager.setTheme((ColorTheme) colorTheme.getSelectedItem()));
+        editOverlayButton.addActionListener(e -> FrameManager.setWindowVisibility(AppState.EDIT_OVERLAY));
 
         App.saveManager.registerSaveElement(guildCheckbox, "showGuildName", App.saveManager.settingsSaveFile);
         App.saveManager.registerSaveElement(folderCheckbox, "folderOffset", App.saveManager.settingsSaveFile);

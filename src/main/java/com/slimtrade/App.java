@@ -31,6 +31,9 @@ public class App {
 
     public static boolean initialized;
 
+    public enum State{LOADING, RUNNING, EDIT_OVERLAY}
+    private static State state = State.LOADING;
+
     public static void main(String[] args) {
 
         // This setting gets rid of some rendering issues with transparent frames
@@ -53,7 +56,6 @@ public class App {
                 systemTrayManager = new SystemTrayManager();
                 // Initialize all GUI windows
                 FrameManager.init();
-                OverlayManager.init();
                 // Load save file to GUI
                 ColorManager.setTheme(saveManager.settingsSaveFile.colorTheme);
                 saveManager.revertChanges();
@@ -97,7 +99,17 @@ public class App {
         HotkeyManager.loadHotkeys();
 
         initialized = true;
-        System.out.println("Slimtrade Rebuild!");
+        setState(State.RUNNING);
+        System.out.println("Slimtrade Launched!");
+
+    }
+
+    public static void setState(State state){
+        App.state = state;
+    }
+
+    public static State getState(){
+        return App.state;
     }
 
     private static void closeProgram() {

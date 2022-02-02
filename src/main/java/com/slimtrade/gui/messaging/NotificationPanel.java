@@ -35,26 +35,11 @@ public abstract class NotificationPanel extends JPanel {
     private Timer secondTimer;
     private Timer minuteTimer;
 
-//    private Timer secondTimer = new Timer(1000, new ActionListener() {
-//        public void actionPerformed(ActionEvent e) {
-//            second++;
-//            if (second > 59) {
-//                secondTimer.stop();
-//                minuteTimer.start();
-//                timerLabel.setText("1m");
-//            } else {
-//                timerLabel.setText(second + "s");
-//            }
-//        }
-//    });
-//    private Timer minuteTimer = new Timer(60000, new ActionListener() {
-//        public void actionPerformed(ActionEvent e) {
-//            minute++;
-//            timerLabel.setText(minute + "m");
-//        }
-//    });
-
     protected void buildPanel() {
+        buildPanel(true);
+    }
+
+    protected void buildPanel(boolean createListeners) {
         setLayout(new GridBagLayout());
         JPanel border = new JPanel(new GridBagLayout());
         JPanel contentPanel = new JPanel(new BorderLayout());
@@ -86,7 +71,7 @@ public abstract class NotificationPanel extends JPanel {
         bottomPanel.add(bottomInfo, BorderLayout.CENTER);
         bottomPanel.add(bottomButtons, BorderLayout.EAST);
 
-        buildButtonPanels();
+        buildButtonPanels(createListeners);
 
         contentPanel.add(topPanel, BorderLayout.NORTH);
         contentPanel.add(bottomPanel, BorderLayout.SOUTH);
@@ -114,7 +99,8 @@ public abstract class NotificationPanel extends JPanel {
         setMinimumSize(new Dimension(targetWidth, getPreferredSize().height));
     }
 
-    private void buildButtonPanels() {
+    // TODO : Need to generalize this function
+    private void buildButtonPanels(boolean createListeners) {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
@@ -128,17 +114,18 @@ public abstract class NotificationPanel extends JPanel {
                 button = new NotificationTextButton(macro.text);
             else
                 button = new NotificationIconButton(macro.icon.path);
-            button.addMouseListener(new AdvancedMouseListener() {
-                @Override
-                public void click(MouseEvent e) {
-                    if (e.getButton() == MouseEvent.BUTTON1){
-                        PoeInterface.runCommand(macro.lmbResponse, tradeOffer);
+            if (createListeners) {
+                button.addMouseListener(new AdvancedMouseListener() {
+                    @Override
+                    public void click(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON1) {
+                            PoeInterface.runCommand(macro.lmbResponse, tradeOffer);
+                        } else if (e.getButton() == MouseEvent.BUTTON3) {
+                            PoeInterface.runCommand(macro.rmbResponse, tradeOffer);
+                        }
                     }
-                    else if (e.getButton() == MouseEvent.BUTTON3) {
-                        PoeInterface.runCommand(macro.rmbResponse, tradeOffer);
-                    }
-                }
-            });
+                });
+            }
             if (button.getPreferredSize().height > strutHeight) strutHeight = button.getPreferredSize().height;
             topButtons.add(button, gc);
             gc.gridx++;
@@ -155,17 +142,18 @@ public abstract class NotificationPanel extends JPanel {
                 button = new NotificationTextButton(macro.text);
             else
                 button = new NotificationIconButton(macro.icon.path);
-            button.addMouseListener(new AdvancedMouseListener() {
-                @Override
-                public void click(MouseEvent e) {
-                    if (e.getButton() == MouseEvent.BUTTON1){
-                        PoeInterface.runCommand(macro.lmbResponse, tradeOffer);
+            if (createListeners) {
+                button.addMouseListener(new AdvancedMouseListener() {
+                    @Override
+                    public void click(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON1) {
+                            PoeInterface.runCommand(macro.lmbResponse, tradeOffer);
+                        } else if (e.getButton() == MouseEvent.BUTTON3) {
+                            PoeInterface.runCommand(macro.rmbResponse, tradeOffer);
+                        }
                     }
-                    else if (e.getButton() == MouseEvent.BUTTON3) {
-                        PoeInterface.runCommand(macro.rmbResponse, tradeOffer);
-                    }
-                }
-            });
+                });
+            }
             if (button.getPreferredSize().height > strutHeight) strutHeight = button.getPreferredSize().height;
             bottomButtons.add(button, gc);
             gc.gridx++;

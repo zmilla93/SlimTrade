@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class HotkeyManager {
 
-    private static HashMap<Integer, IHotkeyAction> hotkeyMap;
+    private static HashMap<HotkeyData, IHotkeyAction> hotkeyMap;
 
     public static void loadHotkeys() {
         hotkeyMap = new HashMap<>();
@@ -32,14 +32,15 @@ public class HotkeyManager {
             registerHotkey(App.saveManager.settingsSaveFile.quickPasteHotkey, new QuickPasteHotkey());
     }
 
-    private static void registerHotkey(HotkeyData keystroke, IHotkeyAction action) {
-        if (keystroke == null) return;
-        hotkeyMap.put(keystroke.keyCode, action);
+    private static void registerHotkey(HotkeyData hotkeyData, IHotkeyAction action) {
+        if (hotkeyData == null) return;
+        hotkeyMap.put(hotkeyData, action);
     }
 
     public static void processHotkey(NativeKeyEvent e) {
         if (hotkeyMap == null) return;
-        IHotkeyAction hotkeyAction = hotkeyMap.get(e.getKeyCode());
+        HotkeyData data = new HotkeyData(e.getKeyCode(), e.getModifiers());
+        IHotkeyAction hotkeyAction = hotkeyMap.get(data);
         if (hotkeyAction == null) return;
         hotkeyAction.execute();
     }

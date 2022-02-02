@@ -26,16 +26,12 @@ public class TradeOffer {
 
     public static TradeOffer getTradeOffer(String input){
         TradeOffer trade = null;
-        System.out.println("INPUT: " + input);
         for (LangRegex l : App.languageManager.langList) {
             if (input.contains(l.wantToBuy)) {
                 for (Pattern pattern : l.quickPastePatterns) {
                     Matcher matcher = pattern.matcher(input);
                     if (matcher.matches()) {
                         trade = new TradeOffer();
-//                        trade.date = matcher.group("date").replaceAll("/", "-");
-//                        trade.time = matcher.group("time");
-//                        trade.offerType = getMessageType(matcher.group("messageType"));
                         trade.guildName = matcher.group("guildName");
                         trade.playerName = matcher.group("playerName");
                         trade.itemName = matcher.group("itemName");

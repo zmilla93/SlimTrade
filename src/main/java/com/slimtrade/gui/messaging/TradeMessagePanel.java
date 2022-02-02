@@ -20,6 +20,10 @@ public class TradeMessagePanel extends NotificationPanel {
     JPanel pricePanel = new JPanel(new GridBagLayout());
 
     public TradeMessagePanel(TradeOffer tradeOffer) {
+        this(tradeOffer, true);
+    }
+
+    public TradeMessagePanel(TradeOffer tradeOffer, boolean createListeners) {
         super();
         this.tradeOffer = tradeOffer;
 
@@ -70,7 +74,7 @@ public class TradeMessagePanel extends NotificationPanel {
         addTopPanel(pricePanel, 0.2f);
         addBottomPanel(getTimerPanel(), 0.05f);
         addBottomPanel(itemPanel, 0.95f);
-        buildPanel();
+        buildPanel(createListeners);
     }
 
     public TradeOffer getTradeOffer() {

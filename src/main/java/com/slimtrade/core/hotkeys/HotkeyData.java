@@ -20,4 +20,23 @@ public class HotkeyData {
         return NativeKeyEvent.getKeyText(keyCode);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof HotkeyData){
+            HotkeyData otherData = (HotkeyData) obj;
+            if(keyCode != otherData.keyCode) return false;
+            if(modifiers != otherData.modifiers) return false;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + keyCode;
+        result = 31 * result + modifiers;
+        return result;
+    }
+
 }

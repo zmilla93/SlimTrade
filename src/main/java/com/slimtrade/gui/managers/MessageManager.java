@@ -14,7 +14,7 @@ public class MessageManager extends JFrame implements ITradeListener {
     boolean expandUp = false;
 
 
-    private int MESSAGE_GAP = 2;
+    private int MESSAGE_GAP = 1;
     private Container container;
 
     private GridBagConstraints gc;

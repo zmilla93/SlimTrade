@@ -48,7 +48,9 @@ public class AbstractMovableDialog extends AbstractDialog {
             }
         };
 
-        getContentPane().addMouseListener(new MouseAdapter() {
+//        getGlassPane().setEnabled(true)
+        getGlassPane().setVisible(true);
+        getGlassPane().addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     mouseWindowX = e.getX();
@@ -58,7 +60,7 @@ public class AbstractMovableDialog extends AbstractDialog {
                 }
             }
         });
-        getContentPane().addMouseListener(new MouseAdapter() {
+        getGlassPane().addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     mouseDown = false;

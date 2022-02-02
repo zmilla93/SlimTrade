@@ -83,7 +83,6 @@ public class QuickPasteManager {
                         String newContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
                         if (newContents != null && !newContents.equals(clipboardContents)) {
                             clipboardContents = newContents;
-                            System.out.println(newContents);
                             attemptQuickPaste();
                         }
                     } catch (UnsupportedFlavorException | IOException | IllegalStateException e) {
