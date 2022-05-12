@@ -9,7 +9,7 @@ public class HistoryOptionPanel extends AbstractOptionPanel {
 
     JPanel contentPanel = new JPanel(new GridBagLayout());
 
-    public HistoryOptionPanel(){
+    public HistoryOptionPanel() {
         contentPanel.setLayout(new BorderLayout());
     }
 

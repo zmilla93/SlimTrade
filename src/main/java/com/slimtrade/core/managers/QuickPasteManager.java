@@ -17,6 +17,7 @@ public class QuickPasteManager {
     private static String clipboardContents;
 
     private static QuickPasteMode mode;
+
     public enum QuickPasteMode {
         DISABLED, HOTKEY, AUTOMATIC;
 
@@ -46,11 +47,11 @@ public class QuickPasteManager {
         HotkeyManager.loadHotkeys();
     }
 
-    public QuickPasteMode getMode(){
+    public QuickPasteMode getMode() {
         return mode;
     }
 
-    public static synchronized void attemptHotkeyQuickPaste(){
+    public static synchronized void attemptHotkeyQuickPaste() {
         try {
             clipboardContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
             TradeOffer offer = TradeOffer.getTradeOffer(clipboardContents);

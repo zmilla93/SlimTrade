@@ -6,16 +6,17 @@ import java.awt.*;
 
 public class AppHotkey implements IHotkeyAction {
 
-    public enum AppWindow{OPTIONS, HISTORY, CHAT_SCANNER}
+    public enum AppWindow {OPTIONS, HISTORY, CHAT_SCANNER}
+
     private AppWindow window;
 
-    public AppHotkey(AppWindow window){
+    public AppHotkey(AppWindow window) {
         this.window = window;
     }
 
     @Override
     public void execute() {
-        switch (window){
+        switch (window) {
             case OPTIONS:
                 toggleVisibility(FrameManager.optionsWindow);
                 break;
@@ -25,7 +26,7 @@ public class AppHotkey implements IHotkeyAction {
         }
     }
 
-    private void toggleVisibility(Window w){
+    private void toggleVisibility(Window w) {
         w.setVisible(!w.isVisible());
     }
 

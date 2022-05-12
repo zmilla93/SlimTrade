@@ -9,7 +9,6 @@ import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
-import com.slimtrade.gui.managers.OverlayManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -31,7 +30,8 @@ public class App {
 
     public static boolean initialized;
 
-    public enum State{LOADING, RUNNING, EDIT_OVERLAY}
+    public enum State {LOADING, RUNNING, EDIT_OVERLAY}
+
     private static State state = State.LOADING;
 
     public static void main(String[] args) {
@@ -49,7 +49,7 @@ public class App {
         hotkeyManager = new HotkeyManager();
         PoeInterface.init();
 
-        // Swing
+        // UI
         try {
             SwingUtilities.invokeAndWait(() -> {
                 // Init System Tray Button
@@ -104,11 +104,11 @@ public class App {
 
     }
 
-    public static void setState(State state){
+    public static void setState(State state) {
         App.state = state;
     }
 
-    public static State getState(){
+    public static State getState() {
         return App.state;
     }
 

@@ -1,11 +1,12 @@
 package com.slimtrade.gui.options.general;
 
+import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.utility.ZUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EnableFeaturesPanel extends JPanel {
+public class EnableFeaturesPanel extends JPanel implements ISavable {
 
     GridBagConstraints gc = ZUtil.getGC();
 
@@ -36,4 +37,13 @@ public class EnableFeaturesPanel extends JPanel {
         gc.gridy++;
     }
 
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public void load() {
+
+    }
 }

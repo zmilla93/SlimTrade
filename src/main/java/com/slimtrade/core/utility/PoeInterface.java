@@ -34,7 +34,7 @@ public class PoeInterface {
     }
 
     public static void paste() {
-        if(!isGameFocused()) return;
+        if (!isGameFocused()) return;
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
         robot.keyPress(KeyEvent.VK_ENTER);
@@ -59,7 +59,7 @@ public class PoeInterface {
     }
 
     public static void paste(String text) {
-        if(!isGameFocused()) return;
+        if (!isGameFocused()) return;
         StringSelection pasteString = new StringSelection(text);
         try {
             clipboard.setContents(pasteString, null);
@@ -85,7 +85,7 @@ public class PoeInterface {
                 focusGame();
             int maxWeight = 100;
             int wait = 0;
-            while(!isGameFocused() && wait < maxWeight){
+            while (!isGameFocused() && wait < maxWeight) {
                 try {
                     wait++;
                     Thread.sleep(1);
@@ -93,7 +93,7 @@ public class PoeInterface {
                     e.printStackTrace();
                 }
             }
-            if(!isGameFocused()) return;
+            if (!isGameFocused()) return;
             System.out.println("Waited: " + wait);
             ArrayList<String> commands = ZUtil.getCommandList(input, tradeOffer);
             if (commands.size() == 1) paste(commands.get(0));
@@ -114,7 +114,7 @@ public class PoeInterface {
     public static void runCommandOLD(String input, TradeOffer tradeOffer) {
         if (!isGameFocused())
             focusGame();
-        if(!isGameFocused())
+        if (!isGameFocused())
             return;
         ArrayList<String> commands = ZUtil.getCommandList(input, tradeOffer);
         if (commands.size() == 1) paste(commands.get(0));
@@ -132,7 +132,7 @@ public class PoeInterface {
         }
     }
 
-    public static void focusGame(){
+    public static void focusGame() {
         FrameManager.dummyWindow.setVisible(true);
         FrameManager.dummyWindow.setLocation(MouseInfo.getPointerInfo().getLocation());
         robot.mousePress(0);

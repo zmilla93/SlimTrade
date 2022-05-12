@@ -9,7 +9,7 @@ public abstract class AbstractDialog extends JDialog {
 
     protected Container container;
 
-    public AbstractDialog(){
+    public AbstractDialog() {
         setUndecorated(true);
         setAlwaysOnTop(true);
         setFocusable(false);

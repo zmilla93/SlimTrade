@@ -6,7 +6,8 @@ import com.google.gson.JsonSyntaxException;
 import com.slimtrade.core.saving.BasicSavableComponent;
 import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.saving.SavableComponent;
-import com.slimtrade.core.saving.SettingsSaveFile;
+import com.slimtrade.core.saving.savefiles.OverlaySaveFile;
+import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.gui.managers.FrameManager;
 
 import javax.swing.*;
@@ -23,7 +24,8 @@ public class SaveManager {
 
     // Save Files
     private final String settingsSaveName = "settings.json";
-    public SettingsSaveFile settingsSaveFile;
+    public SettingsSaveFile settingsSaveFile = new SettingsSaveFile();
+    public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
 
     // Subfolder Names
     private static final String audioFolderName = "audio";
@@ -74,6 +76,15 @@ public class SaveManager {
         }
     }
 
+    private void loadSaveSettings() {
+        File file = new File(getSaveDirectory() + settingsSaveName);
+        if (file.exists()) {
+            settingsSaveFile = gson.fromJson(getJsonString(file.getPath()), SettingsSaveFile.class);
+        } else {
+            settingsSaveFile = new SettingsSaveFile();
+        }
+    }
+
     public void revertChanges() {
         for (SavableComponent c : savableComponents) {
             c.load();
@@ -99,15 +110,6 @@ public class SaveManager {
             }
         }
         return saveDirectory;
-    }
-
-    private void loadSaveSettings() {
-        File file = new File(getSaveDirectory() + settingsSaveName);
-        if (file.exists()) {
-            settingsSaveFile = gson.fromJson(getJsonString(file.getPath()), SettingsSaveFile.class);
-        } else {
-            settingsSaveFile = new SettingsSaveFile();
-        }
     }
 
     private String getJsonString(String path) {

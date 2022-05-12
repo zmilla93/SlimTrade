@@ -11,6 +11,7 @@ public class HistoryTableModel extends AbstractTableModel {
 
     /**
      * Table model for the history window.
+     *
      * @param columnNames
      * @param data
      */
@@ -21,7 +22,7 @@ public class HistoryTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        if(data == null) return 0;
+        if (data == null) return 0;
         return data.size();
     }
 
@@ -32,6 +33,7 @@ public class HistoryTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int row, int column) {
+//        if(column == 3) return true;
         return false;
     }
 
@@ -57,19 +59,24 @@ public class HistoryTableModel extends AbstractTableModel {
         return columnNames[column];
     }
 
-    public void removeRow(int index){
+    public void removeRow(int index) {
         data.remove(0);
     }
 
-    public void addRow(HistoryRowData rowData){
+    public void addRow(HistoryRowData rowData) {
         data.add(rowData);
     }
 
-    public void setRowData(ArrayList<HistoryRowData> data){
+    public void setRowData(ArrayList<HistoryRowData> data) {
         this.data = data;
     }
 
-//    public void addRow(HistoryRowData rowData) {
+//    @Override
+//    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+//        super.setValueAt(aValue, rowIndex, columnIndex);
+//    }
+
+    //    public void addRow(HistoryRowData rowData) {
 //        int fieldCount =  HistoryRowData.class.getFields().length;
 //        Object[] obj = new Object[fieldCount];
 //        for(int i =0;i<fieldCount;i++){

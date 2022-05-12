@@ -3,15 +3,15 @@ package com.slimtrade.gui.managers;
 public class OverlayManager {
 
 
-    public static void save(){
+    public static void save() {
 
     }
 
-    public static void moveWindows(){
+    public static void moveWindows() {
 
     }
 
-    public static void revertToDefault(){
+    public static void revertToDefault() {
 
     }
 

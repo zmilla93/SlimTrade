@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class CommonStyles {
 
-    public static Border getBorder(){
+    public static Border getBorder() {
         return BorderFactory.createLineBorder(Color.red);
     }
 

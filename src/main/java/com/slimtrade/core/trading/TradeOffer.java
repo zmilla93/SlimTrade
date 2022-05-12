@@ -24,7 +24,7 @@ public class TradeOffer {
     public int stashtabY = 0;
     public String bonusText;
 
-    public static TradeOffer getTradeOffer(String input){
+    public static TradeOffer getTradeOffer(String input) {
         TradeOffer trade = null;
         for (LangRegex l : App.languageManager.langList) {
             if (input.contains(l.wantToBuy)) {

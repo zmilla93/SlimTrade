@@ -88,7 +88,7 @@ public class HistoryPanel extends JPanel {
         data.add(rowData);
         if (updateUI) {
             if (remove) table.getHistoryTableModel().removeRow(0);
-//            table.getHistoryTableModel().addRow(rowData);
+            table.getHistoryTableModel().addRow(rowData);
             table.getHistoryTableModel().fireTableDataChanged();
         }
     }

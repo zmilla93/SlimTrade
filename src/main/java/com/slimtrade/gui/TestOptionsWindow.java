@@ -5,9 +5,9 @@ import java.awt.*;
 
 public class TestOptionsWindow extends JFrame {
 
-    public TestOptionsWindow(){
+    public TestOptionsWindow() {
         super("Options");
-        setSize(600,600);
+        setSize(600, 600);
         Container container = getContentPane();
 
         String[] tabs = new String[]{"General", "Stash Tabs", "Macros"};

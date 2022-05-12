@@ -1,6 +1,6 @@
 package com.slimtrade.core.enums;
 
-public enum DefaultIcon{
+public enum DefaultIcon {
 
     ARROW_DOWN("/icons/default/arrow-downx48.png"),
     ARROW_UP("/icons/default/arrow-upx48.png"),

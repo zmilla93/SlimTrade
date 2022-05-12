@@ -28,7 +28,7 @@ public class AudioManager {
         rebuildSoundList();
     }
 
-    public ArrayList<Sound> getSoundFiles(){
+    public ArrayList<Sound> getSoundFiles() {
         return soundFiles;
     }
 
@@ -40,11 +40,12 @@ public class AudioManager {
     }
 
     private void addDefaultSoundFiles() {
-        soundFiles.add(new Sound("Ping 1",  Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Ping 2",  Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Blip 1",  Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Blip 2",  Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Blip 3",  Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Ping 1", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Ping 2", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Test", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Blip 1", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Blip 2", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Blip 3", Sound.SoundType.INBUILT));
     }
 
     private void addCustomSoundFiles() {
@@ -52,24 +53,25 @@ public class AudioManager {
         if (audioDir.exists()) {
             for (File file : Objects.requireNonNull(audioDir.listFiles())) {
                 if (file.getName().endsWith(".wav")) {
-                    soundFiles.add(new Sound(file.getName(),  Sound.SoundType.CUSTOM));
+                    soundFiles.add(new Sound(file.getName(), Sound.SoundType.CUSTOM));
                 }
             }
         }
     }
 
-    public int indexOfSound(String name){
-        for( int i = 0;i<soundFiles.size();i++){
-           Sound sound = soundFiles.get(i);
-           if(sound.name.equals(name)){
-               return i;
-           }
+    public int indexOfSound(String name) {
+        for (int i = 0; i < soundFiles.size(); i++) {
+            Sound sound = soundFiles.get(i);
+            if (sound.name.equals(name)) {
+                return i;
+            }
         }
         return -1;
     }
 
     // Expected volume is 0 - 100
     public void playSoundPercent(Sound sound, int volume) {
+        if (volume == 0) return;
         playSoundRaw(sound, percentToRange(volume));
     }
 
@@ -92,9 +94,9 @@ public class AudioManager {
         AudioInputStream stream;
         try {
             Clip clip = AudioSystem.getClip();
-            if(sound.soundType == Sound.SoundType.CUSTOM){
+            if (sound.soundType == Sound.SoundType.CUSTOM) {
                 File file = new File(sound.getPath());
-                if(!file.exists()) return null;
+                if (!file.exists()) return null;
             }
             stream = AudioSystem.getAudioInputStream(sound.getURL());
             clip.open(stream);

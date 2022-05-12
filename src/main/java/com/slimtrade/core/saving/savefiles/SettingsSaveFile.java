@@ -1,4 +1,4 @@
-package com.slimtrade.core.saving;
+package com.slimtrade.core.saving.savefiles;
 
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.hotkeys.HotkeyData;

@@ -57,7 +57,7 @@ public enum ColorTheme {
 
     @Override
     public String toString() {
-        if(cleanName == null){
+        if (cleanName == null) {
             cleanName = ZUtil.enumToString(name());
         }
         return cleanName;

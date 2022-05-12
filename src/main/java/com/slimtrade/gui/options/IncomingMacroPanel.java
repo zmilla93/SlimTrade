@@ -20,8 +20,8 @@ public class IncomingMacroPanel extends AbstractMacroOptionPanel implements ISav
     @Override
     public void load() {
         clearMacros();
-        if(App.saveManager.settingsSaveFile.incomingMacroButtons == null) return;
-        for(MacroButton macro : App.saveManager.settingsSaveFile.incomingMacroButtons){
+        if (App.saveManager.settingsSaveFile.incomingMacroButtons == null) return;
+        for (MacroButton macro : App.saveManager.settingsSaveFile.incomingMacroButtons) {
             addMacro(macro);
         }
     }

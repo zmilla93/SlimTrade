@@ -12,9 +12,10 @@ public class HistoryRowData {
 
     /**
      * Stores data needed to display a trade in the history window.
+     *
      * @param tradeOffer
      */
-    public HistoryRowData(TradeOffer tradeOffer){
+    public HistoryRowData(TradeOffer tradeOffer) {
         date = tradeOffer.date;
         time = tradeOffer.time;
         player = tradeOffer.playerName;

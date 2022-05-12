@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
-public class ColorManager <T> {
+public class ColorManager<T> {
 
     private static List<Component> frames = new ArrayList<>();
     private static ColorTheme currentTheme;
@@ -41,11 +41,11 @@ public class ColorManager <T> {
 
     // Sticky combos are JComboBoxes that contain colored icons.
     // These combos need to be manually updated when switching themes.
-    public static void addStickyCombo(JComboBox combo){
+    public static void addStickyCombo(JComboBox combo) {
         stickyCombos.add(combo);
     }
 
-    public static void removeStickyCombo(JComboBox combo){
+    public static void removeStickyCombo(JComboBox combo) {
         stickyCombos.remove(combo);
     }
 
@@ -55,7 +55,7 @@ public class ColorManager <T> {
 
     public static void setTheme(ColorTheme theme, boolean forceRefresh) {
         int[] comboIcons = new int[stickyCombos.size()];
-        for(int i = 0;i<stickyCombos.size();i++){
+        for (int i = 0; i < stickyCombos.size(); i++) {
             comboIcons[i] = stickyCombos.get(i).getSelectedIndex();
         }
         iconMap.clear();
@@ -70,13 +70,13 @@ public class ColorManager <T> {
         ColorManager.setUIFont(font);
         for (Component frame : frames) {
             JRootPane rootPane = null;
-            if(frame instanceof RootPaneContainer) rootPane = ((RootPaneContainer) frame).getRootPane();
-            if(rootPane != null){
+            if (frame instanceof RootPaneContainer) rootPane = ((RootPaneContainer) frame).getRootPane();
+            if (rootPane != null) {
                 SwingUtilities.updateComponentTreeUI(rootPane);
                 frame.revalidate();
             }
         }
-        for(int i = 0;i<stickyCombos.size();i++){
+        for (int i = 0; i < stickyCombos.size(); i++) {
             stickyCombos.get(i).setSelectedIndex(comboIcons[i]);
         }
     }

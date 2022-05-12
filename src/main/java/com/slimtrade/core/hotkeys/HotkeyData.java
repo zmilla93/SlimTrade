@@ -22,10 +22,10 @@ public class HotkeyData {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof HotkeyData){
+        if (obj instanceof HotkeyData) {
             HotkeyData otherData = (HotkeyData) obj;
-            if(keyCode != otherData.keyCode) return false;
-            if(modifiers != otherData.modifiers) return false;
+            if (keyCode != otherData.keyCode) return false;
+            if (modifiers != otherData.modifiers) return false;
             return true;
         }
         return false;

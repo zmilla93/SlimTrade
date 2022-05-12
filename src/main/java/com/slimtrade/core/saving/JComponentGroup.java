@@ -6,7 +6,7 @@ public class JComponentGroup<T> {
 
     JComponent[] components;
 
-    public<T> JComponentGroup(JComponent[] components) {
+    public <T> JComponentGroup(JComponent[] components) {
 
     }
 

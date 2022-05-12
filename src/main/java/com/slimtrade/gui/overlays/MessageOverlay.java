@@ -24,7 +24,7 @@ public class MessageOverlay extends AbstractMovableDialog {
 
 
         pack();
-        setLocation(0,0);
+        setLocation(0, 0);
     }
 
 }

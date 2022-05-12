@@ -69,7 +69,7 @@ public class TestNotificationPanel extends JPanel {
         addElement(testRow);
         newLine();
 
-                // Row #2
+        // Row #2
 
         addElement(new SlimButton("cool"));
         addElement(new SlimButton("beans"));

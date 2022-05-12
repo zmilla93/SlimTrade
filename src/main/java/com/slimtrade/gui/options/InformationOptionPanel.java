@@ -7,9 +7,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class InformationOptionPanel extends AbstractOptionPanel{
+public class InformationOptionPanel extends AbstractOptionPanel {
 
-    public InformationOptionPanel(){
+    public InformationOptionPanel() {
         contentPanel.add(new JLabel("Info!"));
 
         JButton saveFolderButton = new JButton("Open Install Folder");

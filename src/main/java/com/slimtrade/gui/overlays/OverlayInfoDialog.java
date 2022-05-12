@@ -1,5 +1,6 @@
 package com.slimtrade.gui.overlays;
 
+import com.slimtrade.App;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.managers.FrameManager;
@@ -70,6 +71,24 @@ public class OverlayInfoDialog extends AbstractDialog {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                FrameManager.setWindowVisibility(AppState.RUNNING);
+                FrameManager.messageOverlay.setLocation(FrameManager.messageManager.getLocation());
+            }
+        });
+
+        restoreDefaultButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrameManager.messageOverlay.setLocation(0, 0);
+            }
+        });
+
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Point targetPos = FrameManager.messageOverlay.getLocation();
+                App.saveManager.overlaySaveFile.messageLocation = targetPos;
+                FrameManager.messageManager.setLocation(targetPos);
                 FrameManager.setWindowVisibility(AppState.RUNNING);
             }
         });

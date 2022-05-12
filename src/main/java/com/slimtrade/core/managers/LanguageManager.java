@@ -8,7 +8,7 @@ public class LanguageManager {
 
     public ArrayList<LangRegex> langList;
 
-    public LanguageManager(){
+    public LanguageManager() {
         langList = new ArrayList<>();
 
         // English

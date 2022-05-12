@@ -7,7 +7,7 @@ import com.slimtrade.core.utility.MacroButton;
 
 public class OutgoingMacroPanel extends AbstractMacroOptionPanel implements ISavable {
 
-    public OutgoingMacroPanel(){
+    public OutgoingMacroPanel() {
         super(MessageType.OUTGOING_TRADE);
         App.saveManager.registerSavable(this);
     }
@@ -20,8 +20,8 @@ public class OutgoingMacroPanel extends AbstractMacroOptionPanel implements ISav
     @Override
     public void load() {
         clearMacros();
-        if(App.saveManager.settingsSaveFile.outgoingMacroButtons == null) return;
-        for(MacroButton macro : App.saveManager.settingsSaveFile.outgoingMacroButtons){
+        if (App.saveManager.settingsSaveFile.outgoingMacroButtons == null) return;
+        for (MacroButton macro : App.saveManager.settingsSaveFile.outgoingMacroButtons) {
             addMacro(macro);
         }
     }

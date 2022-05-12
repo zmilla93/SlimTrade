@@ -3,6 +3,7 @@ package com.slimtrade.core.saving;
 public interface SavableComponent {
 
     void save();
+
     void load();
 
 //    private Object saveFile;

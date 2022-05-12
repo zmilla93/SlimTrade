@@ -74,6 +74,6 @@ public class MessageManager extends JFrame implements ITradeListener {
 
     @Override
     public void handleTrade(TradeOffer tradeOffer) {
-            SwingUtilities.invokeLater(() -> addMessage(tradeOffer));
+        SwingUtilities.invokeLater(() -> addMessage(tradeOffer));
     }
 }

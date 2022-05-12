@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class TableIntRenderer extends JButton implements TableCellRenderer {
 
-    public TableIntRenderer(){
+    public TableIntRenderer() {
         setText("TABLEINTRENDERER");
     }
 

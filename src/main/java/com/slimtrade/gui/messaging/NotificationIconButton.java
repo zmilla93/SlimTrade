@@ -21,7 +21,7 @@ public class NotificationIconButton extends JButton {
     public void updateUI() {
         super.updateUI();
         setBorder(BorderFactory.createEmptyBorder(ICON_INSET, ICON_INSET, ICON_INSET, ICON_INSET));
-        if (App.initialized && path != null){
+        if (App.initialized && path != null) {
             setIcon(ColorManager.getIcon(path));
         }
     }

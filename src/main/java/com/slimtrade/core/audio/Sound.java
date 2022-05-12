@@ -29,7 +29,7 @@ public class Sound {
     }
 
     public String getPath() {
-        if(path == null){
+        if (path == null) {
             if (soundType == SoundType.INBUILT) {
                 path = "audio" + File.separator + name.toLowerCase(Locale.ROOT).replaceAll(" ", "") + ".wav";
             } else if (soundType == SoundType.CUSTOM) {
@@ -40,7 +40,7 @@ public class Sound {
     }
 
     public URL getURL() {
-        if(url == null){
+        if (url == null) {
             if (soundType == SoundType.INBUILT) {
                 this.url = getClass().getClassLoader().getResource(getPath());
             } else if (soundType == SoundType.CUSTOM) {

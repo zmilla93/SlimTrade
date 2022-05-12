@@ -121,7 +121,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     private void setAudioRow(int index, SoundComponent row) {
-        if(row.sound == null) return;
+        if (row == null || row.sound == null) return;
         int soundIndex = App.audioManager.indexOfSound(row.sound.name);
         comboList.get(index).setSelectedIndex(soundIndex);
         sliderList.get(index).setValue(row.volume);
@@ -139,6 +139,8 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     @Override
     public void load() {
         refreshCombos();
+        // FIXME:
+        if (App.saveManager.settingsSaveFile == null) return;
         setAudioRow(0, App.saveManager.settingsSaveFile.incomingSound);
         setAudioRow(1, App.saveManager.settingsSaveFile.outgoingSound);
         setAudioRow(2, App.saveManager.settingsSaveFile.chatScannerSound);
