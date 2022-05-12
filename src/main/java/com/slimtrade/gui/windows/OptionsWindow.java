@@ -20,6 +20,7 @@ public class OptionsWindow extends AbstractWindow {
     public OptionsWindow() {
         super("Options");
         setSize(900, 600);
+        setLocationRelativeTo(null);
         container.setLayout(new BorderLayout());
 
         incomingMacroPanel = new IncomingMacroPanel();
