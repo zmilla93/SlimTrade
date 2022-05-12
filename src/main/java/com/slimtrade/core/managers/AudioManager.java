@@ -21,6 +21,8 @@ public class AudioManager {
     private final HashMap<Sound, Clip> clipCache = new HashMap<>();
     private final HashMap<Clip, AudioInputStream> streamCache = new HashMap<>();
 
+    private int customCount;
+
     /**
      * Handles playback of audio clips.
      */
@@ -48,11 +50,13 @@ public class AudioManager {
     }
 
     private void addCustomSoundFiles() {
+        customCount = 0;
         File audioDir = new File(SaveManager.getAudioDirectory());
         if (audioDir.exists()) {
             for (File file : Objects.requireNonNull(audioDir.listFiles())) {
                 if (file.getName().endsWith(".wav")) {
                     soundFiles.add(new Sound(file.getName(), Sound.SoundType.CUSTOM));
+                    customCount++;
                 }
             }
         }
@@ -66,6 +70,10 @@ public class AudioManager {
             }
         }
         return -1;
+    }
+
+    public int getCustomFileCount(){
+        return customCount;
     }
 
     // Expected volume is 0 - 100

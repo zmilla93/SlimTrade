@@ -29,6 +29,8 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     private ArrayList<JSlider> sliderList = new ArrayList<>(5);
     private ArrayList<String> audioFiles = new ArrayList<>();
 
+    private JLabel customAudioLabel = new JLabel();
+
     public AudioOptionPanel() {
         gc.gridx = 0;
         gc.gridy = 0;
@@ -55,6 +57,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         label.bold = true;
         addPanel(label);
         addPanel(customButtons);
+        addPanel(customAudioLabel);
 
         openFolderButton.addActionListener(e -> {
             File file = new File(SaveManager.getAudioDirectory());
@@ -71,6 +74,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
                 App.audioManager.clearCache();
                 App.audioManager.rebuildSoundList();
+                updateInfoLabel();
                 refreshCombos();
                 load();
             }
@@ -101,10 +105,10 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         gc.gridx = 0;
         gc.gridy++;
 
+        updateInfoLabel();
         previewButton.addActionListener(e -> {
             App.audioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue());
         });
-
     }
 
     private void refreshCombos() {
@@ -125,6 +129,18 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         int soundIndex = App.audioManager.indexOfSound(row.sound.name);
         comboList.get(index).setSelectedIndex(soundIndex);
         sliderList.get(index).setValue(row.volume);
+    }
+
+    public void updateInfoLabel(){
+        int count = App.audioManager.getCustomFileCount();
+        if(count == 0){
+            customAudioLabel.setText("No custom files loaded.");
+        }
+        else if (count == 1){
+            customAudioLabel.setText("1 custom file loaded.");
+        }else{
+            customAudioLabel.setText(count + " custom files loaded.");
+        }
     }
 
     @Override
