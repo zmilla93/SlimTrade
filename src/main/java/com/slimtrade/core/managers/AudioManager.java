@@ -42,7 +42,6 @@ public class AudioManager {
     private void addDefaultSoundFiles() {
         soundFiles.add(new Sound("Ping 1", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Ping 2", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Test", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 1", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 2", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 3", Sound.SoundType.INBUILT));

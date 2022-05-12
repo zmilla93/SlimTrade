@@ -1,7 +1,7 @@
 package com.slimtrade.gui.messaging;
 
-import com.slimtrade.App;
 import com.slimtrade.core.enums.ButtonRow;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
@@ -47,8 +47,8 @@ public class TradeMessagePanel extends NotificationPanel {
         if (tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING) {
             borderColor = ColorManager.GREEN_SALE;
             pricePanel.setBackground(ColorManager.GREEN_SALE);
-            if (App.saveManager.settingsSaveFile.incomingMacroButtons != null) {
-                for (MacroButton button : App.saveManager.settingsSaveFile.incomingMacroButtons) {
+            if (SaveManager.settingsSaveFile.data.incomingMacroButtons != null) {
+                for (MacroButton button : SaveManager.settingsSaveFile.data.incomingMacroButtons) {
                     if (button.row == ButtonRow.TOP_ROW)
                         topButtons.add(button);
                     else
@@ -58,8 +58,8 @@ public class TradeMessagePanel extends NotificationPanel {
         } else if (tradeOffer.offerType == TradeOffer.TradeOfferType.OUTGOING) {
             borderColor = ColorManager.RED_SALE;
             pricePanel.setBackground(ColorManager.RED_SALE);
-            if (App.saveManager.settingsSaveFile.outgoingMacroButtons != null) {
-                for (MacroButton button : App.saveManager.settingsSaveFile.outgoingMacroButtons) {
+            if (SaveManager.settingsSaveFile.data.outgoingMacroButtons != null) {
+                for (MacroButton button : SaveManager.settingsSaveFile.data.outgoingMacroButtons) {
                     if (button.row == ButtonRow.TOP_ROW)
                         topButtons.add(button);
                     else

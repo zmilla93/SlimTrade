@@ -1,13 +1,13 @@
 package com.slimtrade.gui.options.general;
 
-import com.slimtrade.App;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.QuickPasteManager;
-import com.slimtrade.core.saving.ISavable;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ColorTheme;
 import com.slimtrade.gui.basic.HotkeyButton;
 import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,12 +67,13 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
         colorTheme.addActionListener(e -> ColorManager.setTheme((ColorTheme) colorTheme.getSelectedItem()));
         editOverlayButton.addActionListener(e -> FrameManager.setWindowVisibility(AppState.EDIT_OVERLAY));
 
-        App.saveManager.registerSaveElement(guildCheckbox, "showGuildName", App.saveManager.settingsSaveFile);
-        App.saveManager.registerSaveElement(folderCheckbox, "folderOffset", App.saveManager.settingsSaveFile);
-        App.saveManager.registerSaveElement(colorBlindCheckbox, "colorBlindMode", App.saveManager.settingsSaveFile);
-        App.saveManager.registerSaveElement(characterName, "characterName", App.saveManager.settingsSaveFile);
-        App.saveManager.registerSaveElement(colorTheme, "colorTheme", App.saveManager.settingsSaveFile);
-        App.saveManager.registerSavable(this);
+//        App.saveManager.registerSaveElement(guildCheckbox, "showGuildName", App.saveManager.settingsSaveFile);
+//        App.saveManager.registerSaveElement(folderCheckbox, "folderOffset", App.saveManager.settingsSaveFile);
+//        App.saveManager.registerSaveElement(colorBlindCheckbox, "colorBlindMode", App.saveManager.settingsSaveFile);
+//        App.saveManager.registerSaveElement(characterName, "characterName", App.saveManager.settingsSaveFile);
+//        App.saveManager.registerSaveElement(colorTheme, "colorTheme", App.saveManager.settingsSaveFile);
+//        App.saveManager.registerSavable(this);
+//        SaveManager.settingsSaveFile.registerComponent(showGuildName);
     }
 
     private void addLabelComponentPair(String text, JComponent component) {
@@ -113,16 +114,28 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
 
     @Override
     public void save() {
-        App.saveManager.settingsSaveFile.quickPasteMode = (QuickPasteManager.QuickPasteMode) quickPasteCombo.getSelectedItem();
-        App.saveManager.settingsSaveFile.quickPasteHotkey = quickPasteHotkey.getData();
-        QuickPasteManager.setMode(App.saveManager.settingsSaveFile.quickPasteMode);
+        SaveManager.settingsSaveFile.data.showGuildName = showGuildName.isSelected();
+        SaveManager.settingsSaveFile.data.folderOffset = folderOffset.isSelected();
+        SaveManager.settingsSaveFile.data.colorBlindMode = colorBlind.isSelected();
+        SaveManager.settingsSaveFile.data.characterName = characterName.getText();
+        SaveManager.settingsSaveFile.data.colorTheme = (ColorTheme) colorTheme.getSelectedItem();
+
+        SaveManager.settingsSaveFile.data.quickPasteMode = (QuickPasteManager.QuickPasteMode) quickPasteCombo.getSelectedItem();
+        SaveManager.settingsSaveFile.data.quickPasteHotkey = quickPasteHotkey.getData();
+        QuickPasteManager.setMode(SaveManager.settingsSaveFile.data.quickPasteMode);
     }
 
     @Override
     public void load() {
-        quickPasteCombo.setSelectedItem(App.saveManager.settingsSaveFile.quickPasteMode);
-        quickPasteHotkey.setData(App.saveManager.settingsSaveFile.quickPasteHotkey);
-        QuickPasteManager.setMode(App.saveManager.settingsSaveFile.quickPasteMode);
+        showGuildName.setSelected(SaveManager.settingsSaveFile.data.showGuildName);
+        folderOffset.setSelected(SaveManager.settingsSaveFile.data.folderOffset);
+        colorBlind.setSelected(SaveManager.settingsSaveFile.data.colorBlindMode);
+        characterName.setText(SaveManager.settingsSaveFile.data.characterName);
+        colorTheme.setSelectedItem(SaveManager.settingsSaveFile.data.colorTheme);
+
+        quickPasteCombo.setSelectedItem(SaveManager.settingsSaveFile.data.quickPasteMode);
+        quickPasteHotkey.setData(SaveManager.settingsSaveFile.data.quickPasteHotkey);
+        QuickPasteManager.setMode(SaveManager.settingsSaveFile.data.quickPasteMode);
     }
 
 }

@@ -5,10 +5,10 @@ import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.gui.basic.ColorLabel;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,7 +76,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
             }
         });
 
-        App.saveManager.registerSavable(this);
+//        App.saveManager.registerSavable(this);
 
     }
 
@@ -129,11 +129,11 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     @Override
     public void save() {
-        App.saveManager.settingsSaveFile.incomingSound = getAudioRow(0);
-        App.saveManager.settingsSaveFile.outgoingSound = getAudioRow(1);
-        App.saveManager.settingsSaveFile.chatScannerSound = getAudioRow(2);
-        App.saveManager.settingsSaveFile.playerJoinedAreaSound = getAudioRow(3);
-        App.saveManager.settingsSaveFile.updateSound = getAudioRow(4);
+        SaveManager.settingsSaveFile.data.incomingSound = getAudioRow(0);
+        SaveManager.settingsSaveFile.data.outgoingSound = getAudioRow(1);
+        SaveManager.settingsSaveFile.data.chatScannerSound = getAudioRow(2);
+        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = getAudioRow(3);
+        SaveManager.settingsSaveFile.data.updateSound = getAudioRow(4);
     }
 
     @Override
@@ -141,11 +141,11 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         refreshCombos();
         // FIXME:
         if (App.saveManager.settingsSaveFile == null) return;
-        setAudioRow(0, App.saveManager.settingsSaveFile.incomingSound);
-        setAudioRow(1, App.saveManager.settingsSaveFile.outgoingSound);
-        setAudioRow(2, App.saveManager.settingsSaveFile.chatScannerSound);
-        setAudioRow(3, App.saveManager.settingsSaveFile.playerJoinedAreaSound);
-        setAudioRow(4, App.saveManager.settingsSaveFile.updateSound);
+        setAudioRow(0, SaveManager.settingsSaveFile.data.incomingSound);
+        setAudioRow(1, SaveManager.settingsSaveFile.data.outgoingSound);
+        setAudioRow(2, SaveManager.settingsSaveFile.data.chatScannerSound);
+        setAudioRow(3, SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+        setAudioRow(4, SaveManager.settingsSaveFile.data.updateSound);
     }
 
 }

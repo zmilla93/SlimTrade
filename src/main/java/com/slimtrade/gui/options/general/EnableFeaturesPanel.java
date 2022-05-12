@@ -1,7 +1,7 @@
 package com.slimtrade.gui.options.general;
 
-import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.App;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.buttons.ColorButton;
 import com.slimtrade.gui.managers.HotkeyManager;
@@ -72,14 +72,14 @@ public class OptionsWindow extends AbstractWindow {
         // Listeners
         saveButton.addActionListener(e ->
         {
-            App.saveManager.saveToFile();
+            SaveManager.settingsSaveFile.saveToDisk();
             HotkeyManager.loadHotkeys();
             reloadExampleTrades();
             revalidate();
 //            FrameManager.optionsWindow
         });
 
-        revertButton.addActionListener(e -> App.saveManager.revertChanges());
+        revertButton.addActionListener(e -> SaveManager.settingsSaveFile.revertChanges());
 
         // Finalize
         setMinimumSize(new Dimension(300, 200));

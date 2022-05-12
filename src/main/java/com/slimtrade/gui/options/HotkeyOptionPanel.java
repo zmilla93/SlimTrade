@@ -1,9 +1,9 @@
 package com.slimtrade.gui.options;
 
-import com.slimtrade.App;
-import com.slimtrade.core.saving.ISavable;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.gui.basic.HotkeyButton;
+import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,8 +61,7 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         addPanel(Box.createVerticalStrut(GUIReferences.INSET));
         addHeader("Path of Exile Hotkeys");
         addPanel(poeHotkeyPanel);
-
-        App.saveManager.registerSavable(this);
+//        App.saveManager.registerSavable(this);
     }
 
     private void addHotkey(JPanel panel, String name, HotkeyButton hotkey) {
@@ -78,38 +77,38 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
     @Override
     public void save() {
         // SlimTrade
-        App.saveManager.settingsSaveFile.optionsHotkey = options.getData();
-        App.saveManager.settingsSaveFile.historyHotkey = history.getData();
-        App.saveManager.settingsSaveFile.chatScannerHotkey = chatScanner.getData();
-        App.saveManager.settingsSaveFile.closeTradeHotkey = closeOldestTrade.getData();
+        SaveManager.settingsSaveFile.data.optionsHotkey = options.getData();
+        SaveManager.settingsSaveFile.data.historyHotkey = history.getData();
+        SaveManager.settingsSaveFile.data.chatScannerHotkey = chatScanner.getData();
+        SaveManager.settingsSaveFile.data.closeTradeHotkey = closeOldestTrade.getData();
         // POE
-        App.saveManager.settingsSaveFile.delveHotkey = delve.getData();
-        App.saveManager.settingsSaveFile.doNotDisturbHotkey = doNotDisturb.getData();
-        App.saveManager.settingsSaveFile.exitToMenuHotkey = exitToMenu.getData();
-        App.saveManager.settingsSaveFile.guildHideoutHotkey = guildHideout.getData();
-        App.saveManager.settingsSaveFile.hideoutHotkey = hideout.getData();
-        App.saveManager.settingsSaveFile.leavePartyHotkey = leaveParty.getData();
-        App.saveManager.settingsSaveFile.menagerieHotkey = menagerie.getData();
-        App.saveManager.settingsSaveFile.metamorphHotkey = metamorph.getData();
-        App.saveManager.settingsSaveFile.remainingMonstersHotkey = remainingMonsters.getData();
+        SaveManager.settingsSaveFile.data.delveHotkey = delve.getData();
+        SaveManager.settingsSaveFile.data.doNotDisturbHotkey = doNotDisturb.getData();
+        SaveManager.settingsSaveFile.data.exitToMenuHotkey = exitToMenu.getData();
+        SaveManager.settingsSaveFile.data.guildHideoutHotkey = guildHideout.getData();
+        SaveManager.settingsSaveFile.data.hideoutHotkey = hideout.getData();
+        SaveManager.settingsSaveFile.data.leavePartyHotkey = leaveParty.getData();
+        SaveManager.settingsSaveFile.data.menagerieHotkey = menagerie.getData();
+        SaveManager.settingsSaveFile.data.metamorphHotkey = metamorph.getData();
+        SaveManager.settingsSaveFile.data.remainingMonstersHotkey = remainingMonsters.getData();
     }
 
     @Override
     public void load() {
         // SlimTrade
-        options.setData(App.saveManager.settingsSaveFile.optionsHotkey);
-        history.setData(App.saveManager.settingsSaveFile.historyHotkey);
-        chatScanner.setData(App.saveManager.settingsSaveFile.chatScannerHotkey);
-        closeOldestTrade.setData(App.saveManager.settingsSaveFile.closeTradeHotkey);
+        options.setData(SaveManager.settingsSaveFile.data.optionsHotkey);
+        history.setData(SaveManager.settingsSaveFile.data.historyHotkey);
+        chatScanner.setData(SaveManager.settingsSaveFile.data.chatScannerHotkey);
+        closeOldestTrade.setData(SaveManager.settingsSaveFile.data.closeTradeHotkey);
         // POE
-        delve.setData(App.saveManager.settingsSaveFile.delveHotkey);
-        doNotDisturb.setData(App.saveManager.settingsSaveFile.doNotDisturbHotkey);
-        exitToMenu.setData(App.saveManager.settingsSaveFile.exitToMenuHotkey);
-        guildHideout.setData(App.saveManager.settingsSaveFile.guildHideoutHotkey);
-        hideout.setData(App.saveManager.settingsSaveFile.hideoutHotkey);
-        leaveParty.setData(App.saveManager.settingsSaveFile.leavePartyHotkey);
-        menagerie.setData(App.saveManager.settingsSaveFile.menagerieHotkey);
-        metamorph.setData(App.saveManager.settingsSaveFile.metamorphHotkey);
-        remainingMonsters.setData(App.saveManager.settingsSaveFile.remainingMonstersHotkey);
+        delve.setData(SaveManager.settingsSaveFile.data.delveHotkey);
+        doNotDisturb.setData(SaveManager.settingsSaveFile.data.doNotDisturbHotkey);
+        exitToMenu.setData(SaveManager.settingsSaveFile.data.exitToMenuHotkey);
+        guildHideout.setData(SaveManager.settingsSaveFile.data.guildHideoutHotkey);
+        hideout.setData(SaveManager.settingsSaveFile.data.hideoutHotkey);
+        leaveParty.setData(SaveManager.settingsSaveFile.data.leavePartyHotkey);
+        menagerie.setData(SaveManager.settingsSaveFile.data.menagerieHotkey);
+        metamorph.setData(SaveManager.settingsSaveFile.data.metamorphHotkey);
+        remainingMonsters.setData(SaveManager.settingsSaveFile.data.remainingMonstersHotkey);
     }
 }

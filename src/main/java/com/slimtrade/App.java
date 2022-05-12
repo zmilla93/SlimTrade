@@ -57,8 +57,9 @@ public class App {
                 // Initialize all GUI windows
                 FrameManager.init();
                 // Load save file to GUI
-                ColorManager.setTheme(saveManager.settingsSaveFile.colorTheme);
-                saveManager.revertChanges();
+                ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme);
+                SaveManager.settingsSaveFile.registerSavableContainer(FrameManager.optionsWindow);
+                SaveManager.settingsSaveFile.revertChanges();
                 FrameManager.optionsWindow.reloadExampleTrades();
                 FrameManager.optionsWindow.revalidate();
 

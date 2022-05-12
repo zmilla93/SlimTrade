@@ -1,18 +1,12 @@
 package com.slimtrade.core.managers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.slimtrade.core.saving.BasicSavableComponent;
-import com.slimtrade.core.saving.ISavable;
 import com.slimtrade.core.saving.SavableComponent;
 import com.slimtrade.core.saving.savefiles.OverlaySaveFile;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
-import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.modules.saving.ISavable;
+import com.slimtrade.modules.saving.SaveFile;
 
-import javax.swing.*;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
 import java.util.ArrayList;
 
 public class SaveManager {
@@ -23,8 +17,8 @@ public class SaveManager {
     private static final String folderOther = ".slimtrade-rebuild";
 
     // Save Files
-    private final String settingsSaveName = "settings.json";
-    public SettingsSaveFile settingsSaveFile = new SettingsSaveFile();
+    private static final String settingsSaveName = "settings.json";
+    //    public SettingsSaveFile settingsSaveFile = new SettingsSaveFile();
     public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
 
     // Subfolder Names
@@ -35,6 +29,8 @@ public class SaveManager {
 //    private final Gson gson;
     private final ArrayList<SavableComponent> savableComponents = new ArrayList<>();
     private final ArrayList<ISavable> savables = new ArrayList<>();
+
+    public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + settingsSaveName, SettingsSaveFile.class);
 
 //    public SaveManager() {
 ////        gson = new Gson();

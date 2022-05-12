@@ -24,8 +24,6 @@ public class SaveFile<T> {
     private final ArrayList<ISaveListener> saveListeners = new ArrayList<>();
     private final Timer autoSaveTimer = new Timer();
     private TimerTask saveTask;
-
-    //    private static final Gson gson = new GsonBuilder().create();
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public SaveFile(String path, Class<T> classType) {

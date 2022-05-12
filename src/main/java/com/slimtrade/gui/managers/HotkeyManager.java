@@ -1,8 +1,8 @@
 package com.slimtrade.gui.managers;
 
-import com.slimtrade.App;
 import com.slimtrade.core.hotkeys.*;
 import com.slimtrade.core.managers.QuickPasteManager;
+import com.slimtrade.core.managers.SaveManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.util.HashMap;
@@ -14,22 +14,22 @@ public class HotkeyManager {
     public static void loadHotkeys() {
         hotkeyMap = new HashMap<>();
         // SlimTrade
-        registerHotkey(App.saveManager.settingsSaveFile.optionsHotkey, new AppHotkey(AppHotkey.AppWindow.OPTIONS));
-        registerHotkey(App.saveManager.settingsSaveFile.historyHotkey, new AppHotkey(AppHotkey.AppWindow.HISTORY));
+        registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new AppHotkey(AppHotkey.AppWindow.OPTIONS));
+        registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new AppHotkey(AppHotkey.AppWindow.HISTORY));
         // POE
-        registerHotkey(App.saveManager.settingsSaveFile.delveHotkey, new PoeHotkey("/delve"));
-        registerHotkey(App.saveManager.settingsSaveFile.doNotDisturbHotkey, new PoeHotkey("/dnd"));
-        registerHotkey(App.saveManager.settingsSaveFile.exitToMenuHotkey, new PoeHotkey("/exit"));
-        registerHotkey(App.saveManager.settingsSaveFile.guildHideoutHotkey, new PoeHotkey("/guild"));
-        registerHotkey(App.saveManager.settingsSaveFile.hideoutHotkey, new PoeHotkey("/hideout"));
-        if (App.saveManager.settingsSaveFile.characterName != null)
-            registerHotkey(App.saveManager.settingsSaveFile.leavePartyHotkey, new PoeHotkey("/kick " + App.saveManager.settingsSaveFile.characterName));
-        registerHotkey(App.saveManager.settingsSaveFile.menagerieHotkey, new PoeHotkey("/menagerie"));
-        registerHotkey(App.saveManager.settingsSaveFile.metamorphHotkey, new PoeHotkey("/metamorph"));
-        registerHotkey(App.saveManager.settingsSaveFile.remainingMonstersHotkey, new PoeHotkey("/remaining"));
+        registerHotkey(SaveManager.settingsSaveFile.data.delveHotkey, new PoeHotkey("/delve"));
+        registerHotkey(SaveManager.settingsSaveFile.data.doNotDisturbHotkey, new PoeHotkey("/dnd"));
+        registerHotkey(SaveManager.settingsSaveFile.data.exitToMenuHotkey, new PoeHotkey("/exit"));
+        registerHotkey(SaveManager.settingsSaveFile.data.guildHideoutHotkey, new PoeHotkey("/guild"));
+        registerHotkey(SaveManager.settingsSaveFile.data.hideoutHotkey, new PoeHotkey("/hideout"));
+        if (SaveManager.settingsSaveFile.data.characterName != null)
+            registerHotkey(SaveManager.settingsSaveFile.data.leavePartyHotkey, new PoeHotkey("/kick " + SaveManager.settingsSaveFile.data.characterName));
+        registerHotkey(SaveManager.settingsSaveFile.data.menagerieHotkey, new PoeHotkey("/menagerie"));
+        registerHotkey(SaveManager.settingsSaveFile.data.metamorphHotkey, new PoeHotkey("/metamorph"));
+        registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeHotkey("/remaining"));
         // Quick Paste
-        if (App.saveManager.settingsSaveFile.quickPasteMode == QuickPasteManager.QuickPasteMode.HOTKEY)
-            registerHotkey(App.saveManager.settingsSaveFile.quickPasteHotkey, new QuickPasteHotkey());
+        if (SaveManager.settingsSaveFile.data.quickPasteMode == QuickPasteManager.QuickPasteMode.HOTKEY)
+            registerHotkey(SaveManager.settingsSaveFile.data.quickPasteHotkey, new QuickPasteHotkey());
     }
 
     private static void registerHotkey(HotkeyData hotkeyData, IHotkeyAction action) {

@@ -1,6 +1,6 @@
 package com.slimtrade.core.utility;
 
-import com.slimtrade.App;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 
 import java.awt.*;
@@ -43,7 +43,7 @@ public class ZUtil {
             commands.add(builder.toString().trim());
         for (int i = 0; i < commands.size(); i++) {
             String clean = commands.get(i);
-            clean = clean.replaceAll("\\{self}", App.saveManager.settingsSaveFile.characterName);
+            clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
             clean = clean.replaceAll("\\{player}", tradeOffer.playerName);
             clean = clean.replaceAll("\\{item}", tradeOffer.playerName);
             clean = clean.replaceAll("\\{price}", tradeOffer.playerName);
