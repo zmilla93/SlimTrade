@@ -11,6 +11,7 @@ import com.slimtrade.core.utility.MacroButton;
  */
 public class SettingsSaveFile {
 
+    // General
     public boolean showGuildName;
     public boolean folderOffset;
     public boolean colorBlindMode;
@@ -18,6 +19,9 @@ public class SettingsSaveFile {
     public ColorTheme colorTheme;
     public QuickPasteManager.QuickPasteMode quickPasteMode;
     public HotkeyData quickPasteHotkey;
+
+    // Path of Exile
+    public String clientPath;
 
     public SoundComponent incomingSound;
     public SoundComponent outgoingSound;

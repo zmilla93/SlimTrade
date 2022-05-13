@@ -12,27 +12,44 @@ import java.util.regex.Pattern;
 
 public class ChatParser implements IChatParserListener {
 
+    // File Tailing
     private ChatTailerListener chatTailerListener;
     private Tailer tailer;
 
-    ArrayList<IChatParserLoadedListener> onLoadListeners = new ArrayList<>();
-    ArrayList<IPreloadTradeListener> preloadTradeListeners = new ArrayList<>();
-    ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
+    // Listeners
+    private ArrayList<IChatParserLoadedListener> onLoadListeners = new ArrayList<>();
+    private ArrayList<IPreloadTradeListener> preloadTradeListeners = new ArrayList<>();
+    private ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
 
-    boolean loaded;
-    String path;
+    // State
+    private boolean loaded; // Set to true after file has been read to EOF once
+    private boolean open;
+    private String path;
 
-    public ChatParser(String path) {
-        this.path = path;
+    public ChatParser(){
+
     }
 
-    public void init() {
+    public void open(String path) {
+        if(open) close();
+        this.path = path;
         chatTailerListener = new ChatTailerListener(this);
         File clientFile = new File(path);
-        if (clientFile.exists()) {
+        if (clientFile.exists() && clientFile.isFile()) {
             tailer = Tailer.create(clientFile, chatTailerListener, 100, false);
-//            chatTailerListener.init(tailer);
         }
+        open = true;
+    }
+
+    public void close(){
+        tailer.stop();
+        loaded = false;
+        path = null;
+        open = false;
+    }
+
+    public String getPath(){
+        return path;
     }
 
     public void addOnLoadedCallback(IChatParserLoadedListener listener) {
@@ -105,13 +122,6 @@ public class ChatParser implements IChatParserListener {
         }
     }
 
-    private TradeOffer.TradeOfferType getTradeOfferType(String text) {
-        switch (text) {
-
-        }
-        return TradeOffer.TradeOfferType.UNKNOWN;
-    }
-
     private TradeOffer.TradeOfferType getMessageType(String s) {
         // TODO : Move to LangRegex
         switch (s.toLowerCase()) {
@@ -130,7 +140,6 @@ public class ChatParser implements IChatParserListener {
             case "кому":    // Russian
             case "ถึง":      // Thai
                 return TradeOffer.TradeOfferType.OUTGOING;
-
             default:
                 return TradeOffer.TradeOfferType.UNKNOWN;
         }

@@ -28,6 +28,8 @@ public class App {
     public static GlobalKeyboardListener globalKeyboardListener;
     public static HotkeyManager hotkeyManager;
 
+    public static ChatParser chatParser = new ChatParser();
+
     public static boolean initialized;
 
     public enum State {LOADING, RUNNING, EDIT_OVERLAY}
@@ -89,14 +91,13 @@ public class App {
         GlobalScreen.addNativeKeyListener(globalKeyboardListener);
 
         // Chat Parser
-        ChatParser parser = new ChatParser("C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
         // Chat Parser Listeners
-        parser.addPreloadTradeListener(FrameManager.historyWindow);
-        parser.addTradeListener(FrameManager.historyWindow);
-        parser.addOnLoadedCallback(FrameManager.historyWindow);
-        parser.addTradeListener(FrameManager.messageManager);
+        chatParser.addPreloadTradeListener(FrameManager.historyWindow);
+        chatParser.addTradeListener(FrameManager.historyWindow);
+        chatParser.addOnLoadedCallback(FrameManager.historyWindow);
+        chatParser.addTradeListener(FrameManager.messageManager);
         // Chat Parser Init
-        parser.init();
+        chatParser.open(SaveManager.settingsSaveFile.data.clientPath);
         HotkeyManager.loadHotkeys();
 
         initialized = true;

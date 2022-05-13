@@ -45,8 +45,8 @@ public class OptionsWindow extends AbstractWindow {
         // Save & Revert Panel
         JPanel saveRevertPanel = new JPanel(new BorderLayout());
         JPanel saveRevertInnerPanel = new JPanel(new GridBagLayout());
-        JButton revertButton = new ColorButton("Revert Changes", ColorManager.DENY_COLOR);
-        JButton saveButton = new ColorButton("Save", ColorManager.CONFIRM_COLOR);
+        JButton revertButton = new JButton("Revert Changes");
+        JButton saveButton = new JButton("Save");
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.EAST;
         gc.weightx = 0;

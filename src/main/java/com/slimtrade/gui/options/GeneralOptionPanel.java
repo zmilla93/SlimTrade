@@ -2,18 +2,22 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.gui.options.general.BasicsPanel;
 import com.slimtrade.gui.options.general.EnableFeaturesPanel;
+import com.slimtrade.gui.options.general.PathOfExilePanel;
+
+import javax.swing.*;
 
 public class GeneralOptionPanel extends AbstractOptionPanel {
 
     public GeneralOptionPanel() {
 
-        BasicsPanel basicsPanel = new BasicsPanel();
-        EnableFeaturesPanel enableFeaturesPanel = new EnableFeaturesPanel();
-
         addHeader("Basics");
-        addPanel(basicsPanel);
+        addPanel(new BasicsPanel());
+        addVerticalStrut();
         addHeader("Enable Features");
-        addPanel(enableFeaturesPanel);
+        addPanel(new EnableFeaturesPanel());
+        addVerticalStrut();
+        addHeader("Path of Exile");
+        addPanel(new PathOfExilePanel());
 
     }
 
