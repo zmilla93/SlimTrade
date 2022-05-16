@@ -1,63 +1,117 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.InsetPanel;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.GridPanel;
-import com.slimtrade.modules.colortheme.ColorTheme;
 import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class StashWindow extends CustomDialog implements IThemeListener {
+public class StashWindow extends CustomDialog implements IThemeListener, ISavable {
 
-//    private Container container;
+    private JButton gridButton = new JButton("Grid");
+    private JButton alignButton = new JButton("Auto Align");
+    private JButton saveButton = new JButton("Save");
+    private JButton cancelButton = new JButton("Cancel");
+
+    private GridPanel gridPanel = new GridPanel();
+
+    private final int INSET_HORIZONTAL = 8;
+    private final int INSET_VERTICAL = 20;
 
     public StashWindow() {
         setTitle("Stash Overlay");
+        setFocusable(false);
+        setFocusableWindowState(false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setAlwaysOnTop(true);
-//        this.container = getContentPane();
+//        GridPanel gridPanel = new GridPanel();
+        InsetPanel insetPanel = new InsetPanel(new Insets(INSET_VERTICAL, INSET_HORIZONTAL, INSET_VERTICAL, INSET_HORIZONTAL));
+        insetPanel.contentPanel.setLayout(new BorderLayout());
+        insetPanel.contentPanel.add(gridPanel, BorderLayout.CENTER);
+        insetPanel.contentPanel.setOpaque(false);
 
-//        JPanel testPanel = new JPanel();
-//        testPanel.setPreferredSize(new Dimension(400, 400));
-//        testPanel.setBackground(Color.RED);
-        GridPanel gridPanel = new GridPanel();
-        InsetPanel panel = new InsetPanel(new Insets(20, 20, 20, 20)){
-            @Override
-            public void updateUI() {
-                super.updateUI();
-//                Color c = UIManager.getColor("Panel.background");
-//                setBorderBackground(new Color(c.getRed(), c.getGreen(), c.getBlue(), 255/8));
-            }
-        };
-        panel.contentPanel.setLayout(new BorderLayout());
-        panel.contentPanel.add(gridPanel, BorderLayout.CENTER);
-        panel.contentPanel.setOpaque(false);
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
 
+        GridBagConstraints gc = ZUtil.getGC();
+        buttonPanel.add(gridButton, gc);
+        gc.gridx++;
+        buttonPanel.add(alignButton, gc);
+        gc.gridx++;
+        buttonPanel.add(cancelButton, gc);
+        gc.gridx++;
+        buttonPanel.add(saveButton, gc);
+        gc.gridx++;
 
         contentPanel.setLayout(new BorderLayout());
-        contentPanel.add(panel, BorderLayout.CENTER);
-
+        contentPanel.add(insetPanel, BorderLayout.CENTER);
+        contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         contentPanel.setBackground(ColorManager.TRANSPARENT);
 
+        ColorManager.addListener(this);
+
+        addListeners();
         pack();
-        setSize(200, 200);
+        setSize(500, 500);
+        SaveManager.stashSaveFile.registerSavableContainer(this);
     }
 
-    @Override
-    public void update(Graphics g) {
-        super.update(g);
-        System.out.println("WEW");
-        Color c = UIManager.getColor("Panel.background");
-        setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue(), 128));
+    private void addListeners() {
+        gridButton.addActionListener(e -> {
+            gridPanel.cycleGrid();
+            repaint();
+        });
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SaveManager.stashSaveFile.saveToDisk();
+                setVisible(false);
+                FrameManager.optionsWindow.setVisible(true);
+            }
+        });
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                load();
+                setVisible(false);
+                FrameManager.optionsWindow.setVisible(true);
+            }
+        });
     }
 
     @Override
     public void onThemeChange() {
-        System.out.println("hmm");
-        Color c = UIManager.getColor("Panel.background");
-        contentPanel.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue(), 128));
+        super.onThemeChange();
+        Color c1 = UIManager.getColor("Panel.background");
+        Color c2 = UIManager.getColor("Label.foreground");
+        Color color = ColorManager.getDarkerColor(c1, c2);
+        contentPanel.setBackground(ColorManager.adjustAlpha(color, 100));
+    }
+
+    @Override
+    public void save() {
+        int gridX = getX() + resizeSize + INSET_HORIZONTAL + getBorderSize();
+        int gridY = getY() + resizeSize + INSET_VERTICAL + getTitleBarHeight() + getBorderSize();
+        SaveManager.stashSaveFile.data.windowRect = new Rectangle(getX(), getY(), getWidth(), getHeight());
+        SaveManager.stashSaveFile.data.gridRect = new Rectangle(gridX, gridY, gridPanel.getWidth(), gridPanel.getHeight());
+//        JFrame testFrame = new JFrame();
+//        testFrame.setSize(50, 50);
+//        testFrame.setUndecorated(true);
+//        testFrame.setLocation(SaveManager.stashSaveFile.data.gridRect.x, SaveManager.stashSaveFile.data.gridRect.y);
+//        testFrame.setVisible(true);
+    }
+
+    @Override
+    public void load() {
+        setLocation(SaveManager.stashSaveFile.data.windowRect.getLocation());
+        setSize(SaveManager.stashSaveFile.data.windowRect.getSize());
     }
 }

@@ -4,14 +4,16 @@ import com.slimtrade.App;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class CustomDialog extends JDialog {
+public class CustomDialog extends JDialog implements IThemeListener {
 
-    private final int resizeSize = 8;
+    public static final int resizeSize = 8;
+    private int borderSize = 1;
     private JPanel innerPanel = new JPanel(new BorderLayout());
     private JPanel outerPanel = new JPanel(new BorderLayout());
 
@@ -46,10 +48,8 @@ public class CustomDialog extends JDialog {
         buttonPanel.add(closeButton, gc);
         titleBarPanel.add(titlePanel, BorderLayout.WEST);
         titleBarPanel.add(buttonPanel, BorderLayout.EAST);
-        titleBarPanel.add(new JSeparator(), BorderLayout.SOUTH);
 
         // Inner Panel
-        contentPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
         JPanel contentBorderPanel = new JPanel(new BorderLayout());
         contentBorderPanel.add(contentPanel, BorderLayout.CENTER);
         innerPanel.add(titleBarPanel, BorderLayout.NORTH);
@@ -83,8 +83,11 @@ public class CustomDialog extends JDialog {
 
         // Container
 //        container.add(titleBarPanel, BorderLayout.NORTH);
+        contentPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
         setContentPane(outerPanel);
         setBackground(ColorManager.TRANSPARENT);
+
+        ColorManager.addListener(this);
 
         addWindowMover();
         addWindowResizer();
@@ -144,7 +147,6 @@ public class CustomDialog extends JDialog {
                 clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
                 startLocation = getLocation();
                 startSize = getSize();
-//                System.out.println("K");
             }
         });
         resizerBottom.addMouseMotionListener(new MouseMotionAdapter() {
@@ -152,7 +154,7 @@ public class CustomDialog extends JDialog {
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
                 Point p = MouseInfo.getPointerInfo().getLocation();
-                int sizeAdjust =  p.y - clickedWindowPoint.y;
+                int sizeAdjust = p.y - clickedWindowPoint.y;
                 setSize(new Dimension(startSize.width, startSize.height + sizeAdjust));
             }
         });
@@ -165,7 +167,6 @@ public class CustomDialog extends JDialog {
                 clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
                 startLocation = getLocation();
                 startSize = getSize();
-//                System.out.println("K");
             }
         });
         resizerLeft.addMouseMotionListener(new MouseMotionAdapter() {
@@ -194,7 +195,6 @@ public class CustomDialog extends JDialog {
                 super.mousePressed(e);
                 clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
                 startSize = getSize();
-//                System.out.println("K");
             }
         });
         resizerRight.addMouseMotionListener(new MouseMotionAdapter() {
@@ -206,13 +206,25 @@ public class CustomDialog extends JDialog {
                 setSize(new Dimension(startSize.width - widthAdjust, startSize.height));
             }
         });
+    }
 
+    public int getTitleBarHeight() {
+        return titleBarPanel.getHeight();
+    }
+
+    public int getBorderSize() {
+        return borderSize;
     }
 
     @Override
     public void setTitle(String title) {
         super.setTitle(title);
         titleLabel.setText(title);
+    }
+
+    @Override
+    public void onThemeChange() {
+        contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Panel.background"), borderSize));
     }
 
 }

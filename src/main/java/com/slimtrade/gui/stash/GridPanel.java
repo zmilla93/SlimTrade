@@ -1,39 +1,48 @@
 package com.slimtrade.gui.stash;
 
+import com.slimtrade.core.utility.ColorManager;
+
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Displays a grid to match Path of Exile's stash grid.
+ */
 public class GridPanel extends JPanel {
 
-    enum GridType {None, Normal, Quad}
+    private Color lineColor = Color.WHITE;
+    private GridType gridType = GridType.Normal;
 
-    public GridPanel() {
+    private enum GridType {None, Normal, Quad}
 
+    public void cycleGrid() {
+        int index = gridType.ordinal() + 1;
+        if (index >= GridType.values().length) index = 0;
+        gridType = GridType.values()[index];
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
-        g.setColor(Color.GREEN);
+        g.setColor(lineColor);
         g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-        g.drawLine(0, 0, getWidth() - 1, getHeight() - 1);
-
+        if (gridType == GridType.None) return;
         int lineCount = 12;
-        int spacing = Math.round(getWidth() / (float) lineCount);
+        if (gridType == GridType.Quad) lineCount = 24;
         for (int i = 1; i < lineCount; i++) {
             float mult = i / (float) lineCount;
             int x = Math.round(getWidth() * mult);
             int y = Math.round(getHeight() * mult);
-//            System.out.println(x);
             g.drawLine(x, 0, x, getHeight());
             g.drawLine(0, y, getWidth(), y);
         }
-//        for (int i = 1; i < lineCount; i++) {
-//            float mult = i / (float) lineCount;
-//            int x = Math.round(getWidth() * mult);
-//            System.out.println(x);
-//            g.drawLine(x, 0, x, getHeight());
-//        }
+    }
 
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        Color c1 = UIManager.getColor("Panel.background");
+        Color c2 = UIManager.getColor("Label.foreground");
+        lineColor = ColorManager.getLighterColor(c1, c2);
     }
 }

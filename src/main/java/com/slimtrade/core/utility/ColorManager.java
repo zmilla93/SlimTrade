@@ -1,5 +1,7 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.modules.colortheme.IThemeListener;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +15,7 @@ public class ColorManager<T> {
 
     private static List<Component> frames = new ArrayList<>();
     private static ColorTheme currentTheme;
+    private static ArrayList<IThemeListener> themeListeners = new ArrayList<>();
 
     //    public static final Color CONFIRM_COLOR = new Color(58, 150, 47, 255);
     public static final Color CONFIRM_COLOR = new Color(73, 156, 84);
@@ -21,8 +24,8 @@ public class ColorManager<T> {
     public static final Color GREEN_SALE = new Color(0, 130, 0);
     public static final Color RED_SALE = new Color(130, 0, 0);
 
-    public static final Color TRANSPARENT = new Color(0,0,0,0);
-    public static final Color TRANSPARENT_CLICKABLE = new Color(0,0,0,1);
+    public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
+    public static final Color TRANSPARENT_CLICKABLE = new Color(0, 0, 0, 1);
 
     private static ArrayList<JComboBox> stickyCombos = new ArrayList<>();
 
@@ -82,6 +85,9 @@ public class ColorManager<T> {
         for (int i = 0; i < stickyCombos.size(); i++) {
             stickyCombos.get(i).setSelectedIndex(comboIcons[i]);
         }
+        for (IThemeListener listener : themeListeners) {
+            listener.onThemeChange();
+        }
     }
 
     public static ImageIcon getIcon(String path) {
@@ -126,6 +132,36 @@ public class ColorManager<T> {
             if (value instanceof Font)
                 UIManager.put(key, f);
         }
+    }
+
+    public static Color getDarkerColor(Color colorA, Color colorB) {
+        if (colorIntValue(colorA) < colorIntValue(colorB)) return colorA;
+        return colorB;
+    }
+
+    public static Color getLighterColor(Color colorA, Color colorB) {
+        if (colorIntValue(colorA) > colorIntValue(colorB)) return colorA;
+        return colorB;
+    }
+
+    private static int colorIntValue(Color color) {
+        return color.getRed() + color.getGreen() + color.getBlue();
+    }
+
+    public static Color adjustAlpha(Color color, int alpha){
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+    }
+
+    public static void addListener(IThemeListener listener) {
+        themeListeners.add(listener);
+    }
+
+    public static void removeListener(IThemeListener listener) {
+        themeListeners.remove(listener);
+    }
+
+    public static void clearAllListeners() {
+        themeListeners.clear();
     }
 
 }

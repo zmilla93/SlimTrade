@@ -20,7 +20,7 @@ public class InsetPanel extends JPanel {
     private void addBufferPanel(String direction, int size) {
         if (size <= 0) return;
         JPanel panel = new JPanel(new BorderLayout());
-//        panel.setOpaque(false);
+        panel.setOpaque(false);
         if (direction.equals(BorderLayout.NORTH) || direction.equals(BorderLayout.SOUTH)) {
             panel.add(Box.createVerticalStrut(size), BorderLayout.CENTER);
         } else {

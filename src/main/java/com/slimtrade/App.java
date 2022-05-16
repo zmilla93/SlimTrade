@@ -65,6 +65,8 @@ public class App {
                 ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme);
                 SaveManager.settingsSaveFile.registerSavableContainer(FrameManager.optionsWindow);
                 SaveManager.settingsSaveFile.revertChanges();
+                SaveManager.stashSaveFile.revertChanges();
+
                 FrameManager.optionsWindow.reloadExampleTrades();
                 FrameManager.optionsWindow.revalidate();
 

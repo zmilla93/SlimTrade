@@ -75,7 +75,7 @@ public class QuickPasteManager {
             TradeOffer offer = TradeOffer.getTradeOffer(clipboardContents);
             if (offer != null) clearClipboard();
         } catch (UnsupportedFlavorException | IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         thread = new Thread(() -> {
             try {

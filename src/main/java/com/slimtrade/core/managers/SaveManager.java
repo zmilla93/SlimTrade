@@ -3,6 +3,7 @@ package com.slimtrade.core.managers;
 import com.slimtrade.core.saving.SavableComponent;
 import com.slimtrade.core.saving.savefiles.OverlaySaveFile;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
+import com.slimtrade.core.saving.savefiles.StashSaveFile;
 import com.slimtrade.modules.saving.ISavable;
 import com.slimtrade.modules.saving.SaveFile;
 
@@ -18,6 +19,7 @@ public class SaveManager {
 
     // Save Files
     private static final String settingsSaveName = "settings.json";
+    private static final String stashSaveName = "stash.json";
     //    public SettingsSaveFile settingsSaveFile = new SettingsSaveFile();
     public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
 
@@ -31,6 +33,7 @@ public class SaveManager {
     private final ArrayList<ISavable> savables = new ArrayList<>();
 
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + settingsSaveName, SettingsSaveFile.class);
+    public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + stashSaveName, StashSaveFile.class);
 
 //    public SaveManager() {
 ////        gson = new Gson();
