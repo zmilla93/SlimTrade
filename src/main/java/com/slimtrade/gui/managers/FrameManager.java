@@ -4,10 +4,7 @@ import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
-import com.slimtrade.gui.windows.DebugWindow;
-import com.slimtrade.gui.windows.DummyWindow;
-import com.slimtrade.gui.windows.HistoryWindow;
-import com.slimtrade.gui.windows.OptionsWindow;
+import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +21,7 @@ public class FrameManager {
     public static DummyWindow dummyWindow;
     public static OverlayInfoDialog overlayInfoWindow;
     public static MessageOverlay messageOverlay;
+    public static StashGridWindow stashGridWindow;
 
     private static final HashMap<AppState, Window[]> windowMap = new HashMap<>();
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
@@ -40,7 +38,10 @@ public class FrameManager {
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
+        stashGridWindow = new StashGridWindow();
+        stashGridWindow.setVisible(true);
         dummyWindow = new DummyWindow(); // Omitted from visibility list
+
 
         // Group windows that need to be shown/hidden during state changes
         Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow};
