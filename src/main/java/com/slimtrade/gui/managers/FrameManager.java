@@ -20,7 +20,7 @@ public class FrameManager {
     public static DummyWindow dummyWindow;
     public static OverlayInfoDialog overlayInfoWindow;
     public static MessageOverlay messageOverlay;
-    public static StashGridWindow stashGridWindow;
+    public static StashWindow stashGridWindow;
 
     private static final HashMap<AppState, Window[]> windowMap = new HashMap<>();
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
@@ -37,7 +37,7 @@ public class FrameManager {
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
-        stashGridWindow = new StashGridWindow();
+        stashGridWindow = new StashWindow();
         stashGridWindow.setVisible(true);
         dummyWindow = new DummyWindow(); // Omitted from visibility list
 

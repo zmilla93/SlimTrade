@@ -1,5 +1,6 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.App;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
@@ -33,6 +34,7 @@ public class CustomDialog extends JDialog {
 
     public CustomDialog() {
         setUndecorated(true);
+        ColorManager.addFrame(this);
         container = getContentPane();
         container.setLayout(new BorderLayout());
 
@@ -113,16 +115,47 @@ public class CustomDialog extends JDialog {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                Point p = MouseInfo.getPointerInfo().getLocation();
-                p.x -= clickedWindowPoint.x;
-                p.y -= clickedWindowPoint.y;
-                setLocation(p);
+                Point targetPoint = MouseInfo.getPointerInfo().getLocation();
+                targetPoint.x -= clickedWindowPoint.x;
+                targetPoint.y -= clickedWindowPoint.y;
+
+                Rectangle screenBounds = ZUtil.getScreenBoundsFromPoint(MouseInfo.getPointerInfo().getLocation());
+                if (screenBounds != null && App.globalKeyboardListener.isShiftPressed()) {
+                    if (targetPoint.x > screenBounds.x + screenBounds.width - getWidth() + resizeSize)
+                        targetPoint.x = screenBounds.x + screenBounds.width - getWidth() + resizeSize;
+                    if (targetPoint.x < screenBounds.x)
+                        targetPoint.x = screenBounds.x - resizeSize;
+                    if (targetPoint.y > screenBounds.y + screenBounds.height - getHeight() + resizeSize)
+                        targetPoint.y = screenBounds.y + screenBounds.height - getHeight() + resizeSize;
+                    if (targetPoint.y < screenBounds.y)
+                        targetPoint.y = screenBounds.y - resizeSize;
+                }
+                setLocation(targetPoint);
             }
         });
     }
 
     private void addWindowResizer() {
         // Bottom
+        resizerBottom.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
+                startLocation = getLocation();
+                startSize = getSize();
+//                System.out.println("K");
+            }
+        });
+        resizerBottom.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                Point p = MouseInfo.getPointerInfo().getLocation();
+                int sizeAdjust =  p.y - clickedWindowPoint.y;
+                setSize(new Dimension(startSize.width, startSize.height + sizeAdjust));
+            }
+        });
 
         // Left
         resizerLeft.addMouseListener(new MouseAdapter() {
