@@ -1,8 +1,6 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.gui.buttons.ColorButton;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
 

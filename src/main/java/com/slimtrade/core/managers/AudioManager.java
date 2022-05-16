@@ -72,7 +72,7 @@ public class AudioManager {
         return -1;
     }
 
-    public int getCustomFileCount(){
+    public int getCustomFileCount() {
         return customCount;
     }
 

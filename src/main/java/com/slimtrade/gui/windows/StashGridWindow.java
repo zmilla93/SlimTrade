@@ -4,7 +4,6 @@ import com.slimtrade.core.utility.ColorManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Field;
 
 public class StashGridWindow extends JDialog {
 

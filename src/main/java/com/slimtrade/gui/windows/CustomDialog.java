@@ -5,8 +5,7 @@ import javax.swing.*;
 public class CustomDialog extends JDialog {
 
 
-
-    public CustomDialog(){
+    public CustomDialog() {
 
     }
 

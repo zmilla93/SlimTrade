@@ -1,7 +1,6 @@
 package com.slimtrade.gui.managers;
 
 import com.slimtrade.core.enums.AppState;
-import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
 import com.slimtrade.gui.windows.*;

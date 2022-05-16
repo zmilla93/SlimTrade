@@ -12,7 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class TradeMessagePanel extends NotificationPanel {
 
@@ -30,7 +29,7 @@ public class TradeMessagePanel extends NotificationPanel {
         // Player Panel
         Random rng = new Random();
         playerPanel.setLayout(new GridBagLayout());
-        playerPanel.add(new JLabel(tradeOffer.playerName + ThreadLocalRandom.current().nextInt(0, 100)));
+        playerPanel.add(new JLabel(tradeOffer.playerName));
 
         // Price Panel
         JLabel priceLabel = new ColorLabel("(" + tradeOffer.priceQuantity + ")" + tradeOffer.priceTypeString, "TextArea.background");

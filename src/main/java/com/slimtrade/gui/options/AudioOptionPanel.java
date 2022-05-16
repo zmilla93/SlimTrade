@@ -131,14 +131,13 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         sliderList.get(index).setValue(row.volume);
     }
 
-    public void updateInfoLabel(){
+    public void updateInfoLabel() {
         int count = App.audioManager.getCustomFileCount();
-        if(count == 0){
+        if (count == 0) {
             customAudioLabel.setText("No custom files loaded.");
-        }
-        else if (count == 1){
+        } else if (count == 1) {
             customAudioLabel.setText("1 custom file loaded.");
-        }else{
+        } else {
             customAudioLabel.setText(count + " custom files loaded.");
         }
     }

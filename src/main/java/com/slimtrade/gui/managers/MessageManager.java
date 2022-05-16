@@ -42,9 +42,14 @@ public class MessageManager extends JFrame implements ITradeListener {
     }
 
     public void addMessage(TradeOffer tradeOffer) {
+        addMessage(tradeOffer, true);
+    }
+
+    public void addMessage(TradeOffer tradeOffer, boolean playSound) {
         assert (SwingUtilities.isEventDispatchThread());
-        if(container.getComponentCount() > 20) return;
-        App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
+        if (container.getComponentCount() > 20) return;
+        if (playSound)
+            App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
         gc.insets = new Insets(0, 0, MESSAGE_GAP, 0);
         gc.gridy = container.getComponentCount();
         TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);

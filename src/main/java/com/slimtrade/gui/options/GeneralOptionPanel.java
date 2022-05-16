@@ -4,8 +4,6 @@ import com.slimtrade.gui.options.general.BasicsPanel;
 import com.slimtrade.gui.options.general.EnableFeaturesPanel;
 import com.slimtrade.gui.options.general.PathOfExilePanel;
 
-import javax.swing.*;
-
 public class GeneralOptionPanel extends AbstractOptionPanel {
 
     public GeneralOptionPanel() {

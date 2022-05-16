@@ -26,12 +26,12 @@ public class ChatParser implements IChatParserListener {
     private boolean open;
     private String path;
 
-    public ChatParser(){
+    public ChatParser() {
 
     }
 
     public void open(String path) {
-        if(open) close();
+        if (open) close();
         this.path = path;
         chatTailerListener = new ChatTailerListener(this);
         File clientFile = new File(path);
@@ -41,14 +41,14 @@ public class ChatParser implements IChatParserListener {
         open = true;
     }
 
-    public void close(){
+    public void close() {
         tailer.stop();
         loaded = false;
         path = null;
         open = false;
     }
 
-    public String getPath(){
+    public String getPath() {
         return path;
     }
 
