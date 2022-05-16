@@ -42,7 +42,7 @@ public class App {
         // This setting gets rid of some rendering issues with transparent frames
         System.setProperty("sun.java2d.noddraw", "true");
 
-        ColorManager.setTheme(ColorTheme.CARBON);
+//        ColorManager.setTheme(ColorTheme.CARBON);
 
         // Shutdown Hook
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));

@@ -21,6 +21,9 @@ public class ColorManager<T> {
     public static final Color GREEN_SALE = new Color(0, 130, 0);
     public static final Color RED_SALE = new Color(130, 0, 0);
 
+    public static final Color TRANSPARENT = new Color(0,0,0,0);
+    public static final Color TRANSPARENT_CLICKABLE = new Color(0,0,0,1);
+
     private static ArrayList<JComboBox> stickyCombos = new ArrayList<>();
 
 
