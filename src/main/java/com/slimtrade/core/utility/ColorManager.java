@@ -62,6 +62,9 @@ public class ColorManager<T> {
     }
 
     public static void setTheme(ColorTheme theme, boolean forceRefresh) {
+//        if(true){
+//            return;
+//        }
         int[] comboIcons = new int[stickyCombos.size()];
         for (int i = 0; i < stickyCombos.size(); i++) {
             comboIcons[i] = stickyCombos.get(i).getSelectedIndex();
@@ -82,6 +85,7 @@ public class ColorManager<T> {
             if (rootPane != null) {
                 SwingUtilities.updateComponentTreeUI(rootPane);
                 frame.revalidate();
+                frame.repaint();
             }
         }
         for (int i = 0; i < stickyCombos.size(); i++) {
