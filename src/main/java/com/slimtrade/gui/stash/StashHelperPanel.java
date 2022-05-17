@@ -2,17 +2,22 @@ package com.slimtrade.gui.stash;
 
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.modules.colortheme.AdvancedButton;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
-public class StashHelperPanel extends JButton {
+public class StashHelperPanel extends AdvancedButton {
 
+    private StashHelperContainer parent;
     private JFrame highlighter = new JFrame();
 
-    public StashHelperPanel(TradeOffer offer, StashTabColor color){
+    public StashHelperPanel(StashHelperContainer parent, TradeOffer offer, StashTabColor color) {
+        this.parent = parent;
         setLayout(new GridBagLayout());
         JLabel tabLabel = new JLabel(offer.stashtabName);
         JLabel itemLabel = new JLabel(offer.itemName);
@@ -32,6 +37,21 @@ public class StashHelperPanel extends JButton {
         Border outerBorder = BorderFactory.createLineBorder(color.getForeground());
         Border compoundBorder = BorderFactory.createCompoundBorder(outerBorder, innerBorder);
         setBorder(compoundBorder);
+
+        JButton self = this;
+        addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                System.out.println(e.getButton());
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    parent.remove(self);
+                    parent.revalidate();
+                    parent.repaint();
+                    parent.refresh();
+                }
+            }
+        });
+
     }
 
 }

@@ -5,15 +5,16 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StashHelperContainer extends JDialog {
+public class StashHelperContainer extends JDialog implements IThemeListener {
 
     private Container contentPanel;
     private static final int OFFSET = 30;
-    private static final int FOLDEr_OFFSET = 65;
+    private static final int FOLDER_OFFSET = 65;
     private GridBagConstraints gc = ZUtil.getGC();
 
     public StashHelperContainer() {
@@ -22,7 +23,6 @@ public class StashHelperContainer extends JDialog {
         setFocusable(false);
         setFocusableWindowState(false);
         contentPanel = getContentPane();
-        contentPanel.setLayout(new FlowLayout(5));
         contentPanel.setLayout(new GridBagLayout());
         gc.insets.right = 5;
 
@@ -35,6 +35,7 @@ public class StashHelperContainer extends JDialog {
         updateLocation();
 
         ColorManager.addFrame(this);
+        ColorManager.addListener(this);
     }
 
     public void updateLocation() {
@@ -45,15 +46,26 @@ public class StashHelperContainer extends JDialog {
     }
 
     public void addHelper(TradeOffer offer) {
-        StashHelperPanel panel = new StashHelperPanel(offer, StashTabColor.TEN);
+        StashHelperPanel panel = new StashHelperPanel(this, offer, StashTabColor.TEN);
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(panel, gc);
-        pack();
+
         updateLocation();
+        refresh();
     }
 
     public void removeHelper(JPanel panel) {
 
     }
 
+    public void refresh(){
+        revalidate();
+        repaint();
+        pack();
+    }
+
+    @Override
+    public void onThemeChange() {
+        refresh();
+    }
 }
