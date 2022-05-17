@@ -64,7 +64,7 @@ public class App {
                 FrameManager.init();
                 // Load save file to GUI
                 ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme);
-                SaveManager.settingsSaveFile.registerSavableContainer(FrameManager.optionsWindow);
+//                SaveManager.settingsSaveFile.registerSavableContainer(FrameManager.optionsWindow);
                 SaveManager.settingsSaveFile.revertChanges();
                 SaveManager.stashSaveFile.revertChanges();
 

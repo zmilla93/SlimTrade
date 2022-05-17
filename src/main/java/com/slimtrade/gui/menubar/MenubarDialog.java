@@ -97,6 +97,7 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
 
     @Override
     public void onThemeChange() {
+        pack();
 //        container.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Label.foreground")));
     }
 }

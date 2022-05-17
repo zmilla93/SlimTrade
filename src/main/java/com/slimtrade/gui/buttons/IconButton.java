@@ -9,6 +9,7 @@ import java.awt.*;
 public class IconButton extends JButton {
 
     private String path;
+    private int size;
 
     public IconButton(String path) {
         super();
@@ -16,12 +17,25 @@ public class IconButton extends JButton {
         updateUI();
     }
 
+    public IconButton(String path, int size) {
+        super();
+        this.path = path;
+        this.size = size;
+        updateUI();
+    }
+
+    public void setIconSize(int size) {
+        this.size = size;
+        updateUI();
+        // FIXME:
+    }
+
     @Override
     public void updateUI() {
         super.updateUI();
         if (path != null)
-            setIcon(ColorManager.getIcon(path));
-        int borderInset = 3;
+            setIcon(ColorManager.getIcon(path, size));
+        int borderInset = 5;
         setBorder(new FlatButtonBorder() {
             @Override
             public Insets getBorderInsets(Component c, Insets insets) {

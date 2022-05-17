@@ -2,6 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.general.BasicsPanel;
+import com.slimtrade.gui.options.general.DisplaySettingsPanel;
 import com.slimtrade.gui.options.general.EnableFeaturesPanel;
 import com.slimtrade.gui.options.general.PathOfExilePanel;
 
@@ -17,6 +18,9 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
 
         addHeader("Basics");
         addPanel(new BasicsPanel());
+        addVerticalStrut();
+        addHeader("Display");
+        addPanel(new DisplaySettingsPanel());
         addVerticalStrut();
         addHeader("Enable Features");
         addPanel(new EnableFeaturesPanel());

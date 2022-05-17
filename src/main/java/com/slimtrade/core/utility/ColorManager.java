@@ -1,5 +1,8 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.imageio.ImageIO;
@@ -31,10 +34,13 @@ public class ColorManager<T> {
 
     private static ArrayList<JComboBox> stickyCombos = new ArrayList<>();
 
+    private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
+    ;
+
 
     private static HashMap<String, ImageIcon> iconMap = new HashMap<>();
 
-    public static int iconSize = 18;
+    private static int cacheIconSize = 18;
 
     public static boolean addFrame(Component frame) {
         if (!frames.contains(frame)) {
@@ -77,7 +83,7 @@ public class ColorManager<T> {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
         ColorManager.setUIFont(font);
         for (Component frame : frames) {
             JRootPane rootPane = null;
@@ -97,15 +103,20 @@ public class ColorManager<T> {
     }
 
     public static ImageIcon getIcon(String path) {
+        return getIcon(path, cacheIconSize);
+    }
+
+    public static ImageIcon getIcon(String path, int size) {
+        if (size == 0) size = cacheIconSize;
         // Return cached image if possible
-        if (iconMap.containsKey(path)) {
+        if (size == cacheIconSize && iconMap.containsKey(path)) {
             return iconMap.get(path);
         }
         // Generate new image
         try {
             BufferedImage img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
-            ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
-            iconMap.put(path, icon);
+            ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            if (size == cacheIconSize) iconMap.put(path, icon);
             return icon;
         } catch (IOException e) {
             e.printStackTrace();
@@ -129,16 +140,76 @@ public class ColorManager<T> {
         return image;
     }
 
-    private static void setUIFont(Font f) {
+    private static void setUIFont(Font font) {
         Enumeration<Object> keys = UIManager.getDefaults().keys();
-//        f=f.deriveFont(f.getStyle(), 24);
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);
             if (value instanceof Font)
-                UIManager.put(key, f);
+                UIManager.put(key, font);
         }
     }
+
+    public static void setFontSize(int size) {
+        Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            Font newFont = font.deriveFont(font.getStyle(), size);
+            if (value instanceof Font)
+                UIManager.put(key, newFont);
+        }
+        for (Component frame : frames) {
+            setFontSizeRecursive(frame, size);
+            SwingUtilities.updateComponentTreeUI(frame);
+            frame.revalidate();
+            frame.repaint();
+        }
+    }
+
+    public static void setIconSize(int size) {
+        cacheIconSize = size;
+        iconMap.clear();
+        for (Component frame : frames) {
+            setIconSizeRecursive(frame, size);
+            frame.revalidate();
+            frame.repaint();
+            // FIXME
+            if (frame instanceof BasicDialog) {
+                ((BasicDialog) frame).pack();
+            }
+        }
+    }
+
+    private static void setFontSizeRecursive(Component component, int size) {
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                setFontSizeRecursive(child, size);
+            }
+        }
+        Font font = component.getFont();
+        component.setFont(font.deriveFont(font.getStyle(), size));
+//        if (component instanceof JComponent) {
+//            ((JComponent) component).updateUI();
+//        }
+    }
+
+    private static void setIconSizeRecursive(Component component, int size) {
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                setIconSizeRecursive(child, size);
+            }
+        }
+        if (component instanceof IconButton) {
+            ((IconButton) component).setIconSize(size);
+        }
+//        if (component instanceof JComponent) {
+//            ((JComponent) component).updateUI();
+//        }
+    }
+
+
+    // Utility Color Functions
 
     public static Color getDarkerColor(Color colorA, Color colorB) {
         if (colorIntValue(colorA) < colorIntValue(colorB)) return colorA;
@@ -157,6 +228,8 @@ public class ColorManager<T> {
     public static Color adjustAlpha(Color color, int alpha) {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
     }
+
+    // Listeners
 
     public static void addListener(IThemeListener listener) {
         themeListeners.add(listener);

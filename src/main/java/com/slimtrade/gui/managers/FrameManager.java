@@ -1,6 +1,8 @@
 package com.slimtrade.gui.managers;
 
 import com.slimtrade.core.enums.AppState;
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.overlays.MessageOverlay;
@@ -67,6 +69,9 @@ public class FrameManager {
         windowMap.put(AppState.RUNNING, runningWindows);
         windowMap.put(AppState.EDIT_OVERLAY, overlayWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
+
+        ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+        ColorManager.setFontSize(SaveManager.settingsSaveFile.data.textSize);
     }
 
     public static void setWindowVisibility(AppState newState) {

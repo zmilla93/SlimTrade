@@ -48,7 +48,6 @@ public class StashRow extends JPanel {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("WEEW");
                 parent.remove(self);
                 parent.revalidate();
                 parent.repaint();

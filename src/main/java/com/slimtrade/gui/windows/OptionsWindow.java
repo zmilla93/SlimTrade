@@ -84,6 +84,7 @@ public class OptionsWindow extends AbstractWindow {
         setMinimumSize(new Dimension(300, 200));
         pack();
         setSize(900, 600);
+        SaveManager.settingsSaveFile.registerSavableContainer(this);
     }
 
     private JPanel createSidebar(OptionPanel[] panelList) {
@@ -99,7 +100,7 @@ public class OptionsWindow extends AbstractWindow {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        bottomButtonPanel.add(new JLabel("SlimTrade Rebuild"), gc);
+        bottomButtonPanel.add(new JLabel("SlimTrade v0.4.0"), gc);
         gc.gridy++;
         bottomButtonPanel.add(new JButton("Check for Updates"), gc);
 
@@ -108,7 +109,6 @@ public class OptionsWindow extends AbstractWindow {
 
         // Listeners
         optionsList.addListSelectionListener(e -> ShowPanel(optionsList.getSelectedValue()));
-
         return sidebar;
     }
 

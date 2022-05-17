@@ -3,6 +3,7 @@ package com.slimtrade.gui.options;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.buttons.IconButton;
@@ -128,6 +129,7 @@ public class MacroCustomizerPanel extends GridBagPanel {
             parent.remove(self);
             parent.revalidate();
         });
+        updateUI();
     }
 
     public MacroButton getMacroButton() {
@@ -157,10 +159,12 @@ public class MacroCustomizerPanel extends GridBagPanel {
     public void updateUI() {
         super.updateUI();
         if (iconCombo != null) {
+            int selectedIndex = iconCombo.getSelectedIndex();
             iconCombo.removeAllItems();
-            for (CustomIcon icon : CustomIcon.values())
-//                iconCombo.addItem(new ImageIcon(icon.getColorImage(UIManager.getColor("Label.foreground")).getScaledInstance(18,18, Image.SCALE_SMOOTH)));
-                iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), 20));
+            for (CustomIcon icon : CustomIcon.values()) {
+                iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), SaveManager.settingsSaveFile.data.iconSize));
+            }
+            iconCombo.setSelectedIndex(selectedIndex);
         }
         setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground")));
     }

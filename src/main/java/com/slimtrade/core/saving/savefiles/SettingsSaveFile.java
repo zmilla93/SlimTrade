@@ -1,6 +1,7 @@
 package com.slimtrade.core.saving.savefiles;
 
 import com.slimtrade.core.audio.SoundComponent;
+import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.ColorTheme;
@@ -19,6 +20,10 @@ public class SettingsSaveFile {
     public ColorTheme colorTheme;
     public QuickPasteManager.QuickPasteMode quickPasteMode;
     public HotkeyData quickPasteHotkey;
+
+    // Display
+    public int textSize = SpinnerRange.TEXT_SIZE.START;
+    public int iconSize = SpinnerRange.ICON_SIZE.START;
 
     // Path of Exile
     public String clientPath;
