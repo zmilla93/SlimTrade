@@ -1,8 +1,6 @@
 package com.slimtrade.core.utility;
 
-import com.slimtrade.core.audio.AudioManager;
-import com.slimtrade.enums.MessageType;
-import com.slimtrade.gui.enums.POEImage;
+import com.slimtrade.core.managers.AudioManager;
 
 import java.awt.*;
 import java.io.File;
@@ -34,22 +32,22 @@ public class TradeUtility {
         return fixedDouble;
     }
 
-    public static POEImage getPOEImage(String input) {
-        if (input == null) {
-            return null;
-        }
-        input = input.toLowerCase();
-        for (POEImage poeImage : POEImage.values()) {
-            if (poeImage.getTags() != null) {
-                for (String tag : poeImage.getTags()) {
-                    if (tag.toLowerCase().equals(input.toLowerCase())) {
-                        return poeImage;
-                    }
-                }
-            }
-        }
-        return null;
-    }
+//    public static POEImage getPOEImage(String input) {
+//        if (input == null) {
+//            return null;
+//        }
+//        input = input.toLowerCase();
+//        for (POEImage poeImage : POEImage.values()) {
+//            if (poeImage.getTags() != null) {
+//                for (String tag : poeImage.getTags()) {
+//                    if (tag.toLowerCase().equals(input.toLowerCase())) {
+//                        return poeImage;
+//                    }
+//                }
+//            }
+//        }
+//        return null;
+//    }
 
     public static int getAudioPercent(float f) {
         f = f + AudioManager.RANGE - AudioManager.MAX_VOLUME;
@@ -123,44 +121,6 @@ public class TradeUtility {
             return builder.toString().replaceAll("_", " ");
         }
         return builder.toString();
-    }
-
-    // TODO : switch to .equals()
-    public static boolean isMatchingTrades(TradeOffer trade1, TradeOffer trade2) {
-        if (trade1.messageType != trade2.messageType) {
-            return false;
-        }
-        int totalCheckCount;
-        int check = 0;
-        // Incoming & Outgoing Trades
-        if (trade1.messageType == MessageType.INCOMING_TRADE || trade1.messageType == MessageType.OUTGOING_TRADE) {
-            totalCheckCount = 5;
-            if (trade1.playerName.equals(trade2.playerName)) {
-                check++;
-            }
-            if (trade1.itemName.equals(trade2.itemName)) {
-                check++;
-            }
-            if (trade1.itemQuantity.equals(trade2.itemQuantity)) {
-                check++;
-            }
-            if ((trade1.priceTypeString == null || trade2.priceTypeString == null)) {
-                if ((trade1.priceTypeString == null && trade2.priceTypeString == null)) {
-                    check++;
-                }
-            } else if (trade1.priceTypeString.equals(trade2.priceTypeString)) {
-                check++;
-            }
-            if (trade1.priceQuantity.equals(trade2.priceQuantity)) {
-                check++;
-            }
-            return check == totalCheckCount;
-        }
-        // Chat Scanner Trades
-        else if (trade1.messageType == MessageType.CHAT_SCANNER) {
-            return trade1.playerName.equals(trade2.playerName);
-        }
-        return false;
     }
 
     public static boolean isValidImagePath(String path) {
