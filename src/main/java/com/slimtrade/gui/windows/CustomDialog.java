@@ -8,7 +8,9 @@ import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class CustomDialog extends JDialog implements IThemeListener {
 
@@ -206,6 +208,10 @@ public class CustomDialog extends JDialog implements IThemeListener {
                 setSize(new Dimension(startSize.width - widthAdjust, startSize.height));
             }
         });
+    }
+
+    public JButton getCloseButton() {
+        return closeButton;
     }
 
     public int getTitleBarHeight() {

@@ -57,6 +57,7 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
 
         ColorManager.addListener(this);
 
+        getCloseButton().setVisible(false);
         addListeners();
         pack();
         setSize(500, 500);

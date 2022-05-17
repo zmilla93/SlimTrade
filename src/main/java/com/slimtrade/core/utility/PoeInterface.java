@@ -179,4 +179,31 @@ public class PoeInterface {
         return Native.toString(buffer);
     }
 
+    public static void findInStash(String s) {
+        executor.execute(() -> {
+            focusGame();
+            if (!isGameFocused()) {
+                return;
+            }
+            StringSelection pasteString = new StringSelection(s);
+            clipboard.setContents(pasteString, null);
+            robot.keyPress(KeyEvent.VK_BACK_SPACE);
+            robot.keyRelease(KeyEvent.VK_BACK_SPACE);
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_F);
+            robot.keyRelease(KeyEvent.VK_F);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+        });
+
+    }
+
 }

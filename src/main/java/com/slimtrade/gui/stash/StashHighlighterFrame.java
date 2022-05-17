@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class StashHighlighterFrame extends JDialog {
 
-    public StashHighlighterFrame(){
+    public StashHighlighterFrame() {
         setAlwaysOnTop(true);
         setFocusable(false);
         setFocusableWindowState(false);

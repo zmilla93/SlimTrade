@@ -6,7 +6,6 @@ import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.LanguageManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.core.utility.ColorTheme;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;

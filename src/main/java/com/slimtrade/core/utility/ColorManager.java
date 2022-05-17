@@ -150,7 +150,7 @@ public class ColorManager<T> {
         return color.getRed() + color.getGreen() + color.getBlue();
     }
 
-    public static Color adjustAlpha(Color color, int alpha){
+    public static Color adjustAlpha(Color color, int alpha) {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
     }
 

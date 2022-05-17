@@ -9,6 +9,7 @@ import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class StashHelperContainer extends JDialog implements IThemeListener {
 
@@ -31,6 +32,9 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
         addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
         addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
         addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
         setVisible(true);
         updateLocation();
 
@@ -46,7 +50,9 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
     }
 
     public void addHelper(TradeOffer offer) {
-        StashHelperPanel panel = new StashHelperPanel(this, offer, StashTabColor.TEN);
+        Random rng = new Random();
+//        rng.nextInt(26);
+        StashHelperPanel panel = new StashHelperPanel(this, offer, StashTabColor.values()[rng.nextInt(26)]);
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(panel, gc);
 
@@ -58,7 +64,7 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
 
     }
 
-    public void refresh(){
+    public void refresh() {
         revalidate();
         repaint();
         pack();

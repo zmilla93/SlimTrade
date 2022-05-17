@@ -10,7 +10,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.Date;
 
-public class TradeUtility {
+// TODO : CLEAN UP THIS FILE
+public class TradeUtil {
 
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static Desktop desktop = Desktop.getDesktop();
