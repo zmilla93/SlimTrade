@@ -34,6 +34,8 @@ public class StashHelperPanel extends AdvancedButton {
         GridBagConstraints gc = ZUtil.getGC();
         add(tabLabel, gc);
         gc.gridy++;
+        add(itemLabel, gc);
+        gc.gridy++;
 
         stashTabColor = StashTabColor.ZERO;
 
