@@ -31,7 +31,6 @@ public class PathOfExilePanel extends JPanel implements ISavable {
         clientPanel.add(browseClientButton, gc);
         gc.gridx++;
 
-
         gc = ZUtil.getGC();
         add(clientPanel, gc);
         addListeners();
