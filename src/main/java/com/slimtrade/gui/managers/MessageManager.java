@@ -4,7 +4,9 @@ import com.slimtrade.App;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.gui.messaging.NotificationPanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
+import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.gui.windows.BasicDialog;
 
 import javax.swing.*;
@@ -56,12 +58,20 @@ public class MessageManager extends BasicDialog implements ITradeListener {
         repaint();
     }
 
-    public void removeMessage(JPanel panel) {
+    public void removeMessage(NotificationPanel panel) {
         assert (SwingUtilities.isEventDispatchThread());
+        // FIXME : Move to a cleanup routine in NotificationPanel
+        panel.cleanup();
+//        if(panel instanceof TradeMessagePanel){
+//            StashHelperPanel p = ((TradeMessagePanel) panel).getHelperPanel();
+//            FrameManager.stashHelperContainer.remove(p);
+//            FrameManager.stashHelperContainer.refresh();
+//        }
         container.remove(panel);
         pack();
         adjustPosition();
         container.revalidate();
+        System.gc();
     }
 
     private void adjustPosition() {

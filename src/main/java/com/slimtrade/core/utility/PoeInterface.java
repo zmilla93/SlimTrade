@@ -180,7 +180,6 @@ public class PoeInterface {
     }
 
     public static boolean isGameFocused() {
-        System.out.println("Wintitle:" + getFocusedWindowTitle());
         return getFocusedWindowTitle().equals("Path of Exile");
     }
 

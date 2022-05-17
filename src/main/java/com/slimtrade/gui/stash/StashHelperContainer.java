@@ -31,10 +31,10 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
 
 //        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
 //        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
         setVisible(true);
         updateLocation();
 
@@ -44,30 +44,23 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
 
     public void updateLocation() {
         Point target = SaveManager.stashSaveFile.data.gridRect.getLocation();
-        System.out.println(getHeight());
         target.y -= getHeight() + OFFSET;
         setLocation(target);
     }
 
-    public void addHelper(TradeOffer offer) {
-        Random rng = new Random();
-//        rng.nextInt(26);
-        StashHelperPanel panel = new StashHelperPanel(this, offer, StashTabColor.values()[rng.nextInt(26)]);
+    public StashHelperPanel addHelper(TradeOffer offer) {
+        StashHelperPanel panel = new StashHelperPanel(this, offer);
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(panel, gc);
-
-        updateLocation();
         refresh();
-    }
-
-    public void removeHelper(JPanel panel) {
-
+        return panel;
     }
 
     public void refresh() {
         revalidate();
         repaint();
         pack();
+        updateLocation();
     }
 
     @Override

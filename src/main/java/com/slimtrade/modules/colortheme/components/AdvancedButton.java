@@ -16,7 +16,12 @@ public class AdvancedButton extends JButton {
     public final Set<Integer> allowedMouseButtons = new HashSet<>();
     private final ButtonModel model;
 
-    public AdvancedButton() {
+    public AdvancedButton(){
+        this(null);
+    }
+
+    public AdvancedButton(String text) {
+        setText(text);
         setBorder(null);
         allowedMouseButtons.add(1);
         allowedMouseButtons.add(3);

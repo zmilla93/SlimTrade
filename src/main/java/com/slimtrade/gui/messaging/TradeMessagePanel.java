@@ -3,21 +3,28 @@ package com.slimtrade.gui.messaging;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.basic.ColorLabel;
+import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class TradeMessagePanel extends NotificationPanel {
 
-//    JPanel playerPanel = new ColorPanel("ComboBox.background");
-    JButton playerPanel = new AdvancedButton();
-    JPanel pricePanel = new JPanel(new GridBagLayout());
+    private StashHelperPanel helperPanel;
+    //    JPanel playerPanel = new ColorPanel("ComboBox.background");
+    private JButton playerPanel = new AdvancedButton();
+    private JPanel pricePanel = new JPanel(new GridBagLayout());
+    private JLabel priceLabel;
+    private JButton itemPanel;
 
     public TradeMessagePanel(TradeOffer tradeOffer) {
         this(tradeOffer, true);
@@ -26,6 +33,10 @@ public class TradeMessagePanel extends NotificationPanel {
     public TradeMessagePanel(TradeOffer tradeOffer, boolean createListeners) {
         super();
         this.tradeOffer = tradeOffer;
+        helperPanel = FrameManager.stashHelperContainer.addHelper(tradeOffer);
+
+        priceLabel = new ColorLabel("(" + tradeOffer.priceQuantity + ")" + tradeOffer.priceTypeString, "TextArea.background");
+        itemPanel = new AdvancedButton(tradeOffer.itemName);
 
 //        playerPanel.setBorder(null);
         // Player Panel
@@ -34,13 +45,14 @@ public class TradeMessagePanel extends NotificationPanel {
         playerPanel.add(new JLabel(tradeOffer.playerName));
 
         // Price Panel
-        JLabel priceLabel = new ColorLabel("(" + tradeOffer.priceQuantity + ")" + tradeOffer.priceTypeString, "TextArea.background");
+
         pricePanel.add(priceLabel);
 
         // Item Panel
-        JPanel itemPanel = new JPanel(new GridBagLayout());
-        JLabel itemLabel = new JLabel(tradeOffer.itemName);
-        itemPanel.add(itemLabel);
+
+//        JPanel itemPanel = new JPanel(new GridBagLayout());
+//        JLabel itemLabel = new JLabel(tradeOffer.itemName);
+//        itemPanel.add(itemLabel);
 
         // TODO : This loop is inefficient to do everytime. Should either do some caching or change save format
         ArrayList<MacroButton> topButtons = new ArrayList<>();
@@ -76,10 +88,37 @@ public class TradeMessagePanel extends NotificationPanel {
         addBottomPanel(getTimerPanel(), 0.05f);
         addBottomPanel(itemPanel, 0.95f);
         buildPanel(createListeners);
+        addListeners();
+    }
+
+    private void addListeners() {
+        itemPanel.addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    helperPanel.setVisible(true);
+                    FrameManager.stashHelperContainer.refresh();
+                }
+            }
+        });
+//        getCloseButton().addMouseListener(new AdvancedMouseListener() {
+//            @Override
+//            public void click(MouseEvent e) {
+//                if(e.getButton() == MouseEvent.BUTTON1){
+//                    FrameManager.stashGridWindow.remove(helperPanel);
+//                }
+//            }
+//        });
     }
 
     public TradeOffer getTradeOffer() {
         return tradeOffer;
     }
 
+    @Override
+    public void cleanup() {
+        super.cleanup();
+        FrameManager.stashHelperContainer.remove(helperPanel);
+        FrameManager.stashHelperContainer.refresh();
+    }
 }

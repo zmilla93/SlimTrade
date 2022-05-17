@@ -37,6 +37,7 @@ public class FrameManager {
 
     public static void init() {
         // Windows
+        stashHelperContainer = new StashHelperContainer();
         debugWindow = new DebugWindow();
         messageManager = new MessageManager();
         optionsWindow = new OptionsWindow();
@@ -46,7 +47,7 @@ public class FrameManager {
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
         stashGridWindow = new StashWindow();
-        stashHelperContainer = new StashHelperContainer();
+
         dummyWindow = new DummyWindow(); // Omitted from visibility list
 
         // Menubar

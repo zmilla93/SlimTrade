@@ -26,6 +26,7 @@ public abstract class NotificationPanel extends JPanel {
 
     private JPanel topButtons;
     private JPanel bottomButtons;
+    private JButton closeButton;
 
     private JPanel timerPanel;
 
@@ -132,7 +133,7 @@ public abstract class NotificationPanel extends JPanel {
         }
         topStrutX = gc.gridx;
         // Close Button
-        JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE.path);
+        closeButton = new NotificationIconButton(DefaultIcon.CLOSE.path);
         topButtons.add(closeButton, gc);
         if (closeButton.getPreferredSize().height > strutHeight) strutHeight = closeButton.getPreferredSize().height;
         gc.gridx = 0;
@@ -161,7 +162,7 @@ public abstract class NotificationPanel extends JPanel {
         bottomButtons.add(Box.createVerticalStrut(strutHeight), gc);
         gc.gridx = topStrutX;
         topButtons.add(Box.createVerticalStrut(strutHeight), gc);
-        JPanel self = this;
+        NotificationPanel self = this;
         closeButton.addActionListener(e -> FrameManager.messageManager.removeMessage(self));
     }
 
@@ -170,9 +171,13 @@ public abstract class NotificationPanel extends JPanel {
         topPanels.add(weightedPanel);
     }
 
-    protected void addBottomPanel(JPanel panel, float weight) {
-        WeightedComponent weightedPanel = new WeightedComponent(panel, weight);
+    protected void addBottomPanel(JComponent component, float weight) {
+        WeightedComponent weightedPanel = new WeightedComponent(component, weight);
         bottomPanels.add(weightedPanel);
+    }
+
+    public JButton getCloseButton(){
+        return closeButton;
     }
 
     protected JPanel getTimerPanel() {
@@ -205,6 +210,10 @@ public abstract class NotificationPanel extends JPanel {
     public void stopTimer() {
         secondTimer.stop();
         minuteTimer.stop();
+    }
+
+    public void cleanup(){
+
     }
 
 }
