@@ -23,6 +23,8 @@ public class ColorManager<T> {
     public static final Color DENY_COLOR = new Color(199, 84, 80);
     public static final Color GREEN_SALE = new Color(0, 130, 0);
     public static final Color RED_SALE = new Color(130, 0, 0);
+    public static Color POE_TEXT_DARK = new Color(53, 28, 13);
+    public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
 
     public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
     public static final Color TRANSPARENT_CLICKABLE = new Color(0, 0, 0, 1);

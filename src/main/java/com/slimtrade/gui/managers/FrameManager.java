@@ -3,6 +3,7 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
+import com.slimtrade.gui.stash.StashHelperContainer;
 import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class FrameManager {
     public static OverlayInfoDialog overlayInfoWindow;
     public static MessageOverlay messageOverlay;
     public static StashWindow stashGridWindow;
+    public static StashHelperContainer stashHelperContainer;
 
     private static final HashMap<AppState, Window[]> windowMap = new HashMap<>();
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
@@ -38,7 +40,7 @@ public class FrameManager {
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
         stashGridWindow = new StashWindow();
-        stashGridWindow.setVisible(true);
+        stashHelperContainer = new StashHelperContainer();
         dummyWindow = new DummyWindow(); // Omitted from visibility list
 
 

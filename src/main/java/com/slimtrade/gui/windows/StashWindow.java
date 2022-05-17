@@ -32,7 +32,6 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
         setFocusableWindowState(false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setAlwaysOnTop(true);
-//        GridPanel gridPanel = new GridPanel();
         InsetPanel insetPanel = new InsetPanel(new Insets(INSET_VERTICAL, INSET_HORIZONTAL, INSET_VERTICAL, INSET_HORIZONTAL));
         insetPanel.contentPanel.setLayout(new BorderLayout());
         insetPanel.contentPanel.add(gridPanel, BorderLayout.CENTER);
@@ -102,11 +101,7 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
         int gridY = getY() + resizeSize + INSET_VERTICAL + getTitleBarHeight() + getBorderSize();
         SaveManager.stashSaveFile.data.windowRect = new Rectangle(getX(), getY(), getWidth(), getHeight());
         SaveManager.stashSaveFile.data.gridRect = new Rectangle(gridX, gridY, gridPanel.getWidth(), gridPanel.getHeight());
-//        JFrame testFrame = new JFrame();
-//        testFrame.setSize(50, 50);
-//        testFrame.setUndecorated(true);
-//        testFrame.setLocation(SaveManager.stashSaveFile.data.gridRect.x, SaveManager.stashSaveFile.data.gridRect.y);
-//        testFrame.setVisible(true);
+        FrameManager.stashHelperContainer.updateLocation();
     }
 
     @Override

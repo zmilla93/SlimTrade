@@ -55,6 +55,7 @@ public class TradeOffer {
         exampleTrade.offerType = type;
         exampleTrade.playerName = "ExamplePlayer123";
         exampleTrade.itemName = "Example Item";
+        exampleTrade.stashtabName = "~price 1 chaos";
         int zero = ThreadLocalRandom.current().nextInt(0, 1);
         if (zero == 1) {
             exampleTrade.itemQuantity = ThreadLocalRandom.current().nextInt(1, 100);
