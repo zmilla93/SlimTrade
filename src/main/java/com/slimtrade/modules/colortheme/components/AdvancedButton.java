@@ -1,4 +1,4 @@
-package com.slimtrade.modules.colortheme;
+package com.slimtrade.modules.colortheme.components;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -17,6 +17,7 @@ public class AdvancedButton extends JButton {
     private final ButtonModel model;
 
     public AdvancedButton() {
+        setBorder(null);
         allowedMouseButtons.add(1);
         allowedMouseButtons.add(3);
         model = getModel();

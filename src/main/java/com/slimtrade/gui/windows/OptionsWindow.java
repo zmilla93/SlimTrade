@@ -90,6 +90,7 @@ public class OptionsWindow extends AbstractWindow {
         // Top Button Panel
         JPanel topButtonPanel = new JPanel(new BorderLayout());
         JList<OptionPanel> optionsList = new JList(panelList);
+        optionsList.setSelectedIndex(0);
         topButtonPanel.add(optionsList, BorderLayout.CENTER);
 
         // Bottom Button Panel

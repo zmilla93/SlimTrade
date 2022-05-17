@@ -16,8 +16,8 @@ public abstract class NotificationPanel extends JPanel {
 
     private final int targetWidth = 400;
 
-    private final ArrayList<WeightedPanel> topPanels = new ArrayList<>();
-    private final ArrayList<WeightedPanel> bottomPanels = new ArrayList<>();
+    private final ArrayList<WeightedComponent> topPanels = new ArrayList<>();
+    private final ArrayList<WeightedComponent> bottomPanels = new ArrayList<>();
 
     protected TradeOffer tradeOffer;
     protected MacroButton[] topMacros = new MacroButton[0];
@@ -82,7 +82,7 @@ public abstract class NotificationPanel extends JPanel {
         gc.weightx = 1;
         gc.weighty = 1;
         gc.fill = GridBagConstraints.BOTH;
-        for (WeightedPanel panel : topPanels) {
+        for (WeightedComponent panel : topPanels) {
             gc.weightx = panel.weight;
             gc.anchor = GridBagConstraints.EAST;
             topInfo.add(panel.panel, gc);
@@ -90,7 +90,7 @@ public abstract class NotificationPanel extends JPanel {
 
         }
         gc.gridx = 0;
-        for (WeightedPanel panel : bottomPanels) {
+        for (WeightedComponent panel : bottomPanels) {
             gc.weightx = panel.weight;
             bottomInfo.add(panel.panel, gc);
             gc.gridx++;
@@ -165,13 +165,13 @@ public abstract class NotificationPanel extends JPanel {
         closeButton.addActionListener(e -> FrameManager.messageManager.removeMessage(self));
     }
 
-    protected void addTopPanel(JPanel panel, float weight) {
-        WeightedPanel weightedPanel = new WeightedPanel(panel, weight);
+    protected void addTopPanel(JComponent panel, float weight) {
+        WeightedComponent weightedPanel = new WeightedComponent(panel, weight);
         topPanels.add(weightedPanel);
     }
 
     protected void addBottomPanel(JPanel panel, float weight) {
-        WeightedPanel weightedPanel = new WeightedPanel(panel, weight);
+        WeightedComponent weightedPanel = new WeightedComponent(panel, weight);
         bottomPanels.add(weightedPanel);
     }
 
@@ -209,11 +209,11 @@ public abstract class NotificationPanel extends JPanel {
 
 }
 
-class WeightedPanel {
-    JPanel panel;
+class WeightedComponent {
+    JComponent panel;
     float weight;
 
-    public WeightedPanel(JPanel panel, float weight) {
+    public WeightedComponent(JComponent panel, float weight) {
         this.panel = panel;
         this.weight = weight;
     }

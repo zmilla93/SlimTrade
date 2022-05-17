@@ -6,7 +6,7 @@ import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.modules.colortheme.AdvancedButton;
+import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -14,8 +14,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class StashHelperPanel extends AdvancedButton {
-
-    //    private StashHelperContainer parent;
     private JFrame highlighter = new JFrame();
     private TradeOffer tradeOffer;
 

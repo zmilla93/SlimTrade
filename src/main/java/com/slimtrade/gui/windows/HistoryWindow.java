@@ -30,7 +30,8 @@ public class HistoryWindow extends AbstractWindow implements IPreloadTradeListen
         container.add(tabbedPane);
 
         pack();
-        setSize(900, 600);
+        setSize(600, 400);
+        setLocationRelativeTo(null);
     }
 
     @Override

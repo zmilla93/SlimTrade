@@ -6,7 +6,7 @@ import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.basic.ColorLabel;
-import com.slimtrade.gui.basic.ColorPanel;
+import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,8 @@ import java.util.Random;
 
 public class TradeMessagePanel extends NotificationPanel {
 
-    JPanel playerPanel = new ColorPanel("ComboBox.background");
+//    JPanel playerPanel = new ColorPanel("ComboBox.background");
+    JButton playerPanel = new AdvancedButton();
     JPanel pricePanel = new JPanel(new GridBagLayout());
 
     public TradeMessagePanel(TradeOffer tradeOffer) {
@@ -26,6 +27,7 @@ public class TradeMessagePanel extends NotificationPanel {
         super();
         this.tradeOffer = tradeOffer;
 
+//        playerPanel.setBorder(null);
         // Player Panel
         Random rng = new Random();
         playerPanel.setLayout(new GridBagLayout());
