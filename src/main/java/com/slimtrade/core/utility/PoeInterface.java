@@ -79,6 +79,17 @@ public class PoeInterface {
         robot.keyRelease(KeyEvent.VK_ENTER);
     }
 
+    public static void runCommand(String input){
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                if(!focusGame()) return;
+                paste(input);
+            }
+        });
+
+    }
+
     public static void runCommand(String input, TradeOffer tradeOffer) {
         executor.execute(() -> {
             if (!isGameFocused())
@@ -132,7 +143,7 @@ public class PoeInterface {
         }
     }
 
-    public static void focusGame() {
+    public static boolean focusGame() {
         FrameManager.dummyWindow.setVisible(true);
         FrameManager.dummyWindow.setLocation(MouseInfo.getPointerInfo().getLocation());
         robot.mousePress(0);
@@ -165,6 +176,7 @@ public class PoeInterface {
                 break;
             }
         }
+        return isGameFocused();
     }
 
     public static boolean isGameFocused() {

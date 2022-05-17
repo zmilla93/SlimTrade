@@ -2,6 +2,7 @@ package com.slimtrade;
 
 import com.slimtrade.core.chatparser.ChatParser;
 import com.slimtrade.core.jna.GlobalKeyboardListener;
+import com.slimtrade.core.jna.GlobalMouseListener;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.LanguageManager;
 import com.slimtrade.core.managers.SaveManager;
@@ -26,6 +27,7 @@ public class App {
     public static AudioManager audioManager;
     public static SystemTrayManager systemTrayManager;
     public static GlobalKeyboardListener globalKeyboardListener;
+    public static GlobalMouseListener globalMouseListener;
     public static HotkeyManager hotkeyManager;
 
     public static ChatParser chatParser = new ChatParser();
@@ -92,7 +94,9 @@ public class App {
             e.printStackTrace();
         }
         globalKeyboardListener = new GlobalKeyboardListener();
+//        globalMouseListener = new GlobalMouseListener();
         GlobalScreen.addNativeKeyListener(globalKeyboardListener);
+//        GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
 
         // Chat Parser
         // Chat Parser Listeners

@@ -1,6 +1,8 @@
 package com.slimtrade.gui.managers;
 
 import com.slimtrade.core.enums.AppState;
+import com.slimtrade.gui.menubar.MenubarButtonDialog;
+import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
 import com.slimtrade.gui.stash.StashHelperContainer;
@@ -24,6 +26,10 @@ public class FrameManager {
     public static StashWindow stashGridWindow;
     public static StashHelperContainer stashHelperContainer;
 
+    // Menubar
+    public static MenubarButtonDialog menubarIcon;
+    public static MenubarDialog menubarDialog;
+
     private static final HashMap<AppState, Window[]> windowMap = new HashMap<>();
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
 
@@ -42,6 +48,11 @@ public class FrameManager {
         stashGridWindow = new StashWindow();
         stashHelperContainer = new StashHelperContainer();
         dummyWindow = new DummyWindow(); // Omitted from visibility list
+
+        // Menubar
+        menubarIcon = new MenubarButtonDialog();
+        menubarDialog = new MenubarDialog();
+        menubarDialog.setVisible(true);
 
 
         // Group windows that need to be shown/hidden during state changes
@@ -89,6 +100,14 @@ public class FrameManager {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension windowSize = window.getSize();
         window.setLocation(new Point(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2));
+    }
+
+    public static void expandMenubar(){
+
+    }
+
+    public static void collapseMenubar(){
+
     }
 
 }
