@@ -5,11 +5,12 @@ import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
+import com.slimtrade.gui.windows.BasicDialog;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MessageManager extends JFrame implements ITradeListener {
+public class MessageManager extends BasicDialog implements ITradeListener {
 
     public Point anchorPoint = new Point(800, 0);
     boolean expandUp = false;
@@ -22,11 +23,6 @@ public class MessageManager extends JFrame implements ITradeListener {
 
 
     public MessageManager() {
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setUndecorated(true);
-        setFocusable(false);
-        setFocusableWindowState(false);
-        setAlwaysOnTop(true);
         setBackground(new Color(0, 0, 0, 0));
 
         container = getContentPane();
