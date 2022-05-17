@@ -29,12 +29,12 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
 
         setBackground(ColorManager.TRANSPARENT);
 
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
         setVisible(true);
         updateLocation();
 
