@@ -8,6 +8,7 @@ import com.slimtrade.modules.saving.ISavable;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.io.File;
 
 public class PathOfExilePanel extends JPanel implements ISavable {
 
@@ -19,7 +20,6 @@ public class PathOfExilePanel extends JPanel implements ISavable {
     public PathOfExilePanel() {
         clientTextField.setEditable(false);
         fileChooser.setFileFilter(new FileNameExtensionFilter("TEXT FILES", "txt", "text"));
-
         setLayout(new GridBagLayout());
         JPanel clientPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
@@ -60,6 +60,10 @@ public class PathOfExilePanel extends JPanel implements ISavable {
     @Override
     public void load() {
         clientTextField.setText(SaveManager.settingsSaveFile.data.clientPath);
+        File file = new File(SaveManager.settingsSaveFile.data.clientPath);
+        if (file.isFile()) {
+            fileChooser.setCurrentDirectory(file.getParentFile());
+        }
     }
 
     @Override
