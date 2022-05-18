@@ -41,13 +41,14 @@ public class FrameManager {
 
     public static void init() {
         // Windows
+        TestFrame frame = new TestFrame();
         stashHelperContainer = new StashHelperContainer();
         debugWindow = new DebugWindow();
         messageManager = new MessageManager();
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();
         chatScannerWindow = new ChatScannerWindow();
-        chatScannerWindow.setVisible(true);
+//        chatScannerWindow.setVisible(true);
 
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();

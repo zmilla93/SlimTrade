@@ -71,6 +71,7 @@ public class OptionsWindow extends AbstractWindow {
         // Listeners
         saveButton.addActionListener(e ->
         {
+            System.out.println("RUNNING SAVE");
             SaveManager.settingsSaveFile.saveToDisk();
             HotkeyManager.loadHotkeys();
             reloadExampleTrades();

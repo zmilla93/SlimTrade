@@ -22,6 +22,7 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
         GridBagConstraints gc = ZUtil.getGC();
         JLabel textSizeLabel = new JLabel("Text Size");
         JLabel iconSizeLabel = new JLabel("Icon Size");
+        iconPreviewButton.setFocusable(false);
 
         // Spinners
         SpinnerNumberModel textSpinnerModel = new SpinnerRangeModel(SpinnerRange.TEXT_SIZE);
@@ -80,8 +81,6 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
     public void save() {
         SaveManager.settingsSaveFile.data.textSize = (int) textSizeSpinner.getValue();
         SaveManager.settingsSaveFile.data.iconSize = (int) iconSizeSpinner.getValue();
-        ColorManager.setFontSize(SaveManager.settingsSaveFile.data.textSize);
-        ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
     }
 
     @Override

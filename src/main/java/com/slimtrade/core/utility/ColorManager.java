@@ -2,6 +2,7 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.buttons.NotificationButton;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
 
@@ -167,6 +168,10 @@ public class ColorManager<T> {
         }
     }
 
+    public static int getCachedIconSize() {
+        return cacheIconSize;
+    }
+
     public static void setIconSize(int size) {
         cacheIconSize = size;
         iconMap.clear();
@@ -200,14 +205,34 @@ public class ColorManager<T> {
                 setIconSizeRecursive(child, size);
             }
         }
+        // FIXME :
         if (component instanceof IconButton) {
             ((IconButton) component).setIconSize(size);
+
+        }
+        if (component instanceof NotificationButton) {
+            ((NotificationButton) component).updateUI();
         }
 //        if (component instanceof JComponent) {
 //            ((JComponent) component).updateUI();
 //        }
     }
 
+    public static void updateUI() {
+
+    }
+
+//    private static void recursiveUpdateUI(){
+//        for (Component frame : frames) {
+//            setIconSizeRecursive(frame, size);
+//            frame.revalidate();
+//            frame.repaint();
+//            // FIXME
+//            if (frame instanceof BasicDialog) {
+//                ((BasicDialog) frame).pack();
+//            }
+//        }
+//    }
 
     // Utility Color Functions
 

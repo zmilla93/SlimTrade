@@ -5,6 +5,7 @@ import javax.swing.*;
 public class AdvancedColorButton extends AdvancedButton {
 
     public AdvancedColorButton(String text) {
+        super(text);
 //        setBorder();
     }
 

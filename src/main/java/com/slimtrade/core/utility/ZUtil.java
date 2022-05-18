@@ -3,6 +3,7 @@ package com.slimtrade.core.utility;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -84,6 +85,17 @@ public class ZUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * Given a panel with a border layout, will add insets to the edges of the panel
+     * @param panel
+     */
+    public static void addBorderStruts(JPanel panel, Insets insets){
+        panel.add(Box.createVerticalStrut(insets.top), BorderLayout.NORTH);
+        panel.add(Box.createVerticalStrut(insets.bottom), BorderLayout.SOUTH);
+        panel.add(Box.createHorizontalStrut(insets.left), BorderLayout.WEST);
+        panel.add(Box.createHorizontalStrut(insets.right), BorderLayout.EAST);
     }
 
 }

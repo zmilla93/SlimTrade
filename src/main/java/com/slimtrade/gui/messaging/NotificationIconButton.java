@@ -1,13 +1,12 @@
 package com.slimtrade.gui.messaging;
 
-import com.slimtrade.App;
 import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
 import javax.swing.*;
 
-public class NotificationIconButton extends JButton {
+public class NotificationIconButton extends AdvancedButton {
 
-    int ICON_INSET = 1;
     private final String path;
 
     public NotificationIconButton(String path) {
@@ -20,8 +19,8 @@ public class NotificationIconButton extends JButton {
     @Override
     public void updateUI() {
         super.updateUI();
-        setBorder(BorderFactory.createEmptyBorder(ICON_INSET, ICON_INSET, ICON_INSET, ICON_INSET));
-        if (App.initialized && path != null) {
+        setBorder(BorderFactory.createEmptyBorder(NotificationButton.INSET, NotificationButton.INSET, NotificationButton.INSET, NotificationButton.INSET));
+        if (path != null) {
             setIcon(ColorManager.getIcon(path));
         }
     }

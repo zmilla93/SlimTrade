@@ -20,6 +20,9 @@ public class AdvancedButton extends JButton {
     private Color previousBackground;
     private Color previousForeground;
 
+    private String backgroundKey;
+    private String foregroundKey;
+
     public AdvancedButton() {
         this(null);
     }
@@ -97,8 +100,18 @@ public class AdvancedButton extends JButton {
         }
     }
 
+    public void setBackgroundKey(String key){
+        this.backgroundKey = key;
+    }
+
+    public void setForegroundKey(String key){
+        this.foregroundKey = key;
+    }
+
     @Override
     public void updateUI() {
         super.updateUI();
+        if(backgroundKey != null) setBackground(UIManager.getColor(backgroundKey));
+        if(foregroundKey != null) setForeground(UIManager.getColor(foregroundKey));
     }
 }

@@ -3,6 +3,7 @@ package com.slimtrade.modules.saving;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.slimtrade.modules.listening.ListenManager;
 
 import java.awt.*;
 import java.io.*;
@@ -15,13 +16,13 @@ import java.util.TimerTask;
 /**
  * Allows easy linking of a data class, a json save file, and a list of ISavable components.
  */
-public class SaveFile<T> {
+public class SaveFile<T> extends ListenManager<ISaveListener> {
 
     public T data;
     public final String path;
     public final Class<T> classType;
     private final ArrayList<ISavable> savables = new ArrayList<>();
-    private final ArrayList<ISaveListener> saveListeners = new ArrayList<>();
+    //    private final ArrayList<ISaveListener> saveListeners = new ArrayList<>();
     private final Timer autoSaveTimer = new Timer();
     private TimerTask saveTask;
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -82,7 +83,7 @@ public class SaveFile<T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (ISaveListener listener : saveListeners) {
+        for (ISaveListener listener : listeners) {
             listener.onSave();
         }
     }
@@ -127,17 +128,17 @@ public class SaveFile<T> {
         autoSaveTimer.schedule(saveTask, 1500);
     }
 
-    public void addListener(ISaveListener listener) {
-        saveListeners.add(listener);
-    }
-
-    public void removeListener(ISaveListener listener) {
-        saveListeners.remove(listener);
-    }
-
-    public void removeAllListeners() {
-        saveListeners.clear();
-    }
+//    public void addListener(ISaveListener listener) {
+//        saveListeners.add(listener);
+//    }
+//
+//    public void removeListener(ISaveListener listener) {
+//        saveListeners.remove(listener);
+//    }
+//
+//    public void removeAllListeners() {
+//        saveListeners.clear();
+//    }
 
     // FIXME : This can be cleaned up
     private static String getFileAsString(String path) {

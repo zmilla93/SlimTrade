@@ -3,7 +3,7 @@ package com.slimtrade.gui.options;
 import com.slimtrade.core.enums.MessageType;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.MacroButton;
-import com.slimtrade.gui.messaging.TradeMessagePanel;
+import com.slimtrade.gui.messaging.OLD_TradeMessagePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,12 +50,12 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         exampleTradeContainer.removeAll();
         switch (messageType) {
             case INCOMING_TRADE:
-                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
+                exampleTradeContainer.add(new OLD_TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
 //                addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
                 break;
             case OUTGOING_TRADE:
 //                addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
-                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
+                exampleTradeContainer.add(new OLD_TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
                 break;
         }
     }

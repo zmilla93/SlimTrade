@@ -48,7 +48,6 @@ public class ChatScannerWindow extends AbstractWindow {
         setTitle("Chat Scanner");
         pack();
         setSize(800, 600);
-        setVisible(true);
 
         scanButton.addActionListener(new ActionListener() {
             @Override

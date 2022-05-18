@@ -50,6 +50,7 @@ public class App {
 
         // Managers
         saveManager = new SaveManager();
+        SaveManager.init();
         languageManager = new LanguageManager();
         audioManager = new AudioManager();
         hotkeyManager = new HotkeyManager();
