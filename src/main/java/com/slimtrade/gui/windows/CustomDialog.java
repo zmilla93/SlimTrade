@@ -38,7 +38,9 @@ public class CustomDialog extends JDialog implements IThemeListener {
 
     public CustomDialog() {
         setUndecorated(true);
+        setAlwaysOnTop(true);
         ColorManager.addFrame(this);
+        ColorManager.addListener(this);
         container = getContentPane();
         container.setLayout(new BorderLayout());
 
@@ -88,8 +90,6 @@ public class CustomDialog extends JDialog implements IThemeListener {
         contentPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
         setContentPane(outerPanel);
         setBackground(ColorManager.TRANSPARENT);
-
-        ColorManager.addListener(this);
 
         addWindowMover();
         addWindowResizer();

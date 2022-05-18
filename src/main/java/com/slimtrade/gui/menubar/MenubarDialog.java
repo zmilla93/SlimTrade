@@ -31,6 +31,7 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
     private void addListeners() {
         optionsButton.addActionListener(e -> FrameManager.optionsWindow.setVisible(true));
         historyButton.addActionListener(e -> FrameManager.historyWindow.setVisible(true));
+        chatScannerButton.addActionListener(e -> FrameManager.chatScannerWindow.setVisible(true));
         // FIXME:
         hideoutButton.addActionListener(e -> PoeInterface.runCommand("/hideout"));
         exitButton.addActionListener(e -> System.exit(0));
@@ -97,7 +98,7 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
 
     @Override
     public void onThemeChange() {
-        pack();
+//        pack();
 //        container.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Label.foreground")));
     }
 }

@@ -3,6 +3,7 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.gui.chatscanner.ChatScannerWindow;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.overlays.MessageOverlay;
@@ -20,6 +21,7 @@ public class FrameManager {
     public static MessageManager messageManager;
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
+    public static ChatScannerWindow chatScannerWindow;
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -44,6 +46,8 @@ public class FrameManager {
         messageManager = new MessageManager();
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();
+        chatScannerWindow = new ChatScannerWindow();
+        chatScannerWindow.setVisible(true);
 
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();

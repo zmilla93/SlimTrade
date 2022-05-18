@@ -1,6 +1,7 @@
 package com.slimtrade.modules.colortheme.components;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
@@ -15,8 +16,11 @@ public class AdvancedButton extends JButton {
     private boolean inBounds;
     public final Set<Integer> allowedMouseButtons = new HashSet<>();
     private final ButtonModel model;
+    private boolean active;
+    private Color previousBackground;
+    private Color previousForeground;
 
-    public AdvancedButton(){
+    public AdvancedButton() {
         this(null);
     }
 
@@ -26,6 +30,7 @@ public class AdvancedButton extends JButton {
         allowedMouseButtons.add(1);
         allowedMouseButtons.add(3);
         model = getModel();
+
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -60,13 +65,37 @@ public class AdvancedButton extends JButton {
         });
     }
 
+    public void setActive(boolean active) {
+        this.active = active;
+        adjustState();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
     private void adjustState() {
+        if (previousBackground != null) {
+            setBackground(previousBackground);
+            setForeground(previousForeground);
+            previousBackground = null;
+            previousForeground = null;
+        }
         if (inBounds) {
             model.setRollover(true);
             model.setPressed(mouseDown);
         } else {
-            model.setRollover(false);
-            model.setPressed(false);
+            if (active) {
+                previousBackground = getBackground();
+                previousForeground = getForeground();
+                setBackground(previousForeground);
+                setForeground(previousBackground);
+                model.setRollover(true);
+                model.setPressed(true);
+            } else {
+                model.setRollover(false);
+                model.setPressed(false);
+            }
         }
     }
 

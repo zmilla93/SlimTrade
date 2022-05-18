@@ -17,12 +17,10 @@ public class MessageManager extends BasicDialog implements ITradeListener {
     public Point anchorPoint = new Point(800, 0);
     boolean expandUp = false;
 
-
     private int MESSAGE_GAP = 1;
     private Container container;
 
     private GridBagConstraints gc;
-
 
     public MessageManager() {
         setBackground(new Color(0, 0, 0, 0));
