@@ -30,8 +30,6 @@ public class AdvancedButton extends JButton {
         allowedMouseButtons.add(1);
         allowedMouseButtons.add(3);
         model = getModel();
-
-
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -99,4 +97,8 @@ public class AdvancedButton extends JButton {
         }
     }
 
+    @Override
+    public void updateUI() {
+        super.updateUI();
+    }
 }

@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class ColorCombo extends JComboBox<Color> {
 
-    public ColorCombo(){
+    public ColorCombo() {
         addActionListener(e -> {
             Color color = (Color) getSelectedItem();
             setBackground(color);

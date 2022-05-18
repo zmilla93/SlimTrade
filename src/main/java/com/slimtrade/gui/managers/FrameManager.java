@@ -112,11 +112,11 @@ public class FrameManager {
         window.setLocation(new Point(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2));
     }
 
-    public static void expandMenubar(){
+    public static void expandMenubar() {
 
     }
 
-    public static void collapseMenubar(){
+    public static void collapseMenubar() {
 
     }
 

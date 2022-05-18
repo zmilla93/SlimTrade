@@ -4,15 +4,16 @@ import com.slimtrade.App;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.messaging.NotificationPanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
-import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.gui.windows.BasicDialog;
+import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MessageManager extends BasicDialog implements ITradeListener {
+public class MessageManager extends BasicDialog implements ITradeListener, IThemeListener {
 
     public Point anchorPoint = new Point(800, 0);
     boolean expandUp = false;
@@ -35,6 +36,7 @@ public class MessageManager extends BasicDialog implements ITradeListener {
         gc.gridy = 0;
         setLocation(anchorPoint);
         pack();
+        ColorManager.addListener(this);
     }
 
     public void addMessage(TradeOffer tradeOffer) {
@@ -58,13 +60,7 @@ public class MessageManager extends BasicDialog implements ITradeListener {
 
     public void removeMessage(NotificationPanel panel) {
         assert (SwingUtilities.isEventDispatchThread());
-        // FIXME : Move to a cleanup routine in NotificationPanel
         panel.cleanup();
-//        if(panel instanceof TradeMessagePanel){
-//            StashHelperPanel p = ((TradeMessagePanel) panel).getHelperPanel();
-//            FrameManager.stashHelperContainer.remove(p);
-//            FrameManager.stashHelperContainer.refresh();
-//        }
         container.remove(panel);
         pack();
         adjustPosition();
@@ -84,5 +80,12 @@ public class MessageManager extends BasicDialog implements ITradeListener {
     @Override
     public void handleTrade(TradeOffer tradeOffer) {
         SwingUtilities.invokeLater(() -> addMessage(tradeOffer));
+    }
+
+    @Override
+    public void onThemeChange() {
+        revalidate();
+        repaint();
+        pack();
     }
 }

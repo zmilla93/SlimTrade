@@ -79,11 +79,11 @@ public class PoeInterface {
         robot.keyRelease(KeyEvent.VK_ENTER);
     }
 
-    public static void runCommand(String input){
+    public static void runCommand(String input) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                if(!focusGame()) return;
+                if (!focusGame()) return;
                 paste(input);
             }
         });

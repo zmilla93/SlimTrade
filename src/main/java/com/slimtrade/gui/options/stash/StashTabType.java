@@ -8,7 +8,7 @@ public enum StashTabType {
 
     private final String name;
 
-    StashTabType(){
+    StashTabType() {
         name = ZUtil.enumToString(name());
     }
 

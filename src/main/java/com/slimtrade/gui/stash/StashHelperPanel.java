@@ -39,7 +39,7 @@ public class StashHelperPanel extends AdvancedButton {
 
         stashTabColor = StashTabColor.ZERO;
 
-        if(stashTabColor != StashTabColor.ZERO){
+        if (stashTabColor != StashTabColor.ZERO) {
             setBackground(stashTabColor.getBackground());
             tabLabel.setForeground(stashTabColor.getForeground());
             itemLabel.setForeground(stashTabColor.getForeground());

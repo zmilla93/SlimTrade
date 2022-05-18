@@ -10,7 +10,7 @@ public class TestFrame extends JFrame {
 
     JPanel contentPanel = new JPanel();
 
-    public TestFrame(){
+    public TestFrame() {
         setContentPane(contentPanel);
 
         ColorManager.addFrame(this);

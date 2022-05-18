@@ -1,8 +1,12 @@
 package com.slimtrade.gui.buttons;
 
-import javax.swing.*;
+import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
-public class NotificationButton extends JButton {
+public class NotificationButton extends AdvancedButton {
 
-
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        setBorder(null);
+    }
 }

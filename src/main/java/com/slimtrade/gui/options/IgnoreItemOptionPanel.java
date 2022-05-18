@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class IgnoreItemOptionPanel extends AbstractOptionPanel {
 
-    public IgnoreItemOptionPanel(){
+    public IgnoreItemOptionPanel() {
         addHeader("Ignore New Item");
         addPanel(new IgnoreInputPanel());
         addPanel(new JLabel("Set timer to 0 to ignore indefinitely."));

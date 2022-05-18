@@ -7,6 +7,7 @@ import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.basic.ColorLabel;
+import com.slimtrade.gui.buttons.NotificationButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
@@ -20,8 +21,7 @@ import java.util.Random;
 public class TradeMessagePanel extends NotificationPanel {
 
     private StashHelperPanel helperPanel;
-    //    JPanel playerPanel = new ColorPanel("ComboBox.background");
-    private JButton playerPanel = new AdvancedButton();
+    private JButton playerPanel = new NotificationButton();
     private JPanel pricePanel = new JPanel(new GridBagLayout());
     private JLabel priceLabel;
     private JButton itemPanel;

@@ -1,6 +1,5 @@
 package com.slimtrade.gui.stash;
 
-import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
@@ -9,7 +8,6 @@ import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 public class StashHelperContainer extends JDialog implements IThemeListener {
 

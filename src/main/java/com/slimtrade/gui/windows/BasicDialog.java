@@ -10,7 +10,7 @@ public class BasicDialog extends JDialog {
     private Container contentPane;
     public final JPanel container = new JPanel();
 
-    public BasicDialog(){
+    public BasicDialog() {
         contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
         contentPane.add(container, BorderLayout.CENTER);

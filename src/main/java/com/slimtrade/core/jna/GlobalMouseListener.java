@@ -10,10 +10,10 @@ public class GlobalMouseListener implements NativeMouseMotionListener {
     @Override
     public void nativeMouseMoved(NativeMouseEvent nativeMouseEvent) {
         Point p = nativeMouseEvent.getPoint();
-        if(FrameManager.menubarDialog.contains(p) || FrameManager.menubarIcon.contains(p)){
+        if (FrameManager.menubarDialog.contains(p) || FrameManager.menubarIcon.contains(p)) {
             FrameManager.menubarDialog.setVisible(true);
             FrameManager.menubarIcon.setVisible(false);
-        }else{
+        } else {
             FrameManager.menubarIcon.setVisible(true);
             FrameManager.menubarDialog.setVisible(false);
         }

@@ -176,7 +176,7 @@ public abstract class NotificationPanel extends JPanel {
         bottomPanels.add(weightedPanel);
     }
 
-    public JButton getCloseButton(){
+    public JButton getCloseButton() {
         return closeButton;
     }
 
@@ -212,7 +212,10 @@ public abstract class NotificationPanel extends JPanel {
         minuteTimer.stop();
     }
 
-    public void cleanup(){
+    /**
+     * Called when panel is removed from MessageManager.
+     */
+    public void cleanup() {
 
     }
 
