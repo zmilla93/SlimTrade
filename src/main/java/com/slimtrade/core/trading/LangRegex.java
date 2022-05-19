@@ -75,13 +75,6 @@ public enum LangRegex {
         this.wantToBuy = wantToBuy;
         this.joinedArea = joinedArea;
         this.messages = messages;
-//        tradeOfferPatterns = new Pattern[messages.length];
-//        quickPastePatterns = new Pattern[messages.length];
-//        for (int i = 0; i < messages.length; i++) {
-//            String s = References.REGEX_CLIENT_PREFIX + messages[i] + References.REGEX_SUFFIX;
-//            tradeOfferPatterns[i] = Pattern.compile(s);
-//            quickPastePatterns[i] = Pattern.compile(References.REGEX_QUICK_PASTE_PREFIX + messages[i] + References.REGEX_SUFFIX);
-//        }
     }
 
     public void compile() {
