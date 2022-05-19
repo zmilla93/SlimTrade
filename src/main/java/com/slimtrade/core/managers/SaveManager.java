@@ -1,6 +1,5 @@
 package com.slimtrade.core.managers;
 
-import com.slimtrade.core.saving.savefiles.OverlaySaveFile;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.core.saving.savefiles.StashSaveFile;
 import com.slimtrade.core.utility.ColorManager;
@@ -19,7 +18,7 @@ public class SaveManager {
     // Save Files
     private static final String settingsSaveName = "settings.json";
     private static final String stashSaveName = "stash.json";
-    public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
+//    public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
 
     // Subfolder Names
     private static final String audioFolderName = "audio";
@@ -35,6 +34,7 @@ public class SaveManager {
             public void onSave() {
                 ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
                 ColorManager.setFontSize(SaveManager.settingsSaveFile.data.textSize);
+                SaveManager.settingsSaveFile.data.buildMacroCache();
             }
 
             @Override

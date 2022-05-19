@@ -103,6 +103,10 @@ public class OptionsWindow extends AbstractWindow {
         gc.gridy = 0;
         bottomButtonPanel.add(new JLabel("SlimTrade v0.4.0"), gc);
         gc.gridy++;
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.BOTH;
+        bottomButtonPanel.add(new JButton("Donate"), gc);
+        gc.gridy++;
         bottomButtonPanel.add(new JButton("Check for Updates"), gc);
 
         sidebar.add(topButtonPanel, BorderLayout.NORTH);

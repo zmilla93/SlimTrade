@@ -1,11 +1,14 @@
 package com.slimtrade.core.saving.savefiles;
 
 import com.slimtrade.core.audio.SoundComponent;
+import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.ColorTheme;
 import com.slimtrade.core.utility.MacroButton;
+
+import java.util.ArrayList;
 
 /***
  * Class representation of settings.json
@@ -34,8 +37,13 @@ public class SettingsSaveFile {
     public SoundComponent playerJoinedAreaSound;
     public SoundComponent updateSound;
 
-    public MacroButton[] incomingMacroButtons;
-    public MacroButton[] outgoingMacroButtons;
+    // Macros
+    public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
+    public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
+    public transient ArrayList<MacroButton> incomingTopMacros;
+    public transient ArrayList<MacroButton> incomingBottomMacros;
+    public transient ArrayList<MacroButton> outgoingTopMacros;
+    public transient ArrayList<MacroButton> outgoingBottomMacros;
 
     // SlimTrade Hotkeys
     public HotkeyData optionsHotkey;
@@ -54,6 +62,30 @@ public class SettingsSaveFile {
     public HotkeyData metamorphHotkey;
     public HotkeyData remainingMonstersHotkey;
 
-    // Link Hotkeys
+    public SettingsSaveFile() {
+//        buildMacroCache();
+    }
+
+    // Macro Generators
+    public void buildMacroCache() {
+        incomingTopMacros = new ArrayList<>();
+        incomingBottomMacros = new ArrayList<>();
+        outgoingTopMacros = new ArrayList<>();
+        outgoingBottomMacros = new ArrayList<>();
+        for (MacroButton button : incomingMacroButtons) {
+            if (button.row == ButtonRow.TOP_ROW) {
+                incomingTopMacros.add(button);
+            } else {
+                incomingBottomMacros.add(button);
+            }
+        }
+        for (MacroButton button : outgoingMacroButtons) {
+            if (button.row == ButtonRow.TOP_ROW) {
+                outgoingTopMacros.add(button);
+            } else {
+                outgoingBottomMacros.add(button);
+            }
+        }
+    }
 
 }

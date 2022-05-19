@@ -2,7 +2,6 @@ package com.slimtrade.gui.options.general;
 
 import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.SpinnerRangeModel;

@@ -3,10 +3,11 @@ package com.slimtrade.gui.options;
 import com.slimtrade.core.enums.MessageType;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.MacroButton;
-import com.slimtrade.gui.messaging.OLD_TradeMessagePanel;
+import com.slimtrade.gui.messaging.TradeMessagePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
@@ -42,7 +43,6 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         addHeader("Custom Macros");
         addPanel(addMacroButton);
         addPanel(macroContainer);
-
     }
 
 
@@ -50,12 +50,12 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         exampleTradeContainer.removeAll();
         switch (messageType) {
             case INCOMING_TRADE:
-                exampleTradeContainer.add(new OLD_TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
+                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
 //                addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
                 break;
             case OUTGOING_TRADE:
 //                addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
-                exampleTradeContainer.add(new OLD_TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
+                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
                 break;
         }
     }
@@ -70,25 +70,21 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         macroPanel.setMacro(macro);
         macroContainer.add(macroPanel, gc);
         gc.gridy++;
-//        revalidate();
-//        repaint();
     }
 
-    public MacroButton[] getMacros() {
-        int componentCount = macroContainer.getComponentCount();
-        MacroButton[] macroButtons = new MacroButton[componentCount];
-        for (int i = 0; i < componentCount; i++) {
-            Component c = macroContainer.getComponent(i);
+    public ArrayList<MacroButton> getMacros() {
+        ArrayList<MacroButton> macros = new ArrayList<>(macroContainer.getComponentCount());
+        for (Component c : macroContainer.getComponents()) {
             if (c instanceof MacroCustomizerPanel) {
                 MacroCustomizerPanel panel = (MacroCustomizerPanel) c;
                 MacroButton macro = panel.getMacroButton();
-                macroButtons[i] = macro;
+                macros.add(macro);
             } else {
                 // ERROR
                 System.err.println("Macro Option Panel contains non customizer component!");
             }
         }
-        return macroButtons;
+        return macros;
     }
 
 }

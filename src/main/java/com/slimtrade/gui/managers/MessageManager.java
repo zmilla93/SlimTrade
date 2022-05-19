@@ -5,8 +5,8 @@ import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.gui.messaging.OLD_NotificationPanel;
-import com.slimtrade.gui.messaging.OLD_TradeMessagePanel;
+import com.slimtrade.gui.messaging.NotificationPanel;
+import com.slimtrade.gui.messaging.TradeMessagePanel;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
 
@@ -50,7 +50,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
             App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
         gc.insets = new Insets(0, 0, MESSAGE_GAP, 0);
         gc.gridy = container.getComponentCount();
-        OLD_TradeMessagePanel panel = new OLD_TradeMessagePanel(tradeOffer);
+        TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);
         panel.startTimer();
         container.add(panel, gc);
         pack();
@@ -58,7 +58,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         repaint();
     }
 
-    public void removeMessage(OLD_NotificationPanel panel) {
+    public void removeMessage(NotificationPanel panel) {
         assert (SwingUtilities.isEventDispatchThread());
         panel.cleanup();
         container.remove(panel);

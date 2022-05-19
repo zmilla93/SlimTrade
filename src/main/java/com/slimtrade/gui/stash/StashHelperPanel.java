@@ -6,6 +6,7 @@ import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
 import javax.swing.*;
@@ -64,6 +65,8 @@ public class StashHelperPanel extends AdvancedButton {
                 }
             }
         });
+
+        FrameManager.stashHelperContainer.add(this);
     }
 
     private void createBorder(StashTabColor stashTabColor) {

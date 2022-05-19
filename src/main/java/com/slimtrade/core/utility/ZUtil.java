@@ -49,7 +49,8 @@ public class ZUtil {
             clean = clean.replaceAll("\\{item}", tradeOffer.playerName);
             clean = clean.replaceAll("\\{price}", tradeOffer.playerName);
             clean = clean.replaceAll("\\{message}", tradeOffer.playerName);
-            clean = clean.replaceAll("\\{zone}", tradeOffer.playerName);
+            // FIXME:
+//            clean = clean.replaceAll("\\{zone}", tradeOffer.playerName);
             commands.set(i, clean);
         }
         System.out.println("COMMANDS :: " + commands);
@@ -89,9 +90,10 @@ public class ZUtil {
 
     /**
      * Given a panel with a border layout, will add insets to the edges of the panel
+     *
      * @param panel
      */
-    public static void addBorderStruts(JPanel panel, Insets insets){
+    public static void addBorderStruts(JPanel panel, Insets insets) {
         panel.add(Box.createVerticalStrut(insets.top), BorderLayout.NORTH);
         panel.add(Box.createVerticalStrut(insets.bottom), BorderLayout.SOUTH);
         panel.add(Box.createHorizontalStrut(insets.left), BorderLayout.WEST);

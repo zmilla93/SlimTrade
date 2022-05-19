@@ -218,8 +218,11 @@ public class ColorManager<T> {
 //        }
     }
 
-    public static void updateUI() {
-
+    public static void recursiveUpdateUI(JComponent component) {
+        component.updateUI();
+        for (Component child : component.getComponents()) {
+            recursiveUpdateUI((JComponent) child);
+        }
     }
 
 //    private static void recursiveUpdateUI(){

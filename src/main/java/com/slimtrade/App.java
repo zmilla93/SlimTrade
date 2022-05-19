@@ -49,12 +49,14 @@ public class App {
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
         // Managers
-        saveManager = new SaveManager();
+//        saveManager = new SaveManager();
         SaveManager.init();
+        SaveManager.settingsSaveFile.data.buildMacroCache();
         languageManager = new LanguageManager();
         audioManager = new AudioManager();
         hotkeyManager = new HotkeyManager();
         PoeInterface.init();
+
 
         // UI
         try {
