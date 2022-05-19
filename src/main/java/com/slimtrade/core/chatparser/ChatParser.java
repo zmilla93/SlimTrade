@@ -1,6 +1,5 @@
 package com.slimtrade.core.chatparser;
 
-import com.slimtrade.App;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
 import org.apache.commons.io.input.Tailer;

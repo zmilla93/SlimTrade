@@ -45,16 +45,16 @@ public enum StashTabColor {
     ;
 
     private Color backgroundColor;
-    private Color textColor;
+    private Color foregroundColor;
 
-    StashTabColor(Color bg) {
-        this.backgroundColor = bg;
-        this.textColor = Color.WHITE;
+    StashTabColor(Color background) {
+        this.backgroundColor = background;
+        this.foregroundColor = Color.WHITE;
     }
 
-    StashTabColor(Color bg, Color text) {
+    StashTabColor(Color bg, Color foreground) {
         this.backgroundColor = bg;
-        this.textColor = text;
+        this.foregroundColor = foreground;
     }
 
     public Color getBackground() {
@@ -62,7 +62,7 @@ public enum StashTabColor {
     }
 
     public Color getForeground() {
-        return this.textColor;
+        return this.foregroundColor;
     }
 
     public static StashTabColor getValueFromColor(Color color) {

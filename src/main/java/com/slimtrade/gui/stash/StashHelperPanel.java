@@ -38,7 +38,7 @@ public class StashHelperPanel extends AdvancedButton {
         add(itemLabel, gc);
         gc.gridy++;
 
-        stashTabColor = StashTabColor.ZERO;
+        stashTabColor = tradeOffer.getStashTabColor();
 
         if (stashTabColor != StashTabColor.ZERO) {
             setBackground(stashTabColor.getBackground());

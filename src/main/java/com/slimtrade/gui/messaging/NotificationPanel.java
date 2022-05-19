@@ -36,6 +36,8 @@ public class NotificationPanel extends ColorPanel {
 
     protected TradeOffer tradeOffer;
 
+    protected Color messageColor = new Color(60, 173, 173, 255);
+
     // Timers
     private Timer timer;
     private boolean minuteSwitch = false;
@@ -121,12 +123,13 @@ public class NotificationPanel extends ColorPanel {
 
         // Colors
         setBackgroundKey("Separator.background");
-        borderPanel.setBackground(new Color(67, 138, 59));
+        borderPanel.setBackground(messageColor);
+        pricePanel.setBackground(messageColor);
         playerNameButton.setBackgroundKey("Panel.background");
         itemButton.setBackgroundKey("ComboBox.background");
         timerPanel.colorMultiplier = 1.1f;
         timerPanel.setBackgroundKey("ComboBox.background");
-        pricePanel.setBackground(new Color(67, 138, 59));
+
         ColorManager.recursiveUpdateUI(this);
         if (createListeners)
             addListeners();

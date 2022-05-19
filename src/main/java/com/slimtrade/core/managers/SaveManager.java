@@ -28,6 +28,9 @@ public class SaveManager {
     public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + stashSaveName, StashSaveFile.class);
 
     public static void init() {
+        settingsSaveFile.loadFromDisk();
+        stashSaveFile.loadFromDisk();
+
         SaveManager.settingsSaveFile.removeAllListeners();
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
             @Override

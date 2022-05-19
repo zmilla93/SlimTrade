@@ -4,7 +4,6 @@ import com.slimtrade.core.chatparser.ChatParser;
 import com.slimtrade.core.jna.GlobalKeyboardListener;
 import com.slimtrade.core.jna.GlobalMouseListener;
 import com.slimtrade.core.managers.AudioManager;
-import com.slimtrade.core.managers.LanguageManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.ColorManager;

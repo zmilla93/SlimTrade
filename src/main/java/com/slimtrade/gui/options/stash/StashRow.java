@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options.stash;
 
+import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.utility.ZUtil;
@@ -8,8 +9,6 @@ import com.slimtrade.modules.colortheme.components.ColorCombo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class StashRow extends JPanel {
 
@@ -45,14 +44,27 @@ public class StashRow extends JPanel {
 
     private void addListeners() {
         JPanel self = this;
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.remove(self);
-                parent.revalidate();
-                parent.repaint();
-            }
+        removeButton.addActionListener(e -> {
+            parent.remove(self);
+            parent.revalidate();
+            parent.repaint();
         });
+    }
+
+    public StashTabData getData() {
+        return new StashTabData(
+                nameInput.getText(),
+                (MatchType) matchTypeCombo.getSelectedItem(),
+                (StashTabType) stashTypeCombo.getSelectedItem(),
+                colorCombo.getSelectedIndex());
+    }
+
+    public void setData(StashTabData data) {
+        nameInput.setText(data.stashTabName);
+        matchTypeCombo.setSelectedItem(data.matchType);
+        stashTypeCombo.setSelectedItem(data.stashTabType);
+        colorCombo.setSelectedIndex(data.stashColorIndex);
+//        colorCombo.setSelectedItem(data.stashTabColor.getBackground());
     }
 
 }

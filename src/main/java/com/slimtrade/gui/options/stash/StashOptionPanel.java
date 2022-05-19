@@ -1,12 +1,16 @@
 package com.slimtrade.gui.options.stash;
 
+import com.slimtrade.core.data.StashTabData;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.options.AbstractOptionPanel;
+import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class StashOptionPanel extends AbstractOptionPanel {
+public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private JButton addButton = new JButton("Add Stash Tab");
     private JPanel tabContainer = new JPanel(new GridBagLayout());
@@ -27,6 +31,31 @@ public class StashOptionPanel extends AbstractOptionPanel {
             revalidate();
             repaint();
         });
+    }
+
+    @Override
+    public void save() {
+        ArrayList<StashTabData> stashTabs = new ArrayList<>();
+        for (Component c : tabContainer.getComponents()) {
+            if (c instanceof StashRow) {
+                StashTabData data = ((StashRow) c).getData();
+                stashTabs.add(data);
+            }
+        }
+        SaveManager.settingsSaveFile.data.stashTabs = stashTabs;
+    }
+
+    @Override
+    public void load() {
+        tabContainer.removeAll();
+        for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
+            StashRow row = new StashRow(tabContainer);
+            row.setData(data);
+            gc.gridy = tabContainer.getComponentCount();
+            tabContainer.add(row, gc);
+        }
+        revalidate();
+        repaint();
     }
 
 }

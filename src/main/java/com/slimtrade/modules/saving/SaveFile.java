@@ -30,7 +30,7 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
     public SaveFile(String path, Class<T> classType) {
         this.path = path;
         this.classType = classType;
-        loadFromDisk();
+//        loadFromDisk();
     }
 
     /**

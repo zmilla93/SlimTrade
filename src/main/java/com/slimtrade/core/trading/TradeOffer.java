@@ -1,6 +1,9 @@
 package com.slimtrade.core.trading;
 
-import com.slimtrade.App;
+import com.slimtrade.core.data.StashTabData;
+import com.slimtrade.core.enums.MatchType;
+import com.slimtrade.core.enums.StashTabColor;
+import com.slimtrade.core.managers.SaveManager;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
@@ -23,6 +26,8 @@ public class TradeOffer {
     public int stashtabX = 0;
     public int stashtabY = 0;
     public String bonusText;
+    private int stashColorIndex = -1;
+    private StashTabColor stashTabColor;
 
     public static TradeOffer getTradeOffer(String input) {
         TradeOffer trade = null;
@@ -87,6 +92,32 @@ public class TradeOffer {
             default:
                 return TradeOffer.TradeOfferType.UNKNOWN;
         }
+    }
+
+    public StashTabColor getStashTabColor() {
+        if (stashColorIndex == -1) {
+            stashColorIndex = 0;
+            stashTabColor = StashTabColor.ZERO;
+            if (stashtabName != null) {
+                for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
+                    if (data.stashTabName == null || data.stashTabName.isBlank()) continue;
+                    if (data.matchType == MatchType.EXACT_MATCH) {
+                        if (stashtabName.equals(data.stashTabName)) {
+                            stashColorIndex = data.stashColorIndex;
+                            stashTabColor = StashTabColor.values()[data.stashColorIndex];
+                            break;
+                        }
+                    } else if (data.matchType == MatchType.CONTAINS_TEXT) {
+                        if (stashtabName.contains(data.stashTabName)) {
+                            stashColorIndex = data.stashColorIndex;
+                            stashTabColor = StashTabColor.values()[data.stashColorIndex];
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return stashTabColor;
     }
 
     private static String cleanResult(Matcher matcher, String text) {
