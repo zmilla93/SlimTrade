@@ -4,6 +4,9 @@ import com.slimtrade.core.References;
 
 import java.util.regex.Pattern;
 
+/**
+ * An enum for storing language specific regex. Use 'CONTAINS_TEXT' to see if a message is valid to scan, then iterate through the respective array of patterns to extract trade data.
+ */
 public enum LangRegex {
 
     ENGLISH("like to buy", "has joined the area\\.", new String[]{
