@@ -26,7 +26,7 @@ public class TradeOffer {
 
     public static TradeOffer getTradeOffer(String input) {
         TradeOffer trade = null;
-        for (LangRegex l : App.languageManager.langList) {
+        for (LangRegex l : LangRegex.values()) {
             if (input.contains(l.wantToBuy)) {
                 for (Pattern pattern : l.quickPastePatterns) {
                     Matcher matcher = pattern.matcher(input);

@@ -68,7 +68,7 @@ public class ChatParser implements IChatParserListener {
     public void parseLine(String line) {
         if (line.contains("@")) {
             // Check for trade offer
-            for (LangRegex l : App.languageManager.langList) {
+            for (LangRegex l : LangRegex.values()) {
                 if (line.contains(l.wantToBuy)) {
                     for (Pattern pattern : l.tradeOfferPatterns) {
                         Matcher matcher = pattern.matcher(line);

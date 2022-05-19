@@ -6,6 +6,7 @@ import com.slimtrade.core.jna.GlobalMouseListener;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.LanguageManager;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.gui.managers.FrameManager;
@@ -22,7 +23,6 @@ import java.util.logging.Logger;
 public class App {
 
     public static FrameManager frameManager;
-    public static LanguageManager languageManager;
     public static SaveManager saveManager;
     public static AudioManager audioManager;
     public static SystemTrayManager systemTrayManager;
@@ -52,11 +52,10 @@ public class App {
 //        saveManager = new SaveManager();
         SaveManager.init();
         SaveManager.settingsSaveFile.data.buildMacroCache();
-        languageManager = new LanguageManager();
         audioManager = new AudioManager();
         hotkeyManager = new HotkeyManager();
         PoeInterface.init();
-
+        LangRegex.compileAll();
 
         // UI
         try {
