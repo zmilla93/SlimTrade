@@ -42,6 +42,7 @@ public class SettingsSaveFile {
     public SoundComponent updateSound;
 
     // Macros
+    public boolean applyStashColorToMessage;
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
     public transient ArrayList<MacroButton> incomingTopMacros;

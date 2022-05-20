@@ -14,31 +14,37 @@ public class TradeMessagePanel extends NotificationPanel {
 
     private StashHelperPanel stashHelperPanel;
 
-    public TradeMessagePanel(TradeOffer trade) {
+    public TradeMessagePanel(TradeOffer offer) {
+        this(offer, true);
+    }
+
+    public TradeMessagePanel(TradeOffer trade, boolean createListeners) {
+        super(createListeners);
         tradeOffer = trade;
-        if (FrameManager.stashHelperContainer != null)  // Null check is just for debug panels, could remove
+        if (FrameManager.stashHelperContainer != null)
             stashHelperPanel = FrameManager.stashHelperContainer.addHelper(trade);
-        topMacros = SaveManager.settingsSaveFile.data.incomingTopMacros;
-        bottomMacros = SaveManager.settingsSaveFile.data.incomingBottomMacros;
         playerNameButton.setText(trade.playerName);
         itemButton.setText(trade.itemName);
         priceLabel.setText(trade.priceTypeString);
 
-        // Color
+        // Message type specific stuff
         switch (trade.offerType) {
             case INCOMING:
+                topMacros = SaveManager.settingsSaveFile.data.incomingTopMacros;
+                bottomMacros = SaveManager.settingsSaveFile.data.incomingBottomMacros;
                 StashTabColor stashTabColor = trade.getStashTabColor();
-                if (stashTabColor == StashTabColor.ZERO) {
-                    messageColor = new Color(126, 199, 74);
+                if (!SaveManager.settingsSaveFile.data.applyStashColorToMessage || stashTabColor == StashTabColor.ZERO) {
+                    messageColor = new Color(105, 201, 97);
                 } else {
                     messageColor = trade.getStashTabColor().getBackground();
                 }
                 break;
             case OUTGOING:
-                messageColor = new Color(171, 56, 56);
+                topMacros = SaveManager.settingsSaveFile.data.outgoingTopMacros;
+                bottomMacros = SaveManager.settingsSaveFile.data.outgoingBottomMacros;
+                messageColor = new Color(180, 72, 72);
                 break;
         }
-
         setup();
         addListeners();
     }
@@ -58,7 +64,6 @@ public class TradeMessagePanel extends NotificationPanel {
     @Override
     public void cleanup() {
         super.cleanup();
-        // FIXME:
         FrameManager.stashHelperContainer.remove(stashHelperPanel);
         FrameManager.stashHelperContainer.refresh();
     }

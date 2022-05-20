@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Sets a panels background color using a UIManager key.
+ * Sets a panel's background color using a UIManager key.
  */
 public class ColorPanel extends JPanel {
 
