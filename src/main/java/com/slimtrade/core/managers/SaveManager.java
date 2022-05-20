@@ -18,7 +18,6 @@ public class SaveManager {
     // Save Files
     private static final String settingsSaveName = "settings.json";
     private static final String stashSaveName = "stash.json";
-//    public OverlaySaveFile overlaySaveFile = new OverlaySaveFile();
 
     // Subfolder Names
     private static final String audioFolderName = "audio";
@@ -35,8 +34,14 @@ public class SaveManager {
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
             @Override
             public void onSave() {
-                ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-                ColorManager.setFontSize(SaveManager.settingsSaveFile.data.textSize);
+                if (SaveManager.settingsSaveFile.data.fontSizeChanged) {
+                    ColorManager.setFontSize(SaveManager.settingsSaveFile.data.textSize);
+                    SaveManager.settingsSaveFile.data.fontSizeChanged = false;
+                }
+                if (SaveManager.settingsSaveFile.data.iconSizeChanged) {
+                    ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+                    SaveManager.settingsSaveFile.data.iconSizeChanged = false;
+                }
                 SaveManager.settingsSaveFile.data.buildMacroCache();
             }
 

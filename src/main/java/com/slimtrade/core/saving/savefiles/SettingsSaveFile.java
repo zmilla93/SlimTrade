@@ -31,6 +31,8 @@ public class SettingsSaveFile {
     // Display
     public int textSize = SpinnerRange.TEXT_SIZE.START;
     public int iconSize = SpinnerRange.ICON_SIZE.START;
+    public transient boolean fontSizeChanged;
+    public transient boolean iconSizeChanged;
 
     // Path of Exile
     public String clientPath;
