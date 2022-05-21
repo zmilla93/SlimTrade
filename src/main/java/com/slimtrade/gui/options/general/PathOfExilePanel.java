@@ -49,7 +49,7 @@ public class PathOfExilePanel extends JPanel implements ISavable {
     public void save() {
         SaveManager.settingsSaveFile.data.clientPath = clientTextField.getText();
         if (!App.chatParser.getPath().equals(clientTextField.getText())) {
-            App.chatParser.open(clientTextField.getText());
+            App.initParsers();
         }
     }
 

@@ -2,69 +2,55 @@ package com.slimtrade.core.chatparser;
 
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
-import org.apache.commons.io.input.Tailer;
+import com.slimtrade.modules.filetailing.FileTailer;
+import com.slimtrade.modules.filetailing.FileTailerListener;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ChatParser implements IChatParserListener {
+public class ChatParser implements FileTailerListener {
 
-    // File Tailing
-    private ChatTailerListener chatTailerListener;
-    private Tailer tailer;
+    private FileTailer tailer;
+    public static final int tailerDelayMS = 250;
 
     // Listeners
-    private ArrayList<IChatParserLoadedListener> onLoadListeners = new ArrayList<>();
-    private ArrayList<IPreloadTradeListener> preloadTradeListeners = new ArrayList<>();
+    private ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
+    private ArrayList<ITradeListener> preloadTradeListeners = new ArrayList<>();
     private ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
+    private ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
 
     // State
     private boolean loaded; // Set to true after file has been read to EOF once
     private boolean open;
     private String path;
 
-    public ChatParser() {
 
-    }
-
-    public void open(String path) {
+    public void open(String path, boolean end) {
         if (open) close();
-        this.path = path;
-        chatTailerListener = new ChatTailerListener(this);
         File clientFile = new File(path);
         if (clientFile.exists() && clientFile.isFile()) {
-            tailer = Tailer.create(clientFile, chatTailerListener, 100, false);
+            this.path = path;
+            tailer = FileTailer.createTailer(clientFile, this, 250, end);
+            open = true;
         }
-        open = true;
     }
 
     public void close() {
-        tailer.stop();
         loaded = false;
         path = null;
         open = false;
+        tailer.stop();
     }
 
     public String getPath() {
         return path;
     }
 
-    public void addOnLoadedCallback(IChatParserLoadedListener listener) {
-        onLoadListeners.add(listener);
-    }
-
-    public void addPreloadTradeListener(IPreloadTradeListener listener) {
-        preloadTradeListeners.add(listener);
-    }
-
-    public void addTradeListener(ITradeListener listener) {
-        tradeListeners.add(listener);
-    }
-
-    @Override
+    //    @Override
     public void parseLine(String line) {
+        if (!open) return;
         if (line.contains("@")) {
             // Check for trade offer
             for (LangRegex l : LangRegex.values()) {
@@ -92,32 +78,27 @@ public class ChatParser implements IChatParserListener {
                     }
                 }
             }
-        } else {
-            // Check for trigger (ie joined area)
-            // Check for chat scanner
-        }
 
-    }
+        } else if (loaded) {
+            // Chat Scanner
+            // TODO : this
 
-    @Override
-    public void handleEOF() {
-        if (!loaded) {
-            loaded = true;
-            for (IChatParserLoadedListener listener : onLoadListeners) {
-                listener.handleChatParserLoaded();
+            // Player Joined Area
+            for (LangRegex lang : LangRegex.values()) {
+                Matcher matcher = lang.joinedAreaPattern.matcher(line);
+                if (matcher.matches()) {
+                    System.out.println(matcher.group("playerName") + open);
+                    for (IJoinedAreaListener listener : joinedAreaListeners) {
+                        // FIXME:
+                    }
+                }
             }
         }
     }
 
     private void handleTradeOffer(TradeOffer offer) {
-        if (loaded) {
-            for (ITradeListener listener : tradeListeners) {
-                listener.handleTrade(offer);
-            }
-        } else {
-            for (IPreloadTradeListener listener : preloadTradeListeners) {
-                listener.handlePreloadTrade(offer);
-            }
+        for (ITradeListener listener : tradeListeners) {
+            listener.handleTrade(offer);
         }
     }
 
@@ -165,5 +146,51 @@ public class ChatParser implements IChatParserListener {
         }
         text = text.replaceAll(",", ".");
         return Double.parseDouble(text);
+    }
+
+    // Listeners
+    public void addOnLoadedCallback(IParserLoadedListener listener) {
+        onLoadListeners.add(listener);
+    }
+
+    public void addPreloadTradeListener(ITradeListener listener) {
+        preloadTradeListeners.add(listener);
+    }
+
+    public void addTradeListener(ITradeListener listener) {
+        tradeListeners.add(listener);
+    }
+
+    public void addJoinedAreaListener(IJoinedAreaListener listener) {
+        joinedAreaListeners.add(listener);
+    }
+
+    // File Tailing
+
+    @Override
+    public void init(FileTailer tailer) {
+
+    }
+
+    @Override
+    public void fileNotFound() {
+
+    }
+
+    @Override
+    public void fileRotated() {
+
+    }
+
+    @Override
+    public void onLoad() {
+        for (IParserLoadedListener listener : onLoadListeners) {
+            listener.onParserLoaded();
+        }
+    }
+
+    @Override
+    public void handle(String line) {
+        parseLine(line);
     }
 }

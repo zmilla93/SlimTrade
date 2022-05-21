@@ -16,6 +16,8 @@ import org.jnativehook.NativeHookException;
 
 import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +31,8 @@ public class App {
     public static GlobalMouseListener globalMouseListener;
     public static HotkeyManager hotkeyManager;
 
-    public static ChatParser chatParser = new ChatParser();
+    public static ChatParser chatParser;
+    public static ChatParser preloadParser;
 
     public static boolean initialized;
 
@@ -48,7 +51,6 @@ public class App {
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
         // Managers
-//        saveManager = new SaveManager();
         SaveManager.init();
         SaveManager.settingsSaveFile.data.buildMacroCache();
         audioManager = new AudioManager();
@@ -72,7 +74,6 @@ public class App {
                 FrameManager.optionsWindow.reloadExampleTrades();
                 FrameManager.optionsWindow.revalidate();
 
-
                 // Show Windows
                 FrameManager.messageManager.setVisible(true);
                 FrameManager.debugWindow.setVisible(true);
@@ -95,25 +96,43 @@ public class App {
             e.printStackTrace();
         }
         globalKeyboardListener = new GlobalKeyboardListener();
-//        globalMouseListener = new GlobalMouseListener();
         GlobalScreen.addNativeKeyListener(globalKeyboardListener);
-//        GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
 
         // Chat Parser
-        // Chat Parser Listeners
-        chatParser.addPreloadTradeListener(FrameManager.historyWindow);
-        chatParser.addTradeListener(FrameManager.historyWindow);
-        chatParser.addOnLoadedCallback(FrameManager.historyWindow);
-        chatParser.addTradeListener(FrameManager.messageManager);
-        // Chat Parser Init
-        chatParser.open(SaveManager.settingsSaveFile.data.clientPath);
+
+        initParsers();
+
         HotkeyManager.loadHotkeys();
 
         initialized = true;
         setState(State.RUNNING);
         System.out.println("Slimtrade Launched!");
+    }
+
+    public static void initParsers() {
+        if (preloadParser != null) preloadParser.close();
+        if (chatParser != null) chatParser.close();
+
+        chatParser = new ChatParser();
+        preloadParser = new ChatParser();
+
+        preloadParser.addTradeListener(FrameManager.historyWindow);
+        preloadParser.addOnLoadedCallback(FrameManager.historyWindow);
+        chatParser.addTradeListener(FrameManager.historyWindow);
+        chatParser.addTradeListener(FrameManager.messageManager);
+        preloadParser.addOnLoadedCallback(() -> {
+            System.out.println("pre parser loaded!");
+            preloadParser.close();
+            preloadParser = null;
+        });
+        preloadParser.open(SaveManager.settingsSaveFile.data.clientPath, false);
+        chatParser.open(SaveManager.settingsSaveFile.data.clientPath, true);
 
     }
+
+    // FIXME : Move
+    private static Timer timer = new Timer();
+    private static TimerTask timerTask;
 
     public static void setState(State state) {
         App.state = state;

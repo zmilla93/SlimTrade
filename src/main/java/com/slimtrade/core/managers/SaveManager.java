@@ -1,5 +1,6 @@
 package com.slimtrade.core.managers;
 
+import com.slimtrade.App;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.core.saving.savefiles.StashSaveFile;
 import com.slimtrade.core.utility.ColorManager;

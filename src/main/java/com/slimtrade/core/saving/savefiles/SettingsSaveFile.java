@@ -69,6 +69,9 @@ public class SettingsSaveFile {
     public HotkeyData metamorphHotkey;
     public HotkeyData remainingMonstersHotkey;
 
+    // Internal
+    public transient boolean clientFileRotated;
+
     public SettingsSaveFile() {
 //        buildMacroCache();
     }

@@ -1,6 +1,6 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.core.chatparser.IChatParserLoadedListener;
+import com.slimtrade.core.chatparser.IParserLoadedListener;
 import com.slimtrade.core.chatparser.IPreloadTradeListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.trading.TradeOffer;
@@ -8,7 +8,7 @@ import com.slimtrade.gui.history.HistoryPanel;
 
 import javax.swing.*;
 
-public class HistoryWindow extends AbstractWindow implements IPreloadTradeListener, ITradeListener, IChatParserLoadedListener {
+public class HistoryWindow extends AbstractWindow implements IPreloadTradeListener, ITradeListener, IParserLoadedListener {
 
     HistoryPanel incomingTrades = new HistoryPanel();
     HistoryPanel outgoingTrades = new HistoryPanel();
@@ -37,12 +37,14 @@ public class HistoryWindow extends AbstractWindow implements IPreloadTradeListen
     @Override
     public void handlePreloadTrade(TradeOffer tradeOffer) {
 //        incomingTrades.addRow(tradeOffer, false);
+
         addTradeToPanel(tradeOffer, false);
     }
 
     @Override
     public void handleTrade(TradeOffer tradeOffer) {
 //        SwingUtilities.invokeLater();
+        System.out.println("history offer!");
         SwingUtilities.invokeLater(() -> {
             addTradeToPanel(tradeOffer, true);
 //            switch (tradeOffer.offerType) {
@@ -67,7 +69,7 @@ public class HistoryWindow extends AbstractWindow implements IPreloadTradeListen
     }
 
     @Override
-    public void handleChatParserLoaded() {
+    public void onParserLoaded() {
         SwingUtilities.invokeLater(() -> {
             incomingTrades.reloadUI();
             outgoingTrades.reloadUI();

@@ -56,16 +56,12 @@ public class HistoryPanel extends JPanel {
     }
 
     public void addRow(TradeOffer tradeOffer, boolean updateUI) {
-        boolean remove = false;
         if (data.size() >= maxMessageCount) {
             data.remove(0);
-            remove = true;
         }
         HistoryRowData rowData = new HistoryRowData(tradeOffer);
         data.add(rowData);
         if (updateUI) {
-            if (remove) table.getHistoryTableModel().removeRow(0);
-            table.getHistoryTableModel().addRow(rowData);
             table.getHistoryTableModel().fireTableDataChanged();
         }
     }
