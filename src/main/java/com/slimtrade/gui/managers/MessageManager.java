@@ -24,12 +24,9 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
     private GridBagConstraints gc;
 
     public MessageManager() {
-        setUndecorated(false);
-//        setBackground(new Color(0, 0, 0, 0));
-
+        setBackground(new Color(0, 0, 0, 0));
         container = getContentPane();
         setLocationRelativeTo(null);
-//        WindowUtils.setWindowTransparent(this, true);
 
         container.setLayout(new GridBagLayout());
         gc = new GridBagConstraints();
@@ -54,6 +51,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);
         panel.startTimer();
         container.add(panel, gc);
+        revalidate();
         pack();
         adjustPosition();
         repaint();

@@ -59,6 +59,7 @@ public class App {
         PoeInterface.init();
         LangRegex.compileAll();
         CurrencyImage.initIconList();
+        ColorManager.loadFonts();
 
         // UI
         try {

@@ -188,7 +188,7 @@ public class TradeOffer {
         if (zero == 1) {
             exampleTrade.itemQuantity = ThreadLocalRandom.current().nextInt(1, 100);
         }
-        exampleTrade.priceTypeString = "Chaos";
+        exampleTrade.priceTypeString = "Chaos Orb";
         exampleTrade.priceQuantity = ThreadLocalRandom.current().nextInt(1, 100);
         return exampleTrade;
     }

@@ -1,5 +1,6 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.buttons.NotificationButton;
@@ -35,10 +36,8 @@ public class ColorManager<T> {
 
     private static ArrayList<JComboBox> stickyCombos = new ArrayList<>();
 
-    private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
-//    private static Font font = new Font(getR, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
-    ;
-
+    //    private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
+    private static Font font;
 
     private static HashMap<String, ImageIcon> iconMap = new HashMap<>();
     private static HashMap<String, ImageIcon> colorIconMap = new HashMap<>();
@@ -71,9 +70,6 @@ public class ColorManager<T> {
     }
 
     public static void setTheme(ColorTheme theme, boolean forceRefresh) {
-//        if(true){
-//            return;
-//        }
         int[] comboIcons = new int[stickyCombos.size()];
         for (int i = 0; i < stickyCombos.size(); i++) {
             comboIcons[i] = stickyCombos.get(i).getSelectedIndex();
@@ -87,8 +83,6 @@ public class ColorManager<T> {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
-        ColorManager.setUIFont(font);
         for (Component frame : frames) {
             JRootPane rootPane = null;
             if (frame instanceof RootPaneContainer) rootPane = ((RootPaneContainer) frame).getRootPane();
@@ -103,6 +97,32 @@ public class ColorManager<T> {
         }
         for (IThemeListener listener : themeListeners) {
             listener.onThemeChange();
+        }
+    }
+
+    public static void loadFonts() {
+        try {
+//            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansKR/IBMPlexSansKR-Regular.ttf")));
+//            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/Roboto-Regular.ttf")));
+            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/OpenSans-Regular.ttf")));
+//            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/Oswald-Regular.ttf")));
+            font = font.deriveFont(Font.BOLD);
+//            font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
+
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void refreshDefaultFonts() {
+        Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof Font) {
+                Font oldFont = (Font) value;
+                UIManager.put(key, font.deriveFont(oldFont.getStyle(), SaveManager.settingsSaveFile.data.fontSize));
+            }
         }
     }
 
@@ -166,25 +186,42 @@ public class ColorManager<T> {
         return image;
     }
 
-    private static void setUIFont(Font font) {
-        Enumeration<Object> keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if (value instanceof Font)
-                UIManager.put(key, font);
+    public static void updateFont(Frame frame) {
+        for (Component c : frame.getComponents()) {
+//            c.setFont(c.getFont());
         }
     }
 
+//    private static void setUIFont(Font font) {
+//        Enumeration<Object> keys = UIManager.getDefaults().keys();
+//        while (keys.hasMoreElements()) {
+//            Object key = keys.nextElement();
+//            Object value = UIManager.get(key);
+//            if (value instanceof Font)
+//                UIManager.put(key, font);
+//        }
+//    }
+
     public static void setFontSize(int size) {
-        Enumeration<Object> keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            Font newFont = font.deriveFont(font.getStyle(), size);
-            if (value instanceof Font)
-                UIManager.put(key, newFont);
-        }
+//        Enumeration<Object> keys = UIManager.getDefaults().keys();
+//        while (keys.hasMoreElements()) {
+//            Object key = keys.nextElement();
+//            Object value = UIManager.get(key);
+//            System.out.println("new font " + size);
+//            Font newFont = font.deriveFont(font.getStyle(), size);
+//            if (value instanceof Font)
+//                UIManager.put(key, newFont);
+//        }
+//        keys = UIManager.getLookAndFeelDefaults().keys();
+//        while (keys.hasMoreElements()) {
+//            Object key = keys.nextElement();
+//            Object value = UIManager.get(key);
+//            System.out.println("new font " + size);
+//            Font newFont = font.deriveFont(font.getStyle(), size);
+//            if (value instanceof Font)
+//                UIManager.put(key, newFont);
+//        }
+        refreshDefaultFonts();
         for (Component frame : frames) {
             setFontSizeRecursive(frame, size);
             SwingUtilities.updateComponentTreeUI(frame);
@@ -198,7 +235,7 @@ public class ColorManager<T> {
     }
 
     public static void setIconSize(int size) {
-        assert(SwingUtilities.isEventDispatchThread());
+        assert (SwingUtilities.isEventDispatchThread());
         cacheIconSize = size;
         iconMap.clear();
         colorIconMap.clear();

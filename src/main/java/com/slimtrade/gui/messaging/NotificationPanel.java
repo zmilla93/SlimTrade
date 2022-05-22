@@ -23,7 +23,7 @@ public class NotificationPanel extends ColorPanel {
     private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
 
-    private final JLabel timerLabel = new JLabel("12s");
+    private final JLabel timerLabel = new JLabel("0s");
     private JButton closeButton;
 
     protected float namePanelWeight = 0.7f;
@@ -116,10 +116,10 @@ public class NotificationPanel extends ColorPanel {
      * Should be called after properties are applied.
      */
     public void setup() {
-        addMacrosToPanel(topButtonPanel, topMacros);
-        addMacrosToPanel(bottomButtonPanel, bottomMacros);
+        GridBagConstraints gc = addMacrosToPanel(topButtonPanel, topMacros);
         closeButton = new NotificationIconButton("/icons/default/closex64.png");
-        topButtonPanel.add(closeButton);
+        topButtonPanel.add(closeButton, gc);
+        addMacrosToPanel(bottomButtonPanel, bottomMacros);
 
         // Colors
         setBackgroundKey("Separator.background");
@@ -135,7 +135,7 @@ public class NotificationPanel extends ColorPanel {
             addListeners();
     }
 
-    private void addMacrosToPanel(JPanel panel, ArrayList<MacroButton> macros) {
+    private GridBagConstraints addMacrosToPanel(JPanel panel, ArrayList<MacroButton> macros) {
         panel.removeAll();
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.BOTH;
@@ -144,19 +144,22 @@ public class NotificationPanel extends ColorPanel {
             JButton button = new NotificationIconButton(macro.icon.path);
             button.updateUI();
             panel.add(button, gc);
-            button.addMouseListener(new AdvancedMouseListener() {
-                @Override
-                public void click(MouseEvent e) {
-                    if (e.getButton() == MouseEvent.BUTTON1 && !macro.lmbResponse.isBlank()) {
-                        PoeInterface.runCommand(macro.lmbResponse, tradeOffer);
+            if (createListeners) {
+                button.addMouseListener(new AdvancedMouseListener() {
+                    @Override
+                    public void click(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON1 && !macro.lmbResponse.isBlank()) {
+                            PoeInterface.runCommand(macro.lmbResponse, tradeOffer);
+                        }
+                        if (e.getButton() == MouseEvent.BUTTON3 && !macro.rmbResponse.isBlank()) {
+                            PoeInterface.runCommand(macro.rmbResponse, tradeOffer);
+                        }
                     }
-                    if (e.getButton() == MouseEvent.BUTTON3 && !macro.rmbResponse.isBlank()) {
-                        PoeInterface.runCommand(macro.rmbResponse, tradeOffer);
-                    }
-                }
-            });
+                });
+            }
             gc.gridx++;
         }
+        return gc;
     }
 
     private void addListeners() {

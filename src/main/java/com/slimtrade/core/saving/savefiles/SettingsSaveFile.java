@@ -29,7 +29,7 @@ public class SettingsSaveFile {
     public ArrayList<StashTabData> stashTabs = new ArrayList<>();
 
     // Display
-    public int textSize = SpinnerRange.TEXT_SIZE.START;
+    public int fontSize = SpinnerRange.FONT_SIZE.START;
     public int iconSize = SpinnerRange.ICON_SIZE.START;
     public transient boolean fontSizeChanged;
     public transient boolean iconSizeChanged;

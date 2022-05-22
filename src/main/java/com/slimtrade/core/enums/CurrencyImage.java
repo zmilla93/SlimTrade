@@ -95,13 +95,14 @@ public class CurrencyImage {
         addCustomTags();
     }
 
-    private static void addCustomTags(){
-        addTag("Chaos Orb", "Chaos");
+    private static void addCustomTags() {
+        addTag("Chaos Orb", "chaos");
+        addTag("Orb of Alchemy", "alch");
     }
 
-    public static void addTag(String existingTag, String newTag){
+    public static void addTag(String existingTag, String newTag) {
         CurrencyImage image = getCurrencyImage(existingTag);
-        if(image == null) return;
+        if (image == null) return;
         iconMap.put(newTag, image);
     }
 

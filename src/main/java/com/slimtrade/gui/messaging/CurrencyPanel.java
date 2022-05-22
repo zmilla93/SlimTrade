@@ -21,7 +21,7 @@ public class CurrencyPanel extends AdvancedButton {
     }
 
     public void setItem(SaleItem item) {
-        ArrayList<SaleItem> list = new ArrayList();
+        ArrayList<SaleItem> list = new ArrayList<>(1);
         list.add(item);
         this.items = list;
         buildPanel();
@@ -36,14 +36,17 @@ public class CurrencyPanel extends AdvancedButton {
         removeAll();
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-        for (SaleItem item : items) {
+        for (int i = 0; i < items.size(); i++) {
+            SaleItem item = items.get(i);
             CurrencyImage image = CurrencyImage.getCurrencyImage(item.itemName);
             if (image == null) {
-                add(new JLabel(formatPrice(item.quantity) + " " + item.itemName), gc);
+                String prefix = item.quantity == 0 ? "" : formatPrice(item.quantity) + " ";
+                add(new JLabel(prefix + item.itemName), gc);
             } else {
                 add(new JLabel(formatPrice(item.quantity)), gc);
-                gc.insets.left = 4;
+                gc.insets.left = 1;
                 add(new IconLabel(image.getPath()), gc);
+                gc.insets.left = 6;
             }
         }
     }

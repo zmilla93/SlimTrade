@@ -40,6 +40,9 @@ public class FrameManager {
     private static AppState state = AppState.RUNNING;
 
     public static void init() {
+        ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+        ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
+
         // Windows
         TestFrame frame = new TestFrame();
         stashHelperContainer = new StashHelperContainer();
@@ -74,9 +77,6 @@ public class FrameManager {
         windowMap.put(AppState.RUNNING, runningWindows);
         windowMap.put(AppState.EDIT_OVERLAY, overlayWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
-
-        ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-        ColorManager.setFontSize(SaveManager.settingsSaveFile.data.textSize);
     }
 
     public static void setWindowVisibility(AppState newState) {

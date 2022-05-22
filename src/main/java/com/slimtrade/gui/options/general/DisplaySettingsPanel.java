@@ -24,7 +24,7 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
         iconPreviewButton.setFocusable(false);
 
         // Spinners
-        SpinnerNumberModel textSpinnerModel = new SpinnerRangeModel(SpinnerRange.TEXT_SIZE);
+        SpinnerNumberModel textSpinnerModel = new SpinnerRangeModel(SpinnerRange.FONT_SIZE);
         SpinnerNumberModel iconSpinnerModel = new SpinnerRangeModel(SpinnerRange.ICON_SIZE);
         textSizeSpinner.setModel(textSpinnerModel);
         iconSizeSpinner.setModel(iconSpinnerModel);
@@ -69,6 +69,8 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
         Font font = textPreviewLabel.getFont();
         font = new Font(font.getName(), font.getStyle(), size);
         textPreviewLabel.setFont(font);
+        revalidate();
+        repaint();
     }
 
     private void updateIconPreview() {
@@ -78,19 +80,19 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
 
     @Override
     public void save() {
-        if (SaveManager.settingsSaveFile.data.textSize != (int) textSizeSpinner.getValue()) {
+        if (SaveManager.settingsSaveFile.data.fontSize != (int) textSizeSpinner.getValue()) {
             SaveManager.settingsSaveFile.data.fontSizeChanged = true;
         }
         if (SaveManager.settingsSaveFile.data.iconSize != (int) iconSizeSpinner.getValue()) {
             SaveManager.settingsSaveFile.data.iconSizeChanged = true;
         }
-        SaveManager.settingsSaveFile.data.textSize = (int) textSizeSpinner.getValue();
+        SaveManager.settingsSaveFile.data.fontSize = (int) textSizeSpinner.getValue();
         SaveManager.settingsSaveFile.data.iconSize = (int) iconSizeSpinner.getValue();
     }
 
     @Override
     public void load() {
-        textSizeSpinner.setValue(SaveManager.settingsSaveFile.data.textSize);
+        textSizeSpinner.setValue(SaveManager.settingsSaveFile.data.fontSize);
         iconSizeSpinner.setValue(SaveManager.settingsSaveFile.data.iconSize);
         updateTextPreview();
         updateIconPreview();

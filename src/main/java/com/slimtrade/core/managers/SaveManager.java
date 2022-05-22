@@ -35,7 +35,7 @@ public class SaveManager {
             @Override
             public void onSave() {
                 if (SaveManager.settingsSaveFile.data.fontSizeChanged) {
-                    ColorManager.setFontSize(SaveManager.settingsSaveFile.data.textSize);
+                    ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
                     SaveManager.settingsSaveFile.data.fontSizeChanged = false;
                 }
                 if (SaveManager.settingsSaveFile.data.iconSizeChanged) {

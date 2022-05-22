@@ -2,8 +2,8 @@ package com.slimtrade.core.enums;
 
 public enum SpinnerRange {
 
-    TEXT_SIZE(12, 28, 12, 1),
-    ICON_SIZE(16, 48, 20, 1),
+    FONT_SIZE(10, 28, 12, 1),
+    ICON_SIZE(14, 48, 20, 1),
     IGNORE_DURATION(0, 300, 60, 10),
     ;
 

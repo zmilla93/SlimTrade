@@ -27,9 +27,6 @@ public class TradeMessagePanel extends NotificationPanel {
         playerNameButton.setText(trade.playerName);
         itemButton.setItems(trade.getItems());
         pricePanel.setItem(new SaleItem(trade.priceTypeString, trade.priceQuantity));
-        for(SaleItem s : trade.getItems()){
-            System.out.println(s.itemName);
-        }
 
         // Message type specific stuff
         switch (trade.offerType) {
@@ -50,7 +47,7 @@ public class TradeMessagePanel extends NotificationPanel {
                 break;
         }
         setup();
-        addListeners();
+        if (createListeners) addListeners();
     }
 
     private void addListeners() {
