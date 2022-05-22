@@ -6,15 +6,20 @@ import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.components.AddRemoveContainer;
+import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.CustomCombo;
 import com.slimtrade.gui.options.general.GridBagPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class MacroCustomizerPanel extends GridBagPanel {
+public class MacroCustomizerPanel extends AddRemovePanel {
 
     private int textFieldWidth = 20;
 
@@ -31,12 +36,18 @@ public class MacroCustomizerPanel extends GridBagPanel {
 
     // Internal
     JPanel parent;
+    private CardLayout displayLayout = new CardLayout();
+    private JPanel displayPanel = new JPanel(displayLayout);
     JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP.path);
     JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN.path);
     JButton deleteButton = new IconButton(DefaultIcon.CLOSE.path);
+    private GridBagConstraints gc = ZUtil.getGC();
 
-    public MacroCustomizerPanel(JPanel parent) {
+    public MacroCustomizerPanel(AddRemoveContainer parent) {
+        super(parent);
         this.parent = parent;
+        setLayout(new GridBagLayout());
+
         // Labels
         JLabel lmbLabel = new JLabel("LMB");
         JLabel rmbLabel = new JLabel("RMB");
@@ -45,8 +56,7 @@ public class MacroCustomizerPanel extends GridBagPanel {
         buttonText.setText("~");
 
         // Card Type Panel
-        CardLayout displayLayout = new CardLayout();
-        JPanel displayPanel = new JPanel(displayLayout);
+
         displayPanel.add(iconCombo, MacroButton.MacroButtonType.ICON.toString());
         displayPanel.add(buttonText, MacroButton.MacroButtonType.TEXT.toString());
 
@@ -118,18 +128,24 @@ public class MacroCustomizerPanel extends GridBagPanel {
         // Delete Button
         gc.fill = GridBagConstraints.HORIZONTAL;
         add(deleteButton);
-        buttonType.addActionListener(e -> {
-            if (buttonType.getSelectedItem() == null) return;
-            displayLayout.show(displayPanel, Objects.requireNonNull(buttonType.getSelectedItem()).toString());
-        });
 
+        updateUI();
+        addListeners();
+    }
+
+    private void addListeners(){
         JPanel self = this;
+        shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
+        shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
         deleteButton.addActionListener(e -> {
             ColorManager.removeStickyCombo(iconCombo);
             parent.remove(self);
             parent.revalidate();
         });
-        updateUI();
+        buttonType.addActionListener(e -> {
+            if (buttonType.getSelectedItem() == null) return;
+            displayLayout.show(displayPanel, Objects.requireNonNull(buttonType.getSelectedItem()).toString());
+        });
     }
 
     public MacroButton getMacroButton() {

@@ -40,7 +40,7 @@ public class CurrencyPanel extends AdvancedButton {
             SaleItem item = items.get(i);
             CurrencyImage image = CurrencyImage.getCurrencyImage(item.itemName);
             if (image == null) {
-                String prefix = item.quantity == 0 ? "" : formatPrice(item.quantity) + " ";
+                String prefix = item.quantity <= 1 ? "" : formatPrice(item.quantity) + " ";
                 add(new JLabel(prefix + item.itemName), gc);
             } else {
                 add(new JLabel(formatPrice(item.quantity)), gc);

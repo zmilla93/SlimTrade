@@ -181,15 +181,11 @@ public class TradeOffer {
         TradeOffer exampleTrade = new TradeOffer();
         exampleTrade.offerType = type;
         exampleTrade.playerName = "ExamplePlayer123";
-        exampleTrade.itemQuantity = 45;
-        exampleTrade.itemName = "Chaos Orb";
-        exampleTrade.stashTabName = "~price 1 chaos";
-        int zero = ThreadLocalRandom.current().nextInt(0, 1);
-        if (zero == 1) {
-            exampleTrade.itemQuantity = ThreadLocalRandom.current().nextInt(1, 100);
-        }
+        exampleTrade.itemName = "Tabula Rasa Simple Robe";
         exampleTrade.priceTypeString = "Chaos Orb";
-        exampleTrade.priceQuantity = ThreadLocalRandom.current().nextInt(1, 100);
+        exampleTrade.priceQuantity = 100;
+        exampleTrade.itemQuantity = 1;
+        exampleTrade.stashTabName = "~price 1 chaos";
         return exampleTrade;
     }
 
