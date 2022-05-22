@@ -1,5 +1,6 @@
 package com.slimtrade.core.managers;
 
+import com.slimtrade.core.saving.savefiles.IgnoreSaveFile;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.core.saving.savefiles.StashSaveFile;
 import com.slimtrade.core.utility.ColorManager;
@@ -15,9 +16,10 @@ public class SaveManager {
     private static final String folderWin = "SlimTrade-Rebuild";
     private static final String folderOther = ".slimtrade-rebuild";
 
-    // Save Files
+    // Save File Names
     private static final String settingsSaveName = "settings.json";
     private static final String stashSaveName = "stash.json";
+    private static final String ignoreSaveName = "ignore.json";
 
     // Subfolder Names
     private static final String audioFolderName = "audio";
@@ -25,10 +27,12 @@ public class SaveManager {
 
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + settingsSaveName, SettingsSaveFile.class);
     public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + stashSaveName, StashSaveFile.class);
+    public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory() + ignoreSaveName, IgnoreSaveFile.class);
 
     public static void init() {
         settingsSaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();
+        ignoreSaveFile.loadFromDisk();
 
         SaveManager.settingsSaveFile.removeAllListeners();
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {

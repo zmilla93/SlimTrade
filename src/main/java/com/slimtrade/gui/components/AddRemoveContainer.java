@@ -12,19 +12,18 @@ public class AddRemoveContainer extends JPanel {
     private HashMap<Integer, Component> intToPanel = new HashMap<>();
     private GridBagConstraints gc = ZUtil.getGC();
 
+    public AddRemoveContainer() {
+        setLayout(new GridBagLayout());
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weightx = 1;
+        setBackground(Color.RED);
+    }
+
     public void shiftUp(Component panel) {
         if (panelToInt.size() < 2) return;
         int index = panelToInt.get(panel);
         if (index == 0) return;
         int swapIndex = index - 1;
-//        System.out.println("index:" + index);
-//        System.out.println("swapindex:" + index);
-//        Component swapPanel = intToPanel.get(swapIndex);
-//        panelToInt.put(panel, swapIndex);
-//        panelToInt.put(swapPanel, index);
-//        intToPanel.put(swapIndex, panel);
-//        intToPanel.put(index, swapPanel);
-//        refreshPanels(panel, swapPanel);
         swapPanels(index, swapIndex);
     }
 
@@ -64,9 +63,9 @@ public class AddRemoveContainer extends JPanel {
         }
     }
 
-    public Component[] getOrderedComponents(){
+    public Component[] getOrderedComponents() {
         Component[] components = new Component[intToPanel.size()];
-        for(int i =0;i< intToPanel.size();i++){
+        for (int i = 0; i < intToPanel.size(); i++) {
             components[i] = intToPanel.get(i);
         }
         return components;

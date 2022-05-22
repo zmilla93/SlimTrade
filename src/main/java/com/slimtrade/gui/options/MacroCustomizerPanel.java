@@ -11,12 +11,9 @@ import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.CustomCombo;
-import com.slimtrade.gui.options.general.GridBagPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MacroCustomizerPanel extends AddRemovePanel {
@@ -133,7 +130,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         addListeners();
     }
 
-    private void addListeners(){
+    private void addListeners() {
         JPanel self = this;
         shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
         shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));

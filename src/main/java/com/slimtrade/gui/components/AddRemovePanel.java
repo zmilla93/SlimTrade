@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class AddRemovePanel extends JPanel {
 
-    private AddRemoveContainer parent;
+    public final AddRemoveContainer parent;
 
     public AddRemovePanel(AddRemoveContainer parent) {
         this.parent = parent;
@@ -18,6 +18,12 @@ public class AddRemovePanel extends JPanel {
     public void shiftDown(JButton button) {
         parent.shiftDown(this);
         button.requestFocus();
+    }
+
+    public void removeFromParent() {
+        parent.remove(this);
+        parent.revalidate();
+        parent.repaint();
     }
 
 }

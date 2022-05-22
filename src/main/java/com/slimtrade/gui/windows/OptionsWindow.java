@@ -27,8 +27,9 @@ public class OptionsWindow extends AbstractWindow {
 
         // Panels
         OptionPanel general = new OptionPanel("General", new GeneralOptionPanel());
+        OptionPanel display = new OptionPanel("Display", new JPanel());
         OptionPanel audio = new OptionPanel("Audio", new AudioOptionPanel());
-        OptionPanel stash = new OptionPanel("Stash", new StashOptionPanel());
+        OptionPanel stash = new OptionPanel("Stash Tabs", new StashOptionPanel());
 //        OptionPanel history = new OptionPanel("History", new HistoryOptionPanel());
         OptionPanel information = new OptionPanel("Information", new InformationOptionPanel());
         OptionPanel incomingMacros = new OptionPanel("Incoming Macros", incomingMacroPanel);
@@ -37,7 +38,7 @@ public class OptionsWindow extends AbstractWindow {
         OptionPanel ignoreItems = new OptionPanel("Ignore Items", new IgnoreItemOptionPanel());
         OptionPanel cheatSheets = new OptionPanel("Cheat Sheets", new CheatSheetsOptionPanel());
         OptionPanel stashSorting = new OptionPanel("Stash Sorting", new StashSortingOptionPanel());
-        OptionPanel[] panelList = new OptionPanel[]{general, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSorting, information};
+        OptionPanel[] panelList = new OptionPanel[]{general, display, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSorting, information};
 
         JPanel sidebar = createSidebar(panelList);
 
@@ -72,6 +73,7 @@ public class OptionsWindow extends AbstractWindow {
         saveButton.addActionListener(e ->
         {
             SaveManager.settingsSaveFile.saveToDisk();
+            SaveManager.ignoreSaveFile.saveToDisk();
             HotkeyManager.loadHotkeys();
             reloadExampleTrades();
             revalidate();

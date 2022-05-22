@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options.ignore;
 
+import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.utility.ZUtil;
 
@@ -43,6 +44,17 @@ public class IgnoreInputPanel extends JPanel {
         gc.gridx++;
         add(timeSpinner, gc);
         gc.gridx++;
+    }
+
+    public JButton getIgnoreButton() {
+        return ignoreButton;
+    }
+
+    public IgnoreItem getIgnoreItem() {
+        String name = itemNameInput.getText();
+        MatchType matchType = (MatchType) matchTypeCombo.getSelectedItem();
+        int duration = (int) timeSpinner.getValue();
+        return new IgnoreItem(name, matchType, duration);
     }
 
 }
