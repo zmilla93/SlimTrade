@@ -15,6 +15,5 @@ public class ColorCombo extends JComboBox<Color> {
     @Override
     public void addItem(Color item) {
         super.addItem(item);
-
     }
 }

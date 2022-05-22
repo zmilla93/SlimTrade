@@ -54,7 +54,7 @@ public class QuickPasteManager {
     public static synchronized void attemptHotkeyQuickPaste() {
         try {
             clipboardContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-            TradeOffer offer = TradeOffer.getTradeOffer(clipboardContents);
+            TradeOffer offer = TradeOffer.getTradeFromQuickPaste(clipboardContents);
             if (offer != null) {
                 PoeInterface.focusGame();
                 PoeInterface.paste();
@@ -72,7 +72,7 @@ public class QuickPasteManager {
         if (thread != null && thread.isAlive()) thread.interrupt();
         try {
             clipboardContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-            TradeOffer offer = TradeOffer.getTradeOffer(clipboardContents);
+            TradeOffer offer = TradeOffer.getTradeFromQuickPaste(clipboardContents);
             if (offer != null) clearClipboard();
         } catch (UnsupportedFlavorException | IOException e) {
 //            e.printStackTrace();
@@ -99,7 +99,7 @@ public class QuickPasteManager {
     }
 
     private static void attemptQuickPaste() {
-        TradeOffer offer = TradeOffer.getTradeOffer(clipboardContents);
+        TradeOffer offer = TradeOffer.getTradeFromQuickPaste(clipboardContents);
         if (offer != null) {
             PoeInterface.focusGame();
             PoeInterface.paste();

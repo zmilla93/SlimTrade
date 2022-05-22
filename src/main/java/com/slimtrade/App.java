@@ -1,6 +1,7 @@
 package com.slimtrade;
 
 import com.slimtrade.core.chatparser.ChatParser;
+import com.slimtrade.core.enums.CurrencyImage;
 import com.slimtrade.core.jna.GlobalKeyboardListener;
 import com.slimtrade.core.jna.GlobalMouseListener;
 import com.slimtrade.core.managers.AudioManager;
@@ -57,6 +58,7 @@ public class App {
         hotkeyManager = new HotkeyManager();
         PoeInterface.init();
         LangRegex.compileAll();
+        CurrencyImage.initIconList();
 
         // UI
         try {
@@ -83,6 +85,7 @@ public class App {
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
         }
+
 
         // Reduce logging level for JNativeHook
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -121,7 +124,6 @@ public class App {
         chatParser.addTradeListener(FrameManager.historyWindow);
         chatParser.addTradeListener(FrameManager.messageManager);
         preloadParser.addOnLoadedCallback(() -> {
-            System.out.println("pre parser loaded!");
             preloadParser.close();
             preloadParser = null;
         });

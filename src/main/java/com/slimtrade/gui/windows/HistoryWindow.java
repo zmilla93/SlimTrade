@@ -1,18 +1,18 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.chatparser.IParserLoadedListener;
-import com.slimtrade.core.chatparser.IPreloadTradeListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.history.HistoryPanel;
 
 import javax.swing.*;
 
-public class HistoryWindow extends AbstractWindow implements IPreloadTradeListener, ITradeListener, IParserLoadedListener {
+public class HistoryWindow extends AbstractWindow implements ITradeListener, IParserLoadedListener {
 
     HistoryPanel incomingTrades = new HistoryPanel();
     HistoryPanel outgoingTrades = new HistoryPanel();
     HistoryPanel chatScanner = new HistoryPanel();
+    private boolean loaded;
 
     public HistoryWindow() {
         super("History");
@@ -34,30 +34,23 @@ public class HistoryWindow extends AbstractWindow implements IPreloadTradeListen
         setLocationRelativeTo(null);
     }
 
-    @Override
-    public void handlePreloadTrade(TradeOffer tradeOffer) {
-//        incomingTrades.addRow(tradeOffer, false);
-
-        addTradeToPanel(tradeOffer, false);
-    }
+//    @Override
+//    public void handlePreloadTrade(TradeOffer tradeOffer) {
+//        if (tradeOffer == null) return;
+//        addTradeToPanel(tradeOffer, false);
+//    }
 
     @Override
     public void handleTrade(TradeOffer tradeOffer) {
-//        SwingUtilities.invokeLater();
-        System.out.println("history offer!");
+        //
+        if (tradeOffer == null) return;
         SwingUtilities.invokeLater(() -> {
-            addTradeToPanel(tradeOffer, true);
-//            switch (tradeOffer.offerType) {
-//                case INCOMING:
-//                    incomingTrades.addRow(tradeOffer, true);
-//                    break;
-//                case OUTGOING:
-//                    outgoingTrades.addRow(tradeOffer, true);
-//            }
+            addTradeToPanel(tradeOffer, loaded);
         });
     }
 
     private void addTradeToPanel(TradeOffer tradeOffer, boolean updateUI) {
+        if (tradeOffer == null) return;
         switch (tradeOffer.offerType) {
             case INCOMING:
                 incomingTrades.addRow(tradeOffer, updateUI);
@@ -71,6 +64,7 @@ public class HistoryWindow extends AbstractWindow implements IPreloadTradeListen
     @Override
     public void onParserLoaded() {
         SwingUtilities.invokeLater(() -> {
+            loaded = true;
             incomingTrades.reloadUI();
             outgoingTrades.reloadUI();
         });

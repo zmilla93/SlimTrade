@@ -40,6 +40,7 @@ public class ColorManager<T> {
 
 
     private static HashMap<String, ImageIcon> iconMap = new HashMap<>();
+    private static HashMap<String, ImageIcon> colorIconMap = new HashMap<>();
 
     private static int cacheIconSize = 18;
 
@@ -77,6 +78,7 @@ public class ColorManager<T> {
             comboIcons[i] = stickyCombos.get(i).getSelectedIndex();
         }
         iconMap.clear();
+        colorIconMap.clear();
         if (theme == currentTheme && !forceRefresh) return;
         currentTheme = theme;
         try {
@@ -113,11 +115,33 @@ public class ColorManager<T> {
         if (size == cacheIconSize && iconMap.containsKey(path)) {
             return iconMap.get(path);
         }
+        try {
+            BufferedImage img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
+//            ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            ImageIcon icon = new ImageIcon(img.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            if (size == cacheIconSize) iconMap.put(path, icon);
+            return icon;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ImageIcon getColorIcon(String path) {
+        return getColorIcon(path, cacheIconSize);
+    }
+
+    public static ImageIcon getColorIcon(String path, int size) {
+        if (size == 0) size = cacheIconSize;
+        // Return cached image if possible
+        if (size == cacheIconSize && colorIconMap.containsKey(path)) {
+            return colorIconMap.get(path);
+        }
         // Generate new image
         try {
             BufferedImage img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
             ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(size, size, Image.SCALE_SMOOTH));
-            if (size == cacheIconSize) iconMap.put(path, icon);
+            if (size == cacheIconSize) colorIconMap.put(path, icon);
             return icon;
         } catch (IOException e) {
             e.printStackTrace();
@@ -175,6 +199,7 @@ public class ColorManager<T> {
     public static void setIconSize(int size) {
         cacheIconSize = size;
         iconMap.clear();
+        colorIconMap.clear();
         for (Component frame : frames) {
             setIconSizeRecursive(frame, size);
             frame.revalidate();

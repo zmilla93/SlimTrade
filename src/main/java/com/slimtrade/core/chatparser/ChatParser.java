@@ -8,7 +8,6 @@ import com.slimtrade.modules.filetailing.FileTailerListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ChatParser implements FileTailerListener {
 
@@ -26,13 +25,12 @@ public class ChatParser implements FileTailerListener {
     private boolean open;
     private String path;
 
-
     public void open(String path, boolean end) {
         if (open) close();
         File clientFile = new File(path);
         if (clientFile.exists() && clientFile.isFile()) {
             this.path = path;
-            tailer = FileTailer.createTailer(clientFile, this, 250, end);
+            tailer = FileTailer.createTailer(clientFile, this, tailerDelayMS, end);
             open = true;
         }
     }
@@ -52,37 +50,13 @@ public class ChatParser implements FileTailerListener {
     public void parseLine(String line) {
         if (!open) return;
         if (line.contains("@")) {
-            // Check for trade offer
-            for (LangRegex l : LangRegex.values()) {
-                if (line.contains(l.wantToBuy)) {
-                    for (Pattern pattern : l.tradeOfferPatterns) {
-                        Matcher matcher = pattern.matcher(line);
-                        if (matcher.matches()) {
-                            TradeOffer trade = new TradeOffer();
-                            trade.date = matcher.group("date").replaceAll("/", "-");
-                            trade.time = matcher.group("time");
-                            trade.offerType = getMessageType(matcher.group("messageType"));
-                            trade.guildName = matcher.group("guildName");
-                            trade.playerName = matcher.group("playerName");
-                            trade.itemName = matcher.group("itemName");
-                            trade.itemQuantity = cleanDouble(cleanResult(matcher, "itemQuantity"));
-                            trade.priceTypeString = cleanResult(matcher, "priceType");
-                            trade.priceQuantity = cleanDouble(cleanResult(matcher, "priceQuantity"));
-                            trade.stashtabName = cleanResult(matcher, "stashtabName");
-                            trade.stashtabX = cleanInt(cleanResult(matcher, "stashX"));
-                            trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));
-                            trade.bonusText = cleanResult(matcher, "bonusText");
-                            handleTradeOffer(trade);
-                            break;
-                        }
-                    }
-                }
+            TradeOffer tradeOffer = TradeOffer.getTradeFromMessage(line);
+            if (tradeOffer != null) {
+                handleTradeOffer(tradeOffer);
             }
-
         } else if (loaded) {
             // Chat Scanner
             // TODO : this
-
             // Player Joined Area
             for (LangRegex lang : LangRegex.values()) {
                 Matcher matcher = lang.joinedAreaPattern.matcher(line);

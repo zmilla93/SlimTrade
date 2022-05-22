@@ -22,52 +22,62 @@ public class TradeOffer {
     public double itemQuantity;
     public String priceTypeString;
     public double priceQuantity;
-    public String stashtabName;
-    public int stashtabX = 0;
-    public int stashtabY = 0;
+    public String stashTabName;
+    public int stashTabX = 0;
+    public int stashTabY = 0;
     public String bonusText;
     private int stashColorIndex = -1;
     private StashTabColor stashTabColor;
+    public boolean isBulkTrade;
 
-    public static TradeOffer getTradeOffer(String input) {
+    // Static function instead of constructors to avoid allocation if no trade is found.
+    public static TradeOffer getTradeFromMessage(String input) {
         TradeOffer trade = null;
         for (LangRegex l : LangRegex.values()) {
-            if (input.contains(l.wantToBuy)) {
-                for (Pattern pattern : l.quickPastePatterns) {
-                    Matcher matcher = pattern.matcher(input);
-                    if (matcher.matches()) {
-                        trade = new TradeOffer();
-                        trade.guildName = matcher.group("guildName");
-                        trade.playerName = matcher.group("playerName");
-                        trade.itemName = matcher.group("itemName");
-                        trade.itemQuantity = cleanDouble(cleanResult(matcher, "itemQuantity"));
-                        trade.priceTypeString = cleanResult(matcher, "priceType");
-                        trade.priceQuantity = cleanDouble(cleanResult(matcher, "priceQuantity"));
-                        trade.stashtabName = cleanResult(matcher, "stashtabName");
-                        trade.stashtabX = cleanInt(cleanResult(matcher, "stashX"));
-                        trade.stashtabY = cleanInt(cleanResult(matcher, "stashY"));
-                        trade.bonusText = cleanResult(matcher, "bonusText");
-                        break;
-                    }
-                }
+            if (!input.contains(l.wantToBuy)) continue;
+            for (Pattern pattern : l.tradeOfferPatterns) {
+                Matcher matcher = pattern.matcher(input);
+                if (!matcher.matches()) continue;
+                trade = getTradeFromMatcher(matcher);
+                if (trade.isBulkTrade) System.out.println("BULK:" + trade.itemName);
+                break;
             }
         }
         return trade;
     }
 
-    public static TradeOffer getExampleTrade(TradeOfferType type) {
-        TradeOffer exampleTrade = new TradeOffer();
-        exampleTrade.offerType = type;
-        exampleTrade.playerName = "ExamplePlayer123";
-        exampleTrade.itemName = "Example Item";
-        exampleTrade.stashtabName = "~price 1 chaos";
-        int zero = ThreadLocalRandom.current().nextInt(0, 1);
-        if (zero == 1) {
-            exampleTrade.itemQuantity = ThreadLocalRandom.current().nextInt(1, 100);
+    public static TradeOffer getTradeFromQuickPaste(String input) {
+        TradeOffer trade = null;
+        for (LangRegex l : LangRegex.values()) {
+            if (!input.contains(l.wantToBuy)) continue;
+            for (Pattern pattern : l.quickPastePatterns) {
+                Matcher matcher = pattern.matcher(input);
+                if (!matcher.matches()) continue;
+                trade = getTradeFromMatcher(matcher);
+                break;
+            }
         }
-        exampleTrade.priceTypeString = "Chaos";
-        exampleTrade.priceQuantity = ThreadLocalRandom.current().nextInt(1, 100);
-        return exampleTrade;
+        return trade;
+    }
+
+    private static TradeOffer getTradeFromMatcher(Matcher matcher) {
+        TradeOffer trade;
+        trade = new TradeOffer();
+        trade.date = matcher.group("date").replaceAll("/", "-");
+        trade.time = matcher.group("time");
+        trade.offerType = getMessageType(matcher.group("messageType"));
+        trade.guildName = matcher.group("guildName");
+        trade.playerName = matcher.group("playerName");
+        trade.itemName = matcher.group("itemName");
+        trade.itemQuantity = cleanDouble(cleanResult(matcher, "itemQuantity"));
+        trade.priceTypeString = cleanResult(matcher, "priceType");
+        trade.priceQuantity = cleanDouble(cleanResult(matcher, "priceQuantity"));
+        trade.stashTabName = cleanResult(matcher, "stashtabName");
+        trade.stashTabX = cleanInt(cleanResult(matcher, "stashX"));
+        trade.stashTabY = cleanInt(cleanResult(matcher, "stashY"));
+        trade.bonusText = cleanResult(matcher, "bonusText");
+        trade.isBulkTrade = trade.itemName.contains(",");
+        return trade;
     }
 
     private static TradeOffer.TradeOfferType getMessageType(String s) {
@@ -95,20 +105,21 @@ public class TradeOffer {
     }
 
     public StashTabColor getStashTabColor() {
+        // FIXME : Switch to hashmap
         if (stashColorIndex == -1) {
             stashColorIndex = 0;
             stashTabColor = StashTabColor.ZERO;
-            if (stashtabName != null) {
+            if (stashTabName != null) {
                 for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
                     if (data.stashTabName == null || data.stashTabName.isBlank()) continue;
                     if (data.matchType == MatchType.EXACT_MATCH) {
-                        if (stashtabName.equals(data.stashTabName)) {
+                        if (stashTabName.equals(data.stashTabName)) {
                             stashColorIndex = data.stashColorIndex;
                             stashTabColor = StashTabColor.values()[data.stashColorIndex];
                             break;
                         }
                     } else if (data.matchType == MatchType.CONTAINS_TEXT) {
-                        if (stashtabName.contains(data.stashTabName)) {
+                        if (stashTabName.contains(data.stashTabName)) {
                             stashColorIndex = data.stashColorIndex;
                             stashTabColor = StashTabColor.values()[data.stashColorIndex];
                             break;
@@ -141,6 +152,21 @@ public class TradeOffer {
         }
         text = text.replaceAll(",", ".");
         return Double.parseDouble(text);
+    }
+
+    public static TradeOffer getExampleTrade(TradeOfferType type) {
+        TradeOffer exampleTrade = new TradeOffer();
+        exampleTrade.offerType = type;
+        exampleTrade.playerName = "ExamplePlayer123";
+        exampleTrade.itemName = "Example Item";
+        exampleTrade.stashTabName = "~price 1 chaos";
+        int zero = ThreadLocalRandom.current().nextInt(0, 1);
+        if (zero == 1) {
+            exampleTrade.itemQuantity = ThreadLocalRandom.current().nextInt(1, 100);
+        }
+        exampleTrade.priceTypeString = "Chaos";
+        exampleTrade.priceQuantity = ThreadLocalRandom.current().nextInt(1, 100);
+        return exampleTrade;
     }
 
 }

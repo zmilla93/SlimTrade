@@ -1,13 +1,19 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.core.enums.CurrencyImage;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.components.IconLabel;
 import com.slimtrade.gui.messaging.NotificationPanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public class TestFrame extends JFrame {
 
@@ -28,6 +34,27 @@ public class TestFrame extends JFrame {
         contentPanel.add(panel);
         NotificationPanel trade = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
         contentPanel.add(trade);
+        BufferedImage img = null;
+        CurrencyImage currency = CurrencyImage.getCurrencyImage("Orbe exalté");
+        CurrencyImage exalt = CurrencyImage.getCurrencyImage("Orbe exalté");
+        try {
+            assert currency != null;
+            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(currency.getPath())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ImageIcon icon = new ImageIcon(CurrencyImage.getIconPath("Chaos Orb"));
+        JLabel currencyIcon = new JLabel();
+        IconButton exaltButton = new IconButton(exalt.getPath());
+        currencyIcon.setIcon(icon);
+        if (img != null) currencyIcon.setIcon(new ImageIcon(img));
+        contentPanel.add(currencyIcon);
+        contentPanel.add(exaltButton);
+        contentPanel.add(new IconLabel(exalt.getPath()));
+        contentPanel.add(new IconLabel(exalt.getPath(), 25));
+        contentPanel.add(new IconLabel(exalt.getPath(), 40));
+        contentPanel.add(new IconLabel(exalt.getPath()));
+        contentPanel.add(new IconLabel(exalt.getPath()));
 
 
         pack();

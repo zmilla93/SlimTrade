@@ -1,0 +1,477 @@
+// Currency Translations
+// Order: English, French, German, Korean, Russian, Spanish, Thai
+
+Aberrant Fossil, Fossile anormal, Abweichendes Fossil, 특이한 화석, Искажённое ископаемое, Fósil aberrante, Aberrant Fossil
+Abrasive Catalyst, Catalyseur abrasif, Abschleifender Katalysator, 연마의 기폭제, Абразивный катализатор, Catalizador abrasivo, Abrasive Catalyst
+Abyssal Delirium Orb, Orbe abyssal de Délire, Abgründige Sphäre des Deliriums, 심연의 환영의 오브, Бездонная сфера Делириума, Orbe de delirio abisal, ลูกแก้วเดลิเรียมเบื้องลึก
+Abyssal Incubator, Incubateur abyssal, Abgründiger Inkubator, 심연의 인큐베이터, Инкубатор Бездны, Incubadora abisal, ตัวบ่มฟักเบื้องลึก
+Accelerating Catalyst, Catalyseur accélérant, Beschleunigender Katalysator, 가속의 기폭제, Ускоряющий катализатор, Catalizador acelerador, Accelerating Catalyst
+Aetheric Fossil, Fossile éthéré, Ätherisches Fossil, 에테르 화석, Эфирное ископаемое, Fósil etéreo, Aetheric Fossil
+Al-Hezmin's Crest, Insigne d'Al-Hezmin, Wappen von Al-Hezmin, 알-헤즈민의 문양, Герб Аль-Хезмина, Emblema de Al-Hezmin, ตราของอัล-เฮซมิน
+Amber Oil, Huile ambrée, Bernsteinfarbenes Öl, 호박빛 성유, Янтарное масло, Aceite ámbar, Amber Oil
+Amorphous Delirium Orb, Orbe protéiforme de Délire, Amorphe Sphäre des Deliriums, 무정형 환영의 오브, Аморфная сфера Делириума, Orbe de delirio amorfo, ลูกแก้วเดลิเรียมไร้รูปร่าง
+Amplifying Power Core, Noyau d'énergie amplifiant, Verstärkender Energiekern, 증폭하는 동력 핵, Усиливающее энергоядро, Núcleo de energía amplificador, แกนพลังงานทวีคูณ
+Ancient Orb, Orbe antique, Uralte Sphäre, 고대의 오브, Древняя сфера, Orbe antiguo, Ancient Orb
+Ancient Reliquary Key, Clé du Reliquaire antique, Schlüssel zur Uralten Reliquienkammer, 고대의 성유물 보관실 열쇠, Ключ от Древнего Реликвария, Llave del Relicario Antiguo, กุญแจสถานเก็บวัตถุโบราณเก่าแก่
+Ancient Shard, Éclat antique, Uralte Scherbe, 고대의 파편, Древний осколок, Esquirla Antigua, ชิ้นส่วน Ancient
+Annulment Shard, Éclat d'annulation, Scherbe der Annullierung, 소멸의 파편, Осколок отмены, Esquirla de Anulación, ชิ้นส่วน Annulment
+Armour Recombinator, Recombinateur d'armure, Rüstungs-Rekombinator, 방어구 재조합기, Рекомбинатор бронника, Recombinador de armadura, เครื่องผสมเกราะ
+Armourer's Scrap, Ferraille d'armurier, Plattnerstück, 방어구 장인의 고철, Деталь доспеха, Restos de armaduras, Armourer's Scrap
+Armoursmith's Delirium Orb, Orbe cuirassé de Délire, Gerüstete Sphäre des Deliriums, 갑옷제작자의 환영의 오브, Латная сфера Делириума, Orbe de delirio del armero, ลูกแก้วเดลิเรียมช่างตีเกราะ
+Astragali, Astragali, Astragali, 복사뼈, Таранные кости, Astrágalo, ลูกเต๋ากระดูก
+Augmenting Power Core, Noyau d'énergie augmentant, Aufwertender Energiekern, 보강하는 동력 핵, Дополняющее энергоядро, Núcleo de energía aumentador, แกนพลังงานเสริมพลัง
+Awakened Sextant, Sextant éveillé, Erweckter Sextant, 각성한 육분의, Пробуждённый секстант, Sextante despertado, เครื่องวัดแดดจุติ
+Awakener's Orb, Orbe de l'Éveilleur, Sphäre des Erweckers, 각성자의 오브, Сфера Пробудителя, Orbe del despertar, Awakener's Orb
+Azure Oil, Huile azurée, Azurblaues Öl, 담청빛 성유, Лазурное масло, Aceite azur, Azure Oil
+Baran's Crest, Insigne de Baran, Wappen von Baran, 바란의 문양, Герб Бэрана, Emblema de Baran, ตราของบาราน
+Binding Shard, Éclat de liaison, Bindungsscherbe, 속박의 파편, Осколок сплетения, Esquirla de Vinculación, ชิ้นส่วน Binding
+Black Oil, Huile ébène, Schwarzes Öl, 검은빛 성유, Чёрное масло, Aceite negro, Black Oil
+Blacksmith's Delirium Orb, Orbe forgé de Délire, Geschmiedete Sphäre des Deliriums, 대장장이의 환영의 오브, Кузнечная сфера Делириума, Orbe de delirio del herrero, ลูกแก้วเดลิเรียมช่างตีเหล็ก
+Blacksmith's Whetstone, Pierre à aiguiser de forgeron, Schleifstein, 대장장이의 숫돌, Точильный камень, Piedra de afilar, Blacksmith's Whetstone
+Blessed Orb, Orbe béni, Gesegnete Sphäre, 축복의 오브, Благодатная сфера, Orbe bendito, Blessed Orb
+Blessing of Chayula, Bénédiction de Chayula, Chayulas Segnung, 차율라의 축복, Благословение Чаюлы, Bendición de Chayula, พรแห่งชายูล่า
+Blessing of Esh, Bénédiction d'Esh, Eshs Segnung, 에쉬의 축복, Благословение Иш, Bendición de Esh, พรแห่งเอ็ช
+Blessing of Tul, Bénédiction de Tul, Tuls Segnung, 툴의 축복, Благословение Тул, Bendición de Tul, พรแห่งทุล
+Blessing of Uul-Netol, Bénédiction d'Uul-Netol, Uul-Netols Segnung, 울네톨의 축복, Благословение Уул-Нетол, Bendición de Uul-Netol, พรแห่งอูล-เนโทล
+Blessing of Xoph, Bénédiction de Xoph, Xophs Segnung, 조프의 축복, Благословение Ксофа, Bendición de Xoph, พรแห่งซอปห์
+Blighted Delirium Orb, Orbe infesté de Délire, Befallene Sphäre des Deliriums, 역병 걸린 환영의 오브, Заражённая сфера Делириума, Orbe de delirio infestado, ลูกแก้วเดลิเรียมเชื้อราร้าย
+Blighted Incubator, Incubateur infesté, Befallener Inkubator, 역병 걸린 인큐베이터, Заражённый инкубатор, Incubadora infestada, ตัวบ่มฟักเชื้อราร้าย
+Bloodstained Fossil, Fossile taché de sang, Blutbeflecktes Fossil, 피얼룩 화석, Окровавленное ископаемое, Fósil ensangrentado, Bloodstained Fossil
+Bound Fossil, Fossile uni, Verbundenes Fossil, 속박의 화석, Связующее ископаемое, Fósil ligado, Bound Fossil
+Burial Medallion, Médaillon funéraire, Grabmedaillon, 매장용 메달리온, Погребальный медальон, Medallón funerario, เหรียญฝังศพ
+Cartographer's Chisel, Burin de cartographe, Meißel des Kartographen, 지도제작자의 끌, Резец картографа, Cincel del cartógrafo, Cartographer's Chisel
+Cartographer's Delirium Orb, Orbe cartographique de Délire, Gemeißelte Sphäre des Deliriums, 지도제작자의 환영의 오브, Картографическая сфера Делириума, Orbe de delirio del cartógrafo, ลูกแก้วเดลิเรียมนักเขียนแผนที่
+Cartographer's Incubator, Incubateur cartographique, Inkubator des Kartographen, 지도제작자의 인큐베이터, Инкубатор картографа, Incubadora del cartógrafo, ตัวบ่มฟักนักเขียนแผนที่
+Celestial Blacksmith's Incubator, Incubateur du forgeron céleste, Himmlischer Inkubator des Schmieds, 천공의 대장장이의 인큐베이터, Небесный инкубатор кузнеца, Incubadora celestial del Herrero, ตัวบ่มฟักช่างตีเหล็กดวงดาว
+Celestial Jeweller's Incubator, Incubateur du joaillier céleste, Himmlischer Inkubator des Goldschmieds, 천공의 보석상의 인큐베이터, Небесный инкубатор ювелира, Incubadora celestial del joyero, ตัวบ่มฟักช่างอัญมณีดวงดาว
+Chaos Orb, Orbe du chaos, Chaossphäre, 카오스 오브, Сфера хаоса, Orbe de caos, Chaos Orb
+Chaos Shard, Éclat de chaos, Chaosscherbe , 카오스 파편, Осколок хаоса, Esquirla de Caos, ชิ้นส่วน Chaos
+Chayula's Breachstone, Pierre de Brèche de Chayula, Chayulas Riss-Stein, 차율라의 균열석, Камень Разлома Чаюлы, Piedra de Fisura de Chayula, หินบรีชแห่งชายูล่า
+Chayula's Charged Breachstone, Pierre de Brèche chargée de Chayula, Chayulas geladener Riss-Stein, 차율라의 충전된 균열석, Заряженный камень Разлома Чаюлы, Piedra de Fisura Cargada de Chayula, หินบรีชเพิ่มพลังแห่งชายูล่า
+Chayula's Enriched Breachstone, Pierre de Brèche enrichie de Chayula, Chayulas angereicherter Riss-Stein, 차율라의 풍부한 균열석, Обогащённый камень Разлома Чаюлы, Piedra de Fisura Enriquecida de Chayula, หินบรีชอาบพลังแห่งชายูล่า
+Chayula's Flawless Breachstone, Pierre de Brèche parfaite de Chayula, Chayulas makelloser Riss-Stein, 차율라의 결함 없는 균열석, Безупречный камень Разлома Чаюлы, Piedra de Fisura perfecta de Chayula, หินบรีชไร้ที่ติแห่งชายูล่า
+Chayula's Pure Breachstone, Pierre de Brèche pure de Chayula, Chayulas purer Riss-Stein, 차율라의 순수한 균열석, Очищенный камень Разлома Чаюлы, Piedra de Fisura Pura de Chayula, หินบรีชบริสุทธิ์แห่งชายูล่า
+Chromatic Orb, Orbe chromatique, Färbungssphäre, 색채의 오브, Цветная сфера, Orbe cromático, Chromatic Orb
+Clear Oil, Huile limpide, Klares Öl, 투명한 성유, Прозрачное масло, Aceite claro, Clear Oil
+Corroded Fossil, Fossile corrodé, Korrodiertes Fossil, 부식된 화석, Пористое ископаемое, Fósil corroído, Corroded Fossil
+Craicic Lure, Appât craïcique, Craicischer Köder, 크라칸 루어, Приманка Краценна, Señuelo cráicico, เหยื่อล่อวงศ์เครเชียนน์
+Crescent Splinter, Esquille falciforme, Halbmond-Splitter, 초승달 파편, Серповидный осколок, Fragmento creciente, ชิ้นส่วนจันทร์เสี้ยว
+Crest of the Elderslayers, Insigne des Tueurs de l'Ancien, Wappen der Vernichter des Ältesten, 엘더슬레이어의 문양, Герб Убийц Древнего, Emblema de los Asesinos del Antiguo, ตราของเหล่าผู้สังหารเอลเดอร์
+Crimson Oil, Huile carmin, Blutrotes Öl, 진홍빛 성유, Алое масло, Aceite carmín, Crimson Oil
+Crusader's Exalted Orb, Orbe exalté du Croisé, Erhabene Sphäre des Kreuzritters, 십자군의 엑잘티드 오브, Сфера возвышения крестоносца, Orbe exaltado del Cruzado, Crusader's Exalted Orb
+Deafening Essence of Anger, Essence assourdissante de Colère, Ohrenbetäubende Essenz der Wut, 귀를 찢는 분노의 에센스, Оглушающая сущность злобы, Esencia Ensordecedora de Rabia, Deafening Essence of Anger
+Deafening Essence of Anguish, Essence assourdissante d'Angoisse, Ohrenbetäubende Essenz der Qual, 귀를 찢는 비통의 에센스, Оглушающая сущность горя, Esencia Ensordecedora de Angustia, Deafening Essence of Anguish
+Deafening Essence of Contempt, Essence assourdissante de Dédain, Ohrenbetäubende Essenz der Verachtung, 귀를 찢는 경멸의 에센스, Оглушающая сущность презрения, Esencia Ensordecedora de Desprecio, Deafening Essence of Contempt
+Deafening Essence of Doubt, Essence assourdissante d'Incertitude, Ohrenbetäubende Essenz des Zweifels, 귀를 찢는 의심의 에센스, Оглушающая сущность сомнения, Esencia Ensordecedora de Duda, Deafening Essence of Doubt
+Deafening Essence of Dread, Essence assourdissante d'Effroi, Ohrenbetäubende Essenz der Furcht, 귀를 찢는 불안의 에센스, Оглушающая сущность жути, Esencia Ensordecedora de Terror, Deafening Essence of Dread
+Deafening Essence of Envy, Essence assourdissante de Convoitise, Ohrenbetäubende Essenz des Neids, 귀를 찢는 선망의 에센스, Оглушающая сущность зависти, Esencia Ensordecedora de Envidia, Deafening Essence of Envy
+Deafening Essence of Fear, Essence assourdissante de Peur, Ohrenbetäubende Essenz der Angst, 귀를 찢는 두려움의 에센스, Оглушающая сущность страха, Esencia Ensordecedora de Miedo, Deafening Essence of Fear
+Deafening Essence of Greed, Essence assourdissante d'Avarice, Ohrenbetäubende Essenz der Gier, 귀를 찢는 탐욕의 에센스, Оглушающая сущность жадности, Esencia Ensordecedora de Avaricia, Deafening Essence of Greed
+Deafening Essence of Hatred, Essence assourdissante de Haine, Ohrenbetäubende Essenz des Hasses, 귀를 찢는 증오의 에센스, Оглушающая сущность ненависти, Esencia Ensordecedora de Odio, Deafening Essence of Hatred
+Deafening Essence of Loathing, Essence assourdissante d'Aversion, Ohrenbetäubende Essenz der Abscheu, 귀를 찢는 혐오의 에센스, Оглушающая сущность отвращения, Esencia Ensordecedora de Aversión, Deafening Essence of Loathing
+Deafening Essence of Misery, Essence assourdissante de Détresse, Ohrenbetäubende Essenz des Elends, 귀를 찢는 비참의 에센스, Оглушающая сущность тоски, Esencia Ensordecedora de Miseria, Deafening Essence of Misery
+Deafening Essence of Rage, Essence assourdissante de Rage, Ohrenbetäubende Essenz der Rage, 귀를 찢는 격노의 에센스, Оглушающая сущность ярости, Esencia Ensordecedora de Furia, Deafening Essence of Rage
+Deafening Essence of Scorn, Essence assourdissante de Mépris, Ohrenbetäubende Essenz des Gespötts, 귀를 찢는 멸시의 에센스, Оглушающая сущность насмешки, Esencia Ensordecedora de Desdén, Deafening Essence of Scorn
+Deafening Essence of Sorrow, Essence assourdissante de Chagrin, Ohrenbetäubende Essenz der Trauer, 귀를 찢는 슬픔의 에센스, Оглушающая сущность печали, Esencia Ensordecedora de Pena, Deafening Essence of Sorrow
+Deafening Essence of Spite, Essence assourdissante d'Acrimonie, Ohrenbetäubende Essenz der Bosheit, 귀를 찢는 악의의 에센스, Оглушающая сущность неприязни, Esencia Ensordecedora de Rencor, Deafening Essence of Spite
+Deafening Essence of Suffering, Essence assourdissante de Souffrance, Ohrenbetäubende Essenz des Leids, 귀를 찢는 고통의 에센스, Оглушающая сущность страдания, Esencia Ensordecedora de Sufrimiento, Deafening Essence of Suffering
+Deafening Essence of Torment, Essence assourdissante de Tourment, Ohrenbetäubende Essenz der Folter, 귀를 찢는 고뇌의 에센스, Оглушающая сущность мучения, Esencia Ensordecedora de Tormento, Deafening Essence of Torment
+Deafening Essence of Woe, Essence assourdissante d'Affliction, Ohrenbetäubende Essenz des Kummers, 귀를 찢는 비애의 에센스, Оглушающая сущность скорби, Esencia Ensordecedora de Aflicción, Deafening Essence of Woe
+Deafening Essence of Wrath, Essence assourdissante de Fureur, Ohrenbetäubende Essenz des Zorns, 귀를 찢는 진노의 에센스, Оглушающая сущность гнева, Esencia Ensordecedora de Ira, Deafening Essence of Wrath
+Deafening Essence of Zeal, Essence assourdissante de Zèle, Ohrenbetäubende Essenz des Eifers, 귀를 찢는 열의의 에센스, Оглушающая сущность усердия, Esencia Ensordecedora de Fervor, Deafening Essence of Zeal
+Dedication to the Goddess, Dévouement à la déesse, Hingabe an die Göttin, 여신에게 바치는 헌신, Посвящение богине, Consagración a la Diosa, เครื่องอุทิศแด่เทพี
+Deft Fossil, Fossile léger, Gewandtes Fossil, 날렵한 화석, Проворное ископаемое, Fósil hábil, Deft Fossil
+Delirium Orb, Orbe de Délire, Sphäre des Deliriums, 환영의 오브, Сфера Делириума, Orbe de delirio, ลูกแก้วเดลิเรียม
+Dense Fossil, Fossile dense, Dichtes Fossil, 조밀한 화석, Плотное ископаемое, Fósil denso, Dense Fossil
+Divine Orb, Orbe divin, Göttliche Sphäre, 신성한 오브, Божественная сфера, Orbe divino, Divine Orb
+Divine Vessel, Réceptacle divin, Göttliches Gefäß, 성스러운 시험관, Божественный сосуд, Recipiente Divino, คนโทศักดิ์สิทธิ์
+Diviner's Delirium Orb, Orbe divinatoire de Délire, Weissagende Sphäre des Deliriums, 예언자의 환영의 오브, Предсказательная сфера Делириума, Orbe de delirio del adivino, ลูกแก้วเดลิเรียมนักพยากรณ์
+Diviner's Incubator, Incubateur divinatoire, Inkubator des Weissagers, 예언자의 인큐베이터, Инкубатор предсказателя, Incubadora del adivino, ตัวบ่มฟักนักพยากรณ์
+Drox's Crest, Insigne de Drox, Wappen von Drox, 드록스의 문양, Герб Дрокса, Emblema de Drox, ตราของดร็อกซ์
+Eldritch Chaos Orb, Orbe du chaos surnaturel, Übernatürliche Chaossphäre, 섬뜩한 카오스 오브, Мистическая сфера хаоса, Orbe de caos sobrenatural, Eldritch Chaos Orb
+Eldritch Exalted Orb, Orbe exalté surnaturel, Übernatürliche Erhabene Sphäre, 섬뜩한 엑잘티드 오브, Мистическая сфера возвышения, Orbe exaltado sobrenatural, Eldritch Exalted Orb
+Eldritch Orb of Annulment, Orbe d'annulation surnaturel, Übernatürliche Sphäre der Annullierung, 섬뜩한 소멸의 오브, Мистическая сфера отмены, Orbe de anulación sobrenatural, Eldritch Orb of Annulment
+Elevated Sextant, Sextant élevé, Erhabener Sextant, 고양된 육분의, Возвышенный секстант, Sextante elevado, เครื่องวัดแดดอันสูงส่ง
+Enchanted Incubator, Incubateur enchanté, Verzauberter Inkubator, 인챈트된 인큐베이터, Зачарованный инкубатор, Incubadora encantada, ตัวบ่มฟักลงเสน่ห์
+Engineer's Orb, Orbe d'ingénieur, Sphäre des Ingenieurs, 기술자의 오브, Сфера инженера, Orbe del Ingeniero, Engineer's Orb
+Engineer's Shard, Éclat d'ingénieur, Scherbe des Ingenieurs, 기술자의 파편, Инженерный осколок, Esquirla del Ingeniero, ชิ้นส่วน Engineer
+Enkindling Orb, Orbe chauffant, Sphäre der Potenzierung, 자극의 오브, Растопляющая сфера, Orbe de estimulación, Enkindling Orb
+Esh's Breachstone, Pierre de Brèche d'Esh, Eshs Riss-Stein, 에쉬의 균열석, Камень Разлома Иш, Piedra de Fisura de Esh, หินบรีชแห่งเอ็ช
+Esh's Charged Breachstone, Pierre de Brèche chargée d'Esh, Eshs geladener Riss-Stein, 에쉬의 충전된 균열석, Заряженный камень Разлома Иш, Piedra de Fisura Cargada de Esh, หินบรีชเพิ่มพลังแห่งเอ็ช
+Esh's Enriched Breachstone, Pierre de Brèche enrichie d'Esh, Eshs angereicherter Riss-Stein, 에쉬의 풍부한 균열석, Обогащённый камень Разлома Иш, Piedra de Fisura Enriquecida de Esh, หินบรีชอาบพลังแห่งเอ็ช
+Esh's Flawless Breachstone, Pierre de Brèche parfaite d'Esh, Eshs makelloser Riss-Stein, 에쉬의 결함 없는 균열석, Безупречный камень Разлома Иш, Piedra de Fisura perfecta de Esh, หินบรีชไร้ที่ติแห่งเอ็ช
+Esh's Pure Breachstone, Pierre de Brèche pure d'Esh, Eshs purer Riss-Stein, 에쉬의 순수한 균열석, Очищенный камень Разлома Иш, Piedra de Fisura Pura de Esh, หินบรีชบริสุทธิ์แห่งเอ็ช
+Essence of Delirium, Essence de Délire, Essenz des Deliriums, 섬망의 에센스, Сущность бреда, Esencia de Delirio, Essence of Delirium
+Essence of Horror, Essence d'Horreur, Essenz des Horrors, 경악의 에센스, Сущность ужаса, Esencia de Horror, Essence of Horror
+Essence of Hysteria, Essence d'Hystérie, Essenz der Hysterie, 발작의 에센스, Сущность истерии, Esencia de Histeria, Essence of Hysteria
+Essence of Insanity, Essence de Démence, Essenz des Irrsinns, 광기의 에센스, Сущность безумия, Esencia de Demencia, Essence of Insanity
+Eternal Orb, Orbe éternel, Sphäre der Ewigkeit, 영원의 오브, Сфера вечного, Orbe Eterno, Eternal Orb
+Exalted Orb, Orbe exalté, Erhabene Sphäre, 엑잘티드 오브, Сфера возвышения, Orbe exaltado, Exalted Orb
+Exalted Shard, Éclat exalté, Erhabene Scherbe, 엑잘티드 파편, Осколок возвышения, Esquirla Exaltada, ชิ้นส่วน Exalted
+Exceptional Eldritch Ember, Braise surnaturelle exceptionnelle, Bedeutende übernatürliche Glut, 특출난 섬뜩한 불씨, Превосходный древний уголёк, Brasa sobrenatural excepcional, เถ้าถ่านผิดธรรมชาติชั้นยอด
+Exceptional Eldritch Ichor, Ichor surnaturel exceptionnel, Bedeutender übernatürlicher Ichor, 특출난 섬뜩한 영액, Превосходный зловещий ихор, Icor sobrenatural excepcional, น้ำหนองผิดธรรมชาติชั้นยอด
+Exotic Coinage, Monnaie exotique, Ausländische Münzen, 특이한 주화, Диковинные монеты, Acuñación exótica, เหรียญต่างแดน
+Faceted Fossil, Fossile à facettes, Facettenreiches Fossil, 연마한 화석, Гранёное ископаемое, Fósil facetado, Faceted Fossil
+Facetor's Lens, Lentille de ciseleur, Linse des Facettenschleifers, 무아지경의 렌즈, Линза награнения, Lente del facetador, Facetor's Lens
+Farric Lure, Appât farrique, Farrischer Köder, 페룰 루어, Приманка Фаррул, Señuelo fárrico, เหยื่อล่อวงศ์ฟาร์รุล
+Fenumal Lure, Appât fénumal, Fenumaler Köder, 페누무스 루어, Приманка Фенумы, Señuelo fenumal, เหยื่อล่อวงศ์เฟนูมัส
+Feral Incubator, Incubateur sauvage, Wilder Inkubator, 야생의 인큐베이터, Дикий инкубатор, Incubadora feral, ตัวบ่มฟักดุร้าย
+Fertile Catalyst, Catalyseur fertile, Fruchtbarer Katalysator, 풍요의 기폭제, Насыщенный катализатор, Catalizador fértil, Fertile Catalyst
+Fine Delirium Orb, Orbe raffiné de Délire, Edle Sphäre des Deliriums, 양질의 환영의 오브, Прекрасная сфера Делириума, Orbe de delirio elegante, ลูกแก้วเดลิเรียมประณีต
+Fine Incubator, Incubateur raffiné, Feiner Inkubator, 양질의 인큐베이터, Прекрасный инкубатор, Incubadora elegante, ตัวบ่มฟักประณีต
+Foreboding Delirium Orb, Orbe sinistre de Délire, Unheilverkündende Sphäre des Deliriums, 불길한 환영의 오브, Таинственная сфера Делириума, Orbe de delirio premonitorio, ลูกแก้วเดลิเรียมอันเป็นลาง
+Foreboding Incubator, Incubateur sinistre, Unheilverkündender Inkubator, 불길한 인큐베이터, Таинственный инкубатор, Incubadora premonitoria, ตัวบ่มฟักอันเป็นลาง
+Fossilised Delirium Orb, Orbe fossilisé de Délire, Versteinerte Sphäre des Deliriums, 화석화된 환영의 오브, Ископаемая сфера Делириума, Orbe de delirio fosilizado, ลูกแก้วเดลิเรียมฟอสซิล
+Fossilised Incubator, Incubateur fossilisé, Versteinerter Inkubator, 화석화된 인큐베이터, Ископаемый инкубатор, Incubadora fosilizada, ตัวบ่มฟักฟอสซิล
+Fractured Fossil, Fossile fissuré, Zerbrochenes Fossil, 분열된 화석, Треснувшее ископаемое, Fósil fracturado, Fractured Fossil
+Fragment of Constriction, Fragment de la Constriction, Fragment der Unterdrückung, 위압의 조각, Фрагмент угнетения, Fragmento de constricción, ชิ้นส่วนการบีบรัด
+Fragment of Emptiness, Fragment du Vide, Fragment der Leere, 허무의 조각, Фрагмент пустоты, Fragmento de vacío, ชิ้นส่วนว่างเปล่า
+Fragment of Enslavement, Fragment de l'Asservissement, Fragment der Versklavung, 조종의 조각, Фрагмент порабощения, Fragmento de esclavitud, ชิ้นส่วนกดขี่
+Fragment of Eradication, Fragment de l'Éradication, Fragment der Vernichtung, 박멸의 조각, Фрагмент искоренения, Fragmento de erradicación, ชิ้นส่วนขจัด
+Fragment of Knowledge, Fragment de la Connaissance, Fragment des Wissens, 지식의 조각, Фрагмент знания, Fragmento de conocimiento, ชิ้นส่วนปัญญา
+Fragment of Purification, Fragment de la Purification, Fragment der Läuterung, 정화의 조각, Фрагмент искупления, Fragmento de purificación, ชิ้นส่วนการชำระล้าง
+Fragment of Shape, Fragment du Façonnement, Fragment der Schöpfung, 형성의 조각, Фрагмент формы, Fragmento de forma, ชิ้นส่วนรูปร่าง
+Fragment of Terror, Fragment de la Terreur, Fragment des Schreckens, 공포의 조각, Фрагмент ужаса, Fragmento de terror, ชิ้นส่วนสยองขวัญ
+Fragment of the Chimera, Fragment de la Chimère, Fragment der Chimäre, 키메라의 지도 조각, Фрагмент Химеры, Fragmento de la Quimera, ชิ้นส่วนคิเมียร่า
+Fragment of the Hydra, Fragment de l'Hydre, Fragment der Hydra, 히드라의 지도 조각, Фрагмент Гидры, Fragmento de la Hidra, ชิ้นส่วนไฮดร้า
+Fragment of the Minotaur, Fragment du Minotaure, Fragment des Minotauren, 미노타우로스의 지도 조각, Фрагмент Минотавра, Fragmento del Minotauro, ชิ้นส่วนมิโนทอร์
+Fragment of the Phoenix, Fragment du Phénix, Fragment des Phönix, 불사조의 지도 조각, Фрагмент Феникса, Fragmento del Fénix, ชิ้นส่วนฟีนิกซ์
+Fragmented Delirium Orb, Orbe fragmenté de Délire, Fragmentierte Sphäre des Deliriums, 조각난 환영의 오브, Раздробленная сфера Делириума, Orbe de delirio fragmentado, ลูกแก้วเดลิเรียมแยกส่วน
+Fragmented Incubator, Incubateur fragmenté, Fragmentierter Inkubator, 조각난 인큐베이터, Раздробленный инкубатор, Incubadora fragmentada, ตัวบ่มฟักแยกส่วน
+Frigid Fossil, Fossile glacé, Eisiges Fossil, 차디찬 화석, Ледяное ископаемое, Fósil helado, Frigid Fossil
+Fundamental Fossil, Fossile fondamental, Fundamentales Fossil, 근본적인 화석, Фундаментальное ископаемое, Fósil fundamental, Fundamental Fossil
+Gemcutter's Prism, Prisme de lapidaire, Prisma des Gemmenschneiders, 세공사의 프리즘, Призма камнереза, Prisma del tallador de gemas, Gemcutter's Prism
+Geomancer's Incubator, Incubateur du géomancien, Inkubator des Geomanten, 대지술사의 인큐베이터, Инкубатор геоманта, Incubadora del geomántico, ตัวบ่มฟักนักทำนายโลกา
+Gift to the Goddess, Présent à la déesse, Geschenk an die Göttin, 여신에게 바치는 선물, Дар богине, Regalo a la Diosa, ของขวัญแด่เทพี
+Gilded Abyss Scarab, Scarabée doré de l'Abysse, Vergoldeter Skarabäus des Abgrunds, 도금된 심연 갑충석, Золочёный скарабей Бездны, Escarabajo dorado de Abyss, ซแคแร็บอะบิสเคลือบทอง
+Gilded Ambush Scarab, Scarabée doré de l'Embuscade, Vergoldeter Skarabäus des Hinterhalts, 도금된 매복 갑충석, Золочёный скарабей Засады, Escarabajo dorado de Emboscada, ซแคแร็บนิรภัยเคลือบทอง
+Gilded Bestiary Scarab, Scarabée doré du Bestiaire, Vergoldeter Skarabäus des Bestiariums, 도금된 야수 도감 갑충석, Золочёный скарабей Бестиария, Escarabajo dorado de Bestiario, ซแคแร็บรวมสัตว์เคลือบทอง
+Gilded Blight Scarab, Scarabée doré de l'Infestation, Vergoldeter Skarabäus des Befalls, 도금된 역병 갑충석, Золочёный скарабей Скверны, Escarabajo dorado de Blight, ซแคแร็บไบล์ทเคลือบทอง
+Gilded Breach Scarab, Scarabée doré de Brèche, Vergoldeter Skarabäus der Risse, 도금된 균열 갑충석, Золочёный скарабей Разлома, Escarabajo dorado de Fisura, ซแคแร็บบรีชเคลือบทอง
+Gilded Cartography Scarab, Scarabée doré de Cartographie, Vergoldeter Skarabäus der Kartographie, 도금된 지도 제작 갑충석, Золочёный скарабей картографии, Escarabajo dorado de Cartografía, ซแคแร็บแผนที่เคลือบทอง
+Gilded Divination Scarab, Scarabée doré de Divination, Vergoldeter Skarabäus der Weissagung, 도금된 점술 갑충석, Золочёный скарабей предсказания, Escarabajo dorado de Adivinación, ซแคแร็บพยากรณ์เคลือบทอง
+Gilded Elder Scarab, Scarabée doré de l'Ancien, Vergoldeter Skarabäus des Ältesten, 도금된 엘더 갑충석, Золочёный скарабей Древнего, Escarabajo dorado del Antiguo, ซแคแร็บเอลเดอร์เคลือบทอง
+Gilded Expedition Scarab, Scarabée doré d'Expédition, Vergoldeter Skarabäus der Expedition, 도금된 탐험 갑충석, Золочёный скарабей Экспедиции, Escarabajo dorado de Expedition, ซแคแร็บกองสำรวจเคลือบทอง
+Gilded Fossil, Fossile doré, Vergoldetes Fossil, 도금된 화석, Позолоченное ископаемое, Fósil dorado, Gilded Fossil
+Gilded Harbinger Scarab, Scarabée doré de Précurseur, Vergoldeter Skarabäus des Vorboten, 도금된 선구자 갑충석, Золочёный скарабей Предвестника, Escarabajo dorado de Heraldo, ซแคแร็บฮาร์บินเจอร์เคลือบทอง
+Gilded Legion Scarab, Scarabée doré de Légion, Vergoldeter Skarabäus der Legion, 도금된 군단 갑충석, Золочёный скарабей Легиона, Escarabajo dorado de Legion, ซแคแร็บกองพันเคลือบทอง
+Gilded Metamorph Scarab, Scarabée doré de Métamorphe, Vergoldeter Skarabäus der Metamorphe, 도금된 변형 갑충석, Золочёный скарабей Метаморфа, Escarabajo dorado de Metamorph, ซแคแร็บเมตามอร์ฟเคลือบทอง
+Gilded Reliquary Scarab, Scarabée doré du Reliquaire, Vergoldeter Skarabäus der Reliquien, 도금된 성유물 보관실 갑충석, Золочёный реликтовый скарабей, Escarabajo dorado de Relicario, ซแคแร็บวัตถุโบราณเคลือบทอง
+Gilded Shaper Scarab, Scarabée doré du Façonneur, Vergoldeter Skarabäus des Schöpfers, 도금된 쉐이퍼 갑충석, Золочёный скарабей Создателя, Escarabajo dorado del Creador, ซแคแร็บเชปเปอร์เคลือบทอง
+Gilded Sulphite Scarab, Scarabée doré de Sulfite, Vergoldeter Skarabäus des Sulfits, 도금된 아황산염 갑충석, Золочёный сульфитовый скарабей, Escarabajo dorado de Sulfito, ซแคแร็บซัลไฟต์เคลือบทอง
+Gilded Torment Scarab, Scarabée doré du Tourment, Vergoldeter Skarabäus der Folter, 도금된 고통 갑충석, Золочёный скарабей Мучения, Escarabajo dorado de Tormento, ซแคแร็บทรมานเคลือบทอง
+Glassblower's Bauble, Bulle de souffleur de verre, Kugel des Glasbläsers, 유리직공의 방울, Стекольная масса, Baratija de vidrio, Glassblower's Bauble
+Glyphic Fossil, Fossile glyphique, Glyphisches Fossil, 상형 문자 화석, Резное ископаемое, Fósil glífico, Glyphic Fossil
+Golden Oil, Huile dorée, Goldenes Öl, 금빛 성유, Золотое масло, Aceite dorado, Golden Oil
+Grand Eldritch Ember, Braise surnaturelle majestueuse, Große übernatürliche Glut, 우수한 섬뜩한 불씨, Великий древний уголёк, Brasa sobrenatural grandiosa, เถ้าถ่านผิดธรรมชาติชั้นเลิศ
+Grand Eldritch Ichor, Ichor surnaturel majestueux, Großer übernatürlicher Ichor, 우수한 섬뜩한 영액, Великий зловещий ихор, Icor sobrenatural grandioso, น้ำหนองผิดธรรมชาติชั้นเลิศ
+Greater Eldritch Ember, Braise surnaturelle majeure, Größere übernatürliche Glut, 상급 섬뜩한 불씨, Крупный древний уголёк, Brasa sobrenatural mayor, เถ้าถ่านผิดธรรมชาติชั้นสูง
+Greater Eldritch Ichor, Ichor surnaturel majeur, Größerer übernatürlicher Ichor, 상급 섬뜩한 영액, Крупный зловещий ихор, Icor sobrenatural mayor, น้ำหนองผิดธรรมชาติชั้นสูง
+Harbinger's Orb, Orbe de Précurseur, Sphäre des Vorboten, 선구자의 오브, Сфера Предвестника, Orbe del Heraldo, Harbinger's Orb
+Harbinger's Shard, Éclat de Précurseur, Scherbe des Vorboten, 선구자의 파편, Осколок Предвестника, Esquirla del Heraldo, ชิ้นส่วน Harbinger
+Hollow Fossil, Fossile creux, Hohles Fossil, 공허의 화석, Пустое ископаемое, Fósil hueco, Hollow Fossil
+Horizon Shard, Éclat d'horizon, Scherbe der Horizonte, 지평의 파편, Осколок горизонтов, Esquirla de Horizonte, ชิ้นส่วน Horizon
+Hunter's Exalted Orb, Orbe exalté du Chasseur, Erhabene Sphäre des Jägers, 사냥꾼의 엑잘티드 오브, Сфера возвышения охотника, Orbe exaltado del Cazador, Hunter's Exalted Orb
+Imbued Catalyst, Catalyseur imprégné, Durchdrungener Katalysator, 부여의 기폭제, Волшебный катализатор, Catalizador imbuido, Imbued Catalyst
+Imperial Delirium Orb, Orbe impérial de Délire, Kaiserliche Sphäre des Deliriums, 제국 환영의 오브, Имперская сфера Делириума, Orbe de delirio imperial, ลูกแก้วเดลิเรียมจักรพรรดิ์
+Incandescent Invitation, Invitation incandescente, Glühende Einladung, 백열하는 초대, Сияющее приглашение, Invitación incandescente, คำเชิญโชติช่วง
+Indigo Oil, Huile indigo, Indigofarbenes Öl, 남색 성유, Масло индиго, Aceite índigo, Indigo Oil
+Infused Engineer's Orb, Orbe d'ingénieur infusé, Verstärkte Sphäre des Ingenieurs, 주입된 기술자의 오브, Заряженная сфера инженера, Orbe del Ingeniero infundido, Infused Engineer's Orb
+Instilling Orb, Orbe d'instillation, Sphäre der Einflößung, 주입의 오브, Вливающая сфера, Orbe de instilación, Instilling Orb
+Intrinsic Catalyst, Catalyseur intrinsèque, Intrinsischer Katalysator, 본질의 기폭제, Истинный катализатор, Catalizador intrínseco, Intrinsic Catalyst
+Jagged Fossil, Fossile tranchant, Gezacktes Fossil, 뾰족한 화석, Шероховатое ископаемое, Fósil dentado, Jagged Fossil
+Jeweller's Delirium Orb, Orbe orné de Délire, Verzierte Sphäre des Deliriums, 쥬얼러 환영의 오브, Ювелирная сфера Делириума, Orbe de delirio del joyero, ลูกแก้วเดลิเรียมช่างอัญมณี
+Jeweller's Orb, Orbe de joaillier, Sphäre des Goldschmieds, 쥬얼러 오브, Сфера златокузнеца, Orbe de joyero, Jeweller's Orb
+Jewellery Recombinator, Recombinateur d'accessoire, Schmuck-Rekombinator, 장신구 재조합기, Рекомбинатор ювелира, Recombinador de joyería, เครื่องผสมเครื่องประดับ
+Kalguuran Delirium Orb, Orbe kalguurien de Délire, Kalguurische Sphäre des Deliriums, 칼구르 환영의 오브, Калгууранская сфера Делириума, Orbe de delirio kalguur, ลูกแก้วเดลิเรียมคาลเกอร์
+Kalguuran Incubator, Incubateur kalguurien, Kalguurischer Inkubator, 칼구르 인큐베이터, Калгууранский инкубатор, Incubadora kalguur, ตัวบ่มฟักคาลเกอร์
+Key to Decay, Clé de la Décadence, Schlüssel zum Verfall, 부패의 열쇠, Ключ к Порче, Llave hacia el Decaimiento, กุญแจสู่การเสื่อมสลาย
+Key to the Crucible, Clé du Creuset, Schlüssel zum Schmelztiegel, 시련의 열쇠, Ключ к Тиглю, Llave hacia el Crisol, กุญแจสู่เบ้าหลอม
+Lesser Eldritch Ember, Braise surnaturelle mineure, Kleine übernatürliche Glut, 하급 섬뜩한 불씨, Мелкий древний уголёк, Brasa sobrenatural menor, เถ้าถ่านผิดธรรมชาติชั้นต่ำ
+Lesser Eldritch Ichor, Ichor surnaturel mineur, Kleiner übernatürlicher Ichor, 하급 섬뜩한 영액, Мелкий зловещий ихор, Icor sobrenatural menor, น้ำหนองผิดธรรมชาติชั้นต่ำ
+Lucent Fossil, Fossile brillant, Glänzendes Fossil, 빛나는 화석, Светлое ископаемое, Fósil brillante, Lucent Fossil
+Maddening Incubator, Incubateur aliénant, Inkubator des Wahnsinns, 광기의 인큐베이터, Одержимый инкубатор, Incubadora enloquecedora, ตัวบ่มฟักบ้าคลั่ง
+Maddening Object, Chose aliénante, Objekt des Wahnsinns, 광기의 물품, Субстанция безумия, Objeto enloquecedor, วัตถุบ้าคลั่ง
+Maven's Invitation: The Atlas, Invitation de la Prodige : L'Atlas, Einladung der Seherin: Der Atlas, 메이븐의 초대: 아틀라스, Приглашение Мейвен: Атлас, Invitación de la Especialista: El Atlas, คำเชิญของเมเวน: สมุดแผนที่
+Maven's Invitation: The Elderslayers, Invitation de la Prodige : Les Tueurs de l'Ancien, Einladung der Seherin: Die Vernichter des Ältesten, 메이븐의 초대: 엘더슬레이어, Приглашение Мейвен: Убийцы Древнего, Invitación de la Especialista: Los Asesinos del Antiguo, คำเชิญของเมเวน: ผู้สังหารเอลเดอร์
+Maven's Invitation: The Feared, Invitation de la Prodige : Les Redoutés, Einladung der Seherin: Die Gefürchteten, 메이븐의 초대: 끔찍한 영역, Приглашение Мейвен: Внушающие страх, Invitación de la Especialista: Los temidos, คำเชิญของเมเวน: ผู้ต้องกลัวเกรง
+Maven's Invitation: The Forgotten, Invitation de la Prodige : Les Oubliés, Einladung der Seherin: Die Vergessenen, 메이븐의 초대: 잊혀진 영역, Приглашение Мейвен: Позабытые, Invitación de la Especialista: Los olvidados, คำเชิญของเมเวน: ผู้ถูกลืม
+Maven's Invitation: The Formed, Invitation de la Prodige : Les Formés, Einladung der Seherin: Die Verformten, 메이븐의 초대: 형성된 영역, Приглашение Мейвен: Обращённые, Invitación de la Especialista: Los formados, คำเชิญของเมเวน: ผู้ถูกก่อร่าง
+Maven's Invitation: The Hidden, Invitation de la Prodige : Les Dissimulés, Einladung der Seherin: Die Verborgenen, 메이븐의 초대: 숨겨진 영역, Приглашение Мейвен: Сокрытые, Invitación de la Especialista: Los ocultos, คำเชิญของเมเวน: ผู้เร้นกาย
+Maven's Invitation: The Twisted, Invitation de la Prodige : Les Difformes, Einladung der Seherin: Die Verdorbenen, 메이븐의 초대: 뒤틀린 영역, Приглашение Мейвен: Искажённые, Invitación de la Especialista: Los retorcidos, คำเชิญของเมเวน: ผู้ผิดเพี้ยน
+Metallic Fossil, Fossile métallique, Metallisches Fossil, 금속성 화석, Металлическое ископаемое, Fósil metálico, Metallic Fossil
+Mirror Shard, Éclat de miroir, Spiegelscherbe, 거울 파편, Осколок зеркала, Esquirla de Espejo, ชิ้นส่วน Mirror
+Mirror of Kalandra, Miroir de Kalandra, Spiegel von Kalandra, 칼란드라의 거울, Зеркало Каландры, Espejo de Kalandra, Mirror of Kalandra
+Morphing Incubator, Incubateur polymorphe, Morphender Inkubator, 변하는 인큐베이터, Меняющийся инкубатор, Incubadora cambiaformas, ตัวบ่มฟักกลายร่าง
+Mortal Grief, Chagrin mortifère, Tödliche Trauer, 필멸의 슬픔, Смертное уныние, Dolor Mortal, โศกสลดเยี่ยงมนุษย์
+Mortal Hope, Espoir mortifère, Tödliche Hoffnung, 필멸의 희망, Смертная надежда, Esperanza Mortal, หวังเยี่ยงมนุษย์
+Mortal Ignorance, Ignorance mortifère, Tödliche Ignoranz, 필멸의 무지, Смертное невежество, Ignorancia Mortal, เขลาเยี่ยงมนุษย์
+Mortal Rage, Rage mortifère, Tödliche Wut, 필멸의 격노, Смертный гнев, Furia Mortal, เดือดดาลเยี่ยงมนุษย์
+Mortal Set, Ensemble mortifère, Tödliches Set, 필멸 세트, Набор Смертных, Set Mortal, ชุดเยี่ยงมนุษย์
+Muttering Essence of Anger, Essence chuchotante de Colère, Murmelnde Essenz der Wut, 불평하는 분노의 에센스, Бормочущая сущность злобы, Esencia Murmurante de Rabia, Muttering Essence of Anger
+Muttering Essence of Contempt, Essence chuchotante de Dédain, Murmelnde Essenz der Verachtung, 불평하는 경멸의 에센스, Бормочущая сущность презрения, Esencia Murmurante de Desprecio, Muttering Essence of Contempt
+Muttering Essence of Fear, Essence chuchotante de Peur, Murmelnde Essenz der Angst, 불평하는 두려움의 에센스, Бормочущая сущность страха, Esencia Murmurante de Miedo, Muttering Essence of Fear
+Muttering Essence of Greed, Essence chuchotante d'Avarice, Murmelnde Essenz der Gier, 불평하는 탐욕의 에센스, Бормочущая сущность жадности, Esencia Murmurante de Avaricia, Muttering Essence of Greed
+Muttering Essence of Hatred, Essence chuchotante de Haine, Murmelnde Essenz des Hasses, 불평하는 증오의 에센스, Бормочущая сущность ненависти, Esencia Murmurante de Odio, Muttering Essence of Hatred
+Muttering Essence of Sorrow, Essence chuchotante de Chagrin, Murmelnde Essenz der Trauer, 불평하는 슬픔의 에센스, Бормочущая сущность печали, Esencia Murmurante de Pena, Muttering Essence of Sorrow
+Muttering Essence of Torment, Essence chuchotante de Tourment, Murmelnde Essenz der Folter, 불평하는 고뇌의 에센스, Бормочущая сущность мучения, Esencia Murmurante de Tormento, Muttering Essence of Torment
+Muttering Essence of Woe, Essence chuchotante d'Affliction, Murmelnde Essenz des Kummers, 불평하는 비애의 에센스, Бормочущая сущность скорби, Esencia Murmurante de Aflicción, Muttering Essence of Woe
+Mysterious Incubator, Incubateur mystérieux, Geheimnisvoller Inkubator, 수수께끼의 인큐베이터, Загадочный инкубатор, Incubadora misteriosa, ตัวบ่มฟักลึกลับ
+Noxious Catalyst, Catalyseur nocif, Schädlicher Katalysator, 유독성 기폭제, Ядовитый катализатор, Catalizador nocivo, Noxious Catalyst
+Obscured Delirium Orb, Orbe indiscernable de Délire, Obskure Sphäre des Deliriums, 가려진 환영의 오브, Затемнённая Сфера Делириума, Orbe de delirio oscuro, ลูกแก้วเดลิเรียมมืดมัว
+Obscured Incubator, Incubateur indiscernable, Obskurer Inkubator, 가려진 인큐베이터, Затемнённый инкубатор, Incubadora oculta, ตัวบ่มฟักมืดมัว
+Offering to the Goddess, Offrande à la déesse, Opfergabe an die Göttin, 여신에게 바치는 공물, Подношение богине, Ofrenda a la Diosa, เครื่องเซ่นไหว้แด่เทพี
+Oil Extractor, Extracteur d'Huile, Öl-Extrahierer, 성유 추출기, Экстрактор масел, Extractor de aceite, ตัวสกัดน้ำมัน
+Opalescent Oil, Huile opalescente, Opalisierendes Öl, 오팔빛 성유, Перламутровое масло, Aceite opalescente, Opalescent Oil
+Orb of Alchemy, Orbe d'alchimie, Sphäre der Alchemie, 연금술의 오브, Сфера алхимии, Orbe de alquimia, Orb of Alchemy
+Orb of Alteration, Orbe d'altération, Veränderungssphäre, 변화의 오브, Сфера перемен, Orbe de alteración, Orb of Alteration
+Orb of Annulment, Orbe d'annulation, Sphäre der Annullierung, 소멸의 오브, Сфера отмены, Orbe de anulación, Orb of Annulment
+Orb of Augmentation, Orbe d'augmentation, Aufwertungssphäre, 확장의 오브, Сфера усиления, Orbe de aumento, Orb of Augmentation
+Orb of Binding, Orbe de liaison, Bindungssphäre, 속박의 오브, Сфера сплетения, Orbe de vinculación, Orb of Binding
+Orb of Chance, Orbe de chance, Sphäre der Möglichkeiten, 기회의 오브, Сфера удачи, Orbe de azar, Orb of Chance
+Orb of Conflict, Orbe du conflit, Sphäre des Konflikts, 갈등의 오브, Сфера вражды, Orbe de conflicto, ลูกแก้วปรปักษ์
+Orb of Dominance, Orbe de domination, Sphäre der Beherrschung, 지배의 오브, Сфера господства, Orbe de dominancia, ลูกแก้วครอบงำ
+Orb of Fusing, Orbe de fusion, Verbindungssphäre, 연결의 오브, Сфера соединения, Orbe de fusión, Orb of Fusing
+Orb of Horizons, Orbe des horizons, Sphäre der Horizonte, 지평의 오브, Сфера горизонтов, Orbe de horizontes, Orb of Horizons
+Orb of Regret, Orbe de regret, Sphäre der Reue, 후회의 오브, Сфера раскаяния, Orbe de arrepentimiento, Orb of Regret
+Orb of Scouring, Orbe de suppression, Sphäre der Läuterung, 정제의 오브, Сфера очищения, Orbe de purga, Orb of Scouring
+Orb of Transmutation, Orbe de transmutation, Umwandlungssphäre, 진화의 오브, Сфера превращения, Orbe de transmutación, Orb of Transmutation
+Orb of Unmaking, Orbe de démantèlement, Sphäre der Umkehr, 취소의 오브, Сфера небытия, Orbe de destrucción, Orb of Unmaking
+Perfect Fossil, Fossile parfait, Perfektes Fossil, 완벽한 화석, Безупречное ископаемое, Fósil perfecto, Perfect Fossil
+Polaric Invitation, Invitation antipodique, Polare Einladung, 극성의 초대, Полярное приглашение, Invitación polar, คำเชิญขั้วจักรวาล
+Polished Abyss Scarab, Scarabée brillant de l'Abysse, Glänzender Skarabäus des Abgrunds, 광택 나는 심연 갑충석, Гладкий скарабей Бездны, Escarabajo pulido de Abyss, ซแคแร็บอะบิสขึ้นเงา
+Polished Ambush Scarab, Scarabée brillant de l'Embuscade, Glänzender Skarabäus des Hinterhalts, 광택 나는 매복 갑충석, Гладкий скарабей Засады, Escarabajo pulido de Emboscada, ซแคแร็บนิรภัยขึ้นเงา
+Polished Bestiary Scarab, Scarabée brillant du Bestiaire, Glänzender Skarabäus des Bestiariums, 광택 나는 야수 도감 갑충석, Гладкий скарабей Бестиария, Escarabajo pulido de Bestiario, ซแคแร็บรวมสัตว์ขึ้นเงา
+Polished Blight Scarab, Scarabée brillant de l'Infestation, Glänzender Skarabäus des Befalls, 광택 나는 역병 갑충석, Гладкий скарабей Скверны, Escarabajo pulido de Blight, ซแคแร็บไบล์ทขึ้นเงา
+Polished Breach Scarab, Scarabée brillant de Brèche, Glänzender Skarabäus der Risse, 광택 나는 균열 갑충석, Гладкий скарабей Разлома, Escarabajo pulido de Fisura, ซแคแร็บบรีชขึ้นเงา
+Polished Cartography Scarab, Scarabée brillant de Cartographie, Glänzender Skarabäus der Kartographie, 광택 나는 지도 제작 갑충석, Гладкий скарабей картографии, Escarabajo pulido de Cartografía, ซแคแร็บแผนที่ขึ้นเงา
+Polished Divination Scarab, Scarabée brillant de Divination, Glänzender Skarabäus der Weissagung, 광택 나는 점술 갑충석, Гладкий скарабей предсказания, Escarabajo pulido de Adivinación, ซแคแร็บพยากรณ์ขึ้นเงา
+Polished Elder Scarab, Scarabée brillant de l'Ancien, Glänzender Skarabäus des Ältesten, 광택 나는 엘더 갑충석, Гладкий скарабей Древнего, Escarabajo pulido del Antiguo, ซแคแร็บเอลเดอร์ขึ้นเงา
+Polished Expedition Scarab, Scarabée brillant d'Expédition, Glänzender Skarabäus der Expedition, 광택 나는 탐험 갑충석, Гладкий скарабей Экспедиции, Escarabajo pulido de Expedition, ซแคแร็บกองสำรวจขึ้นเงา
+Polished Harbinger Scarab, Scarabée brillant de Précurseur, Glänzender Skarabäus des Vorboten, 광택 나는 선구자 갑충석, Гладкий скарабей Предвестника, Escarabajo pulido de Heraldo, ซแคแร็บฮาร์บินเจอร์ขึ้นเงา
+Polished Legion Scarab, Scarabée brillant de Légion, Glänzender Skarabäus der Legion, 광택 나는 군단 갑충석, Гладкий скарабей Легиона, Escarabajo pulido de Legion, ซแคแร็บกองพันขึ้นเงา
+Polished Metamorph Scarab, Scarabée brillant de Métamorphe, Glänzender Skarabäus der Metamorphe, 광택 나는 변형 갑충석, Гладкий скарабей Метаморфа, Escarabajo pulido de Metamorph, ซแคแร็บเมตามอร์ฟขึ้นเงา
+Polished Reliquary Scarab, Scarabée brillant du Reliquaire, Glänzender Skarabäus der Reliquien, 광택 나는 성유물 보관실 갑충석, Гладкий реликтовый скарабей, Escarabajo pulido de Relicario, ซแคแร็บวัตถุโบราณขึ้นเงา
+Polished Shaper Scarab, Scarabée brillant du Façonneur, Glänzender Skarabäus des Schöpfers, 광택 나는 쉐이퍼 갑충석, Гладкий скарабей Создателя, Escarabajo pulido del Creador, ซแคแร็บเชปเปอร์ขึ้นเงา
+Polished Sulphite Scarab, Scarabée brillant de Sulfite, Glänzender Skarabäus des Sulfits, 광택 나는 아황산염 갑충석, Гладкий сульфитовый скарабей, Escarabajo pulido de Sulfito, ซแคแร็บซัลไฟต์ขึ้นเงา
+Polished Torment Scarab, Scarabée brillant du Tourment, Glänzender Skarabäus der Folter, 광택 나는 고통 갑충석, Гладкий скарабей Мучения, Escarabajo pulido de Tormento, ซแคแร็บทรมานขึ้นเงา
+Portal Scroll, Parchemin de portail, Portalrolle, 포탈 주문서, Свиток портала, Pergamino de portal, Portal Scroll
+Potent Chaotic Resonator, Résonateur chaotique fort, Wirkungsvoller chaotischer Resonator, 강화형 혼돈 공명기, Активный хаотический резонатор, Resonador caótico potente, ตัวสั่นพ้องโกลาหลมีศักยภาพ
+Power Core, Noyau d'énergie, Energiekern , 동력 핵, Энергоядро, Núcleo de energía, แกนพลังงาน
+Powerful Chaotic Resonator, Résonateur chaotique puissant, Mächtiger chaotischer Resonator, 강력 혼돈 공명기, Мощный хаотический резонатор, Resonador caótico poderoso, ตัวสั่นพ้องโกลาหลทรงพลัง
+Primal Delirium Orb, Orbe primitif de Délire, Urzeitliche Sphäre des Deliriums, 원시 환영의 오브, Первобытная сфера Делириума, Orbe de delirio primitivo, ลูกแก้วเดลิเรียมแต่ดั้งเดิม
+Primal Incubator, Incubateur primitif, Urzeitlicher Inkubator, 원시 인큐베이터, Первобытный инкубатор, Incubadora primitiva, ตัวบ่มฟักแต่ดั้งเดิม
+Prime Chaotic Resonator, Résonateur chaotique prodigieux, Unvergleichlicher chaotischer Resonator, 최종형 혼돈 공명기, Превосходный хаотический резонатор, Resonador caótico primigenio, ตัวสั่นพ้องโกลาหลชั้นเลิศ
+Prime Regrading Lens, Lentille de reclassement principal, Primäre Refraktionslinse, 1차 재보정 렌즈, Первичная профилирующая линза, Lente reclasificador principal, Prime Regrading Lens
+Primitive Chaotic Resonator, Résonateur chaotique primitif, Primitiver chaotischer Resonator, 초기형 혼돈 공명기, Простейший хаотический резонатор, Resonador caótico primitivo, ตัวสั่นพ้องโกลาหลดึกดำบรรพ์
+Prismatic Catalyst, Catalyseur prismatique, Prismatischer Katalysator, 분광의 기폭제, Радужный катализатор, Catalizador prismático, Prismatic Catalyst
+Prismatic Fossil, Fossile prismatique, Prismatisches Fossil, 분광 화석, Радужное ископаемое, Fósil prismático, Prismatic Fossil
+Pristine Fossil, Fossile pur, Unversehrtes Fossil, 온전한 화석, Чистое ископаемое, Fósil prístino, Pristine Fossil
+Redeemer's Exalted Orb, Orbe exalté de la Rédemptrice, Erhabene Sphäre der Erlöserin, 대속자의 엑잘티드 오브, Сфера возвышения избавителя, Orbe exaltado de la Redentora, Redeemer's Exalted Orb
+Regal Orb, Orbe royal, Hoheitliche Sphäre, 제왕의 오브, Сфера царей, Orbe regio, Regal Orb
+Regal Shard, Éclat royal, Hoheitliche Scherbe, 제왕의 파편, Осколок царей, Esquirla Regia, ชิ้นส่วน Regal
+Remnant of Corruption, Reliquat de corruption, Relikt der Verderbtheit, 타락의 유물, След Порчи, Remanente de Corrupción, Remnant of Corruption
+Ritual Splinter, Esquille de Rituel, Ritualsplitter, 의식의 파편, Ритуальный осколок, Fragmento de ritual, ชิ้นส่วนพิธีกรรม
+Ritual Vessel, Réceptacle de Rituel, Ritualgefäß, 의식의 그릇, Ритуальный сосуд, Recipiente de ritual, คนโทพิธีกรรม
+Rogue's Marker, Pièce marquée de Malfaiteur, Signum der Abtrünnigen, 도둑의 증표, Разбойничий жетон, Moneda del renegado, เหรียญกองโจร
+Rusted Abyss Scarab, Scarabée rouillé de l'Abysse, Verrosteter Skarabäus des Abgrunds, 녹슨 심연 갑충석, Ржавый скарабей Бездны, Escarabajo oxidado de Abyss, ซแคแร็บอะบิสขึ้นสนิม
+Rusted Ambush Scarab, Scarabée rouillé de l'Embuscade, Verrosteter Skarabäus des Hinterhalts, 녹슨 매복 갑충석, Ржавый скарабей Засады, Escarabajo oxidado de Emboscada, ซแคแร็บนิรภัยขึ้นสนิม
+Rusted Bestiary Scarab, Scarabée rouillé du Bestiaire, Verrosteter Skarabäus des Bestiariums, 녹슨 야수 도감 갑충석, Ржавый скарабей Бестиария, Escarabajo oxidado de Bestiario, ซแคแร็บรวมสัตว์ขึ้นสนิม
+Rusted Blight Scarab, Scarabée rouillé de l'Infestation, Verrosteter Skarabäus des Befalls, 녹슨 역병 갑충석, Ржавый скарабей Скверны, Escarabajo oxidado de Blight, ซแคแร็บไบล์ทขึ้นสนิม
+Rusted Breach Scarab, Scarabée rouillé de Brèche, Verrosteter Skarabäus der Risse, 녹슨 균열 갑충석, Ржавый скарабей Разлома, Escarabajo oxidado de Fisura, ซแคแร็บบรีชขึ้นสนิม
+Rusted Cartography Scarab, Scarabée rouillé de Cartographie, Verrosteter Skarabäus der Kartographie, 녹슨 지도 제작 갑충석, Ржавый скарабей картографии, Escarabajo oxidado de Cartografía, ซแคแร็บแผนที่ขึ้นสนิม
+Rusted Divination Scarab, Scarabée rouillé de Divination, Verrosteter Skarabäus der Weissagung, 녹슨 점술 갑충석, Ржавый скарабей предсказания, Escarabajo oxidado de Adivinación, ซแคแร็บพยากรณ์ขึ้นสนิม
+Rusted Elder Scarab, Scarabée rouillé de l'Ancien, Verrosteter Skarabäus des Ältesten, 녹슨 엘더 갑충석, Ржавый скарабей Древнего, Escarabajo oxidado del Antiguo, ซแคแร็บเอลเดอร์ขึ้นสนิม
+Rusted Expedition Scarab, Scarabée rouillé d'Expédition, Verrosteter Skarabäus der Expedition, 녹슨 탐험 갑충석, Ржавый скарабей Экспедиции, Escarabajo oxidado de Expedition, ซแคแร็บกองสำรวจขึ้นสนิม
+Rusted Harbinger Scarab, Scarabée rouillé de Précurseur, Verrosteter Skarabäus des Vorboten, 녹슨 선구자 갑충석, Ржавый скарабей Предвестника, Escarabajo oxidado de Heraldo, ซแคแร็บฮาร์บินเจอร์ขึ้นสนิม
+Rusted Legion Scarab, Scarabée rouillé de Légion, Verrosteter Skarabäus der Legion, 녹슨 군단 갑충석, Ржавый скарабей Легиона, Escarabajo oxidado de Legion, ซแคแร็บกองพันขึ้นสนิม
+Rusted Metamorph Scarab, Scarabée rouillé de Métamorphe, Verrosteter Skarabäus der Metamorphe, 녹슨 변형 갑충석, Ржавый скарабей Метаморфа, Escarabajo oxidado de Metamorph, ซแคแร็บเมตามอร์ฟขึ้นสนิม
+Rusted Reliquary Scarab, Scarabée rouillé du Reliquaire, Verrosteter Skarabäus der Reliquien, 녹슨 성유물 보관실 갑충석, Ржавый реликтовый скарабей, Escarabajo oxidado de Relicario, ซแคแร็บวัตถุโบราณขึ้นสนิม
+Rusted Shaper Scarab, Scarabée rouillé du Façonneur, Verrosteter Skarabäus des Schöpfers, 녹슨 쉐이퍼 갑충석, Ржавый скарабей Создателя, Escarabajo oxidado del Creador, ซแคแร็บเชปเปอร์ขึ้นสนิม
+Rusted Sulphite Scarab, Scarabée rouillé de Sulfite, Verrosteter Skarabäus des Sulfits, 녹슨 아황산염 갑충석, Ржавый сульфитовый скарабей, Escarabajo oxidado de Sulfito, ซแคแร็บซัลไฟต์ขึ้นสนิม
+Rusted Torment Scarab, Scarabée rouillé du Tourment, Verrosteter Skarabäus der Folter, 녹슨 고통 갑충석, Ржавый скарабей Мучения, Escarabajo oxidado de Tormento, ซแคแร็บทรมานขึ้นสนิม
+Sacred Blossom, Floraison sacrée, Heilige Blüte, 신성한 꽃, Священное соцветие, Brote sagrado, ดอกศักดิ์สิทธิ์
+Sacred Orb, Orbe sacré, Heilige Sphäre, 성스러운 오브, Священная сфера, Orbe sagrado, Sacred Orb
+Sacrifice Set, Ensemble du sacrifice, Opfergaben-Set, 희생 세트, Набор Жертв, Set de Sacrificio, ชุดสังเวย
+Sacrifice at Dawn, Sacrifice à l'aube, Opfergabe bei Morgendämmerung, 새벽의 희생, Жертва на рассвете, Sacrificio al Amanecer, สังเวยย่ำอรุณ
+Sacrifice at Dusk, Sacrifice au crépuscule, Opfergabe bei Abenddämmerung, 황혼의 희생, Жертва на закате, Sacrificio al Anochecer, สังเวยย่ำสายัณห์
+Sacrifice at Midnight, Sacrifice de minuit, Opfergabe bei Mittnacht, 심야의 희생, Жертва в полночь, Sacrificio a Medianoche, สังเวยย่ำสองยาม
+Sacrifice at Noon, Sacrifice de midi, Opfergabe bei Mittag, 정오의 희생, Жертва в полдень, Sacrificio al Mediodía, สังเวยย่ำเที่ยง
+Sanctified Fossil, Fossile sanctifié, Sakrales Fossil, 축성된 화석, Освящённое ископаемое, Fósil santificado, Sanctified Fossil
+Saqawine Lure, Appât saqawien, Saqawaler Köder, 사카왈 루어, Приманка Сакаваля, Señuelo saqawino, เหยื่อล่อวงศ์ซาคาวอล
+Scorched Fossil, Fossile calciné, Angesengtes Fossil, 그을린 화석, Опалённое ископаемое, Fósil ardiente, Scorched Fossil
+Scrap Metal, Ferraille, Metallreste, 고철, Металлолом, Sobras de metal, เศษโลหะ
+Screaming Essence of Anger, Essence hurlante de Colère, Schreiende Essenz der Wut, 절규하는 분노의 에센스, Кричащая сущность злобы, Esencia Berreante de Rabia, Screaming Essence of Anger
+Screaming Essence of Anguish, Essence hurlante d'Angoisse, Schreiende Essenz der Qual, 절규하는 비통의 에센스, Кричащая сущность горя, Esencia Berreante de Angustia, Screaming Essence of Anguish
+Screaming Essence of Contempt, Essence hurlante de Dédain, Schreiende Essenz der Verachtung, 절규하는 경멸의 에센스, Кричащая сущность презрения, Esencia Berreante de Desprecio, Screaming Essence of Contempt
+Screaming Essence of Doubt, Essence hurlante d'Incertitude, Schreiende Essenz des Zweifels, 절규하는 의심의 에센스, Кричащая сущность сомнения, Esencia Berreante de Duda, Screaming Essence of Doubt
+Screaming Essence of Dread, Essence hurlante d'Effroi, Schreiende Essenz der Furcht, 절규하는 불안의 에센스, Кричащая сущность жути, Esencia Berreante de Terror, Screaming Essence of Dread
+Screaming Essence of Envy, Essence hurlante de Convoitise, Schreiende Essenz des Neids, 절규하는 선망의 에센스, Кричащая сущность зависти, Esencia Berreante de Envidia, Screaming Essence of Envy
+Screaming Essence of Fear, Essence hurlante de Peur, Schreiende Essenz der Angst, 절규하는 두려움의 에센스, Кричащая сущность страха, Esencia Berreante de Miedo, Screaming Essence of Fear
+Screaming Essence of Greed, Essence hurlante d'Avarice, Schreiende Essenz der Gier, 절규하는 탐욕의 에센스, Кричащая сущность жадности, Esencia Berreante de Avaricia, Screaming Essence of Greed
+Screaming Essence of Hatred, Essence hurlante de Haine, Schreiende Essenz des Hasses, 절규하는 증오의 에센스, Кричащая сущность ненависти, Esencia Berreante de Odio, Screaming Essence of Hatred
+Screaming Essence of Loathing, Essence hurlante d'Aversion, Schreiende Essenz der Abscheu, 절규하는 혐오의 에센스, Кричащая сущность отвращения, Esencia Berreante de Aversión, Screaming Essence of Loathing
+Screaming Essence of Misery, Essence hurlante de Détresse, Schreiende Essenz des Elends, 절규하는 비참의 에센스, Кричащая сущность тоски, Esencia Berreante de Miseria, Screaming Essence of Misery
+Screaming Essence of Rage, Essence Hurlante de Rage, Schreiende Essenz der Rage, 절규하는 격노의 에센스, Кричащая сущность ярости, Esencia Berreante de Furia, Screaming Essence of Rage
+Screaming Essence of Scorn, Essence hurlante de Mépris, Schreiende Essenz des Gespötts, 절규하는 멸시의 에센스, Кричащая сущность насмешки, Esencia Berreante de Desdén, Screaming Essence of Scorn
+Screaming Essence of Sorrow, Essence hurlante de Chagrin, Schreiende Essenz der Trauer, 절규하는 슬픔의 에센스, Кричащая сущность печали, Esencia Berreante de Pena, Screaming Essence of Sorrow
+Screaming Essence of Spite, Essence hurlante d'Acrimonie, Schreiende Essenz der Bosheit, 절규하는 악의의 에센스, Кричащая сущность неприязни, Esencia Berreante de Rencor, Screaming Essence of Spite
+Screaming Essence of Suffering, Essence hurlante de Souffrance, Schreiende Essenz des Leids, 절규하는 고통의 에센스, Кричащая сущность страдания, Esencia Berreante de Sufrimiento, Screaming Essence of Suffering
+Screaming Essence of Torment, Essence hurlante de Tourment, Schreiende Essenz der Folter, 절규하는 고뇌의 에센스, Кричащая сущность мучения, Esencia Berreante de Tormento, Screaming Essence of Torment
+Screaming Essence of Woe, Essence hurlante d'Affliction, Schreiende Essenz des Kummers, 절규하는 비애의 에센스, Кричащая сущность скорби, Esencia Berreante de Aflicción, Screaming Essence of Woe
+Screaming Essence of Wrath, Essence hurlante de Fureur, Schreiende Essenz des Zorns, 절규하는 진노의 에센스, Кричащая сущность гнева, Esencia Berreante de Ira, Screaming Essence of Wrath
+Screaming Essence of Zeal, Essence hurlante de Zèle, Schreiende Essenz des Eifers, 절규하는 열의의 에센스, Кричащая сущность усердия, Esencia Berreante de Fervor, Screaming Essence of Zeal
+Screaming Invitation, Invitation hurlante, Schreiende Einladung, 절규하는 초대, Кричащее приглашение, Invitación vociferante, คำเชิญแผดเสียง
+Scroll of Wisdom, Parchemin de sagesse, Identifikationsrolle, 감정 주문서, Свиток мудрости, Pergamino de sabiduría, Scroll of Wisdom
+Secondary Regrading Lens, Lentille de reclassement secondaire, Sekundäre Refraktionslinse, 2차 재보정 렌즈, Вторичная профилирующая линза, Lente reclasificador secundario, Secondary Regrading Lens
+Sepia Oil, Huile sépia, Sepiafarbenes Öl, 적갈빛 성유, Коричневое масло, Aceite sepia, Sepia Oil
+Serrated Fossil, Fossile dentelé, Geriffeltes Fossil, 톱니 화석, Зубчатое ископаемое, Fósil serrado, Serrated Fossil
+Shrieking Essence of Anger, Essence stridente de Colère, Kreischende Essenz der Wut, 악을 쓰는 분노의 에센스, Визжащая сущность злобы, Esencia Chillante de Rabia, Shrieking Essence of Anger
+Shrieking Essence of Anguish, Essence stridente d'Angoisse, Kreischende Essenz der Qual, 악을 쓰는 비통의 에센스, Визжащая сущность горя, Esencia Chillante de Angustia, Shrieking Essence of Anguish
+Shrieking Essence of Contempt, Essence stridente de Dédain, Kreischende Essenz der Verachtung, 악을 쓰는 경멸의 에센스, Визжащая сущность презрения, Esencia Chillante de Desprecio, Shrieking Essence of Contempt
+Shrieking Essence of Doubt, Essence stridente d'Incertitude, Kreischende Essenz des Zweifels, 악을 쓰는 의심의 에센스, Визжащая сущность сомнения, Esencia Chillante de Duda, Shrieking Essence of Doubt
+Shrieking Essence of Dread, Essence stridente d'Effroi, Kreischende Essenz der Furcht, 악을 쓰는 불안의 에센스, Визжащая сущность жути, Esencia Chillante de Terror, Shrieking Essence of Dread
+Shrieking Essence of Envy, Essence stridente de Convoitise, Kreischende Essenz des Neids, 악을 쓰는 선망의 에센스, Визжащая сущность зависти, Esencia Chillante de Envidia, Shrieking Essence of Envy
+Shrieking Essence of Fear, Essence stridente de Peur, Kreischende Essenz der Angst, 악을 쓰는 두려움의 에센스, Визжащая сущность страха, Esencia Chillante de Miedo, Shrieking Essence of Fear
+Shrieking Essence of Greed, Essence stridente d'Avarice, Kreischende Essenz der Gier, 악을 쓰는 탐욕의 에센스, Визжащая сущность жадности, Esencia Chillante de Avaricia, Shrieking Essence of Greed
+Shrieking Essence of Hatred, Essence stridente de Haine, Kreischende Essenz des Hasses, 악을 쓰는 증오의 에센스, Визжащая сущность ненависти, Esencia Chillante de Odio, Shrieking Essence of Hatred
+Shrieking Essence of Loathing, Essence stridente d'Aversion, Kreischende Essenz der Abscheu, 악을 쓰는 혐오의 에센스, Визжащая сущность отвращения, Esencia Chillante de Aversión, Shrieking Essence of Loathing
+Shrieking Essence of Misery, Essence stridente de Détresse, Kreischende Essenz des Elends, 악을 쓰는 비참의 에센스, Визжащая сущность тоски, Esencia Chillante de Miseria, Shrieking Essence of Misery
+Shrieking Essence of Rage, Essence stridente de Rage, Kreischende Essenz der Rage, 악을 쓰는 격노의 에센스, Визжащая сущность ярости, Esencia Chillante de Furia, Shrieking Essence of Rage
+Shrieking Essence of Scorn, Essence stridente de Mépris, Kreischende Essenz des Gespötts, 악을 쓰는 멸시의 에센스, Визжащая сущность насмешки, Esencia Chillante de Desdén, Shrieking Essence of Scorn
+Shrieking Essence of Sorrow, Essence stridente de Chagrin, Kreischende Essenz der Trauer, 악을 쓰는 슬픔의 에센스, Визжащая сущность печали, Esencia Chillante de Pena, Shrieking Essence of Sorrow
+Shrieking Essence of Spite, Essence stridente d'Acrimonie, Kreischende Essenz der Bosheit, 악을 쓰는 악의의 에센스, Визжащая сущность неприязни, Esencia Chillante de Rencor, Shrieking Essence of Spite
+Shrieking Essence of Suffering, Essence stridente de Souffrance, Kreischende Essenz des Leids, 악을 쓰는 고통의 에센스, Визжащая сущность страдания, Esencia Chillante de Sufrimiento, Shrieking Essence of Suffering
+Shrieking Essence of Torment, Essence stridente de Tourment, Kreischende Essenz der Folter, 악을 쓰는 고뇌의 에센스, Визжащая сущность мучения, Esencia Chillante de Tormento, Shrieking Essence of Torment
+Shrieking Essence of Woe, Essence stridente d'Affliction, Kreischende Essenz des Kummers, 악을 쓰는 비애의 에센스, Визжащая сущность скорби, Esencia Chillante de Aflicción, Shrieking Essence of Woe
+Shrieking Essence of Wrath, Essence stridente de Fureur, Kreischende Essenz des Zorns, 악을 쓰는 진노의 에센스, Визжащая сущность гнева, Esencia Chillante de Ira, Shrieking Essence of Wrath
+Shrieking Essence of Zeal, Essence stridente de Zèle, Kreischende Essenz des Eifers, 악을 쓰는 열의의 에센스, Визжащая сущность усердия, Esencia Chillante de Fervor, Shrieking Essence of Zeal
+Shuddering Fossil, Fossile frémissant, Schauderndes Fossil, 전율의 화석, Дрожащее ископаемое, Fósil vibrante, Shuddering Fossil
+Silver Oil, Huile argentée, Silbernes Öl, 은빛 성유, Серебряное масло, Aceite plateado, Silver Oil
+Simulacrum Splinter, Esquille de Simulacre, Simulacrum-Splitter, 복제된 영토 파편, Осколок Симулякра, Fragmento de Simulacro, ชิ้นส่วนเมืองจำแลง
+Simulacrum, Simulacre, Simulacrum, 복제된 영토, Симулякр, Simulacro, เมืองจำแลง
+Singular Delirium Orb, Orbe singulier de Délire, Einmalige Sphäre des Deliriums, 비범한 환영의 오브, Необычная сфера Делириума, Orbe de delirio singular, ลูกแก้วเดลิเรียมเอกเทศ
+Singular Incubator, Incubateur singulier, Einmaliger Inkubator, 비범한 인큐베이터, Необычный инкубатор, Incubadora singular, ตัวบ่มฟักเอกเทศ
+Skittering Delirium Orb, Orbe grouillant de Délire, Huschende Sphäre des Deliriums, 달리는 환영의 오브, Дёргающаяся сфера Делириума, Orbe de delirio escurridizo, ลูกแก้วเดลิเรียมเสียงแมลง
+Skittering Incubator, Incubateur grouillant, Huschender Inkubator, 달리는 인큐베이터, Дергающийся инкубатор, Incubadora de insectos, ตัวบ่มฟักเสียงแมลง
+Splinter of Chayula, Esquille de Chayula, Chayulas Splitter, 차율라의 파편, Осколок Чаюлы, Astilla de Chayula, ชิ้นส่วนชายูล่า
+Splinter of Esh, Esquille d'Esh, Eshs Splitter, 에쉬의 파편, Осколок Иш, Astilla de Esh, ชิ้นส่วนเอ็ช
+Splinter of Tul, Esquille de Tul, Tuls Splitter, 툴의 파편, Осколок Тул, Astilla de Tul, ชิ้นส่วนทุล
+Splinter of Uul-Netol, Esquille d'Uul-Netol, Uul-Netols Splitter, 울네톨의 파편, Осколок Уул-Нетол, Astilla de Uul-Netol, ชิ้นส่วนอูล-เนโทล
+Splinter of Xoph, Esquille de Xoph, Xophs Splitter, 조프의 파편, Осколок Ксофа, Astilla de Xoph, ชิ้นส่วนซอปห์
+Stacked Deck, Bonne pioche, Kartenstapel, 카드 묶음, Колода карт, Baraja Amontonada, สำรับไพ่ปริศนา
+Surveyor's Compass, Boussole d'arpenteur, Kompass des Vermessers, 측량사의 나침반, Компас топографа, Brújula del inspector, เข็มทิศนักสำรวจ
+Tailoring Orb, Orbe de confection, Sphäre der Gewandung, 재단 오브, Сфера подгонки, Orbe de sastrería, Tailoring Orb
+Tainted Armourer's Scrap, Ferraille d'armurier impure, Korrosives Plattnerstück, 더럽혀진 방어구 장인의 고철, Порочная деталь доспеха, Restos de armaduras contaminados, Tainted Armourer's Scrap
+Tainted Blacksmith's Whetstone, Pierre à aiguiser de forgeron impure, Korrosiver Schleifstein, 더럽혀진 대장장이의 숫돌, Порочный точильный камень, Piedra de afilar contaminada, Tainted Blacksmith's Whetstone
+Tainted Blessing, Bénédiction impure, Korrosiver Segen, 더럽혀진 축복, Порочное благословение, Bendición contaminada, Tainted Blessing
+Tainted Chaos Orb, Orbe du chaos impur, Korrosive Chaossphäre, 더럽혀진 카오스 오브, Порочная сфера хаоса, Orbe de caos contaminado, Tainted Chaos Orb
+Tainted Chromatic Orb, Orbe chromatique impur, Korrosive Färbungssphäre, 더럽혀진 색채의 오브, Порочная цветная сфера, Orbe cromático contaminado, Tainted Chromatic Orb
+Tainted Divine Teardrop, Larme divine impure, Korrosive Göttliche Träne, 더럽혀진 신성한 눈물방울, Порочная божественная слеза, Lágrima divina contaminada, Tainted Divine Teardrop
+Tainted Exalted Orb, Orbe exalté impur, Korrosive Erhabene Sphäre, 더럽혀진 엑잘티드 오브, Порочная сфера возвышения, Orbe de exaltado contaminado, Tainted Exalted Orb
+Tainted Jeweller's Orb, Orbe de joaillier impur, Korrosive Sphäre des Goldschmieds, 더럽혀진 쥬얼러 오브, Порочная сфера златокузнеца, Orbe de joyero contaminado, Tainted Jeweller's Orb
+Tainted Mythic Orb, Orbe mythique impur, Korrosive Mythische Sphäre, 더럽혀진 신화 오브, Порочная мифическая сфера, Orbe mítico contaminado, Tainted Mythic Orb
+Tainted Oil, Huile impure, Verderbtes Öl, 더럽혀진 성유, Заражённое масло, Aceite contaminado, Tainted Oil
+Tainted Orb of Fusing, Orbe de fusion impur, Korrosive Verbindungssphäre, 더럽혀진 연결의 오브, Порочная сфера соединения, Orbe de fusión contaminado, Tainted Orb of Fusing
+Tangled Fossil, Fossile irrégulier, Unförmiges Fossil, 얽혀든 화석, Замысловатое ископаемое, Fósil enmarañado, Tangled Fossil
+Teal Oil, Huile turquoise, Blaugrünes Öl, 청록빛 성유, Бирюзовое масло, Aceite verde azulado, Teal Oil
+Tempering Catalyst, Catalyseur trempé, Härtender Katalysator, 완화의 기폭제, Закаляющий катализатор, Catalizador templado, Tempering Catalyst
+Tempering Orb, Orbe d'acier trempé, Sphäre der Vergütung, 단조 오브, Сфера закалки, Orbe de herrería, Tempering Orb
+Thaumaturge's Delirium Orb, Orbe thaumaturgique de Délire, Thaumaturgische Sphäre des Deliriums, 마석학자의 환영의 오브, Волшебная сфера Делириума, Orbe de delirio del taumaturgo, ลูกแก้วเดลิเรียมจอมเวทมณี
+Thaumaturge's Incubator, Incubateur thaumaturgique, Inkubator des Thaumaturgisten, 마석학자의 인큐베이터, Инкубатор волшебника, Incubadora del taumaturgo, ตัวบ่มฟักจอมเวทมณี
+The Maven's Writ, Le Décret de la Prodige, Das Schriftstück der Seherin, 메이븐의 문서, Веление Мейвен, Orden de la Especialista, หมายจากเมเวน
+Timeless Delirium Orb, Orbe intemporel de Délire, Immerwährende Sphäre des Deliriums, 무궁한 환영의 오브, Вневременная сфера Делириума, Orbe de delirio atemporal, ลูกแก้วเดลิเรียมเหนือกาลเวลา
+Timeless Eternal Emblem, Emblème intemporel de l'Empire éternel, Immerwährendes Emblem des Ewigen Kaiserreichs, 무궁한 영원의 상징, Вневременной знак Вечных, Emblema atemporal eterno, ตราสัญลักษณ์นิรันดร์เหนือกาลเวลา
+Timeless Eternal Empire Splinter, Esquille intemporelle de l'Empire éternel, Immerwährender Splitter des Ewigen Kaiserreichs, 무궁한 영원한 제국 파편, Вневременной осколок Вечной Империи, Fragmento atemporal del Imperio Eterno, ชิ้นส่วนจักรวรรดินิรันดร์เหนือกาลเวลา
+Timeless Karui Emblem, Emblème intemporel des Karuis, Immerwährendes Emblem der Karui, 무궁한 카루이 상징, Вневременной знак каруи, Emblema atemporal implacable karui, ตราสัญลักษณ์คารุยเหนือกาลเวลา
+Timeless Karui Splinter, Esquille intemporelle des Karuis, Immerwährender Splitter der Karui, 무궁한 카루이 파편, Вневременной осколок каруи, Fragmento atemporal karui, ชิ้นส่วนคารุยเหนือกาลเวลา
+Timeless Maraketh Emblem, Emblème intemporel des Marakeths, Immerwährendes Emblem der Maraketh, 무궁한 마라케스 상징, Вневременной знак маракетов, Emblema atemporal maraketh, ตราสัญลักษณ์มาราเค็ทเหนือกาลเวลา
+Timeless Maraketh Splinter, Esquille intemporelle des Marakeths, Immerwährender Splitter der Maraketh, 무궁한 마라케스 파편, Вневременной осколок маракетов, Fragmento atemporal maraketh, ชิ้นส่วนมาราเค็ทเหนือกาลเวลา
+Timeless Templar Emblem, Emblème intemporel des Templiers, Immerwährendes Emblem der Templer, 무궁한 템플러 상징, Вневременной знак храмовников, Emblema atemporal templario, ตราสัญลักษณ์เทมพลาร์เหนือกาลเวลา
+Timeless Templar Splinter, Esquille intemporelle des Templiers, Immerwährender Splitter der Templer, 무궁한 템플러 파편, Вневременной осколок храмовников, Fragmento atemporal templario, ชิ้นส่วนเทมพลาร์เหนือกาลเวลา
+Timeless Vaal Emblem, Emblème intemporel des Vaal, Immerwährendes Emblem der Vaal, 무궁한 바알 상징, Вневременной знак ваал, Emblema atemporal vaal, ตราสัญลักษณ์วาล์เหนือกาลเวลา
+Timeless Vaal Splinter, Esquille intemporelle des Vaal, Immerwährender Splitter der Vaal, 무궁한 바알 파편, Вневременной осколок ваал, Fragmento atemporal vaal, ชิ้นส่วนวาล์เหนือกาลเวลา
+Timeworn Reliquary Key, Clé du Reliquaire érodé par le temps, Schlüssel zur Vergessenen Reliquienkammer, 오래된 성유물 보관실 열쇠, Ключ от Ветхого Реликвария, Llave del Relicario Deteriorado por el tiempo, กุญแจสถานเก็บวัตถุโบราณคร่ำครึ
+Transforming Power Core, Noyau d'énergie transformant, Transformierender Energiekern, 변화하는 동력 핵, Преобразующее энергоядро, Núcleo de energía transformador, แกนพลังงานแปรสภาพ
+Tribute to the Goddess, Tribut à la déesse, Tribut an die Göttin, 여신에게 바치는 제물, Дань богине, Tributo a la Diosa, เครื่องบรรณาการแด่เทพี
+Tul's Breachstone, Pierre de Brèche de Tul, Tuls Riss-Stein, 툴의 균열석, Камень Разлома Тул, Piedra de Fisura de Tul, หินบรีชแห่งทุล
+Tul's Charged Breachstone, Pierre de Brèche chargée de Tul, Tuls geladener Riss-Stein, 툴의 충전된 균열석, Заряженный камень Разлома Тул, Piedra de Fisura Cargada de Tul, หินบรีชเพิ่มพลังแห่งทุล
+Tul's Enriched Breachstone, Pierre de Brèche enrichie de Tul, Tuls angereicherter Riss-Stein, 툴의 풍부한 균열석, Обогащённый камень Разлома Тул, Piedra de Fisura Enriquecida de Tul, หินบรีชอาบพลังแห่งทุล
+Tul's Flawless Breachstone, Pierre de Brèche parfaite  de Tul, Tuls makelloser Riss-Stein, 툴의 결함 없는 균열석, Безупречный камень Разлома Тул, Piedra de Fisura perfecta de Tul, หินบรีชไร้ที่ติแห่งทุล
+Tul's Pure Breachstone, Pierre de Brèche pure de Tul, Tuls purer Riss-Stein, 툴의 순수한 균열석, Очищенный камень Разлома Тул, Piedra de Fisura Pura de Tul, หินบรีชบริสุทธิ์แห่งทุล
+Turbulent Catalyst, Catalyseur agité, Stürmischer Katalysator, 격동의 기폭제, Бурный катализатор, Catalizador turbulento, Turbulent Catalyst
+Unrelenting Timeless Eternal Emblem, Emblème perpétuel de l'Empire éternel, Unerbittliches immerwährendes Emblem des Ewigen Kaiserreichs, 가차없는 무궁한 영원의 상징, Непримиримый вневременной знак Вечных, Emblema atemporal implacable eterno, ตราสัญลักษณ์นิรันดร์เหนือกาลเวลาไม่รู้สิ้น
+Unrelenting Timeless Karui Emblem, Emblème perpétuel des Karuis, Unerbittliches immerwährendes Emblem der Karui, 가차없는 무궁한 카루이 상징, Непримиримый вневременной знак каруи, Emblema atemporal implacable karui, ตราสัญลักษณ์คารุยเหนือกาลเวลาไม่รู้สิ้น
+Unrelenting Timeless Maraketh Emblem, Emblème perpétuel des Marakeths, Unerbittliches immerwährendes Emblem der Maraketh, 가차없는 무궁한 마라케스 상징, Непримиримый вневременной знак маракетов, Emblema atemporal implacable maraketh, ตราสัญลักษณ์มาราเค็ทเหนือกาลเวลาไม่รู้สิ้น
+Unrelenting Timeless Templar Emblem, Emblème perpétuel des Templiers, Unerbittliches immerwährendes Emblem der Templer, 가차없는 무궁한 템플러 상징, Непримиримый вневременной знак храмовников, Emblema atemporal implacable templario, ตราสัญลักษณ์เทมพลาร์เหนือกาลเวลาไม่รู้สิ้น
+Unrelenting Timeless Vaal Emblem, Emblème perpétuel des Vaal, Unerbittliches immerwährendes Emblem der Vaal, 가차없는 무궁한 바알 상징, Непримиримый вневременной знак ваал, Emblema atemporal implacable vaal, ตราสัญลักษณ์วาล์เหนือกาลเวลาไม่รู้สิ้น
+Unstable Catalyst, Catalyseur instable, Instabiler Katalysator, 불안정한 기폭제, Нестабильный катализатор, Catalizador inestable, Unstable Catalyst
+Uul-Netol's Breachstone, Pierre de Brèche d'Uul-Netol, Uul-Netols Riss-Stein, 울네톨의 균열석, Камень Разлома Уул-Нетол, Piedra de Fisura de Uul-Netol, หินบรีชแห่งอูล-เนโทล
+Uul-Netol's Charged Breachstone, Pierre de Brèche chargée d'Uul-Netol, Uul-Netols geladener Riss-Stein, 울네톨의 충전된 균열석, Заряженный камень Разлома Уул-Нетол, Piedra de Fisura Cargada de Uul-Netol, หินบรีชเพิ่มพลังแห่งอูล-เนโทล
+Uul-Netol's Enriched Breachstone, Pierre de Brèche enrichie d'Uul-Netol, Uul-Netols angereicherter Riss-Stein, 울네톨의 풍부한 균열석, Обогащённый камень Разлома Уул-Нетол, Piedra de Fisura Enriquecida de Uul-Netol, หินบรีชอาบพลังแห่งอูล-เนโทล
+Uul-Netol's Flawless Breachstone, Pierre de Brèche parfaite d'Uul-Netol, Uul-Netols makelloser Riss-Stein, 울네톨의 결함 없는 균열석, Безупречный камень Разлома Уул-Нетол, Piedra de Fisura perfecta de Uul-Netol, หินบรีชไร้ที่ติแห่งอูล-เนโทล
+Uul-Netol's Pure Breachstone, Pierre de Brèche pure d'Uul-Netol, Uul-Netols purer Riss-Stein, 울네톨의 순수한 균열석, Очищенный камень Разлома Уул-Нетол, Piedra de Fisura Pura de Uul-Netol, หินบรีชบริสุทธิ์แห่งอูล-เนโทล
+Vaal Orb, Orbe vaal, Vaalsphäre, 바알 오브, Сфера ваал, Orbe vaal, Vaal Orb
+Vaal Reliquary Key, Clé du Reliquaire vaal, Schlüssel zur Vaal-Reliquienkammer, 바알 성유물 보관실 열쇠, Ключ от Реликвария ваал, Llave del Relicario vaal, กุญแจสถานเก็บวัตถุโบราณแห่งวาล์
+Veiled Chaos Orb, Orbe du chaos cryptique, Verhüllte Chaossphäre, 장막의 카오스 오브, Сфера скрытого хаоса, Orbe de caos encriptado, Veiled Chaos Orb
+Verdant Oil, Huile émeraude, Grünes Öl, 신록빛 성유, Изумрудное масло, Aceite verde, Verdant Oil
+Veritania's Crest, Insigne de Véritania, Wappen von Veritiana, 베리타니아의 문양, Герб Веритании, Emblema de Veritania, ตราของเวริทาเนีย
+Violet Oil, Huile violette, Violettes Öl, 보랏빛 성유, Фиолетовое масло, Aceite violeta, Violet Oil
+Wailing Essence of Anger, Essence gémissante de Colère, Klagende Essenz der Wut, 울부짖는 분노의 에센스, Вопящая сущность злобы, Esencia Lamentosa de Rabia, Wailing Essence of Anger
+Wailing Essence of Anguish, Essence gémissante d'Angoisse, Klagende Essenz der Qual, 울부짖는 비통의 에센스, Вопящая сущность горя, Esencia Lamentosa de Angustia, Wailing Essence of Anguish
+Wailing Essence of Contempt, Essence gémissante de Dédain, Klagende Essenz der Verachtung, 울부짖는 경멸의 에센스, Вопящая сущность презрения, Esencia Lamentosa de Desprecio, Wailing Essence of Contempt
+Wailing Essence of Doubt, Essence gémissante d'Incertitude, Klagende Essenz des Zweifels, 울부짖는 의심의 에센스, Вопящая сущность сомнения, Esencia Lamentosa de Duda, Wailing Essence of Doubt
+Wailing Essence of Fear, Essence gémissante de Peur, Klagende Essenz der Angst, 울부짖는 두려움의 에센스, Вопящая сущность страха, Esencia Lamentosa de Miedo, Wailing Essence of Fear
+Wailing Essence of Greed, Essence gémissante d'Avarice, Klagende Essenz der Gier, 울부짖는 탐욕의 에센스, Вопящая сущность жадности, Esencia Lamentosa de Avaricia, Wailing Essence of Greed
+Wailing Essence of Hatred, Essence gémissante de Haine, Klagende Essenz des Hasses, 울부짖는 증오의 에센스, Вопящая сущность ненависти, Esencia Lamentosa de Odio, Wailing Essence of Hatred
+Wailing Essence of Loathing, Essence gémissante d'Aversion, Klagende Essenz der Abscheu, 울부짖는 혐오의 에센스, Вопящая сущность отвращения, Esencia Lamentosa de Aversión, Wailing Essence of Loathing
+Wailing Essence of Rage, Essence gémissante de Rage, Klagende Essenz der Rage, 울부짖는 격노의 에센스, Вопящая сущность ярости, Esencia Lamentosa de Furia, Wailing Essence of Rage
+Wailing Essence of Sorrow, Essence gémissante de Chagrin, Klagende Essenz der Trauer, 울부짖는 슬픔의 에센스, Вопящая сущность печали, Esencia Lamentosa de Pena, Wailing Essence of Sorrow
+Wailing Essence of Spite, Essence gémissante d'Acrimonie, Klagende Essenz der Bosheit, 울부짖는 악의의 에센스, Вопящая сущность неприязни, Esencia Lamentosa de Rencor, Wailing Essence of Spite
+Wailing Essence of Suffering, Essence gémissante de Souffrance, Klagende Essenz des Leids, 울부짖는 고통의 에센스, Вопящая сущность страдания, Esencia Lamentosa de Sufrimiento, Wailing Essence of Suffering
+Wailing Essence of Torment, Essence gémissante de Tourment, Klagende Essenz der Folter, 울부짖는 고뇌의 에센스, Вопящая сущность мучения, Esencia Lamentosa de Tormento, Wailing Essence of Torment
+Wailing Essence of Woe, Essence gémissante d'Affliction, Klagende Essenz des Kummers, 울부짖는 비애의 에센스, Вопящая сущность скорби, Esencia Lamentosa de Aflicción, Wailing Essence of Woe
+Wailing Essence of Wrath, Essence gémissante de Fureur, Klagende Essenz des Zorns, 울부짖는 진노의 에센스, Вопящая сущность гнева, Esencia Lamentosa de Ira, Wailing Essence of Wrath
+Wailing Essence of Zeal, Essence gémissante de Zèle, Klagende Essenz des Eifers, 울부짖는 열의의 에센스, Вопящая сущность усердия, Esencia Lamentosa de Fervor, Wailing Essence of Zeal
+Warlord's Exalted Orb, Orbe exalté du Seigneur de guerre, Erhabene Sphäre des Kriegsfürsten, 전쟁군주의 엑잘티드 오브, Сфера возвышения вождя, Orbe exaltado del Jefe de guerra, Warlord's Exalted Orb
+Weapon Recombinator, Recombinateur d'arme, Waffen-Rekombinator, 무기 재조합기, Рекомбинатор оружейника, Recombinador de armas, เครื่องผสมอาวุธ
+Weeping Essence of Anger, Essence larmoyante de Colère, Wimmernde Essenz der Wut, 흐느끼는 분노의 에센스, Плачущая сущность злобы, Esencia Llorosa de Rabia, Weeping Essence of Anger
+Weeping Essence of Contempt, Essence larmoyante de Dédain, Wimmernde Essenz der Verachtung, 흐느끼는 경멸의 에센스, Плачущая сущность презрения, Esencia Llorosa de Desprecio, Weeping Essence of Contempt
+Weeping Essence of Doubt, Essence larmoyante d'Incertitude, Wimmernde Essenz des Zweifels, 흐느끼는 의심의 에센스, Плачущая сущность сомнения, Esencia Llorosa de Duda, Weeping Essence of Doubt
+Weeping Essence of Fear, Essence larmoyante de Peur, Wimmernde Essenz der Angst, 흐느끼는 두려움의 에센스, Плачущая сущность страха, Esencia Llorosa de Miedo, Weeping Essence of Fear
+Weeping Essence of Greed, Essence larmoyante d'Avarice, Wimmernde Essenz der Gier, 흐느끼는 탐욕의 에센스, Плачущая сущность жадности, Esencia Llorosa de Avaricia, Weeping Essence of Greed
+Weeping Essence of Hatred, Essence larmoyante de Haine, Wimmernde Essenz des Hasses, 흐느끼는 증오의 에센스, Плачущая сущность ненависти, Esencia Llorosa de Odio, Weeping Essence of Hatred
+Weeping Essence of Rage, Essence larmoyante de Rage, Wimmernde Essenz der Rage, 흐느끼는 격노의 에센스, Плачущая сущность ярости, Esencia Llorosa de Furia, Weeping Essence of Rage
+Weeping Essence of Sorrow, Essence larmoyante de Chagrin, Wimmernde Essenz der Trauer, 흐느끼는 슬픔의 에센스, Плачущая сущность печали, Esencia Llorosa de Pena, Weeping Essence of Sorrow
+Weeping Essence of Suffering, Essence larmoyante de Souffrance, Wimmernde Essenz des Leids, 흐느끼는 고통의 에센스, Плачущая сущность страдания, Esencia Llorosa de Sufrimiento, Weeping Essence of Suffering
+Weeping Essence of Torment, Essence larmoyante  de Tourment, Wimmernde Essenz der Folter, 흐느끼는 고뇌의 에센스, Плачущая сущность мучения, Esencia Llorosa de Tormento, Weeping Essence of Torment
+Weeping Essence of Woe, Essence larmoyante d'Affliction, Wimmernde Essenz des Kummers, 흐느끼는 비애의 에센스, Плачущая сущность скорби, Esencia Llorosa de Aflicción, Weeping Essence of Woe
+Weeping Essence of Wrath, Essence larmoyante de Fureur, Wimmernde Essenz des Zorns, 흐느끼는 진노의 에센스, Плачущая сущность гнева, Esencia Llorosa de Ira, Weeping Essence of Wrath
+Whispering Delirium Orb, Orbe chuchotant de Délire, Flüsternde Sphäre des Deliriums, 속삭이는 환영의 오브, Шепчущая сфера Делириума, Orbe de delirio susurrante, ลูกแก้วเดลิเรียมพร่ำกระซิบ
+Whispering Essence of Contempt, Essence murmurante de Dédain, Flüsternde Essenz der Verachtung, 속삭이는 경멸의 에센스, Шепчущая сущность презрения, Esencia Susurrante de Desprecio, Whispering Essence of Contempt
+Whispering Essence of Greed, Essence murmurante d'Avarice, Flüsternde Essenz der Gier, 속삭이는 탐욕의 에센스, Шепчущая сущность жадности, Esencia Susurrante de Avaricia, Whispering Essence of Greed
+Whispering Essence of Hatred, Essence murmurante de Haine, Flüsternde Essenz des Hasses, 속삭이는 증오의 에센스, Шепчущая сущность ненависти, Esencia Susurrante de Odio, Whispering Essence of Hatred
+Whispering Essence of Woe, Essence murmurante d'Affliction, Flüsternde Essenz des Kummers, 속삭이는 비애의 에센스, Шепчущая сущность скорби, Esencia Susurrante de Aflicción, Whispering Essence of Woe
+Whispering Incubator, Incubateur chuchotant, Flüsternder Inkubator, 속삭이는 인큐베이터, Шепчущий инкубатор, Incubadora susurrante, ตัวบ่มฟักพร่ำกระซิบ
+Winged Abyss Scarab, Scarabée ailé de l'Abysse, Geflügelter Skarabäus des Abgrunds, 날개 달린 심연 갑충석, Крылатый скарабей Бездны, Escarabajo alado de Abyss, ซแคแร็บอะบิสติดปีก
+Winged Ambush Scarab, Scarabée ailé de l'Embuscade, Geflügelter Skarabäus des Hinterhalts, 날개 달린 매복 갑충석, Крылатый скарабей Засады, Escaranajo alado de Emboscada, ซแคแร็บนิรภัยติดปีก
+Winged Bestiary Scarab, Scarabée ailé du Bestiaire, Geflügelter Skarabäus des Bestiariums, 날개 달린 야수 도감 갑충석, Крылатый скарабей Бестиария, Escarabajo alado de Bestiario, ซแคแร็บรวมสัตว์ติดปีก
+Winged Blight Scarab, Scarabée ailé de l'Infestation, Geflügelter Skarabäus des Befalls, 날개 달린 역병 갑충석, Крылатый скарабей Скверны, Escarabajo alado de Blight, ซแคแร็บไบล์ทติดปีก
+Winged Breach Scarab, Scarabée ailé de Brèche, Geflügelter Skarabäus der Risse, 날개 달린 균열 갑충석, Крылатый скарабей Разлома, Escarabajo alado de Fisura, ซแคแร็บบรีชติดปีก
+Winged Cartography Scarab, Scarabée ailé de Cartographie, Geflügelter Skarabäus der Kartographie, 날개 달린 지도 제작 갑충석, Крылатый скарабей картографии, Escarabajo alado de Cartografía, ซแคแร็บแผนที่ติดปีก
+Winged Divination Scarab, Scarabée ailé de Divination, Geflügelter Skarabäus der Weissagung, 날개 달린 점술 갑충석, Крылатый скарабей предсказания, Escarabajo alado de Adivinación, ซแคแร็บพยากรณ์ติดปีก
+Winged Elder Scarab, Scarabée ailé de l'Ancien, Geflügelter Skarabäus des Ältesten, 날개 달린 엘더 갑충석, Крылатый скарабей Древнего, Escarabajo alado del Antiguo, ซแคแร็บเอลเดอร์ติดปีก
+Winged Expedition Scarab, Scarabée ailé d'Expédition, Geflügelter Skarabäus der Expedition, 날개 달린 탐험 갑충석, Крылатый скарабей Экспедиции, Escarabajo alado de Expedition, ซแคแร็บกองสำรวจติดปีก
+Winged Harbinger Scarab, Scarabée ailé de Précurseur, Geflügelter Skarabäus des Vorboten, 날개 달린 선구자 갑충석, Крылатый скарабей Предвестника, Escarabajo alado de Heraldo, ซแคแร็บฮาร์บินเจอร์ติดปีก
+Winged Legion Scarab, Scarabée ailé de Légion, Geflügelter Skarabäus der Legion, 날개 달린 군단 갑충석, Крылатый скарабей Легиона, Escarabajo alado de Legion, ซแคแร็บกองพันติดปีก
+Winged Metamorph Scarab, Scarabée ailé de Métamorphe, Geflügelter Skarabäus der Metamorphe, 날개 달린 변형 갑충석, Крылатый скарабей Метаморфа, Escarabajo alado de Metamorph, ซแคแร็บเมตามอร์ฟติดปีก
+Winged Reliquary Scarab, Scarabée ailé du Reliquaire, Geflügelter Skarabäus der Reliquien, 날개 달린 성유물 보관실 갑충석, Крылатый реликтовый скарабей, Escarabajo alado de Relicario, ซแคแร็บวัตถุโบราณติดปีก
+Winged Shaper Scarab, Scarabée ailé du Façonneur, Geflügelter Skarabäus des Schöpfers, 날개 달린 쉐이퍼 갑충석, Крылатый скарабей Создателя, Escarabajo alado del Creador, ซแคแร็บเชปเปอร์ติดปีก
+Winged Sulphite Scarab, Scarabée ailé de Sulfite, Geflügelter Skarabäus des Sulfits, 날개 달린 아황산염 갑충석, Крылатый сульфитовый скарабей, Escarabajo alado de Sulfito, ซแคแร็บซัลไฟต์ติดปีก
+Winged Torment Scarab, Scarabée ailé du Tourment, Geflügelter Skarabäus der Folter, 날개 달린 고통 갑충석, Крылатый скарабей Мучения, Escarabajo alado de Tormento, ซแคแร็บทรมานติดปีก
+Writhing Invitation, Invitation tortillante, Windende Einladung, 꿈틀거리는 초대, Извивающееся приглашение, Invitación retorcida, คำเชิญชักดิ้น
+Xoph's Breachstone, Pierre de Brèche de Xoph, Xophs Riss-Stein, 조프의 균열석, Камень Разлома Ксофа, Piedra de Fisura de Xoph, หินบรีชแห่งซอปห์
+Xoph's Charged Breachstone, Pierre de Brèche chargée de Xoph, Xophs geladener Riss-Stein, 조프의 충전된 균열석, Заряженный камень Разлома Ксофа, Piedra de Fisura Cargada de Xoph, หินบรีชเพิ่มพลังแห่งซอปห์
+Xoph's Enriched Breachstone, Pierre de Brèche enrichie de Xoph, Xophs angereicherter Riss-Stein, 조프의 풍부한 균열석, Обогащённый камень Разлома Ксофа, Piedra de Fisura Enriquecida de Xoph, หินบรีชอาบพลังแห่งซอปห์
+Xoph's Flawless Breachstone, Pierre de Brèche parfaite de Xoph, Xophs makelloser Riss-Stein, 조프의 결함 없는 균열석, Безупречный камень Разлома Ксофа, Piedra de Fisura perfecta de Xoph, หินบรีชไร้ที่ติแห่งซอปห์
+Xoph's Pure Breachstone, Pierre de Brèche pure de Xoph, Xophs purer Riss-Stein, 조프의 순수한 균열석, Очищенный камень Разлома Ксофа, Piedra de Fisura Pura de Xoph, หินบรีชบริสุทธิ์แห่งซอปห์

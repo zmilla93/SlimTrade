@@ -12,7 +12,7 @@ public class NotificationIconButton extends AdvancedButton {
     public NotificationIconButton(String path) {
         super();
         this.path = path;
-        setIcon(ColorManager.getIcon(path));
+        setIcon(ColorManager.getColorIcon(path));
         updateUI();
     }
 
@@ -21,7 +21,7 @@ public class NotificationIconButton extends AdvancedButton {
         super.updateUI();
         setBorder(BorderFactory.createEmptyBorder(NotificationButton.INSET, NotificationButton.INSET, NotificationButton.INSET, NotificationButton.INSET));
         if (path != null) {
-            setIcon(ColorManager.getIcon(path));
+            setIcon(ColorManager.getColorIcon(path));
         }
     }
 

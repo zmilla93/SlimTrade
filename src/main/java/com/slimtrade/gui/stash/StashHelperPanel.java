@@ -29,7 +29,7 @@ public class StashHelperPanel extends AdvancedButton {
         tradeOffer = offer;
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setLayout(new GridBagLayout());
-        tabLabel = new JLabel(offer.stashtabName);
+        tabLabel = new JLabel(offer.stashTabName);
         itemLabel = new JLabel(offer.itemName);
 
         GridBagConstraints gc = ZUtil.getGC();

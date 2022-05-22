@@ -34,7 +34,7 @@ public class IconButton extends JButton {
     public void updateUI() {
         super.updateUI();
         if (path != null)
-            setIcon(ColorManager.getIcon(path, size));
+            setIcon(ColorManager.getColorIcon(path, size));
         int borderInset = 5;
         setBorder(new FlatButtonBorder() {
             @Override
