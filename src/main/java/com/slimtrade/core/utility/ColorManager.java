@@ -35,7 +35,8 @@ public class ColorManager<T> {
 
     private static ArrayList<JComboBox> stickyCombos = new ArrayList<>();
 
-    private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
+//    private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
+    private static Font font = new Font(getR, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
     ;
 
 
@@ -197,11 +198,13 @@ public class ColorManager<T> {
     }
 
     public static void setIconSize(int size) {
+        assert(SwingUtilities.isEventDispatchThread());
         cacheIconSize = size;
         iconMap.clear();
         colorIconMap.clear();
         for (Component frame : frames) {
             setIconSizeRecursive(frame, size);
+            SwingUtilities.updateComponentTreeUI(frame);
             frame.revalidate();
             frame.repaint();
             // FIXME

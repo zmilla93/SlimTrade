@@ -1,5 +1,6 @@
 package com.slimtrade.gui.messaging;
 
+import com.slimtrade.core.data.SaleItem;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
@@ -24,8 +25,11 @@ public class TradeMessagePanel extends NotificationPanel {
         if (FrameManager.stashHelperContainer != null)
             stashHelperPanel = FrameManager.stashHelperContainer.addHelper(trade);
         playerNameButton.setText(trade.playerName);
-        itemButton.setText(trade.itemName);
-        priceLabel.setText(trade.priceTypeString);
+        itemButton.setItems(trade.getItems());
+        pricePanel.setItem(new SaleItem(trade.priceTypeString, trade.priceQuantity));
+        for(SaleItem s : trade.getItems()){
+            System.out.println(s.itemName);
+        }
 
         // Message type specific stuff
         switch (trade.offerType) {

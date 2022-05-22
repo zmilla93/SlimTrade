@@ -92,6 +92,17 @@ public class CurrencyImage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        addCustomTags();
+    }
+
+    private static void addCustomTags(){
+        addTag("Chaos Orb", "Chaos");
+    }
+
+    public static void addTag(String existingTag, String newTag){
+        CurrencyImage image = getCurrencyImage(existingTag);
+        if(image == null) return;
+        iconMap.put(newTag, image);
     }
 
     public static CurrencyImage getCurrencyImage(String currency) {

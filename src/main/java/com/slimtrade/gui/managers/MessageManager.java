@@ -24,7 +24,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
     private GridBagConstraints gc;
 
     public MessageManager() {
-        setBackground(new Color(0, 0, 0, 0));
+        setUndecorated(false);
+//        setBackground(new Color(0, 0, 0, 0));
 
         container = getContentPane();
         setLocationRelativeTo(null);

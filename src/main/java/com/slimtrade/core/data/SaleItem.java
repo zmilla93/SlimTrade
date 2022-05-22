@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class SaleItem {
 
     public final String itemName;
-    public final int quantity;
+    public final double quantity;
 
-    public SaleItem(String itemName, int quantity) {
+    public SaleItem(String itemName, double quantity) {
         this.itemName = itemName;
         this.quantity = quantity;
     }

@@ -6,6 +6,7 @@ import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class TradeOffer {
 
-    public enum TradeOfferType {INCOMING, OUTGOING, CHAT_SCANNER, UNKNOWN}
+    public enum TradeOfferType {UNKNOWN, INCOMING, OUTGOING, CHAT_SCANNER, QUICK_PASTE}
 
     public TradeOfferType offerType;
     public String date;
@@ -21,7 +22,8 @@ public class TradeOffer {
     public String guildName;
     public String playerName;
     public String itemName;
-    public double itemQuantity;
+    public int itemQuantity;
+    public String itemQuantityString;
     public String priceTypeString;
     public double priceQuantity;
     public String stashTabName;
@@ -31,6 +33,8 @@ public class TradeOffer {
     private int stashColorIndex = -1;
     private StashTabColor stashTabColor;
     public boolean isBulkTrade;
+
+    private static DecimalFormat formatter = new DecimalFormat("0.00");
 
     // Static function instead of constructors to avoid allocation if no trade is found.
     public static TradeOffer getTradeFromMessage(String input) {
@@ -57,16 +61,23 @@ public class TradeOffer {
         return null;
     }
 
+    public static String cleanItemQuantity(double itemQuantity) {
+        if (itemQuantity % 1 == 0) return String.format("%.0f", itemQuantity);
+        else return Double.toString(itemQuantity);
+    }
+
     private static TradeOffer getTradeFromMatcher(Matcher matcher) {
         TradeOffer trade;
         trade = new TradeOffer();
-        trade.date = matcher.group("date").replaceAll("/", "-");
-        trade.time = matcher.group("time");
-        trade.offerType = getMessageType(matcher.group("messageType"));
+        trade.date = cleanResult(matcher, "date");
+        if (trade.date != null) trade.date = trade.date.replaceAll("/", "-");
+        trade.time = cleanResult(matcher, "time");
+        trade.offerType = getMessageType(cleanResult(matcher, "messageType"));
         trade.guildName = matcher.group("guildName");
         trade.playerName = matcher.group("playerName");
         trade.itemName = matcher.group("itemName");
-        trade.itemQuantity = cleanDouble(cleanResult(matcher, "itemQuantity"));
+        trade.itemQuantity = cleanInt(cleanResult(matcher, "itemQuantity"));
+        trade.itemQuantityString = cleanItemQuantity(trade.itemQuantity);
         trade.priceTypeString = cleanResult(matcher, "priceType");
         trade.priceQuantity = cleanDouble(cleanResult(matcher, "priceQuantity"));
         trade.stashTabName = cleanResult(matcher, "stashtabName");
@@ -78,14 +89,21 @@ public class TradeOffer {
     }
 
     public ArrayList<SaleItem> getItems() {
-        String quantity;
-        if (itemQuantity % 1 == 0) quantity = String.format("%,.0f", itemQuantity);
-        else quantity = String.format("%,.2f", itemQuantity);
-        String fixed = quantity + " " + itemName;
-        return SaleItem.getItems(fixed);
+        if (isBulkTrade) {
+//            String quantity;
+//            if (itemQuantity % 1 == 0) quantity = String.format("%,.0f", itemQuantity);
+//            else quantity = String.format("%,.2f", itemQuantity);
+            String fixed = itemQuantity + " " + itemName;
+            return SaleItem.getItems(fixed);
+        } else {
+            ArrayList<SaleItem> items = new ArrayList<>(1);
+            items.add(new SaleItem(itemName, itemQuantity));
+            return items;
+        }
     }
 
     private static TradeOffer.TradeOfferType getMessageType(String s) {
+        if (s == null) return TradeOfferType.QUICK_PASTE;
         // TODO : Move to LangRegex
         switch (s.toLowerCase()) {
             case "from":
@@ -163,7 +181,8 @@ public class TradeOffer {
         TradeOffer exampleTrade = new TradeOffer();
         exampleTrade.offerType = type;
         exampleTrade.playerName = "ExamplePlayer123";
-        exampleTrade.itemName = "Example Item";
+        exampleTrade.itemQuantity = 45;
+        exampleTrade.itemName = "Chaos Orb";
         exampleTrade.stashTabName = "~price 1 chaos";
         int zero = ThreadLocalRandom.current().nextInt(0, 1);
         if (zero == 1) {

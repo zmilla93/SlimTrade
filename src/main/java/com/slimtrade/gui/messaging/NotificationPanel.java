@@ -14,9 +14,9 @@ public class NotificationPanel extends ColorPanel {
 
     // Panels
     protected final NotificationButton playerNameButton = new NotificationButton("Player Name");
-    protected final JPanel pricePanel = new JPanel(new GridBagLayout());
+    protected final CurrencyPanel pricePanel = new CurrencyPanel();
     protected final JLabel priceLabel = new JLabel("Price");
-    protected final NotificationButton itemButton = new NotificationButton("Item Name");
+    protected final CurrencyPanel itemButton = new CurrencyPanel();
     private final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
     private final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
 
@@ -101,7 +101,7 @@ public class NotificationPanel extends ColorPanel {
         topPanel.add(pricePanel, gc);
 
         // Bottom Panel
-        pricePanel.add(priceLabel);
+//        pricePanel.add(priceLabel);
         bottomPanel.add(timerPanel, BorderLayout.WEST);
         bottomPanel.add(itemButton, BorderLayout.CENTER);
         int timerInset = 4;
