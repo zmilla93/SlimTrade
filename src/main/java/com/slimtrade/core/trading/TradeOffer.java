@@ -1,10 +1,12 @@
 package com.slimtrade.core.trading;
 
+import com.slimtrade.core.data.SaleItem;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,32 +34,27 @@ public class TradeOffer {
 
     // Static function instead of constructors to avoid allocation if no trade is found.
     public static TradeOffer getTradeFromMessage(String input) {
-        TradeOffer trade = null;
         for (LangRegex l : LangRegex.values()) {
             if (!input.contains(l.wantToBuy)) continue;
             for (Pattern pattern : l.tradeOfferPatterns) {
                 Matcher matcher = pattern.matcher(input);
                 if (!matcher.matches()) continue;
-                trade = getTradeFromMatcher(matcher);
-                if (trade.isBulkTrade) System.out.println("BULK:" + trade.itemName);
-                break;
+                return getTradeFromMatcher(matcher);
             }
         }
-        return trade;
+        return null;
     }
 
     public static TradeOffer getTradeFromQuickPaste(String input) {
-        TradeOffer trade = null;
         for (LangRegex l : LangRegex.values()) {
             if (!input.contains(l.wantToBuy)) continue;
             for (Pattern pattern : l.quickPastePatterns) {
                 Matcher matcher = pattern.matcher(input);
                 if (!matcher.matches()) continue;
-                trade = getTradeFromMatcher(matcher);
-                break;
+                return getTradeFromMatcher(matcher);
             }
         }
-        return trade;
+        return null;
     }
 
     private static TradeOffer getTradeFromMatcher(Matcher matcher) {
@@ -76,8 +73,16 @@ public class TradeOffer {
         trade.stashTabX = cleanInt(cleanResult(matcher, "stashX"));
         trade.stashTabY = cleanInt(cleanResult(matcher, "stashY"));
         trade.bonusText = cleanResult(matcher, "bonusText");
-        trade.isBulkTrade = trade.itemName.contains(",");
+        trade.isBulkTrade = trade.itemName.matches(".+, \\d+ .+");
         return trade;
+    }
+
+    public ArrayList<SaleItem> getItems() {
+        String quantity;
+        if (itemQuantity % 1 == 0) quantity = String.format("%,.0f", itemQuantity);
+        else quantity = String.format("%,.2f", itemQuantity);
+        String fixed = quantity + " " + itemName;
+        return SaleItem.getItems(fixed);
     }
 
     private static TradeOffer.TradeOfferType getMessageType(String s) {
