@@ -35,8 +35,8 @@ public class ColorManager<T> {
 
     private static ArrayList<JComboBox> stickyCombos = new ArrayList<>();
 
-//    private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
-    private static Font font = new Font(getR, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
+    private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
+//    private static Font font = new Font(getR, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
     ;
 
 
