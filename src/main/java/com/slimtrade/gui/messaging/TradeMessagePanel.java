@@ -51,15 +51,24 @@ public class TradeMessagePanel extends NotificationPanel {
     }
 
     private void addListeners() {
-        itemButton.addMouseListener(new AdvancedMouseListener() {
-            @Override
-            public void click(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    stashHelperPanel.setVisible(true);
-                    FrameManager.stashHelperContainer.refresh();
-                }
-            }
-        });
+        switch (tradeOffer.offerType) {
+            case INCOMING:
+                itemButton.addMouseListener(new AdvancedMouseListener() {
+                    @Override
+                    public void click(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON1) {
+                            stashHelperPanel.setVisible(true);
+                            FrameManager.stashHelperContainer.refresh();
+                        } else if (e.getButton() == MouseEvent.BUTTON3) {
+                            FrameManager.itemIgnoreWindow.setItemName(tradeOffer.itemName);
+                        }
+                    }
+                });
+                break;
+            case OUTGOING:
+                break;
+        }
+
     }
 
     @Override

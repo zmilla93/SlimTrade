@@ -1,11 +1,13 @@
 package com.slimtrade.core.utility;
 
+import com.formdev.flatlaf.icons.FlatCheckBoxIcon;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.buttons.NotificationButton;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.colortheme.components.ColorCheckbox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -83,6 +85,12 @@ public class ColorManager<T> {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+        // Solarized Light Fix
+        if (currentTheme.name().equals("SOLARIZED_LIGHT")) {
+            UIManager.put("CheckBox.icon", new ColorCheckbox());
+        } else {
+            UIManager.put("CheckBox.icon", new FlatCheckBoxIcon());
+        }
         for (Component frame : frames) {
             JRootPane rootPane = null;
             if (frame instanceof RootPaneContainer) rootPane = ((RootPaneContainer) frame).getRootPane();
@@ -95,6 +103,7 @@ public class ColorManager<T> {
         for (int i = 0; i < stickyCombos.size(); i++) {
             stickyCombos.get(i).setSelectedIndex(comboIcons[i]);
         }
+
         for (IThemeListener listener : themeListeners) {
             listener.onThemeChange();
         }

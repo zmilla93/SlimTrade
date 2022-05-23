@@ -1,5 +1,7 @@
 package com.slimtrade.core.chatparser;
 
+import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.modules.filetailing.FileTailer;
@@ -71,6 +73,17 @@ public class ChatParser implements FileTailerListener {
     }
 
     private void handleTradeOffer(TradeOffer offer) {
+        // Check if trade should be ignored
+        String itemNameLower = offer.itemName.toLowerCase();
+        if (offer.offerType == TradeOffer.TradeOfferType.INCOMING) {
+            IgnoreItem item = SaveManager.ignoreSaveFile.data.exactIgnoreMap.get(itemNameLower);
+            if (item != null && !item.isExpired()) return;
+            for (IgnoreItem ignoreItem : SaveManager.ignoreSaveFile.data.containsIgnoreList) {
+                System.out.println("IGNORE:" + ignoreItem.itemNameLower);
+                if (itemNameLower.contains(ignoreItem.itemNameLower) && !ignoreItem.isExpired()) return;
+            }
+        }
+        // Handle trade
         for (ITradeListener listener : tradeListeners) {
             listener.handleTrade(offer);
         }

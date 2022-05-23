@@ -6,6 +6,7 @@ import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.chatscanner.ChatScannerWindow;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
+import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
 import com.slimtrade.gui.stash.StashHelperContainer;
@@ -22,6 +23,7 @@ public class FrameManager {
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
     public static ChatScannerWindow chatScannerWindow;
+    public static ItemIgnoreWindow itemIgnoreWindow;
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -51,6 +53,8 @@ public class FrameManager {
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();
         chatScannerWindow = new ChatScannerWindow();
+        itemIgnoreWindow = new ItemIgnoreWindow();
+//        itemIgnoreWindow.setVisible(true);
 //        chatScannerWindow.setVisible(true);
 
         // Overlays

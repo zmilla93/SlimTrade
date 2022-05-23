@@ -52,6 +52,19 @@ public class SaveManager {
             @Override
             public void onLoad() {
                 // Do Nothing
+                SaveManager.settingsSaveFile.data.buildMacroCache();
+            }
+        });
+        SaveManager.ignoreSaveFile.removeAllListeners();
+        SaveManager.ignoreSaveFile.addListener(new ISaveListener() {
+            @Override
+            public void onSave() {
+                SaveManager.ignoreSaveFile.data.buildCache();
+            }
+
+            @Override
+            public void onLoad() {
+                SaveManager.ignoreSaveFile.data.buildCache();
             }
         });
     }

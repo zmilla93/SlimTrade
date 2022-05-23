@@ -98,8 +98,8 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
 
     @Override
     public void save() {
-        int gridX = getX() + resizeSize + INSET_HORIZONTAL + getBorderSize();
-        int gridY = getY() + resizeSize + INSET_VERTICAL + getTitleBarHeight() + getBorderSize();
+        int gridX = getX() + resizerPanelSize + INSET_HORIZONTAL + getBorderSize();
+        int gridY = getY() + resizerPanelSize + INSET_VERTICAL + getTitleBarHeight() + getBorderSize();
         SaveManager.stashSaveFile.data.windowRect = new Rectangle(getX(), getY(), getWidth(), getHeight());
         SaveManager.stashSaveFile.data.gridRect = new Rectangle(gridX, gridY, gridPanel.getWidth(), gridPanel.getHeight());
         FrameManager.stashHelperContainer.updateLocation();

@@ -33,9 +33,9 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
         addListeners();
     }
 
-    private void tryAddIgnore(IgnoreItem item) {
+    public void tryAddIgnore(IgnoreItem item) {
         if (item.itemName.matches("\\s+")) return;
-        if (!item.indefinite && item.getRemainingMinutes() <= 0) return;
+        if (!item.isInfinite() && item.getRemainingMinutes() <= 0) return;
         ignoreContainer.add(new IgnoreRow(ignoreContainer, item));
         revalidate();
         repaint();
@@ -48,10 +48,10 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
     @Override
     public void save() {
         ArrayList<IgnoreItem> ignoreItems = new ArrayList<>();
-        for (Component c : ignoreContainer.getOrderedComponents()) {
+        for (Component c : ignoreContainer.getComponents()) {
             if (c instanceof IgnoreRow) {
                 IgnoreItem item = ((IgnoreRow) c).ignoreItem;
-                if (item.indefinite || item.getRemainingMinutes() > 0) ignoreItems.add(item);
+                if (item.isInfinite() || item.getRemainingMinutes() > 0) ignoreItems.add(item);
             }
         }
         SaveManager.ignoreSaveFile.data.ignoreList = ignoreItems;

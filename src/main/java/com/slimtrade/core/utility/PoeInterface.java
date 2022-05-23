@@ -52,7 +52,7 @@ public class PoeInterface {
         }
         robot.waitForIdle();
         try {
-            System.out.println("pasty:" + Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
+            System.out.println("QuickPaste:" + Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
         } catch (UnsupportedFlavorException | IOException e) {
             e.printStackTrace();
         }

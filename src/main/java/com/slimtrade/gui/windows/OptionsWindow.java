@@ -15,6 +15,7 @@ public class OptionsWindow extends AbstractWindow {
 
     private final AbstractMacroOptionPanel incomingMacroPanel;
     private final AbstractMacroOptionPanel outgoingMacroPanel;
+    private IgnoreItemOptionPanel ignorePanel = new IgnoreItemOptionPanel();
 
     public OptionsWindow() {
         super("Options");
@@ -35,7 +36,7 @@ public class OptionsWindow extends AbstractWindow {
         OptionPanel incomingMacros = new OptionPanel("Incoming Macros", incomingMacroPanel);
         OptionPanel outgoingMacros = new OptionPanel("Outgoing Macros", outgoingMacroPanel);
         OptionPanel hotkeys = new OptionPanel("Hotkeys", new HotkeyOptionPanel());
-        OptionPanel ignoreItems = new OptionPanel("Ignore Items", new IgnoreItemOptionPanel());
+        OptionPanel ignoreItems = new OptionPanel("Ignore Items", ignorePanel);
         OptionPanel cheatSheets = new OptionPanel("Cheat Sheets", new CheatSheetsOptionPanel());
         OptionPanel stashSorting = new OptionPanel("Stash Sorting", new StashSortingOptionPanel());
         OptionPanel[] panelList = new OptionPanel[]{general, display, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSorting, information};
@@ -124,6 +125,10 @@ public class OptionsWindow extends AbstractWindow {
     public void reloadExampleTrades() {
         incomingMacroPanel.reloadExampleTrade();
         outgoingMacroPanel.reloadExampleTrade();
+    }
+
+    public IgnoreItemOptionPanel getIgnorePanel() {
+        return ignorePanel;
     }
 
 }

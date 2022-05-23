@@ -57,4 +57,11 @@ public class IgnoreInputPanel extends JPanel {
         return new IgnoreItem(name, matchType, duration);
     }
 
+    // FIXME : Setting using expiration time is technically incorrect, need to change is this function gets used more
+    public void setIgnoreItem(IgnoreItem item) {
+        itemNameInput.setText(item.itemName);
+        matchTypeCombo.setSelectedItem(item.matchType);
+        timeSpinner.setValue(item.initialDuration);
+    }
+
 }

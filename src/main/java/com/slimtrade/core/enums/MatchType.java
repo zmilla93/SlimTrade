@@ -4,7 +4,7 @@ import com.slimtrade.core.utility.ZUtil;
 
 public enum MatchType {
 
-    EXACT_MATCH, CONTAINS_TEXT;
+    CONTAINS_TEXT, EXACT_MATCH;
 
     private final String name;
 

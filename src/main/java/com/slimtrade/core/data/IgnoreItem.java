@@ -7,36 +7,37 @@ import java.util.concurrent.TimeUnit;
 public class IgnoreItem {
 
     public final String itemName;
+    public final String itemNameLower;
     public final MatchType matchType;
+    public final int initialDuration;
     public final long expirationTime;
-    public final boolean indefinite;
+    private transient boolean expired = false;
 
-    public IgnoreItem(String itemName, MatchType matchType, int durationInMinutes) {
+    public IgnoreItem(String itemName, MatchType matchType, int duration) {
         this.itemName = itemName;
+        this.itemNameLower = itemName.toLowerCase();
         this.matchType = matchType;
-        if (durationInMinutes == 0) {
-            indefinite = true;
+        this.initialDuration = duration;
+        if (duration == 0) {
             expirationTime = 0;
         } else {
-            indefinite = false;
-            expirationTime = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(durationInMinutes);
+            expirationTime = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(duration);
         }
     }
 
-    public IgnoreItem(String itemName, MatchType matchType, long expirationTime, boolean indefinite) {
-        this.itemName = itemName;
-        this.matchType = matchType;
-        this.expirationTime = expirationTime;
-        this.indefinite = indefinite;
-    }
-
     public boolean isExpired() {
-        return expirationTime < System.currentTimeMillis();
+        if (!expired)
+            expired = expirationTime <= System.currentTimeMillis();
+        return expired;
     }
 
     public int getRemainingMinutes() {
         long remaining = expirationTime - System.currentTimeMillis();
         return (int) Math.ceil(remaining / (1000f * 60));
+    }
+
+    public boolean isInfinite() {
+        return initialDuration == 0;
     }
 
 }

@@ -14,7 +14,7 @@ import java.awt.event.MouseMotionAdapter;
 
 public class CustomDialog extends JDialog implements IThemeListener {
 
-    public static final int resizeSize = 8;
+    public static final int resizerPanelSize = 8;
     private int borderSize = 1;
     private JPanel innerPanel = new JPanel(new BorderLayout());
     private JPanel outerPanel = new JPanel(new BorderLayout());
@@ -35,6 +35,8 @@ public class CustomDialog extends JDialog implements IThemeListener {
 
     // Buttons
     private JButton closeButton = new IconButton("/icons/default/closex64.png");
+    private int maxWidthAdjust;
+    private int maxHeightAdjust;
 
     public CustomDialog() {
         setUndecorated(true);
@@ -61,10 +63,10 @@ public class CustomDialog extends JDialog implements IThemeListener {
         innerPanel.setBackground(Color.ORANGE);
 
         // Resize Panels
-        resizerTop.add(Box.createVerticalStrut(resizeSize), BorderLayout.CENTER);
-        resizerBottom.add(Box.createVerticalStrut(resizeSize), BorderLayout.CENTER);
-        resizerLeft.add(Box.createHorizontalStrut(resizeSize), BorderLayout.CENTER);
-        resizerRight.add(Box.createHorizontalStrut(resizeSize), BorderLayout.CENTER);
+        resizerTop.add(Box.createVerticalStrut(resizerPanelSize), BorderLayout.CENTER);
+        resizerBottom.add(Box.createVerticalStrut(resizerPanelSize), BorderLayout.CENTER);
+        resizerLeft.add(Box.createHorizontalStrut(resizerPanelSize), BorderLayout.CENTER);
+        resizerRight.add(Box.createHorizontalStrut(resizerPanelSize), BorderLayout.CENTER);
         resizerTop.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
         resizerBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
         resizerLeft.setCursor(new Cursor(Cursor.W_RESIZE_CURSOR));
@@ -86,7 +88,6 @@ public class CustomDialog extends JDialog implements IThemeListener {
         innerPanel.setOpaque(false);
 
         // Container
-//        container.add(titleBarPanel, BorderLayout.NORTH);
         contentPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
         setContentPane(outerPanel);
         setBackground(ColorManager.TRANSPARENT);
@@ -112,8 +113,10 @@ public class CustomDialog extends JDialog implements IThemeListener {
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 clickedWindowPoint = e.getPoint();
-                clickedWindowPoint.x += resizeSize;
-                clickedWindowPoint.y += resizeSize;
+                clickedWindowPoint.x += resizerPanelSize;
+                clickedWindowPoint.y += resizerPanelSize;
+                if (getMinimumSize().width == 0) maxWidthAdjust = -1;
+                else maxWidthAdjust = getSize().width - getMinimumSize().width;
             }
         });
         titleBarPanel.addMouseMotionListener(new MouseMotionAdapter() {
@@ -126,14 +129,14 @@ public class CustomDialog extends JDialog implements IThemeListener {
 
                 Rectangle screenBounds = ZUtil.getScreenBoundsFromPoint(MouseInfo.getPointerInfo().getLocation());
                 if (screenBounds != null && App.globalKeyboardListener.isShiftPressed()) {
-                    if (targetPoint.x > screenBounds.x + screenBounds.width - getWidth() + resizeSize)
-                        targetPoint.x = screenBounds.x + screenBounds.width - getWidth() + resizeSize;
+                    if (targetPoint.x > screenBounds.x + screenBounds.width - getWidth() + resizerPanelSize)
+                        targetPoint.x = screenBounds.x + screenBounds.width - getWidth() + resizerPanelSize;
                     if (targetPoint.x < screenBounds.x)
-                        targetPoint.x = screenBounds.x - resizeSize;
-                    if (targetPoint.y > screenBounds.y + screenBounds.height - getHeight() + resizeSize)
-                        targetPoint.y = screenBounds.y + screenBounds.height - getHeight() + resizeSize;
+                        targetPoint.x = screenBounds.x - resizerPanelSize;
+                    if (targetPoint.y > screenBounds.y + screenBounds.height - getHeight() + resizerPanelSize)
+                        targetPoint.y = screenBounds.y + screenBounds.height - getHeight() + resizerPanelSize;
                     if (targetPoint.y < screenBounds.y)
-                        targetPoint.y = screenBounds.y - resizeSize;
+                        targetPoint.y = screenBounds.y - resizerPanelSize;
                 }
                 setLocation(targetPoint);
             }
@@ -141,16 +144,23 @@ public class CustomDialog extends JDialog implements IThemeListener {
     }
 
     private void addWindowResizer() {
-        // Bottom
-        resizerBottom.addMouseListener(new MouseAdapter() {
+        addResizeClickListener(resizerTop);
+        addResizeClickListener(resizerBottom);
+        addResizeClickListener(resizerLeft);
+        addResizeClickListener(resizerRight);
+        // Top
+        resizerTop.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
-                startLocation = getLocation();
-                startSize = getSize();
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                Point p = MouseInfo.getPointerInfo().getLocation();
+                int sizeAdjust = p.y - clickedWindowPoint.y;
+                if (maxHeightAdjust != -1 && sizeAdjust > maxHeightAdjust) sizeAdjust = maxHeightAdjust;
+                setLocation(startLocation.x, startLocation.y + sizeAdjust);
+                setSize(new Dimension(startSize.width, startSize.height - sizeAdjust));
             }
         });
+        // Bottom
         resizerBottom.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -160,45 +170,19 @@ public class CustomDialog extends JDialog implements IThemeListener {
                 setSize(new Dimension(startSize.width, startSize.height + sizeAdjust));
             }
         });
-
         // Left
-        resizerLeft.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
-                startLocation = getLocation();
-                startSize = getSize();
-            }
-        });
         resizerLeft.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-//                System.out.println("RRR");
                 super.mouseDragged(e);
-//                Point p = MouseInfo.getPointerInfo().getLocation();
-
                 Point p = MouseInfo.getPointerInfo().getLocation();
                 int widthAdjust = clickedWindowPoint.x - p.x;
+                if (widthAdjust < -maxWidthAdjust) widthAdjust = -maxWidthAdjust;
                 setLocation(startLocation.x - widthAdjust, startLocation.y);
                 setSize(new Dimension(startSize.width + widthAdjust, startSize.height));
             }
         });
-
         // Right
-        resizerRight.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
-                startSize = getSize();
-            }
-        });
         resizerRight.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -208,6 +192,23 @@ public class CustomDialog extends JDialog implements IThemeListener {
                 setSize(new Dimension(startSize.width - widthAdjust, startSize.height));
             }
         });
+    }
+
+    private void addResizeClickListener(JPanel panel) {
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
+                startSize = getSize();
+                startLocation = getLocation();
+                if (startSize.width == 0) maxWidthAdjust = -1;
+                else maxWidthAdjust = startSize.width - getMinimumSize().width;
+                if (startSize.height == 0) maxHeightAdjust = -1;
+                else maxHeightAdjust = startSize.height - getMinimumSize().height;
+            }
+        });
+
     }
 
     public JButton getCloseButton() {
@@ -230,7 +231,7 @@ public class CustomDialog extends JDialog implements IThemeListener {
 
     @Override
     public void onThemeChange() {
-        contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Panel.background"), borderSize));
+        contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), 1));
     }
 
 }

@@ -2,6 +2,7 @@ package com.slimtrade.gui.options.ignore;
 
 import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.enums.MatchType;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemoveContainer;
@@ -48,15 +49,16 @@ public class IgnoreRow extends AddRemovePanel {
         setLayout(new BorderLayout());
         add(removeButton, BorderLayout.WEST);
         add(infoPanel, BorderLayout.CENTER);
-        if (!ignoreItem.indefinite) {
+        if (!ignoreItem.isInfinite()) {
             remainingTime = ignoreItem.getRemainingMinutes();
             timerLabel.setText(Integer.toString(remainingTime));
-            timer = new Timer(1000 * 60, e -> {
+            timer = new Timer(1000, e -> {
                 remainingTime--;
                 timerLabel.setText(remainingTime + "m");
                 if (remainingTime <= 0) {
                     timer.stop();
                     removeFromParent();
+                    SaveManager.ignoreSaveFile.data.buildCache();
                 }
             });
             timer.start();
@@ -80,7 +82,7 @@ public class IgnoreRow extends AddRemovePanel {
 
 //        itemNameLabel.setText(ignoreItem.itemName);
         matchLabel.setText(ignoreItem.matchType.toString());
-        String timerText = ignoreItem.indefinite ? "~" : ignoreItem.getRemainingMinutes() + "m";
+        String timerText = ignoreItem.isInfinite() ? "~" : ignoreItem.getRemainingMinutes() + "m";
         timerLabel.setText(timerText);
 //        gc.gridx = 0;
 //        gc.gridy = 1;

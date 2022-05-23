@@ -102,6 +102,9 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
             } catch (JsonSyntaxException e) {
                 // Ignore
             }
+            for (ISaveListener listener : listeners) {
+                listener.onLoad();
+            }
         }
         try {
             data = classType.getDeclaredConstructor().newInstance();
