@@ -32,7 +32,7 @@ public class TestFrame extends JFrame {
 
         NotificationPanel panel = new NotificationPanel();
         contentPanel.add(panel);
-        NotificationPanel trade = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+        NotificationPanel trade = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING), false);
         contentPanel.add(trade);
         BufferedImage img = null;
         CurrencyImage currency = CurrencyImage.getCurrencyImage("Orbe exalté");

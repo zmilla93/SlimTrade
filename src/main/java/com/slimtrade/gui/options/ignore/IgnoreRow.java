@@ -52,7 +52,7 @@ public class IgnoreRow extends AddRemovePanel {
         if (!ignoreItem.isInfinite()) {
             remainingTime = ignoreItem.getRemainingMinutes();
             timerLabel.setText(Integer.toString(remainingTime));
-            timer = new Timer(1000, e -> {
+            timer = new Timer(1000 * 60, e -> {
                 remainingTime--;
                 timerLabel.setText(remainingTime + "m");
                 if (remainingTime <= 0) {

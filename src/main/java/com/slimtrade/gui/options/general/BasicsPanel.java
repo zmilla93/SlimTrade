@@ -11,6 +11,10 @@ import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class BasicsPanel extends GridBagPanel implements ISavable {
 
@@ -26,14 +30,6 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
     private JButton editOverlayButton = new JButton("Edit Overlay");
 
     public BasicsPanel() {
-        // Components
-//        JTextField characterName = new JTextField(10);
-//        JCheckBox showGuildName = new JCheckBox();
-//        JCheckBox folderOffset = new JCheckBox();
-//        JCheckBox colorBlind = new JCheckBox();
-//        JComboBox<ColorTheme> colorTheme = new JComboBox<>();
-//        JComboBox<QuickPasteManager.QuickPasteMode> quickPasteCombo = new JComboBox<>();
-//        JButton editOverlayButton = new JButton("Edit Overlay");
         colorTheme.setMaximumRowCount(10);
 
         gc.weightx = 1;
@@ -64,16 +60,8 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
 
         add(outerPanel, BorderLayout.WEST);
 
-        colorTheme.addActionListener(e -> ColorManager.setTheme((ColorTheme) colorTheme.getSelectedItem()));
+        colorTheme.addActionListener(e -> SwingUtilities.invokeLater(() -> ColorManager.setTheme((ColorTheme) colorTheme.getSelectedItem())));
         editOverlayButton.addActionListener(e -> FrameManager.setWindowVisibility(AppState.EDIT_OVERLAY));
-
-//        App.saveManager.registerSaveElement(guildCheckbox, "showGuildName", App.saveManager.settingsSaveFile);
-//        App.saveManager.registerSaveElement(folderCheckbox, "folderOffset", App.saveManager.settingsSaveFile);
-//        App.saveManager.registerSaveElement(colorBlindCheckbox, "colorBlindMode", App.saveManager.settingsSaveFile);
-//        App.saveManager.registerSaveElement(characterName, "characterName", App.saveManager.settingsSaveFile);
-//        App.saveManager.registerSaveElement(colorTheme, "colorTheme", App.saveManager.settingsSaveFile);
-//        App.saveManager.registerSavable(this);
-//        SaveManager.settingsSaveFile.registerComponent(showGuildName);
     }
 
     private void addLabelComponentPair(String text, JComponent component) {

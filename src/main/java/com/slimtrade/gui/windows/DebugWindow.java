@@ -12,6 +12,7 @@ public class DebugWindow extends JFrame {
 
     public DebugWindow() {
         super("Slimtrade Debug");
+        setAlwaysOnTop(true);
         setMinimumSize(new Dimension(400, 600));
         Container container = getContentPane();
         container.setLayout(new FlowLayout());

@@ -51,7 +51,7 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         container.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         optionsButton = new IconButton("/icons/default/th-list.png");
-        historyButton = new IconButton("/icons/default/arrow-sync.png");
+        historyButton = new IconButton("/icons/default/stopwatch.png");
         chatScannerButton = new IconButton("/icons/default/eye.png");
         hideoutButton = new IconButton("/icons/custom/homex64.png");
         exitButton = new IconButton("/icons/default/power.png");

@@ -4,7 +4,10 @@ import com.slimtrade.App;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.buttons.NotificationButton;
+import com.slimtrade.gui.messaging.NotificationIconButton;
 import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,9 +37,11 @@ public class CustomDialog extends JDialog implements IThemeListener {
     private Dimension startSize;
 
     // Buttons
-    private JButton closeButton = new IconButton("/icons/default/closex64.png");
+//    private JButton closeButton = new IconButton("/icons/default/closex64.png");
+    private final JButton closeButton = new NotificationIconButton("/icons/default/closex64.png");
     private int maxWidthAdjust;
     private int maxHeightAdjust;
+    private final int TITLE_INSET = 4;
 
     public CustomDialog() {
         setUndecorated(true);
@@ -47,9 +52,11 @@ public class CustomDialog extends JDialog implements IThemeListener {
         container.setLayout(new BorderLayout());
 
         // Title Bar
+        closeButton.setFocusable(false);
         JPanel titlePanel = new JPanel(new GridBagLayout());
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
+        gc.insets = new Insets(TITLE_INSET, TITLE_INSET, TITLE_INSET, TITLE_INSET);
         titlePanel.add(titleLabel, gc);
         buttonPanel.add(closeButton, gc);
         titleBarPanel.add(titlePanel, BorderLayout.WEST);
@@ -231,7 +238,9 @@ public class CustomDialog extends JDialog implements IThemeListener {
 
     @Override
     public void onThemeChange() {
+        titleBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, UIManager.getColor("Separator.foreground")));
         contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), 1));
+
     }
 
 }
