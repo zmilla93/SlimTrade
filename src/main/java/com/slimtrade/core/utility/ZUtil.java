@@ -5,6 +5,10 @@ import com.slimtrade.core.trading.TradeOffer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class ZUtil {
@@ -98,6 +102,39 @@ public class ZUtil {
         panel.add(Box.createVerticalStrut(insets.bottom), BorderLayout.SOUTH);
         panel.add(Box.createHorizontalStrut(insets.left), BorderLayout.WEST);
         panel.add(Box.createHorizontalStrut(insets.right), BorderLayout.EAST);
+    }
+
+    public static boolean openLink(String link) {
+        if (link.startsWith("http:")) {
+            link = link.replaceFirst("http:", "https:");
+        }
+        if (!link.startsWith("https://")) {
+            link = "https://" + link;
+        }
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                Desktop.getDesktop().browse(new URI(link));
+                return true;
+            } catch (IOException | URISyntaxException e) {
+//                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public static void openExplorer(String path) {
+        File targetDir = new File(path);
+        if (!targetDir.exists()) {
+            boolean success = targetDir.mkdirs();
+            if (!success) return;
+        }
+        if (!targetDir.exists() || !targetDir.isDirectory()) return;
+        try {
+            Desktop.getDesktop().open(targetDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

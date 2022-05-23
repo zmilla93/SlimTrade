@@ -1,5 +1,6 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
@@ -14,6 +15,7 @@ import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FrameManager {
@@ -24,6 +26,7 @@ public class FrameManager {
     public static HistoryWindow historyWindow;
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
+    public static ArrayList<CheatSheetWindow> cheatSheetWindows = new ArrayList<>();
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -69,6 +72,7 @@ public class FrameManager {
         menubarDialog = new MenubarDialog();
         menubarDialog.setVisible(true);
 
+        buildCheatSheetWindows();
 
         // Group windows that need to be shown/hidden during state changes
         Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow};
@@ -109,6 +113,18 @@ public class FrameManager {
             }
         }
         FrameManager.state = newState;
+    }
+
+    public static void buildCheatSheetWindows() {
+        for (CheatSheetWindow window : cheatSheetWindows) {
+            window.dispose();
+        }
+        cheatSheetWindows.clear();
+        for (CheatSheetData data : SaveManager.settingsSaveFile.data.cheatSheets) {
+            CheatSheetWindow window = CheatSheetWindow.createCheatSheet(data);
+            if (window != null)
+                cheatSheetWindows.add(window);
+        }
     }
 
     public static void centerWindow(Window window) {

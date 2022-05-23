@@ -14,4 +14,8 @@ public class IconLabel extends JLabel {
         setIcon(ColorManager.getIcon(path, size));
     }
 
+    public IconLabel(String path, boolean fromDisk) {
+        setIcon(ColorManager.getIcon(path, -1, false));
+    }
+
 }

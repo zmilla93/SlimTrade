@@ -8,6 +8,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.gui.basic.ColorLabel;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.components.ButtonPanel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -42,7 +43,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         addRow("Player Joined Area", "playerJoinedAreaSound");
         addRow("Update Alert", "updateSound");
 
-        JPanel customButtons = new JPanel(new FlowLayout());
+        JPanel customButtons = new ButtonPanel();
         JButton openFolderButton = new JButton("Open Audio Folder");
         JButton refreshButton = new JButton("Refresh");
         customButtons.add(openFolderButton);

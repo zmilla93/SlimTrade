@@ -8,4 +8,6 @@ public class References {
     public static final String REGEX_JOINED_AREA_PREFIX = "(.+ : (?<playerName>.+) ";
     public static final String REGEX_SUFFIX = ")";
 
+    public static final int BUTTON_SPACER = 5;
+
 }

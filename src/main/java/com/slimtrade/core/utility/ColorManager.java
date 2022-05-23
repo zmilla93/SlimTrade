@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.*;
@@ -135,20 +136,37 @@ public class ColorManager<T> {
         }
     }
 
+
+    // When getting an icon, size uses cached size, -1 uses unscaled size
     public static ImageIcon getIcon(String path) {
-        return getIcon(path, cacheIconSize);
+        return getIcon(path, cacheIconSize, true);
+    }
+
+    public static ImageIcon getIcon(String path, boolean resourceFolder) {
+        return getIcon(path, cacheIconSize, resourceFolder);
     }
 
     public static ImageIcon getIcon(String path, int size) {
+        return getIcon(path, size, true);
+    }
+
+    public static ImageIcon getIcon(String path, int size, boolean resourceFolder) {
         if (size == 0) size = cacheIconSize;
         // Return cached image if possible
         if (size == cacheIconSize && iconMap.containsKey(path)) {
             return iconMap.get(path);
         }
         try {
-            BufferedImage img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
-//            ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(size, size, Image.SCALE_SMOOTH));
-            ImageIcon icon = new ImageIcon(img.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            BufferedImage img = null;
+            File file;
+            if (resourceFolder) img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
+            else img = ImageIO.read(new File(path));
+            ImageIcon icon;
+            if (size == -1) {
+                icon = new ImageIcon(img);
+            } else {
+                icon = new ImageIcon(img.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            }
             if (size == cacheIconSize) iconMap.put(path, icon);
             return icon;
         } catch (IOException e) {

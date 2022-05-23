@@ -73,6 +73,10 @@ public class SaveManager {
         return getSaveDirectory() + audioFolderName + File.separator;
     }
 
+    public static String getImagesDirectory() {
+        return getSaveDirectory() + imagesFolderName + File.separator;
+    }
+
     public static String getSaveDirectory() {
         if (saveDirectory == null) {
             String os = (System.getProperty("os.name")).toUpperCase();

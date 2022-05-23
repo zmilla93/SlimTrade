@@ -1,6 +1,7 @@
 package com.slimtrade.core.saving.savefiles;
 
 import com.slimtrade.core.audio.SoundComponent;
+import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.SpinnerRange;
@@ -24,6 +25,7 @@ public class SettingsSaveFile {
     public ColorTheme colorTheme;
     public QuickPasteManager.QuickPasteMode quickPasteMode;
     public HotkeyData quickPasteHotkey;
+    public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
 
     // Stash
     public ArrayList<StashTabData> stashTabs = new ArrayList<>();
