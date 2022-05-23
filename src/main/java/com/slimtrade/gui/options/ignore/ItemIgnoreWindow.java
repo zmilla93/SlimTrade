@@ -13,8 +13,7 @@ public class ItemIgnoreWindow extends CustomDialog {
     IgnoreInputPanel inputPanel = new IgnoreInputPanel();
 
     public ItemIgnoreWindow() {
-        super();
-        setTitle("Ignore Item");
+        super("Ignore Item");
         contentPanel.setLayout(new GridBagLayout());
 //        getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();

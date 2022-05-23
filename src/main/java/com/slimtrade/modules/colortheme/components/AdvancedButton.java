@@ -14,7 +14,7 @@ public class AdvancedButton extends JButton {
 
     private boolean mouseDown;
     private boolean inBounds;
-    public final Set<Integer> allowedMouseButtons = new HashSet<>();
+    private final Set<Integer> allowedMouseButtons = new HashSet<>();
     private final ButtonModel model;
     private boolean active;
     private Color previousBackground;
@@ -106,6 +106,18 @@ public class AdvancedButton extends JButton {
 
     public void setForegroundKey(String key) {
         this.foregroundKey = key;
+    }
+
+    public void setAllowedMouseButtons(int button) {
+        allowedMouseButtons.clear();
+        allowedMouseButtons.add(button);
+    }
+
+    public void setAllowedMouseButtons(int[] buttons) {
+        allowedMouseButtons.clear();
+        for (int button : buttons) {
+            allowedMouseButtons.add(button);
+        }
     }
 
     @Override

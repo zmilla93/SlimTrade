@@ -10,6 +10,8 @@ import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
+import com.slimtrade.gui.pinning.IPinnable;
+import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.stash.StashHelperContainer;
 import com.slimtrade.gui.windows.*;
 
@@ -117,6 +119,7 @@ public class FrameManager {
 
     public static void buildCheatSheetWindows() {
         for (CheatSheetWindow window : cheatSheetWindows) {
+            PinManager.removePinnable(window);
             window.dispose();
         }
         cheatSheetWindows.clear();

@@ -20,8 +20,7 @@ public class CheatSheetWindow extends CustomDialog {
     }
 
     private CheatSheetWindow(CheatSheetData data) {
-        super();
-        setTitle(data.fileName);
+        super(data.fileName, true);
         IconLabel label = new IconLabel(SaveManager.getImagesDirectory() + data.fileName, true);
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(label, BorderLayout.CENTER);

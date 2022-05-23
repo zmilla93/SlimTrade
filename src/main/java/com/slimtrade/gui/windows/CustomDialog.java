@@ -1,10 +1,13 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.messaging.NotificationIconButton;
+import com.slimtrade.gui.pinning.IPinnable;
+import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.swing.*;
@@ -13,12 +16,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-public class CustomDialog extends JDialog implements IThemeListener {
+public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
 
     public static final int resizerPanelSize = 8;
     private int borderSize = 1;
     private JPanel innerPanel = new JPanel(new BorderLayout());
     private JPanel outerPanel = new JPanel(new BorderLayout());
+    private boolean pinned;
 
     // Resizers
     private JPanel resizerTop = new JPanel(new BorderLayout());
@@ -36,27 +40,44 @@ public class CustomDialog extends JDialog implements IThemeListener {
 
     // Buttons
     private final NotificationIconButton closeButton = new NotificationIconButton("/icons/default/closex64.png");
+    private final NotificationIconButton pinButton = new NotificationIconButton("/icons/default/pin1x48.png");
     private int maxWidthAdjust;
     private int maxHeightAdjust;
-    private final int TITLE_INSET = 4;
+    private static final int TITLE_INSET = 4;
 
-    public CustomDialog() {
+    public CustomDialog(String title) {
+        this(title, false);
+    }
+
+    public CustomDialog(String title, boolean thin) {
+        setTitle(title);
         setUndecorated(true);
         setAlwaysOnTop(true);
         ColorManager.addFrame(this);
         ColorManager.addListener(this);
         container = getContentPane();
         container.setLayout(new BorderLayout());
+        PinManager.addPinnable(this);
 
         // Title Bar
+        if (!thin) {
+            closeButton.inset = TITLE_INSET;
+            pinButton.inset = TITLE_INSET;
+        }
         closeButton.setFocusable(false);
-        closeButton.allowedMouseButtons.clear();
-        closeButton.allowedMouseButtons.add(1);
+        pinButton.setFocusable(false);
+        closeButton.setAllowedMouseButtons(1);
+        pinButton.setAllowedMouseButtons(1);
         JPanel titlePanel = new JPanel(new GridBagLayout());
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        gc.insets = new Insets(TITLE_INSET, TITLE_INSET, TITLE_INSET, TITLE_INSET);
+        int inset = thin ? 0 : TITLE_INSET;
+        gc.insets = new Insets(inset, TITLE_INSET, inset, 0);
         titlePanel.add(titleLabel, gc);
+        gc.gridx = 0;
+        gc.insets = new Insets(0, 0, 0, 0);
+        buttonPanel.add(pinButton, gc);
+        gc.gridx++;
         buttonPanel.add(closeButton, gc);
         titleBarPanel.add(titlePanel, BorderLayout.WEST);
         titleBarPanel.add(buttonPanel, BorderLayout.EAST);
@@ -117,12 +138,23 @@ public class CustomDialog extends JDialog implements IThemeListener {
                 }
             }
         });
+        pinButton.addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    pinned = !pinned;
+                    PinManager.save();
+                    SaveManager.pinSaveFile.saveToDisk();
+                }
+            }
+        });
     }
 
     private void addWindowMover() {
         titleBarPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                if (isPinned()) return;
                 super.mousePressed(e);
                 clickedWindowPoint = e.getPoint();
                 clickedWindowPoint.x += resizerPanelSize;
@@ -134,6 +166,7 @@ public class CustomDialog extends JDialog implements IThemeListener {
         titleBarPanel.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                if (isPinned()) return;
                 super.mouseDragged(e);
                 Point targetPoint = MouseInfo.getPointerInfo().getLocation();
                 targetPoint.x -= clickedWindowPoint.x;
@@ -164,6 +197,7 @@ public class CustomDialog extends JDialog implements IThemeListener {
         resizerTop.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                if (isPinned()) return;
                 super.mouseDragged(e);
                 Point p = MouseInfo.getPointerInfo().getLocation();
                 int sizeAdjust = p.y - clickedWindowPoint.y;
@@ -176,6 +210,7 @@ public class CustomDialog extends JDialog implements IThemeListener {
         resizerBottom.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                if (isPinned()) return;
                 super.mouseDragged(e);
                 Point p = MouseInfo.getPointerInfo().getLocation();
                 int sizeAdjust = p.y - clickedWindowPoint.y;
@@ -186,6 +221,7 @@ public class CustomDialog extends JDialog implements IThemeListener {
         resizerLeft.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                if (isPinned()) return;
                 super.mouseDragged(e);
                 Point p = MouseInfo.getPointerInfo().getLocation();
                 int widthAdjust = clickedWindowPoint.x - p.x;
@@ -198,6 +234,7 @@ public class CustomDialog extends JDialog implements IThemeListener {
         resizerRight.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                if (isPinned()) return;
                 super.mouseDragged(e);
                 Point p = MouseInfo.getPointerInfo().getLocation();
                 int widthAdjust = clickedWindowPoint.x - p.x;
@@ -210,6 +247,7 @@ public class CustomDialog extends JDialog implements IThemeListener {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                if (isPinned()) return;
                 super.mousePressed(e);
                 clickedWindowPoint = MouseInfo.getPointerInfo().getLocation();
                 startSize = getSize();
@@ -250,6 +288,27 @@ public class CustomDialog extends JDialog implements IThemeListener {
     @Override
     public void onThemeChange() {
         colorBorders();
+    }
+
+    @Override
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    @Override
+    public void applyPin(Point point) {
+        setLocation(point);
+        pinned = true;
+    }
+
+    @Override
+    public String getPinTitle() {
+        return getTitle();
+    }
+
+    @Override
+    public Point getPinLocation() {
+        return getLocation();
     }
 
 }

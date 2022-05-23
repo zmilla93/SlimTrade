@@ -12,6 +12,7 @@ import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
+import com.slimtrade.gui.pinning.PinManager;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
@@ -76,6 +77,7 @@ public class App {
 
                 FrameManager.optionsWindow.reloadExampleTrades();
                 FrameManager.optionsWindow.revalidate();
+                PinManager.applyPins();
 
                 // Show Windows
                 FrameManager.messageManager.setVisible(true);

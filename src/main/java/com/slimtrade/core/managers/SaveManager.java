@@ -1,6 +1,7 @@
 package com.slimtrade.core.managers;
 
 import com.slimtrade.core.saving.savefiles.IgnoreSaveFile;
+import com.slimtrade.core.saving.savefiles.PinSaveFile;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.core.saving.savefiles.StashSaveFile;
 import com.slimtrade.core.utility.ColorManager;
@@ -16,23 +17,20 @@ public class SaveManager {
     private static final String folderWin = "SlimTrade-Rebuild";
     private static final String folderOther = ".slimtrade-rebuild";
 
-    // Save File Names
-    private static final String settingsSaveName = "settings.json";
-    private static final String stashSaveName = "stash.json";
-    private static final String ignoreSaveName = "ignore.json";
-
     // Subfolder Names
     private static final String audioFolderName = "audio";
     private static final String imagesFolderName = "images";
 
-    public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + settingsSaveName, SettingsSaveFile.class);
-    public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + stashSaveName, StashSaveFile.class);
-    public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory() + ignoreSaveName, IgnoreSaveFile.class);
+    public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
+    public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + "stash.json", StashSaveFile.class);
+    public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory() + "ignore.json", IgnoreSaveFile.class);
+    public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory() + "pins.json", PinSaveFile.class);
 
     public static void init() {
         settingsSaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();
         ignoreSaveFile.loadFromDisk();
+        pinSaveFile.loadFromDisk();
 
         SaveManager.settingsSaveFile.removeAllListeners();
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {

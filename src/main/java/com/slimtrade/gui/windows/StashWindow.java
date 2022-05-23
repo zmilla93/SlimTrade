@@ -27,7 +27,7 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
     private final int INSET_VERTICAL = 20;
 
     public StashWindow() {
-        setTitle("Stash Overlay");
+        super("Stash Overlay");
         setFocusable(false);
         setFocusableWindowState(false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
