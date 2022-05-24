@@ -17,7 +17,11 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
     private GridBagConstraints gc = ZUtil.getGC();
 
     public StashOptionPanel() {
-        addHeader("Stash Tabs");
+        addHeader("Info");
+        addPanel(new JLabel("Add stash tabs to apply a color to the item highlighter or mark quad tabs."));
+        addPanel(new JLabel("Default white will use the color of the current theme."));
+        addVerticalStrut();
+        addHeader("Stash Tab List");
         addPanel(addButton);
         addPanel(tabContainer);
         addListeners();

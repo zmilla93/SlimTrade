@@ -28,7 +28,7 @@ public class OptionsWindow extends AbstractWindow {
 
         // Panels
         OptionPanel general = new OptionPanel("General", new GeneralOptionPanel());
-        OptionPanel display = new OptionPanel("Display", new JPanel());
+        OptionPanel display = new OptionPanel("Display", new DisplayOptionPanel());
         OptionPanel audio = new OptionPanel("Audio", new AudioOptionPanel());
         OptionPanel stash = new OptionPanel("Stash Tabs", new StashOptionPanel());
 //        OptionPanel history = new OptionPanel("History", new HistoryOptionPanel());

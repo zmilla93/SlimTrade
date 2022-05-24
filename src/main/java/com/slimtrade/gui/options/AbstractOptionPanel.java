@@ -72,6 +72,7 @@ public class AbstractOptionPanel extends JPanel {
         gc.gridy++;
     }
 
+
     protected void addVerticalStrut() {
         addPanel(Box.createVerticalStrut(GUIReferences.INSET));
     }

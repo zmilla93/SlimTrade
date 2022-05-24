@@ -16,7 +16,6 @@ import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -132,7 +131,7 @@ public class FrameManager {
             CheatSheetWindow window = CheatSheetWindow.createCheatSheet(data);
             if (window != null) {
                 cheatSheetWindows.put(data.title, window);
-                if(openWindows.contains(data.title)) window.setVisible(true);
+                if (openWindows.contains(data.title)) window.setVisible(true);
             }
         }
         PinManager.applyPins();

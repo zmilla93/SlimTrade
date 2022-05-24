@@ -1,9 +1,10 @@
 package com.slimtrade.modules.colortheme.components;
 
-import javax.swing.*;
+import com.slimtrade.gui.components.LimitCombo;
+
 import java.awt.*;
 
-public class ColorCombo extends JComboBox<Color> {
+public class ColorCombo extends LimitCombo<Color> {
 
     public ColorCombo() {
         addActionListener(e -> {
