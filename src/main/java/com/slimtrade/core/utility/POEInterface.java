@@ -6,6 +6,7 @@ import com.sun.jna.Native;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class searchInStash {
+public class POEInterface {
 
     private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static Robot robot;
@@ -59,6 +60,7 @@ public class searchInStash {
     }
 
     public static void paste(String text) {
+        System.out.println("PASTE THREAD: " + SwingUtilities.isEventDispatchThread());
         if (!isGameFocused()) return;
         StringSelection pasteString = new StringSelection(text);
         try {

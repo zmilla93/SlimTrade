@@ -1,6 +1,6 @@
 package com.slimtrade.core.hotkeys;
 
-import com.slimtrade.core.utility.searchInStash;
+import com.slimtrade.core.utility.POEInterface;
 
 public class PoeHotkey implements IHotkeyAction {
 
@@ -12,6 +12,6 @@ public class PoeHotkey implements IHotkeyAction {
 
     @Override
     public void execute() {
-        searchInStash.paste(command);
+        POEInterface.paste(command);
     }
 }

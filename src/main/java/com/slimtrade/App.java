@@ -8,7 +8,7 @@ import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.core.utility.searchInStash;
+import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
@@ -57,7 +57,7 @@ public class App {
         SaveManager.settingsSaveFile.data.buildMacroCache();
         audioManager = new AudioManager();
         hotkeyManager = new HotkeyManager();
-        searchInStash.init();
+        POEInterface.init();
         LangRegex.compileAll();
         CurrencyImage.initIconList();
         ColorManager.loadFonts();
