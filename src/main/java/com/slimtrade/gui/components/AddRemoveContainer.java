@@ -14,9 +14,8 @@ public class AddRemoveContainer extends JPanel {
 
     public AddRemoveContainer() {
         setLayout(new GridBagLayout());
-        gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 1;
-        setBackground(Color.RED);
+        gc.anchor = GridBagConstraints.WEST;
     }
 
     public void shiftUp(Component panel) {

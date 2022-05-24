@@ -28,7 +28,6 @@ public class MacroCustomizerPanel extends AddRemovePanel {
     JTextField rmbInput = new JTextField(textFieldWidth);
     JCheckBox closeCheckbox = new JCheckBox();
     JComboBox<ButtonRow> rowCombo = new JComboBox<>();
-    JButton hotkeyButton = new JButton("[Hotkey]");
     JComboBox<MacroButton.MacroButtonType> buttonType = new JComboBox<>();
 
     // Internal

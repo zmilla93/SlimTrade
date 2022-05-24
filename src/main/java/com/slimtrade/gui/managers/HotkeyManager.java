@@ -1,18 +1,23 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.hotkeys.*;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.windows.CheatSheetWindow;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.util.HashMap;
 
+/**
+ * To add a new hotkey type, implement IHotkeyAction then register with a HotkeyData object in loadHotkeys.
+ */
 public class HotkeyManager {
 
-    private static HashMap<HotkeyData, IHotkeyAction> hotkeyMap;
+    private static HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
 
     public static void loadHotkeys() {
-        hotkeyMap = new HashMap<>();
+        hotkeyMap.clear();
         // SlimTrade
         registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new AppHotkey(AppHotkey.AppWindow.OPTIONS));
         registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new AppHotkey(AppHotkey.AppWindow.HISTORY));
@@ -30,10 +35,16 @@ public class HotkeyManager {
         // Quick Paste
         if (SaveManager.settingsSaveFile.data.quickPasteMode == QuickPasteManager.QuickPasteMode.HOTKEY)
             registerHotkey(SaveManager.settingsSaveFile.data.quickPasteHotkey, new QuickPasteHotkey());
+        // Cheat Sheets
+        for (CheatSheetData cheatSheetData : SaveManager.settingsSaveFile.data.cheatSheets) {
+            CheatSheetWindow window = FrameManager.cheatSheetWindows.get(cheatSheetData.title);
+            registerHotkey(cheatSheetData.hotkeyData, new CheatSheetHotkey(window));
+        }
     }
 
     private static void registerHotkey(HotkeyData hotkeyData, IHotkeyAction action) {
         if (hotkeyData == null) return;
+        if (hotkeyMap.containsKey(hotkeyData)) return;   // Duplicate hotkeys are ignored
         hotkeyMap.put(hotkeyData, action);
     }
 

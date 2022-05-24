@@ -9,19 +9,26 @@ import java.io.File;
 
 public class CheatSheetWindow extends CustomDialog {
 
+    protected boolean valid = true;
+
     public static CheatSheetWindow createCheatSheet(CheatSheetData data) {
         File file = new File(SaveManager.getImagesDirectory() + data.fileName);
         if (file.exists() && file.isFile()) {
             CheatSheetWindow window = new CheatSheetWindow(data);
-            window.setVisible(true);
-            return window;
+            if (window.valid) {
+                return window;
+            }
+            window.dispose();
         }
         return null;
     }
 
     private CheatSheetWindow(CheatSheetData data) {
-        super(data.fileName, true);
+        super(data.title, true);
+        setFocusable(false);
+        setFocusableWindowState(false);
         IconLabel label = new IconLabel(SaveManager.getImagesDirectory() + data.fileName, true);
+        if (label.getIcon() == null) valid = false;
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(label, BorderLayout.CENTER);
         pack();

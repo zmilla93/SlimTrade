@@ -93,6 +93,18 @@ public class ZUtil {
     }
 
     /**
+     * Ensure a cheat sheet has a valid extension, then returns that extension (including period)
+     *
+     * @return
+     */
+    public static String getCheatSheetExtension(String fileName) {
+        int index = fileName.lastIndexOf('.');
+        String ext = fileName.substring(index);
+        System.out.println(ext);
+        return ext;
+    }
+
+    /**
      * Given a panel with a border layout, will add insets to the edges of the panel
      *
      * @param panel

@@ -10,7 +10,6 @@ import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
-import com.slimtrade.gui.pinning.IPinnable;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.stash.StashHelperContainer;
 import com.slimtrade.gui.windows.*;
@@ -19,6 +18,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class FrameManager {
     // Windows
@@ -28,7 +28,8 @@ public class FrameManager {
     public static HistoryWindow historyWindow;
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
-    public static ArrayList<CheatSheetWindow> cheatSheetWindows = new ArrayList<>();
+    //    public static ArrayList<CheatSheetWindow> cheatSheetWindows = new ArrayList<>();
+    public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -45,6 +46,8 @@ public class FrameManager {
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
 
     private static AppState state = AppState.RUNNING;
+
+    private float resolutionMultiplier = 1;
 
     public static void init() {
         ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
@@ -118,16 +121,21 @@ public class FrameManager {
     }
 
     public static void buildCheatSheetWindows() {
-        for (CheatSheetWindow window : cheatSheetWindows) {
+        HashSet<String> openWindows = new HashSet<>();
+        for (CheatSheetWindow window : cheatSheetWindows.values()) {
+            if (window.isVisible()) openWindows.add(window.getPinTitle());
             PinManager.removePinnable(window);
             window.dispose();
         }
         cheatSheetWindows.clear();
         for (CheatSheetData data : SaveManager.settingsSaveFile.data.cheatSheets) {
             CheatSheetWindow window = CheatSheetWindow.createCheatSheet(data);
-            if (window != null)
-                cheatSheetWindows.add(window);
+            if (window != null) {
+                cheatSheetWindows.put(data.title, window);
+                if(openWindows.contains(data.title)) window.setVisible(true);
+            }
         }
+        PinManager.applyPins();
     }
 
     public static void centerWindow(Window window) {
@@ -136,12 +144,10 @@ public class FrameManager {
         window.setLocation(new Point(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2));
     }
 
-    public static void expandMenubar() {
+    public static void calculateResolutionMultiplier() {
 
     }
 
-    public static void collapseMenubar() {
-
-    }
+    public static int getResolutionMultiplier;
 
 }

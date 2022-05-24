@@ -54,7 +54,6 @@ public enum ColorTheme {
         this.lookAndFeel = lookAndFeel;
     }
 
-
     @Override
     public String toString() {
         if (cleanName == null) {

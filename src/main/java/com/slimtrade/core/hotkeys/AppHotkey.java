@@ -10,6 +10,7 @@ public class AppHotkey implements IHotkeyAction {
 
     private AppWindow window;
 
+    // FIXME : Should just pass a reference to the window directly
     public AppHotkey(AppWindow window) {
         this.window = window;
     }

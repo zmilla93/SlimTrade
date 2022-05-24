@@ -161,6 +161,7 @@ public class ColorManager<T> {
             File file;
             if (resourceFolder) img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
             else img = ImageIO.read(new File(path));
+            if (img == null) return null; // This will only trigger with user submitted images
             ImageIcon icon;
             if (size == -1) {
                 icon = new ImageIcon(img);

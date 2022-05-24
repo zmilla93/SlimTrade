@@ -6,6 +6,7 @@ import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.messaging.NotificationIconButton;
+import com.slimtrade.gui.messaging.PinButton;
 import com.slimtrade.gui.pinning.IPinnable;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.modules.colortheme.IThemeListener;
@@ -40,7 +41,7 @@ public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
 
     // Buttons
     private final NotificationIconButton closeButton = new NotificationIconButton("/icons/default/closex64.png");
-    private final NotificationIconButton pinButton = new NotificationIconButton("/icons/default/pin1x48.png");
+    private final PinButton pinButton = new PinButton();
     private int maxWidthAdjust;
     private int maxHeightAdjust;
     private static final int TITLE_INSET = 4;
@@ -143,6 +144,7 @@ public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
             public void click(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     pinned = !pinned;
+                    pinButton.setPinned(pinned);
                     PinManager.save();
                     SaveManager.pinSaveFile.saveToDisk();
                 }
@@ -273,7 +275,6 @@ public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
         return borderSize;
     }
 
-    //    private void setBorders()
     private void colorBorders() {
         titleBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, UIManager.getColor("Separator.foreground")));
         contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), 1));
@@ -299,6 +300,7 @@ public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
     public void applyPin(Point point) {
         setLocation(point);
         pinned = true;
+        pinButton.setPinned(true);
     }
 
     @Override
