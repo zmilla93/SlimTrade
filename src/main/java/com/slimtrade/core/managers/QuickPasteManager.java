@@ -1,8 +1,8 @@
 package com.slimtrade.core.managers;
 
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.core.utility.searchInStash;
 import com.slimtrade.gui.managers.HotkeyManager;
 
 import java.awt.*;
@@ -56,8 +56,8 @@ public class QuickPasteManager {
             clipboardContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
             TradeOffer offer = TradeOffer.getTradeFromQuickPaste(clipboardContents);
             if (offer != null) {
-                PoeInterface.focusGame();
-                PoeInterface.paste();
+                searchInStash.focusGame();
+                searchInStash.paste();
             }
         } catch (UnsupportedFlavorException | IOException e) {
             e.printStackTrace();
@@ -101,8 +101,8 @@ public class QuickPasteManager {
     private static void attemptQuickPaste() {
         TradeOffer offer = TradeOffer.getTradeFromQuickPaste(clipboardContents);
         if (offer != null) {
-            PoeInterface.focusGame();
-            PoeInterface.paste();
+            searchInStash.focusGame();
+            searchInStash.paste();
             clearClipboard();
         }
     }

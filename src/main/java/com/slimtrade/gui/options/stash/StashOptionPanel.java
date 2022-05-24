@@ -18,7 +18,7 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
 
     public StashOptionPanel() {
         addHeader("Info");
-        addPanel(new JLabel("Add stash tabs to apply a color to the item highlighter or mark quad tabs."));
+        addPanel(new JLabel("Add stash tab names to apply a color to the item highlighter or mark quad tabs."));
         addPanel(new JLabel("Default white will use the color of the current theme."));
         addVerticalStrut();
         addHeader("Stash Tab List");

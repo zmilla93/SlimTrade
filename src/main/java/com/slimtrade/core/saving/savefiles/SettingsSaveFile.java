@@ -9,6 +9,7 @@ import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.ColorTheme;
 import com.slimtrade.core.utility.MacroButton;
+import com.slimtrade.gui.stashsorting.StashSortData;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,7 @@ public class SettingsSaveFile {
     public HotkeyData optionsHotkey;
     public HotkeyData historyHotkey;
     public HotkeyData chatScannerHotkey;
+    public HotkeyData stashSortHotkey;
     public HotkeyData closeTradeHotkey;
 
     // POE Hotkeys
@@ -70,6 +72,8 @@ public class SettingsSaveFile {
     public HotkeyData menagerieHotkey;
     public HotkeyData metamorphHotkey;
     public HotkeyData remainingMonstersHotkey;
+
+    public ArrayList<StashSortData> stashSortData = new ArrayList<>();
 
     // Internal
     public transient boolean clientFileRotated;

@@ -14,21 +14,15 @@ import java.util.ArrayList;
 public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private IgnoreInputPanel ignoreInputPanel = new IgnoreInputPanel();
-    private AddRemoveContainer ignoreContainer;
+    private AddRemoveContainer ignoreContainer = new AddRemoveContainer();
 
     public IgnoreItemOptionPanel() {
-        this(true);
-    }
-
-    public IgnoreItemOptionPanel(boolean addQuickIgnoreHint) {
         addHeader("Ignore New Item");
         addPanel(ignoreInputPanel);
         addPanel(new JLabel("Set minutes to 0 to ignore indefinitely."));
-        if (addQuickIgnoreHint)
-            addPanel(new JLabel("Right click item names of incoming trades to quick ignore."));
+        addPanel(new JLabel("Right click item names of incoming trades to quick ignore."));
         addVerticalStrut();
         addHeader("Ignore List");
-        ignoreContainer = new AddRemoveContainer();
         addPanel(ignoreContainer);
         addListeners();
     }

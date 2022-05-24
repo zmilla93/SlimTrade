@@ -2,7 +2,6 @@ package com.slimtrade.gui.options.stash;
 
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.MatchType;
-import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.modules.colortheme.components.ColorCombo;
@@ -25,8 +24,6 @@ public class StashRow extends JPanel {
 
         for (MatchType matchType : MatchType.values()) matchTypeCombo.addItem(matchType);
         for (StashTabType stashType : StashTabType.values()) stashTypeCombo.addItem(stashType);
-        for (StashTabColor stashColor : StashTabColor.values()) colorCombo.addItem(stashColor.getBackground());
-        colorCombo.setRenderer(new StashTabCellRenderer());
 
         GridBagConstraints gc = ZUtil.getGC();
         add(removeButton, gc);

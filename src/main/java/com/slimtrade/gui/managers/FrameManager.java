@@ -12,6 +12,7 @@ import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.stash.StashHelperContainer;
+import com.slimtrade.gui.stashsorting.StashSortingWindow;
 import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class FrameManager {
     public static HistoryWindow historyWindow;
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
+    public static StashSortingWindow stashSortingWindow;
     //    public static ArrayList<CheatSheetWindow> cheatSheetWindows = new ArrayList<>();
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
 
@@ -61,6 +63,7 @@ public class FrameManager {
         historyWindow = new HistoryWindow();
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
+        stashSortingWindow = new StashSortingWindow();
 //        itemIgnoreWindow.setVisible(true);
 //        chatScannerWindow.setVisible(true);
 

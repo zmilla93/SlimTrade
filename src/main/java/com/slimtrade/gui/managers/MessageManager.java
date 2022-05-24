@@ -83,8 +83,13 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
 
     @Override
     public void onThemeChange() {
+//        setLocation(anchorPoint);
+        setVisible(false);
         revalidate();
         repaint();
         pack();
+        adjustPosition();
+        setVisible(true);
+//        setSize(getPreferredSize());
     }
 }

@@ -41,33 +41,19 @@ public class AddRemoveContainer extends JPanel {
         panelToInt.put(swapPanel, index);
         intToPanel.put(swapIndex, panel);
         intToPanel.put(index, swapPanel);
-        refreshPanels(panel, swapPanel);
-    }
-
-    private void refreshPanels(Component comp1, Component comp2) {
-        gc.gridy = panelToInt.get(comp1);
-        add(comp1, gc);
-        gc.gridy = panelToInt.get(comp2);
-        add(comp2, gc);
-        revalidate();
-        repaint();
+        rebuild();
     }
 
     private void rebuild() {
+        HashMap<Integer, Component> tempIntToPanel = new HashMap<>(intToPanel);
         removeAll();
-        for (int i = 0; i < intToPanel.size(); i++) {
-            Component comp = intToPanel.get(i);
+        for (int i = 0; i < tempIntToPanel.size(); i++) {
+            Component comp = tempIntToPanel.get(i);
             gc.gridy = i;
             add(comp);
         }
-    }
-
-    public Component[] getOrderedComponents() {
-        Component[] components = new Component[intToPanel.size()];
-        for (int i = 0; i < intToPanel.size(); i++) {
-            components[i] = intToPanel.get(i);
-        }
-        return components;
+        revalidate();
+        repaint();
     }
 
     @Override

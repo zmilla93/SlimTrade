@@ -21,6 +21,7 @@ public class HotkeyManager {
         // SlimTrade
         registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new AppHotkey(AppHotkey.AppWindow.OPTIONS));
         registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new AppHotkey(AppHotkey.AppWindow.HISTORY));
+        registerHotkey(SaveManager.settingsSaveFile.data.stashSortHotkey, new AppHotkey(AppHotkey.AppWindow.STASH_SORT_WINDOW));
         // POE
         registerHotkey(SaveManager.settingsSaveFile.data.delveHotkey, new PoeHotkey("/delve"));
         registerHotkey(SaveManager.settingsSaveFile.data.doNotDisturbHotkey, new PoeHotkey("/dnd"));

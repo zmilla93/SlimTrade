@@ -6,11 +6,11 @@ import java.awt.*;
 
 public class AppHotkey implements IHotkeyAction {
 
-    public enum AppWindow {OPTIONS, HISTORY, CHAT_SCANNER}
+    public enum AppWindow {OPTIONS, HISTORY, CHAT_SCANNER, STASH_SORT_WINDOW}
 
     private AppWindow window;
 
-    // FIXME : Should just pass a reference to the window directly
+    // FIXME : Should just pass a reference to the window directly once all windows are using the new system
     public AppHotkey(AppWindow window) {
         this.window = window;
     }
@@ -23,6 +23,9 @@ public class AppHotkey implements IHotkeyAction {
                 break;
             case HISTORY:
                 toggleVisibility(FrameManager.historyWindow);
+                break;
+            case STASH_SORT_WINDOW:
+                toggleVisibility(FrameManager.stashSortingWindow);
                 break;
         }
     }

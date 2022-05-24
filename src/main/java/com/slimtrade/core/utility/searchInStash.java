@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class PoeInterface {
+public class searchInStash {
 
     private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static Robot robot;

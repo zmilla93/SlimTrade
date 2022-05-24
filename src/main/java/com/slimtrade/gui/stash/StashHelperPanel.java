@@ -3,9 +3,9 @@ package com.slimtrade.gui.stash;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.AdvancedMouseListener;
-import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.core.utility.searchInStash;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
@@ -57,7 +57,7 @@ public class StashHelperPanel extends AdvancedButton {
             @Override
             public void click(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    PoeInterface.findInStash(TradeUtil.cleanItemName(tradeOffer.itemName));
+                    searchInStash.findInStash(TradeUtil.cleanItemName(tradeOffer.itemName));
                 }
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     setVisible(false);

@@ -1,8 +1,8 @@
 package com.slimtrade.gui.menubar;
 
 import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.core.utility.PoeInterface;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.core.utility.searchInStash;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
@@ -33,7 +33,7 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         historyButton.addActionListener(e -> FrameManager.historyWindow.setVisible(true));
         chatScannerButton.addActionListener(e -> FrameManager.chatScannerWindow.setVisible(true));
         // FIXME:
-        hideoutButton.addActionListener(e -> PoeInterface.runCommand("/hideout"));
+        hideoutButton.addActionListener(e -> searchInStash.runCommand("/hideout"));
         exitButton.addActionListener(e -> System.exit(0));
 
         addMouseListener(new MouseAdapter() {

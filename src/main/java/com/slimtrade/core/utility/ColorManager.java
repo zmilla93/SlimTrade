@@ -5,6 +5,7 @@ import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.buttons.NotificationButton;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
 import com.slimtrade.modules.colortheme.components.ColorCheckbox;
@@ -231,24 +232,6 @@ public class ColorManager<T> {
 //    }
 
     public static void setFontSize(int size) {
-//        Enumeration<Object> keys = UIManager.getDefaults().keys();
-//        while (keys.hasMoreElements()) {
-//            Object key = keys.nextElement();
-//            Object value = UIManager.get(key);
-//            System.out.println("new font " + size);
-//            Font newFont = font.deriveFont(font.getStyle(), size);
-//            if (value instanceof Font)
-//                UIManager.put(key, newFont);
-//        }
-//        keys = UIManager.getLookAndFeelDefaults().keys();
-//        while (keys.hasMoreElements()) {
-//            Object key = keys.nextElement();
-//            Object value = UIManager.get(key);
-//            System.out.println("new font " + size);
-//            Font newFont = font.deriveFont(font.getStyle(), size);
-//            if (value instanceof Font)
-//                UIManager.put(key, newFont);
-//        }
         refreshDefaultFonts();
         for (Component frame : frames) {
             setFontSizeRecursive(frame, size);
@@ -256,6 +239,8 @@ public class ColorManager<T> {
             frame.revalidate();
             frame.repaint();
         }
+        // FIXME : add an interface for this
+        if (FrameManager.messageManager != null) FrameManager.messageManager.pack();
     }
 
     public static int getCachedIconSize() {

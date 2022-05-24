@@ -73,7 +73,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
     public ArrayList<MacroButton> getMacros() {
         ArrayList<MacroButton> macros = new ArrayList<>(macroContainer.getComponentCount());
-        for (Component c : macroContainer.getOrderedComponents()) {
+        for (Component c : macroContainer.getComponents()) {
             if (c instanceof MacroCustomizerPanel) {
                 MacroCustomizerPanel panel = (MacroCustomizerPanel) c;
                 MacroButton macro = panel.getMacroButton();
