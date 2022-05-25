@@ -6,8 +6,9 @@ import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.history.HistoryPanel;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class HistoryWindow extends AbstractWindow implements ITradeListener, IParserLoadedListener {
+public class HistoryWindow extends CustomDialog implements ITradeListener, IParserLoadedListener {
 
     HistoryPanel incomingTrades = new HistoryPanel();
     HistoryPanel outgoingTrades = new HistoryPanel();
@@ -19,15 +20,12 @@ public class HistoryWindow extends AbstractWindow implements ITradeListener, IPa
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-//        JPanel p1 = new HistoryPanel();
-        JPanel p2 = new JPanel();
-        JPanel p3 = new JPanel();
-
         tabbedPane.addTab("Incoming Trades", incomingTrades);
         tabbedPane.addTab("Outgoing Trades", outgoingTrades);
-        tabbedPane.addTab("Chat Scanner", chatScanner);
+//        tabbedPane.addTab("Chat Scanner", chatScanner);
 
-        container.add(tabbedPane);
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.add(tabbedPane, BorderLayout.CENTER);
 
         pack();
         setSize(600, 400);

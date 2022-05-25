@@ -9,16 +9,12 @@ import java.awt.*;
 public class ColorCombo extends LimitCombo<Color> {
 
     public ColorCombo() {
-        for (StashTabColor stashColor : StashTabColor.values()) addItem(stashColor.getBackground());
         setRenderer(new StashTabCellRenderer());
         addActionListener(e -> {
             Color color = (Color) getSelectedItem();
             setBackground(color);
         });
+        for (StashTabColor stashColor : StashTabColor.values()) addItem(stashColor.getBackground());
     }
 
-    @Override
-    public void addItem(Color item) {
-        super.addItem(item);
-    }
 }

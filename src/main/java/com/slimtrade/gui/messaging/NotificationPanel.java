@@ -149,10 +149,10 @@ public class NotificationPanel extends ColorPanel {
                     @Override
                     public void click(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1 && !macro.lmbResponse.isBlank()) {
-                            POEInterface.runCommand(macro.lmbResponse, tradeOffer);
+                            POEInterface.pasteWithFocus(macro.lmbResponse, tradeOffer);
                         }
                         if (e.getButton() == MouseEvent.BUTTON3 && !macro.rmbResponse.isBlank()) {
-                            POEInterface.runCommand(macro.rmbResponse, tradeOffer);
+                            POEInterface.pasteWithFocus(macro.rmbResponse, tradeOffer);
                         }
                     }
                 });

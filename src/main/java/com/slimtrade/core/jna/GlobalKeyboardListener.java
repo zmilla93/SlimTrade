@@ -17,7 +17,6 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
-
         // Remove mouse button modifiers
         e.setModifiers(cleanModifiers(e.getModifiers()));
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL_L || e.getKeyCode() == NativeKeyEvent.VC_CONTROL_R) {

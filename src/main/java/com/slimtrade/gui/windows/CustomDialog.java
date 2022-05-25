@@ -5,6 +5,8 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.IVisibilityFrame;
+import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.messaging.NotificationIconButton;
 import com.slimtrade.gui.messaging.PinButton;
 import com.slimtrade.gui.pinning.IPinnable;
@@ -17,13 +19,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
+public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeListener, IVisibilityFrame {
 
     public static final int resizerPanelSize = 8;
     private int borderSize = 1;
     private JPanel innerPanel = new JPanel(new BorderLayout());
     private JPanel outerPanel = new JPanel(new BorderLayout());
     private boolean pinned;
+    private Visibility visibility;
 
     // Resizers
     private JPanel resizerTop = new JPanel(new BorderLayout());
@@ -77,6 +80,8 @@ public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
         titlePanel.add(titleLabel, gc);
         gc.gridx = 0;
         gc.insets = new Insets(0, 0, 0, 0);
+        gc.fill = GridBagConstraints.VERTICAL;
+        gc.weighty = 1;
         buttonPanel.add(pinButton, gc);
         gc.gridx++;
         buttonPanel.add(closeButton, gc);
@@ -282,7 +287,8 @@ public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
 
     @Override
     public void setTitle(String title) {
-        super.setTitle(title);
+        // FIXME : Make this a constant
+        super.setTitle("SLIMTRADEAPP::" + title);
         titleLabel.setText(title);
     }
 
@@ -311,6 +317,18 @@ public class CustomDialog extends JDialog implements IPinnable, IThemeListener {
     @Override
     public Point getPinLocation() {
         return getLocation();
+    }
+
+    @Override
+    public void showOverlay() {
+        if (visibility == Visibility.SHOW) setVisible(true);
+        visibility = Visibility.UNSET;
+    }
+
+    @Override
+    public void hideOverlay() {
+        visibility = isVisible() ? Visibility.SHOW : Visibility.HIDE;
+        setVisible(false);
     }
 
 }

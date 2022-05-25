@@ -66,6 +66,14 @@ public class AddRemoveContainer extends JPanel {
     }
 
     @Override
+    public void remove(Component comp) {
+        super.remove(comp);
+        int index = panelToInt.get(comp);
+        panelToInt.remove(comp);
+        intToPanel.remove(index);
+    }
+
+    @Override
     public void removeAll() {
         super.removeAll();
         panelToInt.clear();

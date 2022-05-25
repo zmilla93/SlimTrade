@@ -57,6 +57,8 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
                 exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING), false));
                 break;
         }
+        exampleTradeContainer.revalidate();
+        exampleTradeContainer.repaint();
     }
 
     public void clearMacros() {

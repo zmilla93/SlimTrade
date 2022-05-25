@@ -18,8 +18,6 @@ import org.jnativehook.NativeHookException;
 
 import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +29,6 @@ public class App {
     public static SystemTrayManager systemTrayManager;
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
-    public static HotkeyManager hotkeyManager;
 
     public static ChatParser chatParser;
     public static ChatParser preloadParser;
@@ -47,20 +44,17 @@ public class App {
         // This setting gets rid of some rendering issues with transparent frames
         System.setProperty("sun.java2d.noddraw", "true");
 
-//        ColorManager.setTheme(ColorTheme.CARBON);
-
         // Shutdown Hook
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
-        // Managers
+        // Init Managers
         SaveManager.init();
         SaveManager.settingsSaveFile.data.buildMacroCache();
-        audioManager = new AudioManager();
-        hotkeyManager = new HotkeyManager();
-        POEInterface.init();
-        LangRegex.compileAll();
         CurrencyImage.initIconList();
         ColorManager.loadFonts();
+        LangRegex.compileAll();
+        POEInterface.init();
+        audioManager = new AudioManager();
 
         // UI
         try {
@@ -69,25 +63,22 @@ public class App {
                 systemTrayManager = new SystemTrayManager();
                 // Initialize all GUI windows
                 FrameManager.init();
+
                 // Load save file to GUI
                 ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme);
                 SaveManager.settingsSaveFile.revertChanges();
                 SaveManager.stashSaveFile.revertChanges();
-
                 FrameManager.optionsWindow.reloadExampleTrades();
-                FrameManager.optionsWindow.revalidate();
                 PinManager.applyPins();
 
                 // Show Windows
                 FrameManager.messageManager.setVisible(true);
                 FrameManager.debugWindow.setVisible(true);
                 FrameManager.optionsWindow.setVisible(true);
-//                FrameManager.historyWindow.setVisible(true);
             });
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
         }
-
 
         // Reduce logging level for JNativeHook
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -101,20 +92,20 @@ public class App {
             e.printStackTrace();
         }
         globalKeyboardListener = new GlobalKeyboardListener();
+        globalMouseListener = new GlobalMouseListener();
         GlobalScreen.addNativeKeyListener(globalKeyboardListener);
+        GlobalScreen.addNativeMouseListener(globalMouseListener);
 
-        // Chat Parser
-
+        // Final Setup
         initParsers();
-
         HotkeyManager.loadHotkeys();
-
         initialized = true;
         setState(State.RUNNING);
-        System.out.println("Slimtrade Launched!");
+        System.out.println("Slimtrade Launched");
     }
 
     public static void initParsers() {
+        // FIXME : make this less robust now that parser is fixed
         if (preloadParser != null) preloadParser.close();
         if (chatParser != null) chatParser.close();
 
@@ -134,10 +125,6 @@ public class App {
 
     }
 
-    // FIXME : Move
-    private static Timer timer = new Timer();
-    private static TimerTask timerTask;
-
     public static void setState(State state) {
         App.state = state;
     }
@@ -149,6 +136,7 @@ public class App {
     private static void closeProgram() {
         try {
             GlobalScreen.unregisterNativeHook();
+            System.out.println("SlimTrade Terminated");
         } catch (NativeHookException e) {
             e.printStackTrace();
         }

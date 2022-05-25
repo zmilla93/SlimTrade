@@ -12,6 +12,7 @@ public class PoeHotkey implements IHotkeyAction {
 
     @Override
     public void execute() {
+        if (!POEInterface.isGameFocused()) return;
         POEInterface.paste(command);
     }
 }

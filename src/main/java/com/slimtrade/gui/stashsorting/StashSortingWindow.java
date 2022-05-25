@@ -2,8 +2,8 @@ package com.slimtrade.gui.stashsorting;
 
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.core.utility.POEInterface;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.messaging.NotificationButton;
 import com.slimtrade.gui.windows.CustomDialog;
 
@@ -33,7 +33,7 @@ public class StashSortingWindow extends CustomDialog {
             if (data.COLOR_INDEX > 0) {
                 button.setBackground(StashTabColor.values()[data.COLOR_INDEX].getBackground());
                 button.setForeground(StashTabColor.values()[data.COLOR_INDEX].getForeground());
-                button.addActionListener(e -> POEInterface.findInStash(data.SEARCH));
+                button.addActionListener(e -> POEInterface.searchInStash(data.SEARCH));
             }
             gc.gridy++;
         }

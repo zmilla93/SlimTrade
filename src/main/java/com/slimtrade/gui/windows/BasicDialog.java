@@ -5,7 +5,7 @@ import com.slimtrade.core.utility.ColorManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class BasicDialog extends JDialog {
+public class BasicDialog extends VisibilityDialog {
 
     private Container contentPane;
     public final JPanel container = new JPanel();

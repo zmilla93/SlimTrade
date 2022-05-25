@@ -1,6 +1,7 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
 import com.slimtrade.gui.options.stash.StashOptionPanel;
@@ -8,7 +9,7 @@ import com.slimtrade.gui.options.stash.StashOptionPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class OptionsWindow extends AbstractWindow {
+public class OptionsWindow extends CustomDialog {
 
     CardLayout cardLayout = new CardLayout();
     JPanel cardPanel = new JPanel(cardLayout);
@@ -16,12 +17,12 @@ public class OptionsWindow extends AbstractWindow {
     private final AbstractMacroOptionPanel incomingMacroPanel;
     private final AbstractMacroOptionPanel outgoingMacroPanel;
     private IgnoreItemOptionPanel ignorePanel = new IgnoreItemOptionPanel();
+    private Visibility visibility;
 
     public OptionsWindow() {
         super("Options");
         setSize(900, 600);
         setLocationRelativeTo(null);
-        container.setLayout(new BorderLayout());
 
         incomingMacroPanel = new IncomingMacroPanel();
         outgoingMacroPanel = new OutgoingMacroPanel();
@@ -66,9 +67,10 @@ public class OptionsWindow extends AbstractWindow {
             cardPanel.add(panel.panel, panel.title);
         }
         displayPanel.add(cardPanel, gc);
-        container.add(sidebar, BorderLayout.WEST);
-        container.add(saveRevertPanel, BorderLayout.SOUTH);
-        container.add(cardPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.add(sidebar, BorderLayout.WEST);
+        contentPanel.add(saveRevertPanel, BorderLayout.SOUTH);
+        contentPanel.add(cardPanel, BorderLayout.CENTER);
 
         // Listeners
         saveButton.addActionListener(e ->

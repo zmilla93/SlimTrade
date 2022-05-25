@@ -18,10 +18,14 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * Interacts with Path of Exile using a Robot
+ * https://docs.oracle.com/javase/7/docs/api/java/awt/Robot.html
+ */
 public class POEInterface {
 
-    private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static Robot robot;
+    private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static final Executor executor = Executors.newSingleThreadExecutor();
     private static final int MAX_TITLE_LENGTH = 1024;
 
@@ -34,7 +38,7 @@ public class POEInterface {
         }
     }
 
-    public static void paste() {
+    public static void pasteFromClipboard() {
         if (!isGameFocused()) return;
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
@@ -60,7 +64,6 @@ public class POEInterface {
     }
 
     public static void paste(String text) {
-        System.out.println("PASTE THREAD: " + SwingUtilities.isEventDispatchThread());
         if (!isGameFocused()) return;
         StringSelection pasteString = new StringSelection(text);
         try {
@@ -81,33 +84,16 @@ public class POEInterface {
         robot.keyRelease(KeyEvent.VK_ENTER);
     }
 
-    public static void runCommand(String input) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (!focusGame()) return;
-                paste(input);
-            }
+    public static void pasteWithFocus(String input) {
+        executor.execute(() -> {
+            if (!focusGame()) return;
+            paste(input);
         });
-
     }
 
-    public static void runCommand(String input, TradeOffer tradeOffer) {
+    public static void pasteWithFocus(String input, TradeOffer tradeOffer) {
         executor.execute(() -> {
-            if (!isGameFocused())
-                focusGame();
-            int maxWeight = 100;
-            int wait = 0;
-            while (!isGameFocused() && wait < maxWeight) {
-                try {
-                    wait++;
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (!isGameFocused()) return;
-            System.out.println("Waited: " + wait);
+            if (!focusGame()) return;
             ArrayList<String> commands = ZUtil.getCommandList(input, tradeOffer);
             if (commands.size() == 1) paste(commands.get(0));
             else {
@@ -121,31 +107,16 @@ public class POEInterface {
                 }
             }
         });
-
     }
 
-    public static void runCommandOLD(String input, TradeOffer tradeOffer) {
-        if (!isGameFocused())
-            focusGame();
-        if (!isGameFocused())
-            return;
-        ArrayList<String> commands = ZUtil.getCommandList(input, tradeOffer);
-        if (commands.size() == 1) paste(commands.get(0));
-        else {
-            executor.execute(() -> {
-                for (String s : commands) {
-                    paste(s);
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }
-
+    /**
+     * SlimTrade can't focus Path of Exile unless it has focus itself, so the robot clicks a dummy window first.
+     *
+     * @return True if game was successfully focused.
+     */
     public static boolean focusGame() {
+        assert (!SwingUtilities.isEventDispatchThread());
+        if (isGameFocused()) return true;
         FrameManager.dummyWindow.setVisible(true);
         FrameManager.dummyWindow.setLocation(MouseInfo.getPointerInfo().getLocation());
         robot.mousePress(0);
@@ -182,23 +153,30 @@ public class POEInterface {
     }
 
     public static boolean isGameFocused() {
-        return getFocusedWindowTitle().equals("Path of Exile");
+        String focusedWindowTitle = getFocusedWindowTitle();
+        return focusedWindowTitle.equals("Path of Exile") || focusedWindowTitle.startsWith("SLIMTRADEAPP");
     }
 
-    public static String getFocusedWindowTitle() {
+    private static String getFocusedWindowTitle() {
         char[] buffer = new char[MAX_TITLE_LENGTH * 2];
         WinDef.HWND hwnd = User32.INSTANCE.GetForegroundWindow();
         User32.INSTANCE.GetWindowText(hwnd, buffer, MAX_TITLE_LENGTH);
         return Native.toString(buffer);
     }
 
-    public static void findInStash(String s) {
+    /**
+     * Adds a string to the clipboard, runs ctrl+f, then ctrl+v.
+     * Runs in a separate thread.
+     *
+     * @param term Word to paste
+     */
+    public static void searchInStash(String term) {
         executor.execute(() -> {
             focusGame();
             if (!isGameFocused()) {
                 return;
             }
-            StringSelection pasteString = new StringSelection(s);
+            StringSelection pasteString = new StringSelection(term);
             clipboard.setContents(pasteString, null);
             robot.keyPress(KeyEvent.VK_BACK_SPACE);
             robot.keyRelease(KeyEvent.VK_BACK_SPACE);
@@ -216,7 +194,6 @@ public class POEInterface {
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
         });
-
     }
 
 }

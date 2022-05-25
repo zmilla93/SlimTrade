@@ -1,7 +1,7 @@
 package com.slimtrade.gui.chatscanner;
 
 import com.slimtrade.gui.options.IncomingMacroPanel;
-import com.slimtrade.gui.windows.AbstractWindow;
+import com.slimtrade.gui.windows.CustomDialog;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ChatScannerWindow extends AbstractWindow {
+public class ChatScannerWindow extends CustomDialog {
 
     //    private final JTabbedPane tabbedPane = new JTabbedPane();
     private final JList<ChatScannerEntry> scannerMessages = new JList<>();
@@ -38,7 +38,7 @@ public class ChatScannerWindow extends AbstractWindow {
         p.reloadExampleTrade();
 
         // Container
-        Container contentPanel = getContentPane();
+//        Container contentPanel = getContentPane();
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(new ChatScannerCustomizerPanel(), BorderLayout.CENTER);
         contentPanel.add(new JSeparator(), BorderLayout.NORTH);

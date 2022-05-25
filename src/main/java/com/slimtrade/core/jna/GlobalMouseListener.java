@@ -1,26 +1,29 @@
 package com.slimtrade.core.jna;
 
-import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.core.utility.POEInterface;
+import com.slimtrade.gui.managers.VisibilityManager;
 import org.jnativehook.mouse.NativeMouseEvent;
-import org.jnativehook.mouse.NativeMouseMotionListener;
+import org.jnativehook.mouse.NativeMouseListener;
 
-import java.awt.*;
+public class GlobalMouseListener implements NativeMouseListener {
 
-public class GlobalMouseListener implements NativeMouseMotionListener {
     @Override
-    public void nativeMouseMoved(NativeMouseEvent nativeMouseEvent) {
-        Point p = nativeMouseEvent.getPoint();
-        if (FrameManager.menubarDialog.contains(p) || FrameManager.menubarIcon.contains(p)) {
-            FrameManager.menubarDialog.setVisible(true);
-            FrameManager.menubarIcon.setVisible(false);
+    public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
+
+    }
+
+    @Override
+    public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
+
+    }
+
+    @Override
+    public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
+        if (POEInterface.isGameFocused()) {
+            VisibilityManager.showOverlay();
         } else {
-            FrameManager.menubarIcon.setVisible(true);
-            FrameManager.menubarDialog.setVisible(false);
+            VisibilityManager.hideOverlay();
         }
     }
 
-    @Override
-    public void nativeMouseDragged(NativeMouseEvent nativeMouseEvent) {
-
-    }
 }
