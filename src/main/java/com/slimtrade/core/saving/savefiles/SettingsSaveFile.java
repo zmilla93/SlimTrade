@@ -27,6 +27,7 @@ public class SettingsSaveFile {
     public QuickPasteManager.QuickPasteMode quickPasteMode;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
+    public boolean hideWhenPOENotFocused;
 
     // Stash
     public ArrayList<StashTabData> stashTabs = new ArrayList<>();

@@ -7,6 +7,7 @@ import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.messaging.NotificationPanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
+import com.slimtrade.gui.messaging.UpdateMessagePanel;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
 
@@ -32,6 +33,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
+        gc.insets = new Insets(0, 0, MESSAGE_GAP, 0);
         setLocation(anchorPoint);
         pack();
         ColorManager.addListener(this);
@@ -41,16 +43,39 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         addMessage(tradeOffer, true);
     }
 
+    public void addUpdateMessage(boolean playSound){
+        assert (SwingUtilities.isEventDispatchThread());
+        if (playSound)
+            App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.updateSound.sound, SaveManager.settingsSaveFile.data.updateSound.volume);
+        UpdateMessagePanel panel = new UpdateMessagePanel();
+        panel.startTimer();
+        addComponent(panel);
+    }
+
     public void addMessage(TradeOffer tradeOffer, boolean playSound) {
         assert (SwingUtilities.isEventDispatchThread());
         if (container.getComponentCount() > 20) return;
-        if (playSound)
-            App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
-        gc.insets = new Insets(0, 0, MESSAGE_GAP, 0);
-        gc.gridy = container.getComponentCount();
+        if (playSound){
+            switch (tradeOffer.offerType){
+                case INCOMING:
+                    App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
+                    break;
+                case OUTGOING:
+                    App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.outgoingSound.sound, SaveManager.settingsSaveFile.data.outgoingSound.volume);
+                    break;
+                case CHAT_SCANNER:
+                    App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.chatScannerSound.sound, SaveManager.settingsSaveFile.data.chatScannerSound.volume);
+                    break;
+            }
+        }
         TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);
         panel.startTimer();
-        container.add(panel, gc);
+        addComponent(panel);
+    }
+
+    private void addComponent(JComponent component){
+        gc.gridy = container.getComponentCount();
+        container.add(component, gc);
         revalidate();
         pack();
         adjustPosition();
@@ -83,13 +108,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
 
     @Override
     public void onThemeChange() {
-//        setLocation(anchorPoint);
-        setVisible(false);
         revalidate();
         repaint();
-        pack();
-        adjustPosition();
-        setVisible(true);
-//        setSize(getPreferredSize());
     }
+
 }

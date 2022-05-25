@@ -22,6 +22,7 @@ public class NotificationPanel extends ColorPanel {
 
     private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
+    private final JPanel topPanel;
 
     private final JLabel timerLabel = new JLabel("0s");
     private JButton closeButton;
@@ -54,7 +55,7 @@ public class NotificationPanel extends ColorPanel {
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel topContainer = new JPanel(new BorderLayout());
         JPanel bottomContainer = new JPanel(new BorderLayout());
-        JPanel topPanel = new JPanel(new GridBagLayout());
+        topPanel = new JPanel(new GridBagLayout());
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
 
@@ -84,7 +85,7 @@ public class NotificationPanel extends ColorPanel {
         bottomContainer.add(bottomButtonPanel, BorderLayout.EAST);
 
         // TEMP
-        topPanel.setBackground(Color.RED);
+        topPanel.setBackground(Color.YELLOW);
         bottomPanel.setBackground(Color.RED);
         bottomContainer.setBackground(Color.RED);
         bottomButtonPanel.setBackground(Color.RED);
@@ -123,12 +124,11 @@ public class NotificationPanel extends ColorPanel {
 
         // Colors
         setBackgroundKey("Separator.background");
-        borderPanel.setBackground(messageColor);
-        pricePanel.setBackground(messageColor);
         playerNameButton.setBackgroundKey("Panel.background");
         itemButton.setBackgroundKey("ComboBox.background");
         timerPanel.colorMultiplier = 1.1f;
         timerPanel.setBackgroundKey("ComboBox.background");
+
 
         ColorManager.recursiveUpdateUI(this);
         if (createListeners)
@@ -191,6 +191,12 @@ public class NotificationPanel extends ColorPanel {
                 timer.start();
             }
         }
+    }
+
+    public void applyMessageColor(Color color){
+        borderPanel.setBackground(messageColor);
+        pricePanel.setBackground(messageColor);
+        topPanel.setBackground(messageColor);
     }
 
     public void stopTimer() {

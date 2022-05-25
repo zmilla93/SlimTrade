@@ -19,7 +19,7 @@ public class StashSortInputPanel extends JPanel {
         gc.gridx = 1;
         add(new JLabel("Button Text"), gc);
         gc.gridx++;
-        add(new JLabel("Search Phrase"), gc);
+        add(new JLabel("Search Terms"), gc);
         gc.gridx++;
         add(new JLabel("Color"), gc);
         gc.gridx = 0;

@@ -57,7 +57,7 @@ public class OverlayInfoDialog extends AbstractDialog {
         gc = ZUtil.getGC();
         int inset = 20;
         gc.insets = new Insets(inset, inset, inset, inset);
-        contentPanel.add(outerPanel);
+        contentPanel.add(outerPanel, gc);
 //        JPanel panel = new JPanel();
 //        panel.setBorder(BorderFactory.createLineBorder(Color.red, 4));
 //        panel.add(label);

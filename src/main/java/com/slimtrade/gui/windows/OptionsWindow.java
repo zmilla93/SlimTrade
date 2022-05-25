@@ -1,5 +1,6 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.managers.HotkeyManager;
@@ -21,9 +22,6 @@ public class OptionsWindow extends CustomDialog {
 
     public OptionsWindow() {
         super("Options");
-        setSize(900, 600);
-        setLocationRelativeTo(null);
-
         incomingMacroPanel = new IncomingMacroPanel();
         outgoingMacroPanel = new OutgoingMacroPanel();
 
@@ -40,8 +38,14 @@ public class OptionsWindow extends CustomDialog {
         OptionPanel ignoreItems = new OptionPanel("Ignore Items", ignorePanel);
         OptionPanel cheatSheets = new OptionPanel("Cheat Sheets", new CheatSheetsOptionPanel());
         OptionPanel stashSorting = new OptionPanel("Stash Sorting", new StashSortingOptionPanel());
+        OptionPanel debug = new OptionPanel("Debug", new DebugOptionPanel());
         OptionPanel[] panelList = new OptionPanel[]{general, display, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSorting, information};
-
+        if (App.debug) {
+            OptionPanel[] newList = new OptionPanel[panelList.length + 1];
+            System.arraycopy(panelList, 0, newList, 0, panelList.length);
+            newList[newList.length - 1] = debug;
+            panelList = newList;
+        }
         JPanel sidebar = createSidebar(panelList);
 
         // Save & Revert Panel
@@ -85,9 +89,11 @@ public class OptionsWindow extends CustomDialog {
         revertButton.addActionListener(e -> SaveManager.settingsSaveFile.revertChanges());
 
         // Finalize
+        if (App.debug) ShowPanel(debug);
         setMinimumSize(new Dimension(300, 200));
         pack();
         setSize(900, 600);
+        setLocationRelativeTo(null);
         SaveManager.settingsSaveFile.registerSavableContainer(this);
     }
 
@@ -95,8 +101,9 @@ public class OptionsWindow extends CustomDialog {
         JPanel sidebar = new JPanel(new BorderLayout());
         // Top Button Panel
         JPanel topButtonPanel = new JPanel(new BorderLayout());
-        JList<OptionPanel> optionsList = new JList(panelList);
+        JList<OptionPanel> optionsList = new JList<>(panelList);
         optionsList.setSelectedIndex(0);
+        if (App.debug) optionsList.setSelectedIndex(panelList.length - 1);
         topButtonPanel.add(optionsList, BorderLayout.CENTER);
 
         // Bottom Button Panel

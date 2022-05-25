@@ -111,6 +111,10 @@ public class ColorManager<T> {
         }
     }
 
+    public static ColorTheme getCurrentTheme(){
+        return currentTheme;
+    }
+
     public static void loadFonts() {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/OpenSans-Regular.ttf")));

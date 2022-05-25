@@ -41,6 +41,8 @@ public class App {
 
     private static State state = State.LOADING;
 
+    public static boolean debug = true;
+
     public static void main(String[] args) {
 
         // This setting gets rid of some rendering issues with transparent frames

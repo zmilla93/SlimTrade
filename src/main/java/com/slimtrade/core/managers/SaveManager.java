@@ -60,6 +60,18 @@ public class SaveManager {
                 SaveManager.ignoreSaveFile.data.buildCache();
             }
         });
+        stashSaveFile.addListener(new ISaveListener() {
+            @Override
+            public void onSave() {
+                stashSaveFile.data.buildCache();
+            }
+
+            @Override
+            public void onLoad() {
+                stashSaveFile.data.buildCache();
+            }
+        });
+
         settingsSaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();
         ignoreSaveFile.loadFromDisk();

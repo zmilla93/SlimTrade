@@ -16,14 +16,15 @@ import java.awt.event.MouseEvent;
 
 public class StashHelperPanel extends AdvancedButton {
 
-    private JFrame highlighter = new JFrame();
     JLabel tabLabel;
     JLabel itemLabel;
 
     private TradeOffer tradeOffer;
     private StashTabColor stashTabColor;
+    private StashHighlighterFrame highlighterFrame = new StashHighlighterFrame();
 
     public StashHelperPanel(StashHelperContainer parent, TradeOffer offer) {
+        assert(SwingUtilities.isEventDispatchThread());
         // FIXME : default visibility to true and make sure no debug panels are being added
         setVisible(false);
         tradeOffer = offer;
@@ -87,4 +88,6 @@ public class StashHelperPanel extends AdvancedButton {
             createBorder(stashTabColor);
         }
     }
+
+
 }
