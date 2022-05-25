@@ -27,10 +27,6 @@ public class SaveManager {
     public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory() + "pins.json", PinSaveFile.class);
 
     public static void init() {
-        settingsSaveFile.loadFromDisk();
-        stashSaveFile.loadFromDisk();
-        ignoreSaveFile.loadFromDisk();
-        pinSaveFile.loadFromDisk();
 
         SaveManager.settingsSaveFile.removeAllListeners();
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
@@ -49,7 +45,6 @@ public class SaveManager {
 
             @Override
             public void onLoad() {
-                // Do Nothing
                 SaveManager.settingsSaveFile.data.buildMacroCache();
             }
         });
@@ -65,6 +60,10 @@ public class SaveManager {
                 SaveManager.ignoreSaveFile.data.buildCache();
             }
         });
+        settingsSaveFile.loadFromDisk();
+        stashSaveFile.loadFromDisk();
+        ignoreSaveFile.loadFromDisk();
+        pinSaveFile.loadFromDisk();
     }
 
     public static String getAudioDirectory() {

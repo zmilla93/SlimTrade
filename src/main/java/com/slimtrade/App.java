@@ -13,6 +13,7 @@ import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
+import com.slimtrade.gui.windows.LoadingDialog;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
@@ -29,6 +30,7 @@ public class App {
     public static SystemTrayManager systemTrayManager;
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
+    private static LoadingDialog loadingDialog;
 
     public static ChatParser chatParser;
     public static ChatParser preloadParser;
@@ -47,11 +49,25 @@ public class App {
         // Shutdown Hook
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
-        // Init Managers
+        // Init minimum for loading dialog
         SaveManager.init();
-        SaveManager.settingsSaveFile.data.buildMacroCache();
-        CurrencyImage.initIconList();
         ColorManager.loadFonts();
+
+        // Loading Dialog
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+                ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
+                ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme);
+                loadingDialog = new LoadingDialog();
+                loadingDialog.setVisible(true);
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        // Init Managers
+        CurrencyImage.initIconList();
         LangRegex.compileAll();
         POEInterface.init();
         audioManager = new AudioManager();
@@ -59,6 +75,7 @@ public class App {
         // UI
         try {
             SwingUtilities.invokeAndWait(() -> {
+
                 // Init System Tray Button
                 systemTrayManager = new SystemTrayManager();
                 // Initialize all GUI windows
@@ -66,6 +83,8 @@ public class App {
 
                 // Load save file to GUI
                 ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme);
+                ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+                ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
                 SaveManager.settingsSaveFile.revertChanges();
                 SaveManager.stashSaveFile.revertChanges();
                 FrameManager.optionsWindow.reloadExampleTrades();
@@ -101,6 +120,10 @@ public class App {
         HotkeyManager.loadHotkeys();
         initialized = true;
         setState(State.RUNNING);
+        SwingUtilities.invokeLater(() -> {
+            loadingDialog.dispose();
+            loadingDialog = null;
+        });
         System.out.println("Slimtrade Launched");
     }
 

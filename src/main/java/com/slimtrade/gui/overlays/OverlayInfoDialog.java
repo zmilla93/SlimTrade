@@ -53,11 +53,11 @@ public class OverlayInfoDialog extends AbstractDialog {
         gc.insets.top = 10;
         outerPanel.add(buttonPanel, gc);
 
-        container.setLayout(new GridBagLayout());
+        contentPanel.setLayout(new GridBagLayout());
         gc = ZUtil.getGC();
         int inset = 20;
         gc.insets = new Insets(inset, inset, inset, inset);
-        container.add(outerPanel);
+        contentPanel.add(outerPanel);
 //        JPanel panel = new JPanel();
 //        panel.setBorder(BorderFactory.createLineBorder(Color.red, 4));
 //        panel.add(label);

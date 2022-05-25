@@ -3,7 +3,6 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.chatscanner.ChatScannerWindow;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
@@ -51,8 +50,7 @@ public class FrameManager {
     private float resolutionMultiplier = 1;
 
     public static void init() {
-        ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-        ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
+
 
         // Windows
         TestFrame frame = new TestFrame();

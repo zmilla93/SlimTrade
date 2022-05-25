@@ -13,14 +13,14 @@ public class MessageOverlay extends AbstractMovableDialog {
 
         OverlayTradeMessagePanel infoPanel = new OverlayTradeMessagePanel();
         setOpacity(0.75f);
-        container.setBackground(Color.orange);
-        container.setLayout(new BorderLayout());
+        contentPanel.setBackground(Color.orange);
+        contentPanel.setLayout(new BorderLayout());
 //        getGlassPane().setBackground(new Color(1, 0, 0, 0.5f));
 //        getGlassPane().setBackground(new Color(255, 0, 0));
 
 //        messagePanel.setVisible(false);
 //        container.add(messagePanel, BorderLayout.CENTER);
-        container.add(infoPanel, BorderLayout.CENTER);
+        contentPanel.add(infoPanel, BorderLayout.CENTER);
 
 
         pack();

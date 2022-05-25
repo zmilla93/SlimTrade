@@ -98,16 +98,21 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
         if (file.exists()) {
             try {
                 data = gson.fromJson(getFileAsString(file.getPath()), classType);
-                if (data != null) return;
+                if (data != null) {
+                    for (ISaveListener listener : listeners) {
+                        listener.onLoad();
+                    }
+                    return;
+                }
             } catch (JsonSyntaxException e) {
-                // Ignore
-            }
-            for (ISaveListener listener : listeners) {
-                listener.onLoad();
+                return;
             }
         }
         try {
             data = classType.getDeclaredConstructor().newInstance();
+            for (ISaveListener listener : listeners) {
+                listener.onLoad();
+            }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }

@@ -55,7 +55,7 @@ public class ColorManager<T> {
         return true;
     }
 
-    public static boolean removeFrame(JFrame frame) {
+    public static boolean removeFrame(Component frame) {
         return frames.remove(frame);
     }
 
@@ -113,13 +113,12 @@ public class ColorManager<T> {
 
     public static void loadFonts() {
         try {
+            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/OpenSans-Regular.ttf")));
 //            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansKR/IBMPlexSansKR-Regular.ttf")));
 //            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/Roboto-Regular.ttf")));
-            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/OpenSans-Regular.ttf")));
 //            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/Oswald-Regular.ttf")));
-            font = font.deriveFont(Font.BOLD);
-//            font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
-
+//            font = font.deriveFont(Font.BOLD);
+//            font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.fontSize);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
@@ -270,11 +269,8 @@ public class ColorManager<T> {
                 setFontSizeRecursive(child, size);
             }
         }
-        Font font = component.getFont();
-        component.setFont(font.deriveFont(font.getStyle(), size));
-//        if (component instanceof JComponent) {
-//            ((JComponent) component).updateUI();
-//        }
+        Font curFont = component.getFont();
+        component.setFont(font.deriveFont(curFont.getStyle(), size));
     }
 
     private static void setIconSizeRecursive(Component component, int size) {
