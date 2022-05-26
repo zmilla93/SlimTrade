@@ -193,7 +193,7 @@ public class NotificationPanel extends ColorPanel {
         }
     }
 
-    public void applyMessageColor(Color color){
+    public void applyMessageColor(Color color) {
         borderPanel.setBackground(messageColor);
         pricePanel.setBackground(messageColor);
         topPanel.setBackground(messageColor);

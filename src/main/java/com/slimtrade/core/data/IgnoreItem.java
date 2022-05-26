@@ -27,6 +27,7 @@ public class IgnoreItem {
     }
 
     public boolean isExpired() {
+        if (isInfinite()) return false;
         if (!expired)
             expired = expirationTime <= System.currentTimeMillis() + leniency;
         return expired;

@@ -9,8 +9,6 @@ import com.formdev.flatlaf.intellijthemes.*;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.*;
 import com.slimtrade.core.enums.ColorThemeType;
 
-import java.awt.*;
-
 public enum ColorTheme {
 
     // https://github.com/JFormDesigner/FlatLaf/tree/main/flatlaf-intellij-themes#themes

@@ -17,7 +17,8 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
 
     public HistoryWindow() {
         super("History");
-
+        setFocusable(false);
+        setFocusableWindowState(false);
         JTabbedPane tabbedPane = new JTabbedPane();
 
         tabbedPane.addTab("Incoming Trades", incomingTrades);

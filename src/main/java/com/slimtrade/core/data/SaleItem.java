@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class SaleItem {
 
-    public final String itemName;
-    public final double quantity;
+    public String itemName;
+    public double quantity;
 
     public SaleItem(String itemName, double quantity) {
         this.itemName = itemName;

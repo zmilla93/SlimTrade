@@ -76,7 +76,7 @@ public class TradeMessagePanel extends NotificationPanel {
     @Override
     public void updateUI() {
         super.updateUI();
-        if(tradeOffer == null) return;
+        if (tradeOffer == null) return;
         StashTabColor stashTabColor = tradeOffer.getStashTabColor();
         switch (tradeOffer.offerType) {
             case INCOMING:

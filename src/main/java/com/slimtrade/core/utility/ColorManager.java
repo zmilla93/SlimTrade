@@ -111,7 +111,7 @@ public class ColorManager<T> {
         }
     }
 
-    public static ColorTheme getCurrentTheme(){
+    public static ColorTheme getCurrentTheme() {
         return currentTheme;
     }
 

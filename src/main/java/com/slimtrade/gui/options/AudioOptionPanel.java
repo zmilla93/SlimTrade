@@ -37,11 +37,15 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         gc.gridy = 0;
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 1;
-        addRow("Incoming Trade", "incomingSound");
-        addRow("Outgoing Trade", "outgoingSound");
-        addRow("Chat Scanner", "chatScannerSound");
-        addRow("Player Joined Area", "playerJoinedAreaSound");
-        addRow("Update Alert", "updateSound");
+
+        // FIXME: (Minor) Should remove order dependency.
+        // IMPORTANT : These must be in the same order as the save and load functions!
+        addRow("Incoming Trade");
+        addRow("Outgoing Trade");
+        addRow("Chat Scanner");
+        addRow("Item Ignored");
+        addRow("Player Joined Area");
+        addRow("Update Alert");
 
         JPanel customButtons = new ButtonPanel();
         JButton openFolderButton = new JButton("Open Audio Folder");
@@ -80,12 +84,9 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
                 load();
             }
         });
-
-//        App.saveManager.registerSavable(this);
-
     }
 
-    private void addRow(String title, String saveFieldName) {
+    private void addRow(String title) {
         gc.insets = new Insets(0, GUIReferences.INSET, 2, GUIReferences.INSET);
         JButton previewButton = new IconButton(DefaultIcon.PLAY.path);
         JComboBox<Sound> soundCombo = new JComboBox<>();
@@ -148,8 +149,9 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         SaveManager.settingsSaveFile.data.incomingSound = getAudioRow(0);
         SaveManager.settingsSaveFile.data.outgoingSound = getAudioRow(1);
         SaveManager.settingsSaveFile.data.chatScannerSound = getAudioRow(2);
-        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = getAudioRow(3);
-        SaveManager.settingsSaveFile.data.updateSound = getAudioRow(4);
+        SaveManager.settingsSaveFile.data.itemIgnoredSound = getAudioRow(3);
+        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = getAudioRow(4);
+        SaveManager.settingsSaveFile.data.updateSound = getAudioRow(5);
     }
 
     @Override
@@ -160,8 +162,9 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         setAudioRow(0, SaveManager.settingsSaveFile.data.incomingSound);
         setAudioRow(1, SaveManager.settingsSaveFile.data.outgoingSound);
         setAudioRow(2, SaveManager.settingsSaveFile.data.chatScannerSound);
-        setAudioRow(3, SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
-        setAudioRow(4, SaveManager.settingsSaveFile.data.updateSound);
+        setAudioRow(3, SaveManager.settingsSaveFile.data.itemIgnoredSound);
+        setAudioRow(4, SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+        setAudioRow(5, SaveManager.settingsSaveFile.data.updateSound);
     }
 
 }

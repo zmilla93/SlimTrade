@@ -24,7 +24,7 @@ public class StashHelperPanel extends AdvancedButton {
     private StashHighlighterFrame highlighterFrame = new StashHighlighterFrame();
 
     public StashHelperPanel(StashHelperContainer parent, TradeOffer offer) {
-        assert(SwingUtilities.isEventDispatchThread());
+        assert (SwingUtilities.isEventDispatchThread());
         // FIXME : default visibility to true and make sure no debug panels are being added
         setVisible(false);
         tradeOffer = offer;

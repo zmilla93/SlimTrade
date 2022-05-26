@@ -57,6 +57,7 @@ public class SaveManager {
 
             @Override
             public void onLoad() {
+                System.out.println("ignore loaded!!!");
                 SaveManager.ignoreSaveFile.data.buildCache();
             }
         });

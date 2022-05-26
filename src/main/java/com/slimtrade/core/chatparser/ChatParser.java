@@ -1,5 +1,6 @@
 package com.slimtrade.core.chatparser;
 
+import com.slimtrade.App;
 import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
@@ -26,8 +27,10 @@ public class ChatParser implements FileTailerListener {
     private boolean loaded; // Set to true after file has been read to EOF once
     private boolean open;
     private String path;
+    private boolean end;
 
     public void open(String path, boolean end) {
+        this.end = end;
         if (open) close();
         File clientFile = new File(path);
         if (clientFile.exists() && clientFile.isFile()) {
@@ -77,16 +80,27 @@ public class ChatParser implements FileTailerListener {
         String itemNameLower = offer.itemName.toLowerCase();
         if (offer.offerType == TradeOffer.TradeOfferType.INCOMING) {
             IgnoreItem item = SaveManager.ignoreSaveFile.data.exactIgnoreMap.get(itemNameLower);
-            if (item != null && !item.isExpired()) return;
+            if (item != null && !item.isExpired()) {
+                handleIgnoreItem();
+                return;
+            }
             for (IgnoreItem ignoreItem : SaveManager.ignoreSaveFile.data.containsIgnoreList) {
-                System.out.println("IGNORE:" + ignoreItem.itemNameLower);
-                if (itemNameLower.contains(ignoreItem.itemNameLower) && !ignoreItem.isExpired()) return;
+                if (itemNameLower.contains(ignoreItem.itemNameLower) && !ignoreItem.isExpired()) {
+                    handleIgnoreItem();
+                    return;
+                }
             }
         }
         // Handle trade
         for (ITradeListener listener : tradeListeners) {
             listener.handleTrade(offer);
         }
+    }
+
+    private void handleIgnoreItem() {
+        // This is a little hacky. Will only play sound if chat parser starts at end. Might want to switch to a listener
+        if (end)
+            App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.itemIgnoredSound.sound, SaveManager.settingsSaveFile.data.itemIgnoredSound.volume);
     }
 
     private TradeOffer.TradeOfferType getMessageType(String s) {

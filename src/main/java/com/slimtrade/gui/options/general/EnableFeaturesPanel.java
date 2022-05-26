@@ -42,11 +42,22 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
 
     @Override
     public void save() {
+        SaveManager.settingsSaveFile.data.enableIncomingMessages = incomingMessages.isSelected();
+        SaveManager.settingsSaveFile.data.enableOutgoingMessages = outgoingMessages.isSelected();
+        SaveManager.settingsSaveFile.data.enableItemHighlighter = itemHighlighter.isSelected();
+        SaveManager.settingsSaveFile.data.enableMenuBar = menubarButton.isSelected();
+        SaveManager.settingsSaveFile.data.enableAutomaticUpdate = autoUpdateCheckbox.isSelected();
         SaveManager.settingsSaveFile.data.hideWhenPOENotFocused = hideWhenPOENotFocusedCheckbox.isSelected();
     }
 
     @Override
     public void load() {
+        incomingMessages.setSelected(SaveManager.settingsSaveFile.data.enableIncomingMessages);
+        outgoingMessages.setSelected(SaveManager.settingsSaveFile.data.enableOutgoingMessages);
+        itemHighlighter.setSelected(SaveManager.settingsSaveFile.data.enableItemHighlighter);
+        menubarButton.setSelected(SaveManager.settingsSaveFile.data.enableMenuBar);
+        autoUpdateCheckbox.setSelected(SaveManager.settingsSaveFile.data.enableAutomaticUpdate);
+        hideWhenPOENotFocusedCheckbox.setSelected(SaveManager.settingsSaveFile.data.hideWhenPOENotFocused);
         hideWhenPOENotFocusedCheckbox.setSelected(SaveManager.settingsSaveFile.data.hideWhenPOENotFocused);
     }
 }

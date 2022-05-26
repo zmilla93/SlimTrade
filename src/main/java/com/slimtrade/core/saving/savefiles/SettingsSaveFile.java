@@ -27,6 +27,16 @@ public class SettingsSaveFile {
     public QuickPasteManager.QuickPasteMode quickPasteMode;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
+
+    // Path of Exile
+    public String clientPath;
+
+    // Enable Features
+    public boolean enableIncomingMessages;
+    public boolean enableOutgoingMessages;
+    public boolean enableItemHighlighter;
+    public boolean enableMenuBar;
+    public boolean enableAutomaticUpdate;
     public boolean hideWhenPOENotFocused;
 
     // Stash
@@ -38,11 +48,10 @@ public class SettingsSaveFile {
     public transient boolean fontSizeChanged;
     public transient boolean iconSizeChanged;
 
-    // Path of Exile
-    public String clientPath;
-
+    // Audio
     public SoundComponent incomingSound;
     public SoundComponent outgoingSound;
+    public SoundComponent itemIgnoredSound;
     public SoundComponent chatScannerSound;
     public SoundComponent playerJoinedAreaSound;
     public SoundComponent updateSound;

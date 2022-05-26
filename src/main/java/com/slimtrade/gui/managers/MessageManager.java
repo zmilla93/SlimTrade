@@ -43,7 +43,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         addMessage(tradeOffer, true);
     }
 
-    public void addUpdateMessage(boolean playSound){
+    public void addUpdateMessage(boolean playSound) {
         assert (SwingUtilities.isEventDispatchThread());
         if (playSound)
             App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.updateSound.sound, SaveManager.settingsSaveFile.data.updateSound.volume);
@@ -55,8 +55,12 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
     public void addMessage(TradeOffer tradeOffer, boolean playSound) {
         assert (SwingUtilities.isEventDispatchThread());
         if (container.getComponentCount() > 20) return;
-        if (playSound){
-            switch (tradeOffer.offerType){
+        if (!SaveManager.settingsSaveFile.data.enableIncomingMessages && tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING)
+            return;
+        if (!SaveManager.settingsSaveFile.data.enableOutgoingMessages && tradeOffer.offerType == TradeOffer.TradeOfferType.OUTGOING)
+            return;
+        if (playSound) {
+            switch (tradeOffer.offerType) {
                 case INCOMING:
                     App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
                     break;
@@ -73,7 +77,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         addComponent(panel);
     }
 
-    private void addComponent(JComponent component){
+    private void addComponent(JComponent component) {
         gc.gridy = container.getComponentCount();
         container.add(component, gc);
         revalidate();

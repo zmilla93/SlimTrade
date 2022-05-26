@@ -68,7 +68,10 @@ public class IgnoreRow extends AddRemovePanel {
     }
 
     private void addListeners() {
-        removeButton.addActionListener(e -> removeFromParent());
+        removeButton.addActionListener(e -> {
+            if (timer != null) timer.stop();
+            removeFromParent();
+        });
     }
 
     @Override
