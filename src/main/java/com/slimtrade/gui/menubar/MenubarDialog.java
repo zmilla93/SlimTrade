@@ -39,11 +39,31 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
-                if (contains(e.getPoint())) return;
-                setVisible(false);
-                FrameManager.menubarIcon.setVisible(true);
+                hideIfOutOfBounds(e.getPoint());
             }
         });
+
+        addButtonExitListener(optionsButton);
+        addButtonExitListener(historyButton);
+        addButtonExitListener(chatScannerButton);
+        addButtonExitListener(historyButton);
+        addButtonExitListener(exitButton);
+    }
+
+    private void addButtonExitListener(JButton button){
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                hideIfOutOfBounds(e.getPoint());
+            }
+        });
+    }
+
+    private void hideIfOutOfBounds(Point point){
+        if (contains(point)) return;
+        setVisible(false);
+        FrameManager.menubarIcon.setVisible(true);
     }
 
     private void buildIconButtons() {

@@ -105,6 +105,10 @@ public class ZUtil {
         return ext;
     }
 
+    public static boolean isEmptyString(String input) {
+        return input.matches("\\s*");
+    }
+
     /**
      * Given a panel with a border layout, will add insets to the edges of the panel
      *

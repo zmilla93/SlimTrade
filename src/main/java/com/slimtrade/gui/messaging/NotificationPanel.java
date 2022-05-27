@@ -141,6 +141,7 @@ public class NotificationPanel extends ColorPanel {
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.BOTH;
         gc.weighty = 1;
+        NotificationPanel self = this;
         for (MacroButton macro : macros) {
             JButton button = new NotificationIconButton(macro.icon.path);
             button.updateUI();
@@ -149,11 +150,15 @@ public class NotificationPanel extends ColorPanel {
                 button.addMouseListener(new AdvancedMouseListener() {
                     @Override
                     public void click(MouseEvent e) {
-                        if (e.getButton() == MouseEvent.BUTTON1 && !macro.lmbResponse.isBlank()) {
-                            POEInterface.pasteWithFocus(macro.lmbResponse, tradeOffer);
+                        if (e.getButton() == MouseEvent.BUTTON1) {
+                            if (!ZUtil.isEmptyString(macro.lmbResponse))
+                                POEInterface.pasteWithFocus(macro.lmbResponse, tradeOffer);
+                            if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
-                        if (e.getButton() == MouseEvent.BUTTON3 && !macro.rmbResponse.isBlank()) {
-                            POEInterface.pasteWithFocus(macro.rmbResponse, tradeOffer);
+                        if (e.getButton() == MouseEvent.BUTTON3) {
+                            if (!ZUtil.isEmptyString(macro.rmbResponse))
+                                POEInterface.pasteWithFocus(macro.rmbResponse, tradeOffer);
+                            if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                     }
                 });

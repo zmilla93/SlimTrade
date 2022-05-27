@@ -31,6 +31,7 @@ public class HistoryPanel extends JPanel {
 
         setLayout(new BorderLayout());
         table = new HistoryTable(columnNames, data);
+        table.setAutoCreateRowSorter(true);
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
