@@ -48,6 +48,7 @@ public class ZUtil {
             commands.add(builder.toString().trim());
         for (int i = 0; i < commands.size(); i++) {
             String clean = commands.get(i);
+            if (!clean.startsWith("@") && !clean.startsWith("/")) clean = "@" + tradeOffer.playerName + " " + clean;
             clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
             clean = clean.replaceAll("\\{player}", tradeOffer.playerName);
             clean = clean.replaceAll("\\{item}", tradeOffer.playerName);

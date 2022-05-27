@@ -19,7 +19,7 @@ public class GlobalMouseListener implements NativeMouseListener {
 
     @Override
     public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
-        if (POEInterface.isGameFocused()) {
+        if (POEInterface.isGameFocused(true)) {
             VisibilityManager.showOverlay();
         } else {
             VisibilityManager.hideOverlay();

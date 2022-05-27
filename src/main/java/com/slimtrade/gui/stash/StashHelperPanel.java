@@ -16,18 +16,21 @@ import java.awt.event.MouseEvent;
 
 public class StashHelperPanel extends AdvancedButton {
 
-    JLabel tabLabel;
-    JLabel itemLabel;
-
+    private StashHelperContainer parent;
     private TradeOffer tradeOffer;
+    private StashHighlighterFrame highlighterFrame;
     private StashTabColor stashTabColor;
-    private StashHighlighterFrame highlighterFrame = new StashHighlighterFrame();
 
-    public StashHelperPanel(StashHelperContainer parent, TradeOffer offer) {
+    private JLabel tabLabel;
+    private JLabel itemLabel;
+
+    protected StashHelperPanel(StashHelperContainer parent, TradeOffer offer, StashHighlighterFrame highlighterFrame) {
         assert (SwingUtilities.isEventDispatchThread());
+        this.parent = parent;
         // FIXME : default visibility to true and make sure no debug panels are being added
         setVisible(false);
         tradeOffer = offer;
+        this.highlighterFrame = highlighterFrame;
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setLayout(new GridBagLayout());
         tabLabel = new JLabel(offer.stashTabName);
@@ -53,7 +56,12 @@ public class StashHelperPanel extends AdvancedButton {
 //        Border compoundBorder = BorderFactory.createCompoundBorder(outerBorder, innerBorder);
 //        setBorder(compoundBorder);
 
-        JButton self = this;
+
+        FrameManager.stashHelperContainer.add(this);
+        addListeners();
+    }
+
+    private void addListeners() {
         addMouseListener(new AdvancedMouseListener() {
             @Override
             public void click(MouseEvent e) {
@@ -62,12 +70,28 @@ public class StashHelperPanel extends AdvancedButton {
                 }
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     setVisible(false);
+                    if (highlighterFrame != null) highlighterFrame.setVisible(false);
                     parent.refresh();
                 }
             }
-        });
 
-        FrameManager.stashHelperContainer.add(this);
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                if (highlighterFrame != null) {
+                    highlighterFrame.setVisible(true);
+                    highlighterFrame.stopTimer();
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                if (highlighterFrame != null) {
+                    highlighterFrame.startTimer();
+                }
+            }
+        });
     }
 
     private void createBorder(StashTabColor stashTabColor) {
@@ -81,6 +105,10 @@ public class StashHelperPanel extends AdvancedButton {
         setBorder(compoundBorder);
     }
 
+    public void cleanup() {
+        highlighterFrame = null;
+    }
+
     @Override
     public void updateUI() {
         super.updateUI();
@@ -88,6 +116,5 @@ public class StashHelperPanel extends AdvancedButton {
             createBorder(stashTabColor);
         }
     }
-
 
 }

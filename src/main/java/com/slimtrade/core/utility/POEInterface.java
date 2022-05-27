@@ -39,17 +39,21 @@ public class POEInterface {
     }
 
     public static void pasteFromClipboard() {
+        assert (!SwingUtilities.isEventDispatchThread());
         if (!isGameFocused()) return;
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
         robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_A);
+        robot.keyRelease(KeyEvent.VK_A);
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
+        // This sleep is required
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
@@ -64,6 +68,10 @@ public class POEInterface {
     }
 
     public static void paste(String text) {
+        paste(text, false);
+    }
+
+    public static void paste(String text, boolean stopBeforeSend) {
         if (!isGameFocused()) return;
         StringSelection pasteString = new StringSelection(text);
         try {
@@ -77,21 +85,30 @@ public class POEInterface {
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
         robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_A);
+        robot.keyRelease(KeyEvent.VK_A);
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
+        if (stopBeforeSend) return;
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
     }
 
     public static void pasteWithFocus(String input) {
+        pasteWithFocus(input, false);
+    }
+
+    public static void pasteWithFocus(String input, boolean stopBeforeSend) {
+        assert (SwingUtilities.isEventDispatchThread());
         executor.execute(() -> {
             if (!focusGame()) return;
-            paste(input);
+            paste(input, stopBeforeSend);
         });
     }
 
     public static void pasteWithFocus(String input, TradeOffer tradeOffer) {
+        assert (SwingUtilities.isEventDispatchThread());
         executor.execute(() -> {
             if (!focusGame()) return;
             ArrayList<String> commands = ZUtil.getCommandList(input, tradeOffer);
@@ -153,8 +170,13 @@ public class POEInterface {
     }
 
     public static boolean isGameFocused() {
+        return isGameFocused(false);
+    }
+
+    public static boolean isGameFocused(boolean includeApp) {
         String focusedWindowTitle = getFocusedWindowTitle();
-        return focusedWindowTitle.equals("Path of Exile") || focusedWindowTitle.startsWith("SLIMTRADEAPP");
+        if (includeApp && focusedWindowTitle.startsWith("SLIMTRADEAPP")) return true;
+        return focusedWindowTitle.equals("Path of Exile");
     }
 
     private static String getFocusedWindowTitle() {
@@ -171,9 +193,9 @@ public class POEInterface {
      * @param term Word to paste
      */
     public static void searchInStash(String term) {
+        assert (SwingUtilities.isEventDispatchThread());
         executor.execute(() -> {
-            focusGame();
-            if (!isGameFocused()) {
+            if (!focusGame()) {
                 return;
             }
             StringSelection pasteString = new StringSelection(term);

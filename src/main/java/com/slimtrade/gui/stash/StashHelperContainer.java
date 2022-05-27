@@ -46,8 +46,8 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
         setLocation(target);
     }
 
-    public StashHelperPanel addHelper(TradeOffer offer) {
-        StashHelperPanel panel = new StashHelperPanel(this, offer);
+    public StashHelperPanel addHelper(TradeOffer offer, StashHighlighterFrame highlighterFrame) {
+        StashHelperPanel panel = new StashHelperPanel(this, offer, highlighterFrame);
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(panel, gc);
         refresh();

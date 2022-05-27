@@ -60,10 +60,10 @@ public class SettingsSaveFile {
     public boolean applyStashColorToMessage;
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
-    public transient ArrayList<MacroButton> incomingTopMacros;
-    public transient ArrayList<MacroButton> incomingBottomMacros;
-    public transient ArrayList<MacroButton> outgoingTopMacros;
-    public transient ArrayList<MacroButton> outgoingBottomMacros;
+    public transient ArrayList<MacroButton> incomingTopMacros = new ArrayList<>();
+    public transient ArrayList<MacroButton> incomingBottomMacros = new ArrayList<>();
+    public transient ArrayList<MacroButton> outgoingTopMacros = new ArrayList<>();
+    public transient ArrayList<MacroButton> outgoingBottomMacros = new ArrayList<>();
 
     // SlimTrade Hotkeys
     public HotkeyData optionsHotkey;
@@ -88,16 +88,12 @@ public class SettingsSaveFile {
     // Internal
     public transient boolean clientFileRotated;
 
-    public SettingsSaveFile() {
-//        buildMacroCache();
-    }
-
     // Macro Generators
     public void buildMacroCache() {
-        incomingTopMacros = new ArrayList<>();
-        incomingBottomMacros = new ArrayList<>();
-        outgoingTopMacros = new ArrayList<>();
-        outgoingBottomMacros = new ArrayList<>();
+        incomingTopMacros.clear();
+        incomingBottomMacros.clear();
+        outgoingTopMacros.clear();
+        outgoingBottomMacros.clear();
         for (MacroButton button : incomingMacroButtons) {
             if (button.row == ButtonRow.TOP_ROW) {
                 incomingTopMacros.add(button);

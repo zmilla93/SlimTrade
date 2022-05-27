@@ -79,25 +79,29 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);
         panel.startTimer();
         addComponent(panel);
-        moveToAnchor();
     }
 
     private void addComponent(Component component) {
         gc.gridy = expandUp ? 1000 - container.getComponentCount() : container.getComponentCount();
+        setIgnoreRepaint(true);
         container.add(component, gc);
         revalidate();
         pack();
         moveToAnchor();
+        setIgnoreRepaint(false);
         repaint();
     }
 
     public void removeMessage(NotificationPanel panel) {
         assert (SwingUtilities.isEventDispatchThread());
+        setIgnoreRepaint(true);
         panel.cleanup();
         container.remove(panel);
         pack();
         moveToAnchor();
-        container.revalidate();
+        revalidate();
+        setIgnoreRepaint(false);
+        repaint();
     }
 
     private void moveToAnchor() {
@@ -121,6 +125,57 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         for (Component comp : components) {
             addComponent(comp);
         }
+    }
+
+    /**
+     * Closes all outgoing trades except for the panel being passed in.
+     *
+     * @param panel
+     */
+    public void quickCloseOutgoing(Component panel) {
+        setIgnoreRepaint(true);
+        for (int i = container.getComponentCount() - 1; i >= 0; i--) {
+            Component comp = container.getComponent(i);
+            if (comp instanceof TradeMessagePanel) {
+                TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
+                if (trade.offerType == TradeOffer.TradeOfferType.OUTGOING && comp != panel) {
+                    container.remove(i);
+                }
+            }
+        }
+        refreshOrder();
+        pack();
+        moveToAnchor();
+        setIgnoreRepaint(false);
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * Closes all trade offers with the same name and price as the trade offer passed in.
+     *
+     * @param targetOffer
+     */
+    public void quickCloseIncoming(TradeOffer targetOffer) {
+        setIgnoreRepaint(true);
+        for (int i = container.getComponentCount() - 1; i >= 0; i--) {
+            Component comp = container.getComponent(i);
+            if (comp instanceof TradeMessagePanel) {
+                TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
+                if (trade.offerType == TradeOffer.TradeOfferType.INCOMING
+                        && trade.itemName.equals(targetOffer.itemName)
+                        && trade.priceTypeString.equals(targetOffer.priceTypeString)
+                        && trade.priceQuantity == targetOffer.priceQuantity) {
+                    container.remove(i);
+                }
+            }
+        }
+        refreshOrder();
+        pack();
+        moveToAnchor();
+        setIgnoreRepaint(false);
+        revalidate();
+        repaint();
     }
 
     @Override

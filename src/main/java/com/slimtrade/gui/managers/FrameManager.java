@@ -61,6 +61,9 @@ public class FrameManager {
         itemIgnoreWindow = new ItemIgnoreWindow();
         stashSortingWindow = new StashSortingWindow();
 
+//        StashHighlighterFrame testHighlighter = new StashHighlighterFrame(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//        testHighlighter.setVisible(true);
+
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();

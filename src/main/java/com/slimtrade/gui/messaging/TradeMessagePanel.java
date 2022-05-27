@@ -7,10 +7,12 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.gui.stash.StashHighlighterFrame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
@@ -27,20 +29,30 @@ public class TradeMessagePanel extends NotificationPanel {
         super(createListeners);
         tradeOffer = trade;
         if (FrameManager.stashHelperContainer != null && trade.offerType == TradeOffer.TradeOfferType.INCOMING) {
-            highlighterFrame = new StashHighlighterFrame();
-            stashHelperPanel = FrameManager.stashHelperContainer.addHelper(trade);
+            if (tradeOffer.stashTabName != null) {
+                highlighterFrame = new StashHighlighterFrame(tradeOffer);
+            }
+            stashHelperPanel = FrameManager.stashHelperContainer.addHelper(trade, highlighterFrame);
         }
         playerNameButton.setText(trade.playerName);
         itemButton.setItems(trade.getItems());
         pricePanel.setItem(new SaleItem(trade.priceTypeString, trade.priceQuantity));
 
+        playerNameButton.addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    POEInterface.pasteWithFocus("/whois " + trade.playerName);
+                } else if (e.getButton() == MouseEvent.BUTTON3) {
+                    POEInterface.pasteWithFocus("@" + trade.playerName, true);
+                }
+            }
+        });
         // Message type specific stuff
         switch (trade.offerType) {
             case INCOMING:
                 topMacros = SaveManager.settingsSaveFile.data.incomingTopMacros;
                 bottomMacros = SaveManager.settingsSaveFile.data.incomingBottomMacros;
-
-
                 break;
             case OUTGOING:
                 topMacros = SaveManager.settingsSaveFile.data.outgoingTopMacros;
@@ -48,12 +60,13 @@ public class TradeMessagePanel extends NotificationPanel {
                 messageColor = new Color(180, 72, 72);
                 break;
         }
-        if (createListeners) addListeners();
         updateUI();
         setup();
+        if (createListeners) addListeners();
     }
 
     private void addListeners() {
+        JPanel self = this;
         switch (tradeOffer.offerType) {
             case INCOMING:
                 itemButton.addMouseListener(new AdvancedMouseListener() {
@@ -67,8 +80,23 @@ public class TradeMessagePanel extends NotificationPanel {
                         }
                     }
                 });
+                getCloseButton().addMouseListener(new AdvancedMouseListener() {
+                    @Override
+                    public void click(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON3) {
+                            FrameManager.messageManager.quickCloseIncoming(tradeOffer);
+                        }
+                    }
+                });
                 break;
             case OUTGOING:
+                getCloseButton().addMouseListener(new AdvancedMouseListener() {
+                    @Override
+                    public void click(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON3)
+                            FrameManager.messageManager.quickCloseOutgoing(self);
+                    }
+                });
                 break;
         }
     }
@@ -112,8 +140,9 @@ public class TradeMessagePanel extends NotificationPanel {
     public void cleanup() {
         super.cleanup();
         if (tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING) {
-            highlighterFrame.dispose();
             FrameManager.stashHelperContainer.remove(stashHelperPanel);
+            stashHelperPanel.cleanup();
+            highlighterFrame.dispose();
             FrameManager.stashHelperContainer.refresh();
         }
     }
