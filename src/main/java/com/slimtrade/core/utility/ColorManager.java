@@ -73,14 +73,14 @@ public class ColorManager<T> {
         setTheme(theme, false);
     }
 
-    public static void setTheme(ColorTheme theme, boolean forceRefresh) {
+    public static void setTheme(ColorTheme theme, boolean forceThemeRefresh) {
+        if (theme == currentTheme && !forceThemeRefresh) return;
         int[] comboIcons = new int[stickyCombos.size()];
         for (int i = 0; i < stickyCombos.size(); i++) {
             comboIcons[i] = stickyCombos.get(i).getSelectedIndex();
         }
         iconMap.clear();
         colorIconMap.clear();
-        if (theme == currentTheme && !forceRefresh) return;
         currentTheme = theme;
         try {
             UIManager.setLookAndFeel(currentTheme.lookAndFeel);

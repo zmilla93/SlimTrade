@@ -14,6 +14,7 @@ public class CurrencyPanel extends AdvancedButton {
 
     public static final int INSET = 2;
     private ArrayList<SaleItem> items;
+    private Color textColor;
 
     public CurrencyPanel() {
         super();
@@ -57,9 +58,23 @@ public class CurrencyPanel extends AdvancedButton {
     }
 
     @Override
+    public void setForeground(Color fg) {
+        super.setForeground(fg);
+        textColor = fg;
+        for (Component c : getComponents()) {
+            c.setForeground(fg);
+        }
+    }
+
+    @Override
     public void updateUI() {
         super.updateUI();
         if (items != null) buildPanel();
+        if (textColor != null) {
+            for (Component c : getComponents()) {
+                c.setForeground(textColor);
+            }
+        }
         setBorder(BorderFactory.createEmptyBorder(INSET, INSET, INSET, INSET));
     }
 

@@ -36,6 +36,7 @@ public class NotificationPanel extends ColorPanel {
     protected boolean createListeners;
 
     protected TradeOffer tradeOffer;
+    private boolean playerJoinedArea;
 
     protected Color messageColor = new Color(60, 173, 173, 255);
 
@@ -193,16 +194,30 @@ public class NotificationPanel extends ColorPanel {
         }
     }
 
-    public void applyMessageColor(Color color) {
+    public void applyMessageColor() {
         borderPanel.setBackground(messageColor);
         pricePanel.setBackground(messageColor);
         topPanel.setBackground(messageColor);
+        if (playerJoinedArea) {
+            playerNameButton.setForeground(messageColor);
+            timerLabel.setForeground(messageColor);
+            itemButton.setForeground(messageColor);
+        }
+    }
+
+    public void setPlayerJoinedArea() {
+        playerJoinedArea = true;
+        applyMessageColor();
     }
 
     public void stopTimer() {
         if (timer != null) {
             timer.stop();
         }
+    }
+
+    public TradeOffer getTradeOffer() {
+        return tradeOffer;
     }
 
     public JButton getCloseButton() {

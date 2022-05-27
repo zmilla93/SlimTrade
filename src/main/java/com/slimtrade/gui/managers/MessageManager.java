@@ -1,7 +1,9 @@
 package com.slimtrade.gui.managers;
 
 import com.slimtrade.App;
+import com.slimtrade.core.chatparser.IJoinedAreaListener;
 import com.slimtrade.core.chatparser.ITradeListener;
+import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
@@ -14,13 +16,13 @@ import com.slimtrade.modules.colortheme.IThemeListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class MessageManager extends BasicDialog implements ITradeListener, IThemeListener {
+public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IThemeListener {
 
     public Point anchorPoint = new Point(800, 0);
     boolean expandUp = false;
 
-    private int MESSAGE_GAP = 1;
-    private Container container;
+    private static final int MESSAGE_GAP = 1;
+    private final Container container;
 
     private GridBagConstraints gc;
 
@@ -33,10 +35,12 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        gc.insets = new Insets(0, 0, MESSAGE_GAP, 0);
+        gc.insets = expandUp ? new Insets(MESSAGE_GAP, 0, 0, 0) : new Insets(0, 0, MESSAGE_GAP, 0);
         setLocation(anchorPoint);
         pack();
         ColorManager.addListener(this);
+        setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
+        refreshOrder();
     }
 
     public void addMessage(TradeOffer tradeOffer) {
@@ -75,14 +79,15 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);
         panel.startTimer();
         addComponent(panel);
+        moveToAnchor();
     }
 
-    private void addComponent(JComponent component) {
-        gc.gridy = container.getComponentCount();
+    private void addComponent(Component component) {
+        gc.gridy = expandUp ? 1000 - container.getComponentCount() : container.getComponentCount();
         container.add(component, gc);
         revalidate();
         pack();
-        adjustPosition();
+        moveToAnchor();
         repaint();
     }
 
@@ -91,18 +96,31 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         panel.cleanup();
         container.remove(panel);
         pack();
-        adjustPosition();
+        moveToAnchor();
         container.revalidate();
-        System.gc();
     }
 
-    private void adjustPosition() {
+    private void moveToAnchor() {
         assert (SwingUtilities.isEventDispatchThread());
         Point p = new Point(anchorPoint);
-        if (expandUp) {
-            p.y -= getHeight();
+        if (expandUp && container.getComponentCount() > 0) {
+            p.y -= getHeight() - container.getComponent(0).getHeight();
         }
         setLocation(p);
+    }
+
+    public void setAnchorPoint(Point point) {
+        anchorPoint = point;
+        moveToAnchor();
+    }
+
+    public void refreshOrder() {
+        expandUp = SaveManager.overlaySaveFile.data.expandDirection == ExpandDirection.UPWARDS;
+        Component[] components = container.getComponents();
+        container.removeAll();
+        for (Component comp : components) {
+            addComponent(comp);
+        }
     }
 
     @Override
@@ -116,4 +134,17 @@ public class MessageManager extends BasicDialog implements ITradeListener, IThem
         repaint();
     }
 
+    @Override
+    public void onJoinedArea(String playerName) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof TradeMessagePanel) {
+                TradeMessagePanel panel = (TradeMessagePanel) c;
+                TradeOffer offer = panel.getTradeOffer();
+                if (offer.offerType == TradeOffer.TradeOfferType.INCOMING && offer.playerName.equals(playerName)) {
+                    App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound.sound, SaveManager.settingsSaveFile.data.playerJoinedAreaSound.volume);
+                    panel.setPlayerJoinedArea();
+                }
+            }
+        }
+    }
 }

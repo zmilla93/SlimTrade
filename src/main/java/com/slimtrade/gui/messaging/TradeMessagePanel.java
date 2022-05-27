@@ -105,7 +105,7 @@ public class TradeMessagePanel extends NotificationPanel {
                 }
                 break;
         }
-        applyMessageColor(messageColor);
+        applyMessageColor();
     }
 
     @Override

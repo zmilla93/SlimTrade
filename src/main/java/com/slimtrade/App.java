@@ -84,17 +84,21 @@ public class App {
                 FrameManager.init();
 
                 // Load save file to GUI
-                ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme);
+                ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme, true);
                 ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
                 ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
                 SaveManager.settingsSaveFile.revertChanges();
                 SaveManager.stashSaveFile.revertChanges();
+//                FrameManager.messageManager.setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
+//                FrameManager.messageManager.refreshOrder();
                 FrameManager.optionsWindow.reloadExampleTrades();
+                FrameManager.overlayInfoWindow.load();
+
                 PinManager.applyPins();
 
                 // Show Windows
                 FrameManager.messageManager.setVisible(true);
-                FrameManager.debugWindow.setVisible(true);
+//                FrameManager.debugWindow.setVisible(true);
                 FrameManager.optionsWindow.setVisible(true);
             });
         } catch (InterruptedException | InvocationTargetException e) {
@@ -145,6 +149,7 @@ public class App {
             preloadParser.close();
             preloadParser = null;
         });
+        chatParser.addJoinedAreaListener(FrameManager.messageManager);
         preloadParser.open(SaveManager.settingsSaveFile.data.clientPath, false);
         chatParser.open(SaveManager.settingsSaveFile.data.clientPath, true);
 

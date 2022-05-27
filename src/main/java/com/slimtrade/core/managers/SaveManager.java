@@ -1,9 +1,6 @@
 package com.slimtrade.core.managers;
 
-import com.slimtrade.core.saving.savefiles.IgnoreSaveFile;
-import com.slimtrade.core.saving.savefiles.PinSaveFile;
-import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
-import com.slimtrade.core.saving.savefiles.StashSaveFile;
+import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.saving.SaveFile;
@@ -22,6 +19,7 @@ public class SaveManager {
     private static final String imagesFolderName = "images";
 
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
+    public static SaveFile<OverlaySaveFile> overlaySaveFile = new SaveFile<>(getSaveDirectory() + "overlay.json", OverlaySaveFile.class);
     public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + "stash.json", StashSaveFile.class);
     public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory() + "ignore.json", IgnoreSaveFile.class);
     public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory() + "pins.json", PinSaveFile.class);
@@ -57,7 +55,6 @@ public class SaveManager {
 
             @Override
             public void onLoad() {
-                System.out.println("ignore loaded!!!");
                 SaveManager.ignoreSaveFile.data.buildCache();
             }
         });
@@ -74,6 +71,7 @@ public class SaveManager {
         });
 
         settingsSaveFile.loadFromDisk();
+        overlaySaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();
         ignoreSaveFile.loadFromDisk();
         pinSaveFile.loadFromDisk();

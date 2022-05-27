@@ -66,10 +66,11 @@ public class ChatParser implements FileTailerListener {
             for (LangRegex lang : LangRegex.values()) {
                 Matcher matcher = lang.joinedAreaPattern.matcher(line);
                 if (matcher.matches()) {
-                    System.out.println(matcher.group("playerName") + open);
+                    String playerName = matcher.group("playerName");
                     for (IJoinedAreaListener listener : joinedAreaListeners) {
-                        // FIXME:
+                        listener.onJoinedArea(playerName);
                     }
+                    break;
                 }
             }
         }
@@ -188,6 +189,7 @@ public class ChatParser implements FileTailerListener {
         for (IParserLoadedListener listener : onLoadListeners) {
             listener.onParserLoaded();
         }
+        loaded = true;
     }
 
     @Override

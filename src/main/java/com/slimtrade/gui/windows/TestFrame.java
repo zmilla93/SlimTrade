@@ -59,7 +59,7 @@ public class TestFrame extends JFrame {
 
         pack();
         setSize(500, 500);
-        setVisible(true);
+//        setVisible(true);
 
     }
 

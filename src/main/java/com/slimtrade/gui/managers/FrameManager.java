@@ -21,14 +21,13 @@ import java.util.HashSet;
 
 public class FrameManager {
     // Windows
-    public static DebugWindow debugWindow;
+//    public static DebugWindow debugWindow;
     public static MessageManager messageManager;
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
     public static StashSortingWindow stashSortingWindow;
-    //    public static ArrayList<CheatSheetWindow> cheatSheetWindows = new ArrayList<>();
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
 
     // Overlays
@@ -51,19 +50,16 @@ public class FrameManager {
 
     public static void init() {
 
-
         // Windows
-        TestFrame frame = new TestFrame();
+//        TestFrame frame = new TestFrame();
         stashHelperContainer = new StashHelperContainer();
-        debugWindow = new DebugWindow();
+//        debugWindow = new DebugWindow();
         messageManager = new MessageManager();
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
         stashSortingWindow = new StashSortingWindow();
-//        itemIgnoreWindow.setVisible(true);
-//        chatScannerWindow.setVisible(true);
 
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();

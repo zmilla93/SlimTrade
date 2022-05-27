@@ -43,8 +43,8 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         addRow("Incoming Trade");
         addRow("Outgoing Trade");
         addRow("Chat Scanner");
-        addRow("Item Ignored");
         addRow("Player Joined Area");
+        addRow("Ignored Item");
         addRow("Update Alert");
 
         JPanel customButtons = new ButtonPanel();
@@ -149,21 +149,19 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         SaveManager.settingsSaveFile.data.incomingSound = getAudioRow(0);
         SaveManager.settingsSaveFile.data.outgoingSound = getAudioRow(1);
         SaveManager.settingsSaveFile.data.chatScannerSound = getAudioRow(2);
-        SaveManager.settingsSaveFile.data.itemIgnoredSound = getAudioRow(3);
-        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = getAudioRow(4);
+        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = getAudioRow(3);
+        SaveManager.settingsSaveFile.data.itemIgnoredSound = getAudioRow(4);
         SaveManager.settingsSaveFile.data.updateSound = getAudioRow(5);
     }
 
     @Override
     public void load() {
         refreshCombos();
-        // FIXME:
-        if (App.saveManager.settingsSaveFile == null) return;
         setAudioRow(0, SaveManager.settingsSaveFile.data.incomingSound);
         setAudioRow(1, SaveManager.settingsSaveFile.data.outgoingSound);
         setAudioRow(2, SaveManager.settingsSaveFile.data.chatScannerSound);
-        setAudioRow(3, SaveManager.settingsSaveFile.data.itemIgnoredSound);
-        setAudioRow(4, SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+        setAudioRow(3, SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+        setAudioRow(4, SaveManager.settingsSaveFile.data.itemIgnoredSound);
         setAudioRow(5, SaveManager.settingsSaveFile.data.updateSound);
     }
 
