@@ -30,14 +30,9 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
 
         pack();
         setSize(600, 400);
+        setMinimumSize(new Dimension(300, 200));
         setLocationRelativeTo(null);
     }
-
-//    @Override
-//    public void handlePreloadTrade(TradeOffer tradeOffer) {
-//        if (tradeOffer == null) return;
-//        addTradeToPanel(tradeOffer, false);
-//    }
 
     @Override
     public void handleTrade(TradeOffer tradeOffer) {
@@ -68,4 +63,5 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
             outgoingTrades.reloadUI();
         });
     }
+
 }

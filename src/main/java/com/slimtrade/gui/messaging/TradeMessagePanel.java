@@ -102,6 +102,13 @@ public class TradeMessagePanel extends NotificationPanel {
     }
 
     @Override
+    protected void onInvite() {
+        super.onInvite();
+        stashHelperPanel.setVisible(true);
+        FrameManager.stashHelperContainer.refresh();
+    }
+
+    @Override
     public void updateUI() {
         super.updateUI();
         if (tradeOffer == null) return;
@@ -142,7 +149,8 @@ public class TradeMessagePanel extends NotificationPanel {
         if (tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING) {
             FrameManager.stashHelperContainer.remove(stashHelperPanel);
             stashHelperPanel.cleanup();
-            highlighterFrame.dispose();
+            if (highlighterFrame != null)
+                highlighterFrame.dispose();
             FrameManager.stashHelperContainer.refresh();
         }
     }

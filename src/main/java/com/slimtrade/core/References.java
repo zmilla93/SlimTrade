@@ -11,6 +11,7 @@ public class References {
     public static final String REGEX_SUFFIX = ")";
 
     public static final int BUTTON_SPACER = 5;
+    public static final int COMPONENT_SPACER = 10;
 
     public static final Point DEFAULT_MESSAGE_LOCATION = new Point(800, 0);
 

@@ -23,6 +23,7 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 1;
 
+//        incomingMessages.setText("WHOA DUDE");
         addRow("Incoming Messages", incomingMessages);
         addRow("Outgoing Messages", outgoingMessages);
         addRow("Item Highlighter", itemHighlighter);
@@ -34,6 +35,12 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
     private void addRow(String title, JComponent component) {
         gc.insets = new Insets(0, 10, 2, 0);
         add(component, gc);
+        if (component instanceof JCheckBox) {
+            ((JCheckBox) component).setText(title);
+            gc.gridx = 0;
+            gc.gridy++;
+            return;
+        }
         gc.gridx++;
         add(new JLabel(title), gc);
         gc.gridx = 0;

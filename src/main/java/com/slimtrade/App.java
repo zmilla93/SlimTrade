@@ -130,6 +130,7 @@ public class App {
             loadingDialog.dispose();
             loadingDialog = null;
         });
+
         System.out.println("Slimtrade Launched");
     }
 

@@ -15,7 +15,7 @@ public enum ColorTheme {
     ARK(new FlatArcIJTheme(), ColorThemeType.LIGHT),
     ARK_ORANGE(new FlatArcOrangeIJTheme(), ColorThemeType.LIGHT),
     ARK_DARK(new FlatArcDarkIJTheme(), ColorThemeType.DARK),
-    ARK_DARK_ORAGE(new FlatArcDarkOrangeIJTheme(), ColorThemeType.DARK),
+    ARK_DARK_ORANGE(new FlatArcDarkOrangeIJTheme(), ColorThemeType.DARK),
     CARBON(new FlatCarbonIJTheme(), ColorThemeType.DARK),
     COBALT_2(new FlatCobalt2IJTheme(), ColorThemeType.DARK),
     CYAN_LIGHT(new FlatCyanLightIJTheme(), ColorThemeType.LIGHT),

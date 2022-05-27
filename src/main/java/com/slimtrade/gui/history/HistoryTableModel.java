@@ -1,13 +1,16 @@
 package com.slimtrade.gui.history;
 
+import com.slimtrade.core.enums.HistoryOrder;
+import com.slimtrade.core.managers.SaveManager;
+
 import javax.swing.table.AbstractTableModel;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class HistoryTableModel extends AbstractTableModel {
 
-    private String[] columnNames = new String[0];
-    private ArrayList<HistoryRowData> data = new ArrayList<>();
+    private final String[] columnNames;
+    private ArrayList<HistoryRowData> data;
 
     /**
      * Table model for the history window.
@@ -18,6 +21,7 @@ public class HistoryTableModel extends AbstractTableModel {
     public HistoryTableModel(String[] columnNames, ArrayList<HistoryRowData> data) {
         this.columnNames = columnNames;
         this.data = data;
+
     }
 
     @Override
@@ -33,13 +37,14 @@ public class HistoryTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int row, int column) {
-//        if(column == 3) return true;
         return false;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Field field = HistoryRowData.class.getFields()[columnIndex];
+        if (SaveManager.settingsSaveFile.data.historyOrder == HistoryOrder.NEWEST_FIRST)
+            rowIndex = data.size() - 1 - rowIndex;
         HistoryRowData row = data.get(rowIndex);
         try {
             return field.get(row);
@@ -59,43 +64,9 @@ public class HistoryTableModel extends AbstractTableModel {
         return columnNames[column];
     }
 
-    public void removeRow(int index) {
-        data.remove(0);
-    }
-
-    public void addRow(HistoryRowData rowData) {
-        data.add(rowData);
-    }
-
     public void setRowData(ArrayList<HistoryRowData> data) {
         this.data = data;
     }
 
-//    @Override
-//    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-//        super.setValueAt(aValue, rowIndex, columnIndex);
-//    }
-
-    //    public void addRow(HistoryRowData rowData) {
-//        int fieldCount =  HistoryRowData.class.getFields().length;
-//        Object[] obj = new Object[fieldCount];
-//        for(int i =0;i<fieldCount;i++){
-//            try {
-//                obj[i] = HistoryRowData.class.getFields()[i].get(rowData);
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        addRow(obj);
-//    }
-
-
-//    public void addRow(HistoryRowData row){
-//        data.add(row);
-//    }
-//
-//    public void removeRow(int index){
-//        data.remove(index);
-//    }
 
 }

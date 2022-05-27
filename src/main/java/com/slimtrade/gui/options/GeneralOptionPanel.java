@@ -3,6 +3,7 @@ package com.slimtrade.gui.options;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.general.BasicsPanel;
 import com.slimtrade.gui.options.general.EnableFeaturesPanel;
+import com.slimtrade.gui.options.general.HistoryOptionPanel;
 import com.slimtrade.gui.options.general.PathOfExilePanel;
 
 import javax.swing.*;
@@ -22,6 +23,9 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
 //        addVerticalStrut();
         addHeader("Enable Features");
         addPanel(new EnableFeaturesPanel());
+        addVerticalStrut();
+        addHeader("History");
+        addPanel(new HistoryOptionPanel());
         addVerticalStrut();
         addHeader("Path of Exile");
         addPanel(new PathOfExilePanel());

@@ -10,13 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class CurrencyPanel extends AdvancedButton {
+public class CurrencyButton extends AdvancedButton {
 
     public static final int INSET = 2;
     private ArrayList<SaleItem> items;
     private Color textColor;
 
-    public CurrencyPanel() {
+    public CurrencyButton() {
         super();
         updateUI();
     }

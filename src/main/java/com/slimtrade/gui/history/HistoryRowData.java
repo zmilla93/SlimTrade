@@ -1,14 +1,18 @@
 package com.slimtrade.gui.history;
 
+import com.slimtrade.core.data.SaleItem;
+import com.slimtrade.core.data.SaleItemWrapper;
 import com.slimtrade.core.trading.TradeOffer;
 
 public class HistoryRowData {
 
-    public String date;
-    public String time;
+    public DateString date;
+    public TimeString time;
     public String player;
-    public String item;
-    public double price;
+    public SaleItemWrapper saleItemWrapper;
+    //    public String item;
+    //    public double price;
+    public PoePrice price;
     public TradeOffer tradeOffer;
 
     /**
@@ -17,11 +21,12 @@ public class HistoryRowData {
      * @param tradeOffer
      */
     public HistoryRowData(TradeOffer tradeOffer) {
-        date = tradeOffer.date;
-        time = tradeOffer.time;
+        date = new DateString(tradeOffer.date);
+        time = new TimeString(tradeOffer.time);
         player = tradeOffer.playerName;
-        item = tradeOffer.itemName;
-        price = tradeOffer.priceQuantity;
+        saleItemWrapper = new SaleItemWrapper();
+        saleItemWrapper.items = SaleItem.getItems(tradeOffer.itemQuantityString + " " + tradeOffer.itemName);
+        price = new PoePrice(tradeOffer.priceTypeString, (int) tradeOffer.priceQuantity);
         this.tradeOffer = tradeOffer;
     }
 

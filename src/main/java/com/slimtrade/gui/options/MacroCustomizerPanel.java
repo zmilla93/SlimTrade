@@ -165,6 +165,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         buttonType.setSelectedItem(macro.buttonType);
         buttonText.setText(macro.text);
         iconCombo.setSelectedIndex(macro.icon.ordinal());
+        closeCheckbox.setSelected(macro.close);
     }
 
     @Override

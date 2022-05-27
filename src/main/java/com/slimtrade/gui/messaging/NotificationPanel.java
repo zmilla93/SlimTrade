@@ -14,9 +14,9 @@ public class NotificationPanel extends ColorPanel {
 
     // Panels
     protected final NotificationButton playerNameButton = new NotificationButton("Player Name");
-    protected final CurrencyPanel pricePanel = new CurrencyPanel();
+    protected final CurrencyButton pricePanel = new CurrencyButton();
     protected final JLabel priceLabel = new JLabel("Price");
-    protected final CurrencyPanel itemButton = new CurrencyPanel();
+    protected final CurrencyButton itemButton = new CurrencyButton();
     private final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
     private final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
 
@@ -151,8 +151,11 @@ public class NotificationPanel extends ColorPanel {
                     @Override
                     public void click(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
-                            if (!ZUtil.isEmptyString(macro.lmbResponse))
+                            if (!ZUtil.isEmptyString(macro.lmbResponse)) {
+                                System.out.println("mc:" + macro.lmbResponse);
                                 POEInterface.pasteWithFocus(macro.lmbResponse, tradeOffer);
+                                if (macro.lmbResponse.contains("/invite")) onInvite();
+                            }
                             if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                         if (e.getButton() == MouseEvent.BUTTON3) {
@@ -230,10 +233,18 @@ public class NotificationPanel extends ColorPanel {
     }
 
     /**
+     * Called when a button is pressed that uses the /invite command.
+     */
+    protected void onInvite() {
+        // Overwrite this!
+    }
+
+    /**
      * Called when a message is removed from the message manager.
      */
     public void cleanup() {
-        // Override this!
+        timer.stop();
+        // Override this, but call super!
     }
 
 }

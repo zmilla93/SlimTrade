@@ -3,8 +3,7 @@ package com.slimtrade.core.saving.savefiles;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.data.StashTabData;
-import com.slimtrade.core.enums.ButtonRow;
-import com.slimtrade.core.enums.SpinnerRange;
+import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.ColorTheme;
@@ -27,6 +26,11 @@ public class SettingsSaveFile {
     public QuickPasteManager.QuickPasteMode quickPasteMode;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
+
+    // History
+    public HistoryOrder historyOrder = HistoryOrder.NEWEST_FIRST;
+    public TimeFormat historyTimeFormat = TimeFormat.H12;
+    public DateFormat historyDateFormat = DateFormat.MM_DD_YY;
 
     // Path of Exile
     public String clientPath;

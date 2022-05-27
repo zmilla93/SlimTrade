@@ -13,6 +13,7 @@ import com.slimtrade.modules.colortheme.components.ColorCheckbox;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
@@ -333,6 +334,22 @@ public class ColorManager<T> {
 
     public static Color adjustAlpha(Color color, int alpha) {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+    }
+
+    /**
+     * Dumps all the Key, Value pairs from the UIManager into console. ~1300 entries.
+     */
+    public static void debugKeyValueDump() {
+        Enumeration<Object> keys = UIManager.getDefaults().keys();
+        StringBuilder builder = new StringBuilder();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            builder.append(key + " :::" + value + "\n");
+            System.out.println(key + " :::" + value);
+        }
+        StringSelection selection = new StringSelection(builder.toString());
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
     }
 
     // Listeners

@@ -14,7 +14,7 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
 
     JPanel outerPanel = new JPanel();
 
-    private JTextField characterName = new JTextField(10);
+    private JTextField characterName = new JTextField(14);
     private JCheckBox showGuildName = new JCheckBox();
     private JCheckBox folderOffset = new JCheckBox();
     //    private JCheckBox colorBlind = new JCheckBox();

@@ -1,13 +1,18 @@
 package com.slimtrade.gui.history;
 
+import com.slimtrade.core.data.SaleItemWrapper;
+import com.slimtrade.core.enums.HistoryOrder;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.modules.saving.ISaveListener;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class HistoryPanel extends JPanel {
+public class HistoryPanel extends JPanel implements ISaveListener {
 
     ArrayList<HistoryRowData> data = new ArrayList();
     public static int maxMessageCount = 50;
@@ -30,12 +35,19 @@ public class HistoryPanel extends JPanel {
         bottomPanel.add(buttonPanel, BorderLayout.EAST);
 
         setLayout(new BorderLayout());
+        DefaultTableCellRenderer defaultCellRenderer = new DefaultTableCellRenderer();
+        defaultCellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         table = new HistoryTable(columnNames, data);
+        table.setDefaultRenderer(DateString.class, defaultCellRenderer);
+        table.setDefaultRenderer(TimeString.class, defaultCellRenderer);
+        table.setDefaultRenderer(PoePrice.class, new CurrencyCellRenderer());
+        table.setDefaultRenderer(SaleItemWrapper.class, new ItemCellRenderer());
         table.setAutoCreateRowSorter(true);
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
         addListeners();
+        SaveManager.settingsSaveFile.addListener(this);
     }
 
     private void addListeners() {
@@ -73,9 +85,20 @@ public class HistoryPanel extends JPanel {
 
     private void refreshSelectedTrade() {
         int index = table.getSelectedRow();
+        if (SaveManager.settingsSaveFile.data.historyOrder == HistoryOrder.NEWEST_FIRST)
+            index = data.size() - 1 - index;
         if (index == -1 || index >= data.size()) return;
         TradeOffer trade = data.get(index).tradeOffer;
         FrameManager.messageManager.addMessage(trade, false);
     }
 
+    @Override
+    public void onSave() {
+        table.updateUI();
+    }
+
+    @Override
+    public void onLoad() {
+
+    }
 }
