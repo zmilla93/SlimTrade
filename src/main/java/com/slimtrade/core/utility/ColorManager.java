@@ -76,6 +76,7 @@ public class ColorManager<T> {
 
     public static void setTheme(ColorTheme theme, boolean forceThemeRefresh) {
         if (theme == currentTheme && !forceThemeRefresh) return;
+        if (theme == null) theme = ColorTheme.getDefaultColorTheme();
         int[] comboIcons = new int[stickyCombos.size()];
         for (int i = 0; i < stickyCombos.size(); i++) {
             comboIcons[i] = stickyCombos.get(i).getSelectedIndex();
@@ -113,6 +114,7 @@ public class ColorManager<T> {
     }
 
     public static ColorTheme getCurrentTheme() {
+        if (currentTheme == null) return ColorTheme.getDefaultColorTheme();
         return currentTheme;
     }
 

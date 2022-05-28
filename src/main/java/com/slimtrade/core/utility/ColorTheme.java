@@ -1,25 +1,24 @@
 package com.slimtrade.core.utility;
 
 import com.formdev.flatlaf.IntelliJTheme;
-import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
-import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
-import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
-import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.*;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.*;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlContrastIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatNightOwlContrastIJTheme;
 import com.slimtrade.core.enums.ColorThemeType;
 
 public enum ColorTheme {
 
     // https://github.com/JFormDesigner/FlatLaf/tree/main/flatlaf-intellij-themes#themes
+    // Disabled themes are either redundant or hide separators which breaks look of menus.
+
     ARK(new FlatArcIJTheme(), ColorThemeType.LIGHT),
     ARK_ORANGE(new FlatArcOrangeIJTheme(), ColorThemeType.LIGHT),
     ARK_DARK(new FlatArcDarkIJTheme(), ColorThemeType.DARK),
     ARK_DARK_ORANGE(new FlatArcDarkOrangeIJTheme(), ColorThemeType.DARK),
     CARBON(new FlatCarbonIJTheme(), ColorThemeType.DARK),
-    COBALT_2(new FlatCobalt2IJTheme(), ColorThemeType.DARK),
+    //    COBALT_2(new FlatCobalt2IJTheme(), ColorThemeType.DARK),
     CYAN_LIGHT(new FlatCyanLightIJTheme(), ColorThemeType.LIGHT),
-    DARK_FLAT(new FlatDarkFlatIJTheme(), ColorThemeType.DARK),
+    //    DARK_FLAT(new FlatDarkFlatIJTheme(), ColorThemeType.DARK),
     DARK_PURPLE(new FlatDarkPurpleIJTheme(), ColorThemeType.DARK),
     DRACULA(new FlatDraculaIJTheme(), ColorThemeType.DARK),
     GRADIANTO_DARK_FUCHSIA(new FlatGradiantoDarkFuchsiaIJTheme(), ColorThemeType.DARK),
@@ -32,10 +31,10 @@ public enum ColorTheme {
     GRUVBOX_DARK_SOFT(new FlatGruvboxDarkSoftIJTheme(), ColorThemeType.DARK),
     HIBERBEE_DARK(new FlatHiberbeeDarkIJTheme(), ColorThemeType.DARK),
     HIGH_CONTRAST(new FlatHighContrastIJTheme(), ColorThemeType.DARK),
-    LIGHT_FLAT(new FlatLightFlatIJTheme(), ColorThemeType.LIGHT),
-    LIGHT_OWL(new FlatLightOwlIJTheme(), ColorThemeType.LIGHT),
+    //    LIGHT_FLAT(new FlatLightFlatIJTheme(), ColorThemeType.LIGHT),
+//    LIGHT_OWL(new FlatLightOwlIJTheme(), ColorThemeType.LIGHT),
     LIGHT_OWL_2(new FlatLightOwlContrastIJTheme(), ColorThemeType.LIGHT),
-    NIGHT_OWL(new FlatNightOwlIJTheme(), ColorThemeType.DARK),
+    //    NIGHT_OWL(new FlatNightOwlIJTheme(), ColorThemeType.DARK),
     NIGHT_OWL_2(new FlatNightOwlContrastIJTheme(), ColorThemeType.DARK),
     MATERIAL_DESIGN_DARK(new FlatMaterialDesignDarkIJTheme(), ColorThemeType.DARK),
     MONOCAI(new FlatMonocaiIJTheme(), ColorThemeType.DARK),
@@ -46,6 +45,7 @@ public enum ColorTheme {
     SOLARIZED_DARK(new FlatSolarizedDarkIJTheme(), ColorThemeType.DARK),
     SPACEGRAY(new FlatSpacegrayIJTheme(), ColorThemeType.DARK),
     VUESION(new FlatVuesionIJTheme(), ColorThemeType.DARK),
+    XCODE_DARK(new FlatXcodeDarkIJTheme(), ColorThemeType.DARK),
     ;
 
     public final IntelliJTheme.ThemeLaf lookAndFeel;
@@ -57,6 +57,10 @@ public enum ColorTheme {
         this.themeType = themeType;
     }
 
+    public static ColorTheme getDefaultColorTheme() {
+        return ColorTheme.SOLARIZED_LIGHT;
+    }
+
     @Override
     public String toString() {
         if (cleanName == null) {
@@ -64,4 +68,5 @@ public enum ColorTheme {
         }
         return cleanName;
     }
+
 }

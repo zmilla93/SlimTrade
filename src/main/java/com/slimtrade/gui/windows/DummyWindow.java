@@ -1,14 +1,19 @@
 package com.slimtrade.gui.windows;
 
 
-import java.awt.*;
+import com.slimtrade.core.utility.ColorManager;
 
-public class DummyWindow extends AbstractDialog {
+import javax.swing.*;
+
+public class DummyWindow extends JDialog {
+
+    public static final int SIZE = 50;
+    public static final int HALF_SIZE = SIZE / 2;
 
     public DummyWindow() {
-        setSize(50, 50);
-        setFocusable(true);
-        setFocusableWindowState(true);
-        setBackground(new Color(0, 0, 0, 0.005f));
+        setSize(SIZE, SIZE);
+        setUndecorated(true);
+        setAlwaysOnTop(true);
+        setBackground(ColorManager.TRANSPARENT_CLICKABLE);
     }
 }

@@ -42,6 +42,8 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
 
     @Override
     public void load() {
-        themeCombo.setSelectedItem(SaveManager.settingsSaveFile.data.colorTheme);
+        ColorTheme theme = SaveManager.settingsSaveFile.data.colorTheme;
+        if (theme == null) theme = ColorTheme.getDefaultColorTheme();
+        themeCombo.setSelectedItem(theme);
     }
 }

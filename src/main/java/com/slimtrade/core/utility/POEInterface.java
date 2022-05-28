@@ -2,6 +2,7 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.gui.windows.DummyWindow;
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
@@ -135,10 +136,13 @@ public class POEInterface {
         assert (!SwingUtilities.isEventDispatchThread());
         if (isGameFocused()) return true;
         FrameManager.dummyWindow.setVisible(true);
-        FrameManager.dummyWindow.setLocation(MouseInfo.getPointerInfo().getLocation());
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        point.x -= DummyWindow.HALF_SIZE;
+        point.y -= DummyWindow.HALF_SIZE;
+        FrameManager.dummyWindow.setLocation(point);
         robot.mousePress(0);
         robot.mouseRelease(0);
-        FrameManager.dummyWindow.setVisible(false);
+//        FrameManager.dummyWindow.setVisible(false);
         User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
             char[] className = new char[512];
             User32.INSTANCE.GetClassName(hWnd, className, 512);
