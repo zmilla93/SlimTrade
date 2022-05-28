@@ -39,6 +39,7 @@ public class NotificationPanel extends ColorPanel {
     private boolean playerJoinedArea;
 
     protected Color messageColor = new Color(60, 173, 173, 255);
+    protected Color currencyTextColor;
 
     // Timers
     private Timer timer;
@@ -206,6 +207,7 @@ public class NotificationPanel extends ColorPanel {
         borderPanel.setBackground(messageColor);
         pricePanel.setBackground(messageColor);
         topPanel.setBackground(messageColor);
+        if (currencyTextColor != null) pricePanel.setForeground(currencyTextColor);
         if (playerJoinedArea) {
             playerNameButton.setForeground(messageColor);
             timerLabel.setForeground(messageColor);

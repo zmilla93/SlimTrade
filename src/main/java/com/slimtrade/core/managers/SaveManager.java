@@ -2,9 +2,11 @@ package com.slimtrade.core.managers;
 
 import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.saving.SaveFile;
 
+import javax.swing.*;
 import java.io.File;
 
 public class SaveManager {
@@ -39,6 +41,9 @@ public class SaveManager {
                     SaveManager.settingsSaveFile.data.iconSizeChanged = false;
                 }
                 SaveManager.settingsSaveFile.data.buildMacroCache();
+                assert SwingUtilities.isEventDispatchThread();
+                // FIXME : force update ui only needs to run if colorblind mode was changed.
+                FrameManager.messageManager.forceUpdateUI();
             }
 
             @Override

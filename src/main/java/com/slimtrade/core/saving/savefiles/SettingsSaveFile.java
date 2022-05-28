@@ -20,12 +20,18 @@ public class SettingsSaveFile {
     // General
     public boolean showGuildName;
     public boolean folderOffset;
-    public boolean colorBlindMode;
     public String characterName;
-    public ColorTheme colorTheme;
     public QuickPasteManager.QuickPasteMode quickPasteMode;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
+
+    // Display
+    public int fontSize = SpinnerRange.FONT_SIZE.START;
+    public int iconSize = SpinnerRange.ICON_SIZE.START;
+    public transient boolean fontSizeChanged;
+    public transient boolean iconSizeChanged;
+    public ColorTheme colorTheme;
+    public boolean colorBlindMode;
 
     // History
     public HistoryOrder historyOrder = HistoryOrder.NEWEST_FIRST;
@@ -45,12 +51,8 @@ public class SettingsSaveFile {
 
     // Stash
     public ArrayList<StashTabData> stashTabs = new ArrayList<>();
+    public boolean applyStashColorToMessage;
 
-    // Display
-    public int fontSize = SpinnerRange.FONT_SIZE.START;
-    public int iconSize = SpinnerRange.ICON_SIZE.START;
-    public transient boolean fontSizeChanged;
-    public transient boolean iconSizeChanged;
 
     // Audio
     public SoundComponent incomingSound;
@@ -61,7 +63,6 @@ public class SettingsSaveFile {
     public SoundComponent updateSound;
 
     // Macros
-    public boolean applyStashColorToMessage;
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
     public ArrayList<MacroButton> outgoingMacroButtons = new ArrayList<>();
     public transient ArrayList<MacroButton> incomingTopMacros = new ArrayList<>();

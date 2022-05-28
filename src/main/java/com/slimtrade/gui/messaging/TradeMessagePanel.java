@@ -1,7 +1,6 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.data.SaleItem;
-import com.slimtrade.core.enums.ColorThemeType;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
@@ -13,7 +12,6 @@ import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.gui.stash.StashHighlighterFrame;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class TradeMessagePanel extends NotificationPanel {
@@ -57,7 +55,6 @@ public class TradeMessagePanel extends NotificationPanel {
             case OUTGOING:
                 topMacros = SaveManager.settingsSaveFile.data.outgoingTopMacros;
                 bottomMacros = SaveManager.settingsSaveFile.data.outgoingBottomMacros;
-                messageColor = new Color(180, 72, 72);
                 break;
         }
         updateUI();
@@ -113,33 +110,17 @@ public class TradeMessagePanel extends NotificationPanel {
         super.updateUI();
         if (tradeOffer == null) return;
         StashTabColor stashTabColor = tradeOffer.getStashTabColor();
-        switch (tradeOffer.offerType) {
-            case INCOMING:
-                if (!SaveManager.settingsSaveFile.data.applyStashColorToMessage || stashTabColor == StashTabColor.ZERO) {
-                    if (ColorManager.getCurrentTheme().themeType == ColorThemeType.LIGHT) {
-                        messageColor = new Color(105, 201, 97);
-                    } else {
-                        messageColor = new Color(38, 145, 32);
-                    }
-                } else {
-                    messageColor = tradeOffer.getStashTabColor().getBackground();
-                }
-                break;
-            case OUTGOING:
-                if (ColorManager.getCurrentTheme().themeType == ColorThemeType.LIGHT) {
-                    messageColor = new Color(180, 72, 72);
-                } else {
-                    messageColor = new Color(133, 17, 17);
-                }
-                break;
-            case CHAT_SCANNER:
-                if (ColorManager.getCurrentTheme().themeType == ColorThemeType.LIGHT) {
-                    messageColor = new Color(222, 144, 89);
-                } else {
-                    messageColor = new Color(175, 89, 24);
-                }
-                break;
+        if (tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING
+                && SaveManager.settingsSaveFile.data.applyStashColorToMessage
+                && stashTabColor != StashTabColor.ZERO
+        ) {
+            messageColor = tradeOffer.getStashTabColor().getBackground();
+            currencyTextColor = tradeOffer.getStashTabColor().getForeground();
+        } else {
+            messageColor = ColorManager.getCurrentTheme().themeType.getColor(tradeOffer);
         }
+        revalidate();
+        repaint();
         applyMessageColor();
     }
 

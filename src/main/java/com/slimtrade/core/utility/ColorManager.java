@@ -25,14 +25,11 @@ public class ColorManager<T> {
 
     private static List<Component> frames = new ArrayList<>();
     private static ColorTheme currentTheme;
-    private static ArrayList<IThemeListener> themeListeners = new ArrayList<>();
+    private static final ArrayList<IThemeListener> themeListeners = new ArrayList<>();
 
-    //    public static final Color CONFIRM_COLOR = new Color(58, 150, 47, 255);
-    public static final Color CONFIRM_COLOR = new Color(73, 156, 84);
-    //    public static final Color DENY_COLOR = new Color(154, 75, 75, 255);
-    public static final Color DENY_COLOR = new Color(199, 84, 80);
-    public static final Color GREEN_SALE = new Color(0, 130, 0);
-    public static final Color RED_SALE = new Color(130, 0, 0);
+
+    public static Color INCOMING_MESSAGE_LIGHT = new Color(105, 201, 97);
+    public static Color INCOMING_MESSAGE_DARK = new Color(105, 201, 97);
     public static Color POE_TEXT_DARK = new Color(53, 28, 13);
     public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
 

@@ -128,24 +128,23 @@ public class TradeOffer {
 
     public StashTabColor getStashTabColor() {
         // FIXME : Switch to hashmap
-        if (stashColorIndex == -1) {
-            stashColorIndex = 0;
-            stashTabColor = StashTabColor.ZERO;
-            if (stashTabName != null) {
-                for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
-                    if (data.stashTabName == null || data.stashTabName.isBlank()) continue;
-                    if (data.matchType == MatchType.EXACT_MATCH) {
-                        if (stashTabName.equals(data.stashTabName)) {
-                            stashColorIndex = data.stashColorIndex;
-                            stashTabColor = StashTabColor.values()[data.stashColorIndex];
-                            break;
-                        }
-                    } else if (data.matchType == MatchType.CONTAINS_TEXT) {
-                        if (stashTabName.contains(data.stashTabName)) {
-                            stashColorIndex = data.stashColorIndex;
-                            stashTabColor = StashTabColor.values()[data.stashColorIndex];
-                            break;
-                        }
+        // FIXME : Caching this value makes history reloads not apply the new color, so its been removed for now
+        stashColorIndex = 0;
+        stashTabColor = StashTabColor.ZERO;
+        if (stashTabName != null) {
+            for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
+                if (data.stashTabName == null || data.stashTabName.isBlank()) continue;
+                if (data.matchType == MatchType.EXACT_MATCH) {
+                    if (stashTabName.equals(data.stashTabName)) {
+                        stashColorIndex = data.stashColorIndex;
+                        stashTabColor = StashTabColor.values()[data.stashColorIndex];
+                        break;
+                    }
+                } else if (data.matchType == MatchType.CONTAINS_TEXT) {
+                    if (stashTabName.contains(data.stashTabName)) {
+                        stashColorIndex = data.stashColorIndex;
+                        stashTabColor = StashTabColor.values()[data.stashColorIndex];
+                        break;
                     }
                 }
             }

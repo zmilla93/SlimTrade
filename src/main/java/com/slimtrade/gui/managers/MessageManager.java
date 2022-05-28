@@ -178,6 +178,16 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         repaint();
     }
 
+    // FIXME : This is needed to call updateUI on child components to force color changes.
+    //  Would be nice to have a clear way to do this
+    public void forceUpdateUI() {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JComponent) {
+                ColorManager.recursiveUpdateUI((JComponent) c);
+            }
+        }
+    }
+
     @Override
     public void handleTrade(TradeOffer tradeOffer) {
         SwingUtilities.invokeLater(() -> addMessage(tradeOffer));

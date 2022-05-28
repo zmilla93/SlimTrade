@@ -14,12 +14,14 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private JButton addButton = new JButton("Add Stash Tab");
     private JPanel tabContainer = new JPanel(new GridBagLayout());
+    private JCheckBox applyColorCheckbox = new JCheckBox("Also apply color to the trade notification panel.");
     private GridBagConstraints gc = ZUtil.getGC();
 
     public StashOptionPanel() {
         addHeader("Info");
         addPanel(new JLabel("Add stash tab names to apply a color to the item highlighter or mark quad tabs."));
         addPanel(new JLabel("Default white will use the color of the current theme."));
+        addPanel(applyColorCheckbox);
         addVerticalStrut();
         addHeader("Stash Tab List");
         addPanel(addButton);
@@ -47,6 +49,7 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
             }
         }
         SaveManager.settingsSaveFile.data.stashTabs = stashTabs;
+        SaveManager.settingsSaveFile.data.applyStashColorToMessage = applyColorCheckbox.isSelected();
     }
 
     @Override
@@ -58,6 +61,7 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
             gc.gridy = tabContainer.getComponentCount();
             tabContainer.add(row, gc);
         }
+        applyColorCheckbox.setSelected(SaveManager.settingsSaveFile.data.applyStashColorToMessage);
         revalidate();
         repaint();
     }
