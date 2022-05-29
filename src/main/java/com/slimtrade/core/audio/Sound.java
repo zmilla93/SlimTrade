@@ -31,7 +31,7 @@ public class Sound {
     public String getPath() {
         if (path == null) {
             if (soundType == SoundType.INBUILT) {
-                path = "audio" + File.separator + name.toLowerCase(Locale.ROOT).replaceAll(" ", "") + ".wav";
+                path = "/audio/" + name.toLowerCase(Locale.ROOT).replaceAll(" ", "") + ".wav";
             } else if (soundType == SoundType.CUSTOM) {
                 path = SaveManager.getAudioDirectory() + name + ".wav";
             }

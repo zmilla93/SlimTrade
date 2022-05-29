@@ -105,7 +105,11 @@ public class AudioManager {
                 File file = new File(sound.getPath());
                 if (!file.exists()) return null;
             }
-            stream = AudioSystem.getAudioInputStream(sound.getURL());
+            if (sound.soundType == Sound.SoundType.INBUILT) {
+                stream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource(sound.getPath())));
+            } else {
+                stream = AudioSystem.getAudioInputStream(sound.getURL());
+            }
             clip.open(stream);
             clip.addLineListener(event -> {
                 LineEvent.Type type = event.getType();

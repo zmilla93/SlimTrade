@@ -23,7 +23,7 @@ public class SystemTrayManager implements ActionListener {
         tray = SystemTray.getSystemTray();
         Image img;
         try {
-            img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/icons/slim-icon.png")));
+            img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/icons/chaos-icon.png")));
         } catch (IOException e) {
             e.printStackTrace();
             return;

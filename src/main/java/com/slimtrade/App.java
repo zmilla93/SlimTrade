@@ -46,7 +46,7 @@ public class App {
     public static void main(String[] args) {
 
         // This setting gets rid of some rendering issues with transparent frames
-        System.setProperty("sun.java2d.noddraw", "true");
+//        System.setProperty("sun.java2d.noddraw", "true");
 
         // Shutdown Hook
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
@@ -128,7 +128,6 @@ public class App {
         setState(State.RUNNING);
         SwingUtilities.invokeLater(() -> {
             loadingDialog.dispose();
-            loadingDialog = null;
         });
 
         System.out.println("Slimtrade Launched");

@@ -83,7 +83,7 @@ public class SaveManager {
     }
 
     public static String getAudioDirectory() {
-        return getSaveDirectory() + audioFolderName + File.separator;
+        return getSaveDirectory() + audioFolderName + "/";
     }
 
     public static String getImagesDirectory() {

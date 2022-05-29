@@ -128,6 +128,7 @@ public class OptionsWindow extends CustomDialog {
     }
 
     private void ShowPanel(OptionPanel panel) {
+        if (panel == null) return;
         cardLayout.show(cardPanel, panel.title);
     }
 

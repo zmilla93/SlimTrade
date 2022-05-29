@@ -134,6 +134,7 @@ public class POEInterface {
      */
     public static boolean focusGame() {
         assert (!SwingUtilities.isEventDispatchThread());
+        System.out.println("try focus game");
         if (isGameFocused()) return true;
         FrameManager.dummyWindow.setVisible(true);
         Point point = MouseInfo.getPointerInfo().getLocation();
@@ -142,7 +143,7 @@ public class POEInterface {
         FrameManager.dummyWindow.setLocation(point);
         robot.mousePress(0);
         robot.mouseRelease(0);
-//        FrameManager.dummyWindow.setVisible(false);
+        FrameManager.dummyWindow.setVisible(false);
         User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
             char[] className = new char[512];
             User32.INSTANCE.GetClassName(hWnd, className, 512);

@@ -101,14 +101,26 @@ public class QuickPasteManager {
             boolean running = true;
             while (running) {
                 try {
-                    String newContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-                    if (newContents != null && !newContents.equals(clipboardContents)) {
-                        clipboardContents = newContents;
-                        attemptQuickPaste();
+                    try {
+                        DataFlavor[] flavors = Toolkit.getDefaultToolkit().getSystemClipboard().getAvailableDataFlavors();
+                        boolean valid = false;
+                        for (DataFlavor flavor : flavors) {
+                            if (flavor == DataFlavor.stringFlavor) {
+                                valid = true;
+                                break;
+                            }
+                        }
+                        if (!valid) return;
+                        String newContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+                        if (newContents != null && !newContents.equals(clipboardContents)) {
+                            clipboardContents = newContents;
+                            attemptQuickPaste();
+                        }
+                    } catch (UnsupportedFlavorException | IOException | IllegalStateException e) {
+                        System.err.println("Error while reading clipboard.");
+                        e.printStackTrace();
                     }
                     Thread.sleep(CHECK_DELAY_MS);
-                } catch (UnsupportedFlavorException | IOException | IllegalStateException e) {
-                    // Ignore
                 } catch (InterruptedException e) {
                     running = false;
                 }

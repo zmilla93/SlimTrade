@@ -4,9 +4,8 @@ import com.slimtrade.core.managers.SaveManager;
 
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -75,9 +74,8 @@ public class CurrencyImage {
 
     public static void initIconList() {
         try {
-            URL url = CurrencyImage.class.getResource("/text/currency.txt");
-            assert url != null;
-            BufferedReader reader = new BufferedReader(new FileReader(url.getPath()));
+            InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyImage.class.getResourceAsStream("/text/currency.txt")));
+            BufferedReader reader = new BufferedReader(stream);
             while (reader.ready()) {
                 String line = reader.readLine();
                 if (line.matches("\\s+")) continue;
@@ -89,6 +87,7 @@ public class CurrencyImage {
                 }
                 addCSV(line);
             }
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,6 +95,7 @@ public class CurrencyImage {
     }
 
     private static void addCustomTags() {
+        // FIXME : Add all tags
         addTag("Chaos Orb", "chaos");
         addTag("Orb of Alchemy", "alch");
     }
