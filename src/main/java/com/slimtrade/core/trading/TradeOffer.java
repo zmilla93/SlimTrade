@@ -5,6 +5,7 @@ import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.ZUtil;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -133,7 +134,7 @@ public class TradeOffer {
         stashTabColor = StashTabColor.ZERO;
         if (stashTabName != null) {
             for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
-                if (data.stashTabName == null || data.stashTabName.isBlank()) continue;
+                if (data.stashTabName == null || ZUtil.isEmptyString(data.stashTabName)) continue;
                 if (data.matchType == MatchType.EXACT_MATCH) {
                     if (stashTabName.equals(data.stashTabName)) {
                         stashColorIndex = data.stashColorIndex;

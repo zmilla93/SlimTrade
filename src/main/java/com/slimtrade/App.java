@@ -14,6 +14,7 @@ import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.LoadingDialog;
+import com.slimtrade.gui.windows.OptionsWindow;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
@@ -46,14 +47,15 @@ public class App {
     public static void main(String[] args) {
 
         // This setting gets rid of some rendering issues with transparent frames
-//        System.setProperty("sun.java2d.noddraw", "true");
+        System.setProperty("sun.java2d.noddraw", "true");
 
         // Shutdown Hook
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
         // Init minimum for loading dialog
-        SaveManager.init();
         ColorManager.loadFonts();
+        SaveManager.init();
+
 
         // Loading Dialog
         try {
@@ -84,9 +86,10 @@ public class App {
                 FrameManager.init();
 
                 // Load save file to GUI
+                ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
                 ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme, true);
                 ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-                ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
+
                 SaveManager.settingsSaveFile.revertChanges();
                 SaveManager.stashSaveFile.revertChanges();
 //                FrameManager.messageManager.setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
@@ -98,8 +101,8 @@ public class App {
 
                 // Show Windows
                 FrameManager.messageManager.setVisible(true);
-//                FrameManager.debugWindow.setVisible(true);
                 FrameManager.optionsWindow.setVisible(true);
+                FrameManager.menubarDialog.setVisible(true);
             });
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();

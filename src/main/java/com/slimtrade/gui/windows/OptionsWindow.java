@@ -22,6 +22,7 @@ public class OptionsWindow extends CustomDialog {
 
     public OptionsWindow() {
         super("Options");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         incomingMacroPanel = new IncomingMacroPanel();
         outgoingMacroPanel = new OutgoingMacroPanel();
 
@@ -92,7 +93,9 @@ public class OptionsWindow extends CustomDialog {
         if (App.debug) ShowPanel(debug);
         setMinimumSize(new Dimension(300, 200));
         pack();
-        setSize(900, 600);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize((int)Math.round(screenSize.width * 0.5), (int)Math.round(screenSize.height * 0.6));
         setLocationRelativeTo(null);
         SaveManager.settingsSaveFile.registerSavableContainer(this);
     }

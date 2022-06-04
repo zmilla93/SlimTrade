@@ -3,6 +3,7 @@ package com.slimtrade.gui.options;
 import com.slimtrade.core.enums.MessageType;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.MacroButton;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
@@ -41,11 +42,33 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         addHeader("Macro Preview");
         addPanel(exampleTradeContainer);
         addHeader("Inbuilt Macros");
+        addPanel(inbuiltMacroPanel("Player Name", "/whois {player}", "Open empty whisper message"));
+        addSmallVerticalStrut();
+        addPanel(inbuiltMacroPanel("Item Name", "Open Stash Helper", "Ignore Item"));
+        addVerticalStrut();
         addHeader("Custom Macros");
         addPanel(addMacroButton);
         addPanel(macroContainer);
     }
 
+    private JPanel inbuiltMacroPanel(String text, String lmb, String rmb) {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gc = ZUtil.getGC();
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(new JLabel(text), gc);
+        gc.gridx++;
+        gc.insets.left = 20;
+        panel.add(new JLabel("Left Mouse"), gc);
+        gc.gridy++;
+        panel.add(new JLabel("Right Mouse"), gc);
+        gc.gridx++;
+        gc.gridy--;
+        panel.add(new JLabel(lmb), gc);
+        gc.gridy++;
+        panel.add(new JLabel(rmb), gc);
+        return panel;
+    }
 
     public void reloadExampleTrade() {
         exampleTradeContainer.removeAll();

@@ -18,6 +18,9 @@ public class BasicDialog extends VisibilityDialog {
         setFocusable(false);
         setFocusableWindowState(false);
         setAlwaysOnTop(true);
+//        toFront();
+        setType(JDialog.Type.UTILITY);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setContentPane(container);
         ColorManager.addFrame(this);
     }

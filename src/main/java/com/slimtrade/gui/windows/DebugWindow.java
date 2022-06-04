@@ -1,7 +1,5 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.App;
-import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ColorTheme;
 
@@ -26,7 +24,7 @@ public class DebugWindow extends JFrame {
         JButton testMessageButton = new JButton("Test Message");
         testMessageButton.addActionListener(e -> {
 //                App.frameManager.addMessage();
-            App.frameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+//            App.frameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
 //                App.audioManager.playSoundRaw(App.audioManager.soundfiles.get(0), 0);
         });
         container.add(testMessageButton);

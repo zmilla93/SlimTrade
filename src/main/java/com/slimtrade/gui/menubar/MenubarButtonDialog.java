@@ -17,7 +17,7 @@ public class MenubarButtonDialog extends BasicDialog {
     public MenubarButtonDialog() {
 
         ImageIcon icon = IconFactory.getIcon("/icons/default/tagx64.png");
-        JLabel iconLabel = new JLabel(icon);
+//        JLabel iconLabel = new JLabel(icon);
         JButton iconButton = new IconButton("/icons/default/tagx64.png");
         container.setLayout(new BorderLayout());
         container.add(iconButton, BorderLayout.CENTER);

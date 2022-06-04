@@ -73,6 +73,10 @@ public class AbstractOptionPanel extends JPanel {
     }
 
 
+    protected void addSmallVerticalStrut() {
+        addPanel(Box.createVerticalStrut(GUIReferences.SMALL_INSET));
+    }
+
     protected void addVerticalStrut() {
         addPanel(Box.createVerticalStrut(GUIReferences.INSET));
     }

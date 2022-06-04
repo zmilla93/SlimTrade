@@ -76,7 +76,7 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         int inset = thin ? 0 : TITLE_INSET;
-        gc.insets = new Insets(inset, TITLE_INSET, inset, 0);
+        gc.insets = new Insets(inset, TITLE_INSET, inset, TITLE_INSET);
         titlePanel.add(titleLabel, gc);
         gc.gridx = 0;
         gc.insets = new Insets(0, 0, 0, 0);

@@ -21,6 +21,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         addPanel(scannerMessageButton);
         addPanel(updateMessageButton);
         addPanel(uiDump);
+        addPanel(new JLabel("Almost before we knew it, we had left the ground."));
         addListeners();
     }
 

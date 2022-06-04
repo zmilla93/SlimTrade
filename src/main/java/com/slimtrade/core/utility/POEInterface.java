@@ -33,7 +33,7 @@ public class POEInterface {
     public static void init() {
         try {
             robot = new Robot();
-            robot.setAutoWaitForIdle(true);
+//            robot.setAutoWaitForIdle(true);
         } catch (AWTException e) {
             e.printStackTrace();
         }

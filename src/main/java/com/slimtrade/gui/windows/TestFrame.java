@@ -2,7 +2,6 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.enums.CurrencyImage;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.IconLabel;
 import com.slimtrade.gui.messaging.NotificationPanel;
@@ -25,7 +24,7 @@ public class TestFrame extends JFrame {
         setFocusableWindowState(false);
         setAlwaysOnTop(true);
 
-        ColorManager.addFrame(this);
+//        ColorManager.addFrame(this);
         contentPanel.setLayout(new FlowLayout());
         contentPanel.add(new IconButton("/icons/default/tagx64.png", 30));
 
@@ -56,9 +55,24 @@ public class TestFrame extends JFrame {
         contentPanel.add(new IconLabel(exalt.getPath()));
         contentPanel.add(new IconLabel(exalt.getPath()));
 
+        JPanel fontPanel = new JPanel();
+        fontPanel.setLayout(new BoxLayout(fontPanel, BoxLayout.PAGE_AXIS));
+        JScrollPane scrollPane = new JScrollPane(fontPanel);
+        scrollPane.setPreferredSize(new Dimension(200,500));
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        for(String s : ge.getAvailableFontFamilyNames()){
+            Font font = new Font(s, Font.PLAIN, 12);
+            if(!font.canDisplay('a')) continue;
+            JLabel label = new JLabel(font.getName());
+            label.setFont(font);
+            fontPanel.add(label);
+        }
+        contentPanel.add(scrollPane);
+
 
         pack();
-        setSize(500, 500);
+//        setSize(500, 500);
+        setVisible(true);
 //        setVisible(true);
 
     }

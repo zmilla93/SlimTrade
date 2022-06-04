@@ -117,12 +117,16 @@ public class ColorManager<T> {
 
     public static void loadFonts() {
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/OpenSans-Regular.ttf")));
-//            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansKR/IBMPlexSansKR-Regular.ttf")));
-//            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/Roboto-Regular.ttf")));
-//            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/Oswald-Regular.ttf")));
-//            font = font.deriveFont(Font.BOLD);
-//            font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.fontSize);
+            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/Roboto-Regular.ttf")));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            boolean success = ge.registerFont(font);
+//            System.out.println("Font loaded: " + success);
+//            System.out.println("New Font:" + font.getName());
+//            System.out.println("New Font:" + font.getFamily());
+//            for (String f : ge.getAvailableFontFamilyNames()) {
+//                System.out.println("Font ::: " + f);
+//            }
+            font = new Font("Mongolian Baiti", Font.PLAIN, 2);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
@@ -135,6 +139,7 @@ public class ColorManager<T> {
             Object value = UIManager.get(key);
             if (value instanceof Font) {
                 Font oldFont = (Font) value;
+                Font newFont = Font.getFont("Roboto-Regular");
                 UIManager.put(key, font.deriveFont(oldFont.getStyle(), SaveManager.settingsSaveFile.data.fontSize));
             }
         }
@@ -235,6 +240,7 @@ public class ColorManager<T> {
 //    }
 
     public static void setFontSize(int size) {
+//        if(true) return;
         refreshDefaultFonts();
         for (Component frame : frames) {
             setFontSizeRecursive(frame, size);

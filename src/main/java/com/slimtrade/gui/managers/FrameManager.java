@@ -74,7 +74,6 @@ public class FrameManager {
         // Menubar
         menubarIcon = new MenubarButtonDialog();
         menubarDialog = new MenubarDialog();
-        menubarDialog.setVisible(true);
 
         buildCheatSheetWindows();
 
@@ -89,6 +88,9 @@ public class FrameManager {
         windowMap.put(AppState.RUNNING, runningWindows);
         windowMap.put(AppState.EDIT_OVERLAY, overlayWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
+
+
+
     }
 
     public static void setWindowVisibility(AppState newState) {
