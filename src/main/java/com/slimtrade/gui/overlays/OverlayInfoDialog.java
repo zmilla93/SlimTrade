@@ -112,7 +112,7 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         SaveManager.overlaySaveFile.data.messageLocation = targetPos;
         SaveManager.overlaySaveFile.data.expandDirection = (ExpandDirection) expandCombo.getSelectedItem();
         FrameManager.messageManager.setAnchorPoint(targetPos);
-        FrameManager.messageManager.refreshOrder();
+        FrameManager.messageManager.refresh();
         FrameManager.setWindowVisibility(AppState.RUNNING);
         SaveManager.overlaySaveFile.saveToDisk();
     }

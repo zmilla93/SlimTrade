@@ -122,6 +122,7 @@ public class App {
         globalMouseListener = new GlobalMouseListener();
         GlobalScreen.addNativeKeyListener(globalKeyboardListener);
         GlobalScreen.addNativeMouseListener(globalMouseListener);
+        GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
 
         // Final Setup
         initParsers();

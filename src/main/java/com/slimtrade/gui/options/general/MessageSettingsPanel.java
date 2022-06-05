@@ -4,20 +4,13 @@ import com.slimtrade.core.enums.SliderRange;
 import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.enums.SpinnerRangeFloat;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.RangeSlider;
 import com.slimtrade.gui.components.RangeSpinner;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MessageSettingsPanel extends JPanel implements ISavable {
 
@@ -37,6 +30,7 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
 
         collapsePanel = createCollapsePanel();
         fadePanel = createFadePanel();
+        fadeOpacitySlider.setPreferredSize(new Dimension(Math.round(getPreferredSize().width * 0.75f), fadeOpacitySlider.getPreferredSize().height));
 
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();

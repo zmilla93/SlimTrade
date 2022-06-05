@@ -33,6 +33,7 @@ public class SaveManager {
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
             @Override
             public void onSave() {
+                FrameManager.messageManager.refreshFadeData();
                 if (SaveManager.settingsSaveFile.data.fontSizeChanged) {
                     ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
                     SaveManager.settingsSaveFile.data.fontSizeChanged = false;

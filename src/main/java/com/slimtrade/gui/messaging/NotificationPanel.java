@@ -17,8 +17,8 @@ public class NotificationPanel extends ColorPanel {
     protected final CurrencyButton pricePanel = new CurrencyButton();
     protected final JLabel priceLabel = new JLabel("Price");
     protected final CurrencyButton itemButton = new CurrencyButton();
-    private final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
-    private final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
+    protected final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
+    protected final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
 
     private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
