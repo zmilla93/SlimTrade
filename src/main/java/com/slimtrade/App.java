@@ -14,7 +14,6 @@ import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.LoadingDialog;
-import com.slimtrade.gui.windows.OptionsWindow;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 

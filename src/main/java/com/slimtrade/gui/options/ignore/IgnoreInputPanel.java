@@ -27,7 +27,7 @@ public class IgnoreInputPanel extends JPanel {
         timeSpinner.setModel(spinnerModel);
         ((JSpinner.DefaultEditor) timeSpinner.getEditor()).getTextField().setEditable(false);
 
-        gc.gridx = 1;
+//        gc.gridx = 1;
         add(new JLabel("Item Name"), gc);
         gc.gridx++;
         add(new JLabel("Match"), gc);
@@ -36,14 +36,15 @@ public class IgnoreInputPanel extends JPanel {
         gc.gridx = 0;
         gc.gridy++;
 
-        add(ignoreButton, gc);
-        gc.gridx++;
+
+//        gc.gridx++;
         add(itemNameInput, gc);
         gc.gridx++;
         add(matchTypeCombo, gc);
         gc.gridx++;
         add(timeSpinner, gc);
         gc.gridx++;
+        add(ignoreButton, gc);
     }
 
     public JButton getIgnoreButton() {

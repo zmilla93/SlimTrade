@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class LoadingDialog extends AbstractDialog {
 
-    private static final int INSET_HORIZONTAL = 60;
-    private static final int INSET_VERTICAL = 30;
+    private static final int INSET_HORIZONTAL = 40;
+    private static final int INSET_VERTICAL = 20;
 
     public LoadingDialog() {
         contentPanel.setLayout(new GridBagLayout());

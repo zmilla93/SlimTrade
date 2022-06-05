@@ -22,6 +22,7 @@ public class TradeOffer {
     public String guildName;
     public String playerName;
     public String itemName;
+    public String itemNameLower;
     public int itemQuantity;
     public String itemQuantityString;
     public String priceTypeString;
@@ -76,6 +77,7 @@ public class TradeOffer {
         trade.guildName = matcher.group("guildName");
         trade.playerName = matcher.group("playerName");
         trade.itemName = matcher.group("itemName");
+        trade.itemNameLower = trade.itemName.toLowerCase();
         trade.itemQuantity = cleanInt(cleanResult(matcher, "itemQuantity"));
         trade.itemQuantityString = cleanItemQuantity(trade.itemQuantity);
         trade.priceTypeString = cleanResult(matcher, "priceType");
@@ -181,6 +183,7 @@ public class TradeOffer {
         exampleTrade.offerType = type;
         exampleTrade.playerName = "ExamplePlayer123";
         exampleTrade.itemName = "Tabula Rasa Simple Robe";
+        exampleTrade.itemNameLower = exampleTrade.itemName.toLowerCase();
         exampleTrade.priceTypeString = "Chaos Orb";
         exampleTrade.priceQuantity = 100;
         exampleTrade.itemQuantity = 1;

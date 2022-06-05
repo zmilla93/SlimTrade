@@ -4,6 +4,7 @@ public enum SliderRange {
 
     CHEAT_SHEET_OPACITY(20, 100, 100),
     CHEAT_SHEET_SCALE(20, 100, 100),
+    FADED_OPACITY(20, 100, 100),
     ;
 
     public final int MIN;

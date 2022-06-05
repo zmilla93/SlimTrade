@@ -126,7 +126,8 @@ public class ColorManager<T> {
 //            for (String f : ge.getAvailableFontFamilyNames()) {
 //                System.out.println("Font ::: " + f);
 //            }
-            font = new Font("Mongolian Baiti", Font.PLAIN, 2);
+//            font = new Font("Mongolian Baiti", Font.PLAIN, 2);
+            font = new Font("Arial", Font.PLAIN, 2);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }

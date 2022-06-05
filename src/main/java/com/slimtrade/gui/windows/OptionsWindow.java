@@ -91,11 +91,12 @@ public class OptionsWindow extends CustomDialog {
 
         // Finalize
         if (App.debug) ShowPanel(debug);
-        setMinimumSize(new Dimension(300, 200));
+        setMinimumSize(new Dimension(500, 400));
         pack();
+        // FIXME : Add max size
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize((int)Math.round(screenSize.width * 0.5), (int)Math.round(screenSize.height * 0.6));
+        setSize((int) Math.round(screenSize.width * 0.5), (int) Math.round(screenSize.height * 0.6));
         setLocationRelativeTo(null);
         SaveManager.settingsSaveFile.registerSavableContainer(this);
     }

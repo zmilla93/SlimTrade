@@ -1,10 +1,7 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.options.general.BasicsPanel;
-import com.slimtrade.gui.options.general.EnableFeaturesPanel;
-import com.slimtrade.gui.options.general.HistoryOptionPanel;
-import com.slimtrade.gui.options.general.PathOfExilePanel;
+import com.slimtrade.gui.options.general.*;
 
 import javax.swing.*;
 
@@ -23,6 +20,9 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
 //        addVerticalStrut();
         addHeader("Enable Features");
         addPanel(new EnableFeaturesPanel());
+        addVerticalStrut();
+        addHeader("Message Popups");
+        addPanel(new MessageSettingsPanel());
         addVerticalStrut();
         addHeader("History");
         addPanel(new HistoryOptionPanel());

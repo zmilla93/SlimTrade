@@ -2,9 +2,11 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.enums.MessageType;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.AddRemoveContainer;
+import com.slimtrade.gui.components.PlainLabel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
 import javax.swing.*;
@@ -20,6 +22,12 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
     private final JPanel exampleTradeContainer = new JPanel(new GridBagLayout());
     private GridBagConstraints gc = new GridBagConstraints();
 
+    // Examples
+    private JButton exampleButton = new JButton("Show Examples");
+    private final Component exampleHeaderPanel;
+    private Component examplePanel;
+    private Component exampleSeparator;
+    private boolean showExamples;
 
     public AbstractMacroOptionPanel(MessageType messageType) {
         this.messageType = messageType;
@@ -30,7 +38,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         macroContainer = new AddRemoveContainer();
         macroContainer.setLayout(new GridBagLayout());
 
-        JPanel buttonPanel = new JPanel();
+
         JButton addMacroButton = new JButton("Add New Macro");
         addMacroButton.addActionListener(e -> {
             macroContainer.add(new MacroCustomizerPanel(macroContainer));
@@ -46,9 +54,32 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         addSmallVerticalStrut();
         addPanel(inbuiltMacroPanel("Item Name", "Open Stash Helper", "Ignore Item"));
         addVerticalStrut();
+        addHeader("Custom Macro Info");
+        addPanel(new PlainLabel("Run one or more commands using {player}, {self}, {item}, {price}, {zone}, and {message}."));
+        addPanel(new PlainLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
+        addPanel(new PlainLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey."));
+        addSmallVerticalStrut();
+        addPanel(exampleButton);
+
+        addVerticalStrut();
+        exampleHeaderPanel = addHeader("Examples");
+        examplePanel = addPanel(createExamplePanel());
+        exampleSeparator = addVerticalStrut();
         addHeader("Custom Macros");
+
+//        JPanel buttonPanel = new JPanel();
         addPanel(addMacroButton);
         addPanel(macroContainer);
+        hideExamples();
+        addListeners();
+    }
+
+    private void addListeners() {
+        exampleButton.addActionListener(e -> {
+            showExamples = !showExamples;
+            if (showExamples) showExamples();
+            else hideExamples();
+        });
     }
 
     private JPanel inbuiltMacroPanel(String text, String lmb, String rmb) {
@@ -58,16 +89,87 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(new JLabel(text), gc);
         gc.gridx++;
+//        gc.gridy++;
         gc.insets.left = 20;
         panel.add(new JLabel("Left Mouse"), gc);
         gc.gridy++;
         panel.add(new JLabel("Right Mouse"), gc);
         gc.gridx++;
         gc.gridy--;
-        panel.add(new JLabel(lmb), gc);
+        panel.add(new PlainLabel(lmb), gc);
         gc.gridy++;
-        panel.add(new JLabel(rmb), gc);
+        panel.add(new PlainLabel(rmb), gc);
         return panel;
+    }
+
+    private JPanel createExamplePanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gc = ZUtil.getGC();
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+//        panel.add(new JLabel("Message"), gc);
+//        gc.gridx++;
+//        gc.insets.left = GUIReferences.INSET;
+//        panel.add(new JLabel("Result"), gc);
+//        gc.insets.left = 0;
+//        gc.gridx = 0;
+//        gc.gridy++;
+
+        panel.add(new JLabel("thanks"), gc);
+        gc.gridx++;
+        gc.insets.left = GUIReferences.INSET;
+        panel.add(new PlainLabel("Whisper thanks"), gc);
+        gc.insets.left = 0;
+        gc.gridx = 0;
+        gc.gridy++;
+
+        panel.add(new JLabel("thanks /kick {player}"), gc);
+        gc.gridx++;
+        gc.insets.left = GUIReferences.INSET;
+        panel.add(new PlainLabel("Whisper thanks, then kick the other player."), gc);
+        gc.insets.left = 0;
+        gc.gridx = 0;
+        gc.gridy++;
+
+        panel.add(new JLabel("thanks /kick {self} /hideout"), gc);
+        gc.gridx++;
+        gc.insets.left = GUIReferences.INSET;
+        panel.add(new PlainLabel("Whisper thanks, leave the party, then warp to your own hideout."), gc);
+        gc.insets.left = 0;
+        gc.gridx = 0;
+        gc.gridy++;
+
+        panel.add(new JLabel("hold on, in {zone}"), gc);
+        gc.gridx++;
+        gc.insets.left = GUIReferences.INSET;
+        panel.add(new PlainLabel("Let a player know what zone you are in."), gc);
+        gc.insets.left = 0;
+        gc.gridx = 0;
+        gc.gridy++;
+
+        panel.add(new JLabel("{message}"), gc);
+        gc.gridx++;
+        gc.insets.left = GUIReferences.INSET;
+        panel.add(new PlainLabel("Resend an outgoing trade message."), gc);
+        gc.insets.left = 0;
+        gc.gridx = 0;
+        gc.gridy++;
+
+        return panel;
+    }
+
+    private void showExamples() {
+        exampleButton.setText("Hide Examples");
+        exampleHeaderPanel.setVisible(true);
+        examplePanel.setVisible(true);
+        exampleSeparator.setVisible(true);
+    }
+
+    private void hideExamples() {
+        exampleButton.setText("Show Examples");
+        exampleHeaderPanel.setVisible(false);
+        examplePanel.setVisible(false);
+        exampleSeparator.setVisible(false);
     }
 
     public void reloadExampleTrade() {

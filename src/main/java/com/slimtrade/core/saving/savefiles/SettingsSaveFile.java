@@ -25,6 +25,13 @@ public class SettingsSaveFile {
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
 
+    // Message Popups
+    public boolean collapseMessages;
+    public int messagesBeforeCollapse;
+    public boolean fadeMessages;
+    public float secondsBeforeFading;
+    public int fadedOpacity;
+
     // Display
     public int fontSize = SpinnerRange.FONT_SIZE.START;
     public int iconSize = SpinnerRange.ICON_SIZE.START;

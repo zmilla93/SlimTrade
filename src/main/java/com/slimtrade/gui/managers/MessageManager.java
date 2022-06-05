@@ -3,7 +3,9 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.App;
 import com.slimtrade.core.chatparser.IJoinedAreaListener;
 import com.slimtrade.core.chatparser.ITradeListener;
+import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.enums.ExpandDirection;
+import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
@@ -177,6 +179,38 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         revalidate();
         repaint();
     }
+
+    /**
+     * Closes all incoming trades that match the given criteria.
+     *
+     * @param item
+     */
+    public void quickCloseIgnore(IgnoreItem item) {
+        setIgnoreRepaint(true);
+        for (int i = container.getComponentCount() - 1; i >= 0; i--) {
+            Component comp = container.getComponent(i);
+            if (comp instanceof TradeMessagePanel) {
+                TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
+                if (trade.offerType != TradeOffer.TradeOfferType.INCOMING) continue;
+                if (item.matchType == MatchType.EXACT_MATCH) {
+                    if (trade.itemName.equals(item.itemName)) {
+                        container.remove(i);
+                    }
+                } else if (item.matchType == MatchType.CONTAINS_TEXT) {
+                    if (trade.itemNameLower.contains(item.itemNameLower)) {
+                        container.remove(i);
+                    }
+                }
+            }
+        }
+        refreshOrder();
+        pack();
+        moveToAnchor();
+        setIgnoreRepaint(false);
+        revalidate();
+        repaint();
+    }
+
 
     // FIXME : This is needed to call updateUI on child components to force color changes.
     //  Would be nice to have a clear way to do this

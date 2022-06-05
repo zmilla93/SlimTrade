@@ -144,7 +144,13 @@ public class NotificationPanel extends ColorPanel {
         gc.weighty = 1;
         NotificationPanel self = this;
         for (MacroButton macro : macros) {
-            JButton button = new NotificationIconButton(macro.icon.path);
+            JButton button;
+            if (macro.buttonType == MacroButton.MacroButtonType.ICON) {
+                button = new NotificationIconButton(macro.icon.path);
+            } else {
+                button = new NotificationButton(macro.text);
+                ((NotificationButton) button).setHorizontalInset(4);
+            }
             button.updateUI();
             panel.add(button, gc);
             if (createListeners) {

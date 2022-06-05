@@ -58,11 +58,11 @@ public class TestFrame extends JFrame {
         JPanel fontPanel = new JPanel();
         fontPanel.setLayout(new BoxLayout(fontPanel, BoxLayout.PAGE_AXIS));
         JScrollPane scrollPane = new JScrollPane(fontPanel);
-        scrollPane.setPreferredSize(new Dimension(200,500));
+        scrollPane.setPreferredSize(new Dimension(200, 500));
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        for(String s : ge.getAvailableFontFamilyNames()){
+        for (String s : ge.getAvailableFontFamilyNames()) {
             Font font = new Font(s, Font.PLAIN, 12);
-            if(!font.canDisplay('a')) continue;
+            if (!font.canDisplay('a')) continue;
             JLabel label = new JLabel(font.getName());
             label.setFont(font);
             fontPanel.add(label);

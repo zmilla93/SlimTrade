@@ -21,7 +21,10 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         addPanel(scannerMessageButton);
         addPanel(updateMessageButton);
         addPanel(uiDump);
+        addVerticalStrut();
+        addHeader("Font Test");
         addPanel(new JLabel("Almost before we knew it, we had left the ground."));
+        addPanel(new JLabel("The quick brown fox jumped over the lazy dogs."));
         addListeners();
     }
 

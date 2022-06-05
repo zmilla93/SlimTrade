@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class TestOverlayFrame extends JFrame {
 
-    public TestOverlayFrame(){
+    public TestOverlayFrame() {
 
         setAlwaysOnTop(true);
         setUndecorated(true);
@@ -16,7 +16,7 @@ public class TestOverlayFrame extends JFrame {
         setFocusable(false);
         setFocusableWindowState(false);
         pack();
-        setSize(20,20);
+        setSize(20, 20);
 //        setVisible(true);
     }
 

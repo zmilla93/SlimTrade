@@ -89,8 +89,6 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_OVERLAY, overlayWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
 
-
-
     }
 
     public static void setWindowVisibility(AppState newState) {

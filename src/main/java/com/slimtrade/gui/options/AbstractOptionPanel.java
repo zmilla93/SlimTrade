@@ -27,7 +27,7 @@ public class AbstractOptionPanel extends JPanel {
         gc.gridy = 0;
     }
 
-    protected void addHeader(String title) {
+    protected Component addHeader(String title) {
         JPanel panel = new JPanel(new GridBagLayout());
         JPanel labelPanel = new JPanel(new BorderLayout());
         GridBagConstraints headerGC = new GridBagConstraints();
@@ -54,9 +54,10 @@ public class AbstractOptionPanel extends JPanel {
         gc.fill = prevFill;
         gc.weightx = prevWeightX;
         gc.gridy++;
+        return panel;
     }
 
-    protected void addPanel(Component component) {
+    protected Component addPanel(Component component) {
         int prevFill = gc.fill;
         double prevWeight = gc.weightx;
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -70,15 +71,20 @@ public class AbstractOptionPanel extends JPanel {
         gc.fill = prevFill;
         gc.weightx = prevWeight;
         gc.gridy++;
+        return outerPanel;
     }
 
 
-    protected void addSmallVerticalStrut() {
-        addPanel(Box.createVerticalStrut(GUIReferences.SMALL_INSET));
+    protected Component addSmallVerticalStrut() {
+        Component strut = Box.createVerticalStrut(GUIReferences.SMALL_INSET);
+        addPanel(strut);
+        return strut;
     }
 
-    protected void addVerticalStrut() {
-        addPanel(Box.createVerticalStrut(GUIReferences.INSET));
+    protected Component addVerticalStrut() {
+        Component strut = Box.createVerticalStrut(GUIReferences.INSET);
+        addPanel(strut);
+        return strut;
     }
 
 }

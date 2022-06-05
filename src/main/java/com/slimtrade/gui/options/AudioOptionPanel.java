@@ -57,7 +57,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         addPanel(innerPanel);
         addPanel(Box.createVerticalStrut(GUIReferences.INSET));
         addHeader("Custom Audio");
-        addPanel(new JLabel("Add audio files to the audio folder, then refresh."));
+        addPanel(new JLabel("Add audio files to the audio folder, then refresh. Custom files will then be available in all audio dropdowns."));
         ColorLabel label = new ColorLabel("Only supports .wav files.");
         label.bold = true;
         addPanel(label);
