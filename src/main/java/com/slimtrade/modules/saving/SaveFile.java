@@ -113,7 +113,8 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
             for (ISaveListener listener : listeners) {
                 listener.onLoad();
             }
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
             e.printStackTrace();
         }
     }

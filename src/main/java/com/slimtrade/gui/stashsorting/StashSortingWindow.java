@@ -48,6 +48,7 @@ public class StashSortingWindow extends CustomDialog {
             });
             gc.gridy++;
         }
+        setResizable(false);
         revalidate();
         repaint();
         pack();

@@ -19,12 +19,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeListener, IVisibilityFrame {
+/**
+ * Provides a resizable JFrame like window with a title, close button, and pin button.
+ * Unlike a normal JFrame, content can be made transparent without affecting the title bar and border.
+ * IMPORTANT: Add content with the contentPanel variable (not the getContentPanel function).
+ */
+public abstract class CustomDialog extends VisibilityDialog implements IPinnable, IThemeListener, IVisibilityFrame {
 
-    public static final int resizerPanelSize = 8;
-    private int borderSize = 1;
-    private JPanel innerPanel = new JPanel(new BorderLayout());
-    private JPanel outerPanel = new JPanel(new BorderLayout());
+    private static final int RESIZER_PANEL_SIZE = 8;
+    private static final int BORDER_SIZE = 1;
+    private final JPanel innerPanel = new JPanel(new BorderLayout());
+    private final JPanel outerPanel = new JPanel(new BorderLayout());
     private boolean pinned;
     private Visibility visibility;
 
@@ -59,7 +64,7 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
         setAlwaysOnTop(true);
         getRootPane().setOpaque(false);
         ColorManager.addFrame(this);
-        ColorManager.addListener(this);
+        ColorManager.addThemeListener(this);
         container = getContentPane();
         container.setLayout(new BorderLayout());
         PinManager.addPinnable(this);
@@ -97,10 +102,10 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
         innerPanel.setBackground(Color.ORANGE);
 
         // Resize Panels
-        resizerTop.add(Box.createVerticalStrut(resizerPanelSize), BorderLayout.CENTER);
-        resizerBottom.add(Box.createVerticalStrut(resizerPanelSize), BorderLayout.CENTER);
-        resizerLeft.add(Box.createHorizontalStrut(resizerPanelSize), BorderLayout.CENTER);
-        resizerRight.add(Box.createHorizontalStrut(resizerPanelSize), BorderLayout.CENTER);
+        resizerTop.add(Box.createVerticalStrut(RESIZER_PANEL_SIZE), BorderLayout.CENTER);
+        resizerBottom.add(Box.createVerticalStrut(RESIZER_PANEL_SIZE), BorderLayout.CENTER);
+        resizerLeft.add(Box.createHorizontalStrut(RESIZER_PANEL_SIZE), BorderLayout.CENTER);
+        resizerRight.add(Box.createHorizontalStrut(RESIZER_PANEL_SIZE), BorderLayout.CENTER);
         resizerTop.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
         resizerBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
         resizerLeft.setCursor(new Cursor(Cursor.W_RESIZE_CURSOR));
@@ -109,12 +114,10 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
         resizerBottom.setBackground(ColorManager.TRANSPARENT_CLICKABLE);
         resizerLeft.setBackground(ColorManager.TRANSPARENT_CLICKABLE);
         resizerRight.setBackground(ColorManager.TRANSPARENT_CLICKABLE);
-//        resizeRight.setOpaque(false);
 
         // Outer Panel
         outerPanel.add(innerPanel, BorderLayout.CENTER);
         outerPanel.add(resizerTop, BorderLayout.NORTH);
-//        titleBarPanel.add(resizerTop, BorderLayout.NORTH);
         outerPanel.add(resizerBottom, BorderLayout.SOUTH);
         outerPanel.add(resizerLeft, BorderLayout.WEST);
         outerPanel.add(resizerRight, BorderLayout.EAST);
@@ -122,12 +125,11 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
         innerPanel.setOpaque(false);
 
         // Container
-        contentPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
         setContentPane(outerPanel);
         setBackground(ColorManager.TRANSPARENT);
 
         addWindowMover();
-        addWindowResizer();
+        addResizerListeners();
         colorBorders();
         addListeners();
     }
@@ -164,9 +166,12 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
             public void mousePressed(MouseEvent e) {
                 if (isPinned()) return;
                 super.mousePressed(e);
+                startLocation = getLocation();
                 clickedWindowPoint = e.getPoint();
-                clickedWindowPoint.x += resizerPanelSize;
-                clickedWindowPoint.y += resizerPanelSize;
+                if (isResizable()) {
+                    clickedWindowPoint.x += getResizerSize();
+                    clickedWindowPoint.y += getResizerSize();
+                }
                 if (getMinimumSize().width == 0) maxWidthAdjust = -1;
                 else maxWidthAdjust = getSize().width - getMinimumSize().width;
             }
@@ -182,21 +187,21 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
 
                 Rectangle screenBounds = ZUtil.getScreenBoundsFromPoint(MouseInfo.getPointerInfo().getLocation());
                 if (screenBounds != null && App.globalKeyboardListener.isShiftPressed()) {
-                    if (targetPoint.x > screenBounds.x + screenBounds.width - getWidth() + resizerPanelSize)
-                        targetPoint.x = screenBounds.x + screenBounds.width - getWidth() + resizerPanelSize;
+                    if (targetPoint.x > screenBounds.x + screenBounds.width - getWidth() + getResizerSize())
+                        targetPoint.x = screenBounds.x + screenBounds.width - getWidth() + getResizerSize();
                     if (targetPoint.x < screenBounds.x)
-                        targetPoint.x = screenBounds.x - resizerPanelSize;
-                    if (targetPoint.y > screenBounds.y + screenBounds.height - getHeight() + resizerPanelSize)
-                        targetPoint.y = screenBounds.y + screenBounds.height - getHeight() + resizerPanelSize;
+                        targetPoint.x = screenBounds.x - getResizerSize();
+                    if (targetPoint.y > screenBounds.y + screenBounds.height - getHeight() + getResizerSize())
+                        targetPoint.y = screenBounds.y + screenBounds.height - getHeight() + getResizerSize();
                     if (targetPoint.y < screenBounds.y)
-                        targetPoint.y = screenBounds.y - resizerPanelSize;
+                        targetPoint.y = screenBounds.y - getResizerSize();
                 }
                 setLocation(targetPoint);
             }
         });
     }
 
-    private void addWindowResizer() {
+    private void addResizerListeners() {
         addResizeClickListener(resizerTop);
         addResizeClickListener(resizerBottom);
         addResizeClickListener(resizerLeft);
@@ -278,7 +283,7 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
     }
 
     public int getBorderSize() {
-        return borderSize;
+        return BORDER_SIZE;
     }
 
     private void colorBorders() {
@@ -286,12 +291,30 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
         contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), 1));
     }
 
+    protected int getResizerSize() {
+        if (isResizable()) return RESIZER_PANEL_SIZE;
+        return 0;
+    }
+
+    // Overrides
+
     @Override
     public void setTitle(String title) {
         // FIXME : Make this a constant
         super.setTitle("SLIMTRADEAPP::" + title);
         titleLabel.setText(title);
     }
+
+    @Override
+    public void setResizable(boolean state) {
+        super.setResizable(state);
+        resizerTop.setVisible(state);
+        resizerLeft.setVisible(state);
+        resizerBottom.setVisible(state);
+        resizerRight.setVisible(state);
+    }
+
+    // Interfaces
 
     @Override
     public void onThemeChange() {

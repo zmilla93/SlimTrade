@@ -23,6 +23,8 @@ public class NotificationPanel extends ColorPanel {
     private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel topPanel;
+    private final JPanel bottomContainer = new JPanel(new BorderLayout());
+    private Component bottomVerticalStrut;
 
     private final JLabel timerLabel = new JLabel("0s");
     private JButton closeButton;
@@ -56,7 +58,7 @@ public class NotificationPanel extends ColorPanel {
         // Panels
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel topContainer = new JPanel(new BorderLayout());
-        JPanel bottomContainer = new JPanel(new BorderLayout());
+
         topPanel = new JPanel(new GridBagLayout());
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
@@ -130,8 +132,6 @@ public class NotificationPanel extends ColorPanel {
         itemButton.setBackgroundKey("ComboBox.background");
         timerPanel.colorMultiplier = 1.1f;
         timerPanel.setBackgroundKey("ComboBox.background");
-
-
         ColorManager.recursiveUpdateUI(this);
         if (createListeners)
             addListeners();
@@ -238,6 +238,12 @@ public class NotificationPanel extends ColorPanel {
 
     public JButton getCloseButton() {
         return closeButton;
+    }
+
+    public void resizeStrut() {
+        if (bottomVerticalStrut != null) bottomContainer.remove(bottomVerticalStrut);
+        bottomVerticalStrut = Box.createVerticalStrut(closeButton.getHeight());
+        bottomContainer.add(bottomVerticalStrut, BorderLayout.WEST);
     }
 
     /**

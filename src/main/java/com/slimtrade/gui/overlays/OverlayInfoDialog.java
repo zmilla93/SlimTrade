@@ -76,7 +76,7 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         contentPanel.add(outerPanel, gc);
         pack();
         setLocationRelativeTo(null);
-        ColorManager.addListener(this);
+        ColorManager.addThemeListener(this);
         addListeners();
     }
 

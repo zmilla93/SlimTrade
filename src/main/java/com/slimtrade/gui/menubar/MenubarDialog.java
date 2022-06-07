@@ -25,7 +25,7 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
 
     public MenubarDialog() {
         buildIconButtons();
-        ColorManager.addListener(this);
+        ColorManager.addThemeListener(this);
     }
 
     private void addListeners() {

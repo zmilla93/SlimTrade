@@ -8,6 +8,7 @@ import com.slimtrade.gui.buttons.NotificationButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.colortheme.IUIResizeListener;
 import com.slimtrade.modules.colortheme.components.ColorCheckbox;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,7 @@ public class ColorManager<T> {
     private static List<Component> frames = new ArrayList<>();
     private static ColorTheme currentTheme;
     private static final ArrayList<IThemeListener> themeListeners = new ArrayList<>();
+    private static final ArrayList<IUIResizeListener> uiResizeListeners = new ArrayList<>();
 
 
     public static Color INCOMING_MESSAGE_LIGHT = new Color(105, 201, 97);
@@ -249,6 +251,9 @@ public class ColorManager<T> {
             frame.revalidate();
             frame.repaint();
         }
+        for (IUIResizeListener listener : uiResizeListeners) {
+            listener.onFontSizeChanged();
+        }
         // FIXME : add an interface for this
         if (FrameManager.messageManager != null) FrameManager.messageManager.pack();
     }
@@ -271,6 +276,9 @@ public class ColorManager<T> {
             if (frame instanceof BasicDialog) {
                 ((BasicDialog) frame).pack();
             }
+        }
+        for (IUIResizeListener listener : uiResizeListeners) {
+            listener.onIconSizeChanged();
         }
     }
 
@@ -360,7 +368,7 @@ public class ColorManager<T> {
 
     // Listeners
 
-    public static void addListener(IThemeListener listener) {
+    public static void addThemeListener(IThemeListener listener) {
         themeListeners.add(listener);
     }
 
@@ -371,5 +379,18 @@ public class ColorManager<T> {
     public static void clearAllListeners() {
         themeListeners.clear();
     }
+
+    public static void addFontListener(IUIResizeListener listener) {
+        uiResizeListeners.add(listener);
+    }
+
+    public static void removeFontListener(IUIResizeListener listener) {
+        uiResizeListeners.remove(listener);
+    }
+
+    public static void clearAllFontListeners() {
+        uiResizeListeners.clear();
+    }
+
 
 }

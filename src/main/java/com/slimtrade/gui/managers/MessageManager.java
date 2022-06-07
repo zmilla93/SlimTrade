@@ -17,6 +17,7 @@ import com.slimtrade.gui.messaging.TradeMessagePanel;
 import com.slimtrade.gui.messaging.UpdateMessagePanel;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.colortheme.IUIResizeListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +25,10 @@ import java.awt.event.MouseEvent;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IThemeListener {
+public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IThemeListener, IUIResizeListener {
 
     private final Container container;
-    private final Container messageContainer;
+    private final JPanel messageContainer;
     private final GridBagConstraints gc;
     private static final int MESSAGE_GAP = 1;
     private Point anchorPoint = new Point(800, 0);
@@ -35,7 +36,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     // Expanding
     private boolean expandUp = false;
     private boolean expanded;
-    private ExpandPanel expandPanel;
+    private final ExpandPanel expandPanel;
 
     // Opacity
     private boolean mouseHover = false;
@@ -53,6 +54,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         container = getContentPane();
         container.setLayout(new BorderLayout());
         messageContainer = new JPanel(new GridBagLayout());
+        messageContainer.setBackground(ColorManager.TRANSPARENT);
         container.add(messageContainer, BorderLayout.CENTER);
 
         // Init GridBagLayout
@@ -86,7 +88,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             }
         };
 
-        ColorManager.addListener(this);
+        ColorManager.addThemeListener(this);
+        ColorManager.addFontListener(this);
         setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         refreshFadeData();
         refresh();
@@ -153,6 +156,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         }
         panel.startTimer();
         addComponent(panel);
+        revalidate();
+        panel.resizeStrut();
         refresh();
         if (messageContainer.getComponentCount() == 1) {
             setOpacity(1);
@@ -306,7 +311,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             expandPanel.setText("Collapse Messages");
         } else {
             int hiddenMessageCount = messageContainer.getComponentCount() - SaveManager.settingsSaveFile.data.messagesBeforeCollapse;
-            expandPanel.setText("+" + hiddenMessageCount + " More Messages");
+            String suffix = hiddenMessageCount > 1 ? "s" : "";
+            expandPanel.setText("+" + hiddenMessageCount + " More Message" + suffix);
         }
     }
 
@@ -401,5 +407,20 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 }
             }
         }
+    }
+
+    @Override
+    public void onFontSizeChanged() {
+        // Do Nothing
+    }
+
+    @Override
+    public void onIconSizeChanged() {
+        for (Component c : messageContainer.getComponents()) {
+            if (c instanceof NotificationPanel) {
+                ((NotificationPanel) c).resizeStrut();
+            }
+        }
+        pack();
     }
 }

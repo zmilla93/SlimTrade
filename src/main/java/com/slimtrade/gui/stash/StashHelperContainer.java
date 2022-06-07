@@ -37,7 +37,7 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
         updateLocation();
 
         ColorManager.addFrame(this);
-        ColorManager.addListener(this);
+        ColorManager.addThemeListener(this);
     }
 
     public void updateLocation() {
