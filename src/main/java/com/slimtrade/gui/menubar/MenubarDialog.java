@@ -67,8 +67,8 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
     }
 
     private void buildIconButtons() {
-        container.removeAll();
-        container.setLayout(new GridBagLayout());
+        contentPanel.removeAll();
+        contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         optionsButton = new IconButton("/icons/default/th-list.png");
         historyButton = new IconButton("/icons/default/stopwatch.png");
@@ -76,41 +76,41 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         hideoutButton = new IconButton("/icons/custom/homex64.png");
         exitButton = new IconButton("/icons/default/power.png");
         gc.insets = new Insets(INSET, INSET, INSET, INSET);
-        container.add(optionsButton, gc);
+        contentPanel.add(optionsButton, gc);
         gc.gridx++;
         gc.insets.left = 0;
-        container.add(historyButton, gc);
+        contentPanel.add(historyButton, gc);
         gc.gridx++;
-        container.add(chatScannerButton, gc);
+        contentPanel.add(chatScannerButton, gc);
         gc.gridx++;
-        container.add(hideoutButton, gc);
+        contentPanel.add(hideoutButton, gc);
         gc.gridx++;
-        container.add(Box.createHorizontalStrut(EXIT_INSET), gc);
+        contentPanel.add(Box.createHorizontalStrut(EXIT_INSET), gc);
         gc.gridx++;
-        container.add(exitButton, gc);
+        contentPanel.add(exitButton, gc);
         gc.gridx++;
         addListeners();
         pack();
     }
 
     private void buildTextButtons() {
-        container.removeAll();
-        container.setLayout(new GridBagLayout());
+        contentPanel.removeAll();
+        contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         optionsButton = new MenubarButton("Options");
         historyButton = new MenubarButton("History");
         chatScannerButton = new MenubarButton("Chat Scanner");
         exitButton = new MenubarButton("Exit");
         gc.fill = GridBagConstraints.BOTH;
-        container.add(optionsButton, gc);
+        contentPanel.add(optionsButton, gc);
         gc.gridy++;
-        container.add(historyButton, gc);
+        contentPanel.add(historyButton, gc);
         gc.gridy++;
-        container.add(chatScannerButton, gc);
+        contentPanel.add(chatScannerButton, gc);
         gc.gridy++;
-        container.add(Box.createVerticalStrut(EXIT_INSET), gc);
+        contentPanel.add(Box.createVerticalStrut(EXIT_INSET), gc);
         gc.gridy++;
-        container.add(exitButton, gc);
+        contentPanel.add(exitButton, gc);
         gc.gridy++;
         addListeners();
         pack();

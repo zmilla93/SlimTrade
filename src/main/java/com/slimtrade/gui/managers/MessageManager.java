@@ -311,6 +311,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     private void startFadeTimer() {
+        if (!SaveManager.settingsSaveFile.data.fadeMessages) return;
         fadeTimer.stop();
         fadeTimer.restart();
         fadeTimer.start();

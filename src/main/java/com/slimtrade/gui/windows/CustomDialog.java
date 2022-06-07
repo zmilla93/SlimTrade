@@ -57,6 +57,7 @@ public class CustomDialog extends VisibilityDialog implements IPinnable, IThemeL
         setTitle(title);
         setUndecorated(true);
         setAlwaysOnTop(true);
+        getRootPane().setOpaque(false);
         ColorManager.addFrame(this);
         ColorManager.addListener(this);
         container = getContentPane();

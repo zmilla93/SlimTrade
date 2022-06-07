@@ -116,7 +116,11 @@ public class QuickPasteManager {
                             clipboardContents = newContents;
                             attemptQuickPaste();
                         }
-                    } catch (UnsupportedFlavorException | IOException | IllegalStateException e) {
+                    } catch (IllegalStateException e) {
+                        System.out.println("Clipboard in illegal state.");
+                        e.printStackTrace();
+                        // Ignore, this can get thrown any time another app is using the clipboard
+                    } catch (UnsupportedFlavorException | IOException e) {
                         System.err.println("Error while reading clipboard.");
                         e.printStackTrace();
                     }
