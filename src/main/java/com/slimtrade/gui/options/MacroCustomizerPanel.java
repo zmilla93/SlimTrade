@@ -7,9 +7,11 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.basic.HotkeyButton;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.AddRemovePanel;
+import com.slimtrade.gui.components.ButtonWrapper;
 import com.slimtrade.gui.components.CustomCombo;
 
 import javax.swing.*;
@@ -18,26 +20,27 @@ import java.util.Objects;
 
 public class MacroCustomizerPanel extends AddRemovePanel {
 
-    private int textFieldWidth = 20;
 
     // Macro Button
-    CustomCombo<ImageIcon> iconCombo = new CustomCombo();
-    JTextField buttonText = new JTextField();
+    private final CustomCombo<ImageIcon> iconCombo = new CustomCombo();
+    private final JTextField buttonText = new JTextField();
 
-    JTextField lmbInput = new JTextField(textFieldWidth);
-    JTextField rmbInput = new JTextField(textFieldWidth);
-    JCheckBox closeCheckbox = new JCheckBox();
-    JComboBox<ButtonRow> rowCombo = new JComboBox<>();
-    JComboBox<MacroButton.MacroButtonType> buttonType = new JComboBox<>();
+    private final int TEXT_FIELD_COLUMNS = 20;
+    private final JTextField lmbInput = new JTextField(TEXT_FIELD_COLUMNS);
+    private final JTextField rmbInput = new JTextField(TEXT_FIELD_COLUMNS);
+    private final JCheckBox closeCheckbox = new JCheckBox("Close");
+    private final JComboBox<ButtonRow> rowCombo = new JComboBox<>();
+    private final JComboBox<MacroButton.MacroButtonType> buttonType = new JComboBox<>();
+    private final HotkeyButton hotkeyButton = new HotkeyButton();
 
     // Internal
-    JPanel parent;
-    private CardLayout displayLayout = new CardLayout();
-    private JPanel displayPanel = new JPanel(displayLayout);
-    JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP.path);
-    JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN.path);
-    JButton deleteButton = new IconButton(DefaultIcon.CLOSE.path);
-    private GridBagConstraints gc = ZUtil.getGC();
+    private final JPanel parent;
+    private final CardLayout displayLayout = new CardLayout();
+    private final JPanel displayPanel = new JPanel(displayLayout);
+    private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP.path);
+    private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN.path);
+    private final JButton deleteButton = new IconButton(DefaultIcon.CLOSE.path);
+    private final GridBagConstraints gc = ZUtil.getGC();
 
     public MacroCustomizerPanel(AddRemoveContainer parent) {
         super(parent);
@@ -105,25 +108,28 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         add(displayPanel, gc);
         gc.gridx++;
         gc.gridy = 0;
-
-        add(rowCombo);
+        add(rowCombo, gc);
+        gc.gridy++;
+        add(new ButtonWrapper(hotkeyButton), gc);
         gc.gridx++;
+        add(closeCheckbox, gc);
         gc.gridy = 0;
+        gc.gridx++;
 //        gc.gridx++;
 //        gc.gridy = 0;
 
         // Close
-        gc.fill = GridBagConstraints.NONE;
-        gc.weightx = 1;
-        add(closeLabel, gc);
-        gc.gridy++;
-        add(closeCheckbox, gc);
-        gc.gridx++;
-        gc.gridy = 0;
+//        gc.fill = GridBagConstraints.NONE;
+//        gc.weightx = 1;
+//        add(closeLabel, gc);
+//        gc.gridy++;
+//        add(closeCheckbox, gc);
+//        gc.gridx++;
+//        gc.gridy = 0;
 
         // Delete Button
         gc.fill = GridBagConstraints.HORIZONTAL;
-        add(deleteButton);
+        add(deleteButton, gc);
 
         updateUI();
         addListeners();

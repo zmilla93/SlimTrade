@@ -55,7 +55,6 @@ public class App {
         ColorManager.loadFonts();
         SaveManager.init();
 
-
         // Loading Dialog
         try {
             SwingUtilities.invokeAndWait(() -> {
@@ -99,9 +98,11 @@ public class App {
                 PinManager.applyPins();
 
                 // Show Windows
+                if (SaveManager.settingsSaveFile.data.enableMenuBar) {
+                    FrameManager.menubarDialog.setVisible(true);
+                }
                 FrameManager.messageManager.setVisible(true);
                 FrameManager.optionsWindow.setVisible(true);
-                FrameManager.menubarDialog.setVisible(true);
             });
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();

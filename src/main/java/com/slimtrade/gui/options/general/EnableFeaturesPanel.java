@@ -2,6 +2,7 @@ package com.slimtrade.gui.options.general;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -55,6 +56,13 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
         SaveManager.settingsSaveFile.data.enableMenuBar = menubarButton.isSelected();
         SaveManager.settingsSaveFile.data.enableAutomaticUpdate = autoUpdateCheckbox.isSelected();
         SaveManager.settingsSaveFile.data.hideWhenPOENotFocused = hideWhenPOENotFocusedCheckbox.isSelected();
+        // Update Menubar visibility
+        FrameManager.menubarDialog.setVisible(false);
+        if (SaveManager.settingsSaveFile.data.enableMenuBar) {
+            FrameManager.menubarIcon.setVisible(true);
+        } else {
+            FrameManager.menubarIcon.setVisible(false);
+        }
     }
 
     @Override

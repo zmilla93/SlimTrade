@@ -1,7 +1,5 @@
 package com.slimtrade.core.enums;
 
-import com.slimtrade.core.managers.SaveManager;
-
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,20 +36,20 @@ public class CurrencyImage {
         return partialName;
     }
 
-    private String getFileName() {
-        if (fileName == null) {
-            fileName = words[0].replaceAll(" ", "_").replaceAll(":", "") + ".png";
-        }
-        return fileName;
-    }
+//    private String getFileName() {
+//        if (fileName == null) {
+//            fileName = words[0].replaceAll(" ", "_").replaceAll(":", "") + ".png";
+//        }
+//        return fileName;
+//    }
 
-    public ImageIcon getIcon() {
-        if (imageIcon == null || cachedImageSize != SaveManager.settingsSaveFile.data.iconSize) {
-            cachedImageSize = SaveManager.settingsSaveFile.data.iconSize;
-            imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/currency/" + getFileName())));
-        }
-        return imageIcon;
-    }
+//    public ImageIcon getIcon() {
+//        if (imageIcon == null || cachedImageSize != SaveManager.settingsSaveFile.data.iconSize) {
+//            cachedImageSize = SaveManager.settingsSaveFile.data.iconSize;
+//            imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/currency/" + getFileName())));
+//        }
+//        return imageIcon;
+//    }
 
     public String getPath() {
         if (path == null) {
@@ -59,10 +57,6 @@ public class CurrencyImage {
             path = "/currency/" + fileName;
         }
         return path;
-    }
-
-    public static void addTag(String tag, CurrencyImage currencyImage) {
-        iconMap.put(tag, currencyImage);
     }
 
     private static void addCSV(String line) {
@@ -96,14 +90,15 @@ public class CurrencyImage {
 
     private static void addCustomTags() {
         // FIXME : Add all tags
-        addTag("Chaos Orb", "chaos");
-        addTag("Orb of Alchemy", "alch");
+        addAlias("Orb of Alchemy", "alch");
+        addAlias("Chaos Orb", "chaos");
+        addAlias("Exalted Orb", "exalted");
     }
 
-    public static void addTag(String existingTag, String newTag) {
+    public static void addAlias(String existingTag, String alias) {
         CurrencyImage image = getCurrencyImage(existingTag);
         if (image == null) return;
-        iconMap.put(newTag, image);
+        iconMap.put(alias, image);
     }
 
     public static CurrencyImage getCurrencyImage(String currency) {
@@ -113,12 +108,12 @@ public class CurrencyImage {
         return null;
     }
 
-    public static ImageIcon getImageIcon(String currency) {
-        if (iconMap.containsKey(currency)) {
-            return iconMap.get(currency).getIcon();
-        }
-        return null;
-    }
+//    public static ImageIcon getImageIcon(String currency) {
+//        if (iconMap.containsKey(currency)) {
+//            return iconMap.get(currency).getIcon();
+//        }
+//        return null;
+//    }
 
     public static String getIconPath(String currency) {
         if (iconMap.containsKey(currency)) {

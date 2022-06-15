@@ -36,7 +36,9 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.insets = new Insets(0, 0, 2, 0);
 
         macroContainer = new AddRemoveContainer();
-        macroContainer.setLayout(new GridBagLayout());
+        macroContainer.setSpacing(4);
+
+//        macroContainer.setLayout(new GridBagLayout());
 
 
         JButton addMacroButton = new JButton("Add New Macro");

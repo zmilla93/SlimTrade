@@ -2,6 +2,9 @@ package com.slimtrade.gui.components;
 
 import javax.swing.*;
 
+/**
+ * @see AddRemoveContainer
+ */
 public class AddRemovePanel extends JPanel {
 
     public final AddRemoveContainer parent;
