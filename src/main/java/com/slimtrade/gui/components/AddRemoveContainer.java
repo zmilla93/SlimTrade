@@ -70,6 +70,15 @@ public class AddRemoveContainer extends JPanel {
         repaint();
     }
 
+    private void rebuildMaps(){
+        intToPanel.clear();
+        panelToInt.clear();
+        for(int i = 0;i<getComponentCount();i++){
+            intToPanel.put(i, getComponent(i));
+            panelToInt.put(getComponent(i), i);
+        }
+    }
+
     @Override
     public Component add(Component comp) {
         gc.gridy = panelToInt.size();
@@ -77,15 +86,15 @@ public class AddRemoveContainer extends JPanel {
         panelToInt.put(comp, panelToInt.size());
         intToPanel.put(intToPanel.size(), comp);
         gc.insets.top = spacing;
+        revalidate();
+        repaint();
         return comp;
     }
 
     @Override
     public void remove(Component comp) {
         super.remove(comp);
-        int index = panelToInt.get(comp);
-        panelToInt.remove(comp);
-        intToPanel.remove(index);
+        rebuildMaps();
     }
 
     @Override

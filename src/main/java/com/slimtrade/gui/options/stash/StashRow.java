@@ -4,22 +4,23 @@ import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.components.AddRemoveContainer;
+import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.modules.colortheme.components.ColorCombo;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StashRow extends JPanel {
+public class StashRow extends AddRemovePanel {
 
-    private Container parent;
     private JButton removeButton = new IconButton("/icons/default/closex64.png");
     private JTextField nameInput = new JTextField(20);
     private JComboBox<MatchType> matchTypeCombo = new JComboBox<>();
     private JComboBox<StashTabType> stashTypeCombo = new JComboBox<>();
     private JComboBox<Color> colorCombo = new ColorCombo();
 
-    public StashRow(Container parent) {
-        this.parent = parent;
+    public StashRow(AddRemoveContainer parent) {
+        super(parent);
         setLayout(new GridBagLayout());
 
         for (MatchType matchType : MatchType.values()) matchTypeCombo.addItem(matchType);
@@ -42,9 +43,7 @@ public class StashRow extends JPanel {
     private void addListeners() {
         JPanel self = this;
         removeButton.addActionListener(e -> {
-            parent.remove(self);
-            parent.revalidate();
-            parent.repaint();
+            removeFromParent();
         });
     }
 

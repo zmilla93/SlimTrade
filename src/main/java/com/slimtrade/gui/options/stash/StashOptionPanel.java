@@ -3,6 +3,7 @@ package com.slimtrade.gui.options.stash;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -13,9 +14,8 @@ import java.util.ArrayList;
 public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private JButton addButton = new JButton("Add Stash Tab");
-    private JPanel tabContainer = new JPanel(new GridBagLayout());
+    private AddRemoveContainer tabContainer = new AddRemoveContainer();
     private JCheckBox applyColorCheckbox = new JCheckBox("Also apply color to the trade notification panel.");
-    private GridBagConstraints gc = ZUtil.getGC();
 
     public StashOptionPanel() {
         addHeader("Info");
@@ -30,10 +30,8 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     private void addListeners() {
-        Container self = this;
         addButton.addActionListener(e -> {
-            gc.gridy = tabContainer.getComponentCount();
-            tabContainer.add(new StashRow(tabContainer), gc);
+            tabContainer.add(new StashRow(tabContainer));
             revalidate();
             repaint();
         });
@@ -58,8 +56,7 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
         for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
             StashRow row = new StashRow(tabContainer);
             row.setData(data);
-            gc.gridy = tabContainer.getComponentCount();
-            tabContainer.add(row, gc);
+            tabContainer.add(row);
         }
         applyColorCheckbox.setSelected(SaveManager.settingsSaveFile.data.applyStashColorToMessage);
         revalidate();

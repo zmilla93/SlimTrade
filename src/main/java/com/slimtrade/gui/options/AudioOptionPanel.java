@@ -9,6 +9,7 @@ import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.gui.basic.ColorLabel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.ButtonPanel;
+import com.slimtrade.gui.options.audio.AudioThresholdPanel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -25,12 +26,16 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private JPanel innerPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints gc = new GridBagConstraints();
+    private final JButton openFolderButton = new JButton("Open Audio Folder");
+    private final JButton refreshButton = new JButton("Refresh");
 
-    private ArrayList<JComboBox<Sound>> comboList = new ArrayList<>(5);
-    private ArrayList<JSlider> sliderList = new ArrayList<>(5);
+    private ArrayList<JComboBox<Sound>> comboList = new ArrayList<>(6);
+    private ArrayList<JSlider> sliderList = new ArrayList<>(6);
     private ArrayList<String> audioFiles = new ArrayList<>();
 
     private JLabel customAudioLabel = new JLabel();
+    private AudioThresholdPanel audioThresholdPanel;
+
 
     public AudioOptionPanel() {
         gc.gridx = 0;
@@ -48,8 +53,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         addRow("Update Alert");
 
         JPanel customButtons = new ButtonPanel();
-        JButton openFolderButton = new JButton("Open Audio Folder");
-        JButton refreshButton = new JButton("Refresh");
+
         customButtons.add(openFolderButton);
         customButtons.add(refreshButton);
 
@@ -64,6 +68,14 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         addPanel(customButtons);
         addPanel(customAudioLabel);
 
+        addVerticalStrut();
+        addHeader("Price Thresholds");
+        addPanel(new AudioThresholdPanel());
+
+        addListeners();
+    }
+
+    private void addListeners() {
         openFolderButton.addActionListener(e -> {
             File file = new File(SaveManager.getAudioDirectory());
             try {
@@ -73,16 +85,12 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
             }
         });
 
-        refreshButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                App.audioManager.clearCache();
-                App.audioManager.rebuildSoundList();
-                updateInfoLabel();
-                refreshCombos();
-                load();
-            }
+        refreshButton.addActionListener(e -> {
+            App.audioManager.clearCache();
+            App.audioManager.rebuildSoundList();
+            updateInfoLabel();
+            refreshCombos();
+            load();
         });
     }
 

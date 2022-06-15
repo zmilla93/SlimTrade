@@ -2,6 +2,7 @@ package com.slimtrade.core.saving.savefiles;
 
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.CheatSheetData;
+import com.slimtrade.core.data.PriceThresholdData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
@@ -68,6 +69,7 @@ public class SettingsSaveFile {
     public SoundComponent chatScannerSound;
     public SoundComponent playerJoinedAreaSound;
     public SoundComponent updateSound;
+    public ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();
 
     // Macros
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();

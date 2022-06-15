@@ -36,11 +36,7 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
     }
 
     private void addListeners() {
-        inputPanel.getSubmitButton().addActionListener(e -> {
-            dataContainer.add(new StashSortRow(dataContainer, inputPanel.getData()));
-            dataContainer.revalidate();
-            dataContainer.repaint();
-        });
+        inputPanel.getSubmitButton().addActionListener(e -> dataContainer.add(new StashSortRow(dataContainer, inputPanel.getData())));
     }
 
     @Override
