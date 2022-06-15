@@ -12,6 +12,7 @@ import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.stashsorting.StashSortData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /***
  * Class representation of settings.json
@@ -22,16 +23,16 @@ public class SettingsSaveFile {
     public boolean showGuildName;
     public boolean folderOffset;
     public String characterName;
-    public QuickPasteManager.QuickPasteMode quickPasteMode;
+    public QuickPasteManager.QuickPasteMode quickPasteMode = QuickPasteManager.QuickPasteMode.DISABLED;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
 
     // Message Popups
     public boolean collapseMessages;
-    public int messagesBeforeCollapse;
+    public int messagesBeforeCollapse = SpinnerRange.MESSAGES_BEFORE_COLLAPSE.START;
     public boolean fadeMessages;
-    public float secondsBeforeFading;
-    public int fadedOpacity;
+    public float secondsBeforeFading = SpinnerRangeFloat.SECONDS_BEFORE_FADE.START;
+    public int fadedOpacity = SliderRange.FADED_OPACITY.START;
 
     // Display
     public int fontSize = SpinnerRange.FONT_SIZE.START;
@@ -47,20 +48,21 @@ public class SettingsSaveFile {
     public DateFormat historyDateFormat = DateFormat.MM_DD_YY;
 
     // Path of Exile
-    public String clientPath;
+    // FIXME:
+    public String clientPath = "C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
 
     // Enable Features
-    public boolean enableIncomingMessages;
-    public boolean enableOutgoingMessages;
-    public boolean enableItemHighlighter;
-    public boolean enableMenuBar;
-    public boolean enableAutomaticUpdate;
-    public boolean hideWhenPOENotFocused;
+    public boolean enableIncomingMessages = true;
+    public boolean enableOutgoingMessages = true;
+    public boolean enableItemHighlighter = true;
+    public boolean enableMenuBar = true;
+    public boolean enableAutomaticUpdate = true;
+    // FIXME : Switch default to true before release
+    public boolean hideWhenPOENotFocused = false;
 
     // Stash
     public ArrayList<StashTabData> stashTabs = new ArrayList<>();
     public boolean applyStashColorToMessage;
-
 
     // Audio
     public SoundComponent incomingSound;
@@ -70,6 +72,7 @@ public class SettingsSaveFile {
     public SoundComponent playerJoinedAreaSound;
     public SoundComponent updateSound;
     public ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();
+    private transient HashMap<CurrencyImage, ArrayList<PriceThresholdData>> priceThresholdMap;
 
     // Macros
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
@@ -99,9 +102,6 @@ public class SettingsSaveFile {
 
     public ArrayList<StashSortData> stashSortData = new ArrayList<>();
 
-    // Internal
-    public transient boolean clientFileRotated;
-
     // Macro Generators
     public void buildMacroCache() {
         incomingTopMacros.clear();
@@ -121,6 +121,13 @@ public class SettingsSaveFile {
             } else {
                 outgoingBottomMacros.add(button);
             }
+        }
+    }
+
+    public void buildThresholdMap() {
+        priceThresholdMap.clear();
+        for (PriceThresholdData data : priceThresholds) {
+            CurrencyImage currency = data.currencyType;
         }
     }
 

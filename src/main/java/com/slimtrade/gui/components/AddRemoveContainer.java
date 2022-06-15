@@ -70,10 +70,10 @@ public class AddRemoveContainer extends JPanel {
         repaint();
     }
 
-    private void rebuildMaps(){
+    private void rebuildMaps() {
         intToPanel.clear();
         panelToInt.clear();
-        for(int i = 0;i<getComponentCount();i++){
+        for (int i = 0; i < getComponentCount(); i++) {
             intToPanel.put(i, getComponent(i));
             panelToInt.put(getComponent(i), i);
         }

@@ -3,7 +3,6 @@ package com.slimtrade.gui.options;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.enums.DefaultIcon;
-import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
@@ -19,7 +18,6 @@ import java.awt.*;
 import java.util.Objects;
 
 public class MacroCustomizerPanel extends AddRemovePanel {
-
 
     // Macro Button
     private final CustomCombo<ImageIcon> iconCombo = new CustomCombo();
@@ -65,7 +63,8 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         for (ButtonRow row : ButtonRow.values())
             rowCombo.addItem(row);
         for (CustomIcon icon : CustomIcon.values())
-            iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), 18));
+//            iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), 18));
+            iconCombo.addItem(ColorManager.getColorIcon(icon.path));
         for (MacroButton.MacroButtonType type : MacroButton.MacroButtonType.values())
             buttonType.addItem(type);
 
@@ -181,7 +180,8 @@ public class MacroCustomizerPanel extends AddRemovePanel {
             int selectedIndex = iconCombo.getSelectedIndex();
             iconCombo.removeAllItems();
             for (CustomIcon icon : CustomIcon.values()) {
-                iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), SaveManager.settingsSaveFile.data.iconSize));
+//                iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), SaveManager.settingsSaveFile.data.iconSize));
+                iconCombo.addItem(ColorManager.getColorIcon(icon.path));
             }
             iconCombo.setSelectedIndex(selectedIndex);
         }

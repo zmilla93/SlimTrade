@@ -12,7 +12,7 @@ public class IgnoreItem {
     public final int initialDuration;
     public final long expirationTime;
     private transient boolean expired = false;
-    private final int leniency = 1000 * 30;
+    private transient final int leniency = 1000 * 30;
 
     public IgnoreItem(String itemName, MatchType matchType, int duration) {
         this.itemName = itemName;

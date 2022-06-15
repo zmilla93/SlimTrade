@@ -1,12 +1,6 @@
 package com.slimtrade.core.enums;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
-import java.io.IOException;
-import java.util.Objects;
 
 public enum CustomIcon {
 
@@ -29,6 +23,7 @@ public enum CustomIcon {
     WARP("/icons/custom/warpx64.png"),
     ;
 
+    // FIXME : Move to color manager
     public final String path;
     private BufferedImage image;
 
@@ -36,37 +31,38 @@ public enum CustomIcon {
         this.path = path;
     }
 
-    public Image getImage() {
-        if (image == null) {
-            try {
-                image = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
-                return image;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
+//    public Image getImage() {
+//        if (image == null) {
+//            try {
+//                image = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+//                return image;
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return null;
+//    }
 
-    public Image getColorImage(Color color) {
-        getImage();
-        int width = image.getWidth();
-        int height = image.getHeight();
-        WritableRaster raster = image.getRaster();
-        for (int xx = 0; xx < width; xx++) {
-            for (int yy = 0; yy < height; yy++) {
-                int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-                pixels[0] = color.getRed();
-                pixels[1] = color.getGreen();
-                pixels[2] = color.getBlue();
-                raster.setPixel(xx, yy, pixels);
-            }
-        }
-        return image;
-    }
-
-    public ImageIcon getColorIcon(Color color, int size) {
-        return new ImageIcon(getColorImage(color).getScaledInstance(size, size, Image.SCALE_SMOOTH));
-    }
+//    public Image getColorImage(Color color) {
+//        System.out.println("COL");
+//        getImage();
+//        int width = image.getWidth();
+//        int height = image.getHeight();
+//        WritableRaster raster = image.getRaster();
+//        for (int xx = 0; xx < width; xx++) {
+//            for (int yy = 0; yy < height; yy++) {
+//                int[] pixels = raster.getPixel(xx, yy, (int[]) null);
+//                pixels[0] = color.getRed();
+//                pixels[1] = color.getGreen();
+//                pixels[2] = color.getBlue();
+//                raster.setPixel(xx, yy, pixels);
+//            }
+//        }
+//        return image;
+//    }
+//
+//    public ImageIcon getColorIcon(Color color, int size) {
+//        return new ImageIcon(getColorImage(color).getScaledInstance(size, size, Image.SCALE_SMOOTH));
+//    }
 
 }

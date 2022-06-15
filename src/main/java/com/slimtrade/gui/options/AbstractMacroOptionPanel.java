@@ -176,14 +176,17 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
     public void reloadExampleTrade() {
         exampleTradeContainer.removeAll();
+        TradeMessagePanel panel = null;
         switch (messageType) {
             case INCOMING_TRADE:
-                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING), false));
+                panel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING), false);
                 break;
             case OUTGOING_TRADE:
-                exampleTradeContainer.add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING), false));
+                panel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING), false);
                 break;
         }
+        assert panel != null;
+        exampleTradeContainer.add(panel);
         exampleTradeContainer.revalidate();
         exampleTradeContainer.repaint();
     }

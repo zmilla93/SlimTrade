@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.PriceThresholdData;
-import com.slimtrade.core.enums.CommonCurrency;
+import com.slimtrade.core.enums.CurrencyImage;
 import com.slimtrade.core.enums.SliderRange;
 import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.utility.ZUtil;
@@ -17,7 +17,7 @@ import java.awt.*;
 public class AudioThresholdRow extends AddRemovePanel {
 
     private final JSpinner quantitySpinner = new RangeSpinner(SpinnerRange.PRICE_THRESHOLD);
-    private final JComboBox<CommonCurrency> currencyTypeCombo = new LimitCombo<>();
+    private final JComboBox<CurrencyImage> currencyTypeCombo = new LimitCombo<>();
     private final JComboBox<Sound> soundCombo = new JComboBox<>();
     private final JSlider volumeSlider = new RangeSlider(SliderRange.AUDIO_VOLUME);
     private final JButton previewButton = new IconButton("/icons/default/playx64.png");
@@ -26,7 +26,8 @@ public class AudioThresholdRow extends AddRemovePanel {
     public AudioThresholdRow(AddRemoveContainer parent) {
         super(parent);
         refreshCombo();
-        for (CommonCurrency currency : CommonCurrency.values()) currencyTypeCombo.addItem(currency);
+//        for (CurrencyImage currency : CurrencyImage.()) currencyTypeCombo.addItem(currency);
+        for (CurrencyImage currency : CurrencyImage.getCommonCurrencyTypes()) currencyTypeCombo.addItem(currency);
 
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
@@ -59,14 +60,14 @@ public class AudioThresholdRow extends AddRemovePanel {
     }
 
     public void setData(PriceThresholdData data) {
-        currencyTypeCombo.setSelectedItem(data.currencyType);
+        currencyTypeCombo.setSelectedItem(CurrencyImage.getCurrencyImage(data.currencyType.ID));
         quantitySpinner.setValue(data.quantity);
-        soundCombo.setSelectedItem(data.soundComponent.sound);
+        soundCombo.setSelectedIndex(App.audioManager.indexOfSound(data.soundComponent.sound.name));
         volumeSlider.setValue(data.soundComponent.volume);
     }
 
     public PriceThresholdData getData() {
-        CommonCurrency currency = (CommonCurrency) currencyTypeCombo.getSelectedItem();
+        CurrencyImage currency = (CurrencyImage) currencyTypeCombo.getSelectedItem();
         int quantity = (int) quantitySpinner.getValue();
         Sound sound = (Sound) soundCombo.getSelectedItem();
         int volume = volumeSlider.getValue();

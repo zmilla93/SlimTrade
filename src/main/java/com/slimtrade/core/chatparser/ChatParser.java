@@ -32,6 +32,7 @@ public class ChatParser implements FileTailerListener {
     public void open(String path, boolean end) {
         this.end = end;
         if (open) close();
+        if (path == null) return;
         File clientFile = new File(path);
         if (clientFile.exists() && clientFile.isFile()) {
             this.path = path;

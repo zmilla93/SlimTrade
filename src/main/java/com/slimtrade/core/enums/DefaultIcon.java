@@ -1,6 +1,8 @@
 package com.slimtrade.core.enums;
 
-public enum DefaultIcon {
+import com.slimtrade.modules.saving.ISavable;
+
+public enum DefaultIcon implements ISavable {
 
     ARROW_DOWN("/icons/default/arrow-downx48.png"),
     ARROW_UP("/icons/default/arrow-upx48.png"),
@@ -18,4 +20,13 @@ public enum DefaultIcon {
         this.path = path;
     }
 
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public void load() {
+
+    }
 }

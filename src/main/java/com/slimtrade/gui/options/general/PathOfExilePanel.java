@@ -48,7 +48,7 @@ public class PathOfExilePanel extends JPanel implements ISavable {
     @Override
     public void save() {
         SaveManager.settingsSaveFile.data.clientPath = clientTextField.getText();
-        if (!App.chatParser.getPath().equals(clientTextField.getText())) {
+        if (App.chatParser.getPath() != null && !App.chatParser.getPath().equals(clientTextField.getText())) {
             App.initParsers();
         }
     }
@@ -56,6 +56,7 @@ public class PathOfExilePanel extends JPanel implements ISavable {
     @Override
     public void load() {
         clientTextField.setText(SaveManager.settingsSaveFile.data.clientPath);
+        if (SaveManager.settingsSaveFile.data.clientPath == null) return;
         File file = new File(SaveManager.settingsSaveFile.data.clientPath);
         if (file.isFile()) {
             fileChooser.setCurrentDirectory(file.getParentFile());

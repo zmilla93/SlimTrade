@@ -2,7 +2,6 @@ package com.slimtrade.gui.options.stash;
 
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;

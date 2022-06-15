@@ -173,6 +173,7 @@ public class AudioManager {
         streamCache.clear();
     }
 
+
     private float percentToRange(int percent) {
         float f = MIN_VOLUME + (RANGE / (float) 100 * percent);
         return f;

@@ -15,7 +15,7 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
     private JButton newThresholdButton = new JButton("New Price Threshold");
     private AddRemoveContainer container = new AddRemoveContainer();
 
-    public AudioThresholdPanel(){
+    public AudioThresholdPanel() {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         gc.anchor = GridBagConstraints.WEST;
@@ -28,15 +28,15 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
         addListeners();
     }
 
-    private void addListeners(){
+    private void addListeners() {
         newThresholdButton.addActionListener(e -> container.add(new AudioThresholdRow(container)));
     }
 
     @Override
     public void save() {
         ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();
-        for(Component c : container.getComponents()){
-            if(c instanceof AudioThresholdRow){
+        for (Component c : container.getComponents()) {
+            if (c instanceof AudioThresholdRow) {
                 priceThresholds.add(((AudioThresholdRow) c).getData());
             }
         }
@@ -46,7 +46,7 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
     @Override
     public void load() {
         container.removeAll();
-        for(PriceThresholdData data : SaveManager.settingsSaveFile.data.priceThresholds){
+        for (PriceThresholdData data : SaveManager.settingsSaveFile.data.priceThresholds) {
             AudioThresholdRow row = new AudioThresholdRow(container);
             row.setData(data);
             container.add(row);

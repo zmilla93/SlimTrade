@@ -1,5 +1,6 @@
 package com.slimtrade.gui.messaging;
 
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.*;
 import com.slimtrade.gui.managers.FrameManager;
@@ -75,7 +76,6 @@ public class NotificationPanel extends ColorPanel {
         add(borderPanel, gc);
         borderPanel.add(mainPanel, gc);
 
-
         // Main Panel
         mainPanel.setBackground(Color.GREEN);
         mainPanel.add(topContainer, BorderLayout.NORTH);
@@ -114,7 +114,6 @@ public class NotificationPanel extends ColorPanel {
         timerPanel.add(Box.createHorizontalStrut(timerInset), BorderLayout.EAST);
         timerPanel.add(timerLabel, BorderLayout.CENTER);
 
-        revalidate();
     }
 
     /**
@@ -122,7 +121,7 @@ public class NotificationPanel extends ColorPanel {
      */
     public void setup() {
         GridBagConstraints gc = addMacrosToPanel(topButtonPanel, topMacros);
-        closeButton = new NotificationIconButton("/icons/default/closex64.png");
+        closeButton = new NotificationIconButton(DefaultIcon.CLOSE.path);
         topButtonPanel.add(closeButton, gc);
         addMacrosToPanel(bottomButtonPanel, bottomMacros);
 
@@ -133,6 +132,7 @@ public class NotificationPanel extends ColorPanel {
         timerPanel.colorMultiplier = 1.1f;
         timerPanel.setBackgroundKey("ComboBox.background");
         ColorManager.recursiveUpdateUI(this);
+        resizeStrut();
         if (createListeners)
             addListeners();
     }
@@ -242,7 +242,7 @@ public class NotificationPanel extends ColorPanel {
 
     public void resizeStrut() {
         if (bottomVerticalStrut != null) bottomContainer.remove(bottomVerticalStrut);
-        bottomVerticalStrut = Box.createVerticalStrut(closeButton.getHeight());
+        bottomVerticalStrut = Box.createVerticalStrut(closeButton.getPreferredSize().height);
         bottomContainer.add(bottomVerticalStrut, BorderLayout.WEST);
     }
 

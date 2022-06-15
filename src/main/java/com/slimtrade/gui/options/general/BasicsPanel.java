@@ -96,10 +96,7 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
     public void save() {
         SaveManager.settingsSaveFile.data.showGuildName = showGuildName.isSelected();
         SaveManager.settingsSaveFile.data.folderOffset = folderOffset.isSelected();
-//        SaveManager.settingsSaveFile.data.colorBlindMode = colorBlind.isSelected();
         SaveManager.settingsSaveFile.data.characterName = characterName.getText();
-//        SaveManager.settingsSaveFile.data.colorTheme = (ColorTheme) colorTheme.getSelectedItem();
-
         SaveManager.settingsSaveFile.data.quickPasteMode = (QuickPasteManager.QuickPasteMode) quickPasteCombo.getSelectedItem();
         SaveManager.settingsSaveFile.data.quickPasteHotkey = quickPasteHotkey.getData();
         QuickPasteManager.setMode(SaveManager.settingsSaveFile.data.quickPasteMode);
@@ -109,10 +106,7 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
     public void load() {
         showGuildName.setSelected(SaveManager.settingsSaveFile.data.showGuildName);
         folderOffset.setSelected(SaveManager.settingsSaveFile.data.folderOffset);
-//        colorBlind.setSelected(SaveManager.settingsSaveFile.data.colorBlindMode);
         characterName.setText(SaveManager.settingsSaveFile.data.characterName);
-//        colorTheme.setSelectedItem(SaveManager.settingsSaveFile.data.colorTheme);
-
         quickPasteCombo.setSelectedItem(SaveManager.settingsSaveFile.data.quickPasteMode);
         quickPasteHotkey.setData(SaveManager.settingsSaveFile.data.quickPasteHotkey);
         QuickPasteManager.setMode(SaveManager.settingsSaveFile.data.quickPasteMode);

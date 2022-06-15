@@ -17,6 +17,12 @@ public class IconButton extends JButton {
         updateUI();
     }
 
+//    public IconButton(CurrencyImage currency) {
+//        super();
+//        this.path = currency.getPath();
+//        updateUI();
+//    }
+
     public IconButton(String path, int size) {
         super();
         this.path = path;

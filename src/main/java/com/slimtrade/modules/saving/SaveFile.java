@@ -121,7 +121,7 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
 
     /**
      * Resets a timer everytime this function is called.
-     * When the timer expires, the file is saves.
+     * When the timer expires, the file is saved.
      */
     public void triggerSaveAfterIdle() {
         if (saveTask != null) {
