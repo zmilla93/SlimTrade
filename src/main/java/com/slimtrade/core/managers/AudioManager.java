@@ -13,38 +13,38 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Handles playback of audio clips.
+ */
 public class AudioManager {
 
     // TODO : Should make clips cacheable, but current implementation leads to buggy playback under certain conditions
-    private final ArrayList<Sound> soundFiles = new ArrayList<>();
+    private static final ArrayList<Sound> soundFiles = new ArrayList<>();
     public static final int MIN_VOLUME = -30;
     public static final int MAX_VOLUME = 6;
     public static final int RANGE = Math.abs(MIN_VOLUME) + MAX_VOLUME;
 
-    private final HashMap<Sound, Clip> clipCache = new HashMap<>();
-    private final HashMap<Clip, AudioInputStream> streamCache = new HashMap<>();
+    private static final HashMap<Sound, Clip> clipCache = new HashMap<>();
+    private static final HashMap<Clip, AudioInputStream> streamCache = new HashMap<>();
 
-    private int customCount;
+    private static int customCount;
 
-    /**
-     * Handles playback of audio clips.
-     */
-    public AudioManager() {
+    public static void init() {
         rebuildSoundList();
     }
 
-    public ArrayList<Sound> getSoundFiles() {
+    public static ArrayList<Sound> getSoundFiles() {
         return soundFiles;
     }
 
-    public void rebuildSoundList() {
+    public static void rebuildSoundList() {
         clearCache();
         soundFiles.clear();
         addDefaultSoundFiles();
         addCustomSoundFiles();
     }
 
-    private void addDefaultSoundFiles() {
+    private static void addDefaultSoundFiles() {
         soundFiles.add(new Sound("Ping 1", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Ping 2", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 1", Sound.SoundType.INBUILT));
@@ -52,7 +52,7 @@ public class AudioManager {
         soundFiles.add(new Sound("Blip 3", Sound.SoundType.INBUILT));
     }
 
-    private void addCustomSoundFiles() {
+    private static void addCustomSoundFiles() {
         customCount = 0;
         File audioDir = new File(SaveManager.getAudioDirectory());
         if (audioDir.exists()) {
@@ -65,7 +65,7 @@ public class AudioManager {
         }
     }
 
-    public int indexOfSound(String name) {
+    public static int indexOfSound(String name) {
         for (int i = 0; i < soundFiles.size(); i++) {
             Sound sound = soundFiles.get(i);
             if (sound.name.equals(name)) {
@@ -75,22 +75,22 @@ public class AudioManager {
         return -1;
     }
 
-    public int getCustomFileCount() {
+    public static int getCustomFileCount() {
         return customCount;
     }
 
     // Expected volume is 0 - 100
-    public void playSoundPercent(Sound sound, int volume) {
+    public static void playSoundPercent(Sound sound, int volume) {
         if (volume == 0) return;
         playSoundRaw(sound, percentToRange(volume));
     }
 
-    public void playSoundComponent(SoundComponent soundComponent){
+    public static void playSoundComponent(SoundComponent soundComponent) {
         playSoundRaw(soundComponent.sound, percentToRange(soundComponent.volume));
     }
 
     // Expected volume is MIN_VOLUME - MAX_VOLUME
-    private void playSoundRaw(Sound sound, float volume) {
+    private static void playSoundRaw(Sound sound, float volume) {
         if (volume <= MIN_VOLUME) {
             return;
         }
@@ -104,7 +104,7 @@ public class AudioManager {
         clip.start();
     }
 
-    private Clip getClip(Sound sound) {
+    private static Clip getClip(Sound sound) {
         AudioInputStream stream;
         try {
             Clip clip = AudioSystem.getClip();
@@ -113,7 +113,7 @@ public class AudioManager {
                 if (!file.exists()) return null;
             }
             if (sound.soundType == Sound.SoundType.INBUILT) {
-                stream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource(sound.getPath())));
+                stream = AudioSystem.getAudioInputStream(Objects.requireNonNull(AudioManager.class.getResource(sound.getPath())));
             } else {
                 stream = AudioSystem.getAudioInputStream(sound.getURL());
             }
@@ -137,7 +137,7 @@ public class AudioManager {
         }
     }
 
-    public SoundComponent getPriceThresholdSound(String currencyType, int quantity) {
+    public static SoundComponent getPriceThresholdSound(String currencyType, int quantity) {
         CurrencyImage currency = CurrencyImage.getCurrencyImage(currencyType);
         if (currency == null) return null;
         ArrayList<PriceThresholdData> thresholds = SaveManager.settingsSaveFile.data.priceThresholdMap.get(currency);
@@ -149,7 +149,7 @@ public class AudioManager {
     }
 
     // Unimplemented, currently causes audio bugs
-    private Clip getCachedClip(Sound sound) {
+    private static Clip getCachedClip(Sound sound) {
         if (clipCache.containsKey(sound)) {
             return clipCache.get(sound);
         } else {
@@ -175,7 +175,7 @@ public class AudioManager {
         }
     }
 
-    public void clearCache() {
+    public static void clearCache() {
         for (Map.Entry<Sound, Clip> entry : clipCache.entrySet()) {
             Clip clip = entry.getValue();
             AudioInputStream stream = streamCache.get(clip);
@@ -192,7 +192,7 @@ public class AudioManager {
     }
 
 
-    private float percentToRange(int percent) {
+    private static float percentToRange(int percent) {
         float f = MIN_VOLUME + (RANGE / (float) 100 * percent);
         return f;
     }

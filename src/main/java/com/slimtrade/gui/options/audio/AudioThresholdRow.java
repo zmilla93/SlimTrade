@@ -1,12 +1,12 @@
 package com.slimtrade.gui.options.audio;
 
-import com.slimtrade.App;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.PriceThresholdData;
 import com.slimtrade.core.enums.CurrencyImage;
 import com.slimtrade.core.enums.SliderRange;
 import com.slimtrade.core.enums.SpinnerRange;
+import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.*;
@@ -48,13 +48,13 @@ public class AudioThresholdRow extends AddRemovePanel {
     }
 
     private void addListeners() {
-        previewButton.addActionListener(e -> App.audioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
+        previewButton.addActionListener(e -> AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
         removeButton.addActionListener(e -> removeFromParent());
     }
 
     private void refreshCombo() {
         soundCombo.removeAllItems();
-        for (Sound sound : App.audioManager.getSoundFiles()) {
+        for (Sound sound : AudioManager.getSoundFiles()) {
             soundCombo.addItem(sound);
         }
     }
@@ -62,7 +62,7 @@ public class AudioThresholdRow extends AddRemovePanel {
     public void setData(PriceThresholdData data) {
         currencyTypeCombo.setSelectedItem(CurrencyImage.getCurrencyImage(data.currencyType.ID));
         quantitySpinner.setValue(data.quantity);
-        soundCombo.setSelectedIndex(App.audioManager.indexOfSound(data.soundComponent.sound.name));
+        soundCombo.setSelectedIndex(AudioManager.indexOfSound(data.soundComponent.sound.name));
         volumeSlider.setValue(data.soundComponent.volume);
     }
 

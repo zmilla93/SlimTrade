@@ -24,9 +24,6 @@ import java.util.logging.Logger;
 
 public class App {
 
-    public static FrameManager frameManager;
-    public static SaveManager saveManager;
-    public static AudioManager audioManager;
     public static SystemTrayManager systemTrayManager;
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
@@ -72,7 +69,7 @@ public class App {
         CurrencyImage.initIconList();
         LangRegex.compileAll();
         POEInterface.init();
-        audioManager = new AudioManager();
+        AudioManager.init();
 
         // UI
         try {

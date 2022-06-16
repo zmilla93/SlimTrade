@@ -25,7 +25,7 @@ public class DebugWindow extends JFrame {
         testMessageButton.addActionListener(e -> {
 //                App.frameManager.addMessage();
 //            App.frameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-//                App.audioManager.playSoundRaw(App.audioManager.soundfiles.get(0), 0);
+//                AudioManager.playSoundRaw(AudioManager.soundfiles.get(0), 0);
         });
         container.add(testMessageButton);
 

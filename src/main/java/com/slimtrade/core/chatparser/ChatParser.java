@@ -1,7 +1,7 @@
 package com.slimtrade.core.chatparser;
 
-import com.slimtrade.App;
 import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
@@ -102,7 +102,7 @@ public class ChatParser implements FileTailerListener {
     private void handleIgnoreItem() {
         // This is a little hacky. Will only play sound if chat parser starts at end. Might want to switch to a listener
         if (end)
-            App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.itemIgnoredSound.sound, SaveManager.settingsSaveFile.data.itemIgnoredSound.volume);
+            AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.itemIgnoredSound.sound, SaveManager.settingsSaveFile.data.itemIgnoredSound.volume);
     }
 
     private TradeOffer.TradeOfferType getMessageType(String s) {

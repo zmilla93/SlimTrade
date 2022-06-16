@@ -1,9 +1,9 @@
 package com.slimtrade.gui.options;
 
-import com.slimtrade.App;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.gui.basic.ColorLabel;
@@ -84,8 +84,8 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         });
 
         refreshButton.addActionListener(e -> {
-            App.audioManager.clearCache();
-            App.audioManager.rebuildSoundList();
+            AudioManager.clearCache();
+            AudioManager.rebuildSoundList();
             updateInfoLabel();
             refreshCombos();
             load();
@@ -99,7 +99,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         JSlider volumeSlider = new JSlider();
         comboList.add(soundCombo);
         sliderList.add(volumeSlider);
-        for (Sound sound : App.audioManager.getSoundFiles())
+        for (Sound sound : AudioManager.getSoundFiles())
             soundCombo.addItem(sound);
         innerPanel.add(new JLabel(title), gc);
         gc.gridx++;
@@ -115,14 +115,14 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
         updateInfoLabel();
         previewButton.addActionListener(e -> {
-            App.audioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue());
+            AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue());
         });
     }
 
     private void refreshCombos() {
         for (JComboBox<Sound> combo : comboList) {
             combo.removeAllItems();
-            for (Sound sound : App.audioManager.getSoundFiles()) {
+            for (Sound sound : AudioManager.getSoundFiles()) {
                 combo.addItem(sound);
             }
         }
@@ -134,13 +134,13 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private void setAudioRow(int index, SoundComponent row) {
         if (row == null || row.sound == null) return;
-        int soundIndex = App.audioManager.indexOfSound(row.sound.name);
+        int soundIndex = AudioManager.indexOfSound(row.sound.name);
         comboList.get(index).setSelectedIndex(soundIndex);
         sliderList.get(index).setValue(row.volume);
     }
 
     public void updateInfoLabel() {
-        int count = App.audioManager.getCustomFileCount();
+        int count = AudioManager.getCustomFileCount();
         if (count == 0) {
             customAudioLabel.setText("No custom files loaded.");
         } else if (count == 1) {

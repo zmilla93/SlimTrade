@@ -1,12 +1,12 @@
 package com.slimtrade.gui.managers;
 
-import com.slimtrade.App;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.chatparser.IJoinedAreaListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.enums.MatchType;
+import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.AdvancedMouseListener;
@@ -118,7 +118,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     public void addUpdateMessage(boolean playSound) {
         assert (SwingUtilities.isEventDispatchThread());
         if (playSound)
-            App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.updateSound.sound, SaveManager.settingsSaveFile.data.updateSound.volume);
+            AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.updateSound.sound, SaveManager.settingsSaveFile.data.updateSound.volume);
         UpdateMessagePanel panel = new UpdateMessagePanel();
         panel.startTimer();
         addComponent(panel);
@@ -140,18 +140,18 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         if (playSound) {
             switch (tradeOffer.offerType) {
                 case INCOMING:
-                    SoundComponent sound = App.audioManager.getPriceThresholdSound(tradeOffer.priceTypeString, (int) Math.floor(tradeOffer.priceQuantity));
+                    SoundComponent sound = AudioManager.getPriceThresholdSound(tradeOffer.priceTypeString, (int) Math.floor(tradeOffer.priceQuantity));
                     if (sound == null) {
-                        App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
+                        AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
                     } else {
-                        App.audioManager.playSoundComponent(sound);
+                        AudioManager.playSoundComponent(sound);
                     }
                     break;
                 case OUTGOING:
-                    App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.outgoingSound.sound, SaveManager.settingsSaveFile.data.outgoingSound.volume);
+                    AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.outgoingSound.sound, SaveManager.settingsSaveFile.data.outgoingSound.volume);
                     break;
                 case CHAT_SCANNER:
-                    App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.chatScannerSound.sound, SaveManager.settingsSaveFile.data.chatScannerSound.volume);
+                    AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.chatScannerSound.sound, SaveManager.settingsSaveFile.data.chatScannerSound.volume);
                     break;
             }
         }
@@ -408,7 +408,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 TradeMessagePanel panel = (TradeMessagePanel) c;
                 TradeOffer offer = panel.getTradeOffer();
                 if (offer.offerType == TradeOffer.TradeOfferType.INCOMING && offer.playerName.equals(playerName)) {
-                    App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound.sound, SaveManager.settingsSaveFile.data.playerJoinedAreaSound.volume);
+                    AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound.sound, SaveManager.settingsSaveFile.data.playerJoinedAreaSound.volume);
                     panel.setPlayerJoinedArea();
                 }
             }
