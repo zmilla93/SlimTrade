@@ -50,6 +50,7 @@ public class AudioManager {
         soundFiles.add(new Sound("Blip 1", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 2", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 3", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Loot 6", Sound.SoundType.INBUILT));
     }
 
     private static void addCustomSoundFiles() {
@@ -117,11 +118,6 @@ public class AudioManager {
             } else {
                 stream = AudioSystem.getAudioInputStream(sound.getURL());
             }
-//            clip.available();
-            System.out.println("LINE INFO: " + clip.getLineInfo());
-            System.out.println("FORMAT:" + clip.getFormat());
-            System.out.println("AVAILABLE:" + clip.available());
-//            clip.getFormat();
             clip.open(stream);
             final AudioInputStream finalStream = stream;
             clip.addLineListener(event -> {
@@ -151,11 +147,16 @@ public class AudioManager {
     }
 
     public static SoundComponent getPriceThresholdSound(String currencyType, int quantity) {
+        System.out.println("getting type..." + currencyType);
         CurrencyImage currency = CurrencyImage.getCurrencyImage(currencyType);
         if (currency == null) return null;
         ArrayList<PriceThresholdData> thresholds = SaveManager.settingsSaveFile.data.priceThresholdMap.get(currency);
+        System.out.println("THRESH:");
+        System.out.println(thresholds);
+        System.out.println("ALL::::");
         if (thresholds == null) return null;
         for (PriceThresholdData data : thresholds) {
+            System.out.println("thresh..." + data.quantity);
             if (quantity >= data.quantity) return data.soundComponent;
         }
         return null;

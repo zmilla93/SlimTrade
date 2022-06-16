@@ -103,7 +103,7 @@ public class SettingsSaveFile {
 
     public ArrayList<StashSortData> stashSortData = new ArrayList<>();
 
-    public SettingsSaveFile(){
+    public SettingsSaveFile() {
         incomingMacroButtons.add(new MacroButton(CustomIcon.INVITE, "/invite {player}", "", ButtonRow.BOTTOM_ROW, false));
         incomingMacroButtons.add(new MacroButton(CustomIcon.CART, "/tradewith {player}", "", ButtonRow.BOTTOM_ROW, false));
         incomingMacroButtons.add(new MacroButton(CustomIcon.THUMB, "thanks", "", ButtonRow.BOTTOM_ROW, false));
@@ -141,7 +141,7 @@ public class SettingsSaveFile {
     public void buildThresholdMap() {
         priceThresholdMap.clear();
         for (PriceThresholdData data : priceThresholds) {
-            CurrencyImage currency = data.currencyType;
+            CurrencyImage currency = CurrencyImage.getCurrencyImage(data.currencyType.ID);
             ArrayList<PriceThresholdData> thresholds = priceThresholdMap.get(currency);
             if (thresholds == null) {
                 thresholds = new ArrayList<>();
