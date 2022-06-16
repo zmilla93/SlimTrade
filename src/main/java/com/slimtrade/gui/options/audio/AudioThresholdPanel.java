@@ -32,9 +32,9 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
         newThresholdButton.addActionListener(e -> container.add(new AudioThresholdRow(container)));
     }
 
-    public void refreshCombos(){
-        for(Component c : container.getComponents()){
-            if(c instanceof AudioThresholdRow){
+    public void refreshCombos() {
+        for (Component c : container.getComponents()) {
+            if (c instanceof AudioThresholdRow) {
                 ((AudioThresholdRow) c).refreshCombo();
             }
         }
