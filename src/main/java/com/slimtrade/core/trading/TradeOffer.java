@@ -17,6 +17,7 @@ public class TradeOffer {
     public enum TradeOfferType {UNKNOWN, INCOMING, OUTGOING, CHAT_SCANNER, QUICK_PASTE}
 
     public TradeOfferType offerType;
+    public String message;
     public String date;
     public String time;
     public String guildName;
@@ -70,6 +71,7 @@ public class TradeOffer {
     private static TradeOffer getTradeFromMatcher(Matcher matcher) {
         TradeOffer trade;
         trade = new TradeOffer();
+        trade.message = cleanResult(matcher, "message");
         trade.date = cleanResult(matcher, "date");
         if (trade.date != null) trade.date = trade.date.replaceAll("/", "-");
         trade.time = cleanResult(matcher, "time");

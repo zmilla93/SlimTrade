@@ -3,15 +3,13 @@ package com.slimtrade.gui.options;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.core.enums.MacroButtonType;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.basic.HotkeyButton;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.components.AddRemoveContainer;
-import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.components.ButtonWrapper;
-import com.slimtrade.gui.components.CustomCombo;
+import com.slimtrade.gui.components.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +18,7 @@ import java.util.Objects;
 public class MacroCustomizerPanel extends AddRemovePanel {
 
     // Macro Button
-    private final CustomCombo<ImageIcon> iconCombo = new CustomCombo();
+    private final JComboBox<ImageIcon> iconCombo = new LimitCombo<>();
     private final JTextField buttonText = new JTextField();
 
     private final int TEXT_FIELD_COLUMNS = 20;
@@ -28,7 +26,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
     private final JTextField rmbInput = new JTextField(TEXT_FIELD_COLUMNS);
     private final JCheckBox closeCheckbox = new JCheckBox("Close");
     private final JComboBox<ButtonRow> rowCombo = new JComboBox<>();
-    private final JComboBox<MacroButton.MacroButtonType> buttonType = new JComboBox<>();
+    private final JComboBox<MacroButtonType> buttonType = new JComboBox<>();
     private final HotkeyButton hotkeyButton = new HotkeyButton();
 
     // Internal
@@ -54,8 +52,8 @@ public class MacroCustomizerPanel extends AddRemovePanel {
 
         // Card Type Panel
 
-        displayPanel.add(iconCombo, MacroButton.MacroButtonType.ICON.toString());
-        displayPanel.add(buttonText, MacroButton.MacroButtonType.TEXT.toString());
+        displayPanel.add(iconCombo, MacroButtonType.ICON.toString());
+        displayPanel.add(buttonText, MacroButtonType.TEXT.toString());
 
         gc.insets = new Insets(0, 5, 0, 5);
 
@@ -65,7 +63,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         for (CustomIcon icon : CustomIcon.values())
 //            iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), 18));
             iconCombo.addItem(ColorManager.getColorIcon(icon.path));
-        for (MacroButton.MacroButtonType type : MacroButton.MacroButtonType.values())
+        for (MacroButtonType type : MacroButtonType.values())
             buttonType.addItem(type);
 
         // Shift Buttons
@@ -154,7 +152,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         button.lmbResponse = lmbInput.getText();
         button.rmbResponse = rmbInput.getText();
         button.row = (ButtonRow) rowCombo.getSelectedItem();
-        button.buttonType = (MacroButton.MacroButtonType) buttonType.getSelectedItem();
+        button.buttonType = (MacroButtonType) buttonType.getSelectedItem();
         button.text = buttonText.getText();
         button.close = closeCheckbox.isSelected();
         int index = iconCombo.getSelectedIndex();

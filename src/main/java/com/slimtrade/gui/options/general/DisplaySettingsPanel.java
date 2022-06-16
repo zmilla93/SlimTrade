@@ -4,7 +4,7 @@ import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.components.SpinnerRangeModel;
+import com.slimtrade.gui.components.RangeSpinner;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -13,21 +13,15 @@ import java.awt.*;
 public class DisplaySettingsPanel extends JPanel implements ISavable {
 
     private final JLabel textPreviewLabel = new JLabel("You are captured, stupid beast!");
-    private IconButton iconPreviewButton = new IconButton("/icons/default/tagx64.png");
-    private final JSpinner textSizeSpinner = new JSpinner();
-    private final JSpinner iconSizeSpinner = new JSpinner();
+    private final IconButton iconPreviewButton = new IconButton("/icons/default/tagx64.png");
+    private final JSpinner textSizeSpinner = new RangeSpinner(SpinnerRange.FONT_SIZE);
+    private final JSpinner iconSizeSpinner = new RangeSpinner(SpinnerRange.ICON_SIZE);
 
     public DisplaySettingsPanel() {
         GridBagConstraints gc = ZUtil.getGC();
         JLabel textSizeLabel = new JLabel("Text Size");
         JLabel iconSizeLabel = new JLabel("Icon Size");
         iconPreviewButton.setFocusable(false);
-
-        // Spinners
-        SpinnerNumberModel textSpinnerModel = new SpinnerRangeModel(SpinnerRange.FONT_SIZE);
-        SpinnerNumberModel iconSpinnerModel = new SpinnerRangeModel(SpinnerRange.ICON_SIZE);
-        textSizeSpinner.setModel(textSpinnerModel);
-        iconSizeSpinner.setModel(iconSpinnerModel);
 
         // Input Panel
         JPanel inputPanel = new JPanel(new GridBagLayout());
@@ -44,13 +38,10 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
         gc.gridx++;
 
         // Preview Panel
-//        JPanel previewPanel = new JPanel(new GridBagLayout());
         JPanel previewPanel = new JPanel(new FlowLayout());
         previewPanel.add(iconPreviewButton);
-//        previewPanel.add(iconPreviewButton, gc);
         gc.gridx++;
         previewPanel.add(textPreviewLabel);
-//        previewPanel.add(textPreviewLabel, gc);
 
         // Main Panel
         setLayout(new BorderLayout());
@@ -97,4 +88,5 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
         updateTextPreview();
         updateIconPreview();
     }
+
 }

@@ -57,7 +57,7 @@ public class AudioManager {
         File audioDir = new File(SaveManager.getAudioDirectory());
         if (audioDir.exists()) {
             for (File file : Objects.requireNonNull(audioDir.listFiles())) {
-                if (file.getName().endsWith(".wav")) {
+                if (file.getName().endsWith(".wav") || file.getName().endsWith(".ogg")) {
                     soundFiles.add(new Sound(file.getName(), Sound.SoundType.CUSTOM));
                     customCount++;
                 }
@@ -105,7 +105,7 @@ public class AudioManager {
     }
 
     private static Clip getClip(Sound sound) {
-        AudioInputStream stream;
+        AudioInputStream stream = null;
         try {
             Clip clip = AudioSystem.getClip();
             if (sound.soundType == Sound.SoundType.CUSTOM) {
@@ -117,12 +117,18 @@ public class AudioManager {
             } else {
                 stream = AudioSystem.getAudioInputStream(sound.getURL());
             }
+//            clip.available();
+            System.out.println("LINE INFO: " + clip.getLineInfo());
+            System.out.println("FORMAT:" + clip.getFormat());
+            System.out.println("AVAILABLE:" + clip.available());
+//            clip.getFormat();
             clip.open(stream);
+            final AudioInputStream finalStream = stream;
             clip.addLineListener(event -> {
                 LineEvent.Type type = event.getType();
                 if (type.equals(LineEvent.Type.STOP)) {
                     try {
-                        stream.close();
+                        finalStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -133,6 +139,13 @@ public class AudioManager {
             return clip;
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             e.printStackTrace();
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException ex) {
+                    // Ignore
+                }
+            }
             return null;
         }
     }

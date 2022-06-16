@@ -9,6 +9,7 @@ import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.gui.basic.ColorLabel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.ButtonPanel;
+import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.options.audio.AudioThresholdPanel;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -32,7 +33,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     private ArrayList<String> audioFiles = new ArrayList<>();
 
     private JLabel customAudioLabel = new JLabel();
-    private AudioThresholdPanel audioThresholdPanel;
+    private AudioThresholdPanel audioThresholdPanel = new AudioThresholdPanel();
 
 
     public AudioOptionPanel() {
@@ -68,7 +69,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
         addVerticalStrut();
         addHeader("Price Thresholds");
-        addPanel(new AudioThresholdPanel());
+        addPanel(audioThresholdPanel);
 
         addListeners();
     }
@@ -95,7 +96,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     private void addRow(String title) {
         gc.insets = new Insets(0, GUIReferences.INSET, 2, GUIReferences.INSET);
         JButton previewButton = new IconButton(DefaultIcon.PLAY.path);
-        JComboBox<Sound> soundCombo = new JComboBox<>();
+        JComboBox<Sound> soundCombo = new LimitCombo<>();
         JSlider volumeSlider = new JSlider();
         comboList.add(soundCombo);
         sliderList.add(volumeSlider);
@@ -126,6 +127,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
                 combo.addItem(sound);
             }
         }
+        audioThresholdPanel.refreshCombos();
     }
 
     private SoundComponent getAudioRow(int index) {

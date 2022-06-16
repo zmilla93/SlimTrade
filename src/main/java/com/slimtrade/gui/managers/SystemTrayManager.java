@@ -7,23 +7,23 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Objects;
 
-public class SystemTrayManager implements ActionListener {
+public class SystemTrayManager {
 
     // Tray
-    private final SystemTray tray;
-    private TrayIcon trayIcon;
-    private PopupMenu popupMenu = new PopupMenu();
+    private static SystemTray tray;
+    private static TrayIcon trayIcon;
+    private static PopupMenu popupMenu = new PopupMenu();
 
     // Buttons
-    private final MenuItem optionsButton = new MenuItem("Options");
-    private final MenuItem historyButton = new MenuItem("History");
-    private final MenuItem exitButton = new MenuItem("Exit SlimTrade");
+    private static final MenuItem optionsButton = new MenuItem("Options");
+    private static final MenuItem historyButton = new MenuItem("History");
+    private static final MenuItem exitButton = new MenuItem("Exit SlimTrade");
 
     public SystemTrayManager() {
         tray = SystemTray.getSystemTray();
         Image img;
         try {
-            img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/icons/chaos-icon.png")));
+            img = ImageIO.read(Objects.requireNonNull(SystemTrayManager.class.getResource("/icons/chaos-icon.png")));
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -32,7 +32,7 @@ public class SystemTrayManager implements ActionListener {
         trayIcon = new TrayIcon(img.getScaledInstance(trayIcon.getSize().width, trayIcon.getSize().height, Image.SCALE_SMOOTH));
         trayIcon.setToolTip("SlimTrade");
         trayIcon.setPopupMenu(popupMenu);
-        trayIcon.addActionListener(this);
+        trayIcon.addActionListener(e -> FrameManager.optionsWindow.setVisible(true));
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
@@ -42,28 +42,23 @@ public class SystemTrayManager implements ActionListener {
         showDefault();
     }
 
-    private void addListeners() {
+    private static void addListeners() {
         optionsButton.addActionListener(e -> FrameManager.optionsWindow.setVisible(true));
         historyButton.addActionListener(e -> FrameManager.historyWindow.setVisible(true));
         exitButton.addActionListener(e -> System.exit(0));
     }
 
-    public void showSimple() {
+    public static void showSimple() {
         popupMenu.removeAll();
         popupMenu.add(exitButton);
     }
 
-    public void showDefault() {
+    public static void showDefault() {
         popupMenu.removeAll();
         popupMenu.add(optionsButton);
         popupMenu.add(historyButton);
         popupMenu.addSeparator();
         popupMenu.add(exitButton);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        FrameManager.optionsWindow.setVisible(true);
     }
 
 }

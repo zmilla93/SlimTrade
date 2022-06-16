@@ -1,6 +1,7 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.core.enums.MacroButtonType;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.*;
 import com.slimtrade.gui.managers.FrameManager;
@@ -145,7 +146,7 @@ public class NotificationPanel extends ColorPanel {
         NotificationPanel self = this;
         for (MacroButton macro : macros) {
             JButton button;
-            if (macro.buttonType == MacroButton.MacroButtonType.ICON) {
+            if (macro.buttonType == MacroButtonType.ICON) {
                 button = new NotificationIconButton(macro.icon.path);
             } else {
                 button = new NotificationButton(macro.text);

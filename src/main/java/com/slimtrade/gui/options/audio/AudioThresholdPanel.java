@@ -32,6 +32,15 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
         newThresholdButton.addActionListener(e -> container.add(new AudioThresholdRow(container)));
     }
 
+    public void refreshCombos(){
+        for(Component c : container.getComponents()){
+            if(c instanceof AudioThresholdRow){
+                ((AudioThresholdRow) c).refreshCombo();
+            }
+        }
+        load();
+    }
+
     @Override
     public void save() {
         ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();

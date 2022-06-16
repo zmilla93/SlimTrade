@@ -9,9 +9,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 public class ZUtil {
+
+    private static NumberFormat numberFormatter = new DecimalFormat("##.##");
 
     /**
      * Returns a printable version of an enum name.
@@ -51,9 +56,11 @@ public class ZUtil {
             if (!clean.startsWith("@") && !clean.startsWith("/")) clean = "@" + tradeOffer.playerName + " " + clean;
             clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
             clean = clean.replaceAll("\\{player}", tradeOffer.playerName);
-            clean = clean.replaceAll("\\{item}", tradeOffer.playerName);
-            clean = clean.replaceAll("\\{price}", tradeOffer.playerName);
-            clean = clean.replaceAll("\\{message}", tradeOffer.playerName);
+            String itemPrefix = tradeOffer.itemQuantity > 0 ? tradeOffer.itemQuantity + " " : "1 ";
+            clean = clean.replaceAll("\\{item}", itemPrefix + tradeOffer.itemName);
+            clean = clean.replaceAll("\\{price}", numberFormatter.format(tradeOffer.priceQuantity) + " " + tradeOffer.priceTypeString);
+//            System.out.println("MESSAGE:" + tradeOffer.message);
+//            clean = clean.replaceAll("[{]message[}]", Matcher.quoteReplacement(tradeOffer.message));
             // FIXME:
 //            clean = clean.replaceAll("\\{zone}", tradeOffer.playerName);
             commands.set(i, clean);

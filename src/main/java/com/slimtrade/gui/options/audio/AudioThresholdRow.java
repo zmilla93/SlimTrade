@@ -18,7 +18,7 @@ public class AudioThresholdRow extends AddRemovePanel {
 
     private final JSpinner quantitySpinner = new RangeSpinner(SpinnerRange.PRICE_THRESHOLD);
     private final JComboBox<CurrencyImage> currencyTypeCombo = new LimitCombo<>();
-    private final JComboBox<Sound> soundCombo = new JComboBox<>();
+    private final JComboBox<Sound> soundCombo = new LimitCombo<>();
     private final JSlider volumeSlider = new RangeSlider(SliderRange.AUDIO_VOLUME);
     private final JButton previewButton = new IconButton("/icons/default/playx64.png");
     private final JButton removeButton = new IconButton("/icons/default/closex64.png");
@@ -26,7 +26,6 @@ public class AudioThresholdRow extends AddRemovePanel {
     public AudioThresholdRow(AddRemoveContainer parent) {
         super(parent);
         refreshCombo();
-//        for (CurrencyImage currency : CurrencyImage.()) currencyTypeCombo.addItem(currency);
         for (CurrencyImage currency : CurrencyImage.getCommonCurrencyTypes()) currencyTypeCombo.addItem(currency);
 
         setLayout(new GridBagLayout());
@@ -52,7 +51,7 @@ public class AudioThresholdRow extends AddRemovePanel {
         removeButton.addActionListener(e -> removeFromParent());
     }
 
-    private void refreshCombo() {
+    public void refreshCombo() {
         soundCombo.removeAllItems();
         for (Sound sound : AudioManager.getSoundFiles()) {
             soundCombo.addItem(sound);
