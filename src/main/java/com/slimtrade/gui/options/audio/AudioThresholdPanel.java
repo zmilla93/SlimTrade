@@ -41,6 +41,7 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
             }
         }
         SaveManager.settingsSaveFile.data.priceThresholds = priceThresholds;
+        SaveManager.settingsSaveFile.data.buildThresholdMap();
     }
 
     @Override
@@ -51,5 +52,6 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
             row.setData(data);
             container.add(row);
         }
+        SaveManager.settingsSaveFile.data.buildThresholdMap();
     }
 }

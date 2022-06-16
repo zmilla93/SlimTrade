@@ -1,6 +1,7 @@
 package com.slimtrade.gui.managers;
 
 import com.slimtrade.App;
+import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.chatparser.IJoinedAreaListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.data.IgnoreItem;
@@ -139,7 +140,12 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         if (playSound) {
             switch (tradeOffer.offerType) {
                 case INCOMING:
-                    App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
+                    SoundComponent sound = App.audioManager.getPriceThresholdSound(tradeOffer.priceTypeString, (int) Math.floor(tradeOffer.priceQuantity));
+                    if (sound == null) {
+                        App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
+                    } else {
+                        App.audioManager.playSoundComponent(sound);
+                    }
                     break;
                 case OUTGOING:
                     App.audioManager.playSoundPercent(SaveManager.settingsSaveFile.data.outgoingSound.sound, SaveManager.settingsSaveFile.data.outgoingSound.volume);

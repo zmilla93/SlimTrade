@@ -1,6 +1,9 @@
 package com.slimtrade.core.managers;
 
 import com.slimtrade.core.audio.Sound;
+import com.slimtrade.core.audio.SoundComponent;
+import com.slimtrade.core.data.PriceThresholdData;
+import com.slimtrade.core.enums.CurrencyImage;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -82,6 +85,10 @@ public class AudioManager {
         playSoundRaw(sound, percentToRange(volume));
     }
 
+    public void playSoundComponent(SoundComponent soundComponent){
+        playSoundRaw(soundComponent.sound, percentToRange(soundComponent.volume));
+    }
+
     // Expected volume is MIN_VOLUME - MAX_VOLUME
     private void playSoundRaw(Sound sound, float volume) {
         if (volume <= MIN_VOLUME) {
@@ -128,6 +135,17 @@ public class AudioManager {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public SoundComponent getPriceThresholdSound(String currencyType, int quantity) {
+        CurrencyImage currency = CurrencyImage.getCurrencyImage(currencyType);
+        if (currency == null) return null;
+        ArrayList<PriceThresholdData> thresholds = SaveManager.settingsSaveFile.data.priceThresholdMap.get(currency);
+        if (thresholds == null) return null;
+        for (PriceThresholdData data : thresholds) {
+            if (quantity >= data.quantity) return data.soundComponent;
+        }
+        return null;
     }
 
     // Unimplemented, currently causes audio bugs

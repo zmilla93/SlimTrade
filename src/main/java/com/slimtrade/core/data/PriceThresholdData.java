@@ -3,7 +3,7 @@ package com.slimtrade.core.data;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.enums.CurrencyImage;
 
-public class PriceThresholdData {
+public class PriceThresholdData implements Comparable<PriceThresholdData> {
 
     public final CurrencyImage currencyType;
     public final int quantity;
@@ -15,5 +15,9 @@ public class PriceThresholdData {
         this.soundComponent = soundComponent;
     }
 
+    @Override
+    public int compareTo(PriceThresholdData o) {
+        return quantity - o.quantity;
+    }
 }
 

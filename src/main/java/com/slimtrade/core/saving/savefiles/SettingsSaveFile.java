@@ -12,6 +12,7 @@ import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.stashsorting.StashSortData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /***
@@ -72,7 +73,7 @@ public class SettingsSaveFile {
     public SoundComponent playerJoinedAreaSound;
     public SoundComponent updateSound;
     public ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();
-    private transient HashMap<CurrencyImage, ArrayList<PriceThresholdData>> priceThresholdMap;
+    public transient final HashMap<CurrencyImage, ArrayList<PriceThresholdData>> priceThresholdMap = new HashMap<>();
 
     // Macros
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
@@ -128,6 +129,15 @@ public class SettingsSaveFile {
         priceThresholdMap.clear();
         for (PriceThresholdData data : priceThresholds) {
             CurrencyImage currency = data.currencyType;
+            ArrayList<PriceThresholdData> thresholds = priceThresholdMap.get(currency);
+            if (thresholds == null) {
+                thresholds = new ArrayList<>();
+            }
+            thresholds.add(data);
+            priceThresholdMap.put(currency, thresholds);
+        }
+        for (ArrayList<PriceThresholdData> thresholds : priceThresholdMap.values()) {
+            thresholds.sort(Collections.reverseOrder());
         }
     }
 

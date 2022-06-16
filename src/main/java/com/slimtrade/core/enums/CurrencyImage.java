@@ -87,6 +87,24 @@ public class CurrencyImage implements IImageRef {
         commonCurrencyTypes.clear();
         commonCurrencyTypes.add(getCurrencyImage("Chaos Orb"));
         commonCurrencyTypes.add(getCurrencyImage("Exalted Orb"));
+        commonCurrencyTypes.add(getCurrencyImage("Blessed Orb"));
+        commonCurrencyTypes.add(getCurrencyImage("Cartographer's Chisel"));
+        commonCurrencyTypes.add(getCurrencyImage("Chromatic Orb"));
+        commonCurrencyTypes.add(getCurrencyImage("Divine Orb"));
+        commonCurrencyTypes.add(getCurrencyImage("Engineer's Orb"));
+        commonCurrencyTypes.add(getCurrencyImage("Gemcutter's Prism"));
+        commonCurrencyTypes.add(getCurrencyImage("Glassblower's Bauble"));
+        commonCurrencyTypes.add(getCurrencyImage("Jeweller's Orb"));
+        commonCurrencyTypes.add(getCurrencyImage("Mirror of Kalandra"));
+        commonCurrencyTypes.add(getCurrencyImage("Orb of Alchemy"));
+        commonCurrencyTypes.add(getCurrencyImage("Orb of Alteration"));
+        commonCurrencyTypes.add(getCurrencyImage("Orb of Chance"));
+        commonCurrencyTypes.add(getCurrencyImage("Orb of Fusing"));
+        commonCurrencyTypes.add(getCurrencyImage("Orb of Regret"));
+        commonCurrencyTypes.add(getCurrencyImage("Orb of Scouring"));
+        commonCurrencyTypes.add(getCurrencyImage("Orb of Transmutation"));
+        commonCurrencyTypes.add(getCurrencyImage("Regal Orb"));
+        commonCurrencyTypes.add(getCurrencyImage("Vaal Orb"));
     }
 
     public static void addAlias(String existingTag, String alias) {
