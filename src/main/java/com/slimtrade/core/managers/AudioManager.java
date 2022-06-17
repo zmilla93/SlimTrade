@@ -3,7 +3,7 @@ package com.slimtrade.core.managers;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.PriceThresholdData;
-import com.slimtrade.core.enums.CurrencyImage;
+import com.slimtrade.core.enums.CurrencyType;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -147,16 +147,11 @@ public class AudioManager {
     }
 
     public static SoundComponent getPriceThresholdSound(String currencyType, int quantity) {
-        System.out.println("getting type..." + currencyType);
-        CurrencyImage currency = CurrencyImage.getCurrencyImage(currencyType);
+        CurrencyType currency = CurrencyType.getCurrencyImage(currencyType);
         if (currency == null) return null;
         ArrayList<PriceThresholdData> thresholds = SaveManager.settingsSaveFile.data.priceThresholdMap.get(currency);
-        System.out.println("THRESH:");
-        System.out.println(thresholds);
-        System.out.println("ALL::::");
         if (thresholds == null) return null;
         for (PriceThresholdData data : thresholds) {
-            System.out.println("thresh..." + data.quantity);
             if (quantity >= data.quantity) return data.soundComponent;
         }
         return null;
@@ -174,6 +169,7 @@ public class AudioManager {
                 clip.open(stream);
                 clip.addLineListener(event -> {
                     LineEvent.Type type = event.getType();
+                    System.out.println("LINE LISTEN");
                     if (type.equals(LineEvent.Type.STOP)) {
                         clip.stop();
                         System.out.println("EOS!");

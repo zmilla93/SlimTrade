@@ -1,11 +1,10 @@
 package com.slimtrade.gui.stash;
 
+import com.slimtrade.core.data.SaleItem;
+import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.core.utility.AdvancedMouseListener;
-import com.slimtrade.core.utility.POEInterface;
-import com.slimtrade.core.utility.TradeUtil;
-import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.core.utility.*;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
@@ -16,34 +15,61 @@ import java.awt.event.MouseEvent;
 
 public class StashHelperPanel extends AdvancedButton {
 
-    private StashHelperContainer parent;
-    private TradeOffer tradeOffer;
+    private final TradeOffer tradeOffer;
     private StashHighlighterFrame highlighterFrame;
     private StashTabColor stashTabColor;
 
-    private JLabel tabLabel;
-    private JLabel itemLabel;
+    private String searchTerm;
+    private final String itemName;
+    private SaleItem saleItem;
 
-    protected StashHelperPanel(StashHelperContainer parent, TradeOffer offer, StashHighlighterFrame highlighterFrame) {
+    public StashHelperPanel(TradeOffer tradeOffer) {
+        this.tradeOffer = tradeOffer;
+        itemName = tradeOffer.itemName;
+        searchTerm = TradeUtil.cleanItemName(tradeOffer.itemName);
+        buildPanel();
+    }
+
+    public StashHelperPanel(TradeOffer tradeOffer, int index) {
+        this.tradeOffer = tradeOffer;
+        saleItem = tradeOffer.getItems().get(index);
+        CurrencyType currency = CurrencyType.getCurrencyImage(saleItem.itemName);
+        String suffix = currency == null ? " " + saleItem.itemName : "";
+        itemName = "(" + ZUtil.formatNumber(saleItem.quantity) + ")" + suffix;
+//        if (currency != null)
+        searchTerm = TradeUtil.cleanItemName(saleItem.itemName);
+        buildPanel();
+    }
+
+    private void buildPanel() {
         assert (SwingUtilities.isEventDispatchThread());
-        this.parent = parent;
         // FIXME : default visibility to true and make sure no debug panels are being added
         setVisible(false);
-        tradeOffer = offer;
-        this.highlighterFrame = highlighterFrame;
+        if (tradeOffer.stashTabName != null)
+            highlighterFrame = new StashHighlighterFrame(tradeOffer);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setLayout(new GridBagLayout());
-        tabLabel = new JLabel(offer.stashTabName);
-        itemLabel = new JLabel(offer.itemName);
+        JLabel tabLabel = new JLabel(tradeOffer.stashTabName);
+
+
+        JLabel itemLabel = new JLabel(itemName);
+        System.out.println("Item Name:" + itemName);
+
+        if (saleItem != null) {
+            CurrencyType currencyType = CurrencyType.getCurrencyImage(saleItem.itemName);
+            System.out.println("Currency:" + currencyType);
+            if (currencyType != null) {
+                ImageIcon icon = ColorManager.getIcon(currencyType.getPath());
+                itemLabel.setIcon(icon);
+            }
+        }
 
         GridBagConstraints gc = ZUtil.getGC();
         add(tabLabel, gc);
         gc.gridy++;
         add(itemLabel, gc);
         gc.gridy++;
-
-        stashTabColor = tradeOffer.getStashTabColor();
-
+        stashTabColor = this.tradeOffer.getStashTabColor();
         if (stashTabColor != StashTabColor.ZERO) {
             setBackground(stashTabColor.getBackground());
             tabLabel.setForeground(stashTabColor.getForeground());
@@ -51,14 +77,8 @@ public class StashHelperPanel extends AdvancedButton {
 
         }
         createBorder(stashTabColor);
-//        Border innerBorder = BorderFactory.createEmptyBorder(insetVertical, insetHorizontal, insetVertical, insetHorizontal);
-//        Border outerBorder = BorderFactory.createLineBorder(stashTabColor.getForeground(), 2);
-//        Border compoundBorder = BorderFactory.createCompoundBorder(outerBorder, innerBorder);
-//        setBorder(compoundBorder);
-
-
-        FrameManager.stashHelperContainer.add(this);
         addListeners();
+        if (!this.tradeOffer.isBulkTrade) FrameManager.stashHelperContainer.addHelper(this);
     }
 
     private void addListeners() {
@@ -66,12 +86,12 @@ public class StashHelperPanel extends AdvancedButton {
             @Override
             public void click(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    POEInterface.searchInStash(TradeUtil.cleanItemName(tradeOffer.itemName));
+                    POEInterface.searchInStash(searchTerm);
                 }
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     setVisible(false);
                     if (highlighterFrame != null) highlighterFrame.setVisible(false);
-                    parent.refresh();
+                    FrameManager.stashHelperContainer.refresh();
                 }
             }
 
@@ -106,7 +126,12 @@ public class StashHelperPanel extends AdvancedButton {
     }
 
     public void cleanup() {
-        highlighterFrame = null;
+        if (!tradeOffer.isBulkTrade)
+            FrameManager.stashHelperContainer.getContentPanel().remove(this);
+        if (highlighterFrame != null) {
+            highlighterFrame.dispose();
+            highlighterFrame = null;
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.core.enums.CurrencyImage;
+import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.IconLabel;
@@ -34,15 +34,15 @@ public class TestFrame extends JFrame {
         NotificationPanel trade = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING), false);
         contentPanel.add(trade);
         BufferedImage img = null;
-        CurrencyImage currency = CurrencyImage.getCurrencyImage("Orbe exalté");
-        CurrencyImage exalt = CurrencyImage.getCurrencyImage("Orbe exalté");
+        CurrencyType currency = CurrencyType.getCurrencyImage("Orbe exalté");
+        CurrencyType exalt = CurrencyType.getCurrencyImage("Orbe exalté");
         try {
             assert currency != null;
             img = ImageIO.read(Objects.requireNonNull(getClass().getResource(currency.getPath())));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ImageIcon icon = new ImageIcon(CurrencyImage.getIconPath("Chaos Orb"));
+        ImageIcon icon = new ImageIcon(CurrencyType.getIconPath("Chaos Orb"));
         JLabel currencyIcon = new JLabel();
         IconButton exaltButton = new IconButton(exalt.getPath());
         currencyIcon.setIcon(icon);

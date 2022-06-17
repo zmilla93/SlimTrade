@@ -9,8 +9,6 @@ import com.slimtrade.gui.windows.AbstractDialog;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class StashHighlighterFrame extends AbstractDialog {
 
@@ -26,12 +24,9 @@ public class StashHighlighterFrame extends AbstractDialog {
         setBackground(ColorManager.TRANSPARENT);
         contentPanel.setBackground(ColorManager.TRANSPARENT);
         contentPanel.setBorder(BorderFactory.createLineBorder(tradeOffer.getStashTabColor().getBackground(), 2));
-        timer = new Timer(2000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                timer.stop();
-                setVisible(false);
-            }
+        timer = new Timer(2000, e -> {
+            timer.stop();
+            setVisible(false);
         });
         pack();
         setSizeAndLocation();
@@ -45,13 +40,13 @@ public class StashHighlighterFrame extends AbstractDialog {
         int yOffset = Math.round(SaveManager.stashSaveFile.data.gridRect.height * ((tradeOffer.stashTabY - 1) / cellCount));
         int x = SaveManager.stashSaveFile.data.gridRect.x + xOffset;
         int y = SaveManager.stashSaveFile.data.gridRect.y + yOffset;
-//        int x = SaveManager.stashSaveFile.data.gridRect.x + (tradeOffer.stashTabX - 1) * cellSize.width;
-//        int y = SaveManager.stashSaveFile.data.gridRect.y + (tradeOffer.stashTabY - 1) * cellSize.height;
         setLocation(x, y);
         setSize(cellSize);
     }
 
     private boolean isQuadTab() {
+        if (tradeOffer.stashTabName == null) return false;
+        if (tradeOffer.stashTabX > 12 || tradeOffer.stashTabY > 12) return true;
         for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
             if (data.matchType == MatchType.EXACT_MATCH) {
                 if (tradeOffer.stashTabName.equals(data.stashTabName)) {

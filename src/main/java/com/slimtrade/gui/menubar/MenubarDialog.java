@@ -76,14 +76,14 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         hideoutButton = new IconButton("/icons/custom/homex64.png");
         exitButton = new IconButton("/icons/default/power.png");
         gc.insets = new Insets(INSET, INSET, INSET, INSET);
-        contentPanel.add(optionsButton, gc);
-        gc.gridx++;
-        gc.insets.left = 0;
         contentPanel.add(historyButton, gc);
         gc.gridx++;
+        gc.insets.left = 0;
         contentPanel.add(chatScannerButton, gc);
         gc.gridx++;
         contentPanel.add(hideoutButton, gc);
+        gc.gridx++;
+        contentPanel.add(optionsButton, gc);
         gc.gridx++;
         contentPanel.add(Box.createHorizontalStrut(EXIT_INSET), gc);
         gc.gridx++;

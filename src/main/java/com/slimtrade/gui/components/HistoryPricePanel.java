@@ -1,6 +1,6 @@
 package com.slimtrade.gui.components;
 
-import com.slimtrade.core.enums.CurrencyImage;
+import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.history.PoePrice;
 import com.slimtrade.modules.colortheme.IconFactory;
@@ -14,8 +14,8 @@ public class HistoryPricePanel extends JPanel {
     public HistoryPricePanel(PoePrice price) {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        CurrencyImage currencyImage = CurrencyImage.getCurrencyImage(price.priceString);
-        if (currencyImage == null) {
+        CurrencyType currencyType = CurrencyType.getCurrencyImage(price.priceString);
+        if (currencyType == null) {
             JLabel label = new JLabel("(" + price.quantity + ") " + price.priceString);
             Font font = label.getFont();
             label.setFont(font.deriveFont(Font.PLAIN, font.getSize()));
@@ -25,7 +25,7 @@ public class HistoryPricePanel extends JPanel {
             JLabel priceLabel = new JLabel();
             Font font = quantityLabel.getFont();
             quantityLabel.setFont(font.deriveFont(Font.PLAIN, font.getSize()));
-            priceLabel.setIcon(IconFactory.getIcon(currencyImage.getPath()));
+            priceLabel.setIcon(IconFactory.getIcon(currencyType.getPath()));
             add(quantityLabel, gc);
             gc.gridx++;
             gc.insets.left = 2;

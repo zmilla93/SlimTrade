@@ -4,39 +4,27 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StashHelperContainer extends JDialog implements IThemeListener {
+public class StashHelperContainer extends BasicDialog implements IThemeListener {
 
-    private Container contentPanel;
     private static final int OFFSET = 30;
     private static final int FOLDER_OFFSET = 65;
-    private GridBagConstraints gc = ZUtil.getGC();
+    private final GridBagConstraints gc = ZUtil.getGC();
+    public static final int INSET = 4;
 
     public StashHelperContainer() {
-        setUndecorated(true);
-        setAlwaysOnTop(true);
-        setFocusable(false);
-        setFocusableWindowState(false);
-        contentPanel = getContentPane();
         contentPanel.setLayout(new GridBagLayout());
-        gc.insets.right = 5;
+        gc.anchor = GridBagConstraints.SOUTH;
+        gc.insets.right = INSET;
 
         setBackground(ColorManager.TRANSPARENT);
-
-//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-//        addHelper(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
         setVisible(true);
         updateLocation();
-
-        ColorManager.addFrame(this);
         ColorManager.addThemeListener(this);
     }
 
@@ -46,12 +34,18 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
         setLocation(target);
     }
 
-    public StashHelperPanel addHelper(TradeOffer offer, StashHighlighterFrame highlighterFrame) {
-        StashHelperPanel panel = new StashHelperPanel(this, offer, highlighterFrame);
+    public Component addHelper(TradeOffer offer) {
+        Component panel = new StashHelperPanel(offer);
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(panel, gc);
         refresh();
         return panel;
+    }
+
+    public void addHelper(Component component) {
+        gc.gridx = contentPanel.getComponentCount();
+        contentPanel.add(component, gc);
+        refresh();
     }
 
     public void refresh() {
@@ -59,6 +53,10 @@ public class StashHelperContainer extends JDialog implements IThemeListener {
         repaint();
         pack();
         updateLocation();
+    }
+
+    public JPanel getContentPanel() {
+        return contentPanel;
     }
 
     @Override

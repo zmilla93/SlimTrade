@@ -68,6 +68,10 @@ public class ZUtil {
         return commands;
     }
 
+    public static String formatNumber(double d) {
+        return numberFormatter.format(d);
+    }
+
     /**
      * Returns a new GridBagConstraint with gridX and gridY initialized to 0.
      * This is needed to allow incrementing either variable to work correctly.

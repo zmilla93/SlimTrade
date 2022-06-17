@@ -73,7 +73,7 @@ public class SettingsSaveFile {
     public SoundComponent playerJoinedAreaSound;
     public SoundComponent updateSound;
     public ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();
-    public transient final HashMap<CurrencyImage, ArrayList<PriceThresholdData>> priceThresholdMap = new HashMap<>();
+    public transient final HashMap<CurrencyType, ArrayList<PriceThresholdData>> priceThresholdMap = new HashMap<>();
 
     // Macros
     public ArrayList<MacroButton> incomingMacroButtons = new ArrayList<>();
@@ -141,7 +141,7 @@ public class SettingsSaveFile {
     public void buildThresholdMap() {
         priceThresholdMap.clear();
         for (PriceThresholdData data : priceThresholds) {
-            CurrencyImage currency = CurrencyImage.getCurrencyImage(data.currencyType.ID);
+            CurrencyType currency = CurrencyType.getCurrencyImage(data.currencyType.ID);
             ArrayList<PriceThresholdData> thresholds = priceThresholdMap.get(currency);
             if (thresholds == null) {
                 thresholds = new ArrayList<>();

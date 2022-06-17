@@ -1,7 +1,7 @@
 package com.slimtrade.gui.components;
 
 import com.slimtrade.core.data.SaleItem;
-import com.slimtrade.core.enums.CurrencyImage;
+import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.trading.TradeOffer;
 
 import javax.swing.*;
@@ -25,7 +25,7 @@ public class CurrencyComponent {
         GridBagConstraints gc = new GridBagConstraints();
         for (int i = 0; i < items.size(); i++) {
             SaleItem item = items.get(i);
-            CurrencyImage image = CurrencyImage.getCurrencyImage(item.itemName);
+            CurrencyType image = CurrencyType.getCurrencyImage(item.itemName);
             if (image == null) {
                 String prefix = item.quantity <= 1 ? "" : formatPrice(item.quantity) + " ";
                 component.add(new PlainLabel(prefix + item.itemName), gc);

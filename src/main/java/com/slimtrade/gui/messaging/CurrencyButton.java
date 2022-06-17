@@ -1,7 +1,7 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.data.SaleItem;
-import com.slimtrade.core.enums.CurrencyImage;
+import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.components.IconLabel;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
@@ -39,7 +39,7 @@ public class CurrencyButton extends AdvancedButton {
         GridBagConstraints gc = new GridBagConstraints();
         for (int i = 0; i < items.size(); i++) {
             SaleItem item = items.get(i);
-            CurrencyImage image = CurrencyImage.getCurrencyImage(item.itemName);
+            CurrencyType image = CurrencyType.getCurrencyImage(item.itemName);
             if (image == null) {
                 String prefix = item.quantity <= 1 ? "" : formatPrice(item.quantity) + " ";
                 add(new JLabel(prefix + item.itemName), gc);

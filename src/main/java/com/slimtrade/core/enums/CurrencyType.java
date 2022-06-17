@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Stores metadata for POE currency icons.
  */
-public class CurrencyImage implements IImageRef {
+public class CurrencyType implements IImageRef {
 
     public transient final String[] words;
     private transient String partialName;
@@ -21,10 +21,10 @@ public class CurrencyImage implements IImageRef {
     public final String ID; // Used to save to file
 
     // Internal
-    private static final HashMap<String, CurrencyImage> iconMap = new HashMap<>();
-    private static final ArrayList<CurrencyImage> commonCurrencyTypes = new ArrayList<>();
+    private static final HashMap<String, CurrencyType> iconMap = new HashMap<>();
+    private static final ArrayList<CurrencyType> commonCurrencyTypes = new ArrayList<>();
 
-    public CurrencyImage(String line) {
+    public CurrencyType(String line) {
         words = line.split(",");
         for (int i = 0; i < words.length; i++) {
             words[i] = words[i].trim();
@@ -45,7 +45,7 @@ public class CurrencyImage implements IImageRef {
     public static void initIconList() {
         iconMap.clear();
         try {
-            InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyImage.class.getResourceAsStream("/text/currency.txt")));
+            InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyType.class.getResourceAsStream("/text/currency.txt")));
             BufferedReader reader = new BufferedReader(stream);
             while (reader.ready()) {
                 String line = reader.readLine();
@@ -67,7 +67,7 @@ public class CurrencyImage implements IImageRef {
     }
 
     private static void addCSV(String line) {
-        CurrencyImage currency = new CurrencyImage(line);
+        CurrencyType currency = new CurrencyType(line);
         for (String word : currency.words) {
             iconMap.put(word, currency);
         }
@@ -108,12 +108,12 @@ public class CurrencyImage implements IImageRef {
     }
 
     public static void addAlias(String existingTag, String alias) {
-        CurrencyImage image = getCurrencyImage(existingTag);
+        CurrencyType image = getCurrencyImage(existingTag);
         if (image == null) return;
         iconMap.put(alias, image);
     }
 
-    public static CurrencyImage getCurrencyImage(String currency) {
+    public static CurrencyType getCurrencyImage(String currency) {
         if (iconMap.containsKey(currency)) {
             return iconMap.get(currency);
         }
@@ -127,7 +127,7 @@ public class CurrencyImage implements IImageRef {
         return null;
     }
 
-    public static ArrayList<CurrencyImage> getCommonCurrencyTypes() {
+    public static ArrayList<CurrencyType> getCommonCurrencyTypes() {
         return commonCurrencyTypes;
     }
 

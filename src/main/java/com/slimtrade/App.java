@@ -1,7 +1,7 @@
 package com.slimtrade;
 
 import com.slimtrade.core.chatparser.ChatParser;
-import com.slimtrade.core.enums.CurrencyImage;
+import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.jna.GlobalKeyboardListener;
 import com.slimtrade.core.jna.GlobalMouseListener;
 import com.slimtrade.core.managers.AudioManager;
@@ -66,7 +66,7 @@ public class App {
         }
 
         // Init Managers
-        CurrencyImage.initIconList();
+        CurrencyType.initIconList();
         LangRegex.compileAll();
         POEInterface.init();
         AudioManager.init();

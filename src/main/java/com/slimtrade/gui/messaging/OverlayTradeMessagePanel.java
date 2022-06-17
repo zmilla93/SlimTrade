@@ -8,7 +8,7 @@ import java.awt.*;
 public class OverlayTradeMessagePanel extends JPanel {
 
     public OverlayTradeMessagePanel() {
-        TradeMessagePanel tradeMessagePanel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
+        TradeMessagePanel tradeMessagePanel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING), false);
         setLayout(new BorderLayout());
         add(tradeMessagePanel, BorderLayout.CENTER);
         setPreferredSize(getPreferredSize());
