@@ -4,8 +4,10 @@ import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MacroButtonType;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.*;
+import com.slimtrade.gui.components.BorderlessButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.colortheme.components.ColorPanel;
+import com.slimtrade.modules.colortheme.components.PassThroughPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +18,8 @@ public class NotificationPanel extends ColorPanel {
 
     // Panels
     protected final NotificationButton playerNameButton = new NotificationButton("Player Name");
-    protected final CurrencyButton pricePanel = new CurrencyButton();
-    protected final JLabel priceLabel = new JLabel("Price");
-    protected final CurrencyButton itemButton = new CurrencyButton();
+    protected final PassThroughPanel pricePanel = new PassThroughPanel();
+    protected final BorderlessButton itemButton = new BorderlessButton();
     protected final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
     protected final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
 
@@ -214,7 +215,7 @@ public class NotificationPanel extends ColorPanel {
         borderPanel.setBackground(messageColor);
         pricePanel.setBackground(messageColor);
         topPanel.setBackground(messageColor);
-        if (currencyTextColor != null) pricePanel.setForeground(currencyTextColor);
+        pricePanel.setForeground(currencyTextColor);
         if (playerJoinedArea) {
             playerNameButton.setForeground(messageColor);
             timerLabel.setForeground(messageColor);

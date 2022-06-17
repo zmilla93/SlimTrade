@@ -1,8 +1,8 @@
 package com.slimtrade.gui.history;
 
 import com.slimtrade.core.data.SaleItemWrapper;
-import com.slimtrade.gui.components.CurrencyComponent;
 import com.slimtrade.gui.components.LabelHolder;
+import com.slimtrade.gui.components.CurrencyLabelFactory;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
@@ -14,7 +14,7 @@ public class ItemCellRenderer implements TableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JPanel panel = new LabelHolder();
         if (value instanceof SaleItemWrapper) {
-            CurrencyComponent.addCurrencyToPanel(panel, ((SaleItemWrapper) value).items);
+            CurrencyLabelFactory.applyItemToComponent(panel, ((SaleItemWrapper) value).items);
         }
         if (isSelected) {
             panel.setBackground(UIManager.getColor("Table.selectionInactiveBackground"));

@@ -1,6 +1,7 @@
 package com.slimtrade.gui.history;
 
-import com.slimtrade.gui.components.HistoryPricePanel;
+import com.slimtrade.gui.components.CurrencyLabelFactory;
+import com.slimtrade.modules.colortheme.components.PassThroughPanel;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
@@ -11,7 +12,8 @@ public class CurrencyCellRenderer implements TableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         if (value instanceof PoePrice) {
-            HistoryPricePanel panel = new HistoryPricePanel((PoePrice) value);
+            PassThroughPanel panel = new PassThroughPanel();
+            CurrencyLabelFactory.applyPOEPriceToComponent(panel, (PoePrice) value);
             if (isSelected) {
                 panel.setBackground(UIManager.getColor("Table.selectionInactiveBackground"));
                 panel.setForeground(UIManager.getColor("Table.selectionInactiveForeground"));

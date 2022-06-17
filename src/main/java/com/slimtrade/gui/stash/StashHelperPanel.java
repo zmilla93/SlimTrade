@@ -1,11 +1,13 @@
 package com.slimtrade.gui.stash;
 
 import com.slimtrade.core.data.SaleItem;
-import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.core.utility.*;
-import com.slimtrade.gui.components.PriceLabel;
+import com.slimtrade.core.utility.AdvancedMouseListener;
+import com.slimtrade.core.utility.POEInterface;
+import com.slimtrade.core.utility.TradeUtil;
+import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
@@ -20,28 +22,29 @@ public class StashHelperPanel extends AdvancedButton {
     private StashHighlighterFrame highlighterFrame;
     private StashTabColor stashTabColor;
 
-    private String searchTerm;
-    private final String itemName;
-    private SaleItem saleItem;
-    private PriceLabel priceLabel;
+    private final String searchTerm;
+    //    private final String itemName;
+//    private SaleItem saleItem;
+//    private JLabel priceLabel = new JLabel();
+    private int index = -1;
 
     public StashHelperPanel(TradeOffer tradeOffer) {
         this.tradeOffer = tradeOffer;
-        itemName = tradeOffer.itemName;
+//        itemName = tradeOffer.itemName;
         searchTerm = TradeUtil.cleanItemName(tradeOffer.itemName);
-        priceLabel = new PriceLabel(tradeOffer);
         buildPanel();
     }
 
     public StashHelperPanel(TradeOffer tradeOffer, int index) {
         this.tradeOffer = tradeOffer;
-        saleItem = tradeOffer.getItems().get(index);
-        CurrencyType currency = CurrencyType.getCurrencyImage(saleItem.itemName);
-        String suffix = currency == null ? " " + saleItem.itemName : "";
-        itemName = "(" + ZUtil.formatNumber(saleItem.quantity) + ")" + suffix;
+        this.index = index;
+        SaleItem saleItem = tradeOffer.getItems().get(index);
+//        CurrencyType currency = CurrencyType.getCurrencyImage(saleItem.itemName);
+//        String suffix = currency == null ? " " + saleItem.itemName : "";
+//        itemName = "(" + ZUtil.formatNumber(saleItem.quantity) + ")" + suffix;
 //        if (currency != null)
         searchTerm = TradeUtil.cleanItemName(saleItem.itemName);
-        priceLabel = new PriceLabel(tradeOffer, index);
+//        PriceLabel.applyBulkItemToComponent(priceLabel, tradeOffer, index);
         buildPanel();
     }
 
@@ -54,26 +57,17 @@ public class StashHelperPanel extends AdvancedButton {
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setLayout(new GridBagLayout());
         JLabel stashTabLabel = new JLabel(tradeOffer.stashTabName);
-
-
-        JLabel itemLabel = new JLabel(itemName);
-        System.out.println("Item Name:" + itemName);
-
-        if (saleItem != null) {
-            CurrencyType currencyType = CurrencyType.getCurrencyImage(saleItem.itemName);
-            System.out.println("Currency:" + currencyType);
-            if (currencyType != null) {
-                ImageIcon icon = ColorManager.getIcon(currencyType.getPath());
-                itemLabel.setIcon(icon);
-            }
+        JPanel itemLabel = new JPanel();
+        if (tradeOffer.isBulkTrade) {
+            CurrencyLabelFactory.applyBulkItemToComponent(itemLabel, tradeOffer, index);
+        } else {
+            CurrencyLabelFactory.applyItemToComponent(itemLabel, tradeOffer);
         }
 
         GridBagConstraints gc = ZUtil.getGC();
         add(stashTabLabel, gc);
         gc.gridy++;
         add(itemLabel, gc);
-        gc.gridy++;
-        add(priceLabel, gc);
         gc.gridy++;
         stashTabColor = this.tradeOffer.getStashTabColor();
         if (stashTabColor != StashTabColor.ZERO) {

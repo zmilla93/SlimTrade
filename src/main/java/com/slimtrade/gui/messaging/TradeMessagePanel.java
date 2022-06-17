@@ -1,15 +1,16 @@
 package com.slimtrade.gui.messaging;
 
-import com.slimtrade.core.data.SaleItem;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.POEInterface;
+import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.gui.stash.StashHelperWrapper;
+import com.slimtrade.modules.colortheme.components.PassThroughPanel;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -34,9 +35,19 @@ public class TradeMessagePanel extends NotificationPanel {
             }
         }
         playerNameButton.setText(tradeOffer.playerName);
-        itemButton.setItems(tradeOffer.getItems());
+        JPanel itemPanel = new PassThroughPanel();
+        itemPanel.setOpaque(false);
+        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer);
+        itemButton.add(itemPanel);
+//        PriceLabel.applyItemToComponent(itemButton, tradeOffer);
+        CurrencyLabelFactory.applyPriceToComponent(pricePanel, tradeOffer.priceTypeString, tradeOffer.priceQuantity);
+
+
+//        itemButton.setItems(tradeOffer.getItems());
+//        itemButton.setItems(tradeOffer.getItems());
 //        pricePanel.setItem(new SaleItem(tradeOffer.priceTypeString, tradeOffer.priceQuantity));
-        pricePanel.setItem(new SaleItem(tradeOffer.priceTypeString, tradeOffer.priceQuantity));
+//        pricePanel.setItem(new SaleItem(tradeOffer.priceTypeString, tradeOffer.priceQuantity));
+//        PriceLabel.applyPriceToComponent()
 
         playerNameButton.addMouseListener(new AdvancedMouseListener() {
             @Override
@@ -127,6 +138,7 @@ public class TradeMessagePanel extends NotificationPanel {
             currencyTextColor = tradeOffer.getStashTabColor().getForeground();
         } else {
             messageColor = ColorManager.getCurrentTheme().themeType.getColor(tradeOffer);
+            currencyTextColor = null;
         }
         revalidate();
         repaint();

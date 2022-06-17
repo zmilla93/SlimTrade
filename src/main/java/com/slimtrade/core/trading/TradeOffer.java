@@ -92,7 +92,7 @@ public class TradeOffer {
         return trade;
     }
 
-    public SaleItem getItem(){
+    public SaleItem getItem() {
         return new SaleItem(itemName, itemQuantity);
     }
 
