@@ -35,6 +35,7 @@ public class TradeMessagePanel extends NotificationPanel {
         }
         playerNameButton.setText(tradeOffer.playerName);
         itemButton.setItems(tradeOffer.getItems());
+//        pricePanel.setItem(new SaleItem(tradeOffer.priceTypeString, tradeOffer.priceQuantity));
         pricePanel.setItem(new SaleItem(tradeOffer.priceTypeString, tradeOffer.priceQuantity));
 
         playerNameButton.addMouseListener(new AdvancedMouseListener() {

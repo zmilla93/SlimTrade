@@ -5,6 +5,7 @@ import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.*;
+import com.slimtrade.gui.components.PriceLabel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
@@ -22,11 +23,13 @@ public class StashHelperPanel extends AdvancedButton {
     private String searchTerm;
     private final String itemName;
     private SaleItem saleItem;
+    private PriceLabel priceLabel;
 
     public StashHelperPanel(TradeOffer tradeOffer) {
         this.tradeOffer = tradeOffer;
         itemName = tradeOffer.itemName;
         searchTerm = TradeUtil.cleanItemName(tradeOffer.itemName);
+        priceLabel = new PriceLabel(tradeOffer);
         buildPanel();
     }
 
@@ -38,6 +41,7 @@ public class StashHelperPanel extends AdvancedButton {
         itemName = "(" + ZUtil.formatNumber(saleItem.quantity) + ")" + suffix;
 //        if (currency != null)
         searchTerm = TradeUtil.cleanItemName(saleItem.itemName);
+        priceLabel = new PriceLabel(tradeOffer, index);
         buildPanel();
     }
 
@@ -49,7 +53,7 @@ public class StashHelperPanel extends AdvancedButton {
             highlighterFrame = new StashHighlighterFrame(tradeOffer);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setLayout(new GridBagLayout());
-        JLabel tabLabel = new JLabel(tradeOffer.stashTabName);
+        JLabel stashTabLabel = new JLabel(tradeOffer.stashTabName);
 
 
         JLabel itemLabel = new JLabel(itemName);
@@ -65,16 +69,17 @@ public class StashHelperPanel extends AdvancedButton {
         }
 
         GridBagConstraints gc = ZUtil.getGC();
-        add(tabLabel, gc);
+        add(stashTabLabel, gc);
         gc.gridy++;
         add(itemLabel, gc);
+        gc.gridy++;
+        add(priceLabel, gc);
         gc.gridy++;
         stashTabColor = this.tradeOffer.getStashTabColor();
         if (stashTabColor != StashTabColor.ZERO) {
             setBackground(stashTabColor.getBackground());
-            tabLabel.setForeground(stashTabColor.getForeground());
+            stashTabLabel.setForeground(stashTabColor.getForeground());
             itemLabel.setForeground(stashTabColor.getForeground());
-
         }
         createBorder(stashTabColor);
         addListeners();

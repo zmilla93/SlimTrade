@@ -92,6 +92,10 @@ public class TradeOffer {
         return trade;
     }
 
+    public SaleItem getItem(){
+        return new SaleItem(itemName, itemQuantity);
+    }
+
     public ArrayList<SaleItem> getItems() {
         if (isBulkTrade) {
 //            String quantity;
