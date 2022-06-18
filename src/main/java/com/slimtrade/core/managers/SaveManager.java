@@ -26,6 +26,7 @@ public class SaveManager {
     public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + "stash.json", StashSaveFile.class);
     public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory() + "ignore.json", IgnoreSaveFile.class);
     public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory() + "pins.json", PinSaveFile.class);
+    public static SaveFile<ChatScannerSaveFile> chatScannerSaveFile = new SaveFile<>(getSaveDirectory() + "scanner.json", ChatScannerSaveFile.class);
 
     public static void init() {
 
@@ -86,6 +87,7 @@ public class SaveManager {
         stashSaveFile.loadFromDisk();
         ignoreSaveFile.loadFromDisk();
         pinSaveFile.loadFromDisk();
+        chatScannerSaveFile.loadFromDisk();
     }
 
     public static String getAudioDirectory() {

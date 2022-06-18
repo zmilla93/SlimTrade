@@ -8,12 +8,10 @@ import java.awt.*;
 
 public class ScannerSearchTermsPanel extends AbstractOptionPanel {
 
-    private JLabel nameLabel = new JLabel();
-    private JButton renameButton = new JButton("Rename");
-    private int rows = 6;
-    private int cols = 35;
-    private final JTextArea searchTermsInput = new JTextArea(rows, cols);
-    private JTextArea ignoreTermsInput = new JTextArea(rows, cols);
+    private static final int ROWS = 6;
+    private static final int COLUMNS = 35;
+    private final JTextArea searchTermsInput = new JTextArea(ROWS, COLUMNS);
+    private final JTextArea ignoreTermsInput = new JTextArea(ROWS, COLUMNS);
 
     public ScannerSearchTermsPanel() {
         JLabel searchLabel = new JLabel("Search Terms");
@@ -40,6 +38,22 @@ public class ScannerSearchTermsPanel extends AbstractOptionPanel {
         addVerticalStrut();
         addHeader("Ignore Terms");
         addPanel(ignoreTermsInput);
+    }
+
+    public void setSearchTerms(String text){
+        searchTermsInput.setText(text);
+    }
+
+    public String getSearchTerms(){
+        return searchTermsInput.getText();
+    }
+
+    public void setIgnoreTerms(String text){
+        ignoreTermsInput.setText(text);
+    }
+
+    public String getIgnoreTerms(){
+        return ignoreTermsInput.getText();
     }
 
 }

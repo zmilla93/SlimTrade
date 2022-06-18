@@ -57,23 +57,24 @@ public class StashHelperPanel extends AdvancedButton {
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setLayout(new GridBagLayout());
         JLabel stashTabLabel = new JLabel(tradeOffer.stashTabName);
-        JPanel itemLabel = new JPanel();
+        JPanel itemPanel = new JPanel();
+        itemPanel.setOpaque(false);
         if (tradeOffer.isBulkTrade) {
-            CurrencyLabelFactory.applyBulkItemToComponent(itemLabel, tradeOffer, index);
+            CurrencyLabelFactory.applyBulkItemToComponent(itemPanel, tradeOffer, index);
         } else {
-            CurrencyLabelFactory.applyItemToComponent(itemLabel, tradeOffer);
+            CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer);
         }
 
         GridBagConstraints gc = ZUtil.getGC();
         add(stashTabLabel, gc);
         gc.gridy++;
-        add(itemLabel, gc);
+        add(itemPanel, gc);
         gc.gridy++;
         stashTabColor = this.tradeOffer.getStashTabColor();
         if (stashTabColor != StashTabColor.ZERO) {
             setBackground(stashTabColor.getBackground());
             stashTabLabel.setForeground(stashTabColor.getForeground());
-            itemLabel.setForeground(stashTabColor.getForeground());
+            itemPanel.setForeground(stashTabColor.getForeground());
         }
         createBorder(stashTabColor);
         addListeners();

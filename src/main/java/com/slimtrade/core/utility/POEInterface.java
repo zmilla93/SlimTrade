@@ -1,5 +1,6 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
@@ -108,11 +109,12 @@ public class POEInterface {
         });
     }
 
-    public static void pasteWithFocus(String input, TradeOffer tradeOffer) {
+    public static void pasteWithFocus(String input, PasteReplacement pasteReplacement) {
         assert (SwingUtilities.isEventDispatchThread());
+        if(pasteReplacement == null) return;
         executor.execute(() -> {
             if (!focusGame()) return;
-            ArrayList<String> commands = ZUtil.getCommandList(input, tradeOffer);
+            ArrayList<String> commands = ZUtil.getCommandList(input, pasteReplacement);
             if (commands.size() == 1) paste(commands.get(0));
             else {
                 for (String s : commands) {

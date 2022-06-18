@@ -1,6 +1,7 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.gui.managers.FrameManager;
 
@@ -29,9 +30,9 @@ public class DebugOptionPanel extends AbstractOptionPanel {
     }
 
     private void addListeners() {
-        incomingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING)));
-        outgoingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING)));
-        scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.CHAT_SCANNER)));
+        incomingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE)));
+        outgoingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE)));
+        scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.CHAT_SCANNER_MESSAGE)));
         updateMessageButton.addActionListener(e -> FrameManager.messageManager.addUpdateMessage(true));
         uiDump.addActionListener(e -> ColorManager.debugKeyValueDump());
     }

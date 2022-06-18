@@ -7,28 +7,45 @@ import com.slimtrade.gui.options.IncomingMacroPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class ChatScannerCustomizerPanel extends AbstractOptionPanel {
+public class ChatScannerCustomizerPanel extends JPanel {
 
-    private final JLabel nameLabel = new JLabel("Trials");
     private final JButton renameButton = new JButton("Rename");
-    private final JTabbedPane tabbedPane = new JTabbedPane();
+    private String title;
+    private final ScannerSearchTermsPanel searchTermsPanel = new ScannerSearchTermsPanel();
+    private final ChatScannerMacroPanel macroPanel = new ChatScannerMacroPanel();
 
-    public ChatScannerCustomizerPanel() {
-        tabbedPane.add(new ScannerSearchTermsPanel(), "Search Terms");
-        tabbedPane.add(new IncomingMacroPanel(), "Macros");
+    public ChatScannerCustomizerPanel(String title) {
+        this(new ChatScannerEntry(title));
+    }
 
-        JPanel renamePanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gc = ZUtil.getGC();
+    public ChatScannerCustomizerPanel(ChatScannerEntry entry) {
+        setLayout(new BorderLayout());
+        this.title = entry.title;
+        ChatScannerOptionPanel customizerPanel = new ChatScannerOptionPanel();
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.add(searchTermsPanel, "Search Terms");
+        tabbedPane.add(macroPanel, "Macros");
+        customizerPanel.addHeader(entry.title);
+        customizerPanel.addPanel(renameButton);
+        customizerPanel.addPanel(tabbedPane);
+        add(customizerPanel, BorderLayout.NORTH);
+        add(tabbedPane, BorderLayout.CENTER);
+        setData(entry);
+    }
 
-        renamePanel.add(nameLabel, gc);
-        gc.gridx++;
-        renamePanel.add(renameButton, gc);
+    public void setData(ChatScannerEntry entry) {
+        macroPanel.reloadExampleTrade(entry);
+        searchTermsPanel.setSearchTerms(entry.searchTermsRaw);
+        searchTermsPanel.setIgnoreTerms(entry.ignoreTermsRaw);
+        macroPanel.setMacros(entry.macros);
+    }
 
-        addHeader("Trials");
-//        addPanel(nameLabel);
-        addPanel(renameButton);
-//        addVerticalStrut();
-        addPanel(tabbedPane);
+    public ChatScannerEntry getData() {
+        return new ChatScannerEntry(title, searchTermsPanel.getSearchTerms(), searchTermsPanel.getIgnoreTerms(), macroPanel.getMacros());
+    }
+
+    public void reloadExample(){
+        macroPanel.reloadExampleTrade(getData());
     }
 
 }

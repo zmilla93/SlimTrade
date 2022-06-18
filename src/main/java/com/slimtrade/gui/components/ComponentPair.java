@@ -1,5 +1,7 @@
 package com.slimtrade.gui.components;
 
+import com.slimtrade.core.utility.ZUtil;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,10 +14,13 @@ public class ComponentPair extends JPanel {
     }
 
     public ComponentPair(Component component1, Component component2, int insetSize) {
-        setLayout(new BorderLayout());
-        add(component1, BorderLayout.WEST);
-        add(Box.createHorizontalStrut(insetSize), BorderLayout.CENTER);
-        add(component2, BorderLayout.EAST);
+        setLayout(new GridBagLayout());
+        GridBagConstraints gc = ZUtil.getGC();
+        add(component1, gc);
+        gc.gridx++;
+        gc.insets.left = insetSize;
+        add(Box.createHorizontalStrut(insetSize), gc);
+        add(component2, gc);
     }
 
 }

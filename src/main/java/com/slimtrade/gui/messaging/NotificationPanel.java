@@ -1,5 +1,6 @@
 package com.slimtrade.gui.messaging;
 
+import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MacroButtonType;
 import com.slimtrade.core.trading.TradeOffer;
@@ -26,7 +27,7 @@ public class NotificationPanel extends ColorPanel {
     private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel topPanel;
-    private final JPanel bottomContainer = new JPanel(new BorderLayout());
+    protected final JPanel bottomContainer = new JPanel(new BorderLayout());
     private Component bottomVerticalStrut;
 
     private final JLabel timerLabel = new JLabel("0s");
@@ -41,6 +42,7 @@ public class NotificationPanel extends ColorPanel {
     protected boolean createListeners;
 
     protected TradeOffer tradeOffer;
+    protected PasteReplacement pasteReplacement;
     private boolean playerJoinedArea;
 
     protected Color messageColor = new Color(60, 173, 173, 255);
@@ -162,14 +164,14 @@ public class NotificationPanel extends ColorPanel {
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             if (!ZUtil.isEmptyString(macro.lmbResponse)) {
                                 System.out.println("mc:" + macro.lmbResponse);
-                                POEInterface.pasteWithFocus(macro.lmbResponse, tradeOffer);
+                                POEInterface.pasteWithFocus(macro.lmbResponse, pasteReplacement);
                                 if (macro.lmbResponse.contains("/invite")) onInvite();
                             }
                             if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                         if (e.getButton() == MouseEvent.BUTTON3) {
                             if (!ZUtil.isEmptyString(macro.rmbResponse))
-                                POEInterface.pasteWithFocus(macro.rmbResponse, tradeOffer);
+                                POEInterface.pasteWithFocus(macro.rmbResponse, pasteReplacement);
                             if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                     }

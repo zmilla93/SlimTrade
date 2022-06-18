@@ -87,6 +87,7 @@ public class App {
 
                 SaveManager.settingsSaveFile.revertChanges();
                 SaveManager.stashSaveFile.revertChanges();
+                SaveManager.chatScannerSaveFile.revertChanges();
 //                FrameManager.messageManager.setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
 //                FrameManager.messageManager.refreshOrder();
                 FrameManager.optionsWindow.reloadExampleTrades();
@@ -98,8 +99,10 @@ public class App {
                 if (SaveManager.settingsSaveFile.data.enableMenuBar) {
                     FrameManager.menubarDialog.setVisible(true);
                 }
+                // FIXME : Should probably move this to inside frame manager
                 FrameManager.messageManager.setVisible(true);
-                FrameManager.optionsWindow.setVisible(true);
+//                FrameManager.optionsWindow.setVisible(true);
+                FrameManager.chatScannerWindow.setVisible(true);
             });
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();

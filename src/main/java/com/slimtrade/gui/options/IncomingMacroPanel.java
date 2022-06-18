@@ -1,15 +1,14 @@
 package com.slimtrade.gui.options;
 
-import com.slimtrade.core.enums.MessageType;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.modules.saving.ISavable;
 
 public class IncomingMacroPanel extends AbstractMacroOptionPanel implements ISavable {
 
     public IncomingMacroPanel() {
-        super(MessageType.INCOMING_TRADE);
-//        App.saveManager.registerSavable(this);
+        super(TradeOfferType.INCOMING_TRADE);
     }
 
     @Override

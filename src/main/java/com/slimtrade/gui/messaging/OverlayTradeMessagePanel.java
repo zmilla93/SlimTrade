@@ -1,6 +1,7 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.trading.TradeOfferType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.*;
 public class OverlayTradeMessagePanel extends JPanel {
 
     public OverlayTradeMessagePanel() {
-        TradeMessagePanel tradeMessagePanel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING), false);
+        TradeMessagePanel tradeMessagePanel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE), false);
         setLayout(new BorderLayout());
         add(tradeMessagePanel, BorderLayout.CENTER);
         setPreferredSize(getPreferredSize());

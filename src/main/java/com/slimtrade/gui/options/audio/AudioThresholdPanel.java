@@ -20,7 +20,7 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
         GridBagConstraints gc = ZUtil.getGC();
         gc.anchor = GridBagConstraints.WEST;
 
-        add(new JLabel("Incoming trades will play the sound of the highest threshold they cross."), gc);
+        add(new JLabel("Incoming trades will play the sound of the highest threshold they are greater than or equal to."), gc);
         gc.gridy++;
         add(newThresholdButton, gc);
         gc.gridy++;

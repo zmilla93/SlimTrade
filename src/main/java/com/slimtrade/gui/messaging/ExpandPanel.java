@@ -8,9 +8,10 @@ public class ExpandPanel extends NotificationPanel {
 
     public ExpandPanel() {
         playerNameButton.setText("Show Messages");
+        bottomContainer.setVisible(false);
         pricePanel.setVisible(false);
-        itemButton.setVisible(false);
-        timerPanel.setVisible(false);
+//        itemButton.setVisible(false);
+//        timerPanel.setVisible(false);
         setup();
         getCloseButton().setVisible(false);
         stopTimer();

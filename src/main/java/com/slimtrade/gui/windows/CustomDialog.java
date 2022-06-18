@@ -60,6 +60,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     public CustomDialog(String title, boolean thin) {
         setTitle(title);
+        setMinimumSize(new Dimension(400, 400));
         setUndecorated(true);
         setAlwaysOnTop(true);
         getRootPane().setOpaque(false);

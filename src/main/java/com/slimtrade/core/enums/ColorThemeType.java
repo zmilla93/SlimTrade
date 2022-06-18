@@ -1,14 +1,14 @@
 package com.slimtrade.core.enums;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.trading.TradeOfferType;
 
 import java.awt.*;
 
 public enum ColorThemeType {
 
     DARK(
-            new Color(38, 145, 32),
+            new Color(44, 145, 35),
             new Color(133, 17, 17),
             new Color(232, 128, 26),
             new Color(31, 62, 164),
@@ -17,7 +17,7 @@ public enum ColorThemeType {
     ),
     LIGHT(
             new Color(105, 201, 97),
-            new Color(180, 72, 72),
+            new Color(229, 88, 88),
             new Color(220, 146, 72),
             new Color(95, 105, 213),
             new Color(204, 103, 157),
@@ -40,21 +40,21 @@ public enum ColorThemeType {
         CHAT_SCANNER_COLOR_BLIND = chatScannerColorBlind;
     }
 
-    public Color getColor(TradeOffer tradeOffer) {
-        switch (tradeOffer.offerType) {
-            case INCOMING:
+    public Color getColor(TradeOfferType messageType) {
+        switch (messageType) {
+            case INCOMING_TRADE:
                 if (SaveManager.settingsSaveFile.data.colorBlindMode) {
                     return INCOMING_COLOR_BLIND;
                 } else {
                     return INCOMING;
                 }
-            case OUTGOING:
+            case OUTGOING_TRADE:
                 if (SaveManager.settingsSaveFile.data.colorBlindMode) {
                     return OUTGOING_COLOR_BLIND;
                 } else {
                     return OUTGOING;
                 }
-            case CHAT_SCANNER:
+            case CHAT_SCANNER_MESSAGE:
                 if (SaveManager.settingsSaveFile.data.colorBlindMode) {
                     return CHAT_SCANNER_COLOR_BLIND;
                 } else {

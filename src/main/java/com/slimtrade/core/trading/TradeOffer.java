@@ -14,19 +14,19 @@ import java.util.regex.Pattern;
 
 public class TradeOffer {
 
-    public enum TradeOfferType {UNKNOWN, INCOMING, OUTGOING, CHAT_SCANNER, QUICK_PASTE}
-
     public TradeOfferType offerType;
     public String message;
     public String date;
     public String time;
     public String guildName;
     public String playerName;
+
+    // Trade Only
     public String itemName;
     public String itemNameLower;
     public int itemQuantity;
     public String itemQuantityString;
-    public String priceTypeString;
+    public String priceName;
     public double priceQuantity;
     public String stashTabName;
     public int stashTabX = 0;
@@ -82,7 +82,7 @@ public class TradeOffer {
         trade.itemNameLower = trade.itemName.toLowerCase();
         trade.itemQuantity = cleanInt(cleanResult(matcher, "itemQuantity"));
         trade.itemQuantityString = cleanItemQuantity(trade.itemQuantity);
-        trade.priceTypeString = cleanResult(matcher, "priceType");
+        trade.priceName = cleanResult(matcher, "priceType");
         trade.priceQuantity = cleanDouble(cleanResult(matcher, "priceQuantity"));
         trade.stashTabName = cleanResult(matcher, "stashtabName");
         trade.stashTabX = cleanInt(cleanResult(matcher, "stashX"));
@@ -110,7 +110,7 @@ public class TradeOffer {
         }
     }
 
-    private static TradeOffer.TradeOfferType getMessageType(String s) {
+    private static TradeOfferType getMessageType(String s) {
         if (s == null) return TradeOfferType.QUICK_PASTE;
         // TODO : Move to LangRegex
         switch (s.toLowerCase()) {
@@ -120,7 +120,7 @@ public class TradeOffer {
             case "von":     // German
             case "от кого": // Russian
             case "จาก":     // Thai
-                return TradeOffer.TradeOfferType.INCOMING;
+                return TradeOfferType.INCOMING_TRADE;
             case "to":
             case "向":      // Chinese
             case "à":       // French
@@ -128,10 +128,10 @@ public class TradeOffer {
             case "para":    // Portuguese & Spanish
             case "кому":    // Russian
             case "ถึง":      // Thai
-                return TradeOffer.TradeOfferType.OUTGOING;
+                return TradeOfferType.OUTGOING_TRADE;
 
             default:
-                return TradeOffer.TradeOfferType.UNKNOWN;
+                return TradeOfferType.UNKNOWN;
         }
     }
 
@@ -190,9 +190,9 @@ public class TradeOffer {
         exampleTrade.playerName = "ExamplePlayer123";
         exampleTrade.itemName = "Tabula Rasa Simple Robe";
         exampleTrade.itemNameLower = exampleTrade.itemName.toLowerCase();
-        exampleTrade.priceTypeString = "Chaos Orb";
+        exampleTrade.priceName = "Chaos Orb";
         exampleTrade.priceQuantity = 100;
-        exampleTrade.itemQuantity = 1;
+        exampleTrade.itemQuantity = 0;
         exampleTrade.stashTabName = "~price 5 chaos";
         exampleTrade.stashTabX = 3;
         exampleTrade.stashTabY = 5;

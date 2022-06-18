@@ -2,6 +2,7 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.IconLabel;
 import com.slimtrade.gui.messaging.NotificationPanel;
@@ -31,7 +32,7 @@ public class TestFrame extends JFrame {
 
         NotificationPanel panel = new NotificationPanel();
         contentPanel.add(panel);
-        NotificationPanel trade = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING), false);
+        NotificationPanel trade = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE), false);
         contentPanel.add(trade);
         BufferedImage img = null;
         CurrencyType currency = CurrencyType.getCurrencyImage("Orbe exalté");

@@ -26,7 +26,7 @@ public class HistoryRowData {
         player = tradeOffer.playerName;
         saleItemWrapper = new SaleItemWrapper();
         saleItemWrapper.items = SaleItem.getItems(tradeOffer.itemQuantityString + " " + tradeOffer.itemName);
-        price = new PoePrice(tradeOffer.priceTypeString, (int) tradeOffer.priceQuantity);
+        price = new PoePrice(tradeOffer.priceName, (int) tradeOffer.priceQuantity);
         this.tradeOffer = tradeOffer;
     }
 

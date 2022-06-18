@@ -1,13 +1,20 @@
 package com.slimtrade.core.chatparser;
 
+import com.slimtrade.core.References;
 import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.trading.TradeOfferType;
+import com.slimtrade.gui.chatscanner.ChatScannerEntry;
+import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.gui.managers.MessageManager;
 import com.slimtrade.modules.filetailing.FileTailer;
 import com.slimtrade.modules.filetailing.FileTailerListener;
 
+import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -62,6 +69,7 @@ public class ChatParser implements FileTailerListener {
             }
         } else if (loaded) {
             // Chat Scanner
+            handleChatScanner(line);
             // TODO : this
             // Player Joined Area
             for (LangRegex lang : LangRegex.values()) {
@@ -77,10 +85,37 @@ public class ChatParser implements FileTailerListener {
         }
     }
 
+    private void handleChatScanner(String line) {
+        Matcher chatMatcher = References.chatPatten.matcher(line);
+        System.out.println(line);
+        if (!chatMatcher.matches()) return;
+        System.out.println("MSG:" + chatMatcher.group("message"));
+        String message = chatMatcher.group("message");
+        if (SaveManager.chatScannerSaveFile.data.searching) {
+            for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
+                for (String term : entry.getIgnoreTerms()) {
+                    if (message.contains(term)) return;
+                }
+                for (String term : entry.getSearchTerms()) {
+                    if (message.contains(term)) {
+                        String player = chatMatcher.group("playerName");
+                        SwingUtilities.invokeLater(() -> FrameManager.messageManager.addScannerMessage(entry, new PlayerMessage(player, message)));
+                        return;
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void handleChatScanner(){
+
+    }
+
     private void handleTradeOffer(TradeOffer offer) {
         // Check if trade should be ignored
         String itemNameLower = offer.itemName.toLowerCase();
-        if (offer.offerType == TradeOffer.TradeOfferType.INCOMING) {
+        if (offer.offerType == TradeOfferType.INCOMING_TRADE) {
             IgnoreItem item = SaveManager.ignoreSaveFile.data.exactIgnoreMap.get(itemNameLower);
             if (item != null && !item.isExpired()) {
                 handleIgnoreItem();
@@ -105,7 +140,7 @@ public class ChatParser implements FileTailerListener {
             AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.itemIgnoredSound.sound, SaveManager.settingsSaveFile.data.itemIgnoredSound.volume);
     }
 
-    private TradeOffer.TradeOfferType getMessageType(String s) {
+    private TradeOfferType getMessageType(String s) {
         // TODO : Move to LangRegex
         switch (s.toLowerCase()) {
             case "from":
@@ -114,7 +149,7 @@ public class ChatParser implements FileTailerListener {
             case "von":     // German
             case "от кого": // Russian
             case "จาก":     // Thai
-                return TradeOffer.TradeOfferType.INCOMING;
+                return TradeOfferType.INCOMING_TRADE;
             case "to":
             case "向":      // Chinese
             case "à":       // French
@@ -122,9 +157,9 @@ public class ChatParser implements FileTailerListener {
             case "para":    // Portuguese & Spanish
             case "кому":    // Russian
             case "ถึง":      // Thai
-                return TradeOffer.TradeOfferType.OUTGOING;
+                return TradeOfferType.OUTGOING_TRADE;
             default:
-                return TradeOffer.TradeOfferType.UNKNOWN;
+                return TradeOfferType.UNKNOWN;
         }
     }
 

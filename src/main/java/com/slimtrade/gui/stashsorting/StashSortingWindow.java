@@ -18,6 +18,7 @@ public class StashSortingWindow extends CustomDialog {
 
     public StashSortingWindow() {
         super("Sorting", true);
+        setMinimumSize(null);
         setFocusable(false);
         setFocusableWindowState(false);
         contentPanel.setLayout(new GridBagLayout());

@@ -1,8 +1,10 @@
 package com.slimtrade.gui.messaging;
 
+import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.POEInterface;
@@ -27,7 +29,8 @@ public class TradeMessagePanel extends NotificationPanel {
     public TradeMessagePanel(TradeOffer tradeOffer, boolean createListeners) {
         super(createListeners);
         this.tradeOffer = tradeOffer;
-        if (FrameManager.stashHelperContainer != null && tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING && createListeners) {
+        this.pasteReplacement = new PasteReplacement(SaveManager.settingsSaveFile.data.characterName, tradeOffer.playerName, tradeOffer.itemName, tradeOffer.itemQuantity, tradeOffer.priceName, tradeOffer.priceQuantity);
+        if (FrameManager.stashHelperContainer != null && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE && createListeners) {
             if (this.tradeOffer.isBulkTrade) {
                 stashHelperWrapper = new StashHelperWrapper(tradeOffer);
             } else {
@@ -40,7 +43,7 @@ public class TradeMessagePanel extends NotificationPanel {
         CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer);
         itemButton.add(itemPanel);
 //        PriceLabel.applyItemToComponent(itemButton, tradeOffer);
-        CurrencyLabelFactory.applyPriceToComponent(pricePanel, tradeOffer.priceTypeString, tradeOffer.priceQuantity);
+        CurrencyLabelFactory.applyPriceToComponent(pricePanel, tradeOffer.priceName, tradeOffer.priceQuantity);
 
 
 //        itemButton.setItems(tradeOffer.getItems());
@@ -61,11 +64,11 @@ public class TradeMessagePanel extends NotificationPanel {
         });
         // Message type specific stuff
         switch (tradeOffer.offerType) {
-            case INCOMING:
+            case INCOMING_TRADE:
                 topMacros = SaveManager.settingsSaveFile.data.incomingTopMacros;
                 bottomMacros = SaveManager.settingsSaveFile.data.incomingBottomMacros;
                 break;
-            case OUTGOING:
+            case OUTGOING_TRADE:
                 topMacros = SaveManager.settingsSaveFile.data.outgoingTopMacros;
                 bottomMacros = SaveManager.settingsSaveFile.data.outgoingBottomMacros;
                 break;
@@ -78,7 +81,7 @@ public class TradeMessagePanel extends NotificationPanel {
     private void addListeners() {
         JPanel self = this;
         switch (tradeOffer.offerType) {
-            case INCOMING:
+            case INCOMING_TRADE:
                 itemButton.addMouseListener(new AdvancedMouseListener() {
                     @Override
                     public void click(MouseEvent e) {
@@ -102,7 +105,7 @@ public class TradeMessagePanel extends NotificationPanel {
                     }
                 });
                 break;
-            case OUTGOING:
+            case OUTGOING_TRADE:
                 getCloseButton().addMouseListener(new AdvancedMouseListener() {
                     @Override
                     public void click(MouseEvent e) {
@@ -130,14 +133,14 @@ public class TradeMessagePanel extends NotificationPanel {
         super.updateUI();
         if (tradeOffer == null) return;
         StashTabColor stashTabColor = tradeOffer.getStashTabColor();
-        if (tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING
+        if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE
                 && SaveManager.settingsSaveFile.data.applyStashColorToMessage
                 && stashTabColor != StashTabColor.ZERO
         ) {
             messageColor = tradeOffer.getStashTabColor().getBackground();
             currencyTextColor = tradeOffer.getStashTabColor().getForeground();
         } else {
-            messageColor = ColorManager.getCurrentTheme().themeType.getColor(tradeOffer);
+            messageColor = ColorManager.getCurrentTheme().themeType.getColor(tradeOffer.offerType);
             currencyTextColor = null;
         }
         revalidate();
@@ -148,7 +151,7 @@ public class TradeMessagePanel extends NotificationPanel {
     @Override
     public void cleanup() {
         super.cleanup();
-        if (tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING) {
+        if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE) {
             if (stashHelperPanel != null) {
                 FrameManager.stashHelperContainer.remove(stashHelperPanel);
                 stashHelperPanel.cleanup();

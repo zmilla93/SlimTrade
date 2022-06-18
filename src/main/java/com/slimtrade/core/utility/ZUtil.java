@@ -1,7 +1,7 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.trading.TradeOffer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +37,7 @@ public class ZUtil {
         return builder.toString();
     }
 
-    public static ArrayList<String> getCommandList(String input, TradeOffer tradeOffer) {
+    public static ArrayList<String> getCommandList(String input, PasteReplacement pasteReplacement) {
         ArrayList<String> commands = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
         for (char c : input.toCharArray()) {
@@ -52,12 +52,12 @@ public class ZUtil {
             commands.add(builder.toString().trim());
         for (int i = 0; i < commands.size(); i++) {
             String clean = commands.get(i);
-            if (!clean.startsWith("@") && !clean.startsWith("/")) clean = "@" + tradeOffer.playerName + " " + clean;
+            if (!clean.startsWith("@") && !clean.startsWith("/")) clean = "@" + pasteReplacement.playerName + " " + clean;
             clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
-            clean = clean.replaceAll("\\{player}", tradeOffer.playerName);
-            String itemPrefix = tradeOffer.itemQuantity > 0 ? tradeOffer.itemQuantity + " " : "1 ";
-            clean = clean.replaceAll("\\{item}", itemPrefix + tradeOffer.itemName);
-            clean = clean.replaceAll("\\{price}", numberFormatter.format(tradeOffer.priceQuantity) + " " + tradeOffer.priceTypeString);
+            clean = clean.replaceAll("\\{player}", pasteReplacement.playerName);
+            String itemPrefix = pasteReplacement.itemQuantity > 0 ? pasteReplacement.itemQuantity + " " : "1 ";
+            clean = clean.replaceAll("\\{item}", itemPrefix + pasteReplacement.itemName);
+            clean = clean.replaceAll("\\{price}", numberFormatter.format(pasteReplacement.priceQuantity) + " " + pasteReplacement.priceName);
 //            System.out.println("MESSAGE:" + tradeOffer.message);
 //            clean = clean.replaceAll("[{]message[}]", Matcher.quoteReplacement(tradeOffer.message));
             // FIXME:

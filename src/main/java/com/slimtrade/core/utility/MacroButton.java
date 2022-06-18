@@ -4,6 +4,8 @@ import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.enums.MacroButtonType;
 
+import java.util.ArrayList;
+
 public class MacroButton {
 
     public MacroButtonType buttonType;
@@ -25,6 +27,16 @@ public class MacroButton {
         this.rmbResponse = rmbResponse;
         this.row = row;
         this.close = close;
+    }
+
+    public static ArrayList<MacroButton> getRowMacros(ArrayList<MacroButton> inputMacros, ButtonRow row) {
+        ArrayList<MacroButton> macros = new ArrayList<>();
+        for (MacroButton macro : inputMacros) {
+            if (macro.row == row) {
+                macros.add(macro);
+            }
+        }
+        return macros;
     }
 
 }

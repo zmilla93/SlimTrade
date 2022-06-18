@@ -1,5 +1,6 @@
 package com.slimtrade.gui.menubar;
 
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.ZUtil;
@@ -71,8 +72,8 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         optionsButton = new IconButton("/icons/default/th-list.png");
-        historyButton = new IconButton("/icons/default/stopwatch.png");
-        chatScannerButton = new IconButton("/icons/default/eye.png");
+        historyButton = new IconButton(DefaultIcon.STOPWATCH.path);
+        chatScannerButton = new IconButton(DefaultIcon.SCANNER.path);
         hideoutButton = new IconButton("/icons/custom/homex64.png");
         exitButton = new IconButton("/icons/default/power.png");
         gc.insets = new Insets(INSET, INSET, INSET, INSET);

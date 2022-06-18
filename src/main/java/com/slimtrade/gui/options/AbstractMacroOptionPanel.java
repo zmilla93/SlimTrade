@@ -1,12 +1,14 @@
 package com.slimtrade.gui.options;
 
-import com.slimtrade.core.enums.MessageType;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.PlainLabel;
+import com.slimtrade.gui.messaging.ChatScannerMessagePanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
 import javax.swing.*;
@@ -15,9 +17,8 @@ import java.util.ArrayList;
 
 public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
-    private MessageType messageType = MessageType.INCOMING_TRADE;
+    private TradeOfferType messageType;
     protected final AddRemoveContainer macroContainer;
-
 
     private final JPanel exampleTradeContainer = new JPanel(new GridBagLayout());
     private GridBagConstraints gc = new GridBagConstraints();
@@ -29,7 +30,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
     private Component exampleSeparator;
     private boolean showExamples;
 
-    public AbstractMacroOptionPanel(MessageType messageType) {
+    public AbstractMacroOptionPanel(TradeOfferType messageType) {
         this.messageType = messageType;
         gc.gridx = 0;
         gc.gridy = 0;
@@ -45,8 +46,8 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         addMacroButton.addActionListener(e -> {
             macroContainer.add(new MacroCustomizerPanel(macroContainer));
             gc.gridy++;
-            revalidate();
-            repaint();
+            macroContainer.revalidate();
+            macroContainer.repaint();
         });
 
         addHeader("Macro Preview");
@@ -179,10 +180,10 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         TradeMessagePanel panel = null;
         switch (messageType) {
             case INCOMING_TRADE:
-                panel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING), false);
+                panel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE), false);
                 break;
             case OUTGOING_TRADE:
-                panel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.OUTGOING), false);
+                panel = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE), false);
                 break;
         }
         assert panel != null;
@@ -191,9 +192,24 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         exampleTradeContainer.repaint();
     }
 
+    public void reloadExampleTrade(ChatScannerEntry chatScannerEntry) {
+        exampleTradeContainer.removeAll();
+        ChatScannerMessagePanel panel = new ChatScannerMessagePanel(chatScannerEntry, null, false);
+        exampleTradeContainer.add(panel);
+        exampleTradeContainer.revalidate();
+        exampleTradeContainer.repaint();
+    }
+
     public void clearMacros() {
         macroContainer.removeAll();
         gc.gridy = 0;
+    }
+
+    public void setMacros(ArrayList<MacroButton> macros) {
+        clearMacros();
+        for (MacroButton macro : macros) {
+            addMacro(macro);
+        }
     }
 
     public void addMacro(MacroButton macro) {

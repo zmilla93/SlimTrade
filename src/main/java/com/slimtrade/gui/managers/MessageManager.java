@@ -4,18 +4,18 @@ import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.chatparser.IJoinedAreaListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
+import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.TradeUtil;
-import com.slimtrade.gui.messaging.ExpandPanel;
-import com.slimtrade.gui.messaging.NotificationPanel;
-import com.slimtrade.gui.messaging.TradeMessagePanel;
-import com.slimtrade.gui.messaging.UpdateMessagePanel;
+import com.slimtrade.gui.chatscanner.ChatScannerEntry;
+import com.slimtrade.gui.messaging.*;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.colortheme.IThemeListener;
 import com.slimtrade.modules.colortheme.IUIResizeListener;
@@ -26,6 +26,14 @@ import java.awt.event.MouseEvent;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * This window displays all popup notifications.
+ *
+ * @see NotificationPanel
+ * @see TradeMessagePanel
+ * @see com.slimtrade.gui.messaging.ChatScannerMessagePanel
+ * @see UpdateMessagePanel
+ */
 public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IThemeListener, IUIResizeListener {
 
     private final Container container;
@@ -110,65 +118,73 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
 
     }
 
-    public void addMessage(TradeOffer tradeOffer) {
-        addMessage(tradeOffer, true);
-    }
-
     // FIXME: Should merge this with addMessage
     public void addUpdateMessage(boolean playSound) {
         assert (SwingUtilities.isEventDispatchThread());
         if (playSound)
             AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.updateSound.sound, SaveManager.settingsSaveFile.data.updateSound.volume);
         UpdateMessagePanel panel = new UpdateMessagePanel();
-        panel.startTimer();
-        addComponent(panel);
-        refresh();
-        if (messageContainer.getComponentCount() == 1) {
-            setOpacity(1);
-            startFadeTimer();
-        }
+        addMessageMutual(panel);
+    }
+
+    public void addMessage(TradeOffer tradeOffer) {
+        addMessage(tradeOffer, true);
     }
 
     public void addMessage(TradeOffer tradeOffer, boolean playSound) {
         assert (SwingUtilities.isEventDispatchThread());
         setIgnoreRepaint(true);
         if (messageContainer.getComponentCount() > 20) return;
-        if (!SaveManager.settingsSaveFile.data.enableIncomingMessages && tradeOffer.offerType == TradeOffer.TradeOfferType.INCOMING)
+        if (!SaveManager.settingsSaveFile.data.enableIncomingMessages && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE)
             return;
-        if (!SaveManager.settingsSaveFile.data.enableOutgoingMessages && tradeOffer.offerType == TradeOffer.TradeOfferType.OUTGOING)
+        if (!SaveManager.settingsSaveFile.data.enableOutgoingMessages && tradeOffer.offerType == TradeOfferType.OUTGOING_TRADE)
             return;
         if (playSound) {
             switch (tradeOffer.offerType) {
-                case INCOMING:
-                    SoundComponent sound = AudioManager.getPriceThresholdSound(tradeOffer.priceTypeString, (int) Math.floor(tradeOffer.priceQuantity));
+                case INCOMING_TRADE:
+                    SoundComponent sound = AudioManager.getPriceThresholdSound(tradeOffer.priceName, (int) Math.floor(tradeOffer.priceQuantity));
                     if (sound == null) {
                         AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.incomingSound.sound, SaveManager.settingsSaveFile.data.incomingSound.volume);
                     } else {
                         AudioManager.playSoundComponent(sound);
                     }
                     break;
-                case OUTGOING:
+                case OUTGOING_TRADE:
                     AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.outgoingSound.sound, SaveManager.settingsSaveFile.data.outgoingSound.volume);
                     break;
-                case CHAT_SCANNER:
+                case CHAT_SCANNER_MESSAGE:
                     AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.chatScannerSound.sound, SaveManager.settingsSaveFile.data.chatScannerSound.volume);
                     break;
             }
         }
         TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);
-        if (!expanded && messageContainer.getComponentCount() >= SaveManager.settingsSaveFile.data.messagesBeforeCollapse) {
-            panel.setVisible(false);
+        addMessageMutual(panel);
+        panel.resizeStrut();
+    }
+
+    public void addScannerMessage(ChatScannerEntry entry, PlayerMessage playerMessage) {
+        addScannerMessage(entry, playerMessage, true);
+    }
+
+    public void addScannerMessage(ChatScannerEntry entry, PlayerMessage playerMessage, boolean playSound) {
+//        panel.startTimer();
+        ChatScannerMessagePanel panel = new ChatScannerMessagePanel(entry, playerMessage);
+        if (playSound) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.chatScannerSound);
+        addMessageMutual(panel);
+    }
+
+    private void addMessageMutual(Component component) {
+        addComponent(component);
+        if (SaveManager.settingsSaveFile.data.collapseMessages && !expanded && messageContainer.getComponentCount() >= SaveManager.settingsSaveFile.data.messagesBeforeCollapse) {
+            component.setVisible(false);
             expandPanel.setVisible(true);
         }
-        panel.startTimer();
-        addComponent(panel);
-        revalidate();
-        panel.resizeStrut();
-        refresh();
         if (messageContainer.getComponentCount() == 1) {
             setOpacity(1);
             startFadeTimer();
         }
+        revalidate();
+        refresh();
     }
 
     private void recheckMessageVisibility() {
@@ -238,7 +254,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             Component comp = messageContainer.getComponent(i);
             if (comp instanceof TradeMessagePanel) {
                 TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
-                if (trade.offerType == TradeOffer.TradeOfferType.OUTGOING && comp != panel) {
+                if (trade.offerType == TradeOfferType.OUTGOING_TRADE && comp != panel) {
                     messageContainer.remove(i);
                 }
             }
@@ -257,9 +273,9 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             Component comp = messageContainer.getComponent(i);
             if (comp instanceof TradeMessagePanel) {
                 TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
-                if (trade.offerType == TradeOffer.TradeOfferType.INCOMING
+                if (trade.offerType == TradeOfferType.INCOMING_TRADE
                         && trade.itemName.equals(targetOffer.itemName)
-                        && trade.priceTypeString.equals(targetOffer.priceTypeString)
+                        && trade.priceName.equals(targetOffer.priceName)
                         && trade.priceQuantity == targetOffer.priceQuantity) {
                     messageContainer.remove(i);
                 }
@@ -279,7 +295,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             Component comp = messageContainer.getComponent(i);
             if (comp instanceof TradeMessagePanel) {
                 TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
-                if (trade.offerType != TradeOffer.TradeOfferType.INCOMING) continue;
+                if (trade.offerType != TradeOfferType.INCOMING_TRADE) continue;
                 if (item.matchType == MatchType.EXACT_MATCH) {
                     if (trade.itemName.equals(item.itemName)) {
                         messageContainer.remove(i);
@@ -358,6 +374,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
      * It then revalidates and repaints the frame.
      */
     public void refresh() {
+        assert (SwingUtilities.isEventDispatchThread());
         recheckMessageVisibility();
         refreshOrder();
         pack();
@@ -407,7 +424,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             if (c instanceof TradeMessagePanel) {
                 TradeMessagePanel panel = (TradeMessagePanel) c;
                 TradeOffer offer = panel.getTradeOffer();
-                if (offer.offerType == TradeOffer.TradeOfferType.INCOMING && offer.playerName.equals(playerName)) {
+                if (offer.offerType == TradeOfferType.INCOMING_TRADE && offer.playerName.equals(playerName)) {
                     AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound.sound, SaveManager.settingsSaveFile.data.playerJoinedAreaSound.volume);
                     panel.setPlayerJoinedArea();
                 }
