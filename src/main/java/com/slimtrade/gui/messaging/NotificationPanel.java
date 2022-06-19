@@ -3,6 +3,7 @@ package com.slimtrade.gui.messaging;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MacroButtonType;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.*;
 import com.slimtrade.gui.components.BorderlessButton;
@@ -83,7 +84,7 @@ public class NotificationPanel extends ColorPanel {
         // Main Panel
         mainPanel.setBackground(Color.GREEN);
         mainPanel.add(topContainer, BorderLayout.NORTH);
-        mainPanel.add(Box.createHorizontalStrut(400), BorderLayout.CENTER);
+//        mainPanel.add(Box.createHorizontalStrut(400), BorderLayout.CENTER);
         mainPanel.add(bottomContainer, BorderLayout.SOUTH);
 
         // Containers
@@ -118,6 +119,9 @@ public class NotificationPanel extends ColorPanel {
         timerPanel.add(Box.createHorizontalStrut(timerInset), BorderLayout.EAST);
         timerPanel.add(timerLabel, BorderLayout.CENTER);
 
+        int width = 400;
+        setMinimumSize(new Dimension(width, 0));
+        setMaximumSize(new Dimension(width, 10000));
     }
 
     /**
@@ -139,6 +143,7 @@ public class NotificationPanel extends ColorPanel {
         resizeStrut();
         if (createListeners)
             addListeners();
+        updateSize();
     }
 
     private GridBagConstraints addMacrosToPanel(JPanel panel, ArrayList<MacroButton> macros) {
@@ -248,6 +253,11 @@ public class NotificationPanel extends ColorPanel {
         if (bottomVerticalStrut != null) bottomContainer.remove(bottomVerticalStrut);
         bottomVerticalStrut = Box.createVerticalStrut(closeButton.getPreferredSize().height);
         bottomContainer.add(bottomVerticalStrut, BorderLayout.WEST);
+    }
+
+    public void updateSize() {
+        setPreferredSize(null);
+        setPreferredSize(new Dimension(SaveManager.overlaySaveFile.data.messageWidth, getPreferredSize().height));
     }
 
     /**

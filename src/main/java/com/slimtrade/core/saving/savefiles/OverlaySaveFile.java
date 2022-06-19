@@ -12,5 +12,6 @@ public class OverlaySaveFile {
 
     public Point messageLocation = References.DEFAULT_MESSAGE_LOCATION;
     public ExpandDirection expandDirection = ExpandDirection.DOWNWARDS;
+    public int messageWidth = 400;
 
 }

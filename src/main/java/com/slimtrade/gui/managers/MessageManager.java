@@ -36,7 +36,7 @@ import java.util.concurrent.Executors;
  */
 public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IThemeListener, IUIResizeListener {
 
-    private final Container container;
+    //    private final Container contentPanel;
     private final JPanel messageContainer;
     private final GridBagConstraints gc;
     private static final int MESSAGE_GAP = 1;
@@ -60,17 +60,19 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
 
     public MessageManager() {
         setBackground(ColorManager.TRANSPARENT);
-        container = getContentPane();
-        container.setLayout(new BorderLayout());
+
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
         messageContainer = new JPanel(new GridBagLayout());
         messageContainer.setBackground(ColorManager.TRANSPARENT);
-        container.add(messageContainer, BorderLayout.CENTER);
+        contentPanel.add(messageContainer, BorderLayout.CENTER);
 
         // Init GridBagLayout
         gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = expandUp ? new Insets(MESSAGE_GAP, 0, 0, 0) : new Insets(0, 0, MESSAGE_GAP, 0);
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.HORIZONTAL;
 
         // Expand Panel
         expandPanel = new ExpandPanel();
@@ -97,12 +99,17 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             }
         };
 
+//        int width = 400;
+//        setMinimumSize(new Dimension(width, 0));
+//        setMaximumSize(new Dimension(width, 10000));
+
         ColorManager.addThemeListener(this);
         ColorManager.addFontListener(this);
         setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         refreshFadeData();
         refresh();
         addListeners();
+//        wrapperPanel.setBackground(Color.RED);
     }
 
     private void addListeners() {
@@ -237,10 +244,9 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         for (Component comp : components) {
             addComponent(comp);
         }
-        container.remove(expandPanel);
-        if (expandUp) container.add(expandPanel, BorderLayout.NORTH);
-        else container.add(expandPanel, BorderLayout.SOUTH);
-//        refresh();
+        contentPanel.remove(expandPanel);
+        if (expandUp) contentPanel.add(expandPanel, BorderLayout.NORTH);
+        else contentPanel.add(expandPanel, BorderLayout.SOUTH);
     }
 
     /**
@@ -375,12 +381,19 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
      */
     public void refresh() {
         assert (SwingUtilities.isEventDispatchThread());
+        for (Component c : messageContainer.getComponents()) {
+            if (c instanceof TradeMessagePanel)
+                ((TradeMessagePanel) c).updateSize();
+        }
         recheckMessageVisibility();
         refreshOrder();
+        revalidate();
+        int width = 300;
+        setMinimumSize(new Dimension(width, 0));
+        setMaximumSize(new Dimension(width, 10000));
         pack();
         moveToAnchor();
         setIgnoreRepaint(false);
-        revalidate();
         repaint();
     }
 

@@ -189,6 +189,7 @@ public class TradeOffer {
         exampleTrade.offerType = type;
         exampleTrade.playerName = "ExamplePlayer123";
         exampleTrade.itemName = "Tabula Rasa Simple Robe";
+        exampleTrade.itemName = "Tabula Rasa Simple Robe ASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDF";
         exampleTrade.itemNameLower = exampleTrade.itemName.toLowerCase();
         exampleTrade.priceName = "Chaos Orb";
         exampleTrade.priceQuantity = 100;
