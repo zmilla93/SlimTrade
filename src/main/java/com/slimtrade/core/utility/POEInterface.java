@@ -109,7 +109,6 @@ public class POEInterface {
     }
 
     public static void pasteWithFocus(String input, PasteReplacement pasteReplacement) {
-        assert (SwingUtilities.isEventDispatchThread());
         if (pasteReplacement == null) return;
         executor.execute(() -> {
             if (!focusGame()) return;

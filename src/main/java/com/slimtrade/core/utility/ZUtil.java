@@ -55,10 +55,15 @@ public class ZUtil {
             if (!clean.startsWith("@") && !clean.startsWith("/"))
                 clean = "@" + pasteReplacement.playerName + " " + clean;
             clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
-            clean = clean.replaceAll("\\{player}", pasteReplacement.playerName);
-            String itemPrefix = pasteReplacement.itemQuantity > 0 ? pasteReplacement.itemQuantity + " " : "1 ";
-            clean = clean.replaceAll("\\{item}", itemPrefix + pasteReplacement.itemName);
-            clean = clean.replaceAll("\\{price}", numberFormatter.format(pasteReplacement.priceQuantity) + " " + pasteReplacement.priceName);
+            if (pasteReplacement.playerName != null)
+                clean = clean.replaceAll("\\{player}", pasteReplacement.playerName);
+            if (pasteReplacement.priceName != null) {
+                String itemPrefix = pasteReplacement.itemQuantity > 0 ? pasteReplacement.itemQuantity + " " : "1 ";
+                clean = clean.replaceAll("\\{item}", itemPrefix + pasteReplacement.itemName);
+            }
+            if (pasteReplacement.priceName != null) {
+                clean = clean.replaceAll("\\{price}", numberFormatter.format(pasteReplacement.priceQuantity) + " " + pasteReplacement.priceName);
+            }
 //            System.out.println("MESSAGE:" + tradeOffer.message);
 //            clean = clean.replaceAll("[{]message[}]", Matcher.quoteReplacement(tradeOffer.message));
             // FIXME:

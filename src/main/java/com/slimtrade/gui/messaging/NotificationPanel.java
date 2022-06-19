@@ -3,6 +3,9 @@ package com.slimtrade.gui.messaging;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MacroButtonType;
+import com.slimtrade.core.hotkeys.CommandHotkey;
+import com.slimtrade.core.hotkeys.HotkeyData;
+import com.slimtrade.core.hotkeys.IHotkeyAction;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.*;
@@ -15,6 +18,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NotificationPanel extends ColorPanel {
 
@@ -54,6 +58,8 @@ public class NotificationPanel extends ColorPanel {
     private boolean minuteSwitch = false;
     private int secondCount;
     private int minuteCount;
+
+    private HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
 
     public NotificationPanel() {
         this(true);
@@ -152,6 +158,7 @@ public class NotificationPanel extends ColorPanel {
         gc.fill = GridBagConstraints.BOTH;
         gc.weighty = 1;
         NotificationPanel self = this;
+        hotkeyMap.clear();
         for (MacroButton macro : macros) {
             JButton button;
             if (macro.buttonType == MacroButtonType.ICON) {
@@ -163,6 +170,8 @@ public class NotificationPanel extends ColorPanel {
             button.updateUI();
             panel.add(button, gc);
             if (createListeners) {
+                if (!hotkeyMap.containsKey(macro.hotkeyData))
+                    hotkeyMap.put(macro.hotkeyData, new CommandHotkey(macro, this, pasteReplacement));
                 button.addMouseListener(new AdvancedMouseListener() {
                     @Override
                     public void click(MouseEvent e) {
@@ -170,15 +179,16 @@ public class NotificationPanel extends ColorPanel {
                             if (!ZUtil.isEmptyString(macro.lmbResponse)) {
                                 System.out.println("mc:" + macro.lmbResponse);
                                 POEInterface.pasteWithFocus(macro.lmbResponse, pasteReplacement);
-                                if (macro.lmbResponse.contains("/invite")) onInvite();
+//                                if (macro.lmbResponse.contains("/invite")) onInvite();
                             }
-                            if (macro.close) FrameManager.messageManager.removeMessage(self);
+//                            if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                         if (e.getButton() == MouseEvent.BUTTON3) {
                             if (!ZUtil.isEmptyString(macro.rmbResponse))
                                 POEInterface.pasteWithFocus(macro.rmbResponse, pasteReplacement);
-                            if (macro.close) FrameManager.messageManager.removeMessage(self);
+//                            if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
+                        handleHotkeyMutual(macro);
                     }
                 });
             }
@@ -258,6 +268,17 @@ public class NotificationPanel extends ColorPanel {
     public void updateSize() {
         setPreferredSize(null);
         setPreferredSize(new Dimension(SaveManager.overlaySaveFile.data.messageWidth, getPreferredSize().height));
+    }
+
+    public void checkHotkeys(HotkeyData hotkeyData) {
+        IHotkeyAction action = hotkeyMap.get(hotkeyData);
+        if (action != null) action.execute();
+    }
+
+
+    public void handleHotkeyMutual(MacroButton macro) {
+        if (macro.lmbResponse.contains("/invite")) onInvite();
+        if (macro.close) FrameManager.messageManager.removeMessage(this);
     }
 
     /**

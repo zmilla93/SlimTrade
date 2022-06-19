@@ -10,14 +10,13 @@ public class ExpandPanel extends NotificationPanel {
         playerNameButton.setText("Show Messages");
         bottomContainer.setVisible(false);
         pricePanel.setVisible(false);
-//        itemButton.setVisible(false);
-//        timerPanel.setVisible(false);
         setup();
         getCloseButton().setVisible(false);
         stopTimer();
         messageColor = UIManager.getColor("Button.foreground");
         borderPanel.setBackgroundKey("Label.foreground");
         applyMessageColor();
+        updateSize();
     }
 
     public void setText(String text) {

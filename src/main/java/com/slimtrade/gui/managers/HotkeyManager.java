@@ -11,10 +11,11 @@ import java.util.HashMap;
 
 /**
  * To add a new hotkey type, implement IHotkeyAction then register with a HotkeyData object in loadHotkeys.
+ * Notification Panel hotkeys are handled in MessageManager, but keystroke data is still sent from here.
  */
 public class HotkeyManager {
 
-    private static HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
+    private static final HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
 
     public static void loadHotkeys() {
         hotkeyMap.clear();
@@ -50,11 +51,13 @@ public class HotkeyManager {
     }
 
     public static void processHotkey(NativeKeyEvent e) {
-        if (hotkeyMap == null) return;
         HotkeyData data = new HotkeyData(e.getKeyCode(), e.getModifiers());
         IHotkeyAction hotkeyAction = hotkeyMap.get(data);
-        if (hotkeyAction == null) return;
-        hotkeyAction.execute();
+        if (hotkeyAction == null) {
+            FrameManager.messageManager.checkHotkey(data);
+        } else {
+            hotkeyAction.execute();
+        }
     }
 
 }

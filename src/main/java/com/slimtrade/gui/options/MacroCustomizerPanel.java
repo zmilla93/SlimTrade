@@ -157,6 +157,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         button.row = (ButtonRow) rowCombo.getSelectedItem();
         button.buttonType = (MacroButtonType) buttonType.getSelectedItem();
         button.text = buttonText.getText();
+        button.hotkeyData = hotkeyButton.getData();
         button.close = closeCheckbox.isSelected();
         int index = iconCombo.getSelectedIndex();
         if (index == -1) index = 0;
@@ -171,6 +172,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         buttonType.setSelectedItem(macro.buttonType);
         buttonText.setText(macro.text);
         iconCombo.setSelectedIndex(macro.icon.ordinal());
+        hotkeyButton.setData(macro.hotkeyData);
         closeCheckbox.setSelected(macro.close);
     }
 

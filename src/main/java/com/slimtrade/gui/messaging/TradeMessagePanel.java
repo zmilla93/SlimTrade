@@ -45,13 +45,6 @@ public class TradeMessagePanel extends NotificationPanel {
 //        PriceLabel.applyItemToComponent(itemButton, tradeOffer);
         CurrencyLabelFactory.applyPriceToComponent(pricePanel, tradeOffer.priceName, tradeOffer.priceQuantity);
 
-
-//        itemButton.setItems(tradeOffer.getItems());
-//        itemButton.setItems(tradeOffer.getItems());
-//        pricePanel.setItem(new SaleItem(tradeOffer.priceTypeString, tradeOffer.priceQuantity));
-//        pricePanel.setItem(new SaleItem(tradeOffer.priceTypeString, tradeOffer.priceQuantity));
-//        PriceLabel.applyPriceToComponent()
-
         playerNameButton.addMouseListener(new AdvancedMouseListener() {
             @Override
             public void click(MouseEvent e) {

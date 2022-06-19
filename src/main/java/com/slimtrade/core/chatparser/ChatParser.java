@@ -58,7 +58,6 @@ public class ChatParser implements FileTailerListener {
         return path;
     }
 
-    //    @Override
     public void parseLine(String line) {
         if (!open) return;
         if (line.contains("@")) {
@@ -69,7 +68,6 @@ public class ChatParser implements FileTailerListener {
         } else if (loaded) {
             // Chat Scanner
             handleChatScanner(line);
-            // TODO : this
             // Player Joined Area
             for (LangRegex lang : LangRegex.values()) {
                 Matcher matcher = lang.joinedAreaPattern.matcher(line);
@@ -86,7 +84,7 @@ public class ChatParser implements FileTailerListener {
 
     private void handleChatScanner(String line) {
         Matcher chatMatcher = References.chatPatten.matcher(line);
-        System.out.println(line);
+        System.out.println("LINE:" + line);
         if (!chatMatcher.matches()) return;
         System.out.println("MSG:" + chatMatcher.group("message"));
         String message = chatMatcher.group("message");

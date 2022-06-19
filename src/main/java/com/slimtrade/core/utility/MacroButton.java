@@ -3,6 +3,7 @@ package com.slimtrade.core.utility;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.enums.MacroButtonType;
+import com.slimtrade.core.hotkeys.HotkeyData;
 
 import java.util.ArrayList;
 
@@ -14,13 +15,14 @@ public class MacroButton {
     public String lmbResponse;
     public String rmbResponse;
     public ButtonRow row;
+    public HotkeyData hotkeyData;
     public boolean close;
 
     public MacroButton() {
 
     }
 
-    public MacroButton(CustomIcon icon, String lmbResponse, String rmbResponse, ButtonRow row, boolean close) {
+    public MacroButton(CustomIcon icon, String lmbResponse, String rmbResponse, ButtonRow row, HotkeyData hotkeyData, boolean close) {
         this.buttonType = MacroButtonType.ICON;
         this.icon = icon;
         this.lmbResponse = lmbResponse;

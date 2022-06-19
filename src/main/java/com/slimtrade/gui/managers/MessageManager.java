@@ -7,6 +7,7 @@ import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.enums.MatchType;
+import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
@@ -397,21 +398,6 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         repaint();
     }
 
-    //
-    // Interfaces
-    //
-
-    @Override
-    public void handleTrade(TradeOffer tradeOffer) {
-        SwingUtilities.invokeLater(() -> addMessage(tradeOffer));
-    }
-
-    @Override
-    public void onThemeChange() {
-        revalidate();
-        repaint();
-    }
-
     public void checkMouseHover(Point p) {
         // Increasing the bounds slightly prevents spam when message is on the edge of the screen.
         Rectangle bounds = getBounds();
@@ -429,6 +415,30 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 startFadeTimer();
             }
         }
+    }
+
+    public void checkHotkey(HotkeyData hotkeyData) {
+        if (messageContainer.getComponentCount() > 0) {
+            Component c = messageContainer.getComponent(0);
+            if (c instanceof NotificationPanel) {
+                ((NotificationPanel) c).checkHotkeys(hotkeyData);
+            }
+        }
+    }
+
+    //
+    // Interfaces
+    //
+
+    @Override
+    public void handleTrade(TradeOffer tradeOffer) {
+        SwingUtilities.invokeLater(() -> addMessage(tradeOffer));
+    }
+
+    @Override
+    public void onThemeChange() {
+        revalidate();
+        repaint();
     }
 
     @Override

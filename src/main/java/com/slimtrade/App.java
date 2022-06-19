@@ -101,8 +101,8 @@ public class App {
                 }
                 // FIXME : Should probably move this to inside frame manager
                 FrameManager.messageManager.setVisible(true);
-//                FrameManager.optionsWindow.setVisible(true);
-                FrameManager.chatScannerWindow.setVisible(true);
+//                FrameManager.chatScannerWindow.setVisible(true);
+                FrameManager.optionsWindow.setVisible(true);
             });
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
