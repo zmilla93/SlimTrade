@@ -1,6 +1,5 @@
 package com.slimtrade.gui.chatscanner;
 
-import com.slimtrade.core.data.ListPanel;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.options.IncomingMacroPanel;
@@ -17,9 +16,10 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
 
     private static final String START_SCANNING = "Start Scanning";
     private static final String STOP_SCANNING = "Stop Scanning";
+    public static final int TEXT_COLUMNS = 12;
 
     //    private final JTabbedPane tabbedPane = new JTabbedPane();
-    private final JList<ListPanel<ChatScannerCustomizerPanel>> entryList = new JList<>();
+    private final JList<ChatScannerCustomizerPanel> entryList = new JList<>();
     private final JButton infoButton = new JButton("Info");
     private final JButton newSearchButton = new JButton("New Entry");
     private final AdvancedButton scanButton = new AdvancedButton(START_SCANNING);
@@ -31,18 +31,21 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     private final ChatScannerNewEntryPanel newEntryPanel = new ChatScannerNewEntryPanel();
     private final ChatScannerSearchingPanel searchingPanel = new ChatScannerSearchingPanel();
     private final ChatScannerInfoPanel infoPanel = new ChatScannerInfoPanel();
+    private final ChatScannerRenamePanel renamePanel = new ChatScannerRenamePanel();
+    private final ChatScannerDeletePanel deletePanel = new ChatScannerDeletePanel();
 
     // Panel Names
     private static final String ENTRY_PANEL_TITLE = "SLIMTRADE::NEW_ENTRY_PANEL";
     private static final String SEARCHING_PANEL_TITLE = "SLIMTRADE::SEARCHING_PANEL";
     private static final String INFO_PANEL_TITLE = "SLIMTRADE::INFO_PANEL";
+    private static final String RENAME_PANEL_TITLE = "SLIMTRADE::RENAME_PANEL";
+    private static final String DELETE_PANEL_TITLE = "SLIMTRADE::DELETE_PANEL";
 
-    private final ArrayList<ListPanel<ChatScannerCustomizerPanel>> panels = new ArrayList<>();
+    private final ArrayList<ChatScannerCustomizerPanel> panels = new ArrayList<>();
 
     private final JPanel mainButtonPanel = new JPanel(new GridBagLayout());
     private JButton revertButton = new JButton("Revert Changes");
     private JButton saveButton = new JButton("Save");
-    private boolean searching;
 
     public ChatScannerWindow() {
         super("Chat Scanner");
@@ -50,6 +53,8 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         cardPanel.add(newEntryPanel, ENTRY_PANEL_TITLE);
         cardPanel.add(searchingPanel, SEARCHING_PANEL_TITLE);
         cardPanel.add(infoPanel, INFO_PANEL_TITLE);
+        cardPanel.add(renamePanel, RENAME_PANEL_TITLE);
+        cardPanel.add(deletePanel, DELETE_PANEL_TITLE);
 
         // Button Panel
         JPanel buttonPanel = new JPanel(new BorderLayout());
@@ -86,7 +91,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         // Finalize
         setTitle("Chat Scanner");
         pack();
-        setSize(800, 600);
+        setSize(900, 700);
         SaveManager.chatScannerSaveFile.registerSavableContainer(this);
         addListeners();
     }
@@ -99,15 +104,25 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
             toggleSearch();
         });
         entryList.addListSelectionListener(e -> {
-            ListPanel<ChatScannerCustomizerPanel> listPanel = entryList.getSelectedValue();
+            ChatScannerCustomizerPanel listPanel = entryList.getSelectedValue();
             if (listPanel == null) {
                 scanButton.setEnabled(false);
             } else {
                 scanButton.setEnabled(true);
-                cardLayout.show(cardPanel, listPanel.title);
+                cardLayout.show(cardPanel, listPanel.getTitle());
             }
         });
-        newEntryPanel.getCreateEntryButton().addActionListener(e -> newEntryPanel.setError(tryCreateEntry(newEntryPanel.getInputName())));
+        newEntryPanel.getCreateEntryButton().addActionListener(e -> {
+            String error = tryCreateEntry(newEntryPanel.getInputName());
+            newEntryPanel.setError(error);
+            if (error == null) {
+                showEntry(newEntryPanel.getInputName());
+            }
+        });
+        newEntryPanel.getCancelButton().addActionListener(e -> {
+            cardLayout.show(cardPanel, INFO_PANEL_TITLE);
+            rootPane.requestFocus();
+        });
         saveButton.addActionListener(e -> SaveManager.chatScannerSaveFile.saveToDisk());
         revertButton.addActionListener(e -> revertAll());
 
@@ -133,15 +148,14 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     public String tryCreateEntry(String name) {
         name = name.trim();
         if (name.length() == 0) return null;
-        for (ListPanel<ChatScannerCustomizerPanel> listPanel : panels) {
-            if (listPanel.title.equals(name)) {
+        for (ChatScannerCustomizerPanel listPanel : panels) {
+            if (listPanel.getTitle().equals(name)) {
                 return "An entry with that name already exists!";
             }
         }
         ChatScannerCustomizerPanel panel = new ChatScannerCustomizerPanel(name);
-        ListPanel<ChatScannerCustomizerPanel> listPanel = new ListPanel<>(name, panel);
-        panels.add(listPanel);
-        entryList.setListData((ListPanel<ChatScannerCustomizerPanel>[]) panels.toArray());
+        panels.add(panel);
+        updateList();
         cardPanel.add(panel, name);
         return null;
     }
@@ -162,23 +176,22 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         }
         ArrayList<ChatScannerEntry> activeEntries = new ArrayList<>(values.length);
         for (int i = 0; i < values.length; i++) {
-            activeEntries.add(panels.get(i).component.getData());
+            activeEntries.add(panels.get(i).getData());
         }
         SaveManager.chatScannerSaveFile.data.searching = true;
         SaveManager.chatScannerSaveFile.data.activeSearches = activeEntries;
 
         scanButton.setActive(!scanButton.isActive());
-//        entryList.setEnabled(!scanButton.isActive());
         cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         enableComponents(false);
     }
 
     public void stopSearch() {
         SaveManager.chatScannerSaveFile.data.searching = false;
-
         scanButton.setActive(!scanButton.isActive());
-//        entryList.setEnabled(!scanButton.isActive());
-        cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
+        ChatScannerCustomizerPanel selectedPanel = entryList.getSelectedValue();
+        if (selectedPanel == null) cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
+        else cardLayout.show(cardPanel, selectedPanel.getTitle());
         enableComponents(true);
     }
 
@@ -191,27 +204,90 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         newSearchButton.setEnabled(enable);
         saveButton.setEnabled(enable);
         revertButton.setEnabled(enable);
-        if (enable) {
-            cardLayout.show(cardPanel, INFO_PANEL_TITLE);
-        } else {
-            cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
-        }
-
     }
 
-    public boolean isSearching() {
-        return searching;
+    public void showRenamePanel() {
+        ChatScannerCustomizerPanel selectedPanel = entryList.getSelectedValue();
+        if (selectedPanel == null) return;
+        cardLayout.show(cardPanel, RENAME_PANEL_TITLE);
+        entryList.clearSelection();
+        getRootPane().requestFocus();
+        renamePanel.setCurrentName(selectedPanel.getTitle());
+    }
+
+    public void showDeletePanel() {
+        ChatScannerCustomizerPanel selectedPanel = entryList.getSelectedValue();
+        if (selectedPanel == null) return;
+        cardLayout.show(cardPanel, DELETE_PANEL_TITLE);
+        entryList.clearSelection();
+        getRootPane().requestFocus();
+        deletePanel.setCurrentName(selectedPanel.getTitle());
+    }
+
+    public void showEntry(String name) {
+        for (ChatScannerCustomizerPanel listPanel : panels) {
+            if (listPanel.getTitle().equals(name)) {
+                cardLayout.show(cardPanel, listPanel.getTitle());
+                entryList.setSelectedIndex(panels.indexOf(listPanel));
+                getRootPane().requestFocus();
+                return;
+            }
+        }
+    }
+
+    public void renameEntry(String oldName, String newName) {
+        ChatScannerCustomizerPanel panel = null;
+        for (ChatScannerCustomizerPanel listPanel : panels) {
+            if (listPanel.getTitle().equals(oldName)) {
+                panel = listPanel;
+                break;
+            }
+        }
+        if (panel == null) return;
+        panels.remove(panel);
+        cardPanel.remove(panel);
+        cardLayout.show(cardPanel, RENAME_PANEL_TITLE);
+        panel.setTitle(newName);
+        panels.add(panel);
+        cardPanel.add(panel, panel.getTitle());
+        updateList();
+        showEntry(newName);
+    }
+
+    public void deleteEntry(String name) {
+        ChatScannerCustomizerPanel panel = null;
+        for (ChatScannerCustomizerPanel listPanel : panels) {
+            if (listPanel.getTitle().equals(name)) {
+                panel = listPanel;
+                break;
+            }
+        }
+        System.out.println("DELETENAME : " + name);
+        System.out.println("DELETE : " + panel);
+        if (panel == null) return;
+        panels.remove(panel);
+        cardPanel.remove(panel);
+        cardLayout.show(cardPanel, INFO_PANEL_TITLE);
+        updateList();
+        getRootPane().requestFocus();
+    }
+
+    private void updateList() {
+        entryList.setListData(panels.toArray(new ChatScannerCustomizerPanel[0]));
+        entryList.revalidate();
+        entryList.repaint();
     }
 
     @Override
     public void save() {
         ArrayList<ChatScannerEntry> scannerEntries = new ArrayList<>();
-        for (ListPanel<ChatScannerCustomizerPanel> listPanel : panels) {
-            scannerEntries.add(listPanel.component.getData());
-            System.out.println(listPanel.component.getData().title);
-            System.out.println(listPanel.component.getData().searchTermsRaw);
-            System.out.println(listPanel.component.getData().ignoreTermsRaw);
-            listPanel.component.reloadExample();
+        for (ChatScannerCustomizerPanel panel : panels) {
+            ChatScannerEntry entry = panel.getData();
+            scannerEntries.add(entry);
+            System.out.println(entry.title);
+            System.out.println(entry.searchTermsRaw);
+            System.out.println(entry.ignoreTermsRaw);
+            panel.reloadExample();
         }
         SaveManager.chatScannerSaveFile.data.scannerEntries = scannerEntries;
     }
@@ -221,9 +297,9 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         panels.clear();
         for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.scannerEntries) {
             ChatScannerCustomizerPanel panel = new ChatScannerCustomizerPanel(entry);
-            panels.add(new ListPanel<>(entry.title, panel));
+            panels.add(panel);
             cardPanel.add(panel, entry.title);
         }
-        entryList.setListData(panels.toArray(ListPanel[]::new));
+        updateList();
     }
 }

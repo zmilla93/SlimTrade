@@ -1,7 +1,6 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.core.utility.GUIReferences;
-import com.slimtrade.core.utility.ZUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,12 +26,12 @@ public class AbstractOptionPanel extends JPanel {
         insetPanel.add(contentPanel);
         JPanel bufferPanel = new JPanel(new BorderLayout());
         bufferPanel.add(insetPanel, BorderLayout.NORTH);
-        if(addScrollPanel){
+        if (addScrollPanel) {
             JScrollPane scrollPane = new JScrollPane(bufferPanel);
             scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_SPEED);
             scrollPane.getHorizontalScrollBar().setUnitIncrement(SCROLL_SPEED);
             add(scrollPane, BorderLayout.CENTER);
-        }else{
+        } else {
             add(bufferPanel, BorderLayout.CENTER);
         }
         gc.gridx = 0;

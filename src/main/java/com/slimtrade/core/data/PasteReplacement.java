@@ -9,7 +9,7 @@ public class PasteReplacement {
     public final String priceName; // Price Quantity + Price Name
     public final double priceQuantity; // Price Quantity + Price Name
 
-    public PasteReplacement(String self, String player){
+    public PasteReplacement(String self, String player) {
         this.self = self;
         this.playerName = player;
         this.itemName = "";
@@ -18,7 +18,7 @@ public class PasteReplacement {
         this.priceQuantity = 0;
     }
 
-    public PasteReplacement(String self, String player, String itemName, int itemQuantity, String priceName, double priceQuantity){
+    public PasteReplacement(String self, String player, String itemName, int itemQuantity, String priceName, double priceQuantity) {
         this.self = self;
         this.playerName = player;
         this.itemName = itemName;

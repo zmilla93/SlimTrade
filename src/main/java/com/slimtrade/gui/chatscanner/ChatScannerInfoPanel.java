@@ -9,8 +9,9 @@ public class ChatScannerInfoPanel extends AbstractOptionPanel {
 
     public ChatScannerInfoPanel() {
         super(true);
-        addHeader("Chat Scanner Basics");
+        addHeader("Chat Scanner Overview");
         addPanel(new PlainLabel("Allows you to search for custom phrases in chat."));
+        addPanel(new PlainLabel("Once you create an entry, select it from the list then click 'Start Scanning'."));
         addPanel(new JLabel("Click 'New Entry' in the lower left to get started!"));
         addVerticalStrut();
         addHeader("Useful Tips");

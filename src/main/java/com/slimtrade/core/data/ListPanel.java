@@ -1,8 +1,8 @@
 package com.slimtrade.core.data;
 
-public class ListPanel  <T> {
+public class ListPanel<T> {
 
-    public final String title;
+    public String title;
     public final T component;
 
     public ListPanel(String title, T component) {

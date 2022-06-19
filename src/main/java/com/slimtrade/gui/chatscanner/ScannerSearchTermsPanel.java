@@ -40,19 +40,19 @@ public class ScannerSearchTermsPanel extends AbstractOptionPanel {
         addPanel(ignoreTermsInput);
     }
 
-    public void setSearchTerms(String text){
+    public void setSearchTerms(String text) {
         searchTermsInput.setText(text);
     }
 
-    public String getSearchTerms(){
+    public String getSearchTerms() {
         return searchTermsInput.getText();
     }
 
-    public void setIgnoreTerms(String text){
+    public void setIgnoreTerms(String text) {
         ignoreTermsInput.setText(text);
     }
 
-    public String getIgnoreTerms(){
+    public String getIgnoreTerms() {
         return ignoreTermsInput.getText();
     }
 

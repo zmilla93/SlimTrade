@@ -10,7 +10,6 @@ import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.managers.MessageManager;
 import com.slimtrade.modules.filetailing.FileTailer;
 import com.slimtrade.modules.filetailing.FileTailerListener;
 
@@ -108,7 +107,7 @@ public class ChatParser implements FileTailerListener {
 
     }
 
-    private void handleChatScanner(){
+    private void handleChatScanner() {
 
     }
 

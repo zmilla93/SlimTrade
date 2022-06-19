@@ -52,7 +52,8 @@ public class ZUtil {
             commands.add(builder.toString().trim());
         for (int i = 0; i < commands.size(); i++) {
             String clean = commands.get(i);
-            if (!clean.startsWith("@") && !clean.startsWith("/")) clean = "@" + pasteReplacement.playerName + " " + clean;
+            if (!clean.startsWith("@") && !clean.startsWith("/"))
+                clean = "@" + pasteReplacement.playerName + " " + clean;
             clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
             clean = clean.replaceAll("\\{player}", pasteReplacement.playerName);
             String itemPrefix = pasteReplacement.itemQuantity > 0 ? pasteReplacement.itemQuantity + " " : "1 ";

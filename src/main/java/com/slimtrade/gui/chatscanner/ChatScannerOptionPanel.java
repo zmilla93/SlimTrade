@@ -4,7 +4,7 @@ import com.slimtrade.gui.options.AbstractOptionPanel;
 
 public class ChatScannerOptionPanel extends AbstractOptionPanel {
 
-    public ChatScannerOptionPanel(){
+    public ChatScannerOptionPanel() {
         super(false);
     }
 

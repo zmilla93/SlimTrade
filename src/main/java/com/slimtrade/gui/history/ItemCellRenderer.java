@@ -1,8 +1,8 @@
 package com.slimtrade.gui.history;
 
 import com.slimtrade.core.data.SaleItemWrapper;
-import com.slimtrade.gui.components.LabelHolder;
 import com.slimtrade.gui.components.CurrencyLabelFactory;
+import com.slimtrade.gui.components.LabelHolder;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
