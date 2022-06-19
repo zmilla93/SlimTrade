@@ -84,9 +84,8 @@ public class ChatParser implements FileTailerListener {
 
     private void handleChatScanner(String line) {
         Matcher chatMatcher = References.chatPatten.matcher(line);
-        System.out.println("LINE:" + line);
         if (!chatMatcher.matches()) return;
-        System.out.println("MSG:" + chatMatcher.group("message"));
+        System.out.println(chatMatcher.group("playerName") + ": " + chatMatcher.group("message"));
         String message = chatMatcher.group("message");
         if (SaveManager.chatScannerSaveFile.data.searching) {
             for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {

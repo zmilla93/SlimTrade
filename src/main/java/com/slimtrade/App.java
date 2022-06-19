@@ -5,6 +5,7 @@ import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.jna.GlobalKeyboardListener;
 import com.slimtrade.core.jna.GlobalMouseListener;
 import com.slimtrade.core.managers.AudioManager;
+import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.ColorManager;
@@ -70,6 +71,7 @@ public class App {
         LangRegex.compileAll();
         POEInterface.init();
         AudioManager.init();
+        FontManager.loadFonts();
 
         // UI
         try {

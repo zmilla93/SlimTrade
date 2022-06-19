@@ -6,6 +6,7 @@ import com.slimtrade.core.enums.MacroButtonType;
 import com.slimtrade.core.hotkeys.CommandHotkey;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.hotkeys.IHotkeyAction;
+import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.*;
@@ -150,6 +151,7 @@ public class NotificationPanel extends ColorPanel {
         if (createListeners)
             addListeners();
         updateSize();
+        FontManager.applyFont(playerNameButton);
     }
 
     private GridBagConstraints addMacrosToPanel(JPanel panel, ArrayList<MacroButton> macros) {

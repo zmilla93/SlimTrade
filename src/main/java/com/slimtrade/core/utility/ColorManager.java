@@ -311,6 +311,12 @@ public class ColorManager<T> {
 //        }
     }
 
+//    public static JLabel applyLanguageFont(JLabel component){
+//        FontManager.getFontLanguage(component.getText());
+//        FontManager.applyFont(component);
+//        return component;
+//    }
+
     public static void recursiveUpdateUI(JComponent component) {
         component.updateUI();
         for (Component child : component.getComponents()) {

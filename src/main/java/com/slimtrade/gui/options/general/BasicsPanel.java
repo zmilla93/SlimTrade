@@ -4,6 +4,7 @@ import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.basic.HotkeyButton;
+import com.slimtrade.gui.components.LanguageTextField;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -14,7 +15,7 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
 
     JPanel outerPanel = new JPanel();
 
-    private JTextField characterName = new JTextField(14);
+    private JTextField characterNameInput = new LanguageTextField(14);
     private JCheckBox showGuildName = new JCheckBox();
     private JCheckBox folderOffset = new JCheckBox();
     //    private JCheckBox colorBlind = new JCheckBox();
@@ -43,7 +44,7 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
         addCheckbox("Folder Offer", folderOffset);
 //        addCheckbox("Color Blind", colorBlind);
         gc.gridwidth = 1;
-        addLabelComponentPair("Character Name", characterName);
+        addLabelComponentPair("Character Name", characterNameInput);
 //        addLabelComponentPair("Color Theme", colorTheme);
 
 //        addComponent(new JButton("Do Some Shit"));
@@ -96,7 +97,7 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
     public void save() {
         SaveManager.settingsSaveFile.data.showGuildName = showGuildName.isSelected();
         SaveManager.settingsSaveFile.data.folderOffset = folderOffset.isSelected();
-        SaveManager.settingsSaveFile.data.characterName = characterName.getText();
+        SaveManager.settingsSaveFile.data.characterName = characterNameInput.getText();
         SaveManager.settingsSaveFile.data.quickPasteMode = (QuickPasteManager.QuickPasteMode) quickPasteCombo.getSelectedItem();
         SaveManager.settingsSaveFile.data.quickPasteHotkey = quickPasteHotkey.getData();
         QuickPasteManager.setMode(SaveManager.settingsSaveFile.data.quickPasteMode);
@@ -106,7 +107,7 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
     public void load() {
         showGuildName.setSelected(SaveManager.settingsSaveFile.data.showGuildName);
         folderOffset.setSelected(SaveManager.settingsSaveFile.data.folderOffset);
-        characterName.setText(SaveManager.settingsSaveFile.data.characterName);
+        characterNameInput.setText(SaveManager.settingsSaveFile.data.characterName);
         quickPasteCombo.setSelectedItem(SaveManager.settingsSaveFile.data.quickPasteMode);
         quickPasteHotkey.setData(SaveManager.settingsSaveFile.data.quickPasteHotkey);
         QuickPasteManager.setMode(SaveManager.settingsSaveFile.data.quickPasteMode);
