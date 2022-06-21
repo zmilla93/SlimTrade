@@ -1,7 +1,12 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.App;
+import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.managers.AudioManager;
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.managers.FrameManager;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.Date;
+import java.util.Random;
 
 // TODO : CLEAN UP THIS FILE
 public class TradeUtil {
@@ -33,22 +39,20 @@ public class TradeUtil {
         return fixedDouble;
     }
 
-//    public static POEImage getPOEImage(String input) {
-//        if (input == null) {
-//            return null;
-//        }
-//        input = input.toLowerCase();
-//        for (POEImage poeImage : POEImage.values()) {
-//            if (poeImage.getTags() != null) {
-//                for (String tag : poeImage.getTags()) {
-//                    if (tag.toLowerCase().equals(input.toLowerCase())) {
-//                        return poeImage;
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
+    public static void changeCharacterName() {
+        if (SaveManager.settingsSaveFile.data.characterName == null) return;
+        App.chatParser.startChangeCharacterName();
+        Random random = new Random();
+        int rng = random.nextInt(1000000, 9999999);
+        POEInterface.runCommand("@{self} Change Character #" + rng, new PasteReplacement(SaveManager.settingsSaveFile.data.characterName, null));
+    }
+
+    public static void changeCharacterName(String newName) {
+        System.out.println("NEW CHAR SET ::: " + newName);
+        SaveManager.settingsSaveFile.data.characterName = newName;
+        SaveManager.settingsSaveFile.saveToDisk(false);
+        SwingUtilities.invokeLater(() -> FrameManager.optionsWindow.refreshCharacterName());
+    }
 
     public static int getAudioPercent(float f) {
         f = f + AudioManager.RANGE - AudioManager.MAX_VOLUME;

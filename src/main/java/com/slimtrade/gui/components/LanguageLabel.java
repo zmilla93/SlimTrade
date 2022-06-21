@@ -6,11 +6,11 @@ import javax.swing.*;
 
 public class LanguageLabel extends JLabel {
 
-    public LanguageLabel(){
+    public LanguageLabel() {
 
     }
 
-    public LanguageLabel(String text){
+    public LanguageLabel(String text) {
         super(text);
         updateFont();
     }
@@ -21,7 +21,7 @@ public class LanguageLabel extends JLabel {
         updateFont();
     }
 
-    private void updateFont(){
+    private void updateFont() {
         FontManager.applyFont(this);
     }
 

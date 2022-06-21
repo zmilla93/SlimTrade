@@ -7,13 +7,13 @@ import com.slimtrade.gui.messaging.NotificationPanel;
 
 import javax.swing.*;
 
-public class CommandHotkey implements IHotkeyAction {
+public class NotificationPanelHotkey implements IHotkeyAction {
 
-    private PasteReplacement pasteReplacement;
-    private NotificationPanel notificationPanel;
-    private MacroButton macroButton;
+    private final PasteReplacement pasteReplacement;
+    private final NotificationPanel notificationPanel;
+    private final MacroButton macroButton;
 
-    public CommandHotkey(MacroButton macroButton, NotificationPanel notificationPanel, PasteReplacement pasteReplacement) {
+    public NotificationPanelHotkey(MacroButton macroButton, NotificationPanel notificationPanel, PasteReplacement pasteReplacement) {
         this.macroButton = macroButton;
         this.notificationPanel = notificationPanel;
         this.pasteReplacement = pasteReplacement;
@@ -22,7 +22,7 @@ public class CommandHotkey implements IHotkeyAction {
     @Override
     public void execute() {
         SwingUtilities.invokeLater(() -> notificationPanel.handleHotkeyMutual(macroButton));
-        POEInterface.pasteWithFocus(macroButton.lmbResponse, pasteReplacement);
+        POEInterface.runCommand(macroButton.lmbResponse, pasteReplacement);
     }
 
 }

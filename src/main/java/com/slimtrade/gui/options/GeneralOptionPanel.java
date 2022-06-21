@@ -9,11 +9,12 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
 
     // FIXME : Move stash button to poe panel
     private JButton stashButton = new JButton("Adjust Stash Location");
+    private final BasicsPanel basicsPanel = new BasicsPanel();
 
     public GeneralOptionPanel() {
 
         addHeader("Basics");
-        addPanel(new BasicsPanel());
+        addPanel(basicsPanel);
         addVerticalStrut();
 //        addHeader("Display");
 //        addPanel(new DisplaySettingsPanel());
@@ -31,6 +32,10 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
         addPanel(new PathOfExilePanel());
         addPanel(stashButton);
         addListeners();
+    }
+
+    public BasicsPanel getBasicsPanel() {
+        return basicsPanel;
     }
 
     private void addListeners() {

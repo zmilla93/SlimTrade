@@ -89,6 +89,7 @@ public class SettingsSaveFile {
     public HotkeyData chatScannerHotkey;
     public HotkeyData stashSortHotkey;
     public HotkeyData closeTradeHotkey;
+    public HotkeyData changeCharacterHotkey;
 
     // POE Hotkeys
     public HotkeyData delveHotkey;

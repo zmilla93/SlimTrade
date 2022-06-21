@@ -44,10 +44,9 @@ public class SaveManager {
                     SaveManager.settingsSaveFile.data.iconSizeChanged = false;
                 }
                 SaveManager.settingsSaveFile.data.buildMacroCache();
-//                SaveManager.settingsSaveFile.data.buildThresholdMap();
-                assert SwingUtilities.isEventDispatchThread();
                 // FIXME : force update ui only needs to run if colorblind mode was changed.
-                FrameManager.messageManager.forceUpdateUI();
+                SwingUtilities.invokeLater(() -> FrameManager.messageManager.forceUpdateUI());
+
             }
 
             @Override

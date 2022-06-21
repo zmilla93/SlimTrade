@@ -11,16 +11,16 @@ import javax.swing.event.DocumentListener;
  */
 public class LanguageTextField extends JTextField {
 
-    public LanguageTextField(){
+    public LanguageTextField() {
         setup();
     }
 
-    public LanguageTextField(int columns){
+    public LanguageTextField(int columns) {
         super(columns);
         setup();
     }
 
-    private void setup(){
+    private void setup() {
         updateFont();
         getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -40,7 +40,7 @@ public class LanguageTextField extends JTextField {
         });
     }
 
-    private void updateFont(){
+    private void updateFont() {
         FontManager.applyFont(this);
     }
 

@@ -14,6 +14,7 @@ public class References {
     public static final String REGEX_SUFFIX = ")";
 
     public static final Pattern chatPatten = Pattern.compile(REGEX_CLIENT_CHAT_PREFIX + REGEX_SUFFIX);
+    public static final Pattern whisperPattern = Pattern.compile(REGEX_CLIENT_PREFIX + ".*" + REGEX_SUFFIX);
 
     public static final int BUTTON_SPACER = 5;
     public static final int COMPONENT_SPACER = 10;

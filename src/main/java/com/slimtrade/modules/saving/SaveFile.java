@@ -68,13 +68,19 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
         }
     }
 
+    public synchronized void saveToDisk() {
+        saveToDisk(true);
+    }
+
     /**
      * Saves the data class to a json file.
      */
-    public synchronized void saveToDisk() {
+    public synchronized void saveToDisk(boolean procSavables) {
         try {
-            for (ISavable c : savables) {
-                c.save();
+            if (procSavables) {
+                for (ISavable c : savables) {
+                    c.save();
+                }
             }
             File file = new File(path);
             Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);

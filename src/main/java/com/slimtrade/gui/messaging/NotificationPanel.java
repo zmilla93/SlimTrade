@@ -3,9 +3,9 @@ package com.slimtrade.gui.messaging;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MacroButtonType;
-import com.slimtrade.core.hotkeys.CommandHotkey;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.hotkeys.IHotkeyAction;
+import com.slimtrade.core.hotkeys.NotificationPanelHotkey;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
@@ -173,21 +173,21 @@ public class NotificationPanel extends ColorPanel {
             panel.add(button, gc);
             if (createListeners) {
                 if (!hotkeyMap.containsKey(macro.hotkeyData))
-                    hotkeyMap.put(macro.hotkeyData, new CommandHotkey(macro, this, pasteReplacement));
+                    hotkeyMap.put(macro.hotkeyData, new NotificationPanelHotkey(macro, this, pasteReplacement));
                 button.addMouseListener(new AdvancedMouseListener() {
                     @Override
                     public void click(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             if (!ZUtil.isEmptyString(macro.lmbResponse)) {
                                 System.out.println("mc:" + macro.lmbResponse);
-                                POEInterface.pasteWithFocus(macro.lmbResponse, pasteReplacement);
+                                POEInterface.runCommand(macro.lmbResponse, pasteReplacement);
 //                                if (macro.lmbResponse.contains("/invite")) onInvite();
                             }
 //                            if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                         if (e.getButton() == MouseEvent.BUTTON3) {
                             if (!ZUtil.isEmptyString(macro.rmbResponse))
-                                POEInterface.pasteWithFocus(macro.rmbResponse, pasteReplacement);
+                                POEInterface.runCommand(macro.rmbResponse, pasteReplacement);
 //                            if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                         handleHotkeyMutual(macro);

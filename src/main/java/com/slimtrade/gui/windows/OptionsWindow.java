@@ -19,6 +19,7 @@ public class OptionsWindow extends CustomDialog {
     private final AbstractMacroOptionPanel outgoingMacroPanel;
     private IgnoreItemOptionPanel ignorePanel = new IgnoreItemOptionPanel();
     private Visibility visibility;
+    private GeneralOptionPanel generalOptionPanel = new GeneralOptionPanel();
 
     public OptionsWindow() {
         super("Options");
@@ -27,7 +28,7 @@ public class OptionsWindow extends CustomDialog {
         outgoingMacroPanel = new OutgoingMacroPanel();
 
         // Panels
-        OptionPanel general = new OptionPanel("General", new GeneralOptionPanel());
+        OptionPanel general = new OptionPanel("General", generalOptionPanel);
         OptionPanel display = new OptionPanel("Display", new DisplayOptionPanel());
         OptionPanel audio = new OptionPanel("Audio", new AudioOptionPanel());
         OptionPanel stash = new OptionPanel("Stash Tabs", new StashOptionPanel());
@@ -139,6 +140,10 @@ public class OptionsWindow extends CustomDialog {
     public void reloadExampleTrades() {
         incomingMacroPanel.reloadExampleTrade();
         outgoingMacroPanel.reloadExampleTrade();
+    }
+
+    public void refreshCharacterName() {
+        generalOptionPanel.getBasicsPanel().refreshCharacterName();
     }
 
     public IgnoreItemOptionPanel getIgnorePanel() {

@@ -67,7 +67,6 @@ public class FontManager {
         return FontLanguage.DEFAULT;
     }
 
-    // FIXME : Merge these functions
     // FIXME (Minor) : default font is just set to whatever font is first.
     //  Works for now, will break if default font is changed at runtime
     public static JLabel applyFont(JLabel component) {

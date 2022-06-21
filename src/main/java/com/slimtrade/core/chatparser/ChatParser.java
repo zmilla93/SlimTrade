@@ -8,6 +8,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
+import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.filetailing.FileTailer;
@@ -24,12 +25,15 @@ public class ChatParser implements FileTailerListener {
     public static final int tailerDelayMS = 250;
 
     // Listeners
-    private ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
-    private ArrayList<ITradeListener> preloadTradeListeners = new ArrayList<>();
-    private ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
-    private ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
+    private final ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
+    private final ArrayList<ITradeListener> preloadTradeListeners = new ArrayList<>();
+    private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
+    private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
 
     // State
+    private boolean changeCharacter;
+    private String changeCharacterString;
+    private int changeCharacterChecks;
     private boolean loaded; // Set to true after file has been read to EOF once
     private boolean open;
     private String path;
@@ -60,14 +64,18 @@ public class ChatParser implements FileTailerListener {
 
     public void parseLine(String line) {
         if (!open) return;
+        boolean foundTrade = false;
         if (line.contains("@")) {
             TradeOffer tradeOffer = TradeOffer.getTradeFromMessage(line);
             if (tradeOffer != null) {
                 handleTradeOffer(tradeOffer);
+                foundTrade = true;
             }
-        } else if (loaded) {
+        }
+        if (!foundTrade && loaded) {
             // Chat Scanner
             handleChatScanner(line);
+            handleChangeCharacter(line);
             // Player Joined Area
             for (LangRegex lang : LangRegex.values()) {
                 Matcher matcher = lang.joinedAreaPattern.matcher(line);
@@ -104,8 +112,21 @@ public class ChatParser implements FileTailerListener {
 
     }
 
-    private void handleChatScanner() {
-
+    private void handleChangeCharacter(String line) {
+        if (!changeCharacter) return;
+        Matcher chatMatcher = References.whisperPattern.matcher(line);
+        if (!chatMatcher.matches()) return;
+        String playerName = chatMatcher.group("playerName");
+        String message = chatMatcher.group("message");
+        if (playerName.equals(SaveManager.settingsSaveFile.data.characterName)) {
+            changeCharacterString = message;
+        } else if (message.equals(changeCharacterString)) {
+            TradeUtil.changeCharacterName(playerName);
+            changeCharacter = false;
+        } else {
+            changeCharacterChecks++;
+        }
+        if (changeCharacterChecks > 10) changeCharacter = false;
     }
 
     private void handleTradeOffer(TradeOffer offer) {
@@ -157,6 +178,11 @@ public class ChatParser implements FileTailerListener {
             default:
                 return TradeOfferType.UNKNOWN;
         }
+    }
+
+    public void startChangeCharacterName() {
+        changeCharacter = true;
+        changeCharacterChecks = 0;
     }
 
     private String cleanResult(Matcher matcher, String text) {

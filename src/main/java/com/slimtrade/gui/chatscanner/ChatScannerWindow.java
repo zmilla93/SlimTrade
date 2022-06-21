@@ -18,13 +18,12 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     private static final String STOP_SCANNING = "Stop Scanning";
     public static final int TEXT_COLUMNS = 12;
 
-    //    private final JTabbedPane tabbedPane = new JTabbedPane();
     private final JList<ChatScannerCustomizerPanel> entryList = new JList<>();
     private final JButton infoButton = new JButton("Info");
     private final JButton newSearchButton = new JButton("New Entry");
     private final AdvancedButton scanButton = new AdvancedButton(START_SCANNING);
 
-    private CardLayout cardLayout = new CardLayout();
+    private final CardLayout cardLayout = new CardLayout();
 
     // Panels
     private final JPanel cardPanel = new JPanel(new CardLayout());
@@ -43,18 +42,19 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
 
     private final ArrayList<ChatScannerCustomizerPanel> panels = new ArrayList<>();
 
-    private final JPanel mainButtonPanel = new JPanel(new GridBagLayout());
-    private JButton revertButton = new JButton("Revert Changes");
-    private JButton saveButton = new JButton("Save");
+    private final JButton revertButton = new JButton("Revert Changes");
+    private final JButton saveButton = new JButton("Save");
 
     public ChatScannerWindow() {
         super("Chat Scanner");
         cardPanel.setLayout(cardLayout);
+        cardPanel.add(infoPanel, INFO_PANEL_TITLE);
         cardPanel.add(newEntryPanel, ENTRY_PANEL_TITLE);
         cardPanel.add(searchingPanel, SEARCHING_PANEL_TITLE);
-        cardPanel.add(infoPanel, INFO_PANEL_TITLE);
         cardPanel.add(renamePanel, RENAME_PANEL_TITLE);
         cardPanel.add(deletePanel, DELETE_PANEL_TITLE);
+        cardLayout.show(cardPanel, INFO_PANEL_TITLE);
+        scanButton.setEnabled(false);
 
         // Button Panel
         JPanel buttonPanel = new JPanel(new BorderLayout());
@@ -74,15 +74,14 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         // Button Panel
         JPanel mainButtonBuffer = new JPanel(new BorderLayout());
         GridBagConstraints gc = ZUtil.getGC();
+        JPanel mainButtonPanel = new JPanel(new GridBagLayout());
         mainButtonPanel.add(revertButton, gc);
         gc.gridx++;
         mainButtonPanel.add(saveButton, gc);
         mainButtonBuffer.add(mainButtonPanel, BorderLayout.EAST);
 
         // Container
-//        Container contentPanel = getContentPane();
         contentPanel.setLayout(new BorderLayout());
-//        contentPanel.add(new ChatScannerCustomizerPanel(), BorderLayout.CENTER);
         contentPanel.add(cardPanel, BorderLayout.CENTER);
         contentPanel.add(new JSeparator(), BorderLayout.NORTH);
         contentPanel.add(sidebar, BorderLayout.WEST);
@@ -97,12 +96,9 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     }
 
     private void addListeners() {
-        ChatScannerWindow self = this;
         infoButton.addActionListener(e -> cardLayout.show(cardPanel, INFO_PANEL_TITLE));
         newSearchButton.addActionListener(e -> cardLayout.show(cardPanel, ENTRY_PANEL_TITLE));
-        scanButton.addActionListener(e -> {
-            toggleSearch();
-        });
+        scanButton.addActionListener(e -> toggleSearch());
         entryList.addListSelectionListener(e -> {
             ChatScannerCustomizerPanel listPanel = entryList.getSelectedValue();
             if (listPanel == null) {
@@ -262,8 +258,6 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
                 break;
             }
         }
-        System.out.println("DELETENAME : " + name);
-        System.out.println("DELETE : " + panel);
         if (panel == null) return;
         panels.remove(panel);
         cardPanel.remove(panel);

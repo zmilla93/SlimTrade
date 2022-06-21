@@ -93,6 +93,10 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
         gc.gridy++;
     }
 
+    public void refreshCharacterName() {
+        characterNameInput.setText(SaveManager.settingsSaveFile.data.characterName);
+    }
+
     @Override
     public void save() {
         SaveManager.settingsSaveFile.data.showGuildName = showGuildName.isSelected();
