@@ -20,5 +20,6 @@ public class References {
     public static final int COMPONENT_SPACER = 10;
 
     public static final Point DEFAULT_MESSAGE_LOCATION = new Point(800, 0);
+    public static final Point DEFAULT_MENUBAR_LOCATION = new Point(0, 0);
 
 }

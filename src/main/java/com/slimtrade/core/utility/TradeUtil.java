@@ -2,6 +2,7 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
 import com.slimtrade.core.data.PasteReplacement;
+import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.managers.FrameManager;
@@ -52,6 +53,19 @@ public class TradeUtil {
         SaveManager.settingsSaveFile.data.characterName = newName;
         SaveManager.settingsSaveFile.saveToDisk(false);
         SwingUtilities.invokeLater(() -> FrameManager.optionsWindow.refreshCharacterName());
+    }
+
+    public static void applyAnchorPoint(Window window, Point point, Anchor anchor) {
+        Point p = new Point(point.x, point.y);
+        if (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT) p.x -= window.getWidth();
+        if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT) p.y -= window.getHeight();
+        window.setLocation(p);
+    }
+
+    public static Rectangle getBufferedBounds(Rectangle bounds) {
+        bounds.width += 4;
+        bounds.height += 4;
+        return bounds;
     }
 
     public static int getAudioPercent(float f) {

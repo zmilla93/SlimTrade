@@ -7,7 +7,7 @@ public class MenubarButton extends JButton {
 
     public MenubarButton(String text) {
         setText(text);
-        int insetVertical = 0;
+        int insetVertical = 1;
         int insetHorizontal = 10;
         setMargin(new Insets(insetVertical, insetHorizontal, insetVertical, insetHorizontal));
     }

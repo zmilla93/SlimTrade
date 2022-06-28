@@ -1,6 +1,7 @@
 package com.slimtrade;
 
 import com.slimtrade.core.chatparser.ChatParser;
+import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.jna.GlobalKeyboardListener;
 import com.slimtrade.core.jna.GlobalMouseListener;
@@ -35,9 +36,9 @@ public class App {
 
     public static boolean initialized;
 
-    public enum State {LOADING, RUNNING, EDIT_OVERLAY}
+//    public enum State {LOADING, RUNNING, EDIT_OVERLAY}
 
-    private static State state = State.LOADING;
+    private static AppState state = AppState.LOADING;
 
     public static boolean debug = true;
 
@@ -99,7 +100,7 @@ public class App {
 
                 // Show Windows
                 if (SaveManager.settingsSaveFile.data.enableMenuBar) {
-                    FrameManager.menubarDialog.setVisible(true);
+                    FrameManager.menubarIcon.setVisible(true);
                 }
                 // FIXME : Should probably move this to inside frame manager
                 FrameManager.messageManager.setVisible(true);
@@ -131,7 +132,7 @@ public class App {
         initParsers();
         HotkeyManager.loadHotkeys();
         initialized = true;
-        setState(State.RUNNING);
+        setState(AppState.RUNNING);
         SwingUtilities.invokeLater(() -> {
             loadingDialog.dispose();
         });
@@ -161,11 +162,11 @@ public class App {
 
     }
 
-    public static void setState(State state) {
+    public static void setState(AppState state) {
         App.state = state;
     }
 
-    public static State getState() {
+    public static AppState getState() {
         return App.state;
     }
 

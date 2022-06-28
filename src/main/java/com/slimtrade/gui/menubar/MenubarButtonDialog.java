@@ -1,35 +1,33 @@
 package com.slimtrade.gui.menubar;
 
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.colortheme.IconFactory;
+import com.slimtrade.modules.colortheme.IUIResizeListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class MenubarButtonDialog extends BasicDialog {
-
-    private JPanel iconPanel = new JPanel();
+public class MenubarButtonDialog extends BasicDialog implements IUIResizeListener {
 
     public MenubarButtonDialog() {
-
-        ImageIcon icon = IconFactory.getIcon("/icons/default/tagx64.png");
-//        JLabel iconLabel = new JLabel(icon);
         JButton iconButton = new IconButton("/icons/default/tagx64.png");
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(iconButton, BorderLayout.CENTER);
         pack();
-        iconButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                setVisible(false);
-                FrameManager.menubarDialog.setVisible(true);
-            }
-        });
+        ColorManager.addFontListener(this);
+    }
+
+    @Override
+    public void onFontSizeChanged() {
+
+    }
+
+    @Override
+    public void onIconSizeChanged() {
+        TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
     }
 
 }

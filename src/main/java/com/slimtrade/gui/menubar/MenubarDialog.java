@@ -1,32 +1,37 @@
 package com.slimtrade.gui.menubar;
 
+import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.POEInterface;
+import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.colortheme.IUIResizeListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class MenubarDialog extends BasicDialog implements IThemeListener {
+public class MenubarDialog extends BasicDialog implements IUIResizeListener {
 
     private JButton optionsButton;
     private JButton chatScannerButton;
     private JButton historyButton;
     private JButton hideoutButton;
     private JButton exitButton;
-    private final int EXIT_INSET = 8;
-    private final int INSET = 1;
+    private final Component horizontalSeparator;
+    private final Component verticalSeparator;
+    private static final int EXIT_INSET = 8;
+    private static final int INSET = 1;
 
     public MenubarDialog() {
+        horizontalSeparator = Box.createHorizontalStrut(EXIT_INSET);
+        verticalSeparator = Box.createVerticalStrut(EXIT_INSET);
         buildIconButtons();
-        ColorManager.addThemeListener(this);
+        ColorManager.addFontListener(this);
     }
 
     private void addListeners() {
@@ -36,35 +41,11 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         // FIXME:
         hideoutButton.addActionListener(e -> POEInterface.pasteWithFocus("/hideout"));
         exitButton.addActionListener(e -> System.exit(0));
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                hideIfOutOfBounds(e.getPoint());
-            }
-        });
-
-        addButtonExitListener(optionsButton);
-        addButtonExitListener(historyButton);
-        addButtonExitListener(chatScannerButton);
-        addButtonExitListener(historyButton);
-        addButtonExitListener(exitButton);
     }
 
-    private void addButtonExitListener(JButton button) {
-        button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                hideIfOutOfBounds(MouseInfo.getPointerInfo().getLocation());
-            }
-        });
-    }
-
-    private void hideIfOutOfBounds(Point point) {
-        if (contains(point)) return;
-        setVisible(false);
-        FrameManager.menubarIcon.setVisible(true);
+    public void rebuild() {
+        buildIconButtons();
+        TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
     }
 
     private void buildIconButtons() {
@@ -77,19 +58,17 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         hideoutButton = new IconButton("/icons/custom/homex64.png");
         exitButton = new IconButton("/icons/default/power.png");
         gc.insets = new Insets(INSET, INSET, INSET, INSET);
-        contentPanel.add(historyButton, gc);
-        gc.gridx++;
-        gc.insets.left = 0;
-        contentPanel.add(chatScannerButton, gc);
-        gc.gridx++;
-        contentPanel.add(hideoutButton, gc);
-        gc.gridx++;
-        contentPanel.add(optionsButton, gc);
-        gc.gridx++;
-        contentPanel.add(Box.createHorizontalStrut(EXIT_INSET), gc);
-        gc.gridx++;
-        contentPanel.add(exitButton, gc);
-        gc.gridx++;
+
+        Component[] components = getOrderedComponents(SaveManager.overlaySaveFile.data.menubarAnchor);
+
+        for (int i = 0; i < components.length; i++) {
+            Component c = components[i];
+            if (i == getComponentCount() - 1) gc.insets.right = INSET;
+            contentPanel.add(c, gc);
+            gc.gridx++;
+            gc.insets.left = 0;
+        }
+
         addListeners();
         pack();
     }
@@ -117,9 +96,27 @@ public class MenubarDialog extends BasicDialog implements IThemeListener {
         pack();
     }
 
-    @Override
-    public void onThemeChange() {
-//        pack();
-//        container.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Label.foreground")));
+    private Component[] getOrderedComponents(Anchor anchor) {
+        Component[] components;
+        components = new Component[]{historyButton, chatScannerButton, hideoutButton, optionsButton, horizontalSeparator, verticalSeparator, exitButton};
+        if (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT)
+            components = new Component[]{exitButton, horizontalSeparator, verticalSeparator, optionsButton, hideoutButton, chatScannerButton, historyButton};
+        return components;
     }
+
+    private void handleResize() {
+        pack();
+        TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+    }
+
+    @Override
+    public void onFontSizeChanged() {
+        handleResize();
+    }
+
+    @Override
+    public void onIconSizeChanged() {
+        handleResize();
+    }
+
 }

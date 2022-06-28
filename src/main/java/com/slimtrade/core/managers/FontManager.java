@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class FontManager {
-    
+
     public static Font koreanBaseFont;
     public static Font thaiBaseFont;
     private static Font defaultFont;

@@ -1,10 +1,12 @@
 package com.slimtrade.gui.overlays;
 
 import com.slimtrade.core.References;
+import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.managers.FrameManager;
@@ -20,10 +22,11 @@ import java.awt.event.ActionListener;
 public class OverlayInfoDialog extends AbstractDialog implements IThemeListener, ISavable {
 
     // Buttons
-    JButton cancelButton = new JButton("Cancel");
-    JButton restoreDefaultButton = new JButton("Restore Default");
-    JButton saveButton = new JButton("Save");
-    private JComboBox<ExpandDirection> expandCombo = new LimitCombo<>();
+    private final JButton cancelButton = new JButton("Cancel");
+    private final JButton restoreDefaultButton = new JButton("Restore Default");
+    private final JButton saveButton = new JButton("Save");
+    private final JComboBox<ExpandDirection> expandCombo = new LimitCombo<>();
+    private final JComboBox<Anchor> menubarAnchorCombo = new LimitCombo<>();
 
     public OverlayInfoDialog() {
         super();
@@ -32,10 +35,12 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         JPanel outerPanel = new JPanel(new GridBagLayout());
         for (ExpandDirection direction : ExpandDirection.values()) expandCombo.addItem(direction);
+        for (Anchor anchor : Anchor.values()) menubarAnchorCombo.addItem(anchor);
+
 
         // Info Panel
         GridBagConstraints gc = ZUtil.getGC();
-        infoPanel.add(new JLabel("Click and drag the example message."), gc);
+        infoPanel.add(new JLabel("Click and drag the example message and menubar."), gc);
         gc.gridy++;
         infoPanel.add(new JLabel("Hold SHIFT to lock the message to the current monitor."), gc);
 
@@ -60,12 +65,20 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         gc.gridx = 0;
         gc.gridy++;
 
+        comboPanel.add(new JLabel("Menubar Anchor Corner"), gc);
+        gc.gridx++;
+        gc.insets.left = comboSpacer;
+        comboPanel.add(menubarAnchorCombo, gc);
+        gc.insets.left = 0;
+        gc.gridx = 0;
+        gc.gridy++;
+
         // Outer Panel
         gc = ZUtil.getGC();
-        outerPanel.add(comboPanel, gc);
+        outerPanel.add(infoPanel, gc);
         gc.gridy++;
         gc.insets.top = 10;
-        outerPanel.add(infoPanel, gc);
+        outerPanel.add(comboPanel, gc);
         gc.gridy++;
         outerPanel.add(buttonPanel, gc);
 
@@ -86,19 +99,15 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
             FrameManager.messageOverlay.setLocation(FrameManager.messageManager.getLocation());
         });
 
-        restoreDefaultButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FrameManager.messageOverlay.setLocation(References.DEFAULT_MESSAGE_LOCATION);
-            }
+        restoreDefaultButton.addActionListener(e -> {
+            FrameManager.messageOverlay.setLocation(References.DEFAULT_MESSAGE_LOCATION);
+            FrameManager.menubarOverlay.setLocation(References.DEFAULT_MENUBAR_LOCATION);
+            menubarAnchorCombo.setSelectedItem(Anchor.TOP_LEFT);
+            expandCombo.setSelectedItem(ExpandDirection.DOWNWARDS);
         });
 
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                save();
-            }
-        });
+        saveButton.addActionListener(e -> save());
+        menubarAnchorCombo.addActionListener(e -> FrameManager.menubarOverlay.setAnchor((Anchor) menubarAnchorCombo.getSelectedItem()));
     }
 
     @Override
@@ -108,11 +117,17 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
 
     @Override
     public void save() {
-        Point targetPos = FrameManager.messageOverlay.getLocation();
-        SaveManager.overlaySaveFile.data.messageLocation = targetPos;
+        SaveManager.overlaySaveFile.data.messageLocation = FrameManager.messageOverlay.getLocation();
         SaveManager.overlaySaveFile.data.expandDirection = (ExpandDirection) expandCombo.getSelectedItem();
-        FrameManager.messageManager.setAnchorPoint(targetPos);
+        SaveManager.overlaySaveFile.data.menubarAnchor = (Anchor) menubarAnchorCombo.getSelectedItem();
+        SaveManager.overlaySaveFile.data.menubarLocation = FrameManager.menubarOverlay.getAnchorPoint(SaveManager.overlaySaveFile.data.menubarAnchor);
+
+        // Update Other UI
+        FrameManager.messageManager.setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         FrameManager.messageManager.refresh();
+        TradeUtil.applyAnchorPoint(FrameManager.menubarDialog, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+        TradeUtil.applyAnchorPoint(FrameManager.menubarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+        FrameManager.menubarDialog.rebuild();
         FrameManager.setWindowVisibility(AppState.RUNNING);
         SaveManager.overlaySaveFile.saveToDisk();
     }
@@ -120,7 +135,16 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
     @Override
     public void load() {
         FrameManager.messageOverlay.setLocation(SaveManager.overlaySaveFile.data.messageLocation);
+        TradeUtil.applyAnchorPoint(FrameManager.menubarOverlay, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+//        FrameManager.menubarOverlay.setLocation(SaveManager.overlaySaveFile.data.menubarLocation);
         expandCombo.setSelectedItem(SaveManager.overlaySaveFile.data.expandDirection);
+        menubarAnchorCombo.setSelectedItem(SaveManager.overlaySaveFile.data.menubarAnchor);
+
+
+        TradeUtil.applyAnchorPoint(FrameManager.menubarDialog, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+        TradeUtil.applyAnchorPoint(FrameManager.menubarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+
+
     }
 
 }

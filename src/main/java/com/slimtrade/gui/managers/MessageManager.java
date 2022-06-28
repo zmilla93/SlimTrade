@@ -399,11 +399,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     public void checkMouseHover(Point p) {
-        // Increasing the bounds slightly prevents spam when message is on the edge of the screen.
-        Rectangle bounds = getBounds();
-        bounds.width += 4;
-        bounds.height += 4;
-        if (bounds.contains(p)) {
+        if (TradeUtil.getBufferedBounds(getBounds()).contains(p)) {
             if (!mouseHover) {
                 mouseHover = true;
                 fadeToOpacity(1);

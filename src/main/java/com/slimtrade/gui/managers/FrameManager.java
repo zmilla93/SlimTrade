@@ -1,12 +1,15 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.App;
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerWindow;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
+import com.slimtrade.gui.overlays.MenubarOverlay;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
 import com.slimtrade.gui.pinning.PinManager;
@@ -34,6 +37,7 @@ public class FrameManager {
     public static DummyWindow dummyWindow;
     public static OverlayInfoDialog overlayInfoWindow;
     public static MessageOverlay messageOverlay;
+    public static MenubarOverlay menubarOverlay;
     public static StashWindow stashGridWindow;
     public static StashHelperContainer stashHelperContainer;
 
@@ -44,9 +48,9 @@ public class FrameManager {
     private static final HashMap<AppState, Window[]> windowMap = new HashMap<>();
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
 
-    private static AppState state = AppState.RUNNING;
-
     private float resolutionMultiplier = 1;
+
+    private static boolean menubarExpanded = false;
 
     public static void init() {
 
@@ -67,6 +71,7 @@ public class FrameManager {
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
+        menubarOverlay = new MenubarOverlay();
         stashGridWindow = new StashWindow();
 
         dummyWindow = new DummyWindow(); // Omitted from visibility list
@@ -77,11 +82,12 @@ public class FrameManager {
 
         buildCheatSheetWindows();
 
+        // FIXME : Add all windows
         // Group windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow};
-        Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay};
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, stashSortingWindow, menubarIcon, menubarDialog};
+        Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
 
-        // Matching bool array if the window group should remember previous visibility
+        // Matching boolean array so running remember previous visibility.
         Boolean[] runningWindowsVisibility = new Boolean[runningWindows.length];
 
         // Throw the data into maps for ease of use
@@ -93,8 +99,8 @@ public class FrameManager {
 
     public static void setWindowVisibility(AppState newState) {
         assert (SwingUtilities.isEventDispatchThread());
-        Window[] windows = windowMap.get(FrameManager.state);
-        Boolean[] windowVisibility = windowVisibilityMap.get(FrameManager.state);
+        Window[] windows = windowMap.get(App.getState());
+        Boolean[] windowVisibility = windowVisibilityMap.get(App.getState());
         // Hide current Windows
         if (windows != null) {
             for (int i = 0; i < windows.length; i++) {
@@ -111,12 +117,14 @@ public class FrameManager {
             for (int i = 0; i < windows.length; i++) {
                 if (windowVisibility != null) {
                     windows[i].setVisible(windowVisibility[i]);
+
+
                 } else {
                     windows[i].setVisible(true);
                 }
             }
         }
-        FrameManager.state = newState;
+        App.setState(newState);
     }
 
     public static void buildCheatSheetWindows() {
@@ -135,6 +143,30 @@ public class FrameManager {
             }
         }
         PinManager.applyPins();
+    }
+
+    public static void checkMenubarVisibility(Point point) {
+        if (menubarExpanded) {
+            if (!TradeUtil.getBufferedBounds(menubarDialog.getBounds()).contains(point)) {
+                menubarExpanded = false;
+                updateMenubarVisibility();
+            }
+        } else {
+            if (TradeUtil.getBufferedBounds(menubarIcon.getBounds()).contains(point)) {
+                menubarExpanded = true;
+                updateMenubarVisibility();
+            }
+        }
+    }
+
+    private static void updateMenubarVisibility() {
+        if (menubarExpanded) {
+            menubarDialog.setVisible(true);
+            menubarIcon.setVisible(false);
+        } else {
+            menubarIcon.setVisible(true);
+            menubarDialog.setVisible(false);
+        }
     }
 
     public static void centerWindow(Window window) {
