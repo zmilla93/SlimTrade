@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public class PinSaveFile {
 
-    public ArrayList<PinData> pinnables;
+    public ArrayList<PinData> pinnables = new ArrayList<>();
 
 }

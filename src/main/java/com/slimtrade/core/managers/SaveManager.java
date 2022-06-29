@@ -9,6 +9,7 @@ import com.slimtrade.modules.saving.SaveFile;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.ArrayList;
 
 public class SaveManager {
 
@@ -108,4 +109,35 @@ public class SaveManager {
         }
         return saveDirectory;
     }
+
+    public static ArrayList<String> getPotentialClients() {
+        ArrayList<String> paths = new ArrayList<>();
+        for (String path : getCommonDirectories()) {
+            File file = new File(path);
+            if (file.isFile()) paths.add(path);
+        }
+        return paths;
+    }
+
+    private static ArrayList<String> getCommonDirectories() {
+        ArrayList<String> paths = new ArrayList<>();
+        // Iterates A - Z
+        for (int i = 65; i <= 90; i++) {
+            char c = (char) i;
+            // Stand Alone
+            paths.add(c + ":/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            paths.add(c + ":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            paths.add(c + ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            // Steam
+            paths.add(c + ":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(c + ":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(c + ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            // Steam Library
+            paths.add(c + ":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(c + ":/Program Files/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(c + ":/Program Files (x86)/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+        }
+        return paths;
+    }
+
 }

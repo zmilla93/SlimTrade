@@ -13,6 +13,7 @@ import com.slimtrade.gui.overlays.MenubarOverlay;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
 import com.slimtrade.gui.pinning.PinManager;
+import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashHelperContainer;
 import com.slimtrade.gui.stashsorting.StashSortingWindow;
 import com.slimtrade.gui.windows.*;
@@ -32,6 +33,7 @@ public class FrameManager {
     public static ItemIgnoreWindow itemIgnoreWindow;
     public static StashSortingWindow stashSortingWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
+    public static SetupWindow setupWindow;
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -64,6 +66,7 @@ public class FrameManager {
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
         stashSortingWindow = new StashSortingWindow();
+        setupWindow = new SetupWindow();
 
 //        StashHighlighterFrame testHighlighter = new StashHighlighterFrame(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
 //        testHighlighter.setVisible(true);
@@ -95,6 +98,19 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_OVERLAY, overlayWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
 
+    }
+
+    public static void showSetupFrame() {
+
+    }
+
+    public static void showAppFrames() {
+        // FIXME: temp show options
+        FrameManager.optionsWindow.setVisible(true);
+        FrameManager.messageManager.setVisible(true);
+        if (SaveManager.settingsSaveFile.data.enableMenuBar) {
+            FrameManager.menubarIcon.setVisible(true);
+        }
     }
 
     public static void setWindowVisibility(AppState newState) {

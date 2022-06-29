@@ -49,8 +49,7 @@ public class SettingsSaveFile {
     public DateFormat historyDateFormat = DateFormat.MM_DD_YY;
 
     // Path of Exile
-    // FIXME:
-    public String clientPath = "C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt";
+    public String clientPath;
 
     // Enable Features
     public boolean enableIncomingMessages = true;

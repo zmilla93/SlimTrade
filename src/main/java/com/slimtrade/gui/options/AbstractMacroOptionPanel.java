@@ -157,7 +157,6 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.insets.left = 0;
         gc.gridx = 0;
         gc.gridy++;
-
         return panel;
     }
 

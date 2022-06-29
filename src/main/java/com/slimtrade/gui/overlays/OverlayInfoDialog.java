@@ -16,8 +16,6 @@ import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class OverlayInfoDialog extends AbstractDialog implements IThemeListener, ISavable {
 

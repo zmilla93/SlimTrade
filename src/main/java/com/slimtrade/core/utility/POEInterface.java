@@ -4,8 +4,11 @@ import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
 import com.sun.jna.Native;
+import com.sun.jna.platform.DesktopWindow;
+import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +32,8 @@ public class POEInterface {
     private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static final Executor executor = Executors.newSingleThreadExecutor();
     private static final int MAX_TITLE_LENGTH = 1024;
+
+    private static final String GAME_TITLE = "Path of Exile";
 
     public static void init() {
         try {
@@ -181,7 +186,7 @@ public class POEInterface {
     public static boolean isGameFocused(boolean includeApp) {
         String focusedWindowTitle = getFocusedWindowTitle();
         if (includeApp && focusedWindowTitle.startsWith("SLIMTRADEAPP")) return true;
-        return focusedWindowTitle.equals("Path of Exile");
+        return focusedWindowTitle.equals(GAME_TITLE);
     }
 
     private static String getFocusedWindowTitle() {
@@ -189,6 +194,16 @@ public class POEInterface {
         WinDef.HWND hwnd = User32.INSTANCE.GetForegroundWindow();
         User32.INSTANCE.GetWindowText(hwnd, buffer, MAX_TITLE_LENGTH);
         return Native.toString(buffer);
+    }
+
+    @Nullable
+    public static Rectangle getGameRect() {
+        for (DesktopWindow window : WindowUtils.getAllWindows(true)) {
+            if (window.getTitle().equals(GAME_TITLE)) {
+                return window.getLocAndSize();
+            }
+        }
+        return null;
     }
 
     /**

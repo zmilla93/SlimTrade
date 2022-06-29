@@ -71,6 +71,12 @@
             <artifactId>flatlaf-intellij-themes</artifactId>
             <version>2.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.googlecode.soundlibs/jlayer -->
 <!--        <dependency>-->
 <!--            <groupId>com.googlecode.soundlibs</groupId>-->

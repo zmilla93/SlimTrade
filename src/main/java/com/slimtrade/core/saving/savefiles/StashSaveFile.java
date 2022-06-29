@@ -4,12 +4,17 @@ import java.awt.*;
 
 public class StashSaveFile {
 
-    public Rectangle windowRect;
-    public Rectangle gridRect;
+    public Rectangle windowRect = new Rectangle();
+    public Rectangle gridRect = new Rectangle();
     private transient Dimension cellSize;
     private transient Dimension cellSizeQuad;
+//    public Rectangle pathOfExileBounds;
+//    private final float stashOffsetX = 16 / 1920f;
+//    private final float stashOffsetY = 126 / 1080f;
+//    private final float stashOffsetYFolder = 134 / 1080f;
 
     public void buildCache() {
+        if (gridRect == null) return;
         int width = Math.round(gridRect.width / 12f);
         int height = Math.round(gridRect.height / 12f);
         int widthQuad = Math.round(gridRect.width / 24f);

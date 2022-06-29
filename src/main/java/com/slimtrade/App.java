@@ -13,6 +13,7 @@ import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
+import com.slimtrade.gui.managers.SetupManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.LoadingDialog;
@@ -77,35 +78,10 @@ public class App {
         // UI
         try {
             SwingUtilities.invokeAndWait(() -> {
-
                 // Init System Tray Button
                 systemTrayManager = new SystemTrayManager();
                 // Initialize all GUI windows
                 FrameManager.init();
-
-                // Load save file to GUI
-                ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
-                ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme, true);
-                ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-
-                SaveManager.settingsSaveFile.revertChanges();
-                SaveManager.stashSaveFile.revertChanges();
-                SaveManager.chatScannerSaveFile.revertChanges();
-//                FrameManager.messageManager.setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
-//                FrameManager.messageManager.refreshOrder();
-                FrameManager.optionsWindow.reloadExampleTrades();
-                FrameManager.overlayInfoWindow.load();
-
-                PinManager.applyPins();
-
-                // Show Windows
-                if (SaveManager.settingsSaveFile.data.enableMenuBar) {
-                    FrameManager.menubarIcon.setVisible(true);
-                }
-                // FIXME : Should probably move this to inside frame manager
-                FrameManager.messageManager.setVisible(true);
-//                FrameManager.chatScannerWindow.setVisible(true);
-                FrameManager.optionsWindow.setVisible(true);
             });
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
@@ -129,15 +105,43 @@ public class App {
         GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
 
         // Final Setup
-        initParsers();
-        HotkeyManager.loadHotkeys();
-        initialized = true;
-        setState(AppState.RUNNING);
+        if (SetupManager.getSetupPhases().size() > 0)
+            runSetupWizard();
+        else launchApp();
+
         SwingUtilities.invokeLater(() -> {
             loadingDialog.dispose();
         });
 
         System.out.println("Slimtrade Launched");
+
+    }
+
+    private static void runSetupWizard() {
+        SwingUtilities.invokeLater(() -> {
+            FrameManager.setupWindow.setup();
+            FrameManager.setupWindow.setVisible(true);
+        });
+    }
+
+    public static void launchApp() {
+        SwingUtilities.invokeLater(() -> {
+            if (FrameManager.setupWindow != null) {
+                FrameManager.setupWindow.dispose();
+                FrameManager.setupWindow = null;
+            }
+            SaveManager.settingsSaveFile.revertChanges();
+            SaveManager.stashSaveFile.revertChanges();
+            SaveManager.chatScannerSaveFile.revertChanges();
+            FrameManager.optionsWindow.reloadExampleTrades();
+            FrameManager.overlayInfoWindow.load();
+
+            PinManager.applyPins();
+            FrameManager.showAppFrames();
+        });
+        initParsers();
+        HotkeyManager.loadHotkeys();
+        setState(AppState.RUNNING);
     }
 
     public static void initParsers() {
