@@ -1,5 +1,6 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.core.References;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
@@ -185,7 +186,7 @@ public class POEInterface {
 
     public static boolean isGameFocused(boolean includeApp) {
         String focusedWindowTitle = getFocusedWindowTitle();
-        if (includeApp && focusedWindowTitle.startsWith("SLIMTRADEAPP")) return true;
+        if (includeApp && focusedWindowTitle.startsWith(References.APP_PREFIX)) return true;
         return focusedWindowTitle.equals(GAME_TITLE);
     }
 

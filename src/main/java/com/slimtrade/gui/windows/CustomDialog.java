@@ -1,6 +1,7 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
+import com.slimtrade.core.References;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ColorManager;
@@ -28,21 +29,18 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     private static final int RESIZER_PANEL_SIZE = 8;
     private static final int BORDER_SIZE = 1;
-    private final JPanel innerPanel = new JPanel(new BorderLayout());
-    private final JPanel outerPanel = new JPanel(new BorderLayout());
     private boolean pinned;
     private Visibility visibility;
 
     // Resizers
-    private JPanel resizerTop = new JPanel(new BorderLayout());
-    private JPanel resizerBottom = new JPanel(new BorderLayout());
-    private JPanel resizerLeft = new JPanel(new BorderLayout());
-    private JPanel resizerRight = new JPanel(new BorderLayout());
+    private final JPanel resizerTop = new JPanel(new BorderLayout());
+    private final JPanel resizerBottom = new JPanel(new BorderLayout());
+    private final JPanel resizerLeft = new JPanel(new BorderLayout());
+    private final JPanel resizerRight = new JPanel(new BorderLayout());
 
     private final JPanel titleBarPanel = new JPanel(new BorderLayout());
     private final JLabel titleLabel = new JLabel();
     protected final JPanel contentPanel = new JPanel();
-    private final Container container;
     private Point startLocation;
     private Point clickedWindowPoint;
     private Dimension startSize;
@@ -66,7 +64,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         getRootPane().setOpaque(false);
         ColorManager.addFrame(this);
         ColorManager.addThemeListener(this);
-        container = getContentPane();
+        Container container = getContentPane();
         container.setLayout(new BorderLayout());
         PinManager.addPinnable(this);
 
@@ -98,6 +96,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         // Inner Panel
         JPanel contentBorderPanel = new JPanel(new BorderLayout());
         contentBorderPanel.add(contentPanel, BorderLayout.CENTER);
+        JPanel innerPanel = new JPanel(new BorderLayout());
         innerPanel.add(titleBarPanel, BorderLayout.NORTH);
         innerPanel.add(contentPanel, BorderLayout.CENTER);
         innerPanel.setBackground(Color.ORANGE);
@@ -117,6 +116,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         resizerRight.setBackground(ColorManager.TRANSPARENT_CLICKABLE);
 
         // Outer Panel
+        JPanel outerPanel = new JPanel(new BorderLayout());
         outerPanel.add(innerPanel, BorderLayout.CENTER);
         outerPanel.add(resizerTop, BorderLayout.NORTH);
         outerPanel.add(resizerBottom, BorderLayout.SOUTH);
@@ -301,11 +301,13 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     @Override
     public void setTitle(String title) {
-        // FIXME : Make this a constant
-        super.setTitle("SLIMTRADEAPP::" + title);
+        super.setTitle(References.APP_PREFIX + title);
         titleLabel.setText(title);
     }
 
+    // FIXME :  This can't be called after the window is created without causing the size of the window to change.
+    //          The window size and location should be recalculated, or the resizers should remain visible but set to
+    //          be click through. Fixing this would clean up the way pinnables work.
     @Override
     public void setResizable(boolean state) {
         super.setResizable(state);

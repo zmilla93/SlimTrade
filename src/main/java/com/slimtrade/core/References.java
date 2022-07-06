@@ -12,6 +12,7 @@ public class References {
     public static final String REGEX_QUICK_PASTE_PREFIX = "@(?<guildName><.+> )?(?<playerName>.+)(\\s+)(?<message>";
     public static final String REGEX_JOINED_AREA_PREFIX = "(.+ : (?<playerName>.+) ";
     public static final String REGEX_SUFFIX = ")";
+    public static final String APP_PREFIX = "SLIMTRADEAPP::";
 
     public static final Pattern chatPatten = Pattern.compile(REGEX_CLIENT_CHAT_PREFIX + REGEX_SUFFIX);
     public static final Pattern whisperPattern = Pattern.compile(REGEX_CLIENT_PREFIX + ".*" + REGEX_SUFFIX);
