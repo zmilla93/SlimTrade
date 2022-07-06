@@ -7,14 +7,19 @@ import javax.swing.*;
 
 public class NotificationIconButton extends AdvancedButton {
 
-    private final String path;
     private static final int DEFAULT_INSET = NotificationButton.INSET;
-    public int inset;
+    protected String path;
+    private int inset;
 
     public NotificationIconButton(String path) {
         super();
         this.path = path;
         setIcon(ColorManager.getColorIcon(path));
+        updateUI();
+    }
+
+    public void setInset(int inset) {
+        this.inset = inset;
         updateUI();
     }
 

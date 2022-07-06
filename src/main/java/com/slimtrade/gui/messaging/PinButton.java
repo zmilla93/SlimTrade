@@ -1,7 +1,5 @@
 package com.slimtrade.gui.messaging;
 
-import com.slimtrade.core.utility.ColorManager;
-
 public class PinButton extends NotificationIconButton {
 
     private boolean pinned;
@@ -17,9 +15,11 @@ public class PinButton extends NotificationIconButton {
 
     @Override
     public void updateUI() {
-        super.updateUI();
         if (pinned) {
-            setIcon(ColorManager.getColorIcon("/icons/default/pin2x48.png"));
+            path = "/icons/default/pin2x48.png";
+        } else {
+            path = "/icons/default/pin1x48.png";
         }
+        super.updateUI();
     }
 }

@@ -70,8 +70,8 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
         // Title Bar
         if (!thin) {
-            closeButton.inset = TITLE_INSET;
-            pinButton.inset = TITLE_INSET;
+            closeButton.setInset(TITLE_INSET);
+            pinButton.setInset(TITLE_INSET);
         }
         closeButton.setFocusable(false);
         pinButton.setFocusable(false);
