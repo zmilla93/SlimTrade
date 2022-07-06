@@ -29,7 +29,7 @@ public class AdvancedButton extends JButton {
 
     public AdvancedButton(String text) {
         setText(text);
-        setBorder(null);
+//        setBorder(null);
         allowedMouseButtons.add(1);
         allowedMouseButtons.add(3);
         model = getModel();
