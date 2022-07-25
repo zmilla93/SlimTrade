@@ -127,7 +127,7 @@ public class SetupWindow extends JFrame {
                     panelMap.put(cardPanel.getComponentCount(), characterPanel);
                     cardPanel.add(characterPanel, Integer.toString(cardPanel.getComponentCount()));
                     break;
-                case PATH_OF_EXILE_POSITION:
+                case STASH_POSITION:
                     panelMap.put(cardPanel.getComponentCount(), stashPanel);
                     cardPanel.add(stashPanel, Integer.toString(cardPanel.getComponentCount()));
                     break;
@@ -138,5 +138,8 @@ public class SetupWindow extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    public StashSetupPanel getStashPanel() {
+        return stashPanel;
+    }
 
 }

@@ -35,13 +35,11 @@ public class App {
     public static ChatParser chatParser;
     public static ChatParser preloadParser;
 
-    public static boolean initialized;
-
-//    public enum State {LOADING, RUNNING, EDIT_OVERLAY}
-
     private static AppState state = AppState.LOADING;
+    private static AppState previousState = AppState.LOADING;
 
     public static boolean debug = true;
+    public static boolean chatInConsole = false;
 
     public static void main(String[] args) {
 
@@ -120,7 +118,7 @@ public class App {
     private static void runSetupWizard() {
         SwingUtilities.invokeLater(() -> {
             FrameManager.setupWindow.setup();
-            FrameManager.setupWindow.setVisible(true);
+            FrameManager.setWindowVisibility(AppState.SETUP);
         });
     }
 
@@ -141,7 +139,7 @@ public class App {
         });
         initParsers();
         HotkeyManager.loadHotkeys();
-        setState(AppState.RUNNING);
+        App.setState(AppState.RUNNING);
     }
 
     public static void initParsers() {
@@ -167,11 +165,16 @@ public class App {
     }
 
     public static void setState(AppState state) {
+        previousState = App.state;
         App.state = state;
     }
 
     public static AppState getState() {
         return App.state;
+    }
+
+    public static AppState getPreviousState() {
+        return App.previousState;
     }
 
     private static void closeProgram() {

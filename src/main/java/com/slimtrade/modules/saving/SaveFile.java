@@ -109,19 +109,26 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
                         listener.onLoad();
                     }
                     return;
+                } else {
+                    tryInitData();
                 }
             } catch (JsonSyntaxException e) {
+                tryInitData();
                 return;
             }
         }
+        tryInitData();
+        for (ISaveListener listener : listeners) {
+            listener.onLoad();
+        }
+    }
+
+    private void tryInitData() {
         try {
             data = classType.getDeclaredConstructor().newInstance();
-            for (ISaveListener listener : listeners) {
-                listener.onLoad();
-            }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

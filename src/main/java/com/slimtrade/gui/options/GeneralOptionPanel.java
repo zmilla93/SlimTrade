@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options;
 
+import com.slimtrade.core.enums.AppState;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.general.*;
 
@@ -40,8 +41,7 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
 
     private void addListeners() {
         stashButton.addActionListener(e -> {
-            FrameManager.optionsWindow.setVisible(false);
-            FrameManager.stashGridWindow.setVisible(true);
+            FrameManager.setWindowVisibility(AppState.EDIT_STASH);
         });
     }
 

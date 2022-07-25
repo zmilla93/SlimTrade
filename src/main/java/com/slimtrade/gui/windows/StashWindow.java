@@ -1,5 +1,6 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ZUtil;
@@ -16,12 +17,12 @@ import java.awt.event.ActionListener;
 
 public class StashWindow extends CustomDialog implements IThemeListener, ISavable {
 
-    private JButton gridButton = new JButton("Grid");
-    private JButton alignButton = new JButton("Auto Align");
-    private JButton saveButton = new JButton("Save");
-    private JButton cancelButton = new JButton("Cancel");
+    private final JButton gridButton = new JButton("Grid");
+    //    private final JButton alignButton = new JButton("Auto Align");
+    private final JButton saveButton = new JButton("Save");
+    private final JButton cancelButton = new JButton("Cancel");
 
-    private GridPanel gridPanel = new GridPanel();
+    private final GridPanel gridPanel = new GridPanel();
 
     private final int INSET_HORIZONTAL = 8;
     private final int INSET_VERTICAL = 20;
@@ -42,8 +43,10 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
         GridBagConstraints gc = ZUtil.getGC();
         buttonPanel.add(gridButton, gc);
         gc.gridx++;
-        buttonPanel.add(alignButton, gc);
-        gc.gridx++;
+        gc.insets.left = 10;
+//        buttonPanel.add(alignButton, gc);
+//        gc.gridx++;
+
         buttonPanel.add(cancelButton, gc);
         gc.gridx++;
         buttonPanel.add(saveButton, gc);
@@ -57,7 +60,8 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
 
         ColorManager.addThemeListener(this);
 
-        getCloseButton().setVisible(false);
+        closeButton.setVisible(false);
+        pinButton.setVisible(false);
         addListeners();
         pack();
         setSize(500, 500);
@@ -72,17 +76,18 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                save();
                 SaveManager.stashSaveFile.saveToDisk();
-                setVisible(false);
-                FrameManager.optionsWindow.setVisible(true);
+                if (FrameManager.setupWindow != null)
+                    FrameManager.setupWindow.getStashPanel().validateNextButton();
+                FrameManager.setWindowVisibility(App.getPreviousState());
             }
         });
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 load();
-                setVisible(false);
-                FrameManager.optionsWindow.setVisible(true);
+                FrameManager.setWindowVisibility(App.getPreviousState());
             }
         });
     }
@@ -107,6 +112,7 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
 
     @Override
     public void load() {
+        if (SaveManager.stashSaveFile.data.windowRect == null) return;
         setLocation(SaveManager.stashSaveFile.data.windowRect.getLocation());
         setSize(SaveManager.stashSaveFile.data.windowRect.getSize());
     }

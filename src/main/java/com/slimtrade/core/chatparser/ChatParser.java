@@ -1,5 +1,6 @@
 package com.slimtrade.core.chatparser;
 
+import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.data.PlayerMessage;
@@ -93,7 +94,8 @@ public class ChatParser implements FileTailerListener {
     private void handleChatScanner(String line) {
         Matcher chatMatcher = References.chatPatten.matcher(line);
         if (!chatMatcher.matches()) return;
-        System.out.println(chatMatcher.group("playerName") + ": " + chatMatcher.group("message"));
+        if (App.chatInConsole)
+            System.out.println(chatMatcher.group("playerName") + ": " + chatMatcher.group("message"));
         String message = chatMatcher.group("message");
         if (SaveManager.chatScannerSaveFile.data.searching) {
             for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {

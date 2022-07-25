@@ -46,8 +46,8 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     private Dimension startSize;
 
     // Buttons
-    private final NotificationIconButton closeButton = new NotificationIconButton("/icons/default/closex64.png");
-    private final PinButton pinButton = new PinButton();
+    protected final NotificationIconButton closeButton = new NotificationIconButton("/icons/default/closex64.png");
+    protected final PinButton pinButton = new PinButton();
     private int maxWidthAdjust;
     private int maxHeightAdjust;
     private static final int TITLE_INSET = 4;
@@ -272,11 +272,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
                 else maxHeightAdjust = startSize.height - getMinimumSize().height;
             }
         });
-
-    }
-
-    public JButton getCloseButton() {
-        return closeButton;
     }
 
     public int getTitleBarHeight() {

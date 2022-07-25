@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class StashSaveFile {
 
-    public Rectangle windowRect = new Rectangle();
-    public Rectangle gridRect = new Rectangle();
+    public Rectangle windowRect = null;
+    public Rectangle gridRect = null;
     private transient Dimension cellSize;
     private transient Dimension cellSizeQuad;
 //    public Rectangle pathOfExileBounds;

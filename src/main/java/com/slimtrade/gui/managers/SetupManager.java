@@ -29,6 +29,11 @@ public class SetupManager {
         if (SaveManager.settingsSaveFile.data.characterName == null || SaveManager.settingsSaveFile.data.characterName.equals("")) {
             setupPhases.add(SetupPhase.CHARACTER_NAME);
         }
+
+        if (SaveManager.stashSaveFile.data.windowRect == null || SaveManager.stashSaveFile.data.gridRect == null) {
+            setupPhases.add(SetupPhase.STASH_POSITION);
+        }
+
         return setupPhases;
     }
 

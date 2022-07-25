@@ -29,6 +29,7 @@ public class StashHelperContainer extends BasicDialog implements IThemeListener 
     }
 
     public void updateLocation() {
+        if (SaveManager.stashSaveFile.data.gridRect == null) return;
         Point target = SaveManager.stashSaveFile.data.gridRect.getLocation();
         target.y -= getHeight() + OFFSET;
         setLocation(target);

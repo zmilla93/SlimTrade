@@ -88,6 +88,8 @@ public class FrameManager {
         // FIXME : Add all windows
         // Group windows that need to be shown/hidden during state changes
         Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, stashSortingWindow, menubarIcon, menubarDialog};
+        Window[] stashWindows = new Window[]{stashGridWindow};
+        Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
 
         // Matching boolean array so running remember previous visibility.
@@ -96,6 +98,8 @@ public class FrameManager {
         // Throw the data into maps for ease of use
         windowMap.put(AppState.RUNNING, runningWindows);
         windowMap.put(AppState.EDIT_OVERLAY, overlayWindows);
+        windowMap.put(AppState.EDIT_STASH, stashWindows);
+        windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
 
     }
@@ -133,8 +137,6 @@ public class FrameManager {
             for (int i = 0; i < windows.length; i++) {
                 if (windowVisibility != null) {
                     windows[i].setVisible(windowVisibility[i]);
-
-
                 } else {
                     windows[i].setVisible(true);
                 }
