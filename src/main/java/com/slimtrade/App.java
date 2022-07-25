@@ -11,6 +11,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.POEInterface;
+import com.slimtrade.core.utility.VersionNumber;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SetupManager;
@@ -52,6 +53,19 @@ public class App {
         // Init minimum for loading dialog
         ColorManager.loadFonts();
         SaveManager.init();
+
+        // FIXME : Temp
+        // Version Test
+        VersionNumber v1 = new VersionNumber("v0.3.5");
+        VersionNumber v2 = new VersionNumber("v0.4.0");
+        VersionNumber v3 = new VersionNumber("v0.4.5");
+        VersionNumber target = new VersionNumber("v0.4.0");
+        int i1 = v1.compareTo(target);
+        int i2 = v2.compareTo(target);
+        int i3 = v3.compareTo(target);
+        System.out.println("patch?" + (i1));
+        System.out.println("patch?" + (i2));
+        System.out.println("patch?" + (i3));
 
         // Loading Dialog
         try {

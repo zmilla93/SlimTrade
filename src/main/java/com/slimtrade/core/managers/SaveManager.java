@@ -1,8 +1,11 @@
 package com.slimtrade.core.managers;
 
 import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.legacy.SaveFilePatcher;
+import com.slimtrade.core.legacy.VersionSaveFile;
 import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.core.utility.VersionNumber;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.saving.SaveFile;
@@ -22,6 +25,7 @@ public class SaveManager {
     private static final String audioFolderName = "audio";
     private static final String imagesFolderName = "images";
 
+    // Safe Files
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
     public static SaveFile<OverlaySaveFile> overlaySaveFile = new SaveFile<>(getSaveDirectory() + "overlay.json", OverlaySaveFile.class);
     public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + "stash.json", StashSaveFile.class);
@@ -30,7 +34,32 @@ public class SaveManager {
     public static SaveFile<ChatScannerSaveFile> chatScannerSaveFile = new SaveFile<>(getSaveDirectory() + "scanner.json", ChatScannerSaveFile.class);
 
     public static void init() {
+        // Listeners should be added before loading due to callbacks
+        addListeners();
+        handleLegacySaveFiles();
+        settingsSaveFile.loadFromDisk();
+        overlaySaveFile.loadFromDisk();
+        stashSaveFile.loadFromDisk();
+        ignoreSaveFile.loadFromDisk();
+        pinSaveFile.loadFromDisk();
+        chatScannerSaveFile.loadFromDisk();
+    }
 
+    private static void handleLegacySaveFiles() {
+        if(SaveFilePatcher.checkPatchBeta3()){
+            SaveFilePatcher.applyPatchBeta3ToBeta4();
+        }
+//        SaveFile<VersionSaveFile> versionSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", VersionSaveFile.class);
+//        versionSaveFile.loadFromDisk();
+//        VersionNumber saveFileVersion = new VersionNumber(versionSaveFile.data.versionNumber);
+//        VersionNumber targetVersion = new VersionNumber("v0.4.0");
+//        if(saveFileVersion.compareTo(targetVersion) < 0){
+//            System.out.println("PATCHING!!!");
+//        }
+//        System.out.println("VERSION:::" + versionSaveFile.data.versionNumber);
+    }
+
+    private static void addListeners() {
         SaveManager.settingsSaveFile.removeAllListeners();
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
             @Override
@@ -47,7 +76,6 @@ public class SaveManager {
                 SaveManager.settingsSaveFile.data.buildMacroCache();
                 // FIXME : force update ui only needs to run if colorblind mode was changed.
                 SwingUtilities.invokeLater(() -> FrameManager.messageManager.forceUpdateUI());
-
             }
 
             @Override
@@ -81,13 +109,6 @@ public class SaveManager {
                 stashSaveFile.data.buildCache();
             }
         });
-
-        settingsSaveFile.loadFromDisk();
-        overlaySaveFile.loadFromDisk();
-        stashSaveFile.loadFromDisk();
-        ignoreSaveFile.loadFromDisk();
-        pinSaveFile.loadFromDisk();
-        chatScannerSaveFile.loadFromDisk();
     }
 
     public static String getAudioDirectory() {
