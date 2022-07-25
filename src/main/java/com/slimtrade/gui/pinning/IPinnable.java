@@ -6,10 +6,10 @@ public interface IPinnable {
 
     boolean isPinned();
 
-    void applyPin(Point point);
+    void applyPin(Rectangle rectangle);
 
     String getPinTitle();
 
-    Point getPinLocation();
+    Rectangle getPinRectangle();
 
 }

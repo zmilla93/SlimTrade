@@ -66,14 +66,8 @@ public class AudioManager {
         }
     }
 
-    public static int indexOfSound(String name) {
-        for (int i = 0; i < soundFiles.size(); i++) {
-            Sound sound = soundFiles.get(i);
-            if (sound.name.equals(name)) {
-                return i;
-            }
-        }
-        return -1;
+    public static int indexOfSound(Sound sound) {
+        return soundFiles.indexOf(sound);
     }
 
     public static int getCustomFileCount() {

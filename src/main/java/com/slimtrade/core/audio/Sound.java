@@ -6,6 +6,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Sound {
 
@@ -59,6 +60,19 @@ public class Sound {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sound sound = (Sound) o;
+        return Objects.equals(name, sound.name) && soundType == sound.soundType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, soundType);
     }
 
 }

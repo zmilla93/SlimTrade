@@ -2,10 +2,8 @@ package com.slimtrade.core.managers;
 
 import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.legacy.SaveFilePatcher;
-import com.slimtrade.core.legacy.VersionSaveFile;
 import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.core.utility.VersionNumber;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.saving.SaveFile;
@@ -46,7 +44,7 @@ public class SaveManager {
     }
 
     private static void handleLegacySaveFiles() {
-        if(SaveFilePatcher.checkPatchBeta3()){
+        if (SaveFilePatcher.checkPatchBeta3()) {
             SaveFilePatcher.applyPatchBeta3ToBeta4();
         }
 //        SaveFile<VersionSaveFile> versionSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", VersionSaveFile.class);

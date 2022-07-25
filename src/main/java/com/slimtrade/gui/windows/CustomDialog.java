@@ -325,8 +325,9 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     }
 
     @Override
-    public void applyPin(Point point) {
-        setLocation(point);
+    public void applyPin(Rectangle rectangle) {
+        setLocation(rectangle.getLocation());
+        setSize(rectangle.getSize());
         pinned = true;
         pinButton.setPinned(true);
     }
@@ -337,8 +338,8 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     }
 
     @Override
-    public Point getPinLocation() {
-        return getLocation();
+    public Rectangle getPinRectangle() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override

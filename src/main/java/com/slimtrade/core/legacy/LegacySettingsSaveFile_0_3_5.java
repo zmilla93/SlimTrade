@@ -12,7 +12,7 @@ public class LegacySettingsSaveFile_0_3_5 {
     public boolean showGuildName = false;
     public boolean folderOffset = true;
     public boolean colorBlindMode = false;
-//    public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
+    //    public ColorTheme colorTheme = ColorTheme.SOLARIZED_LIGHT;
 //    public QuickPasteSetting quickPasteSetting = QuickPasteSetting.DISABLED;
     public HotkeyData quickPasteHotkey = null;
     public boolean autoUpdate = true;

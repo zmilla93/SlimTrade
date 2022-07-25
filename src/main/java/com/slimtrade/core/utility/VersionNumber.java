@@ -1,8 +1,5 @@
 package com.slimtrade.core.utility;
 
-import com.slimtrade.gui.messaging.OverlayExamplePanel;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +16,7 @@ public class VersionNumber implements Comparable<VersionNumber> {
 
     public VersionNumber(String tag) {
         Matcher matcher = null;
-        if(tag != null) {
+        if (tag != null) {
             matcher = pattern.matcher(tag);
             valid = matcher.matches();
         }
@@ -35,7 +32,7 @@ public class VersionNumber implements Comparable<VersionNumber> {
     }
 
     @Override
-    public int compareTo(@NotNull VersionNumber o) {
+    public int compareTo(VersionNumber o) {
         if (o.major > major) return -1;
         else if (o.major < major) return 1;
         else if (o.minor > minor) return -1;
@@ -44,4 +41,5 @@ public class VersionNumber implements Comparable<VersionNumber> {
         else if (o.patch < patch) return 1;
         return 0;
     }
+
 }

@@ -21,7 +21,7 @@ public class PinManager {
         for (PinData data : SaveManager.pinSaveFile.data.pinnables) {
             IPinnable pinnable = pinnables.get(data.title);
             if (pinnable != null) {
-                pinnable.applyPin(data.location);
+                pinnable.applyPin(data.rectangle);
             }
         }
     }
@@ -30,7 +30,7 @@ public class PinManager {
         ArrayList<PinData> pins = new ArrayList<>();
         for (IPinnable pinnable : pinnables.values()) {
             if (pinnable.isPinned()) {
-                pins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinLocation()));
+                pins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRectangle()));
             }
         }
         SaveManager.pinSaveFile.data.pinnables = pins;

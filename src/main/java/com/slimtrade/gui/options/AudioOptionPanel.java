@@ -136,7 +136,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private void setAudioRow(int index, SoundComponent row) {
         if (row == null || row.sound == null) return;
-        int soundIndex = AudioManager.indexOfSound(row.sound.name);
+        int soundIndex = AudioManager.indexOfSound(row.sound);
         comboList.get(index).setSelectedIndex(soundIndex);
         sliderList.get(index).setValue(row.volume);
     }

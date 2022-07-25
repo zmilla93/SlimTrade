@@ -1,5 +1,6 @@
 package com.slimtrade.core.saving.savefiles;
 
+import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.data.PriceThresholdData;
@@ -65,12 +66,12 @@ public class SettingsSaveFile {
     public boolean applyStashColorToMessage;
 
     // Audio
-    public SoundComponent incomingSound;
-    public SoundComponent outgoingSound;
-    public SoundComponent itemIgnoredSound;
-    public SoundComponent chatScannerSound;
-    public SoundComponent playerJoinedAreaSound;
-    public SoundComponent updateSound;
+    public SoundComponent incomingSound = new SoundComponent(new Sound("Ping 1", Sound.SoundType.INBUILT), 50);
+    public SoundComponent outgoingSound = new SoundComponent(new Sound("Ping 1", Sound.SoundType.INBUILT), 50);
+    public SoundComponent itemIgnoredSound = new SoundComponent(new Sound("Blip 2", Sound.SoundType.INBUILT), 50);
+    public SoundComponent chatScannerSound = new SoundComponent(new Sound("Ping 2", Sound.SoundType.INBUILT), 50);
+    public SoundComponent playerJoinedAreaSound = new SoundComponent(new Sound("Blip 1", Sound.SoundType.INBUILT), 50);
+    public SoundComponent updateSound = new SoundComponent(new Sound("Blip 3", Sound.SoundType.INBUILT), 50);
     public ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();
     public transient final HashMap<CurrencyType, ArrayList<PriceThresholdData>> priceThresholdMap = new HashMap<>();
 
