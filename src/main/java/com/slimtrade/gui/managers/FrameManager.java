@@ -87,7 +87,7 @@ public class FrameManager {
 
         // FIXME : Add all windows
         // Group windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, stashSortingWindow, menubarIcon, menubarDialog};
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, stashSortingWindow, menubarIcon, menubarDialog, stashHelperContainer};
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};

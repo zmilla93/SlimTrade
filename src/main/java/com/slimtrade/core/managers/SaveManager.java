@@ -63,6 +63,7 @@ public class SaveManager {
             @Override
             public void onSave() {
                 FrameManager.messageManager.refreshFadeData();
+                FrameManager.stashHelperContainer.updateLocation();
                 if (SaveManager.settingsSaveFile.data.fontSizeChanged) {
                     ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
                     SaveManager.settingsSaveFile.data.fontSizeChanged = false;

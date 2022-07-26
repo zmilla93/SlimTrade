@@ -12,10 +12,10 @@ import java.awt.*;
 
 public class StashHelperContainer extends BasicDialog implements IThemeListener {
 
-    private static final int OFFSET = 30;
-    private static final int FOLDER_OFFSET = 65;
-    private final GridBagConstraints gc = ZUtil.getGC();
+    private static final int DEFAULT_OFFSET = 30;
+    private static final int FOLDER_OFFSET = 75;
     public static final int INSET = 4;
+    private final GridBagConstraints gc = ZUtil.getGC();
 
     public StashHelperContainer() {
         contentPanel.setLayout(new GridBagLayout());
@@ -31,7 +31,8 @@ public class StashHelperContainer extends BasicDialog implements IThemeListener 
     public void updateLocation() {
         if (SaveManager.stashSaveFile.data.gridRect == null) return;
         Point target = SaveManager.stashSaveFile.data.gridRect.getLocation();
-        target.y -= getHeight() + OFFSET;
+        int offset = SaveManager.settingsSaveFile.data.folderOffset ? FOLDER_OFFSET : DEFAULT_OFFSET;
+        target.y -= getHeight() + offset;
         setLocation(target);
     }
 
