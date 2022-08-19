@@ -178,7 +178,11 @@ public class FrameManager {
     }
 
     private static void updateMenubarVisibility() {
-        if (menubarExpanded) {
+        if (!SaveManager.settingsSaveFile.data.enableMenuBar) {
+            menubarDialog.setVisible(false);
+            menubarIcon.setVisible(false);
+        }
+        else if (menubarExpanded) {
             menubarDialog.setVisible(true);
             menubarIcon.setVisible(false);
         } else {
