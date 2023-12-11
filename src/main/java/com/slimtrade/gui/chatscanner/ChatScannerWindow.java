@@ -109,11 +109,10 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
             }
         });
         newEntryPanel.getCreateEntryButton().addActionListener(e -> {
-            String error = tryCreateEntry(newEntryPanel.getInputName());
+            String name = newEntryPanel.getInputText();
+            String error = tryCreateEntry(name);
             newEntryPanel.setError(error);
-            if (error == null) {
-                showEntry(newEntryPanel.getInputName());
-            }
+            if (error == null) showEntry(name);
         });
         newEntryPanel.getCancelButton().addActionListener(e -> {
             cardLayout.show(cardPanel, INFO_PANEL_TITLE);
@@ -137,18 +136,20 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
 
     /**
      * Tries to create a new entry, checking for duplicate names.
+     * 9
      *
      * @param name Entry name
      * @return Error message, null if none
      */
     public String tryCreateEntry(String name) {
         name = name.trim();
-        if (name.length() == 0) return null;
+        if (name.length() == 0) return "Enter a name for your new search entry!";
         for (ChatScannerCustomizerPanel listPanel : panels) {
             if (listPanel.getTitle().equals(name)) {
                 return "An entry with that name already exists!";
             }
         }
+        newEntryPanel.clearName();
         ChatScannerCustomizerPanel panel = new ChatScannerCustomizerPanel(name);
         panels.add(panel);
         updateList();

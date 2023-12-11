@@ -21,6 +21,10 @@ public class ChatScannerNewEntryPanel extends AbstractOptionPanel {
         addPanel(new ComponentPair(cancelButton, createEntryButton));
     }
 
+    public void clearName(){
+        entryNameInput.setText("");
+    }
+
     public JButton getCancelButton() {
         return cancelButton;
     }
@@ -29,7 +33,7 @@ public class ChatScannerNewEntryPanel extends AbstractOptionPanel {
         return createEntryButton;
     }
 
-    public String getInputName() {
+    public String getInputText() {
         return entryNameInput.getText();
     }
 
