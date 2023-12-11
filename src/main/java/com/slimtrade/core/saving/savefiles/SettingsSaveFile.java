@@ -58,8 +58,7 @@ public class SettingsSaveFile {
     public boolean enableItemHighlighter = true;
     public boolean enableMenuBar = true;
     public boolean enableAutomaticUpdate = true;
-    // FIXME : Switch default to true before release
-    public boolean hideWhenPOENotFocused = false;
+    public boolean hideWhenPOENotFocused = true;
 
     // Stash
     public ArrayList<StashTabData> stashTabs = new ArrayList<>();
