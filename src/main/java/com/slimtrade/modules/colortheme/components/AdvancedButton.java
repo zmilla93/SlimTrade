@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A button that responds visually to all mouse inputs.
+ * A button that responds visually to all mouse buttons instead of just the left mouse button.
  */
 public class AdvancedButton extends JButton {
 
@@ -29,7 +29,6 @@ public class AdvancedButton extends JButton {
 
     public AdvancedButton(String text) {
         setText(text);
-//        setBorder(null);
         allowedMouseButtons.add(1);
         allowedMouseButtons.add(3);
         model = getModel();
@@ -92,10 +91,8 @@ public class AdvancedButton extends JButton {
                 setBackground(previousForeground);
                 setForeground(previousBackground);
                 model.setRollover(true);
-                model.setPressed(true);
             } else {
                 model.setRollover(false);
-                model.setPressed(false);
             }
         }
     }

@@ -25,7 +25,7 @@ import java.util.HashSet;
 
 public class FrameManager {
     // Windows
-//    public static DebugWindow debugWindow;
+    public static DebugWindow debugWindow;
     public static MessageManager messageManager;
     public static OptionsWindow optionsWindow;
     public static HistoryWindow historyWindow;
@@ -56,6 +56,8 @@ public class FrameManager {
 
     public static void init() {
         // Windows
+        // FIXME : Remove debug window
+        debugWindow  = new DebugWindow();
         stashHelperContainer = new StashHelperContainer();
         messageManager = new MessageManager();
         optionsWindow = new OptionsWindow();
@@ -64,6 +66,7 @@ public class FrameManager {
         itemIgnoreWindow = new ItemIgnoreWindow();
         stashSortingWindow = new StashSortingWindow();
         setupWindow = new SetupWindow();
+
 
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();
@@ -95,6 +98,7 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_STASH, stashWindows);
         windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
+//        debugWindow.setVisible(true);
     }
 
     public static void showSetupFrame() {

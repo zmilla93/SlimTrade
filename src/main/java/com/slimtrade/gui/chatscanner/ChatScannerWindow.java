@@ -4,7 +4,6 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.options.IncomingMacroPanel;
 import com.slimtrade.gui.windows.CustomDialog;
-import com.slimtrade.modules.colortheme.components.AdvancedButton;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -21,7 +20,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     private final JList<ChatScannerCustomizerPanel> entryList = new JList<>();
     private final JButton infoButton = new JButton("Info");
     private final JButton newSearchButton = new JButton("New Entry");
-    private final AdvancedButton scanButton = new AdvancedButton(START_SCANNING);
+    private final JButton scanButton = new JButton(START_SCANNING);
 
     private final CardLayout cardLayout = new CardLayout();
 
@@ -178,14 +177,14 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         SaveManager.chatScannerSaveFile.data.searching = true;
         SaveManager.chatScannerSaveFile.data.activeSearches = activeEntries;
 
-        scanButton.setActive(!scanButton.isActive());
+//        scanButton.setActive(!scanButton.isActive());
         cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         enableComponents(false);
     }
 
     public void stopSearch() {
         SaveManager.chatScannerSaveFile.data.searching = false;
-        scanButton.setActive(!scanButton.isActive());
+//        scanButton.setActive(!scanButton.isActive());
         ChatScannerCustomizerPanel selectedPanel = entryList.getSelectedValue();
         if (selectedPanel == null) cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         else cardLayout.show(cardPanel, selectedPanel.getTitle());
@@ -195,7 +194,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     private void enableComponents(boolean enable) {
         if (enable) scanButton.setText(START_SCANNING);
         else scanButton.setText(STOP_SCANNING);
-        scanButton.setActive(!enable);
+//        scanButton.setActive(!enable);
         entryList.setEnabled(enable);
         infoButton.setEnabled(enable);
         newSearchButton.setEnabled(enable);

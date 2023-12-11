@@ -2,6 +2,7 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.utility.ColorManager;
 import com.slimtrade.core.utility.ColorTheme;
+import com.slimtrade.modules.colortheme.components.AdvancedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +30,10 @@ public class DebugWindow extends JFrame {
         });
         container.add(testMessageButton);
 
+        JButton button = new JButton("Regular Button");
+        AdvancedButton advancedButton = new AdvancedButton("Advanced Button");
+        container.add(button);
+        container.add(advancedButton);
 
         combo.addItemListener(e -> {
             ColorManager.setTheme((ColorTheme) combo.getSelectedItem());
