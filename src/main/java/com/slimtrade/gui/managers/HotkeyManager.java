@@ -20,10 +20,10 @@ public class HotkeyManager {
     public static void loadHotkeys() {
         hotkeyMap.clear();
         // SlimTrade
-        registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new AppHotkey(AppHotkey.AppWindow.OPTIONS));
-        registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new AppHotkey(AppHotkey.AppWindow.HISTORY));
-        registerHotkey(SaveManager.settingsSaveFile.data.stashSortHotkey, new AppHotkey(AppHotkey.AppWindow.STASH_SORT_WINDOW));
-        registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new AppHotkey(AppHotkey.AppWindow.CHAT_SCANNER));
+        registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new AppHotkey(FrameManager.optionsWindow));
+        registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new AppHotkey(FrameManager.historyWindow));
+        registerHotkey(SaveManager.settingsSaveFile.data.stashSortHotkey, new AppHotkey(FrameManager.stashSortingWindow));
+        registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new AppHotkey(FrameManager.chatScannerWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.changeCharacterHotkey, new ChangeCharacterHotkey());
         // POE
         registerHotkey(SaveManager.settingsSaveFile.data.delveHotkey, new PoeHotkey("/delve"));
