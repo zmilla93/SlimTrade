@@ -2,8 +2,8 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.gui.components.IconLabel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
@@ -15,9 +15,7 @@ public class CheatSheetWindow extends CustomDialog {
         File file = new File(SaveManager.getImagesDirectory() + data.fileName);
         if (file.exists() && file.isFile()) {
             CheatSheetWindow window = new CheatSheetWindow(data);
-            if (window.valid) {
-                return window;
-            }
+            if (window.valid) return window;
             window.dispose();
         }
         return null;
@@ -27,7 +25,9 @@ public class CheatSheetWindow extends CustomDialog {
         super(data.title, true);
         setFocusable(false);
         setFocusableWindowState(false);
-        IconLabel label = new IconLabel(SaveManager.getImagesDirectory() + data.fileName, true);
+        ImageIcon icon = new ImageIcon(SaveManager.getImagesDirectory() + data.fileName);
+        JLabel label = new JLabel();
+        label.setIcon(icon);
         if (label.getIcon() == null) valid = false;
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(label, BorderLayout.CENTER);

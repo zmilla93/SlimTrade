@@ -32,7 +32,7 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
         // Build
         addHeader("Setup");
         addPanel(new JLabel("Add images to the images folder, refresh, set a hotkey, then save."));
-        addPanel(new JLabel("Supports png, jpg, and gif files (no animations)."));
+        addPanel(new JLabel("Supports png, jpg, and gif files."));
         addPanel(new JLabel("Hold SHIFT when moving a window to lock it to the current monitor."));
         addPanel(buttonPanel);
         addVerticalStrut();

@@ -55,11 +55,8 @@ public class FrameManager {
     private static boolean menubarExpanded = false;
 
     public static void init() {
-
         // Windows
-//        TestFrame frame = new TestFrame();
         stashHelperContainer = new StashHelperContainer();
-//        debugWindow = new DebugWindow();
         messageManager = new MessageManager();
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();
@@ -67,9 +64,6 @@ public class FrameManager {
         itemIgnoreWindow = new ItemIgnoreWindow();
         stashSortingWindow = new StashSortingWindow();
         setupWindow = new SetupWindow();
-
-//        StashHighlighterFrame testHighlighter = new StashHighlighterFrame(TradeOffer.getExampleTrade(TradeOffer.TradeOfferType.INCOMING));
-//        testHighlighter.setVisible(true);
 
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();
@@ -187,12 +181,6 @@ public class FrameManager {
             menubarIcon.setVisible(true);
             menubarDialog.setVisible(false);
         }
-    }
-
-    public static void centerWindow(Window window) {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension windowSize = window.getSize();
-        window.setLocation(new Point(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2));
     }
 
     public static void calculateResolutionMultiplier() {
