@@ -93,6 +93,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         setSize(900, 700);
         SaveManager.chatScannerSaveFile.registerSavableContainer(this);
         addListeners();
+        setLocationRelativeTo(null);
     }
 
     private void addListeners() {

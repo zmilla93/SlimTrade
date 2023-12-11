@@ -7,18 +7,17 @@ import java.util.Objects;
 
 public class SystemTrayManager {
 
-    // Tray
-    private static SystemTray tray;
-    private static TrayIcon trayIcon;
-    private static PopupMenu popupMenu = new PopupMenu();
+    private static final PopupMenu popupMenu = new PopupMenu();
 
     // Buttons
     private static final MenuItem optionsButton = new MenuItem("Options");
     private static final MenuItem historyButton = new MenuItem("History");
+    private static final MenuItem chatScannerButton = new MenuItem("Chat Scanner");
     private static final MenuItem exitButton = new MenuItem("Exit SlimTrade");
 
     public SystemTrayManager() {
-        tray = SystemTray.getSystemTray();
+        // Tray
+        SystemTray tray = SystemTray.getSystemTray();
         Image img;
         try {
             img = ImageIO.read(Objects.requireNonNull(SystemTrayManager.class.getResource("/icons/chaos-icon.png")));
@@ -26,7 +25,7 @@ public class SystemTrayManager {
             e.printStackTrace();
             return;
         }
-        trayIcon = new TrayIcon(img);   // First assignment is to get icon size, second assignment scales the image accordingly
+        TrayIcon trayIcon = new TrayIcon(img);   // First assignment is to get icon size, second assignment scales the image accordingly
         trayIcon = new TrayIcon(img.getScaledInstance(trayIcon.getSize().width, trayIcon.getSize().height, Image.SCALE_SMOOTH));
         trayIcon.setToolTip("SlimTrade");
         trayIcon.setPopupMenu(popupMenu);
@@ -43,6 +42,7 @@ public class SystemTrayManager {
     private static void addListeners() {
         optionsButton.addActionListener(e -> FrameManager.optionsWindow.setVisible(true));
         historyButton.addActionListener(e -> FrameManager.historyWindow.setVisible(true));
+        chatScannerButton.addActionListener(e -> FrameManager.chatScannerWindow.setVisible(true));
         exitButton.addActionListener(e -> System.exit(0));
     }
 
@@ -55,6 +55,7 @@ public class SystemTrayManager {
         popupMenu.removeAll();
         popupMenu.add(optionsButton);
         popupMenu.add(historyButton);
+        popupMenu.add(chatScannerButton);
         popupMenu.addSeparator();
         popupMenu.add(exitButton);
     }

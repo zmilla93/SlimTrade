@@ -27,6 +27,9 @@ public class AppHotkey implements IHotkeyAction {
             case STASH_SORT_WINDOW:
                 toggleVisibility(FrameManager.stashSortingWindow);
                 break;
+            case CHAT_SCANNER:
+                toggleVisibility(FrameManager.chatScannerWindow);
+                break;
         }
     }
 
