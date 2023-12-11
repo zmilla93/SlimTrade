@@ -101,7 +101,6 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_STASH, stashWindows);
         windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
-
     }
 
     public static void showSetupFrame() {
@@ -181,8 +180,7 @@ public class FrameManager {
         if (!SaveManager.settingsSaveFile.data.enableMenuBar) {
             menubarDialog.setVisible(false);
             menubarIcon.setVisible(false);
-        }
-        else if (menubarExpanded) {
+        } else if (menubarExpanded) {
             menubarDialog.setVisible(true);
             menubarIcon.setVisible(false);
         } else {
