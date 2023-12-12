@@ -12,6 +12,7 @@ public class ChatScannerRenamePanel extends AbstractOptionPanel {
     private final JTextField newNameInput = new JTextField(ChatScannerWindow.TEXT_COLUMNS);
     private final JButton applyNameButton = new JButton("Rename Entry");
     private final JButton cancelButton = new JButton("Cancel");
+    private final JLabel errorLabel = new JLabel();
     private String currentName;
 
     public ChatScannerRenamePanel() {
@@ -20,12 +21,16 @@ public class ChatScannerRenamePanel extends AbstractOptionPanel {
         addPanel(new ComponentPair(new JLabel("New Name"), newNameInput));
         addSmallVerticalStrut();
         addPanel(new ComponentPair(cancelButton, applyNameButton));
+        addPanel(errorLabel);
         addListeners();
     }
 
     private void addListeners() {
         cancelButton.addActionListener(e -> FrameManager.chatScannerWindow.showEntry(currentName));
-        applyNameButton.addActionListener(e -> FrameManager.chatScannerWindow.renameEntry(currentName, getNewName()));
+        applyNameButton.addActionListener(e -> {
+            String error = FrameManager.chatScannerWindow.tryRenameEntry(currentName, getNewName());
+            if(error != null) setError(error);
+        });
     }
 
     public void setCurrentName(String text) {
@@ -37,6 +42,10 @@ public class ChatScannerRenamePanel extends AbstractOptionPanel {
 
     public String getNewName() {
         return newNameInput.getText();
+    }
+
+    public void setError(String error) {
+        errorLabel.setText(error);
     }
 
 }

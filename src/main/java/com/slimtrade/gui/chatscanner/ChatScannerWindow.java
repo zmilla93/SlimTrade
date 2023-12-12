@@ -19,7 +19,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
 
     private final JList<ChatScannerCustomizerPanel> entryList = new JList<>();
     private final JButton infoButton = new JButton("Info");
-    private final JButton newSearchButton = new JButton("New Entry");
+    private final JButton newEntryButton = new JButton("New Entry");
     private final JButton scanButton = new JButton(START_SCANNING);
 
     private final CardLayout cardLayout = new CardLayout();
@@ -58,7 +58,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         // Button Panel
         JPanel buttonPanel = new JPanel(new BorderLayout());
         buttonPanel.add(infoButton, BorderLayout.NORTH);
-        buttonPanel.add(newSearchButton, BorderLayout.CENTER);
+        buttonPanel.add(newEntryButton, BorderLayout.CENTER);
         buttonPanel.add(scanButton, BorderLayout.SOUTH);
 
         // Sidebar
@@ -97,7 +97,11 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
 
     private void addListeners() {
         infoButton.addActionListener(e -> cardLayout.show(cardPanel, INFO_PANEL_TITLE));
-        newSearchButton.addActionListener(e -> cardLayout.show(cardPanel, ENTRY_PANEL_TITLE));
+        newEntryButton.addActionListener(e -> {
+            newEntryPanel.setError(null);
+            newEntryPanel.clearName();
+            cardLayout.show(cardPanel, ENTRY_PANEL_TITLE);
+        });
         scanButton.addActionListener(e -> toggleSearch());
         entryList.addListSelectionListener(e -> {
             ChatScannerCustomizerPanel listPanel = entryList.getSelectedValue();
@@ -124,7 +128,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         // Clear List Selection
         ActionListener clearListSelectionListener = e -> entryList.clearSelection();
         infoButton.addActionListener(clearListSelectionListener);
-        newSearchButton.addActionListener(clearListSelectionListener);
+        newEntryButton.addActionListener(clearListSelectionListener);
     }
 
     private void revertAll() {
@@ -136,19 +140,14 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
 
     /**
      * Tries to create a new entry, checking for duplicate names.
-     * 9
      *
      * @param name Entry name
      * @return Error message, null if none
      */
     public String tryCreateEntry(String name) {
-        name = name.trim();
+        name = name.trim().replaceAll("\s+", " ");
         if (name.length() == 0) return "Enter a name for your new search entry!";
-        for (ChatScannerCustomizerPanel listPanel : panels) {
-            if (listPanel.getTitle().equals(name)) {
-                return "An entry with that name already exists!";
-            }
-        }
+        if (isDuplicateName(name)) return "An entry with that name already exists!";
         newEntryPanel.clearName();
         ChatScannerCustomizerPanel panel = new ChatScannerCustomizerPanel(name);
         panels.add(panel);
@@ -198,7 +197,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
 //        scanButton.setActive(!enable);
         entryList.setEnabled(enable);
         infoButton.setEnabled(enable);
-        newSearchButton.setEnabled(enable);
+        newEntryButton.setEnabled(enable);
         saveButton.setEnabled(enable);
         revertButton.setEnabled(enable);
     }
@@ -210,6 +209,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         entryList.clearSelection();
         getRootPane().requestFocus();
         renamePanel.setCurrentName(selectedPanel.getTitle());
+        renamePanel.setError(null);
     }
 
     public void showDeletePanel() {
@@ -232,7 +232,9 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         }
     }
 
-    public void renameEntry(String oldName, String newName) {
+    public String tryRenameEntry(String oldName, String newName) {
+        newName = newName.trim().replaceAll("\s+", " ");
+        if (isDuplicateName(newName, oldName)) return "An entry with that name already exists!";
         ChatScannerCustomizerPanel panel = null;
         for (ChatScannerCustomizerPanel listPanel : panels) {
             if (listPanel.getTitle().equals(oldName)) {
@@ -240,7 +242,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
                 break;
             }
         }
-        if (panel == null) return;
+        if (panel == null) return null;
         panels.remove(panel);
         cardPanel.remove(panel);
         cardLayout.show(cardPanel, RENAME_PANEL_TITLE);
@@ -249,6 +251,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         cardPanel.add(panel, panel.getTitle());
         updateList();
         showEntry(newName);
+        return null;
     }
 
     public void deleteEntry(String name) {
@@ -271,6 +274,21 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         entryList.setListData(panels.toArray(new ChatScannerCustomizerPanel[0]));
         entryList.revalidate();
         entryList.repaint();
+    }
+
+    private boolean isDuplicateName(String name) {
+        return isDuplicateName(name, null);
+    }
+
+    private boolean isDuplicateName(String name, String nameToIgnore) {
+        name = name.toLowerCase();
+        if (nameToIgnore != null) nameToIgnore = nameToIgnore.toLowerCase();
+        for (ChatScannerCustomizerPanel listPanel : panels) {
+            String listPanelName = listPanel.getTitle().toLowerCase();
+            if (listPanelName.equals(nameToIgnore)) continue;
+            if (listPanelName.equals(name)) return true;
+        }
+        return false;
     }
 
     @Override
