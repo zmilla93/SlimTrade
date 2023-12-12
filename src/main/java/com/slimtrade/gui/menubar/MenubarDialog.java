@@ -30,7 +30,7 @@ public class MenubarDialog extends BasicDialog implements IUIResizeListener {
     public MenubarDialog() {
         horizontalSeparator = Box.createHorizontalStrut(EXIT_INSET);
         verticalSeparator = Box.createVerticalStrut(EXIT_INSET);
-        buildIconButtons();
+        rebuild();
         ColorManager.addFontListener(this);
     }
 
@@ -80,6 +80,7 @@ public class MenubarDialog extends BasicDialog implements IUIResizeListener {
         optionsButton = new MenubarButton("Options");
         historyButton = new MenubarButton("History");
         chatScannerButton = new MenubarButton("Chat Scanner");
+        hideoutButton = new MenubarButton("Hideout");
         exitButton = new MenubarButton("Exit");
         gc.fill = GridBagConstraints.BOTH;
         contentPanel.add(optionsButton, gc);
@@ -87,6 +88,8 @@ public class MenubarDialog extends BasicDialog implements IUIResizeListener {
         contentPanel.add(historyButton, gc);
         gc.gridy++;
         contentPanel.add(chatScannerButton, gc);
+        gc.gridy++;
+        contentPanel.add(hideoutButton, gc);
         gc.gridy++;
         contentPanel.add(Box.createVerticalStrut(EXIT_INSET), gc);
         gc.gridy++;
