@@ -161,6 +161,7 @@ public class FrameManager {
     }
 
     public static void checkMenubarVisibility(Point point) {
+        // FIXME : buffered bounds should should be cached since this function is called frequently.
         if (menubarExpanded) {
             if (!TradeUtil.getBufferedBounds(menubarDialog.getBounds()).contains(point)) {
                 menubarExpanded = false;

@@ -63,9 +63,11 @@ public class TradeUtil {
     }
 
     public static Rectangle getBufferedBounds(Rectangle bounds) {
-        int buffer = 4;
-        bounds.width += buffer;
-        bounds.height += buffer;
+        int buffer = 2;
+        bounds.x -= buffer;
+        bounds.y -= buffer;
+        bounds.width += buffer * 2;
+        bounds.height += buffer * 2;
         return bounds;
     }
 
