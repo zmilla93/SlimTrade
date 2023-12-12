@@ -5,6 +5,7 @@ import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.gui.options.stash.StashTabType;
 import com.slimtrade.gui.windows.AbstractDialog;
 
 import javax.swing.*;
@@ -47,16 +48,11 @@ public class StashHighlighterFrame extends AbstractDialog {
     private boolean isQuadTab() {
         if (tradeOffer.stashTabName == null) return false;
         if (tradeOffer.stashTabX > 12 || tradeOffer.stashTabY > 12) return true;
-        for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
-            if (data.matchType == MatchType.EXACT_MATCH) {
-                if (tradeOffer.stashTabName.equals(data.stashTabName)) {
-                    return true;
-                }
-            } else if (data.matchType == MatchType.CONTAINS_TEXT) {
-                if (tradeOffer.stashTabName.contains(data.stashTabName)) {
-                    return true;
-                }
-            }
+        for (StashTabData savedStashTab : SaveManager.settingsSaveFile.data.stashTabs) {
+            if (savedStashTab.matchType == MatchType.EXACT_MATCH && tradeOffer.stashTabName.equals(savedStashTab.stashTabName))
+                return savedStashTab.stashTabType == StashTabType.QUAD;
+            else if (savedStashTab.matchType == MatchType.CONTAINS_TEXT && tradeOffer.stashTabName.contains(savedStashTab.stashTabName))
+                return savedStashTab.stashTabType == StashTabType.QUAD;
         }
         return false;
     }
