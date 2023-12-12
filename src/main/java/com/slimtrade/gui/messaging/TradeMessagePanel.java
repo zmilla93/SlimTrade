@@ -42,19 +42,7 @@ public class TradeMessagePanel extends NotificationPanel {
         itemPanel.setOpaque(false);
         CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer);
         itemButton.add(itemPanel);
-//        PriceLabel.applyItemToComponent(itemButton, tradeOffer);
         CurrencyLabelFactory.applyPriceToComponent(pricePanel, tradeOffer.priceName, tradeOffer.priceQuantity);
-
-        playerNameButton.addMouseListener(new AdvancedMouseListener() {
-            @Override
-            public void click(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    POEInterface.pasteWithFocus("/whois " + tradeOffer.playerName);
-                } else if (e.getButton() == MouseEvent.BUTTON3) {
-                    POEInterface.pasteWithFocus("@" + tradeOffer.playerName, true);
-                }
-            }
-        });
         // Message type specific stuff
         switch (tradeOffer.offerType) {
             case INCOMING_TRADE:
@@ -73,6 +61,16 @@ public class TradeMessagePanel extends NotificationPanel {
 
     private void addListeners() {
         TradeMessagePanel self = this;
+        playerNameButton.addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    POEInterface.pasteWithFocus("/whois " + tradeOffer.playerName);
+                } else if (e.getButton() == MouseEvent.BUTTON3) {
+                    POEInterface.pasteWithFocus("@" + tradeOffer.playerName, true);
+                }
+            }
+        });
         switch (tradeOffer.offerType) {
             case INCOMING_TRADE:
                 itemButton.addMouseListener(new AdvancedMouseListener() {
