@@ -255,15 +255,13 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
      *
      * @param panel
      */
-    public void quickCloseOutgoing(Component panel) {
+    public void quickCloseOutgoing(NotificationPanel panel) {
         setIgnoreRepaint(true);
         for (int i = messageContainer.getComponentCount() - 1; i >= 0; i--) {
             Component comp = messageContainer.getComponent(i);
             if (comp instanceof TradeMessagePanel) {
                 TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
-                if (trade.offerType == TradeOfferType.OUTGOING_TRADE && comp != panel) {
-                    messageContainer.remove(i);
-                }
+                if (trade.offerType == TradeOfferType.OUTGOING_TRADE && comp != panel) removeMessage(panel);
             }
         }
         refresh();
@@ -279,12 +277,13 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         for (int i = messageContainer.getComponentCount() - 1; i >= 0; i--) {
             Component comp = messageContainer.getComponent(i);
             if (comp instanceof TradeMessagePanel) {
-                TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
+                TradeMessagePanel panel = (TradeMessagePanel) comp;
+                TradeOffer trade = panel.getTradeOffer();
                 if (trade.offerType == TradeOfferType.INCOMING_TRADE
                         && trade.itemName.equals(targetOffer.itemName)
                         && trade.priceName.equals(targetOffer.priceName)
                         && trade.priceQuantity == targetOffer.priceQuantity) {
-                    messageContainer.remove(i);
+                    removeMessage(panel);
                 }
             }
         }
@@ -301,16 +300,13 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         for (int i = messageContainer.getComponentCount() - 1; i >= 0; i--) {
             Component comp = messageContainer.getComponent(i);
             if (comp instanceof TradeMessagePanel) {
+                TradeMessagePanel panel = (TradeMessagePanel) comp;
                 TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
                 if (trade.offerType != TradeOfferType.INCOMING_TRADE) continue;
                 if (item.matchType == MatchType.EXACT_MATCH) {
-                    if (trade.itemName.equals(item.itemName)) {
-                        messageContainer.remove(i);
-                    }
+                    if (trade.itemName.equals(item.itemName)) removeMessage(panel);
                 } else if (item.matchType == MatchType.CONTAINS_TEXT) {
-                    if (trade.itemNameLower.contains(item.itemNameLower)) {
-                        messageContainer.remove(i);
-                    }
+                    if (trade.itemNameLower.contains(item.itemNameLower)) removeMessage(panel);
                 }
             }
         }

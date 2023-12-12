@@ -72,7 +72,7 @@ public class TradeMessagePanel extends NotificationPanel {
     }
 
     private void addListeners() {
-        JPanel self = this;
+        TradeMessagePanel self = this;
         switch (tradeOffer.offerType) {
             case INCOMING_TRADE:
                 itemButton.addMouseListener(new AdvancedMouseListener() {
