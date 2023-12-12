@@ -140,7 +140,6 @@ public class POEInterface {
      */
     public static boolean focusGame() {
         assert (!SwingUtilities.isEventDispatchThread());
-        System.out.println("try focus game");
         if (isGameFocused()) return true;
         FrameManager.dummyWindow.setVisible(true);
         Point point = MouseInfo.getPointerInfo().getLocation();
