@@ -163,7 +163,7 @@ public class App {
         App.setState(AppState.RUNNING);
     }
 
-    private static void initParsers() {
+    public static void initParsers() {
         // FIXME : make this less robust now that parser is fixed
         if (preloadParser != null) preloadParser.close();
         if (chatParser != null) chatParser.close();
