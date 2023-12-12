@@ -7,6 +7,7 @@ import com.slimtrade.core.jna.GlobalKeyboardListener;
 import com.slimtrade.core.jna.GlobalMouseListener;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.FontManager;
+import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.ColorManager;
@@ -32,6 +33,7 @@ public class App {
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
     private static LoadingDialog loadingDialog;
+    private static LockManager lockManager;
 
     public static ChatParser chatParser;
     public static ChatParser preloadParser;
@@ -43,6 +45,14 @@ public class App {
     public static boolean chatInConsole = false;
 
     public static void main(String[] args) {
+
+        // Lock file to prevent duplicate instances
+        lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
+        boolean lockSuccess = lockManager.tryAndLock();
+        if (!lockSuccess) {
+            System.out.println("SlimTrade is already running. Terminating new instance.");
+            System.exit(0);
+        }
 
         // This setting gets rid of some rendering issues with transparent frames
         System.setProperty("sun.java2d.noddraw", "true");
@@ -117,13 +127,10 @@ public class App {
         GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
 
         // Final Setup
-        if (SetupManager.getSetupPhases().size() > 0)
-            runSetupWizard();
+        if (SetupManager.getSetupPhases().size() > 0) runSetupWizard();
         else launchApp();
 
-        SwingUtilities.invokeLater(() -> {
-            loadingDialog.dispose();
-        });
+        SwingUtilities.invokeLater(() -> loadingDialog.dispose());
 
         System.out.println("Slimtrade Launched");
 
@@ -156,7 +163,7 @@ public class App {
         App.setState(AppState.RUNNING);
     }
 
-    public static void initParsers() {
+    private static void initParsers() {
         // FIXME : make this less robust now that parser is fixed
         if (preloadParser != null) preloadParser.close();
         if (chatParser != null) chatParser.close();
@@ -194,6 +201,7 @@ public class App {
     private static void closeProgram() {
         try {
             GlobalScreen.unregisterNativeHook();
+            lockManager.closeLock();
             System.out.println("SlimTrade Terminated");
         } catch (NativeHookException e) {
             e.printStackTrace();
