@@ -18,6 +18,7 @@ public class TimeString {
 
     @Override
     public String toString() {
+        if(originalText == null) return null;
         if (cachedFormat != SaveManager.settingsSaveFile.data.historyTimeFormat) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(SaveManager.settingsSaveFile.data.historyTimeFormat.getFormat());
             LocalTime time = LocalTime.parse(originalText, DateTimeFormatter.ISO_TIME);
