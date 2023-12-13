@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ChatScannerWindow extends CustomDialog implements ISavable {
 
@@ -165,7 +166,10 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         int[] values = entryList.getSelectedIndices();
         if (values.length == 0) return;
         ArrayList<ChatScannerEntry> activeEntries = new ArrayList<>(values.length);
-        for (int i : values) activeEntries.add(panels.get(i).getData());
+        for (int i : values) {
+            ChatScannerCustomizerPanel panel = entryList.getModel().getElementAt(i);
+            activeEntries.add(panel.getData());
+        }
         SaveManager.chatScannerSaveFile.data.searching = true;
         SaveManager.chatScannerSaveFile.data.activeSearches = activeEntries;
         cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
@@ -259,7 +263,9 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     }
 
     private void updateList() {
-        entryList.setListData(panels.toArray(new ChatScannerCustomizerPanel[0]));
+        ChatScannerCustomizerPanel[] sortedPanels = panels.toArray(new ChatScannerCustomizerPanel[0]);
+        Arrays.sort(sortedPanels);
+        entryList.setListData(sortedPanels);
         entryList.revalidate();
         entryList.repaint();
     }
@@ -303,4 +309,5 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         }
         updateList();
     }
+
 }

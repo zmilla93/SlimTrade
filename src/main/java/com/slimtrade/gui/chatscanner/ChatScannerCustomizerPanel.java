@@ -7,12 +7,11 @@ import com.slimtrade.gui.options.HeaderPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class ChatScannerCustomizerPanel extends JPanel {
+public class ChatScannerCustomizerPanel extends JPanel implements Comparable<ChatScannerCustomizerPanel> {
 
     private final JButton renameButton = new JButton("Rename");
     private final JButton deleteButton = new JButton("Delete");
     private final JLabel headerLabel;
-    //    private String title;
     private final ScannerSearchTermsPanel searchTermsPanel = new ScannerSearchTermsPanel();
     private final ChatScannerMacroPanel macroPanel = new ChatScannerMacroPanel();
 
@@ -68,4 +67,10 @@ public class ChatScannerCustomizerPanel extends JPanel {
     public String toString() {
         return getTitle();
     }
+
+    @Override
+    public int compareTo(ChatScannerCustomizerPanel other) {
+        return getTitle().toLowerCase().compareTo(other.getTitle().toLowerCase());
+    }
+
 }
