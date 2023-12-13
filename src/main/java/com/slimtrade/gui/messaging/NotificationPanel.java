@@ -37,7 +37,7 @@ public class NotificationPanel extends ColorPanel {
     private Component bottomVerticalStrut;
 
     private final JLabel timerLabel = new JLabel("0s");
-    private JButton closeButton;
+    protected JButton closeButton;
 
     protected float namePanelWeight = 0.7f;
     protected float pricePanelWeight = 0.3f;
@@ -255,10 +255,6 @@ public class NotificationPanel extends ColorPanel {
 
     public TradeOffer getTradeOffer() {
         return tradeOffer;
-    }
-
-    public JButton getCloseButton() {
-        return closeButton;
     }
 
     public void resizeStrut() {

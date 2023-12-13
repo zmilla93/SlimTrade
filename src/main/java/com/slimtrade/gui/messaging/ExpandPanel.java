@@ -11,7 +11,7 @@ public class ExpandPanel extends NotificationPanel {
         bottomContainer.setVisible(false);
         pricePanel.setVisible(false);
         setup();
-        getCloseButton().setVisible(false);
+        closeButton.setVisible(false);
         stopTimer();
         messageColor = UIManager.getColor("Button.foreground");
         borderPanel.setBackgroundKey("Label.foreground");

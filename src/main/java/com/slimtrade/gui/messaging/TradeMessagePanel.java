@@ -87,7 +87,7 @@ public class TradeMessagePanel extends NotificationPanel {
                         }
                     }
                 });
-                getCloseButton().addMouseListener(new AdvancedMouseListener() {
+                closeButton.addMouseListener(new AdvancedMouseListener() {
                     @Override
                     public void click(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON3) {
@@ -97,7 +97,7 @@ public class TradeMessagePanel extends NotificationPanel {
                 });
                 break;
             case OUTGOING_TRADE:
-                getCloseButton().addMouseListener(new AdvancedMouseListener() {
+                closeButton.addMouseListener(new AdvancedMouseListener() {
                     @Override
                     public void click(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON3)
