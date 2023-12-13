@@ -4,7 +4,6 @@ import com.slimtrade.core.enums.HistoryOrder;
 import com.slimtrade.core.managers.SaveManager;
 
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 

@@ -29,7 +29,7 @@ public class ChatScannerRenamePanel extends AbstractOptionPanel {
         cancelButton.addActionListener(e -> FrameManager.chatScannerWindow.showEntry(currentName));
         applyNameButton.addActionListener(e -> {
             String error = FrameManager.chatScannerWindow.tryRenameEntry(currentName, getNewName());
-            if(error != null) setError(error);
+            if (error != null) setError(error);
         });
     }
 

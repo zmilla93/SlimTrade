@@ -57,7 +57,7 @@ public class FrameManager {
     public static void init() {
         // Windows
         // FIXME : Remove debug window
-        debugWindow  = new DebugWindow();
+        debugWindow = new DebugWindow();
         stashHelperContainer = new StashHelperContainer();
         messageManager = new MessageManager();
         optionsWindow = new OptionsWindow();

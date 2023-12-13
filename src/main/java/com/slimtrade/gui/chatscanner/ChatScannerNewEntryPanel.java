@@ -21,7 +21,7 @@ public class ChatScannerNewEntryPanel extends AbstractOptionPanel {
         addPanel(errorLabel);
     }
 
-    public void clearName(){
+    public void clearName() {
         entryNameInput.setText("");
     }
 
