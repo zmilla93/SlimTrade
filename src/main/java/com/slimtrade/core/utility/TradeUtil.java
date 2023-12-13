@@ -83,10 +83,10 @@ public class TradeUtil {
     }
 
     public static String cleanItemName(String input) {
-        if (input == null) {
-            return null;
-        }
-        String cleanString = input.replaceAll("(?i)superior( )?", "").replaceAll("( )?\\(.+\\)", "");
+        if (input == null) return null;
+        String cleanString = input.replaceAll("(?i)superior( )?", "")
+                .replaceAll("( )?\\(.+\\)", "")
+                .replaceAll(",", "");
         if (cleanString.contains(" Map")) cleanString = cleanString.replaceFirst(" Map", "");
         return cleanString;
     }
