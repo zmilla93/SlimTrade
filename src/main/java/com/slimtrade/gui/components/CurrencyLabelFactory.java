@@ -58,6 +58,14 @@ public class CurrencyLabelFactory extends JPanel {
         return container;
     }
 
+    public static Container applyColorToLabel(Container container, Color color) {
+        for (Component component : container.getComponents()) {
+            if (component instanceof JLabel label) label.setForeground(color);
+            if (component instanceof Container nestedContainer) applyColorToLabel(nestedContainer, color);
+        }
+        return container;
+    }
+
     // Internal Stuff
     // Setup - Call this first!
 

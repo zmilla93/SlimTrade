@@ -11,6 +11,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.*;
 import com.slimtrade.gui.components.BorderlessButton;
+import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.colortheme.components.ColorPanel;
 import com.slimtrade.modules.colortheme.components.PassThroughPanel;
@@ -205,7 +206,7 @@ public class NotificationPanel extends ColorPanel {
         startTimer();
     }
 
-    protected void addPlayerButtonListener(String playerName){
+    protected void addPlayerButtonListener(String playerName) {
         playerNameButton.addMouseListener(new AdvancedMouseListener() {
             @Override
             public void click(MouseEvent e) {
@@ -252,6 +253,7 @@ public class NotificationPanel extends ColorPanel {
             playerNameButton.setForeground(messageColor);
             timerLabel.setForeground(messageColor);
             itemButton.setForeground(messageColor);
+            CurrencyLabelFactory.applyColorToLabel(itemButton, messageColor);
         }
     }
 
