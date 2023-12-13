@@ -170,6 +170,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
             ChatScannerCustomizerPanel panel = entryList.getModel().getElementAt(i);
             activeEntries.add(panel.getData());
         }
+        SaveManager.chatScannerSaveFile.saveToDisk();
         SaveManager.chatScannerSaveFile.data.searching = true;
         SaveManager.chatScannerSaveFile.data.activeSearches = activeEntries;
         cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
