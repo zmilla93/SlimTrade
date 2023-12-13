@@ -100,8 +100,10 @@ public class ChatParser implements FileTailerListener {
         String message = chatMatcher.group("message");
         if (SaveManager.chatScannerSaveFile.data.searching) {
             for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
-                for (String term : entry.getIgnoreTerms()) {
-                    if (message.contains(term)) return;
+                if (entry.getIgnoreTerms() != null) {
+                    for (String term : entry.getIgnoreTerms()) {
+                        if (message.contains(term)) return;
+                    }
                 }
                 for (String term : entry.getSearchTerms()) {
                     if (message.contains(term)) {

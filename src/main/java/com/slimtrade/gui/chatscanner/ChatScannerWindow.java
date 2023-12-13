@@ -157,34 +157,23 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     }
 
     public void toggleSearch() {
-        if (SaveManager.chatScannerSaveFile.data.searching) {
-            stopSearch();
-        } else {
-            tryStartSearch();
-        }
+        if (SaveManager.chatScannerSaveFile.data.searching) stopSearch();
+        else tryStartSearch();
     }
 
     public void tryStartSearch() {
         int[] values = entryList.getSelectedIndices();
-        if (values.length == 0) {
-            // FIXME :
-            return;
-        }
+        if (values.length == 0) return;
         ArrayList<ChatScannerEntry> activeEntries = new ArrayList<>(values.length);
-        for (int i = 0; i < values.length; i++) {
-            activeEntries.add(panels.get(i).getData());
-        }
+        for (int i : values) activeEntries.add(panels.get(i).getData());
         SaveManager.chatScannerSaveFile.data.searching = true;
         SaveManager.chatScannerSaveFile.data.activeSearches = activeEntries;
-
-//        scanButton.setActive(!scanButton.isActive());
         cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         enableComponents(false);
     }
 
     public void stopSearch() {
         SaveManager.chatScannerSaveFile.data.searching = false;
-//        scanButton.setActive(!scanButton.isActive());
         ChatScannerCustomizerPanel selectedPanel = entryList.getSelectedValue();
         if (selectedPanel == null) cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         else cardLayout.show(cardPanel, selectedPanel.getTitle());
@@ -194,7 +183,6 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     private void enableComponents(boolean enable) {
         if (enable) scanButton.setText(START_SCANNING);
         else scanButton.setText(STOP_SCANNING);
-//        scanButton.setActive(!enable);
         entryList.setEnabled(enable);
         infoButton.setEnabled(enable);
         newEntryButton.setEnabled(enable);
