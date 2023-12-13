@@ -1,5 +1,6 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.core.chatparser.IParserInitListener;
 import com.slimtrade.core.chatparser.IParserLoadedListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.trading.TradeOffer;
@@ -8,11 +9,10 @@ import com.slimtrade.gui.history.HistoryPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class HistoryWindow extends CustomDialog implements ITradeListener, IParserLoadedListener {
+public class HistoryWindow extends CustomDialog implements ITradeListener, IParserInitListener, IParserLoadedListener {
 
-    HistoryPanel incomingTrades = new HistoryPanel();
-    HistoryPanel outgoingTrades = new HistoryPanel();
-    HistoryPanel chatScanner = new HistoryPanel();
+    private final HistoryPanel incomingTrades = new HistoryPanel();
+    private final HistoryPanel outgoingTrades = new HistoryPanel();
     private boolean loaded;
 
     public HistoryWindow() {
@@ -23,7 +23,6 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
 
         tabbedPane.addTab("Incoming Trades", incomingTrades);
         tabbedPane.addTab("Outgoing Trades", outgoingTrades);
-//        tabbedPane.addTab("Chat Scanner", chatScanner);
 
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(tabbedPane, BorderLayout.CENTER);
@@ -34,31 +33,38 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
         setLocationRelativeTo(null);
     }
 
-    @Override
-    public void handleTrade(TradeOffer tradeOffer) {
-        //
-        if (tradeOffer == null) return;
-        SwingUtilities.invokeLater(() -> {
-            addTradeToPanel(tradeOffer, loaded);
-        });
-    }
-
     private void addTradeToPanel(TradeOffer tradeOffer, boolean updateUI) {
         if (tradeOffer == null) return;
         switch (tradeOffer.offerType) {
-            case INCOMING_TRADE:
-                incomingTrades.addRow(tradeOffer, updateUI);
-                break;
-            case OUTGOING_TRADE:
-                outgoingTrades.addRow(tradeOffer, updateUI);
-                break;
+            case INCOMING_TRADE -> incomingTrades.addRow(tradeOffer, updateUI);
+            case OUTGOING_TRADE -> outgoingTrades.addRow(tradeOffer, updateUI);
         }
+    }
+
+    private void clearHistory() {
+        incomingTrades.clearAllRows();
+        outgoingTrades.clearAllRows();
+        incomingTrades.reloadUI();
+        outgoingTrades.reloadUI();
+    }
+
+    @Override
+    public void handleTrade(TradeOffer tradeOffer) {
+        if (tradeOffer == null) return;
+        SwingUtilities.invokeLater(() -> addTradeToPanel(tradeOffer, loaded));
+    }
+
+    @Override
+    public void onParserInit() {
+        // FIXME : setting loaded to false causes a warning when changing client.txt path
+//        loaded = false;
+        clearHistory();
     }
 
     @Override
     public void onParserLoaded() {
+        loaded = true;
         SwingUtilities.invokeLater(() -> {
-            loaded = true;
             incomingTrades.reloadUI();
             outgoingTrades.reloadUI();
         });

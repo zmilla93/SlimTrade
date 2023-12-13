@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 public class HistoryTable extends JTable {
 
-    private HistoryTableModel historyTableModel;
+    private final HistoryTableModel historyTableModel;
 
     public HistoryTable(String[] columnNames, ArrayList<HistoryRowData> data) {
         historyTableModel = new HistoryTableModel(columnNames, data);
         setModel(historyTableModel);
+        setAutoCreateRowSorter(true);
 
         // Adjust table columns
         TableColumn column = null;

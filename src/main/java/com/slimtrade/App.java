@@ -164,25 +164,24 @@ public class App {
     }
 
     public static void initParsers() {
-        // FIXME : make this less robust now that parser is fixed
+        // FIXME : make this less robust now that parser is fixed?
         if (preloadParser != null) preloadParser.close();
         if (chatParser != null) chatParser.close();
-
         chatParser = new ChatParser();
         preloadParser = new ChatParser();
 
-        preloadParser.addTradeListener(FrameManager.historyWindow);
+        preloadParser.addOnInitCallback(FrameManager.historyWindow);
         preloadParser.addOnLoadedCallback(FrameManager.historyWindow);
+        preloadParser.addTradeListener(FrameManager.historyWindow);
         chatParser.addTradeListener(FrameManager.historyWindow);
         chatParser.addTradeListener(FrameManager.messageManager);
+        chatParser.addJoinedAreaListener(FrameManager.messageManager);
         preloadParser.addOnLoadedCallback(() -> {
             preloadParser.close();
             preloadParser = null;
+            chatParser.open(SaveManager.settingsSaveFile.data.clientPath, true);
         });
-        chatParser.addJoinedAreaListener(FrameManager.messageManager);
         preloadParser.open(SaveManager.settingsSaveFile.data.clientPath, false);
-        chatParser.open(SaveManager.settingsSaveFile.data.clientPath, true);
-
     }
 
     public static void setState(AppState state) {

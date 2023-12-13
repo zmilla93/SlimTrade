@@ -14,11 +14,10 @@ import java.util.ArrayList;
 
 public class HistoryPanel extends JPanel implements ISaveListener {
 
-    ArrayList<HistoryRowData> data = new ArrayList();
+    private final ArrayList<HistoryRowData> data = new ArrayList<>();
     public static int maxMessageCount = 50;
-    private HistoryTable table;
-
-    JButton reloadButton = new JButton("Open Selected Message");
+    private final HistoryTable table;
+    private final JButton reloadButton = new JButton("Open Selected Message");
 
     public HistoryPanel() {
         String[] columnNames = new String[]{"Date", "Time", "Player", "Item", "Price"};
@@ -56,7 +55,7 @@ public class HistoryPanel extends JPanel implements ISaveListener {
 
     public void reloadUI() {
 //        clearAllRows();
-        table.getHistoryTableModel().setRowData(data);
+//        table.getHistoryTableModel().setRowData(data);
         table.getHistoryTableModel().fireTableDataChanged();
     }
 
@@ -69,18 +68,15 @@ public class HistoryPanel extends JPanel implements ISaveListener {
     }
 
     public void addRow(TradeOffer tradeOffer, boolean updateUI) {
-        if (data.size() >= maxMessageCount) {
-            data.remove(0);
-        }
+        if (data.size() >= maxMessageCount) data.remove(0);
         HistoryRowData rowData = new HistoryRowData(tradeOffer);
         data.add(rowData);
-        if (updateUI) {
-            table.getHistoryTableModel().fireTableDataChanged();
-        }
+        if (updateUI) table.getHistoryTableModel().fireTableDataChanged();
     }
 
     public void clearAllRows() {
         data.clear();
+        table.getHistoryTableModel().fireTableDataChanged();
     }
 
     private void refreshSelectedTrade() {
@@ -101,4 +97,5 @@ public class HistoryPanel extends JPanel implements ISaveListener {
     public void onLoad() {
 
     }
+
 }

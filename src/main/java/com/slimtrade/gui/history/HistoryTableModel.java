@@ -4,13 +4,14 @@ import com.slimtrade.core.enums.HistoryOrder;
 import com.slimtrade.core.managers.SaveManager;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class HistoryTableModel extends AbstractTableModel {
 
     private final String[] columnNames;
-    private ArrayList<HistoryRowData> data;
+    private final ArrayList<HistoryRowData> data;
 
     /**
      * Table model for the history window.
@@ -21,7 +22,6 @@ public class HistoryTableModel extends AbstractTableModel {
     public HistoryTableModel(String[] columnNames, ArrayList<HistoryRowData> data) {
         this.columnNames = columnNames;
         this.data = data;
-
     }
 
     @Override
@@ -64,9 +64,9 @@ public class HistoryTableModel extends AbstractTableModel {
         return columnNames[column];
     }
 
-    public void setRowData(ArrayList<HistoryRowData> data) {
-        this.data = data;
-    }
+//    public void setRowData(ArrayList<HistoryRowData> data) {
+//        this.data = data;
+//    }
 
 
 }

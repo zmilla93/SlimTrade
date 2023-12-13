@@ -26,6 +26,7 @@ public class ChatParser implements FileTailerListener {
     public static final int tailerDelayMS = 250;
 
     // Listeners
+    private final ArrayList<IParserInitListener> onInitListeners = new ArrayList<>();
     private final ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
     private final ArrayList<ITradeListener> preloadTradeListeners = new ArrayList<>();
     private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
@@ -211,6 +212,10 @@ public class ChatParser implements FileTailerListener {
     }
 
     // Listeners
+    public void addOnInitCallback(IParserInitListener listener) {
+        onInitListeners.add(listener);
+    }
+
     public void addOnLoadedCallback(IParserLoadedListener listener) {
         onLoadListeners.add(listener);
     }
@@ -231,7 +236,7 @@ public class ChatParser implements FileTailerListener {
 
     @Override
     public void init(FileTailer tailer) {
-
+        for (IParserInitListener listener : onInitListeners) listener.onParserInit();
     }
 
     @Override
@@ -246,9 +251,7 @@ public class ChatParser implements FileTailerListener {
 
     @Override
     public void onLoad() {
-        for (IParserLoadedListener listener : onLoadListeners) {
-            listener.onParserLoaded();
-        }
+        for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded();
         loaded = true;
     }
 
@@ -256,4 +259,5 @@ public class ChatParser implements FileTailerListener {
     public void handle(String line) {
         parseLine(line);
     }
+
 }
