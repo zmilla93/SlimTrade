@@ -99,14 +99,22 @@ public class ChatParser implements FileTailerListener {
             System.out.println(chatMatcher.group("playerName") + ": " + chatMatcher.group("message"));
         String message = chatMatcher.group("message");
         if (SaveManager.chatScannerSaveFile.data.searching) {
+            // Iterate though all active searches and look for matching phrases
             for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
-                if (entry.getIgnoreTerms() != null) {
-                    for (String term : entry.getIgnoreTerms()) {
-                        if (message.contains(term)) return;
-                    }
-                }
+                if (entry.getSearchTerms() == null) continue;
                 for (String term : entry.getSearchTerms()) {
                     if (message.contains(term)) {
+                        boolean ignore = false;
+                        // Check if this message should be ignored
+                        if (entry.getIgnoreTerms() != null) {
+                            for (String ignoreTerm : entry.getIgnoreTerms()) {
+                                if (message.contains(ignoreTerm)) {
+                                    ignore = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (ignore) continue;
                         String player = chatMatcher.group("playerName");
                         SwingUtilities.invokeLater(() -> FrameManager.messageManager.addScannerMessage(entry, new PlayerMessage(player, message)));
                         return;
