@@ -23,6 +23,7 @@ public class CheatSheetWindow extends CustomDialog {
 
     private CheatSheetWindow(CheatSheetData data) {
         super(data.title, true);
+        setMinimumSize(new Dimension(0, 0));
         setFocusable(false);
         setFocusableWindowState(false);
         ImageIcon icon = new ImageIcon(SaveManager.getImagesDirectory() + data.fileName);
@@ -32,6 +33,7 @@ public class CheatSheetWindow extends CustomDialog {
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(label, BorderLayout.CENTER);
         pack();
+        setMinimumSize(getSize());
     }
 
 }

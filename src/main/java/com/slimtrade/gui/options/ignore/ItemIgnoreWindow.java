@@ -14,13 +14,13 @@ public class ItemIgnoreWindow extends CustomDialog {
 
     public ItemIgnoreWindow() {
         super("Ignore Item");
+        setMinimumSize(new Dimension(0, 0));
+        pinButton.setVisible(false);
         contentPanel.setLayout(new GridBagLayout());
-//        getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         int inset = 20;
         gc.insets = new Insets(inset, inset, inset, inset);
         contentPanel.add(inputPanel);
-//        getContentPane().add(inputPanel);
         pack();
         Dimension size = getSize();
         size.width += 120;
