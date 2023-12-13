@@ -175,7 +175,6 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     public void addScannerMessage(ChatScannerEntry entry, PlayerMessage playerMessage, boolean playSound) {
-//        panel.startTimer();
         ChatScannerMessagePanel panel = new ChatScannerMessagePanel(entry, playerMessage);
         if (playSound) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.chatScannerSound);
         addMessageMutual(panel);
