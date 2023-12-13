@@ -22,12 +22,11 @@ public class ChatScannerMessagePanel extends NotificationPanel {
     public ChatScannerMessagePanel(ChatScannerEntry scannerEntry, PlayerMessage playerMessage, boolean createListeners) {
         super(createListeners);
         this.playerMessage = playerMessage;
-        if (playerMessage != null){
+        if (playerMessage != null) {
             pasteReplacement = new PasteReplacement(SaveManager.settingsSaveFile.data.characterName, playerMessage.player);
-        }
-        if(playerMessage != null){
             playerNameButton.setText(playerMessage.player);
             itemButton.setText(playerMessage.message);
+            addPlayerButtonListener(playerMessage.player);
         }
         pricePanel.add(new JLabel(scannerEntry.title));
         messageColor = ColorManager.getCurrentTheme().themeType.getColor(TradeOfferType.CHAT_SCANNER_MESSAGE);

@@ -61,16 +61,7 @@ public class TradeMessagePanel extends NotificationPanel {
 
     private void addListeners() {
         TradeMessagePanel self = this;
-        playerNameButton.addMouseListener(new AdvancedMouseListener() {
-            @Override
-            public void click(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    POEInterface.pasteWithFocus("/whois " + tradeOffer.playerName);
-                } else if (e.getButton() == MouseEvent.BUTTON3) {
-                    POEInterface.pasteWithFocus("@" + tradeOffer.playerName, true);
-                }
-            }
-        });
+        addPlayerButtonListener(tradeOffer.playerName);
         switch (tradeOffer.offerType) {
             case INCOMING_TRADE:
                 itemButton.addMouseListener(new AdvancedMouseListener() {

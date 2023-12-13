@@ -205,6 +205,19 @@ public class NotificationPanel extends ColorPanel {
         startTimer();
     }
 
+    protected void addPlayerButtonListener(String playerName){
+        playerNameButton.addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    POEInterface.pasteWithFocus("/whois " + playerName);
+                } else if (e.getButton() == MouseEvent.BUTTON3) {
+                    POEInterface.pasteWithFocus("@" + playerName, true);
+                }
+            }
+        });
+    }
+
     public void startTimer() {
         if (timer != null) timer.stop();
         secondCount = 0;
@@ -272,7 +285,6 @@ public class NotificationPanel extends ColorPanel {
         IHotkeyAction action = hotkeyMap.get(hotkeyData);
         if (action != null) action.execute();
     }
-
 
     public void handleHotkeyMutual(MacroButton macro) {
         if (macro.lmbResponse.contains("/invite")) onInvite();
