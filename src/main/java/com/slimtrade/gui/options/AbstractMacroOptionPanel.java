@@ -54,14 +54,14 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         addPanel(exampleTradeContainer);
         addHeader("Inbuilt Macros");
         addPanel(inbuiltMacroPanel("Player Name", "/whois {player}", "Open empty whisper message"));
-        addSmallVerticalStrut();
+        addVerticalStrutSmall();
         addPanel(inbuiltMacroPanel("Item Name", "Open Stash Helper", "Ignore Item"));
         addVerticalStrut();
         addHeader("Custom Macro Info");
         addPanel(new PlainLabel("Run one or more commands using {player}, {self}, {item}, {price}, {zone}, and {message}."));
         addPanel(new PlainLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
         addPanel(new PlainLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey."));
-        addSmallVerticalStrut();
+        addVerticalStrutSmall();
         addPanel(exampleButton);
 
         addVerticalStrut();

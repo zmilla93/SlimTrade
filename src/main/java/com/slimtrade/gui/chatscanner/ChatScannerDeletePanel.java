@@ -21,7 +21,7 @@ public class ChatScannerDeletePanel extends AbstractOptionPanel {
         addListeners();
         headerLabel = addHeader("").getLabel();
         addPanel(new JLabel("Are you sure you want to delete this entry?"));
-        addSmallVerticalStrut();
+        addVerticalStrutSmall();
         addPanel(new ComponentPair(cancelButton, deleteButton));
     }
 
