@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class BasicsPanel extends GridBagPanel implements ISavable {
 
-    JPanel outerPanel = new JPanel();
+    private final JPanel outerPanel = new JPanel();
 
     private final JTextField characterNameInput = new LanguageTextField(14);
     private final JCheckBox showGuildName = new JCheckBox();
@@ -21,7 +21,6 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
     private final JComboBox<QuickPasteManager.QuickPasteMode> quickPasteCombo = new JComboBox<>();
     private final HotkeyButton quickPasteHotkey = new HotkeyButton();
     private final JButton editOverlayButton = new JButton("Edit Overlay");
-    private static final int MARGIN_SIZE = 10;
 
     public BasicsPanel() {
         gc.weightx = 1;
@@ -41,11 +40,15 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
 
         add(outerPanel, BorderLayout.WEST);
 
+        addListeners();
+    }
+
+    private void addListeners() {
         editOverlayButton.addActionListener(e -> FrameManager.setWindowVisibility(AppState.EDIT_OVERLAY));
+
     }
 
     private void addLabelComponentPair(String text, JComponent component) {
-        gc.insets = new Insets(0, MARGIN_SIZE, 0, 0);
         outerPanel.add(new JLabel(text), gc);
         gc.gridx++;
         outerPanel.add(Box.createHorizontalStrut(10), gc);
@@ -56,7 +59,6 @@ public class BasicsPanel extends GridBagPanel implements ISavable {
     }
 
     private void addComponent(JComponent component) {
-        gc.insets = new Insets(0, MARGIN_SIZE, 0, 0);
         outerPanel.add(component, gc);
         gc.gridy++;
     }

@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options;
 
+import com.slimtrade.App;
 import com.slimtrade.core.utility.GUIReferences;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +16,9 @@ public abstract class AbstractOptionPanel extends JPanel {
     protected JPanel contentPanel;
     private static final int SCROLL_SPEED = 10;
     private final GridBagConstraints gc = new GridBagConstraints();
+    private static final int CONTENT_PANEL_INSET = 10;
+    private static final int HEADER_INSET = 5;
+    private static final int COMPONENT_INSET = 10;
 
     public AbstractOptionPanel() {
         this(true);
@@ -24,8 +28,15 @@ public abstract class AbstractOptionPanel extends JPanel {
         setLayout(new BorderLayout());
         contentPanel = new JPanel(new GridBagLayout());
         JPanel insetPanel = new JPanel(new BorderLayout());
-        insetPanel.add(Box.createVerticalStrut(GUIReferences.INSET), BorderLayout.NORTH);
-        insetPanel.add(contentPanel);
+        if (App.debugUIBorders) {
+            setBackground(new Color(96, 236, 122));
+            contentPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+        }
+        insetPanel.add(Box.createVerticalStrut(CONTENT_PANEL_INSET), BorderLayout.NORTH);
+        insetPanel.add(Box.createVerticalStrut(CONTENT_PANEL_INSET), BorderLayout.SOUTH);
+        insetPanel.add(Box.createHorizontalStrut(CONTENT_PANEL_INSET), BorderLayout.EAST);
+        insetPanel.add(Box.createHorizontalStrut(CONTENT_PANEL_INSET), BorderLayout.WEST);
+        insetPanel.add(contentPanel, BorderLayout.CENTER);
         JPanel bufferPanel = new JPanel(new BorderLayout());
         bufferPanel.add(insetPanel, BorderLayout.NORTH);
         if (addScrollPanel) {
@@ -40,7 +51,7 @@ public abstract class AbstractOptionPanel extends JPanel {
         gc.gridy = 0;
     }
 
-    public HeaderPanel addHeader(String title) {
+    public JLabel addHeader(String title) {
         HeaderPanel headerPanel = new HeaderPanel(title);
         int prevFill = gc.fill;
         double prevWeightX = gc.weightx;
@@ -52,17 +63,28 @@ public abstract class AbstractOptionPanel extends JPanel {
         gc.gridy++;
         contentPanel.add(Box.createVerticalStrut(2), gc);
         gc.gridy++;
-        return headerPanel;
+        return headerPanel.getLabel();
     }
 
     public Component addComponent(Component component) {
+        if (App.debugUIBorders) {
+            if (component instanceof JPanel)
+                ((JPanel) component).setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
+            else if (App.debugUIBordersAggressive && component instanceof JComponent) {
+                JPanel debugPanel = new JPanel(new BorderLayout());
+                debugPanel.add(component);
+                debugPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+                debugPanel.add(component, BorderLayout.CENTER);
+                component = debugPanel;
+            }
+        }
         int prevFill = gc.fill;
         double prevWeight = gc.weightx;
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.weightx = 1;
         JPanel outerPanel = new JPanel(new BorderLayout());
         JPanel innerPanel = new JPanel(new BorderLayout());
-        outerPanel.add(Box.createHorizontalStrut(GUIReferences.INSET), BorderLayout.WEST);
+        outerPanel.add(Box.createHorizontalStrut(0), BorderLayout.WEST);
         outerPanel.add(innerPanel, BorderLayout.CENTER);
         innerPanel.add(component, BorderLayout.WEST);
         contentPanel.add(outerPanel, gc);

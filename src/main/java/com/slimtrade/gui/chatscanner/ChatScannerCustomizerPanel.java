@@ -25,8 +25,7 @@ public class ChatScannerCustomizerPanel extends JPanel implements Comparable<Cha
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.add(searchTermsPanel, "Search Terms");
         tabbedPane.add(macroPanel, "Macros");
-        HeaderPanel headerPanel = customizerPanel.addHeader(entry.title);
-        headerLabel = headerPanel.getLabel();
+        headerLabel = customizerPanel.addHeader(entry.title);
         customizerPanel.addComponent(new ComponentPair(renameButton, deleteButton));
         customizerPanel.addComponent(tabbedPane);
         add(customizerPanel, BorderLayout.NORTH);

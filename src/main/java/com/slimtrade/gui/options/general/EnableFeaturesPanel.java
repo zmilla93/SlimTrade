@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class EnableFeaturesPanel extends JPanel implements ISavable {
 
-    GridBagConstraints gc = ZUtil.getGC();
+    private final GridBagConstraints gc = ZUtil.getGC();
 
     private final JCheckBox incomingMessages = new JCheckBox();
     private final JCheckBox outgoingMessages = new JCheckBox();
@@ -32,7 +32,6 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
     }
 
     private void addRow(String title, JComponent component) {
-        gc.insets = new Insets(0, 10, 2, 0);
         add(component, gc);
         if (component instanceof JCheckBox) {
             ((JCheckBox) component).setText(title);
