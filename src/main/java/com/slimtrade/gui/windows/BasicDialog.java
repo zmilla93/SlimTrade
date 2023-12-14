@@ -10,9 +10,6 @@ public class BasicDialog extends VisibilityDialog {
 
     public BasicDialog() {
         setUndecorated(true);
-//        setBackground(Color.RED);
-//        getRootPane().setOpaque(false);
-//        contentPanel.setBackground(Color.RED);
         setContentPane(contentPanel);
         setFocusable(false);
         setFocusableWindowState(false);
