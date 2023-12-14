@@ -22,16 +22,16 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
 
     public StashSortingOptionPanel() {
         addHeader("Info");
-        addPanel(new JLabel("A window with buttons that paste search terms into your stash."));
-        addPanel(new JLabel("Add a hotkey to open the window itself."));
-        addPanel(new JLabel("Default white will match color theme."));
-        addPanel(new ButtonWrapper(hotkeyButton));
+        addComponent(new JLabel("A window with buttons that paste search terms into your stash."));
+        addComponent(new JLabel("Add a hotkey to open the window itself."));
+        addComponent(new JLabel("Default white will match color theme."));
+        addComponent(new ButtonWrapper(hotkeyButton));
         addVerticalStrut();
         addHeader("New Search");
-        addPanel(inputPanel);
+        addComponent(inputPanel);
         addVerticalStrut();
         addHeader("Search Terms");
-        addPanel(dataContainer);
+        addComponent(dataContainer);
         addListeners();
     }
 

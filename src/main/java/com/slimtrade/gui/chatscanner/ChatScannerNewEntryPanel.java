@@ -16,9 +16,9 @@ public class ChatScannerNewEntryPanel extends AbstractOptionPanel {
         super(true);
         addHeader("New Scanner Entry");
         JLabel entryLabel = new JLabel("Name");
-        addPanel(new ComponentPair(entryLabel, entryNameInput));
-        addPanel(new ComponentPair(cancelButton, createEntryButton));
-        addPanel(errorLabel);
+        addComponent(new ComponentPair(entryLabel, entryNameInput));
+        addComponent(new ComponentPair(cancelButton, createEntryButton));
+        addComponent(errorLabel);
     }
 
     public void clearName() {

@@ -19,7 +19,7 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
     public DisplayOptionPanel() {
         for (Theme theme : Theme.values()) themeCombo.addItem(theme);
         addHeader("UI Scale");
-        addPanel(new DisplaySettingsPanel());
+        addComponent(new DisplaySettingsPanel());
         addVerticalStrut();
 
         JPanel themePanel = new JPanel(new GridBagLayout());
@@ -30,8 +30,8 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
         gc.gridx++;
 
         addHeader("Theme");
-        addPanel(themePanel);
-        addPanel(colorBlindCheckBox);
+        addComponent(themePanel);
+        addComponent(colorBlindCheckBox);
         themeCombo.addActionListener(e -> SwingUtilities.invokeLater(() -> ThemeManager.setTheme((Theme) themeCombo.getSelectedItem())));
     }
 

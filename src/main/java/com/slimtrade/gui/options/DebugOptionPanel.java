@@ -17,15 +17,15 @@ public class DebugOptionPanel extends AbstractOptionPanel {
 
     public DebugOptionPanel() {
         addHeader("Debug Tools");
-        addPanel(incomingMessageButton);
-        addPanel(outgoingMessageButton);
-        addPanel(scannerMessageButton);
-        addPanel(updateMessageButton);
-        addPanel(uiDump);
+        addComponent(incomingMessageButton);
+        addComponent(outgoingMessageButton);
+        addComponent(scannerMessageButton);
+        addComponent(updateMessageButton);
+        addComponent(uiDump);
         addVerticalStrut();
         addHeader("Font Test");
-        addPanel(new JLabel("Almost before we knew it, we had left the ground."));
-        addPanel(new JLabel("The quick brown fox jumped over the lazy dogs."));
+        addComponent(new JLabel("Almost before we knew it, we had left the ground."));
+        addComponent(new JLabel("The quick brown fox jumped over the lazy dogs."));
         addListeners();
     }
 

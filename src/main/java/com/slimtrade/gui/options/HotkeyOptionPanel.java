@@ -55,14 +55,14 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         addHotkey(poeHotkeyPanel, "Remaining Monsters", remainingMonsters);
 
         addHeader("Hotkey Info");
-        addPanel(new JLabel("Use ctrl, alt, and shift as modifiers."));
-        addPanel(new JLabel("Use escape to clear a hotkey."));
+        addComponent(new JLabel("Use ctrl, alt, and shift as modifiers."));
+        addComponent(new JLabel("Use escape to clear a hotkey."));
         addVerticalStrut();
         addHeader("SlimTrade Hotkeys");
-        addPanel(appHotkeyPanel);
-        addPanel(Box.createVerticalStrut(GUIReferences.INSET));
+        addComponent(appHotkeyPanel);
+        addComponent(Box.createVerticalStrut(GUIReferences.INSET));
         addHeader("Path of Exile Hotkeys");
-        addPanel(poeHotkeyPanel);
+        addComponent(poeHotkeyPanel);
 //        App.saveManager.registerSavable(this);
     }
 

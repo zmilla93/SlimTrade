@@ -10,10 +10,10 @@ public class ChatScannerInfoPanel extends AbstractOptionPanel {
     public ChatScannerInfoPanel() {
         super(true);
         addHeader("Chat Scanner Info");
-        addPanel(new PlainLabel("Allows you to search for custom phrases in chat."));
-        addPanel(new PlainLabel("Once you create an entry, select it from the list then click 'Start Scanning'."));
-        addPanel(new PlainLabel("Use CTRL or SHIFT to select multiple entries for scanning."));
-        addPanel(new JLabel("Click 'New Entry' in the lower left to get started!"));
+        addComponent(new PlainLabel("Allows you to search for custom phrases in chat."));
+        addComponent(new PlainLabel("Once you create an entry, select it from the list then click 'Start Scanning'."));
+        addComponent(new PlainLabel("Use CTRL or SHIFT to select multiple entries for scanning."));
+        addComponent(new JLabel("Click 'New Entry' in the lower left to get started!"));
     }
 
 }

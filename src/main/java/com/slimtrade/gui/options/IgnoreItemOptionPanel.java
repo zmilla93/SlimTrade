@@ -18,13 +18,13 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
 
     public IgnoreItemOptionPanel() {
         addHeader("Ignore New Item");
-        addPanel(ignoreInputPanel);
+        addComponent(ignoreInputPanel);
         addVerticalStrutSmall();
-        addPanel(new JLabel("Set minutes to 0 to ignore indefinitely."));
-        addPanel(new JLabel("Right click item names of incoming trades to quick ignore."));
+        addComponent(new JLabel("Set minutes to 0 to ignore indefinitely."));
+        addComponent(new JLabel("Right click item names of incoming trades to quick ignore."));
         addVerticalStrut();
         addHeader("Ignore List");
-        addPanel(ignoreContainer);
+        addComponent(ignoreContainer);
         addListeners();
     }
 

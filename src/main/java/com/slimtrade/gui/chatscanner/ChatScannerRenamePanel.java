@@ -18,10 +18,10 @@ public class ChatScannerRenamePanel extends AbstractOptionPanel {
     public ChatScannerRenamePanel() {
         super(true);
         headerLabel = addHeader("Rename Entry").getLabel();
-        addPanel(new ComponentPair(new JLabel("New Name"), newNameInput));
+        addComponent(new ComponentPair(new JLabel("New Name"), newNameInput));
         addVerticalStrutSmall();
-        addPanel(new ComponentPair(cancelButton, applyNameButton));
-        addPanel(errorLabel);
+        addComponent(new ComponentPair(cancelButton, applyNameButton));
+        addComponent(errorLabel);
         addListeners();
     }
 

@@ -15,23 +15,23 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
     public GeneralOptionPanel() {
 
         addHeader("Basics");
-        addPanel(basicsPanel);
+        addComponent(basicsPanel);
         addVerticalStrut();
 //        addHeader("Display");
 //        addPanel(new DisplaySettingsPanel());
 //        addVerticalStrut();
         addHeader("Enable Features");
-        addPanel(new EnableFeaturesPanel());
+        addComponent(new EnableFeaturesPanel());
         addVerticalStrut();
         addHeader("Message Popups");
-        addPanel(new MessageSettingsPanel());
+        addComponent(new MessageSettingsPanel());
         addVerticalStrut();
         addHeader("History");
-        addPanel(new HistoryOptionPanel());
+        addComponent(new HistoryOptionPanel());
         addVerticalStrut();
         addHeader("Path of Exile");
-        addPanel(new PathOfExilePanel());
-        addPanel(stashButton);
+        addComponent(new PathOfExilePanel());
+        addComponent(stashButton);
         addListeners();
     }
 

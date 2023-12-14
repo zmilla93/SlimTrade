@@ -15,10 +15,10 @@ public class ScannerSearchTermsPanel extends AbstractOptionPanel {
         addHeader("Separate unique phrases using a comma, semicolon, or new line.");
         addVerticalStrut();
         addHeader("Search Terms");
-        addPanel(searchTermsInput);
+        addComponent(searchTermsInput);
         addVerticalStrut();
         addHeader("Ignore Terms");
-        addPanel(ignoreTermsInput);
+        addComponent(ignoreTermsInput);
     }
 
     public void setSearchTerms(String text) {

@@ -1,11 +1,16 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.core.utility.GUIReferences;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class AbstractOptionPanel extends JPanel {
+/**
+ * Used to create consistently formatted option panels.
+ * Do not add components directly. Instead, use the addHeader() and addComponent() functions.
+ */
+public abstract class AbstractOptionPanel extends JPanel {
 
     protected JPanel contentPanel;
     private static final int SCROLL_SPEED = 10;
@@ -27,9 +32,9 @@ public class AbstractOptionPanel extends JPanel {
             JScrollPane scrollPane = new JScrollPane(bufferPanel);
             scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_SPEED);
             scrollPane.getHorizontalScrollBar().setUnitIncrement(SCROLL_SPEED);
-            add(scrollPane, BorderLayout.CENTER);
+            super.add(scrollPane, BorderLayout.CENTER);
         } else {
-            add(bufferPanel, BorderLayout.CENTER);
+            super.add(bufferPanel, BorderLayout.CENTER);
         }
         gc.gridx = 0;
         gc.gridy = 0;
@@ -50,7 +55,7 @@ public class AbstractOptionPanel extends JPanel {
         return headerPanel;
     }
 
-    public Component addPanel(Component component) {
+    public Component addComponent(Component component) {
         int prevFill = gc.fill;
         double prevWeight = gc.weightx;
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -67,16 +72,53 @@ public class AbstractOptionPanel extends JPanel {
         return outerPanel;
     }
 
-    public Component addVerticalStrutSmall() {
-        Component strut = Box.createVerticalStrut(GUIReferences.SMALL_INSET);
-        addPanel(strut);
+    public Component addVerticalStrut() {
+        Component strut = Box.createVerticalStrut(GUIReferences.INSET);
+        addComponent(strut);
         return strut;
     }
 
-    public Component addVerticalStrut() {
-        Component strut = Box.createVerticalStrut(GUIReferences.INSET);
-        addPanel(strut);
+    public Component addVerticalStrutSmall() {
+        Component strut = Box.createVerticalStrut(GUIReferences.SMALL_INSET);
+        addComponent(strut);
         return strut;
+    }
+
+    // Components should only be added using provided functions.
+    // Override all add functions to warn about improper use.
+
+    @Override
+    public Component add(Component comp) {
+        incorrectAddMethod();
+        return super.add(comp);
+    }
+
+    @Override
+    public void add(@NotNull Component comp, Object constraints) {
+        incorrectAddMethod();
+        super.add(comp, constraints);
+    }
+
+    @Override
+    public Component add(String name, Component comp) {
+        incorrectAddMethod();
+        return super.add(name, comp);
+    }
+
+    @Override
+    public Component add(Component comp, int index) {
+        incorrectAddMethod();
+        return super.add(comp, index);
+    }
+
+    @Override
+    public void add(Component comp, Object constraints, int index) {
+        incorrectAddMethod();
+        super.add(comp, constraints, index);
+    }
+
+    private void incorrectAddMethod() {
+        System.err.println("Components should not be added directly to an OptionPanel! Use addHeader() or addPanel() instead.");
     }
 
 }

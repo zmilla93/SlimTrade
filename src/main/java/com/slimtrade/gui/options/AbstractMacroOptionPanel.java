@@ -51,28 +51,28 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         });
 
         addHeader("Macro Preview");
-        addPanel(exampleTradeContainer);
+        addComponent(exampleTradeContainer);
         addHeader("Inbuilt Macros");
-        addPanel(inbuiltMacroPanel("Player Name", "/whois {player}", "Open empty whisper message"));
+        addComponent(inbuiltMacroPanel("Player Name", "/whois {player}", "Open empty whisper message"));
         addVerticalStrutSmall();
-        addPanel(inbuiltMacroPanel("Item Name", "Open Stash Helper", "Ignore Item"));
+        addComponent(inbuiltMacroPanel("Item Name", "Open Stash Helper", "Ignore Item"));
         addVerticalStrut();
         addHeader("Custom Macro Info");
-        addPanel(new PlainLabel("Run one or more commands using {player}, {self}, {item}, {price}, {zone}, and {message}."));
-        addPanel(new PlainLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
-        addPanel(new PlainLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey."));
+        addComponent(new PlainLabel("Run one or more commands using {player}, {self}, {item}, {price}, {zone}, and {message}."));
+        addComponent(new PlainLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
+        addComponent(new PlainLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey."));
         addVerticalStrutSmall();
-        addPanel(exampleButton);
+        addComponent(exampleButton);
 
         addVerticalStrut();
         exampleHeaderPanel = addHeader("Examples");
-        examplePanel = addPanel(createExamplePanel());
+        examplePanel = addComponent(createExamplePanel());
         exampleSeparator = addVerticalStrut();
         addHeader("Custom Macros");
 
 //        JPanel buttonPanel = new JPanel();
-        addPanel(addMacroButton);
-        addPanel(macroContainer);
+        addComponent(addMacroButton);
+        addComponent(macroContainer);
         hideExamples();
         addListeners();
     }
