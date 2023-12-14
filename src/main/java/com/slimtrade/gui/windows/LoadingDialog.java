@@ -1,7 +1,7 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

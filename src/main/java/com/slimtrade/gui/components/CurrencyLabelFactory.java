@@ -3,9 +3,9 @@ package com.slimtrade.gui.components;
 import com.slimtrade.core.data.SaleItem;
 import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.history.PoePrice;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

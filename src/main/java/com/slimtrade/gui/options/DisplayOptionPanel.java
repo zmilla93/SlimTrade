@@ -1,12 +1,12 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.modules.theme.ThemeManager;
-import com.slimtrade.modules.theme.Theme;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.options.general.DisplaySettingsPanel;
 import com.slimtrade.modules.saving.ISavable;
+import com.slimtrade.modules.theme.Theme;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

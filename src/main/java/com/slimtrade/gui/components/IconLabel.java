@@ -4,6 +4,7 @@ import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 
+@Deprecated
 public class IconLabel extends JLabel {
 
     public IconLabel(String path) {

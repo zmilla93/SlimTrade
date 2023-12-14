@@ -3,10 +3,10 @@ package com.slimtrade.core.managers;
 import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.legacy.SaveFilePatcher;
 import com.slimtrade.core.saving.savefiles.*;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.saving.SaveFile;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.io.File;

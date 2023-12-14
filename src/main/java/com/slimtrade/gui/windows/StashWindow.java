@@ -2,13 +2,13 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.InsetPanel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.GridPanel;
-import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.saving.ISavable;
+import com.slimtrade.modules.theme.IThemeListener;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

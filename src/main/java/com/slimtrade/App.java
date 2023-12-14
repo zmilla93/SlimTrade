@@ -10,7 +10,6 @@ import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.VersionNumber;
 import com.slimtrade.gui.managers.FrameManager;
@@ -19,6 +18,7 @@ import com.slimtrade.gui.managers.SetupManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.LoadingDialog;
+import com.slimtrade.modules.theme.ThemeManager;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 

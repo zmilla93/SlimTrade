@@ -4,7 +4,6 @@ import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MacroButtonType;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.basic.HotkeyButton;
@@ -13,6 +12,7 @@ import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.ButtonWrapper;
 import com.slimtrade.gui.components.LimitCombo;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

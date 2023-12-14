@@ -4,7 +4,6 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.AdvancedMouseListener;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.IVisibilityFrame;
 import com.slimtrade.gui.components.Visibility;
@@ -13,6 +12,7 @@ import com.slimtrade.gui.messaging.PinButton;
 import com.slimtrade.gui.pinning.IPinnable;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.modules.theme.IThemeListener;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

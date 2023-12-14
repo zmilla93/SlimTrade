@@ -1,8 +1,8 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.components.IVisibilityFrame;
 import com.slimtrade.gui.components.Visibility;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import java.awt.*;
 

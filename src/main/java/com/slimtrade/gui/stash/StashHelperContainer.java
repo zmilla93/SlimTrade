@@ -2,10 +2,10 @@ package com.slimtrade.gui.stash;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.theme.IThemeListener;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

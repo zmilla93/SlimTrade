@@ -1,7 +1,7 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.Theme;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.AdvancedButton;
 
 import javax.swing.*;

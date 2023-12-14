@@ -3,7 +3,6 @@ package com.slimtrade.gui.menubar;
 import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
@@ -11,6 +10,7 @@ import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.theme.IUIResizeListener;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

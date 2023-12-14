@@ -1,11 +1,11 @@
 package com.slimtrade.gui.menubar;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.theme.IUIResizeListener;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

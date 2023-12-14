@@ -13,13 +13,13 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.AdvancedMouseListener;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.messaging.*;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.theme.IUIResizeListener;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;

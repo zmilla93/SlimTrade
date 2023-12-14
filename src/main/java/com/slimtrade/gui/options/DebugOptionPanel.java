@@ -2,8 +2,8 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 

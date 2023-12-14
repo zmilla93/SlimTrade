@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 /**
  * A panel that allows children to be added, removed, and easily reordered.
+ *
  * @see AddRemovePanel
  */
 public class AddRemoveContainer extends JPanel {

@@ -8,9 +8,9 @@ import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
-import com.slimtrade.modules.theme.Theme;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.stashsorting.StashSortData;
+import com.slimtrade.modules.theme.Theme;
 
 import java.util.ArrayList;
 import java.util.Collections;

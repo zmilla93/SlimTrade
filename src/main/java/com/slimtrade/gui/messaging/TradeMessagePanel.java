@@ -6,11 +6,11 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.AdvancedMouseListener;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.gui.stash.StashHelperWrapper;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.PassThroughPanel;
 
 import javax.swing.*;

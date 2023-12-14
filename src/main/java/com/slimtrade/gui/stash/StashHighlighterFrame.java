@@ -4,9 +4,9 @@ import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.options.stash.StashTabType;
 import com.slimtrade.gui.windows.AbstractDialog;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
