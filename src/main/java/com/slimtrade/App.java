@@ -18,6 +18,7 @@ import com.slimtrade.gui.managers.SetupManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.LoadingDialog;
+import com.slimtrade.modules.stopwatch.Stopwatch;
 import com.slimtrade.modules.theme.ThemeManager;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -41,10 +42,16 @@ public class App {
     private static AppState state = AppState.LOADING;
     private static AppState previousState = AppState.LOADING;
 
+    // Debug Flags
     public static boolean debug = true;
     public static boolean chatInConsole = false;
+    public static boolean debugUIBorders = false;
+    public static boolean debugUIBordersAggressive = true;
+    private static final boolean debugProfileLaunch = false;
 
     public static void main(String[] args) {
+
+        if (debugProfileLaunch) System.out.println("Profiling launch actions....");
 
         // Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
@@ -79,6 +86,7 @@ public class App {
 
         // Loading Dialog
         try {
+            Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
                 ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
                 ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
@@ -86,25 +94,30 @@ public class App {
                 loadingDialog = new LoadingDialog();
                 loadingDialog.setVisible(true);
             });
+            profileLaunch("ThemeManager");
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
         // Init Managers
+        Stopwatch.start();
         CurrencyType.initIconList();
         LangRegex.compileAll();
         POEInterface.init();
         AudioManager.init();
         FontManager.loadFonts();
+        profileLaunch("Managers Launched");
 
         // UI
         try {
+            Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
                 // Init System Tray Button
                 systemTrayManager = new SystemTrayManager();
                 // Initialize all GUI windows
                 FrameManager.init();
             });
+            profileLaunch("UI Creation");
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -132,8 +145,14 @@ public class App {
 
         SwingUtilities.invokeLater(() -> loadingDialog.dispose());
 
+        if (debugProfileLaunch) System.out.println("Profiling launch complete!\n");
         System.out.println("Slimtrade Launched");
 
+    }
+
+    private static void profileLaunch(String context) {
+        if (!debugProfileLaunch) return;
+        System.out.println("\t" + context + ": " + Stopwatch.getElapsedSeconds());
     }
 
     private static void runSetupWizard() {
