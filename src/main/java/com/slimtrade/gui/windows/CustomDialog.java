@@ -21,16 +21,27 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 /**
- * Provides a resizable JFrame like window with a title, close button, and pin button.
- * Unlike a normal JFrame, content can be made transparent without affecting the title bar and border.
- * IMPORTANT: Add content with the contentPanel variable (not the getContentPanel function).
+ * A resizable window with a title, close button, and pin button.
+ * Unlike a normal JDialog, content can be made transparent without affecting the title bar and border.
+ * Add content to the contentPanel variable (or use getContentPane()).
  */
 public abstract class CustomDialog extends VisibilityDialog implements IPinnable, IThemeListener, IVisibilityFrame {
 
+    // Sizes
     private static final int RESIZER_PANEL_SIZE = 8;
     private static final int BORDER_SIZE = 1;
+    private static final int TITLE_INSET = 4;
+
+    // State
     private boolean pinned;
     private Visibility visibility;
+
+    // Movement
+    private Point startLocation;
+    private Point clickedWindowPoint;
+    private Dimension startSize;
+    private int maxWidthAdjust;
+    private int maxHeightAdjust;
 
     // Resizers
     private final JPanel resizerTop = new JPanel(new BorderLayout());
@@ -38,19 +49,15 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     private final JPanel resizerLeft = new JPanel(new BorderLayout());
     private final JPanel resizerRight = new JPanel(new BorderLayout());
 
+    // Panels
     private final JPanel titleBarPanel = new JPanel(new BorderLayout());
     private final JLabel titleLabel = new JLabel();
-    protected final JPanel contentPanel = new JPanel();
-    private Point startLocation;
-    private Point clickedWindowPoint;
-    private Dimension startSize;
+    private final JPanel contentBorderPanel;
+    protected JPanel contentPanel = new JPanel();
 
     // Buttons
     protected final NotificationIconButton closeButton = new NotificationIconButton("/icons/default/closex64.png");
     protected final PinButton pinButton = new PinButton();
-    private int maxWidthAdjust;
-    private int maxHeightAdjust;
-    private static final int TITLE_INSET = 4;
 
     public CustomDialog(String title) {
         this(title, false);
@@ -64,8 +71,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         getRootPane().setOpaque(false);
         ThemeManager.addFrame(this);
         ThemeManager.addThemeListener(this);
-        Container container = getContentPane();
-        container.setLayout(new BorderLayout());
         PinManager.addPinnable(this);
 
         // Title Bar
@@ -93,14 +98,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         titleBarPanel.add(titlePanel, BorderLayout.WEST);
         titleBarPanel.add(buttonPanel, BorderLayout.EAST);
 
-        // Inner Panel
-        JPanel contentBorderPanel = new JPanel(new BorderLayout());
-        contentBorderPanel.add(contentPanel, BorderLayout.CENTER);
-        JPanel innerPanel = new JPanel(new BorderLayout());
-        innerPanel.add(titleBarPanel, BorderLayout.NORTH);
-        innerPanel.add(contentPanel, BorderLayout.CENTER);
-        innerPanel.setBackground(Color.ORANGE);
-
         // Resize Panels
         resizerTop.add(Box.createVerticalStrut(RESIZER_PANEL_SIZE), BorderLayout.CENTER);
         resizerBottom.add(Box.createVerticalStrut(RESIZER_PANEL_SIZE), BorderLayout.CENTER);
@@ -115,6 +112,15 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         resizerLeft.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
         resizerRight.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
 
+        // Inner Panel
+        contentBorderPanel = new JPanel(new BorderLayout());
+        contentBorderPanel.add(contentPanel, BorderLayout.CENTER);
+        contentBorderPanel.setOpaque(false);
+        JPanel innerPanel = new JPanel(new BorderLayout());
+        innerPanel.add(titleBarPanel, BorderLayout.NORTH);
+        innerPanel.add(contentBorderPanel, BorderLayout.CENTER);
+        innerPanel.setBackground(Color.ORANGE);
+
         // Outer Panel
         JPanel outerPanel = new JPanel(new BorderLayout());
         outerPanel.add(innerPanel, BorderLayout.CENTER);
@@ -126,7 +132,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         innerPanel.setOpaque(false);
 
         // Container
-        setContentPane(outerPanel);
+        super.setContentPane(outerPanel);
         setBackground(ThemeManager.TRANSPARENT);
 
         addWindowMover();
@@ -283,8 +289,8 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     }
 
     private void colorBorders() {
-        titleBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, UIManager.getColor("Separator.foreground")));
-        contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), 1));
+        titleBarPanel.setBorder(BorderFactory.createMatteBorder(BORDER_SIZE, BORDER_SIZE, 0, BORDER_SIZE, UIManager.getColor("Separator.foreground")));
+        contentBorderPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), BORDER_SIZE));
     }
 
     protected int getResizerSize() {
@@ -352,6 +358,16 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     public void hideOverlay() {
         visibility = isVisible() ? Visibility.SHOW : Visibility.HIDE;
         setVisible(false);
+    }
+
+    @Override
+    public Container getContentPane() {
+        return contentPanel;
+    }
+
+    @Override
+    public void setContentPane(Container contentPane) {
+        System.err.println("The contentPane of a CustomDialog cannot be changed! Use the contentPanel variable or getContentPane() instead.");
     }
 
 }
