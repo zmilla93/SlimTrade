@@ -6,6 +6,7 @@ import java.awt.*;
 /**
  * Can be used with a BorderLayout panel to create a separator.
  */
+@Deprecated
 public class SeparatorPanel extends JPanel {
 
     public SeparatorPanel() {

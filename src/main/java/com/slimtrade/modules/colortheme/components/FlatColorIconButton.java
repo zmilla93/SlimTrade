@@ -10,6 +10,7 @@ import java.awt.image.WritableRaster;
 import java.io.IOException;
 import java.util.Objects;
 
+@Deprecated
 public class FlatColorIconButton extends JButton {
 
     private Image original;

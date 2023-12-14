@@ -24,7 +24,7 @@ import java.util.*;
 
 public class ColorManager<T> {
 
-    private static List<Component> frames = new ArrayList<>();
+    private static final List<Component> frames = new ArrayList<>();
     private static ColorTheme currentTheme;
     private static final ArrayList<IThemeListener> themeListeners = new ArrayList<>();
     private static final ArrayList<IUIResizeListener> uiResizeListeners = new ArrayList<>();
@@ -38,13 +38,12 @@ public class ColorManager<T> {
     public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
     public static final Color TRANSPARENT_CLICKABLE = new Color(0, 0, 0, 1);
 
-    private static ArrayList<JComboBox> stickyCombos = new ArrayList<>();
+    private static final ArrayList<JComboBox<?>> stickyCombos = new ArrayList<>();
 
-    //    private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, SaveManager.settingsSaveFile.data.textSize);
     private static Font font;
 
-    private static HashMap<String, ImageIcon> iconMap = new HashMap<>();
-    private static HashMap<String, ImageIcon> colorIconMap = new HashMap<>();
+    private static final HashMap<String, ImageIcon> iconMap = new HashMap<>();
+    private static final HashMap<String, ImageIcon> colorIconMap = new HashMap<>();
 
     private static int cacheIconSize = 18;
 
@@ -60,12 +59,13 @@ public class ColorManager<T> {
     }
 
     // Sticky combos are JComboBoxes that contain colored icons.
-    // These combos need to be manually updated when switching themes.
-    public static void addStickyCombo(JComboBox combo) {
+    // These combos need to have their selected values manually updated after switching themes
+
+    public static void addStickyCombo(JComboBox<?> combo) {
         stickyCombos.add(combo);
     }
 
-    public static void removeStickyCombo(JComboBox combo) {
+    public static void removeStickyCombo(JComboBox<?> combo) {
         stickyCombos.remove(combo);
     }
 
@@ -88,7 +88,7 @@ public class ColorManager<T> {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        // Solarized Light Fix
+        // Solarized Light Fix - Makes checkboxes color match other inputs instead of being white
         if (currentTheme.name().equals("SOLARIZED_LIGHT")) {
             UIManager.put("CheckBox.icon", new ColorCheckbox());
         } else {
@@ -169,8 +169,7 @@ public class ColorManager<T> {
             return iconMap.get(path);
         }
         try {
-            BufferedImage img = null;
-            File file;
+            BufferedImage img;
             if (resourceFolder) img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
             else img = ImageIO.read(new File(path));
             if (img == null) return null; // This will only trigger with user submitted images
@@ -336,7 +335,9 @@ public class ColorManager<T> {
 //        }
 //    }
 
+    //
     // Utility Color Functions
+    //
 
     public static Color getDarkerColor(Color colorA, Color colorB) {
         if (colorIntValue(colorA) < colorIntValue(colorB)) return colorA;
@@ -372,17 +373,19 @@ public class ColorManager<T> {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
     }
 
+    //
     // Listeners
+    //
 
     public static void addThemeListener(IThemeListener listener) {
         themeListeners.add(listener);
     }
 
-    public static void removeListener(IThemeListener listener) {
+    public static void removeThemeListener(IThemeListener listener) {
         themeListeners.remove(listener);
     }
 
-    public static void clearAllListeners() {
+    public static void clearAllThemeListeners() {
         themeListeners.clear();
     }
 
@@ -397,6 +400,5 @@ public class ColorManager<T> {
     public static void clearAllFontListeners() {
         uiResizeListeners.clear();
     }
-
 
 }
