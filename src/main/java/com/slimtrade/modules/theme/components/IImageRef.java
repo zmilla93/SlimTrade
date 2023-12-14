@@ -1,4 +1,4 @@
-package com.slimtrade.modules.colortheme.components;
+package com.slimtrade.modules.theme.components;
 
 public interface IImageRef {
 

@@ -1,7 +1,7 @@
 package com.slimtrade.gui.stashsorting;
 
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.modules.colortheme.components.ColorCombo;
+import com.slimtrade.modules.theme.components.ColorCombo;
 
 import javax.swing.*;
 import java.awt.*;

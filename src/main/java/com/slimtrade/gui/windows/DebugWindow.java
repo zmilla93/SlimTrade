@@ -1,8 +1,8 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.core.utility.ColorTheme;
-import com.slimtrade.modules.colortheme.components.AdvancedButton;
+import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.theme.Theme;
+import com.slimtrade.modules.theme.components.AdvancedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +16,9 @@ public class DebugWindow extends JFrame {
         Container container = getContentPane();
         container.setLayout(new FlowLayout());
 
-        JComboBox<ColorTheme> combo = new JComboBox<>();
+        JComboBox<Theme> combo = new JComboBox<>();
 //        container.add(combo);
-        for (ColorTheme theme : ColorTheme.values()) {
+        for (Theme theme : Theme.values()) {
             combo.addItem(theme);
         }
 
@@ -36,7 +36,7 @@ public class DebugWindow extends JFrame {
         container.add(advancedButton);
 
         combo.addItemListener(e -> {
-            ColorManager.setTheme((ColorTheme) combo.getSelectedItem());
+            ThemeManager.setTheme((Theme) combo.getSelectedItem());
         });
     }
 

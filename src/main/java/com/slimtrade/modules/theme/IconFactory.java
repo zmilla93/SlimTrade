@@ -1,7 +1,6 @@
-package com.slimtrade.modules.colortheme;
+package com.slimtrade.modules.theme;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ColorManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
+@Deprecated
 public class IconFactory {
 
     // FIXME: move this to IconButton once that is working
@@ -76,7 +76,7 @@ public class IconFactory {
         }
         try {
             BufferedImage img;
-            if (resourceFolder) img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
+            if (resourceFolder) img = ImageIO.read(Objects.requireNonNull(ThemeManager.class.getResource(path)));
             else img = ImageIO.read(new File(path));
             if (img == null) return null; // This will only trigger with user submitted images
             ImageIcon icon;
@@ -108,7 +108,7 @@ public class IconFactory {
         }
         // Generate new image
         try {
-            BufferedImage img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
+            BufferedImage img = ImageIO.read(Objects.requireNonNull(ThemeManager.class.getResource(path)));
             ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(size, size, Image.SCALE_SMOOTH));
             if (size == cacheIconSize) colorIconMap.put(path, icon);
             return icon;

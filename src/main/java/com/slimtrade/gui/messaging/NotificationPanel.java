@@ -13,8 +13,9 @@ import com.slimtrade.core.utility.*;
 import com.slimtrade.gui.components.BorderlessButton;
 import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.modules.colortheme.components.ColorPanel;
-import com.slimtrade.modules.colortheme.components.PassThroughPanel;
+import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.theme.components.ColorPanel;
+import com.slimtrade.modules.theme.components.PassThroughPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -145,9 +146,9 @@ public class NotificationPanel extends ColorPanel {
         setBackgroundKey("Separator.background");
         playerNameButton.setBackgroundKey("Panel.background");
         itemButton.setBackgroundKey("ComboBox.background");
-        timerPanel.colorMultiplier = 1.1f;
+        timerPanel.setColorMultiplier(1.1f);
         timerPanel.setBackgroundKey("ComboBox.background");
-        ColorManager.recursiveUpdateUI(this);
+        ThemeManager.recursiveUpdateUI(this);
         resizeStrut();
         if (createListeners)
             addListeners();

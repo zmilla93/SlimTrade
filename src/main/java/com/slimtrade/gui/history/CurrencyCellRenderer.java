@@ -1,7 +1,7 @@
 package com.slimtrade.gui.history;
 
 import com.slimtrade.gui.components.CurrencyLabelFactory;
-import com.slimtrade.modules.colortheme.components.PassThroughPanel;
+import com.slimtrade.modules.theme.components.PassThroughPanel;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;

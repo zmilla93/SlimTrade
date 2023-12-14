@@ -1,6 +1,6 @@
 package com.slimtrade.gui.buttons;
 
-import com.slimtrade.modules.colortheme.components.AdvancedButton;
+import com.slimtrade.modules.theme.components.AdvancedButton;
 
 public class NotificationButton extends AdvancedButton {
 

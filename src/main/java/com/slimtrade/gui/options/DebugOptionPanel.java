@@ -2,7 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.managers.FrameManager;
 
 import javax.swing.*;
@@ -34,7 +34,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         outgoingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE)));
         scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.CHAT_SCANNER_MESSAGE)));
         updateMessageButton.addActionListener(e -> FrameManager.messageManager.addUpdateMessage(true));
-        uiDump.addActionListener(e -> ColorManager.debugKeyValueDump());
+        uiDump.addActionListener(e -> ThemeManager.debugKeyValueDump());
     }
 
 }

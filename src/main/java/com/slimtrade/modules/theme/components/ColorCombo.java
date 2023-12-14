@@ -1,4 +1,4 @@
-package com.slimtrade.modules.colortheme.components;
+package com.slimtrade.modules.theme.components;
 
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.gui.components.LimitCombo;
@@ -8,6 +8,9 @@ import java.awt.*;
 
 public class ColorCombo extends LimitCombo<Color> {
 
+    /**
+     * A ComboBox that displays POE stash colors.
+     */
     public ColorCombo() {
         setRenderer(new StashTabCellRenderer());
         addActionListener(e -> {

@@ -1,4 +1,4 @@
-package com.slimtrade.modules.colortheme.components;
+package com.slimtrade.modules.theme.components;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +9,8 @@ import java.util.Set;
 
 /**
  * A button that responds visually to all mouse buttons instead of just the left mouse button.
+ * Defaults to left and right mouse, can be adjusted manually with setAllowedMouseButtons().
+ * Colors can be inverted using setActive(bool).
  */
 public class AdvancedButton extends JButton {
 

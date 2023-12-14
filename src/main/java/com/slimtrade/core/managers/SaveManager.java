@@ -3,7 +3,7 @@ package com.slimtrade.core.managers;
 import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.legacy.SaveFilePatcher;
 import com.slimtrade.core.saving.savefiles.*;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.saving.SaveFile;
@@ -65,11 +65,11 @@ public class SaveManager {
                 FrameManager.messageManager.refreshFadeData();
                 FrameManager.stashHelperContainer.updateLocation();
                 if (SaveManager.settingsSaveFile.data.fontSizeChanged) {
-                    ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
+                    ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
                     SaveManager.settingsSaveFile.data.fontSizeChanged = false;
                 }
                 if (SaveManager.settingsSaveFile.data.iconSizeChanged) {
-                    ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+                    ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
                     SaveManager.settingsSaveFile.data.iconSizeChanged = false;
                 }
                 SaveManager.settingsSaveFile.data.buildMacroCache();

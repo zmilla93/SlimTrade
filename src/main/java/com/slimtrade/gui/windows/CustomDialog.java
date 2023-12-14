@@ -4,7 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.AdvancedMouseListener;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.IVisibilityFrame;
 import com.slimtrade.gui.components.Visibility;
@@ -12,7 +12,7 @@ import com.slimtrade.gui.messaging.NotificationIconButton;
 import com.slimtrade.gui.messaging.PinButton;
 import com.slimtrade.gui.pinning.IPinnable;
 import com.slimtrade.gui.pinning.PinManager;
-import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.theme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,8 +62,8 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         setUndecorated(true);
         setAlwaysOnTop(true);
         getRootPane().setOpaque(false);
-        ColorManager.addFrame(this);
-        ColorManager.addThemeListener(this);
+        ThemeManager.addFrame(this);
+        ThemeManager.addThemeListener(this);
         Container container = getContentPane();
         container.setLayout(new BorderLayout());
         PinManager.addPinnable(this);
@@ -110,10 +110,10 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         resizerBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
         resizerLeft.setCursor(new Cursor(Cursor.W_RESIZE_CURSOR));
         resizerRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
-        resizerTop.setBackground(ColorManager.TRANSPARENT_CLICKABLE);
-        resizerBottom.setBackground(ColorManager.TRANSPARENT_CLICKABLE);
-        resizerLeft.setBackground(ColorManager.TRANSPARENT_CLICKABLE);
-        resizerRight.setBackground(ColorManager.TRANSPARENT_CLICKABLE);
+        resizerTop.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
+        resizerBottom.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
+        resizerLeft.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
+        resizerRight.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
 
         // Outer Panel
         JPanel outerPanel = new JPanel(new BorderLayout());
@@ -127,7 +127,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
         // Container
         setContentPane(outerPanel);
-        setBackground(ColorManager.TRANSPARENT);
+        setBackground(ThemeManager.TRANSPARENT);
 
         addWindowMover();
         addResizerListeners();

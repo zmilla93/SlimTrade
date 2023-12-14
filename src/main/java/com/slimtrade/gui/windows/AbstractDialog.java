@@ -1,6 +1,6 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public abstract class AbstractDialog extends JDialog {
         setFocusableWindowState(false);
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(contentPanel, BorderLayout.CENTER);
-        ColorManager.addFrame(this);
+        ThemeManager.addFrame(this);
     }
 
 }

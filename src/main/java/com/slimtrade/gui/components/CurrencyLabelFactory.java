@@ -3,7 +3,7 @@ package com.slimtrade.gui.components;
 import com.slimtrade.core.data.SaleItem;
 import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.history.PoePrice;
 
@@ -110,7 +110,7 @@ public class CurrencyLabelFactory extends JPanel {
     private static JLabel iconLabel(CurrencyType currencyType) {
         if (currencyType != null) {
             JLabel currencyLabel = new JLabel();
-            currencyLabel.setIcon(ColorManager.getIcon(currencyType.getPath()));
+            currencyLabel.setIcon(ThemeManager.getIcon(currencyType.getPath()));
             return currencyLabel;
         }
         return null;

@@ -13,13 +13,13 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.AdvancedMouseListener;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.messaging.*;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.colortheme.IThemeListener;
-import com.slimtrade.modules.colortheme.IUIResizeListener;
+import com.slimtrade.modules.theme.IThemeListener;
+import com.slimtrade.modules.theme.IUIResizeListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,11 +60,11 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     private static final Executor executor = Executors.newSingleThreadExecutor();
 
     public MessageManager() {
-        setBackground(ColorManager.TRANSPARENT);
+        setBackground(ThemeManager.TRANSPARENT);
 
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
         messageContainer = new JPanel(new GridBagLayout());
-        messageContainer.setBackground(ColorManager.TRANSPARENT);
+        messageContainer.setBackground(ThemeManager.TRANSPARENT);
         contentPanel.add(messageContainer, BorderLayout.CENTER);
 
         // Init GridBagLayout
@@ -104,8 +104,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
 //        setMinimumSize(new Dimension(width, 0));
 //        setMaximumSize(new Dimension(width, 10000));
 
-        ColorManager.addThemeListener(this);
-        ColorManager.addFontListener(this);
+        ThemeManager.addThemeListener(this);
+        ThemeManager.addFontListener(this);
         setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         refreshFadeData();
         refresh();
@@ -368,7 +368,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     public void forceUpdateUI() {
         for (Component c : messageContainer.getComponents()) {
             if (c instanceof JComponent) {
-                ColorManager.recursiveUpdateUI((JComponent) c);
+                ThemeManager.recursiveUpdateUI((JComponent) c);
             }
         }
     }

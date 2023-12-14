@@ -1,7 +1,7 @@
 package com.slimtrade.gui.buttons;
 
 import com.formdev.flatlaf.ui.FlatButtonBorder;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ public class IconButton extends JButton {
     public void updateUI() {
         super.updateUI();
         if (path != null)
-            setIcon(ColorManager.getColorIcon(path, size));
+            setIcon(ThemeManager.getColorIcon(path, size));
         int borderInset = 5;
         setBorder(new FlatButtonBorder() {
             @Override

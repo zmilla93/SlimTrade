@@ -1,8 +1,8 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.core.utility.ColorTheme;
+import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.theme.Theme;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.options.general.DisplaySettingsPanel;
@@ -13,11 +13,11 @@ import java.awt.*;
 
 public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    private JComboBox<ColorTheme> themeCombo = new LimitCombo<>();
+    private JComboBox<Theme> themeCombo = new LimitCombo<>();
     private JCheckBox colorBlindCheckBox = new JCheckBox("Color Blind Mode");
 
     public DisplayOptionPanel() {
-        for (ColorTheme theme : ColorTheme.values()) themeCombo.addItem(theme);
+        for (Theme theme : Theme.values()) themeCombo.addItem(theme);
         addHeader("UI Scale");
         addPanel(new DisplaySettingsPanel());
         addVerticalStrut();
@@ -32,19 +32,19 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
         addHeader("Theme");
         addPanel(themePanel);
         addPanel(colorBlindCheckBox);
-        themeCombo.addActionListener(e -> SwingUtilities.invokeLater(() -> ColorManager.setTheme((ColorTheme) themeCombo.getSelectedItem())));
+        themeCombo.addActionListener(e -> SwingUtilities.invokeLater(() -> ThemeManager.setTheme((Theme) themeCombo.getSelectedItem())));
     }
 
     @Override
     public void save() {
-        SaveManager.settingsSaveFile.data.colorTheme = (ColorTheme) themeCombo.getSelectedItem();
+        SaveManager.settingsSaveFile.data.theme = (Theme) themeCombo.getSelectedItem();
         SaveManager.settingsSaveFile.data.colorBlindMode = colorBlindCheckBox.isSelected();
     }
 
     @Override
     public void load() {
-        ColorTheme theme = SaveManager.settingsSaveFile.data.colorTheme;
-        if (theme == null) theme = ColorTheme.getDefaultColorTheme();
+        Theme theme = SaveManager.settingsSaveFile.data.theme;
+        if (theme == null) theme = Theme.getDefaultColorTheme();
         themeCombo.setSelectedItem(theme);
         colorBlindCheckBox.setSelected(SaveManager.settingsSaveFile.data.colorBlindMode);
     }

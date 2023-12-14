@@ -9,7 +9,7 @@ import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.modules.colortheme.components.AdvancedButton;
+import com.slimtrade.modules.theme.components.AdvancedButton;
 
 import javax.swing.*;
 import javax.swing.border.Border;

@@ -1,4 +1,4 @@
-package com.slimtrade.modules.colortheme.components;
+package com.slimtrade.modules.theme.components;
 
 import javax.swing.*;
 import java.awt.*;

@@ -4,7 +4,7 @@ import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MacroButtonType;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.basic.HotkeyButton;
@@ -50,7 +50,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         JLabel lmbLabel = new JLabel("LMB");
         JLabel rmbLabel = new JLabel("RMB");
         JLabel closeLabel = new JLabel("Close");
-        ColorManager.addStickyCombo(iconCombo);
+        ThemeManager.addStickyCombo(iconCombo);
         buttonText.setText("~");
 
         // Card Type Panel
@@ -65,7 +65,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
             rowCombo.addItem(row);
         for (CustomIcon icon : CustomIcon.values())
 //            iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), 18));
-            iconCombo.addItem(ColorManager.getColorIcon(icon.path));
+            iconCombo.addItem(ThemeManager.getColorIcon(icon.path));
         for (MacroButtonType type : MacroButtonType.values())
             buttonType.addItem(type);
 
@@ -140,7 +140,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
         shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
         deleteButton.addActionListener(e -> {
-            ColorManager.removeStickyCombo(iconCombo);
+            ThemeManager.removeStickyCombo(iconCombo);
             parent.remove(self);
             parent.revalidate();
         });
@@ -184,7 +184,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
             iconCombo.removeAllItems();
             for (CustomIcon icon : CustomIcon.values()) {
 //                iconCombo.addItem(icon.getColorIcon(UIManager.getColor("Label.foreground"), SaveManager.settingsSaveFile.data.iconSize));
-                iconCombo.addItem(ColorManager.getColorIcon(icon.path));
+                iconCombo.addItem(ThemeManager.getColorIcon(icon.path));
             }
             iconCombo.setSelectedIndex(selectedIndex);
         }

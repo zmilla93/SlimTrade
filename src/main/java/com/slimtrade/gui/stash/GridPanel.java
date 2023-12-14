@@ -1,6 +1,6 @@
 package com.slimtrade.gui.stash;
 
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +43,6 @@ public class GridPanel extends JPanel {
         super.updateUI();
         Color c1 = UIManager.getColor("Panel.background");
         Color c2 = UIManager.getColor("Label.foreground");
-        lineColor = ColorManager.getLighterColor(c1, c2);
+        lineColor = ThemeManager.getLighterColor(c1, c2);
     }
 }

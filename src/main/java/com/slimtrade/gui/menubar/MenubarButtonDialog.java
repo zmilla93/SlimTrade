@@ -1,11 +1,11 @@
 package com.slimtrade.gui.menubar;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.colortheme.IUIResizeListener;
+import com.slimtrade.modules.theme.IUIResizeListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ public class MenubarButtonDialog extends BasicDialog implements IUIResizeListene
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(iconButton, BorderLayout.CENTER);
         pack();
-        ColorManager.addFontListener(this);
+        ThemeManager.addFontListener(this);
     }
 
     @Override

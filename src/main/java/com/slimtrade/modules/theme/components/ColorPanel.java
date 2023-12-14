@@ -1,30 +1,39 @@
-package com.slimtrade.modules.colortheme.components;
+package com.slimtrade.modules.theme.components;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Sets a panel's background color using a UIManager key.
+ * A panel that can have the background color set to a UIManager key using setBackgroundKey().
+ * Can be given a multiplier to alter the color using setColorMultiplier().
  */
 public class ColorPanel extends JPanel {
 
     private String key;
-    public float colorMultiplier = 1;
+    private float colorMultiplier = 1;
 
+    /**
+     * See {@link ColorPanel} for info.
+     */
     public ColorPanel() {
 
     }
 
+    /**
+     * See {@link ColorPanel} for info.
+     */
     public ColorPanel(LayoutManager layoutManager) {
         super(layoutManager);
     }
 
-    public ColorPanel(String key) {
+    public void setBackgroundKey(String key) {
         this.key = key;
     }
 
-    public void setBackgroundKey(String key) {
-        this.key = key;
+    public void setColorMultiplier(float colorMultiplier) {
+        if (colorMultiplier < 0) colorMultiplier = 0;
+        if (colorMultiplier > 10) colorMultiplier = 10;
+        this.colorMultiplier = colorMultiplier;
     }
 
     @Override
@@ -37,7 +46,6 @@ public class ColorPanel extends JPanel {
             color = new Color(applyRange(0, 255, color.getRed() * colorMultiplier),
                     applyRange(0, 255, color.getGreen() * colorMultiplier),
                     applyRange(0, 255, color.getBlue() * colorMultiplier));
-
         }
         setBackground(color);
     }

@@ -4,7 +4,7 @@ import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.options.stash.StashTabType;
 import com.slimtrade.gui.windows.AbstractDialog;
 
@@ -22,8 +22,8 @@ public class StashHighlighterFrame extends AbstractDialog {
         setAlwaysOnTop(true);
         setFocusable(false);
         setFocusableWindowState(false);
-        setBackground(ColorManager.TRANSPARENT);
-        contentPanel.setBackground(ColorManager.TRANSPARENT);
+        setBackground(ThemeManager.TRANSPARENT);
+        contentPanel.setBackground(ThemeManager.TRANSPARENT);
         contentPanel.setBorder(BorderFactory.createLineBorder(tradeOffer.getStashTabColor().getBackground(), 2));
         timer = new Timer(2000, e -> {
             timer.stop();

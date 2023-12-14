@@ -1,7 +1,7 @@
 package com.slimtrade.gui.windows;
 
 
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 
@@ -14,6 +14,6 @@ public class DummyWindow extends JDialog {
         setSize(SIZE, SIZE);
         setUndecorated(true);
         setAlwaysOnTop(true);
-        setBackground(ColorManager.TRANSPARENT_CLICKABLE);
+        setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
     }
 }

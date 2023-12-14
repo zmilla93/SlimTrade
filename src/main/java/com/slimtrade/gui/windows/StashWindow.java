@@ -2,12 +2,12 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.InsetPanel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.GridPanel;
-import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -56,9 +56,9 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
         contentPanel.add(insetPanel, BorderLayout.CENTER);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        contentPanel.setBackground(ColorManager.TRANSPARENT);
+        contentPanel.setBackground(ThemeManager.TRANSPARENT);
 
-        ColorManager.addThemeListener(this);
+        ThemeManager.addThemeListener(this);
 
         closeButton.setVisible(false);
         pinButton.setVisible(false);
@@ -97,8 +97,8 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
         super.onThemeChange();
         Color c1 = UIManager.getColor("Panel.background");
         Color c2 = UIManager.getColor("Label.foreground");
-        Color color = ColorManager.getDarkerColor(c1, c2);
-        contentPanel.setBackground(ColorManager.adjustAlpha(color, 100));
+        Color color = ThemeManager.getDarkerColor(c1, c2);
+        contentPanel.setBackground(ThemeManager.adjustAlpha(color, 100));
     }
 
     @Override

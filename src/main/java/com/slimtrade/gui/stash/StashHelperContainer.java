@@ -2,10 +2,10 @@ package com.slimtrade.gui.stash;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.theme.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,10 +22,10 @@ public class StashHelperContainer extends BasicDialog implements IThemeListener 
         gc.anchor = GridBagConstraints.SOUTH;
         gc.insets.right = INSET;
 
-        setBackground(ColorManager.TRANSPARENT);
+        setBackground(ThemeManager.TRANSPARENT);
         setVisible(true);
         updateLocation();
-        ColorManager.addThemeListener(this);
+        ThemeManager.addThemeListener(this);
     }
 
     public void updateLocation() {

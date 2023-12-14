@@ -1,6 +1,6 @@
 package com.slimtrade.core.enums;
 
-import com.slimtrade.modules.colortheme.components.IImageRef;
+import com.slimtrade.modules.theme.components.IImageRef;
 
 import java.io.BufferedReader;
 import java.io.IOException;

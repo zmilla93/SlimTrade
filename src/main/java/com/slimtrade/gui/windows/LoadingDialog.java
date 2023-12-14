@@ -1,6 +1,6 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.ZUtil;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class LoadingDialog extends AbstractDialog {
 
     @Override
     public void dispose() {
-        ColorManager.removeFrame(this);
+        ThemeManager.removeFrame(this);
         super.dispose();
     }
 }

@@ -1,6 +1,6 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 
@@ -19,7 +19,7 @@ public class BasicDialog extends VisibilityDialog {
         setAlwaysOnTop(true);
         setType(JDialog.Type.UTILITY);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        ColorManager.addFrame(this);
+        ThemeManager.addFrame(this);
     }
 
 }

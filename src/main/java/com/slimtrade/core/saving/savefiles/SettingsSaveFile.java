@@ -8,7 +8,7 @@ import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
-import com.slimtrade.core.utility.ColorTheme;
+import com.slimtrade.modules.theme.Theme;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.stashsorting.StashSortData;
 
@@ -41,7 +41,7 @@ public class SettingsSaveFile {
     public int iconSize = SpinnerRange.ICON_SIZE.START;
     public transient boolean fontSizeChanged;
     public transient boolean iconSizeChanged;
-    public ColorTheme colorTheme;
+    public Theme theme;
     public boolean colorBlindMode;
 
     // History

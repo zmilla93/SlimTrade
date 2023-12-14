@@ -1,6 +1,6 @@
 package com.slimtrade.gui.windows;
 
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.gui.components.IVisibilityFrame;
 import com.slimtrade.gui.components.Visibility;
 
@@ -16,7 +16,7 @@ public class AbstractWindow extends VisibilityDialog implements IVisibilityFrame
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setAlwaysOnTop(true);
         this.container = getContentPane();
-        ColorManager.addFrame(this);
+        ThemeManager.addFrame(this);
     }
 
     @Override

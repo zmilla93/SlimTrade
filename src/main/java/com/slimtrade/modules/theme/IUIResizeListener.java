@@ -1,4 +1,4 @@
-package com.slimtrade.modules.colortheme;
+package com.slimtrade.modules.theme;
 
 public interface IUIResizeListener {
 

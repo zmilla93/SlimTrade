@@ -1,6 +1,6 @@
 package com.slimtrade.gui.messaging;
 
-import com.slimtrade.modules.colortheme.components.AdvancedButton;
+import com.slimtrade.modules.theme.components.AdvancedButton;
 
 import javax.swing.*;
 

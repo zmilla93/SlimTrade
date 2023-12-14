@@ -10,7 +10,7 @@ import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.VersionNumber;
 import com.slimtrade.gui.managers.FrameManager;
@@ -61,7 +61,7 @@ public class App {
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
         // Init minimum for loading dialog
-        ColorManager.loadFonts();
+        ThemeManager.loadFonts();
         SaveManager.init();
 
         // FIXME : Temp
@@ -80,9 +80,9 @@ public class App {
         // Loading Dialog
         try {
             SwingUtilities.invokeAndWait(() -> {
-                ColorManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-                ColorManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
-                ColorManager.setTheme(SaveManager.settingsSaveFile.data.colorTheme);
+                ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+                ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
+                ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
                 loadingDialog = new LoadingDialog();
                 loadingDialog.setVisible(true);
             });

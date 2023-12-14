@@ -5,13 +5,13 @@ import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.ColorManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.AbstractDialog;
-import com.slimtrade.modules.colortheme.IThemeListener;
+import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -87,7 +87,7 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         contentPanel.add(outerPanel, gc);
         pack();
         setLocationRelativeTo(null);
-        ColorManager.addThemeListener(this);
+        ThemeManager.addThemeListener(this);
         addListeners();
     }
 

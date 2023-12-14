@@ -1,7 +1,7 @@
 package com.slimtrade.gui.messaging;
 
-import com.slimtrade.core.utility.ColorManager;
-import com.slimtrade.modules.colortheme.components.AdvancedButton;
+import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.theme.components.AdvancedButton;
 
 import javax.swing.*;
 
@@ -14,7 +14,7 @@ public class NotificationIconButton extends AdvancedButton {
     public NotificationIconButton(String path) {
         super();
         this.path = path;
-        setIcon(ColorManager.getColorIcon(path));
+        setIcon(ThemeManager.getColorIcon(path));
         updateUI();
     }
 
@@ -29,7 +29,7 @@ public class NotificationIconButton extends AdvancedButton {
         int curInset = inset == 0 ? DEFAULT_INSET : inset;
         setBorder(BorderFactory.createEmptyBorder(curInset, curInset, curInset, curInset));
         if (path != null) {
-            setIcon(ColorManager.getColorIcon(path));
+            setIcon(ThemeManager.getColorIcon(path));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.slimtrade.core.utility;
+package com.slimtrade.modules.theme;
 
 import com.formdev.flatlaf.icons.FlatCheckBoxIcon;
 import com.slimtrade.core.managers.FontManager;
@@ -7,9 +7,7 @@ import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.buttons.NotificationButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.colortheme.IThemeListener;
-import com.slimtrade.modules.colortheme.IUIResizeListener;
-import com.slimtrade.modules.colortheme.components.ColorCheckbox;
+import com.slimtrade.modules.theme.components.ColorCheckbox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,13 +20,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
-public class ColorManager<T> {
+public class ThemeManager<T> {
 
     private static final List<Component> frames = new ArrayList<>();
-    private static ColorTheme currentTheme;
+    private static Theme currentTheme;
     private static final ArrayList<IThemeListener> themeListeners = new ArrayList<>();
     private static final ArrayList<IUIResizeListener> uiResizeListeners = new ArrayList<>();
-
 
     public static Color INCOMING_MESSAGE_LIGHT = new Color(105, 201, 97);
     public static Color INCOMING_MESSAGE_DARK = new Color(105, 201, 97);
@@ -69,12 +66,12 @@ public class ColorManager<T> {
         stickyCombos.remove(combo);
     }
 
-    public static void setTheme(ColorTheme theme) {
+    public static void setTheme(Theme theme) {
         setTheme(theme, false);
     }
 
-    public static void setTheme(ColorTheme theme, boolean forceThemeRefresh) {
-        if (theme == null) theme = ColorTheme.getDefaultColorTheme();
+    public static void setTheme(Theme theme, boolean forceThemeRefresh) {
+        if (theme == null) theme = Theme.getDefaultColorTheme();
         if (theme == currentTheme && !forceThemeRefresh) return;
         int[] comboIcons = new int[stickyCombos.size()];
         for (int i = 0; i < stickyCombos.size(); i++) {
@@ -112,8 +109,8 @@ public class ColorManager<T> {
         }
     }
 
-    public static ColorTheme getCurrentTheme() {
-        if (currentTheme == null) return ColorTheme.getDefaultColorTheme();
+    public static Theme getCurrentTheme() {
+        if (currentTheme == null) return Theme.getDefaultColorTheme();
         return currentTheme;
     }
 
@@ -170,7 +167,7 @@ public class ColorManager<T> {
         }
         try {
             BufferedImage img;
-            if (resourceFolder) img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
+            if (resourceFolder) img = ImageIO.read(Objects.requireNonNull(ThemeManager.class.getResource(path)));
             else img = ImageIO.read(new File(path));
             if (img == null) return null; // This will only trigger with user submitted images
             ImageIcon icon;
@@ -199,7 +196,7 @@ public class ColorManager<T> {
         }
         // Generate new image
         try {
-            BufferedImage img = ImageIO.read(Objects.requireNonNull(ColorManager.class.getResource(path)));
+            BufferedImage img = ImageIO.read(Objects.requireNonNull(ThemeManager.class.getResource(path)));
             ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(size, size, Image.SCALE_SMOOTH));
             if (size == cacheIconSize) colorIconMap.put(path, icon);
             return icon;

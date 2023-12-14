@@ -1,12 +1,13 @@
-package com.slimtrade.core.utility;
+package com.slimtrade.modules.theme;
 
 import com.formdev.flatlaf.IntelliJTheme;
 import com.formdev.flatlaf.intellijthemes.*;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatNightOwlContrastIJTheme;
 import com.slimtrade.core.enums.ColorThemeType;
+import com.slimtrade.core.utility.ZUtil;
 
-public enum ColorTheme {
+public enum Theme {
 
     // https://github.com/JFormDesigner/FlatLaf/tree/main/flatlaf-intellij-themes#themes
     // Disabled themes are either redundant or hide separators which breaks look of menus.
@@ -52,13 +53,13 @@ public enum ColorTheme {
     public final ColorThemeType themeType;
     private String cleanName;
 
-    ColorTheme(IntelliJTheme.ThemeLaf lookAndFeel, ColorThemeType themeType) {
+    Theme(IntelliJTheme.ThemeLaf lookAndFeel, ColorThemeType themeType) {
         this.lookAndFeel = lookAndFeel;
         this.themeType = themeType;
     }
 
-    public static ColorTheme getDefaultColorTheme() {
-        return ColorTheme.SOLARIZED_LIGHT;
+    public static Theme getDefaultColorTheme() {
+        return Theme.SOLARIZED_LIGHT;
     }
 
     @Override
