@@ -3,6 +3,7 @@ package com.slimtrade.gui.components;
 import javax.swing.*;
 
 /**
+ * A child that can be added to a container and easily reordered.
  * @see AddRemoveContainer
  */
 public class AddRemovePanel extends JPanel {

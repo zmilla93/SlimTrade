@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 /**
+ * A panel that allows children to be added, removed, and easily reordered.
  * @see AddRemovePanel
  */
 public class AddRemoveContainer extends JPanel {
@@ -26,7 +27,7 @@ public class AddRemoveContainer extends JPanel {
         this.spacing = spacing;
     }
 
-    public void shiftUp(Component panel) {
+    protected void shiftUp(Component panel) {
         if (panelToInt.size() < 2) return;
         int index = panelToInt.get(panel);
         if (index == 0) return;
@@ -34,7 +35,7 @@ public class AddRemoveContainer extends JPanel {
         swapPanels(index, swapIndex);
     }
 
-    public void shiftDown(Component panel) {
+    protected void shiftDown(Component panel) {
         if (panelToInt.size() < 2) return;
         int index = panelToInt.get(panel);
         if (index >= intToPanel.size() - 1) return;
