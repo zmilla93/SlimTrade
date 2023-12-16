@@ -31,6 +31,20 @@ public class VersionNumber implements Comparable<VersionNumber> {
         }
     }
 
+    // FIXME : Move this to an actual test
+    public static void runTest() {
+        VersionNumber v1 = new VersionNumber("v0.3.5");
+        VersionNumber v2 = new VersionNumber("v0.4.0");
+        VersionNumber v3 = new VersionNumber("v0.4.5");
+        VersionNumber target = new VersionNumber("v0.4.0");
+        int i1 = v1.compareTo(target);
+        int i2 = v2.compareTo(target);
+        int i3 = v3.compareTo(target);
+        System.out.println("patch?" + (i1));
+        System.out.println("patch?" + (i2));
+        System.out.println("patch?" + (i3));
+    }
+
     @Override
     public int compareTo(VersionNumber o) {
         if (o.major > major) return -1;
