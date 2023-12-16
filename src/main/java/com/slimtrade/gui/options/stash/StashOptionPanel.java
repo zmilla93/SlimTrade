@@ -3,6 +3,7 @@ package com.slimtrade.gui.options.stash;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.AddRemoveContainer;
+import com.slimtrade.gui.components.PlainLabel;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -12,14 +13,14 @@ import java.util.ArrayList;
 
 public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    private JButton addButton = new JButton("Add Stash Tab");
-    private AddRemoveContainer tabContainer = new AddRemoveContainer();
-    private JCheckBox applyColorCheckbox = new JCheckBox("Also apply color to the trade notification panel.");
+    private final JButton addButton = new JButton("Add Stash Tab");
+    private final AddRemoveContainer tabContainer = new AddRemoveContainer();
+    private final JCheckBox applyColorCheckbox = new JCheckBox("Also apply color to the trade notification panel.");
 
     public StashOptionPanel() {
         addHeader("Info");
-        addComponent(new JLabel("Add stash tab names to apply a color to the item highlighter or mark quad tabs."));
-        addComponent(new JLabel("Default white will use the color of the current theme."));
+        addComponent(new PlainLabel("Add stash tab names to apply a color to the item highlighter or mark quad tabs."));
+        addComponent(new PlainLabel("Default white will use the color of the current theme."));
         addComponent(applyColorCheckbox);
         addVerticalStrut();
         addHeader("Stash Tab List");

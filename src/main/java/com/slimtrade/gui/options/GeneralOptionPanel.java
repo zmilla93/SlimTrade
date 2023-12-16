@@ -17,9 +17,6 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
         addHeader("Basics");
         addComponent(basicsPanel);
         addVerticalStrut();
-//        addHeader("Display");
-//        addPanel(new DisplaySettingsPanel());
-//        addVerticalStrut();
         addHeader("Enable Features");
         addComponent(new EnableFeaturesPanel());
         addVerticalStrut();

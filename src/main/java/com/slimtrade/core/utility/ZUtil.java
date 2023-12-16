@@ -82,7 +82,7 @@ public class ZUtil {
      * Returns a new GridBagConstraint with gridX and gridY initialized to 0.
      * This is needed to allow incrementing either variable to work correctly.
      *
-     * @return
+     * @return GridBagConstraints
      */
     public static GridBagConstraints getGC() {
         GridBagConstraints gc = new GridBagConstraints();
@@ -94,8 +94,8 @@ public class ZUtil {
     /**
      * Given a point on the screen, returns the bounds of the monitor containing that point.
      *
-     * @param point
-     * @return
+     * @param point A point on the screen
+     * @return Screen bounding rectangle
      */
     public static Rectangle getScreenBoundsFromPoint(Point point) {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -167,6 +167,27 @@ public class ZUtil {
             Desktop.getDesktop().open(targetDir);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void printStackTrace() {
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        for (StackTraceElement e : elements) {
+            System.err.println(e);
+        }
+    }
+
+    public static <T> void printCallingFunction(Class<T> originClass) {
+        String className = originClass.getSimpleName();
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        boolean found = false;
+        for (StackTraceElement e : elements) {
+            String line = e.toString();
+            if (found && !line.contains(className)) {
+                System.err.println(e);
+                break;
+            }
+            if (line.contains(className)) found = true;
         }
     }
 

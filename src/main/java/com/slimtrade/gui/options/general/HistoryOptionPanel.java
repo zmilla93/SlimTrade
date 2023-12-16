@@ -1,6 +1,5 @@
 package com.slimtrade.gui.options.general;
 
-import com.slimtrade.core.References;
 import com.slimtrade.core.enums.DateFormat;
 import com.slimtrade.core.enums.HistoryOrder;
 import com.slimtrade.core.enums.TimeFormat;
@@ -17,6 +16,7 @@ public class HistoryOptionPanel extends JPanel implements ISavable {
     private final JComboBox<TimeFormat> timeFormatCombo = new JComboBox<>();
     private final JComboBox<DateFormat> dateFormatCombo = new JComboBox<>();
     private final GridBagConstraints gc = ZUtil.getGC();
+    private static final int HORIZONTAL_SPACER = 10;
 
     public HistoryOptionPanel() {
         setLayout(new GridBagLayout());
@@ -33,7 +33,7 @@ public class HistoryOptionPanel extends JPanel implements ISavable {
     private void addRow(String text, JComponent component) {
         add(new JLabel(text), gc);
         gc.gridx++;
-        gc.insets.left = References.COMPONENT_SPACER;
+        gc.insets.left = HORIZONTAL_SPACER;
         add(component, gc);
         gc.insets.left = 0;
         gc.gridx = 0;
@@ -53,4 +53,5 @@ public class HistoryOptionPanel extends JPanel implements ISavable {
         timeFormatCombo.setSelectedItem(SaveManager.settingsSaveFile.data.historyTimeFormat);
         dateFormatCombo.setSelectedItem(SaveManager.settingsSaveFile.data.historyDateFormat);
     }
+
 }

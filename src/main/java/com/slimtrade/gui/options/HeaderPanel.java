@@ -16,7 +16,7 @@ public class HeaderPanel extends JPanel {
     private final JLabel label;
 
     public HeaderPanel(String title) {
-//        if (App.debugUIBorders) setBorder(BorderFactory.createLineBorder(Color.RED));
+        if (App.debugUIBorders >= 2) setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         label = new JLabel(title);

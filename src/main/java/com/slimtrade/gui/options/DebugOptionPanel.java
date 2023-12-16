@@ -2,6 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
+import com.slimtrade.gui.components.PlainLabel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.theme.ThemeManager;
 
@@ -24,8 +25,10 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         addComponent(uiDump);
         addVerticalStrut();
         addHeader("Font Test");
-        addComponent(new JLabel("Almost before we knew it, we had left the ground."));
+        addComponent(new PlainLabel("Almost before we knew it, we had left the ground."));
         addComponent(new JLabel("The quick brown fox jumped over the lazy dogs."));
+        addComponent(new PlainLabel("You are captured, stupid beast!"));
+        addComponent(new JLabel("You are captured, stupid beast!"));
         addListeners();
     }
 

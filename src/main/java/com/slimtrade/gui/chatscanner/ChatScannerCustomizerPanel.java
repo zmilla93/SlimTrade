@@ -2,7 +2,6 @@ package com.slimtrade.gui.chatscanner;
 
 import com.slimtrade.gui.components.ComponentPair;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.options.HeaderPanel;
 
 import javax.swing.*;
 import java.awt.*;

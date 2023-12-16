@@ -4,6 +4,7 @@ import com.slimtrade.core.data.PriceThresholdData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.AddRemoveContainer;
+import com.slimtrade.gui.components.PlainLabel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -12,15 +13,15 @@ import java.util.ArrayList;
 
 public class AudioThresholdPanel extends JPanel implements ISavable {
 
-    private JButton newThresholdButton = new JButton("New Price Threshold");
-    private AddRemoveContainer container = new AddRemoveContainer();
+    private final JButton newThresholdButton = new JButton("New Price Threshold");
+    private final AddRemoveContainer container = new AddRemoveContainer();
 
     public AudioThresholdPanel() {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         gc.anchor = GridBagConstraints.WEST;
 
-        add(new JLabel("Incoming trades will play the sound of the highest threshold they are greater than or equal to."), gc);
+        add(new PlainLabel("Incoming trades will play the sound of the highest threshold they are greater than or equal to."), gc);
         gc.gridy++;
         add(newThresholdButton, gc);
         gc.gridy++;

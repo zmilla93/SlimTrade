@@ -11,7 +11,7 @@ public class GridBagPanel extends JPanel {
     protected GridBagConstraints gc;
 
     public GridBagPanel() {
-        if (App.debugUIBorders) setBorder(BorderFactory.createLineBorder(Color.RED));
+        if (App.debugUIBorders >= 1) setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridBagLayout());
         gc = new GridBagConstraints();
         gc.gridx = 0;

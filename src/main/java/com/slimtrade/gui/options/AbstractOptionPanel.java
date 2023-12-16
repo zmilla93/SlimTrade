@@ -2,6 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.App;
 import com.slimtrade.core.utility.GUIReferences;
+import com.slimtrade.core.utility.ZUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -28,7 +29,7 @@ public abstract class AbstractOptionPanel extends JPanel {
         setLayout(new BorderLayout());
         contentPanel = new JPanel(new GridBagLayout());
         JPanel insetPanel = new JPanel(new BorderLayout());
-        if (App.debugUIBorders) {
+        if (App.debugUIBorders >= 1) {
             setBackground(new Color(96, 236, 122));
             contentPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
         }
@@ -67,10 +68,10 @@ public abstract class AbstractOptionPanel extends JPanel {
     }
 
     public Component addComponent(Component component) {
-        if (App.debugUIBorders) {
+        if (App.debugUIBorders >= 1) {
             if (component instanceof JPanel)
                 ((JPanel) component).setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
-            else if (App.debugUIBordersAggressive && component instanceof JComponent) {
+            else if (App.debugUIBorders >= 2 && component instanceof JComponent) {
                 JPanel debugPanel = new JPanel(new BorderLayout());
                 debugPanel.add(component);
                 debugPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -84,6 +85,7 @@ public abstract class AbstractOptionPanel extends JPanel {
         gc.weightx = 1;
         JPanel outerPanel = new JPanel(new BorderLayout());
         JPanel innerPanel = new JPanel(new BorderLayout());
+        // FIXME : Add inset (5) when done debugging.
         outerPanel.add(Box.createHorizontalStrut(0), BorderLayout.WEST);
         outerPanel.add(innerPanel, BorderLayout.CENTER);
         innerPanel.add(component, BorderLayout.WEST);
@@ -140,7 +142,8 @@ public abstract class AbstractOptionPanel extends JPanel {
     }
 
     private void incorrectAddMethod() {
-        System.err.println("Components should not be added directly to an OptionPanel! Use addHeader() or addPanel() instead.");
+        System.err.println("[OptionPanel] Components should not be added directly to an OptionPanel! Use addHeader() or addPanel() instead.");
+        ZUtil.printCallingFunction(AbstractOptionPanel.class);
     }
 
 }

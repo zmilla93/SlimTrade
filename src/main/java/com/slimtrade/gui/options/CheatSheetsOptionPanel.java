@@ -17,16 +17,14 @@ import java.util.ArrayList;
 
 public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    private JButton browseButton = new JButton("Open Images Folder");
-    private JButton refreshButton = new JButton("Refresh");
-    private AddRemoveContainer cheatSheetContainer = new AddRemoveContainer();
+    private final JButton browseButton = new JButton("Open Images Folder");
+    private final JButton refreshButton = new JButton("Refresh");
+    private final AddRemoveContainer cheatSheetContainer = new AddRemoveContainer();
 
     public CheatSheetsOptionPanel() {
         // Setup
-        JPanel buttonPanel = new ButtonPanel();
-        GridBagConstraints gc = ZUtil.getGC();
+        ButtonPanel buttonPanel = new ButtonPanel();
         buttonPanel.add(browseButton);
-        gc.gridx++;
         buttonPanel.add(refreshButton);
 
         // Build

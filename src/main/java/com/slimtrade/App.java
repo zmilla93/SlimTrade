@@ -11,7 +11,6 @@ import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.POEInterface;
-import com.slimtrade.core.utility.VersionNumber;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SetupManager;
@@ -45,13 +44,10 @@ public class App {
     // Debug Flags
     public static boolean debug = true;
     public static boolean chatInConsole = false;
-    public static boolean debugUIBorders = false;
-    public static boolean debugUIBordersAggressive = true;
+    public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
     private static final boolean debugProfileLaunch = false;
 
     public static void main(String[] args) {
-
-        if (debugProfileLaunch) System.out.println("Profiling launch actions....");
 
         // Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
@@ -60,6 +56,8 @@ public class App {
             System.out.println("SlimTrade is already running. Terminating new instance.");
             System.exit(0);
         }
+
+        if (debugProfileLaunch) System.out.println("Profiling launch actions....");
 
         // This setting gets rid of some rendering issues with transparent frames
         System.setProperty("sun.java2d.noddraw", "true");
@@ -70,19 +68,6 @@ public class App {
         // Init minimum for loading dialog
         ThemeManager.loadFonts();
         SaveManager.init();
-
-        // FIXME : Temp
-        // Version Test
-        VersionNumber v1 = new VersionNumber("v0.3.5");
-        VersionNumber v2 = new VersionNumber("v0.4.0");
-        VersionNumber v3 = new VersionNumber("v0.4.5");
-        VersionNumber target = new VersionNumber("v0.4.0");
-        int i1 = v1.compareTo(target);
-        int i2 = v2.compareTo(target);
-        int i3 = v3.compareTo(target);
-        System.out.println("patch?" + (i1));
-        System.out.println("patch?" + (i2));
-        System.out.println("patch?" + (i3));
 
         // Loading Dialog
         try {

@@ -6,35 +6,31 @@ import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.basic.ColorLabel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.ButtonPanel;
 import com.slimtrade.gui.components.LimitCombo;
+import com.slimtrade.gui.components.PlainLabel;
 import com.slimtrade.gui.options.audio.AudioThresholdPanel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    private int bottomInset = 1;
-
-    private JPanel innerPanel = new JPanel(new GridBagLayout());
-    private GridBagConstraints gc = new GridBagConstraints();
+    private final JPanel innerPanel = new JPanel(new GridBagLayout());
+    private final GridBagConstraints gc = new GridBagConstraints();
     private final JButton openFolderButton = new JButton("Open Audio Folder");
     private final JButton refreshButton = new JButton("Refresh");
 
-    private ArrayList<JComboBox<Sound>> comboList = new ArrayList<>(6);
-    private ArrayList<JSlider> sliderList = new ArrayList<>(6);
-    private ArrayList<String> audioFiles = new ArrayList<>();
+    private final ArrayList<JComboBox<Sound>> comboList = new ArrayList<>(6);
+    private final ArrayList<JSlider> sliderList = new ArrayList<>(6);
 
-    private JLabel customAudioLabel = new JLabel();
-    private AudioThresholdPanel audioThresholdPanel = new AudioThresholdPanel();
-
+    private final JLabel customAudioLabel = new JLabel();
+    private final AudioThresholdPanel audioThresholdPanel = new AudioThresholdPanel();
 
     public AudioOptionPanel() {
         gc.gridx = 0;
@@ -51,7 +47,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         addRow("Ignored Item");
         addRow("Update Alert");
 
-        JPanel customButtons = new ButtonPanel();
+        ButtonPanel customButtons = new ButtonPanel();
 
         customButtons.add(openFolderButton);
         customButtons.add(refreshButton);
@@ -60,7 +56,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         addComponent(innerPanel);
         addComponent(Box.createVerticalStrut(GUIReferences.INSET));
         addHeader("Custom Audio");
-        addComponent(new JLabel("Add audio files to the audio folder, then refresh. Custom files will then be available in all audio dropdowns."));
+        addComponent(new PlainLabel("Add audio files to the audio folder, then refresh. Custom files will then be available in all audio dropdowns."));
         ColorLabel label = new ColorLabel("Only supports .wav files. Online file converters are available if you have different formats.");
         label.bold = true;
         addComponent(label);
@@ -75,15 +71,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     private void addListeners() {
-        openFolderButton.addActionListener(e -> {
-            File file = new File(SaveManager.getAudioDirectory());
-            try {
-                Desktop.getDesktop().open(file);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
+        openFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getAudioDirectory()));
         refreshButton.addActionListener(e -> {
             AudioManager.clearCache();
             AudioManager.rebuildSoundList();
@@ -94,7 +82,6 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     private void addRow(String title) {
-        gc.insets = new Insets(0, GUIReferences.INSET, 2, GUIReferences.INSET);
         JButton previewButton = new IconButton(DefaultIcon.PLAY.path);
         JComboBox<Sound> soundCombo = new LimitCombo<>();
         JSlider volumeSlider = new JSlider();
@@ -104,7 +91,6 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
             soundCombo.addItem(sound);
         innerPanel.add(new JLabel(title), gc);
         gc.gridx++;
-        gc.insets = new Insets(0, 0, 2, 0);
         innerPanel.add(previewButton, gc);
         gc.gridx++;
         innerPanel.add(volumeSlider, gc);
@@ -115,9 +101,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         gc.gridy++;
 
         updateInfoLabel();
-        previewButton.addActionListener(e -> {
-            AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue());
-        });
+        previewButton.addActionListener(e -> AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
     }
 
     private void refreshCombos() {
