@@ -25,6 +25,7 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.stashSortHotkey, new AppHotkey(FrameManager.stashSortingWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new AppHotkey(FrameManager.chatScannerWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.changeCharacterHotkey, new ChangeCharacterHotkey());
+        registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, new CloseOldestTradeHotkey());
         // POE
         registerHotkey(SaveManager.settingsSaveFile.data.delveHotkey, new PoeHotkey("/delve"));
         registerHotkey(SaveManager.settingsSaveFile.data.doNotDisturbHotkey, new PoeHotkey("/dnd"));

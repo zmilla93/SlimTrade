@@ -314,6 +314,13 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         refresh();
     }
 
+    public void closeOldestTrade() {
+        int componentCount = messageContainer.getComponentCount();
+        if (componentCount < 1) return;
+        Component component = messageContainer.getComponent(0);
+        if (component instanceof NotificationPanel) removeMessage((NotificationPanel) component);
+    }
+
     private void expandMessages() {
         for (Component c : messageContainer.getComponents()) {
             c.setVisible(true);
