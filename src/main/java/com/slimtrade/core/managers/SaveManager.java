@@ -33,6 +33,7 @@ public class SaveManager {
 
     public static void init() {
         // Listeners should be added before loading due to callbacks
+        // FIXME : Should check if there are better places to add save listeners.
         addListeners();
         handleLegacySaveFiles();
         settingsSaveFile.loadFromDisk();
@@ -58,7 +59,7 @@ public class SaveManager {
     }
 
     private static void addListeners() {
-        SaveManager.settingsSaveFile.removeAllListeners();
+//        SaveManager.settingsSaveFile.removeAllListeners();
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
             @Override
             public void onSave() {
