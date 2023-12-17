@@ -4,13 +4,20 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.windows.BasicDialog;
+import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StashHelperContainer extends BasicDialog implements IThemeListener {
+/**
+ * A panel that holds StashHelper panels (or StashHelperBulkWrappers for bulk trades)
+ *
+ * @see StashHelperPanel
+ * @see StashHelperBulkWrapper
+ */
+public class StashHelperContainer extends BasicDialog implements IThemeListener, ISaveListener {
 
     private static final int DEFAULT_OFFSET = 30;
     private static final int FOLDER_OFFSET = 75;
@@ -26,6 +33,7 @@ public class StashHelperContainer extends BasicDialog implements IThemeListener 
         setVisible(true);
         updateLocation();
         ThemeManager.addThemeListener(this);
+        SaveManager.stashSaveFile.addListener(this);
     }
 
     public void updateLocation() {
@@ -65,4 +73,26 @@ public class StashHelperContainer extends BasicDialog implements IThemeListener 
     public void onThemeChange() {
         refresh();
     }
+
+    @Override
+    public void onSave() {
+        // Update stash helper locations if stash location is changed.
+        for (Component component : contentPanel.getComponents()) {
+            if (component instanceof StashHelperPanel) {
+                StashHighlighterFrame highlighterFrame = ((StashHelperPanel) component).getHighlighterFrame();
+                if (highlighterFrame != null) highlighterFrame.updateSizeAndLocation();
+            } else if (component instanceof StashHelperBulkWrapper) {
+                for (StashHelperPanel helperPanel : ((StashHelperBulkWrapper) component).getHelperPanels()) {
+                    StashHighlighterFrame highlighterFrame = helperPanel.getHighlighterFrame();
+                    if (highlighterFrame != null) highlighterFrame.updateSizeAndLocation();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onLoad() {
+        // Do nothing
+    }
+
 }

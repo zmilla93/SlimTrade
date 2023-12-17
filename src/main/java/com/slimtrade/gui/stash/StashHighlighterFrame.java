@@ -30,10 +30,10 @@ public class StashHighlighterFrame extends AbstractDialog {
             setVisible(false);
         });
         pack();
-        setSizeAndLocation();
+        updateSizeAndLocation();
     }
 
-    private void setSizeAndLocation() {
+    public void updateSizeAndLocation() {
         boolean isQuadTab = isQuadTab();
         Dimension cellSize = isQuadTab ? SaveManager.stashSaveFile.data.getCellSizeQuad() : SaveManager.stashSaveFile.data.getCellSize();
         float cellCount = isQuadTab ? 24f : 12f;

@@ -16,6 +16,13 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+/**
+ * A helper panel that displays an item name and stash tab name. Use StashHelperBulkWrapper for bulk trades.
+ * Displays a StashHighlighterFrame when hovered. Searches item name in stash when clicked.
+ *
+ * @see StashHelperContainer
+ * @see StashHelperBulkWrapper
+ */
 public class StashHelperPanel extends AdvancedButton {
 
     private final TradeOffer tradeOffer;
@@ -112,6 +119,10 @@ public class StashHelperPanel extends AdvancedButton {
                 }
             }
         });
+    }
+
+    public StashHighlighterFrame getHighlighterFrame() {
+        return highlighterFrame;
     }
 
     private void createBorder(StashTabColor stashTabColor) {

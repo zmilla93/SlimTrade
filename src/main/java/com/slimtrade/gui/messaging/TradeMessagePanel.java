@@ -8,8 +8,8 @@ import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.gui.stash.StashHelperBulkWrapper;
 import com.slimtrade.gui.stash.StashHelperPanel;
-import com.slimtrade.gui.stash.StashHelperWrapper;
 import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.PassThroughPanel;
 
@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
 public class TradeMessagePanel extends NotificationPanel {
 
     private StashHelperPanel stashHelperPanel;
-    private StashHelperWrapper stashHelperWrapper;
+    private StashHelperBulkWrapper stashHelperBulkWrapper;
 
     public TradeMessagePanel(TradeOffer offer) {
         this(offer, true);
@@ -31,7 +31,7 @@ public class TradeMessagePanel extends NotificationPanel {
         this.pasteReplacement = new PasteReplacement(SaveManager.settingsSaveFile.data.characterName, tradeOffer.playerName, tradeOffer.itemName, tradeOffer.itemQuantity, tradeOffer.priceName, tradeOffer.priceQuantity);
         if (FrameManager.stashHelperContainer != null && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE && createListeners) {
             if (this.tradeOffer.isBulkTrade) {
-                stashHelperWrapper = new StashHelperWrapper(tradeOffer);
+                stashHelperBulkWrapper = new StashHelperBulkWrapper(tradeOffer);
             } else {
                 stashHelperPanel = new StashHelperPanel(tradeOffer);
             }
@@ -69,8 +69,8 @@ public class TradeMessagePanel extends NotificationPanel {
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             if (stashHelperPanel != null)
                                 stashHelperPanel.setVisible(true);
-                            if (stashHelperWrapper != null)
-                                stashHelperWrapper.setVisible(true);
+                            if (stashHelperBulkWrapper != null)
+                                stashHelperBulkWrapper.setVisible(true);
                             FrameManager.stashHelperContainer.refresh();
                         } else if (e.getButton() == MouseEvent.BUTTON3) {
                             FrameManager.itemIgnoreWindow.setItemName(tradeOffer.itemName);
@@ -103,8 +103,8 @@ public class TradeMessagePanel extends NotificationPanel {
         super.onInvite();
         if (stashHelperPanel != null)
             stashHelperPanel.setVisible(true);
-        if (stashHelperWrapper != null) {
-            stashHelperWrapper.setVisible(true);
+        if (stashHelperBulkWrapper != null) {
+            stashHelperBulkWrapper.setVisible(true);
         }
         FrameManager.stashHelperContainer.refresh();
     }
@@ -137,9 +137,9 @@ public class TradeMessagePanel extends NotificationPanel {
                 FrameManager.stashHelperContainer.remove(stashHelperPanel);
                 stashHelperPanel.cleanup();
             }
-            if (stashHelperWrapper != null) {
-                FrameManager.stashHelperContainer.remove(stashHelperWrapper);
-                stashHelperWrapper.cleanup();
+            if (stashHelperBulkWrapper != null) {
+                FrameManager.stashHelperContainer.remove(stashHelperBulkWrapper);
+                stashHelperBulkWrapper.cleanup();
             }
             FrameManager.stashHelperContainer.refresh();
         }
