@@ -57,6 +57,13 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         addVerticalStrutSmall();
         addComponent(inbuiltMacroPanel("Item Name", "Open Stash Helper", "Ignore Item"));
         addVerticalStrut();
+        if (messageType == TradeOfferType.INCOMING_TRADE) {
+            addComponent(inbuiltMacroPanel("Close Button", "Close Message", "Close all incoming messages with the same item name."));
+            addVerticalStrut();
+        } else if (messageType == TradeOfferType.OUTGOING_TRADE) {
+            addComponent(inbuiltMacroPanel("Close Button", "Close Message", "Close all outgoing messages EXCEPT the clicked message."));
+            addVerticalStrut();
+        }
         addHeader("Custom Macro Info");
         addComponent(new PlainLabel("Run one or more commands using {player}, {self}, {item}, {price}, {zone}, and {message}."));
         addComponent(new PlainLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
