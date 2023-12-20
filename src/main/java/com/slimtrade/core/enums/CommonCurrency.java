@@ -5,6 +5,7 @@ import com.slimtrade.core.utility.ZUtil;
 /**
  * Most of the currencies that you can list items for in a public stash tab.
  */
+@Deprecated
 public enum CommonCurrency {
 
     CHAOS_ORB,
