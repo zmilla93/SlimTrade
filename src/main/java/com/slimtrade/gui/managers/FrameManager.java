@@ -32,6 +32,7 @@ public class FrameManager {
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
     public static StashSortingWindow stashSortingWindow;
+    public static TutorialWindow tutorialWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
     public static SetupWindow setupWindow;
 
@@ -65,8 +66,8 @@ public class FrameManager {
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
         stashSortingWindow = new StashSortingWindow();
+        tutorialWindow = new TutorialWindow();
         setupWindow = new SetupWindow();
-
 
         // Overlays
         overlayInfoWindow = new OverlayInfoDialog();
@@ -84,7 +85,7 @@ public class FrameManager {
 
         // FIXME : Add all windows
         // Group windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, stashSortingWindow, menubarIcon, menubarDialog, stashHelperContainer};
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, stashSortingWindow, menubarIcon, menubarDialog, stashHelperContainer, tutorialWindow};
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
@@ -99,6 +100,8 @@ public class FrameManager {
         windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
 //        debugWindow.setVisible(true);
+        // FIXME : Temp show tutorial window.
+
     }
 
     public static void showSetupFrame() {
@@ -107,7 +110,8 @@ public class FrameManager {
 
     public static void showAppFrames() {
         // FIXME: temp show options
-        FrameManager.optionsWindow.setVisible(true);
+//        FrameManager.optionsWindow.setVisible(true);
+        tutorialWindow.setVisible(true);
         FrameManager.messageManager.setVisible(true);
         if (SaveManager.settingsSaveFile.data.enableMenuBar) {
             FrameManager.menubarIcon.setVisible(true);
@@ -161,7 +165,7 @@ public class FrameManager {
     }
 
     public static void checkMenubarVisibility(Point point) {
-        // FIXME : buffered bounds should should be cached since this function is called frequently.
+        // FIXME : buffered bounds should be cached since this function is called frequently.
         if (menubarExpanded) {
             if (!TradeUtil.getBufferedBounds(menubarDialog.getBounds()).contains(point)) {
                 menubarExpanded = false;

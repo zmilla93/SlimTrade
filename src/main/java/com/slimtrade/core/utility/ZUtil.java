@@ -91,6 +91,18 @@ public class ZUtil {
         return gc;
     }
 
+    public static JPanel addStrutsToBorderPanel(JPanel panel, int inset) {
+        return addStrutsToBorderPanel(panel, new Insets(inset, inset, inset, inset));
+    }
+
+    public static JPanel addStrutsToBorderPanel(JPanel panel, Insets insets) {
+        if (insets.left > 0) panel.add(Box.createHorizontalStrut(insets.left), BorderLayout.WEST);
+        if (insets.right > 0) panel.add(Box.createHorizontalStrut(insets.right), BorderLayout.EAST);
+        if (insets.top > 0) panel.add(Box.createVerticalStrut(insets.top), BorderLayout.NORTH);
+        if (insets.bottom > 0) panel.add(Box.createVerticalStrut(insets.bottom), BorderLayout.SOUTH);
+        return panel;
+    }
+
     /**
      * Given a point on the screen, returns the bounds of the monitor containing that point.
      *
