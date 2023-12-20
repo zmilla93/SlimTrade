@@ -1,7 +1,6 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.core.audio.Sound;
-import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
@@ -12,6 +11,7 @@ import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.ButtonPanel;
 import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.components.PlainLabel;
+import com.slimtrade.gui.options.audio.AudioRowControls;
 import com.slimtrade.gui.options.audio.AudioThresholdPanel;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -26,11 +26,17 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     private final JButton openFolderButton = new JButton("Open Audio Folder");
     private final JButton refreshButton = new JButton("Refresh");
 
-    private final ArrayList<JComboBox<Sound>> comboList = new ArrayList<>(6);
-    private final ArrayList<JSlider> sliderList = new ArrayList<>(6);
-
     private final JLabel customAudioLabel = new JLabel();
     private final AudioThresholdPanel audioThresholdPanel = new AudioThresholdPanel();
+
+    // Controls
+    private final ArrayList<AudioRowControls> controlList = new ArrayList<>();
+    private final AudioRowControls incomingTradeControls;
+    private final AudioRowControls outgoingTradeControls;
+    private final AudioRowControls chatScannerControls;
+    private final AudioRowControls playerJoinedAreaControls;
+    private final AudioRowControls ignoredItemControls;
+    private final AudioRowControls updateAlertControls;
 
     public AudioOptionPanel() {
         gc.gridx = 0;
@@ -38,14 +44,13 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 1;
 
-        // FIXME: (Minor) Should remove order dependency.
-        // IMPORTANT : These must be in the same order as the save and load functions!
-        addRow("Incoming Trade");
-        addRow("Outgoing Trade");
-        addRow("Chat Scanner");
-        addRow("Player Joined Area");
-        addRow("Ignored Item");
-        addRow("Update Alert");
+        // Controls
+        incomingTradeControls = addRow("Incoming Trade");
+        outgoingTradeControls = addRow("Outgoing Trade");
+        chatScannerControls = addRow("Chat Scanner");
+        playerJoinedAreaControls = addRow("Player Joined Area");
+        ignoredItemControls = addRow("Ignored Item");
+        updateAlertControls = addRow("Update Alert");
 
         ButtonPanel customButtons = new ButtonPanel();
 
@@ -67,6 +72,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         addHeader("Price Thresholds");
         addComponent(audioThresholdPanel);
 
+        updateInfoLabel();
         addListeners();
     }
 
@@ -81,12 +87,10 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         });
     }
 
-    private void addRow(String title) {
+    private AudioRowControls addRow(String title) {
         JButton previewButton = new IconButton(DefaultIcon.PLAY.path);
         JComboBox<Sound> soundCombo = new LimitCombo<>();
         JSlider volumeSlider = new JSlider();
-        comboList.add(soundCombo);
-        sliderList.add(volumeSlider);
         for (Sound sound : AudioManager.getSoundFiles())
             soundCombo.addItem(sound);
         innerPanel.add(new JLabel(title), gc);
@@ -100,29 +104,21 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         gc.gridx = 0;
         gc.gridy++;
 
-        updateInfoLabel();
         previewButton.addActionListener(e -> AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
+        AudioRowControls controls = new AudioRowControls(soundCombo, volumeSlider);
+        controlList.add(controls);
+        return controls;
     }
 
     private void refreshCombos() {
-        for (JComboBox<Sound> combo : comboList) {
+        for (AudioRowControls control : controlList) {
+            JComboBox<Sound> combo = control.comboBox();
             combo.removeAllItems();
             for (Sound sound : AudioManager.getSoundFiles()) {
                 combo.addItem(sound);
             }
         }
         audioThresholdPanel.refreshCombos();
-    }
-
-    private SoundComponent getAudioRow(int index) {
-        return new SoundComponent((Sound) comboList.get(index).getSelectedItem(), sliderList.get(index).getValue());
-    }
-
-    private void setAudioRow(int index, SoundComponent row) {
-        if (row == null || row.sound == null) return;
-        int soundIndex = AudioManager.indexOfSound(row.sound);
-        comboList.get(index).setSelectedIndex(soundIndex);
-        sliderList.get(index).setValue(row.volume);
     }
 
     public void updateInfoLabel() {
@@ -138,23 +134,23 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     @Override
     public void save() {
-        SaveManager.settingsSaveFile.data.incomingSound = getAudioRow(0);
-        SaveManager.settingsSaveFile.data.outgoingSound = getAudioRow(1);
-        SaveManager.settingsSaveFile.data.chatScannerSound = getAudioRow(2);
-        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = getAudioRow(3);
-        SaveManager.settingsSaveFile.data.itemIgnoredSound = getAudioRow(4);
-        SaveManager.settingsSaveFile.data.updateSound = getAudioRow(5);
+        SaveManager.settingsSaveFile.data.incomingSound = incomingTradeControls.getSoundComponent();
+        SaveManager.settingsSaveFile.data.outgoingSound = outgoingTradeControls.getSoundComponent();
+        SaveManager.settingsSaveFile.data.chatScannerSound = chatScannerControls.getSoundComponent();
+        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = playerJoinedAreaControls.getSoundComponent();
+        SaveManager.settingsSaveFile.data.itemIgnoredSound = ignoredItemControls.getSoundComponent();
+        SaveManager.settingsSaveFile.data.updateSound = updateAlertControls.getSoundComponent();
     }
 
     @Override
     public void load() {
         refreshCombos();
-        setAudioRow(0, SaveManager.settingsSaveFile.data.incomingSound);
-        setAudioRow(1, SaveManager.settingsSaveFile.data.outgoingSound);
-        setAudioRow(2, SaveManager.settingsSaveFile.data.chatScannerSound);
-        setAudioRow(3, SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
-        setAudioRow(4, SaveManager.settingsSaveFile.data.itemIgnoredSound);
-        setAudioRow(5, SaveManager.settingsSaveFile.data.updateSound);
+        incomingTradeControls.setSoundComponent(SaveManager.settingsSaveFile.data.incomingSound);
+        outgoingTradeControls.setSoundComponent(SaveManager.settingsSaveFile.data.outgoingSound);
+        chatScannerControls.setSoundComponent(SaveManager.settingsSaveFile.data.chatScannerSound);
+        playerJoinedAreaControls.setSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+        ignoredItemControls.setSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound);
+        updateAlertControls.setSoundComponent(SaveManager.settingsSaveFile.data.updateSound);
     }
 
 }
