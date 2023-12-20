@@ -32,6 +32,17 @@ public class CurrencyType implements IImageRef {
         ID = words[0];
     }
 
+    /**
+     * Adds aliases for partial words
+     */
+    private static void addCustomTags() {
+        // TODO : Add all common tags
+        addAlias("Orb of Alchemy", "alch");
+        addAlias("Chaos Orb", "chaos");
+        addAlias("Exalted Orb", "exalted");
+        addAlias("Divine Orb", "divine");
+    }
+
     public String getPartialName() {
         if (partialName == null) {
             // TODO
@@ -52,6 +63,7 @@ public class CurrencyType implements IImageRef {
                 if (line.matches("\\s+")) continue;
                 if (line.startsWith("//")) {
                     if (line.startsWith("// Order:")) {
+                        // TODO
 //                        System.out.println(line);
                     }
                     continue;
@@ -71,16 +83,6 @@ public class CurrencyType implements IImageRef {
         for (String word : currency.words) {
             iconMap.put(word, currency);
         }
-    }
-
-    /**
-     * Adds aliases for partial words
-     */
-    private static void addCustomTags() {
-        // FIXME : Add all tags
-        addAlias("Orb of Alchemy", "alch");
-        addAlias("Chaos Orb", "chaos");
-        addAlias("Exalted Orb", "exalted");
     }
 
     private static void buildCommonCurrencyList() {
