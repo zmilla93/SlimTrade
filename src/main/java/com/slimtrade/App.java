@@ -66,8 +66,10 @@ public class App {
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
         // Init minimum for loading dialog
+        Stopwatch.start();
         ThemeManager.loadFonts();
         SaveManager.init();
+        profileLaunch("Fonts and Save File");
 
         // Loading Dialog
         try {
