@@ -21,10 +21,10 @@ public class CurrencyType implements IImageRef {
     public final String ID; // Used to save to file
 
     // Internal
-    private static final HashMap<String, CurrencyType> iconMap = new HashMap<>();
+    private static final HashMap<String, CurrencyType> currencyNameMap = new HashMap<>();
     private static final ArrayList<CurrencyType> commonCurrencyTypes = new ArrayList<>();
 
-    public CurrencyType(String line) {
+    private CurrencyType(String line) {
         words = line.split(",");
         for (int i = 0; i < words.length; i++) {
             words[i] = words[i].trim();
@@ -54,7 +54,7 @@ public class CurrencyType implements IImageRef {
      * Builds a hashmap of all currency types and translations using currency.txt
      */
     public static void initIconList() {
-        iconMap.clear();
+        currencyNameMap.clear();
         try {
             InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyType.class.getResourceAsStream("/text/currency.txt")));
             BufferedReader reader = new BufferedReader(stream);
@@ -81,50 +81,50 @@ public class CurrencyType implements IImageRef {
     private static void addCSV(String line) {
         CurrencyType currency = new CurrencyType(line);
         for (String word : currency.words) {
-            iconMap.put(word, currency);
+            currencyNameMap.put(word, currency);
         }
     }
 
     private static void buildCommonCurrencyList() {
         commonCurrencyTypes.clear();
-        commonCurrencyTypes.add(getCurrencyImage("Chaos Orb"));
-        commonCurrencyTypes.add(getCurrencyImage("Exalted Orb"));
-        commonCurrencyTypes.add(getCurrencyImage("Blessed Orb"));
-        commonCurrencyTypes.add(getCurrencyImage("Cartographer's Chisel"));
-        commonCurrencyTypes.add(getCurrencyImage("Chromatic Orb"));
-        commonCurrencyTypes.add(getCurrencyImage("Divine Orb"));
-        commonCurrencyTypes.add(getCurrencyImage("Engineer's Orb"));
-        commonCurrencyTypes.add(getCurrencyImage("Gemcutter's Prism"));
-        commonCurrencyTypes.add(getCurrencyImage("Glassblower's Bauble"));
-        commonCurrencyTypes.add(getCurrencyImage("Jeweller's Orb"));
-        commonCurrencyTypes.add(getCurrencyImage("Mirror of Kalandra"));
-        commonCurrencyTypes.add(getCurrencyImage("Orb of Alchemy"));
-        commonCurrencyTypes.add(getCurrencyImage("Orb of Alteration"));
-        commonCurrencyTypes.add(getCurrencyImage("Orb of Chance"));
-        commonCurrencyTypes.add(getCurrencyImage("Orb of Fusing"));
-        commonCurrencyTypes.add(getCurrencyImage("Orb of Regret"));
-        commonCurrencyTypes.add(getCurrencyImage("Orb of Scouring"));
-        commonCurrencyTypes.add(getCurrencyImage("Orb of Transmutation"));
-        commonCurrencyTypes.add(getCurrencyImage("Regal Orb"));
-        commonCurrencyTypes.add(getCurrencyImage("Vaal Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Chaos Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Exalted Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Blessed Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Cartographer's Chisel"));
+        commonCurrencyTypes.add(getCurrencyType("Chromatic Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Divine Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Engineer's Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Gemcutter's Prism"));
+        commonCurrencyTypes.add(getCurrencyType("Glassblower's Bauble"));
+        commonCurrencyTypes.add(getCurrencyType("Jeweller's Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Mirror of Kalandra"));
+        commonCurrencyTypes.add(getCurrencyType("Orb of Alchemy"));
+        commonCurrencyTypes.add(getCurrencyType("Orb of Alteration"));
+        commonCurrencyTypes.add(getCurrencyType("Orb of Chance"));
+        commonCurrencyTypes.add(getCurrencyType("Orb of Fusing"));
+        commonCurrencyTypes.add(getCurrencyType("Orb of Regret"));
+        commonCurrencyTypes.add(getCurrencyType("Orb of Scouring"));
+        commonCurrencyTypes.add(getCurrencyType("Orb of Transmutation"));
+        commonCurrencyTypes.add(getCurrencyType("Regal Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Vaal Orb"));
     }
 
     public static void addAlias(String existingTag, String alias) {
-        CurrencyType image = getCurrencyImage(existingTag);
+        CurrencyType image = getCurrencyType(existingTag);
         if (image == null) return;
-        iconMap.put(alias, image);
+        currencyNameMap.put(alias, image);
     }
 
-    public static CurrencyType getCurrencyImage(String currency) {
-        if (iconMap.containsKey(currency)) {
-            return iconMap.get(currency);
+    public static CurrencyType getCurrencyType(String currency) {
+        if (currencyNameMap.containsKey(currency)) {
+            return currencyNameMap.get(currency);
         }
         return null;
     }
 
     public static String getIconPath(String currency) {
-        if (iconMap.containsKey(currency)) {
-            return iconMap.get(currency).getPath();
+        if (currencyNameMap.containsKey(currency)) {
+            return currencyNameMap.get(currency).getPath();
         }
         return null;
     }

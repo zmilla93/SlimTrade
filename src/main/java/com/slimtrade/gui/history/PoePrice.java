@@ -11,7 +11,7 @@ public class PoePrice {
     public PoePrice(String priceString, int quantity) {
         this.priceString = priceString;
         this.quantity = quantity;
-        this.currencyType = CurrencyType.getCurrencyImage(priceString);
+        this.currencyType = CurrencyType.getCurrencyType(priceString);
     }
 
 }

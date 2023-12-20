@@ -141,7 +141,7 @@ public class SettingsSaveFile {
     public void buildThresholdMap() {
         priceThresholdMap.clear();
         for (PriceThresholdData data : priceThresholds) {
-            CurrencyType currency = CurrencyType.getCurrencyImage(data.currencyType.ID);
+            CurrencyType currency = CurrencyType.getCurrencyType(data.currencyType.ID);
             ArrayList<PriceThresholdData> thresholds = priceThresholdMap.get(currency);
             if (thresholds == null) {
                 thresholds = new ArrayList<>();

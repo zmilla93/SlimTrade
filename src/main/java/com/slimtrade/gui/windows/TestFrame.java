@@ -35,8 +35,8 @@ public class TestFrame extends JFrame {
         NotificationPanel trade = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE), false);
         contentPanel.add(trade);
         BufferedImage img = null;
-        CurrencyType currency = CurrencyType.getCurrencyImage("Orbe exalté");
-        CurrencyType exalt = CurrencyType.getCurrencyImage("Orbe exalté");
+        CurrencyType currency = CurrencyType.getCurrencyType("Orbe exalté");
+        CurrencyType exalt = CurrencyType.getCurrencyType("Orbe exalté");
         try {
             assert currency != null;
             img = ImageIO.read(Objects.requireNonNull(getClass().getResource(currency.getPath())));

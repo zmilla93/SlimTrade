@@ -141,7 +141,7 @@ public class AudioManager {
     }
 
     public static SoundComponent getPriceThresholdSound(String currencyType, int quantity) {
-        CurrencyType currency = CurrencyType.getCurrencyImage(currencyType);
+        CurrencyType currency = CurrencyType.getCurrencyType(currencyType);
         if (currency == null) return null;
         ArrayList<PriceThresholdData> thresholds = SaveManager.settingsSaveFile.data.priceThresholdMap.get(currency);
         if (thresholds == null) return null;

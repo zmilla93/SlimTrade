@@ -82,7 +82,7 @@ public class CurrencyLabelFactory extends JPanel {
     }
 
     private static Container addDataToContainer(Container container, String itemName, double quantity, boolean plain) {
-        CurrencyType currencyType = CurrencyType.getCurrencyImage(itemName);
+        CurrencyType currencyType = CurrencyType.getCurrencyType(itemName);
         JLabel textLabel = textLabel(itemName, quantity, currencyType);
         if (plain)
             textLabel.setFont(textLabel.getFont().deriveFont(Font.PLAIN, textLabel.getFont().getSize()));

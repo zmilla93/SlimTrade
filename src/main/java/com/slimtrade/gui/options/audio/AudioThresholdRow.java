@@ -59,7 +59,7 @@ public class AudioThresholdRow extends AddRemovePanel {
     }
 
     public void setData(PriceThresholdData data) {
-        currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyImage(data.currencyType.ID));
+        currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyType(data.currencyType.ID));
         quantitySpinner.setValue(data.quantity);
 //        soundCombo.setSelectedIndex(AudioManager.indexOfSound(data.soundComponent.sound.name));
         soundCombo.setSelectedIndex(AudioManager.indexOfSound(data.soundComponent.sound));
