@@ -33,6 +33,7 @@ public class FrameManager {
     public static ItemIgnoreWindow itemIgnoreWindow;
     public static StashSortingWindow stashSortingWindow;
     public static TutorialWindow tutorialWindow;
+    public static PatchNotesWindow patchNotesWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
     public static SetupWindow setupWindow;
 
@@ -67,6 +68,8 @@ public class FrameManager {
         itemIgnoreWindow = new ItemIgnoreWindow();
         stashSortingWindow = new StashSortingWindow();
         tutorialWindow = new TutorialWindow();
+        patchNotesWindow = new PatchNotesWindow();
+
         setupWindow = new SetupWindow();
 
         // Overlays
@@ -99,8 +102,6 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_STASH, stashWindows);
         windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
-//        debugWindow.setVisible(true);
-        // FIXME : Temp show tutorial window.
 
     }
 
@@ -109,9 +110,10 @@ public class FrameManager {
     }
 
     public static void showAppFrames() {
-        // FIXME: temp show options
+        // FIXME: Show proper windows
 //        FrameManager.optionsWindow.setVisible(true);
-        tutorialWindow.setVisible(true);
+//        tutorialWindow.setVisible(true);
+        patchNotesWindow.setVisible(true);
         FrameManager.messageManager.setVisible(true);
         if (SaveManager.settingsSaveFile.data.enableMenuBar) {
             FrameManager.menubarIcon.setVisible(true);

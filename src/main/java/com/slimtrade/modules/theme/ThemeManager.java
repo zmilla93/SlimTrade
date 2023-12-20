@@ -363,8 +363,7 @@ public class ThemeManager<T> {
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);
-            builder.append(key + " :::" + value + "\n");
-            System.out.println(key + " :::" + value);
+            builder.append(key).append(" :::").append(value).append("\n");
         }
         StringSelection selection = new StringSelection(builder.toString());
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
