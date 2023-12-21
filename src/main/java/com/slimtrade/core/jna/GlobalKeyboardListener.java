@@ -1,7 +1,7 @@
 package com.slimtrade.core.jna;
 
 import com.slimtrade.core.hotkeys.HotkeyData;
-import com.slimtrade.gui.basic.HotkeyButton;
+import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.gui.managers.HotkeyManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;

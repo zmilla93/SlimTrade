@@ -6,6 +6,7 @@ import com.slimtrade.modules.theme.components.ColorCombo;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class StashSortInputPanel extends JPanel {
 
     private JButton submitButton = new JButton("Add Search");

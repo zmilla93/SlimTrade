@@ -111,9 +111,9 @@ public class FrameManager {
 
     public static void showAppFrames() {
         // FIXME: Show proper windows
-//        FrameManager.optionsWindow.setVisible(true);
+        FrameManager.optionsWindow.setVisible(true);
 //        tutorialWindow.setVisible(true);
-        patchNotesWindow.setVisible(true);
+//        patchNotesWindow.setVisible(true);
         FrameManager.messageManager.setVisible(true);
         if (SaveManager.settingsSaveFile.data.enableMenuBar) {
             FrameManager.menubarIcon.setVisible(true);

@@ -33,7 +33,6 @@ public class OptionsWindow extends CustomDialog {
         OptionPanel display = new OptionPanel("Display", new DisplayOptionPanel());
         OptionPanel audio = new OptionPanel("Audio", new AudioOptionPanel());
         OptionPanel stash = new OptionPanel("Stash Tabs", new StashOptionPanel());
-//        OptionPanel history = new OptionPanel("History", new HistoryOptionPanel());
         OptionPanel information = new OptionPanel("Information", new InformationOptionPanel());
         OptionPanel incomingMacros = new OptionPanel("Incoming Macros", incomingMacroPanel);
         OptionPanel outgoingMacros = new OptionPanel("Outgoing Macros", outgoingMacroPanel);
@@ -92,11 +91,11 @@ public class OptionsWindow extends CustomDialog {
         revertButton.addActionListener(e -> SaveManager.settingsSaveFile.revertChanges());
 
         // Finalize
-        if (App.debug) ShowPanel(debug);
+        // FIXME : Remove this line
+        showPanel(stashSorting);
         setMinimumSize(new Dimension(500, 400));
         pack();
         // FIXME : Add max size
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize((int) Math.round(screenSize.width * 0.5), (int) Math.round(screenSize.height * 0.6));
         setLocationRelativeTo(null);
@@ -109,7 +108,7 @@ public class OptionsWindow extends CustomDialog {
         JPanel topButtonPanel = new JPanel(new BorderLayout());
         JList<OptionPanel> optionsList = new JList<>(panelList);
         optionsList.setSelectedIndex(0);
-        if (App.debug) optionsList.setSelectedIndex(panelList.length - 1);
+//        if (App.debug) optionsList.setSelectedIndex(panelList.length - 1);
         topButtonPanel.add(optionsList, BorderLayout.CENTER);
 
         // Bottom Button Panel
@@ -129,11 +128,12 @@ public class OptionsWindow extends CustomDialog {
         sidebar.add(bottomButtonPanel, BorderLayout.SOUTH);
 
         // Listeners
-        optionsList.addListSelectionListener(e -> ShowPanel(optionsList.getSelectedValue()));
+        optionsList.addListSelectionListener(e -> showPanel(optionsList.getSelectedValue()));
+
         return sidebar;
     }
 
-    private void ShowPanel(OptionPanel panel) {
+    private void showPanel(OptionPanel panel) {
         if (panel == null) return;
         cardLayout.show(cardPanel, panel.title);
     }

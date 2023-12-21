@@ -11,6 +11,8 @@ import java.util.HashMap;
  *
  * @see AddRemovePanel
  */
+// FIXME : On one occasion, this placed two child panels in the same location.
+//         Could probably find a cleaner way to do all of this.
 public class AddRemoveContainer extends JPanel {
 
     private final HashMap<Component, Integer> panelToInt = new HashMap<>();

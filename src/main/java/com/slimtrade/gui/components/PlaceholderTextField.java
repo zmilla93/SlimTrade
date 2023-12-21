@@ -27,8 +27,14 @@ public class PlaceholderTextField extends JTextField implements FocusListener, D
         setup();
     }
 
-    public PlaceholderTextField(String text) {
+    public PlaceholderTextField(String placeholderText) {
+        setPlaceholderText(placeholderText);
+        setup();
+    }
+
+    public PlaceholderTextField(String text, String placeholderText) {
         super(text);
+        setPlaceholderText(placeholderText);
         setup();
     }
 
@@ -37,8 +43,9 @@ public class PlaceholderTextField extends JTextField implements FocusListener, D
         setup();
     }
 
-    public PlaceholderTextField(String text, int columns) {
-        super(text, columns);
+    public PlaceholderTextField(String placeholderText, int columns) {
+        super(columns);
+        setPlaceholderText(placeholderText);
         setup();
     }
 
@@ -51,22 +58,13 @@ public class PlaceholderTextField extends JTextField implements FocusListener, D
         placeholderLabel.setText(text);
     }
 
-    public void setPlaceholderColor(Color color) {
-        placeholderLabel.setColor(color);
-    }
-
-    public void setPlaceholderColorKey(String key) {
-        placeholderLabel.setColorKey(key);
-    }
-
     public void setMode(Mode mode) {
         this.mode = mode;
     }
 
     private void setup() {
         placeholderLabel.setItalic(true);
-        // TODO : Should fine a better default color
-//        setPlaceholderColorKey("Separator.foreground");
+        placeholderLabel.setColorKey("TitledBorder.titleColor");
         addFocusListener(this);
         getDocument().addDocumentListener(this);
         updateUI();

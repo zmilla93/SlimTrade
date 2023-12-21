@@ -1,8 +1,10 @@
 package com.slimtrade.gui.options;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.LimitCombo;
+import com.slimtrade.gui.components.PlaceholderTextField;
 import com.slimtrade.gui.options.general.DisplaySettingsPanel;
 import com.slimtrade.modules.saving.ISavable;
 import com.slimtrade.modules.theme.Theme;
@@ -32,6 +34,11 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
         addHeader("Theme");
         addComponent(themePanel);
         addComponent(colorBlindCheckBox);
+        if (App.debug) {
+            PlaceholderTextField textField = new PlaceholderTextField(20);
+            textField.setPlaceholderText("Testing...");
+            addComponent(textField);
+        }
         themeCombo.addActionListener(e -> SwingUtilities.invokeLater(() -> ThemeManager.setTheme((Theme) themeCombo.getSelectedItem())));
     }
 

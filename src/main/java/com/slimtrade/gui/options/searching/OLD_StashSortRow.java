@@ -8,7 +8,8 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class StashSortRow extends AddRemovePanel {
+@Deprecated
+public class OLD_StashSortRow extends AddRemovePanel {
 
     private StashSortData data;
     private JButton removeButton = new IconButton("/icons/default/closex64.png");
@@ -17,7 +18,7 @@ public class StashSortRow extends AddRemovePanel {
     private JLabel tagLabel = new JLabel();
     private JLabel searchLabel = new JLabel();
 
-    public StashSortRow(AddRemoveContainer parent, StashSortData data) {
+    public OLD_StashSortRow(AddRemoveContainer parent, StashSortData data) {
         super(parent);
         this.data = data;
         tagLabel.setText(data.TAG);
