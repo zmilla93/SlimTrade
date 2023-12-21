@@ -3,7 +3,7 @@ package com.slimtrade.gui.options.general;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.gui.basic.HotkeyButton;
+import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.gui.components.LanguageTextField;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISavable;

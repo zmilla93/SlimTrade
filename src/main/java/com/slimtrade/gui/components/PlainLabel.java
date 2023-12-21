@@ -3,6 +3,8 @@ package com.slimtrade.gui.components;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
+// FIXME : Should start using StyledLabel
 public class PlainLabel extends JLabel {
 
     public PlainLabel() {

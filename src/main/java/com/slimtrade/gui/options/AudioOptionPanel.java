@@ -6,7 +6,7 @@ import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.basic.ColorLabel;
+import com.slimtrade.gui.components.ColorLabel;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.ButtonPanel;
 import com.slimtrade.gui.components.LimitCombo;

@@ -1,8 +1,10 @@
-package com.slimtrade.gui.basic;
+package com.slimtrade.gui.components;
 
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
+// FIXME : Should start using StyledLabel
 public class ColorLabel extends JLabel {
 
     private String key;

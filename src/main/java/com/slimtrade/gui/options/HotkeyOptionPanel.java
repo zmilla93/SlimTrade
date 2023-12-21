@@ -2,7 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
-import com.slimtrade.gui.basic.HotkeyButton;
+import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
