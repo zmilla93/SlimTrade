@@ -1,4 +1,4 @@
-package com.slimtrade.gui.stashsorting;
+package com.slimtrade.gui.options.searching;
 
 public class StashSortData {
 

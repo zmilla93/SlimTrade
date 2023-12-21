@@ -1,13 +1,11 @@
-package com.slimtrade.gui.options;
+package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.basic.HotkeyButton;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.ButtonWrapper;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.stashsorting.StashSortData;
-import com.slimtrade.gui.stashsorting.StashSortInputPanel;
-import com.slimtrade.gui.stashsorting.StashSortRow;
+import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;

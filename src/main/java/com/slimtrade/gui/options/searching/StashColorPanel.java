@@ -1,4 +1,4 @@
-package com.slimtrade.gui.stashsorting;
+package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.enums.StashTabColor;
 

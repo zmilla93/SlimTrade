@@ -1,4 +1,4 @@
-package com.slimtrade.gui.stashsorting;
+package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;

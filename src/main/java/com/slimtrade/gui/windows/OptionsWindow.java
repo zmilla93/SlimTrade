@@ -5,6 +5,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
+import com.slimtrade.gui.options.searching.StashSortingOptionPanel;
 import com.slimtrade.gui.options.stash.StashOptionPanel;
 
 import javax.swing.*;

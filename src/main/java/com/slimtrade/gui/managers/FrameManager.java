@@ -15,7 +15,7 @@ import com.slimtrade.gui.overlays.OverlayInfoDialog;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashHelperContainer;
-import com.slimtrade.gui.stashsorting.StashSortingWindow;
+import com.slimtrade.gui.options.searching.StashSortingWindow;
 import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;

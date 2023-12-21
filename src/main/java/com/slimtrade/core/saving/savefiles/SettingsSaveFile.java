@@ -9,7 +9,7 @@ import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.MacroButton;
-import com.slimtrade.gui.stashsorting.StashSortData;
+import com.slimtrade.gui.options.searching.StashSortData;
 import com.slimtrade.modules.theme.Theme;
 
 import java.util.ArrayList;
