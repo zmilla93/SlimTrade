@@ -18,7 +18,6 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
 
     private final HashMap<Component, Integer> panelToInt = new HashMap<>();
     private final HashMap<Integer, Component> intToPanel = new HashMap<>();
-    private final ArrayList<T> typedComponents = new ArrayList<>();
     private boolean usingGeneric = false;
 
     private final GridBagConstraints gc = ZUtil.getGC();
@@ -87,8 +86,15 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList<T> getComponentsTyped() {
-        return typedComponents;
+        // Warnings are suppressed here because there is no clean way to safely cast to a generic type.
+        // Component types are checked when being added, so errors should be caught before ever getting to here.
+        ArrayList<T> components = new ArrayList<>();
+        for (Component c : getComponents()) {
+            components.add((T) c);
+        }
+        return components;
     }
 
     private void genericMisuse() {
@@ -101,11 +107,10 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         usingGeneric = false;
     }
 
-    public T add(T comp) {
+    public T add(T component) {
         usingGeneric = true;
-        typedComponents.add(comp);
-        add((Component) comp);
-        return comp;
+        add((Component) component);
+        return component;
     }
 
     @Override
@@ -121,15 +126,8 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         return comp;
     }
 
-    public void remove(T comp) {
-        usingGeneric = true;
-        typedComponents.remove(comp);
-        remove((Component) comp);
-    }
-
     @Override
     public void remove(Component comp) {
-        checkGeneric();
         super.remove(comp);
         rebuildMaps();
         rebuild();
@@ -138,7 +136,6 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
     @Override
     public void removeAll() {
         super.removeAll();
-        typedComponents.clear();
         panelToInt.clear();
         intToPanel.clear();
     }
