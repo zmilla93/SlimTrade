@@ -9,7 +9,7 @@ import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.MacroButton;
-import com.slimtrade.gui.listening.ColorBlindChangeListener;
+import com.slimtrade.gui.listening.IColorBlindChangeListener;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSortingWindowMode;
 import com.slimtrade.modules.theme.Theme;
@@ -45,7 +45,7 @@ public class SettingsSaveFile {
     public transient boolean iconSizeChanged;
     public Theme theme;
     public boolean colorBlindMode;
-    private transient ArrayList<ColorBlindChangeListener> colorBlindChangeListeners = new ArrayList<>();
+    private transient ArrayList<IColorBlindChangeListener> colorBlindChangeListeners = new ArrayList<>();
 
     // History
     public HistoryOrder historyOrder = HistoryOrder.NEWEST_FIRST;
@@ -160,17 +160,18 @@ public class SettingsSaveFile {
         }
     }
 
-    public void triggerColorBlindModeChange() {
-        for (ColorBlindChangeListener listener : colorBlindChangeListeners) {
+    public void triggerColorBlindModeChange(boolean colorBlindMode) {
+        for (IColorBlindChangeListener listener : colorBlindChangeListeners) {
             listener.onColorBlindChange(colorBlindMode);
         }
     }
 
-    public void addColorBlindListener(ColorBlindChangeListener listener) {
+    public void addColorBlindListener(IColorBlindChangeListener listener) {
+        if (colorBlindChangeListeners.contains(listener)) return;
         colorBlindChangeListeners.add(listener);
     }
 
-    public void removeColorBlindListener(ColorBlindChangeListener listener) {
+    public void removeColorBlindListener(IColorBlindChangeListener listener) {
         colorBlindChangeListeners.remove(listener);
     }
 

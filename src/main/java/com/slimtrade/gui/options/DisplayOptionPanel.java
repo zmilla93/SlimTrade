@@ -15,8 +15,8 @@ import java.awt.*;
 
 public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    private JComboBox<Theme> themeCombo = new LimitCombo<>();
-    private JCheckBox colorBlindCheckBox = new JCheckBox("Color Blind Mode");
+    private final JComboBox<Theme> themeCombo = new LimitCombo<>();
+    private final JCheckBox colorBlindCheckBox = new JCheckBox("Color Blind Mode");
 
     public DisplayOptionPanel() {
         for (Theme theme : Theme.values()) themeCombo.addItem(theme);
@@ -38,7 +38,12 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
             JTextField textField = new PlaceholderTextField("Testing...", 20);
             addComponent(textField);
         }
+        addListeners();
+    }
+
+    private void addListeners() {
         themeCombo.addActionListener(e -> SwingUtilities.invokeLater(() -> ThemeManager.setTheme((Theme) themeCombo.getSelectedItem())));
+        colorBlindCheckBox.addActionListener(e -> SaveManager.settingsSaveFile.data.triggerColorBlindModeChange(colorBlindCheckBox.isSelected()));
     }
 
     @Override
@@ -53,6 +58,7 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
         if (theme == null) theme = Theme.getDefaultColorTheme();
         themeCombo.setSelectedItem(theme);
         colorBlindCheckBox.setSelected(SaveManager.settingsSaveFile.data.colorBlindMode);
+        SaveManager.settingsSaveFile.data.triggerColorBlindModeChange(SaveManager.settingsSaveFile.data.colorBlindMode);
     }
 
 }

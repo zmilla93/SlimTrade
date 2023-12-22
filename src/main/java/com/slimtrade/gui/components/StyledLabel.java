@@ -8,13 +8,13 @@ import java.awt.*;
 
 /**
  * A JLabel that allows setting bold, italic, and color.
- * Color can either be set directly, using a key from the UIManager, or using a ThemeColorVariant.
+ * Color can either be set directly, using a key from the UIManager.
  *
- * @see ThemeColorVariant
+ * @see ThemedStyleLabel
  */
 public class StyledLabel extends JLabel {
 
-    private enum ColorMode {
+    protected enum ColorMode {
         COLOR, KEY, VARIANT
     }
 
@@ -22,8 +22,8 @@ public class StyledLabel extends JLabel {
     private boolean italic;
     private String colorKey;
     private Color color;
-    private ThemeColorVariantSetting colorVariant;
-    private ColorMode colorMode;
+    protected ThemeColorVariantSetting colorVariant;
+    protected ColorMode colorMode;
 
     public StyledLabel() {
         super();
@@ -67,19 +67,6 @@ public class StyledLabel extends JLabel {
         updateColor();
     }
 
-    /**
-     * Sets text color using a ThemeColorVariant.
-     *
-     * @param colorVariantSetting Target color variant
-     * @see ThemeColorVariant
-     * @see ThemeColorVariantSetting
-     */
-    public void setColor(ThemeColorVariantSetting colorVariantSetting) {
-        this.colorVariant = colorVariantSetting;
-        colorMode = ColorMode.VARIANT;
-        updateColor();
-    }
-
     private void updateFont() {
         Font font = getFont();
         int mask = Font.PLAIN;
@@ -88,7 +75,7 @@ public class StyledLabel extends JLabel {
         setFont(font.deriveFont(mask, font.getSize()));
     }
 
-    private void updateColor() {
+    protected void updateColor() {
         if (colorMode == ColorMode.COLOR) {
             if (color == null) return;
             super.setForeground(color);
@@ -97,7 +84,7 @@ public class StyledLabel extends JLabel {
             Color color = UIManager.getColor(colorKey);
             super.setForeground(color);
         } else if (colorMode == ColorMode.VARIANT) {
-            Color color = ThemeColorVariant.getColorVariant(colorVariant.variant(), colorVariant.opposite(), colorVariant.opposite());
+            Color color = ThemeColorVariant.getColorVariant(colorVariant.variant(), colorVariant.opposite(), colorVariant.colorBlind());
             super.setForeground(color);
         }
     }

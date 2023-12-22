@@ -1,6 +1,6 @@
 package com.slimtrade.gui.listening;
 
-public interface ColorBlindChangeListener {
+public interface IColorBlindChangeListener {
 
     void onColorBlindChange(boolean colorBlind);
 

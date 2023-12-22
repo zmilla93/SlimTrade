@@ -6,8 +6,8 @@ public class ThemeColorVariantSetting {
 
     private final ThemeColorVariant variant;
     private final boolean opposite;
-    private final boolean colorBlind;
-    private final boolean inferColorBind;
+    private boolean colorBlind;
+    private boolean inferColorBind;
 
     public ThemeColorVariantSetting(ThemeColorVariant variant) {
         this.variant = variant;
@@ -41,6 +41,11 @@ public class ThemeColorVariantSetting {
     public boolean colorBlind() {
         if (inferColorBind) return SaveManager.settingsSaveFile.data.colorBlindMode;
         return colorBlind;
+    }
+
+    public void setColorBlind(boolean colorBlind) {
+        this.colorBlind = colorBlind;
+        this.inferColorBind = false;
     }
 
 }
