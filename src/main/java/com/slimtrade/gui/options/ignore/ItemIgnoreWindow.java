@@ -48,4 +48,10 @@ public class ItemIgnoreWindow extends CustomDialog {
         repaint();
     }
 
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) inputPanel.getIgnoreButton().requestFocus();
+    }
+
 }
