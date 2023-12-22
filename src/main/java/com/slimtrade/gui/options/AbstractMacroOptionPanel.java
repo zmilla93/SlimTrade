@@ -55,8 +55,10 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         addHeader("Inbuilt Macros");
         addComponent(inbuiltMacroPanel("Player Name", "/whois {player}", "Open empty whisper message"));
         addVerticalStrutSmall();
-        addComponent(inbuiltMacroPanel("Item Name", "Open Stash Helper", "Ignore Item"));
-        addVerticalStrut();
+        if (messageType == TradeOfferType.INCOMING_TRADE) {
+            addComponent(inbuiltMacroPanel("Item Name", "Open Stash Helper", "Ignore Item"));
+            addVerticalStrut();
+        }
         if (messageType == TradeOfferType.INCOMING_TRADE) {
             addComponent(inbuiltMacroPanel("Close Button", "Close Message", "Close all incoming messages with the same item name."));
             addVerticalStrut();
