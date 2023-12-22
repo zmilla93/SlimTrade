@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class StashSortingOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    private final StashSortingSettingsPanel settingsPanel = new StashSortingSettingsPanel();
+    protected final StashSortingSettingsPanel settingsPanel = new StashSortingSettingsPanel();
     private final AddRemoveContainer<StashSortingGroupPanel> entryContainer = new AddRemoveContainer<>();
 
     public StashSortingOptionPanel() {

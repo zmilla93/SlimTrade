@@ -62,6 +62,8 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         addListeners();
         showHideRename(false);
         updateGroupName(name);
+        boolean showHotkeyButton = optionPanel.settingsPanel.modeCombo.getSelectedItem() == StashSortingWindowMode.SEPARATE;
+        updateHotkeyVisibility(showHotkeyButton);
         termContainer.add(new StashSortingTermPanel(termContainer));
         termContainer.add(new StashSortingTermPanel(termContainer));
     }
