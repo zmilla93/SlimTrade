@@ -91,23 +91,32 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         JButton previewButton = new IconButton(DefaultIcon.PLAY.path);
         JComboBox<Sound> soundCombo = new LimitCombo<>();
         JSlider volumeSlider = new JSlider();
+        JLabel volumeLabel = new JLabel();
         for (Sound sound : AudioManager.getSoundFiles())
             soundCombo.addItem(sound);
         innerPanel.add(new JLabel(title), gc);
         gc.gridx++;
         innerPanel.add(previewButton, gc);
         gc.gridx++;
+        innerPanel.add(soundCombo, gc);
+        gc.gridx++;
         innerPanel.add(volumeSlider, gc);
         gc.gridx++;
-        innerPanel.add(soundCombo, gc);
+        innerPanel.add(volumeLabel, gc);
 
         gc.gridx = 0;
         gc.gridy++;
 
         previewButton.addActionListener(e -> AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
+        volumeSlider.addChangeListener(e -> updateVolumeSlider(volumeSlider, volumeLabel));
+        updateVolumeSlider(volumeSlider, volumeLabel);
         AudioRowControls controls = new AudioRowControls(soundCombo, volumeSlider);
         controlList.add(controls);
         return controls;
+    }
+
+    private void updateVolumeSlider(JSlider volumeSlider, JLabel volumeLabel) {
+        volumeLabel.setText(ZUtil.getVolumeText(volumeSlider.getValue()));
     }
 
     private void refreshCombos() {

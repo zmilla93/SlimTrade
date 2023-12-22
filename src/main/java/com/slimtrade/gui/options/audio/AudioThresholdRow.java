@@ -16,14 +16,16 @@ import java.awt.*;
 
 public class AudioThresholdRow extends AddRemovePanel {
 
+    private final JButton previewButton = new IconButton("/icons/default/playx64.png");
+    private final JButton removeButton = new IconButton("/icons/default/closex64.png");
+
     private final JSpinner quantitySpinner = new RangeSpinner(SpinnerRange.PRICE_THRESHOLD);
     private final JComboBox<CurrencyType> currencyTypeCombo = new LimitCombo<>();
     private final JComboBox<Sound> soundCombo = new LimitCombo<>();
     private final JSlider volumeSlider = new RangeSlider(SliderRange.AUDIO_VOLUME);
-    private final JButton previewButton = new IconButton("/icons/default/playx64.png");
-    private final JButton removeButton = new IconButton("/icons/default/closex64.png");
+    private final JLabel volumeLabel = new JLabel();
 
-    public AudioThresholdRow(AddRemoveContainer parent) {
+    public AudioThresholdRow(AddRemoveContainer<?> parent) {
         super(parent);
         refreshCombo();
         for (CurrencyType currency : CurrencyType.getCommonCurrencyTypes()) currencyTypeCombo.addItem(currency);
@@ -42,13 +44,21 @@ public class AudioThresholdRow extends AddRemovePanel {
         gc.gridx++;
         add(volumeSlider, gc);
         gc.gridx++;
+        add(volumeLabel, gc);
+        gc.gridx++;
 
         addListeners();
+        updateVolumeLabel();
     }
 
     private void addListeners() {
         previewButton.addActionListener(e -> AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
         removeButton.addActionListener(e -> removeFromParent());
+        volumeSlider.addChangeListener(e -> updateVolumeLabel());
+    }
+
+    private void updateVolumeLabel() {
+        volumeLabel.setText(ZUtil.getVolumeText(volumeSlider.getValue()));
     }
 
     public void refreshCombo() {
@@ -61,7 +71,6 @@ public class AudioThresholdRow extends AddRemovePanel {
     public void setData(PriceThresholdData data) {
         currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyType(data.currencyType.ID));
         quantitySpinner.setValue(data.quantity);
-//        soundCombo.setSelectedIndex(AudioManager.indexOfSound(data.soundComponent.sound.name));
         soundCombo.setSelectedIndex(AudioManager.indexOfSound(data.soundComponent.sound));
         volumeSlider.setValue(data.soundComponent.volume);
     }
