@@ -9,13 +9,13 @@ import com.slimtrade.gui.chatscanner.ChatScannerWindow;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
+import com.slimtrade.gui.options.searching.StashSortingWindow;
 import com.slimtrade.gui.overlays.MenubarOverlay;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashHelperContainer;
-import com.slimtrade.gui.options.searching.StashSortingWindow;
 import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;

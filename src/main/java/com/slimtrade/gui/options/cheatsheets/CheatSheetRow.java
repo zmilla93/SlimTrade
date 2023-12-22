@@ -3,11 +3,7 @@ package com.slimtrade.gui.options.cheatsheets;
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.enums.SliderRange;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.HotkeyButton;
-import com.slimtrade.gui.components.AddRemoveContainer;
-import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.components.ButtonWrapper;
-import com.slimtrade.gui.components.RangeSlider;
+import com.slimtrade.gui.components.*;
 
 import javax.swing.*;
 import java.awt.*;
