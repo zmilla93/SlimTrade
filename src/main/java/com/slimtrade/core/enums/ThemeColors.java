@@ -5,7 +5,10 @@ import com.slimtrade.core.trading.TradeOfferType;
 
 import java.awt.*;
 
-public enum ColorThemeType {
+/**
+ * Stores dark and light variants of colors.
+ */
+public enum ThemeColors {
 
     DARK(
             new Color(44, 145, 35),
@@ -31,7 +34,7 @@ public enum ColorThemeType {
     public final Color OUTGOING_COLOR_BLIND;
     public final Color CHAT_SCANNER_COLOR_BLIND;
 
-    ColorThemeType(Color incoming, Color outgoing, Color chatScanner, Color incomingColorBlind, Color outgoingColorBlind, Color chatScannerColorBlind) {
+    ThemeColors(Color incoming, Color outgoing, Color chatScanner, Color incomingColorBlind, Color outgoingColorBlind, Color chatScannerColorBlind) {
         INCOMING = incoming;
         OUTGOING = outgoing;
         INCOMING_COLOR_BLIND = incomingColorBlind;
@@ -40,7 +43,7 @@ public enum ColorThemeType {
         CHAT_SCANNER_COLOR_BLIND = chatScannerColorBlind;
     }
 
-    public Color getColor(TradeOfferType messageType) {
+    public Color getMessageColor(TradeOfferType messageType) {
         switch (messageType) {
             case INCOMING_TRADE:
                 if (SaveManager.settingsSaveFile.data.colorBlindMode) {

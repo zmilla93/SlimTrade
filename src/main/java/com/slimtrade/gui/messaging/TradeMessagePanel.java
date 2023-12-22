@@ -121,7 +121,7 @@ public class TradeMessagePanel extends NotificationPanel {
             messageColor = tradeOffer.getStashTabColor().getBackground();
             currencyTextColor = tradeOffer.getStashTabColor().getForeground();
         } else {
-            messageColor = ThemeManager.getCurrentTheme().themeType.getColor(tradeOffer.offerType);
+            messageColor = ThemeManager.getCurrentTheme().colors.getMessageColor(tradeOffer.offerType);
             currencyTextColor = null;
         }
         revalidate();

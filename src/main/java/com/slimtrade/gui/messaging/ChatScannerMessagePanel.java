@@ -13,7 +13,7 @@ import javax.swing.*;
 
 public class ChatScannerMessagePanel extends NotificationPanel {
 
-    private PlayerMessage playerMessage;
+    private final PlayerMessage playerMessage;
 
     public ChatScannerMessagePanel(ChatScannerEntry tradeOffer, PlayerMessage playerMessage) {
         this(tradeOffer, playerMessage, true);
@@ -29,7 +29,7 @@ public class ChatScannerMessagePanel extends NotificationPanel {
             addPlayerButtonListener(playerMessage.player);
         }
         pricePanel.add(new JLabel(scannerEntry.title));
-        messageColor = ThemeManager.getCurrentTheme().themeType.getColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
+        messageColor = ThemeManager.getCurrentTheme().colors.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
         topMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.TOP_ROW);
         bottomMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.BOTTOM_ROW);
         setup();

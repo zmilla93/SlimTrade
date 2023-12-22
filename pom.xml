@@ -11,8 +11,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<!--        <maven.compiler.source>1.8</maven.compiler.source>-->
-<!--        <maven.compiler.target>1.8</maven.compiler.target>-->
+        <!--        <maven.compiler.source>1.8</maven.compiler.source>-->
+        <!--        <maven.compiler.target>1.8</maven.compiler.target>-->
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
@@ -57,13 +57,13 @@
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
-            <version>2.3</version>
+            <version>3.0</version>
         </dependency>
         <!-- https://search.maven.org/artifact/com.formdev/flatlaf-intellij-themes/2.0-rc1/jar-->
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-intellij-themes</artifactId>
-            <version>2.3</version>
+            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -72,17 +72,17 @@
             <scope>compile</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.googlecode.soundlibs/jlayer -->
-<!--        <dependency>-->
-<!--            <groupId>com.googlecode.soundlibs</groupId>-->
-<!--            <artifactId>jlayer</artifactId>-->
-<!--            <version>1.0.1.4</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.googlecode.soundlibs</groupId>-->
+        <!--            <artifactId>jlayer</artifactId>-->
+        <!--            <version>1.0.1.4</version>-->
+        <!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-api</artifactId>-->
-<!--            <version>1.7.32</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.slf4j</groupId>-->
+        <!--            <artifactId>slf4j-api</artifactId>-->
+        <!--            <version>1.7.32</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>
