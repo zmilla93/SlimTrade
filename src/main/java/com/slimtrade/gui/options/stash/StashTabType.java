@@ -4,7 +4,7 @@ import com.slimtrade.core.utility.ZUtil;
 
 public enum StashTabType {
 
-    NORMAL, QUAD, AFFINITY;
+    NORMAL, QUAD;
 
     private final String name;
 
