@@ -7,7 +7,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
-import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.theme.ThemeColorVariant;
 
 import javax.swing.*;
 
@@ -29,7 +29,7 @@ public class ChatScannerMessagePanel extends NotificationPanel {
             addPlayerButtonListener(playerMessage.player);
         }
         pricePanel.add(new JLabel(scannerEntry.title));
-        messageColor = ThemeManager.getCurrentTheme().colors.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
+        messageColor = ThemeColorVariant.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
         topMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.TOP_ROW);
         bottomMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.BOTTOM_ROW);
         setup();

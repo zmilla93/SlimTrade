@@ -54,4 +54,5 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
         themeCombo.setSelectedItem(theme);
         colorBlindCheckBox.setSelected(SaveManager.settingsSaveFile.data.colorBlindMode);
     }
+
 }

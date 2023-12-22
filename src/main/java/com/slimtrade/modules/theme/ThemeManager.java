@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
-public class ThemeManager<T> {
+public class ThemeManager {
 
     private static final List<Component> frames = new ArrayList<>();
     private static Theme currentTheme;

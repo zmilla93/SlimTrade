@@ -1,22 +1,28 @@
 package com.slimtrade.gui.components;
 
+import com.slimtrade.modules.theme.ThemeColorVariant;
+import com.slimtrade.modules.theme.ThemeColorVariantSetting;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * A JLabel that allows setting bold, italic, and color.
- * Color can either be set directly, or using a key from the UIManager.
+ * Color can either be set directly, using a key from the UIManager, or using a ThemeColorVariant.
+ *
+ * @see ThemeColorVariant
  */
 public class StyledLabel extends JLabel {
 
     private enum ColorMode {
-        COLOR, KEY
+        COLOR, KEY, VARIANT
     }
 
     private boolean bold;
     private boolean italic;
     private String colorKey;
     private Color color;
+    private ThemeColorVariantSetting colorVariant;
     private ColorMode colorMode;
 
     public StyledLabel() {
@@ -39,15 +45,38 @@ public class StyledLabel extends JLabel {
         updateFont();
     }
 
+    /**
+     * Sets the text color directly. This is the same as using setForeground().
+     *
+     * @param color Target color
+     */
+    public void setColor(Color color) {
+        this.color = color;
+        colorMode = ColorMode.COLOR;
+        updateColor();
+    }
+
+    /**
+     * Set text color using a UIManager key.
+     *
+     * @param key UIManager color key
+     */
     public void setColorKey(String key) {
         this.colorKey = key;
         colorMode = ColorMode.KEY;
         updateColor();
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-        colorMode = ColorMode.COLOR;
+    /**
+     * Sets text color using a ThemeColorVariant.
+     *
+     * @param colorVariantSetting Target color variant
+     * @see ThemeColorVariant
+     * @see ThemeColorVariantSetting
+     */
+    public void setColor(ThemeColorVariantSetting colorVariantSetting) {
+        this.colorVariant = colorVariantSetting;
+        colorMode = ColorMode.VARIANT;
         updateColor();
     }
 
@@ -62,11 +91,14 @@ public class StyledLabel extends JLabel {
     private void updateColor() {
         if (colorMode == ColorMode.COLOR) {
             if (color == null) return;
-            setForeground(color);
+            super.setForeground(color);
         } else if (colorMode == ColorMode.KEY) {
             if (colorKey == null) return;
             Color color = UIManager.getColor(colorKey);
-            setForeground(color);
+            super.setForeground(color);
+        } else if (colorMode == ColorMode.VARIANT) {
+            Color color = ThemeColorVariant.getColorVariant(colorVariant.variant(), colorVariant.opposite(), colorVariant.opposite());
+            super.setForeground(color);
         }
     }
 
@@ -75,6 +107,11 @@ public class StyledLabel extends JLabel {
         super.updateUI();
         updateFont();
         updateColor();
+    }
+
+    @Override
+    public void setForeground(Color fg) {
+        setColor(fg);
     }
 
 }

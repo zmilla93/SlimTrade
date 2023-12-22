@@ -10,7 +10,7 @@ import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.StashHelperBulkWrapper;
 import com.slimtrade.gui.stash.StashHelperPanel;
-import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.theme.ThemeColorVariant;
 import com.slimtrade.modules.theme.components.PassThroughPanel;
 
 import javax.swing.*;
@@ -121,7 +121,7 @@ public class TradeMessagePanel extends NotificationPanel {
             messageColor = tradeOffer.getStashTabColor().getBackground();
             currencyTextColor = tradeOffer.getStashTabColor().getForeground();
         } else {
-            messageColor = ThemeManager.getCurrentTheme().colors.getMessageColor(tradeOffer.offerType);
+            messageColor = ThemeColorVariant.getMessageColor(tradeOffer.offerType);
             currencyTextColor = null;
         }
         revalidate();

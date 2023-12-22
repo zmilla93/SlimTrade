@@ -6,8 +6,11 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ComponentPair;
 import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.gui.components.PlaceholderTextField;
+import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.listening.TextChangeListener;
 import com.slimtrade.modules.saving.ISavable;
+import com.slimtrade.modules.theme.ThemeColorVariant;
+import com.slimtrade.modules.theme.ThemeColorVariantSetting;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -17,7 +20,7 @@ public class StashSortingSettingsPanel extends JPanel implements ISavable {
 
     public final JButton newSearchGroupButton = new JButton("New Search Group");
     private final JTextField newSearchGroupNameInput = new PlaceholderTextField("Group Name...", 20);
-    private final JLabel errorLabel = new JLabel();
+    private final StyledLabel errorLabel = new StyledLabel();
     private final JLabel windowHotkeyLabel = new JLabel("Window Hotkey");
 
     public final JComboBox<StashSortingWindowMode> modeCombo = new JComboBox<>();
@@ -28,6 +31,8 @@ public class StashSortingSettingsPanel extends JPanel implements ISavable {
 
         for (StashSortingWindowMode mode : StashSortingWindowMode.values()) modeCombo.addItem(mode);
         JPanel newSearchGroupPanel = new ComponentPair(newSearchGroupButton, newSearchGroupNameInput);
+        errorLabel.setBold(true);
+        errorLabel.setColor(new ThemeColorVariantSetting(ThemeColorVariant.RED, true));
 
         GridBagConstraints gc = ZUtil.getGC();
         gc.anchor = GridBagConstraints.WEST;

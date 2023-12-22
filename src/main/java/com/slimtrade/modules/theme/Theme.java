@@ -4,7 +4,6 @@ import com.formdev.flatlaf.IntelliJTheme;
 import com.formdev.flatlaf.intellijthemes.*;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatNightOwlContrastIJTheme;
-import com.slimtrade.core.enums.ThemeColors;
 import com.slimtrade.core.utility.ZUtil;
 
 public enum Theme {
@@ -50,12 +49,12 @@ public enum Theme {
     ;
 
     public final IntelliJTheme.ThemeLaf lookAndFeel;
-    public final ThemeColors colors;
     private String cleanName;
+
+    // Color Variants
 
     Theme(IntelliJTheme.ThemeLaf lookAndFeel) {
         this.lookAndFeel = lookAndFeel;
-        this.colors = lookAndFeel.isDark() ? ThemeColors.DARK : ThemeColors.LIGHT;
     }
 
     public static Theme getDefaultColorTheme() {
