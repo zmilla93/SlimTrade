@@ -8,13 +8,12 @@ import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private final JButton addButton = new JButton("Add Stash Tab");
-    private final AddRemoveContainer tabContainer = new AddRemoveContainer();
+    private final AddRemoveContainer<StashRow> tabContainer = new AddRemoveContainer<>();
     private final JCheckBox applyColorCheckbox = new JCheckBox("Also apply color to the trade notification panel.");
 
     public StashOptionPanel() {
@@ -40,11 +39,8 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
     @Override
     public void save() {
         ArrayList<StashTabData> stashTabs = new ArrayList<>();
-        for (Component c : tabContainer.getComponents()) {
-            if (c instanceof StashRow) {
-                StashTabData data = ((StashRow) c).getData();
-                stashTabs.add(data);
-            }
+        for (StashRow row : tabContainer.getComponentsTyped()) {
+            stashTabs.add(row.getData());
         }
         SaveManager.settingsSaveFile.data.stashTabs = stashTabs;
         SaveManager.settingsSaveFile.data.applyStashColorToMessage = applyColorCheckbox.isSelected();

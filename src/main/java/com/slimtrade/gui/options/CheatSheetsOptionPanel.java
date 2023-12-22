@@ -11,7 +11,6 @@ import com.slimtrade.gui.options.cheatsheets.CheatSheetRow;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
 
     private final JButton browseButton = new JButton("Open Images Folder");
     private final JButton refreshButton = new JButton("Refresh");
-    private final AddRemoveContainer cheatSheetContainer = new AddRemoveContainer();
+    private final AddRemoveContainer<CheatSheetRow> cheatSheetContainer = new AddRemoveContainer<>();
 
     public CheatSheetsOptionPanel() {
         // Setup
@@ -71,15 +70,14 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
     public void save() {
         ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
         int matchingWindows = 0;
-        for (Component c : cheatSheetContainer.getComponents()) {
-            if (c instanceof CheatSheetRow) {
-                CheatSheetData data = ((CheatSheetRow) c).getData();
-                if (FrameManager.cheatSheetWindows.containsKey(data.title)) matchingWindows++;
-                cheatSheets.add(((CheatSheetRow) c).getData());
-            }
+        for (CheatSheetRow row : cheatSheetContainer.getComponentsTyped()) {
+            CheatSheetData data = row.getData();
+            if (FrameManager.cheatSheetWindows.containsKey(data.title)) matchingWindows++;
+            cheatSheets.add(data);
         }
         SaveManager.settingsSaveFile.data.cheatSheets = cheatSheets;
         // Don't rebuild cheat sheets if files have not changed
+        // FIXME : Should probably remove this check. If file changes but name stays the same, window wont rebuild
         if (matchingWindows == FrameManager.cheatSheetWindows.size() && matchingWindows == cheatSheetContainer.getComponentCount()) {
             return;
         }

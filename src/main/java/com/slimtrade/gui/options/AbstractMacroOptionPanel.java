@@ -18,7 +18,8 @@ import java.util.ArrayList;
 public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
     private TradeOfferType messageType;
-    protected final AddRemoveContainer macroContainer;
+    protected final AddRemoveContainer<MacroCustomizerPanel> macroContainer = new AddRemoveContainer<>();
+    ;
 
     private final JPanel exampleTradeContainer = new JPanel(new GridBagLayout());
     private GridBagConstraints gc = new GridBagConstraints();
@@ -35,12 +36,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = new Insets(0, 0, 2, 0);
-
-        macroContainer = new AddRemoveContainer();
         macroContainer.setSpacing(4);
-
-//        macroContainer.setLayout(new GridBagLayout());
-
 
         JButton addMacroButton = new JButton("Add New Macro");
         addMacroButton.addActionListener(e -> {
@@ -229,12 +225,9 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
     public ArrayList<MacroButton> getMacros() {
         ArrayList<MacroButton> macros = new ArrayList<>(macroContainer.getComponentCount());
-        for (Component c : macroContainer.getComponents()) {
-            if (c instanceof MacroCustomizerPanel) {
-                MacroCustomizerPanel panel = (MacroCustomizerPanel) c;
-                MacroButton macro = panel.getMacroButton();
-                macros.add(macro);
-            }
+        for (MacroCustomizerPanel panel : macroContainer.getComponentsTyped()) {
+            MacroButton macro = panel.getMacroButton();
+            macros.add(macro);
         }
         return macros;
     }

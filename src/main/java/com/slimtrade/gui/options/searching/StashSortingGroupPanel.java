@@ -23,7 +23,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     private final JButton newTermButton = new JButton("Add New Term");
     private final HotkeyButton hotkeyButton = new HotkeyButton();
 
-    private final AddRemoveContainer termContainer = new AddRemoveContainer();
+    private final AddRemoveContainer<StashSortingTermPanel> termContainer = new AddRemoveContainer<>();
 
     // TODO : Window hotkey button
     public StashSortingGroupPanel(AddRemoveContainer parent, String name) {
@@ -62,6 +62,10 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         termContainer.add(new StashSortingTermPanel(termContainer));
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
+
     private void addListeners() {
         shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
         shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
@@ -88,7 +92,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     }
 
     private void updateGroupName(String name) {
-        name = name.trim();
+        name = name.trim().replaceAll("\s+", " ");
         if (name.equals("")) return;
         groupName = name;
         setBorder(BorderFactory.createTitledBorder(groupName));

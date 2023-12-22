@@ -8,13 +8,12 @@ import com.slimtrade.gui.options.ignore.IgnoreRow;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    private IgnoreInputPanel ignoreInputPanel = new IgnoreInputPanel();
-    private AddRemoveContainer ignoreContainer = new AddRemoveContainer();
+    private final IgnoreInputPanel ignoreInputPanel = new IgnoreInputPanel();
+    private final AddRemoveContainer<IgnoreRow> ignoreContainer = new AddRemoveContainer<>();
 
     public IgnoreItemOptionPanel() {
         addHeader("Ignore New Item");
@@ -43,11 +42,9 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
     @Override
     public void save() {
         ArrayList<IgnoreItem> ignoreItems = new ArrayList<>();
-        for (Component c : ignoreContainer.getComponents()) {
-            if (c instanceof IgnoreRow) {
-                IgnoreItem item = ((IgnoreRow) c).ignoreItem;
-                if (item.isInfinite() || item.getRemainingMinutes() > 0) ignoreItems.add(item);
-            }
+        for (IgnoreRow row : ignoreContainer.getComponentsTyped()) {
+            IgnoreItem item = row.ignoreItem;
+            if (item.isInfinite() || item.getRemainingMinutes() > 0) ignoreItems.add(item);
         }
         SaveManager.ignoreSaveFile.data.ignoreList = ignoreItems;
     }

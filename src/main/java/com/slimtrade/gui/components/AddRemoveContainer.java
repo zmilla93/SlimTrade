@@ -1,9 +1,11 @@
 package com.slimtrade.gui.components;
 
 import com.slimtrade.core.utility.ZUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -11,12 +13,14 @@ import java.util.HashMap;
  *
  * @see AddRemovePanel
  */
-// FIXME : On one occasion, this placed two child panels in the same location.
-//         Could probably find a cleaner way to do all of this.
-public class AddRemoveContainer extends JPanel {
+// FIXME (Optimize) : Could probably simplify this by storing index in AddRemovePanel, but not a high priority
+public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
 
     private final HashMap<Component, Integer> panelToInt = new HashMap<>();
     private final HashMap<Integer, Component> intToPanel = new HashMap<>();
+    private final ArrayList<T> typedComponents = new ArrayList<>();
+    private boolean usingGeneric = false;
+
     private final GridBagConstraints gc = ZUtil.getGC();
     private int spacing;
 
@@ -31,7 +35,7 @@ public class AddRemoveContainer extends JPanel {
     }
 
     protected void shiftUp(Component panel) {
-        if (panelToInt.size() < 2) return;
+        if (panelToInt.size() <= 1) return;
         int index = panelToInt.get(panel);
         if (index == 0) return;
         int swapIndex = index - 1;
@@ -39,7 +43,7 @@ public class AddRemoveContainer extends JPanel {
     }
 
     protected void shiftDown(Component panel) {
-        if (panelToInt.size() < 2) return;
+        if (panelToInt.size() <= 1) return;
         int index = panelToInt.get(panel);
         if (index >= intToPanel.size() - 1) return;
         int swapIndex = index + 1;
@@ -65,7 +69,7 @@ public class AddRemoveContainer extends JPanel {
         for (int i = 0; i < tempIntToPanel.size(); i++) {
             Component comp = tempIntToPanel.get(i);
             gc.gridy = i;
-            add(comp, gc);
+            super.add(comp, gc);
             gc.insets.top = spacing;
             intToPanel.put(i, comp);
             panelToInt.put(comp, i);
@@ -83,8 +87,30 @@ public class AddRemoveContainer extends JPanel {
         }
     }
 
+    public ArrayList<T> getComponentsTyped() {
+        return typedComponents;
+    }
+
+    private void genericMisuse() {
+        System.err.println("AddRemoveContainer is operating on a class different than the generic class it was assigned!");
+        ZUtil.printCallingFunction(AddRemoveContainer.class);
+    }
+
+    private void checkGeneric() {
+        if (!usingGeneric) genericMisuse();
+        usingGeneric = false;
+    }
+
+    public T add(T comp) {
+        usingGeneric = true;
+        typedComponents.add(comp);
+        add((Component) comp);
+        return comp;
+    }
+
     @Override
     public Component add(Component comp) {
+        checkGeneric();
         gc.gridy = panelToInt.size();
         super.add(comp, gc);
         panelToInt.put(comp, panelToInt.size());
@@ -95,17 +121,59 @@ public class AddRemoveContainer extends JPanel {
         return comp;
     }
 
+    public void remove(T comp) {
+        usingGeneric = true;
+        typedComponents.remove(comp);
+        remove((Component) comp);
+    }
+
     @Override
     public void remove(Component comp) {
+        checkGeneric();
         super.remove(comp);
         rebuildMaps();
+        rebuild();
     }
 
     @Override
     public void removeAll() {
         super.removeAll();
+        typedComponents.clear();
         panelToInt.clear();
         intToPanel.clear();
+    }
+
+    //
+    // Add functions that should not be used - Prints error if they are.
+    //
+
+    private void incorrectAddMethod() {
+        System.err.println("AddRemoveContainer should only have elements added using the add(Component) method!");
+        ZUtil.printCallingFunction(AddRemoveContainer.class);
+    }
+
+    @Override
+    public Component add(String name, Component comp) {
+        incorrectAddMethod();
+        return super.add(name, comp);
+    }
+
+    @Override
+    public Component add(Component comp, int index) {
+        incorrectAddMethod();
+        return super.add(comp, index);
+    }
+
+    @Override
+    public void add(@NotNull Component comp, Object constraints) {
+        incorrectAddMethod();
+        super.add(comp, constraints);
+    }
+
+    @Override
+    public void add(Component comp, Object constraints, int index) {
+        incorrectAddMethod();
+        super.add(comp, constraints, index);
     }
 
 }

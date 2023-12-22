@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class AudioThresholdPanel extends JPanel implements ISavable {
 
     private final JButton newThresholdButton = new JButton("New Price Threshold");
-    private final AddRemoveContainer container = new AddRemoveContainer();
+    private final AddRemoveContainer<AudioThresholdRow> container = new AddRemoveContainer<>();
 
     public AudioThresholdPanel() {
         setLayout(new GridBagLayout());
@@ -45,10 +45,8 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
     @Override
     public void save() {
         ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();
-        for (Component c : container.getComponents()) {
-            if (c instanceof AudioThresholdRow) {
-                priceThresholds.add(((AudioThresholdRow) c).getData());
-            }
+        for (AudioThresholdRow row : container.getComponentsTyped()) {
+            priceThresholds.add(row.getData());
         }
         SaveManager.settingsSaveFile.data.priceThresholds = priceThresholds;
         SaveManager.settingsSaveFile.data.buildThresholdMap();

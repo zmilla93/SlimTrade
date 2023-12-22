@@ -1,7 +1,8 @@
 package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.gui.components.*;
+import com.slimtrade.gui.components.AddRemoveContainer;
+import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
@@ -13,7 +14,7 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
     private StashSortInputPanel inputPanel = new StashSortInputPanel();
     private final StashSortingSettingsPanel settingsPanel = new StashSortingSettingsPanel();
     //    private final AddRemoveContainer dataContainer = new AddRemoveContainer();
-    private final AddRemoveContainer entryContainer = new AddRemoveContainer();
+    private final AddRemoveContainer<StashSortingGroupPanel> entryContainer = new AddRemoveContainer<>();
 //    private final HotkeyButton hotkeyButton = new HotkeyButton();
 
     public StashSortingOptionPanel() {
@@ -33,7 +34,28 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
 
     private void addListeners() {
 //        inputPanel.getSubmitButton().addActionListener(e -> dataContainer.add(new OLD_StashSortRow(dataContainer, inputPanel.getData())));
-        settingsPanel.newSearchGroupButton.addActionListener(e -> entryContainer.add(new StashSortingGroupPanel(entryContainer, "Cool Name")));
+        settingsPanel.newSearchGroupButton.addActionListener(e -> {
+            entryContainer.add(new StashSortingGroupPanel(entryContainer, "Cool Name"));
+//            entryContainer.add(new StashSortingGroupPanel(entryContainer, "Cool Name"));
+//            entryContainer.add(new StashRow(entryContainer));
+            ArrayList<StashSortingGroupPanel> p = entryContainer.getComponentsTyped();
+            if (p != null && p.size() > 0) {
+                System.out.println(p.get(0).getGroupName());
+            }
+        });
+
+    }
+
+    private void tryAddNewContainer() {
+        String name = settingsPanel.getNewSearchGroupName();
+
+    }
+
+    public boolean isDuplicateName(String name) {
+        for (StashSortingGroupPanel panel : entryContainer.getComponentsTyped()) {
+            if (name.equals(panel.getGroupName())) return true;
+        }
+        return false;
     }
 
     @Override
