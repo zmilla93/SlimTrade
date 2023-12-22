@@ -24,10 +24,12 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     private final HotkeyButton hotkeyButton = new HotkeyButton();
 
     private final AddRemoveContainer<StashSortingTermPanel> termContainer = new AddRemoveContainer<>();
+    private final StashSortingOptionPanel optionPanel;
 
     // TODO : Window hotkey button
-    public StashSortingGroupPanel(AddRemoveContainer parent, String name) {
+    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, String name, StashSortingOptionPanel optionPanel) {
         super(parent);
+        this.optionPanel = optionPanel;
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
 
@@ -50,7 +52,10 @@ public class StashSortingGroupPanel extends AddRemovePanel {
 //        gc.gridy++;
         gc.weighty = 1;
         gc.fill = GridBagConstraints.BOTH;
+        int INSET_SIZE = 2;
+        gc.insets = new Insets(INSET_SIZE, 0, INSET_SIZE, 0);
         add(new JSeparator(JSeparator.HORIZONTAL), gc);
+        gc.insets = new Insets(0, 0, 0, 0);
         gc.gridy++;
         gc.fill = GridBagConstraints.NONE;
         add(termContainer, gc);
@@ -94,6 +99,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     private void updateGroupName(String name) {
         name = name.trim().replaceAll("\s+", " ");
         if (name.equals("")) return;
+        if (optionPanel.isDuplicateName(name)) return;
         groupName = name;
         setBorder(BorderFactory.createTitledBorder(groupName));
     }

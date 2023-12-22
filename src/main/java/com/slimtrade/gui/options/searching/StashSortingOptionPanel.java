@@ -35,20 +35,18 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
     private void addListeners() {
 //        inputPanel.getSubmitButton().addActionListener(e -> dataContainer.add(new OLD_StashSortRow(dataContainer, inputPanel.getData())));
         settingsPanel.newSearchGroupButton.addActionListener(e -> {
-            entryContainer.add(new StashSortingGroupPanel(entryContainer, "Cool Name"));
-//            entryContainer.add(new StashSortingGroupPanel(entryContainer, "Cool Name"));
-//            entryContainer.add(new StashRow(entryContainer));
-            ArrayList<StashSortingGroupPanel> p = entryContainer.getComponentsTyped();
-            if (p != null && p.size() > 0) {
-                System.out.println(p.get(0).getGroupName());
-            }
+            String error = tryAddNewGroup();
+            settingsPanel.setError(error);
         });
-
     }
 
-    private void tryAddNewContainer() {
+    private String tryAddNewGroup() {
         String name = settingsPanel.getNewSearchGroupName();
-
+        if (name.equals("")) return "Enter a valid group name!";
+        if (isDuplicateName(name)) return "Duplicate name, group names must be unique!";
+        entryContainer.add(new StashSortingGroupPanel(entryContainer, name, this));
+        settingsPanel.clearText();
+        return null;
     }
 
     public boolean isDuplicateName(String name) {
