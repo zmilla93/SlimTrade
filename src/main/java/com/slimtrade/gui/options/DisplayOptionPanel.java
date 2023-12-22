@@ -35,8 +35,7 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
         addComponent(themePanel);
         addComponent(colorBlindCheckBox);
         if (App.debug) {
-            PlaceholderTextField textField = new PlaceholderTextField(20);
-            textField.setPlaceholderText("Testing...");
+            JTextField textField = new PlaceholderTextField("Testing...", 20);
             addComponent(textField);
         }
         themeCombo.addActionListener(e -> SwingUtilities.invokeLater(() -> ThemeManager.setTheme((Theme) themeCombo.getSelectedItem())));

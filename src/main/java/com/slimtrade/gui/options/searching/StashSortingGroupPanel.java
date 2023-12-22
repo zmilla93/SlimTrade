@@ -19,7 +19,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
 
     private final JButton renameButton = new JButton("Rename");
     private final JButton applyRenameButton = new JButton("Apply Name");
-    private final PlaceholderTextField renameInput = new PlaceholderTextField("Group Title...", 20);
+    private final JTextField renameInput = new PlaceholderTextField("Group Title...", 20);
     private final JButton newTermButton = new JButton("Add New Term");
     private final HotkeyButton hotkeyButton = new HotkeyButton();
 

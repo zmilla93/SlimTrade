@@ -17,14 +17,11 @@ public class StashSortingTermPanel extends AddRemovePanel {
     private final JButton shiftDownButton = new IconButton("/icons/default/arrow-downx48.png");
 
     private final ColorCombo colorCombo = new ColorCombo();
-    private final PlaceholderTextField titleInput = new PlaceholderTextField(10);
-    private final PlaceholderTextField searchInput = new PlaceholderTextField(20);
+    private final JTextField titleInput = new PlaceholderTextField("Display Title...", 10);
+    private final JTextField searchInput = new PlaceholderTextField("Search Term...", 20);
 
     public StashSortingTermPanel(AddRemoveContainer parent) {
         super(parent);
-
-        titleInput.setPlaceholderText("Display Title...");
-        searchInput.setPlaceholderText("Search Term...");
 
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         add(removeButton);
@@ -33,7 +30,7 @@ public class StashSortingTermPanel extends AddRemovePanel {
         add(titleInput);
         add(searchInput);
         add(colorCombo);
-//        setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
         addListeners();
     }
 
