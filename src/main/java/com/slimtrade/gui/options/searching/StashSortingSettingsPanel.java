@@ -1,32 +1,32 @@
 package com.slimtrade.gui.options.searching;
 
-import com.slimtrade.core.enums.Anchor;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ComponentPair;
 import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.gui.components.PlaceholderTextField;
 import com.slimtrade.gui.listening.TextChangeListener;
+import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.*;
 
-public class StashSortingSettingsPanel extends JPanel {
+public class StashSortingSettingsPanel extends JPanel implements ISavable {
 
     public final JButton newSearchGroupButton = new JButton("New Search Group");
     private final JTextField newSearchGroupNameInput = new PlaceholderTextField("Group Name...", 20);
     private final JLabel errorLabel = new JLabel();
+    private final JLabel windowHotkeyLabel = new JLabel("Window Hotkey");
 
-    private final JComboBox<StashSortingWindowMode> modeCombo = new JComboBox<>();
-    private final JComboBox<Anchor> anchorCombo = new JComboBox<>();
+    public final JComboBox<StashSortingWindowMode> modeCombo = new JComboBox<>();
     private final HotkeyButton hotkeyButton = new HotkeyButton();
 
     public StashSortingSettingsPanel() {
         setLayout(new GridBagLayout());
 
         for (StashSortingWindowMode mode : StashSortingWindowMode.values()) modeCombo.addItem(mode);
-        for (Anchor anchor : Anchor.values()) anchorCombo.addItem(anchor);
         JPanel newSearchGroupPanel = new ComponentPair(newSearchGroupButton, newSearchGroupNameInput);
 
         GridBagConstraints gc = ZUtil.getGC();
@@ -45,7 +45,7 @@ public class StashSortingSettingsPanel extends JPanel {
         gc.gridx = 0;
         gc.gridy++;
 
-        controlsPanel.add(new JLabel("Window Hotkey"), gc);
+        controlsPanel.add(windowHotkeyLabel, gc);
         gc.gridx++;
         gc.insets.left = GUIReferences.INSET;
         controlsPanel.add(hotkeyButton, gc);
@@ -76,6 +76,7 @@ public class StashSortingSettingsPanel extends JPanel {
                 setError(null);
             }
         });
+        modeCombo.addActionListener(e -> updateHotkeyButtonVisibility());
     }
 
     public String getNewSearchGroupName() {
@@ -89,6 +90,26 @@ public class StashSortingSettingsPanel extends JPanel {
     public void setError(String error) {
         errorLabel.setVisible(error != null);
         errorLabel.setText(error);
+    }
+
+    private void updateHotkeyButtonVisibility() {
+        StashSortingWindowMode mode = (StashSortingWindowMode) modeCombo.getSelectedItem();
+        boolean visible = mode == StashSortingWindowMode.COMBINED;
+        hotkeyButton.setVisible(visible);
+        windowHotkeyLabel.setVisible(visible);
+    }
+
+    @Override
+    public void save() {
+        SaveManager.settingsSaveFile.data.stashSearchWindowMode = (StashSortingWindowMode) modeCombo.getSelectedItem();
+        SaveManager.settingsSaveFile.data.stashSearchHotkey = hotkeyButton.getData();
+    }
+
+    @Override
+    public void load() {
+        modeCombo.setSelectedItem(SaveManager.settingsSaveFile.data.stashSearchWindowMode);
+        hotkeyButton.setData(SaveManager.settingsSaveFile.data.stashSearchHotkey);
+        updateHotkeyButtonVisibility();
     }
 
 }

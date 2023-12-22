@@ -10,6 +10,7 @@ import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
+import com.slimtrade.gui.options.searching.StashSortingWindowMode;
 import com.slimtrade.modules.theme.Theme;
 
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class SettingsSaveFile {
     public HotkeyData optionsHotkey;
     public HotkeyData historyHotkey;
     public HotkeyData chatScannerHotkey;
-    public HotkeyData stashSortHotkey;
+    //    public HotkeyData stashSortHotkey;
     public HotkeyData closeTradeHotkey;
     public HotkeyData changeCharacterHotkey;
 
@@ -101,7 +102,10 @@ public class SettingsSaveFile {
     public HotkeyData metamorphHotkey;
     public HotkeyData remainingMonstersHotkey;
 
-    public ArrayList<StashSearchGroupData> stashSortData = new ArrayList<>();
+    // Searching
+    public ArrayList<StashSearchGroupData> stashSearchData = new ArrayList<>();
+    public StashSortingWindowMode stashSearchWindowMode = StashSortingWindowMode.COMBINED;
+    public HotkeyData stashSearchHotkey;
 
     public SettingsSaveFile() {
         incomingMacroButtons.add(new MacroButton(CustomIcon.INVITE, "/invite {player}", "", ButtonRow.BOTTOM_ROW, null, false));

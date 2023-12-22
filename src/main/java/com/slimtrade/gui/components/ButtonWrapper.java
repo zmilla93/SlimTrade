@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class ButtonWrapper extends JPanel {
 
-    private static final int DEFAULT_STRUT_SIZE = 120;
+    private static final int DEFAULT_STRUT_SIZE = 80;
 
     public ButtonWrapper(JButton button) {
         this(button, DEFAULT_STRUT_SIZE);

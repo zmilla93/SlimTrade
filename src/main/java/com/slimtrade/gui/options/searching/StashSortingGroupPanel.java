@@ -2,10 +2,7 @@ package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.components.AddRemoveContainer;
-import com.slimtrade.gui.components.AddRemovePanel;
-import com.slimtrade.gui.components.HotkeyButton;
-import com.slimtrade.gui.components.PlaceholderTextField;
+import com.slimtrade.gui.components.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,7 +40,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         controlsPanel.add(applyRenameButton);
         controlsPanel.add(renameInput);
         controlsPanel.add(newTermButton);
-        controlsPanel.add(hotkeyButton);
+        controlsPanel.add(new ButtonWrapper(hotkeyButton));
 
         // Main Panel
         gc.anchor = GridBagConstraints.WEST;
@@ -69,16 +66,14 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         termContainer.add(new StashSortingTermPanel(termContainer));
     }
 
-    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, StashSearchGroupData groupData) {
+    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, StashSearchGroupData groupData, boolean hotkeyVisibility) {
         this(parent, optionPanel, groupData.title());
+        hotkeyButton.setData(groupData.hotkeyData());
         termContainer.removeAll();
         for (StashSearchTermData termData : groupData.terms()) {
             termContainer.add(new StashSortingTermPanel(termContainer, termData));
         }
-    }
-
-    public String getGroupName() {
-        return groupName;
+        updateHotkeyVisibility(hotkeyVisibility);
     }
 
     private void addListeners() {
@@ -105,6 +100,14 @@ public class StashSortingGroupPanel extends AddRemovePanel {
             applyRenameButton.setVisible(false);
             renameInput.setVisible(false);
         }
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void updateHotkeyVisibility(boolean visible) {
+        hotkeyButton.setVisible(visible);
     }
 
     private void updateGroupName(String name) {

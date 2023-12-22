@@ -5,7 +5,6 @@ import com.slimtrade.core.hotkeys.HotkeyData;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class HotkeyButton extends JButton {
 
@@ -15,7 +14,6 @@ public class HotkeyButton extends JButton {
     public HotkeyButton() {
         super(UNSET_TEXT);
         HotkeyButton self = this;
-        setLayout(new FlowLayout());
         addActionListener(e -> {
             setText("Press Any Key");
             App.globalKeyboardListener.listenForHotkey(self);

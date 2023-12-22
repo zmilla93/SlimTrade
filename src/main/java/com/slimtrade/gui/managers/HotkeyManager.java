@@ -22,7 +22,8 @@ public class HotkeyManager {
         // SlimTrade
         registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new AppHotkey(FrameManager.optionsWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new AppHotkey(FrameManager.historyWindow));
-        registerHotkey(SaveManager.settingsSaveFile.data.stashSortHotkey, new AppHotkey(FrameManager.stashSortingWindow));
+        // TODO : Stash Search Hotkeys
+//        registerHotkey(SaveManager.settingsSaveFile.data.stashSortHotkey, new AppHotkey(FrameManager.stashSortingWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new AppHotkey(FrameManager.chatScannerWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.changeCharacterHotkey, new ChangeCharacterHotkey());
         registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, new CloseOldestTradeHotkey());
