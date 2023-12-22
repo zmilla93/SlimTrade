@@ -9,7 +9,7 @@ import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.MacroButton;
-import com.slimtrade.gui.options.searching.StashSortData;
+import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.modules.theme.Theme;
 
 import java.util.ArrayList;
@@ -101,7 +101,7 @@ public class SettingsSaveFile {
     public HotkeyData metamorphHotkey;
     public HotkeyData remainingMonstersHotkey;
 
-    public ArrayList<StashSortData> stashSortData = new ArrayList<>();
+    public ArrayList<StashSearchGroupData> stashSortData = new ArrayList<>();
 
     public SettingsSaveFile() {
         incomingMacroButtons.add(new MacroButton(CustomIcon.INVITE, "/invite {player}", "", ButtonRow.BOTTOM_ROW, null, false));

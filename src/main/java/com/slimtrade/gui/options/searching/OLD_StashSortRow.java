@@ -21,8 +21,8 @@ public class OLD_StashSortRow extends AddRemovePanel {
     public OLD_StashSortRow(AddRemoveContainer parent, StashSortData data) {
         super(parent);
         this.data = data;
-        tagLabel.setText(data.TAG);
-        searchLabel.setText(data.SEARCH);
+        tagLabel.setText(data.title);
+        searchLabel.setText(data.searchTerm);
 
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
@@ -33,7 +33,7 @@ public class OLD_StashSortRow extends AddRemovePanel {
         add(shiftUpButton, gc);
         gc.gridx++;
         gc.insets.left = 10;
-        add(new StashColorPanel(data.COLOR_INDEX), gc);
+        add(new StashColorPanel(data.colorIndex), gc);
         gc.gridx++;
         add(tagLabel, gc);
         gc.gridx++;

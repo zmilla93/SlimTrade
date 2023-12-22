@@ -10,7 +10,7 @@ import java.awt.*;
 public class HotkeyButton extends JButton {
 
     private HotkeyData data;
-    private static final String UNSET_TEXT = "Unset Hotkey";
+    private static final String UNSET_TEXT = "Hotkey Not Set";
 
     public HotkeyButton() {
         super(UNSET_TEXT);

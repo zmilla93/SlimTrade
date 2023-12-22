@@ -9,6 +9,7 @@ import com.slimtrade.gui.components.PlaceholderTextField;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class StashSortingGroupPanel extends AddRemovePanel {
 
@@ -27,7 +28,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     private final StashSortingOptionPanel optionPanel;
 
     // TODO : Window hotkey button
-    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, String name, StashSortingOptionPanel optionPanel) {
+    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, String name) {
         super(parent);
         this.optionPanel = optionPanel;
         setLayout(new GridBagLayout());
@@ -42,9 +43,9 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         controlsPanel.add(applyRenameButton);
         controlsPanel.add(renameInput);
         controlsPanel.add(newTermButton);
+        controlsPanel.add(hotkeyButton);
 
         // Main Panel
-        gc = ZUtil.getGC();
         gc.anchor = GridBagConstraints.WEST;
         add(controlsPanel, gc);
         gc.gridy++;
@@ -65,6 +66,15 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         showHideRename(false);
         updateGroupName(name);
         termContainer.add(new StashSortingTermPanel(termContainer));
+        termContainer.add(new StashSortingTermPanel(termContainer));
+    }
+
+    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, StashSearchGroupData groupData) {
+        this(parent, optionPanel, groupData.title());
+        termContainer.removeAll();
+        for (StashSearchTermData termData : groupData.terms()) {
+            termContainer.add(new StashSortingTermPanel(termContainer, termData));
+        }
     }
 
     public String getGroupName() {
@@ -89,6 +99,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
             applyRenameButton.setVisible(true);
             renameInput.setText(groupName);
             renameInput.setVisible(true);
+            renameInput.requestFocus();
         } else {
             renameButton.setVisible(true);
             applyRenameButton.setVisible(false);
@@ -102,6 +113,15 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         if (optionPanel.isDuplicateName(name)) return;
         groupName = name;
         setBorder(BorderFactory.createTitledBorder(groupName));
+    }
+
+    public StashSearchGroupData getData() {
+        ArrayList<StashSearchTermData> termList = new ArrayList<>();
+        for (StashSortingTermPanel termPanel : termContainer.getComponentsTyped()) {
+            termList.add(termPanel.getData());
+        }
+        StashSearchTermData[] terms = termList.toArray(new StashSearchTermData[0]);
+        return new StashSearchGroupData(groupName, hotkeyButton.getData(), terms);
     }
 
 }

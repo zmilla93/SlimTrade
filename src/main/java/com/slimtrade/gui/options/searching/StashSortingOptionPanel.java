@@ -44,7 +44,7 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
         String name = settingsPanel.getNewSearchGroupName();
         if (name.equals("")) return "Enter a valid group name!";
         if (isDuplicateName(name)) return "Duplicate name, group names must be unique!";
-        entryContainer.add(new StashSortingGroupPanel(entryContainer, name, this));
+        entryContainer.add(new StashSortingGroupPanel(entryContainer, this, name));
         settingsPanel.clearText();
         return null;
     }
@@ -58,20 +58,29 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
 
     @Override
     public void save() {
-        ArrayList<StashSortData> dataList = new ArrayList<>();
+//        ArrayList<StashSortData> dataList = new ArrayList<>();
+        ArrayList<StashSearchGroupData> data = new ArrayList<>();
+        for (StashSortingGroupPanel groupPanel : entryContainer.getComponentsTyped()) {
+            data.add(groupPanel.getData());
+        }
 //        for (Component c : dataContainer.getComponents()) {
 //            if (c instanceof OLD_StashSortRow) {
 //                StashSortData sortData = ((OLD_StashSortRow) c).getData();
 //                dataList.add(sortData);
 //            }
 //        }
-        SaveManager.settingsSaveFile.data.stashSortData = dataList;
+        SaveManager.settingsSaveFile.data.stashSortData = data;
+        // FIXME :
         FrameManager.stashSortingWindow.refreshButtons();
 //        SaveManager.settingsSaveFile.data.stashSortHotkey = hotkeyButton.getData();
     }
 
     @Override
     public void load() {
+        entryContainer.removeAll();
+        for (StashSearchGroupData data : SaveManager.settingsSaveFile.data.stashSortData) {
+            entryContainer.add(new StashSortingGroupPanel(entryContainer, this, data));
+        }
 //        dataContainer.removeAll();
 //        for (StashSortData data : SaveManager.settingsSaveFile.data.stashSortData) {
 //            dataContainer.add(new OLD_StashSortRow(dataContainer, data));

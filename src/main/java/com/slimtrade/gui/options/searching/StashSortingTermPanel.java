@@ -15,11 +15,11 @@ public class StashSortingTermPanel extends AddRemovePanel {
     private final JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
     private final JButton shiftDownButton = new IconButton("/icons/default/arrow-downx48.png");
 
-    private final ColorCombo colorCombo = new ColorCombo();
     private final JTextField titleInput = new PlaceholderTextField("Display Title...", 10);
     private final JTextField searchInput = new PlaceholderTextField("Search Term...", 20);
+    private final ColorCombo colorCombo = new ColorCombo();
 
-    public StashSortingTermPanel(AddRemoveContainer parent) {
+    public StashSortingTermPanel(AddRemoveContainer<StashSortingTermPanel> parent) {
         super(parent);
 
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -33,10 +33,21 @@ public class StashSortingTermPanel extends AddRemovePanel {
         addListeners();
     }
 
+    public StashSortingTermPanel(AddRemoveContainer<StashSortingTermPanel> parent, StashSearchTermData data) {
+        this(parent);
+        titleInput.setText(data.title());
+        searchInput.setText(data.searchTerm());
+        colorCombo.setSelectedIndex(data.colorIndex());
+    }
+
     private void addListeners() {
         shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
         shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
         removeButton.addActionListener(e -> removeFromParent());
+    }
+
+    public StashSearchTermData getData() {
+        return new StashSearchTermData(titleInput.getText(), searchInput.getText(), colorCombo.getSelectedIndex());
     }
 
 }

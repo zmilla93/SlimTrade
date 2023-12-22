@@ -9,9 +9,9 @@ import javax.swing.*;
  */
 public class AddRemovePanel extends JPanel {
 
-    public final AddRemoveContainer parent;
+    public final AddRemoveContainer<? extends AddRemovePanel> parent;
 
-    public AddRemovePanel(AddRemoveContainer parent) {
+    public AddRemovePanel(AddRemoveContainer<? extends AddRemovePanel> parent) {
         this.parent = parent;
     }
 
@@ -26,6 +26,7 @@ public class AddRemovePanel extends JPanel {
     }
 
     public void removeFromParent() {
+        // FIXME : This fails to call the generic version of remove
         parent.remove(this);
         parent.revalidate();
         parent.repaint();

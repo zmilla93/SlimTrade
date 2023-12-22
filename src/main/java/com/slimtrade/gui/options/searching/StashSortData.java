@@ -1,15 +1,16 @@
 package com.slimtrade.gui.options.searching;
 
+@Deprecated
 public class StashSortData {
 
-    public final String TAG;
-    public final String SEARCH;
-    public final int COLOR_INDEX;
+    public final String title;
+    public final String searchTerm;
+    public final int colorIndex;
 
     public StashSortData(String tag, String search, int index) {
-        TAG = tag;
-        SEARCH = search;
-        COLOR_INDEX = index;
+        title = tag;
+        searchTerm = search;
+        colorIndex = index;
     }
 
 }

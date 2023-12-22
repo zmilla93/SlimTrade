@@ -5,6 +5,7 @@ import com.slimtrade.core.enums.StashTabColor;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class StashColorPanel extends JPanel {
 
     private final JLabel dummyLabel = new JLabel("Color");
