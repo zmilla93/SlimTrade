@@ -5,6 +5,8 @@ import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.windows.CustomDialog;
+import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.theme.components.AdvancedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,12 +75,14 @@ public class StashSortingWindow extends CustomDialog {
     }
 
     private JButton createSearchButton(StashSearchTermData term) {
-        JButton button = new JButton(term.title());
+        AdvancedButton button = new AdvancedButton(term.title());
         Color borderColor = UIManager.getColor("Button.borderColor");
         if (term.colorIndex() > 0) {
-            button.setBackground(StashTabColor.values()[term.colorIndex()].getBackground());
-            button.setForeground(StashTabColor.values()[term.colorIndex()].getForeground());
-            borderColor = StashTabColor.values()[term.colorIndex()].getForeground();
+            StashTabColor stashColor = StashTabColor.get(term.colorIndex());
+            button.setBackground(stashColor.getBackground());
+            button.setBackgroundHover(ThemeManager.lighter(stashColor.getBackground()));
+            button.setForeground(stashColor.getForeground());
+            borderColor = stashColor.getForeground();
         }
         button.setBorder(BorderFactory.createLineBorder(borderColor, 1));
         button.addMouseListener(new AdvancedMouseListener() {

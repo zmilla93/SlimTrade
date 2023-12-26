@@ -5,6 +5,7 @@ import com.slimtrade.modules.theme.ThemeManager;
 import java.awt.*;
 
 public enum StashTabColor {
+
     ZERO(Color.WHITE, Color.BLACK),
 
     ONE(new Color(124, 81, 50), ThemeManager.POE_TEXT_LIGHT),
@@ -33,24 +34,19 @@ public enum StashTabColor {
 
     NINETEEN(new Color(98, 128, 0), ThemeManager.POE_TEXT_LIGHT),
     TWENTY(new Color(191, 244, 0), ThemeManager.POE_TEXT_DARK),
-    TWENTYONE(new Color(239, 254, 128), ThemeManager.POE_TEXT_DARK),
+    TWENTY_ONE(new Color(239, 254, 128), ThemeManager.POE_TEXT_DARK),
 
-    TWENTYTWO(new Color(254, 170, 0), ThemeManager.POE_TEXT_DARK),
-    TWENTYTRHEE(new Color(254, 213, 0), ThemeManager.POE_TEXT_DARK),
-    TWENTYFOUR(new Color(254, 254, 153), ThemeManager.POE_TEXT_DARK),
+    TWENTY_TWO(new Color(254, 170, 0), ThemeManager.POE_TEXT_DARK),
+    TWENTY_THREE(new Color(254, 213, 0), ThemeManager.POE_TEXT_DARK),
+    TWENTY_FOUR(new Color(254, 254, 153), ThemeManager.POE_TEXT_DARK),
 
-    TWENTYFIVE(new Color(42, 42, 42), ThemeManager.POE_TEXT_LIGHT),
-    TWENTYSIX(new Color(135, 135, 135), ThemeManager.POE_TEXT_DARK),
-    TWENTYSEVEN(new Color(221, 221, 221), ThemeManager.POE_TEXT_DARK),
+    TWENTY_FIVE(new Color(42, 42, 42), ThemeManager.POE_TEXT_LIGHT),
+    TWENTY_SIX(new Color(135, 135, 135), ThemeManager.POE_TEXT_DARK),
+    TWENTY_SEVEN(new Color(221, 221, 221), ThemeManager.POE_TEXT_DARK),
     ;
 
-    private Color backgroundColor;
-    private Color foregroundColor;
-
-    StashTabColor(Color background) {
-        this.backgroundColor = background;
-        this.foregroundColor = Color.WHITE;
-    }
+    private final Color backgroundColor;
+    private final Color foregroundColor;
 
     StashTabColor(Color bg, Color foreground) {
         this.backgroundColor = bg;
@@ -72,6 +68,11 @@ public enum StashTabColor {
             }
         }
         return null;
+    }
+
+    public static StashTabColor get(int index) {
+        if (index < 0 || index >= StashTabColor.values().length) return StashTabColor.ZERO;
+        return StashTabColor.values()[index];
     }
 
 }

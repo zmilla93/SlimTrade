@@ -9,6 +9,7 @@ import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.AdvancedButton;
 
 import javax.swing.*;
@@ -80,6 +81,7 @@ public class StashHelperPanel extends AdvancedButton {
         stashTabColor = this.tradeOffer.getStashTabColor();
         if (stashTabColor != StashTabColor.ZERO) {
             setBackground(stashTabColor.getBackground());
+            setBackgroundHover(ThemeManager.lighter(stashTabColor.getBackground()));
             stashTabLabel.setForeground(stashTabColor.getForeground());
             CurrencyLabelFactory.applyColorToLabel(itemPanel, stashTabColor.getForeground());
         }

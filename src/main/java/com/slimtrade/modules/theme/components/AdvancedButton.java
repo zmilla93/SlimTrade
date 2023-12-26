@@ -8,9 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A button that responds visually to all mouse buttons instead of just the left mouse button.
+ * A button that can respond visually to any mouse button instead of just the left mouse button.
  * Defaults to left and right mouse, can be adjusted manually with setAllowedMouseButtons().
- * Colors can be inverted using setActive(bool).
  */
 public class AdvancedButton extends JButton {
 
@@ -18,12 +17,12 @@ public class AdvancedButton extends JButton {
     private boolean inBounds;
     private final Set<Integer> allowedMouseButtons = new HashSet<>();
     private final ButtonModel model;
-    private boolean active;
-    private Color previousBackground;
-    private Color previousForeground;
 
     private String backgroundKey;
     private String foregroundKey;
+
+    private Color backgroundColor;
+    private Color backgroundColorHover;
 
     public AdvancedButton() {
         this(null);
@@ -54,6 +53,7 @@ public class AdvancedButton extends JButton {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
+                repaint();
                 inBounds = true;
                 adjustState();
             }
@@ -67,35 +67,12 @@ public class AdvancedButton extends JButton {
         });
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-        adjustState();
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
     private void adjustState() {
-        if (previousBackground != null) {
-            setBackground(previousBackground);
-            setForeground(previousForeground);
-            previousBackground = null;
-            previousForeground = null;
-        }
         if (inBounds) {
-            model.setRollover(true);
             model.setPressed(mouseDown);
+            if (backgroundColorHover != null) super.setBackground(backgroundColorHover);
         } else {
-            if (active) {
-                previousBackground = getBackground();
-                previousForeground = getForeground();
-                setBackground(previousForeground);
-                setForeground(previousBackground);
-                model.setRollover(true);
-            } else {
-                model.setRollover(false);
-            }
+            super.setBackground(backgroundColor);
         }
     }
 
@@ -119,10 +96,22 @@ public class AdvancedButton extends JButton {
         }
     }
 
+    public void setBackgroundHover(Color color) {
+        setRolloverEnabled(color == null);
+        this.backgroundColorHover = color;
+    }
+
+    @Override
+    public void setBackground(Color color) {
+        super.setBackground(color);
+        this.backgroundColor = color;
+    }
+
     @Override
     public void updateUI() {
         super.updateUI();
         if (backgroundKey != null) setBackground(UIManager.getColor(backgroundKey));
         if (foregroundKey != null) setForeground(UIManager.getColor(foregroundKey));
     }
+
 }

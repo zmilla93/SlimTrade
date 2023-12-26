@@ -28,11 +28,9 @@ public class ThemeManager {
     private static final ArrayList<IThemeListener> themeListeners = new ArrayList<>();
     private static final ArrayList<IUIResizeListener> uiResizeListeners = new ArrayList<>();
 
-    public static Color INCOMING_MESSAGE_LIGHT = new Color(105, 201, 97);
-    public static Color INCOMING_MESSAGE_DARK = new Color(105, 201, 97);
     public static Color POE_TEXT_DARK = new Color(53, 28, 13);
     public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
-    private static final int DEFAULT_OFFSET_COLOR_AMOUNT = 40;
+    private static final int DEFAULT_OFFSET_COLOR_AMOUNT = 20;
 
     public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
     public static final Color TRANSPARENT_CLICKABLE = new Color(0, 0, 0, 1);
@@ -361,8 +359,8 @@ public class ThemeManager {
         return modify(c, DEFAULT_OFFSET_COLOR_AMOUNT);
     }
 
-    public static Color lighter(Color c, int offset) {
-        return modify(c, offset);
+    public static Color lighter(Color c, int increase) {
+        return modify(c, increase);
     }
 
     private static int colorIntValue(Color color) {
