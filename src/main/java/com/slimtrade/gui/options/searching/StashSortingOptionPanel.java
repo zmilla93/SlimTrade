@@ -3,7 +3,6 @@ package com.slimtrade.gui.options.searching;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.StyledLabel;
-import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -66,7 +65,7 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
         }
         SaveManager.settingsSaveFile.data.stashSearchData = data;
         // FIXME : refreshButtons is currently broken
-        FrameManager.stashSortingWindow.refreshButtons();
+//        FrameManager.stashSortingWindow.refreshButtons();
     }
 
     @Override

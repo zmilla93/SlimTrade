@@ -3,6 +3,7 @@ package com.slimtrade.modules.theme;
 import com.formdev.flatlaf.icons.FlatCheckBoxIcon;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.buttons.NotificationButton;
 import com.slimtrade.gui.managers.FrameManager;
@@ -31,6 +32,7 @@ public class ThemeManager {
     public static Color INCOMING_MESSAGE_DARK = new Color(105, 201, 97);
     public static Color POE_TEXT_DARK = new Color(53, 28, 13);
     public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
+    private static final int DEFAULT_OFFSET_COLOR_AMOUNT = 40;
 
     public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
     public static final Color TRANSPARENT_CLICKABLE = new Color(0, 0, 0, 1);
@@ -344,6 +346,23 @@ public class ThemeManager {
     public static Color getLighterColor(Color colorA, Color colorB) {
         if (colorIntValue(colorA) > colorIntValue(colorB)) return colorA;
         return colorB;
+    }
+
+    public static Color modify(Color c, int mod) {
+        int min = 0;
+        int max = 255;
+        int r = ZUtil.clamp(c.getRed() + mod, min, max);
+        int g = ZUtil.clamp(c.getGreen() + mod, min, max);
+        int b = ZUtil.clamp(c.getBlue() + mod, min, max);
+        return new Color(r, g, b);
+    }
+
+    public static Color lighter(Color c) {
+        return modify(c, DEFAULT_OFFSET_COLOR_AMOUNT);
+    }
+
+    public static Color lighter(Color c, int offset) {
+        return modify(c, offset);
     }
 
     private static int colorIntValue(Color color) {

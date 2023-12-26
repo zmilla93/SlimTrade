@@ -74,6 +74,12 @@ public class ZUtil {
         return commands;
     }
 
+    public static int clamp(int value, int min, int max) {
+        if (value < min) return min;
+        if (value > max) return max;
+        return value;
+    }
+
     public static String formatNumber(double d) {
         return numberFormatter.format(d);
     }

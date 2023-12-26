@@ -9,6 +9,7 @@ import com.slimtrade.gui.chatscanner.ChatScannerWindow;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
+import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSortingWindow;
 import com.slimtrade.gui.overlays.MenubarOverlay;
 import com.slimtrade.gui.overlays.MessageOverlay;
@@ -20,6 +21,7 @@ import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -31,10 +33,10 @@ public class FrameManager {
     public static HistoryWindow historyWindow;
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
-    public static StashSortingWindow stashSortingWindow;
     public static TutorialWindow tutorialWindow;
     public static PatchNotesWindow patchNotesWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
+    public static ArrayList<StashSortingWindow> sortingWindows = new ArrayList<>();
     public static SetupWindow setupWindow;
 
     // Overlays
@@ -66,7 +68,6 @@ public class FrameManager {
         historyWindow = new HistoryWindow();
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
-        stashSortingWindow = new StashSortingWindow();
         tutorialWindow = new TutorialWindow();
         patchNotesWindow = new PatchNotesWindow();
 
@@ -85,10 +86,12 @@ public class FrameManager {
         menubarDialog = new MenubarDialog();
 
         buildCheatSheetWindows();
+        buildSearchWindows();
 
         // FIXME : Add all windows
+        // FIXME: Check CheatSheet windows and StashSearch windows.
         // Group windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, stashSortingWindow, menubarIcon, menubarDialog, stashHelperContainer, tutorialWindow};
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menubarIcon, menubarDialog, stashHelperContainer, tutorialWindow};
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
@@ -164,6 +167,19 @@ public class FrameManager {
             }
         }
         PinManager.applyPins();
+    }
+
+    // FIXME : Move to StashSortingWindow?
+    public static void buildSearchWindows() {
+        // TODO : Preserve open windows
+        ArrayList<StashSortingWindow> openWindows = new ArrayList<>();
+        for (StashSortingWindow window : sortingWindows) {
+            window.dispose();
+        }
+        for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
+            StashSortingWindow window = new StashSortingWindow(group);
+            window.setVisible(true);
+        }
     }
 
     public static void checkMenubarVisibility(Point point) {
