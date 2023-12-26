@@ -35,6 +35,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     // State
     private boolean pinned;
     private Visibility visibility;
+    protected boolean pinRespectsSize = true;
 
     // Movement
     private Point startLocation;
@@ -333,7 +334,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     @Override
     public void applyPin(Rectangle rectangle) {
         setLocation(rectangle.getLocation());
-        setSize(rectangle.getSize());
+        if (pinRespectsSize) setSize(rectangle.getSize());
         pinned = true;
         pinButton.setPinned(true);
     }

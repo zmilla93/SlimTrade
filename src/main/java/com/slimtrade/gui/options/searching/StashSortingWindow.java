@@ -9,13 +9,12 @@ import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.AdvancedButton;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class StashSortingWindow extends CustomDialog {
-
-    private final GridBagConstraints gc = ZUtil.getGC();
 
     /**
      * Mutual constructor, should be called by all other constructors.
@@ -28,6 +27,7 @@ public class StashSortingWindow extends CustomDialog {
         setFocusable(false);
         setFocusableWindowState(false);
         setResizable(false);
+        pinRespectsSize = false;
     }
 
     /**
@@ -37,12 +37,12 @@ public class StashSortingWindow extends CustomDialog {
      */
     public StashSortingWindow(StashSearchGroupData data) {
         this(data.title());
-        JPanel panel = buildButtonPanel(data);
+        JPanel buttonPanel = buildButtonPanel(data);
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
-        contentPanel.add(panel, gc);
+        contentPanel.add(buttonPanel, gc);
         pack();
     }
 
@@ -53,11 +53,11 @@ public class StashSortingWindow extends CustomDialog {
      */
     public StashSortingWindow(ArrayList<StashSearchGroupData> data) {
         this("Sorting");
+        // TODO: This
     }
 
     private JPanel buildButtonPanel(StashSearchGroupData data) {
         JPanel panel = new JPanel(new GridBagLayout());
-//        panel.setBackground(Color.GREEN);
         GridBagConstraints gc = ZUtil.getGC();
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -76,15 +76,21 @@ public class StashSortingWindow extends CustomDialog {
 
     private JButton createSearchButton(StashSearchTermData term) {
         AdvancedButton button = new AdvancedButton(term.title());
-        Color borderColor = UIManager.getColor("Button.borderColor");
+        Color outerBorderColor = UIManager.getColor("Button.background");
+        Color innerBorderColor = UIManager.getColor("Button.borderColor");
         if (term.colorIndex() > 0) {
             StashTabColor stashColor = StashTabColor.get(term.colorIndex());
             button.setBackground(stashColor.getBackground());
             button.setBackgroundHover(ThemeManager.lighter(stashColor.getBackground()));
             button.setForeground(stashColor.getForeground());
-            borderColor = stashColor.getForeground();
+            outerBorderColor = stashColor.getBackground();
+            innerBorderColor = stashColor.getForeground();
         }
-        button.setBorder(BorderFactory.createLineBorder(borderColor, 1));
+        int singleBorderSize = 1;
+        Border outerBorder = BorderFactory.createLineBorder(outerBorderColor, singleBorderSize);
+        Border innerBorder = BorderFactory.createLineBorder(innerBorderColor, singleBorderSize);
+        button.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+
         button.addMouseListener(new AdvancedMouseListener() {
             @Override
             public void click(MouseEvent e) {
