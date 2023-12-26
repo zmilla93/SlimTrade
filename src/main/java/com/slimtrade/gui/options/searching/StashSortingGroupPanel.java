@@ -14,6 +14,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     private final JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
     private final JButton shiftDownButton = new IconButton("/icons/default/arrow-downx48.png");
     private String groupName;
+    private boolean showRename;
 
     private final JButton renameButton = new JButton("Rename");
     private final JButton applyRenameButton = new JButton("Apply Name");
@@ -91,6 +92,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     }
 
     private void showHideRename(boolean show) {
+        showRename = show;
         if (show) {
             renameButton.setVisible(false);
             applyRenameButton.setVisible(true);
@@ -118,6 +120,12 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         if (optionPanel.isDuplicateName(name)) return;
         groupName = name;
         setBorder(BorderFactory.createTitledBorder(groupName));
+    }
+
+    protected void applyPendingGroupRename() {
+        if (!showRename) return;
+        showHideRename(false);
+        updateGroupName(renameInput.getText());
     }
 
     public StashSearchGroupData getData() {

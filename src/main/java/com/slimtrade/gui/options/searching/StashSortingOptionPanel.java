@@ -61,6 +61,7 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
     public void save() {
         ArrayList<StashSearchGroupData> data = new ArrayList<>();
         for (StashSortingGroupPanel groupPanel : entryContainer.getComponentsTyped()) {
+            groupPanel.applyPendingGroupRename();
             data.add(groupPanel.getData());
         }
         SaveManager.settingsSaveFile.data.stashSearchData = data;
