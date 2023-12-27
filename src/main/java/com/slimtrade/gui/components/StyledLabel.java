@@ -35,14 +35,16 @@ public class StyledLabel extends JLabel {
         updateFont();
     }
 
-    public void setBold(boolean bold) {
+    public StyledLabel setBold(boolean bold) {
         this.bold = bold;
         updateFont();
+        return this;
     }
 
-    public void setItalic(boolean italic) {
+    public StyledLabel setItalic(boolean italic) {
         this.italic = italic;
         updateFont();
+        return this;
     }
 
     /**
@@ -50,10 +52,11 @@ public class StyledLabel extends JLabel {
      *
      * @param color Target color
      */
-    public void setColor(Color color) {
+    public StyledLabel setColor(Color color) {
         this.color = color;
         colorMode = ColorMode.COLOR;
         updateColor();
+        return this;
     }
 
     /**
@@ -61,10 +64,11 @@ public class StyledLabel extends JLabel {
      *
      * @param key UIManager color key
      */
-    public void setColorKey(String key) {
+    public StyledLabel setColorKey(String key) {
         this.colorKey = key;
         colorMode = ColorMode.KEY;
         updateColor();
+        return this;
     }
 
     private void updateFont() {
