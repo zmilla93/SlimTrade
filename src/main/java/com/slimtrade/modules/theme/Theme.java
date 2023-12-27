@@ -18,7 +18,7 @@ public enum Theme {
     CARBON(new FlatCarbonIJTheme()),
     COBALT_2(new FlatCobalt2IJTheme()),
     CYAN_LIGHT(new FlatCyanLightIJTheme()),
-    DARK_FLAT(new FlatDarkFlatIJTheme()),
+    //    DARK_FLAT(new FlatDarkFlatIJTheme()),
     DARK_PURPLE(new FlatDarkPurpleIJTheme()),
     DRACULA(new FlatDraculaIJTheme()),
     GRADIANTO_DARK_FUCHSIA(new FlatGradiantoDarkFuchsiaIJTheme()),
