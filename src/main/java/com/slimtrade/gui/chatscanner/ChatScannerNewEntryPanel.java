@@ -1,6 +1,7 @@
 package com.slimtrade.gui.chatscanner;
 
 import com.slimtrade.gui.components.ComponentPair;
+import com.slimtrade.gui.components.ErrorLabel;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ public class ChatScannerNewEntryPanel extends AbstractOptionPanel {
     private final JButton cancelButton = new JButton("Cancel");
     private final JButton createEntryButton = new JButton("Create Entry");
     private final JTextField entryNameInput = new JTextField(12);
-    private final JLabel errorLabel = new JLabel();
+    private final JLabel errorLabel = new ErrorLabel();
 
     public ChatScannerNewEntryPanel() {
         super(true);

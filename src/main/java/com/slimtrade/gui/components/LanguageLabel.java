@@ -4,6 +4,7 @@ import com.slimtrade.core.managers.FontManager;
 
 import javax.swing.*;
 
+@Deprecated
 public class LanguageLabel extends JLabel {
 
     public LanguageLabel() {

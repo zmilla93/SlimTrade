@@ -1,6 +1,7 @@
 package com.slimtrade.gui.chatscanner;
 
 import com.slimtrade.gui.components.ComponentPair;
+import com.slimtrade.gui.components.ErrorLabel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 
@@ -12,7 +13,7 @@ public class ChatScannerRenamePanel extends AbstractOptionPanel {
     private final JTextField newNameInput = new JTextField(ChatScannerWindow.TEXT_COLUMNS);
     private final JButton applyNameButton = new JButton("Rename Entry");
     private final JButton cancelButton = new JButton("Cancel");
-    private final JLabel errorLabel = new JLabel();
+    private final JLabel errorLabel = new ErrorLabel();
     private String currentName;
 
     public ChatScannerRenamePanel() {
