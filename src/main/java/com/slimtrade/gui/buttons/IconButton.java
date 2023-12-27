@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class IconButton extends JButton {
 
-    private String path;
+    private final String path;
     private int size;
 
     public IconButton(String path) {
@@ -16,12 +16,6 @@ public class IconButton extends JButton {
         this.path = path;
         updateUI();
     }
-
-//    public IconButton(CurrencyImage currency) {
-//        super();
-//        this.path = currency.getPath();
-//        updateUI();
-//    }
 
     public IconButton(String path, int size) {
         super();
@@ -33,7 +27,6 @@ public class IconButton extends JButton {
     public void setIconSize(int size) {
         this.size = size;
         updateUI();
-        // FIXME:
     }
 
     @Override
@@ -41,7 +34,7 @@ public class IconButton extends JButton {
         super.updateUI();
         if (path != null)
             setIcon(ThemeManager.getColorIcon(path, size));
-        int borderInset = 5;
+        int borderInset = 3;
         setBorder(new FlatButtonBorder() {
             @Override
             public Insets getBorderInsets(Component c, Insets insets) {
@@ -49,6 +42,5 @@ public class IconButton extends JButton {
             }
         });
     }
-
 
 }
