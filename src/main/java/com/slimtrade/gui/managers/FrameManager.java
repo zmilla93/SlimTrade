@@ -11,6 +11,7 @@ import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSortingWindow;
+import com.slimtrade.gui.options.searching.StashSortingWindowMode;
 import com.slimtrade.gui.overlays.MenubarOverlay;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
@@ -37,6 +38,7 @@ public class FrameManager {
     public static PatchNotesWindow patchNotesWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
     public static HashMap<String, StashSortingWindow> sortingWindows = new HashMap<>();
+    public static StashSortingWindow sortingWindow;
     public static SetupWindow setupWindow;
 
     // Overlays
@@ -172,15 +174,27 @@ public class FrameManager {
     // FIXME : Move to StashSortingWindow?
     public static void buildSearchWindows() {
         // TODO : Preserve open windows
+        // Dispose of existing windows
         ArrayList<StashSortingWindow> openWindows = new ArrayList<>();
         for (StashSortingWindow window : sortingWindows.values()) {
             window.dispose();
         }
-        for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
-            StashSortingWindow window = new StashSortingWindow(group);
-            sortingWindows.put(group.title(), window);
-            window.setVisible(true);
+        if (sortingWindow != null) sortingWindow.dispose();
+        sortingWindows.clear();
+        // Build new window(s)
+        StashSortingWindowMode windowMode = SaveManager.settingsSaveFile.data.stashSearchWindowMode;
+        // FIXME : Window visibility
+        if (windowMode == StashSortingWindowMode.COMBINED) {
+            sortingWindow = new StashSortingWindow(SaveManager.settingsSaveFile.data.stashSearchData);
+            sortingWindow.setVisible(true);
+        } else if (windowMode == StashSortingWindowMode.SEPARATE) {
+            for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
+                StashSortingWindow window = new StashSortingWindow(group);
+                sortingWindows.put(group.title(), window);
+                window.setVisible(true);
+            }
         }
+
     }
 
     public static void checkMenubarVisibility(Point point) {

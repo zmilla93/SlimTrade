@@ -16,4 +16,8 @@ public record StashSearchGroupData(String title, HotkeyData hotkeyData, StashSea
         return References.APP_PREFIX + name + PIN_SUFFIX;
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
 }

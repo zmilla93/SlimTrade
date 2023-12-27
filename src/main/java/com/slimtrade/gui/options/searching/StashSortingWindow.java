@@ -11,6 +11,8 @@ import com.slimtrade.modules.theme.components.AdvancedButton;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -55,11 +57,43 @@ public class StashSortingWindow extends CustomDialog {
      */
     public StashSortingWindow(ArrayList<StashSearchGroupData> data) {
         this("Sorting");
-        // TODO: This
+        JComboBox<JPanel> comboBox = new JComboBox<>();
+//        CardLayout cardLayout = new CardLayout();
+//        JPanel cardPanel = new JPanel(cardLayout);
+
+        for (StashSearchGroupData group : data) {
+            JPanel panel = buildButtonPanel(group);
+//            cardPanel.add(panel, group.title());
+            comboBox.addItem(panel);
+        }
+        JPanel buttonContainer = new JPanel();
+
+        contentPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gc = ZUtil.getGC();
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        contentPanel.add(comboBox, gc);
+        gc.gridy++;
+        contentPanel.add(buttonContainer, gc);
+        buttonContainer.setLayout(new GridBagLayout());
+        comboBox.addActionListener(e -> {
+            buttonContainer.removeAll();
+            JPanel panel = (JPanel) comboBox.getSelectedItem();
+            if (panel != null) buttonContainer.add(panel, gc);
+            pack();
+        });
+        JPanel panel = comboBox.getItemAt(0);
+        if (panel != null) buttonContainer.add(panel, gc);
+        pack();
     }
 
     private JPanel buildButtonPanel(StashSearchGroupData data) {
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new GridBagLayout()) {
+            @Override
+            public String toString() {
+                return data.title();
+            }
+        };
         GridBagConstraints gc = ZUtil.getGC();
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
