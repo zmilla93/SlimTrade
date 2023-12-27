@@ -36,6 +36,8 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     private boolean pinned;
     private Visibility visibility;
     protected boolean pinRespectsSize = true;
+    private String title;
+    private String pinPrefix;
 
     // Movement
     private Point startLocation;
@@ -64,8 +66,18 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         this(title, false);
     }
 
+    public CustomDialog(String title, String pinPrefix) {
+        this(title, pinPrefix, false);
+    }
+
     public CustomDialog(String title, boolean thin) {
+        this(title, null, thin);
+    }
+
+    public CustomDialog(String title, String pinPrefix, boolean thin) {
         setTitle(title);
+        this.title = title;
+        this.pinPrefix = pinPrefix;
         setMinimumSize(new Dimension(400, 400));
         setUndecorated(true);
         setAlwaysOnTop(true);
@@ -307,6 +319,11 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         titleLabel.setText(title);
     }
 
+    @Override
+    public String getTitle() {
+        return this.title;
+    }
+
     // FIXME :  This can't be called after the window is created without causing the size of the window to change.
     //          The window size and location should be recalculated, or the resizers should remain visible but set to
     //          be click through. Fixing this would clean up the way pinnables work.
@@ -341,7 +358,9 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     @Override
     public String getPinTitle() {
-        return getTitle();
+        String title = getTitle();
+        if (pinPrefix != null) title = pinPrefix + title;
+        return title;
     }
 
     @Override

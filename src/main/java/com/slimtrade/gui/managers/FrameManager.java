@@ -36,7 +36,7 @@ public class FrameManager {
     public static TutorialWindow tutorialWindow;
     public static PatchNotesWindow patchNotesWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
-    public static ArrayList<StashSortingWindow> sortingWindows = new ArrayList<>();
+    public static HashMap<String, StashSortingWindow> sortingWindows = new HashMap<>();
     public static SetupWindow setupWindow;
 
     // Overlays
@@ -173,11 +173,12 @@ public class FrameManager {
     public static void buildSearchWindows() {
         // TODO : Preserve open windows
         ArrayList<StashSortingWindow> openWindows = new ArrayList<>();
-        for (StashSortingWindow window : sortingWindows) {
+        for (StashSortingWindow window : sortingWindows.values()) {
             window.dispose();
         }
         for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
             StashSortingWindow window = new StashSortingWindow(group);
+            sortingWindows.put(group.title(), window);
             window.setVisible(true);
         }
     }

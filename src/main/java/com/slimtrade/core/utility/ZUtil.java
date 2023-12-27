@@ -74,6 +74,17 @@ public class ZUtil {
         return commands;
     }
 
+    /**
+     * Trims a string and normalizes all spaces to 1.
+     *
+     * @param input String to clean
+     * @return Cleaned string
+     */
+    public static String cleanString(String input) {
+        return input.trim().replaceAll("\s+", " ");
+    }
+
+
     public static int clamp(int value, int min, int max) {
         if (value < min) return min;
         if (value > max) return max;

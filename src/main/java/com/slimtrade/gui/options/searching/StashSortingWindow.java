@@ -16,13 +16,15 @@ import java.util.ArrayList;
 
 public class StashSortingWindow extends CustomDialog {
 
+    private static final String PIN_PREFIX = "SEARCH_WINDOW:";
+
     /**
      * Mutual constructor, should be called by all other constructors.
      *
      * @param title Display title
      */
     private StashSortingWindow(String title) {
-        super(title, true);
+        super(title, PIN_PREFIX, true);
         setMinimumSize(null);
         setFocusable(false);
         setFocusableWindowState(false);

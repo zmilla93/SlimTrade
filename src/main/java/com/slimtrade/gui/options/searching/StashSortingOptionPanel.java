@@ -3,7 +3,9 @@ package com.slimtrade.gui.options.searching;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.StyledLabel;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.AbstractOptionPanel;
+import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.modules.saving.ISavable;
 
 import java.util.ArrayList;
@@ -59,14 +61,17 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
 
     @Override
     public void save() {
+        ArrayList<StashSortingGroupPanel> panels = new ArrayList<>();
         ArrayList<StashSearchGroupData> data = new ArrayList<>();
         for (StashSortingGroupPanel groupPanel : entryContainer.getComponentsTyped()) {
             groupPanel.applyPendingGroupRename();
+            panels.add(groupPanel);
             data.add(groupPanel.getData());
         }
         SaveManager.settingsSaveFile.data.stashSearchData = data;
-        // FIXME : refreshButtons is currently broken
-//        FrameManager.stashSortingWindow.refreshButtons();
+        PinManager.storeSearchWindowPins();
+        FrameManager.buildSearchWindows();
+        PinManager.restoreSearchWindowPins(panels);
     }
 
     @Override

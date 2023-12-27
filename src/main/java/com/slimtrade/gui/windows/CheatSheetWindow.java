@@ -9,6 +9,7 @@ import java.io.File;
 
 public class CheatSheetWindow extends CustomDialog {
 
+    private static final String PIN_PREFIX = "CHEAT_SHEET:";
     protected boolean valid = true;
 
     public static CheatSheetWindow createCheatSheet(CheatSheetData data) {
@@ -22,7 +23,7 @@ public class CheatSheetWindow extends CustomDialog {
     }
 
     private CheatSheetWindow(CheatSheetData data) {
-        super(data.title, true);
+        super(data.title, PIN_PREFIX, true);
         setMinimumSize(new Dimension(0, 0));
         setFocusable(false);
         setFocusableWindowState(false);

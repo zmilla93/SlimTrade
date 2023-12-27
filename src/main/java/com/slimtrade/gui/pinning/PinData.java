@@ -5,12 +5,11 @@ import java.awt.*;
 public class PinData {
 
     public final String title;
-    //    public final Point location;
-    public final Rectangle rectangle;
+    public final Rectangle rect;
 
-    public PinData(String title, Rectangle rectangle) {
+    public PinData(String title, Rectangle rect) {
         this.title = title;
-        this.rectangle = rectangle;
+        this.rect = rect;
     }
 
 }
