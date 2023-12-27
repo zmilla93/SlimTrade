@@ -146,7 +146,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
      * @return Error message, null if none
      */
     public String tryCreateEntry(String name) {
-        name = name.trim().replaceAll("\s+", " ");
+        name = ZUtil.cleanString(name);
         if (name.length() == 0) return "Enter a name for your new search entry!";
         if (isDuplicateName(name)) return "An entry with that name already exists!";
         newEntryPanel.clearName();
@@ -226,7 +226,8 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
     }
 
     public String tryRenameEntry(String oldName, String newName) {
-        newName = newName.trim().replaceAll("\s+", " ");
+        newName = ZUtil.cleanString(newName);
+        if (newName.equals("")) return "Please enter a valid name!";
         if (isDuplicateName(newName, oldName)) return "An entry with that name already exists!";
         ChatScannerCustomizerPanel panel = null;
         for (ChatScannerCustomizerPanel listPanel : panels) {

@@ -78,7 +78,7 @@ public class StashSortingSettingsPanel extends JPanel implements ISavable {
     }
 
     public String getNewSearchGroupName() {
-        return newSearchGroupNameInput.getText().trim().replaceAll("\s+", " ");
+        return ZUtil.cleanString(newSearchGroupNameInput.getText());
     }
 
     public void clearText() {

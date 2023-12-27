@@ -3,6 +3,7 @@ package com.slimtrade.gui.chatscanner;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
 import com.slimtrade.core.utility.MacroButton;
+import com.slimtrade.core.utility.ZUtil;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class ChatScannerEntry {
         String[] arr = input.split("\\n|,|;");
         ArrayList<String> clean = new ArrayList();
         for (String s : arr) {
-            String curTerm = s.trim().replaceAll("\\s+", " ").trim();
+            String curTerm = ZUtil.cleanString(s);
             if (!curTerm.matches("\\s*")) {
                 clean.add(curTerm.toLowerCase());
             }

@@ -121,7 +121,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     }
 
     private void updateGroupName(String name) {
-        name = name.trim().replaceAll("\s+", " ");
+        name = ZUtil.cleanString(name);
         if (name.equals("")) return;
         if (optionPanel.isDuplicateName(name)) return;
         groupName = name;
