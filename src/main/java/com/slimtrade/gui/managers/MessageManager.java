@@ -100,17 +100,12 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             }
         };
 
-//        int width = 400;
-//        setMinimumSize(new Dimension(width, 0));
-//        setMaximumSize(new Dimension(width, 10000));
-
         ThemeManager.addThemeListener(this);
         ThemeManager.addFontListener(this);
         setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         refreshFadeData();
         refresh();
         addListeners();
-//        wrapperPanel.setBackground(Color.RED);
     }
 
     private void addListeners() {

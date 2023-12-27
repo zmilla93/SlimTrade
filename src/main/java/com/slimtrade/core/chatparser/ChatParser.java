@@ -33,6 +33,7 @@ public class ChatParser implements FileTailerListener {
     private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
 
     // State
+    private String currentZone = "The Twilight Strand";
     private boolean changeCharacter;
     private String changeCharacterString;
     private int changeCharacterChecks;
@@ -72,6 +73,7 @@ public class ChatParser implements FileTailerListener {
             if (tradeOffer != null) {
                 handleTradeOffer(tradeOffer);
                 foundTrade = true;
+                // FIXME : Should probably just early return here
             }
         }
         if (!foundTrade && loaded) {
@@ -80,12 +82,25 @@ public class ChatParser implements FileTailerListener {
             handleChangeCharacter(line);
             // Player Joined Area
             for (LangRegex lang : LangRegex.values()) {
+                if (lang.joinedArea == null) continue;
                 Matcher matcher = lang.joinedAreaPattern.matcher(line);
                 if (matcher.matches()) {
                     String playerName = matcher.group("playerName");
                     for (IJoinedAreaListener listener : joinedAreaListeners) {
                         listener.onJoinedArea(playerName);
                     }
+                    break;
+                }
+
+            }
+        }
+        // Zone Tracking
+        if (!foundTrade) {
+            for (LangRegex lang : LangRegex.values()) {
+                Matcher matcher = lang.enteredAreaPattern.matcher(line);
+                if (lang.enteredArea == null) continue;
+                if (matcher.matches()) {
+                    currentZone = matcher.group("zone");
                     break;
                 }
             }
@@ -240,6 +255,10 @@ public class ChatParser implements FileTailerListener {
 
     public void addJoinedAreaListener(IJoinedAreaListener listener) {
         joinedAreaListeners.add(listener);
+    }
+
+    public String getCurrentZone() {
+        return currentZone;
     }
 
     // File Tailing

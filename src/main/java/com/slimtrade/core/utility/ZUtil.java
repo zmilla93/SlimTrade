@@ -1,5 +1,6 @@
 package com.slimtrade.core.utility;
 
+import com.slimtrade.App;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.managers.SaveManager;
 
@@ -52,9 +53,10 @@ public class ZUtil {
             commands.add(builder.toString().trim());
         for (int i = 0; i < commands.size(); i++) {
             String clean = commands.get(i);
+            clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
+            clean = clean.replaceAll("\\{zone}", App.chatParser.getCurrentZone());
             if (!clean.startsWith("@") && !clean.startsWith("/"))
                 clean = "@" + pasteReplacement.playerName + " " + clean;
-            clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
             if (pasteReplacement.playerName != null)
                 clean = clean.replaceAll("\\{player}", pasteReplacement.playerName);
             if (pasteReplacement.priceName != null) {
@@ -64,13 +66,8 @@ public class ZUtil {
             if (pasteReplacement.priceName != null) {
                 clean = clean.replaceAll("\\{price}", numberFormatter.format(pasteReplacement.priceQuantity) + " " + pasteReplacement.priceName);
             }
-//            System.out.println("MESSAGE:" + tradeOffer.message);
-//            clean = clean.replaceAll("[{]message[}]", Matcher.quoteReplacement(tradeOffer.message));
-            // FIXME:
-//            clean = clean.replaceAll("\\{zone}", tradeOffer.playerName);
             commands.set(i, clean);
         }
-        System.out.println("COMMANDS :: " + commands);
         return commands;
     }
 
