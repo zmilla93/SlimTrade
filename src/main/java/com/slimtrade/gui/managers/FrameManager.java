@@ -163,12 +163,12 @@ public class FrameManager {
         cheatSheetWindows.clear();
         for (CheatSheetData data : SaveManager.settingsSaveFile.data.cheatSheets) {
             CheatSheetWindow window = CheatSheetWindow.createCheatSheet(data);
-            if (window != null) {
-                cheatSheetWindows.put(data.title, window);
-                if (openWindows.contains(data.title)) window.setVisible(true);
-            }
+            if (window != null) cheatSheetWindows.put(data.title, window);
         }
         PinManager.applyPins();
+        for (CheatSheetWindow window : cheatSheetWindows.values()) {
+            if (openWindows.contains(window.getPinTitle())) window.setVisible(true);
+        }
     }
 
     // FIXME : Move to StashSortingWindow?

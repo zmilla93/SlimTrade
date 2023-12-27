@@ -4,11 +4,13 @@ import com.slimtrade.core.hotkeys.HotkeyData;
 
 public class CheatSheetData {
 
-    public String title;
-    public String extension;
-    public String fileName;
-    public HotkeyData hotkeyData;
+    public final String title;
+    public final String extension;
+    public final String fileName;
+    public final HotkeyData hotkeyData;
 
+    // FIXME : File info is immutable, but hotkey data (and potential future settings like size/opacity) is not.
+    //         If more features are added, file info should be moved to its own class to make this more clear.
     public CheatSheetData(String fileName, HotkeyData hotkeyData) {
         this.fileName = fileName;
         int extIndex = fileName.lastIndexOf('.');

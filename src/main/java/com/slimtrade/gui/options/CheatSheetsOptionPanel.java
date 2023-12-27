@@ -4,13 +4,15 @@ import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.ButtonPanel;
+import com.slimtrade.gui.components.ButtonWrapper;
+import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.options.cheatsheets.CheatSheetRow;
+import com.slimtrade.gui.options.cheatsheets.CheatSheetComponentGroup;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -18,19 +20,24 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
 
     private final JButton browseButton = new JButton("Open Images Folder");
     private final JButton refreshButton = new JButton("Refresh");
-    private final AddRemoveContainer<CheatSheetRow> cheatSheetContainer = new AddRemoveContainer<>();
+    //    private final AddRemoveContainer<CheatSheetRow> cheatSheetContainer = new AddRemoveContainer<>();
+    private final JPanel cheatSheetContainer = new JPanel();
+    private final ArrayList<CheatSheetComponentGroup> rows = new ArrayList<>();
+    private GridBagConstraints gc;
+    private boolean forceRebuild = false;
 
     public CheatSheetsOptionPanel() {
         // Setup
         ButtonPanel buttonPanel = new ButtonPanel();
         buttonPanel.add(browseButton);
         buttonPanel.add(refreshButton);
+        cheatSheetContainer.setLayout(new GridBagLayout());
 
         // Build
         addHeader("Setup");
-        addComponent(new JLabel("Add images to the images folder, refresh, set a hotkey, then save."));
-        addComponent(new JLabel("Supports png, jpg, and gif files."));
-        addComponent(new JLabel("Hold SHIFT when moving a window to lock it to the current monitor."));
+        addComponent(new StyledLabel("Add images to the images folder, refresh, set a hotkey, then save."));
+        addComponent(new StyledLabel("Hold SHIFT when moving a window to lock it to the current monitor."));
+        addComponent(new StyledLabel("Supports png, jpg, and gif files.").setBold(true));
         addComponent(buttonPanel);
         addVerticalStrut();
         addHeader("Cheat Sheets");
@@ -38,9 +45,31 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
         addListeners();
     }
 
-    private void rebuildFromFolder() {
-        File imagesFolder = new File(SaveManager.getImagesDirectory());
+    private void startRebuild() {
+        gc = ZUtil.getGC();
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        rows.clear();
         cheatSheetContainer.removeAll();
+    }
+
+    private void addRow(CheatSheetData data) {
+        CheatSheetComponentGroup row = new CheatSheetComponentGroup(data);
+
+        cheatSheetContainer.add(row.label, gc);
+        gc.gridx++;
+        cheatSheetContainer.add(Box.createHorizontalStrut(20), gc);
+        gc.gridx++;
+        cheatSheetContainer.add(new ButtonWrapper(row.hotkeyButton), gc);
+        gc.gridx = 0;
+        gc.gridy++;
+
+        rows.add(row);
+    }
+
+    private void rebuildFromFolder() {
+        startRebuild();
+        File imagesFolder = new File(SaveManager.getImagesDirectory());
         if (imagesFolder.exists() && imagesFolder.isDirectory()) {
             File[] files = imagesFolder.listFiles();
             if (files == null) return;
@@ -54,9 +83,10 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
                 }
                 CheatSheetData data = new CheatSheetData(file.getName(), hotkeyData);
                 if (!data.isValid()) continue;
-                cheatSheetContainer.add(new CheatSheetRow(cheatSheetContainer, data));
+                addRow(data);
             }
         }
+        forceRebuild = true;
         cheatSheetContainer.revalidate();
         cheatSheetContainer.repaint();
     }
@@ -68,27 +98,26 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
 
     @Override
     public void save() {
-        ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
+        ArrayList<CheatSheetData> cheatSheetData = new ArrayList<>();
         int matchingWindows = 0;
-        for (CheatSheetRow row : cheatSheetContainer.getComponentsTyped()) {
+        for (CheatSheetComponentGroup row : rows) {
             CheatSheetData data = row.getData();
+            cheatSheetData.add(data);
             if (FrameManager.cheatSheetWindows.containsKey(data.title)) matchingWindows++;
-            cheatSheets.add(data);
         }
-        SaveManager.settingsSaveFile.data.cheatSheets = cheatSheets;
+        SaveManager.settingsSaveFile.data.cheatSheets = cheatSheetData;
         // Don't rebuild cheat sheets if files have not changed
-        // FIXME : Should probably remove this check. If file changes but name stays the same, window wont rebuild
-        if (matchingWindows == FrameManager.cheatSheetWindows.size() && matchingWindows == cheatSheetContainer.getComponentCount()) {
-            return;
+        if (matchingWindows != FrameManager.cheatSheetWindows.size() || matchingWindows != rows.size() || forceRebuild) {
+            FrameManager.buildCheatSheetWindows();
         }
-        FrameManager.buildCheatSheetWindows();
+        forceRebuild = false;
     }
 
     @Override
     public void load() {
-        cheatSheetContainer.removeAll();
+        startRebuild();
         for (CheatSheetData data : SaveManager.settingsSaveFile.data.cheatSheets) {
-            cheatSheetContainer.add(new CheatSheetRow(cheatSheetContainer, data));
+            addRow(data);
         }
     }
 
