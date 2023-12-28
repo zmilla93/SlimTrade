@@ -1,47 +1,30 @@
 package com.slimtrade.gui.setup;
 
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.listening.TextChangeListener;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class CharacterSetupPanel extends AbstractSetupPanel {
 
-    private final JTextField characterNameInput = new JTextField(25);
+    private final JTextField characterNameInput = new JTextField(20);
 
     public CharacterSetupPanel(JButton button) {
         super(button);
-        JPanel mainPanel = new JPanel(new GridBagLayout());
+        contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
 
-//        gc.anchor = GridBagConstraints.WEST;
-        mainPanel.add(new JLabel("Enter your character name."), gc);
+        contentPanel.add(new JLabel("Enter your character name."), gc);
         gc.gridy++;
-        mainPanel.add(characterNameInput, gc);
+        contentPanel.add(characterNameInput, gc);
         gc.gridy++;
 
-        gc = ZUtil.getGC();
-
-        setLayout(new GridBagLayout());
-        gc.insets = SetupWindow.OUTER_INSETS;
-        add(mainPanel, gc);
-
-        characterNameInput.getDocument().addDocumentListener(new DocumentListener() {
+        characterNameInput.getDocument().addDocumentListener(new TextChangeListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void onTextChange(DocumentEvent e) {
                 validateNextButton();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                validateNextButton();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                // Do nothing
             }
         });
     }

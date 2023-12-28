@@ -14,7 +14,6 @@ public class SetupManager {
         if (setupPhases != null) return setupPhases;
         setupPhases = new ArrayList<>();
 
-
         // Client File
         if (SaveManager.settingsSaveFile.data.clientPath == null) {
             setupPhases.add(SetupPhase.CLIENT_PATH);
@@ -24,15 +23,15 @@ public class SetupManager {
                 setupPhases.add(SetupPhase.CLIENT_PATH);
             }
         }
-
         // Character Name
-        if (SaveManager.settingsSaveFile.data.characterName == null || SaveManager.settingsSaveFile.data.characterName.equals("")) {
+        if (SaveManager.settingsSaveFile.data.characterName == null || SaveManager.settingsSaveFile.data.characterName.equals(""))
             setupPhases.add(SetupPhase.CHARACTER_NAME);
-        }
-
-        if (SaveManager.stashSaveFile.data.windowRect == null || SaveManager.stashSaveFile.data.gridRect == null) {
+        // Stash location
+        if (SaveManager.stashSaveFile.data.windowRect == null || SaveManager.stashSaveFile.data.gridRect == null)
             setupPhases.add(SetupPhase.STASH_POSITION);
-        }
+        // Stash Folders
+        if (!SaveManager.settingsSaveFile.data.initializedFolderOffset)
+            setupPhases.add(SetupPhase.STASH_FOLDERS);
 
         return setupPhases;
     }

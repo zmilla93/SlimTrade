@@ -7,28 +7,20 @@ import com.slimtrade.gui.managers.FrameManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class StashSetupPanel extends AbstractSetupPanel {
 
-    private final JButton editStashButton = new JButton("Edit Stash Overlay");
-
     public StashSetupPanel(JButton button) {
         super(button);
-        setLayout(new GridBagLayout());
+        contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        int inset = 20;
-        gc.insets = new Insets(0, inset, 0, inset);
-        add(new JLabel("Resize the overlay until it aligns with the in game stash."), gc);
+//        int inset = 20;
+//        gc.insets = new Insets(0, inset, 0, inset);
+        contentPanel.add(new JLabel("Resize the overlay until it aligns with the in game stash."), gc);
         gc.gridy++;
-        add(editStashButton, gc);
-        editStashButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FrameManager.setWindowVisibility(AppState.EDIT_STASH);
-            }
-        });
+        JButton editStashButton = new JButton("Edit Stash Overlay");
+        contentPanel.add(editStashButton, gc);
+        editStashButton.addActionListener(e -> FrameManager.setWindowVisibility(AppState.EDIT_STASH));
     }
 
     @Override

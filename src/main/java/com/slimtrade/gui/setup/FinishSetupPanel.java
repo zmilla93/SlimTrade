@@ -13,10 +13,10 @@ public class FinishSetupPanel extends JPanel {
         mainPanel.add(new JLabel("Setup Complete."), gc);
         gc.gridy++;
         mainPanel.add(new JLabel("Enjoy Trading, Exile!"), gc);
-        setLayout(new GridBagLayout());
-        gc = ZUtil.getGC();
-        gc.insets = SetupWindow.OUTER_INSETS;
-        add(mainPanel, gc);
+
+        setLayout(new BorderLayout());
+        ZUtil.addStrutsToBorderPanel(this, AbstractSetupPanel.INSET_SIZE);
+        add(mainPanel, BorderLayout.CENTER);
     }
 
 }

@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 public class ClientSetupPanel extends AbstractSetupPanel {
 
-    private JButton browseButton = new JButton("Browse");
+    private final JButton browseButton = new JButton("Browse");
     private final JTextField clientTextField = new JTextField(25);
     private final JFileChooser fileChooser = new JFileChooser();
 
     public ClientSetupPanel(JButton button) {
         super(button);
-        JPanel mainPanel = new JPanel(new GridBagLayout());
+        contentPanel.setLayout(new GridBagLayout());
         clientTextField.setEditable(false);
 
         JPanel selectionPanel = new JPanel(new GridBagLayout());
@@ -42,21 +42,15 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         selectionPanel.add(clientTextField, gc);
         gc.fill = GridBagConstraints.NONE;
 
-        mainPanel.add(new JLabel("Select Path of Exile's Client.txt file."), gc);
+        contentPanel.add(new JLabel("Select Path of Exile's Client.txt file."), gc);
         gc.gridy++;
-        mainPanel.add(new JLabel("This is located in the logs folder of Path of Exile's install folder."), gc);
+        contentPanel.add(new JLabel("This is located in the logs folder of Path of Exile's install folder."), gc);
         gc.gridy++;
 
         gc.insets.top = 10;
-        mainPanel.add(selectionPanel, gc);
+        contentPanel.add(selectionPanel, gc);
         gc.insets.top = 0;
         gc.gridy++;
-
-
-        setLayout(new GridBagLayout());
-        gc = ZUtil.getGC();
-        gc.insets = SetupWindow.OUTER_INSETS;
-        add(mainPanel, gc);
 
         JPanel self = this;
         browseButton.addActionListener(e -> {

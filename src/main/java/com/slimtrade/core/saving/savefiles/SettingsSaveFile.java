@@ -25,6 +25,7 @@ public class SettingsSaveFile {
 
     // General
     public boolean showGuildName;
+    public boolean initializedFolderOffset;
     public boolean folderOffset;
     public String characterName;
     public QuickPasteManager.QuickPasteMode quickPasteMode = QuickPasteManager.QuickPasteMode.DISABLED;
@@ -45,7 +46,7 @@ public class SettingsSaveFile {
     public transient boolean iconSizeChanged;
     public Theme theme;
     public boolean colorBlindMode;
-    private transient ArrayList<IColorBlindChangeListener> colorBlindChangeListeners = new ArrayList<>();
+    private final transient ArrayList<IColorBlindChangeListener> colorBlindChangeListeners = new ArrayList<>();
 
     // History
     public HistoryOrder historyOrder = HistoryOrder.NEWEST_FIRST;

@@ -24,22 +24,20 @@ public class SetupWindow extends JFrame {
     private final ClientSetupPanel clientPanel = new ClientSetupPanel(nextButton);
     private final CharacterSetupPanel characterPanel = new CharacterSetupPanel(nextButton);
     private final StashSetupPanel stashPanel = new StashSetupPanel(nextButton);
+    private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel(nextButton);
 
     private static final String NEXT_TEXT = "Next";
 
-    private final JPanel contentPanel = new JPanel();
-    private final JLabel countLabel = new JLabel();
+    private final JLabel countLabel = new JLabel("10/10");
 
-    public static final int VERTICAL_INSET = 20;
-    public static final int HORIZONTAL_INSET = 20;
-    public static final Insets OUTER_INSETS = new Insets(VERTICAL_INSET, HORIZONTAL_INSET, VERTICAL_INSET, HORIZONTAL_INSET);
-    private HashMap<Integer, AbstractSetupPanel> panelMap = new HashMap<>();
+    private final HashMap<Integer, AbstractSetupPanel> panelMap = new HashMap<>();
 
     private int panelIndex;
 
     public SetupWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SlimTrade Setup");
+        JPanel contentPanel = new JPanel();
         setContentPane(contentPanel);
         previousButton.setVisible(false);
 
@@ -66,10 +64,11 @@ public class SetupWindow extends JFrame {
         contentPanel.add(bufferPanel, BorderLayout.SOUTH);
 
         setAlwaysOnTop(true);
-        setMinimumSize(new Dimension(200, 200));
+        setMinimumSize(new Dimension(300, 200));
         setResizable(false);
         addListeners();
         pack();
+        countLabel.setText("");
         setLocationRelativeTo(null);
     }
 
@@ -99,6 +98,10 @@ public class SetupWindow extends JFrame {
                 SaveManager.settingsSaveFile.data.characterName = characterPanel.getCharacterName();
             if (clientPanel.isSetupValid())
                 SaveManager.settingsSaveFile.data.clientPath = clientPanel.getClientPath();
+            if (stashFolderPanel.isSetupValid()) {
+                SaveManager.settingsSaveFile.data.folderOffset = stashFolderPanel.isUsingFolders();
+                SaveManager.settingsSaveFile.data.initializedFolderOffset = true;
+            }
             SaveManager.settingsSaveFile.saveToDisk(false);
         }
         App.launchApp();
@@ -130,6 +133,10 @@ public class SetupWindow extends JFrame {
                 case STASH_POSITION:
                     panelMap.put(cardPanel.getComponentCount(), stashPanel);
                     cardPanel.add(stashPanel, Integer.toString(cardPanel.getComponentCount()));
+                    break;
+                case STASH_FOLDERS:
+                    panelMap.put(cardPanel.getComponentCount(), stashFolderPanel);
+                    cardPanel.add(stashFolderPanel, Integer.toString(cardPanel.getComponentCount()));
                     break;
             }
         }
