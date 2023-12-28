@@ -196,6 +196,17 @@ public class ZUtil {
         }
     }
 
+    public static void openFile(String path) {
+        if (path == null) return;
+        File file = new File(path);
+        if (!file.exists() || !file.isFile()) return;
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static String getVolumeText(int volume) {
         return volume == 0 ? "Muted" : "" + volume + "%";
     }

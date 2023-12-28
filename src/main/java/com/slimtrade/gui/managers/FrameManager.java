@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class FrameManager {
+
     // Windows
     public static DebugWindow debugWindow;
     public static MessageManager messageManager;
@@ -55,8 +56,6 @@ public class FrameManager {
 
     private static final HashMap<AppState, Window[]> windowMap = new HashMap<>();
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
-
-    private float resolutionMultiplier = 1;
 
     private static boolean menubarExpanded = false;
 
@@ -186,12 +185,12 @@ public class FrameManager {
         // FIXME : Window visibility
         if (windowMode == StashSortingWindowMode.COMBINED) {
             sortingWindow = new StashSortingWindow(SaveManager.settingsSaveFile.data.stashSearchData);
-            sortingWindow.setVisible(true);
+//            sortingWindow.setVisible(true);
         } else if (windowMode == StashSortingWindowMode.SEPARATE) {
             for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
                 StashSortingWindow window = new StashSortingWindow(group);
                 sortingWindows.put(group.title(), window);
-                window.setVisible(true);
+//                window.setVisible(true);
             }
         }
 

@@ -4,6 +4,7 @@ import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.TutorialPanel;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
 import javax.swing.*;
@@ -69,6 +70,10 @@ public class TutorialWindow extends CustomDialog {
             activePanel++;
             cardLayout.show(cardPanel, Integer.toString(activePanel));
             updatePageLabel();
+        });
+        closeButton.addActionListener(e -> {
+            FrameManager.optionsWindow.setVisible(true);
+            FrameManager.optionsWindow.toFront();
         });
     }
 

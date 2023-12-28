@@ -5,6 +5,12 @@ import java.util.regex.Pattern;
 
 public class References {
 
+    // Links
+    public static final String GITHUB_URL = "https://github.com/zmilla93/SlimTrade";
+    public static final String GITHUB_ISSUES_URL = "https://github.com/zmilla93/SlimTrade/issues/new/choose";
+    public static final String DISCORD_INVITE = "https://discord.com/invite/yKdExMe";
+    public static final String FAQ_URL = "https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting";
+
     // Regex
     // FIXME : Should probably move regex strings to LangRegex.java
     public static final String REGEX_CLIENT_DATA = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] ";

@@ -61,6 +61,7 @@ public class PatchNotesWindow extends CustomDialog {
         setMinimumSize(new Dimension(600, 600));
         pack();
         setMinimumSize(new Dimension(400, 400));
+        setLocationRelativeTo(null);
     }
 
     private void addListeners() {
