@@ -10,21 +10,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 
-public class PathOfExilePanel extends JPanel implements ISavable {
+public class ClientPathPanel extends JPanel implements ISavable {
 
-    private JLabel clientLabel = new JLabel("Client Path");
-    private JTextField clientTextField = new JTextField(30);
-    private JButton browseClientButton = new JButton("Browse");
-    private JFileChooser fileChooser = new JFileChooser();
+    private final JTextField clientTextField = new JTextField(30);
+    private final JButton browseClientButton = new JButton("Browse");
+    private final JFileChooser fileChooser = new JFileChooser();
 
-    public PathOfExilePanel() {
+    public ClientPathPanel() {
         clientTextField.setEditable(false);
         fileChooser.setFileFilter(new FileNameExtensionFilter("TEXT FILES", "txt", "text"));
         setLayout(new GridBagLayout());
         JPanel clientPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
 
-        clientPanel.add(clientLabel, gc);
+        clientPanel.add(new JLabel("Client Path"), gc);
         gc.gridx++;
         clientPanel.add(clientTextField, gc);
         gc.gridx++;
@@ -67,4 +66,5 @@ public class PathOfExilePanel extends JPanel implements ISavable {
     public void updateUI() {
         if (fileChooser != null) fileChooser.updateUI();
     }
+
 }
