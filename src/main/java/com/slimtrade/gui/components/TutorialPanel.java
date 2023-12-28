@@ -16,7 +16,7 @@ public class TutorialPanel extends JPanel {
         gc.fill = GridBagConstraints.HORIZONTAL;
     }
 
-    public JLabel addHeader(String title) {
+    public void addHeader(String title) {
         JLabel label = new JLabel(title);
         JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
 
@@ -33,7 +33,6 @@ public class TutorialPanel extends JPanel {
         add(outerPanel, gc);
         gc.gridy++;
         addVerticalStrutSmall();
-        return label;
     }
 
     public JLabel addLabel(String text) {

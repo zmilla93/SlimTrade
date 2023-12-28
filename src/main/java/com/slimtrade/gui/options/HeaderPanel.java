@@ -13,23 +13,20 @@ import java.awt.*;
  */
 public class HeaderPanel extends JPanel {
 
-    private final JLabel label;
+    public final JLabel label;
+    public final JSeparator separator;
 
     public HeaderPanel(String title) {
         if (App.debugUIBorders >= 2) setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         label = new JLabel(title);
-        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+        separator = new JSeparator(SwingConstants.HORIZONTAL);
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
         add(label, gc);
         gc.gridy++;
         add(separator, gc);
-    }
-
-    public JLabel getLabel() {
-        return label;
     }
 
 }

@@ -52,7 +52,7 @@ public abstract class AbstractOptionPanel extends JPanel {
         gc.gridy = 0;
     }
 
-    public JLabel addHeader(String title) {
+    public HeaderPanel addHeader(String title) {
         HeaderPanel headerPanel = new HeaderPanel(title);
         int prevFill = gc.fill;
         double prevWeightX = gc.weightx;
@@ -64,7 +64,7 @@ public abstract class AbstractOptionPanel extends JPanel {
         gc.gridy++;
         contentPanel.add(Box.createVerticalStrut(2), gc);
         gc.gridy++;
-        return headerPanel.getLabel();
+        return headerPanel;
     }
 
     public Component addComponent(Component component) {

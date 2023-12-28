@@ -25,10 +25,10 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
     private GridBagConstraints gc = new GridBagConstraints();
 
     // Examples
-    private JButton exampleButton = new JButton("Show Examples");
+    private final JButton exampleButton = new JButton("Show Examples");
     private final Component exampleHeaderPanel;
-    private Component examplePanel;
-    private Component exampleSeparator;
+    private final Component examplePanel;
+    private final Component exampleSeparator;
     private boolean showExamples;
 
     public AbstractMacroOptionPanel(TradeOfferType messageType) {

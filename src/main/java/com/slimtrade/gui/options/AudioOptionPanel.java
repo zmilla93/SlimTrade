@@ -1,6 +1,5 @@
 package com.slimtrade.gui.options;
 
-import com.slimtrade.core.References;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.AudioManager;
