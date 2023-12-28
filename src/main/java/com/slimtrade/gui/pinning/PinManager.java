@@ -48,7 +48,7 @@ public class PinManager {
             StashSortingWindow window = entry.getValue();
             pinnables.remove(window.getPinTitle());
             if (!window.isPinned()) continue;
-            searchWindowMap.put(window.getTitle(), window.getPinRectangle());
+            searchWindowMap.put(window.getCleanTitle(), window.getPinRectangle());
         }
     }
 
@@ -61,7 +61,7 @@ public class PinManager {
             panel.updateSavedGroupName();
         }
         for (StashSortingWindow window : FrameManager.sortingWindows.values()) {
-            Rectangle rect = newSearchMap.get(window.getTitle());
+            Rectangle rect = newSearchMap.get(window.getCleanTitle());
             if (rect == null) continue;
             window.applyPin(rect);
         }

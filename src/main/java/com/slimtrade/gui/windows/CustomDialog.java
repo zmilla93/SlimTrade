@@ -37,7 +37,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     private Visibility visibility;
     protected boolean pinRespectsSize = true;
     private String title;
-    private String pinPrefix;
+    private final String pinPrefix;
 
     // Movement
     private Point startLocation;
@@ -76,7 +76,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     public CustomDialog(String title, String pinPrefix, boolean thin) {
         setTitle(title);
-        this.title = title;
         this.pinPrefix = pinPrefix;
         setMinimumSize(new Dimension(400, 400));
         setUndecorated(true);
@@ -316,11 +315,11 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     @Override
     public void setTitle(String title) {
         super.setTitle(References.APP_PREFIX + title);
+        this.title = title;
         titleLabel.setText(title);
     }
 
-    @Override
-    public String getTitle() {
+    public String getCleanTitle() {
         return this.title;
     }
 
@@ -358,7 +357,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     @Override
     public String getPinTitle() {
-        String title = getTitle();
+        String title = getCleanTitle();
         if (pinPrefix != null) title = pinPrefix + title;
         return title;
     }
