@@ -35,9 +35,9 @@ public class StashSortingTermPanel extends AddRemovePanel {
 
     public StashSortingTermPanel(AddRemoveContainer<StashSortingTermPanel> parent, StashSearchTermData data) {
         this(parent);
-        titleInput.setText(data.title());
-        searchInput.setText(data.searchTerm());
-        colorCombo.setSelectedIndex(data.colorIndex());
+        titleInput.setText(data.title);
+        searchInput.setText(data.searchTerm);
+        colorCombo.setSelectedIndex(data.colorIndex);
     }
 
     private void addListeners() {

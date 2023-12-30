@@ -36,8 +36,12 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
     private void addTradeToPanel(TradeOffer tradeOffer, boolean updateUI) {
         if (tradeOffer == null) return;
         switch (tradeOffer.offerType) {
-            case INCOMING_TRADE -> incomingTrades.addRow(tradeOffer, updateUI);
-            case OUTGOING_TRADE -> outgoingTrades.addRow(tradeOffer, updateUI);
+            case INCOMING_TRADE:
+                incomingTrades.addRow(tradeOffer, updateUI);
+                break;
+            case OUTGOING_TRADE:
+                outgoingTrades.addRow(tradeOffer, updateUI);
+                break;
         }
     }
 

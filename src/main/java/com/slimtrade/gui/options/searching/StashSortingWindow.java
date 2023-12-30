@@ -38,7 +38,7 @@ public class StashSortingWindow extends CustomDialog {
      * @param data Search Data
      */
     public StashSortingWindow(StashSearchGroupData data) {
-        this(data.title());
+        this(data.title);
         JPanel buttonPanel = buildButtonPanel(data);
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
@@ -89,7 +89,7 @@ public class StashSortingWindow extends CustomDialog {
         JPanel panel = new JPanel(new GridBagLayout()) {
             @Override
             public String toString() {
-                return data.title();
+                return data.title;
             }
         };
         GridBagConstraints gc = ZUtil.getGC();
@@ -97,9 +97,9 @@ public class StashSortingWindow extends CustomDialog {
         gc.fill = GridBagConstraints.HORIZONTAL;
         int INSET_SIZE = 1;
         gc.insets = new Insets(INSET_SIZE, INSET_SIZE, INSET_SIZE, INSET_SIZE);
-        for (StashSearchTermData term : data.terms()) {
+        for (StashSearchTermData term : data.terms) {
             // FIXME : Make sure term title can't be only white space
-            if (term.title().equals("")) continue;
+            if (term.title.equals("")) continue;
             JButton button = createSearchButton(term);
             panel.add(button, gc);
             gc.insets.top = 0;
@@ -109,11 +109,11 @@ public class StashSortingWindow extends CustomDialog {
     }
 
     private JButton createSearchButton(StashSearchTermData term) {
-        AdvancedButton button = new AdvancedButton(term.title());
+        AdvancedButton button = new AdvancedButton(term.title);
         Color outerBorderColor = UIManager.getColor("Button.background");
         Color innerBorderColor = UIManager.getColor("Button.borderColor");
-        if (term.colorIndex() > 0) {
-            StashTabColor stashColor = StashTabColor.get(term.colorIndex());
+        if (term.colorIndex > 0) {
+            StashTabColor stashColor = StashTabColor.get(term.colorIndex);
             button.setBackground(stashColor.getBackground());
             button.setBackgroundHover(ThemeManager.lighter(stashColor.getBackground()));
             button.setForeground(stashColor.getForeground());
@@ -129,7 +129,7 @@ public class StashSortingWindow extends CustomDialog {
             @Override
             public void click(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    POEInterface.searchInStash(term.searchTerm());
+                    POEInterface.searchInStash(term.searchTerm);
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
                     POEInterface.searchInStash("");
                 }

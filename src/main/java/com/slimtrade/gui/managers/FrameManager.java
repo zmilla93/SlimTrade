@@ -189,7 +189,7 @@ public class FrameManager {
         } else if (windowMode == StashSortingWindowMode.SEPARATE) {
             for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
                 StashSortingWindow window = new StashSortingWindow(group);
-                sortingWindows.put(group.title(), window);
+                sortingWindows.put(group.title, window);
 //                window.setVisible(true);
             }
         }

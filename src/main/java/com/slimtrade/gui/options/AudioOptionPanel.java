@@ -123,7 +123,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private void refreshCombos() {
         for (AudioRowControls control : controlList) {
-            JComboBox<Sound> combo = control.comboBox();
+            JComboBox<Sound> combo = control.comboBox;
             combo.removeAllItems();
             for (Sound sound : AudioManager.getSoundFiles()) {
                 combo.addItem(sound);

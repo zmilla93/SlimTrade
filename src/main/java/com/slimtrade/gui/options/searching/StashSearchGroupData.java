@@ -4,9 +4,18 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.hotkeys.HotkeyData;
 
 // FIXME : Should terms just be an ArrayList for simplicity?
-public record StashSearchGroupData(String title, HotkeyData hotkeyData, StashSearchTermData[] terms) {
+public class StashSearchGroupData {
 
     public static final String PIN_SUFFIX = "::SEARCH_WINDOW";
+    public final String title;
+    public final HotkeyData hotkeyData;
+    public final StashSearchTermData[] terms;
+
+    public StashSearchGroupData(String title, HotkeyData hotkeyData, StashSearchTermData[] terms) {
+        this.title = title;
+        this.hotkeyData = hotkeyData;
+        this.terms = terms;
+    }
 
     public String getPinTitle() {
         return getPinTitle(title);
@@ -20,4 +29,5 @@ public record StashSearchGroupData(String title, HotkeyData hotkeyData, StashSea
     public String toString() {
         return title;
     }
+
 }

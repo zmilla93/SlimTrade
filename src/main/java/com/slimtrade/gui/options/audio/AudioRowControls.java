@@ -6,7 +6,15 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public record AudioRowControls(JComboBox<Sound> comboBox, JSlider slider) {
+public class AudioRowControls {
+
+    public final JComboBox<Sound> comboBox;
+    public final JSlider slider;
+
+    public AudioRowControls(JComboBox<Sound> comboBox, JSlider slider) {
+        this.comboBox = comboBox;
+        this.slider = slider;
+    }
 
     public void setSoundComponent(@NotNull SoundComponent component) {
         comboBox.setSelectedItem(component.sound);

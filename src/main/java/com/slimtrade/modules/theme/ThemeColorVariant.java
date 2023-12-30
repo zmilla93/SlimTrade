@@ -35,33 +35,27 @@ public enum ThemeColorVariant {
         boolean dark = opposite != ThemeManager.getCurrentTheme().isDark();
         if (dark) {
             switch (variant) {
-                case RED -> {
+                case RED:
                     if (colorBlind) return DARK_MAGENTA_CB;
                     else return DARK_RED;
-                }
-                case GREEN -> {
+                case GREEN:
                     if (colorBlind) return DARK_BLUE_CB;
                     else return DARK_GREEN;
-                }
-                case ORANGE -> {
+                case ORANGE:
                     if (colorBlind) return DARK_ORANGE_CB;
                     else return DARK_ORANGE;
-                }
             }
         }
         switch (variant) {
-            case RED -> {
+            case RED:
                 if (colorBlind) return LIGHT_MAGENTA_CB;
                 else return LIGHT_RED;
-            }
-            case GREEN -> {
+            case GREEN:
                 if (colorBlind) return LIGHT_BLUE_CB;
                 else return LIGHT_GREEN;
-            }
-            case ORANGE -> {
+            case ORANGE:
                 if (colorBlind) return LIGHT_ORANGE_CB;
                 else return LIGHT_ORANGE;
-            }
         }
         System.err.println("Invalid color variant!");
         return Color.WHITE;
@@ -75,33 +69,27 @@ public enum ThemeColorVariant {
         boolean dark = ThemeManager.getCurrentTheme().isDark();
         if (dark) {
             switch (messageType) {
-                case INCOMING_TRADE -> {
+                case INCOMING_TRADE:
                     if (colorBlind) return DARK_BLUE_CB;
                     return DARK_GREEN;
-                }
-                case OUTGOING_TRADE -> {
+                case OUTGOING_TRADE:
                     if (colorBlind) return DARK_MAGENTA_CB;
                     return DARK_RED;
-                }
-                case CHAT_SCANNER_MESSAGE -> {
+                case CHAT_SCANNER_MESSAGE:
                     if (colorBlind) return DARK_ORANGE_CB;
                     return DARK_ORANGE;
-                }
             }
         }
         switch (messageType) {
-            case INCOMING_TRADE -> {
+            case INCOMING_TRADE:
                 if (colorBlind) return LIGHT_BLUE_CB;
                 return LIGHT_GREEN;
-            }
-            case OUTGOING_TRADE -> {
+            case OUTGOING_TRADE:
                 if (colorBlind) return LIGHT_MAGENTA_CB;
                 return LIGHT_RED;
-            }
-            case CHAT_SCANNER_MESSAGE -> {
+            case CHAT_SCANNER_MESSAGE:
                 if (colorBlind) return LIGHT_ORANGE_CB;
                 return LIGHT_ORANGE;
-            }
         }
         System.err.println("Invalid color variant!");
         return Color.WHITE;

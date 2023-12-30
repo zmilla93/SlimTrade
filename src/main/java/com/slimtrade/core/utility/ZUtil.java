@@ -78,7 +78,7 @@ public class ZUtil {
      * @return Cleaned string
      */
     public static String cleanString(String input) {
-        return input.trim().replaceAll("\s+", " ");
+        return input.trim().replaceAll("\\s+", " ");
     }
 
 

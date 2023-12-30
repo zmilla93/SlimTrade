@@ -72,10 +72,10 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     }
 
     public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, StashSearchGroupData groupData, boolean hotkeyVisibility) {
-        this(parent, optionPanel, groupData.title());
-        hotkeyButton.setData(groupData.hotkeyData());
+        this(parent, optionPanel, groupData.title);
+        hotkeyButton.setData(groupData.hotkeyData);
         termContainer.removeAll();
-        for (StashSearchTermData termData : groupData.terms()) {
+        for (StashSearchTermData termData : groupData.terms) {
             termContainer.add(new StashSortingTermPanel(termContainer, termData));
         }
         updateHotkeyVisibility(hotkeyVisibility);

@@ -44,7 +44,7 @@ public class TradeUtil {
         if (SaveManager.settingsSaveFile.data.characterName == null) return;
         App.chatParser.startChangeCharacterName();
         Random random = new Random();
-        int rng = random.nextInt(1000000, 9999999);
+        int rng = random.nextInt(9899999) + 1000000;
         POEInterface.runCommand("@{self} Change Character #" + rng, new PasteReplacement(SaveManager.settingsSaveFile.data.characterName, null));
     }
 
