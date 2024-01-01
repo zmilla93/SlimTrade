@@ -1,6 +1,7 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
@@ -16,9 +17,7 @@ public class LoadingDialog extends AbstractDialog {
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         gc.insets = new Insets(INSET_VERTICAL, INSET_HORIZONTAL, INSET_VERTICAL, INSET_HORIZONTAL);
-        JLabel loadingLabel = new JLabel("Loading SlimTrade...");
-        Font font = loadingLabel.getFont();
-        loadingLabel.setFont(font.deriveFont(Font.BOLD, font.getSize()));
+        JLabel loadingLabel = new StyledLabel("Loading SlimTrade...").bold();
         contentPanel.add(loadingLabel, gc);
         contentPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         pack();

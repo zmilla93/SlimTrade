@@ -63,7 +63,7 @@ public class PlaceholderTextField extends JTextField implements FocusListener, D
     }
 
     private void setup() {
-        placeholderLabel.setItalic(true);
+        placeholderLabel.italic();
         placeholderLabel.setColorKey("TitledBorder.titleColor");
         addFocusListener(this);
         getDocument().addDocumentListener(this);

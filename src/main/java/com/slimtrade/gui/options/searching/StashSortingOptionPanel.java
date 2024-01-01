@@ -2,12 +2,12 @@ package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.AddRemoveContainer;
-import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.modules.saving.ISavable;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class StashSortingOptionPanel extends AbstractOptionPanel implements ISavable {
@@ -17,9 +17,9 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
 
     public StashSortingOptionPanel() {
         addHeader("Info");
-        addComponent(new StyledLabel("Pastes search terms into any POE window with a search bar (stashes, skill tree, vendors, etc)."));
-        addComponent(new StyledLabel("Search groups can be separate windows, or a combined window with a group selector."));
-        addComponent(new StyledLabel("Default white will match color theme."));
+        addComponent(new JLabel("Pastes search terms into any POE window with a search bar (stashes, skill tree, vendors, etc)."));
+        addComponent(new JLabel("Search groups can be separate windows, or a combined window with a group selector."));
+        addComponent(new JLabel("Default white will match color theme."));
         addVerticalStrut();
         addHeader("Settings");
         addComponent(settingsPanel);

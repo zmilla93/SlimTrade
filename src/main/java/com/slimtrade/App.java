@@ -67,17 +67,20 @@ public class App {
 
         // Init minimum for loading dialog
         Stopwatch.start();
-        ThemeManager.loadFonts();
+//        ThemeManager.loadFonts();
         SaveManager.init();
+
         profileLaunch("Fonts and Save File");
+
 
         // Loading Dialog
         try {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
+                ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
+                FontManager.loadFonts();
                 ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
                 ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
-                ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
                 loadingDialog = new LoadingDialog();
                 loadingDialog.setVisible(true);
             });
@@ -92,7 +95,6 @@ public class App {
         LangRegex.compileAll();
         POEInterface.init();
         AudioManager.init();
-        FontManager.loadFonts();
         profileLaunch("Managers Launched");
 
         // UI

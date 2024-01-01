@@ -2,6 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.App;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.StyledLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,7 @@ public class HeaderPanel extends JPanel {
         if (App.debugUIBorders >= 2) setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        label = new JLabel(title);
+        label = new StyledLabel(title).bold();
         separator = new JSeparator(SwingConstants.HORIZONTAL);
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;

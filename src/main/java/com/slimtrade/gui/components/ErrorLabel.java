@@ -16,7 +16,6 @@ public class ErrorLabel extends ThemedStyleLabel {
     }
 
     private void setup() {
-        setBold(true);
         setColor(new ThemeColorVariantSetting(ThemeColorVariant.RED, true));
     }
 

@@ -35,13 +35,21 @@ public class StyledLabel extends JLabel {
         updateFont();
     }
 
-    public StyledLabel setBold(boolean bold) {
+    public StyledLabel bold() {
+        return bold(true);
+    }
+
+    public StyledLabel bold(boolean bold) {
         this.bold = bold;
         updateFont();
         return this;
     }
 
-    public StyledLabel setItalic(boolean italic) {
+    public StyledLabel italic() {
+        return italic(true);
+    }
+
+    public StyledLabel italic(boolean italic) {
         this.italic = italic;
         updateFont();
         return this;

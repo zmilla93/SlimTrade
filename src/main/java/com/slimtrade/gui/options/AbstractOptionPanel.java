@@ -12,7 +12,8 @@ import java.awt.*;
  * Used to create consistently formatted option panels.
  * Do not add components directly. Instead, use the addHeader() and addComponent() functions.
  */
-public abstract class AbstractOptionPanel extends JPanel {
+// FIXME : This is no longer abstract, should rename
+public class AbstractOptionPanel extends JPanel {
 
     protected JPanel contentPanel;
     private static final int SCROLL_SPEED = 10;

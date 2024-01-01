@@ -23,41 +23,40 @@ import java.util.*;
 
 public class ThemeManager {
 
+    // FIXME : Should this be moved to frame manager?
     private static final List<Component> frames = new ArrayList<>();
-    private static Theme currentTheme;
+
     private static final ArrayList<IThemeListener> themeListeners = new ArrayList<>();
     private static final ArrayList<IUIResizeListener> uiResizeListeners = new ArrayList<>();
-
-    public static Color POE_TEXT_DARK = new Color(53, 28, 13);
-    public static Color POE_TEXT_LIGHT = new Color(254, 192, 118);
-    private static final int DEFAULT_OFFSET_COLOR_AMOUNT = 20;
-
-    public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
-    public static final Color TRANSPARENT_CLICKABLE = new Color(0, 0, 0, 1);
-
     private static final ArrayList<JComboBox<?>> stickyCombos = new ArrayList<>();
 
-    private static Font font;
-
+    private static int cachedIconSize = 18;
     private static final HashMap<String, ImageIcon> iconMap = new HashMap<>();
     private static final HashMap<String, ImageIcon> colorIconMap = new HashMap<>();
 
-    private static int cacheIconSize = 18;
+    public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
+    public static final Color TRANSPARENT_CLICKABLE = new Color(0, 0, 0, 1);
+    public static final Color POE_TEXT_DARK = new Color(53, 28, 13);
+    public static final Color POE_TEXT_LIGHT = new Color(254, 192, 118);
+    private static final int DEFAULT_OFFSET_COLOR_AMOUNT = 20;
 
-    public static boolean addFrame(Component frame) {
-        if (!frames.contains(frame)) {
-            return frames.add(frame);
-        }
-        return true;
+    private static Theme currentTheme;
+
+    public static void addFrame(Component frame) {
+        if (frames.contains(frame)) return;
+        frames.add(frame);
     }
 
-    public static boolean removeFrame(Component frame) {
-        return frames.remove(frame);
+    public static void removeFrame(Component frame) {
+        frames.remove(frame);
+    }
+
+    public static List<Component> getFrames() {
+        return frames;
     }
 
     // Sticky combos are JComboBoxes that contain colored icons.
     // These combos need to have their selected values manually updated after switching themes
-
     public static void addStickyCombo(JComboBox<?> combo) {
         stickyCombos.add(combo);
     }
@@ -71,6 +70,7 @@ public class ThemeManager {
     }
 
     public static void setTheme(Theme theme, boolean forceThemeRefresh) {
+        assert (SwingUtilities.isEventDispatchThread());
         if (theme == null) theme = Theme.getDefaultColorTheme();
         if (theme == currentTheme && !forceThemeRefresh) return;
         int[] comboIcons = new int[stickyCombos.size()];
@@ -114,45 +114,13 @@ public class ThemeManager {
         return currentTheme;
     }
 
-    public static void loadFonts() {
-        try {
-            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/Roboto-Regular.ttf")));
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            boolean success = ge.registerFont(font);
-//            System.out.println("Font loaded: " + success);
-//            System.out.println("New Font:" + font.getName());
-//            System.out.println("New Font:" + font.getFamily());
-//            for (String f : ge.getAvailableFontFamilyNames()) {
-//                System.out.println("Font ::: " + f);
-//            }
-//            font = new Font("Mongolian Baiti", Font.PLAIN, 2);
-            font = new Font("Arial", Font.PLAIN, 2);
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void refreshDefaultFonts() {
-        Enumeration<Object> keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if (value instanceof Font) {
-                Font oldFont = (Font) value;
-                Font newFont = Font.getFont("Roboto-Regular");
-                UIManager.put(key, font.deriveFont(oldFont.getStyle(), SaveManager.settingsSaveFile.data.fontSize));
-            }
-        }
-    }
-
-
     // When getting an icon, size uses cached size, -1 uses unscaled size
     public static ImageIcon getIcon(String path) {
-        return getIcon(path, cacheIconSize, true);
+        return getIcon(path, cachedIconSize, true);
     }
 
     public static ImageIcon getIcon(String path, boolean resourceFolder) {
-        return getIcon(path, cacheIconSize, resourceFolder);
+        return getIcon(path, cachedIconSize, resourceFolder);
     }
 
     public static ImageIcon getIcon(String path, int size) {
@@ -160,9 +128,9 @@ public class ThemeManager {
     }
 
     public static ImageIcon getIcon(String path, int size, boolean resourceFolder) {
-        if (size == 0) size = cacheIconSize;
+        if (size == 0) size = cachedIconSize;
         // Return cached image if possible
-        if (size == cacheIconSize && iconMap.containsKey(path)) {
+        if (size == cachedIconSize && iconMap.containsKey(path)) {
             return iconMap.get(path);
         }
         try {
@@ -176,7 +144,7 @@ public class ThemeManager {
             } else {
                 icon = new ImageIcon(img.getScaledInstance(size, size, Image.SCALE_SMOOTH));
             }
-            if (size == cacheIconSize) iconMap.put(path, icon);
+            if (size == cachedIconSize) iconMap.put(path, icon);
             return icon;
         } catch (IOException e) {
             e.printStackTrace();
@@ -185,20 +153,20 @@ public class ThemeManager {
     }
 
     public static ImageIcon getColorIcon(String path) {
-        return getColorIcon(path, cacheIconSize);
+        return getColorIcon(path, cachedIconSize);
     }
 
     public static ImageIcon getColorIcon(String path, int size) {
-        if (size == 0) size = cacheIconSize;
+        if (size == 0) size = cachedIconSize;
         // Return cached image if possible
-        if (size == cacheIconSize && colorIconMap.containsKey(path)) {
+        if (size == cachedIconSize && colorIconMap.containsKey(path)) {
             return colorIconMap.get(path);
         }
         // Generate new image
         try {
             BufferedImage img = ImageIO.read(Objects.requireNonNull(ThemeManager.class.getResource(path)));
             ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(size, size, Image.SCALE_SMOOTH));
-            if (size == cacheIconSize) colorIconMap.put(path, icon);
+            if (size == cachedIconSize) colorIconMap.put(path, icon);
             return icon;
         } catch (IOException e) {
             e.printStackTrace();
@@ -222,24 +190,7 @@ public class ThemeManager {
         return image;
     }
 
-    public static void updateFont(Frame frame) {
-        for (Component c : frame.getComponents()) {
-//            c.setFont(c.getFont());
-        }
-    }
-
-//    private static void setUIFont(Font font) {
-//        Enumeration<Object> keys = UIManager.getDefaults().keys();
-//        while (keys.hasMoreElements()) {
-//            Object key = keys.nextElement();
-//            Object value = UIManager.get(key);
-//            if (value instanceof Font)
-//                UIManager.put(key, font);
-//        }
-//    }
-
     public static void setFontSize(int size) {
-//        if(true) return;
         refreshDefaultFonts();
         for (Component frame : frames) {
             setFontSizeRecursive(frame, size);
@@ -254,13 +205,37 @@ public class ThemeManager {
         if (FrameManager.messageManager != null) FrameManager.messageManager.pack();
     }
 
+    private static void setFontSizeRecursive(Component component, int size) {
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                setFontSizeRecursive(child, size);
+            }
+        }
+        Font curFont = component.getFont();
+        component.setFont(curFont.deriveFont(curFont.getStyle(), size));
+    }
+
+    private static void refreshDefaultFonts() {
+        // FIXME : This is currently disabled, but will need to be enabled if the default font is changed
+        if (FontManager.USE_SYSTEM_DEFAULT) return;
+        Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof Font) {
+                Font oldFont = (Font) value;
+                UIManager.put(key, FontManager.getPreferredFont().deriveFont(oldFont.getStyle(), SaveManager.settingsSaveFile.data.fontSize));
+            }
+        }
+    }
+
     public static int getCachedIconSize() {
-        return cacheIconSize;
+        return cachedIconSize;
     }
 
     public static void setIconSize(int size) {
         assert (SwingUtilities.isEventDispatchThread());
-        cacheIconSize = size;
+        cachedIconSize = size;
         iconMap.clear();
         colorIconMap.clear();
         for (Component frame : frames) {
@@ -278,16 +253,6 @@ public class ThemeManager {
         }
     }
 
-    private static void setFontSizeRecursive(Component component, int size) {
-        if (component instanceof Container) {
-            for (Component child : ((Container) component).getComponents()) {
-                setFontSizeRecursive(child, size);
-            }
-        }
-        Font curFont = component.getFont();
-        component.setFont(font.deriveFont(curFont.getStyle(), size));
-    }
-
     private static void setIconSizeRecursive(Component component, int size) {
         if (component instanceof Container) {
             for (Component child : ((Container) component).getComponents()) {
@@ -297,21 +262,11 @@ public class ThemeManager {
         // FIXME :
         if (component instanceof IconButton) {
             ((IconButton) component).setIconSize(size);
-
         }
         if (component instanceof NotificationButton) {
             ((NotificationButton) component).updateUI();
         }
-//        if (component instanceof JComponent) {
-//            ((JComponent) component).updateUI();
-//        }
     }
-
-//    public static JLabel applyLanguageFont(JLabel component){
-//        FontManager.getFontLanguage(component.getText());
-//        FontManager.applyFont(component);
-//        return component;
-//    }
 
     public static void recursiveUpdateUI(JComponent component) {
         component.updateUI();
@@ -319,18 +274,6 @@ public class ThemeManager {
             recursiveUpdateUI((JComponent) child);
         }
     }
-
-//    private static void recursiveUpdateUI(){
-//        for (Component frame : frames) {
-//            setIconSizeRecursive(frame, size);
-//            frame.revalidate();
-//            frame.repaint();
-//            // FIXME
-//            if (frame instanceof BasicDialog) {
-//                ((BasicDialog) frame).pack();
-//            }
-//        }
-//    }
 
     //
     // Utility Color Functions
@@ -372,7 +315,7 @@ public class ThemeManager {
     }
 
     /**
-     * Dumps all the Key, Value pairs from the UIManager into console. ~1300 entries.
+     * Dumps all the Key, Value pairs from the UIManager into the clipboard.
      */
     public static void debugKeyValueDump() {
         Enumeration<Object> keys = UIManager.getDefaults().keys();
@@ -380,7 +323,7 @@ public class ThemeManager {
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);
-            builder.append(key).append(" :::").append(value).append("\n");
+            builder.append(key).append(" ::: ").append(value).append("\n");
         }
         StringSelection selection = new StringSelection(builder.toString());
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);

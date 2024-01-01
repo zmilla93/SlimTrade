@@ -2,6 +2,7 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
@@ -116,7 +117,7 @@ public class OptionsWindow extends CustomDialog {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        bottomButtonPanel.add(new JLabel("SlimTrade v0.4.0-DEV"), gc);
+        bottomButtonPanel.add(new StyledLabel("SlimTrade v0.4.0-DEV").bold(), gc);
         gc.gridy++;
         gc.weightx = 1;
         gc.fill = GridBagConstraints.BOTH;
