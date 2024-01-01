@@ -83,7 +83,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         getRootPane().setOpaque(false);
         ThemeManager.addFrame(this);
         ThemeManager.addThemeListener(this);
-        PinManager.addPinnable(this);
+        addToPingManager();
 
         // Title Bar
         if (!thin) {
@@ -340,6 +340,10 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     @Override
     public void onThemeChange() {
         colorBorders();
+    }
+
+    protected void addToPingManager() {
+        PinManager.addPinnable(this);
     }
 
     @Override

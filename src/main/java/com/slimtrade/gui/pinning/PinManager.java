@@ -13,13 +13,19 @@ import java.util.Map;
 public class PinManager {
 
     private static final HashMap<String, IPinnable> pinnables = new HashMap<>();
+    private static final HashMap<String, IPinnable> cheatSheetPinnables = new HashMap<>();
     private static final HashMap<String, Rectangle> searchWindowMap = new HashMap<>();
 
     public static void addPinnable(IPinnable pinnable) {
         pinnables.put(pinnable.getPinTitle(), pinnable);
     }
 
+    public static void addSearchPinnable(IPinnable pinnable) {
+        cheatSheetPinnables.put(pinnable.getPinTitle(), pinnable);
+    }
+
     public static void removePinnable(IPinnable pinnable) {
+        cheatSheetPinnables.remove(pinnable.getPinTitle());
         pinnables.remove(pinnable.getPinTitle());
     }
 

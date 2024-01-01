@@ -4,6 +4,7 @@ import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.hotkeys.*;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.options.searching.StashSortingWindowMode;
 import com.slimtrade.gui.windows.CheatSheetWindow;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -38,6 +39,12 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.menagerieHotkey, new PoeHotkey("/menagerie"));
         registerHotkey(SaveManager.settingsSaveFile.data.metamorphHotkey, new PoeHotkey("/metamorph"));
         registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeHotkey("/remaining"));
+        // Stash Searching
+        if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSortingWindowMode.COMBINED) {
+            registerHotkey(SaveManager.settingsSaveFile.data.stashSearchHotkey, new AppHotkey(FrameManager.sortingWindow));
+        } else {
+            // TODO : Separate stash searching hotkeys
+        }
         // Quick Paste
         if (SaveManager.settingsSaveFile.data.quickPasteMode == QuickPasteManager.QuickPasteMode.HOTKEY)
             registerHotkey(SaveManager.settingsSaveFile.data.quickPasteHotkey, new QuickPasteHotkey());
@@ -50,6 +57,7 @@ public class HotkeyManager {
 
     private static void registerHotkey(HotkeyData hotkeyData, IHotkeyAction action) {
         if (hotkeyData == null) return;
+        // FIXME : Should inform user of duplicate hotkeys
         if (hotkeyMap.containsKey(hotkeyData)) return;   // Duplicate hotkeys are ignored
         hotkeyMap.put(hotkeyData, action);
     }

@@ -4,6 +4,7 @@ import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.CustomDialog;
 import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.AdvancedButton;
@@ -136,6 +137,11 @@ public class StashSortingWindow extends CustomDialog {
             }
         });
         return button;
+    }
+
+    @Override
+    protected void addToPingManager() {
+        PinManager.addSearchPinnable(this);
     }
 
 }

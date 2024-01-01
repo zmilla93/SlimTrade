@@ -14,6 +14,7 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
 
     protected final StashSortingSettingsPanel settingsPanel = new StashSortingSettingsPanel();
     private final AddRemoveContainer<StashSortingGroupPanel> entryContainer = new AddRemoveContainer<>();
+    private final ArrayList<Integer> idsToReset = new ArrayList<Integer>();
 
     public StashSortingOptionPanel() {
         addHeader("Info");
@@ -59,8 +60,30 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
         return false;
     }
 
+    public int getNextId() {
+        int id = 1;
+        boolean found = false;
+        while (!found) {
+            found = true;
+            for (StashSortingGroupPanel panel : entryContainer.getComponentsTyped()) {
+                if (panel.getData().id == id) {
+                    id++;
+                    found = false;
+                    break;
+                }
+            }
+        }
+        return id;
+    }
+
+    public void addIdToReset(int id) {
+        idsToReset.add(id);
+    }
+
     @Override
     public void save() {
+        // TODO : Reset id data
+        idsToReset.clear();
         ArrayList<StashSortingGroupPanel> panels = new ArrayList<>();
         ArrayList<StashSearchGroupData> data = new ArrayList<>();
         for (StashSortingGroupPanel groupPanel : entryContainer.getComponentsTyped()) {
@@ -82,6 +105,7 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
     @Override
     public void load() {
         entryContainer.removeAll();
+        idsToReset.clear();
         boolean groupHotkeyVisibility = SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSortingWindowMode.SEPARATE;
         for (StashSearchGroupData data : SaveManager.settingsSaveFile.data.stashSearchData) {
             entryContainer.add(new StashSortingGroupPanel(entryContainer, this, data, groupHotkeyVisibility));

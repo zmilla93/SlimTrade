@@ -13,6 +13,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     private final JButton removeButton = new IconButton("/icons/default/closex64.png");
     private final JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
     private final JButton shiftDownButton = new IconButton("/icons/default/arrow-downx48.png");
+    private final int id;
     private String groupName;
     private String savedGroupName;
     private boolean showRename;
@@ -28,8 +29,14 @@ public class StashSortingGroupPanel extends AddRemovePanel {
 
     // TODO : Window hotkey button
     public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, String name) {
+        this(parent, optionPanel, name, -1);
+    }
+
+    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, String name, int id) {
         super(parent);
         this.optionPanel = optionPanel;
+        this.id = id == -1 ? optionPanel.getNextId() : id;
+
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
 
@@ -72,7 +79,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     }
 
     public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, StashSearchGroupData groupData, boolean hotkeyVisibility) {
-        this(parent, optionPanel, groupData.title);
+        this(parent, optionPanel, groupData.title, groupData.id);
         hotkeyButton.setData(groupData.hotkeyData);
         termContainer.removeAll();
         for (StashSearchTermData termData : groupData.terms) {
@@ -84,7 +91,10 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     private void addListeners() {
         shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
         shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
-        removeButton.addActionListener(e -> removeFromParent());
+        removeButton.addActionListener(e -> {
+            optionPanel.addIdToReset(id);
+            removeFromParent();
+        });
         newTermButton.addActionListener(e -> termContainer.add(new StashSortingTermPanel(termContainer)));
         renameButton.addActionListener(e -> showHideRename(true));
         applyRenameButton.addActionListener(e -> {
@@ -144,7 +154,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
             termList.add(termPanel.getData());
         }
         StashSearchTermData[] terms = termList.toArray(new StashSearchTermData[0]);
-        return new StashSearchGroupData(groupName, hotkeyButton.getData(), terms);
+        return new StashSearchGroupData(id, groupName, hotkeyButton.getData(), terms);
     }
 
 }
