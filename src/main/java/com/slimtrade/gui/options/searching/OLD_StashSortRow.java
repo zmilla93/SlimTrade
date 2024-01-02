@@ -11,14 +11,14 @@ import java.awt.*;
 @Deprecated
 public class OLD_StashSortRow extends AddRemovePanel {
 
-    private StashSortData data;
+    private StashSearchData data;
     private JButton removeButton = new IconButton("/icons/default/closex64.png");
     private JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
     private JButton shiftDownButton = new IconButton("/icons/default/arrow-downx48.png");
     private JLabel tagLabel = new JLabel();
     private JLabel searchLabel = new JLabel();
 
-    public OLD_StashSortRow(AddRemoveContainer parent, StashSortData data) {
+    public OLD_StashSortRow(AddRemoveContainer parent, StashSearchData data) {
         super(parent);
         this.data = data;
         tagLabel.setText(data.title);
@@ -49,7 +49,7 @@ public class OLD_StashSortRow extends AddRemovePanel {
         shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
     }
 
-    public StashSortData getData() {
+    public StashSearchData getData() {
         return data;
     }
 

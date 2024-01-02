@@ -2,13 +2,13 @@ package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.utility.ZUtil;
 
-public enum StashSortingWindowMode {
+public enum StashSearchWindowMode {
 
     COMBINED, SEPARATE;
 
     private final String cleanName;
 
-    StashSortingWindowMode() {
+    StashSearchWindowMode() {
         cleanName = ZUtil.enumToString(name());
     }
 

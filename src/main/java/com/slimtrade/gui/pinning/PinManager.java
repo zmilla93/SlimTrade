@@ -2,8 +2,8 @@ package com.slimtrade.gui.pinning;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.options.searching.StashSortingGroupPanel;
-import com.slimtrade.gui.options.searching.StashSortingWindow;
+import com.slimtrade.gui.options.searching.StashSearchGroupPanel;
+import com.slimtrade.gui.options.searching.StashSearchWindow;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -50,23 +50,23 @@ public class PinManager {
 
     public static void storeSearchWindowPins() {
         searchWindowMap.clear();
-        for (Map.Entry<String, StashSortingWindow> entry : FrameManager.sortingWindows.entrySet()) {
-            StashSortingWindow window = entry.getValue();
+        for (Map.Entry<String, StashSearchWindow> entry : FrameManager.searchWindows.entrySet()) {
+            StashSearchWindow window = entry.getValue();
             pinnables.remove(window.getPinTitle());
             if (!window.isPinned()) continue;
             searchWindowMap.put(window.getCleanTitle(), window.getPinRectangle());
         }
     }
 
-    public static void restoreSearchWindowPins(ArrayList<StashSortingGroupPanel> panels) {
+    public static void restoreSearchWindowPins(ArrayList<StashSearchGroupPanel> panels) {
         HashMap<String, Rectangle> newSearchMap = new HashMap<>();
-        for (StashSortingGroupPanel panel : panels) {
+        for (StashSearchGroupPanel panel : panels) {
             String oldName = panel.getSavedGroupName();
             Rectangle rect = searchWindowMap.get(oldName);
             if (rect != null) newSearchMap.put(panel.getGroupName(), rect);
             panel.updateSavedGroupName();
         }
-        for (StashSortingWindow window : FrameManager.sortingWindows.values()) {
+        for (StashSearchWindow window : FrameManager.searchWindows.values()) {
             Rectangle rect = newSearchMap.get(window.getCleanTitle());
             if (rect == null) continue;
             window.applyPin(rect);

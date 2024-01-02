@@ -7,14 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 
 @Deprecated
-public class StashSortInputPanel extends JPanel {
+public class OLD_StashSearchInputPanel extends JPanel {
 
     private JButton submitButton = new JButton("Add Search");
     private JTextField tagInput = new JTextField(10);
     private JTextField searchInput = new JTextField(20);
     private JComboBox colorCombo = new ColorCombo();
 
-    public StashSortInputPanel() {
+    public OLD_StashSearchInputPanel() {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         gc.gridx = 1;
@@ -39,8 +39,8 @@ public class StashSortInputPanel extends JPanel {
         return submitButton;
     }
 
-    public StashSortData getData() {
-        return new StashSortData(tagInput.getText(), searchInput.getText(), colorCombo.getSelectedIndex());
+    public StashSearchData getData() {
+        return new StashSearchData(tagInput.getText(), searchInput.getText(), colorCombo.getSelectedIndex());
     }
 
 }

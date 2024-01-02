@@ -9,7 +9,7 @@ import com.slimtrade.modules.theme.components.ColorCombo;
 import javax.swing.*;
 import java.awt.*;
 
-public class StashSortingTermPanel extends AddRemovePanel {
+public class StashSearchTermPanel extends AddRemovePanel {
 
     private final JButton removeButton = new IconButton("/icons/default/closex64.png");
     private final JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
@@ -19,7 +19,7 @@ public class StashSortingTermPanel extends AddRemovePanel {
     private final JTextField searchInput = new PlaceholderTextField("Search Term...", 20);
     private final ColorCombo colorCombo = new ColorCombo();
 
-    public StashSortingTermPanel(AddRemoveContainer<StashSortingTermPanel> parent) {
+    public StashSearchTermPanel(AddRemoveContainer<StashSearchTermPanel> parent) {
         super(parent);
 
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -33,7 +33,7 @@ public class StashSortingTermPanel extends AddRemovePanel {
         addListeners();
     }
 
-    public StashSortingTermPanel(AddRemoveContainer<StashSortingTermPanel> parent, StashSearchTermData data) {
+    public StashSearchTermPanel(AddRemoveContainer<StashSearchTermPanel> parent, StashSearchTermData data) {
         this(parent);
         titleInput.setText(data.title);
         searchInput.setText(data.searchTerm);

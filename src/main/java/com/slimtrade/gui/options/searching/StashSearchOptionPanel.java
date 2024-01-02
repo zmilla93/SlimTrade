@@ -10,13 +10,13 @@ import com.slimtrade.modules.saving.ISavable;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class StashSortingOptionPanel extends AbstractOptionPanel implements ISavable {
+public class StashSearchOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    protected final StashSortingSettingsPanel settingsPanel = new StashSortingSettingsPanel();
-    private final AddRemoveContainer<StashSortingGroupPanel> entryContainer = new AddRemoveContainer<>();
+    protected final StashSearchSettingsPanel settingsPanel = new StashSearchSettingsPanel();
+    private final AddRemoveContainer<StashSearchGroupPanel> entryContainer = new AddRemoveContainer<>();
     private final ArrayList<Integer> idsToReset = new ArrayList<Integer>();
 
-    public StashSortingOptionPanel() {
+    public StashSearchOptionPanel() {
         addHeader("Info");
         addComponent(new JLabel("Pastes search terms into any POE window with a search bar (stashes, skill tree, vendors, etc)."));
         addComponent(new JLabel("Search groups can be separate windows, or a combined window with a group selector."));
@@ -36,9 +36,9 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
             settingsPanel.setError(error);
         });
         settingsPanel.modeCombo.addActionListener(e -> {
-            StashSortingWindowMode mode = (StashSortingWindowMode) settingsPanel.modeCombo.getSelectedItem();
-            boolean visibility = mode == StashSortingWindowMode.SEPARATE;
-            for (StashSortingGroupPanel panel : entryContainer.getComponentsTyped()) {
+            StashSearchWindowMode mode = (StashSearchWindowMode) settingsPanel.modeCombo.getSelectedItem();
+            boolean visibility = mode == StashSearchWindowMode.SEPARATE;
+            for (StashSearchGroupPanel panel : entryContainer.getComponentsTyped()) {
                 panel.updateHotkeyVisibility(visibility);
             }
         });
@@ -48,13 +48,13 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
         String name = settingsPanel.getNewSearchGroupName();
         if (name.equals("")) return "Enter a valid group name!";
         if (isDuplicateName(name)) return "Duplicate name, group names must be unique!";
-        entryContainer.add(new StashSortingGroupPanel(entryContainer, this, name));
+        entryContainer.add(new StashSearchGroupPanel(entryContainer, this, name));
         settingsPanel.clearText();
         return null;
     }
 
     public boolean isDuplicateName(String name) {
-        for (StashSortingGroupPanel panel : entryContainer.getComponentsTyped()) {
+        for (StashSearchGroupPanel panel : entryContainer.getComponentsTyped()) {
             if (name.equals(panel.getGroupName())) return true;
         }
         return false;
@@ -65,7 +65,7 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
         boolean found = false;
         while (!found) {
             found = true;
-            for (StashSortingGroupPanel panel : entryContainer.getComponentsTyped()) {
+            for (StashSearchGroupPanel panel : entryContainer.getComponentsTyped()) {
                 if (panel.getData().id == id) {
                     id++;
                     found = false;
@@ -84,9 +84,9 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
     public void save() {
         // TODO : Reset id data
         idsToReset.clear();
-        ArrayList<StashSortingGroupPanel> panels = new ArrayList<>();
+        ArrayList<StashSearchGroupPanel> panels = new ArrayList<>();
         ArrayList<StashSearchGroupData> data = new ArrayList<>();
-        for (StashSortingGroupPanel groupPanel : entryContainer.getComponentsTyped()) {
+        for (StashSearchGroupPanel groupPanel : entryContainer.getComponentsTyped()) {
             groupPanel.applyPendingGroupRename();
             panels.add(groupPanel);
             data.add(groupPanel.getData());
@@ -106,9 +106,9 @@ public class StashSortingOptionPanel extends AbstractOptionPanel implements ISav
     public void load() {
         entryContainer.removeAll();
         idsToReset.clear();
-        boolean groupHotkeyVisibility = SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSortingWindowMode.SEPARATE;
+        boolean groupHotkeyVisibility = SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.SEPARATE;
         for (StashSearchGroupData data : SaveManager.settingsSaveFile.data.stashSearchData) {
-            entryContainer.add(new StashSortingGroupPanel(entryContainer, this, data, groupHotkeyVisibility));
+            entryContainer.add(new StashSearchGroupPanel(entryContainer, this, data, groupHotkeyVisibility));
         }
     }
 

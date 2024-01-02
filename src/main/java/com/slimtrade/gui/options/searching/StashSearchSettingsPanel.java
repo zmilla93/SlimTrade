@@ -11,20 +11,20 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.*;
 
-public class StashSortingSettingsPanel extends JPanel implements ISavable {
+public class StashSearchSettingsPanel extends JPanel implements ISavable {
 
     public final JButton newSearchGroupButton = new JButton("New Search Group");
     private final JTextField newSearchGroupNameInput = new PlaceholderTextField("Group Name...", 20);
     private final ThemedStyleLabel errorLabel = new ErrorLabel();
     private final JLabel windowHotkeyLabel = new JLabel("Window Hotkey");
 
-    public final JComboBox<StashSortingWindowMode> modeCombo = new JComboBox<>();
+    public final JComboBox<StashSearchWindowMode> modeCombo = new JComboBox<>();
     private final HotkeyButton hotkeyButton = new HotkeyButton();
 
-    public StashSortingSettingsPanel() {
+    public StashSearchSettingsPanel() {
         setLayout(new GridBagLayout());
 
-        for (StashSortingWindowMode mode : StashSortingWindowMode.values()) modeCombo.addItem(mode);
+        for (StashSearchWindowMode mode : StashSearchWindowMode.values()) modeCombo.addItem(mode);
         JPanel newSearchGroupPanel = new ComponentPair(newSearchGroupButton, newSearchGroupNameInput);
 
         GridBagConstraints gc = ZUtil.getGC();
@@ -91,15 +91,15 @@ public class StashSortingSettingsPanel extends JPanel implements ISavable {
     }
 
     private void updateHotkeyButtonVisibility() {
-        StashSortingWindowMode mode = (StashSortingWindowMode) modeCombo.getSelectedItem();
-        boolean visible = mode == StashSortingWindowMode.COMBINED;
+        StashSearchWindowMode mode = (StashSearchWindowMode) modeCombo.getSelectedItem();
+        boolean visible = mode == StashSearchWindowMode.COMBINED;
         hotkeyButton.setVisible(visible);
         windowHotkeyLabel.setVisible(visible);
     }
 
     @Override
     public void save() {
-        SaveManager.settingsSaveFile.data.stashSearchWindowMode = (StashSortingWindowMode) modeCombo.getSelectedItem();
+        SaveManager.settingsSaveFile.data.stashSearchWindowMode = (StashSearchWindowMode) modeCombo.getSelectedItem();
         SaveManager.settingsSaveFile.data.stashSearchHotkey = hotkeyButton.getData();
     }
 

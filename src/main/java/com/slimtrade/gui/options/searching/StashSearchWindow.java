@@ -15,16 +15,18 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class StashSortingWindow extends CustomDialog {
+public class StashSearchWindow extends CustomDialog {
 
     private static final String PIN_PREFIX = "SEARCH_WINDOW:";
+    private boolean combinedWindow = false;
+    private StashSearchGroupData data;
 
     /**
      * Mutual constructor, should be called by all other constructors.
      *
      * @param title Display title
      */
-    private StashSortingWindow(String title) {
+    private StashSearchWindow(String title) {
         super(title, PIN_PREFIX, true);
         setMinimumSize(null);
         setFocusable(false);
@@ -38,8 +40,9 @@ public class StashSortingWindow extends CustomDialog {
      *
      * @param data Search Data
      */
-    public StashSortingWindow(StashSearchGroupData data) {
+    public StashSearchWindow(StashSearchGroupData data) {
         this(data.title);
+        this.data = data;
         JPanel buttonPanel = buildButtonPanel(data);
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
@@ -54,15 +57,12 @@ public class StashSortingWindow extends CustomDialog {
      *
      * @param data ArrayList of Search Data
      */
-    public StashSortingWindow(ArrayList<StashSearchGroupData> data) {
-        this("Sorting");
+    public StashSearchWindow(ArrayList<StashSearchGroupData> data) {
+        this("Searching");
+        combinedWindow = true;
         JComboBox<JPanel> comboBox = new JComboBox<>();
-//        CardLayout cardLayout = new CardLayout();
-//        JPanel cardPanel = new JPanel(cardLayout);
-
         for (StashSearchGroupData group : data) {
             JPanel panel = buildButtonPanel(group);
-//            cardPanel.add(panel, group.title());
             comboBox.addItem(panel);
         }
         JPanel buttonContainer = new JPanel();
@@ -141,7 +141,8 @@ public class StashSortingWindow extends CustomDialog {
 
     @Override
     protected void addToPingManager() {
-        PinManager.addSearchPinnable(this);
+        if (combinedWindow) PinManager.addPinnable(this);
+        else PinManager.addSearchPinnable(this);
     }
 
 }

@@ -4,7 +4,7 @@ import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.hotkeys.*;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.gui.options.searching.StashSortingWindowMode;
+import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.gui.windows.CheatSheetWindow;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -40,8 +40,8 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.metamorphHotkey, new PoeHotkey("/metamorph"));
         registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeHotkey("/remaining"));
         // Stash Searching
-        if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSortingWindowMode.COMBINED) {
-            registerHotkey(SaveManager.settingsSaveFile.data.stashSearchHotkey, new AppHotkey(FrameManager.sortingWindow));
+        if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
+            registerHotkey(SaveManager.settingsSaveFile.data.stashSearchHotkey, new AppHotkey(FrameManager.searchWindow));
         } else {
             // TODO : Separate stash searching hotkeys
         }

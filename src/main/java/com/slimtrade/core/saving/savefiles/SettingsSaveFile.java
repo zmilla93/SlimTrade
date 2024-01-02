@@ -11,7 +11,7 @@ import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.listening.IColorBlindChangeListener;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
-import com.slimtrade.gui.options.searching.StashSortingWindowMode;
+import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.modules.theme.Theme;
 
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public class SettingsSaveFile {
 
     // Searching
     public ArrayList<StashSearchGroupData> stashSearchData = new ArrayList<>();
-    public StashSortingWindowMode stashSearchWindowMode = StashSortingWindowMode.COMBINED;
+    public StashSearchWindowMode stashSearchWindowMode = StashSearchWindowMode.COMBINED;
     public HotkeyData stashSearchHotkey;
 
     public SettingsSaveFile() {

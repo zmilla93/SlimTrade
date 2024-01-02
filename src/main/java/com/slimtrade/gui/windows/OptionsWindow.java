@@ -6,7 +6,7 @@ import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
-import com.slimtrade.gui.options.searching.StashSortingOptionPanel;
+import com.slimtrade.gui.options.searching.StashSearchOptionPanel;
 import com.slimtrade.gui.options.stash.StashOptionPanel;
 
 import javax.swing.*;
@@ -40,9 +40,9 @@ public class OptionsWindow extends CustomDialog {
         OptionPanel hotkeys = new OptionPanel("Hotkeys", new HotkeyOptionPanel());
         OptionPanel ignoreItems = new OptionPanel("Ignore Items", ignorePanel);
         OptionPanel cheatSheets = new OptionPanel("Cheat Sheets", new CheatSheetsOptionPanel());
-        OptionPanel stashSorting = new OptionPanel("Stash Sorting", new StashSortingOptionPanel());
+        OptionPanel stashSearch = new OptionPanel("Searching", new StashSearchOptionPanel());
         OptionPanel debug = new OptionPanel("Debug", new DebugOptionPanel());
-        OptionPanel[] panelList = new OptionPanel[]{general, display, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSorting, information};
+        OptionPanel[] panelList = new OptionPanel[]{general, display, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSearch, information};
         if (App.debug) {
             OptionPanel[] newList = new OptionPanel[panelList.length + 1];
             System.arraycopy(panelList, 0, newList, 0, panelList.length);
@@ -93,7 +93,7 @@ public class OptionsWindow extends CustomDialog {
 
         // Finalize
         // FIXME : Remove this line
-        showPanel(stashSorting);
+        showPanel(stashSearch);
         setMinimumSize(new Dimension(500, 400));
         pack();
         // FIXME : Add max size

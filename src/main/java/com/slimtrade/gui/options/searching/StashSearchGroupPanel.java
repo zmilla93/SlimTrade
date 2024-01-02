@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class StashSortingGroupPanel extends AddRemovePanel {
+public class StashSearchGroupPanel extends AddRemovePanel {
 
     private final JButton removeButton = new IconButton("/icons/default/closex64.png");
     private final JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
@@ -24,15 +24,15 @@ public class StashSortingGroupPanel extends AddRemovePanel {
     private final JButton newTermButton = new JButton("Add New Term");
     private final HotkeyButton hotkeyButton = new HotkeyButton();
 
-    private final AddRemoveContainer<StashSortingTermPanel> termContainer = new AddRemoveContainer<>();
-    private final StashSortingOptionPanel optionPanel;
+    private final AddRemoveContainer<StashSearchTermPanel> termContainer = new AddRemoveContainer<>();
+    private final StashSearchOptionPanel optionPanel;
 
     // TODO : Window hotkey button
-    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, String name) {
+    public StashSearchGroupPanel(AddRemoveContainer<StashSearchGroupPanel> parent, StashSearchOptionPanel optionPanel, String name) {
         this(parent, optionPanel, name, -1);
     }
 
-    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, String name, int id) {
+    public StashSearchGroupPanel(AddRemoveContainer<StashSearchGroupPanel> parent, StashSearchOptionPanel optionPanel, String name, int id) {
         super(parent);
         this.optionPanel = optionPanel;
         this.id = id == -1 ? optionPanel.getNextId() : id;
@@ -72,18 +72,18 @@ public class StashSortingGroupPanel extends AddRemovePanel {
         showHideRename(false);
         updateGroupName(name);
         updateSavedGroupName();
-        boolean showHotkeyButton = optionPanel.settingsPanel.modeCombo.getSelectedItem() == StashSortingWindowMode.SEPARATE;
+        boolean showHotkeyButton = optionPanel.settingsPanel.modeCombo.getSelectedItem() == StashSearchWindowMode.SEPARATE;
         updateHotkeyVisibility(showHotkeyButton);
-        termContainer.add(new StashSortingTermPanel(termContainer));
-        termContainer.add(new StashSortingTermPanel(termContainer));
+        termContainer.add(new StashSearchTermPanel(termContainer));
+        termContainer.add(new StashSearchTermPanel(termContainer));
     }
 
-    public StashSortingGroupPanel(AddRemoveContainer<StashSortingGroupPanel> parent, StashSortingOptionPanel optionPanel, StashSearchGroupData groupData, boolean hotkeyVisibility) {
+    public StashSearchGroupPanel(AddRemoveContainer<StashSearchGroupPanel> parent, StashSearchOptionPanel optionPanel, StashSearchGroupData groupData, boolean hotkeyVisibility) {
         this(parent, optionPanel, groupData.title, groupData.id);
         hotkeyButton.setData(groupData.hotkeyData);
         termContainer.removeAll();
         for (StashSearchTermData termData : groupData.terms) {
-            termContainer.add(new StashSortingTermPanel(termContainer, termData));
+            termContainer.add(new StashSearchTermPanel(termContainer, termData));
         }
         updateHotkeyVisibility(hotkeyVisibility);
     }
@@ -95,7 +95,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
             optionPanel.addIdToReset(id);
             removeFromParent();
         });
-        newTermButton.addActionListener(e -> termContainer.add(new StashSortingTermPanel(termContainer)));
+        newTermButton.addActionListener(e -> termContainer.add(new StashSearchTermPanel(termContainer)));
         renameButton.addActionListener(e -> showHideRename(true));
         applyRenameButton.addActionListener(e -> {
             showHideRename(false);
@@ -150,7 +150,7 @@ public class StashSortingGroupPanel extends AddRemovePanel {
 
     public StashSearchGroupData getData() {
         ArrayList<StashSearchTermData> termList = new ArrayList<>();
-        for (StashSortingTermPanel termPanel : termContainer.getComponentsTyped()) {
+        for (StashSearchTermPanel termPanel : termContainer.getComponentsTyped()) {
             termList.add(termPanel.getData());
         }
         StashSearchTermData[] terms = termList.toArray(new StashSearchTermData[0]);
