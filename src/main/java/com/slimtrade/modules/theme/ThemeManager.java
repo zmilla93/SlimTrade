@@ -6,7 +6,6 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.buttons.NotificationButton;
-import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.theme.components.ColorCheckbox;
 
@@ -201,8 +200,6 @@ public class ThemeManager {
         for (IUIResizeListener listener : uiResizeListeners) {
             listener.onFontSizeChanged();
         }
-        // FIXME : add an interface for this
-        if (FrameManager.messageManager != null) FrameManager.messageManager.pack();
     }
 
     private static void setFontSizeRecursive(Component component, int size) {

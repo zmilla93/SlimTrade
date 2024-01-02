@@ -35,7 +35,7 @@ import java.util.concurrent.Executors;
  * @see com.slimtrade.gui.messaging.ChatScannerMessagePanel
  * @see UpdateMessagePanel
  */
-public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IThemeListener, IUIResizeListener {
+public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IUIResizeListener {
 
     //    private final Container contentPanel;
     private final JPanel messageContainer;
@@ -100,7 +100,6 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             }
         };
 
-        ThemeManager.addThemeListener(this);
         ThemeManager.addFontListener(this);
         setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         refreshFadeData();
@@ -421,19 +420,9 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         }
     }
 
-    //
-    // Interfaces
-    //
-
     @Override
     public void handleTrade(TradeOffer tradeOffer) {
         SwingUtilities.invokeLater(() -> addMessage(tradeOffer));
-    }
-
-    @Override
-    public void onThemeChange() {
-        revalidate();
-        repaint();
     }
 
     @Override
@@ -452,7 +441,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
 
     @Override
     public void onFontSizeChanged() {
-        // Do Nothing
+        refresh();
     }
 
     @Override
@@ -464,4 +453,5 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         }
         pack();
     }
+
 }
