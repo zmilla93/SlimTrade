@@ -61,8 +61,9 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     protected final NotificationIconButton closeButton = new NotificationIconButton("/icons/default/closex64.png");
     protected final PinButton pinButton = new PinButton();
 
+    // FIXME : Dialogs now always use thin mode, could remove
     public CustomDialog(String title) {
-        this(title, false);
+        this(title, true);
     }
 
     public CustomDialog(String title, boolean thin) {

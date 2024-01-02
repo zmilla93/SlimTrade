@@ -26,7 +26,7 @@ public class StashSearchWindow extends CustomDialog {
      * @param title Display title
      */
     private StashSearchWindow(String title) {
-        super(title, false, false);
+        super(title, true, false);
         setMinimumSize(null);
         setFocusable(false);
         setFocusableWindowState(false);
