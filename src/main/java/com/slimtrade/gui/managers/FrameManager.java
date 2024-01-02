@@ -38,7 +38,7 @@ public class FrameManager {
     public static PatchNotesWindow patchNotesWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
     public static HashMap<String, StashSearchWindow> searchWindows = new HashMap<>();
-    public static StashSearchWindow searchWindow;
+    public static StashSearchWindow combinedSearchWindow;
     public static SetupWindow setupWindow;
 
     // Overlays
@@ -163,7 +163,7 @@ public class FrameManager {
             CheatSheetWindow window = CheatSheetWindow.createCheatSheet(data);
             if (window != null) cheatSheetWindows.put(data.title, window);
         }
-        PinManager.applyAllPins();
+        PinManager.applyCheatSheetPins();
         for (CheatSheetWindow window : cheatSheetWindows.values()) {
             if (openWindows.contains(window.getPinTitle())) window.setVisible(true);
         }
@@ -177,15 +177,15 @@ public class FrameManager {
             if (window.isVisible()) openWindows.add(window.getPinTitle());
             window.dispose();
         }
-        if (searchWindow != null) {
-            if (searchWindow.isVisible()) openWindows.add(searchWindow.getPinTitle());
-            searchWindow.dispose();
+        if (combinedSearchWindow != null) {
+            if (combinedSearchWindow.isVisible()) openWindows.add(combinedSearchWindow.getPinTitle());
+            combinedSearchWindow.dispose();
         }
         searchWindows.clear();
         // Build new window(s)
         StashSearchWindowMode windowMode = SaveManager.settingsSaveFile.data.stashSearchWindowMode;
         if (windowMode == StashSearchWindowMode.COMBINED) {
-            searchWindow = new StashSearchWindow(SaveManager.settingsSaveFile.data.stashSearchData);
+            combinedSearchWindow = new StashSearchWindow(SaveManager.settingsSaveFile.data.stashSearchData);
         } else if (windowMode == StashSearchWindowMode.SEPARATE) {
             for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
                 StashSearchWindow window = new StashSearchWindow(group);
@@ -195,7 +195,7 @@ public class FrameManager {
         // Apply pins and visibility
         PinManager.applySearchWindowPins();
         if (windowMode == StashSearchWindowMode.COMBINED) {
-            if (openWindows.contains(searchWindow.getPinTitle())) searchWindow.setVisible(true);
+            if (openWindows.contains(combinedSearchWindow.getPinTitle())) combinedSearchWindow.setVisible(true);
         } else if (windowMode == StashSearchWindowMode.SEPARATE) {
             for (StashSearchWindow window : searchWindows.values()) {
                 if (openWindows.contains(window.getPinTitle())) window.setVisible(true);

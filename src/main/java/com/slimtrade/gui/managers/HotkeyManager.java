@@ -42,7 +42,7 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeCommandHotkey("/remaining"));
         // Stash Searching
         if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
-            registerHotkey(SaveManager.settingsSaveFile.data.stashSearchHotkey, new WindowHotkey(FrameManager.searchWindow));
+            registerHotkey(SaveManager.settingsSaveFile.data.stashSearchHotkey, new WindowHotkey(FrameManager.combinedSearchWindow));
         } else if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.SEPARATE) {
             for (StashSearchGroupData data : SaveManager.settingsSaveFile.data.stashSearchData) {
                 registerHotkey(data.hotkeyData, new SearchWindowHotkey(data.id));

@@ -24,7 +24,7 @@ public class PinManager {
     public static void applyAllPins() {
         applyAppPins();
         applySearchWindowPins();
-        // TODO : Cheat Sheets
+        applyCheatSheetPins();
     }
 
     public static void applyAppPins() {
@@ -34,11 +34,18 @@ public class PinManager {
         }
     }
 
+    public static void applyCheatSheetPins() {
+        for (PinData data : SaveManager.pinSaveFile.data.cheatSheetWindows) {
+            IPinnable pinnable = FrameManager.cheatSheetWindows.get(data.title);
+            if (pinnable != null) pinnable.applyPin(data.rect);
+        }
+    }
+
     public static void applySearchWindowPins() {
         if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
-            PinData data = SaveManager.pinSaveFile.data.searchWindow;
-            IPinnable window = FrameManager.searchWindow;
-            if (data != null && window != null) FrameManager.searchWindow.applyPin(data.rect);
+            PinData data = SaveManager.pinSaveFile.data.combinedSearchWindow;
+            IPinnable window = FrameManager.combinedSearchWindow;
+            if (data != null && window != null) FrameManager.combinedSearchWindow.applyPin(data.rect);
         } else {
             for (PinData data : SaveManager.pinSaveFile.data.searchWindows) {
                 IPinnable window = FrameManager.searchWindows.get(data.title);
@@ -54,13 +61,20 @@ public class PinManager {
             if (pinnable.isPinned()) appPins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRectangle()));
         }
         SaveManager.pinSaveFile.data.appWindows = appPins;
+        // Cheat Sheet Windows
+        ArrayList<PinData> cheatSheetPins = new ArrayList<>();
+        for (IPinnable pinnable : FrameManager.cheatSheetWindows.values()) {
+            if (pinnable.isPinned())
+                cheatSheetPins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRectangle()));
+        }
+        SaveManager.pinSaveFile.data.cheatSheetWindows = cheatSheetPins;
         // Search Windows
         ArrayList<PinData> searchPins = new ArrayList<>();
         if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
-            IPinnable window = FrameManager.searchWindow;
+            IPinnable window = FrameManager.combinedSearchWindow;
             if (window.isPinned())
-                SaveManager.pinSaveFile.data.searchWindow = new PinData(window.getPinTitle(), window.getPinRectangle());
-            else SaveManager.pinSaveFile.data.searchWindow = null;
+                SaveManager.pinSaveFile.data.combinedSearchWindow = new PinData(window.getPinTitle(), window.getPinRectangle());
+            else SaveManager.pinSaveFile.data.combinedSearchWindow = null;
         } else if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.SEPARATE) {
             for (IPinnable window : FrameManager.searchWindows.values()) {
                 if (window.isPinned()) searchPins.add(new PinData(window.getPinTitle(), window.getPinRectangle()));

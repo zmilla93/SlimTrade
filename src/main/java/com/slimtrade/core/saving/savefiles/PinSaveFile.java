@@ -8,7 +8,7 @@ public class PinSaveFile {
 
     public ArrayList<PinData> appWindows = new ArrayList<>();
     public ArrayList<PinData> cheatSheetWindows = new ArrayList<>();
-    public PinData searchWindow;
+    public PinData combinedSearchWindow;
     public ArrayList<PinData> searchWindows = new ArrayList<>();
 
 }
