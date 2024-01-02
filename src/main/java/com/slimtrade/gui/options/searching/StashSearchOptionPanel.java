@@ -98,7 +98,7 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
         // FIXME : Pins need to be reworked. Currently they will get overwritten when switching to a different mode
         FrameManager.buildSearchWindows();
         // FIXME : Should perhaps move this to the main save action
-        PinManager.applyPins();
+        PinManager.applyAllPins();
     }
 
     @Override

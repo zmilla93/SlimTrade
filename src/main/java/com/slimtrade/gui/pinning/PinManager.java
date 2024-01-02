@@ -17,39 +17,34 @@ public class PinManager {
     }
 
     public static void removePinnable(IPinnable pinnable) {
-        if (pinnable == searchWindow) {
-            System.out.println("Delete search window!");
-            searchWindow = null;
-        }
+        if (pinnable == searchWindow) searchWindow = null;
         appWindows.remove(pinnable.getPinTitle());
     }
 
-    public static void applyPins() {
-        // FIXME : combine loops?
+    public static void applyAllPins() {
+        applyAppPins();
+        applySearchWindowPins();
+        // TODO : Cheat Sheets
+    }
+
+    public static void applyAppPins() {
         for (PinData data : SaveManager.pinSaveFile.data.appWindows) {
             IPinnable pinnable = appWindows.get(data.title);
-            if (pinnable != null) {
-                pinnable.applyPin(data.rect);
-            }
+            if (pinnable != null) pinnable.applyPin(data.rect);
         }
-        // TODO : Cheat Sheets
+    }
 
-        // Search Windows
+    public static void applySearchWindowPins() {
         if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
             PinData data = SaveManager.pinSaveFile.data.searchWindow;
             IPinnable window = FrameManager.searchWindow;
-            if (data != null && window != null) {
-                FrameManager.searchWindow.applyPin(data.rect);
-            }
+            if (data != null && window != null) FrameManager.searchWindow.applyPin(data.rect);
         } else {
             for (PinData data : SaveManager.pinSaveFile.data.searchWindows) {
                 IPinnable window = FrameManager.searchWindows.get(data.title);
-                if (window != null) {
-                    window.applyPin(data.rect);
-                }
+                if (window != null) window.applyPin(data.rect);
             }
         }
-
     }
 
     public static void save() {

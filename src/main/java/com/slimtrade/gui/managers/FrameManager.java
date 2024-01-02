@@ -22,7 +22,6 @@ import com.slimtrade.gui.windows.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -164,35 +163,44 @@ public class FrameManager {
             CheatSheetWindow window = CheatSheetWindow.createCheatSheet(data);
             if (window != null) cheatSheetWindows.put(data.title, window);
         }
-        PinManager.applyPins();
+        PinManager.applyAllPins();
         for (CheatSheetWindow window : cheatSheetWindows.values()) {
             if (openWindows.contains(window.getPinTitle())) window.setVisible(true);
         }
     }
 
     public static void buildSearchWindows() {
-        // TODO : Preserve open windows
+        assert (SwingUtilities.isEventDispatchThread());
         // Dispose of existing windows
-        ArrayList<StashSearchWindow> openWindows = new ArrayList<>();
+        HashSet<String> openWindows = new HashSet<>();
         for (StashSearchWindow window : searchWindows.values()) {
+            if (window.isVisible()) openWindows.add(window.getPinTitle());
             window.dispose();
         }
-        if (searchWindow != null) searchWindow.dispose();
+        if (searchWindow != null) {
+            if (searchWindow.isVisible()) openWindows.add(searchWindow.getPinTitle());
+            searchWindow.dispose();
+        }
         searchWindows.clear();
         // Build new window(s)
         StashSearchWindowMode windowMode = SaveManager.settingsSaveFile.data.stashSearchWindowMode;
-        // FIXME : Window visibility based on open windows (Pins should also be applied before windows are made visible)
         if (windowMode == StashSearchWindowMode.COMBINED) {
             searchWindow = new StashSearchWindow(SaveManager.settingsSaveFile.data.stashSearchData);
-//            searchWindow.setVisible(true);
         } else if (windowMode == StashSearchWindowMode.SEPARATE) {
             for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
                 StashSearchWindow window = new StashSearchWindow(group);
                 searchWindows.put(group.getPinTitle(), window);
-                window.setVisible(true);
             }
         }
-
+        // Apply pins and visibility
+        PinManager.applySearchWindowPins();
+        if (windowMode == StashSearchWindowMode.COMBINED) {
+            if (openWindows.contains(searchWindow.getPinTitle())) searchWindow.setVisible(true);
+        } else if (windowMode == StashSearchWindowMode.SEPARATE) {
+            for (StashSearchWindow window : searchWindows.values()) {
+                if (openWindows.contains(window.getPinTitle())) window.setVisible(true);
+            }
+        }
     }
 
     public static void checkMenubarVisibility(Point point) {

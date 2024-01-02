@@ -163,7 +163,7 @@ public class App {
             FrameManager.optionsWindow.reloadExampleTrades();
             FrameManager.overlayInfoWindow.load();
 
-            PinManager.applyPins();
+            PinManager.applyAllPins();
             FrameManager.showAppFrames();
         });
         initParsers();
