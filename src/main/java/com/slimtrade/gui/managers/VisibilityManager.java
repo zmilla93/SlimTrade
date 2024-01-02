@@ -3,6 +3,7 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.windows.VisibilityDialog;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -23,18 +24,22 @@ public class VisibilityManager {
 
     public static void hideOverlay() {
         if (!show || !SaveManager.settingsSaveFile.data.hideWhenPOENotFocused) return;
-        for (VisibilityDialog frame : frameList) {
-            frame.hideOverlay();
-        }
-        show = false;
+        SwingUtilities.invokeLater(() -> {
+            for (VisibilityDialog frame : frameList) {
+                frame.hideOverlay();
+            }
+            show = false;
+        });
     }
 
     public static void showOverlay() {
         if (show) return;
-        for (VisibilityDialog frame : frameList) {
-            frame.showOverlay();
-        }
-        show = true;
+        SwingUtilities.invokeLater(() -> {
+            for (VisibilityDialog frame : frameList) {
+                frame.showOverlay();
+            }
+            show = true;
+        });
     }
 
 }
