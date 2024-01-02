@@ -4,10 +4,13 @@ import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.hotkeys.*;
 import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.TradeUtil;
+import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.gui.windows.CheatSheetWindow;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
+import javax.swing.*;
 import java.util.HashMap;
 
 /**
@@ -21,44 +24,45 @@ public class HotkeyManager {
     public static void loadHotkeys() {
         hotkeyMap.clear();
         // SlimTrade
-        registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new AppHotkey(FrameManager.optionsWindow));
-        registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new AppHotkey(FrameManager.historyWindow));
-        // TODO : Stash Search Hotkeys
-//        registerHotkey(SaveManager.settingsSaveFile.data.stashSortHotkey, new AppHotkey(FrameManager.stashSortingWindow));
-        registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new AppHotkey(FrameManager.chatScannerWindow));
-        registerHotkey(SaveManager.settingsSaveFile.data.changeCharacterHotkey, new ChangeCharacterHotkey());
-        registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, new CloseOldestTradeHotkey());
+        registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new WindowHotkey(FrameManager.optionsWindow));
+        registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new WindowHotkey(FrameManager.historyWindow));
+        registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new WindowHotkey(FrameManager.chatScannerWindow));
+        registerHotkey(SaveManager.settingsSaveFile.data.changeCharacterHotkey, TradeUtil::changeCharacterName);
+        registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, () -> SwingUtilities.invokeLater(() -> FrameManager.messageManager.closeOldestTrade()));
         // POE
-        registerHotkey(SaveManager.settingsSaveFile.data.delveHotkey, new PoeHotkey("/delve"));
-        registerHotkey(SaveManager.settingsSaveFile.data.doNotDisturbHotkey, new PoeHotkey("/dnd"));
-        registerHotkey(SaveManager.settingsSaveFile.data.exitToMenuHotkey, new PoeHotkey("/exit"));
-        registerHotkey(SaveManager.settingsSaveFile.data.guildHideoutHotkey, new PoeHotkey("/guild"));
-        registerHotkey(SaveManager.settingsSaveFile.data.hideoutHotkey, new PoeHotkey("/hideout"));
+        registerHotkey(SaveManager.settingsSaveFile.data.delveHotkey, new PoeCommandHotkey("/delve"));
+        registerHotkey(SaveManager.settingsSaveFile.data.doNotDisturbHotkey, new PoeCommandHotkey("/dnd"));
+        registerHotkey(SaveManager.settingsSaveFile.data.exitToMenuHotkey, new PoeCommandHotkey("/exit"));
+        registerHotkey(SaveManager.settingsSaveFile.data.guildHideoutHotkey, new PoeCommandHotkey("/guild"));
+        registerHotkey(SaveManager.settingsSaveFile.data.hideoutHotkey, new PoeCommandHotkey("/hideout"));
         if (SaveManager.settingsSaveFile.data.characterName != null)
-            registerHotkey(SaveManager.settingsSaveFile.data.leavePartyHotkey, new PoeHotkey("/kick " + SaveManager.settingsSaveFile.data.characterName));
-        registerHotkey(SaveManager.settingsSaveFile.data.menagerieHotkey, new PoeHotkey("/menagerie"));
-        registerHotkey(SaveManager.settingsSaveFile.data.metamorphHotkey, new PoeHotkey("/metamorph"));
-        registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeHotkey("/remaining"));
+            registerHotkey(SaveManager.settingsSaveFile.data.leavePartyHotkey, new PoeCommandHotkey("/kick " + SaveManager.settingsSaveFile.data.characterName));
+        registerHotkey(SaveManager.settingsSaveFile.data.menagerieHotkey, new PoeCommandHotkey("/menagerie"));
+        registerHotkey(SaveManager.settingsSaveFile.data.metamorphHotkey, new PoeCommandHotkey("/metamorph"));
+        registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeCommandHotkey("/remaining"));
         // Stash Searching
         if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
-            registerHotkey(SaveManager.settingsSaveFile.data.stashSearchHotkey, new AppHotkey(FrameManager.searchWindow));
-        } else {
-            // TODO : Separate stash searching hotkeys
+            registerHotkey(SaveManager.settingsSaveFile.data.stashSearchHotkey, new WindowHotkey(FrameManager.searchWindow));
+        } else if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.SEPARATE) {
+            for (StashSearchGroupData data : SaveManager.settingsSaveFile.data.stashSearchData) {
+                registerHotkey(data.hotkeyData, new SearchWindowHotkey(data.id));
+            }
         }
+        // FIXME : Remove
         // Quick Paste
         if (SaveManager.settingsSaveFile.data.quickPasteMode == QuickPasteManager.QuickPasteMode.HOTKEY)
             registerHotkey(SaveManager.settingsSaveFile.data.quickPasteHotkey, new QuickPasteHotkey());
         // Cheat Sheets
         for (CheatSheetData cheatSheetData : SaveManager.settingsSaveFile.data.cheatSheets) {
             CheatSheetWindow window = FrameManager.cheatSheetWindows.get(cheatSheetData.title);
-            registerHotkey(cheatSheetData.hotkeyData, new CheatSheetHotkey(window));
+            registerHotkey(cheatSheetData.hotkeyData, new WindowHotkey(window));
         }
     }
 
     private static void registerHotkey(HotkeyData hotkeyData, IHotkeyAction action) {
         if (hotkeyData == null) return;
         // FIXME : Should inform user of duplicate hotkeys
-        if (hotkeyMap.containsKey(hotkeyData)) return;   // Duplicate hotkeys are ignored
+        if (hotkeyMap.containsKey(hotkeyData)) return;
         hotkeyMap.put(hotkeyData, action);
     }
 

@@ -2,11 +2,11 @@ package com.slimtrade.core.hotkeys;
 
 import com.slimtrade.core.utility.POEInterface;
 
-public class PoeHotkey implements IHotkeyAction {
+public class PoeCommandHotkey implements IHotkeyAction {
 
     String command;
 
-    public PoeHotkey(String command) {
+    public PoeCommandHotkey(String command) {
         this.command = command;
     }
 
@@ -15,4 +15,5 @@ public class PoeHotkey implements IHotkeyAction {
         if (!POEInterface.isGameFocused()) return;
         POEInterface.paste(command);
     }
+
 }

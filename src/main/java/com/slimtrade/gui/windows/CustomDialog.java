@@ -386,5 +386,5 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         super.dispose();
         PinManager.removePinnable(this);
     }
-    
+
 }

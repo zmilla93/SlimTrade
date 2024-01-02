@@ -3,7 +3,6 @@ package com.slimtrade.core.managers;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.VisibilityManager;
 
 import java.awt.*;
@@ -13,6 +12,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 //FIXME : Check threading with this and POEInterface
+@Deprecated
 public class QuickPasteManager {
 
     private static Thread thread;
@@ -47,7 +47,7 @@ public class QuickPasteManager {
                 stopListenerThread();
                 break;
         }
-        HotkeyManager.loadHotkeys();
+//        HotkeyManager.loadHotkeys();
     }
 
     public QuickPasteMode getMode() {

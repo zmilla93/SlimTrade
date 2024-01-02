@@ -144,6 +144,10 @@ public class StashSearchWindow extends CustomDialog {
         return button;
     }
 
+    public StashSearchGroupData getData() {
+        return data;
+    }
+
     @Override
     public String getPinTitle() {
         if (combinedWindow) return super.getPinTitle();

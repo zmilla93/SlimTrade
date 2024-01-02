@@ -2,17 +2,19 @@ package com.slimtrade.core.hotkeys;
 
 import com.slimtrade.gui.windows.CustomDialog;
 
-public class AppHotkey implements IHotkeyAction {
+import javax.swing.*;
+
+public class WindowHotkey implements IHotkeyAction {
 
     private final CustomDialog window;
 
-    public AppHotkey(CustomDialog window) {
+    public WindowHotkey(CustomDialog window) {
         this.window = window;
     }
 
     @Override
     public void execute() {
-        window.setVisible(!window.isVisible());
+        SwingUtilities.invokeLater(() -> window.setVisible(!window.isVisible()));
     }
 
 }

@@ -25,6 +25,7 @@ public class VisibilityDialog extends JDialog {
     @Override
     public void setVisible(boolean b) {
         super.setVisible(b);
+        assert (SwingUtilities.isEventDispatchThread());
         visible = b;
     }
 
