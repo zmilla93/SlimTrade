@@ -170,7 +170,6 @@ public class FrameManager {
         }
     }
 
-    // FIXME : Move to StashSortingWindow?
     public static void buildSearchWindows() {
         // TODO : Preserve open windows
         // Dispose of existing windows
@@ -182,22 +181,22 @@ public class FrameManager {
         searchWindows.clear();
         // Build new window(s)
         StashSearchWindowMode windowMode = SaveManager.settingsSaveFile.data.stashSearchWindowMode;
-        // FIXME : Window visibility
+        // FIXME : Window visibility based on open windows (Pins should also be applied before windows are made visible)
         if (windowMode == StashSearchWindowMode.COMBINED) {
             searchWindow = new StashSearchWindow(SaveManager.settingsSaveFile.data.stashSearchData);
 //            searchWindow.setVisible(true);
         } else if (windowMode == StashSearchWindowMode.SEPARATE) {
             for (StashSearchGroupData group : SaveManager.settingsSaveFile.data.stashSearchData) {
                 StashSearchWindow window = new StashSearchWindow(group);
-                searchWindows.put(group.title, window);
-//                window.setVisible(true);
+                searchWindows.put(group.getPinTitle(), window);
+                window.setVisible(true);
             }
         }
 
     }
 
     public static void checkMenubarVisibility(Point point) {
-        // FIXME : buffered bounds should be cached since this function is called frequently.
+        // FIXME (OPTIMIZE) : buffered bounds should be cached since this function is called frequently.
         if (menubarExpanded) {
             if (!TradeUtil.getBufferedBounds(menubarDialog.getBounds()).contains(point)) {
                 menubarExpanded = false;

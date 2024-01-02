@@ -23,7 +23,7 @@ public class CheatSheetWindow extends CustomDialog {
     }
 
     private CheatSheetWindow(CheatSheetData data) {
-        super(data.title, PIN_PREFIX, true);
+        super(data.title, true, false);
         setMinimumSize(new Dimension(0, 0));
         setFocusable(false);
         setFocusableWindowState(false);

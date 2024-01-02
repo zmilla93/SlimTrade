@@ -37,7 +37,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     private Visibility visibility;
     protected boolean pinRespectsSize = true;
     private String title;
-    private final String pinPrefix;
 
     // Movement
     private Point startLocation;
@@ -66,24 +65,19 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         this(title, false);
     }
 
-    public CustomDialog(String title, String pinPrefix) {
-        this(title, pinPrefix, false);
-    }
-
     public CustomDialog(String title, boolean thin) {
-        this(title, null, thin);
+        this(title, thin, true);
     }
 
-    public CustomDialog(String title, String pinPrefix, boolean thin) {
+    public CustomDialog(String title, boolean thin, boolean isDefaultPin) {
         setTitle(title);
-        this.pinPrefix = pinPrefix;
         setMinimumSize(new Dimension(400, 400));
         setUndecorated(true);
         setAlwaysOnTop(true);
         getRootPane().setOpaque(false);
         ThemeManager.addFrame(this);
         ThemeManager.addThemeListener(this);
-        addToPingManager();
+        if (isDefaultPin) PinManager.addAppWindow(this);
 
         // Title Bar
         if (!thin) {
@@ -342,10 +336,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         colorBorders();
     }
 
-    protected void addToPingManager() {
-        PinManager.addPinnable(this);
-    }
-
     @Override
     public boolean isPinned() {
         return pinned;
@@ -361,9 +351,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     @Override
     public String getPinTitle() {
-        String title = getCleanTitle();
-        if (pinPrefix != null) title = pinPrefix + title;
-        return title;
+        return getCleanTitle();
     }
 
     @Override
@@ -393,4 +381,10 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         System.err.println("The contentPane of a CustomDialog cannot be changed! Use the contentPanel variable or getContentPane() instead.");
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        PinManager.removePinnable(this);
+    }
+    
 }

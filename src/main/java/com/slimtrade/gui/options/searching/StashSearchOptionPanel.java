@@ -19,7 +19,7 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
     public StashSearchOptionPanel() {
         addHeader("Info");
         addComponent(new JLabel("Pastes search terms into any POE window with a search bar (stashes, skill tree, vendors, etc)."));
-        addComponent(new JLabel("Search groups can be separate windows, or a combined window with a group selector."));
+        addComponent(new JLabel("Search groups can be separate windows, or a single combined window with a group selector."));
         addComponent(new JLabel("Default white will match color theme."));
         addVerticalStrut();
         addHeader("Settings");
@@ -93,11 +93,10 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
         }
         // FIXME : Should probably move to saving mode here so that rebuilding panels is done using the most recent data.
         //         Alternatively, could change the order that savables are triggered, but that might break something else.
+        settingsPanel.save();
         SaveManager.settingsSaveFile.data.stashSearchData = data;
         // FIXME : Pins need to be reworked. Currently they will get overwritten when switching to a different mode
-        PinManager.storeSearchWindowPins();
         FrameManager.buildSearchWindows();
-        PinManager.restoreSearchWindowPins(panels);
         // FIXME : Should perhaps move this to the main save action
         PinManager.applyPins();
     }

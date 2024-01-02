@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class StashSearchWindow extends CustomDialog {
 
-    private static final String PIN_PREFIX = "SEARCH_WINDOW:";
     private boolean combinedWindow = false;
     private StashSearchGroupData data;
 
@@ -27,12 +26,11 @@ public class StashSearchWindow extends CustomDialog {
      * @param title Display title
      */
     private StashSearchWindow(String title) {
-        super(title, PIN_PREFIX, true);
+        super(title, false, false);
         setMinimumSize(null);
         setFocusable(false);
         setFocusableWindowState(false);
         setResizable(false);
-        pinRespectsSize = false;
     }
 
     /**
@@ -50,6 +48,7 @@ public class StashSearchWindow extends CustomDialog {
         gc.fill = GridBagConstraints.HORIZONTAL;
         contentPanel.add(buttonPanel, gc);
         pack();
+        handlePinSetup();
     }
 
     /**
@@ -84,6 +83,12 @@ public class StashSearchWindow extends CustomDialog {
         JPanel panel = comboBox.getItemAt(0);
         if (panel != null) buttonContainer.add(panel, gc);
         pack();
+        handlePinSetup();
+    }
+
+    private void handlePinSetup() {
+        pinRespectsSize = false;
+        if (combinedWindow) PinManager.searchWindow = this;
     }
 
     private JPanel buildButtonPanel(StashSearchGroupData data) {
@@ -140,9 +145,9 @@ public class StashSearchWindow extends CustomDialog {
     }
 
     @Override
-    protected void addToPingManager() {
-        if (combinedWindow) PinManager.addPinnable(this);
-        else PinManager.addSearchPinnable(this);
+    public String getPinTitle() {
+        if (combinedWindow) return super.getPinTitle();
+        return data.getPinTitle();
     }
 
 }

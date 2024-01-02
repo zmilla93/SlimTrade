@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 public class PinSaveFile {
 
-    public ArrayList<PinData> pinnables = new ArrayList<>();
+    public ArrayList<PinData> appWindows = new ArrayList<>();
+    public ArrayList<PinData> cheatSheetWindows = new ArrayList<>();
+    public PinData searchWindow;
+    public ArrayList<PinData> searchWindows = new ArrayList<>();
 
 }

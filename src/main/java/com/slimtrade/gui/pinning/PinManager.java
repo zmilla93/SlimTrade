@@ -2,78 +2,76 @@ package com.slimtrade.gui.pinning;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.options.searching.StashSearchGroupPanel;
-import com.slimtrade.gui.options.searching.StashSearchWindow;
+import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class PinManager {
 
-    private static final HashMap<String, IPinnable> pinnables = new HashMap<>();
-    private static final HashMap<String, IPinnable> cheatSheetPinnables = new HashMap<>();
-    private static final HashMap<String, Rectangle> searchWindowMap = new HashMap<>();
+    private static final HashMap<String, IPinnable> appWindows = new HashMap<>();
+    public static IPinnable searchWindow;
 
-    public static void addPinnable(IPinnable pinnable) {
-        pinnables.put(pinnable.getPinTitle(), pinnable);
-    }
-
-    public static void addSearchPinnable(IPinnable pinnable) {
-        cheatSheetPinnables.put(pinnable.getPinTitle(), pinnable);
+    public static void addAppWindow(IPinnable pinnable) {
+        appWindows.put(pinnable.getPinTitle(), pinnable);
     }
 
     public static void removePinnable(IPinnable pinnable) {
-        cheatSheetPinnables.remove(pinnable.getPinTitle());
-        pinnables.remove(pinnable.getPinTitle());
+        if (pinnable == searchWindow) {
+            System.out.println("Delete search window!");
+            searchWindow = null;
+        }
+        appWindows.remove(pinnable.getPinTitle());
     }
 
     public static void applyPins() {
-        for (PinData data : SaveManager.pinSaveFile.data.pinnables) {
-            IPinnable pinnable = pinnables.get(data.title);
+        // FIXME : combine loops?
+        for (PinData data : SaveManager.pinSaveFile.data.appWindows) {
+            IPinnable pinnable = appWindows.get(data.title);
             if (pinnable != null) {
                 pinnable.applyPin(data.rect);
             }
         }
+        // TODO : Cheat Sheets
+
+        // Search Windows
+        if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
+            PinData data = SaveManager.pinSaveFile.data.searchWindow;
+            IPinnable window = FrameManager.searchWindow;
+            if (data != null && window != null) {
+                FrameManager.searchWindow.applyPin(data.rect);
+            }
+        } else {
+            for (PinData data : SaveManager.pinSaveFile.data.searchWindows) {
+                IPinnable window = FrameManager.searchWindows.get(data.title);
+                if (window != null) {
+                    window.applyPin(data.rect);
+                }
+            }
+        }
+
     }
 
     public static void save() {
-        ArrayList<PinData> pins = new ArrayList<>();
-        for (IPinnable pinnable : pinnables.values()) {
-            if (pinnable.isPinned()) {
-                pins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRectangle()));
+        ArrayList<PinData> appPins = new ArrayList<>();
+        // App Windows
+        for (IPinnable pinnable : appWindows.values()) {
+            if (pinnable.isPinned()) appPins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRectangle()));
+        }
+        SaveManager.pinSaveFile.data.appWindows = appPins;
+        // Search Windows
+        ArrayList<PinData> searchPins = new ArrayList<>();
+        if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
+            IPinnable window = FrameManager.searchWindow;
+            if (window.isPinned())
+                SaveManager.pinSaveFile.data.searchWindow = new PinData(window.getPinTitle(), window.getPinRectangle());
+            else SaveManager.pinSaveFile.data.searchWindow = null;
+        } else if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.SEPARATE) {
+            for (IPinnable window : FrameManager.searchWindows.values()) {
+                if (window.isPinned()) searchPins.add(new PinData(window.getPinTitle(), window.getPinRectangle()));
             }
+            SaveManager.pinSaveFile.data.searchWindows = searchPins;
         }
-        SaveManager.pinSaveFile.data.pinnables = pins;
-    }
-
-    public static void storeSearchWindowPins() {
-        searchWindowMap.clear();
-        for (Map.Entry<String, StashSearchWindow> entry : FrameManager.searchWindows.entrySet()) {
-            StashSearchWindow window = entry.getValue();
-            pinnables.remove(window.getPinTitle());
-            if (!window.isPinned()) continue;
-            searchWindowMap.put(window.getCleanTitle(), window.getPinRectangle());
-        }
-    }
-
-    public static void restoreSearchWindowPins(ArrayList<StashSearchGroupPanel> panels) {
-        HashMap<String, Rectangle> newSearchMap = new HashMap<>();
-        for (StashSearchGroupPanel panel : panels) {
-            String oldName = panel.getSavedGroupName();
-            Rectangle rect = searchWindowMap.get(oldName);
-            if (rect != null) newSearchMap.put(panel.getGroupName(), rect);
-            panel.updateSavedGroupName();
-        }
-        for (StashSearchWindow window : FrameManager.searchWindows.values()) {
-            Rectangle rect = newSearchMap.get(window.getCleanTitle());
-            if (rect == null) continue;
-            window.applyPin(rect);
-        }
-        searchWindowMap.clear();
-        save();
-        SaveManager.pinSaveFile.saveToDisk();
     }
 
 }
