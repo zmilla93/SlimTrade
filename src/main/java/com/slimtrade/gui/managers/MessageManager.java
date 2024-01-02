@@ -17,7 +17,6 @@ import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.messaging.*;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.theme.IUIResizeListener;
 import com.slimtrade.modules.theme.ThemeManager;
 

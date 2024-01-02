@@ -2,7 +2,6 @@ package com.slimtrade.gui.managers;
 
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.hotkeys.*;
-import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
@@ -48,10 +47,6 @@ public class HotkeyManager {
                 registerHotkey(data.hotkeyData, new SearchWindowHotkey(data.id));
             }
         }
-        // FIXME : Remove
-        // Quick Paste
-        if (SaveManager.settingsSaveFile.data.quickPasteMode == QuickPasteManager.QuickPasteMode.HOTKEY)
-            registerHotkey(SaveManager.settingsSaveFile.data.quickPasteHotkey, new QuickPasteHotkey());
         // Cheat Sheets
         for (CheatSheetData cheatSheetData : SaveManager.settingsSaveFile.data.cheatSheets) {
             CheatSheetWindow window = FrameManager.cheatSheetWindows.get(cheatSheetData.title);

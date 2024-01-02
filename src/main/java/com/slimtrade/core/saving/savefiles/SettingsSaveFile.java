@@ -7,7 +7,6 @@ import com.slimtrade.core.data.PriceThresholdData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
-import com.slimtrade.core.managers.QuickPasteManager;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.listening.IColorBlindChangeListener;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
@@ -28,7 +27,6 @@ public class SettingsSaveFile {
     public boolean initializedFolderOffset;
     public boolean folderOffset;
     public String characterName;
-    public QuickPasteManager.QuickPasteMode quickPasteMode = QuickPasteManager.QuickPasteMode.DISABLED;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
 

@@ -11,7 +11,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
-//FIXME : Check threading with this and POEInterface
+// FIXME : Check threading with this and POEInterface
 @Deprecated
 public class QuickPasteManager {
 
