@@ -205,6 +205,7 @@ public class FrameManager {
 
     public static void checkMenubarVisibility(Point point) {
         // FIXME (OPTIMIZE) : buffered bounds should be cached since this function is called frequently.
+        if (!SaveManager.settingsSaveFile.data.enableMenuBar) return;
         if (menubarExpanded) {
             if (!TradeUtil.getBufferedBounds(menubarDialog.getBounds()).contains(point)) {
                 menubarExpanded = false;
@@ -219,16 +220,18 @@ public class FrameManager {
     }
 
     private static void updateMenubarVisibility() {
-        if (!SaveManager.settingsSaveFile.data.enableMenuBar) {
-            menubarDialog.setVisible(false);
-            menubarIcon.setVisible(false);
-        } else if (menubarExpanded) {
-            menubarDialog.setVisible(true);
-            menubarIcon.setVisible(false);
-        } else {
-            menubarIcon.setVisible(true);
-            menubarDialog.setVisible(false);
-        }
+        SwingUtilities.invokeLater(() -> {
+            if (!SaveManager.settingsSaveFile.data.enableMenuBar) {
+                menubarDialog.setVisible(false);
+                menubarIcon.setVisible(false);
+            } else if (menubarExpanded) {
+                menubarDialog.setVisible(true);
+                menubarIcon.setVisible(false);
+            } else {
+                menubarIcon.setVisible(true);
+                menubarDialog.setVisible(false);
+            }
+        });
     }
 
     public static void calculateResolutionMultiplier() {
