@@ -16,7 +16,8 @@ import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SetupManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
-import com.slimtrade.gui.windows.LoadingDialog;
+import com.slimtrade.gui.windows.LoadingWindow;
+import com.slimtrade.gui.windows.UpdateProgressWindow;
 import com.slimtrade.modules.stopwatch.Stopwatch;
 import com.slimtrade.modules.theme.ThemeManager;
 import org.jnativehook.GlobalScreen;
@@ -32,7 +33,8 @@ public class App {
     public static SystemTrayManager systemTrayManager;
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
-    private static LoadingDialog loadingDialog;
+    private static LoadingWindow loadingWindow;
+    private static UpdateProgressWindow updateProgressWindow;
     private static LockManager lockManager;
 
     public static ChatParser chatParser;
@@ -40,6 +42,7 @@ public class App {
 
     private static AppState state = AppState.LOADING;
     private static AppState previousState = AppState.LOADING;
+    private static boolean themesHaveBeenInitialized = false;
 
     // Debug Flags
     public static boolean debug = true;
@@ -48,7 +51,7 @@ public class App {
     private static final boolean debugProfileLaunch = false;
 
     public static void main(String[] args) {
-
+        Stopwatch.start();
         // Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
         boolean lockSuccess = lockManager.tryAndLock();
@@ -65,24 +68,38 @@ public class App {
         // Shutdown Hook
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
+        // Reduce logging level for JNativeHook
+        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+        logger.setLevel(Level.WARNING);
+        logger.setUseParentHandlers(false);
+
         // Init minimum for loading dialog
         Stopwatch.start();
 //        ThemeManager.loadFonts();
         SaveManager.init();
 
+        // Initialize all themes
+        // FIXME: Initializing themes should be done as late as possible, but before any UI is shown
+        initializeThemes();
         profileLaunch("Fonts and Save File");
 
+        // TODO : Updating
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                updateProgressWindow = new UpdateProgressWindow();
+                updateProgressWindow.setVisible(true);
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+//        if (true) return;
 
         // Loading Dialog
         try {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
-                ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
-                FontManager.loadFonts();
-                ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-                ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
-                loadingDialog = new LoadingDialog();
-                loadingDialog.setVisible(true);
+                loadingWindow = new LoadingWindow();
+                loadingWindow.setVisible(true);
             });
             profileLaunch("ThemeManager");
         } catch (InterruptedException | InvocationTargetException e) {
@@ -111,11 +128,6 @@ public class App {
             e.printStackTrace();
         }
 
-        // Reduce logging level for JNativeHook
-        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
-        logger.setLevel(Level.WARNING);
-        logger.setUseParentHandlers(false);
-
         // JNativeHook Setup
         try {
             GlobalScreen.registerNativeHook();
@@ -132,7 +144,7 @@ public class App {
         if (SetupManager.getSetupPhases().size() > 0) runSetupWizard();
         else launchApp();
 
-        SwingUtilities.invokeLater(() -> loadingDialog.dispose());
+        SwingUtilities.invokeLater(() -> loadingWindow.dispose());
 
         if (debugProfileLaunch) System.out.println("Profiling launch complete!\n");
         System.out.println("Slimtrade Launched");
@@ -149,6 +161,21 @@ public class App {
             FrameManager.setupWindow.setup();
             FrameManager.setWindowVisibility(AppState.SETUP);
         });
+    }
+
+    private static void initializeThemes() {
+        if (themesHaveBeenInitialized) return;
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                FontManager.loadFonts();
+                ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
+                ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+                ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+        themesHaveBeenInitialized = true;
     }
 
     public static void launchApp() {
