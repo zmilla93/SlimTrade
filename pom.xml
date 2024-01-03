@@ -20,33 +20,38 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.2</version>
+            <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20230227</version>
+            <version>20231013</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+        <!-- Previous stable version: 5.6.0 -->
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
-            <version>5.6.0</version>
+            <version>5.12.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna-platform -->
+        <!-- Previous stable version: 5.6.0 -->
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform</artifactId>
-            <version>5.6.0</version>
+            <version>5.12.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.1stleg/jnativehook -->
+        <!-- FIXME: In the past, updating this caused issues for some users. Keep an eye on it! -->
+        <!-- Previous stable version: 2.0.3 -->
         <dependency>
             <groupId>com.1stleg</groupId>
             <artifactId>jnativehook</artifactId>
             <version>2.0.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
