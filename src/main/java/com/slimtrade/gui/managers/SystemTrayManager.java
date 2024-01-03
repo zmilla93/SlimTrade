@@ -15,7 +15,7 @@ public class SystemTrayManager {
     private static final MenuItem chatScannerButton = new MenuItem("Chat Scanner");
     private static final MenuItem exitButton = new MenuItem("Exit SlimTrade");
 
-    public SystemTrayManager() {
+    public static void init() {
         // Tray
         SystemTray tray = SystemTray.getSystemTray();
         Image img;
@@ -36,7 +36,7 @@ public class SystemTrayManager {
             e.printStackTrace();
         }
         addListeners();
-        showDefault();
+        showSimple();
     }
 
     private static void addListeners() {

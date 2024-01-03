@@ -147,7 +147,7 @@ public class App {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
                 // Initialize GUI
-                systemTrayManager = new SystemTrayManager();
+                SystemTrayManager.init();
                 FrameManager.init();
             });
             profileLaunch("UI Creation");
@@ -214,6 +214,7 @@ public class App {
 
             PinManager.applyAllPins();
             FrameManager.showAppFrames();
+            SystemTrayManager.showDefault();
         });
         initParsers();
         HotkeyManager.loadHotkeys();
