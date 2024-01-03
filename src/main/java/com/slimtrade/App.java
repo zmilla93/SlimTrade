@@ -48,7 +48,7 @@ public class App {
     public static boolean debug = true;
     public static boolean chatInConsole = false;
     public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
-    private static final boolean debugProfileLaunch = false;
+    public static final boolean debugProfileLaunch = false;
 
     public static void main(String[] args) {
         Stopwatch.start();

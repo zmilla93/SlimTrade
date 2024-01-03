@@ -123,6 +123,9 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.2.3</version>
+                    <configuration>
+                        <skipTests>false</skipTests>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
