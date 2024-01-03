@@ -19,4 +19,10 @@ public abstract class AbstractDialog extends JDialog {
         ThemeManager.addFrame(this);
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        ThemeManager.removeFrame(this);
+    }
+
 }
