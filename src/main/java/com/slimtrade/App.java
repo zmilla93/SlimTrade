@@ -48,7 +48,7 @@ public class App {
     private static LoadingWindow loadingWindow;
     private static UpdateProgressWindow updateProgressWindow;
     private static LockManager lockManager;
-    private static UpdateManager updateManager;
+    public static UpdateManager updateManager;
 
     public static ChatParser chatParser;
     public static ChatParser preloadParser;

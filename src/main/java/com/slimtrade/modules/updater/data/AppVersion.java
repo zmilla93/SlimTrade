@@ -72,6 +72,13 @@ public class AppVersion implements Comparable<AppVersion> {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof AppVersion)) return false;
+        AppVersion other = (AppVersion) obj;
+        return compareTo(other) == 0;
+    }
+
+    @Override
     public String toString() {
         return string;
     }

@@ -3,6 +3,8 @@ package com.slimtrade.modules.updater;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.slimtrade.core.data.PatchNotesEntry;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.modules.updater.data.AppInfo;
 import com.slimtrade.modules.updater.data.AppVersion;
 import com.slimtrade.modules.updater.data.ReleaseVersion;
@@ -204,6 +206,33 @@ public class UpdateManager {
             System.out.println(version);
         }
         return versions.get(versions.size() - 1);
+    }
+
+    public ArrayList<PatchNotesEntry> getPatchNotes(AppVersion currentVersion) {
+        return getPatchNotes(currentVersion, false);
+    }
+
+    public ArrayList<PatchNotesEntry> getPatchNotes(AppVersion currentVersion, boolean allowPreRelease) {
+        // Return local version if possible
+        if (currentVersion.equals(SaveManager.patchNotesSaveFile.data.getAppVersion()))
+            return SaveManager.patchNotesSaveFile.data.entries;
+        // Fetch the latest patch notes from GitHub
+        if (currentVersion.isPreRelease) allowPreRelease = true;
+        JsonElement json = fetchDataFromGitHub(ALL_RELEASES_URL);
+        if (json == null) return SaveManager.patchNotesSaveFile.data.entries;
+        JsonArray array = json.getAsJsonArray();
+        ArrayList<PatchNotesEntry> entries = new ArrayList<>();
+        for (JsonElement entry : array) {
+            ReleaseVersion releaseVersion = new ReleaseVersion(entry);
+            if (!releaseVersion.appVersion.valid) continue;
+            if (releaseVersion.preRelease && !allowPreRelease) continue;
+            entries.add(new PatchNotesEntry(releaseVersion.tag, releaseVersion.body));
+        }
+        // Update Save File
+        SaveManager.patchNotesSaveFile.data.versionString = currentVersion.toString();
+        SaveManager.patchNotesSaveFile.data.entries = entries;
+        SaveManager.patchNotesSaveFile.saveToDisk();
+        return entries;
     }
 
     /**

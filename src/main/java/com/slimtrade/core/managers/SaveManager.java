@@ -30,6 +30,7 @@ public class SaveManager {
     public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory() + "ignore.json", IgnoreSaveFile.class);
     public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory() + "pins.json", PinSaveFile.class);
     public static SaveFile<ChatScannerSaveFile> chatScannerSaveFile = new SaveFile<>(getSaveDirectory() + "scanner.json", ChatScannerSaveFile.class);
+    public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory() + "patch_notes.json", PatchNotesSaveFile.class);
 
     public static void init() {
         // Listeners should be added before loading due to callbacks
@@ -42,6 +43,7 @@ public class SaveManager {
         ignoreSaveFile.loadFromDisk();
         pinSaveFile.loadFromDisk();
         chatScannerSaveFile.loadFromDisk();
+        patchNotesSaveFile.loadFromDisk();
     }
 
     private static void handleLegacySaveFiles() {

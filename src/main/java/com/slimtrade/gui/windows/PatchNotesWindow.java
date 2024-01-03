@@ -1,9 +1,13 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.App;
+import com.slimtrade.core.References;
 import com.slimtrade.core.data.PatchNotesEntry;
 import com.slimtrade.core.utility.MarkdownParser;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CustomScrollPane;
+import com.slimtrade.gui.components.LimitCombo;
+import com.slimtrade.modules.updater.data.AppVersion;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -12,7 +16,7 @@ import java.util.ArrayList;
 
 public class PatchNotesWindow extends CustomDialog {
 
-    private final JComboBox<PatchNotesEntry> comboBox = new JComboBox<>();
+    private final JComboBox<PatchNotesEntry> comboBox = new LimitCombo<>();
     private final JTextPane textPane = new JTextPane();
 
     private final JButton githubButton = new JButton("GitHub");
@@ -24,9 +28,8 @@ public class PatchNotesWindow extends CustomDialog {
         pinButton.setVisible(false);
 
         // Combo
-        // FIXME : Currently reading from temp local file
-        ArrayList<PatchNotesEntry> entries = PatchNotesEntry.readLocalPatchNotes("D:\\Test\\slimtrade_patch_notes.json");
-        for (PatchNotesEntry entry : entries) comboBox.addItem(entry);
+        ArrayList<PatchNotesEntry> entries = App.updateManager.getPatchNotes(App.appInfo.appVersion);
+        if (entries != null) for (PatchNotesEntry entry : entries) comboBox.addItem(entry);
 
         // Text Pane
         textPane.setEditable(false);
@@ -37,8 +40,8 @@ public class PatchNotesWindow extends CustomDialog {
         JPanel buttonPanel = new JPanel(new BorderLayout());
         JPanel githubWrapperPanel = new JPanel(new GridBagLayout());
         githubWrapperPanel.add(githubButton);
-        buttonPanel.add(discordButton, BorderLayout.WEST);
-        buttonPanel.add(githubButton, BorderLayout.CENTER);
+        buttonPanel.add(githubButton, BorderLayout.WEST);
+        buttonPanel.add(discordButton, BorderLayout.CENTER);
         buttonPanel.add(donateButton, BorderLayout.EAST);
 
         JPanel buttonWrapperPanel = new JPanel(new BorderLayout());
@@ -71,20 +74,22 @@ public class PatchNotesWindow extends CustomDialog {
                 ZUtil.openLink(e.getURL().toString());
             }
         });
-        // TODO : Add button listeners
+        githubButton.addActionListener(e -> ZUtil.openLink(References.GITHUB_URL));
+        discordButton.addActionListener(e -> ZUtil.openLink(References.DISCORD_INVITE));
+        // TODO : Add donate button listeners
     }
 
     private void updateSelectedPatchNotes() {
         PatchNotesEntry entry = (PatchNotesEntry) comboBox.getSelectedItem();
         if (entry == null) return;
-        textPane.setText(getCleanPatchNotes(entry.version, entry.text));
+        textPane.setText(getCleanPatchNotes(entry.getAppVersion(), entry.text));
         textPane.setCaretPosition(0);
     }
 
-    private String getCleanPatchNotes(String tag, String body) {
+    private String getCleanPatchNotes(AppVersion version, String body) {
         String[] lines = body.split("(\\n|\\\\r\\\\n)");
         StringBuilder builder = new StringBuilder();
-        builder.append("<h1>SlimTrade ").append(tag).append("</h1>");
+        builder.append("<h1>SlimTrade ").append(version).append("</h1>");
         for (String s : lines) {
             if (s.toLowerCase().contains("how to install")) {
                 break;
@@ -92,6 +97,12 @@ public class PatchNotesWindow extends CustomDialog {
             builder.append(MarkdownParser.getHtmlFromMarkdown(s));
         }
         return builder.toString();
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) getRootPane().requestFocus();
     }
 
 }
