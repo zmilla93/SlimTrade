@@ -2,23 +2,28 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.updater.IUpdateProgressListener;
+import com.slimtrade.modules.updater.data.AppInfo;
+import com.slimtrade.modules.updater.data.AppVersion;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 // FIXME : This should probably inherit from something else once custom window inheritance is cleaned up
-public class UpdateProgressWindow extends JFrame implements IThemeListener {
+public class UpdateProgressWindow extends JFrame implements IThemeListener, IUpdateProgressListener {
 
     private static final int BORDER_INSET = 20;
     private static final int VERTICAL_GAP = 3;
     private static final int WINDOW_OFFSET = 2;
 
     private final JPopupMenu popupMenu = new JPopupMenu();
+    private final JProgressBar progressBar = new JProgressBar();
 
-    public UpdateProgressWindow() {
+    public UpdateProgressWindow(AppInfo appInfo, AppVersion targetVersion) {
         setUndecorated(true);
         setAlwaysOnTop(true);
         setFocusable(false);
@@ -28,13 +33,9 @@ public class UpdateProgressWindow extends JFrame implements IThemeListener {
         JPanel contentPanel = new JPanel();
         setContentPane(contentPanel);
 
-        JLabel label = new JLabel("Updating to SlimTrade v1.0.0...");
-        JProgressBar progressBar = new JProgressBar();
-        progressBar.setIndeterminate(true);
-
         JPanel innerPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        innerPanel.add(label, gc);
+        innerPanel.add(new StyledLabel("Updating to " + appInfo.name + targetVersion + "...").bold(), gc);
         gc.gridy++;
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.weightx = 1;
@@ -74,6 +75,21 @@ public class UpdateProgressWindow extends JFrame implements IThemeListener {
         super.dispose();
         ThemeManager.removeFrame(this);
         ThemeManager.removeThemeListener(this);
+    }
+
+    @Override
+    public void onDownloadProgress(int progressPercent) {
+        progressBar.setValue(progressPercent);
+    }
+
+    @Override
+    public void onDownloadComplete() {
+
+    }
+
+    @Override
+    public void onDownloadFailed() {
+        setVisible(false);
     }
 
 }

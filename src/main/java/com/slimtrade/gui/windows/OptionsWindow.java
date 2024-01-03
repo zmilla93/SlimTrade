@@ -117,7 +117,7 @@ public class OptionsWindow extends CustomDialog {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        bottomButtonPanel.add(new StyledLabel("SlimTrade v0.4.0-DEV").bold(), gc);
+        bottomButtonPanel.add(new StyledLabel(App.appInfo.fullName).bold(), gc);
         gc.gridy++;
         gc.weightx = 1;
         gc.fill = GridBagConstraints.BOTH;

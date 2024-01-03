@@ -1,17 +1,17 @@
 package com.slimtrade.core.legacy;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.VersionNumber;
 import com.slimtrade.modules.saving.SaveFile;
+import com.slimtrade.modules.updater.data.AppVersion;
 
 public class SaveFilePatcher {
 
     public static boolean checkPatchBeta3() {
         SaveFile<VersionSaveFile> versionSaveFile = new SaveFile<>(SaveManager.getSaveDirectory() + "settings.json", VersionSaveFile.class);
         versionSaveFile.loadFromDisk();
-        VersionNumber saveFileVersion = new VersionNumber(versionSaveFile.data.versionNumber);
-        VersionNumber minVersion = new VersionNumber("v0.3.0");
-        VersionNumber targetVersion = new VersionNumber("v0.4.0");
+        AppVersion saveFileVersion = new AppVersion(versionSaveFile.data.versionNumber);
+        AppVersion minVersion = new AppVersion("v0.3.0");
+        AppVersion targetVersion = new AppVersion("v0.4.0");
         return saveFileVersion.compareTo(minVersion) >= 0
                 && saveFileVersion.compareTo(targetVersion) < 0;
     }

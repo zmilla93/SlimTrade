@@ -16,8 +16,8 @@ public class SaveManager {
 
     // Save Directory
     private static String saveDirectory;
-    private static final String folderWin = "SlimTrade-Rebuild";
-    private static final String folderOther = ".slimtrade-rebuild";
+    private static final String folderWin = "SlimTrade";
+    private static final String folderOther = ".slimtrade";
 
     // Subfolder Names
     private static final String audioFolderName = "audio";

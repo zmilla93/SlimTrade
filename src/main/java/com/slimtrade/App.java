@@ -1,5 +1,6 @@
 package com.slimtrade;
 
+import com.slimtrade.core.References;
 import com.slimtrade.core.chatparser.ChatParser;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.enums.CurrencyType;
@@ -20,11 +21,22 @@ import com.slimtrade.gui.windows.LoadingWindow;
 import com.slimtrade.gui.windows.UpdateProgressWindow;
 import com.slimtrade.modules.stopwatch.Stopwatch;
 import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.updater.UpdateAction;
+import com.slimtrade.modules.updater.UpdateManager;
+import com.slimtrade.modules.updater.ZLogger;
+import com.slimtrade.modules.updater.data.AppInfo;
+import com.slimtrade.modules.updater.data.AppVersion;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 import javax.swing.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,22 +48,31 @@ public class App {
     private static LoadingWindow loadingWindow;
     private static UpdateProgressWindow updateProgressWindow;
     private static LockManager lockManager;
+    private static UpdateManager updateManager;
 
     public static ChatParser chatParser;
     public static ChatParser preloadParser;
 
+    public static AppInfo appInfo;
     private static AppState state = AppState.LOADING;
     private static AppState previousState = AppState.LOADING;
     private static boolean themesHaveBeenInitialized = false;
 
+    // Launch Args
+    public static boolean noUpdate = false;
+
     // Debug Flags
-    public static boolean debug = true;
+    public static boolean debug = false;
     public static boolean chatInConsole = false;
     public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
     public static final boolean debugProfileLaunch = false;
 
     public static void main(String[] args) {
+
+        if (debugProfileLaunch) System.out.println("Profiling launch actions....");
         Stopwatch.start();
+        parseLaunchArgs(args);
+
         // Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
         boolean lockSuccess = lockManager.tryAndLock();
@@ -60,7 +81,10 @@ public class App {
             System.exit(0);
         }
 
-        if (debugProfileLaunch) System.out.println("Profiling launch actions....");
+        // Logger
+        ZLogger.open(SaveManager.getSaveDirectory(), args);
+        ZLogger.log("Program Started: " + Arrays.toString(args));
+        ZLogger.cleanOldLogFiles();
 
         // This setting gets rid of some rendering issues with transparent frames
         System.setProperty("sun.java2d.noddraw", "true");
@@ -73,32 +97,36 @@ public class App {
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
 
-        // Init minimum for loading dialog
-        Stopwatch.start();
-//        ThemeManager.loadFonts();
+        // Load save files & app info
+        appInfo = readAppInfo();
         SaveManager.init();
+        profileLaunch("Time to start update");
 
-        // Initialize all themes
-        // FIXME: Initializing themes should be done as late as possible, but before any UI is shown
-        initializeThemes();
-        profileLaunch("Fonts and Save File");
-
-        // TODO : Updating
-        try {
-            SwingUtilities.invokeAndWait(() -> {
-                updateProgressWindow = new UpdateProgressWindow();
-                updateProgressWindow.setVisible(true);
-            });
-        } catch (InterruptedException | InvocationTargetException e) {
-            throw new RuntimeException(e);
+        // Update
+        updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory(), appInfo, appInfo.appVersion.isPreRelease);
+        updateManager.continueUpdateProcess(args);
+        if (!noUpdate) {
+            if (updateManager.getCurrentUpdateAction() != UpdateAction.CLEAN && updateManager.isUpdateAvailable()) {
+                try {
+                    SwingUtilities.invokeAndWait(() -> {
+                        initializeThemes();
+                        updateProgressWindow = new UpdateProgressWindow(appInfo, updateManager.getLatestRelease().appVersion);
+                        updateManager.addProgressListener(updateProgressWindow);
+                        updateProgressWindow.setVisible(true);
+                    });
+                } catch (InterruptedException | InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+                updateManager.runUpdateProcess();
+            }
         }
-//        if (true) return;
 
-        // Loading Dialog
+        // Loading Window
         try {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
-                loadingWindow = new LoadingWindow();
+                initializeThemes();
+                loadingWindow = new LoadingWindow(appInfo);
                 loadingWindow.setVisible(true);
             });
             profileLaunch("ThemeManager");
@@ -118,9 +146,8 @@ public class App {
         try {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
-                // Init System Tray Button
+                // Initialize GUI
                 systemTrayManager = new SystemTrayManager();
-                // Initialize all GUI windows
                 FrameManager.init();
             });
             profileLaunch("UI Creation");
@@ -164,17 +191,12 @@ public class App {
     }
 
     private static void initializeThemes() {
+        assert (SwingUtilities.isEventDispatchThread());
         if (themesHaveBeenInitialized) return;
-        try {
-            SwingUtilities.invokeAndWait(() -> {
-                FontManager.loadFonts();
-                ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
-                ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-                ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
-            });
-        } catch (InterruptedException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+        FontManager.loadFonts();
+        ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
+        ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
+        ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
         themesHaveBeenInitialized = true;
     }
 
@@ -217,6 +239,30 @@ public class App {
             chatParser.open(SaveManager.settingsSaveFile.data.clientPath, true);
         });
         preloadParser.open(SaveManager.settingsSaveFile.data.clientPath, false);
+    }
+
+    public static AppInfo readAppInfo() {
+        Properties properties = new Properties();
+        try {
+            InputStream stream = new BufferedInputStream(Objects.requireNonNull(UpdateManager.class.getClassLoader().getResourceAsStream("project.properties")));
+            properties.load(stream);
+            stream.close();
+        } catch (IOException e) {
+            System.err.println("Properties not found! Create a 'project.properties' file in the resources folder, then add the lines 'version=${project.version}' and 'artifactId=${project.artifactId}'.");
+            return null;
+        }
+        String name = properties.getProperty("name");
+        String version = properties.getProperty("version");
+        String url = properties.getProperty("url");
+        return new AppInfo(name, new AppVersion(version), url);
+    }
+
+    private static void parseLaunchArgs(String[] args) {
+        for (String arg : args) {
+            arg = arg.toLowerCase();
+            if (arg.equals("-nu") || arg.equals("-noupdate")) noUpdate = true;
+            if (arg.equals("-d") || arg.equals("-debug")) debug = true;
+        }
     }
 
     public static void setState(AppState state) {

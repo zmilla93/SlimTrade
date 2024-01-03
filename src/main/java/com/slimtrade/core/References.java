@@ -5,6 +5,10 @@ import java.util.regex.Pattern;
 
 public class References {
 
+    // GitHub Info
+    public static final String AUTHOR = "zmilla93";
+    public static final String GITHUB_REPO = "slimtrade-tester";
+
     // Links
     public static final String GITHUB_URL = "https://github.com/zmilla93/SlimTrade";
     public static final String GITHUB_ISSUES_URL = "https://github.com/zmilla93/SlimTrade/issues/new/choose";
