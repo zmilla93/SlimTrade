@@ -1,8 +1,11 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.App;
 import com.slimtrade.core.data.CheatSheetData;
+import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.hotkeys.*;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSearchWindowMode;
@@ -62,6 +65,8 @@ public class HotkeyManager {
     }
 
     public static void processHotkey(NativeKeyEvent e) {
+        if (App.getState() != AppState.RUNNING) return;
+        if (!POEInterface.isGameFocused(true)) return;
         HotkeyData data = new HotkeyData(e.getKeyCode(), e.getModifiers());
         IHotkeyAction hotkeyAction = hotkeyMap.get(data);
         if (hotkeyAction == null) {
