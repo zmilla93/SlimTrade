@@ -103,7 +103,7 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
         for (CheatSheetComponentGroup row : rows) {
             CheatSheetData data = row.getData();
             cheatSheetData.add(data);
-            if (FrameManager.cheatSheetWindows.containsKey(data.title)) matchingWindows++;
+            if (FrameManager.cheatSheetWindows.containsKey(data.title())) matchingWindows++;
         }
         SaveManager.settingsSaveFile.data.cheatSheets = cheatSheetData;
         // Don't rebuild cheat sheets if files have not changed

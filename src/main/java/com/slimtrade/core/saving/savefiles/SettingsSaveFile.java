@@ -1,5 +1,6 @@
 package com.slimtrade.core.saving.savefiles;
 
+import com.slimtrade.App;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.CheatSheetData;
@@ -12,37 +13,44 @@ import com.slimtrade.gui.listening.IColorBlindChangeListener;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.modules.theme.Theme;
+import com.slimtrade.modules.updater.data.AppVersion;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-/***
+/**
  * Class representation of settings.json
  */
 public class SettingsSaveFile {
 
+    // TODO : Validate appVersion on launch and update if needed
+    public static final int VERSION = 1;
+    public String appVersionString;
+    private transient AppVersion appVersion;
+    public int saveFileVersion = 1;
+
     // General
+    public String characterName;
     public boolean showGuildName;
     public boolean initializedFolderOffset;
     public boolean folderOffset;
-    public String characterName;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
 
     // Message Popups
     public boolean collapseMessages;
-    public int messagesBeforeCollapse = SpinnerRange.MESSAGES_BEFORE_COLLAPSE.START;
+    public int messageCountBeforeCollapse = SpinnerRange.MESSAGES_BEFORE_COLLAPSE.START;
     public boolean fadeMessages;
     public float secondsBeforeFading = SpinnerRangeFloat.SECONDS_BEFORE_FADE.START;
     public int fadedOpacity = SliderRange.FADED_OPACITY.START;
 
     // Display
+    public Theme theme;
     public int fontSize = SpinnerRange.FONT_SIZE.START;
     public int iconSize = SpinnerRange.ICON_SIZE.START;
     public transient boolean fontSizeChanged;
     public transient boolean iconSizeChanged;
-    public Theme theme;
     public boolean colorBlindMode;
     private final transient ArrayList<IColorBlindChangeListener> colorBlindChangeListeners = new ArrayList<>();
 
@@ -55,8 +63,8 @@ public class SettingsSaveFile {
     public String clientPath;
 
     // Enable Features
-    public boolean enableIncomingMessages = true;
-    public boolean enableOutgoingMessages = true;
+    public boolean enableIncomingTrades = true;
+    public boolean enableOutgoingTrades = true;
     public boolean enableItemHighlighter = true;
     public boolean enableMenuBar = true;
     public boolean enableAutomaticUpdate = true;
@@ -88,7 +96,6 @@ public class SettingsSaveFile {
     public HotkeyData optionsHotkey;
     public HotkeyData historyHotkey;
     public HotkeyData chatScannerHotkey;
-    //    public HotkeyData stashSortHotkey;
     public HotkeyData closeTradeHotkey;
     public HotkeyData changeCharacterHotkey;
 
@@ -104,9 +111,9 @@ public class SettingsSaveFile {
     public HotkeyData remainingMonstersHotkey;
 
     // Searching
-    public ArrayList<StashSearchGroupData> stashSearchData = new ArrayList<>();
-    public StashSearchWindowMode stashSearchWindowMode = StashSearchWindowMode.COMBINED;
     public HotkeyData stashSearchHotkey;
+    public StashSearchWindowMode stashSearchWindowMode = StashSearchWindowMode.COMBINED;
+    public ArrayList<StashSearchGroupData> stashSearchData = new ArrayList<>();
 
     public SettingsSaveFile() {
         incomingMacroButtons.add(new MacroButton(CustomIcon.INVITE, "/invite {player}", "", ButtonRow.BOTTOM_ROW, null, false));
@@ -172,6 +179,14 @@ public class SettingsSaveFile {
 
     public void removeColorBlindListener(IColorBlindChangeListener listener) {
         colorBlindChangeListeners.remove(listener);
+    }
+
+    public AppVersion appVersion() {
+        if (appVersion == null) {
+            appVersion = new AppVersion(appVersionString);
+            if (!appVersion.valid) appVersion = new AppVersion(App.appInfo.appVersion.toString());
+        }
+        return appVersion;
     }
 
 }

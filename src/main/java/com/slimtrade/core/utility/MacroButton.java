@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class MacroButton {
 
-    public MacroButtonType buttonType;
+    public MacroButtonType buttonType = MacroButtonType.ICON;
     public CustomIcon icon;
     public String text;
     public String lmbResponse;
@@ -22,8 +22,8 @@ public class MacroButton {
 
     }
 
+    // FIXME : Macro button is always null except for legacy importing?
     public MacroButton(CustomIcon icon, String lmbResponse, String rmbResponse, ButtonRow row, HotkeyData hotkeyData, boolean close) {
-        this.buttonType = MacroButtonType.ICON;
         this.icon = icon;
         this.lmbResponse = lmbResponse;
         this.rmbResponse = rmbResponse;

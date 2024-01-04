@@ -161,7 +161,7 @@ public class FrameManager {
         cheatSheetWindows.clear();
         for (CheatSheetData data : SaveManager.settingsSaveFile.data.cheatSheets) {
             CheatSheetWindow window = CheatSheetWindow.createCheatSheet(data);
-            if (window != null) cheatSheetWindows.put(data.title, window);
+            if (window != null) cheatSheetWindows.put(data.title(), window);
         }
         PinManager.applyCheatSheetPins();
         for (CheatSheetWindow window : cheatSheetWindows.values()) {

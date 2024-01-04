@@ -13,7 +13,7 @@ public class CheatSheetComponentGroup {
 
     public CheatSheetComponentGroup(CheatSheetData data) {
         this.data = data;
-        this.label = new JLabel(data.title);
+        this.label = new JLabel(data.title());
         this.hotkeyButton = new HotkeyButton();
         hotkeyButton.setData(data.hotkeyData);
     }

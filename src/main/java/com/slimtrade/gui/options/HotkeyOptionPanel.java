@@ -2,6 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
+import com.slimtrade.gui.components.ButtonWrapper;
 import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -70,7 +71,7 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         panel.add(new JLabel(name), gc);
         gc.gridx++;
         gc.insets.left = 20;
-        panel.add(hotkey, gc);
+        panel.add(new ButtonWrapper(hotkey), gc);
         gc.insets.left = 0;
         gc.gridx = 0;
         gc.gridy++;

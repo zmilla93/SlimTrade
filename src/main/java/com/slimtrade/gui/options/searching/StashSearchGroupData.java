@@ -2,16 +2,18 @@ package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.hotkeys.HotkeyData;
 
-// FIXME : Should terms just be an ArrayList for simplicity?
+import java.util.ArrayList;
+
 public class StashSearchGroupData {
 
-    public final int id;
     public static final String PIN_PREFIX = "SearchWindow:";
+
+    public final int id;
     public final String title;
     public final HotkeyData hotkeyData;
-    public final StashSearchTermData[] terms;
+    public final ArrayList<StashSearchTermData> terms;
 
-    public StashSearchGroupData(int id, String title, HotkeyData hotkeyData, StashSearchTermData[] terms) {
+    public StashSearchGroupData(int id, String title, HotkeyData hotkeyData, ArrayList<StashSearchTermData> terms) {
         this.id = id;
         this.title = title;
         this.hotkeyData = hotkeyData;

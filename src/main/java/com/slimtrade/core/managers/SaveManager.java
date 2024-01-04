@@ -1,7 +1,7 @@
 package com.slimtrade.core.managers;
 
 import com.slimtrade.core.data.IgnoreItem;
-import com.slimtrade.core.legacy.SaveFilePatcher;
+import com.slimtrade.core.legacy.SaveFilePatcherManager;
 import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISaveListener;
@@ -16,8 +16,8 @@ public class SaveManager {
 
     // Save Directory
     private static String saveDirectory;
-    private static final String folderWin = "SlimTrade";
-    private static final String folderOther = ".slimtrade";
+    public static final String folderWin = "SlimTrade-Rebuild";
+    public static final String folderOther = ".slimtrade";
 
     // Subfolder Names
     private static final String audioFolderName = "audio";
@@ -36,7 +36,6 @@ public class SaveManager {
         // Listeners should be added before loading due to callbacks
         // FIXME : Should check if there are better places to add save listeners.
         addListeners();
-        handleLegacySaveFiles();
         settingsSaveFile.loadFromDisk();
         overlaySaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();
@@ -44,20 +43,7 @@ public class SaveManager {
         pinSaveFile.loadFromDisk();
         chatScannerSaveFile.loadFromDisk();
         patchNotesSaveFile.loadFromDisk();
-    }
-
-    private static void handleLegacySaveFiles() {
-        if (SaveFilePatcher.checkPatchBeta3()) {
-            SaveFilePatcher.applyPatchBeta3ToBeta4();
-        }
-//        SaveFile<VersionSaveFile> versionSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", VersionSaveFile.class);
-//        versionSaveFile.loadFromDisk();
-//        VersionNumber saveFileVersion = new VersionNumber(versionSaveFile.data.versionNumber);
-//        VersionNumber targetVersion = new VersionNumber("v0.4.0");
-//        if(saveFileVersion.compareTo(targetVersion) < 0){
-//            System.out.println("PATCHING!!!");
-//        }
-//        System.out.println("VERSION:::" + versionSaveFile.data.versionNumber);
+        SaveFilePatcherManager.handleSaveFilePatching();
     }
 
     private static void addListeners() {

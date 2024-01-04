@@ -3,6 +3,7 @@ package com.slimtrade.modules.saving;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.slimtrade.core.legacy.VersionSaveFile;
 import com.slimtrade.modules.listening.ListenManager;
 
 import java.awt.*;
@@ -21,8 +22,9 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
     public T data;
     public final String path;
     public final Class<T> classType;
+    private int saveFileVersion;
+    private boolean loadedExistingData = false;
     private final ArrayList<ISavable> savables = new ArrayList<>();
-    //    private final ArrayList<ISaveListener> saveListeners = new ArrayList<>();
     private final Timer autoSaveTimer = new Timer();
     private TimerTask saveTask;
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -31,6 +33,14 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
         this.path = path;
         this.classType = classType;
 //        loadFromDisk();
+    }
+
+    public int saveFileVersion() {
+        return saveFileVersion;
+    }
+
+    public boolean loadedExistingData() {
+        return loadedExistingData;
     }
 
     /**
@@ -100,36 +110,45 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
      * Automatically called when SaveFile is created.
      */
     public synchronized void loadFromDisk() {
+        saveFileVersion = fetchSaveFileVersion();
         File file = new File(path);
         if (file.exists()) {
             try {
                 data = gson.fromJson(getFileAsString(file.getPath()), classType);
                 if (data != null) {
+                    loadedExistingData = true;
                     for (ISaveListener listener : listeners) {
                         listener.onLoad();
                     }
                     return;
-                } else {
-                    tryInitData();
                 }
-            } catch (JsonSyntaxException e) {
-                tryInitData();
-                return;
+            } catch (JsonSyntaxException ignore) {
             }
         }
-        tryInitData();
+        initData();
         for (ISaveListener listener : listeners) {
             listener.onLoad();
         }
     }
 
-    private void tryInitData() {
+    private void initData() {
         try {
             data = classType.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private int fetchSaveFileVersion() {
+        File file = new File(path);
+        if (!file.exists()) return -1;
+        try {
+            VersionSaveFile saveFile = gson.fromJson(getFileAsString(file.getPath()), VersionSaveFile.class);
+            if (saveFile != null) return saveFile.saveFileVersion;
+        } catch (JsonSyntaxException ignore) {
+        }
+        return -1;
     }
 
     /**

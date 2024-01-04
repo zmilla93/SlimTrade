@@ -10,9 +10,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class ZUtil {
 
@@ -151,18 +155,6 @@ public class ZUtil {
         return input.matches("\\s*");
     }
 
-    /**
-     * Given a panel with a border layout, will add insets to the edges of the panel
-     *
-     * @param panel
-     */
-    public static void addBorderStruts(JPanel panel, Insets insets) {
-        panel.add(Box.createVerticalStrut(insets.top), BorderLayout.NORTH);
-        panel.add(Box.createVerticalStrut(insets.bottom), BorderLayout.SOUTH);
-        panel.add(Box.createHorizontalStrut(insets.left), BorderLayout.WEST);
-        panel.add(Box.createHorizontalStrut(insets.right), BorderLayout.EAST);
-    }
-
     public static boolean openLink(String link) {
         if (link.startsWith("http:")) {
             link = link.replaceFirst("http:", "https:");
@@ -230,6 +222,16 @@ public class ZUtil {
             }
             if (line.contains(className)) found = true;
         }
+    }
+
+    public static String getFileAsString(String path) {
+        StringBuilder builder = new StringBuilder();
+        try (Stream<String> lines = Files.lines(Paths.get(path), StandardCharsets.UTF_8)) {
+            lines.forEach(builder::append);
+        } catch (IOException e) {
+            return null;
+        }
+        return builder.toString();
     }
 
 }

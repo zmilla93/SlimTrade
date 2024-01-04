@@ -136,9 +136,9 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         assert (SwingUtilities.isEventDispatchThread());
         setIgnoreRepaint(true);
         if (messageContainer.getComponentCount() > 20) return;
-        if (!SaveManager.settingsSaveFile.data.enableIncomingMessages && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE)
+        if (!SaveManager.settingsSaveFile.data.enableIncomingTrades && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE)
             return;
-        if (!SaveManager.settingsSaveFile.data.enableOutgoingMessages && tradeOffer.offerType == TradeOfferType.OUTGOING_TRADE)
+        if (!SaveManager.settingsSaveFile.data.enableOutgoingTrades && tradeOffer.offerType == TradeOfferType.OUTGOING_TRADE)
             return;
         if (playSound) {
             switch (tradeOffer.offerType) {
@@ -175,7 +175,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
 
     private void addMessageMutual(Component component) {
         addComponent(component);
-        if (SaveManager.settingsSaveFile.data.collapseMessages && !expanded && messageContainer.getComponentCount() >= SaveManager.settingsSaveFile.data.messagesBeforeCollapse) {
+        if (SaveManager.settingsSaveFile.data.collapseMessages && !expanded && messageContainer.getComponentCount() >= SaveManager.settingsSaveFile.data.messageCountBeforeCollapse) {
             component.setVisible(false);
             expandPanel.setVisible(true);
         }
@@ -190,11 +190,11 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     private void recheckMessageVisibility() {
         for (int i = 0; i < messageContainer.getComponentCount(); i++) {
             Component c = messageContainer.getComponent(i);
-            if (SaveManager.settingsSaveFile.data.collapseMessages && !expanded && i >= SaveManager.settingsSaveFile.data.messagesBeforeCollapse)
+            if (SaveManager.settingsSaveFile.data.collapseMessages && !expanded && i >= SaveManager.settingsSaveFile.data.messageCountBeforeCollapse)
                 c.setVisible(false);
             else c.setVisible(true);
         }
-        if (SaveManager.settingsSaveFile.data.collapseMessages && messageContainer.getComponentCount() > SaveManager.settingsSaveFile.data.messagesBeforeCollapse) {
+        if (SaveManager.settingsSaveFile.data.collapseMessages && messageContainer.getComponentCount() > SaveManager.settingsSaveFile.data.messageCountBeforeCollapse) {
             expandPanel.setVisible(true);
         } else {
             expandPanel.setVisible(false);
@@ -324,7 +324,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
 
     private void collapseMessages() {
         for (int i = 0; i < messageContainer.getComponentCount(); i++) {
-            if (i >= SaveManager.settingsSaveFile.data.messagesBeforeCollapse) {
+            if (i >= SaveManager.settingsSaveFile.data.messageCountBeforeCollapse) {
                 messageContainer.getComponent(i).setVisible(false);
             }
         }
@@ -336,7 +336,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         if (expanded) {
             expandPanel.setText("Collapse Messages");
         } else {
-            int hiddenMessageCount = messageContainer.getComponentCount() - SaveManager.settingsSaveFile.data.messagesBeforeCollapse;
+            int hiddenMessageCount = messageContainer.getComponentCount() - SaveManager.settingsSaveFile.data.messageCountBeforeCollapse;
             String suffix = hiddenMessageCount > 1 ? "s" : "";
             expandPanel.setText("+" + hiddenMessageCount + " More Message" + suffix);
         }

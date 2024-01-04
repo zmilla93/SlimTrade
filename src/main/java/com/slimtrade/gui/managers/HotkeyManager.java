@@ -49,7 +49,7 @@ public class HotkeyManager {
         }
         // Cheat Sheets
         for (CheatSheetData cheatSheetData : SaveManager.settingsSaveFile.data.cheatSheets) {
-            CheatSheetWindow window = FrameManager.cheatSheetWindows.get(cheatSheetData.title);
+            CheatSheetWindow window = FrameManager.cheatSheetWindows.get(cheatSheetData.title());
             registerHotkey(cheatSheetData.hotkeyData, new WindowHotkey(window));
         }
     }

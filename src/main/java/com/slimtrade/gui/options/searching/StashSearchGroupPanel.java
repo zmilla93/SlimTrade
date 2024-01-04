@@ -149,11 +149,10 @@ public class StashSearchGroupPanel extends AddRemovePanel {
     }
 
     public StashSearchGroupData getData() {
-        ArrayList<StashSearchTermData> termList = new ArrayList<>();
+        ArrayList<StashSearchTermData> terms = new ArrayList<>();
         for (StashSearchTermPanel termPanel : termContainer.getComponentsTyped()) {
-            termList.add(termPanel.getData());
+            terms.add(termPanel.getData());
         }
-        StashSearchTermData[] terms = termList.toArray(new StashSearchTermData[0]);
         return new StashSearchGroupData(id, groupName, hotkeyButton.getData(), terms);
     }
 

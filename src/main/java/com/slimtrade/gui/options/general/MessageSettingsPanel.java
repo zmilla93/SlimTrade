@@ -101,7 +101,7 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
     @Override
     public void save() {
         SaveManager.settingsSaveFile.data.collapseMessages = collapseCheckBox.isSelected();
-        SaveManager.settingsSaveFile.data.messagesBeforeCollapse = (int) messagesBeforeCollapseSpinner.getValue();
+        SaveManager.settingsSaveFile.data.messageCountBeforeCollapse = (int) messagesBeforeCollapseSpinner.getValue();
         SaveManager.settingsSaveFile.data.fadeMessages = fadeCheckBox.isSelected();
         SaveManager.settingsSaveFile.data.secondsBeforeFading = (float) secondsBeforeFadeSpinner.getValue();
         SaveManager.settingsSaveFile.data.fadedOpacity = fadeOpacitySlider.getValue();
@@ -110,7 +110,7 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
     @Override
     public void load() {
         collapseCheckBox.setSelected(SaveManager.settingsSaveFile.data.collapseMessages);
-        messagesBeforeCollapseSpinner.setValue(SaveManager.settingsSaveFile.data.messagesBeforeCollapse);
+        messagesBeforeCollapseSpinner.setValue(SaveManager.settingsSaveFile.data.messageCountBeforeCollapse);
         fadeCheckBox.setSelected(SaveManager.settingsSaveFile.data.fadeMessages);
         secondsBeforeFadeSpinner.setValue(SaveManager.settingsSaveFile.data.secondsBeforeFading);
         fadeOpacitySlider.setValue(SaveManager.settingsSaveFile.data.fadedOpacity);
