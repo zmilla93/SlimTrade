@@ -28,7 +28,7 @@ import java.awt.event.MouseMotionAdapter;
 public abstract class CustomDialog extends VisibilityDialog implements IPinnable, IThemeListener, IVisibilityFrame {
 
     // Sizes
-    private static final int RESIZER_PANEL_SIZE = 8;
+    private static final int RESIZER_PANEL_SIZE = 8; // If a child needs this value, use getResizerSize()
     private static final int BORDER_SIZE = 1;
     private static final int TITLE_INSET = 4;
 
@@ -50,6 +50,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     private final JPanel resizerBottom = new JPanel(new BorderLayout());
     private final JPanel resizerLeft = new JPanel(new BorderLayout());
     private final JPanel resizerRight = new JPanel(new BorderLayout());
+    private final JPanel[] resizerPanels = new JPanel[]{resizerTop, resizerBottom, resizerLeft, resizerRight};
 
     // Panels
     private final JPanel titleBarPanel = new JPanel(new BorderLayout());
@@ -135,6 +136,9 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         outerPanel.add(resizerBottom, BorderLayout.SOUTH);
         outerPanel.add(resizerLeft, BorderLayout.WEST);
         outerPanel.add(resizerRight, BorderLayout.EAST);
+        for (JPanel panel : resizerPanels) panel.setOpaque(false);
+        outerPanel.setBackground(ThemeManager.TRANSPARENT);
+//        outerPanel.setIgnoreRepaint(false);
         outerPanel.setOpaque(false);
         innerPanel.setOpaque(false);
 
@@ -167,6 +171,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     pinned = !pinned;
                     pinButton.setPinned(pinned);
+                    if (pinRespectsSize) setResizable(!pinned);
                     PinManager.save();
                     SaveManager.pinSaveFile.saveToDisk();
                 }
@@ -182,10 +187,8 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
                 super.mousePressed(e);
                 startLocation = getLocation();
                 clickedWindowPoint = e.getPoint();
-                if (isResizable()) {
-                    clickedWindowPoint.x += getResizerSize();
-                    clickedWindowPoint.y += getResizerSize();
-                }
+                clickedWindowPoint.x += getResizerSize();
+                clickedWindowPoint.y += getResizerSize();
                 if (getMinimumSize().width == 0) maxWidthAdjust = -1;
                 else maxWidthAdjust = getSize().width - getMinimumSize().width;
             }
@@ -301,8 +304,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     }
 
     protected int getResizerSize() {
-        if (isResizable()) return RESIZER_PANEL_SIZE;
-        return 0;
+        return RESIZER_PANEL_SIZE;
     }
 
     // Overrides
@@ -318,16 +320,18 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         return this.title;
     }
 
-    // FIXME :  This can't be called after the window is created without causing the size of the window to change.
-    //          The window size and location should be recalculated, or the resizers should remain visible but set to
-    //          be click through. Fixing this would clean up the way pinnables work.
     @Override
-    public void setResizable(boolean state) {
-        super.setResizable(state);
-        resizerTop.setVisible(state);
-        resizerLeft.setVisible(state);
-        resizerBottom.setVisible(state);
-        resizerRight.setVisible(state);
+    public void setResizable(boolean resizable) {
+        super.setResizable(resizable);
+        for (JPanel panel : resizerPanels) {
+            if (resizable) {
+                panel.setOpaque(true);
+                panel.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
+            } else {
+                panel.setOpaque(false);
+                panel.setBackground(null);
+            }
+        }
     }
 
     // Interfaces
