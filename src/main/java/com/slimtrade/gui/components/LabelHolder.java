@@ -6,6 +6,7 @@ import java.awt.*;
 /**
  * Allows setForeground to be used on a panel and have it applied to all of its children.
  */
+@Deprecated
 public class LabelHolder extends JPanel {
 
     @Override

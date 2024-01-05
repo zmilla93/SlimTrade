@@ -6,9 +6,10 @@ import com.slimtrade.core.trading.TradeOffer;
 
 public class HistoryRowData {
 
-    public DateString date;
-    public TimeString time;
-    public String player;
+    public final DateString date;
+    public final TimeString time;
+    //    public String player;
+    public PlayerNameWrapper playerNameWrapper;
     public SaleItemWrapper saleItemWrapper;
     //    public String item;
     //    public double price;
@@ -17,13 +18,13 @@ public class HistoryRowData {
 
     /**
      * Stores data needed to display a trade in the history window. TradeOffer is not displayed.
-     *
-     * @param tradeOffer
      */
+
     public HistoryRowData(TradeOffer tradeOffer) {
         date = new DateString(tradeOffer.date);
         time = new TimeString(tradeOffer.time);
-        player = tradeOffer.playerName;
+//        player = tradeOffer.playerName;
+        playerNameWrapper = new PlayerNameWrapper(tradeOffer.playerName);
         saleItemWrapper = new SaleItemWrapper();
         saleItemWrapper.items = SaleItem.getItems(tradeOffer.itemQuantityString + " " + tradeOffer.itemName);
         price = new PoePrice(tradeOffer.priceName, (int) tradeOffer.priceQuantity);

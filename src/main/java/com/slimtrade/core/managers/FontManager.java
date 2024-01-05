@@ -74,6 +74,11 @@ public class FontManager {
     }
 
     private static Font getFont(Font font, FontLanguage language) {
+        Font languageFont = getFont(language);
+        return languageFont.deriveFont(font.getStyle(), font.getSize());
+    }
+
+    private static Font getFont(FontLanguage language) {
         switch (language) {
             case CHINESE:
                 if (preferredFontSupport.chinese) return preferredFont;
@@ -82,18 +87,18 @@ public class FontManager {
             case KOREAN:
                 if (preferredFontSupport.korean) return preferredFont;
                 if (systemFontSupport.korean) return systemFont;
-                return koreanFont.deriveFont(font.getStyle(), font.getSize());
+                return koreanFont;
             case THAI:
                 if (preferredFontSupport.thai) return preferredFont;
                 if (systemFontSupport.thai) return systemFont;
-                return thaiFont.deriveFont(font.getStyle(), font.getSize());
+                return thaiFont;
             case RUSSIAN:
                 if (preferredFontSupport.russian) return preferredFont;
                 if (systemFontSupport.russian) return systemFont;
                 break;
         }
-        if (USE_SYSTEM_DEFAULT) return font;
-        return preferredFont.deriveFont(font.getStyle(), font.getSize());
+        if (USE_SYSTEM_DEFAULT) return systemFont;
+        return preferredFont;
     }
 
     public static ArrayList<String> getAllFonts() {

@@ -14,8 +14,9 @@ import java.util.ArrayList;
 
 public class HistoryPanel extends JPanel implements ISaveListener {
 
+    public static int MAX_MESSAGE_COUNT = 50;
+
     private final ArrayList<HistoryRowData> data = new ArrayList<>();
-    public static int maxMessageCount = 50;
     private final HistoryTable table;
     private final JButton reloadButton = new JButton("Open Selected Message");
 
@@ -33,18 +34,24 @@ public class HistoryPanel extends JPanel implements ISaveListener {
         buttonPanel.add(reloadButton, gc);
         bottomPanel.add(buttonPanel, BorderLayout.EAST);
 
-        setLayout(new BorderLayout());
+        // Table
         DefaultTableCellRenderer defaultCellRenderer = new DefaultTableCellRenderer();
         defaultCellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         table = new HistoryTable(columnNames, data);
         table.setDefaultRenderer(DateString.class, defaultCellRenderer);
         table.setDefaultRenderer(TimeString.class, defaultCellRenderer);
+        table.setDefaultRenderer(PlayerNameWrapper.class, new PlayerNameCellRenderer());
         table.setDefaultRenderer(PoePrice.class, new CurrencyCellRenderer());
         table.setDefaultRenderer(SaleItemWrapper.class, new ItemCellRenderer());
         table.setAutoCreateRowSorter(true);
+
+        // Panel Layout
+        setLayout(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+
+        // Listeners
         addListeners();
         SaveManager.settingsSaveFile.addListener(this);
     }
@@ -54,13 +61,7 @@ public class HistoryPanel extends JPanel implements ISaveListener {
     }
 
     public void reloadUI() {
-//        clearAllRows();
-//        table.getHistoryTableModel().setRowData(data);
         table.getHistoryTableModel().fireTableDataChanged();
-    }
-
-    public void preloadRow() {
-
     }
 
     public void addRow(TradeOffer tradeOffer) {
@@ -68,7 +69,7 @@ public class HistoryPanel extends JPanel implements ISaveListener {
     }
 
     public void addRow(TradeOffer tradeOffer, boolean updateUI) {
-        if (data.size() >= maxMessageCount) data.remove(0);
+        if (data.size() >= MAX_MESSAGE_COUNT) data.remove(0);
         HistoryRowData rowData = new HistoryRowData(tradeOffer);
         data.add(rowData);
         if (updateUI) table.getHistoryTableModel().fireTableDataChanged();
@@ -90,7 +91,7 @@ public class HistoryPanel extends JPanel implements ISaveListener {
 
     @Override
     public void onSave() {
-        table.updateUI();
+        table.getHistoryTableModel().fireTableDataChanged();
     }
 
     @Override

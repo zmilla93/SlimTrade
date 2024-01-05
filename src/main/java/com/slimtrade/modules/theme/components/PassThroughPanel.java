@@ -6,6 +6,9 @@ import java.awt.*;
 /**
  * A panel that will apply certain functions to all child components.
  */
+
+// FIXME : Check if this is actually needed with the UI rework
+@Deprecated
 public class PassThroughPanel extends JPanel {
 
     @Override
