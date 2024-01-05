@@ -23,6 +23,8 @@ public class CheatSheetWindow extends CustomDialog {
 
     private CheatSheetWindow(CheatSheetData data) {
         super(data.title(), true, false);
+        pinRespectsSize = false;
+        setResizable(false);
         setMinimumSize(new Dimension(0, 0));
         setFocusable(false);
         setFocusableWindowState(false);
