@@ -33,8 +33,7 @@ public class SaveManager {
     public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory() + "patch_notes.json", PatchNotesSaveFile.class);
 
     public static void init() {
-        // Listeners should be added before loading due to callbacks
-        // FIXME : Should check if there are better places to add save listeners.
+        // Listeners should be added before loading due to load callbacks
         addListeners();
         settingsSaveFile.loadFromDisk();
         overlaySaveFile.loadFromDisk();
@@ -47,7 +46,7 @@ public class SaveManager {
     }
 
     private static void addListeners() {
-//        SaveManager.settingsSaveFile.removeAllListeners();
+        // FIXME : Should check if there are better places to add save listeners.
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
             @Override
             public void onSave() {

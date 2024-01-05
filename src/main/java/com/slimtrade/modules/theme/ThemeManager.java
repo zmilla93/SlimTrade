@@ -7,10 +7,12 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.buttons.NotificationButton;
 import com.slimtrade.gui.windows.BasicDialog;
+import com.slimtrade.modules.stopwatch.Stopwatch;
 import com.slimtrade.modules.theme.components.ColorCheckbox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
@@ -40,6 +42,7 @@ public class ThemeManager {
     private static final int DEFAULT_OFFSET_COLOR_AMOUNT = 20;
 
     private static Theme currentTheme;
+    private static String currentFontName;
 
     public static void addFrame(Component frame) {
         if (frames.contains(frame)) return;
@@ -189,11 +192,49 @@ public class ThemeManager {
         return image;
     }
 
+    public static void setFont(String fontName) {
+        Stopwatch.start();
+        if (fontName == null) return;
+        if (fontName.equals(currentFontName)) return;
+        if (!FontManager.isValidFont(fontName)) return;
+        FontManager.setPreferredFont(fontName);
+        refreshDefaultFonts();
+        for (Component component : frames) {
+            changeComponentFont(component, FontManager.getPreferredFont());
+        }
+        currentFontName = fontName;
+    }
+
+    private static void refreshDefaultFonts() {
+        if (FontManager.USE_SYSTEM_DEFAULT) return;
+        Enumeration<Object> keys = UIManager.getDefaults().keys();
+        String fontName = FontManager.getPreferredFont().getFontName();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource) {
+                Font oldFont = (FontUIResource) value;
+                FontUIResource fontResource = new FontUIResource(fontName, oldFont.getStyle(), SaveManager.settingsSaveFile.data.fontSize);
+                UIManager.put(key, fontResource);
+            }
+        }
+    }
+
+    private static void changeComponentFont(Component component, Font font) {
+        Font previousFont = component.getFont();
+        component.setFont(font.deriveFont(previousFont.getStyle(), previousFont.getSize()));
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                changeComponentFont(child, font);
+            }
+        }
+    }
+
     public static void setFontSize(int size) {
         refreshDefaultFonts();
         for (Component frame : frames) {
             setFontSizeRecursive(frame, size);
-            SwingUtilities.updateComponentTreeUI(frame);
+//            SwingUtilities.updateComponentTreeUI(frame);
             frame.revalidate();
             frame.repaint();
         }
@@ -212,20 +253,6 @@ public class ThemeManager {
         component.setFont(curFont.deriveFont(curFont.getStyle(), size));
     }
 
-    private static void refreshDefaultFonts() {
-        // FIXME : This is currently disabled, but will need to be enabled if the default font is changed
-        if (FontManager.USE_SYSTEM_DEFAULT) return;
-        Enumeration<Object> keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if (value instanceof Font) {
-                Font oldFont = (Font) value;
-                UIManager.put(key, FontManager.getPreferredFont().deriveFont(oldFont.getStyle(), SaveManager.settingsSaveFile.data.fontSize));
-            }
-        }
-    }
-
     public static int getCachedIconSize() {
         return cachedIconSize;
     }
@@ -236,7 +263,7 @@ public class ThemeManager {
         iconMap.clear();
         colorIconMap.clear();
         for (Component frame : frames) {
-            setIconSizeRecursive(frame, size);
+//            setIconSizeRecursive(frame, size);
             SwingUtilities.updateComponentTreeUI(frame);
             frame.revalidate();
             frame.repaint();

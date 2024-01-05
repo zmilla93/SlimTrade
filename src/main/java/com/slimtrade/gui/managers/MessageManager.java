@@ -450,7 +450,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 ((NotificationPanel) c).resizeStrut();
             }
         }
-        pack();
+        refresh();
     }
 
 }

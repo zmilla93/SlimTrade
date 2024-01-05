@@ -195,6 +195,7 @@ public class App {
         if (themesHaveBeenInitialized) return;
         FontManager.loadFonts();
         ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
+        ThemeManager.setFont(SaveManager.settingsSaveFile.data.preferredFontName);
         ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
         ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
         themesHaveBeenInitialized = true;

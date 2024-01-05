@@ -20,7 +20,7 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
 
     public DisplayOptionPanel() {
         for (Theme theme : Theme.values()) themeCombo.addItem(theme);
-        addHeader("UI Scale");
+        addHeader("Font Settings");
         addComponent(new DisplaySettingsPanel());
         addVerticalStrut();
 

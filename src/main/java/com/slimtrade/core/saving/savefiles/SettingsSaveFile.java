@@ -47,6 +47,7 @@ public class SettingsSaveFile {
 
     // Display
     public Theme theme;
+    public String preferredFontName;
     public int fontSize = SpinnerRange.FONT_SIZE.START;
     public int iconSize = SpinnerRange.ICON_SIZE.START;
     public transient boolean fontSizeChanged;
