@@ -11,32 +11,27 @@ import com.slimtrade.gui.components.AddRemovePanel;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class IgnoreRow extends AddRemovePanel {
 
     public final IgnoreItem ignoreItem;
     private int remainingTime;
 
-    private JPanel infoPanel = new JPanel(new GridBagLayout());
     private final JButton removeButton = new IconButton("/icons/default/closex64.png");
     private final JLabel timerLabel = new JLabel();
-    private final JLabel itemNameLabel = new JLabel();
     private final JLabel matchLabel = new JLabel();
     private Timer timer;
 
-    private Component nameStrut;
-    private Component matchStrut;
-    private Component timerStrut;
 
-    private final GridBagConstraints gc = ZUtil.getGC();
-
-    public IgnoreRow(AddRemoveContainer parent, IgnoreItem ignoreItem) {
+    public IgnoreRow(AddRemoveContainer<IgnoreRow> parent, IgnoreItem ignoreItem) {
         super(parent);
-        itemNameLabel.setText(ignoreItem.itemName);
+        JLabel itemNameLabel = new JLabel(ignoreItem.itemName);
         this.ignoreItem = ignoreItem;
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 0;
         gc.insets.left = 10;
+        JPanel infoPanel = new JPanel(new GridBagLayout());
         infoPanel.add(matchLabel, gc);
         gc.gridx++;
         infoPanel.add(timerLabel, gc);

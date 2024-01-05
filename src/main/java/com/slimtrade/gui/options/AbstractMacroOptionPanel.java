@@ -17,9 +17,8 @@ import java.util.ArrayList;
 
 public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
-    private TradeOfferType messageType;
+    private final TradeOfferType messageType;
     protected final AddRemoveContainer<MacroCustomizerPanel> macroContainer = new AddRemoveContainer<>();
-    ;
 
     private final JPanel exampleTradeContainer = new JPanel(new GridBagLayout());
     private GridBagConstraints gc = new GridBagConstraints();
@@ -63,9 +62,9 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
             addVerticalStrut();
         }
         addHeader("Custom Macro Info");
-        addComponent(new PlainLabel("Run one or more commands using {player}, {self}, {item}, {price}, {zone}, and {message}."));
-        addComponent(new PlainLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
-        addComponent(new PlainLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey."));
+        addComponent(new JLabel("Run one or more commands using {player}, {self}, {item}, {price}, {zone}, and {message}."));
+        addComponent(new JLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
+        addComponent(new JLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey."));
         addVerticalStrutSmall();
         addComponent(exampleButton);
 
@@ -75,8 +74,8 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         exampleSeparator = addVerticalStrut();
         addHeader("Custom Macros");
 
-//        JPanel buttonPanel = new JPanel();
         addComponent(addMacroButton);
+        addVerticalStrutSmall();
         addComponent(macroContainer);
         hideExamples();
         addListeners();

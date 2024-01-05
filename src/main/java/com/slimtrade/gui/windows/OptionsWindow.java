@@ -3,7 +3,6 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.StyledLabel;
-import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
 import com.slimtrade.gui.options.searching.StashSearchOptionPanel;
@@ -19,9 +18,8 @@ public class OptionsWindow extends CustomDialog {
 
     private final AbstractMacroOptionPanel incomingMacroPanel;
     private final AbstractMacroOptionPanel outgoingMacroPanel;
-    private IgnoreItemOptionPanel ignorePanel = new IgnoreItemOptionPanel();
-    private Visibility visibility;
-    private GeneralOptionPanel generalOptionPanel = new GeneralOptionPanel();
+    private final IgnoreItemOptionPanel ignorePanel = new IgnoreItemOptionPanel();
+    private final GeneralOptionPanel generalOptionPanel = new GeneralOptionPanel();
 
     public OptionsWindow() {
         super("Options");

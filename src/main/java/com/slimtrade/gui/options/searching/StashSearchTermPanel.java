@@ -15,7 +15,7 @@ public class StashSearchTermPanel extends AddRemovePanel {
     private final JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
     private final JButton shiftDownButton = new IconButton("/icons/default/arrow-downx48.png");
 
-    private final JTextField titleInput = new PlaceholderTextField("Display Title...", 10);
+    private final JTextField titleInput = new PlaceholderTextField("Display Title...", 15);
     private final JTextField searchInput = new PlaceholderTextField("Search Term...", 20);
     private final ColorCombo colorCombo = new ColorCombo();
 

@@ -2,18 +2,21 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.data.IgnoreItem;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.gui.components.AddRemoveContainer;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.options.ignore.IgnoreInputPanel;
-import com.slimtrade.gui.options.ignore.IgnoreRow;
+import com.slimtrade.gui.options.ignore.IgnoreRowComponents;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private final IgnoreInputPanel ignoreInputPanel = new IgnoreInputPanel();
-    private final AddRemoveContainer<IgnoreRow> ignoreContainer = new AddRemoveContainer<>();
+    private final JPanel ignoreContainer = new JPanel(new GridBagLayout());
+    private final ArrayList<IgnoreRowComponents> componentRows = new ArrayList<>();
+    private final GridBagConstraints gc = ZUtil.getGC();
 
     public IgnoreItemOptionPanel() {
         addHeader("Ignore New Item");
@@ -24,25 +27,53 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
         addVerticalStrut();
         addHeader("Ignore List");
         addComponent(ignoreContainer);
+        gc.anchor = GridBagConstraints.WEST;
         addListeners();
     }
 
-    public void tryAddIgnore(IgnoreItem item) {
-        if (item.itemName.matches("\\s+")) return;
+    private void addListeners() {
+        ignoreInputPanel.getIgnoreButton().addActionListener(e -> tryAddIgnoreItem(ignoreInputPanel.getIgnoreItem()));
+    }
+
+    public void tryAddIgnoreItem(IgnoreItem item) {
+        if (item.itemName.matches("")) return;
         if (!item.isInfinite() && item.getRemainingMinutes() <= 0) return;
-        ignoreContainer.add(new IgnoreRow(ignoreContainer, item));
+        addNewRow(item);
         revalidate();
         repaint();
     }
 
-    private void addListeners() {
-        ignoreInputPanel.getIgnoreButton().addActionListener(e -> tryAddIgnore(ignoreInputPanel.getIgnoreItem()));
+    private void addNewRow(IgnoreItem item) {
+        IgnoreRowComponents row = new IgnoreRowComponents(this, item);
+        componentRows.add(row);
+        ignoreContainer.add(row.removeButton, gc);
+        gc.gridx++;
+        gc.insets.left = 10;
+        ignoreContainer.add(row.matchTypeLabel, gc);
+        gc.gridx++;
+        gc.insets.left = 20;
+        ignoreContainer.add(row.timeRemainingLabel, gc);
+        gc.gridx++;
+        ignoreContainer.add(row.itemNameLabel, gc);
+        gc.gridx = 0;
+        gc.gridy++;
+        gc.insets.left = 0;
+    }
+
+    public void removeRow(IgnoreRowComponents row) {
+        ignoreContainer.remove(row.removeButton);
+        ignoreContainer.remove(row.timeRemainingLabel);
+        ignoreContainer.remove(row.matchTypeLabel);
+        ignoreContainer.remove(row.itemNameLabel);
+        componentRows.remove(row);
+        revalidate();
+        repaint();
     }
 
     @Override
     public void save() {
         ArrayList<IgnoreItem> ignoreItems = new ArrayList<>();
-        for (IgnoreRow row : ignoreContainer.getComponentsTyped()) {
+        for (IgnoreRowComponents row : componentRows) {
             IgnoreItem item = row.ignoreItem;
             if (item.isInfinite() || item.getRemainingMinutes() > 0) ignoreItems.add(item);
         }
@@ -52,9 +83,12 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
     @Override
     public void load() {
         ignoreContainer.removeAll();
+        componentRows.clear();
         for (IgnoreItem item : SaveManager.ignoreSaveFile.data.ignoreList) {
-            tryAddIgnore(item);
+            tryAddIgnoreItem(item);
         }
+        revalidate();
+        repaint();
     }
 
 }

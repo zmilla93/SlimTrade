@@ -300,7 +300,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 if (item.matchType == MatchType.EXACT_MATCH) {
                     if (trade.itemName.equals(item.itemName)) removeMessage(panel);
                 } else if (item.matchType == MatchType.CONTAINS_TEXT) {
-                    if (trade.itemNameLower.contains(item.itemNameLower)) removeMessage(panel);
+                    if (trade.itemNameLower.contains(item.itemNameLower())) removeMessage(panel);
                 }
             }
         }

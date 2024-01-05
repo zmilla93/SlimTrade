@@ -9,10 +9,10 @@ import java.awt.*;
 
 public class IgnoreInputPanel extends JPanel {
 
-    private JButton ignoreButton = new JButton("Ignore Item");
-    private JTextField itemNameInput = new JTextField(20);
-    private JComboBox<MatchType> matchTypeCombo = new JComboBox<>();
-    private JSpinner timeSpinner = new JSpinner();
+    private final JButton ignoreButton = new JButton("Ignore Item");
+    private final JTextField itemNameInput = new JTextField(20);
+    private final JComboBox<MatchType> matchTypeCombo = new JComboBox<>();
+    private final JSpinner timeSpinner = new JSpinner();
 
     public IgnoreInputPanel() {
         setLayout(new GridBagLayout());
@@ -27,7 +27,6 @@ public class IgnoreInputPanel extends JPanel {
         timeSpinner.setModel(spinnerModel);
         ((JSpinner.DefaultEditor) timeSpinner.getEditor()).getTextField().setEditable(false);
 
-//        gc.gridx = 1;
         add(new JLabel("Item Name"), gc);
         gc.gridx++;
         add(new JLabel("Match"), gc);
@@ -35,9 +34,6 @@ public class IgnoreInputPanel extends JPanel {
         add(new JLabel("Minutes"), gc);
         gc.gridx = 0;
         gc.gridy++;
-
-
-//        gc.gridx++;
         add(itemNameInput, gc);
         gc.gridx++;
         add(matchTypeCombo, gc);
@@ -45,6 +41,11 @@ public class IgnoreInputPanel extends JPanel {
         add(timeSpinner, gc);
         gc.gridx++;
         add(ignoreButton, gc);
+        ignoreButton.addActionListener(e -> itemNameInput.setText(""));
+    }
+
+    public void clear() {
+        itemNameInput.setText("");
     }
 
     public JButton getIgnoreButton() {

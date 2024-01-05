@@ -9,18 +9,18 @@ import java.util.HashMap;
 public class IgnoreSaveFile {
 
     public ArrayList<IgnoreItem> ignoreList = new ArrayList<>();
-    public transient HashMap<String, IgnoreItem> exactIgnoreMap = new HashMap<>();
-    public transient ArrayList<IgnoreItem> containsIgnoreList = new ArrayList<>();
+    public transient HashMap<String, IgnoreItem> exactMatchIgnoreMap = new HashMap<>();
+    public transient ArrayList<IgnoreItem> containsTextIgnoreList = new ArrayList<>();
 
     public void buildCache() {
-        exactIgnoreMap.clear();
-        containsIgnoreList.clear();
+        exactMatchIgnoreMap.clear();
+        containsTextIgnoreList.clear();
         for (IgnoreItem item : ignoreList) {
             if (item.isExpired()) continue;
             if (item.matchType == MatchType.EXACT_MATCH) {
-                exactIgnoreMap.put(item.itemNameLower, item);
+                exactMatchIgnoreMap.put(item.itemNameLower(), item);
             } else {
-                containsIgnoreList.add(item);
+                containsTextIgnoreList.add(item);
             }
         }
     }
