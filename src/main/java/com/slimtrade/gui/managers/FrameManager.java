@@ -46,7 +46,7 @@ public class FrameManager {
     public static OverlayInfoDialog overlayInfoWindow;
     public static MessageOverlay messageOverlay;
     public static MenubarOverlay menubarOverlay;
-    public static StashWindow stashGridWindow;
+    public static StashGridWindow stashGridWindow;
     public static StashHelperContainer stashHelperContainer;
 
     // Menubar
@@ -77,7 +77,7 @@ public class FrameManager {
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
         menubarOverlay = new MenubarOverlay();
-        stashGridWindow = new StashWindow();
+        stashGridWindow = new StashGridWindow();
 
         dummyWindow = new DummyWindow(); // Omitted from visibility list
 

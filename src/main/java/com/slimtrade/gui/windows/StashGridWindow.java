@@ -3,7 +3,6 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.InsetPanel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.GridPanel;
 import com.slimtrade.modules.saving.ISavable;
@@ -12,10 +11,8 @@ import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class StashWindow extends CustomDialog implements IThemeListener, ISavable {
+public class StashGridWindow extends CustomDialog implements IThemeListener, ISavable {
 
     private final JButton gridButton = new JButton("Grid");
     //    private final JButton alignButton = new JButton("Auto Align");
@@ -25,46 +22,49 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
     private final GridPanel gridPanel = new GridPanel();
 
     private final int INSET_HORIZONTAL = 8;
-    private final int INSET_VERTICAL = 20;
+    private final int INSET_VERTICAL = 50;
 
-    public StashWindow() {
+    /**
+     * Used to mark the location of POE's stash.
+     * <p>
+     * IMPORTANT : The location of gridPanel has to be calculated manually,
+     * so moving it in the hierarchy would require updating setBoundsUsingGrid().
+     */
+    public StashGridWindow() {
         super("Stash Overlay");
         setFocusable(false);
         setFocusableWindowState(false);
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
-        setAlwaysOnTop(true);
-        InsetPanel insetPanel = new InsetPanel(new Insets(INSET_VERTICAL, INSET_HORIZONTAL, INSET_VERTICAL, INSET_HORIZONTAL));
-        insetPanel.contentPanel.setLayout(new BorderLayout());
-        insetPanel.contentPanel.add(gridPanel, BorderLayout.CENTER);
-        insetPanel.contentPanel.setOpaque(false);
+        closeButton.setVisible(false);
+        pinButton.setVisible(false);
 
+        // Grid Panel
+        JPanel gridBorderPanel = new JPanel(new BorderLayout());
+        gridBorderPanel.setOpaque(false);
+        ZUtil.addStrutsToBorderPanel(gridBorderPanel, new Insets(INSET_VERTICAL, INSET_HORIZONTAL, INSET_VERTICAL, INSET_HORIZONTAL));
+        gridBorderPanel.add(gridPanel, BorderLayout.CENTER);
+
+        // Button Panel
         JPanel buttonPanel = new JPanel(new GridBagLayout());
-
         GridBagConstraints gc = ZUtil.getGC();
         buttonPanel.add(gridButton, gc);
         gc.gridx++;
         gc.insets.left = 10;
-//        buttonPanel.add(alignButton, gc);
-//        gc.gridx++;
-
         buttonPanel.add(cancelButton, gc);
         gc.gridx++;
         buttonPanel.add(saveButton, gc);
         gc.gridx++;
 
+        // Content Panel
         contentPanel.setLayout(new BorderLayout());
-        contentPanel.add(insetPanel, BorderLayout.CENTER);
+        contentPanel.add(gridBorderPanel, BorderLayout.CENTER);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
-
         contentPanel.setBackground(ThemeManager.TRANSPARENT);
 
-        ThemeManager.addThemeListener(this);
-
-        closeButton.setVisible(false);
-        pinButton.setVisible(false);
-        addListeners();
+        // Finalize
         pack();
         setSize(500, 500);
+        addListeners();
+        ThemeManager.addThemeListener(this);
         SaveManager.stashSaveFile.registerSavableContainer(this);
     }
 
@@ -73,23 +73,35 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
             gridPanel.cycleGrid();
             repaint();
         });
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                save();
-                SaveManager.stashSaveFile.saveToDisk();
-                if (FrameManager.setupWindow != null)
-                    FrameManager.setupWindow.getStashPanel().validateNextButton();
-                FrameManager.setWindowVisibility(App.getPreviousState());
-            }
+        saveButton.addActionListener(e -> {
+            save();
+            SaveManager.stashSaveFile.saveToDisk();
+            if (FrameManager.setupWindow != null)
+                FrameManager.setupWindow.getStashPanel().validateNextButton();
+            FrameManager.setWindowVisibility(App.getPreviousState());
         });
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                load();
-                FrameManager.setWindowVisibility(App.getPreviousState());
-            }
+        cancelButton.addActionListener(e -> {
+            load();
+            FrameManager.setWindowVisibility(App.getPreviousState());
         });
+    }
+
+    public void setBoundsUsingGrid(Rectangle rect) {
+        // Calculate Position (using getLocationOnScreen would be simpler, but requires the window to be visible)
+        Point gridPos = gridPanel.getLocation();
+        gridPos.x += BORDER_SIZE + getResizerSize();
+        gridPos.y += BORDER_SIZE + getResizerSize() + getTitleBarHeight();
+        rect.x -= gridPos.x;
+        rect.y -= gridPos.y;
+        // Calculate size
+        Dimension gridSize = gridPanel.getSize();
+        Dimension windowSize = getSize();
+        int verticalExcess = windowSize.height - gridSize.height;
+        int horizontalExcess = windowSize.width - gridSize.width;
+        rect.width += horizontalExcess;
+        rect.height += verticalExcess;
+        // Apply
+        setBounds(rect);
     }
 
     @Override
@@ -113,7 +125,7 @@ public class StashWindow extends CustomDialog implements IThemeListener, ISavabl
     @Override
     public void load() {
         if (SaveManager.stashSaveFile.data.windowRect == null) return;
-        setLocation(SaveManager.stashSaveFile.data.windowRect.getLocation());
-        setSize(SaveManager.stashSaveFile.data.windowRect.getSize());
+        setBoundsUsingGrid(SaveManager.stashSaveFile.data.gridRect);
     }
+
 }

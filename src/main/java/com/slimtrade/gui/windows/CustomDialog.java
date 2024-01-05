@@ -29,7 +29,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     // Sizes
     private static final int RESIZER_PANEL_SIZE = 8; // If a child needs this value, use getResizerSize()
-    private static final int BORDER_SIZE = 1;
+    protected static final int BORDER_SIZE = 1;
     private static final int TITLE_INSET = 4;
 
     // State
@@ -52,7 +52,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     private final JPanel resizerRight = new JPanel(new BorderLayout());
     private final JPanel[] resizerPanels = new JPanel[]{resizerTop, resizerBottom, resizerLeft, resizerRight};
 
-    // Panels
     private final JPanel titleBarPanel = new JPanel(new BorderLayout());
     private final JLabel titleLabel = new JLabel();
     private final JPanel contentBorderPanel;
@@ -76,6 +75,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         setMinimumSize(new Dimension(400, 400));
         setUndecorated(true);
         setAlwaysOnTop(true);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         getRootPane().setOpaque(false);
         ThemeManager.addFrame(this);
         ThemeManager.addThemeListener(this);
@@ -116,27 +116,29 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         resizerLeft.setCursor(new Cursor(Cursor.W_RESIZE_CURSOR));
         resizerRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
 
-        // Inner Panel
+        // Content Border Panel - Used for setting border
         contentBorderPanel = new JPanel(new BorderLayout());
         contentBorderPanel.add(contentPanel, BorderLayout.CENTER);
         contentBorderPanel.setOpaque(false);
+
+        // Panels
         JPanel innerPanel = new JPanel(new BorderLayout());
         innerPanel.add(titleBarPanel, BorderLayout.NORTH);
         innerPanel.add(contentBorderPanel, BorderLayout.CENTER);
 
-        // Outer Panel
-        JPanel outerPanel = new JPanel(new BorderLayout());
-        outerPanel.add(innerPanel, BorderLayout.CENTER);
-        outerPanel.add(resizerTop, BorderLayout.NORTH);
-        outerPanel.add(resizerBottom, BorderLayout.SOUTH);
-        outerPanel.add(resizerLeft, BorderLayout.WEST);
-        outerPanel.add(resizerRight, BorderLayout.EAST);
+        // Resizer Container Panel
+        JPanel resizerContainer = new JPanel(new BorderLayout());
+        resizerContainer.add(innerPanel, BorderLayout.CENTER);
+        resizerContainer.add(resizerTop, BorderLayout.NORTH);
+        resizerContainer.add(resizerBottom, BorderLayout.SOUTH);
+        resizerContainer.add(resizerLeft, BorderLayout.WEST);
+        resizerContainer.add(resizerRight, BorderLayout.EAST);
         for (JPanel panel : resizerPanels) panel.setOpaque(false);
-        outerPanel.setOpaque(false);
+        resizerContainer.setOpaque(false);
         innerPanel.setOpaque(false);
 
         // Container
-        super.setContentPane(outerPanel);
+        super.setContentPane(resizerContainer);
         setBackground(ThemeManager.TRANSPARENT);
 
         addWindowMover();

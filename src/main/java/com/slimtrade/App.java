@@ -202,21 +202,27 @@ public class App {
     }
 
     public static void launchApp() {
-        SwingUtilities.invokeLater(() -> {
-            if (FrameManager.setupWindow != null) {
-                FrameManager.setupWindow.dispose();
-                FrameManager.setupWindow = null;
-            }
-            SaveManager.settingsSaveFile.revertChanges();
-            SaveManager.stashSaveFile.revertChanges();
-            SaveManager.chatScannerSaveFile.revertChanges();
-            FrameManager.optionsWindow.reloadExampleTrades();
-            FrameManager.overlayInfoWindow.load();
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                if (FrameManager.setupWindow != null) {
+                    FrameManager.setupWindow.dispose();
+                    FrameManager.setupWindow = null;
+                }
+                SaveManager.settingsSaveFile.revertChanges();
+                SaveManager.stashSaveFile.revertChanges();
+                SaveManager.chatScannerSaveFile.revertChanges();
+                FrameManager.optionsWindow.reloadExampleTrades();
+                FrameManager.overlayInfoWindow.load();
 
-            PinManager.applyAllPins();
-            FrameManager.showAppFrames();
-            SystemTrayManager.showDefault();
-        });
+                PinManager.applyAllPins();
+                FrameManager.showAppFrames();
+                SystemTrayManager.showDefault();
+//                Rectangle stashRect = new Rectangle(15, 127, 633, 634);
+//                FrameManager.stashGridWindow.setBoundsUsingGrid(stashRect);
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
         initParsers();
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);

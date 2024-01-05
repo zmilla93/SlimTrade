@@ -3,6 +3,7 @@ package com.slimtrade.gui.components;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class InsetPanel extends JPanel {
 
     public JPanel contentPanel = new JPanel();
