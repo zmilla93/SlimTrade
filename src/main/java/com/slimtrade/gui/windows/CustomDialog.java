@@ -115,10 +115,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         resizerBottom.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
         resizerLeft.setCursor(new Cursor(Cursor.W_RESIZE_CURSOR));
         resizerRight.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
-        resizerTop.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
-        resizerBottom.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
-        resizerLeft.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
-        resizerRight.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
 
         // Inner Panel
         contentBorderPanel = new JPanel(new BorderLayout());
@@ -127,7 +123,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         JPanel innerPanel = new JPanel(new BorderLayout());
         innerPanel.add(titleBarPanel, BorderLayout.NORTH);
         innerPanel.add(contentBorderPanel, BorderLayout.CENTER);
-        innerPanel.setBackground(Color.ORANGE);
 
         // Outer Panel
         JPanel outerPanel = new JPanel(new BorderLayout());
@@ -137,8 +132,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         outerPanel.add(resizerLeft, BorderLayout.WEST);
         outerPanel.add(resizerRight, BorderLayout.EAST);
         for (JPanel panel : resizerPanels) panel.setOpaque(false);
-        outerPanel.setBackground(ThemeManager.TRANSPARENT);
-//        outerPanel.setIgnoreRepaint(false);
         outerPanel.setOpaque(false);
         innerPanel.setOpaque(false);
 
@@ -150,6 +143,9 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         addResizerListeners();
         colorBorders();
         addListeners();
+        updateResizeVisibility();
+        pack();
+        setLocation(-RESIZER_PANEL_SIZE, -RESIZER_PANEL_SIZE);
     }
 
     private void addListeners() {
@@ -172,6 +168,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
                     pinned = !pinned;
                     pinButton.setPinned(pinned);
                     if (pinRespectsSize) setResizable(!pinned);
+                    else updateResizeVisibility();
                     PinManager.save();
                     SaveManager.pinSaveFile.saveToDisk();
                 }
@@ -303,6 +300,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         contentBorderPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), BORDER_SIZE));
     }
 
+    // FIXME: Since panels always have resizers now, this is a bit redundant
     protected int getResizerSize() {
         return RESIZER_PANEL_SIZE;
     }
@@ -323,8 +321,12 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     @Override
     public void setResizable(boolean resizable) {
         super.setResizable(resizable);
+        updateResizeVisibility();
+    }
+
+    protected void updateResizeVisibility() {
         for (JPanel panel : resizerPanels) {
-            if (resizable) {
+            if (isResizable()) {
                 panel.setOpaque(true);
                 panel.setBackground(ThemeManager.TRANSPARENT_CLICKABLE);
             } else {
@@ -349,9 +351,12 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     @Override
     public void applyPin(Rectangle rectangle) {
         setLocation(rectangle.getLocation());
-        if (pinRespectsSize) setSize(rectangle.getSize());
         pinned = true;
         pinButton.setPinned(true);
+        if (pinRespectsSize) {
+            setSize(rectangle.getSize());
+            setResizable(!pinned);
+        } else updateResizeVisibility();
     }
 
     @Override
