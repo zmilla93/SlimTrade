@@ -6,13 +6,14 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.GridPanel;
 import com.slimtrade.modules.saving.ISavable;
+import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StashGridWindow extends CustomDialog implements IThemeListener, ISavable {
+public class StashGridWindow extends CustomDialog implements ISavable, IThemeListener, IFontChangeListener {
 
     private final JButton gridButton = new JButton("Grid");
     //    private final JButton alignButton = new JButton("Auto Align");
@@ -59,12 +60,14 @@ public class StashGridWindow extends CustomDialog implements IThemeListener, ISa
         contentPanel.add(gridBorderPanel, BorderLayout.CENTER);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
         contentPanel.setBackground(ThemeManager.TRANSPARENT);
+        adjustTranslucentBackground();
 
         // Finalize
         pack();
         setSize(500, 500);
         addListeners();
         ThemeManager.addThemeListener(this);
+        ThemeManager.addFontListener(this);
         SaveManager.stashSaveFile.registerSavableContainer(this);
     }
 
@@ -86,31 +89,37 @@ public class StashGridWindow extends CustomDialog implements IThemeListener, ISa
         });
     }
 
-    public void setBoundsUsingGrid(Rectangle rect) {
+    private void setBoundsUsingGrid(Rectangle rect) {
+        if (rect == null) return;
+        Rectangle fixedRect = new Rectangle(rect);
         // Calculate Position (using getLocationOnScreen would be simpler, but requires the window to be visible)
         Point gridPos = gridPanel.getLocation();
         gridPos.x += BORDER_SIZE + getResizerSize();
         gridPos.y += BORDER_SIZE + getResizerSize() + getTitleBarHeight();
-        rect.x -= gridPos.x;
-        rect.y -= gridPos.y;
+        fixedRect.x -= gridPos.x;
+        fixedRect.y -= gridPos.y;
         // Calculate size
         Dimension gridSize = gridPanel.getSize();
         Dimension windowSize = getSize();
         int verticalExcess = windowSize.height - gridSize.height;
         int horizontalExcess = windowSize.width - gridSize.width;
-        rect.width += horizontalExcess;
-        rect.height += verticalExcess;
+        fixedRect.width += horizontalExcess;
+        fixedRect.height += verticalExcess;
         // Apply
-        setBounds(rect);
+        setBounds(fixedRect);
+    }
+
+    private void adjustTranslucentBackground() {
+        Color c1 = UIManager.getColor("Panel.background");
+        Color c2 = UIManager.getColor("Label.foreground");
+        Color color = ThemeManager.getLighterColor(c1, c2);
+        contentPanel.setBackground(ThemeManager.adjustAlpha(color, 30));
     }
 
     @Override
     public void onThemeChange() {
         super.onThemeChange();
-        Color c1 = UIManager.getColor("Panel.background");
-        Color c2 = UIManager.getColor("Label.foreground");
-        Color color = ThemeManager.getDarkerColor(c1, c2);
-        contentPanel.setBackground(ThemeManager.adjustAlpha(color, 100));
+        adjustTranslucentBackground();
     }
 
     @Override
@@ -123,7 +132,11 @@ public class StashGridWindow extends CustomDialog implements IThemeListener, ISa
 
     @Override
     public void load() {
-        if (SaveManager.stashSaveFile.data.gridRect == null) return;
+        setBoundsUsingGrid(SaveManager.stashSaveFile.data.gridRect);
+    }
+
+    @Override
+    public void onFontChanged() {
         setBoundsUsingGrid(SaveManager.stashSaveFile.data.gridRect);
     }
 
