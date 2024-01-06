@@ -47,8 +47,6 @@ public class SettingsSaveFile extends BaseSaveFile {
     public String preferredFontName;
     public int fontSize = SpinnerRange.FONT_SIZE.START;
     public int iconSize = SpinnerRange.ICON_SIZE.START;
-    public transient boolean fontSizeChanged;
-    public transient boolean iconSizeChanged;
     public boolean colorBlindMode;
     private final transient ArrayList<IColorBlindChangeListener> colorBlindChangeListeners = new ArrayList<>();
 

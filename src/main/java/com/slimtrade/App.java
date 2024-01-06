@@ -199,6 +199,7 @@ public class App {
         ThemeManager.setFont(SaveManager.settingsSaveFile.data.preferredFontName);
         ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
         ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
+        ThemeManager.checkFontChange();
         themesHaveBeenInitialized = true;
     }
 

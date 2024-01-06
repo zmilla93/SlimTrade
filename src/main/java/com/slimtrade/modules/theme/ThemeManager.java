@@ -27,11 +27,14 @@ public class ThemeManager {
     // FIXME : Should this be moved to frame manager?
     private static final List<Component> frames = new ArrayList<>();
 
+    // Listeners
     private static final ArrayList<IThemeListener> themeListeners = new ArrayList<>();
-    private static final ArrayList<IUIResizeListener> uiResizeListeners = new ArrayList<>();
     private static final ArrayList<JComboBox<?>> stickyCombos = new ArrayList<>();
+    private static final ArrayList<IFontChangeListener> fontChangeListeners = new ArrayList<>();
+    private static final ArrayList<IDetailedFontChangeListener> detailedFontChangeListeners = new ArrayList<>();
 
-    private static int cachedIconSize = 18;
+    private static int cachedIconSize = 0;
+    private static int currentFontSize;
     private static final HashMap<String, ImageIcon> iconMap = new HashMap<>();
     private static final HashMap<String, ImageIcon> colorIconMap = new HashMap<>();
 
@@ -43,6 +46,11 @@ public class ThemeManager {
 
     private static Theme currentTheme;
     private static String currentFontName;
+
+    // Flags that monitor changes to font
+    private static boolean iconSizeWasChanged = false;
+    private static boolean fontSizeWasChanged = false;
+    private static boolean fontStyleWasChanged = false;
 
     public static void addFrame(Component frame) {
         if (frames.contains(frame)) return;
@@ -193,8 +201,10 @@ public class ThemeManager {
     }
 
     public static void setFont(String fontName) {
-        Stopwatch.start();
         if (fontName == null) return;
+        if (fontName.equals(currentFontName)) return;
+        fontStyleWasChanged = true;
+        Stopwatch.start();
         if (fontName.equals(currentFontName)) return;
         if (!FontManager.isValidFont(fontName)) return;
         FontManager.setPreferredFont(fontName);
@@ -231,15 +241,15 @@ public class ThemeManager {
     }
 
     public static void setFontSize(int size) {
+        if (size == currentFontSize) return;
+        currentFontSize = size;
+        fontSizeWasChanged = true;
         refreshDefaultFonts();
         for (Component frame : frames) {
             setFontSizeRecursive(frame, size);
 //            SwingUtilities.updateComponentTreeUI(frame);
             frame.revalidate();
             frame.repaint();
-        }
-        for (IUIResizeListener listener : uiResizeListeners) {
-            listener.onFontSizeChanged();
         }
     }
 
@@ -259,11 +269,14 @@ public class ThemeManager {
 
     public static void setIconSize(int size) {
         assert (SwingUtilities.isEventDispatchThread());
+        if (size == cachedIconSize) return;
+        iconSizeWasChanged = true;
         cachedIconSize = size;
         iconMap.clear();
         colorIconMap.clear();
         for (Component frame : frames) {
 //            setIconSizeRecursive(frame, size);
+            // FIXME : updateComponentThread is very inefficient, should create an alternative function
             SwingUtilities.updateComponentTreeUI(frame);
             frame.revalidate();
             frame.repaint();
@@ -271,9 +284,6 @@ public class ThemeManager {
             if (frame instanceof BasicDialog) {
                 ((BasicDialog) frame).pack();
             }
-        }
-        for (IUIResizeListener listener : uiResizeListeners) {
-            listener.onIconSizeChanged();
         }
     }
 
@@ -297,6 +307,21 @@ public class ThemeManager {
         for (Component child : component.getComponents()) {
             recursiveUpdateUI((JComponent) child);
         }
+    }
+
+    public static void checkFontChange() {
+        boolean fontWasChanged = fontStyleWasChanged || fontSizeWasChanged || iconSizeWasChanged;
+        if (!fontWasChanged) return;
+        for (IFontChangeListener listener : fontChangeListeners) listener.onFontChanged();
+        if (fontStyleWasChanged)
+            for (IDetailedFontChangeListener listener : detailedFontChangeListeners) listener.onFontStyleChanged();
+        if (fontSizeWasChanged)
+            for (IDetailedFontChangeListener listener : detailedFontChangeListeners) listener.onFontSizeChanged();
+        if (iconSizeWasChanged)
+            for (IDetailedFontChangeListener listener : detailedFontChangeListeners) listener.onIconSizeChanged();
+        fontStyleWasChanged = false;
+        fontSizeWasChanged = false;
+        iconSizeWasChanged = false;
     }
 
     //
@@ -353,9 +378,7 @@ public class ThemeManager {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
     }
 
-    //
     // Listeners
-    //
 
     public static void addThemeListener(IThemeListener listener) {
         themeListeners.add(listener);
@@ -365,20 +388,12 @@ public class ThemeManager {
         themeListeners.remove(listener);
     }
 
-    public static void clearAllThemeListeners() {
-        themeListeners.clear();
+    public static void addFontListener(IFontChangeListener listener) {
+        fontChangeListeners.add(listener);
     }
 
-    public static void addFontListener(IUIResizeListener listener) {
-        uiResizeListeners.add(listener);
-    }
-
-    public static void removeFontListener(IUIResizeListener listener) {
-        uiResizeListeners.remove(listener);
-    }
-
-    public static void clearAllFontListeners() {
-        uiResizeListeners.clear();
+    public static void removeFontChangeListener(IFontChangeListener listener) {
+        fontChangeListeners.remove(listener);
     }
 
 }

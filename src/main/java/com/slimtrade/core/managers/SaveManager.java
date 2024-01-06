@@ -50,19 +50,11 @@ public class SaveManager {
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
             @Override
             public void onSave() {
+                assert SwingUtilities.isEventDispatchThread();
                 FrameManager.messageManager.refreshFadeData();
                 FrameManager.stashHelperContainer.updateLocation();
-                if (SaveManager.settingsSaveFile.data.fontSizeChanged) {
-                    ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
-                    SaveManager.settingsSaveFile.data.fontSizeChanged = false;
-                }
-                if (SaveManager.settingsSaveFile.data.iconSizeChanged) {
-                    ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
-                    SaveManager.settingsSaveFile.data.iconSizeChanged = false;
-                }
+                ThemeManager.checkFontChange();
                 SaveManager.settingsSaveFile.data.buildMacroCache();
-                // FIXME : force update ui only needs to run if colorblind mode was changed.
-                SwingUtilities.invokeLater(() -> FrameManager.messageManager.forceUpdateUI());
             }
 
             @Override

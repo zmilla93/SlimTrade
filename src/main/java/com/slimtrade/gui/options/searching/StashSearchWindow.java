@@ -6,7 +6,7 @@ import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.CustomDialog;
-import com.slimtrade.modules.theme.IUIResizeListener;
+import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.AdvancedButton;
 
@@ -16,7 +16,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class StashSearchWindow extends CustomDialog implements IUIResizeListener {
+public class StashSearchWindow extends CustomDialog implements IFontChangeListener {
 
     private boolean combinedWindow = false;
     private StashSearchGroupData data;
@@ -157,20 +157,15 @@ public class StashSearchWindow extends CustomDialog implements IUIResizeListener
     }
 
     @Override
-    public void onFontSizeChanged() {
-//        revalidate();
+    public void onFontChanged() {
         pack();
-    }
-
-    @Override
-    public void onIconSizeChanged() {
-        // Do nothing
     }
 
     @Override
     public void dispose() {
         super.dispose();
-        ThemeManager.removeFontListener(this);
+        ThemeManager.removeFontChangeListener(this);
     }
+
 
 }

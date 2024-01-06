@@ -17,7 +17,7 @@ import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.messaging.*;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.theme.IUIResizeListener;
+import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
@@ -34,7 +34,7 @@ import java.util.concurrent.Executors;
  * @see com.slimtrade.gui.messaging.ChatScannerMessagePanel
  * @see UpdateMessagePanel
  */
-public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IUIResizeListener {
+public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IFontChangeListener {
 
     //    private final Container contentPanel;
     private final JPanel messageContainer;
@@ -99,11 +99,11 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             }
         };
 
-        ThemeManager.addFontListener(this);
         setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         refreshFadeData();
         refresh();
         addListeners();
+        ThemeManager.addFontListener(this);
     }
 
     private void addListeners() {
@@ -439,12 +439,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     @Override
-    public void onFontSizeChanged() {
-        refresh();
-    }
-
-    @Override
-    public void onIconSizeChanged() {
+    public void onFontChanged() {
         for (Component c : messageContainer.getComponents()) {
             if (c instanceof NotificationPanel) {
                 ((NotificationPanel) c).resizeStrut();

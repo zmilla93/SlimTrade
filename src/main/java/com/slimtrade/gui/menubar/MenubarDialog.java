@@ -9,13 +9,13 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
-import com.slimtrade.modules.theme.IUIResizeListener;
+import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MenubarDialog extends BasicDialog implements IUIResizeListener {
+public class MenubarDialog extends BasicDialog implements IFontChangeListener {
 
     private JButton optionsButton;
     private JButton chatScannerButton;
@@ -44,7 +44,8 @@ public class MenubarDialog extends BasicDialog implements IUIResizeListener {
     }
 
     public void rebuild() {
-        buildIconButtons();
+//        buildIconButtons();
+        buildTextButtons();
         TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
     }
 
@@ -113,12 +114,7 @@ public class MenubarDialog extends BasicDialog implements IUIResizeListener {
     }
 
     @Override
-    public void onFontSizeChanged() {
-        handleResize();
-    }
-
-    @Override
-    public void onIconSizeChanged() {
+    public void onFontChanged() {
         handleResize();
     }
 

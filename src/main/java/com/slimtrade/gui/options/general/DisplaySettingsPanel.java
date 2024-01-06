@@ -105,17 +105,17 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
 
     @Override
     public void save() {
-        if (SaveManager.settingsSaveFile.data.fontSize != (int) fontSizeSpinner.getValue()) {
-            SaveManager.settingsSaveFile.data.fontSizeChanged = true;
-        }
-        if (SaveManager.settingsSaveFile.data.iconSize != (int) iconSizeSpinner.getValue()) {
-            SaveManager.settingsSaveFile.data.iconSizeChanged = true;
-        }
-        SaveManager.settingsSaveFile.data.fontSize = (int) fontSizeSpinner.getValue();
-        SaveManager.settingsSaveFile.data.iconSize = (int) iconSizeSpinner.getValue();
         String preferredFont = (String) fontCombo.getSelectedItem();
+        int fontSize = (int) fontSizeSpinner.getValue();
+        int iconSize = (int) iconSizeSpinner.getValue();
+
         SaveManager.settingsSaveFile.data.preferredFontName = preferredFont;
+        SaveManager.settingsSaveFile.data.fontSize = fontSize;
+        SaveManager.settingsSaveFile.data.iconSize = iconSize;
+
         ThemeManager.setFont(preferredFont);
+        ThemeManager.setFontSize(fontSize);
+        ThemeManager.setIconSize(iconSize);
     }
 
     @Override
