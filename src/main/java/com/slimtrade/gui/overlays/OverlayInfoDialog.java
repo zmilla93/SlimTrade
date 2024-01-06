@@ -11,13 +11,14 @@ import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.AbstractDialog;
 import com.slimtrade.modules.saving.ISavable;
+import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class OverlayInfoDialog extends AbstractDialog implements IThemeListener, ISavable {
+public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThemeListener, IFontChangeListener {
 
     // Buttons
     private final JButton cancelButton = new JButton("Cancel");
@@ -52,9 +53,11 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         buttonPanel.add(saveButton, gc);
 
         // Combo Panel
-        int comboSpacer = 10;
+        int comboSpacer = 14;
         JPanel comboPanel = new JPanel(new GridBagLayout());
         gc = ZUtil.getGC();
+        gc.fill = GridBagConstraints.HORIZONTAL;
+
         comboPanel.add(new JLabel("Message Expand Direction"), gc);
         gc.gridx++;
         gc.insets.left = comboSpacer;
@@ -85,9 +88,12 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         int inset = 20;
         gc.insets = new Insets(inset, inset, inset, inset);
         contentPanel.add(outerPanel, gc);
+
+        adjustBorder();
         pack();
         setLocationRelativeTo(null);
         ThemeManager.addThemeListener(this);
+        ThemeManager.addFontListener(this);
         addListeners();
     }
 
@@ -108,9 +114,13 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         menubarAnchorCombo.addActionListener(e -> FrameManager.menubarOverlay.setAnchor((Anchor) menubarAnchorCombo.getSelectedItem()));
     }
 
+    private void adjustBorder() {
+        contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), 2));
+    }
+
     @Override
     public void onThemeChange() {
-        contentPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), 1));
+        adjustBorder();
     }
 
     @Override
@@ -143,6 +153,12 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         TradeUtil.applyAnchorPoint(FrameManager.menubarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
 
 
+    }
+
+    @Override
+    public void onFontChanged() {
+        pack();
+        setLocationRelativeTo(null);
     }
 
 }

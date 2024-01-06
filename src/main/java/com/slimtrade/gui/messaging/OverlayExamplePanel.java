@@ -11,11 +11,11 @@ public class OverlayExamplePanel extends JPanel {
     private final String COLOR_KEY = "Separator.foreground";
     private Anchor anchor = null;
 
-    public OverlayExamplePanel(JPanel panel, String text) {
+    public OverlayExamplePanel(JPanel sizePanel, String text) {
         setLayout(new BorderLayout());
-        add(panel, BorderLayout.CENTER);
+        add(sizePanel, BorderLayout.CENTER);
         setPreferredSize(getPreferredSize());
-        remove(panel);
+        remove(sizePanel);
         setLayout(new GridBagLayout());
         JLabel label = new JLabel(text);
         add(label);

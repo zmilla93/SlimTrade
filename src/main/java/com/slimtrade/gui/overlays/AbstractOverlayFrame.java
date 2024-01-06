@@ -7,6 +7,10 @@ import com.slimtrade.gui.windows.AbstractMovableDialog;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Used for windows that need are a part of the Overlay editor (IE Menu Bar and MessageManager).
+ * Can be given a template panel to set its size and a piece of text to display in the center.
+ */
 public class AbstractOverlayFrame extends AbstractMovableDialog {
 
     private final OverlayExamplePanel overlayPanel;
