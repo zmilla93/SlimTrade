@@ -1,5 +1,8 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.App;
+import com.slimtrade.core.enums.AppState;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
@@ -29,7 +32,9 @@ public class SystemTrayManager {
         trayIcon = new TrayIcon(img.getScaledInstance(trayIcon.getSize().width, trayIcon.getSize().height, Image.SCALE_SMOOTH));
         trayIcon.setToolTip("SlimTrade");
         trayIcon.setPopupMenu(popupMenu);
-        trayIcon.addActionListener(e -> FrameManager.optionsWindow.setVisible(true));
+        trayIcon.addActionListener(e -> {
+            if (App.getState() == AppState.RUNNING) FrameManager.optionsWindow.setVisible(true);
+        });
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
