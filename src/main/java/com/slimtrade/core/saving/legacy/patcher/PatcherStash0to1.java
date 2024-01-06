@@ -1,12 +1,13 @@
-package com.slimtrade.core.saving.legacy;
+package com.slimtrade.core.saving.legacy.patcher;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.saving.ISavePatcher;
+import com.slimtrade.core.saving.legacy.savefiles.LegacyStashSave0;
 import com.slimtrade.modules.saving.SaveFile;
 
 import java.awt.*;
 
-public class StashSavePatcher0to1 implements ISavePatcher {
+public class PatcherStash0to1 implements ISavePatcher {
 
     @Override
     public boolean requiresPatch() {

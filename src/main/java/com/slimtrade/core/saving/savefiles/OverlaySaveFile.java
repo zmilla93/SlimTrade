@@ -9,7 +9,7 @@ import java.awt.*;
 /***
  * Class representation of overlays.json
  */
-public class OverlaySaveFile {
+public class OverlaySaveFile extends BaseSaveFile {
 
     public Point messageLocation = References.DEFAULT_MESSAGE_LOCATION;
     public ExpandDirection expandDirection = ExpandDirection.DOWNWARDS;

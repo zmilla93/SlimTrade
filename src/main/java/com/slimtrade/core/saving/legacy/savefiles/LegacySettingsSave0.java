@@ -1,4 +1,4 @@
-package com.slimtrade.core.saving.legacy;
+package com.slimtrade.core.saving.legacy.savefiles;
 
 import com.google.gson.annotations.SerializedName;
 import com.slimtrade.core.audio.Sound;
@@ -7,6 +7,7 @@ import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
+import com.slimtrade.core.saving.savefiles.BaseSaveFile;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.options.searching.StashSearchTermData;
 import com.slimtrade.gui.options.stash.StashTabType;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * Save file used for v0.3.5 and below.
  */
 @SuppressWarnings("unused")
-public class LegacySettingsSaveFile_0 {
+public class LegacySettingsSave0 extends BaseSaveFile {
 
     //Version
     @SerializedName("versionNumber")
@@ -110,7 +111,7 @@ public class LegacySettingsSaveFile_0 {
     public HotkeyData hideoutHotkey = null;
 
     // Cheat Sheet Data
-    protected static class LegacyCheatSheetData {
+    public static class LegacyCheatSheetData {
         public String fileName;
         public String cleanName;
         public HotkeyData hotkeyData;
@@ -124,7 +125,7 @@ public class LegacySettingsSaveFile_0 {
     }
 
     // Color Theme
-    protected enum LegacyColorTheme {
+    public enum LegacyColorTheme {
         SOLARIZED_LIGHT(Theme.SOLARIZED_LIGHT),
         SOLARIZED_DARK(Theme.SOLARIZED_DARK),
         STORMY(Theme.NORD),
@@ -139,7 +140,7 @@ public class LegacySettingsSaveFile_0 {
 
     // History
     @SuppressWarnings("SpellCheckingInspection")
-    protected enum LegacyDateFormat {
+    public enum LegacyDateFormat {
         DDMM(DateFormat.DD_MM),
         DDMMYY(DateFormat.DD_MM_YY),
         MMDD(DateFormat.MM_DD),
@@ -153,7 +154,7 @@ public class LegacySettingsSaveFile_0 {
         }
     }
 
-    protected enum LegacyHistoryOrder {
+    public enum LegacyHistoryOrder {
         NEW_FIRST(HistoryOrder.NEWEST_FIRST),
         NEW_LAST(HistoryOrder.NEWEST_LAST);
 
@@ -165,7 +166,7 @@ public class LegacySettingsSaveFile_0 {
     }
 
     // Macro Buttons
-    protected static class LegacyMacroButton {
+    public static class LegacyMacroButton {
         public LegacyButtonRow row;
         public String leftMouseResponse;
         public String rightMouseResponse;
@@ -180,7 +181,7 @@ public class LegacySettingsSaveFile_0 {
         }
     }
 
-    protected enum LegacyButtonRow {
+    public enum LegacyButtonRow {
         TOP(ButtonRow.TOP_ROW),
         BOTTOM(ButtonRow.BOTTOM_ROW);
 
@@ -192,7 +193,7 @@ public class LegacySettingsSaveFile_0 {
     }
 
     // Sounds
-    protected static class LegacySoundElement {
+    public static class LegacySoundElement {
         public LegacySound sound;
         public int volume;
 
@@ -226,7 +227,7 @@ public class LegacySettingsSaveFile_0 {
     }
 
     // Stash Search
-    protected static class LegacyStashSearchData {
+    public static class LegacyStashSearchData {
         public String searchName;
         public String searchTerms;
         public LegacyStashTabColor color;
@@ -237,7 +238,7 @@ public class LegacySettingsSaveFile_0 {
     }
 
     // Stash Tabs
-    protected static class LegacyStashTabData {
+    public static class LegacyStashTabData {
         public String name;
         public StashTabType type;
         public LegacyStashTabColor color;

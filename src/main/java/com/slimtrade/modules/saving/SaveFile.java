@@ -17,7 +17,7 @@ import java.util.TimerTask;
 /**
  * Allows easy linking of a data class, a json save file, and a list of ISavable components.
  */
-public class SaveFile<T> extends ListenManager<ISaveListener> {
+public class SaveFile<T extends BaseSaveFile> extends ListenManager<ISaveListener> {
 
     public T data;
     public final String path;

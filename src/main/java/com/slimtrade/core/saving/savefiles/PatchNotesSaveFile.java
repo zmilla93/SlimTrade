@@ -5,7 +5,7 @@ import com.slimtrade.modules.updater.data.AppVersion;
 
 import java.util.ArrayList;
 
-public class PatchNotesSaveFile {
+public class PatchNotesSaveFile extends BaseSaveFile {
 
     public String versionString;
     public ArrayList<PatchNotesEntry> entries;

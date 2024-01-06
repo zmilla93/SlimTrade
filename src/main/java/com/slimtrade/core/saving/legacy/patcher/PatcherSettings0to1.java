@@ -1,10 +1,11 @@
-package com.slimtrade.core.saving.legacy;
+package com.slimtrade.core.saving.legacy.patcher;
 
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.saving.ISavePatcher;
 import com.slimtrade.core.saving.SaveFilePatcherManager;
+import com.slimtrade.core.saving.legacy.savefiles.LegacySettingsSave0;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
@@ -13,7 +14,7 @@ import com.slimtrade.modules.saving.SaveFile;
 
 import java.util.ArrayList;
 
-public class SettingsSaveFilePatcher0to1 implements ISavePatcher {
+public class PatcherSettings0to1 implements ISavePatcher {
 
     @Override
     public boolean requiresPatch() {
@@ -23,7 +24,7 @@ public class SettingsSaveFilePatcher0to1 implements ISavePatcher {
     @Override
     public boolean patch() {
         String filePath = SaveManager.settingsSaveFile.path;
-        SaveFile<LegacySettingsSaveFile_0> legacySaveFile = new SaveFile<>(filePath, LegacySettingsSaveFile_0.class);
+        SaveFile<LegacySettingsSave0> legacySaveFile = new SaveFile<>(filePath, LegacySettingsSave0.class);
         legacySaveFile.loadFromDisk();
         if (!legacySaveFile.loadedExistingData()) return false;
 
@@ -38,12 +39,12 @@ public class SettingsSaveFilePatcher0to1 implements ISavePatcher {
         // FIXME : Save to disk. Currently cannot save here due to listeners being null.
     }
 
-    private static void handleFieldConversions(LegacySettingsSaveFile_0 legacySaveFile, SettingsSaveFile saveFile) {
+    private static void handleFieldConversions(LegacySettingsSave0 legacySaveFile, SettingsSaveFile saveFile) {
         saveFile.theme = legacySaveFile.theme.theme;
 
         // Cheat Sheets
         ArrayList<CheatSheetData> cheatSheetData = new ArrayList<>();
-        for (LegacySettingsSaveFile_0.LegacyCheatSheetData data : legacySaveFile.cheatSheetData) {
+        for (LegacySettingsSave0.LegacyCheatSheetData data : legacySaveFile.cheatSheetData) {
             CheatSheetData newData = data.toCheatSheetData();
             if (newData == null) continue;
             cheatSheetData.add(newData);
@@ -57,9 +58,9 @@ public class SettingsSaveFilePatcher0to1 implements ISavePatcher {
         // Macro Buttons
         ArrayList<MacroButton> incomingMacros = new ArrayList<>();
         ArrayList<MacroButton> outgoingMacros = new ArrayList<>();
-        for (LegacySettingsSaveFile_0.LegacyMacroButton macro : legacySaveFile.incomingMacros)
+        for (LegacySettingsSave0.LegacyMacroButton macro : legacySaveFile.incomingMacros)
             incomingMacros.add(macro.toMacroButton());
-        for (LegacySettingsSaveFile_0.LegacyMacroButton macro : legacySaveFile.outgoingMacros)
+        for (LegacySettingsSave0.LegacyMacroButton macro : legacySaveFile.outgoingMacros)
             outgoingMacros.add(macro.toMacroButton());
         saveFile.incomingMacroButtons = incomingMacros;
         saveFile.outgoingMacroButtons = outgoingMacros;
@@ -73,14 +74,14 @@ public class SettingsSaveFilePatcher0to1 implements ISavePatcher {
 
         // Stash Tabs
         ArrayList<StashTabData> stashTabData = new ArrayList<>();
-        for (LegacySettingsSaveFile_0.LegacyStashTabData data : legacySaveFile.stashTabs)
+        for (LegacySettingsSave0.LegacyStashTabData data : legacySaveFile.stashTabs)
             stashTabData.add(data.toStashTabData());
         saveFile.stashTabs = stashTabData;
 
         // Stash Search
         ArrayList<StashSearchGroupData> searchGroupList = new ArrayList<>();
         ArrayList<StashSearchTermData> termList = new ArrayList<>();
-        for (LegacySettingsSaveFile_0.LegacyStashSearchData term : legacySaveFile.stashSearchData)
+        for (LegacySettingsSave0.LegacyStashSearchData term : legacySaveFile.stashSearchData)
             termList.add(term.toTermData());
         searchGroupList.add(new StashSearchGroupData(1, "Stash", null, termList));
         saveFile.stashSearchData = searchGroupList;

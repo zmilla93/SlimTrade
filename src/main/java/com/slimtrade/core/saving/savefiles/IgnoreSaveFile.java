@@ -6,7 +6,7 @@ import com.slimtrade.core.enums.MatchType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class IgnoreSaveFile {
+public class IgnoreSaveFile extends BaseSaveFile {
 
     public ArrayList<IgnoreItem> ignoreList = new ArrayList<>();
     public transient HashMap<String, IgnoreItem> exactMatchIgnoreMap = new HashMap<>();
