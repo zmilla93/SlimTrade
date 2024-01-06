@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options.ignore;
 
-import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
@@ -14,7 +14,7 @@ import java.awt.*;
 @Deprecated
 public class IgnoreRow extends AddRemovePanel {
 
-    public final IgnoreItem ignoreItem;
+    public final IgnoreItemData ignoreItemData;
     private int remainingTime;
 
     private final JButton removeButton = new IconButton("/icons/default/closex64.png");
@@ -23,10 +23,10 @@ public class IgnoreRow extends AddRemovePanel {
     private Timer timer;
 
 
-    public IgnoreRow(AddRemoveContainer<IgnoreRow> parent, IgnoreItem ignoreItem) {
+    public IgnoreRow(AddRemoveContainer<IgnoreRow> parent, IgnoreItemData ignoreItemData) {
         super(parent);
-        JLabel itemNameLabel = new JLabel(ignoreItem.itemName);
-        this.ignoreItem = ignoreItem;
+        JLabel itemNameLabel = new JLabel(ignoreItemData.itemName);
+        this.ignoreItemData = ignoreItemData;
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 0;
@@ -44,8 +44,8 @@ public class IgnoreRow extends AddRemovePanel {
         setLayout(new BorderLayout());
         add(removeButton, BorderLayout.WEST);
         add(infoPanel, BorderLayout.CENTER);
-        if (!ignoreItem.isInfinite()) {
-            remainingTime = ignoreItem.getRemainingMinutes();
+        if (!ignoreItemData.isInfinite()) {
+            remainingTime = ignoreItemData.getRemainingMinutes();
             timerLabel.setText(Integer.toString(remainingTime));
             timer = new Timer(1000 * 60, e -> {
                 remainingTime--;
@@ -72,15 +72,15 @@ public class IgnoreRow extends AddRemovePanel {
     @Override
     public void updateUI() {
         super.updateUI();
-        if (ignoreItem == null) return;
+        if (ignoreItemData == null) return;
         matchLabel.setText(MatchType.CONTAINS_TEXT.toString());
         timerLabel.setText("100m");
         matchLabel.setPreferredSize(matchLabel.getPreferredSize());
         timerLabel.setPreferredSize(timerLabel.getPreferredSize());
 
 //        itemNameLabel.setText(ignoreItem.itemName);
-        matchLabel.setText(ignoreItem.matchType.toString());
-        String timerText = ignoreItem.isInfinite() ? "~" : ignoreItem.getRemainingMinutes() + "m";
+        matchLabel.setText(ignoreItemData.matchType.toString());
+        String timerText = ignoreItemData.isInfinite() ? "~" : ignoreItemData.getRemainingMinutes() + "m";
         timerLabel.setText(timerText);
 //        gc.gridx = 0;
 //        gc.gridy = 1;

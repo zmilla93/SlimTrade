@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options.ignore;
 
-import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.options.IgnoreItemOptionPanel;
@@ -14,20 +14,20 @@ public class IgnoreRowComponents {
     public final JLabel matchTypeLabel;
     public final JLabel timeRemainingLabel;
     public final JLabel itemNameLabel;
-    public final IgnoreItem ignoreItem;
+    public final IgnoreItemData ignoreItemData;
 
     // Internal
     private Timer timer;
     private int remainingTime;
 
-    public IgnoreRowComponents(IgnoreItemOptionPanel parent, IgnoreItem ignoreItem) {
-        this.ignoreItem = ignoreItem;
+    public IgnoreRowComponents(IgnoreItemOptionPanel parent, IgnoreItemData ignoreItemData) {
+        this.ignoreItemData = ignoreItemData;
         timeRemainingLabel = new JLabel();
-        matchTypeLabel = new JLabel(ignoreItem.matchType.toString());
-        itemNameLabel = new JLabel(ignoreItem.itemName);
+        matchTypeLabel = new JLabel(ignoreItemData.matchType.toString());
+        itemNameLabel = new JLabel(ignoreItemData.itemName);
         updateTimeRemainingLabel();
         // Timer
-        remainingTime = ignoreItem.getRemainingMinutes();
+        remainingTime = ignoreItemData.getRemainingMinutes();
         timer = new Timer(1000 * 60, e -> {
             remainingTime--;
             updateTimeRemainingLabel();
@@ -43,8 +43,8 @@ public class IgnoreRowComponents {
     }
 
     private void updateTimeRemainingLabel() {
-        if (ignoreItem.isInfinite()) timeRemainingLabel.setText("~");
-        else timeRemainingLabel.setText(ignoreItem.getRemainingMinutes() + "m");
+        if (ignoreItemData.isInfinite()) timeRemainingLabel.setText("~");
+        else timeRemainingLabel.setText(ignoreItemData.getRemainingMinutes() + "m");
     }
 
 }

@@ -5,7 +5,7 @@ import com.slimtrade.core.utility.ZUtil;
 
 import java.util.concurrent.TimeUnit;
 
-public class IgnoreItem {
+public class IgnoreItemData {
 
     public final String itemName;
     private transient String itemNameLower;
@@ -15,7 +15,7 @@ public class IgnoreItem {
     private transient boolean expired = false;
     private static final int leniency = 1000 * 30;
 
-    public IgnoreItem(String itemName, MatchType matchType, int duration) {
+    public IgnoreItemData(String itemName, MatchType matchType, int duration) {
         this.itemName = ZUtil.cleanString(itemName);
         this.itemNameLower = itemName.toLowerCase();
         this.matchType = matchType;

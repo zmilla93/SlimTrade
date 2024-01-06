@@ -10,7 +10,6 @@ import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.listening.IColorBlindChangeListener;
-import com.slimtrade.gui.options.searching.StashSearchData;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSearchTermData;
 import com.slimtrade.gui.options.searching.StashSearchWindowMode;

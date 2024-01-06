@@ -2,7 +2,7 @@ package com.slimtrade.core.chatparser;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
-import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
@@ -161,13 +161,13 @@ public class ChatParser implements FileTailerListener {
         // Check if trade should be ignored
         String itemNameLower = offer.itemName.toLowerCase();
         if (offer.offerType == TradeOfferType.INCOMING_TRADE) {
-            IgnoreItem item = SaveManager.ignoreSaveFile.data.exactMatchIgnoreMap.get(itemNameLower);
+            IgnoreItemData item = SaveManager.ignoreSaveFile.data.exactMatchIgnoreMap.get(itemNameLower);
             if (item != null && !item.isExpired()) {
                 handleIgnoreItem();
                 return;
             }
-            for (IgnoreItem ignoreItem : SaveManager.ignoreSaveFile.data.containsTextIgnoreList) {
-                if (itemNameLower.contains(ignoreItem.itemNameLower()) && !ignoreItem.isExpired()) {
+            for (IgnoreItemData ignoreItemData : SaveManager.ignoreSaveFile.data.containsTextIgnoreList) {
+                if (itemNameLower.contains(ignoreItemData.itemNameLower()) && !ignoreItemData.isExpired()) {
                     handleIgnoreItem();
                     return;
                 }

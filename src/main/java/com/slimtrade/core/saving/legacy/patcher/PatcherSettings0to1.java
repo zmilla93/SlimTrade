@@ -1,6 +1,7 @@
 package com.slimtrade.core.saving.legacy.patcher;
 
 import com.slimtrade.core.data.CheatSheetData;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.saving.legacy.ISavePatcher;
@@ -37,12 +38,14 @@ public class PatcherSettings0to1 implements ISavePatcher {
     public void applyNewVersion() {
         SaveManager.settingsSaveFile.data.saveFileVersion = 1;
         SaveManager.settingsSaveFile.saveToDisk(false);
-        // FIXME : Save to disk. Currently cannot save here due to listeners being null.
+        SaveManager.ignoreSaveFile.data.saveFileVersion = 1;
+        SaveManager.ignoreSaveFile.saveToDisk(false);
     }
 
     @Override
     public void handleCorruptedFile() {
         SaveManager.settingsSaveFile.initData();
+        SaveManager.ignoreSaveFile.initData();
     }
 
     private static void handleFieldConversions(LegacySettingsSave0 legacySaveFile, SettingsSaveFile saveFile) {
@@ -60,6 +63,13 @@ public class PatcherSettings0to1 implements ISavePatcher {
         // History
         saveFile.historyDateFormat = legacySaveFile.historyDateFormat.format;
         saveFile.historyOrder = legacySaveFile.historyOrder.order;
+
+        // Ignore Items
+        ArrayList<IgnoreItemData> ignoreItemData = new ArrayList<>();
+        for (LegacySettingsSave0.LegacyIgnoreData entry : legacySaveFile.ignoreData) {
+            ignoreItemData.add(entry.toIgnoreItemData());
+        }
+        SaveManager.ignoreSaveFile.data.ignoreList = ignoreItemData;
 
         // Macro Buttons
         ArrayList<MacroButton> incomingMacros = new ArrayList<>();

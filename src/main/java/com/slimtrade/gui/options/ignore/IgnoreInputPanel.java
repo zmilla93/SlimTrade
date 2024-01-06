@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options.ignore;
 
-import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.utility.ZUtil;
 
@@ -52,15 +52,15 @@ public class IgnoreInputPanel extends JPanel {
         return ignoreButton;
     }
 
-    public IgnoreItem getIgnoreItem() {
+    public IgnoreItemData getIgnoreItem() {
         String name = itemNameInput.getText();
         MatchType matchType = (MatchType) matchTypeCombo.getSelectedItem();
         int duration = (int) timeSpinner.getValue();
-        return new IgnoreItem(name, matchType, duration);
+        return new IgnoreItemData(name, matchType, duration);
     }
 
     // FIXME : Setting using expiration time is technically incorrect, need to change is this function gets used more
-    public void setIgnoreItem(IgnoreItem item) {
+    public void setIgnoreItem(IgnoreItemData item) {
         itemNameInput.setText(item.itemName);
         matchTypeCombo.setSelectedItem(item.matchType);
         timeSpinner.setValue(item.initialDuration);

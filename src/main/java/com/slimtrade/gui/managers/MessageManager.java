@@ -3,7 +3,7 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.chatparser.IJoinedAreaListener;
 import com.slimtrade.core.chatparser.ITradeListener;
-import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.enums.MatchType;
@@ -289,7 +289,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
      *
      * @param item
      */
-    public void quickCloseIgnore(IgnoreItem item) {
+    public void quickCloseIgnore(IgnoreItemData item) {
         setIgnoreRepaint(true);
         for (int i = messageContainer.getComponentCount() - 1; i >= 0; i--) {
             Component comp = messageContainer.getComponent(i);

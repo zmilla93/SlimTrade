@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options;
 
-import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.options.ignore.IgnoreInputPanel;
@@ -23,7 +23,7 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
         addComponent(ignoreInputPanel);
         addVerticalStrutSmall();
         addComponent(new JLabel("Set minutes to 0 to ignore indefinitely."));
-        addComponent(new JLabel("Right click item names of incoming trades to quick ignore."));
+        addComponent(new JLabel("Right click the item name of an incoming trade to quick ignore."));
         addVerticalStrut();
         addHeader("Ignore List");
         addComponent(ignoreContainer);
@@ -35,7 +35,7 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
         ignoreInputPanel.getIgnoreButton().addActionListener(e -> tryAddIgnoreItem(ignoreInputPanel.getIgnoreItem()));
     }
 
-    public void tryAddIgnoreItem(IgnoreItem item) {
+    public void tryAddIgnoreItem(IgnoreItemData item) {
         if (item.itemName.matches("")) return;
         if (!item.isInfinite() && item.getRemainingMinutes() <= 0) return;
         addNewRow(item);
@@ -43,7 +43,7 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
         repaint();
     }
 
-    private void addNewRow(IgnoreItem item) {
+    private void addNewRow(IgnoreItemData item) {
         IgnoreRowComponents row = new IgnoreRowComponents(this, item);
         componentRows.add(row);
         ignoreContainer.add(row.removeButton, gc);
@@ -72,19 +72,19 @@ public class IgnoreItemOptionPanel extends AbstractOptionPanel implements ISavab
 
     @Override
     public void save() {
-        ArrayList<IgnoreItem> ignoreItems = new ArrayList<>();
+        ArrayList<IgnoreItemData> ignoreItemData = new ArrayList<>();
         for (IgnoreRowComponents row : componentRows) {
-            IgnoreItem item = row.ignoreItem;
-            if (item.isInfinite() || item.getRemainingMinutes() > 0) ignoreItems.add(item);
+            IgnoreItemData item = row.ignoreItemData;
+            if (item.isInfinite() || item.getRemainingMinutes() > 0) ignoreItemData.add(item);
         }
-        SaveManager.ignoreSaveFile.data.ignoreList = ignoreItems;
+        SaveManager.ignoreSaveFile.data.ignoreList = ignoreItemData;
     }
 
     @Override
     public void load() {
         ignoreContainer.removeAll();
         componentRows.clear();
-        for (IgnoreItem item : SaveManager.ignoreSaveFile.data.ignoreList) {
+        for (IgnoreItemData item : SaveManager.ignoreSaveFile.data.ignoreList) {
             tryAddIgnoreItem(item);
         }
         revalidate();

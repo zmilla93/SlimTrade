@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.CheatSheetData;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
@@ -83,7 +84,7 @@ public class LegacySettingsSave0 extends BaseSaveFile {
     public String clientPath = null;
 
     public ArrayList<LegacyStashTabData> stashTabs = new ArrayList<>();
-    //    public ArrayList<IgnoreData> ignoreData = new ArrayList<>();
+    public ArrayList<LegacyIgnoreData> ignoreData = new ArrayList<>();
     // Custom Macros
     public ArrayList<LegacyMacroButton> incomingMacros = new ArrayList<>();
     public ArrayList<LegacyMacroButton> outgoingMacros = new ArrayList<>();
@@ -162,6 +163,28 @@ public class LegacySettingsSave0 extends BaseSaveFile {
 
         LegacyHistoryOrder(HistoryOrder order) {
             this.order = order;
+        }
+    }
+
+    // Ignore Item
+    public static class LegacyIgnoreData {
+        public String itemName;
+        public LegacyMatchType matchType;
+        public int duration;
+
+        public IgnoreItemData toIgnoreItemData() {
+            return new IgnoreItemData(itemName, matchType.matchType, duration);
+        }
+    }
+
+    public enum LegacyMatchType {
+        EXACT(MatchType.EXACT_MATCH),
+        CONTAINS(MatchType.CONTAINS_TEXT);
+
+        public final MatchType matchType;
+
+        LegacyMatchType(MatchType matchType) {
+            this.matchType = matchType;
         }
     }
 

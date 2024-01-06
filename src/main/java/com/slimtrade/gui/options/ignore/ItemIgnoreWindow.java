@@ -1,6 +1,6 @@
 package com.slimtrade.gui.options.ignore;
 
-import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.managers.FrameManager;
@@ -40,7 +40,7 @@ public class ItemIgnoreWindow extends CustomDialog {
     }
 
     public void setItemName(String itemName) {
-        inputPanel.setIgnoreItem(new IgnoreItem(itemName, MatchType.EXACT_MATCH, 60));
+        inputPanel.setIgnoreItem(new IgnoreItemData(itemName, MatchType.EXACT_MATCH, 60));
         setLocationRelativeTo(null);
         pack();
         setVisible(true);

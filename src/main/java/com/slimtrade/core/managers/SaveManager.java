@@ -1,6 +1,6 @@
 package com.slimtrade.core.managers;
 
-import com.slimtrade.core.data.IgnoreItem;
+import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.saving.legacy.SaveFilePatcherManager;
 import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.gui.managers.FrameManager;
@@ -70,8 +70,10 @@ public class SaveManager {
             @Override
             public void onSave() {
                 SaveManager.ignoreSaveFile.data.buildCache();
-                for (IgnoreItem ignoreItem : SaveManager.ignoreSaveFile.data.ignoreList) {
-                    FrameManager.messageManager.quickCloseIgnore(ignoreItem);
+                if (!FrameManager.hasBeenInitialized()) return;
+                assert SwingUtilities.isEventDispatchThread();
+                for (IgnoreItemData ignoreItemData : SaveManager.ignoreSaveFile.data.ignoreList) {
+                    FrameManager.messageManager.quickCloseIgnore(ignoreItemData);
                 }
             }
 

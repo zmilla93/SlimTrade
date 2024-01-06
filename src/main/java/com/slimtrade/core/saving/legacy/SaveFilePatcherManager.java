@@ -38,6 +38,7 @@ public class SaveFilePatcherManager {
             System.out.println("Patch [" + patcher.getClass().getSimpleName() + "]: " + patched);
         } catch (Exception e) {
             System.err.println("Encountered corrupted legacy save file, recreating data.");
+            e.printStackTrace();
             patcher.handleCorruptedFile();
         }
         return patched;
