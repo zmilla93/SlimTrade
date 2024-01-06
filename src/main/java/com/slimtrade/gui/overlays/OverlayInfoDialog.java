@@ -116,7 +116,7 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
     @Override
     public void save() {
         SaveManager.overlaySaveFile.data.messageLocation = FrameManager.messageOverlay.getLocation();
-        SaveManager.overlaySaveFile.data.expandDirection = (ExpandDirection) expandCombo.getSelectedItem();
+        SaveManager.overlaySaveFile.data.messageExpandDirection = (ExpandDirection) expandCombo.getSelectedItem();
         SaveManager.overlaySaveFile.data.menubarAnchor = (Anchor) menubarAnchorCombo.getSelectedItem();
         SaveManager.overlaySaveFile.data.menubarLocation = FrameManager.menubarOverlay.getAnchorPoint(SaveManager.overlaySaveFile.data.menubarAnchor);
 
@@ -135,7 +135,7 @@ public class OverlayInfoDialog extends AbstractDialog implements IThemeListener,
         FrameManager.messageOverlay.setLocation(SaveManager.overlaySaveFile.data.messageLocation);
         TradeUtil.applyAnchorPoint(FrameManager.menubarOverlay, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
 //        FrameManager.menubarOverlay.setLocation(SaveManager.overlaySaveFile.data.menubarLocation);
-        expandCombo.setSelectedItem(SaveManager.overlaySaveFile.data.expandDirection);
+        expandCombo.setSelectedItem(SaveManager.overlaySaveFile.data.messageExpandDirection);
         menubarAnchorCombo.setSelectedItem(SaveManager.overlaySaveFile.data.menubarAnchor);
 
 

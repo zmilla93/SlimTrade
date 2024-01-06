@@ -1,7 +1,8 @@
-package com.slimtrade.core.saving;
+package com.slimtrade.core.saving.legacy;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.slimtrade.core.saving.legacy.patcher.PatcherOverlay0to1;
 import com.slimtrade.core.saving.legacy.patcher.PatcherScanner0to1;
 import com.slimtrade.core.saving.legacy.patcher.PatcherSettings0to1;
 import com.slimtrade.core.saving.legacy.patcher.PatcherStash0to1;
@@ -26,6 +27,7 @@ public class SaveFilePatcherManager {
         handlePatch(new PatcherSettings0to1());
         handlePatch(new PatcherStash0to1());
         handlePatch(new PatcherScanner0to1());
+        handlePatch(new PatcherOverlay0to1());
     }
 
     private static boolean handlePatch(ISavePatcher patcher) {

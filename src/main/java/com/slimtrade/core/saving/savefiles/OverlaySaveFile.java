@@ -12,7 +12,7 @@ import java.awt.*;
 public class OverlaySaveFile extends BaseSaveFile {
 
     public Point messageLocation = References.DEFAULT_MESSAGE_LOCATION;
-    public ExpandDirection expandDirection = ExpandDirection.DOWNWARDS;
+    public ExpandDirection messageExpandDirection = ExpandDirection.DOWNWARDS;
     public Point menubarLocation = References.DEFAULT_MENUBAR_LOCATION;
     public Anchor menubarAnchor = Anchor.TOP_LEFT;
     public int messageWidth = 400;

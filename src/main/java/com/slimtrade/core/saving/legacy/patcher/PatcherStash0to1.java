@@ -1,7 +1,7 @@
 package com.slimtrade.core.saving.legacy.patcher;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.saving.ISavePatcher;
+import com.slimtrade.core.saving.legacy.ISavePatcher;
 import com.slimtrade.core.saving.legacy.savefiles.LegacyStashSave0;
 import com.slimtrade.modules.saving.SaveFile;
 

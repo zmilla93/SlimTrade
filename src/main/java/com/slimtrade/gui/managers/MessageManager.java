@@ -231,7 +231,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     private void refreshOrder() {
-        expandUp = SaveManager.overlaySaveFile.data.expandDirection == ExpandDirection.UPWARDS;
+        expandUp = SaveManager.overlaySaveFile.data.messageExpandDirection == ExpandDirection.UPWARDS;
         Component[] components = messageContainer.getComponents();
         messageContainer.removeAll();
         for (Component comp : components) {

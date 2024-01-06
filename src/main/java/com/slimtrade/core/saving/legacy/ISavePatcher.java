@@ -1,4 +1,4 @@
-package com.slimtrade.core.saving;
+package com.slimtrade.core.saving.legacy;
 
 public interface ISavePatcher {
 
