@@ -3,7 +3,7 @@ package com.slimtrade.modules.saving;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.slimtrade.core.legacy.VersionSaveFile;
+import com.slimtrade.core.saving.savefiles.BaseSaveFile;
 import com.slimtrade.modules.listening.ListenManager;
 
 import java.awt.*;
@@ -144,7 +144,7 @@ public class SaveFile<T> extends ListenManager<ISaveListener> {
         File file = new File(path);
         if (!file.exists()) return -1;
         try {
-            VersionSaveFile saveFile = gson.fromJson(getFileAsString(file.getPath()), VersionSaveFile.class);
+            BaseSaveFile saveFile = gson.fromJson(getFileAsString(file.getPath()), BaseSaveFile.class);
             if (saveFile != null) return saveFile.saveFileVersion;
         } catch (JsonSyntaxException ignore) {
         }

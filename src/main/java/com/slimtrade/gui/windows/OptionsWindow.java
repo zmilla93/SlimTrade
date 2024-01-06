@@ -90,8 +90,7 @@ public class OptionsWindow extends CustomDialog {
         revertButton.addActionListener(e -> SaveManager.settingsSaveFile.revertChanges());
 
         // Finalize
-        // FIXME : Remove this line
-        showPanel(stashSearch);
+//        showPanel(stashSearch);
         setMinimumSize(new Dimension(500, 400));
         pack();
         // FIXME : Add max size

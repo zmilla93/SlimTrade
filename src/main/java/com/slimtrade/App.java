@@ -12,6 +12,7 @@ import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.POEInterface;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.managers.SetupManager;
@@ -169,7 +170,7 @@ public class App {
 
         // Final Setup
         if (SetupManager.getSetupPhases().size() > 0) runSetupWizard();
-        else launchApp();
+        else ZUtil.invokeAndWait(App::launchApp);
 
         SwingUtilities.invokeLater(() -> loadingWindow.dispose());
 
@@ -202,27 +203,22 @@ public class App {
     }
 
     public static void launchApp() {
-        try {
-            SwingUtilities.invokeAndWait(() -> {
-                if (FrameManager.setupWindow != null) {
-                    FrameManager.setupWindow.dispose();
-                    FrameManager.setupWindow = null;
-                }
-                SaveManager.settingsSaveFile.revertChanges();
-                SaveManager.stashSaveFile.revertChanges();
-                SaveManager.chatScannerSaveFile.revertChanges();
-                FrameManager.optionsWindow.reloadExampleTrades();
-                FrameManager.overlayInfoWindow.load();
+        assert SwingUtilities.isEventDispatchThread();
 
-                PinManager.applyAllPins();
-                FrameManager.showAppFrames();
-                SystemTrayManager.showDefault();
-//                Rectangle stashRect = new Rectangle(15, 127, 633, 634);
-//                FrameManager.stashGridWindow.setBoundsUsingGrid(stashRect);
-            });
-        } catch (InterruptedException | InvocationTargetException e) {
-            throw new RuntimeException(e);
+        if (FrameManager.setupWindow != null) {
+            FrameManager.setupWindow.dispose();
+            FrameManager.setupWindow = null;
         }
+        SaveManager.settingsSaveFile.revertChanges();
+        SaveManager.stashSaveFile.revertChanges();
+        SaveManager.chatScannerSaveFile.revertChanges();
+        FrameManager.optionsWindow.reloadExampleTrades();
+        FrameManager.overlayInfoWindow.load();
+
+        PinManager.applyAllPins();
+        FrameManager.showAppFrames();
+        SystemTrayManager.showDefault();
+
         initParsers();
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);

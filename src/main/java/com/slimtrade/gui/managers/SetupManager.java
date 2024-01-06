@@ -27,7 +27,7 @@ public class SetupManager {
         if (SaveManager.settingsSaveFile.data.characterName == null || SaveManager.settingsSaveFile.data.characterName.equals(""))
             setupPhases.add(SetupPhase.CHARACTER_NAME);
         // Stash location
-        if (SaveManager.stashSaveFile.data.windowRect == null || SaveManager.stashSaveFile.data.gridRect == null)
+        if (SaveManager.stashSaveFile.data.gridRect == null)
             setupPhases.add(SetupPhase.STASH_POSITION);
         // Stash Folders
         if (!SaveManager.settingsSaveFile.data.initializedFolderOffset)

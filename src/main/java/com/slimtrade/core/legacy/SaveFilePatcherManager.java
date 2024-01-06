@@ -20,7 +20,15 @@ public class SaveFilePatcherManager {
     public static final boolean DEBUG_REPORT = false;
 
     public static void handleSaveFilePatching() {
-        boolean patch = SettingsSaveFilePatcher0to1.patch();
+        handlePatch(new SettingsSaveFilePatcher0to1());
+        handlePatch(new StashSavePatcher0to1());
+    }
+
+    private static boolean handlePatch(ISavePatcher patcher) {
+        boolean patched = false;
+        if (patcher.requiresPatch()) patched = patcher.patch();
+        if (DEBUG_REPORT) System.out.println("Patch [" + patcher.getClass().getSimpleName() + "]: " + patched);
+        return patched;
     }
 
     /**

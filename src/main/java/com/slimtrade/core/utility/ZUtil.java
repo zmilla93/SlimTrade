@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -221,6 +222,22 @@ public class ZUtil {
                 break;
             }
             if (line.contains(className)) found = true;
+        }
+    }
+
+    /**
+     * A wrapper for SwingUtilities.invokeAndWait(). Handles try/catch and can be safely called from EDT.
+     *
+     * @param runnable Target
+     */
+    public static void invokeAndWait(Runnable runnable) {
+        if (SwingUtilities.isEventDispatchThread()) runnable.run();
+        else {
+            try {
+                SwingUtilities.invokeAndWait(runnable);
+            } catch (InterruptedException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

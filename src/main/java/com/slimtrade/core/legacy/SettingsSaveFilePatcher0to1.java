@@ -11,14 +11,15 @@ import com.slimtrade.modules.saving.SaveFile;
 
 import java.util.ArrayList;
 
-public class SettingsSaveFilePatcher0to1 {
+public class SettingsSaveFilePatcher0to1 implements ISavePatcher {
 
-    public static boolean requiresConversion() {
+    @Override
+    public boolean requiresPatch() {
         return SaveManager.settingsSaveFile.saveFileVersion() < 1;
     }
 
-    public static boolean patch() {
-        if (!requiresConversion()) return false;
+    @Override
+    public boolean patch() {
         String filePath = SaveManager.settingsSaveFile.path;
         SaveFile<LegacySettingsSaveFile_0> legacySaveFile = new SaveFile<>(filePath, LegacySettingsSaveFile_0.class);
         legacySaveFile.loadFromDisk();

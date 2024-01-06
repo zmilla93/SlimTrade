@@ -22,13 +22,10 @@ import java.util.HashMap;
 /**
  * Class representation of settings.json
  */
-public class SettingsSaveFile {
+public class SettingsSaveFile extends BaseSaveFile {
 
-    // TODO : Validate appVersion on launch and update if needed
-    public static final int VERSION = 1;
     public String appVersionString;
     private transient AppVersion appVersion;
-    public int saveFileVersion = 1;
 
     // General
     public String characterName;

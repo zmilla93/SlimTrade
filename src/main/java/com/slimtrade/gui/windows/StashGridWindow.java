@@ -22,7 +22,7 @@ public class StashGridWindow extends CustomDialog implements IThemeListener, ISa
     private final GridPanel gridPanel = new GridPanel();
 
     private final int INSET_HORIZONTAL = 8;
-    private final int INSET_VERTICAL = 50;
+    private final int INSET_VERTICAL = 8;
 
     /**
      * Used to mark the location of POE's stash.
@@ -117,14 +117,13 @@ public class StashGridWindow extends CustomDialog implements IThemeListener, ISa
     public void save() {
         int gridX = getX() + getResizerSize() + INSET_HORIZONTAL + getBorderSize();
         int gridY = getY() + getResizerSize() + INSET_VERTICAL + getTitleBarHeight() + getBorderSize();
-        SaveManager.stashSaveFile.data.windowRect = new Rectangle(getX(), getY(), getWidth(), getHeight());
         SaveManager.stashSaveFile.data.gridRect = new Rectangle(gridX, gridY, gridPanel.getWidth(), gridPanel.getHeight());
         FrameManager.stashHelperContainer.updateLocation();
     }
 
     @Override
     public void load() {
-        if (SaveManager.stashSaveFile.data.windowRect == null) return;
+        if (SaveManager.stashSaveFile.data.gridRect == null) return;
         setBoundsUsingGrid(SaveManager.stashSaveFile.data.gridRect);
     }
 

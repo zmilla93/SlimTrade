@@ -25,7 +25,7 @@ public class StashSetupPanel extends AbstractSetupPanel {
 
     @Override
     public boolean isSetupValid() {
-        return SaveManager.stashSaveFile.data.windowRect != null && SaveManager.stashSaveFile.data.gridRect != null;
+        return SaveManager.stashSaveFile.data.gridRect != null;
     }
 
 }

@@ -2,16 +2,11 @@ package com.slimtrade.core.saving.savefiles;
 
 import java.awt.*;
 
-public class StashSaveFile {
+public class StashSaveFile extends BaseSaveFile {
 
-    public Rectangle windowRect = null;
     public Rectangle gridRect = null;
     private transient Dimension cellSize;
     private transient Dimension cellSizeQuad;
-//    public Rectangle pathOfExileBounds;
-//    private final float stashOffsetX = 16 / 1920f;
-//    private final float stashOffsetY = 126 / 1080f;
-//    private final float stashOffsetYFolder = 134 / 1080f;
 
     public void buildCache() {
         if (gridRect == null) return;
