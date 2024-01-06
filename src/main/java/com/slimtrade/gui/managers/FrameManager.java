@@ -57,6 +57,7 @@ public class FrameManager {
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
 
     private static boolean menubarExpanded = false;
+    private static boolean initalized = false;
 
     public static void init() {
         // Windows
@@ -105,11 +106,11 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_STASH, stashWindows);
         windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
-
+        initalized = true;
     }
 
-    public static void showSetupFrame() {
-
+    public static boolean hasBeenInitialized() {
+        return initalized;
     }
 
     public static void showAppFrames() {

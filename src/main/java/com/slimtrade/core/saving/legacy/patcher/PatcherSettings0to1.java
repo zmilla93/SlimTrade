@@ -36,6 +36,7 @@ public class PatcherSettings0to1 implements ISavePatcher {
     @Override
     public void applyNewVersion() {
         SaveManager.settingsSaveFile.data.saveFileVersion = 1;
+        SaveManager.settingsSaveFile.saveToDisk(false);
         // FIXME : Save to disk. Currently cannot save here due to listeners being null.
     }
 

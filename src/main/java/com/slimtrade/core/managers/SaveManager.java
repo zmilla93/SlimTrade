@@ -34,7 +34,7 @@ public class SaveManager {
 
     public static void init() {
         // Listeners should be added before loading due to load callbacks
-        addListeners();
+        addStaticListeners();
         settingsSaveFile.loadFromDisk();
         overlaySaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();
@@ -45,16 +45,19 @@ public class SaveManager {
         SaveFilePatcherManager.handleSaveFilePatching();
     }
 
-    private static void addListeners() {
-        // FIXME : Should check if there are better places to add save listeners.
+    private static void addStaticListeners() {
+        // Only static listeners should be added here,
+        // or when a save file needs to listen to itself since it is simpler than a custom class.
         SaveManager.settingsSaveFile.addListener(new ISaveListener() {
             @Override
             public void onSave() {
-                assert SwingUtilities.isEventDispatchThread();
-                FrameManager.messageManager.refreshFadeData();
-                FrameManager.stashHelperContainer.updateLocation();
-                ThemeManager.checkFontChange();
-                SaveManager.settingsSaveFile.data.buildMacroCache();
+                if (!FrameManager.hasBeenInitialized()) return;
+                SwingUtilities.invokeLater(() -> {
+                    FrameManager.messageManager.refreshFadeData();
+                    FrameManager.stashHelperContainer.updateLocation();
+                    ThemeManager.checkFontChange();
+                    SaveManager.settingsSaveFile.data.buildMacroCache();
+                });
             }
 
             @Override
