@@ -1,4 +1,4 @@
-package com.slimtrade.core.legacy;
+package com.slimtrade.core.saving.legacy;
 
 import com.google.gson.annotations.SerializedName;
 import com.slimtrade.core.audio.Sound;

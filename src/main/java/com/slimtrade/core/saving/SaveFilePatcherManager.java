@@ -1,7 +1,10 @@
-package com.slimtrade.core.legacy;
+package com.slimtrade.core.saving;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.slimtrade.core.saving.legacy.ScannerPatcher0to1;
+import com.slimtrade.core.saving.legacy.SettingsSaveFilePatcher0to1;
+import com.slimtrade.core.saving.legacy.StashSavePatcher0to1;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,12 +25,14 @@ public class SaveFilePatcherManager {
     public static void handleSaveFilePatching() {
         handlePatch(new SettingsSaveFilePatcher0to1());
         handlePatch(new StashSavePatcher0to1());
+        handlePatch(new ScannerPatcher0to1());
     }
 
     private static boolean handlePatch(ISavePatcher patcher) {
         boolean patched = false;
         if (patcher.requiresPatch()) patched = patcher.patch();
-        if (DEBUG_REPORT) System.out.println("Patch [" + patcher.getClass().getSimpleName() + "]: " + patched);
+        if (patched) patcher.applyNewVersion();
+        System.out.println("Patch [" + patcher.getClass().getSimpleName() + "]: " + patched);
         return patched;
     }
 

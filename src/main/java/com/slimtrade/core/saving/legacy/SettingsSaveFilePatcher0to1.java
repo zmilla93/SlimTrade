@@ -1,8 +1,10 @@
-package com.slimtrade.core.legacy;
+package com.slimtrade.core.saving.legacy;
 
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.saving.ISavePatcher;
+import com.slimtrade.core.saving.SaveFilePatcherManager;
 import com.slimtrade.core.saving.savefiles.SettingsSaveFile;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
@@ -27,9 +29,13 @@ public class SettingsSaveFilePatcher0to1 implements ISavePatcher {
 
         SaveFilePatcherManager.copyMatchingFields(legacySaveFile.data, SaveManager.settingsSaveFile.data);
         handleFieldConversions(legacySaveFile.data, SaveManager.settingsSaveFile.data);
+        return true;
+    }
+
+    @Override
+    public void applyNewVersion() {
         SaveManager.settingsSaveFile.data.saveFileVersion = 1;
         // FIXME : Save to disk. Currently cannot save here due to listeners being null.
-        return true;
     }
 
     private static void handleFieldConversions(LegacySettingsSaveFile_0 legacySaveFile, SettingsSaveFile saveFile) {

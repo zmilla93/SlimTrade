@@ -1,7 +1,7 @@
 package com.slimtrade.core.managers;
 
 import com.slimtrade.core.data.IgnoreItem;
-import com.slimtrade.core.legacy.SaveFilePatcherManager;
+import com.slimtrade.core.saving.SaveFilePatcherManager;
 import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISaveListener;

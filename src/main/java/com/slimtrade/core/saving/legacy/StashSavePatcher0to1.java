@@ -1,6 +1,7 @@
-package com.slimtrade.core.legacy;
+package com.slimtrade.core.saving.legacy;
 
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.saving.ISavePatcher;
 import com.slimtrade.modules.saving.SaveFile;
 
 import java.awt.*;
@@ -17,12 +18,16 @@ public class StashSavePatcher0to1 implements ISavePatcher {
         if (!requiresPatch()) return false;
         SaveFile<LegacyStashSave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory() + "stash.json", LegacyStashSave0.class);
         legacySaveFile.loadFromDisk();
-        LegacyStashSave0 data = legacySaveFile.data;
         if (!legacySaveFile.loadedExistingData()) return false;
+        LegacyStashSave0 data = legacySaveFile.data;
         SaveManager.stashSaveFile.data.gridRect = new Rectangle(data.gridX, data.gridY, data.gridWidth, data.gridHeight);
+        return true;
+    }
+
+    @Override
+    public void applyNewVersion() {
         SaveManager.stashSaveFile.data.saveFileVersion = 1;
         SaveManager.stashSaveFile.saveToDisk(false);
-        return true;
     }
 
 }

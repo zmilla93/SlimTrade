@@ -1,7 +1,7 @@
 import com.slimtrade.App;
 import com.slimtrade.core.References;
-import com.slimtrade.core.legacy.SaveFilePatcherManager;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.saving.SaveFilePatcherManager;
 import com.slimtrade.modules.updater.data.AppInfo;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.slimtrade.core.legacy;
+package com.slimtrade.core.saving.legacy;
 
 public class LegacyStashSave0 {
 
