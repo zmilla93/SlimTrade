@@ -35,4 +35,9 @@ public class PatcherScanner0to1 implements ISavePatcher {
         SaveManager.chatScannerSaveFile.saveToDisk(false);
     }
 
+    @Override
+    public void handleCorruptedFile() {
+        SaveManager.chatScannerSaveFile.initData();
+    }
+
 }

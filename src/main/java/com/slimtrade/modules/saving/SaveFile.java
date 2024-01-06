@@ -131,7 +131,11 @@ public class SaveFile<T extends BaseSaveFile> extends ListenManager<ISaveListene
         }
     }
 
-    private void initData() {
+    /**
+     * This discards all old save information and generates a new one.
+     * Should only be used if file is not found or is corrupted.
+     */
+    public void initData() {
         try {
             data = classType.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |

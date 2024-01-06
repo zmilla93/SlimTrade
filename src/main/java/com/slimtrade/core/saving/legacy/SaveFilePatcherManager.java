@@ -32,9 +32,14 @@ public class SaveFilePatcherManager {
 
     private static boolean handlePatch(ISavePatcher patcher) {
         boolean patched = false;
-        if (patcher.requiresPatch()) patched = patcher.patch();
-        if (patched) patcher.applyNewVersion();
-        System.out.println("Patch [" + patcher.getClass().getSimpleName() + "]: " + patched);
+        try {
+            if (patcher.requiresPatch()) patched = patcher.patch();
+            if (patched) patcher.applyNewVersion();
+            System.out.println("Patch [" + patcher.getClass().getSimpleName() + "]: " + patched);
+        } catch (Exception e) {
+            System.err.println("Encountered corrupted legacy save file, recreating data.");
+            patcher.handleCorruptedFile();
+        }
         return patched;
     }
 

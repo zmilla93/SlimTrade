@@ -31,4 +31,9 @@ public class PatcherStash0to1 implements ISavePatcher {
         SaveManager.stashSaveFile.saveToDisk(false);
     }
 
+    @Override
+    public void handleCorruptedFile() {
+        SaveManager.stashSaveFile.initData();
+    }
+
 }

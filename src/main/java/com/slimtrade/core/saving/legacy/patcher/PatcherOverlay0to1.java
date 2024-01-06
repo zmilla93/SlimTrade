@@ -48,4 +48,9 @@ public class PatcherOverlay0to1 implements ISavePatcher {
         SaveManager.overlaySaveFile.saveToDisk();
     }
 
+    @Override
+    public void handleCorruptedFile() {
+        SaveManager.overlaySaveFile.initData();
+    }
+
 }

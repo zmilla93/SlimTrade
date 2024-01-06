@@ -39,6 +39,11 @@ public class PatcherSettings0to1 implements ISavePatcher {
         // FIXME : Save to disk. Currently cannot save here due to listeners being null.
     }
 
+    @Override
+    public void handleCorruptedFile() {
+        SaveManager.settingsSaveFile.initData();
+    }
+
     private static void handleFieldConversions(LegacySettingsSave0 legacySaveFile, SettingsSaveFile saveFile) {
         saveFile.theme = legacySaveFile.theme.theme;
 

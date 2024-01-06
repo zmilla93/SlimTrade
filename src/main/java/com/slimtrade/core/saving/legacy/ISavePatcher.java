@@ -8,4 +8,6 @@ public interface ISavePatcher {
 
     void applyNewVersion();
 
+    void handleCorruptedFile();
+
 }
