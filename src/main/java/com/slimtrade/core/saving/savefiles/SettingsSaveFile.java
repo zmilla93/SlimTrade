@@ -10,7 +10,9 @@ import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.listening.IColorBlindChangeListener;
+import com.slimtrade.gui.options.searching.StashSearchData;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
+import com.slimtrade.gui.options.searching.StashSearchTermData;
 import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.modules.theme.Theme;
 import com.slimtrade.modules.updater.data.AppVersion;
@@ -122,6 +124,22 @@ public class SettingsSaveFile extends BaseSaveFile {
         outgoingMacroButtons.add(new MacroButton(CustomIcon.THUMB, "thanks", "", ButtonRow.BOTTOM_ROW, null, false));
         outgoingMacroButtons.add(new MacroButton(CustomIcon.LEAVE, "/kick {self}", "", ButtonRow.BOTTOM_ROW, null, false));
         outgoingMacroButtons.add(new MacroButton(CustomIcon.HOME, "/hideout", "", ButtonRow.BOTTOM_ROW, null, true));
+
+        ArrayList<StashSearchTermData> stashTerms = new ArrayList<>();
+        stashTerms.add(new StashSearchTermData("map", "maps", 5));
+        stashTerms.add(new StashSearchTermData("div", "divination card", 25));
+        stashTerms.add(new StashSearchTermData("sac", "sacrifice at", 7));
+        stashTerms.add(new StashSearchTermData("ess", "essence", 15));
+        stashTerms.add(new StashSearchTermData("$$$", "currency", 22));
+        stashTerms.add(new StashSearchTermData("belt", "mageblood", 4));
+        ArrayList<StashSearchTermData> passiveTerms = new ArrayList<>();
+        passiveTerms.add(new StashSearchTermData("str", "strength", 5));
+        passiveTerms.add(new StashSearchTermData("dex", "dexterity", 17));
+        passiveTerms.add(new StashSearchTermData("int", "intelligence", 14));
+        passiveTerms.add(new StashSearchTermData("crit chance", "critical strike chance", 24));
+        passiveTerms.add(new StashSearchTermData("crit mult", "critical strike multiplier", 22));
+        stashSearchData.add(new StashSearchGroupData(1, "Stash", null, stashTerms));
+        stashSearchData.add(new StashSearchGroupData(2, "Passives", null, passiveTerms));
     }
 
     // Macro Generators
