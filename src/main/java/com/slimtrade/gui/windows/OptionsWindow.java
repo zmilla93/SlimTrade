@@ -13,13 +13,19 @@ import java.awt.*;
 
 public class OptionsWindow extends CustomDialog {
 
-    CardLayout cardLayout = new CardLayout();
-    JPanel cardPanel = new JPanel(cardLayout);
+    private final CardLayout cardLayout = new CardLayout();
+    private final JPanel cardPanel = new JPanel(cardLayout);
 
     private final AbstractMacroOptionPanel incomingMacroPanel;
     private final AbstractMacroOptionPanel outgoingMacroPanel;
     private final IgnoreItemOptionPanel ignorePanel = new IgnoreItemOptionPanel();
     private final GeneralOptionPanel generalOptionPanel = new GeneralOptionPanel();
+    private final OptionPanel donate = new OptionPanel("Donate", new DonationPanel());
+    private final JList<OptionPanel> optionsList;
+
+    private final JButton donateButton = new JButton("Donate");
+    private final JButton saveButton = new JButton("Save");
+    private final JButton revertButton = new JButton("Revert Changes");
 
     public OptionsWindow() {
         super("Options");
@@ -40,20 +46,19 @@ public class OptionsWindow extends CustomDialog {
         OptionPanel cheatSheets = new OptionPanel("Cheat Sheets", new CheatSheetsOptionPanel());
         OptionPanel stashSearch = new OptionPanel("Searching", new StashSearchOptionPanel());
         OptionPanel debug = new OptionPanel("Debug", new DebugOptionPanel());
-        OptionPanel[] panelList = new OptionPanel[]{general, display, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSearch, information};
+        OptionPanel[] panelList = new OptionPanel[]{general, display, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSearch, information, donate};
         if (App.debug) {
             OptionPanel[] newList = new OptionPanel[panelList.length + 1];
             System.arraycopy(panelList, 0, newList, 0, panelList.length);
             newList[newList.length - 1] = debug;
             panelList = newList;
         }
-        JPanel sidebar = createSidebar(panelList);
+        optionsList = new JList<>(panelList);
+        JPanel sidebar = createSidebar();
 
         // Save & Revert Panel
         JPanel saveRevertPanel = new JPanel(new BorderLayout());
         JPanel saveRevertInnerPanel = new JPanel(new GridBagLayout());
-        JButton revertButton = new JButton("Revert Changes");
-        JButton saveButton = new JButton("Save");
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.EAST;
         gc.weightx = 0;
@@ -71,23 +76,12 @@ public class OptionsWindow extends CustomDialog {
         for (OptionPanel panel : panelList) {
             cardPanel.add(panel.panel, panel.title);
         }
+        cardPanel.add(donate.panel, donate.title);
         displayPanel.add(cardPanel, gc);
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(sidebar, BorderLayout.WEST);
         contentPanel.add(saveRevertPanel, BorderLayout.SOUTH);
         contentPanel.add(cardPanel, BorderLayout.CENTER);
-
-        // Listeners
-        saveButton.addActionListener(e ->
-        {
-            SaveManager.settingsSaveFile.saveToDisk();
-            SaveManager.ignoreSaveFile.saveToDisk();
-            HotkeyManager.loadHotkeys();
-            reloadExampleTrades();
-            revalidate();
-        });
-
-        revertButton.addActionListener(e -> SaveManager.settingsSaveFile.revertChanges());
 
         // Finalize
 //        showPanel(stashSearch);
@@ -98,13 +92,28 @@ public class OptionsWindow extends CustomDialog {
         setSize((int) Math.round(screenSize.width * 0.5), (int) Math.round(screenSize.height * 0.6));
         setLocationRelativeTo(null);
         SaveManager.settingsSaveFile.registerSavableContainer(this);
+        addListeners();
     }
 
-    private JPanel createSidebar(OptionPanel[] panelList) {
+    private void addListeners() {
+        saveButton.addActionListener(e ->
+        {
+            SaveManager.settingsSaveFile.saveToDisk();
+            SaveManager.ignoreSaveFile.saveToDisk();
+            HotkeyManager.loadHotkeys();
+            reloadExampleTrades();
+            revalidate();
+        });
+        revertButton.addActionListener(e -> SaveManager.settingsSaveFile.revertChanges());
+        donateButton.addActionListener(e -> showDonationPanel());
+        optionsList.addListSelectionListener(e -> showPanel(optionsList.getSelectedValue()));
+    }
+
+    private JPanel createSidebar() {
         JPanel sidebar = new JPanel(new BorderLayout());
         // Top Button Panel
         JPanel topButtonPanel = new JPanel(new BorderLayout());
-        JList<OptionPanel> optionsList = new JList<>(panelList);
+
         optionsList.setSelectedIndex(0);
 //        if (App.debug) optionsList.setSelectedIndex(panelList.length - 1);
         topButtonPanel.add(optionsList, BorderLayout.CENTER);
@@ -118,15 +127,11 @@ public class OptionsWindow extends CustomDialog {
         gc.gridy++;
         gc.weightx = 1;
         gc.fill = GridBagConstraints.BOTH;
-        bottomButtonPanel.add(new JButton("Donate"), gc);
+        bottomButtonPanel.add(donateButton, gc);
         gc.gridy++;
-        bottomButtonPanel.add(new JButton("Check for Updates"), gc);
-
+//        bottomButtonPanel.add(new JButton("Check for Updates"), gc);
         sidebar.add(topButtonPanel, BorderLayout.NORTH);
         sidebar.add(bottomButtonPanel, BorderLayout.SOUTH);
-
-        // Listeners
-        optionsList.addListSelectionListener(e -> showPanel(optionsList.getSelectedValue()));
 
         return sidebar;
     }
@@ -139,6 +144,13 @@ public class OptionsWindow extends CustomDialog {
     public void reloadExampleTrades() {
         incomingMacroPanel.reloadExampleTrade();
         outgoingMacroPanel.reloadExampleTrade();
+    }
+
+    public void showDonationPanel() {
+        optionsList.clearSelection();
+        optionsList.setSelectedValue(donate, true);
+        showPanel(donate);
+        ((DonationPanel) donate.panel).getDonateButton().requestFocus();
     }
 
     public void refreshCharacterName() {

@@ -7,6 +7,7 @@ import com.slimtrade.core.utility.MarkdownParser;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CustomScrollPane;
 import com.slimtrade.gui.components.LimitCombo;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.updater.data.AppVersion;
 
 import javax.swing.*;
@@ -76,7 +77,11 @@ public class PatchNotesWindow extends CustomDialog {
         });
         githubButton.addActionListener(e -> ZUtil.openLink(References.GITHUB_URL));
         discordButton.addActionListener(e -> ZUtil.openLink(References.DISCORD_INVITE));
-        // TODO : Add donate button listeners
+        donateButton.addActionListener(e -> {
+            FrameManager.optionsWindow.setVisible(true);
+            FrameManager.optionsWindow.toFront();
+            FrameManager.optionsWindow.showDonationPanel();
+        });
     }
 
     private void updateSelectedPatchNotes() {
