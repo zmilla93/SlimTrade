@@ -18,10 +18,10 @@ public class ReleaseTest {
         // TODO : Make sure this has all relevant info
         AppInfo appInfo = App.readAppInfo();
         if (appInfo == null) fail();
-        assertEquals(appInfo.name, "SlimTrade");
-        assertEquals(SaveManager.folderWin, "SlimTrade");
-        assertEquals(SaveManager.folderOther, ".slimtrade");
-        assertEquals(References.GITHUB_REPO, "slimtrade");
+        assertEquals("SlimTrade", appInfo.name);
+        assertEquals("SlimTrade", SaveManager.folderWin);
+        assertEquals(".slimtrade", SaveManager.folderOther);
+        assertEquals("slimtrade", References.GITHUB_REPO);
         assertTrue(appInfo.appVersion.valid);
         assertFalse(App.noUpdate);
     }
@@ -31,7 +31,7 @@ public class ReleaseTest {
         assertFalse(App.debug);
         assertFalse(App.chatInConsole);
         assertFalse(App.debugProfileLaunch);
-        assertEquals(App.debugUIBorders, 0);
+        assertEquals(0, App.debugUIBorders);
         assertFalse(SaveFilePatcherManager.DEBUG_REPORT);
     }
 
