@@ -2,12 +2,14 @@ package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.components.InsetBorder;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class OverlayExamplePanel extends JPanel {
 
+    private static final int BORDER_SIZE = 2;
     private final String COLOR_KEY = "Separator.foreground";
     private Anchor anchor = null;
 
@@ -16,10 +18,11 @@ public class OverlayExamplePanel extends JPanel {
         setLayout(cardLayout);
         JPanel labelPanel = new JPanel(new GridBagLayout());
         labelPanel.add(new JLabel(text));
+        labelPanel.setOpaque(false);
         add(sizePanel, "panel");
         add(labelPanel, "label");
         cardLayout.show(this, "label");
-        updateUI();
+        setBorder(new InsetBorder(BORDER_SIZE, COLOR_KEY));
     }
 
     public void setAnchor(Anchor anchor) {
@@ -28,13 +31,7 @@ public class OverlayExamplePanel extends JPanel {
     }
 
     @Override
-    public void updateUI() {
-        setBorder(BorderFactory.createLineBorder(UIManager.getColor(COLOR_KEY), 2));
-    }
-
-    @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
         if (anchor == null) return;
         g.setColor(UIManager.getColor(COLOR_KEY));
         int iconSize = SaveManager.settingsSaveFile.data.iconSize;

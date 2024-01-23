@@ -41,7 +41,7 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
         GridBagConstraints gc = ZUtil.getGC();
         infoPanel.add(new JLabel("Click and drag the example message and menubar."), gc);
         gc.gridy++;
-        infoPanel.add(new JLabel("Hold SHIFT to lock the message to the current monitor."), gc);
+        infoPanel.add(new JLabel("Hold SHIFT to lock the window to the current monitor."), gc);
 
         // Button Panel
         gc = ZUtil.getGC();

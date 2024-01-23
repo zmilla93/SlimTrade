@@ -26,7 +26,6 @@ public class AbstractOverlayFrame extends AbstractMovableDialog implements IFont
         contentPanel.setBackground(Color.orange);
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(overlayPanel, BorderLayout.CENTER);
-
         pack();
         setLocation(0, 0);
         ThemeManager.addFontListener(this);
