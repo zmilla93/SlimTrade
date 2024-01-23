@@ -12,13 +12,13 @@ public class OverlayExamplePanel extends JPanel {
     private Anchor anchor = null;
 
     public OverlayExamplePanel(JPanel sizePanel, String text) {
-        setLayout(new BorderLayout());
-        add(sizePanel, BorderLayout.CENTER);
-        setPreferredSize(getPreferredSize());
-        remove(sizePanel);
-        setLayout(new GridBagLayout());
-        JLabel label = new JLabel(text);
-        add(label);
+        CardLayout cardLayout = new CardLayout();
+        setLayout(cardLayout);
+        JPanel labelPanel = new JPanel(new GridBagLayout());
+        labelPanel.add(new JLabel(text));
+        add(sizePanel, "panel");
+        add(labelPanel, "label");
+        cardLayout.show(this, "label");
         updateUI();
     }
 
