@@ -29,6 +29,7 @@ public class AudioThresholdRow extends AddRemovePanel {
         super(parent);
         refreshCombo();
         for (CurrencyType currency : CurrencyType.getCommonCurrencyTypes()) currencyTypeCombo.addItem(currency);
+        currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyType("Chaos Orb"));
 
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();

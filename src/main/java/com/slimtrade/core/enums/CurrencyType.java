@@ -87,13 +87,13 @@ public class CurrencyType implements IImageRef {
 
     private static void buildCommonCurrencyList() {
         commonCurrencyTypes.clear();
-        commonCurrencyTypes.add(getCurrencyType("Chaos Orb"));
-        commonCurrencyTypes.add(getCurrencyType("Exalted Orb"));
         commonCurrencyTypes.add(getCurrencyType("Blessed Orb"));
         commonCurrencyTypes.add(getCurrencyType("Cartographer's Chisel"));
+        commonCurrencyTypes.add(getCurrencyType("Chaos Orb"));
         commonCurrencyTypes.add(getCurrencyType("Chromatic Orb"));
         commonCurrencyTypes.add(getCurrencyType("Divine Orb"));
         commonCurrencyTypes.add(getCurrencyType("Engineer's Orb"));
+        commonCurrencyTypes.add(getCurrencyType("Exalted Orb"));
         commonCurrencyTypes.add(getCurrencyType("Gemcutter's Prism"));
         commonCurrencyTypes.add(getCurrencyType("Glassblower's Bauble"));
         commonCurrencyTypes.add(getCurrencyType("Jeweller's Orb"));
