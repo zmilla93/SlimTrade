@@ -16,7 +16,7 @@ import java.awt.*;
  */
 public class AbstractOverlayFrame extends AbstractMovableDialog implements IFontChangeListener {
 
-    private final JPanel panel;
+    protected final JPanel panel;
     private final OverlayExamplePanel overlayPanel;
 
     public AbstractOverlayFrame(JPanel panel, String text) {
@@ -24,8 +24,8 @@ public class AbstractOverlayFrame extends AbstractMovableDialog implements IFont
         overlayPanel = new OverlayExamplePanel(panel, text);
         setOpacity(0.75f);
         contentPanel.setBackground(Color.orange);
-        contentPanel.setLayout(new BorderLayout());
-        contentPanel.add(overlayPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(new GridBagLayout());
+        contentPanel.add(overlayPanel);
         pack();
         setLocation(0, 0);
         ThemeManager.addFontListener(this);

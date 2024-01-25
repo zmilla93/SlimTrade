@@ -65,6 +65,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         messageContainer = new JPanel(new GridBagLayout());
         messageContainer.setBackground(ThemeManager.TRANSPARENT);
         contentPanel.add(messageContainer, BorderLayout.CENTER);
+        setMinimumSize(null);
 
         // Init GridBagLayout
         gc = new GridBagConstraints();
@@ -386,12 +387,9 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         recheckMessageVisibility();
         refreshOrder();
         revalidate();
-        int width = 300;
-        setMinimumSize(new Dimension(width, 0));
-        setMaximumSize(new Dimension(width, 10000));
         pack();
         moveToAnchor();
-        setIgnoreRepaint(false);
+//        setIgnoreRepaint(false);
         repaint();
     }
 

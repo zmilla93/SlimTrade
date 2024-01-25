@@ -14,11 +14,12 @@ public class OverlayExamplePanel extends JPanel {
     private Anchor anchor = null;
 
     public OverlayExamplePanel(JPanel sizePanel, String text) {
-        CardLayout cardLayout = new CardLayout();
-        setLayout(cardLayout);
         JPanel labelPanel = new JPanel(new GridBagLayout());
         labelPanel.add(new JLabel(text));
         labelPanel.setOpaque(false);
+
+        CardLayout cardLayout = new CardLayout();
+        setLayout(cardLayout);
         add(sizePanel, "panel");
         add(labelPanel, "label");
         cardLayout.show(this, "label");

@@ -131,9 +131,7 @@ public class NotificationPanel extends ColorPanel {
         timerPanel.add(Box.createHorizontalStrut(timerInset), BorderLayout.EAST);
         timerPanel.add(timerLabel, BorderLayout.CENTER);
 
-        int width = 400;
-        setMinimumSize(new Dimension(width, 0));
-        setMaximumSize(new Dimension(width, 10000));
+        setWidth(SaveManager.overlaySaveFile.data.messageWidth);
     }
 
     /**
@@ -210,6 +208,14 @@ public class NotificationPanel extends ColorPanel {
         startTimer();
     }
 
+    public void setWidth(int width) {
+        setMinimumSize(new Dimension(width, 0));
+        setMaximumSize(new Dimension(width, 10000));
+        setPreferredSize(null);
+        setPreferredSize(new Dimension(width, getPreferredSize().height));
+        revalidate();
+    }
+
     protected void addPlayerButtonListener(String playerName) {
         playerNameButton.addMouseListener(new AdvancedMouseListener() {
             @Override
@@ -283,8 +289,8 @@ public class NotificationPanel extends ColorPanel {
     }
 
     public void updateSize() {
-        setPreferredSize(null);
-        setPreferredSize(new Dimension(SaveManager.overlaySaveFile.data.messageWidth, getPreferredSize().height));
+        resizeStrut();
+        setWidth(SaveManager.overlaySaveFile.data.messageWidth);
     }
 
     public void checkHotkeys(HotkeyData hotkeyData) {
