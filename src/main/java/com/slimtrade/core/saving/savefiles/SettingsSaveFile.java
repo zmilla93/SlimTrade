@@ -23,7 +23,7 @@ import java.util.HashMap;
 /**
  * Class representation of settings.json
  */
-public class SettingsSaveFile extends BaseSaveFile {
+public class SettingsSaveFile extends AbstractSaveFile {
 
     public String appVersionString;
     private transient AppVersion appVersion;
@@ -139,6 +139,11 @@ public class SettingsSaveFile extends BaseSaveFile {
         passiveTerms.add(new StashSearchTermData("crit mult", "critical strike multiplier", 22));
         stashSearchData.add(new StashSearchGroupData(1, "Stash", null, stashTerms));
         stashSearchData.add(new StashSearchGroupData(2, "Passives", null, passiveTerms));
+    }
+
+    @Override
+    public int getTargetFileVersion() {
+        return 1;
     }
 
     // Macro Generators

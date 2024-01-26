@@ -17,9 +17,11 @@ import java.util.ArrayList;
 
 public class PatcherSettings0to1 implements ISavePatcher {
 
+    private String errorMessage;
+
     @Override
     public boolean requiresPatch() {
-        return SaveManager.settingsSaveFile.saveFileVersion() < 1;
+        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.saveFileVersion() < 1;
     }
 
     @Override
@@ -27,7 +29,10 @@ public class PatcherSettings0to1 implements ISavePatcher {
         String filePath = SaveManager.settingsSaveFile.path;
         SaveFile<LegacySettingsSave0> legacySaveFile = new SaveFile<>(filePath, LegacySettingsSave0.class);
         legacySaveFile.loadFromDisk();
-        if (!legacySaveFile.loadedExistingData()) return false;
+        if (!legacySaveFile.loadedExistingData()) {
+            errorMessage = FAILED_TO_LOAD;
+            return false;
+        }
 
         SaveFilePatcherManager.copyMatchingFields(legacySaveFile.data, SaveManager.settingsSaveFile.data);
         handleFieldConversions(legacySaveFile.data, SaveManager.settingsSaveFile.data);
@@ -36,9 +41,7 @@ public class PatcherSettings0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.settingsSaveFile.data.saveFileVersion = 1;
         SaveManager.settingsSaveFile.saveToDisk(false);
-        SaveManager.ignoreSaveFile.data.saveFileVersion = 1;
         SaveManager.ignoreSaveFile.saveToDisk(false);
     }
 
@@ -46,6 +49,11 @@ public class PatcherSettings0to1 implements ISavePatcher {
     public void handleCorruptedFile() {
         SaveManager.settingsSaveFile.initData();
         SaveManager.ignoreSaveFile.initData();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     private static void handleFieldConversions(LegacySettingsSave0 legacySaveFile, SettingsSaveFile saveFile) {

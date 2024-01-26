@@ -2,9 +2,9 @@ package com.slimtrade.core.saving.legacy.savefiles;
 
 import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.ExpandDirection;
-import com.slimtrade.core.saving.savefiles.BaseSaveFile;
+import com.slimtrade.core.saving.savefiles.AbstractSaveFile;
 
-public class LegacyOverlaySave0 extends BaseSaveFile {
+public class LegacyOverlaySave0 extends AbstractSaveFile {
 
     // Message Manager Info
     public boolean messageScreenLock = true;
@@ -17,6 +17,11 @@ public class LegacyOverlaySave0 extends BaseSaveFile {
     public int menubarX = 0, menubarY = 0;
     public int menubarWidth, menubarHeight;
     public LegacyMenubarButtonLocation menubarButtonLocation = LegacyMenubarButtonLocation.NW;
+
+    @Override
+    public int getTargetFileVersion() {
+        return 0;
+    }
 
     public enum LegacyExpandDirection {
         UP(ExpandDirection.UPWARDS),

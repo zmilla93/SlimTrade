@@ -10,16 +10,21 @@ import java.util.ArrayList;
 
 public class PatcherScanner0to1 implements ISavePatcher {
 
+    private String errorMessage;
+
     @Override
     public boolean requiresPatch() {
-        return SaveManager.chatScannerSaveFile.data.saveFileVersion < 1;
+        return SaveManager.chatScannerSaveFile.fileExists() && SaveManager.chatScannerSaveFile.data.saveFileVersion < 1;
     }
 
     @Override
     public boolean patch() {
         SaveFile<LegacyScannerSave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory() + "scanner.json", LegacyScannerSave0.class);
         legacySaveFile.loadFromDisk();
-        if (!legacySaveFile.loadedExistingData()) return false;
+        if (!legacySaveFile.loadedExistingData()) {
+            errorMessage = FAILED_TO_LOAD;
+            return false;
+        }
 
         ArrayList<ChatScannerEntry> entries = new ArrayList<>();
         for (LegacyScannerSave0.LegacyScannerMessage message : legacySaveFile.data.messages) {
@@ -31,13 +36,17 @@ public class PatcherScanner0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.chatScannerSaveFile.data.saveFileVersion = 1;
         SaveManager.chatScannerSaveFile.saveToDisk(false);
     }
 
     @Override
     public void handleCorruptedFile() {
         SaveManager.chatScannerSaveFile.initData();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
 }

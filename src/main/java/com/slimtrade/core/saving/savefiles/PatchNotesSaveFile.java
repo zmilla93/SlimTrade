@@ -5,7 +5,7 @@ import com.slimtrade.modules.updater.data.AppVersion;
 
 import java.util.ArrayList;
 
-public class PatchNotesSaveFile extends BaseSaveFile {
+public class PatchNotesSaveFile extends AbstractSaveFile {
 
     public String versionString;
     public ArrayList<PatchNotesEntry> entries;
@@ -14,6 +14,11 @@ public class PatchNotesSaveFile extends BaseSaveFile {
     public AppVersion getAppVersion() {
         if (appVersion == null) appVersion = new AppVersion(versionString);
         return appVersion;
+    }
+
+    @Override
+    public int getTargetFileVersion() {
+        return 1;
     }
 
 }

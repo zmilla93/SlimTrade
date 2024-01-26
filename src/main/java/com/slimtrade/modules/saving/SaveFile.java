@@ -3,13 +3,15 @@ package com.slimtrade.modules.saving;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.slimtrade.core.saving.savefiles.BaseSaveFile;
+import com.slimtrade.core.saving.savefiles.AbstractSaveFile;
+import com.slimtrade.core.saving.savefiles.VersionSaveFile;
 import com.slimtrade.modules.listening.ListenManager;
 
 import java.awt.*;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,7 +19,7 @@ import java.util.TimerTask;
 /**
  * Allows easy linking of a data class, a json save file, and a list of ISavable components.
  */
-public class SaveFile<T extends BaseSaveFile> extends ListenManager<ISaveListener> {
+public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveListener> {
 
     public T data;
     public final String path;
@@ -41,6 +43,11 @@ public class SaveFile<T extends BaseSaveFile> extends ListenManager<ISaveListene
 
     public boolean loadedExistingData() {
         return loadedExistingData;
+    }
+
+    public boolean fileExists() {
+        File file = new File(path);
+        return file.exists() && file.isFile();
     }
 
     /**
@@ -92,8 +99,9 @@ public class SaveFile<T extends BaseSaveFile> extends ListenManager<ISaveListene
                     c.save();
                 }
             }
+            data.saveFileVersion = data.getTargetFileVersion();
             File file = new File(path);
-            Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
+            Writer writer = new OutputStreamWriter(Files.newOutputStream(file.toPath()), StandardCharsets.UTF_8);
             writer.write(gson.toJson(data));
             writer.close();
         } catch (IOException e) {
@@ -148,7 +156,7 @@ public class SaveFile<T extends BaseSaveFile> extends ListenManager<ISaveListene
         File file = new File(path);
         if (!file.exists()) return -1;
         try {
-            BaseSaveFile saveFile = gson.fromJson(getFileAsString(file.getPath()), BaseSaveFile.class);
+            VersionSaveFile saveFile = gson.fromJson(getFileAsString(file.getPath()), VersionSaveFile.class);
             if (saveFile != null) return saveFile.saveFileVersion;
         } catch (JsonSyntaxException ignore) {
         }

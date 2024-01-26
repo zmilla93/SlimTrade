@@ -10,16 +10,21 @@ import java.awt.*;
 
 public class PatcherOverlay0to1 implements ISavePatcher {
 
+    private String errorMessage;
+
     @Override
     public boolean requiresPatch() {
-        return SaveManager.overlaySaveFile.data.saveFileVersion < 1;
+        return SaveManager.overlaySaveFile.fileExists() && SaveManager.overlaySaveFile.data.saveFileVersion < 1;
     }
 
     @Override
     public boolean patch() {
         SaveFile<LegacyOverlaySave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory() + "overlay.json", LegacyOverlaySave0.class);
         legacySaveFile.loadFromDisk();
-        if (!legacySaveFile.loadedExistingData()) return false;
+        if (!legacySaveFile.loadedExistingData()) {
+            errorMessage = FAILED_TO_LOAD;
+            return false;
+        }
         LegacyOverlaySave0 legacyData = legacySaveFile.data;
         OverlaySaveFile data = SaveManager.overlaySaveFile.data;
 
@@ -38,19 +43,22 @@ public class PatcherOverlay0to1 implements ISavePatcher {
             menubarLocation.y += legacyData.menubarHeight;
         data.menubarLocation = menubarLocation;
         data.menubarAnchor = legacyData.menubarButtonLocation.anchor;
-
         return true;
     }
 
     @Override
     public void applyNewVersion() {
-        SaveManager.overlaySaveFile.data.saveFileVersion = 1;
-        SaveManager.overlaySaveFile.saveToDisk();
+        SaveManager.overlaySaveFile.saveToDisk(false);
     }
 
     @Override
     public void handleCorruptedFile() {
         SaveManager.overlaySaveFile.initData();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
 }

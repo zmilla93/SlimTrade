@@ -31,13 +31,20 @@ public class SaveFilePatcherManager {
     }
 
     private static boolean handlePatch(ISavePatcher patcher) {
+        String patcherName = patcher.getClass().getSimpleName();
         boolean patched = false;
         try {
-            if (patcher.requiresPatch()) patched = patcher.patch();
+            if (patcher.requiresPatch()) {
+                System.out.println("Patch required: [" + patcherName + "]");
+                patched = patcher.patch();
+                String errorMessage = patcher.getErrorMessage();
+                if (errorMessage != null) System.out.println(errorMessage);
+                if (patched) System.out.println("Patch successful!");
+                else System.out.println("Patch failed!");
+            }
             if (patched) patcher.applyNewVersion();
-            System.out.println("Patch [" + patcher.getClass().getSimpleName() + "]: " + patched);
         } catch (Exception e) {
-            System.err.println("Encountered corrupted legacy save file, recreating data.");
+            System.err.println("[" + patcherName + "] Encountered corrupted legacy save file, recreating data.");
             e.printStackTrace();
             patcher.handleCorruptedFile();
         }

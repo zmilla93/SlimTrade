@@ -6,11 +6,16 @@ import com.slimtrade.core.enums.MatchType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class IgnoreSaveFile extends BaseSaveFile {
+public class IgnoreSaveFile extends AbstractSaveFile {
 
     public ArrayList<IgnoreItemData> ignoreList = new ArrayList<>();
     public transient HashMap<String, IgnoreItemData> exactMatchIgnoreMap = new HashMap<>();
     public transient ArrayList<IgnoreItemData> containsTextIgnoreList = new ArrayList<>();
+
+    @Override
+    public int getTargetFileVersion() {
+        return 1;
+    }
 
     public void buildCache() {
         exactMatchIgnoreMap.clear();

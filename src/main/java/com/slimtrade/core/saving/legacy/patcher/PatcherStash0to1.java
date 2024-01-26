@@ -9,31 +9,39 @@ import java.awt.*;
 
 public class PatcherStash0to1 implements ISavePatcher {
 
+    private String errorMessage;
+
     @Override
     public boolean requiresPatch() {
-        return SaveManager.stashSaveFile.data.saveFileVersion < 1;
+        return SaveManager.stashSaveFile.fileExists() && SaveManager.stashSaveFile.data.saveFileVersion < 1;
     }
 
     @Override
     public boolean patch() {
-        if (!requiresPatch()) return false;
         SaveFile<LegacyStashSave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory() + "stash.json", LegacyStashSave0.class);
         legacySaveFile.loadFromDisk();
-        if (!legacySaveFile.loadedExistingData()) return false;
-        LegacyStashSave0 data = legacySaveFile.data;
-        SaveManager.stashSaveFile.data.gridRect = new Rectangle(data.gridX, data.gridY, data.gridWidth, data.gridHeight);
+        if (!legacySaveFile.loadedExistingData()) {
+            errorMessage = FAILED_TO_LOAD;
+            return false;
+        }
+        LegacyStashSave0 legacyData = legacySaveFile.data;
+        SaveManager.stashSaveFile.data.gridRect = new Rectangle(legacyData.gridX, legacyData.gridY, legacyData.gridWidth, legacyData.gridHeight);
         return true;
     }
 
     @Override
     public void applyNewVersion() {
-        SaveManager.stashSaveFile.data.saveFileVersion = 1;
         SaveManager.stashSaveFile.saveToDisk(false);
     }
 
     @Override
     public void handleCorruptedFile() {
         SaveManager.stashSaveFile.initData();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
 }

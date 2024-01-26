@@ -1,14 +1,19 @@
 package com.slimtrade.core.saving.legacy.savefiles;
 
-import com.slimtrade.core.saving.savefiles.BaseSaveFile;
+import com.slimtrade.core.saving.savefiles.AbstractSaveFile;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 
 import java.util.ArrayList;
 
-public class LegacyScannerSave0 extends BaseSaveFile {
+public class LegacyScannerSave0 extends AbstractSaveFile {
 
     public LegacyScannerMessage[] messages = new LegacyScannerMessage[0];
+
+    @Override
+    public int getTargetFileVersion() {
+        return 0;
+    }
 
     public static class LegacyScannerMessage {
         public String name;

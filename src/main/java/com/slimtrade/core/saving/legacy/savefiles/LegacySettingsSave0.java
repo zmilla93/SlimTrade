@@ -8,7 +8,7 @@ import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
-import com.slimtrade.core.saving.savefiles.BaseSaveFile;
+import com.slimtrade.core.saving.savefiles.AbstractSaveFile;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.options.searching.StashSearchTermData;
 import com.slimtrade.gui.options.stash.StashTabType;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Save file used for v0.3.5 and below.
  */
 @SuppressWarnings("unused")
-public class LegacySettingsSave0 extends BaseSaveFile {
+public class LegacySettingsSave0 extends AbstractSaveFile {
 
     //Version
     @SerializedName("versionNumber")
@@ -110,6 +110,11 @@ public class LegacySettingsSave0 extends BaseSaveFile {
     @SerializedName("remainingHotkey")
     public HotkeyData remainingMonstersHotkey = null;
     public HotkeyData hideoutHotkey = null;
+
+    @Override
+    public int getTargetFileVersion() {
+        return 0;
+    }
 
     // Cheat Sheet Data
     public static class LegacyCheatSheetData {
