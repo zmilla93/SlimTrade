@@ -42,4 +42,10 @@ public class VisibilityManager {
         });
     }
 
+    public static void hideAllFrames() {
+        for (VisibilityDialog dialog : frameList) {
+            dialog.setVisible(false);
+        }
+    }
+
 }

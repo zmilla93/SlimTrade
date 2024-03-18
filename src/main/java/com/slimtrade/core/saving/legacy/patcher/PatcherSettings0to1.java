@@ -75,7 +75,7 @@ public class PatcherSettings0to1 implements ISavePatcher {
         // Ignore Items
         ArrayList<IgnoreItemData> ignoreItemData = new ArrayList<>();
         for (LegacySettingsSave0.LegacyIgnoreData entry : legacySaveFile.ignoreData) {
-            if (entry.duration != 0) continue; 
+            if (entry.duration != 0) continue;
             ignoreItemData.add(entry.toIgnoreItemData());
         }
         SaveManager.ignoreSaveFile.data.ignoreList = ignoreItemData;

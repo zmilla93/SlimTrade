@@ -19,7 +19,6 @@ import com.slimtrade.gui.managers.SetupManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.LoadingWindow;
-import com.slimtrade.gui.windows.UpdateProgressWindow;
 import com.slimtrade.modules.stopwatch.Stopwatch;
 import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.updater.UpdateAction;
@@ -43,11 +42,9 @@ import java.util.logging.Logger;
 
 public class App {
 
-    public static SystemTrayManager systemTrayManager;
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
     private static LoadingWindow loadingWindow;
-    private static UpdateProgressWindow updateProgressWindow;
     private static LockManager lockManager;
     public static UpdateManager updateManager;
 
@@ -108,17 +105,9 @@ public class App {
         updateManager.continueUpdateProcess(args);
         if (!noUpdate) {
             if (updateManager.getCurrentUpdateAction() != UpdateAction.CLEAN && updateManager.isUpdateAvailable()) {
-                try {
-                    SwingUtilities.invokeAndWait(() -> {
-                        initializeThemes();
-                        updateProgressWindow = new UpdateProgressWindow(appInfo, updateManager.getLatestRelease().appVersion);
-                        updateManager.addProgressListener(updateProgressWindow);
-                        updateProgressWindow.setVisible(true);
-                    });
-                } catch (InterruptedException | InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
                 updateManager.runUpdateProcess();
+            } else {
+                updateManager.runPeriodicUpdateCheck();
             }
         }
 
@@ -176,7 +165,6 @@ public class App {
 
         if (debugProfileLaunch) System.out.println("Profiling launch complete!\n");
         System.out.println("Slimtrade Launched");
-
     }
 
     private static void profileLaunch(String context) {
@@ -191,7 +179,7 @@ public class App {
         });
     }
 
-    private static void initializeThemes() {
+    public static void initializeThemes() {
         assert (SwingUtilities.isEventDispatchThread());
         if (themesHaveBeenInitialized) return;
         FontManager.loadFonts();

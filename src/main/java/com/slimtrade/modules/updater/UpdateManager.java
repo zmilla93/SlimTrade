@@ -3,14 +3,19 @@ package com.slimtrade.modules.updater;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.slimtrade.App;
 import com.slimtrade.core.data.PatchNotesEntry;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.gui.managers.VisibilityManager;
+import com.slimtrade.gui.windows.UpdateProgressWindow;
 import com.slimtrade.modules.updater.data.AppInfo;
 import com.slimtrade.modules.updater.data.AppVersion;
 import com.slimtrade.modules.updater.data.ReleaseVersion;
 
 import javax.swing.*;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -22,6 +27,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * An update system for a single JAR program using the GitHub API.
@@ -43,6 +51,7 @@ public class UpdateManager {
     private static final int BYTE_BUFFER_SIZE = 1024 * 4;
     private static final String LAUNCH_PATH_PREFIX = "launcher:";
     private static final String TEMP_FILE_NAME = "SlimTrade.jar";
+    public static final boolean DEBUG_FAST_PERIODIC_CHECK = false;
 
     private final AppVersion CURRENT_VERSION;
     private final String DIRECTORY;
@@ -50,14 +59,16 @@ public class UpdateManager {
     private final String ALL_RELEASES_URL;
     private final boolean VALID_DIRECTORY;
 
+    private boolean updateAvailable;
     private ReleaseVersion latestRelease;
     private final boolean allowPreRelease;
     private String launchPath;
     private UpdateAction currentAction = UpdateAction.NONE;
     private final ArrayList<IUpdateProgressListener> progressListeners = new ArrayList<>();
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private static final int MAX_ACTION_ATTEMPTS = 5;
-    private static final int ACTION_RETRY_DELAY_MS = 50;
+    private static final int ACTION_RETRY_DELAY_MS = 100;
 
     /**
      * Handles updating a single JAR file program using the GitHub API.
@@ -81,8 +92,30 @@ public class UpdateManager {
      * Begins the entire update process.
      */
     public void runUpdateProcess() {
+        assert !SwingUtilities.isEventDispatchThread();
+        if (!isUpdateAvailable()) return;
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                ZLogger.log("Creating update progress window.");
+                App.initializeThemes();
+                VisibilityManager.hideAllFrames();
+                FrameManager.updateProgressWindow = new UpdateProgressWindow(App.appInfo, getLatestRelease().appVersion);
+                addProgressListener(FrameManager.updateProgressWindow);
+                FrameManager.updateProgressWindow.setVisible(true);
+                FrameManager.updateProgressWindow.setAlwaysOnTop(true);
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
         String[] args = new String[]{UpdateAction.DOWNLOAD.toString(), LAUNCH_PATH_PREFIX + getLaunchPath()};
         continueUpdateProcess(args);
+    }
+
+    /**
+     * The update process should not be run from the EDT, so use this method when triggering an update from the UI.
+     */
+    public void runUpdateProcessFromSwing() {
+        new Thread(this::runUpdateProcess).start();
     }
 
     /**
@@ -150,10 +183,10 @@ public class UpdateManager {
             else latestRelease = fetchLatestRelease();
             if (latestRelease == null) return false;
             ZLogger.log("Latest version: " + latestRelease.tag);
+            updateAvailable = !currentVersionString.equals(latestRelease.tag);
+            if (updateAvailable) ZLogger.log("Update available!");
+            else ZLogger.log("Program is up to date.");
         }
-        boolean updateAvailable = !currentVersionString.equals(latestRelease.tag);
-        if (updateAvailable) ZLogger.log("Update available!");
-        else ZLogger.log("Program is up to date.");
         return updateAvailable;
     }
 
@@ -304,10 +337,10 @@ public class UpdateManager {
      * @return Success
      */
     private boolean downloadFile() {
-        ZLogger.log("Downloading new version from " + latestRelease.downloadURL + "...");
         try {
             if (latestRelease == null) latestRelease = fetchLatestRelease();
             if (latestRelease == null) return false;
+            ZLogger.log("Downloading new version from " + latestRelease.downloadURL + "...");
             HttpURLConnection httpConnection = (HttpURLConnection) (new URL(latestRelease.downloadURL).openConnection());
             int fileSize = httpConnection.getContentLength();
             BufferedInputStream inputStream = new BufferedInputStream(httpConnection.getInputStream());
@@ -394,6 +427,22 @@ public class UpdateManager {
         }
         ZLogger.log("Failed to delete file: " + DIRECTORY + TEMP_FILE_NAME);
         ZLogger.log(exception.getStackTrace());
+    }
+
+    public void runPeriodicUpdateCheck() {
+        TimeUnit timeUnit = DEBUG_FAST_PERIODIC_CHECK ? TimeUnit.MINUTES : TimeUnit.DAYS;
+        scheduler.schedule(() -> {
+            ZLogger.log("Running daily update check...");
+            boolean update = isUpdateAvailable(true);
+            if (update) {
+                SwingUtilities.invokeLater(() -> {
+                    FrameManager.optionsWindow.showUpdateButton();
+                    FrameManager.messageManager.addUpdateMessage(true);
+                });
+            } else {
+                runPeriodicUpdateCheck();
+            }
+        }, 1, timeUnit);
     }
 
 }

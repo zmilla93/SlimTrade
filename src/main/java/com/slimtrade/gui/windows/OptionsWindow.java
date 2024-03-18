@@ -24,6 +24,7 @@ public class OptionsWindow extends CustomDialog {
     private final JList<OptionPanel> optionsList;
 
     private final JButton donateButton = new JButton("Donate");
+    private final JButton updateButton = new JButton("Update");
     private final JButton saveButton = new JButton("Save");
     private final JButton revertButton = new JButton("Revert Changes");
 
@@ -106,6 +107,7 @@ public class OptionsWindow extends CustomDialog {
         });
         revertButton.addActionListener(e -> SaveManager.settingsSaveFile.revertChanges());
         donateButton.addActionListener(e -> showDonationPanel());
+        updateButton.addActionListener(e -> App.updateManager.runUpdateProcessFromSwing());
         optionsList.addListSelectionListener(e -> showPanel(optionsList.getSelectedValue()));
     }
 
@@ -127,11 +129,14 @@ public class OptionsWindow extends CustomDialog {
         gc.gridy++;
         gc.weightx = 1;
         gc.fill = GridBagConstraints.BOTH;
+        bottomButtonPanel.add(updateButton, gc);
+        gc.gridy++;
         bottomButtonPanel.add(donateButton, gc);
         gc.gridy++;
 //        bottomButtonPanel.add(new JButton("Check for Updates"), gc);
         sidebar.add(topButtonPanel, BorderLayout.NORTH);
         sidebar.add(bottomButtonPanel, BorderLayout.SOUTH);
+        updateButton.setVisible(false);
 
         return sidebar;
     }
@@ -159,6 +164,10 @@ public class OptionsWindow extends CustomDialog {
 
     public IgnoreItemOptionPanel getIgnorePanel() {
         return ignorePanel;
+    }
+
+    public void showUpdateButton() {
+        updateButton.setVisible(true);
     }
 
 }

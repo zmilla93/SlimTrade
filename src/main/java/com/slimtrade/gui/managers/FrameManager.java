@@ -40,6 +40,7 @@ public class FrameManager {
     public static HashMap<String, StashSearchWindow> searchWindows = new HashMap<>();
     public static StashSearchWindow combinedSearchWindow;
     public static SetupWindow setupWindow;
+    public static UpdateProgressWindow updateProgressWindow;
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -57,7 +58,7 @@ public class FrameManager {
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
 
     private static boolean menubarExpanded = false;
-    private static boolean initalized = false;
+    private static boolean initialized = false;
 
     public static void init() {
         // Windows
@@ -106,11 +107,11 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_STASH, stashWindows);
         windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
-        initalized = true;
+        initialized = true;
     }
 
     public static boolean hasBeenInitialized() {
-        return initalized;
+        return initialized;
     }
 
     public static void showAppFrames() {

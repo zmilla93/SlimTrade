@@ -30,7 +30,7 @@ public class IgnoreRowComponents {
         removeButton.addActionListener(e -> parent.removeRow(this));
         // Timer
         remainingTime = ignoreItemData.getRemainingMinutes();
-        if(!ignoreItemData.isInfinite()){
+        if (!ignoreItemData.isInfinite()) {
             timer = new Timer(1000 * 60, e -> {
                 remainingTime--;
                 updateTimeRemainingLabel();
