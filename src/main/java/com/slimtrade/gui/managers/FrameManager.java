@@ -150,6 +150,8 @@ public class FrameManager {
                 }
             }
         }
+        if (newState == AppState.RUNNING) SystemTrayManager.showDefault();
+        else SystemTrayManager.showSimple();
         App.setState(newState);
     }
 
@@ -235,11 +237,5 @@ public class FrameManager {
             }
         });
     }
-
-    public static void calculateResolutionMultiplier() {
-
-    }
-
-    public static int getResolutionMultiplier;
 
 }
