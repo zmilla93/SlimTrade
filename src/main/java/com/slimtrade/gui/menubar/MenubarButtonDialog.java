@@ -1,5 +1,6 @@
 package com.slimtrade.gui.menubar;
 
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.buttons.IconButton;
@@ -13,7 +14,7 @@ import java.awt.*;
 public class MenubarButtonDialog extends BasicDialog implements IFontChangeListener {
 
     public MenubarButtonDialog() {
-        JButton iconButton = new IconButton("/icons/default/tagx64.png");
+        JButton iconButton = new IconButton(DefaultIcon.TAG);
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(iconButton, BorderLayout.CENTER);
         pack();

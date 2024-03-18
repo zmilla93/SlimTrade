@@ -4,6 +4,7 @@ import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
 import com.slimtrade.core.data.PriceThresholdData;
 import com.slimtrade.core.enums.CurrencyType;
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.SliderRange;
 import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.managers.AudioManager;
@@ -16,8 +17,8 @@ import java.awt.*;
 
 public class AudioThresholdRow extends AddRemovePanel {
 
-    private final JButton previewButton = new IconButton("/icons/default/playx64.png");
-    private final JButton removeButton = new IconButton("/icons/default/closex64.png");
+    private final JButton previewButton = new IconButton(DefaultIcon.PLAY);
+    private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
 
     private final JSpinner quantitySpinner = new RangeSpinner(SpinnerRange.PRICE_THRESHOLD);
     private final JComboBox<CurrencyType> currencyTypeCombo = new LimitCombo<>();

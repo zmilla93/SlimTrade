@@ -5,6 +5,7 @@ import com.slimtrade.gui.buttons.SlimButton;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class TestNotificationPanel extends JPanel {
 
     JPanel contentPanel;

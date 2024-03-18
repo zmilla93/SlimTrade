@@ -1,8 +1,10 @@
 package com.slimtrade.core.enums;
 
+import com.slimtrade.gui.buttons.IIcon;
+
 import java.awt.image.BufferedImage;
 
-public enum CustomIcon {
+public enum CustomIcon implements IIcon {
 
     CANCEL("/icons/custom/cancelx48.png"),
     REPLY("/icons/custom/replyx48.png"),
@@ -29,6 +31,11 @@ public enum CustomIcon {
 
     CustomIcon(String path) {
         this.path = path;
+    }
+
+    @Override
+    public String path() {
+        return path;
     }
 
 //    public Image getImage() {

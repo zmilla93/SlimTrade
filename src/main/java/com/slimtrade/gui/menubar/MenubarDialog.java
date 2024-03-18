@@ -10,12 +10,13 @@ import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.theme.IFontChangeListener;
+import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MenubarDialog extends BasicDialog implements IFontChangeListener {
+public class MenubarDialog extends BasicDialog implements IFontChangeListener, IThemeListener {
 
     private JButton optionsButton;
     private JButton chatScannerButton;
@@ -32,6 +33,7 @@ public class MenubarDialog extends BasicDialog implements IFontChangeListener {
         verticalSeparator = Box.createVerticalStrut(EXIT_INSET);
         rebuild();
         ThemeManager.addFontListener(this);
+        ThemeManager.addThemeListener(this);
     }
 
     private void addListeners() {
@@ -53,11 +55,11 @@ public class MenubarDialog extends BasicDialog implements IFontChangeListener {
         contentPanel.removeAll();
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        optionsButton = new IconButton("/icons/default/th-list.png");
-        historyButton = new IconButton(DefaultIcon.STOPWATCH.path);
-        chatScannerButton = new IconButton(DefaultIcon.SCANNER.path);
-        hideoutButton = new IconButton("/icons/custom/homex64.png");
-        exitButton = new IconButton("/icons/default/power.png");
+        optionsButton = new IconButton(DefaultIcon.LIST);
+        historyButton = new IconButton(DefaultIcon.STOPWATCH);
+        chatScannerButton = new IconButton(DefaultIcon.SCANNER);
+        hideoutButton = new IconButton(DefaultIcon.HOME);
+        exitButton = new IconButton(DefaultIcon.POWER);
         gc.insets = new Insets(INSET, INSET, INSET, INSET);
 
         Component[] components = getOrderedComponents(SaveManager.overlaySaveFile.data.menubarAnchor);
@@ -116,6 +118,11 @@ public class MenubarDialog extends BasicDialog implements IFontChangeListener {
     @Override
     public void onFontChanged() {
         handleResize();
+    }
+
+    @Override
+    public void onThemeChange() {
+        pack();
     }
 
 }

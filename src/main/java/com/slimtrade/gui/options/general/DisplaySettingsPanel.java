@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options.general;
 
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
@@ -16,7 +17,7 @@ import java.awt.*;
 public class DisplaySettingsPanel extends JPanel implements ISavable {
 
     private final JLabel fontPreviewLabel = new JLabel("You are captured, stupid beast!");
-    private final IconButton iconPreviewButton = new IconButton("/icons/default/tagx64.png");
+    private final IconButton iconPreviewButton = new IconButton(DefaultIcon.TAG);
     private final JSpinner fontSizeSpinner = new RangeSpinner(SpinnerRange.FONT_SIZE);
     private final JSpinner iconSizeSpinner = new RangeSpinner(SpinnerRange.ICON_SIZE);
     private final JComboBox<String> fontCombo = new JComboBox<>();

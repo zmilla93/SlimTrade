@@ -31,9 +31,9 @@ public class MacroCustomizerPanel extends AddRemovePanel {
     // Internal
     private final CardLayout displayLayout = new CardLayout();
     private final JPanel displayPanel = new JPanel(displayLayout);
-    private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP.path);
-    private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN.path);
-    private final JButton deleteButton = new IconButton(DefaultIcon.CLOSE.path);
+    private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP);
+    private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN);
+    private final JButton deleteButton = new IconButton(DefaultIcon.CLOSE);
 
     public MacroCustomizerPanel(AddRemoveContainer<?> parent) {
         super(parent);

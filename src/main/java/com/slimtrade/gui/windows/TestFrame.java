@@ -1,6 +1,7 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.enums.CurrencyType;
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.gui.buttons.IconButton;
@@ -27,7 +28,7 @@ public class TestFrame extends JFrame {
 
 //        ColorManager.addFrame(this);
         contentPanel.setLayout(new FlowLayout());
-        contentPanel.add(new IconButton("/icons/default/tagx64.png", 30));
+        contentPanel.add(new IconButton(DefaultIcon.TAG, 30));
 
 
         NotificationPanel panel = new NotificationPanel();
@@ -45,7 +46,10 @@ public class TestFrame extends JFrame {
         }
         ImageIcon icon = new ImageIcon(CurrencyType.getIconPath("Chaos Orb"));
         JLabel currencyIcon = new JLabel();
-        IconButton exaltButton = new IconButton(exalt.getPath());
+        IconButton exaltButton = new IconButton(() -> {
+            assert exalt != null;
+            return exalt.getPath();
+        });
         currencyIcon.setIcon(icon);
         if (img != null) currencyIcon.setIcon(new ImageIcon(img));
         contentPanel.add(currencyIcon);

@@ -3,6 +3,7 @@ package com.slimtrade.gui.buttons;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class SlimButton extends JButton {
 
     public SlimButton(String text) {

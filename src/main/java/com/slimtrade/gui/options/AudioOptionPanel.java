@@ -87,7 +87,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     private AudioRowControls addRow(String title) {
-        JButton previewButton = new IconButton(DefaultIcon.PLAY.path);
+        JButton previewButton = new IconButton(DefaultIcon.PLAY);
         JComboBox<Sound> soundCombo = new LimitCombo<>();
         JSlider volumeSlider = new JSlider();
         JLabel volumeLabel = new JLabel();

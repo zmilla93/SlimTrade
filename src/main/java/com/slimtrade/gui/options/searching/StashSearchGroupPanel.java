@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options.searching;
 
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.*;
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 
 public class StashSearchGroupPanel extends AddRemovePanel {
 
-    private final JButton removeButton = new IconButton("/icons/default/closex64.png");
-    private final JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
-    private final JButton shiftDownButton = new IconButton("/icons/default/arrow-downx48.png");
+    private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
+    private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP);
+    private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN);
     private final int id;
     private String groupName;
     private String savedGroupName;

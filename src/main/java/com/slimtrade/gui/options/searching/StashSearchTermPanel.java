@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options.searching;
 
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.AddRemovePanel;
@@ -11,9 +12,9 @@ import java.awt.*;
 
 public class StashSearchTermPanel extends AddRemovePanel {
 
-    private final JButton removeButton = new IconButton("/icons/default/closex64.png");
-    private final JButton shiftUpButton = new IconButton("/icons/default/arrow-upx48.png");
-    private final JButton shiftDownButton = new IconButton("/icons/default/arrow-downx48.png");
+    private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
+    private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP);
+    private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN);
 
     private final JTextField titleInput = new PlaceholderTextField("Display Title...", 15);
     private final JTextField searchInput = new PlaceholderTextField("Search Term...", 20);

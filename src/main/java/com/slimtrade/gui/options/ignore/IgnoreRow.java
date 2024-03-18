@@ -1,6 +1,7 @@
 package com.slimtrade.gui.options.ignore;
 
 import com.slimtrade.core.data.IgnoreItemData;
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
@@ -17,7 +18,7 @@ public class IgnoreRow extends AddRemovePanel {
     public final IgnoreItemData ignoreItemData;
     private int remainingTime;
 
-    private final JButton removeButton = new IconButton("/icons/default/closex64.png");
+    private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
     private final JLabel timerLabel = new JLabel();
     private final JLabel matchLabel = new JLabel();
     private Timer timer;
