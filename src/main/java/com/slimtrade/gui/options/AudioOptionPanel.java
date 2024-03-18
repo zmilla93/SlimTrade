@@ -7,8 +7,8 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.components.AudioComboBox;
 import com.slimtrade.gui.components.ButtonPanel;
-import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.options.audio.AudioRowControls;
 import com.slimtrade.gui.options.audio.AudioThresholdPanel;
@@ -88,7 +88,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private AudioRowControls addRow(String title) {
         JButton previewButton = new IconButton(DefaultIcon.PLAY);
-        JComboBox<Sound> soundCombo = new LimitCombo<>();
+        JComboBox<Sound> soundCombo = new AudioComboBox();
         JSlider volumeSlider = new JSlider();
         JLabel volumeLabel = new JLabel();
         for (Sound sound : AudioManager.getSoundFiles())

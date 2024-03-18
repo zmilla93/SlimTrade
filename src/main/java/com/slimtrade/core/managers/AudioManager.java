@@ -23,6 +23,9 @@ public class AudioManager {
     public static final int MIN_VOLUME = -30;
     public static final int MAX_VOLUME = 6;
     public static final int RANGE = Math.abs(MIN_VOLUME) + MAX_VOLUME;
+    private static int pingCount;
+    private static int lootCount;
+    private static int inbuiltCount;
 
     private static final HashMap<Sound, Clip> clipCache = new HashMap<>();
     private static final HashMap<Clip, AudioInputStream> streamCache = new HashMap<>();
@@ -50,7 +53,28 @@ public class AudioManager {
         soundFiles.add(new Sound("Blip 1", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 2", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 3", Sound.SoundType.INBUILT));
+        pingCount = 5;
+
+        soundFiles.add(new Sound("Loot 1", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Loot 2", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Loot 3", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Loot 4", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Loot 5", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Loot 6", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Loot 7", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Loot 8", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Loot 9", Sound.SoundType.INBUILT));
+        lootCount = 9;
+
+        inbuiltCount = pingCount + lootCount;
+    }
+
+    public static int getPingCount() {
+        return pingCount;
+    }
+
+    public static int getInbuiltCount() {
+        return inbuiltCount;
     }
 
     private static void addCustomSoundFiles() {

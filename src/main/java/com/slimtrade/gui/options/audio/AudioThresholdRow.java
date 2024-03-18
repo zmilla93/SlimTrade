@@ -22,7 +22,7 @@ public class AudioThresholdRow extends AddRemovePanel {
 
     private final JSpinner quantitySpinner = new RangeSpinner(SpinnerRange.PRICE_THRESHOLD);
     private final JComboBox<CurrencyType> currencyTypeCombo = new LimitCombo<>();
-    private final JComboBox<Sound> soundCombo = new LimitCombo<>();
+    private final JComboBox<Sound> soundCombo = new AudioComboBox();
     private final JSlider volumeSlider = new RangeSlider(SliderRange.AUDIO_VOLUME);
     private final JLabel volumeLabel = new JLabel();
 
