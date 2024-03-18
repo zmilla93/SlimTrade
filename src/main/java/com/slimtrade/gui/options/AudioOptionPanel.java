@@ -97,9 +97,9 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         gc.gridx++;
         innerPanel.add(Box.createHorizontalStrut(GUIReferences.SMALL_INSET), gc);
         gc.gridx++;
-        innerPanel.add(previewButton, gc);
-        gc.gridx++;
         innerPanel.add(soundCombo, gc);
+        gc.gridx++;
+        innerPanel.add(previewButton, gc);
         gc.gridx++;
         innerPanel.add(volumeSlider, gc);
         gc.gridx++;
