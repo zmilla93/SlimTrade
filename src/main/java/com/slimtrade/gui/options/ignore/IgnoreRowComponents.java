@@ -26,20 +26,22 @@ public class IgnoreRowComponents {
         matchTypeLabel = new JLabel(ignoreItemData.matchType.toString());
         itemNameLabel = new JLabel(ignoreItemData.itemName);
         updateTimeRemainingLabel();
-        // Timer
-        remainingTime = ignoreItemData.getRemainingMinutes();
-        timer = new Timer(1000 * 60, e -> {
-            remainingTime--;
-            updateTimeRemainingLabel();
-            if (remainingTime <= 0) {
-                timer.stop();
-                parent.removeRow(this);
-                SaveManager.ignoreSaveFile.data.buildCache();
-            }
-        });
-        timer.start();
         // Remove Button
         removeButton.addActionListener(e -> parent.removeRow(this));
+        // Timer
+        remainingTime = ignoreItemData.getRemainingMinutes();
+        if(!ignoreItemData.isInfinite()){
+            timer = new Timer(1000 * 60, e -> {
+                remainingTime--;
+                updateTimeRemainingLabel();
+                if (remainingTime <= 0) {
+                    timer.stop();
+                    parent.removeRow(this);
+                    SaveManager.ignoreSaveFile.data.buildCache();
+                }
+            });
+            timer.start();
+        }
     }
 
     private void updateTimeRemainingLabel() {
