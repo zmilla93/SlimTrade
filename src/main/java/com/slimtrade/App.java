@@ -19,6 +19,7 @@ import com.slimtrade.gui.managers.SetupManager;
 import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.LoadingWindow;
+import com.slimtrade.gui.windows.TutorialWindow;
 import com.slimtrade.modules.stopwatch.Stopwatch;
 import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.updater.UpdateAction;
@@ -212,8 +213,12 @@ public class App {
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);
 
-        // FIXME : Temp
-        FrameManager.tutorialWindow.setVisible(true);
+        if (SaveManager.settingsSaveFile.data.tutorialVersion < TutorialWindow.TUTORIAL_VERSION) {
+            SwingUtilities.invokeLater(() -> FrameManager.tutorialWindow.setVisible(true));
+            SaveManager.settingsSaveFile.data.tutorialVersion = TutorialWindow.TUTORIAL_VERSION;
+            SaveManager.settingsSaveFile.saveToDisk(false);
+        }
+
     }
 
     public static void initParsers() {

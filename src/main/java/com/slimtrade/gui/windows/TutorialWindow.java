@@ -26,6 +26,7 @@ public class TutorialWindow extends CustomDialog {
 
     private int activePanel = 1;
     private static final int IMAGE_BORDER_SIZE = 1;
+    // Increment version number to show tutorial on launch
     public static final int TUTORIAL_VERSION = 1;
 
     public TutorialWindow() {
