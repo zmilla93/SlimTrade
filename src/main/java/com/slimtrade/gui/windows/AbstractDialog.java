@@ -1,5 +1,6 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.core.References;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ public abstract class AbstractDialog extends JDialog {
     protected final JPanel contentPanel = new JPanel();
 
     public AbstractDialog() {
+        setTitle(References.APP_PREFIX);
         setUndecorated(true);
         setAlwaysOnTop(true);
         setFocusable(false);
