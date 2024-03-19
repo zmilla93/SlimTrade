@@ -1,9 +1,9 @@
 package com.slimtrade.gui.options.stash;
 
+import com.slimtrade.core.CommonText;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.AddRemoveContainer;
-import com.slimtrade.gui.components.PlainLabel;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -18,8 +18,8 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
 
     public StashOptionPanel() {
         addHeader("Info");
-        addComponent(new PlainLabel("Add stash tab names to apply a color to the item highlighter or mark quad tabs."));
-        addComponent(new PlainLabel("Default white will use the color of the current theme."));
+        addComponent(new JLabel("Add stash tab names to apply a color to the item highlighter or mark quad tabs."));
+        addComponent(new JLabel(CommonText.DEFAULT_WHITE_TEXT));
         addComponent(applyColorCheckbox);
         addVerticalStrut();
         addHeader("Stash Tab List");

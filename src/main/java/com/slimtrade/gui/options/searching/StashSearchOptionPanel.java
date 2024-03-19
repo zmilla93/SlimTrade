@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options.searching;
 
+import com.slimtrade.core.CommonText;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.managers.FrameManager;
@@ -13,13 +14,13 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
 
     protected final StashSearchSettingsPanel settingsPanel = new StashSearchSettingsPanel();
     private final AddRemoveContainer<StashSearchGroupPanel> entryContainer = new AddRemoveContainer<>();
-    private final ArrayList<Integer> idsToReset = new ArrayList<Integer>();
+    private final ArrayList<Integer> idsToReset = new ArrayList<>();
 
     public StashSearchOptionPanel() {
         addHeader("Info");
         addComponent(new JLabel("Pastes search terms into any POE window with a search bar (stashes, skill tree, vendors, etc)."));
         addComponent(new JLabel("Search groups can be separate windows, or a single combined window with a group selector."));
-        addComponent(new JLabel("Default white will match color theme."));
+        addComponent(new JLabel(CommonText.DEFAULT_WHITE_TEXT));
         addVerticalStrut();
         addHeader("Settings");
         addComponent(settingsPanel);
@@ -90,7 +91,7 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
             panels.add(groupPanel);
             data.add(groupPanel.getData());
         }
-        // FIXME : Settings panel is saved twice. Doesn't really batter
+        // FIXME : Settings panel is saved twice. Doesn't really matter
         settingsPanel.save();
         SaveManager.settingsSaveFile.data.stashSearchData = data;
         FrameManager.buildSearchWindows();
