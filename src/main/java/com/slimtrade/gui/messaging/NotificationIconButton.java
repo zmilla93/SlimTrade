@@ -1,5 +1,6 @@
 package com.slimtrade.gui.messaging;
 
+import com.slimtrade.gui.buttons.IIcon;
 import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.AdvancedButton;
 
@@ -11,10 +12,9 @@ public class NotificationIconButton extends AdvancedButton {
     protected String path;
     private int inset;
 
-    // FIXME : Should this be an IIcon instead?
-    public NotificationIconButton(String path) {
+    public NotificationIconButton(IIcon icon) {
         super();
-        this.path = path;
+        this.path = icon.path();
         setIcon(ThemeManager.getColorIcon(path));
         updateUI();
     }

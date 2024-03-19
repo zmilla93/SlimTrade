@@ -2,6 +2,7 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
 import com.slimtrade.core.References;
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ZUtil;
@@ -58,7 +59,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     protected JPanel contentPanel = new JPanel();
 
     // Buttons
-    protected final NotificationIconButton closeButton = new NotificationIconButton("/icons/default/closex64.png");
+    protected final NotificationIconButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
     protected final PinButton pinButton = new PinButton();
 
     // FIXME : Dialogs now always use thin mode, could remove

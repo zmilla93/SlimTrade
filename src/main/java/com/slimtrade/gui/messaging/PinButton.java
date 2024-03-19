@@ -1,11 +1,13 @@
 package com.slimtrade.gui.messaging;
 
+import com.slimtrade.core.enums.DefaultIcon;
+
 public class PinButton extends NotificationIconButton {
 
     private boolean pinned;
 
     public PinButton() {
-        super("/icons/default/pin1x48.png");
+        super(DefaultIcon.PIN1);
     }
 
     public void setPinned(boolean pinned) {
@@ -16,9 +18,9 @@ public class PinButton extends NotificationIconButton {
     @Override
     public void updateUI() {
         if (pinned) {
-            path = "/icons/default/pin2x48.png";
+            path = DefaultIcon.PIN2.path();
         } else {
-            path = "/icons/default/pin1x48.png";
+            path = DefaultIcon.PIN1.path();
         }
         super.updateUI();
     }

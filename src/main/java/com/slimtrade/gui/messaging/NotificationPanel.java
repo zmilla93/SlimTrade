@@ -138,7 +138,7 @@ public class NotificationPanel extends ColorPanel {
      */
     public void setup() {
         GridBagConstraints gc = addMacrosToPanel(topButtonPanel, topMacros);
-        closeButton = new NotificationIconButton(DefaultIcon.CLOSE.path());
+        closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
         topButtonPanel.add(closeButton, gc);
         addMacrosToPanel(bottomButtonPanel, bottomMacros);
 
@@ -166,7 +166,7 @@ public class NotificationPanel extends ColorPanel {
         for (MacroButton macro : macros) {
             JButton button;
             if (macro.buttonType == MacroButtonType.ICON) {
-                button = new NotificationIconButton(macro.icon.path());
+                button = new NotificationIconButton(macro.icon);
             } else {
                 button = new NotificationButton(macro.text);
                 ((NotificationButton) button).setHorizontalInset(4);
