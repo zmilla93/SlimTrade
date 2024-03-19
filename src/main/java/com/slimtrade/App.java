@@ -65,6 +65,7 @@ public class App {
     public static boolean chatInConsole = false;
     public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
     public static final boolean debugProfileLaunch = false;
+    public static boolean showOptionsOnLaunch = false;
 
     public static void main(String[] args) {
 
@@ -263,6 +264,7 @@ public class App {
             arg = arg.toLowerCase();
             if (arg.equals("-nu") || arg.equals("-noupdate")) noUpdate = true;
             if (arg.equals("-d") || arg.equals("-debug")) debug = true;
+            if (arg.equals("-o") || arg.equals("-options")) showOptionsOnLaunch = true;
         }
     }
 

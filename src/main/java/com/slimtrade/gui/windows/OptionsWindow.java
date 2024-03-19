@@ -85,12 +85,10 @@ public class OptionsWindow extends CustomDialog {
         contentPanel.add(cardPanel, BorderLayout.CENTER);
 
         // Finalize
-//        showPanel(stashSearch);
         setMinimumSize(new Dimension(500, 400));
         pack();
-        // FIXME : Add max size
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize((int) Math.round(screenSize.width * 0.5), (int) Math.round(screenSize.height * 0.6));
+        // FIXME : Add max size?
+        setSize(900, 600);
         setLocationRelativeTo(null);
         SaveManager.settingsSaveFile.registerSavableContainer(this);
         addListeners();
