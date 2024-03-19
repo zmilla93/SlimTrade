@@ -116,7 +116,7 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
     private void addListeners() {
         cancelButton.addActionListener(e -> {
             FrameManager.setWindowVisibility(AppState.RUNNING);
-            FrameManager.messageOverlay.setLocation(FrameManager.messageManager.getLocation());
+            load();
         });
 
         restoreDefaultButton.addActionListener(e -> {
@@ -167,14 +167,12 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
     public void load() {
         FrameManager.messageOverlay.setLocation(SaveManager.overlaySaveFile.data.messageLocation);
         TradeUtil.applyAnchorPoint(FrameManager.menubarOverlay, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
-//        FrameManager.menubarOverlay.setLocation(SaveManager.overlaySaveFile.data.menubarLocation);
         expandCombo.setSelectedItem(SaveManager.overlaySaveFile.data.messageExpandDirection);
         menubarAnchorCombo.setSelectedItem(SaveManager.overlaySaveFile.data.menubarAnchor);
         messageWidthSlider.setValue(SaveManager.overlaySaveFile.data.messageWidth);
 
         TradeUtil.applyAnchorPoint(FrameManager.menubarDialog, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
         TradeUtil.applyAnchorPoint(FrameManager.menubarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
-
     }
 
     @Override
