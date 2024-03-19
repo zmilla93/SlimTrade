@@ -12,7 +12,6 @@ import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.stash.StashHelperBulkWrapper;
 import com.slimtrade.gui.stash.StashHelperPanel;
 import com.slimtrade.modules.theme.ThemeColorVariant;
-import com.slimtrade.modules.theme.components.PassThroughPanel;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -38,9 +37,10 @@ public class TradeMessagePanel extends NotificationPanel {
             }
         }
         playerNameButton.setText(tradeOffer.playerName);
-        JPanel itemPanel = new PassThroughPanel();
+        JPanel itemPanel = new JPanel();
         itemPanel.setOpaque(false);
-        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.getItems());
+        boolean forceText = tradeOffer.getItems().size() <= 1;
+        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.getItems(), forceText);
         itemButton.add(itemPanel);
         CurrencyLabelFactory.applyItemToComponent(pricePanel, new SaleItem(tradeOffer.priceName, tradeOffer.priceQuantity).toArrayList());
         // Message type specific stuff

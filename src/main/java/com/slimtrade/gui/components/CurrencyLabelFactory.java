@@ -28,8 +28,10 @@ public class CurrencyLabelFactory extends JPanel {
 
     public static Container applyItemToComponent(Container container, ArrayList<SaleItem> saleItems, boolean forceText) {
         setupContainer(container);
-        for (SaleItem item : saleItems) {
+        for (int i = 0; i < saleItems.size(); i++) {
+            SaleItem item = saleItems.get(i);
             addDataToContainer(container, item.itemName, item.quantity, forceText);
+            if (i < saleItems.size() - 1) addComma(container);
         }
         return container;
     }
@@ -64,7 +66,7 @@ public class CurrencyLabelFactory extends JPanel {
 
     private static Container addDataToContainer(Container container, String itemName, double quantity, boolean forceText) {
         CurrencyType currencyType = CurrencyType.getCurrencyType(itemName);
-        JLabel textLabel = textLabel(itemName, quantity, currencyType);
+        JLabel textLabel = textLabel(itemName, quantity, currencyType, forceText);
         container.add(textLabel, gc);
         gc.gridx++;
         if (currencyType != null) {
@@ -73,7 +75,15 @@ public class CurrencyLabelFactory extends JPanel {
             container.add(iconLabel, gc);
             gc.gridx++;
         }
-        gc.insets.left = MULTIPLE_PANEL_INSET;
+        gc.insets.left = 0;
+//        gc.insets.left = MULTIPLE_PANEL_INSET;
+        return container;
+    }
+
+    private static Container addComma(Container container) {
+        JLabel label = new JLabel(", ");
+        container.add(label, gc);
+        gc.gridx++;
         return container;
     }
 
@@ -81,10 +91,11 @@ public class CurrencyLabelFactory extends JPanel {
     // Components //
     ////////////////
 
-    private static JLabel textLabel(String itemName, double quantity, CurrencyType currencyType) {
+    private static JLabel textLabel(String itemName, double quantity, CurrencyType currencyType, boolean forceText) {
         if (currencyType != null && quantity == 0) quantity = 1;
         String prefix = quantity > 0 ? "(" + ZUtil.formatNumber(quantity) + ")" : "";
-        String suffix = currencyType == null ? " " + itemName : "";
+        String suffix = currencyType == null || forceText ? " " + itemName : "";
+        if (currencyType != null && forceText) suffix += " ";
         return new JLabel(prefix + suffix);
     }
 
