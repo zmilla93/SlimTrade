@@ -25,6 +25,7 @@ public class SaveManager {
 
     // Safe Files
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
+    public static SaveFile<AppStateSaveFile> appStateSaveFile = new SaveFile<>(getSaveDirectory() + "app_state.json", AppStateSaveFile.class);
     public static SaveFile<OverlaySaveFile> overlaySaveFile = new SaveFile<>(getSaveDirectory() + "overlay.json", OverlaySaveFile.class);
     public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + "stash.json", StashSaveFile.class);
     public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory() + "ignore.json", IgnoreSaveFile.class);
@@ -36,6 +37,7 @@ public class SaveManager {
         // Listeners should be added before loading due to load callbacks
         addStaticListeners();
         settingsSaveFile.loadFromDisk();
+        appStateSaveFile.loadFromDisk();
         overlaySaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();
         ignoreSaveFile.loadFromDisk();

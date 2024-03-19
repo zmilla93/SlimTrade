@@ -213,10 +213,10 @@ public class App {
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);
 
-        if (SaveManager.settingsSaveFile.data.tutorialVersion < TutorialWindow.TUTORIAL_VERSION) {
+        if (SaveManager.appStateSaveFile.data.tutorialVersion < TutorialWindow.TUTORIAL_VERSION) {
             SwingUtilities.invokeLater(() -> FrameManager.tutorialWindow.setVisible(true));
-            SaveManager.settingsSaveFile.data.tutorialVersion = TutorialWindow.TUTORIAL_VERSION;
-            SaveManager.settingsSaveFile.saveToDisk(false);
+            SaveManager.appStateSaveFile.data.tutorialVersion = TutorialWindow.TUTORIAL_VERSION;
+            SaveManager.appStateSaveFile.saveToDisk(false);
         }
 
     }

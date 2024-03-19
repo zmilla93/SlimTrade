@@ -27,7 +27,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
 
     public String appVersionString;
     private transient AppVersion appVersion;
-    public int tutorialVersion;
 
     // General
     public String characterName;
