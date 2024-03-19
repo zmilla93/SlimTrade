@@ -1,12 +1,8 @@
 package com.slimtrade.core.enums;
 
 import com.slimtrade.gui.buttons.IIcon;
-import com.slimtrade.modules.saving.ISavable;
 
-public enum DefaultIcon implements IIcon, ISavable {
-
-    SLIM_ICON("/icons/slim-icon-2.png"),
-    CHAOS_ICON("/icons/chaos-icon.png"),
+public enum DefaultIcon implements IIcon {
 
     ARROW_SYNC("/icons/default/arrow-sync.png"),
     ARROW_DOWN("/icons/default/arrow-downx48.png"),
@@ -21,23 +17,14 @@ public enum DefaultIcon implements IIcon, ISavable {
     POWER("/icons/default/power.png"),
     STOPWATCH("/icons/default/stopwatch.png"),
     TAG("/icons/default/tagx64.png"),
+    TAG_CROPPED("/icons/default/tag-cropped.png"),
     SCANNER("/icons/default/rss.png"),
     ;
 
-    public final String path;
+    private final String path;
 
     DefaultIcon(String path) {
         this.path = path;
-    }
-
-    @Override
-    public void save() {
-
-    }
-
-    @Override
-    public void load() {
-
     }
 
     @Override

@@ -11,6 +11,7 @@ public class NotificationIconButton extends AdvancedButton {
     protected String path;
     private int inset;
 
+    // FIXME : Should this be an IIcon instead?
     public NotificationIconButton(String path) {
         super();
         this.path = path;

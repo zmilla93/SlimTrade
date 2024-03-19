@@ -1,6 +1,7 @@
 package com.slimtrade.gui.setup;
 
 import com.slimtrade.App;
+import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.SetupPhase;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
@@ -9,6 +10,7 @@ import com.slimtrade.gui.managers.SetupManager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SetupWindow extends JFrame {
 
@@ -37,6 +39,7 @@ public class SetupWindow extends JFrame {
     public SetupWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SlimTrade Setup");
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.TAG.path()))).getImage());
         JPanel contentPanel = new JPanel();
         setContentPane(contentPanel);
         previousButton.setVisible(false);

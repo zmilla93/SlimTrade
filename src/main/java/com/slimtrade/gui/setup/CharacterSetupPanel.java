@@ -18,6 +18,8 @@ public class CharacterSetupPanel extends AbstractSetupPanel {
 
         contentPanel.add(new JLabel("Enter your character name."), gc);
         gc.gridy++;
+        contentPanel.add(new JLabel("Used to leave a party, can change any time."), gc);
+        gc.gridy++;
         contentPanel.add(characterNameInput, gc);
         gc.gridy++;
 

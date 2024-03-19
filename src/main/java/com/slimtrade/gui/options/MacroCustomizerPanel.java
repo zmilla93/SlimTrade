@@ -49,7 +49,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
 
         // Add items to combos
         for (ButtonRow row : ButtonRow.values()) rowCombo.addItem(row);
-        for (CustomIcon icon : CustomIcon.values()) iconCombo.addItem(ThemeManager.getColorIcon(icon.path));
+        for (CustomIcon icon : CustomIcon.values()) iconCombo.addItem(ThemeManager.getColorIcon(icon.path()));
         for (MacroButtonType type : MacroButtonType.values()) buttonType.addItem(type);
 
         // Delete & Shift Buttons
@@ -146,7 +146,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
             int selectedIndex = iconCombo.getSelectedIndex();
             iconCombo.removeAllItems();
             for (CustomIcon icon : CustomIcon.values()) {
-                iconCombo.addItem(ThemeManager.getColorIcon(icon.path));
+                iconCombo.addItem(ThemeManager.getColorIcon(icon.path()));
             }
             iconCombo.setSelectedIndex(selectedIndex);
         }

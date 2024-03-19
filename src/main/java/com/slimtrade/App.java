@@ -81,7 +81,7 @@ public class App {
 
         // Logger
         ZLogger.open(SaveManager.getSaveDirectory(), args);
-        ZLogger.log("Program Started: " + Arrays.toString(args));
+        ZLogger.log("SlimTrade launching... " + Arrays.toString(args));
         ZLogger.cleanOldLogFiles();
 
         // This setting gets rid of some rendering issues with transparent frames

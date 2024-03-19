@@ -2,10 +2,10 @@ package com.slimtrade.gui.managers;
 
 import com.slimtrade.App;
 import com.slimtrade.core.enums.AppState;
+import com.slimtrade.core.enums.DefaultIcon;
 
-import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.Objects;
 
 public class SystemTrayManager {
@@ -21,15 +21,9 @@ public class SystemTrayManager {
     public static void init() {
         // Tray
         SystemTray tray = SystemTray.getSystemTray();
-        Image img;
-        try {
-            img = ImageIO.read(Objects.requireNonNull(SystemTrayManager.class.getResource("/icons/chaos-icon.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-        TrayIcon trayIcon = new TrayIcon(img);   // First assignment is to get icon size, second assignment scales the image accordingly
-        trayIcon = new TrayIcon(img.getScaledInstance(trayIcon.getSize().width, trayIcon.getSize().height, Image.SCALE_SMOOTH));
+        Image img = new ImageIcon(Objects.requireNonNull(SystemTrayManager.class.getResource(DefaultIcon.TAG_CROPPED.path()))).getImage();
+        TrayIcon trayIcon = new TrayIcon(img);
+        trayIcon.setImageAutoSize(true);
         trayIcon.setToolTip("SlimTrade");
         trayIcon.setPopupMenu(popupMenu);
         trayIcon.addActionListener(e -> {
