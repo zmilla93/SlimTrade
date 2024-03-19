@@ -3,10 +3,10 @@ package com.slimtrade.gui.options.general;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.ClientFileChooser;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 
@@ -14,15 +14,13 @@ public class ClientPathPanel extends JPanel implements ISavable {
 
     private final JTextField clientTextField = new JTextField(30);
     private final JButton browseClientButton = new JButton("Browse");
-    private final JFileChooser fileChooser = new JFileChooser();
+    private final JFileChooser fileChooser = new ClientFileChooser();
 
     public ClientPathPanel() {
         clientTextField.setEditable(false);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("TEXT FILES", "txt", "text"));
         setLayout(new GridBagLayout());
         JPanel clientPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-
         clientPanel.add(new JLabel("Client Path"), gc);
         gc.gridx++;
         clientPanel.add(clientTextField, gc);
@@ -36,9 +34,8 @@ public class ClientPathPanel extends JPanel implements ISavable {
     }
 
     private void addListeners() {
-        JPanel self = this;
         browseClientButton.addActionListener(e -> {
-            if (fileChooser.showOpenDialog(self) == JFileChooser.APPROVE_OPTION) {
+            if (fileChooser.showOpenDialog(ClientPathPanel.this) == JFileChooser.APPROVE_OPTION) {
                 clientTextField.setText(fileChooser.getSelectedFile().getPath());
             }
         });

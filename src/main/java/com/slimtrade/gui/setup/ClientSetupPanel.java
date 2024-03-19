@@ -2,6 +2,7 @@ package com.slimtrade.gui.setup;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.ClientFileChooser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class ClientSetupPanel extends AbstractSetupPanel {
 
     private final JButton browseButton = new JButton("Browse");
     private final JTextField clientTextField = new JTextField(25);
-    private final JFileChooser fileChooser = new JFileChooser();
+    private final JFileChooser fileChooser = new ClientFileChooser();
 
     public ClientSetupPanel(JButton button) {
         super(button);
@@ -52,9 +53,12 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         gc.insets.top = 0;
         gc.gridy++;
 
-        JPanel self = this;
+        addListeners();
+    }
+
+    private void addListeners() {
         browseButton.addActionListener(e -> {
-            int result = fileChooser.showOpenDialog(self);
+            int result = fileChooser.showOpenDialog(ClientSetupPanel.this);
             if (result == JFileChooser.APPROVE_OPTION) {
                 clientTextField.setText(fileChooser.getSelectedFile().getPath());
                 validateNextButton();
@@ -77,4 +81,5 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         String text = clientTextField.getText();
         return !text.trim().equals("");
     }
+
 }
