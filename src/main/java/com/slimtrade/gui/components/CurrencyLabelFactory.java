@@ -2,9 +2,7 @@ package com.slimtrade.gui.components;
 
 import com.slimtrade.core.data.SaleItem;
 import com.slimtrade.core.enums.CurrencyType;
-import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.history.PoePrice;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
@@ -20,44 +18,25 @@ public class CurrencyLabelFactory extends JPanel {
     private static final int ITEM_CURRENCY_INSET = 0;
     private static GridBagConstraints gc;
 
-    // Factory Functions
-
-    public static Container applyItemToComponent(Container container, TradeOffer tradeOffer) {
-        ArrayList<SaleItem> saleItems = tradeOffer.getItems();
-        setupContainer(container);
-        for (SaleItem item : saleItems) {
-            addDataToContainer(container, item.itemName, item.quantity);
-        }
-        return container;
-    }
+    ///////////////////////
+    // Factory Functions //
+    ///////////////////////
 
     public static Container applyItemToComponent(Container container, ArrayList<SaleItem> saleItems) {
+        return applyItemToComponent(container, saleItems, false);
+    }
+
+    public static Container applyItemToComponent(Container container, ArrayList<SaleItem> saleItems, boolean forceText) {
         setupContainer(container);
         for (SaleItem item : saleItems) {
-            addDataToContainer(container, item.itemName, item.quantity, true);
+            addDataToContainer(container, item.itemName, item.quantity, forceText);
         }
         return container;
     }
 
-    public static Container applyBulkItemToComponent(Container container, TradeOffer tradeOffer, int itemIndex) {
-        setupContainer(container);
-        SaleItem saleItem = tradeOffer.getItems().get(itemIndex);
-        addDataToContainer(container, saleItem.itemName, saleItem.quantity);
-        return container;
-    }
-
-    public static Container applyPriceToComponent(Container container, String currencyName, double quantity) {
-        setupContainer(container);
-        addDataToContainer(container, currencyName, quantity);
-        return container;
-    }
-
-    public static Container applyPOEPriceToComponent(Container container, PoePrice poePrice) {
-        setupContainer(container);
-        addDataToContainer(container, poePrice.priceString, poePrice.quantity, true);
-        return container;
-    }
-
+    /**
+     * Recursively applies a foreground color to all labels within a container.
+     */
     public static Container applyColorToLabel(Container container, Color color) {
         for (Component component : container.getComponents()) {
             if (component instanceof JLabel) {
@@ -72,26 +51,20 @@ public class CurrencyLabelFactory extends JPanel {
         return container;
     }
 
-    // Internal Stuff
-    // Setup - Call this first!
+    ///////////////
+    // Container //
+    ///////////////
 
+    // Setup - Call this first!
     private static Container setupContainer(Container container) {
         container.setLayout(new GridBagLayout());
         gc = ZUtil.getGC();
         return container;
     }
 
-    // Building the container itself
-
-    private static Container addDataToContainer(Container container, String itemName, double quantity) {
-        return addDataToContainer(container, itemName, quantity, false);
-    }
-
-    private static Container addDataToContainer(Container container, String itemName, double quantity, boolean plain) {
+    private static Container addDataToContainer(Container container, String itemName, double quantity, boolean forceText) {
         CurrencyType currencyType = CurrencyType.getCurrencyType(itemName);
         JLabel textLabel = textLabel(itemName, quantity, currencyType);
-        if (plain)
-            textLabel.setFont(textLabel.getFont().deriveFont(Font.PLAIN, textLabel.getFont().getSize()));
         container.add(textLabel, gc);
         gc.gridx++;
         if (currencyType != null) {
@@ -104,7 +77,9 @@ public class CurrencyLabelFactory extends JPanel {
         return container;
     }
 
-    // Components
+    ////////////////
+    // Components //
+    ////////////////
 
     private static JLabel textLabel(String itemName, double quantity, CurrencyType currencyType) {
         if (currencyType != null && quantity == 0) quantity = 1;

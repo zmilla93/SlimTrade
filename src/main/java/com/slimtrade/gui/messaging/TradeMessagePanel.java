@@ -1,6 +1,7 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.data.PasteReplacement;
+import com.slimtrade.core.data.SaleItem;
 import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
@@ -39,9 +40,9 @@ public class TradeMessagePanel extends NotificationPanel {
         playerNameButton.setText(tradeOffer.playerName);
         JPanel itemPanel = new PassThroughPanel();
         itemPanel.setOpaque(false);
-        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer);
+        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.getItems());
         itemButton.add(itemPanel);
-        CurrencyLabelFactory.applyPriceToComponent(pricePanel, tradeOffer.priceName, tradeOffer.priceQuantity);
+        CurrencyLabelFactory.applyItemToComponent(pricePanel, new SaleItem(tradeOffer.priceName, tradeOffer.priceQuantity).toArrayList());
         // Message type specific stuff
         switch (tradeOffer.offerType) {
             case INCOMING_TRADE:

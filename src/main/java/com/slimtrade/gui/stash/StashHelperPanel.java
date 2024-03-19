@@ -31,14 +31,10 @@ public class StashHelperPanel extends AdvancedButton {
     private StashTabColor stashTabColor;
 
     private final String searchTerm;
-    //    private final String itemName;
-//    private SaleItem saleItem;
-//    private JLabel priceLabel = new JLabel();
     private int index = -1;
 
     public StashHelperPanel(TradeOffer tradeOffer) {
         this.tradeOffer = tradeOffer;
-//        itemName = tradeOffer.itemName;
         searchTerm = TradeUtil.cleanItemName(tradeOffer.itemName);
         buildPanel();
     }
@@ -47,10 +43,6 @@ public class StashHelperPanel extends AdvancedButton {
         this.tradeOffer = tradeOffer;
         this.index = index;
         SaleItem saleItem = tradeOffer.getItems().get(index);
-//        CurrencyType currency = CurrencyType.getCurrencyImage(saleItem.itemName);
-//        String suffix = currency == null ? " " + saleItem.itemName : "";
-//        itemName = "(" + ZUtil.formatNumber(saleItem.quantity) + ")" + suffix;
-//        if (currency != null)
         searchTerm = TradeUtil.cleanItemName(saleItem.itemName);
 //        PriceLabel.applyBulkItemToComponent(priceLabel, tradeOffer, index);
         buildPanel();
@@ -68,9 +60,10 @@ public class StashHelperPanel extends AdvancedButton {
         JPanel itemPanel = new JPanel();
         itemPanel.setOpaque(false);
         if (tradeOffer.isBulkTrade) {
-            CurrencyLabelFactory.applyBulkItemToComponent(itemPanel, tradeOffer, index);
+//            CurrencyLabelFactory.applyBulkItemToComponent(itemPanel, tradeOffer, index);
+            CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.getItems().get(index).toArrayList());
         } else {
-            CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer);
+            CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.getItems());
         }
 
         GridBagConstraints gc = ZUtil.getGC();

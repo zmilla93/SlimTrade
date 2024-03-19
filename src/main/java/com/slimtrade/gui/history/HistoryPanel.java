@@ -1,5 +1,6 @@
 package com.slimtrade.gui.history;
 
+import com.slimtrade.core.data.SaleItem;
 import com.slimtrade.core.data.SaleItemWrapper;
 import com.slimtrade.core.enums.HistoryOrder;
 import com.slimtrade.core.managers.SaveManager;
@@ -41,8 +42,8 @@ public class HistoryPanel extends JPanel implements ISaveListener {
         table.setDefaultRenderer(DateString.class, defaultCellRenderer);
         table.setDefaultRenderer(TimeString.class, defaultCellRenderer);
         table.setDefaultRenderer(PlayerNameWrapper.class, new PlayerNameCellRenderer());
-        table.setDefaultRenderer(PoePrice.class, new CurrencyCellRenderer());
-        table.setDefaultRenderer(SaleItemWrapper.class, new ItemCellRenderer());
+        table.setDefaultRenderer(SaleItem.class, new SaleItemCellRenderer());
+        table.setDefaultRenderer(SaleItemWrapper.class, new SaleItemCellRenderer());
         table.setAutoCreateRowSorter(true);
 
         // Panel Layout

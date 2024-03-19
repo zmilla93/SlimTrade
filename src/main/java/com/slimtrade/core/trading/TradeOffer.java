@@ -35,6 +35,7 @@ public class TradeOffer {
     private int stashColorIndex = -1;
     private StashTabColor stashTabColor;
     public boolean isBulkTrade;
+    private ArrayList<SaleItem> saleItems;
 
     private static DecimalFormat formatter = new DecimalFormat("0.00");
 
@@ -97,17 +98,17 @@ public class TradeOffer {
     }
 
     public ArrayList<SaleItem> getItems() {
-        if (isBulkTrade) {
-//            String quantity;
-//            if (itemQuantity % 1 == 0) quantity = String.format("%,.0f", itemQuantity);
-//            else quantity = String.format("%,.2f", itemQuantity);
-            String fixed = itemQuantity + " " + itemName;
-            return SaleItem.getItems(fixed);
-        } else {
-            ArrayList<SaleItem> items = new ArrayList<>(1);
-            items.add(new SaleItem(itemName, itemQuantity));
-            return items;
+        if (saleItems == null) {
+            if (isBulkTrade) {
+                String itemNameAndQuantity = itemQuantity + " " + itemName;
+                saleItems = SaleItem.getItems(itemNameAndQuantity);
+            } else {
+                ArrayList<SaleItem> items = new ArrayList<>(1);
+                items.add(new SaleItem(itemName, itemQuantity));
+                saleItems = items;
+            }
         }
+        return saleItems;
     }
 
     private static TradeOfferType getMessageType(String s) {
