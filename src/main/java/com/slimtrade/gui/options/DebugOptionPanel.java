@@ -1,10 +1,12 @@
 package com.slimtrade.gui.options;
 
+import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.theme.ThemeManager;
@@ -61,7 +63,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
     private void addListeners() {
         incomingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE)));
         outgoingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE)));
-        scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.CHAT_SCANNER_MESSAGE)));
+        scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addScannerMessage(new ChatScannerEntry("alch"), new PlayerMessage("CoolTrader123", "wtb alch for chaos")));
         updateMessageButton.addActionListener(e -> FrameManager.messageManager.addUpdateMessage(true));
         uiDump.addActionListener(e -> ThemeManager.debugKeyValueDump());
         clientButton.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.clientPath));

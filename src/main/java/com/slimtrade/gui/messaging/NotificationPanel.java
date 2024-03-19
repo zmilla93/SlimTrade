@@ -18,7 +18,6 @@ import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.ColorPanel;
-import com.slimtrade.modules.theme.components.PassThroughPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +29,7 @@ public class NotificationPanel extends ColorPanel {
 
     // Panels
     protected final NotificationButton playerNameButton = new NotificationButton("Player Name");
-    protected final PassThroughPanel pricePanel = new PassThroughPanel();
+    protected final JPanel pricePanel = new JPanel(new GridBagLayout());
     protected final BorderlessButton itemButton = new BorderlessButton();
     protected final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
     protected final ColorPanel timerPanel = new ColorPanel(new BorderLayout());

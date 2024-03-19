@@ -15,8 +15,8 @@ public class ChatScannerMessagePanel extends NotificationPanel {
 
     private final PlayerMessage playerMessage;
 
-    public ChatScannerMessagePanel(ChatScannerEntry tradeOffer, PlayerMessage playerMessage) {
-        this(tradeOffer, playerMessage, true);
+    public ChatScannerMessagePanel(ChatScannerEntry scannerEntry, PlayerMessage playerMessage) {
+        this(scannerEntry, playerMessage, true);
     }
 
     public ChatScannerMessagePanel(ChatScannerEntry scannerEntry, PlayerMessage playerMessage, boolean createListeners) {

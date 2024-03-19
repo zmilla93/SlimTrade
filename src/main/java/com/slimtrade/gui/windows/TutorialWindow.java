@@ -1,12 +1,15 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
+import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.components.ImageLabel;
 import com.slimtrade.gui.components.TutorialPanel;
 import com.slimtrade.gui.managers.FrameManager;
+import com.slimtrade.gui.messaging.ChatScannerMessagePanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
 import javax.swing.*;
@@ -120,7 +123,6 @@ public class TutorialWindow extends CustomDialog {
         panel.addLabel("- Custom cheat sheets");
         panel.addLabel("- In game searching (stash, vendors, skill tree, etc)");
         panel.addLabel("- Snap windows to monitor edge (SHIFT while moving window)");
-        panel.addLabel("- Pinnable windows");
         panel.addLabel("- 20+ color themes");
         panel.addLabel("- Incredibly customizable!").bold();
         return panel;
@@ -164,7 +166,9 @@ public class TutorialWindow extends CustomDialog {
         panel.addLabel("The chat scanner can be used to search for custom phrases in chat.");
         panel.addLabel("Create many presets with custom responses for each entry.");
         panel.addVerticalStrut();
-        panel.addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.CHAT_SCANNER_MESSAGE), false), true);
+        panel.addComponent(new ChatScannerMessagePanel(new ChatScannerEntry("alch orbs"), new PlayerMessage("CoolTrader123", "wtb alch for chaos"), false), true);
+        panel.addComponent(new ChatScannerMessagePanel(new ChatScannerEntry("kaoms"), new PlayerMessage("KaomsLittleBrother56", "wts shiny new kaom's heart"), false), true);
+
         return panel;
     }
 
