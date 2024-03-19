@@ -93,7 +93,7 @@ public class FrameManager {
         // FIXME : Add all windows
         // FIXME: Check CheatSheet windows and StashSearch windows.
         // Group windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menubarIcon, menubarDialog, stashHelperContainer, tutorialWindow};
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menubarIcon, menubarDialog, stashHelperContainer, tutorialWindow, patchNotesWindow};
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
@@ -116,7 +116,6 @@ public class FrameManager {
 
     public static void showAppFrames() {
         // FIXME: Show proper windows
-        if (App.debug) FrameManager.optionsWindow.setVisible(true);
         FrameManager.messageManager.setVisible(true);
         if (SaveManager.settingsSaveFile.data.enableMenuBar) {
             FrameManager.menubarIcon.setVisible(true);
