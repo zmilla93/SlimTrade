@@ -65,6 +65,7 @@ public class InformationOptionPanel extends AbstractOptionPanel {
     private void addListeners() {
         tutorialButton.addActionListener(e -> {
             FrameManager.optionsWindow.setVisible(false);
+            FrameManager.tutorialWindow.showFirstPanel();
             FrameManager.tutorialWindow.setVisible(true);
             FrameManager.tutorialWindow.toFront();
         });

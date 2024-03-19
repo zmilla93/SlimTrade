@@ -211,6 +211,9 @@ public class App {
         initParsers();
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);
+
+        // FIXME : Temp
+        FrameManager.tutorialWindow.setVisible(true);
     }
 
     public static void initParsers() {

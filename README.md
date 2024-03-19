@@ -30,7 +30,7 @@ Theme: Stormy<br>
 
 ## History
 Easily restore any recent trade message with the history panel.<br>
-![](/src/main/resources/images/history.png)<br>
+![](/src/main/resources/images/history_old.png)<br>
 Theme: Monokai<br>
 
 ## Chat Scanner

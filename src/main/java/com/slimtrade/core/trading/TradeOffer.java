@@ -188,8 +188,18 @@ public class TradeOffer {
         TradeOffer exampleTrade = new TradeOffer();
         exampleTrade.offerType = type;
         exampleTrade.playerName = "ExamplePlayer123";
+        switch (type) {
+            case INCOMING_TRADE:
+                exampleTrade.playerName = "IncomingPlayer123";
+                break;
+            case OUTGOING_TRADE:
+                exampleTrade.playerName = "OutgoingPlayer456";
+                break;
+            case CHAT_SCANNER_MESSAGE:
+                exampleTrade.playerName = "ScannerPlayer789";
+                break;
+        }
         exampleTrade.itemName = "Tabula Rasa Simple Robe";
-//        exampleTrade.itemName = "Tabula Rasa Simple Robe ASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFASDF";
         exampleTrade.itemNameLower = exampleTrade.itemName.toLowerCase();
         exampleTrade.priceName = "Chaos Orb";
         exampleTrade.priceQuantity = 100;
