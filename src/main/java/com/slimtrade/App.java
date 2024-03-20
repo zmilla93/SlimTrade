@@ -294,6 +294,7 @@ public class App {
             GlobalScreen.unregisterNativeHook();
             lockManager.closeLock();
             ZLogger.log("SlimTrade Terminated");
+            ZLogger.close();
         } catch (NativeHookException e) {
             e.printStackTrace();
         }

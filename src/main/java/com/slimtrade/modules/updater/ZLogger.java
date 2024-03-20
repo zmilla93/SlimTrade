@@ -74,6 +74,7 @@ public class ZLogger {
             System.err.println("Attempted to use ZLogger with no log file open!");
             return;
         }
+        if (writer == null) return;
         try {
             String prefix = timestampFormatter.format(System.currentTimeMillis());
             prefix = prefix + " | ";
@@ -108,6 +109,7 @@ public class ZLogger {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        isOpen = false;
     }
 
     public static void cleanOldLogFiles() {
