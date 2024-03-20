@@ -110,6 +110,7 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
         setLocationRelativeTo(null);
         ThemeManager.addThemeListener(this);
         ThemeManager.addFontListener(this);
+        SaveManager.overlaySaveFile.registerSavableContainer(this);
         addListeners();
     }
 
@@ -132,7 +133,7 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
             FrameManager.messageOverlay.pack();
         });
 
-        saveButton.addActionListener(e -> save());
+        saveButton.addActionListener(e -> SaveManager.overlaySaveFile.saveToDisk());
         menubarAnchorCombo.addActionListener(e -> FrameManager.menubarOverlay.setAnchor((Anchor) menubarAnchorCombo.getSelectedItem()));
     }
 
@@ -145,6 +146,9 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
         adjustBorder();
     }
 
+    // FIXME: Should make other overlay editing components implement ISavable to make code structure more consistent.
+    //        This also means they would need to register themselves with OverlaySaveFile.
+    // FIXME: Should have MessageManager, MenubarDialog, etc implement save listeners so they control themselves.
     @Override
     public void save() {
         SaveManager.overlaySaveFile.data.messageLocation = FrameManager.messageOverlay.getLocation();
@@ -160,7 +164,6 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
         TradeUtil.applyAnchorPoint(FrameManager.menubarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
         FrameManager.menubarDialog.rebuild();
         FrameManager.setWindowVisibility(AppState.RUNNING);
-        SaveManager.overlaySaveFile.saveToDisk();
     }
 
     @Override

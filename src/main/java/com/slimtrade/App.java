@@ -203,8 +203,7 @@ public class App {
         SaveManager.settingsSaveFile.revertChanges();
         SaveManager.stashSaveFile.revertChanges();
         SaveManager.chatScannerSaveFile.revertChanges();
-        // FIXME : Should register overlayInfoWindow to overlaySaveFile and call revert changes instead
-        FrameManager.overlayInfoWindow.load();
+        SaveManager.overlaySaveFile.revertChanges();
         FrameManager.optionsWindow.reloadExampleTrades();
 
         PinManager.applyAllPins();
