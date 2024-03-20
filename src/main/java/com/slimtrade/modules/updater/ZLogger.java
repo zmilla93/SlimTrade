@@ -66,14 +66,18 @@ public class ZLogger {
         log(message, false);
     }
 
-    public static void log(String message, boolean error) {
+    private static void log(String message, boolean error) {
         if (error) System.err.println(message);
         else System.out.println(message);
-        if (!isOpen) return;
+        if (!isOpen) {
+            System.err.println("Attempted to use ZLogger with no log file open!");
+            return;
+        }
         try {
-            String time = timestampFormatter.format(System.currentTimeMillis());
-            time = time + " | ";
-            writer.write(time + message + "\n");
+            String prefix = timestampFormatter.format(System.currentTimeMillis());
+            prefix = prefix + " | ";
+            if (error) prefix += "[ERROR] ";
+            writer.write(prefix + message + "\n");
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
