@@ -2,12 +2,13 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class CheatSheetWindow extends CustomDialog {
+public class CheatSheetWindow extends CustomDialog implements IDefaultSizeAndLocation {
 
     protected boolean valid = true;
 
@@ -36,6 +37,12 @@ public class CheatSheetWindow extends CustomDialog {
         contentPanel.add(label, BorderLayout.CENTER);
         pack();
         setMinimumSize(getSize());
+    }
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
+        setLocation(-RESIZER_PANEL_SIZE, -RESIZER_PANEL_SIZE);
+        pack();
     }
 
 }

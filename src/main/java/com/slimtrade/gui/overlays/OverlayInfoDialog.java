@@ -119,22 +119,21 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
             FrameManager.setWindowVisibility(AppState.RUNNING);
             load();
         });
-
-        restoreDefaultButton.addActionListener(e -> {
-            FrameManager.messageOverlay.setLocation(References.DEFAULT_MESSAGE_LOCATION);
-            FrameManager.menubarOverlay.setLocation(References.DEFAULT_MENUBAR_LOCATION);
-            messageWidthSlider.setValue(SliderRange.MESSAGE_WIDTH.START);
-            menubarAnchorCombo.setSelectedItem(Anchor.TOP_LEFT);
-            expandCombo.setSelectedItem(ExpandDirection.DOWNWARDS);
-        });
-
         messageWidthSlider.addChangeListener(e -> {
             FrameManager.messageOverlay.notificationPanel.setWidth(messageWidthSlider.getValue());
             FrameManager.messageOverlay.pack();
         });
-
+        restoreDefaultButton.addActionListener(e -> restoreDefaults());
         saveButton.addActionListener(e -> SaveManager.overlaySaveFile.saveToDisk());
         menubarAnchorCombo.addActionListener(e -> FrameManager.menubarOverlay.setAnchor((Anchor) menubarAnchorCombo.getSelectedItem()));
+    }
+
+    public void restoreDefaults() {
+        FrameManager.messageOverlay.setLocation(References.DEFAULT_MESSAGE_LOCATION);
+        FrameManager.menubarOverlay.setLocation(References.DEFAULT_MENUBAR_LOCATION);
+        messageWidthSlider.setValue(SliderRange.MESSAGE_WIDTH.START);
+        menubarAnchorCombo.setSelectedItem(Anchor.TOP_LEFT);
+        expandCombo.setSelectedItem(ExpandDirection.DOWNWARDS);
     }
 
     private void adjustBorder() {

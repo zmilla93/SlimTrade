@@ -7,6 +7,7 @@ import com.slimtrade.core.utility.MarkdownParser;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CustomScrollPane;
 import com.slimtrade.gui.components.LimitCombo;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.updater.data.AppVersion;
 
@@ -15,7 +16,7 @@ import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PatchNotesWindow extends CustomDialog {
+public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLocation {
 
     private final JComboBox<PatchNotesEntry> comboBox = new LimitCombo<>();
     private final JTextPane textPane = new JTextPane();
@@ -62,10 +63,9 @@ public class PatchNotesWindow extends CustomDialog {
         addListeners();
         updateSelectedPatchNotes();
         comboBox.requestFocus();
-        setMinimumSize(new Dimension(600, 600));
-        pack();
+
         setMinimumSize(new Dimension(400, 400));
-        setLocationRelativeTo(null);
+        pack();
     }
 
     private void addListeners() {
@@ -108,6 +108,12 @@ public class PatchNotesWindow extends CustomDialog {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) getRootPane().requestFocus();
+    }
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
+        setSize(new Dimension(600, 600));
+        setLocationRelativeTo(null);
     }
 
 }

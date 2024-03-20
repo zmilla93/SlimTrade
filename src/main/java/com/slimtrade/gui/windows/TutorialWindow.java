@@ -8,6 +8,7 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.components.ImageLabel;
 import com.slimtrade.gui.components.TutorialPanel;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.messaging.ChatScannerMessagePanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
@@ -15,7 +16,7 @@ import com.slimtrade.gui.messaging.TradeMessagePanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class TutorialWindow extends CustomDialog {
+public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocation {
 
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardLayout);
@@ -60,10 +61,7 @@ public class TutorialWindow extends CustomDialog {
         contentPanel.add(borderPanel, BorderLayout.CENTER);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        setMinimumSize(null);
         pack();
-        setMinimumSize(getSize());
-        setLocationRelativeTo(null);
         addListeners();
         updatePageLabel();
         updateButtons();
@@ -190,6 +188,14 @@ public class TutorialWindow extends CustomDialog {
         panel.addLabel("Access additional features from the menubar in the top left, or from the system tray.");
         panel.addLabel("Close this window to start customizing!").bold();
         return panel;
+    }
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
+        setMinimumSize(null);
+        pack();
+        setMinimumSize(getSize());
+        setLocationRelativeTo(null);
     }
 
 }

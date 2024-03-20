@@ -4,6 +4,7 @@ import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.CustomDialog;
 import com.slimtrade.modules.theme.IFontChangeListener;
@@ -16,7 +17,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class StashSearchWindow extends CustomDialog implements IFontChangeListener {
+public class StashSearchWindow extends CustomDialog implements IFontChangeListener, IDefaultSizeAndLocation {
 
     private boolean combinedWindow = false;
     private StashSearchGroupData data;
@@ -167,5 +168,11 @@ public class StashSearchWindow extends CustomDialog implements IFontChangeListen
         ThemeManager.removeFontChangeListener(this);
     }
 
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
+        setLocation(-RESIZER_PANEL_SIZE, -RESIZER_PANEL_SIZE);
+        pack();
+    }
 
 }

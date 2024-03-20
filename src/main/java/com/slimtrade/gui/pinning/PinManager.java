@@ -54,18 +54,18 @@ public class PinManager {
         }
     }
 
-    public static void save() {
+    public static void saveAllPins() {
         ArrayList<PinData> appPins = new ArrayList<>();
         // App Windows
         for (IPinnable pinnable : appWindows.values()) {
-            if (pinnable.isPinned()) appPins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRectangle()));
+            if (pinnable.isPinned()) appPins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRect()));
         }
         SaveManager.pinSaveFile.data.appWindows = appPins;
         // Cheat Sheet Windows
         ArrayList<PinData> cheatSheetPins = new ArrayList<>();
         for (IPinnable pinnable : FrameManager.cheatSheetWindows.values()) {
             if (pinnable.isPinned())
-                cheatSheetPins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRectangle()));
+                cheatSheetPins.add(new PinData(pinnable.getPinTitle(), pinnable.getPinRect()));
         }
         SaveManager.pinSaveFile.data.cheatSheetWindows = cheatSheetPins;
         // Search Windows
@@ -73,14 +73,15 @@ public class PinManager {
         if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {
             IPinnable window = FrameManager.combinedSearchWindow;
             if (window.isPinned())
-                SaveManager.pinSaveFile.data.combinedSearchWindow = new PinData(window.getPinTitle(), window.getPinRectangle());
+                SaveManager.pinSaveFile.data.combinedSearchWindow = new PinData(window.getPinTitle(), window.getPinRect());
             else SaveManager.pinSaveFile.data.combinedSearchWindow = null;
         } else if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.SEPARATE) {
             for (IPinnable window : FrameManager.searchWindows.values()) {
-                if (window.isPinned()) searchPins.add(new PinData(window.getPinTitle(), window.getPinRectangle()));
+                if (window.isPinned()) searchPins.add(new PinData(window.getPinTitle(), window.getPinRect()));
             }
             SaveManager.pinSaveFile.data.searchWindows = searchPins;
         }
+        SaveManager.pinSaveFile.saveToDisk();
     }
 
 }

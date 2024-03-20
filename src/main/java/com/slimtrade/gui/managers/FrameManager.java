@@ -6,6 +6,7 @@ import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerWindow;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
 import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
@@ -15,6 +16,7 @@ import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.gui.overlays.MenubarOverlay;
 import com.slimtrade.gui.overlays.MessageOverlay;
 import com.slimtrade.gui.overlays.OverlayInfoDialog;
+import com.slimtrade.gui.pinning.IPinnable;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashHelperContainer;
@@ -56,6 +58,7 @@ public class FrameManager {
 
     private static final HashMap<AppState, Window[]> windowMap = new HashMap<>();
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
+    private static IDefaultSizeAndLocation[] defaultSizeAndLocationWindows;
 
     private static boolean menubarExpanded = false;
     private static boolean initialized = false;
@@ -97,6 +100,7 @@ public class FrameManager {
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
+        defaultSizeAndLocationWindows = new IDefaultSizeAndLocation[]{optionsWindow, historyWindow, chatScannerWindow, tutorialWindow, patchNotesWindow};
 
         // Matching boolean array so running remember previous visibility.
         Boolean[] runningWindowsVisibility = new Boolean[runningWindows.length];
@@ -107,6 +111,9 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_STASH, stashWindows);
         windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
+        for (IDefaultSizeAndLocation window : defaultSizeAndLocationWindows) {
+            window.applyDefaultSizeAndLocation();
+        }
         initialized = true;
     }
 
@@ -234,6 +241,41 @@ public class FrameManager {
                 menubarDialog.setVisible(false);
             }
         });
+    }
+
+    public static void requestRestoreUIDefaults() {
+        assert SwingUtilities.isEventDispatchThread();
+        int result = JOptionPane.showConfirmDialog(optionsWindow,
+                "Are you sure you want to reset the UI to its default state?\n" +
+                        "This will clear all pins and reset the size and location of most windows.",
+                "Reset SlimTrade UI", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            restoreUIDefaults();
+        }
+    }
+
+    private static void restoreUIDefaults() {
+        assert SwingUtilities.isEventDispatchThread();
+        for (IDefaultSizeAndLocation window : defaultSizeAndLocationWindows) {
+            if (window instanceof IPinnable) {
+                ((IPinnable) window).unpin();
+            }
+            window.applyDefaultSizeAndLocation();
+        }
+        for (CheatSheetWindow window : cheatSheetWindows.values()) {
+            window.unpin();
+            window.applyDefaultSizeAndLocation();
+        }
+        if (combinedSearchWindow != null) {
+            combinedSearchWindow.unpin();
+            combinedSearchWindow.applyDefaultSizeAndLocation();
+        }
+        for (StashSearchWindow window : searchWindows.values()) {
+            window.unpin();
+            window.applyDefaultSizeAndLocation();
+        }
+        overlayInfoWindow.restoreDefaults();
+        SaveManager.overlaySaveFile.saveToDisk();
     }
 
 }

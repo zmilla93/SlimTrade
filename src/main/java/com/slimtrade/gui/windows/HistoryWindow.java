@@ -5,11 +5,12 @@ import com.slimtrade.core.chatparser.IParserLoadedListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.history.HistoryPanel;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class HistoryWindow extends CustomDialog implements ITradeListener, IParserInitListener, IParserLoadedListener {
+public class HistoryWindow extends CustomDialog implements ITradeListener, IParserInitListener, IParserLoadedListener, IDefaultSizeAndLocation {
 
     private final HistoryPanel incomingTrades = new HistoryPanel();
     private final HistoryPanel outgoingTrades = new HistoryPanel();
@@ -27,10 +28,8 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(tabbedPane, BorderLayout.CENTER);
 
-        pack();
-        setSize(600, 400);
         setMinimumSize(new Dimension(300, 200));
-        setLocationRelativeTo(null);
+        pack();
     }
 
     private void addTradeToPanel(TradeOffer tradeOffer, boolean updateUI) {
@@ -72,6 +71,12 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
             incomingTrades.reloadUI();
             outgoingTrades.reloadUI();
         });
+    }
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
+        setSize(600, 400);
+        setLocationRelativeTo(null);
     }
 
 }

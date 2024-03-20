@@ -3,6 +3,7 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.StyledLabel;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
 import com.slimtrade.gui.options.searching.StashSearchOptionPanel;
@@ -12,7 +13,7 @@ import com.slimtrade.modules.saving.ISaveListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class OptionsWindow extends CustomDialog implements ISaveListener {
+public class OptionsWindow extends CustomDialog implements ISaveListener, IDefaultSizeAndLocation {
 
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardLayout);
@@ -88,9 +89,6 @@ public class OptionsWindow extends CustomDialog implements ISaveListener {
         // Finalize
         setMinimumSize(new Dimension(500, 400));
         pack();
-        // FIXME : Add max size?
-        setSize(900, 600);
-        setLocationRelativeTo(null);
         SaveManager.settingsSaveFile.registerSavableContainer(this);
         SaveManager.settingsSaveFile.addListener(this);
         addListeners();
@@ -173,6 +171,12 @@ public class OptionsWindow extends CustomDialog implements ISaveListener {
     public void onSave() {
         SaveManager.settingsSaveFile.data.buildMacroCache();
         reloadExampleTrades();
+    }
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
+        setSize(900, 600);
+        setLocationRelativeTo(null);
     }
 
 }

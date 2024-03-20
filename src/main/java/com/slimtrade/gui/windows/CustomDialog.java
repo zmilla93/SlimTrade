@@ -3,7 +3,6 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.enums.DefaultIcon;
-import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.IVisibilityFrame;
@@ -30,7 +29,7 @@ import java.awt.event.MouseMotionAdapter;
 public abstract class CustomDialog extends VisibilityDialog implements IPinnable, IThemeListener, IVisibilityFrame {
 
     // Sizes
-    private static final int RESIZER_PANEL_SIZE = 8; // If a child needs this value, use getResizerSize()
+    protected static final int RESIZER_PANEL_SIZE = 8; // If a child needs this value, use getResizerSize()
     protected static final int BORDER_SIZE = 1;
     private static final int TITLE_INSET = 4;
 
@@ -174,8 +173,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
                     pinButton.setPinned(pinned);
                     if (pinRespectsSize) setResizable(!pinned);
                     else updateResizeVisibility();
-                    PinManager.save();
-                    SaveManager.pinSaveFile.saveToDisk();
+                    PinManager.saveAllPins();
                 }
             }
         });
@@ -306,7 +304,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     }
 
     // FIXME: Since panels always have resizers now, this is a bit redundant
-    protected int getResizerSize() {
+    public int getResizerSize() {
         return RESIZER_PANEL_SIZE;
     }
 
@@ -354,6 +352,15 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     }
 
     @Override
+    public void unpin() {
+        pinned = false;
+        pinButton.setPinned(false);
+        if (pinRespectsSize) setResizable(!pinned);
+        else updateResizeVisibility();
+        PinManager.saveAllPins();
+    }
+
+    @Override
     public void applyPin(Rectangle rectangle) {
         setLocation(rectangle.getLocation());
         pinned = true;
@@ -370,7 +377,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     }
 
     @Override
-    public Rectangle getPinRectangle() {
+    public Rectangle getPinRect() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 

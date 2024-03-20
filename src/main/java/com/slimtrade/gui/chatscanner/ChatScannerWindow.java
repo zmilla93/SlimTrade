@@ -2,6 +2,7 @@ package com.slimtrade.gui.chatscanner;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.windows.CustomDialog;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChatScannerWindow extends CustomDialog implements ISavable {
+public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaultSizeAndLocation {
 
     private static final String START_SCANNING = "Start Scanning";
     private static final String STOP_SCANNING = "Stop Scanning";
@@ -87,10 +88,10 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         // Finalize
         setTitle("Chat Scanner");
         pack();
-        setSize(900, 700);
+
         SaveManager.chatScannerSaveFile.registerSavableContainer(this);
         addListeners();
-        setLocationRelativeTo(null);
+
     }
 
     private void addListeners() {
@@ -304,6 +305,12 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
             cardPanel.add(panel, entry.title);
         }
         updateList();
+    }
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
+        setSize(900, 700);
+        setLocationRelativeTo(null);
     }
 
 }

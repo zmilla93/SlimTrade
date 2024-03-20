@@ -6,10 +6,12 @@ public interface IPinnable {
 
     boolean isPinned();
 
-    void applyPin(Rectangle rectangle);
+    void unpin();
+
+    void applyPin(Rectangle rect);
 
     String getPinTitle();
 
-    Rectangle getPinRectangle();
+    Rectangle getPinRect();
 
 }
