@@ -8,10 +8,7 @@ import com.slimtrade.core.saving.legacy.patcher.PatcherSettings0to1;
 import com.slimtrade.core.saving.legacy.patcher.PatcherStash0to1;
 import com.slimtrade.modules.updater.ZLogger;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
@@ -111,7 +108,7 @@ public class SaveFilePatcherManager {
     public static void debugSaveToDisk(String path, Object data) {
         try {
             File file = new File(path);
-            Writer writer = new OutputStreamWriter(Files.newOutputStream(file.toPath()), StandardCharsets.UTF_8);
+            Writer writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(file.toPath()), StandardCharsets.UTF_8));
             writer.write(gson.toJson(data));
             writer.close();
         } catch (IOException e) {

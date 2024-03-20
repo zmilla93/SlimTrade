@@ -1,6 +1,7 @@
 package com.slimtrade.modules.filetailing;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Simple file tailer implementation.
@@ -22,7 +23,8 @@ public class FileTailer implements Runnable {
         this.delay = delay;
         this.end = end;
         try {
-            reader = new BufferedReader(new FileReader(file));
+//            reader = new BufferedReader(new FileReader(file));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
         } catch (FileNotFoundException e) {
             listener.fileNotFound();
             e.printStackTrace();

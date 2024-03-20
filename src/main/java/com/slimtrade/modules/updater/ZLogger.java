@@ -1,9 +1,9 @@
 package com.slimtrade.modules.updater;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,8 +50,9 @@ public class ZLogger {
         }
         try {
             if (newFile) {
-                writer = new BufferedWriter(new FileWriter(logFile));
-            } else writer = new BufferedWriter(new FileWriter(logFile, true));
+                writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(Paths.get(logFile)), StandardCharsets.UTF_8));
+            } else
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(logFile, true), StandardCharsets.UTF_8));
         } catch (IOException e) {
             e.printStackTrace();
         }

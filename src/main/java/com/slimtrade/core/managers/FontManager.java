@@ -54,7 +54,8 @@ public class FontManager {
             koreanFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansKR/IBMPlexSansKR-Regular.ttf")));
             thaiFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansThai/IBMPlexSansThai-Regular.ttf")));
         } catch (FontFormatException | IOException ex) {
-            ex.printStackTrace();
+            ZLogger.log("Failed to initialize fonts!");
+            ZLogger.log(ex.getStackTrace());
         }
         checkPreferredFontLanguageSupport();
         if (preferredFont.getFontName().equals("Dialog.plain"))

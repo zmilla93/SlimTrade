@@ -20,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -276,7 +277,7 @@ public class UpdateManager {
             HttpURLConnection httpConnection = (HttpURLConnection) (new URL(url).openConnection());
             BufferedReader inputStream;
             try {
-                inputStream = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
+                inputStream = new BufferedReader(new InputStreamReader(httpConnection.getInputStream(), StandardCharsets.UTF_8));
             } catch (IOException e) {
                 ZLogger.log("Failed to connect to GitHub. This is either a connection issue or the API rate limit has been exceeded.");
                 return null;

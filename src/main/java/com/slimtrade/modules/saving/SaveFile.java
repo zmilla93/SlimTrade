@@ -12,6 +12,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -101,7 +102,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
             }
             data.saveFileVersion = data.getTargetFileVersion();
             File file = new File(path);
-            Writer writer = new OutputStreamWriter(Files.newOutputStream(file.toPath()), StandardCharsets.UTF_8);
+            Writer writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(file.toPath()), StandardCharsets.UTF_8));
             writer.write(gson.toJson(data));
             writer.close();
         } catch (IOException e) {
@@ -192,7 +193,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
         StringBuilder builder = new StringBuilder();
         BufferedReader br;
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
+            br = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8));
             while (br.ready()) {
                 builder.append(br.readLine());
             }
