@@ -2,7 +2,6 @@ package com.slimtrade.gui.chatscanner;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.options.IncomingMacroPanel;
 import com.slimtrade.gui.windows.CustomDialog;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -68,8 +67,6 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         sidebar.add(buttonPanel, BorderLayout.SOUTH);
 
         // Tabbed Panel
-        IncomingMacroPanel p = new IncomingMacroPanel();
-        p.reloadExampleTrade();
 
         // Button Panel
         JPanel mainButtonBuffer = new JPanel(new BorderLayout());

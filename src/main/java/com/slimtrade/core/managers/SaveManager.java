@@ -4,7 +4,6 @@ import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.saving.legacy.SaveFilePatcherManager;
 import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.saving.SaveFile;
 import com.slimtrade.modules.theme.ThemeManager;
 
@@ -34,8 +33,7 @@ public class SaveManager {
     public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory() + "patch_notes.json", PatchNotesSaveFile.class);
 
     public static void init() {
-        // Listeners should be added before loading due to load callbacks
-        addStaticListeners();
+        // Load all save files from disk
         settingsSaveFile.loadFromDisk();
         appStateSaveFile.loadFromDisk();
         overlaySaveFile.loadFromDisk();
@@ -44,61 +42,40 @@ public class SaveManager {
         pinSaveFile.loadFromDisk();
         chatScannerSaveFile.loadFromDisk();
         patchNotesSaveFile.loadFromDisk();
+        // Build Caches
+        settingsSaveFile.data.buildMacroCache();
+        ignoreSaveFile.data.buildCache();
+        stashSaveFile.data.buildCache();
+        // Finish
+        addStaticListeners();
         SaveFilePatcherManager.handleSaveFilePatching();
     }
 
     private static void addStaticListeners() {
         // Only static listeners should be added here,
         // or when a save file needs to listen to itself since it is simpler than a custom class.
-        SaveManager.settingsSaveFile.addListener(new ISaveListener() {
-            @Override
-            public void onSave() {
-                if (!FrameManager.hasBeenInitialized()) return;
-                SwingUtilities.invokeLater(() -> {
-                    FrameManager.messageManager.refreshFadeData();
-                    FrameManager.stashHelperContainer.updateLocation();
-                    ThemeManager.checkFontChange();
-                    SaveManager.settingsSaveFile.data.buildMacroCache();
-                });
-            }
-
-            @Override
-            public void onLoad() {
-                SaveManager.settingsSaveFile.data.buildMacroCache();
-            }
+        SaveManager.settingsSaveFile.addListener(() -> {
+            if (!FrameManager.hasBeenInitialized()) return;
+            SwingUtilities.invokeLater(() -> {
+                FrameManager.messageManager.refreshFadeData();
+                FrameManager.stashHelperContainer.updateLocation();
+                ThemeManager.checkFontChange();
+            });
         });
         SaveManager.ignoreSaveFile.removeAllListeners();
-        SaveManager.ignoreSaveFile.addListener(new ISaveListener() {
-            @Override
-            public void onSave() {
-                SaveManager.ignoreSaveFile.data.buildCache();
-                if (!FrameManager.hasBeenInitialized()) return;
-                assert SwingUtilities.isEventDispatchThread();
-                for (IgnoreItemData ignoreItemData : SaveManager.ignoreSaveFile.data.ignoreList) {
-                    FrameManager.messageManager.quickCloseIgnore(ignoreItemData);
-                }
-            }
-
-            @Override
-            public void onLoad() {
-                SaveManager.ignoreSaveFile.data.buildCache();
+        SaveManager.ignoreSaveFile.addListener(() -> {
+            SaveManager.ignoreSaveFile.data.buildCache();
+            if (!FrameManager.hasBeenInitialized()) return;
+            assert SwingUtilities.isEventDispatchThread();
+            for (IgnoreItemData ignoreItemData : SaveManager.ignoreSaveFile.data.ignoreList) {
+                FrameManager.messageManager.quickCloseIgnore(ignoreItemData);
             }
         });
-        stashSaveFile.addListener(new ISaveListener() {
-            @Override
-            public void onSave() {
-                stashSaveFile.data.buildCache();
-            }
-
-            @Override
-            public void onLoad() {
-                stashSaveFile.data.buildCache();
-            }
-        });
+        stashSaveFile.addListener(() -> stashSaveFile.data.buildCache());
     }
 
     public static String getAudioDirectory() {
-        return getSaveDirectory() + audioFolderName + "/";
+        return getSaveDirectory() + audioFolderName + File.separator;
     }
 
     public static String getImagesDirectory() {

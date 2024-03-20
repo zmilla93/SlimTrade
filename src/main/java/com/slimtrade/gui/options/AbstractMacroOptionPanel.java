@@ -1,5 +1,7 @@
 package com.slimtrade.gui.options;
 
+import com.slimtrade.core.CommonText;
+import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.GUIReferences;
@@ -192,7 +194,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
     public void reloadExampleTrade(ChatScannerEntry chatScannerEntry) {
         exampleTradeContainer.removeAll();
-        ChatScannerMessagePanel panel = new ChatScannerMessagePanel(chatScannerEntry, null, false);
+        ChatScannerMessagePanel panel = new ChatScannerMessagePanel(chatScannerEntry, new PlayerMessage("ScannerPlayer789", CommonText.LOREM_IPSUM_SHORT), false);
         exampleTradeContainer.add(panel);
         exampleTradeContainer.revalidate();
         exampleTradeContainer.repaint();

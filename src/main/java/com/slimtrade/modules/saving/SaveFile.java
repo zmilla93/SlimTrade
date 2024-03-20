@@ -125,18 +125,12 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
                 data = gson.fromJson(getFileAsString(file.getPath()), classType);
                 if (data != null) {
                     loadedExistingData = true;
-                    for (ISaveListener listener : listeners) {
-                        listener.onLoad();
-                    }
                     return;
                 }
             } catch (JsonSyntaxException ignore) {
             }
         }
         initData();
-        for (ISaveListener listener : listeners) {
-            listener.onLoad();
-        }
     }
 
     /**

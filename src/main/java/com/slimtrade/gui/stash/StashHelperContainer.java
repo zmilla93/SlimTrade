@@ -90,9 +90,4 @@ public class StashHelperContainer extends BasicDialog implements IThemeListener,
         }
     }
 
-    @Override
-    public void onLoad() {
-        // Do nothing
-    }
-
 }

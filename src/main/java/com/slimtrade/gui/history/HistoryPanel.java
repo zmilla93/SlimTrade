@@ -95,9 +95,4 @@ public class HistoryPanel extends JPanel implements ISaveListener {
         table.getHistoryTableModel().fireTableDataChanged();
     }
 
-    @Override
-    public void onLoad() {
-
-    }
-
 }

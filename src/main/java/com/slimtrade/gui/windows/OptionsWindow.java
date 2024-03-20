@@ -7,11 +7,12 @@ import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
 import com.slimtrade.gui.options.searching.StashSearchOptionPanel;
 import com.slimtrade.gui.options.stash.StashOptionPanel;
+import com.slimtrade.modules.saving.ISaveListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class OptionsWindow extends CustomDialog {
+public class OptionsWindow extends CustomDialog implements ISaveListener {
 
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardLayout);
@@ -91,6 +92,7 @@ public class OptionsWindow extends CustomDialog {
         setSize(900, 600);
         setLocationRelativeTo(null);
         SaveManager.settingsSaveFile.registerSavableContainer(this);
+        SaveManager.settingsSaveFile.addListener(this);
         addListeners();
     }
 
@@ -100,7 +102,6 @@ public class OptionsWindow extends CustomDialog {
             SaveManager.settingsSaveFile.saveToDisk();
             SaveManager.ignoreSaveFile.saveToDisk();
             HotkeyManager.loadHotkeys();
-            reloadExampleTrades();
             revalidate();
         });
         revertButton.addActionListener(e -> SaveManager.settingsSaveFile.revertChanges());
@@ -166,6 +167,12 @@ public class OptionsWindow extends CustomDialog {
 
     public void showUpdateButton() {
         updateButton.setVisible(true);
+    }
+
+    @Override
+    public void onSave() {
+        SaveManager.settingsSaveFile.data.buildMacroCache();
+        reloadExampleTrades();
     }
 
 }

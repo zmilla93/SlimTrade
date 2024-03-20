@@ -4,6 +4,4 @@ public interface ISaveListener {
 
     void onSave();
 
-    void onLoad();
-
 }
