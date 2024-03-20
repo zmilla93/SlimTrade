@@ -379,16 +379,15 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
      */
     public void refresh() {
         assert (SwingUtilities.isEventDispatchThread());
-        for (Component c : messageContainer.getComponents()) {
-            if (c instanceof TradeMessagePanel)
-                ((TradeMessagePanel) c).updateSize();
+        for (Component component : messageContainer.getComponents()) {
+            if (component instanceof NotificationPanel)
+                ((NotificationPanel) component).updateSize();
         }
         recheckMessageVisibility();
         refreshOrder();
         revalidate();
         pack();
         moveToAnchor();
-//        setIgnoreRepaint(false);
         repaint();
     }
 
