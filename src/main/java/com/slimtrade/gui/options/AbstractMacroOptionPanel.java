@@ -73,8 +73,9 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         exampleSeparator = addVerticalStrut();
         addHeader("Macro Preview");
         addComponent(exampleTradeContainer);
-        addHeader("Custom Macros");
+        addVerticalStrut();
 
+        addHeader("Custom Macros");
         addComponent(addMacroButton);
         addVerticalStrutSmall();
         addComponent(macroContainer);

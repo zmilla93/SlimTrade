@@ -116,7 +116,7 @@ public class FrameManager {
 
     public static void showAppFrames() {
         // FIXME: Show proper windows
-        if(App.showOptionsOnLaunch) optionsWindow.setVisible(true);
+        if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         messageManager.setVisible(true);
         if (SaveManager.settingsSaveFile.data.enableMenuBar) {
             menubarIcon.setVisible(true);
