@@ -32,7 +32,7 @@ public class LegacySettingsSave0 extends AbstractSaveFile {
     // Basics
     public String characterName = "";
     public boolean showGuildName = false;
-    public boolean folderOffset = true;
+    public boolean folderOffset = false;
     public boolean colorBlindMode = false;
     @SerializedName("colorTheme")
     public LegacyColorTheme theme = LegacyColorTheme.SOLARIZED_LIGHT;

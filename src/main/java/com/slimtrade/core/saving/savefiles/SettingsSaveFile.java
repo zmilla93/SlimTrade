@@ -31,8 +31,8 @@ public class SettingsSaveFile extends AbstractSaveFile {
     // General
     public String characterName;
     public boolean showGuildName;
-    public boolean initializedFolderOffset;
     public boolean folderOffset;
+    public boolean initializedFolderOffset;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
 

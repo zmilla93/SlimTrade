@@ -58,6 +58,7 @@ public class PatcherSettings0to1 implements ISavePatcher {
 
     private static void handleFieldConversions(LegacySettingsSave0 legacySaveFile, SettingsSaveFile saveFile) {
         saveFile.theme = legacySaveFile.theme.theme;
+        saveFile.initializedFolderOffset = true;
 
         // Cheat Sheets
         ArrayList<CheatSheetData> cheatSheetData = new ArrayList<>();
