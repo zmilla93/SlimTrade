@@ -6,6 +6,7 @@ import com.slimtrade.core.saving.legacy.patcher.PatcherOverlay0to1;
 import com.slimtrade.core.saving.legacy.patcher.PatcherScanner0to1;
 import com.slimtrade.core.saving.legacy.patcher.PatcherSettings0to1;
 import com.slimtrade.core.saving.legacy.patcher.PatcherStash0to1;
+import com.slimtrade.modules.updater.ZLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,16 +36,16 @@ public class SaveFilePatcherManager {
         boolean patched = false;
         try {
             if (patcher.requiresPatch()) {
-                System.out.println("Patch required: [" + patcherName + "]");
+                ZLogger.log("Patch required: [" + patcherName + "]");
                 patched = patcher.patch();
                 String errorMessage = patcher.getErrorMessage();
-                if (errorMessage != null) System.out.println(errorMessage);
-                if (patched) System.out.println("Patch successful!");
-                else System.out.println("Patch failed!");
+                if (errorMessage != null) ZLogger.err(errorMessage);
+                if (patched) ZLogger.log("Patch successful!");
+                else ZLogger.err("Patch failed!");
             }
             if (patched) patcher.applyNewVersion();
         } catch (Exception e) {
-            System.err.println("[" + patcherName + "] Encountered corrupted legacy save file, recreating data.");
+            ZLogger.err("[" + patcherName + "] Encountered corrupted legacy save file, recreating data.");
             e.printStackTrace();
             patcher.handleCorruptedFile();
         }
@@ -95,16 +96,16 @@ public class SaveFilePatcherManager {
 
     private static void debugReport(Object from, Object to, ArrayList<String> invalidTypes, ArrayList<String> nonMatchingFields) {
         if (!DEBUG_REPORT) return;
-        System.out.println("=== Comparison Report for [" + from.getClass().getSimpleName() + "] & [" + to.getClass().getSimpleName() + "] ===");
-        if (invalidTypes.size() > 0) System.out.println("=== INVALID TYPES ===");
-        else System.out.println("No invalid type comparisons found!");
-        for (String s : invalidTypes) System.out.println("\t" + s);
-        if (invalidTypes.size() > 0) System.out.println();
+        ZLogger.log("=== Comparison Report for [" + from.getClass().getSimpleName() + "] & [" + to.getClass().getSimpleName() + "] ===");
+        if (invalidTypes.size() > 0) ZLogger.log("=== INVALID TYPES ===");
+        else ZLogger.log("No invalid type comparisons found!");
+        for (String s : invalidTypes) ZLogger.log("\t" + s);
+        if (invalidTypes.size() > 0) ZLogger.log("");
 
-        if (nonMatchingFields.size() > 0) System.out.println("=== NON MATCHING FIELDS ===");
-        else System.out.println("All inspected field names match!");
-        for (String s : nonMatchingFields) System.out.println("\t" + s);
-        if (nonMatchingFields.size() > 0) System.out.println();
+        if (nonMatchingFields.size() > 0) ZLogger.log("=== NON MATCHING FIELDS ===");
+        else ZLogger.log("All inspected field names match!");
+        for (String s : nonMatchingFields) ZLogger.log("\t" + s);
+        if (nonMatchingFields.size() > 0) ZLogger.log("");
     }
 
     public static void debugSaveToDisk(String path, Object data) {

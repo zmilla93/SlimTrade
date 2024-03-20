@@ -1,5 +1,7 @@
 package com.slimtrade.core.managers;
 
+import com.slimtrade.modules.updater.ZLogger;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -43,7 +45,7 @@ public class LockManager {
             if (channel != null) channel.close();
             if (lock != null) {
                 if (lock.isValid()) lock.release();
-                if (!lockFile.delete()) System.err.println("Failed to delete lock file!");
+                if (!lockFile.delete()) ZLogger.err("Failed to delete lock file!");
             }
         } catch (IOException ignore) {
         }

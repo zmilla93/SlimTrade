@@ -5,6 +5,7 @@ import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.gui.components.ClientFileChooser;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
+import com.slimtrade.modules.updater.ZLogger;
 import com.sun.jna.Native;
 import com.sun.jna.platform.DesktopWindow;
 import com.sun.jna.platform.WindowUtils;
@@ -15,11 +16,8 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -68,11 +66,6 @@ public class POEInterface {
             e.printStackTrace();
         }
         robot.waitForIdle();
-        try {
-            System.out.println("QuickPaste:" + Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
-        } catch (UnsupportedFlavorException | IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void paste(String text) {
@@ -85,7 +78,7 @@ public class POEInterface {
         try {
             clipboard.setContents(pasteString, null);
         } catch (IllegalStateException e) {
-            System.out.println("Failed to set clipboard contents, aborting...");
+            ZLogger.err("Failed to set clipboard contents, aborting...");
             return;
         }
         robot.keyPress(KeyEvent.VK_ALT);

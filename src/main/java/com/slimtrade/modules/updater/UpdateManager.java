@@ -235,9 +235,6 @@ public class UpdateManager {
             versions.add(releaseVersion);
         }
         Collections.sort(versions);
-        for (ReleaseVersion version : versions) {
-            System.out.println(version);
-        }
         return versions.get(versions.size() - 1);
     }
 

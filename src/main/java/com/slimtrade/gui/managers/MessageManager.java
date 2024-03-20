@@ -250,7 +250,6 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
      */
     public void quickCloseOutgoing(NotificationPanel panel) {
         setIgnoreRepaint(true);
-        System.out.println("quick close outgoing");
         for (int i = messageContainer.getComponentCount() - 1; i >= 0; i--) {
             Component comp = messageContainer.getComponent(i);
             if (comp instanceof TradeMessagePanel) {

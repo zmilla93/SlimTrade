@@ -1,6 +1,7 @@
 package com.slimtrade.gui.components;
 
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.modules.updater.ZLogger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class ButtonPanel extends JPanel {
     }
 
     private void incorrectAddMethod() {
-        System.err.println("[ButtonPanel] Components should only be added using the default add(Component) function!");
+        ZLogger.err("[ButtonPanel] Components should only be added using the default add(Component) function!");
         ZUtil.printCallingFunction(ButtonPanel.class);
     }
 

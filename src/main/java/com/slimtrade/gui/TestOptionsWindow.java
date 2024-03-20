@@ -17,13 +17,6 @@ public class TestOptionsWindow extends JFrame {
 
         JPanel selectionPanel = new JPanel();
 
-//        list.addListSelectionListener(new ListSelectionListener() {
-//            @Override
-//            public void valueChanged(ListSelectionEvent e) {
-//                System.out.println("WWW:" + list.getSelectedValue());
-//            }
-//        });
-
     }
 
 }

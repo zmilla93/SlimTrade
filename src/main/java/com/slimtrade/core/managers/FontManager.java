@@ -3,6 +3,7 @@ package com.slimtrade.core.managers;
 import com.slimtrade.core.data.FontLanguageSupport;
 import com.slimtrade.core.enums.FontLanguage;
 import com.slimtrade.core.language.UnicodeRange;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +58,7 @@ public class FontManager {
         }
         checkPreferredFontLanguageSupport();
         if (preferredFont.getFontName().equals("Dialog.plain"))
-            System.err.println("[FontManager] Loaded font does not exist!");
+            ZLogger.err("[FontManager] Loaded font does not exist!");
     }
 
     private static void checkPreferredFontLanguageSupport() {

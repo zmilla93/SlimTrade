@@ -62,10 +62,10 @@ public class CurrencyType implements IImageRef {
                 String line = reader.readLine();
                 if (line.matches("\\s+")) continue;
                 if (line.startsWith("//")) {
-                    if (line.startsWith("// Order:")) {
-                        // TODO
-//                        System.out.println(line);
-                    }
+                    // TODO: Could parse the order line to ensure languages are always correct, but low priority since they very rarely change
+//                    if (line.startsWith("// Order:")) {
+//
+//                    }
                     continue;
                 }
                 addCSV(line);

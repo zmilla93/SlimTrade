@@ -49,7 +49,6 @@ public class TradeUtil {
     }
 
     public static void changeCharacterName(String newName) {
-        System.out.println("NEW CHAR SET ::: " + newName);
         SaveManager.settingsSaveFile.data.characterName = newName;
         SaveManager.settingsSaveFile.saveToDisk(false);
         SwingUtilities.invokeLater(() -> FrameManager.optionsWindow.refreshCharacterName());

@@ -69,7 +69,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        if (debugProfileLaunch) System.out.println("Profiling launch actions....");
+        if (debugProfileLaunch) ZLogger.log("Profiling launch actions....");
         Stopwatch.start();
         parseLaunchArgs(args);
 
@@ -77,7 +77,7 @@ public class App {
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
         boolean lockSuccess = lockManager.tryAndLock();
         if (!lockSuccess) {
-            System.out.println("SlimTrade is already running. Terminating new instance.");
+            ZLogger.log("SlimTrade is already running. Terminating new instance.");
             System.exit(0);
         }
 
@@ -165,13 +165,13 @@ public class App {
 
         SwingUtilities.invokeLater(() -> loadingWindow.dispose());
 
-        if (debugProfileLaunch) System.out.println("Profiling launch complete!\n");
-        System.out.println("Slimtrade Launched");
+        if (debugProfileLaunch) ZLogger.log("Profiling launch complete!\n");
+        ZLogger.log("Slimtrade Launched");
     }
 
     private static void profileLaunch(String context) {
         if (!debugProfileLaunch) return;
-        System.out.println("\t" + context + ": " + Stopwatch.getElapsedSeconds());
+        ZLogger.log("\t" + context + ": " + Stopwatch.getElapsedSeconds());
     }
 
     private static void runSetupWizard() {
@@ -250,7 +250,7 @@ public class App {
             properties.load(stream);
             stream.close();
         } catch (IOException e) {
-            System.err.println("Properties not found! Create a 'project.properties' file in the resources folder, then add the lines 'version=${project.version}' and 'artifactId=${project.artifactId}'.");
+            ZLogger.err("Properties not found! Create a 'project.properties' file in the resources folder, then add the lines 'version=${project.version}' and 'artifactId=${project.artifactId}'.");
             return null;
         }
         String name = properties.getProperty("name");
@@ -285,7 +285,7 @@ public class App {
         try {
             GlobalScreen.unregisterNativeHook();
             lockManager.closeLock();
-            System.out.println("SlimTrade Terminated");
+            ZLogger.log("SlimTrade Terminated");
         } catch (NativeHookException e) {
             e.printStackTrace();
         }

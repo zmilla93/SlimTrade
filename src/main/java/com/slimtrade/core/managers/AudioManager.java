@@ -187,10 +187,8 @@ public class AudioManager {
                 clip.open(stream);
                 clip.addLineListener(event -> {
                     LineEvent.Type type = event.getType();
-                    System.out.println("LINE LISTEN");
                     if (type.equals(LineEvent.Type.STOP)) {
                         clip.stop();
-                        System.out.println("EOS!");
                     }
                 });
                 clipCache.put(sound, clip);

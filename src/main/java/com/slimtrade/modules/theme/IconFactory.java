@@ -25,26 +25,6 @@ public class IconFactory {
 //        return getImageIcon(path, -1);
 //    }
 
-//    public static ImageIcon getImageIcon(String path, int size) {
-//        if (cachedIconSize != SaveManager.settingsSaveFile.data.iconSize)
-//            if (size == -1) size = SaveManager.settingsSaveFile.data.iconSize;
-//        if (size < SpinnerRange.ICON_SIZE.START) size = SpinnerRange.ICON_SIZE.START;
-//        // Return cached icon if possible
-//        if (size == SaveManager.settingsSaveFile.data.iconSize) {
-//            ImageIcon cachedIcon = iconCache.get(path);
-//            if (cachedIcon != null) return cachedIcon;
-//        }
-//        try {
-//            Image image = ImageIO.read(Objects.requireNonNull(IconFactory.class.getResource(path)));
-//            return new ImageIcon(image.getScaledInstance(size, size, Image.SCALE_SMOOTH));
-//        } catch (IOException | NullPointerException e) {
-//            System.err.println("[IconFactory] File not file: resources" + path);
-//            System.err.println("[IconFactory] If this file does exist, try rebuilding the project.");
-//        }
-//        return null;
-//    }
-
-
     public static ImageIcon getIcon(String path) {
         return getIcon(path, cacheIconSize, true);
     }

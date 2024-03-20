@@ -2,6 +2,7 @@ package com.slimtrade.modules.theme;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOfferType;
+import com.slimtrade.modules.updater.ZLogger;
 
 import java.awt.*;
 
@@ -57,7 +58,7 @@ public enum ThemeColorVariant {
                 if (colorBlind) return LIGHT_ORANGE_CB;
                 else return LIGHT_ORANGE;
         }
-        System.err.println("Invalid color variant!");
+        ZLogger.err("Invalid color variant!");
         return Color.WHITE;
     }
 
@@ -91,7 +92,7 @@ public enum ThemeColorVariant {
                 if (colorBlind) return LIGHT_ORANGE_CB;
                 return LIGHT_ORANGE;
         }
-        System.err.println("Invalid color variant!");
+        ZLogger.err("Invalid color variant!");
         return Color.WHITE;
     }
 

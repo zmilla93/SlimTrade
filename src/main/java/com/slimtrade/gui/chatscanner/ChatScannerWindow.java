@@ -290,9 +290,6 @@ public class ChatScannerWindow extends CustomDialog implements ISavable {
         for (ChatScannerCustomizerPanel panel : panels) {
             ChatScannerEntry entry = panel.getData();
             scannerEntries.add(entry);
-            System.out.println(entry.title);
-            System.out.println(entry.searchTermsRaw);
-            System.out.println(entry.ignoreTermsRaw);
             panel.reloadExample();
         }
         SaveManager.chatScannerSaveFile.data.scannerEntries = scannerEntries;

@@ -1,6 +1,7 @@
 package com.slimtrade.gui.components;
 
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.modules.updater.ZLogger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -98,7 +99,7 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
     }
 
     private void genericMisuse() {
-        System.err.println("AddRemoveContainer is operating on a class different than the generic class it was assigned!");
+        ZLogger.err("AddRemoveContainer is operating on a class different than the generic class it was assigned!");
         ZUtil.printCallingFunction(AddRemoveContainer.class);
     }
 
@@ -145,7 +146,7 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
     //
 
     private void incorrectAddMethod() {
-        System.err.println("AddRemoveContainer should only have elements added using the add(Component) method!");
+        ZLogger.err("AddRemoveContainer should only have elements added using the add(Component) method!");
         ZUtil.printCallingFunction(AddRemoveContainer.class);
     }
 

@@ -1,6 +1,7 @@
 package com.slimtrade.modules.theme.components;
 
 import com.formdev.flatlaf.ui.FlatButtonBorder;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,8 +24,8 @@ public class FlatColorIconButton extends JButton {
     public FlatColorIconButton(String path) {
         this.path = path.startsWith("/") ? path : "/" + path;
         if (!getImageFromFile()) {
-            System.err.println("[IconButton] File not found: /resources" + path);
-            System.err.println("[IconButton] If this file exists, try cleaning and rebuilding the project.");
+            ZLogger.err("[IconButton] File not found: /resources" + path);
+            ZLogger.err("[IconButton] If this file exists, try cleaning and rebuilding the project.");
             return;
         }
         createBufferedImage();

@@ -14,6 +14,7 @@ import com.slimtrade.gui.pinning.IPinnable;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.modules.theme.IThemeListener;
 import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -392,7 +393,7 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     @Override
     public void setContentPane(Container contentPane) {
-        System.err.println("The contentPane of a CustomDialog cannot be changed! Use the contentPanel variable or getContentPane() instead.");
+        ZLogger.err("The contentPane of a CustomDialog cannot be changed! Use the contentPanel variable or getContentPane() instead.");
     }
 
     @Override

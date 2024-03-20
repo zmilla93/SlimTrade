@@ -3,6 +3,7 @@ package com.slimtrade.gui.options;
 import com.slimtrade.App;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.modules.updater.ZLogger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -143,7 +144,7 @@ public class AbstractOptionPanel extends JPanel {
     }
 
     private void incorrectAddMethod() {
-        System.err.println("[OptionPanel] Components should not be added directly to an OptionPanel! Use addHeader() or addPanel() instead.");
+        ZLogger.err("[OptionPanel] Components should not be added directly to an OptionPanel! Use addHeader() or addPanel() instead.");
         ZUtil.printCallingFunction(AbstractOptionPanel.class);
     }
 

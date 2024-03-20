@@ -181,16 +181,12 @@ public class NotificationPanel extends ColorPanel {
                     public void click(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             if (!ZUtil.isEmptyString(macro.lmbResponse)) {
-                                System.out.println("mc:" + macro.lmbResponse);
                                 POEInterface.runCommand(macro.lmbResponse, pasteReplacement);
-//                                if (macro.lmbResponse.contains("/invite")) onInvite();
                             }
-//                            if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                         if (e.getButton() == MouseEvent.BUTTON3) {
                             if (!ZUtil.isEmptyString(macro.rmbResponse))
                                 POEInterface.runCommand(macro.rmbResponse, pasteReplacement);
-//                            if (macro.close) FrameManager.messageManager.removeMessage(self);
                         }
                         handleHotkeyMutual(macro);
                     }

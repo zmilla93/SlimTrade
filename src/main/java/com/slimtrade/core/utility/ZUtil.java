@@ -148,7 +148,6 @@ public class ZUtil {
     public static String getCheatSheetExtension(String fileName) {
         int index = fileName.lastIndexOf('.');
         String ext = fileName.substring(index);
-        System.out.println(ext);
         return ext;
     }
 
