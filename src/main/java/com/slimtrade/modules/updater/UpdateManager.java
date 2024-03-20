@@ -432,10 +432,7 @@ public class UpdateManager {
             ZLogger.log("Running daily update check...");
             boolean update = isUpdateAvailable(true);
             if (update) {
-                SwingUtilities.invokeLater(() -> {
-                    FrameManager.optionsWindow.showUpdateButton();
-                    FrameManager.messageManager.addUpdateMessage(true);
-                });
+                FrameManager.displayUpdateAvailable();
             } else {
                 runPeriodicUpdateCheck();
             }

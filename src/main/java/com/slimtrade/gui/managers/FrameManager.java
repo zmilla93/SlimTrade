@@ -243,6 +243,13 @@ public class FrameManager {
         });
     }
 
+    public static void displayUpdateAvailable() {
+        SwingUtilities.invokeLater(() -> {
+            FrameManager.optionsWindow.showUpdateButton();
+            FrameManager.messageManager.addUpdateMessage(true);
+        });
+    }
+
     public static void requestRestoreUIDefaults() {
         assert SwingUtilities.isEventDispatchThread();
         int result = JOptionPane.showConfirmDialog(optionsWindow,

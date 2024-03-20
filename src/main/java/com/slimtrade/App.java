@@ -56,6 +56,7 @@ public class App {
     private static AppState state = AppState.LOADING;
     private static AppState previousState = AppState.LOADING;
     private static boolean themesHaveBeenInitialized = false;
+    private static boolean updateIsAvailable = false;
 
     // Launch Args
     public static boolean noUpdate = false;
@@ -68,16 +69,13 @@ public class App {
     public static boolean showOptionsOnLaunch = false;
 
     public static void main(String[] args) {
-
-        if (debugProfileLaunch) ZLogger.log("Profiling launch actions....");
-        Stopwatch.start();
         parseLaunchArgs(args);
 
         // Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
         boolean lockSuccess = lockManager.tryAndLock();
         if (!lockSuccess) {
-            ZLogger.log("SlimTrade is already running. Terminating new instance.");
+            System.err.println("SlimTrade is already running. Terminating new instance.");
             System.exit(0);
         }
 
@@ -85,6 +83,10 @@ public class App {
         ZLogger.open(SaveManager.getSaveDirectory(), args);
         ZLogger.log("SlimTrade launching... " + Arrays.toString(args));
         ZLogger.cleanOldLogFiles();
+
+        // Launch profiling
+        if (debugProfileLaunch) ZLogger.log("Profiling launch actions....");
+        Stopwatch.start();
 
         // This setting gets rid of some rendering issues with transparent frames
         System.setProperty("sun.java2d.noddraw", "true");
@@ -107,7 +109,11 @@ public class App {
         updateManager.continueUpdateProcess(args);
         if (!noUpdate) {
             if (updateManager.getCurrentUpdateAction() != UpdateAction.CLEAN && updateManager.isUpdateAvailable()) {
-                updateManager.runUpdateProcess();
+                if (SaveManager.settingsSaveFile.data.enableAutomaticUpdate) {
+                    updateManager.runUpdateProcess();
+                } else {
+                    updateIsAvailable = true;
+                }
             } else {
                 updateManager.runPeriodicUpdateCheck();
             }
@@ -219,7 +225,9 @@ public class App {
             SaveManager.appStateSaveFile.data.tutorialVersion = TutorialWindow.TUTORIAL_VERSION;
             SaveManager.appStateSaveFile.saveToDisk(false);
         }
-
+        if (updateIsAvailable) FrameManager.displayUpdateAvailable();
+        if (updateManager.getCurrentUpdateAction() == UpdateAction.CLEAN)
+            SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
     }
 
     public static void initParsers() {

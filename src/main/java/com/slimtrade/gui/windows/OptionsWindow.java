@@ -26,7 +26,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     private final JList<OptionPanel> optionsList;
 
     private final JButton donateButton = new JButton("Donate");
-    private final JButton updateButton = new JButton("Update");
+    private final JButton updateButton = new JButton("Install Update");
     private final JButton saveButton = new JButton("Save");
     private final JButton revertButton = new JButton("Revert Changes");
 
