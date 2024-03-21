@@ -14,6 +14,7 @@ public class InformationOptionPanel extends AbstractOptionPanel {
     private final JButton tutorialButton = new JButton("Tutorial");
     private final JButton patchNotesButton = new JButton("Patch Notes");
     private final JButton settingsFolderButton = new JButton("Settings Folder");
+    private final JButton logsFolderButton = new JButton("Logs Folder");
     private final JButton openClientButton = new JButton("Open Client.txt");
 
     // Help
@@ -34,6 +35,8 @@ public class InformationOptionPanel extends AbstractOptionPanel {
         utilityPanel.add(patchNotesButton, gc);
         gc.gridy++;
         utilityPanel.add(settingsFolderButton, gc);
+        gc.gridy++;
+        utilityPanel.add(logsFolderButton, gc);
         gc.gridy++;
 
         JPanel helpPanel = new JPanel(new GridBagLayout());
@@ -77,6 +80,7 @@ public class InformationOptionPanel extends AbstractOptionPanel {
         });
         openClientButton.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.clientPath));
         settingsFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getSaveDirectory()));
+        logsFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getLogsDirectory()));
         troubleshootingButton.addActionListener(e -> ZUtil.openLink(References.FAQ_URL));
         bugReportButton.addActionListener(e -> ZUtil.openLink(References.GITHUB_ISSUES_URL));
         githubButton.addActionListener(e -> ZUtil.openLink(References.GITHUB_URL));

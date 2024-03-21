@@ -21,6 +21,7 @@ public class SaveManager {
     // Subfolder Names
     private static final String audioFolderName = "audio";
     private static final String imagesFolderName = "images";
+    private static final String logFolderName = "logs";
 
     // Safe Files
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
@@ -80,6 +81,10 @@ public class SaveManager {
 
     public static String getImagesDirectory() {
         return getSaveDirectory() + imagesFolderName + File.separator;
+    }
+
+    public static String getLogsDirectory() {
+        return getSaveDirectory() + logFolderName + File.separator;
     }
 
     public static String getSaveDirectory() {
