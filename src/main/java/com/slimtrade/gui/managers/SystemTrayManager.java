@@ -25,7 +25,7 @@ public class SystemTrayManager {
         Image img = new ImageIcon(Objects.requireNonNull(SystemTrayManager.class.getResource(DefaultIcon.TAG_CROPPED.path()))).getImage();
         TrayIcon trayIcon = new TrayIcon(img);
         trayIcon.setImageAutoSize(true);
-        trayIcon.setToolTip("SlimTrade");
+        trayIcon.setToolTip(App.appInfo.fullName);
         trayIcon.setPopupMenu(popupMenu);
         trayIcon.addActionListener(e -> {
             if (App.getState() == AppState.RUNNING) FrameManager.optionsWindow.setVisible(true);
