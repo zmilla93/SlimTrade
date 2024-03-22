@@ -15,6 +15,7 @@ public class References {
     public static final String DISCORD_INVITE = "https://discord.com/invite/yKdExMe";
     public static final String FAQ_URL = "https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting";
     public static final String PAYPAL_URL = "https://www.paypal.com/paypalme/zmilla93";
+    public static final String PATREON_URL = "https://www.patreon.com/ZMilla";
 
     // Regex
     // FIXME : Should probably move regex strings to LangRegex.java

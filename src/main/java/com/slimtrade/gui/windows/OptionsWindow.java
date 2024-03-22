@@ -154,7 +154,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         optionsList.clearSelection();
         optionsList.setSelectedValue(donate, true);
         showPanel(donate);
-        ((DonationPanel) donate.panel).getDonateButton().requestFocus();
+        ((DonationPanel) donate.panel).getButtonToFocus().requestFocus();
     }
 
     public void refreshCharacterName() {

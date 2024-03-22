@@ -8,16 +8,17 @@ import java.awt.*;
 
 public class DonationPanel extends AbstractOptionPanel {
 
-    private final JButton donateButton = new JButton("Donate with PayPal");
+    private final JButton paypalButton = new JButton("PayPal");
+    private final JButton patreonButton = new JButton("Patreon");
 
     @SuppressWarnings("SpellCheckingInspection")
     private static final String[] supporters = new String[]{
             "Alex 'LordPole' Pope",
-            "Charles Cole",
-            "Jason Foster",
+            "C. Cole",
+            "J. Foster",
             "JoshMike",
             "Oskar 'Ikkiz' Kallgren",
-            "Sorin Ghita",
+            "S. Ghita",
     };
 
     public DonationPanel() {
@@ -34,16 +35,31 @@ public class DonationPanel extends AbstractOptionPanel {
         addComponent(new JLabel("If you enjoy using this app, please consider supporting me! Supporters will be added here."));
         addComponent(new JLabel("Optionally include a message with a username, or that you'd like to remain anonymous."));
         addVerticalStrutSmall();
-        addComponent(donateButton);
+        addComponent(createButtonPanel());
         addVerticalStrut();
         addHeader("Thank You!");
         addComponent(supporterPanel);
 
-        donateButton.addActionListener(e -> ZUtil.openLink(References.PAYPAL_URL));
+        addListeners();
     }
 
-    public JButton getDonateButton() {
-        return donateButton;
+    private void addListeners() {
+        paypalButton.addActionListener(e -> ZUtil.openLink(References.PAYPAL_URL));
+        patreonButton.addActionListener(e -> ZUtil.openLink(References.PATREON_URL));
+    }
+
+    private JPanel createButtonPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gc = ZUtil.getGC();
+        panel.add(patreonButton);
+        gc.gridx++;
+        gc.insets.left = 10;
+        panel.add(paypalButton);
+        return panel;
+    }
+
+    public JButton getButtonToFocus() {
+        return patreonButton;
     }
 
 }

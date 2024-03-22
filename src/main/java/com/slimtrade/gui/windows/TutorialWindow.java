@@ -123,6 +123,7 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         panel.addLabel("- In game searching (stash, vendors, skill tree, etc)");
         panel.addLabel("- Snap windows to monitor edge (SHIFT while moving window)");
         panel.addLabel("- 20+ color themes");
+        panel.addLabel("- Automated updates");
         panel.addLabel("- Incredibly customizable!").bold();
         return panel;
     }
