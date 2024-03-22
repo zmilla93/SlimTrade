@@ -9,7 +9,6 @@ import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.components.AddRemoveContainer;
-import com.slimtrade.gui.components.PlainLabel;
 import com.slimtrade.gui.messaging.ChatScannerMessagePanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
@@ -107,9 +106,9 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         panel.add(new JLabel("Right Mouse"), gc);
         gc.gridx++;
         gc.gridy--;
-        panel.add(new PlainLabel(lmb), gc);
+        panel.add(new JLabel(lmb), gc);
         gc.gridy++;
-        panel.add(new PlainLabel(rmb), gc);
+        panel.add(new JLabel(rmb), gc);
         return panel;
     }
 
@@ -154,7 +153,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         panel.add(new JLabel("{message}"), gc);
         gc.gridx++;
         gc.insets.left = GUIReferences.INSET;
-        panel.add(new PlainLabel("Resend an outgoing trade message."), gc);
+        panel.add(new JLabel("Resend an outgoing trade message."), gc);
         gc.insets.left = 0;
         gc.gridx = 0;
         gc.gridy++;
