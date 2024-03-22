@@ -1,7 +1,13 @@
+# Update in Progress
+This README file is currently being updated.<br>
+A new version of SlimTrade will be available for the launch of Necropolis League.<br>
+Check back soon!
+
 # SlimTrade
 An overlay for Path of Exile that creates macro popups for trade messages. Also includes a chat scanner, trade history, item ignore feature, color themes, update checker, and more! POE must be run in 'Windowed Fullscreen' or 'Windowed' mode.<br><br>
-[**Donate with PayPal**](https://www.paypal.me/zmilla93)<br>
 [**Download Latest Version**](https://github.com/zmilla93/SlimTrade/releases/latest)<br>
+Consider supporting this project! [**PayPal**](https://www.paypal.me/zmilla93) | 
+[**Patreon**](https://www.patreon.com/ZMilla)<br>
 
 ## Incoming & Outgoing Trades
 Popups are automatically created when trade messages are sent or received.<br>

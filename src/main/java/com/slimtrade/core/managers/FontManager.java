@@ -51,8 +51,8 @@ public class FontManager {
         systemFontSupport = new FontLanguageSupport(systemFont);
         try {
             preferredFont = new Font("Arial", Font.PLAIN, 12);
-            koreanFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansKR/IBMPlexSansKR-Regular.ttf")));
-            thaiFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansThai/IBMPlexSansThai-Regular.ttf")));
+            koreanFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansKR-Regular.ttf")));
+            thaiFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansThai-Regular.ttf")));
         } catch (FontFormatException | IOException ex) {
             ZLogger.log("Failed to initialize fonts!");
             ZLogger.log(ex.getStackTrace());

@@ -156,7 +156,7 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         panel.addLabel("The history window can be used to reopen recent trade.");
         panel.addLabel("Built using the client file, so trades show up even if the app wasn't running.");
         panel.addVerticalStrut();
-        panel.addComponent(new ImageLabel("/images/history3.png", IMAGE_BORDER_SIZE), true);
+        panel.addComponent(new ImageLabel("/images/history.png", IMAGE_BORDER_SIZE), true);
         return panel;
     }
 
