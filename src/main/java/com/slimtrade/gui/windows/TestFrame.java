@@ -5,7 +5,6 @@ import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.components.IconLabel;
 import com.slimtrade.gui.messaging.NotificationPanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
@@ -54,11 +53,11 @@ public class TestFrame extends JFrame {
         if (img != null) currencyIcon.setIcon(new ImageIcon(img));
         contentPanel.add(currencyIcon);
         contentPanel.add(exaltButton);
-        contentPanel.add(new IconLabel(exalt.getPath()));
-        contentPanel.add(new IconLabel(exalt.getPath(), 25));
-        contentPanel.add(new IconLabel(exalt.getPath(), 40));
-        contentPanel.add(new IconLabel(exalt.getPath()));
-        contentPanel.add(new IconLabel(exalt.getPath()));
+//        contentPanel.add(new IconLabel(exalt.getPath()));
+//        contentPanel.add(new IconLabel(exalt.getPath(), 25));
+//        contentPanel.add(new IconLabel(exalt.getPath(), 40));
+//        contentPanel.add(new IconLabel(exalt.getPath()));
+//        contentPanel.add(new IconLabel(exalt.getPath()));
 
         JPanel fontPanel = new JPanel();
         fontPanel.setLayout(new BoxLayout(fontPanel, BoxLayout.PAGE_AXIS));
