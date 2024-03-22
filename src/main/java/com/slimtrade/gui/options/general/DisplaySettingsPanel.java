@@ -1,13 +1,12 @@
 package com.slimtrade.gui.options.general;
 
-import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.SpinnerRange;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.FontListCellRenderer;
 import com.slimtrade.gui.components.RangeSpinner;
+import com.slimtrade.gui.options.DisplayPreviewPanel;
 import com.slimtrade.modules.saving.ISavable;
 import com.slimtrade.modules.theme.ThemeManager;
 
@@ -16,25 +15,22 @@ import java.awt.*;
 
 public class DisplaySettingsPanel extends JPanel implements ISavable {
 
-    private final JLabel fontPreviewLabel = new JLabel("You are captured, stupid beast!");
-    private final IconButton iconPreviewButton = new IconButton(DefaultIcon.TAG);
     private final JSpinner fontSizeSpinner = new RangeSpinner(SpinnerRange.FONT_SIZE);
     private final JSpinner iconSizeSpinner = new RangeSpinner(SpinnerRange.ICON_SIZE);
     private final JComboBox<String> fontCombo = new JComboBox<>();
-    private final JButton defaultsButton = new JButton("Restore Default Scale");
-    private String currentFontName;
+    private final JButton defaultsButton = new JButton("Restore Defaults");
+    private final DisplayPreviewPanel previewPanel;
 
-    public DisplaySettingsPanel() {
+    public DisplaySettingsPanel(DisplayPreviewPanel previewPanel) {
+        this.previewPanel = previewPanel;
         GridBagConstraints gc = ZUtil.getGC();
         JLabel fontSizeLabel = new JLabel("Font Size");
         JLabel iconSizeLabel = new JLabel("Icon Size");
-        iconPreviewButton.setFocusable(false);
 
         // Font Panel
         fontCombo.setRenderer(new FontListCellRenderer());
         for (String fontName : FontManager.getAllFonts())
             fontCombo.addItem(fontName);
-
 
         // Input Panel
         JPanel sizePanel = new JPanel(new GridBagLayout());
@@ -51,12 +47,6 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
         gc.gridx = 0;
         gc.gridy++;
 
-        // Preview Panel
-        JPanel previewPanel = new JPanel(new FlowLayout());
-        previewPanel.add(iconPreviewButton);
-        gc.gridx++;
-        previewPanel.add(fontPreviewLabel);
-
         // Main Panel
         setLayout(new GridBagLayout());
         gc = ZUtil.getGC();
@@ -65,8 +55,6 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
         gc.gridy++;
         add(sizePanel, gc);
         gc.gridy++;
-        add(previewPanel, gc);
-        gc.gridy++;
         add(defaultsButton, gc);
         gc.gridy++;
         addListeners();
@@ -74,17 +62,16 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
 
     private void addListeners() {
         fontCombo.addActionListener(e -> {
-            Font previousPreviewFont = fontPreviewLabel.getFont();
             Font previousComboFont = fontCombo.getFont();
             String fontName = (String) fontCombo.getSelectedItem();
-            Font previewFont = new Font(fontName, previousPreviewFont.getStyle(), previousPreviewFont.getSize());
             Font comboFont = new Font(fontName, previousComboFont.getStyle(), previousComboFont.getSize());
-            fontPreviewLabel.setFont(previewFont);
+            previewPanel.setPreviewFontStyle(comboFont);
             fontCombo.setFont(comboFont);
         });
         fontSizeSpinner.addChangeListener(e -> updateTextPreview());
         iconSizeSpinner.addChangeListener(e -> updateIconPreview());
         defaultsButton.addActionListener(e -> {
+            fontCombo.setSelectedItem(FontManager.DEFAULT_FONT);
             fontSizeSpinner.setValue(SpinnerRange.FONT_SIZE.START);
             iconSizeSpinner.setValue(SpinnerRange.ICON_SIZE.START);
         });
@@ -92,16 +79,12 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
 
     private void updateTextPreview() {
         int size = (int) fontSizeSpinner.getValue();
-        Font font = fontPreviewLabel.getFont();
-        font = new Font(font.getName(), font.getStyle(), size);
-        fontPreviewLabel.setFont(font);
-        revalidate();
-        repaint();
+        previewPanel.setPreviewFontSize(size);
     }
 
     private void updateIconPreview() {
         int size = (int) iconSizeSpinner.getValue();
-        iconPreviewButton.setIconSize(size);
+        previewPanel.setPreviewIconSize(size);
     }
 
     @Override

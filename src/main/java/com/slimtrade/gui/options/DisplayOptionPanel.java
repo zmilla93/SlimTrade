@@ -1,10 +1,8 @@
 package com.slimtrade.gui.options;
 
-import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.LimitCombo;
-import com.slimtrade.gui.components.PlaceholderTextField;
 import com.slimtrade.gui.options.general.DisplaySettingsPanel;
 import com.slimtrade.modules.saving.ISavable;
 import com.slimtrade.modules.theme.Theme;
@@ -20,9 +18,9 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
 
     public DisplayOptionPanel() {
         for (Theme theme : Theme.values()) themeCombo.addItem(theme);
-        addHeader("Font Settings");
-        addComponent(new DisplaySettingsPanel());
-        addVerticalStrut();
+
+        DisplayPreviewPanel previewPanel = new DisplayPreviewPanel();
+        DisplaySettingsPanel displaySettingsPanel = new DisplaySettingsPanel(previewPanel);
 
         JPanel themePanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
@@ -31,13 +29,19 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
         themePanel.add(themeCombo, gc);
         gc.gridx++;
 
+        // Build Panel
+        addHeader("Font Settings");
+        addComponent(displaySettingsPanel);
+        addVerticalStrut();
+
         addHeader("Theme");
         addComponent(themePanel);
         addComponent(colorBlindCheckBox);
-        if (App.debug) {
-            JTextField textField = new PlaceholderTextField("Testing...", 20);
-            addComponent(textField);
-        }
+        addVerticalStrut();
+
+        addHeader("Display Preview");
+        addComponent(previewPanel);
+
         addListeners();
     }
 

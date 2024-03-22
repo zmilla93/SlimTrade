@@ -21,6 +21,7 @@ import java.util.Objects;
 public class FontManager {
 
     public static final boolean USE_SYSTEM_DEFAULT = false;
+    public static String DEFAULT_FONT = "Arial";
 
     public static final String ENGLISH_EXAMPLE_TEXT = "English - Language Test";
     public static final String CHINESE_EXAMPLE_TEXT = "Chinese - 语言测试";
@@ -50,7 +51,7 @@ public class FontManager {
         systemFont = UIManager.getFont("Label.font");
         systemFontSupport = new FontLanguageSupport(systemFont);
         try {
-            preferredFont = new Font("Arial", Font.PLAIN, 12);
+            preferredFont = new Font(DEFAULT_FONT, Font.PLAIN, 12);
             koreanFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansKR-Regular.ttf")));
             thaiFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontManager.class.getResourceAsStream("/font/IBMPlexSansThai-Regular.ttf")));
         } catch (FontFormatException | IOException ex) {
