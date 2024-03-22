@@ -18,7 +18,7 @@ public class BasicsPanel extends JPanel implements ISavable {
     private final JCheckBox showGuildName = new JCheckBox();
     private final JCheckBox folderOffsetCheckbox = new JCheckBox("Using Stash Folders");
     private final HotkeyButton quickPasteHotkey = new HotkeyButton();
-    private final JButton editOverlayButton = new JButton("Edit Overlay Location");
+    private final JButton editOverlayButton = new JButton("Edit Message & Menubar Overlays");
     private final JButton editStashLocationButton = new JButton("Edit Stash Location");
     private final GridBagConstraints gc = ZUtil.getGC();
 

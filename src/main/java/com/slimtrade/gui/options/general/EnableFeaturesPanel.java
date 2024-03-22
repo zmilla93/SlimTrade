@@ -68,6 +68,5 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
         menubarButton.setSelected(SaveManager.settingsSaveFile.data.enableMenuBar);
         autoUpdateCheckbox.setSelected(SaveManager.settingsSaveFile.data.enableAutomaticUpdate);
         hideWhenPOENotFocusedCheckbox.setSelected(SaveManager.settingsSaveFile.data.hideWhenPOENotFocused);
-        hideWhenPOENotFocusedCheckbox.setSelected(SaveManager.settingsSaveFile.data.hideWhenPOENotFocused);
     }
 }

@@ -1,5 +1,6 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.windows.VisibilityDialog;
 
@@ -23,7 +24,7 @@ public class VisibilityManager {
     }
 
     public static void hideOverlay() {
-        if (!show || !SaveManager.settingsSaveFile.data.hideWhenPOENotFocused) return;
+        if (!show || !SaveManager.settingsSaveFile.data.hideWhenPOENotFocused || App.debugUIAlwaysOnTop) return;
         SwingUtilities.invokeLater(() -> {
             for (VisibilityDialog frame : frameList) {
                 frame.hideOverlay();

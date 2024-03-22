@@ -63,6 +63,7 @@ public class App {
 
     // Debug Flags
     public static boolean debug = false;
+    public static boolean debugUIAlwaysOnTop = true;
     public static boolean chatInConsole = false;
     public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
     public static final boolean debugProfileLaunch = false;
@@ -273,6 +274,7 @@ public class App {
             if (arg.equals("-nu") || arg.equals("-noupdate")) noUpdate = true;
             if (arg.equals("-d") || arg.equals("-debug")) debug = true;
             if (arg.equals("-o") || arg.equals("-options")) showOptionsOnLaunch = true;
+            if (arg.equals("-ui")) debugUIAlwaysOnTop = true;
         }
     }
 

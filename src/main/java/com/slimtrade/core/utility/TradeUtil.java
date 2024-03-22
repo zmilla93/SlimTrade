@@ -3,6 +3,7 @@ package com.slimtrade.core.utility;
 import com.slimtrade.App;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.enums.Anchor;
+import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.managers.FrameManager;
@@ -55,10 +56,16 @@ public class TradeUtil {
     }
 
     public static void applyAnchorPoint(Window window, Point point, Anchor anchor) {
-        Point p = new Point(point.x, point.y);
-        if (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT) p.x -= window.getWidth();
-        if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT) p.y -= window.getHeight();
-        window.setLocation(p);
+        Point adjustedPoint = new Point(point.x, point.y);
+        if (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT) adjustedPoint.x -= window.getWidth();
+        if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT) adjustedPoint.y -= window.getHeight();
+        window.setLocation(adjustedPoint);
+    }
+
+    public static void applyAnchorPoint(Window window, Point point, ExpandDirection expandDirection) {
+        Point adjustedPoint = new Point(point.x, point.y);
+        if (expandDirection == ExpandDirection.UPWARDS) adjustedPoint.y -= window.getHeight();
+        window.setLocation(adjustedPoint);
     }
 
     public static Rectangle getBufferedBounds(Rectangle bounds) {

@@ -123,7 +123,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         gc.gridx = 0;
         gc.gridy = 0;
         String appName = App.appInfo.fullName;
-        if(App.debug) appName += "-DEV";
+        if (App.debug) appName += "-DEV";
         bottomButtonPanel.add(new StyledLabel(appName).bold(), gc);
         gc.gridy++;
         gc.weightx = 1;

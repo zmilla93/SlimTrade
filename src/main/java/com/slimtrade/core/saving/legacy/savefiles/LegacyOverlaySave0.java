@@ -4,6 +4,8 @@ import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.saving.savefiles.AbstractSaveFile;
 
+import java.awt.*;
+
 public class LegacyOverlaySave0 extends AbstractSaveFile {
 
     // Message Manager Info
@@ -17,6 +19,8 @@ public class LegacyOverlaySave0 extends AbstractSaveFile {
     public int menubarX = 0, menubarY = 0;
     public int menubarWidth, menubarHeight;
     public LegacyMenubarButtonLocation menubarButtonLocation = LegacyMenubarButtonLocation.NW;
+    public static Dimension DEFAULT_MESSAGE_SIZE = new Dimension(400, 40);
+    public static int TOTAL_BORDER_SIZE = 8;
 
     @Override
     public int getTargetFileVersion() {

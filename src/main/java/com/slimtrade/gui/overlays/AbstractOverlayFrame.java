@@ -1,6 +1,7 @@
 package com.slimtrade.gui.overlays;
 
 import com.slimtrade.core.enums.Anchor;
+import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.gui.messaging.NotificationPanel;
 import com.slimtrade.gui.messaging.OverlayExamplePanel;
 import com.slimtrade.gui.windows.AbstractMovableDialog;
@@ -39,6 +40,12 @@ public class AbstractOverlayFrame extends AbstractMovableDialog implements IFont
         Point point = getLocation();
         if (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT) point.x += getWidth();
         if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT) point.y += getHeight();
+        return point;
+    }
+
+    public Point getAnchorPoint(ExpandDirection expandDirection) {
+        Point point = getLocation();
+        if (expandDirection == ExpandDirection.UPWARDS) point.y += getHeight();
         return point;
     }
 

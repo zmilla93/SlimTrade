@@ -29,9 +29,13 @@ public class PatcherOverlay0to1 implements ISavePatcher {
         OverlaySaveFile data = SaveManager.overlaySaveFile.data;
 
         // Messages
-        // FIXME: Can't import message location until new message location is reworked
-//        data.messageLocation = new Point(legacyData.messageX, legacyData.messageY);
-//        data.messageExpandDirection = legacyData.messageExpandDirection.expandDirection;
+        data.messageExpandDirection = legacyData.messageExpandDirection.expandDirection;
+        if (legacyData.messageExpandDirection == LegacyOverlaySave0.LegacyExpandDirection.DOWN) {
+            data.messageLocation = new Point(legacyData.messageX, legacyData.messageY);
+        } else if (legacyData.messageExpandDirection == LegacyOverlaySave0.LegacyExpandDirection.UP) {
+            int messageHeightIncrease = LegacyOverlaySave0.DEFAULT_MESSAGE_SIZE.height + LegacyOverlaySave0.TOTAL_BORDER_SIZE + legacyData.messageSizeIncrease;
+            data.messageLocation = new Point(legacyData.messageX, legacyData.messageY + messageHeightIncrease);
+        }
 
         // Menubar
         Point menubarLocation = new Point(legacyData.menubarX, legacyData.menubarY);

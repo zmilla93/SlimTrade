@@ -30,6 +30,7 @@ public class ReleaseTest {
     public void checkDebugFlags() {
         assertFalse(App.noUpdate);
         assertFalse(App.debug);
+        assertFalse(App.debugUIAlwaysOnTop);
         assertFalse(App.chatInConsole);
         assertFalse(App.debugProfileLaunch);
         assertFalse(App.showOptionsOnLaunch);

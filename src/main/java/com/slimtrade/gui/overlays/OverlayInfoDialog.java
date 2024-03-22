@@ -150,14 +150,14 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
     // FIXME: Should have MessageManager, MenubarDialog, etc implement save listeners so they control themselves.
     @Override
     public void save() {
-        SaveManager.overlaySaveFile.data.messageLocation = FrameManager.messageOverlay.getLocation();
-        SaveManager.overlaySaveFile.data.messageExpandDirection = (ExpandDirection) expandCombo.getSelectedItem();
+        ExpandDirection expandDirection = (ExpandDirection) expandCombo.getSelectedItem();
+        SaveManager.overlaySaveFile.data.messageLocation = FrameManager.messageOverlay.getAnchorPoint(expandDirection);
+        SaveManager.overlaySaveFile.data.messageExpandDirection = expandDirection;
         SaveManager.overlaySaveFile.data.menubarAnchor = (Anchor) menubarAnchorCombo.getSelectedItem();
         SaveManager.overlaySaveFile.data.menubarLocation = FrameManager.menubarOverlay.getAnchorPoint(SaveManager.overlaySaveFile.data.menubarAnchor);
         SaveManager.overlaySaveFile.data.messageWidth = messageWidthSlider.getValue();
 
         // Update Other UI
-        FrameManager.messageManager.setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         FrameManager.messageManager.refresh();
         TradeUtil.applyAnchorPoint(FrameManager.menubarDialog, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
         TradeUtil.applyAnchorPoint(FrameManager.menubarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
@@ -167,7 +167,7 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
 
     @Override
     public void load() {
-        FrameManager.messageOverlay.setLocation(SaveManager.overlaySaveFile.data.messageLocation);
+        TradeUtil.applyAnchorPoint(FrameManager.messageOverlay, SaveManager.overlaySaveFile.data.messageLocation, SaveManager.overlaySaveFile.data.messageExpandDirection);
         TradeUtil.applyAnchorPoint(FrameManager.menubarOverlay, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
         expandCombo.setSelectedItem(SaveManager.overlaySaveFile.data.messageExpandDirection);
         menubarAnchorCombo.setSelectedItem(SaveManager.overlaySaveFile.data.menubarAnchor);

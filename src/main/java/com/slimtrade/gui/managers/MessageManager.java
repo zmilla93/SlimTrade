@@ -36,14 +36,11 @@ import java.util.concurrent.Executors;
  */
 public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IFontChangeListener {
 
-    //    private final Container contentPanel;
     private final JPanel messageContainer;
     private final GridBagConstraints gc;
     private static final int MESSAGE_GAP = 1;
-    private Point anchorPoint = new Point(800, 0);
 
     // Expanding
-    private boolean expandUp = false;
     private boolean expanded;
     private final ExpandPanel expandPanel;
 
@@ -56,6 +53,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     private boolean fading;
     private static final float OPACITY_STEP = 0.02f;
 
+    // Thread for handling opacity
     private static final Executor executor = Executors.newSingleThreadExecutor();
 
     public MessageManager() {
@@ -71,7 +69,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        gc.insets = expandUp ? new Insets(MESSAGE_GAP, 0, 0, 0) : new Insets(0, 0, MESSAGE_GAP, 0);
+        gc.insets = isExpandUp() ? new Insets(MESSAGE_GAP, 0, 0, 0) : new Insets(0, 0, MESSAGE_GAP, 0);
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -93,6 +91,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 final float finalOpacity = TradeUtil.floatWithinRange(newOpacity, 0, 1);
                 SwingUtilities.invokeLater(() -> setOpacity(finalOpacity));
                 try {
+                    //noinspection BusyWait
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -100,7 +99,6 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             }
         };
 
-        setAnchorPoint(SaveManager.overlaySaveFile.data.messageLocation);
         refreshFadeData();
         refresh();
         addListeners();
@@ -205,7 +203,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     private void addComponent(Component component) {
-        gc.gridy = expandUp ? 1000 - messageContainer.getComponentCount() : messageContainer.getComponentCount();
+        gc.gridy = isExpandUp() ? 1000 - messageContainer.getComponentCount() : messageContainer.getComponentCount();
         messageContainer.add(component, gc);
     }
 
@@ -213,40 +211,26 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         assert (SwingUtilities.isEventDispatchThread());
         setIgnoreRepaint(true);
         panel.cleanup();
+        panel.cleanup();
         messageContainer.remove(panel);
         refresh();
     }
 
-    private void moveToAnchor() {
-        assert (SwingUtilities.isEventDispatchThread());
-        Point p = new Point(anchorPoint);
-        if (expandUp && messageContainer.getComponentCount() > 0) {
-            p.y -= getHeight() - messageContainer.getComponent(0).getHeight();
-        }
-        setLocation(p);
-    }
-
-    public void setAnchorPoint(Point point) {
-        anchorPoint = point;
-        moveToAnchor();
-    }
-
     private void refreshOrder() {
-        expandUp = SaveManager.overlaySaveFile.data.messageExpandDirection == ExpandDirection.UPWARDS;
         Component[] components = messageContainer.getComponents();
         messageContainer.removeAll();
         for (Component comp : components) {
             addComponent(comp);
         }
         contentPanel.remove(expandPanel);
-        if (expandUp) contentPanel.add(expandPanel, BorderLayout.NORTH);
+        if (isExpandUp()) contentPanel.add(expandPanel, BorderLayout.NORTH);
         else contentPanel.add(expandPanel, BorderLayout.SOUTH);
     }
 
     /**
      * Closes all outgoing trades except for the panel being passed in.
      *
-     * @param panel
+     * @param panel Panel to keep open
      */
     public void quickCloseOutgoing(NotificationPanel panel) {
         setIgnoreRepaint(true);
@@ -264,7 +248,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     /**
      * Closes all trade offers with the same name and price as the trade offer passed in.
      *
-     * @param targetOffer
+     * @param targetOffer Target trade offer
      */
     public void quickCloseIncoming(TradeOffer targetOffer) {
         setIgnoreRepaint(true);
@@ -375,7 +359,6 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
 
     /**
      * Makes sure the MessageManager is in the correct location, in the right order, and all messages have correct visibility.
-     * It then revalidates and repaints the frame.
      */
     public void refresh() {
         assert (SwingUtilities.isEventDispatchThread());
@@ -387,7 +370,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         refreshOrder();
         revalidate();
         pack();
-        moveToAnchor();
+        TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.messageLocation, SaveManager.overlaySaveFile.data.messageExpandDirection);
         repaint();
     }
 
@@ -413,6 +396,10 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 ((NotificationPanel) c).checkHotkeys(hotkeyData);
             }
         }
+    }
+
+    private boolean isExpandUp() {
+        return SaveManager.overlaySaveFile.data.messageExpandDirection == ExpandDirection.UPWARDS;
     }
 
     @Override
