@@ -104,7 +104,7 @@ public class NotificationPanel extends ColorPanel {
         bottomContainer.add(bottomPanel, BorderLayout.CENTER);
         bottomContainer.add(bottomButtonPanel, BorderLayout.EAST);
 
-        // TEMP
+        // FIXME: Temp
         topPanel.setBackground(Color.YELLOW);
         bottomPanel.setBackground(Color.RED);
         bottomContainer.setBackground(Color.RED);

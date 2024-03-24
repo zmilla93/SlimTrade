@@ -1,17 +1,11 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
-import com.slimtrade.core.data.PlayerMessage;
-import com.slimtrade.core.trading.TradeOffer;
-import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.components.ImageLabel;
 import com.slimtrade.gui.components.TutorialPanel;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.messaging.ChatScannerMessagePanel;
-import com.slimtrade.gui.messaging.TradeMessagePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -117,11 +111,11 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         panel.addHeader("Feature Overview");
         panel.addLabel("- Streamlined trade UI");
         panel.addLabel("- Trade history");
-        panel.addLabel("- Chat scanning");
-        panel.addLabel("- Macros");
-        panel.addLabel("- Custom cheat sheets");
+        panel.addLabel("- Chat scanner");
+        panel.addLabel("- Custom cheat sheet overlays");
         panel.addLabel("- In game searching (stash, vendors, skill tree, etc)");
-        panel.addLabel("- Snap windows to monitor edge (SHIFT while moving window)");
+        panel.addLabel("- Bulk trading support (Bulk Item Exchange > Filters > Group by Seller)");
+        panel.addLabel("- Snap windows to monitor edge (SHIFT while moving a window)");
         panel.addLabel("- 20+ color themes");
         panel.addLabel("- Automated updates");
         panel.addLabel("- Incredibly customizable!").bold();
@@ -132,10 +126,9 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         TutorialPanel panel = new TutorialPanel();
         panel.addHeader("Trade Messages");
         panel.addLabel("Popups are created when a trade message is sent or received.");
-        panel.addLabel("Response buttons are fully customizable, color blind setting for alternative colors.");
+        panel.addLabel("Response buttons are fully customizable. Color blind setting for alternate colors.");
         panel.addVerticalStrut();
-        panel.addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE), false), true);
-        panel.addComponent(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE), false), true);
+        panel.addComponent(new ImageLabel("/images/trade-messages.png", IMAGE_BORDER_SIZE, true), true);
         return panel;
     }
 
@@ -143,8 +136,7 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         TutorialPanel panel = new TutorialPanel();
         panel.addHeader("Stash Helper");
         panel.addLabel("Incoming trades create an info window above your stash.");
-        panel.addLabel("Hover to outline an item, left click to search the name, or right click to close.");
-//        panel.addLabel("Stash tab names can be assigned a color or marked as quad in the options.");
+        panel.addLabel("Hover to outline an item, left click to search the name, right click to close.");
         panel.addVerticalStrut();
         panel.addComponent(new ImageLabel("/images/stash-helper.png", IMAGE_BORDER_SIZE), true);
         return panel;
@@ -166,9 +158,7 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         panel.addLabel("The chat scanner can be used to search for custom phrases in chat.");
         panel.addLabel("Create many presets with custom responses for each entry.");
         panel.addVerticalStrut();
-        panel.addComponent(new ChatScannerMessagePanel(new ChatScannerEntry("alch orbs"), new PlayerMessage("CoolTrader123", "wtb alch for chaos"), false), true);
-        panel.addComponent(new ChatScannerMessagePanel(new ChatScannerEntry("kaoms"), new PlayerMessage("KaomsLittleBrother56", "wts shiny new kaom's heart"), false), true);
-
+        panel.addComponent(new ImageLabel("/images/scanner-messages.png", IMAGE_BORDER_SIZE, true), true);
         return panel;
     }
 
