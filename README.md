@@ -1,48 +1,35 @@
-# Update in Progress
-This README file is currently being updated.<br>
-A new version of SlimTrade will be available for the launch of Necropolis League.<br>
-Check back soon!
-
 # SlimTrade
-An overlay for Path of Exile that creates macro popups for trade messages. Also includes a chat scanner, trade history, item ignore feature, color themes, update checker, and more! POE must be run in 'Windowed Fullscreen' or 'Windowed' mode.<br><br>
+A trade UI overlay for Path of Exile. Also includes a chat scanner, trade history, item ignoring, 20+ color themes, custom audio, cheat sheet overlays, update checker, and more! <b>POE must be run in 'Windowed Fullscreen' or 'Windowed' mode.</b><br><br>
 [**Download Latest Version**](https://github.com/zmilla93/SlimTrade/releases/latest)<br>
 Consider supporting this project! [**PayPal**](https://www.paypal.me/zmilla93) | 
 [**Patreon**](https://www.patreon.com/ZMilla)<br>
 
 ## Incoming & Outgoing Trades
 Popups are automatically created when trade messages are sent or received.<br>
-Incoming trades are green, outgoing trades are red.<br>
-![](/src/main/resources/images/incoming-trade.png)<br>
-![](/src/main/resources/images/outgoing-trade.png)<br>
+![trade-messages](https://github.com/zmilla93/SlimTrade/assets/10750321/559cb020-76dd-4c80-b6de-6e95f34ccab7)
 
-There are multiple color themes, as well as a colorblind option to swap green and red for blue and pink respectively.<br>
-![](/src/main/resources/images/incoming-trade-dark-cb.png)<br>
-![](/src/main/resources/images/outgoing-trade-dark-cb.png)<br>
-
-Incoming trades highlight the buyer's name when joining your hideout, and create an info window with item and stash names.<br>
-This info popup can be hovered to highlight the item, or clicked to search the name in the stash.<br>
-Stash color coding can be added in the options.<br>
-![](/src/main/resources/images/stash.png)<br>
-
-## Ignore Items
-Ignore specific item names or generic terms.<br>
-![](/src/main/resources/images/ignore.png)<br>
+Incoming trades create an info window above your stash with item and stash names.<br>
+This popup can be hovered to highlight the item, left clicked to search the name in the stash, or right clicked to close.<br>
+![stash-helper](https://github.com/zmilla93/SlimTrade/assets/10750321/0a4710ea-f24a-48e5-815b-d51ecf6e313d)
 
 ## Customization
-Additional color theme examples shown here.<br>
-There are inbuilt macros for preset commands, and custom macros for everything else!<br>
-![](/src/main/resources/images/macro-customizer.png)<br>
-Theme: Stormy<br>
+The interface is incredibly customizable.<br>
+Color themes, font picker, text & icon scaling, custom audio files, custom response buttons, and much more!<br>
+![options-incoming-trade](https://github.com/zmilla93/SlimTrade/assets/10750321/0ecbc10c-732e-4b53-be4b-bf2b07acb540)<br>
+<i>Theme: Solarized Light</i>
 
 ## History
-Easily restore any recent trade message with the history panel.<br>
-![](/src/main/resources/images/history_old.png)<br>
-Theme: Monokai<br>
+Easily restore any recent trade message with the history panel.<Br>
+Built from the client file, so trades appear even if the app wasn't running!<br>
+![history-full](https://github.com/zmilla93/SlimTrade/assets/10750321/500aa88b-d56f-4e33-8077-3850cc0faab4)<br>
+<i>Theme: Dracula</i>
 
 ## Chat Scanner
-The chat scanner allows you to search for custom phrases. These popups appear orange.<br>
-![](/src/main/resources/images/scanner-message.png)<br>
+The chat scanner allows you to search for custom phrases in chat. Add search terms, ignore terms, and custom responses.<br>
+Create multiple categories, and scan for one or more at the same time!<br>
+![scanner-full](https://github.com/zmilla93/SlimTrade/assets/10750321/ff230af5-a3b2-4352-b029-25b69ac86e58)<br>
+<i>Theme: One Dark</i>
 
-You can create multiple search presets, ignore terms, and add custom responses.<br>
-![](/src/main/resources/images/scanner-full.png)<br>
-Theme : Solarized Dark<br>
+## Searching
+Create buttons to paste search terms into any window with a search box (stash, vendors, passives, etc).
+![search](https://github.com/zmilla93/SlimTrade/assets/10750321/20715518-69af-4227-9be1-09c0105f0045)
