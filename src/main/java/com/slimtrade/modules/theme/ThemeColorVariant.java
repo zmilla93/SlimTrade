@@ -20,10 +20,8 @@ public enum ThemeColorVariant {
     public static final Color LIGHT_GREEN = new Color(105, 201, 97);
     public static final Color LIGHT_RED = new Color(229, 88, 88);
     public static final Color LIGHT_ORANGE = new Color(220, 146, 72);
-//    public static final Color LIGHT_ORANGE = new Color(196, 187, 172);
     public static final Color LIGHT_BLUE_CB = new Color(95, 105, 213);
     public static final Color LIGHT_MAGENTA_CB = new Color(204, 103, 157);
-//    public static final Color LIGHT_ORANGE_CB = new Color(196, 187, 172);
     public static final Color LIGHT_ORANGE_CB = new Color(220, 146, 72);
 
     public static Color getColorVariant(ThemeColorVariant variant) {

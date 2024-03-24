@@ -250,6 +250,7 @@ public class NotificationPanel extends ColorPanel {
     }
 
     public void applyMessageColor() {
+        if (borderPanel == null) return;
         borderPanel.setBackground(messageColor);
         pricePanel.setBackground(messageColor);
         topPanel.setBackground(messageColor);

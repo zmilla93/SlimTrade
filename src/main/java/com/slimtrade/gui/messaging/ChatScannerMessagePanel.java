@@ -36,4 +36,11 @@ public class ChatScannerMessagePanel extends NotificationPanel {
         applyMessageColor();
     }
 
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        messageColor = ThemeColorVariant.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
+        applyMessageColor();
+    }
+
 }
