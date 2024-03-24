@@ -18,7 +18,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
 
     // Macro Button
     private final JComboBox<ImageIcon> iconCombo = new LimitCombo<>();
-    private final JTextField buttonText = new JTextField();
+    private final JTextField buttonText = new PlaceholderTextField("Text...");
 
     private final int TEXT_FIELD_COLUMNS = 20;
     private final JTextField lmbInput = new JTextField(TEXT_FIELD_COLUMNS);
@@ -43,7 +43,6 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         JLabel lmbLabel = new JLabel("LMB");
         JLabel rmbLabel = new JLabel("RMB");
         ThemeManager.addStickyCombo(iconCombo);
-        buttonText.setText("~");
         displayPanel.add(iconCombo, MacroButtonType.ICON.toString());
         displayPanel.add(buttonText, MacroButtonType.TEXT.toString());
 
