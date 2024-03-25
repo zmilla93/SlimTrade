@@ -63,7 +63,7 @@ public class App {
 
     // Debug Flags
     public static boolean debug = false;
-    public static boolean debugUIAlwaysOnTop = true;
+    public static boolean debugUIAlwaysOnTop = false;
     public static boolean chatInConsole = false;
     public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
     public static final boolean debugProfileLaunch = false;

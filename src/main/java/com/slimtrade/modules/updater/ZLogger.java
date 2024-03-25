@@ -70,11 +70,7 @@ public class ZLogger {
     private static void log(String message, boolean error) {
         if (error) System.err.println(message);
         else System.out.println(message);
-        if (!isOpen) {
-            System.err.println("Attempted to use ZLogger with no log file open!");
-            return;
-        }
-        if (writer == null) return;
+        if (writer == null || !isOpen) return;
         try {
             String prefix = timestampFormatter.format(System.currentTimeMillis());
             prefix = prefix + " | ";
