@@ -37,7 +37,6 @@ public class ChatParser implements FileTailerListener {
     private boolean changeCharacter;
     private String changeCharacterString;
     private int changeCharacterChecks;
-    private boolean loaded; // Set to true after file has been read to EOF once
     private boolean open;
     private String path;
     private boolean end;
@@ -56,7 +55,6 @@ public class ChatParser implements FileTailerListener {
 
     public void close() {
         tailer.stop();
-        loaded = false;
         path = null;
         open = false;
     }
@@ -74,7 +72,7 @@ public class ChatParser implements FileTailerListener {
                 return;
             }
         }
-        if (loaded) {
+        if (tailer.isLoaded()) {
             // Chat Scanner
             handleChatScanner(line);
             handleChangeCharacter(line);
@@ -290,7 +288,6 @@ public class ChatParser implements FileTailerListener {
     @Override
     public void onLoad() {
         for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded();
-        loaded = true;
     }
 
     @Override
