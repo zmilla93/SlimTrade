@@ -1,11 +1,13 @@
 # SlimTrade
 A trade UI overlay for Path of Exile. Also includes a chat scanner, trade history, item ignoring, 20+ color themes, custom audio, cheat sheet overlays, update checker, and more! <b>POE must be run in 'Windowed Fullscreen' or 'Windowed' mode.</b><br><br>
 [**Download Latest Version**](https://github.com/zmilla93/SlimTrade/releases/latest)<br>
-Consider supporting this project! [**PayPal**](https://www.paypal.me/zmilla93) | 
-[**Patreon**](https://www.patreon.com/ZMilla)<br>
+**Support this project!** [**PayPal**](https://www.paypal.me/zmilla93) | 
+[**Patreon**](https://www.patreon.com/ZMilla)<br><br>
+*Having trouble? Try the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting), join the [Discord](https://discord.com/invite/yKdExMe), or [open an issue](https://github.com/zmilla93/SlimTrade/issues).*<br>
 
 ## Incoming & Outgoing Trades
 Popups are automatically created when trade messages are sent or received.<br>
+There is a color blind setting for alternate colors.<br>
 ![trade-messages](https://github.com/zmilla93/SlimTrade/assets/10750321/559cb020-76dd-4c80-b6de-6e95f34ccab7)
 
 Incoming trades create an info window above your stash with item and stash names.<br>
