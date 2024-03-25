@@ -28,7 +28,7 @@ public class ChatParser implements FileTailerListener {
     // Listeners
     private final ArrayList<IParserInitListener> onInitListeners = new ArrayList<>();
     private final ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
-    private final ArrayList<ITradeListener> preloadTradeListeners = new ArrayList<>();
+    private final ArrayList<IPreloadTradeListener> preloadTradeListeners = new ArrayList<>();
     private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
     private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
 
@@ -55,10 +55,10 @@ public class ChatParser implements FileTailerListener {
     }
 
     public void close() {
+        tailer.stop();
         loaded = false;
         path = null;
         open = false;
-        tailer.stop();
     }
 
     public String getPath() {
@@ -67,16 +67,14 @@ public class ChatParser implements FileTailerListener {
 
     public void parseLine(String line) {
         if (!open) return;
-        boolean foundTrade = false;
         if (line.contains("@")) {
             TradeOffer tradeOffer = TradeOffer.getTradeFromMessage(line);
             if (tradeOffer != null) {
                 handleTradeOffer(tradeOffer);
-                foundTrade = true;
-                // FIXME : Should probably just early return here
+                return;
             }
         }
-        if (!foundTrade && loaded) {
+        if (loaded) {
             // Chat Scanner
             handleChatScanner(line);
             handleChangeCharacter(line);
@@ -89,20 +87,17 @@ public class ChatParser implements FileTailerListener {
                     for (IJoinedAreaListener listener : joinedAreaListeners) {
                         listener.onJoinedArea(playerName);
                     }
-                    break;
+                    return;
                 }
-
             }
         }
         // Zone Tracking
-        if (!foundTrade) {
-            for (LangRegex lang : LangRegex.values()) {
-                Matcher matcher = lang.enteredAreaPattern.matcher(line);
-                if (lang.enteredArea == null) continue;
-                if (matcher.matches()) {
-                    currentZone = matcher.group("zone");
-                    break;
-                }
+        for (LangRegex lang : LangRegex.values()) {
+            Matcher matcher = lang.enteredAreaPattern.matcher(line);
+            if (lang.enteredArea == null) continue;
+            if (matcher.matches()) {
+                currentZone = matcher.group("zone");
+                return;
             }
         }
     }
@@ -174,8 +169,14 @@ public class ChatParser implements FileTailerListener {
             }
         }
         // Handle trade
-        for (ITradeListener listener : tradeListeners) {
-            listener.handleTrade(offer);
+        if (tailer.isLoaded()) {
+            for (ITradeListener listener : tradeListeners) {
+                listener.handleTrade(offer);
+            }
+        } else {
+            for (IPreloadTradeListener listener : preloadTradeListeners) {
+                listener.handlePreloadTrade(offer);
+            }
         }
     }
 
@@ -236,6 +237,10 @@ public class ChatParser implements FileTailerListener {
         return Double.parseDouble(text);
     }
 
+    public String getCurrentZone() {
+        return currentZone;
+    }
+
     // Listeners
     public void addOnInitCallback(IParserInitListener listener) {
         onInitListeners.add(listener);
@@ -245,7 +250,7 @@ public class ChatParser implements FileTailerListener {
         onLoadListeners.add(listener);
     }
 
-    public void addPreloadTradeListener(ITradeListener listener) {
+    public void addPreloadTradeListener(IPreloadTradeListener listener) {
         preloadTradeListeners.add(listener);
     }
 
@@ -257,8 +262,12 @@ public class ChatParser implements FileTailerListener {
         joinedAreaListeners.add(listener);
     }
 
-    public String getCurrentZone() {
-        return currentZone;
+    public void removeAllListeners() {
+        onInitListeners.clear();
+        onLoadListeners.clear();
+        preloadTradeListeners.clear();
+        tradeListeners.clear();
+        joinedAreaListeners.clear();
     }
 
     // File Tailing

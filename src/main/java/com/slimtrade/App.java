@@ -232,24 +232,21 @@ public class App {
     }
 
     public static void initParsers() {
-        // FIXME : make this less robust now that parser is fixed?
-        if (preloadParser != null) preloadParser.close();
-        if (chatParser != null) chatParser.close();
+        if (chatParser != null) {
+            chatParser.close();
+            chatParser.removeAllListeners();
+        }
         chatParser = new ChatParser();
-        preloadParser = new ChatParser();
-
-        preloadParser.addOnInitCallback(FrameManager.historyWindow);
-        preloadParser.addOnLoadedCallback(FrameManager.historyWindow);
-        preloadParser.addTradeListener(FrameManager.historyWindow);
+        // History
+        chatParser.addOnInitCallback(FrameManager.historyWindow);
+        chatParser.addOnLoadedCallback(FrameManager.historyWindow);
+        chatParser.addPreloadTradeListener(FrameManager.historyWindow);
         chatParser.addTradeListener(FrameManager.historyWindow);
+        // Message Manager
         chatParser.addTradeListener(FrameManager.messageManager);
         chatParser.addJoinedAreaListener(FrameManager.messageManager);
-        preloadParser.addOnLoadedCallback(() -> {
-            preloadParser.close();
-            preloadParser = null;
-            chatParser.open(SaveManager.settingsSaveFile.data.clientPath, true);
-        });
-        preloadParser.open(SaveManager.settingsSaveFile.data.clientPath, false);
+        // Open
+        chatParser.open(SaveManager.settingsSaveFile.data.clientPath, false);
     }
 
     public static AppInfo readAppInfo() {

@@ -35,6 +35,10 @@ public class FileTailer implements Runnable {
         running = false;
     }
 
+    public boolean isLoaded() {
+        return loaded;
+    }
+
     /**
      * Creates a tailer and runs it on a background thread.
      *

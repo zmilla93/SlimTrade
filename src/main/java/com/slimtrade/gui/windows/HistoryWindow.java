@@ -2,6 +2,7 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.core.chatparser.IParserInitListener;
 import com.slimtrade.core.chatparser.IParserLoadedListener;
+import com.slimtrade.core.chatparser.IPreloadTradeListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.history.HistoryPanel;
@@ -10,11 +11,10 @@ import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import javax.swing.*;
 import java.awt.*;
 
-public class HistoryWindow extends CustomDialog implements ITradeListener, IParserInitListener, IParserLoadedListener, IDefaultSizeAndLocation {
+public class HistoryWindow extends CustomDialog implements ITradeListener, IPreloadTradeListener, IParserInitListener, IParserLoadedListener, IDefaultSizeAndLocation {
 
     private final HistoryPanel incomingTrades = new HistoryPanel();
     private final HistoryPanel outgoingTrades = new HistoryPanel();
-    private boolean loaded;
 
     public HistoryWindow() {
         super("History");
@@ -50,21 +50,22 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
     }
 
     @Override
+    public void handlePreloadTrade(TradeOffer tradeOffer) {
+        SwingUtilities.invokeLater(() -> addTradeToPanel(tradeOffer, false));
+    }
+
+    @Override
     public void handleTrade(TradeOffer tradeOffer) {
-        if (tradeOffer == null) return;
-        SwingUtilities.invokeLater(() -> addTradeToPanel(tradeOffer, loaded));
+        SwingUtilities.invokeLater(() -> addTradeToPanel(tradeOffer, true));
     }
 
     @Override
     public void onParserInit() {
-        // FIXME : setting loaded to false causes a warning when changing client.txt path
-//        loaded = false;
-        clearHistory();
+        SwingUtilities.invokeLater(this::clearHistory);
     }
 
     @Override
     public void onParserLoaded() {
-        loaded = true;
         SwingUtilities.invokeLater(() -> {
             incomingTrades.reloadUI();
             outgoingTrades.reloadUI();
