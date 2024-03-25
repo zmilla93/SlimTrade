@@ -11,7 +11,9 @@ import com.slimtrade.modules.theme.components.ColorCheckbox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.IconUIResource;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
@@ -94,12 +96,7 @@ public class ThemeManager {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        // Solarized Light Fix - Makes checkboxes color match other inputs instead of being white
-        if (currentTheme.name().equals("SOLARIZED_LIGHT")) {
-            UIManager.put("CheckBox.icon", new ColorCheckbox());
-        } else {
-            UIManager.put("CheckBox.icon", new FlatCheckBoxIcon());
-        }
+        patchTheme();
         for (Component frame : frames) {
             JRootPane rootPane = null;
             if (frame instanceof RootPaneContainer) rootPane = ((RootPaneContainer) frame).getRootPane();
@@ -112,7 +109,6 @@ public class ThemeManager {
         for (int i = 0; i < stickyCombos.size(); i++) {
             stickyCombos.get(i).setSelectedIndex(comboIcons[i]);
         }
-
         for (IThemeListener listener : themeListeners) {
             listener.onThemeChange();
         }
@@ -121,6 +117,26 @@ public class ThemeManager {
     public static Theme getCurrentTheme() {
         if (currentTheme == null) return Theme.getDefaultColorTheme();
         return currentTheme;
+    }
+
+    // Apply custom patching for theme issues. This is a bit hacky, but should be good enough until the themes are updated.
+    private static void patchTheme() {
+        // If the text areas and panels have the same background, add a border to the text area.
+        Color panelBackground = UIManager.getColor("Panel.background");
+        Color textAreaBackground = UIManager.getColor("TextArea.background");
+        if (panelBackground.equals(textAreaBackground)) {
+            Color buttonBorderColor = UIManager.getColor("Button.borderColor");
+            UIManager.put("TextArea.border", new BorderUIResource(BorderFactory.createLineBorder(buttonBorderColor)));
+        } else {
+            UIManager.put("TextArea.border", new BorderUIResource(BorderFactory.createEmptyBorder()));
+        }
+
+        // Solarized Light Fix - Make checkboxes color match other inputs instead of being white
+        if (currentTheme.name().equals("SOLARIZED_LIGHT")) {
+            UIManager.put("CheckBox.icon", new IconUIResource(new ColorCheckbox()));
+        } else {
+            UIManager.put("CheckBox.icon", new IconUIResource(new FlatCheckBoxIcon()));
+        }
     }
 
     // When getting an icon, size uses cached size, -1 uses unscaled size
