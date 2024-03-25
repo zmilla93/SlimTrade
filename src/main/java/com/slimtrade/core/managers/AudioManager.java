@@ -82,7 +82,7 @@ public class AudioManager {
         File audioDir = new File(SaveManager.getAudioDirectory());
         if (audioDir.exists()) {
             for (File file : Objects.requireNonNull(audioDir.listFiles())) {
-                if (file.getName().endsWith(".wav") || file.getName().endsWith(".ogg")) {
+                if (file.getName().endsWith(".wav")) {
                     soundFiles.add(new Sound(file.getName(), Sound.SoundType.CUSTOM));
                     customCount++;
                 }

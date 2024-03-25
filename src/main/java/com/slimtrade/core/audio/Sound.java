@@ -5,7 +5,6 @@ import com.slimtrade.core.managers.SaveManager;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Locale;
 import java.util.Objects;
 
 public class Sound {
@@ -32,7 +31,7 @@ public class Sound {
     public String getPath() {
         if (path == null) {
             if (soundType == SoundType.INBUILT) {
-                path = "/audio/" + name.toLowerCase(Locale.ROOT).replaceAll(" ", "") + ".wav";
+                path = "/audio/" + name.toLowerCase().replaceAll(" ", "") + ".wav";
             } else if (soundType == SoundType.CUSTOM) {
                 path = SaveManager.getAudioDirectory() + name + ".wav";
             }
