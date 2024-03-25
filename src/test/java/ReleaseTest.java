@@ -22,7 +22,7 @@ public class ReleaseTest {
         assertEquals("SlimTrade", appInfo.name);
         assertEquals("SlimTrade", SaveManager.folderWin);
         assertEquals(".slimtrade", SaveManager.folderOther);
-        assertEquals("slimtrade", References.GITHUB_REPO);
+        assertEquals("SlimTrade", References.GITHUB_REPO);
         assertTrue(appInfo.appVersion.valid);
     }
 
