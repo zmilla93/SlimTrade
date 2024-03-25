@@ -13,10 +13,10 @@ public class DonationPanel extends AbstractOptionPanel {
 
     @SuppressWarnings("SpellCheckingInspection")
     private static final String[] supporters = new String[]{
-            "Alex 'LordPole' Pope",
             "C. Cole",
             "J. Foster",
             "JoshMike",
+            "LordPole",
             "Oskar 'Ikkiz' Kallgren",
             "S. Ghita",
     };
