@@ -2,7 +2,7 @@
 A trade UI overlay for Path of Exile. Also includes a chat scanner, trade history, item ignoring, 20+ color themes, custom audio, cheat sheet overlays, update checker, and more! <b>POE must be run in 'Windowed Fullscreen' or 'Windowed' mode.</b><br><br>
 [**Download Latest Version**](https://github.com/zmilla93/SlimTrade/releases/latest)<br>
 **Support this project!** [**PayPal**](https://www.paypal.me/zmilla93) | 
-[**Patreon**](https://www.patreon.com/ZMilla)<br><br>
+[**Patreon**](https://www.patreon.com/SlimTrade)<br><br>
 *Having trouble? Try the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting), join the [Discord](https://discord.com/invite/yKdExMe), or [open an issue](https://github.com/zmilla93/SlimTrade/issues).*<br>
 
 ## Incoming & Outgoing Trades
