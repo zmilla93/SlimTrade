@@ -24,6 +24,10 @@ public class LockManager {
 
     public boolean tryAndLock() {
         try {
+            File directory = new File(installDirectory);
+            if (!directory.exists()) {
+                if (!directory.mkdirs()) return false;
+            }
             lockFile = new File(installDirectory, fileName);
             if (lockFile.exists())
                 if (!lockFile.delete()) return false;
