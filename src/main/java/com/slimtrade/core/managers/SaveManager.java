@@ -6,6 +6,7 @@ import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.SaveFile;
 import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.io.File;
@@ -13,8 +14,7 @@ import java.util.ArrayList;
 
 public class SaveManager {
 
-    // Save Directory
-    private static String saveDirectory;
+    // Install folder names
     public static final String folderWin = "SlimTrade";
     public static final String folderOther = ".slimtrade";
 
@@ -22,6 +22,12 @@ public class SaveManager {
     private static final String audioFolderName = "audio";
     private static final String imagesFolderName = "images";
     private static final String logFolderName = "logs";
+
+    // Full paths
+    private static String saveDirectory;
+    private static String audioDirectory;
+    private static String logsDirectory;
+    private static String imagesDirectory;
 
     // Safe Files
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
@@ -76,15 +82,21 @@ public class SaveManager {
     }
 
     public static String getAudioDirectory() {
-        return getSaveDirectory() + audioFolderName + File.separator;
+        if (audioDirectory == null)
+            audioDirectory = validateDirectory(getSaveDirectory() + audioFolderName + File.separator);
+        return audioDirectory;
     }
 
     public static String getImagesDirectory() {
-        return getSaveDirectory() + imagesFolderName + File.separator;
+        if (imagesDirectory == null)
+            imagesDirectory = validateDirectory(getSaveDirectory() + imagesFolderName + File.separator);
+        return imagesDirectory;
     }
 
     public static String getLogsDirectory() {
-        return getSaveDirectory() + logFolderName + File.separator;
+        if (logsDirectory == null)
+            logsDirectory = getSaveDirectory() + logFolderName + File.separator;
+        return logsDirectory;
     }
 
     public static String getSaveDirectory() {
@@ -95,8 +107,17 @@ public class SaveManager {
             } else {
                 saveDirectory = System.getProperty("user.home") + File.separator + folderOther + File.separator;
             }
+            validateDirectory(saveDirectory);
         }
         return saveDirectory;
+    }
+
+    public static String validateDirectory(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            if (!file.mkdirs()) ZLogger.err("Failed to validate directory: " + path);
+        }
+        return path;
     }
 
     public static ArrayList<String> getPotentialClients() {
