@@ -1,10 +1,12 @@
 package com.slimtrade.gui.managers;
 
+import com.slimtrade.App;
 import com.slimtrade.core.enums.SetupPhase;
 import com.slimtrade.core.managers.SaveManager;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SetupManager {
 
@@ -13,6 +15,11 @@ public class SetupManager {
     public static ArrayList<SetupPhase> getSetupPhases() {
         if (setupPhases != null) return setupPhases;
         setupPhases = new ArrayList<>();
+
+        if (App.forceSetup) {
+            setupPhases.addAll(Arrays.asList(SetupPhase.values()));
+            return setupPhases;
+        }
 
         // Client File
         if (SaveManager.settingsSaveFile.data.clientPath == null) {

@@ -8,6 +8,7 @@ public enum DefaultIcon implements IIcon {
     ARROW_DOWN("arrow-down"),
     ARROW_UP("arrow-up"),
     CALENDER("calender"),
+    CHAOS_ORB("chaos-orb"),
     CLOSE("close"),
     HOME("home"),
     LIST("th-list"),

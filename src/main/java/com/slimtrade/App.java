@@ -68,6 +68,7 @@ public class App {
     public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
     public static final boolean debugProfileLaunch = false;
     public static boolean showOptionsOnLaunch = false;
+    public static boolean forceSetup = false;
 
     public static void main(String[] args) {
         parseLaunchArgs(args);
@@ -272,6 +273,7 @@ public class App {
             if (arg.equals("-d") || arg.equals("-debug")) debug = true;
             if (arg.equals("-o") || arg.equals("-options")) showOptionsOnLaunch = true;
             if (arg.equals("-ui")) debugUIAlwaysOnTop = true;
+            if (arg.equals("-setup")) forceSetup = true;
         }
     }
 

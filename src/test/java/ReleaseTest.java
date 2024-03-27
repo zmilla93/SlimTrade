@@ -34,6 +34,7 @@ public class ReleaseTest {
         assertFalse(App.chatInConsole);
         assertFalse(App.debugProfileLaunch);
         assertFalse(App.showOptionsOnLaunch);
+        assertFalse(App.forceSetup);
         assertEquals(0, App.debugUIBorders);
         assertFalse(SaveFilePatcherManager.DEBUG_REPORT);
         assertFalse(UpdateManager.DEBUG_FAST_PERIODIC_CHECK);

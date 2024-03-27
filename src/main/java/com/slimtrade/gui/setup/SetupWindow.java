@@ -9,6 +9,7 @@ import com.slimtrade.gui.managers.SetupManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -39,7 +40,10 @@ public class SetupWindow extends JFrame {
     public SetupWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SlimTrade Setup");
-        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.TAG.path()))).getImage());
+        ArrayList<Image> images = new ArrayList<>();
+        images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage());
+        images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        setIconImages(images);
         JPanel contentPanel = new JPanel();
         setContentPane(contentPanel);
         previousButton.setVisible(false);
