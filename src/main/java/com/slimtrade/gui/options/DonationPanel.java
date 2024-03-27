@@ -2,6 +2,7 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.References;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.StyledLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,12 +14,14 @@ public class DonationPanel extends AbstractOptionPanel {
 
     @SuppressWarnings("SpellCheckingInspection")
     private static final String[] supporters = new String[]{
-            "C. Cole",
-            "J. Foster",
+            "Alex 'LordPole' Pope",
+            "Casey Schaffer",
+            "Charles Cole",
+            "Jason Foster",
             "JoshMike",
-            "LordPole",
             "Oskar 'Ikkiz' Kallgren",
-            "S. Ghita",
+            "Sorin Ghita",
+            "toughguy327",
     };
 
     public DonationPanel() {
@@ -33,7 +36,7 @@ public class DonationPanel extends AbstractOptionPanel {
         // Setup panel
         addHeader("Donating");
         addComponent(new JLabel("If you enjoy using this app, please consider supporting me! Supporters will be added here."));
-        addComponent(new JLabel("Optionally include a message with a username, or that you'd like to remain anonymous."));
+        addComponent(new JLabel("Contact me if you want your display named changed, or if you'd like to remain anonymous."));
         addVerticalStrutSmall();
         addComponent(createButtonPanel());
         addVerticalStrut();
