@@ -129,6 +129,9 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         panel.addLabel("Response buttons are fully customizable. Color blind setting for alternate colors.");
         panel.addVerticalStrut();
         panel.addComponent(new ImageLabel("/images/trade-messages.png", IMAGE_BORDER_SIZE, true), true);
+        panel.addVerticalStrut();
+        panel.addLabel("Quickly close many trades by right clicking the close button.");
+        panel.addLabel("Works differently for incoming and outgoing, see macro customizers for details.");
         return panel;
     }
 
