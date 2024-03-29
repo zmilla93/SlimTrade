@@ -65,10 +65,6 @@ public class HistoryPanel extends JPanel implements ISaveListener {
         table.getHistoryTableModel().fireTableDataChanged();
     }
 
-    public void addRow(TradeOffer tradeOffer) {
-        addRow(tradeOffer, true);
-    }
-
     public void addRow(TradeOffer tradeOffer, boolean updateUI) {
         if (data.size() >= MAX_MESSAGE_COUNT) data.remove(0);
         HistoryRowData rowData = new HistoryRowData(tradeOffer);
@@ -87,7 +83,7 @@ public class HistoryPanel extends JPanel implements ISaveListener {
             index = data.size() - 1 - index;
         if (index == -1 || index >= data.size()) return;
         TradeOffer trade = data.get(index).tradeOffer;
-        FrameManager.messageManager.addMessage(trade, false);
+        FrameManager.messageManager.addMessage(trade, false, true);
     }
 
     @Override

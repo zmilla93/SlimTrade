@@ -132,13 +132,19 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     public void addMessage(TradeOffer tradeOffer, boolean playSound) {
+        addMessage(tradeOffer, playSound, false);
+    }
+
+    public void addMessage(TradeOffer tradeOffer, boolean playSound, boolean force) {
         assert (SwingUtilities.isEventDispatchThread());
         setIgnoreRepaint(true);
         if (messageContainer.getComponentCount() > 20) return;
-        if (!SaveManager.settingsSaveFile.data.enableIncomingTrades && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE)
-            return;
-        if (!SaveManager.settingsSaveFile.data.enableOutgoingTrades && tradeOffer.offerType == TradeOfferType.OUTGOING_TRADE)
-            return;
+        if (!force) {
+            if (!SaveManager.settingsSaveFile.data.enableIncomingTrades && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE)
+                return;
+            if (!SaveManager.settingsSaveFile.data.enableOutgoingTrades && tradeOffer.offerType == TradeOfferType.OUTGOING_TRADE)
+                return;
+        }
         if (playSound) {
             switch (tradeOffer.offerType) {
                 case INCOMING_TRADE:
