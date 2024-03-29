@@ -2,7 +2,6 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.References;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.StyledLabel;
 
 import javax.swing.*;
 import java.awt.*;

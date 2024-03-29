@@ -25,13 +25,20 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
     private final JButton discordButton = new JButton("Discord");
     private final JButton donateButton = new JButton("Donate");
 
+    private static final String preamble = "[This project now has a Patreon!](https://www.patreon.com/SlimTrade) If you enjoy my work, please consider supporting.\n";
+
     public PatchNotesWindow() {
         super("Patch Notes");
         pinButton.setVisible(false);
 
         // Combo
         ArrayList<PatchNotesEntry> entries = App.updateManager.getPatchNotes(App.appInfo.appVersion);
-        if (entries != null) for (PatchNotesEntry entry : entries) comboBox.addItem(entry);
+        if (entries != null && entries.size() > 0) {
+            entries.get(0).text = preamble + entries.get(0).text;
+            for (PatchNotesEntry entry : entries) {
+                comboBox.addItem(entry);
+            }
+        }
 
         // Text Pane
         textPane.setEditable(false);
