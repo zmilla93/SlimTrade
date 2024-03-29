@@ -2,6 +2,7 @@ package com.slimtrade.core.data;
 
 public class PasteReplacement {
 
+    public final String message;
     public final String self;
     public final String playerName;
     public final String itemName; // Item Quanitity + Item Name
@@ -10,6 +11,7 @@ public class PasteReplacement {
     public final double priceQuantity; // Price Quantity + Price Name
 
     public PasteReplacement(String self, String player) {
+        this.message = "";
         this.self = self;
         this.playerName = player;
         this.itemName = "";
@@ -18,7 +20,8 @@ public class PasteReplacement {
         this.priceQuantity = 0;
     }
 
-    public PasteReplacement(String self, String player, String itemName, int itemQuantity, String priceName, double priceQuantity) {
+    public PasteReplacement(String message, String self, String player, String itemName, int itemQuantity, String priceName, double priceQuantity) {
+        this.message = message;
         this.self = self;
         this.playerName = player;
         this.itemName = itemName;

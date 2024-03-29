@@ -19,6 +19,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -32,6 +33,7 @@ public class POEInterface {
     private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static final Executor executor = Executors.newSingleThreadExecutor();
     private static final int MAX_TITLE_LENGTH = 1024;
+    private static final Random random = new Random();
 
     private static final String GAME_TITLE = "Path of Exile";
 
@@ -118,7 +120,8 @@ public class POEInterface {
                 for (String s : commands) {
                     paste(s);
                     try {
-                        Thread.sleep(50);
+                        int rng = random.nextInt(60) + 70;
+                        Thread.sleep(rng);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

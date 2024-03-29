@@ -60,6 +60,7 @@ public class ZUtil {
             String clean = commands.get(i);
             clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
             clean = clean.replaceAll("\\{zone}", App.chatParser.getCurrentZone());
+            clean = clean.replaceAll("\\{message}", pasteReplacement.message);
             if (!clean.startsWith("@") && !clean.startsWith("/"))
                 clean = "@" + pasteReplacement.playerName + " " + clean;
             if (pasteReplacement.playerName != null)
