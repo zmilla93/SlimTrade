@@ -40,7 +40,7 @@ public class HotkeyManager {
         if (SaveManager.settingsSaveFile.data.characterName != null)
             registerHotkey(SaveManager.settingsSaveFile.data.leavePartyHotkey, new PoeCommandHotkey("/kick " + SaveManager.settingsSaveFile.data.characterName));
         registerHotkey(SaveManager.settingsSaveFile.data.menagerieHotkey, new PoeCommandHotkey("/menagerie"));
-        registerHotkey(SaveManager.settingsSaveFile.data.metamorphHotkey, new PoeCommandHotkey("/metamorph"));
+        registerHotkey(SaveManager.settingsSaveFile.data.necropolisHotkey, new PoeCommandHotkey("/necropolis"));
         registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeCommandHotkey("/remaining"));
         // Stash Searching
         if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {

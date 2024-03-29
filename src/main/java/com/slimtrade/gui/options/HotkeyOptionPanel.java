@@ -26,7 +26,7 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
     private final HotkeyButton hideout = new HotkeyButton();
     private final HotkeyButton leaveParty = new HotkeyButton();
     private final HotkeyButton menagerie = new HotkeyButton();
-    private final HotkeyButton metamorph = new HotkeyButton();
+    private final HotkeyButton necropolis = new HotkeyButton();
     private final HotkeyButton remainingMonsters = new HotkeyButton();
 
     JPanel appHotkeyPanel = new JPanel(new GridBagLayout());
@@ -52,7 +52,7 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         addHotkey(poeHotkeyPanel, "Hideout", hideout);
         addHotkey(poeHotkeyPanel, "Leave Party", leaveParty);
         addHotkey(poeHotkeyPanel, "Menagerie", menagerie);
-        addHotkey(poeHotkeyPanel, "Metamorph", metamorph);
+        addHotkey(poeHotkeyPanel, "Necropolis", necropolis);
         addHotkey(poeHotkeyPanel, "Remaining Monsters", remainingMonsters);
 
         addHeader("Hotkey Info");
@@ -93,7 +93,7 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         SaveManager.settingsSaveFile.data.hideoutHotkey = hideout.getData();
         SaveManager.settingsSaveFile.data.leavePartyHotkey = leaveParty.getData();
         SaveManager.settingsSaveFile.data.menagerieHotkey = menagerie.getData();
-        SaveManager.settingsSaveFile.data.metamorphHotkey = metamorph.getData();
+        SaveManager.settingsSaveFile.data.necropolisHotkey = necropolis.getData();
         SaveManager.settingsSaveFile.data.remainingMonstersHotkey = remainingMonsters.getData();
     }
 
@@ -113,7 +113,7 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         hideout.setData(SaveManager.settingsSaveFile.data.hideoutHotkey);
         leaveParty.setData(SaveManager.settingsSaveFile.data.leavePartyHotkey);
         menagerie.setData(SaveManager.settingsSaveFile.data.menagerieHotkey);
-        metamorph.setData(SaveManager.settingsSaveFile.data.metamorphHotkey);
+        necropolis.setData(SaveManager.settingsSaveFile.data.necropolisHotkey);
         remainingMonsters.setData(SaveManager.settingsSaveFile.data.remainingMonstersHotkey);
     }
 }
