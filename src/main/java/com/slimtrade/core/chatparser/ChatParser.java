@@ -97,16 +97,35 @@ public class ChatParser implements FileTailerListener {
 
     private void handleChatScanner(String line) {
         Matcher chatMatcher = References.chatPatten.matcher(line);
-        if (!chatMatcher.matches()) return;
+        Matcher metaMatcher = References.clientMetaPattern.matcher(line);
+        String message;
+        String messageType;
+        String player;
+        if (chatMatcher.matches()) {
+            message = chatMatcher.group("message");
+            messageType = chatMatcher.group("messageType");
+            player = chatMatcher.group("playerName");
+        } else if (metaMatcher.matches()) {
+            message = metaMatcher.group("message");
+            messageType = "meta";
+            player = "Meta Text";
+            System.out.println("MESSAGE: " + message);
+        } else {
+            return;
+        }
         if (App.chatInConsole)
             System.out.println(chatMatcher.group("playerName") + ": " + chatMatcher.group("message"));
-        String message = chatMatcher.group("message");
+        System.out.println(messageType);
+        if (messageType == null) return;
+        message = message.toLowerCase();
+        messageType = messageType.toLowerCase();
         if (SaveManager.chatScannerSaveFile.data.searching) {
             // Iterate though all active searches and look for matching phrases
             for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
                 if (entry.getSearchTerms() == null) continue;
                 for (String term : entry.getSearchTerms()) {
                     if (message.contains(term)) {
+                        boolean allow = false;
                         boolean ignore = false;
                         // Check if this message should be ignored
                         if (entry.getIgnoreTerms() != null) {
@@ -117,9 +136,22 @@ public class ChatParser implements FileTailerListener {
                                 }
                             }
                         }
-                        if (ignore) continue;
-                        String player = chatMatcher.group("playerName");
-                        SwingUtilities.invokeLater(() -> FrameManager.messageManager.addScannerMessage(entry, new PlayerMessage(player, message)));
+                        // Verify the message is allowed
+                        if (entry.allowGlobalAndTradeChat && (messageType.equals("#") || message.equals("$")))
+                            allow = true;
+                        if (entry.allowWhispers) {
+                            for (LangRegex lang : LangRegex.values()) {
+                                if (lang.messageFrom == null) continue;
+                                if (messageType.contains(lang.messageFrom)) {
+                                    allow = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (entry.allowMetaText && messageType.equals("meta")) allow = true;
+                        if (ignore || !allow) continue;
+                        String finalMessage = message;
+                        SwingUtilities.invokeLater(() -> FrameManager.messageManager.addScannerMessage(entry, new PlayerMessage(player, finalMessage)));
                         return;
                     }
                 }
@@ -160,52 +192,6 @@ public class ChatParser implements FileTailerListener {
         // This is a little hacky. Will only play sound if chat parser starts at end. Might want to switch to a listener
         if (end)
             AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.itemIgnoredSound.sound, SaveManager.settingsSaveFile.data.itemIgnoredSound.volume);
-    }
-
-    private TradeOfferType getMessageType(String s) {
-        // TODO : Move to LangRegex
-        switch (s.toLowerCase()) {
-            case "from":
-            case "來自":     // Chinese
-            case "de":      // French, Portuguese & Spanish
-            case "von":     // German
-            case "от кого": // Russian
-            case "จาก":     // Thai
-                return TradeOfferType.INCOMING_TRADE;
-            case "to":
-            case "向":      // Chinese
-            case "à":       // French
-            case "an":      // German
-            case "para":    // Portuguese & Spanish
-            case "кому":    // Russian
-            case "ถึง":      // Thai
-                return TradeOfferType.OUTGOING_TRADE;
-            default:
-                return TradeOfferType.UNKNOWN;
-        }
-    }
-
-    private String cleanResult(Matcher matcher, String text) {
-        try {
-            return matcher.group(text);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
-
-    private int cleanInt(String text) {
-        if (text == null) {
-            return 0;
-        }
-        return Integer.parseInt(text);
-    }
-
-    private double cleanDouble(String text) {
-        if (text == null) {
-            return 0;
-        }
-        text = text.replaceAll(",", ".");
-        return Double.parseDouble(text);
     }
 
     public String getCurrentZone() {

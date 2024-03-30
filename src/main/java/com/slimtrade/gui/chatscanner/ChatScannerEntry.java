@@ -19,9 +19,22 @@ public class ChatScannerEntry {
     public final String ignoreTermsRaw;
     public final ArrayList<MacroButton> macros;
 
+    // Targets
+    public boolean allowGlobalAndTradeChat = true;
+    public boolean allowWhispers = true;
+    public boolean allowMetaText = false;
+
     // Generated
     private transient ArrayList<String> searchTerms;
     private transient ArrayList<String> ignoreTerms;
+
+    // This constructor is only used by gson. Without it, default values for allowGlobal, etc., are not set
+    public ChatScannerEntry() {
+        title = null;
+        searchTermsRaw = null;
+        ignoreTermsRaw = null;
+        macros = new ArrayList<>();
+    }
 
     public ChatScannerEntry(String title) {
         this.title = title;
@@ -34,11 +47,14 @@ public class ChatScannerEntry {
         macros.add(new MacroButton(CustomIcon.LEAVE, "/kick {player}", "", ButtonRow.BOTTOM_ROW, null, true));
     }
 
-    public ChatScannerEntry(String title, String searchTermsRaw, String ignoreTermsRaw, ArrayList<MacroButton> macros) {
+    public ChatScannerEntry(String title, String searchTermsRaw, String ignoreTermsRaw, ArrayList<MacroButton> macros, boolean allowGlobalAndTradeChat, boolean allowWhispers, boolean allowMetaText) {
         this.title = title;
         this.searchTermsRaw = searchTermsRaw;
         this.ignoreTermsRaw = ignoreTermsRaw;
         this.macros = macros == null ? new ArrayList<>() : macros;
+        this.allowGlobalAndTradeChat = allowGlobalAndTradeChat;
+        this.allowWhispers = allowWhispers;
+        this.allowMetaText = allowMetaText;
     }
 
     public ArrayList<String> getSearchTerms() {

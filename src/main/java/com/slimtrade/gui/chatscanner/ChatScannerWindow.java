@@ -213,10 +213,14 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
     }
 
     public void showEntry(String name) {
+        System.out.println("Showing: " + name);
         for (ChatScannerCustomizerPanel listPanel : panels) {
+            System.out.println("-" + listPanel.getTitle());
             if (listPanel.getTitle().equals(name)) {
+                System.out.println("FOUND");
                 cardLayout.show(cardPanel, listPanel.getTitle());
                 entryList.setSelectedIndex(panels.indexOf(listPanel));
+                System.out.println("index:" + panels.indexOf(listPanel));
                 getRootPane().requestFocus();
                 return;
             }
@@ -265,6 +269,8 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
     private void updateList() {
         ChatScannerCustomizerPanel[] sortedPanels = panels.toArray(new ChatScannerCustomizerPanel[0]);
         Arrays.sort(sortedPanels);
+        panels.clear();
+        panels.addAll(Arrays.asList(sortedPanels));
         entryList.setListData(sortedPanels);
         entryList.revalidate();
         entryList.repaint();

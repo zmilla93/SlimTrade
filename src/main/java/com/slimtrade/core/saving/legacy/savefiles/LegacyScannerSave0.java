@@ -26,7 +26,7 @@ public class LegacyScannerSave0 extends AbstractSaveFile {
             for (LegacySettingsSave0.LegacyMacroButton button : macroButtons) {
                 newButtons.add(button.toMacroButton());
             }
-            return new ChatScannerEntry(name, searchTermsRaw, ignoreTermsRaw, newButtons);
+            return new ChatScannerEntry(name, searchTermsRaw, ignoreTermsRaw, newButtons, true, true, false);
         }
     }
 

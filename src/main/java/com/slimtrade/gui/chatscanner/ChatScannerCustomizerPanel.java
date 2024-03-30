@@ -13,6 +13,9 @@ public class ChatScannerCustomizerPanel extends JPanel implements Comparable<Cha
     private final JLabel headerLabel;
     private final ScannerSearchTermsPanel searchTermsPanel = new ScannerSearchTermsPanel();
     private final ChatScannerMacroPanel macroPanel = new ChatScannerMacroPanel();
+    private final JCheckBox chatCheckbox = new JCheckBox("Global & Trade Chat");
+    private final JCheckBox whisperCheckbox = new JCheckBox("Whispers");
+    private final JCheckBox metaCheckbox = new JCheckBox("Meta Info (zone info, level ups, debug info, etc)");
 
     public ChatScannerCustomizerPanel(String title) {
         this(new ChatScannerEntry(title));
@@ -24,8 +27,18 @@ public class ChatScannerCustomizerPanel extends JPanel implements Comparable<Cha
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.add(searchTermsPanel, "Search Terms");
         tabbedPane.add(macroPanel, "Macros");
+        chatCheckbox.setSelected(true);
+        whisperCheckbox.setSelected(true);
+
         headerLabel = customizerPanel.addHeader(entry.title).label;
         customizerPanel.addComponent(new ComponentPair(renameButton, deleteButton));
+        customizerPanel.addVerticalStrut();
+
+        customizerPanel.addHeader("Scanner Target");
+        customizerPanel.addComponent(chatCheckbox);
+        customizerPanel.addComponent(whisperCheckbox);
+        customizerPanel.addComponent(metaCheckbox);
+
         customizerPanel.addComponent(tabbedPane);
         add(customizerPanel, BorderLayout.NORTH);
         add(tabbedPane, BorderLayout.CENTER);
@@ -43,10 +56,14 @@ public class ChatScannerCustomizerPanel extends JPanel implements Comparable<Cha
         searchTermsPanel.setSearchTerms(entry.searchTermsRaw);
         searchTermsPanel.setIgnoreTerms(entry.ignoreTermsRaw);
         macroPanel.setMacros(entry.macros);
+        chatCheckbox.setSelected(entry.allowGlobalAndTradeChat);
+        whisperCheckbox.setSelected(entry.allowWhispers);
+        metaCheckbox.setSelected(entry.allowMetaText);
     }
 
     public ChatScannerEntry getData() {
-        return new ChatScannerEntry(headerLabel.getText(), searchTermsPanel.getSearchTerms(), searchTermsPanel.getIgnoreTerms(), macroPanel.getMacros());
+        return new ChatScannerEntry(headerLabel.getText(), searchTermsPanel.getSearchTerms(), searchTermsPanel.getIgnoreTerms(), macroPanel.getMacros(),
+                chatCheckbox.isSelected(), whisperCheckbox.isSelected(), metaCheckbox.isSelected());
     }
 
     public void setTitle(String title) {
