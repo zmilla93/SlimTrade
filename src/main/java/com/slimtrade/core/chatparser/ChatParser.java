@@ -117,7 +117,6 @@ public class ChatParser implements FileTailerListener {
         if (messageType == null) return;
         message = message.toLowerCase();
         messageType = messageType.toLowerCase();
-        System.out.println(messageType);
         if (SaveManager.chatScannerSaveFile.data.searching) {
             // Iterate though all active searches and look for matching phrases
             for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
