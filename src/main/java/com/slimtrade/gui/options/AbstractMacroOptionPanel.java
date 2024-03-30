@@ -61,7 +61,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
             addVerticalStrut();
         }
         addHeader("Custom Macro Info");
-        addComponent(new JLabel("Run one or more commands using {player}, {self}, {item}, {price}, {zone}, and {message}."));
+        addComponent(new JLabel("Run one or more commands using {player}, {item}, {price}, {zone}, and {message}."));
         addComponent(new JLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
         addComponent(new JLabel("Use a slash or @ to start a new command, and they will be chained together."));
         addComponent(new JLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey."));
@@ -134,7 +134,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.gridx = 0;
         gc.gridy++;
 
-        panel.add(new JLabel("thanks /kick {self} /hideout"), gc);
+        panel.add(new JLabel("thanks /leave /hideout"), gc);
         gc.gridx++;
         gc.insets.left = GUIReferences.INSET;
         panel.add(new JLabel("Whisper thanks, leave the party, then warp to your own hideout."), gc);

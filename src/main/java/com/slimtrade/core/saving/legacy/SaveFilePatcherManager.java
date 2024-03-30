@@ -2,10 +2,7 @@ package com.slimtrade.core.saving.legacy;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.slimtrade.core.saving.legacy.patcher.PatcherOverlay0to1;
-import com.slimtrade.core.saving.legacy.patcher.PatcherScanner0to1;
-import com.slimtrade.core.saving.legacy.patcher.PatcherSettings0to1;
-import com.slimtrade.core.saving.legacy.patcher.PatcherStash0to1;
+import com.slimtrade.core.saving.legacy.patcher.*;
 import com.slimtrade.modules.updater.ZLogger;
 
 import java.io.*;
@@ -23,8 +20,10 @@ public class SaveFilePatcherManager {
 
     public static void handleSaveFilePatching() {
         handlePatch(new PatcherSettings0to1());
+        handlePatch(new PatcherSettings1to2());
         handlePatch(new PatcherStash0to1());
         handlePatch(new PatcherScanner0to1());
+        handlePatch(new PatcherScanner1to2());
         handlePatch(new PatcherOverlay0to1());
     }
 

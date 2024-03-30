@@ -29,7 +29,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
     private transient AppVersion appVersion;
 
     // General
-    public String characterName;
     public boolean showGuildName;
     public boolean folderOffset;
     public boolean initializedFolderOffset;
@@ -94,7 +93,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public HotkeyData historyHotkey;
     public HotkeyData chatScannerHotkey;
     public HotkeyData closeTradeHotkey;
-    public HotkeyData changeCharacterHotkey;
 
     // POE Hotkeys
     public HotkeyData delveHotkey;
@@ -121,7 +119,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
         outgoingMacroButtons.add(new MacroButton(CustomIcon.REFRESH, "{message}", "", ButtonRow.TOP_ROW, null, false));
         outgoingMacroButtons.add(new MacroButton(CustomIcon.WARP, "/hideout {player}", "", ButtonRow.BOTTOM_ROW, null, false));
         outgoingMacroButtons.add(new MacroButton(CustomIcon.THUMB, "thanks", "", ButtonRow.BOTTOM_ROW, null, false));
-        outgoingMacroButtons.add(new MacroButton(CustomIcon.LEAVE, "/kick {self}", "", ButtonRow.BOTTOM_ROW, null, false));
+        outgoingMacroButtons.add(new MacroButton(CustomIcon.LEAVE, "/leave", "", ButtonRow.BOTTOM_ROW, null, false));
         outgoingMacroButtons.add(new MacroButton(CustomIcon.HOME, "/hideout", "", ButtonRow.BOTTOM_ROW, null, true));
 
         ArrayList<StashSearchTermData> stashTerms = new ArrayList<>();
@@ -143,7 +141,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
 
     @Override
     public int getTargetFileVersion() {
-        return 1;
+        return 2;
     }
 
     // Macro Generators

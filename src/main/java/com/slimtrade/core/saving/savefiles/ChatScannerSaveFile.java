@@ -12,7 +12,7 @@ public class ChatScannerSaveFile extends AbstractSaveFile {
 
     @Override
     public int getTargetFileVersion() {
-        return 1;
+        return 2;
     }
 
 }

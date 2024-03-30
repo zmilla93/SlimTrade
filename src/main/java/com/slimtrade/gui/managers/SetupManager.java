@@ -30,9 +30,6 @@ public class SetupManager {
                 setupPhases.add(SetupPhase.CLIENT_PATH);
             }
         }
-        // Character Name
-        if (SaveManager.settingsSaveFile.data.characterName == null || SaveManager.settingsSaveFile.data.characterName.equals(""))
-            setupPhases.add(SetupPhase.CHARACTER_NAME);
         // Stash location
         if (SaveManager.stashSaveFile.data.gridRect == null)
             setupPhases.add(SetupPhase.STASH_POSITION);

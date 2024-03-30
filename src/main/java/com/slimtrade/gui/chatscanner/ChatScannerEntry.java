@@ -31,7 +31,7 @@ public class ChatScannerEntry {
         macros.add(new MacroButton(CustomIcon.INVITE, "/invite {player}", "", ButtonRow.BOTTOM_ROW, null, false));
         macros.add(new MacroButton(CustomIcon.CART, "/tradewith {player}", "", ButtonRow.BOTTOM_ROW, null, false));
         macros.add(new MacroButton(CustomIcon.THUMB, "thanks", "", ButtonRow.BOTTOM_ROW, null, false));
-        macros.add(new MacroButton(CustomIcon.LEAVE, "/kick {self}", "", ButtonRow.BOTTOM_ROW, null, true));
+        macros.add(new MacroButton(CustomIcon.LEAVE, "/kick {player}", "", ButtonRow.BOTTOM_ROW, null, true));
     }
 
     public ChatScannerEntry(String title, String searchTermsRaw, String ignoreTermsRaw, ArrayList<MacroButton> macros) {
@@ -60,7 +60,7 @@ public class ChatScannerEntry {
             return null;
         }
         String[] arr = input.split("\\n|,|;");
-        ArrayList<String> clean = new ArrayList();
+        ArrayList<String> clean = new ArrayList<>();
         for (String s : arr) {
             String curTerm = ZUtil.cleanString(s);
             if (!curTerm.matches("\\s*")) {

@@ -6,7 +6,6 @@ import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.hotkeys.*;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.POEInterface;
-import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.gui.windows.CheatSheetWindow;
@@ -29,7 +28,6 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new WindowHotkey(FrameManager.optionsWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new WindowHotkey(FrameManager.historyWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new WindowHotkey(FrameManager.chatScannerWindow));
-        registerHotkey(SaveManager.settingsSaveFile.data.changeCharacterHotkey, TradeUtil::changeCharacterName);
         registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, () -> SwingUtilities.invokeLater(() -> FrameManager.messageManager.closeOldestTrade()));
         // POE
         registerHotkey(SaveManager.settingsSaveFile.data.delveHotkey, new PoeCommandHotkey("/delve"));
@@ -37,8 +35,7 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.exitToMenuHotkey, new PoeCommandHotkey("/exit"));
         registerHotkey(SaveManager.settingsSaveFile.data.guildHideoutHotkey, new PoeCommandHotkey("/guild"));
         registerHotkey(SaveManager.settingsSaveFile.data.hideoutHotkey, new PoeCommandHotkey("/hideout"));
-        if (SaveManager.settingsSaveFile.data.characterName != null)
-            registerHotkey(SaveManager.settingsSaveFile.data.leavePartyHotkey, new PoeCommandHotkey("/kick " + SaveManager.settingsSaveFile.data.characterName));
+        registerHotkey(SaveManager.settingsSaveFile.data.leavePartyHotkey, new PoeCommandHotkey("/leave"));
         registerHotkey(SaveManager.settingsSaveFile.data.menagerieHotkey, new PoeCommandHotkey("/menagerie"));
         registerHotkey(SaveManager.settingsSaveFile.data.necropolisHotkey, new PoeCommandHotkey("/necropolis"));
         registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeCommandHotkey("/remaining"));

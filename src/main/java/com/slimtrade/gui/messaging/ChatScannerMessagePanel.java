@@ -3,7 +3,6 @@ package com.slimtrade.gui.messaging;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.enums.ButtonRow;
-import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
@@ -23,7 +22,7 @@ public class ChatScannerMessagePanel extends NotificationPanel {
         super(createListeners);
         this.playerMessage = playerMessage;
         if (playerMessage != null) {
-            pasteReplacement = new PasteReplacement(SaveManager.settingsSaveFile.data.characterName, playerMessage.player);
+            pasteReplacement = new PasteReplacement(playerMessage.player);
             playerNameButton.setText(playerMessage.player);
             itemButton.setText(playerMessage.message);
             addPlayerButtonListener(playerMessage.player);

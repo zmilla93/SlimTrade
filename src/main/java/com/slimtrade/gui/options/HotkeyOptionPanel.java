@@ -16,7 +16,6 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
     private final HotkeyButton history = new HotkeyButton();
     private final HotkeyButton chatScanner = new HotkeyButton();
     private final HotkeyButton closeOldestTrade = new HotkeyButton();
-    private final HotkeyButton changeCharacter = new HotkeyButton();
 
     // POE Hotkeys
     private final HotkeyButton delve = new HotkeyButton();
@@ -44,7 +43,6 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         addHotkey(appHotkeyPanel, "History", history);
         addHotkey(appHotkeyPanel, "Chat Scanner", chatScanner);
         addHotkey(appHotkeyPanel, "Close Oldest Trade", closeOldestTrade);
-        addHotkey(appHotkeyPanel, "Change Character", changeCharacter);
         addHotkey(poeHotkeyPanel, "Delve", delve);
         addHotkey(poeHotkeyPanel, "Do Not Disturb", doNotDisturb);
         addHotkey(poeHotkeyPanel, "Exit to Menu", exitToMenu);
@@ -84,7 +82,6 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         SaveManager.settingsSaveFile.data.historyHotkey = history.getData();
         SaveManager.settingsSaveFile.data.chatScannerHotkey = chatScanner.getData();
         SaveManager.settingsSaveFile.data.closeTradeHotkey = closeOldestTrade.getData();
-        SaveManager.settingsSaveFile.data.changeCharacterHotkey = changeCharacter.getData();
         // POE
         SaveManager.settingsSaveFile.data.delveHotkey = delve.getData();
         SaveManager.settingsSaveFile.data.doNotDisturbHotkey = doNotDisturb.getData();
@@ -104,7 +101,6 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         history.setData(SaveManager.settingsSaveFile.data.historyHotkey);
         chatScanner.setData(SaveManager.settingsSaveFile.data.chatScannerHotkey);
         closeOldestTrade.setData(SaveManager.settingsSaveFile.data.closeTradeHotkey);
-        changeCharacter.setData(SaveManager.settingsSaveFile.data.changeCharacterHotkey);
         // POE
         delve.setData(SaveManager.settingsSaveFile.data.delveHotkey);
         doNotDisturb.setData(SaveManager.settingsSaveFile.data.doNotDisturbHotkey);

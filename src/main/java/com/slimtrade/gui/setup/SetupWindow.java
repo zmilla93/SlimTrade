@@ -25,7 +25,6 @@ public class SetupWindow extends JFrame {
     private final JButton nextButton = new JButton(NEXT_TEXT);
 
     private final ClientSetupPanel clientPanel = new ClientSetupPanel(nextButton);
-    private final CharacterSetupPanel characterPanel = new CharacterSetupPanel(nextButton);
     private final StashSetupPanel stashPanel = new StashSetupPanel(nextButton);
     private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel(nextButton);
 
@@ -101,8 +100,6 @@ public class SetupWindow extends JFrame {
 
     private void finishSetup() {
         if (panelMap.values().size() > 0) {
-            if (characterPanel.isSetupValid())
-                SaveManager.settingsSaveFile.data.characterName = characterPanel.getCharacterName();
             if (clientPanel.isSetupValid())
                 SaveManager.settingsSaveFile.data.clientPath = clientPanel.getClientPath();
             if (stashFolderPanel.isSetupValid()) {
@@ -132,10 +129,6 @@ public class SetupWindow extends JFrame {
                 case CLIENT_PATH:
                     panelMap.put(cardPanel.getComponentCount(), clientPanel);
                     cardPanel.add(clientPanel, Integer.toString(cardPanel.getComponentCount()));
-                    break;
-                case CHARACTER_NAME:
-                    panelMap.put(cardPanel.getComponentCount(), characterPanel);
-                    cardPanel.add(characterPanel, Integer.toString(cardPanel.getComponentCount()));
                     break;
                 case STASH_POSITION:
                     panelMap.put(cardPanel.getComponentCount(), stashPanel);

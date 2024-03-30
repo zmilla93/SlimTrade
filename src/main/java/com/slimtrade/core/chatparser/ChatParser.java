@@ -9,7 +9,6 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
-import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.filetailing.FileTailer;
@@ -34,9 +33,6 @@ public class ChatParser implements FileTailerListener {
 
     // State
     private String currentZone = "The Twilight Strand";
-    private boolean changeCharacter;
-    private String changeCharacterString;
-    private int changeCharacterChecks;
     private boolean open;
     private String path;
     private boolean end;
@@ -75,7 +71,6 @@ public class ChatParser implements FileTailerListener {
         if (tailer.isLoaded()) {
             // Chat Scanner
             handleChatScanner(line);
-            handleChangeCharacter(line);
             // Player Joined Area
             for (LangRegex lang : LangRegex.values()) {
                 if (lang.joinedArea == null) continue;
@@ -91,8 +86,8 @@ public class ChatParser implements FileTailerListener {
         }
         // Zone Tracking
         for (LangRegex lang : LangRegex.values()) {
-            Matcher matcher = lang.enteredAreaPattern.matcher(line);
             if (lang.enteredArea == null) continue;
+            Matcher matcher = lang.enteredAreaPattern.matcher(line);
             if (matcher.matches()) {
                 currentZone = matcher.group("zone");
                 return;
@@ -131,23 +126,6 @@ public class ChatParser implements FileTailerListener {
             }
         }
 
-    }
-
-    private void handleChangeCharacter(String line) {
-        if (!changeCharacter) return;
-        Matcher chatMatcher = References.whisperPattern.matcher(line);
-        if (!chatMatcher.matches()) return;
-        String playerName = chatMatcher.group("playerName");
-        String message = chatMatcher.group("message");
-        if (playerName.equals(SaveManager.settingsSaveFile.data.characterName)) {
-            changeCharacterString = message;
-        } else if (message.equals(changeCharacterString)) {
-            TradeUtil.changeCharacterName(playerName);
-            changeCharacter = false;
-        } else {
-            changeCharacterChecks++;
-        }
-        if (changeCharacterChecks > 10) changeCharacter = false;
     }
 
     private void handleTradeOffer(TradeOffer offer) {
@@ -205,11 +183,6 @@ public class ChatParser implements FileTailerListener {
             default:
                 return TradeOfferType.UNKNOWN;
         }
-    }
-
-    public void startChangeCharacterName() {
-        changeCharacter = true;
-        changeCharacterChecks = 0;
     }
 
     private String cleanResult(Matcher matcher, String text) {

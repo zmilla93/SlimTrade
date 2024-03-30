@@ -1,14 +1,9 @@
 package com.slimtrade.core.utility;
 
-import com.slimtrade.App;
-import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.managers.AudioManager;
-import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.gui.managers.FrameManager;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +11,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.Date;
-import java.util.Random;
 
 // TODO : CLEAN UP THIS FILE
 public class TradeUtil {
@@ -39,20 +33,6 @@ public class TradeUtil {
             fixedDouble = "(" + fixedDouble + ")";
         }
         return fixedDouble;
-    }
-
-    public static void changeCharacterName() {
-        if (SaveManager.settingsSaveFile.data.characterName == null) return;
-        App.chatParser.startChangeCharacterName();
-        Random random = new Random();
-        int rng = random.nextInt(9899999) + 1000000;
-        POEInterface.runCommand("@{self} Change Character #" + rng, new PasteReplacement(SaveManager.settingsSaveFile.data.characterName, null));
-    }
-
-    public static void changeCharacterName(String newName) {
-        SaveManager.settingsSaveFile.data.characterName = newName;
-        SaveManager.settingsSaveFile.saveToDisk(false);
-        SwingUtilities.invokeLater(() -> FrameManager.optionsWindow.refreshCharacterName());
     }
 
     public static void applyAnchorPoint(Window window, Point point, Anchor anchor) {

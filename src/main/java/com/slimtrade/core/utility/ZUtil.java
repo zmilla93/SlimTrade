@@ -2,7 +2,6 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
 import com.slimtrade.core.data.PasteReplacement;
-import com.slimtrade.core.managers.SaveManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +57,6 @@ public class ZUtil {
             commands.add(builder.toString().trim());
         for (int i = 0; i < commands.size(); i++) {
             String clean = commands.get(i);
-            clean = clean.replaceAll("\\{self}", SaveManager.settingsSaveFile.data.characterName);
             clean = clean.replaceAll("\\{zone}", App.chatParser.getCurrentZone());
             clean = clean.replaceAll("\\{message}", pasteReplacement.message);
             if (!clean.startsWith("@") && !clean.startsWith("/"))

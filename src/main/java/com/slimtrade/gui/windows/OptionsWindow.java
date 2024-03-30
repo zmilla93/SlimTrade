@@ -157,10 +157,6 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         ((DonationPanel) donate.panel).getButtonToFocus().requestFocus();
     }
 
-    public void refreshCharacterName() {
-        generalOptionPanel.getBasicsPanel().refreshCharacterName();
-    }
-
     public IgnoreItemOptionPanel getIgnorePanel() {
         return ignorePanel;
     }
