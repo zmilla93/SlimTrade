@@ -25,7 +25,8 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
     private final JButton discordButton = new JButton("Discord");
     private final JButton donateButton = new JButton("Donate");
 
-    private static final String preamble = "[This project now has a Patreon!](https://www.patreon.com/SlimTrade) If you enjoy my work, please consider supporting.\n";
+    private static final String PREFIX = "**Enjoying the app? [Consider supporting on Patreon!](" + References.PATREON_URL + ")**";
+    private static final String POSTFIX = "*Want to report a bug or give feedback? Post on [GitHub](" + References.GITHUB_ISSUES_URL + ") or join the [Discord](" + References.DISCORD_INVITE + ")!*";
 
     public PatchNotesWindow() {
         super("Patch Notes");
@@ -34,8 +35,9 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
         // Combo
         ArrayList<PatchNotesEntry> entries = App.updateManager.getPatchNotes(App.appInfo.appVersion);
         if (entries != null && entries.size() > 0) {
-            entries.get(0).text = preamble + entries.get(0).text;
-            for (PatchNotesEntry entry : entries) {
+            for (int i = 0; i < entries.size(); i++) {
+                PatchNotesEntry entry = entries.get(i);
+                entry.text = getCleanPatchNotes(entry.getAppVersion(), entry.text, i == 0);
                 comboBox.addItem(entry);
             }
         }
@@ -94,20 +96,22 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
     private void updateSelectedPatchNotes() {
         PatchNotesEntry entry = (PatchNotesEntry) comboBox.getSelectedItem();
         if (entry == null) return;
-        textPane.setText(getCleanPatchNotes(entry.getAppVersion(), entry.text));
+        textPane.setText(entry.text);
         textPane.setCaretPosition(0);
     }
 
-    private String getCleanPatchNotes(AppVersion version, String body) {
+    private String getCleanPatchNotes(AppVersion version, String body, boolean addExtraInfo) {
         String[] lines = body.split("(\\n|\\\\r\\\\n)");
         StringBuilder builder = new StringBuilder();
         builder.append("<h1>SlimTrade ").append(version).append("</h1>");
+        if (addExtraInfo) builder.append(MarkdownParser.getHtmlFromMarkdown(PREFIX));
         for (String s : lines) {
             if (s.toLowerCase().contains("how to install")) {
                 break;
             }
             builder.append(MarkdownParser.getHtmlFromMarkdown(s));
         }
+        if (addExtraInfo) builder.append(MarkdownParser.getHtmlFromMarkdown(POSTFIX));
         return builder.toString();
     }
 
