@@ -218,7 +218,7 @@ public class NotificationPanel extends ColorPanel {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     POEInterface.pasteWithFocus("/whois " + playerName);
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
-                    POEInterface.pasteWithFocus("@" + playerName, true);
+                    POEInterface.pasteWithFocus("@" + playerName + " ", true);
                 }
             }
         });
