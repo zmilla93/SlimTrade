@@ -117,6 +117,7 @@ public class ChatParser implements FileTailerListener {
         if (messageType == null) return;
         message = message.toLowerCase();
         messageType = messageType.toLowerCase();
+        System.out.println(messageType);
         if (SaveManager.chatScannerSaveFile.data.searching) {
             // Iterate though all active searches and look for matching phrases
             for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
@@ -135,7 +136,7 @@ public class ChatParser implements FileTailerListener {
                             }
                         }
                         // Verify the message is allowed
-                        if (entry.allowGlobalAndTradeChat && (messageType.equals("#") || message.equals("$")))
+                        if (entry.allowGlobalAndTradeChat && (messageType.equals("#") || messageType.equals("$")))
                             allow = true;
                         if (entry.allowWhispers) {
                             for (LangRegex lang : LangRegex.values()) {
