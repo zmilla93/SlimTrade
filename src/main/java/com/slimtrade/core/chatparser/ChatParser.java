@@ -109,13 +109,11 @@ public class ChatParser implements FileTailerListener {
             message = metaMatcher.group("message");
             messageType = "meta";
             player = "Meta Text";
-            System.out.println("MESSAGE: " + message);
         } else {
             return;
         }
         if (App.chatInConsole)
             System.out.println(chatMatcher.group("playerName") + ": " + chatMatcher.group("message"));
-        System.out.println(messageType);
         if (messageType == null) return;
         message = message.toLowerCase();
         messageType = messageType.toLowerCase();
