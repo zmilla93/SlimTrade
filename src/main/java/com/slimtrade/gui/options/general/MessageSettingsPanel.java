@@ -14,6 +14,7 @@ import java.awt.*;
 
 public class MessageSettingsPanel extends JPanel implements ISavable {
 
+    private final JCheckBox messageTabsCheckbox = new JCheckBox("Use Tabs");
     private final JCheckBox collapseCheckBox = new JCheckBox("Collapse Messages");
     private final JSpinner messagesBeforeCollapseSpinner = new RangeSpinner(SpinnerRange.MESSAGES_BEFORE_COLLAPSE);
 
@@ -36,6 +37,8 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
         GridBagConstraints gc = ZUtil.getGC();
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
+        add(messageTabsCheckbox, gc);
+        gc.gridy++;
         add(collapseCheckBox, gc);
         gc.gridy++;
         add(collapsePanel, gc);
@@ -48,6 +51,7 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
     }
 
     private void addListeners() {
+        messageTabsCheckbox.addChangeListener(e -> updatePanelVisibility());
         fadeOpacitySlider.addChangeListener(e -> updateOpacityLabel());
         collapseCheckBox.addActionListener(e -> updatePanelVisibility());
         fadeCheckBox.addActionListener(e -> updatePanelVisibility());
@@ -90,7 +94,8 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
     }
 
     private void updatePanelVisibility() {
-        collapsePanel.setVisible(collapseCheckBox.isSelected());
+        collapseCheckBox.setVisible(!messageTabsCheckbox.isSelected());
+        collapsePanel.setVisible(collapseCheckBox.isSelected() && !messageTabsCheckbox.isSelected());
         fadePanel.setVisible(fadeCheckBox.isSelected());
     }
 
@@ -100,6 +105,7 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
 
     @Override
     public void save() {
+        SaveManager.settingsSaveFile.data.useMessageTabs = messageTabsCheckbox.isSelected();
         SaveManager.settingsSaveFile.data.collapseMessages = collapseCheckBox.isSelected();
         SaveManager.settingsSaveFile.data.messageCountBeforeCollapse = (int) messagesBeforeCollapseSpinner.getValue();
         SaveManager.settingsSaveFile.data.fadeMessages = fadeCheckBox.isSelected();
@@ -109,6 +115,7 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
 
     @Override
     public void load() {
+        messageTabsCheckbox.setSelected(SaveManager.settingsSaveFile.data.useMessageTabs);
         collapseCheckBox.setSelected(SaveManager.settingsSaveFile.data.collapseMessages);
         messagesBeforeCollapseSpinner.setValue(SaveManager.settingsSaveFile.data.messageCountBeforeCollapse);
         fadeCheckBox.setSelected(SaveManager.settingsSaveFile.data.fadeMessages);
@@ -117,4 +124,5 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
         updatePanelVisibility();
         updateOpacityLabel();
     }
+
 }

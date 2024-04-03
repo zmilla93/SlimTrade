@@ -126,6 +126,7 @@ public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThem
         restoreDefaultButton.addActionListener(e -> restoreDefaults());
         saveButton.addActionListener(e -> SaveManager.overlaySaveFile.saveToDisk());
         menubarAnchorCombo.addActionListener(e -> FrameManager.menubarOverlay.setAnchor((Anchor) menubarAnchorCombo.getSelectedItem()));
+        expandCombo.addActionListener(e -> FrameManager.messageOverlay.setExpandDirection((ExpandDirection) expandCombo.getSelectedItem()));
     }
 
     public void restoreDefaults() {

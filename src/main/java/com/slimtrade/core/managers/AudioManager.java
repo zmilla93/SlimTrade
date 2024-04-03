@@ -77,6 +77,14 @@ public class AudioManager {
         return inbuiltCount;
     }
 
+    public static int indexOfSound(Sound sound) {
+        return soundFiles.indexOf(sound);
+    }
+
+    public static int getCustomFileCount() {
+        return customCount;
+    }
+
     private static void addCustomSoundFiles() {
         customCount = 0;
         File audioDir = new File(SaveManager.getAudioDirectory());
@@ -90,25 +98,17 @@ public class AudioManager {
         }
     }
 
-    public static int indexOfSound(Sound sound) {
-        return soundFiles.indexOf(sound);
+    public static void playSoundComponent(SoundComponent soundComponent) {
+        playSoundRaw(soundComponent.sound, percentToRange(soundComponent.volume));
     }
 
-    public static int getCustomFileCount() {
-        return customCount;
-    }
-
-    // Expected volume is 0 - 100
+    // Expected volume is 0 and 100
     public static void playSoundPercent(Sound sound, int volume) {
         if (volume == 0) return;
         playSoundRaw(sound, percentToRange(volume));
     }
 
-    public static void playSoundComponent(SoundComponent soundComponent) {
-        playSoundRaw(soundComponent.sound, percentToRange(soundComponent.volume));
-    }
-
-    // Expected volume is MIN_VOLUME - MAX_VOLUME
+    // Expected volume is between MIN_VOLUME and MAX_VOLUME
     private static void playSoundRaw(Sound sound, float volume) {
         if (volume <= MIN_VOLUME) {
             return;

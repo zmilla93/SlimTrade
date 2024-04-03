@@ -32,8 +32,20 @@ public class AbstractOverlayFrame extends AbstractMovableDialog implements IFont
         ThemeManager.addFontListener(this);
     }
 
+    public void addPanel(JPanel panel) {
+        overlayPanel.addPanel(panel);
+    }
+
+    public void removePanel(JPanel panel) {
+        overlayPanel.removePanel(panel);
+    }
+
     public void setAnchor(Anchor anchor) {
         overlayPanel.setAnchor(anchor);
+    }
+
+    public void setExpandDirection(ExpandDirection expandDirection) {
+        overlayPanel.setExpandDirection(expandDirection);
     }
 
     public Point getAnchorPoint(Anchor anchor) {

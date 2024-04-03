@@ -187,9 +187,7 @@ public class ChatParser implements FileTailerListener {
     }
 
     private void handleIgnoreItem() {
-        // This is a little hacky. Will only play sound if chat parser starts at end. Might want to switch to a listener
-        if (end)
-            AudioManager.playSoundPercent(SaveManager.settingsSaveFile.data.itemIgnoredSound.sound, SaveManager.settingsSaveFile.data.itemIgnoredSound.volume);
+        if (tailer.isLoaded()) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound);
     }
 
     public String getCurrentZone() {

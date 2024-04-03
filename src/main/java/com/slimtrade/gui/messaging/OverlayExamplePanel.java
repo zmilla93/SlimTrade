@@ -1,6 +1,7 @@
 package com.slimtrade.gui.messaging;
 
 import com.slimtrade.core.enums.Anchor;
+import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.InsetBorder;
 
@@ -10,8 +11,9 @@ import java.awt.*;
 public class OverlayExamplePanel extends JPanel {
 
     private static final int BORDER_SIZE = 2;
-    private final String COLOR_KEY = "Separator.foreground";
+    private final String BORDER_COLOR_KEY = "Separator.foreground";
     private Anchor anchor = null;
+    private ExpandDirection expandDirection = null;
 
     public OverlayExamplePanel(JPanel sizePanel, String text) {
         JPanel labelPanel = new JPanel(new GridBagLayout());
@@ -20,10 +22,17 @@ public class OverlayExamplePanel extends JPanel {
 
         CardLayout cardLayout = new CardLayout();
         setLayout(cardLayout);
-        add(sizePanel, "panel");
-        add(labelPanel, "label");
-        cardLayout.show(this, "label");
-        setBorder(new InsetBorder(BORDER_SIZE, COLOR_KEY));
+        add(labelPanel, "0");
+        add(sizePanel, "1");
+        setBorder(new InsetBorder(BORDER_SIZE, BORDER_COLOR_KEY));
+    }
+
+    public void addPanel(JPanel panel) {
+        add(panel, Integer.toString(getComponentCount()));
+    }
+
+    public void removePanel(JPanel panel) {
+        remove(panel);
     }
 
     public void setAnchor(Anchor anchor) {
@@ -31,15 +40,21 @@ public class OverlayExamplePanel extends JPanel {
         repaint();
     }
 
+    public void setExpandDirection(ExpandDirection expandDirection) {
+        this.expandDirection = expandDirection;
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
-        if (anchor == null) return;
-        g.setColor(UIManager.getColor(COLOR_KEY));
+        if (anchor == null && expandDirection == null) return;
+        g.setColor(UIManager.getColor(BORDER_COLOR_KEY));
         int iconSize = SaveManager.settingsSaveFile.data.iconSize;
         int x = 0;
         int y = 0;
         if (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT) x = getPreferredSize().width - iconSize;
-        if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT) y = getSize().height - iconSize;
+        if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT || expandDirection == ExpandDirection.UPWARDS)
+            y = getSize().height - iconSize;
         g.fillRect(x, y, iconSize, iconSize);
     }
 

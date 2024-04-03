@@ -36,9 +36,10 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
 
     // Message Popups
+    public boolean fadeMessages;
+    public boolean useMessageTabs;
     public boolean collapseMessages;
     public int messageCountBeforeCollapse = SpinnerRange.MESSAGES_BEFORE_COLLAPSE.START;
-    public boolean fadeMessages;
     public float secondsBeforeFading = SpinnerRangeFloat.SECONDS_BEFORE_FADE.START;
     public int fadedOpacity = SliderRange.FADED_OPACITY.START;
 
