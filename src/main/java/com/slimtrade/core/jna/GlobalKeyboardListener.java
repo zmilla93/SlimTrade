@@ -6,9 +6,12 @@ import com.slimtrade.gui.managers.HotkeyManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
+/**
+ * A keyboard listener used for global hotkeys.
+ */
 public class GlobalKeyboardListener implements NativeKeyListener {
 
-    private HotkeyButton hotkeyListener = null;
+    private HotkeyButton hotkeyBeingModified = null;
     private static volatile boolean ctrlPressed;
     private static volatile boolean altPressed;
     private static volatile boolean shiftPressed;
@@ -19,6 +22,8 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     public void nativeKeyPressed(NativeKeyEvent e) {
         // Remove mouse button modifiers
         e.setModifiers(cleanModifiers(e.getModifiers()));
+
+        // Track ctrl, alt, and shift key states
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL_L || e.getKeyCode() == NativeKeyEvent.VC_CONTROL_R) {
             ctrlPressed = true;
         } else if (e.getKeyCode() == NativeKeyEvent.VC_ALT_L || e.getKeyCode() == NativeKeyEvent.VC_ALT_R) {
@@ -40,20 +45,19 @@ public class GlobalKeyboardListener implements NativeKeyListener {
             return;
         }
 
-        // If a UI element is waiting for hotkey data, return the data and skip the hotkey logic
-        if (hotkeyListener != null) {
+        // If a UI element is waiting for hotkey data, return the data
+        if (hotkeyBeingModified != null) {
             HotkeyData data = new HotkeyData(e.getKeyCode(), e.getModifiers());
-            hotkeyListener.setData(data);
-            hotkeyListener = null;
-            return;
+            hotkeyBeingModified.setData(data);
+            hotkeyBeingModified = null;
         }
-
-        // Hotkeys
-        HotkeyManager.processHotkey(e);
+        // Otherwise check if the given keystroke is a hotkey
+        else HotkeyManager.processHotkey(e);
     }
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {
+        // Track ctrl, alt, and shift key states
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL_L || e.getKeyCode() == NativeKeyEvent.VC_CONTROL_R) {
             ctrlPressed = false;
         } else if (e.getKeyCode() == NativeKeyEvent.VC_ALT_L || e.getKeyCode() == NativeKeyEvent.VC_ALT_R) {
@@ -81,13 +85,20 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     }
 
     public void listenForHotkey(HotkeyButton hotkeyListener) {
-        if (this.hotkeyListener == hotkeyListener) return;
-        if (this.hotkeyListener != null) this.hotkeyListener.setData(null);
-        this.hotkeyListener = hotkeyListener;
+        // If the hotkey button being modified is clicked a 2nd time, cancel the process
+        if (this.hotkeyBeingModified == hotkeyListener) {
+            this.hotkeyBeingModified.updateText();
+            this.hotkeyBeingModified = null;
+            return;
+        }
+        // Update the hotkey that is being modified
+        if (this.hotkeyBeingModified != null) this.hotkeyBeingModified.updateText();
+        this.hotkeyBeingModified = hotkeyListener;
     }
 
     public void clearHotkeyListener() {
-        this.hotkeyListener = null;
+        this.hotkeyBeingModified.updateText();
+        this.hotkeyBeingModified = null;
     }
 
     // Removes the 5 mouse buttons as modifiers for key events

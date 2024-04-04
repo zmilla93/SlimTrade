@@ -6,6 +6,9 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 
 import javax.swing.*;
 
+/**
+ * A button for settings hotkeys.
+ */
 public class HotkeyButton extends JButton {
 
     private HotkeyData data;
@@ -13,32 +16,25 @@ public class HotkeyButton extends JButton {
 
     public HotkeyButton() {
         super(UNSET_TEXT);
-        HotkeyButton self = this;
         addActionListener(e -> {
             setText("Press Any Key");
-            App.globalKeyboardListener.listenForHotkey(self);
+            App.globalKeyboardListener.listenForHotkey(HotkeyButton.this);
         });
     }
 
-    public void setData(HotkeyData data) {
-        // Update data
-        if (data != null) {
-            this.data = data;
-        }
-        // Clear local data if key is escape
-        if (data != null && data.keyCode == NativeKeyEvent.VC_ESCAPE) {
-            this.data = null;
-        }
-        // Update button text
-        if (this.data != null) {
-            this.setText(this.data.toString());
-        } else {
-            this.setText(UNSET_TEXT);
-        }
+    public void updateText() {
+        if (data != null) setText(data.toString());
+        else setText(UNSET_TEXT);
     }
 
     public HotkeyData getData() {
         return data;
+    }
+
+    public void setData(HotkeyData data) {
+        this.data = data;
+        if (data != null && data.keyCode == NativeKeyEvent.VC_ESCAPE) this.data = null;
+        updateText();
     }
 
 }
