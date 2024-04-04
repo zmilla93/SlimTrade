@@ -8,6 +8,7 @@ import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.stopwatch.Stopwatch;
 import com.slimtrade.modules.theme.components.ColorCheckbox;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -171,8 +172,9 @@ public class ThemeManager {
             }
             if (size == cachedIconSize) iconMap.put(path, icon);
             return icon;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | NullPointerException e) {
+            ZLogger.err("Could not find image: " + path);
+            ZLogger.err(e.getStackTrace());
             return null;
         }
     }

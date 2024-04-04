@@ -92,6 +92,11 @@ public class ZLogger {
             log(element.toString());
     }
 
+    public static void err(StackTraceElement[] elements) {
+        for (StackTraceElement element : elements)
+            err(element.toString());
+    }
+
     public static String getLaunchArg() {
         return LOG_ARG_PREFIX + logFile;
     }

@@ -102,7 +102,7 @@ public class CurrencyLabelFactory extends JPanel {
     private static JLabel iconLabel(CurrencyType currencyType) {
         if (currencyType != null) {
             JLabel currencyLabel = new JLabel();
-            currencyLabel.setIcon(ThemeManager.getIcon(currencyType.getPath()));
+            currencyLabel.setIcon(ThemeManager.getIcon(currencyType.path()));
             return currencyLabel;
         }
         return null;

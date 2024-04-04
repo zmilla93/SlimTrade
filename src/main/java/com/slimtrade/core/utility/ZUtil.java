@@ -2,11 +2,14 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
 import com.slimtrade.core.data.PasteReplacement;
+import com.slimtrade.core.enums.CurrencyType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,6 +19,7 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class ZUtil {
@@ -237,6 +241,11 @@ public class ZUtil {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public static BufferedReader getResourceReader(String path) {
+        InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyType.class.getResourceAsStream(path)), StandardCharsets.UTF_8);
+        return new BufferedReader(stream);
     }
 
     public static String getFileAsString(String path) {

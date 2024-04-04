@@ -1,10 +1,11 @@
 package com.slimtrade.core.enums;
 
-import com.slimtrade.modules.theme.components.IImageRef;
+import com.slimtrade.gui.buttons.IIcon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -12,11 +13,9 @@ import java.util.Objects;
 /**
  * Stores metadata for POE currency icons.
  */
-public class CurrencyType implements IImageRef {
+public class CurrencyType implements IIcon {
 
     public transient final String[] words;
-    private transient String partialName;
-    private transient String fileName;
     private transient String path;
     public final String ID; // Used to save to file
 
@@ -43,31 +42,18 @@ public class CurrencyType implements IImageRef {
         addAlias("Divine Orb", "divine");
     }
 
-    public String getPartialName() {
-        if (partialName == null) {
-            // TODO
-        }
-        return partialName;
-    }
-
     /**
      * Builds a hashmap of all currency types and translations using currency.txt
      */
     public static void initIconList() {
         currencyNameMap.clear();
         try {
-            InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyType.class.getResourceAsStream("/text/currency.txt")));
+            InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyType.class.getResourceAsStream("/text/currency.txt")), StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(stream);
             while (reader.ready()) {
                 String line = reader.readLine();
                 if (line.matches("\\s+")) continue;
-                if (line.startsWith("//")) {
-                    // TODO: Could parse the order line to ensure languages are always correct, but low priority since they very rarely change
-//                    if (line.startsWith("// Order:")) {
-//
-//                    }
-                    continue;
-                }
+                if (line.startsWith("//")) continue;
                 addCSV(line);
             }
             reader.close();
@@ -124,8 +110,9 @@ public class CurrencyType implements IImageRef {
 
     public static String getIconPath(String currency) {
         if (currencyNameMap.containsKey(currency)) {
-            return currencyNameMap.get(currency).getPath();
+            return currencyNameMap.get(currency).path();
         }
+        System.err.println("Currency not found: " + currency);
         return null;
     }
 
@@ -134,7 +121,7 @@ public class CurrencyType implements IImageRef {
     }
 
     @Override
-    public String getPath() {
+    public String path() {
         if (path == null) {
             String fileName = words[0].replaceAll(" ", "_").replaceAll(":", "") + ".png";
             path = "/currency/" + fileName;
