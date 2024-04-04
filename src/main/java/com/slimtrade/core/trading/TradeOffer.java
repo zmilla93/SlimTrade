@@ -171,18 +171,22 @@ public class TradeOffer {
     }
 
     private static int cleanInt(String text) {
-        if (text == null) {
+        if (text == null) return 0;
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
             return 0;
         }
-        return Integer.parseInt(text);
     }
 
     private static double cleanDouble(String text) {
-        if (text == null) {
+        if (text == null) return 0;
+        text = text.replaceAll(",", ".");
+        try {
+            return Double.parseDouble(text);
+        } catch (NumberFormatException e) {
             return 0;
         }
-        text = text.replaceAll(",", ".");
-        return Double.parseDouble(text);
     }
 
     public static TradeOffer getExampleTrade(TradeOfferType type) {
