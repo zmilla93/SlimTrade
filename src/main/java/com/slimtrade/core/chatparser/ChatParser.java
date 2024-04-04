@@ -13,6 +13,7 @@ import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.filetailing.FileTailer;
 import com.slimtrade.modules.filetailing.FileTailerListener;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.io.File;
@@ -36,9 +37,14 @@ public class ChatParser implements FileTailerListener {
     private boolean open;
     private String path;
     private boolean end;
+    private int lineCount;
+    private int whisperCount;
 
+    // FIXME: Should remove end option from chat parser (keep on file tailer)
     public void open(String path, boolean end) {
         this.end = end;
+        lineCount = 0;
+        whisperCount = 0;
         if (open) close();
         if (path == null) return;
         File clientFile = new File(path);
@@ -61,7 +67,9 @@ public class ChatParser implements FileTailerListener {
 
     public void parseLine(String line) {
         if (!open) return;
+        lineCount++;
         if (line.contains("@")) {
+            whisperCount++;
             TradeOffer tradeOffer = TradeOffer.getTradeFromMessage(line);
             if (tradeOffer != null) {
                 handleTradeOffer(tradeOffer);
@@ -242,6 +250,7 @@ public class ChatParser implements FileTailerListener {
 
     @Override
     public void onLoad() {
+        ZLogger.log("Chat parser loaded. Found " + lineCount + " lines and " + whisperCount + " whispers.");
         for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded();
     }
 
