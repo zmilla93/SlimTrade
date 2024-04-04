@@ -10,7 +10,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
 
     private HotkeyButton hotkeyListener = null;
     private static volatile boolean ctrlPressed;
-    private static volatile boolean atlPressed;
+    private static volatile boolean altPressed;
     private static volatile boolean shiftPressed;
     // Masks for the 5 mouse buttons
     private static final int[] mouseMasks = {256, 512, 1024, 2048, 4096};
@@ -22,7 +22,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL_L || e.getKeyCode() == NativeKeyEvent.VC_CONTROL_R) {
             ctrlPressed = true;
         } else if (e.getKeyCode() == NativeKeyEvent.VC_ALT_L || e.getKeyCode() == NativeKeyEvent.VC_ALT_R) {
-            atlPressed = true;
+            altPressed = true;
         } else if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT_L || e.getKeyCode() == NativeKeyEvent.VC_SHIFT_L) {
             shiftPressed = true;
         }
@@ -57,7 +57,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL_L || e.getKeyCode() == NativeKeyEvent.VC_CONTROL_R) {
             ctrlPressed = false;
         } else if (e.getKeyCode() == NativeKeyEvent.VC_ALT_L || e.getKeyCode() == NativeKeyEvent.VC_ALT_R) {
-            atlPressed = false;
+            altPressed = false;
         } else if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT_L || e.getKeyCode() == NativeKeyEvent.VC_SHIFT_R) {
             shiftPressed = false;
         }
@@ -72,8 +72,8 @@ public class GlobalKeyboardListener implements NativeKeyListener {
         return ctrlPressed;
     }
 
-    public boolean isAtlPressed() {
-        return atlPressed;
+    public boolean isAltPressed() {
+        return altPressed;
     }
 
     public boolean isShiftPressed() {
@@ -81,9 +81,8 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     }
 
     public void listenForHotkey(HotkeyButton hotkeyListener) {
-        if (this.hotkeyListener != null) {
-            this.hotkeyListener.setData(null);
-        }
+        if (this.hotkeyListener == hotkeyListener) return;
+        if (this.hotkeyListener != null) this.hotkeyListener.setData(null);
         this.hotkeyListener = hotkeyListener;
     }
 
