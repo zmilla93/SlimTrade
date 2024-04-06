@@ -50,18 +50,16 @@ public class App {
     public static UpdateManager updateManager;
 
     public static ChatParser chatParser;
-    public static ChatParser preloadParser;
 
     public static AppInfo appInfo;
     private static AppState state = AppState.LOADING;
     private static AppState previousState = AppState.LOADING;
     private static boolean themesHaveBeenInitialized = false;
     private static boolean updateIsAvailable = false;
-
-    // Launch Args
-    public static boolean noUpdate = false;
+    private static boolean isRunningSetup = false;
 
     // Debug Flags
+    public static boolean noUpdate = false;
     public static boolean debug = false;
     public static boolean debugUIAlwaysOnTop = false;
     public static boolean chatInConsole = false;
@@ -183,6 +181,7 @@ public class App {
     }
 
     private static void runSetupWizard() {
+        isRunningSetup = true;
         SwingUtilities.invokeLater(() -> {
             FrameManager.setupWindow.setup();
             FrameManager.setWindowVisibility(AppState.SETUP);
@@ -208,6 +207,7 @@ public class App {
             FrameManager.setupWindow.dispose();
             FrameManager.setupWindow = null;
         }
+        isRunningSetup = false;
         SaveManager.settingsSaveFile.revertChanges();
         SaveManager.stashSaveFile.revertChanges();
         SaveManager.chatScannerSaveFile.revertChanges();
@@ -218,7 +218,7 @@ public class App {
         FrameManager.showAppFrames();
         SystemTrayManager.showDefault();
 
-        initParsers();
+        initParser();
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);
 
@@ -232,7 +232,7 @@ public class App {
             SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
     }
 
-    public static void initParsers() {
+    public static void initParser() {
         if (chatParser != null) {
             chatParser.close();
             chatParser.removeAllListeners();
@@ -277,6 +277,7 @@ public class App {
         }
     }
 
+    // FIXME: This
     public static void setState(AppState state) {
         previousState = App.state;
         App.state = state;
@@ -288,6 +289,10 @@ public class App {
 
     public static AppState getPreviousState() {
         return App.previousState;
+    }
+
+    public static boolean isRunningSetup() {
+        return isRunningSetup;
     }
 
     private static void closeProgram() {

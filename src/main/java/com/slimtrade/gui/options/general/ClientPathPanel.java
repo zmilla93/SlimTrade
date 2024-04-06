@@ -45,7 +45,7 @@ public class ClientPathPanel extends JPanel implements ISavable {
     public void save() {
         SaveManager.settingsSaveFile.data.clientPath = clientTextField.getText();
         if (App.chatParser.getPath() != null && !App.chatParser.getPath().equals(clientTextField.getText())) {
-            App.initParsers();
+            App.initParser();
         }
     }
 

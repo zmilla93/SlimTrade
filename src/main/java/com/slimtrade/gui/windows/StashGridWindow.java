@@ -1,6 +1,7 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
+import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.managers.FrameManager;
@@ -81,12 +82,17 @@ public class StashGridWindow extends CustomDialog implements ISavable, IThemeLis
             SaveManager.stashSaveFile.saveToDisk();
             if (FrameManager.setupWindow != null)
                 FrameManager.setupWindow.getStashPanel().validateNextButton();
-            FrameManager.setWindowVisibility(App.getPreviousState());
+            restorePreviousWindowVisibility();
         });
         cancelButton.addActionListener(e -> {
             load();
-            FrameManager.setWindowVisibility(App.getPreviousState());
+            restorePreviousWindowVisibility();
         });
+    }
+
+    private void restorePreviousWindowVisibility() {
+        AppState previousState = App.isRunningSetup() ? AppState.SETUP : AppState.RUNNING;
+        FrameManager.setWindowVisibility(previousState);
     }
 
     private void setBoundsUsingGrid(Rectangle rect) {
