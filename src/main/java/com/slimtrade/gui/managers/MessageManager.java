@@ -133,7 +133,16 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 else collapseMessages();
             }
         });
-
+        tabbedPane.addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON2) {
+                    int index = tabbedPane.indexAtLocation(e.getX(), e.getY());
+                    if (index < 0) return;
+                    removeMessage((NotificationPanel)  tabbedPane.getComponentAt(index));
+                }
+            }
+        });
     }
 
     // FIXME: Should merge this with addMessage
@@ -229,7 +238,6 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
             gc.gridy = isExpandUp() ? 9999 - messageContainer.getComponentCount() : messageContainer.getComponentCount();
             messageContainer.add(panel, gc);
         }
-
     }
 
     public void removeMessage(NotificationPanel panel) {
@@ -419,11 +427,14 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     public void checkHotkey(HotkeyData hotkeyData) {
-        if (messageContainer.getComponentCount() > 0) {
-            Component c = messageContainer.getComponent(0);
-            if (c instanceof NotificationPanel) {
-                ((NotificationPanel) c).checkHotkeys(hotkeyData);
-            }
+        if (SaveManager.settingsSaveFile.data.useMessageTabs) {
+            if (tabbedPane.getTabCount() == 0) return;
+            NotificationPanel panel = (NotificationPanel) tabbedPane.getSelectedComponent();
+            panel.checkHotkeys(hotkeyData);
+        } else {
+            if (messageContainer.getComponentCount() == 0) return;
+            NotificationPanel panel = (NotificationPanel) messageContainer.getComponent(0);
+            panel.checkHotkeys(hotkeyData);
         }
     }
 

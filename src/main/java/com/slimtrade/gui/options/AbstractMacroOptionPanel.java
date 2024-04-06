@@ -9,6 +9,7 @@ import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.gui.components.AddRemoveContainer;
+import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.messaging.ChatScannerMessagePanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
@@ -61,10 +62,11 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
             addVerticalStrut();
         }
         addHeader("Custom Macro Info");
-        addComponent(new JLabel("Run one or more commands using {player}, {item}, {price}, {zone}, and {message}."));
-        addComponent(new JLabel("Commands that don't start with @ or / will have '@{player}' added automatically."));
-        addComponent(new JLabel("Use a slash or @ to start a new command, and they will be chained together."));
-        addComponent(new JLabel("Hotkeys use the left click of the oldest trade. Use escape to clear a hotkey."));
+        addComponent(new JLabel("Run one or more commands using {player}, {item}, {price}, {zone}, and {message} for text replacement."));
+        addComponent(new JLabel("Commands that don't start with / or @ will have '@{player}' added automatically."));
+        addComponent(new JLabel("Use / or @ to start a new command, and they will be chained together."));
+        addComponent(new JLabel("Hotkeys use the left click of the oldest trade, or the selected trade when using tabs."));
+        addComponent(new JLabel("Use escape to clear a hotkey."));
         addVerticalStrutSmall();
         addComponent(exampleButton);
 
@@ -118,7 +120,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
 
-        panel.add(new JLabel("thanks"), gc);
+        panel.add(new StyledLabel("thanks").bold(), gc);
         gc.gridx++;
         gc.insets.left = GUIReferences.INSET;
         panel.add(new JLabel("Whisper thanks (shorthand for \"@{player} thanks\")"), gc);
@@ -126,7 +128,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.gridx = 0;
         gc.gridy++;
 
-        panel.add(new JLabel("thanks /kick {player}"), gc);
+        panel.add(new StyledLabel("thanks /kick {player}").bold(), gc);
         gc.gridx++;
         gc.insets.left = GUIReferences.INSET;
         panel.add(new JLabel("Whisper thanks, then kick the other player."), gc);
@@ -134,7 +136,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.gridx = 0;
         gc.gridy++;
 
-        panel.add(new JLabel("thanks /leave /hideout"), gc);
+        panel.add(new StyledLabel("thanks /leave /hideout").bold(), gc);
         gc.gridx++;
         gc.insets.left = GUIReferences.INSET;
         panel.add(new JLabel("Whisper thanks, leave the party, then warp to your own hideout."), gc);
@@ -142,7 +144,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.gridx = 0;
         gc.gridy++;
 
-        panel.add(new JLabel("hold on, in {zone}"), gc);
+        panel.add(new StyledLabel("hold on, in {zone}").bold(), gc);
         gc.gridx++;
         gc.insets.left = GUIReferences.INSET;
         panel.add(new JLabel("Let a player know what zone you are in."), gc);
@@ -150,7 +152,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.gridx = 0;
         gc.gridy++;
 
-        panel.add(new JLabel("{message}"), gc);
+        panel.add(new StyledLabel("{message}").bold(), gc);
         gc.gridx++;
         gc.insets.left = GUIReferences.INSET;
         panel.add(new JLabel("Resend an outgoing trade message."), gc);
