@@ -60,6 +60,7 @@ public class App {
 
     // Debug Flags
     public static boolean noUpdate = false;
+    public static boolean noLock = false;
     public static boolean debug = false;
     public static boolean debugUIAlwaysOnTop = false;
     public static boolean chatInConsole = false;
@@ -73,10 +74,12 @@ public class App {
 
         // Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
-        boolean lockSuccess = lockManager.tryAndLock();
-        if (!lockSuccess) {
-            System.err.println("SlimTrade is already running. Terminating new instance.");
-            System.exit(0);
+        if (!noLock) {
+            boolean lockSuccess = lockManager.tryAndLock();
+            if (!lockSuccess) {
+                System.err.println("SlimTrade is already running. Terminating new instance.");
+                System.exit(0);
+            }
         }
 
         // Logger
@@ -270,6 +273,7 @@ public class App {
         for (String arg : args) {
             arg = arg.toLowerCase();
             if (arg.equals("-nu") || arg.equals("-noupdate")) noUpdate = true;
+            if (arg.equals("-nl") || arg.equals("-nolock")) noLock = true;
             if (arg.equals("-d") || arg.equals("-debug")) debug = true;
             if (arg.equals("-o") || arg.equals("-options")) showOptionsOnLaunch = true;
             if (arg.equals("-ui")) debugUIAlwaysOnTop = true;
