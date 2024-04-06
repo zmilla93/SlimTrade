@@ -2,9 +2,12 @@ package com.slimtrade.core.hotkeys;
 
 import com.slimtrade.core.utility.POEInterface;
 
+/**
+ * Runs a POE chat command.
+ */
 public class PoeCommandHotkey implements IHotkeyAction {
 
-    String command;
+    private final String command;
 
     public PoeCommandHotkey(String command) {
         this.command = command;

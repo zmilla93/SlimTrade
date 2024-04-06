@@ -7,6 +7,9 @@ import com.slimtrade.gui.messaging.NotificationPanel;
 
 import javax.swing.*;
 
+/**
+ * Handles running hotkeys for a Notification Panel.
+ */
 public class NotificationPanelHotkey implements IHotkeyAction {
 
     private final PasteReplacement pasteReplacement;

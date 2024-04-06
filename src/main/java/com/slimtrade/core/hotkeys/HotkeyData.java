@@ -2,6 +2,9 @@ package com.slimtrade.core.hotkeys;
 
 import org.jnativehook.keyboard.NativeKeyEvent;
 
+/**
+ * Stores they key code and any modifiers for a hotkey.
+ */
 public class HotkeyData {
 
     public final int keyCode;

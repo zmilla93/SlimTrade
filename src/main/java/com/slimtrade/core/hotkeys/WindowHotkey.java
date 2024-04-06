@@ -4,6 +4,9 @@ import com.slimtrade.gui.windows.CustomDialog;
 
 import javax.swing.*;
 
+/**
+ * Toggles the visibility of a swing window.
+ */
 public class WindowHotkey implements IHotkeyAction {
 
     private final CustomDialog window;

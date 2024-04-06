@@ -5,6 +5,9 @@ import com.slimtrade.gui.options.searching.StashSearchWindow;
 
 import javax.swing.*;
 
+/**
+ * Toggles the visibility for a SlimTrade search window.
+ */
 public class SearchWindowHotkey implements IHotkeyAction {
 
     private final int id;
