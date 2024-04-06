@@ -18,6 +18,12 @@ import java.awt.*;
 
 public class MessageSettingsPanel extends JPanel implements ISavable {
 
+    // Fade
+    private final JCheckBox fadeCheckBox = new JCheckBox("Fade Messages");
+    private final JSpinner secondsBeforeFadeSpinner = new RangeSpinner(SpinnerRangeFloat.SECONDS_BEFORE_FADE);
+    private final JLabel fadedOpacityLabel = new JLabel();
+    private final JSlider fadeOpacitySlider = new RangeSlider(SliderRange.FADED_OPACITY);
+
     // Tabs
     private final JCheckBox messageTabsCheckbox = new JCheckBox("Use Tabs");
     private final HotkeyButton previousMessageTabHotkey = new HotkeyButton();
@@ -27,24 +33,18 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
     private final JCheckBox collapseCheckBox = new JCheckBox("Collapse Messages");
     private final JSpinner messagesBeforeCollapseSpinner = new RangeSpinner(SpinnerRange.MESSAGES_BEFORE_COLLAPSE);
 
-    // Fade
-    private final JCheckBox fadeCheckBox = new JCheckBox("Fade Messages");
-    private final JSpinner secondsBeforeFadeSpinner = new RangeSpinner(SpinnerRangeFloat.SECONDS_BEFORE_FADE);
-    private final JLabel fadedOpacityLabel = new JLabel();
-    private final JSlider fadeOpacitySlider = new RangeSlider(SliderRange.FADED_OPACITY);
-
     // Panels
-//    private final JPanel messageTabHotkeyPanel;
-    private final JPanel collapsePanel;
     private final JPanel fadePanel;
+    //    private final JPanel messageTabHotkeyPanel;
+    private final JPanel collapsePanel;
     private static final int INSET = 20;
 
     public MessageSettingsPanel() {
 
 //        messageTabHotkeyPanel = createTabMessageHotkeyPanel();
-        collapsePanel = createCollapsePanel();
         fadePanel = createFadePanel();
         fadeOpacitySlider.setPreferredSize(new Dimension(Math.round(getPreferredSize().width * 0.75f), fadeOpacitySlider.getPreferredSize().height));
+        collapsePanel = createCollapsePanel();
 
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
@@ -66,10 +66,10 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
     }
 
     private void addListeners() {
-        messageTabsCheckbox.addChangeListener(e -> updatePanelVisibility());
         fadeOpacitySlider.addChangeListener(e -> updateOpacityLabel());
-        collapseCheckBox.addActionListener(e -> updatePanelVisibility());
         fadeCheckBox.addActionListener(e -> updatePanelVisibility());
+        messageTabsCheckbox.addChangeListener(e -> updatePanelVisibility());
+        collapseCheckBox.addActionListener(e -> updatePanelVisibility());
     }
 
     // FIXME: Unused, can delete if satisfied with having hotkeys on the hotkey panel instead (and delete other commented out code that is related)
@@ -128,11 +128,10 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
     }
 
     private void updatePanelVisibility() {
+        fadePanel.setVisible(fadeCheckBox.isSelected());
         FrameManager.optionsWindow.getHotkeyPanel().showHideChangeTabHotkeys(messageTabsCheckbox.isSelected());
-//        messageTabHotkeyPanel.setVisible(messageTabsCheckbox.isSelected());
         collapseCheckBox.setVisible(!messageTabsCheckbox.isSelected());
         collapsePanel.setVisible(collapseCheckBox.isSelected() && !messageTabsCheckbox.isSelected());
-        fadePanel.setVisible(fadeCheckBox.isSelected());
     }
 
     private void updateOpacityLabel() {
@@ -141,22 +140,22 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
 
     @Override
     public void save() {
-        SaveManager.settingsSaveFile.data.useMessageTabs = messageTabsCheckbox.isSelected();
-        SaveManager.settingsSaveFile.data.collapseMessages = collapseCheckBox.isSelected();
-        SaveManager.settingsSaveFile.data.messageCountBeforeCollapse = (int) messagesBeforeCollapseSpinner.getValue();
         SaveManager.settingsSaveFile.data.fadeMessages = fadeCheckBox.isSelected();
         SaveManager.settingsSaveFile.data.secondsBeforeFading = (float) secondsBeforeFadeSpinner.getValue();
         SaveManager.settingsSaveFile.data.fadedOpacity = fadeOpacitySlider.getValue();
+        SaveManager.settingsSaveFile.data.useMessageTabs = messageTabsCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.collapseMessages = collapseCheckBox.isSelected();
+        SaveManager.settingsSaveFile.data.messageCountBeforeCollapse = (int) messagesBeforeCollapseSpinner.getValue();
     }
 
     @Override
     public void load() {
-        messageTabsCheckbox.setSelected(SaveManager.settingsSaveFile.data.useMessageTabs);
-        collapseCheckBox.setSelected(SaveManager.settingsSaveFile.data.collapseMessages);
-        messagesBeforeCollapseSpinner.setValue(SaveManager.settingsSaveFile.data.messageCountBeforeCollapse);
         fadeCheckBox.setSelected(SaveManager.settingsSaveFile.data.fadeMessages);
         secondsBeforeFadeSpinner.setValue(SaveManager.settingsSaveFile.data.secondsBeforeFading);
         fadeOpacitySlider.setValue(SaveManager.settingsSaveFile.data.fadedOpacity);
+        messageTabsCheckbox.setSelected(SaveManager.settingsSaveFile.data.useMessageTabs);
+        collapseCheckBox.setSelected(SaveManager.settingsSaveFile.data.collapseMessages);
+        messagesBeforeCollapseSpinner.setValue(SaveManager.settingsSaveFile.data.messageCountBeforeCollapse);
         updatePanelVisibility();
         updateOpacityLabel();
     }
