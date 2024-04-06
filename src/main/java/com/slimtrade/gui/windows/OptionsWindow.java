@@ -21,7 +21,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     private final AbstractMacroOptionPanel incomingMacroPanel;
     private final AbstractMacroOptionPanel outgoingMacroPanel;
     private final IgnoreItemOptionPanel ignorePanel = new IgnoreItemOptionPanel();
-    private final GeneralOptionPanel generalOptionPanel = new GeneralOptionPanel();
+    private final HotkeyOptionPanel hotkeyPanel = new HotkeyOptionPanel();
     private final OptionPanel donate = new OptionPanel("Donate", new DonationPanel());
     private final JList<OptionPanel> optionsList;
 
@@ -37,14 +37,14 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         outgoingMacroPanel = new OutgoingMacroPanel();
 
         // Panels
-        OptionPanel general = new OptionPanel("General", generalOptionPanel);
+        OptionPanel general = new OptionPanel("General", new GeneralOptionPanel());
         OptionPanel display = new OptionPanel("Display", new DisplayOptionPanel());
         OptionPanel audio = new OptionPanel("Audio", new AudioOptionPanel());
         OptionPanel stash = new OptionPanel("Stash Tabs", new StashOptionPanel());
         OptionPanel information = new OptionPanel("Information", new InformationOptionPanel());
         OptionPanel incomingMacros = new OptionPanel("Incoming Macros", incomingMacroPanel);
         OptionPanel outgoingMacros = new OptionPanel("Outgoing Macros", outgoingMacroPanel);
-        OptionPanel hotkeys = new OptionPanel("Hotkeys", new HotkeyOptionPanel());
+        OptionPanel hotkeys = new OptionPanel("Hotkeys", hotkeyPanel);
         OptionPanel ignoreItems = new OptionPanel("Ignore Items", ignorePanel);
         OptionPanel cheatSheets = new OptionPanel("Cheat Sheets", new CheatSheetsOptionPanel());
         OptionPanel stashSearch = new OptionPanel("Searching", new StashSearchOptionPanel());
@@ -159,6 +159,10 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
 
     public IgnoreItemOptionPanel getIgnorePanel() {
         return ignorePanel;
+    }
+
+    public HotkeyOptionPanel getHotkeyPanel() {
+        return hotkeyPanel;
     }
 
     public void showUpdateButton() {

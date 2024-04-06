@@ -21,6 +21,7 @@ import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.ThemeManager;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -139,7 +140,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
                 if (e.getButton() == MouseEvent.BUTTON2) {
                     int index = tabbedPane.indexAtLocation(e.getX(), e.getY());
                     if (index < 0) return;
-                    removeMessage((NotificationPanel)  tabbedPane.getComponentAt(index));
+                    removeMessage((NotificationPanel) tabbedPane.getComponentAt(index));
                 }
             }
         });
@@ -343,6 +344,28 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         }
         updateExpandText();
         refresh();
+    }
+
+    public void showPreviousTabMessage() {
+        changeMessageTab(-1);
+    }
+
+    public void showNextTabMessage() {
+        changeMessageTab(1);
+    }
+
+    public void changeMessageTab(int change) {
+        assert SwingUtilities.isEventDispatchThread();
+        if (change != -1 && change != 1) {
+            ZLogger.err("Changing message tab expects either -1 or 1.");
+            return;
+        }
+        if (!SaveManager.settingsSaveFile.data.useMessageTabs) return;
+        int selectedTab = tabbedPane.getSelectedIndex();
+        if (selectedTab < 0) return;
+        int nextTab = selectedTab + change;
+        if (nextTab < 0 || nextTab >= tabbedPane.getTabCount()) return;
+        tabbedPane.setSelectedIndex(nextTab);
     }
 
     private void updateExpandText() {

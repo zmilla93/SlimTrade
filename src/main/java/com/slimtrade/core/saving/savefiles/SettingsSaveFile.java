@@ -94,6 +94,8 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public HotkeyData historyHotkey;
     public HotkeyData chatScannerHotkey;
     public HotkeyData closeTradeHotkey;
+    public HotkeyData previousMessageTabHotkey;
+    public HotkeyData nextMessageTabHotkey;
 
     // POE Hotkeys
     public HotkeyData delveHotkey;

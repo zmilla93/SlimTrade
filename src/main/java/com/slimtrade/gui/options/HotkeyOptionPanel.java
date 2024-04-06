@@ -16,6 +16,11 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
     private final HotkeyButton history = new HotkeyButton();
     private final HotkeyButton chatScanner = new HotkeyButton();
     private final HotkeyButton closeOldestTrade = new HotkeyButton();
+    private final HotkeyButton previousMessageTab = new HotkeyButton();
+    private final HotkeyButton nexTabMessage = new HotkeyButton();
+
+    private final Component[] previousMessageTabComponents;
+    private final Component[] nextMessageTabComponents;
 
     // POE Hotkeys
     private final HotkeyButton delve = new HotkeyButton();
@@ -28,9 +33,7 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
     private final HotkeyButton necropolis = new HotkeyButton();
     private final HotkeyButton remainingMonsters = new HotkeyButton();
 
-    JPanel appHotkeyPanel = new JPanel(new GridBagLayout());
-    JPanel poeHotkeyPanel = new JPanel(new GridBagLayout());
-
+    public static final int SPACING_INSET = 20;
     private final GridBagConstraints gc = new GridBagConstraints();
 
     public HotkeyOptionPanel() {
@@ -39,10 +42,17 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         gc.gridy = 0;
         gc.fill = GridBagConstraints.BOTH;
 
+        // App Hotkeys
+        JPanel appHotkeyPanel = new JPanel(new GridBagLayout());
         addHotkey(appHotkeyPanel, "Options", options);
         addHotkey(appHotkeyPanel, "History", history);
         addHotkey(appHotkeyPanel, "Chat Scanner", chatScanner);
         addHotkey(appHotkeyPanel, "Close Oldest Trade", closeOldestTrade);
+        previousMessageTabComponents = addHotkey(appHotkeyPanel, "Previous Message Tab", previousMessageTab);
+        nextMessageTabComponents = addHotkey(appHotkeyPanel, "Next Message Tab", nexTabMessage);
+
+        // POE Hotkeys
+        JPanel poeHotkeyPanel = new JPanel(new GridBagLayout());
         addHotkey(poeHotkeyPanel, "Delve", delve);
         addHotkey(poeHotkeyPanel, "Do Not Disturb", doNotDisturb);
         addHotkey(poeHotkeyPanel, "Exit to Menu", exitToMenu);
@@ -65,14 +75,30 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
 //        App.saveManager.registerSavable(this);
     }
 
-    private void addHotkey(JPanel panel, String name, HotkeyButton hotkey) {
-        panel.add(new JLabel(name), gc);
+    private Component[] addHotkey(JPanel panel, String name, HotkeyButton hotkey) {
+        Component[] components = new Component[2];
+        JLabel label = new JLabel(name);
+        ButtonWrapper wrapper = new ButtonWrapper(hotkey);
+        components[0] = label;
+        components[1] = wrapper;
+
+        panel.add(label, gc);
         gc.gridx++;
-        gc.insets.left = 20;
-        panel.add(new ButtonWrapper(hotkey), gc);
+        gc.insets.left = SPACING_INSET;
+        panel.add(wrapper, gc);
         gc.insets.left = 0;
         gc.gridx = 0;
         gc.gridy++;
+        return components;
+    }
+
+    public void showHideChangeTabHotkeys(boolean visible) {
+        for (Component comp : previousMessageTabComponents) {
+            comp.setVisible(visible);
+        }
+        for (Component comp : nextMessageTabComponents) {
+            comp.setVisible(visible);
+        }
     }
 
     @Override
@@ -82,6 +108,8 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         SaveManager.settingsSaveFile.data.historyHotkey = history.getData();
         SaveManager.settingsSaveFile.data.chatScannerHotkey = chatScanner.getData();
         SaveManager.settingsSaveFile.data.closeTradeHotkey = closeOldestTrade.getData();
+        SaveManager.settingsSaveFile.data.previousMessageTabHotkey = previousMessageTab.getData();
+        SaveManager.settingsSaveFile.data.nextMessageTabHotkey = nexTabMessage.getData();
         // POE
         SaveManager.settingsSaveFile.data.delveHotkey = delve.getData();
         SaveManager.settingsSaveFile.data.doNotDisturbHotkey = doNotDisturb.getData();
@@ -101,6 +129,8 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         history.setData(SaveManager.settingsSaveFile.data.historyHotkey);
         chatScanner.setData(SaveManager.settingsSaveFile.data.chatScannerHotkey);
         closeOldestTrade.setData(SaveManager.settingsSaveFile.data.closeTradeHotkey);
+        previousMessageTab.setData(SaveManager.settingsSaveFile.data.previousMessageTabHotkey);
+        nexTabMessage.setData(SaveManager.settingsSaveFile.data.nextMessageTabHotkey);
         // POE
         delve.setData(SaveManager.settingsSaveFile.data.delveHotkey);
         doNotDisturb.setData(SaveManager.settingsSaveFile.data.doNotDisturbHotkey);

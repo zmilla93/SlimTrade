@@ -11,7 +11,6 @@ import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.gui.windows.CheatSheetWindow;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
-import javax.swing.*;
 import java.util.HashMap;
 
 /**
@@ -28,7 +27,11 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new WindowHotkey(FrameManager.optionsWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new WindowHotkey(FrameManager.historyWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new WindowHotkey(FrameManager.chatScannerWindow));
-        registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, () -> SwingUtilities.invokeLater(() -> FrameManager.messageManager.closeOldestTrade()));
+        registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, new SwingActionHotkey(() -> FrameManager.messageManager.closeOldestTrade()));
+        if (SaveManager.settingsSaveFile.data.useMessageTabs) {
+            registerHotkey(SaveManager.settingsSaveFile.data.previousMessageTabHotkey, new ChangeMessageTabHotkey(-1));
+            registerHotkey(SaveManager.settingsSaveFile.data.nextMessageTabHotkey, new ChangeMessageTabHotkey(1));
+        }
         // POE
         registerHotkey(SaveManager.settingsSaveFile.data.delveHotkey, new PoeCommandHotkey("/delve"));
         registerHotkey(SaveManager.settingsSaveFile.data.doNotDisturbHotkey, new PoeCommandHotkey("/dnd"));
