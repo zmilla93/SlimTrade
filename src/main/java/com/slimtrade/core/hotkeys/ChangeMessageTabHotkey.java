@@ -19,5 +19,5 @@ public class ChangeMessageTabHotkey implements IHotkeyAction {
     public void execute() {
         SwingUtilities.invokeLater(() -> FrameManager.messageManager.changeMessageTab(change));
     }
-    
+
 }

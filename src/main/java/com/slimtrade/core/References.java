@@ -11,7 +11,7 @@ public class References {
 
     // Links
     public static final String GITHUB_URL = "https://github.com/zmilla93/SlimTrade";
-    public static final String GITHUB_ISSUES_URL = "https://github.com/zmilla93/SlimTrade/issues/new/choose";
+    public static final String GITHUB_ISSUES_URL = "https://github.com/zmilla93/SlimTrade/issues";
     public static final String DISCORD_INVITE = "https://discord.com/invite/yKdExMe";
     public static final String FAQ_URL = "https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting";
     public static final String PAYPAL_URL = "https://www.paypal.com/paypalme/zmilla93";
