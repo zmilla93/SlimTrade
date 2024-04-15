@@ -1,13 +1,17 @@
 package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.CommonText;
+import com.slimtrade.core.References;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class StashSearchOptionPanel extends AbstractOptionPanel implements ISavable {
@@ -15,12 +19,14 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
     protected final StashSearchSettingsPanel settingsPanel = new StashSearchSettingsPanel();
     private final AddRemoveContainer<StashSearchGroupPanel> entryContainer = new AddRemoveContainer<>();
     private final ArrayList<Integer> idsToReset = new ArrayList<>();
+    private final JButton poeRegexButton = new JButton("Path of Exile Regex");
 
     public StashSearchOptionPanel() {
         addHeader("Info");
         addComponent(new JLabel("Pastes search terms into any POE window with a search bar (stashes, skill tree, vendors, etc)."));
         addComponent(new JLabel("Search groups can be separate windows, or a single combined window with a group selector."));
         addComponent(new JLabel(CommonText.DEFAULT_WHITE_TEXT));
+        addComponent(poeRegexButton);
         addVerticalStrut();
         addHeader("Settings");
         addComponent(settingsPanel);
@@ -31,6 +37,7 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
     }
 
     private void addListeners() {
+        poeRegexButton.addActionListener(e -> ZUtil.openLink(References.POE_REGEX_LINK));
         settingsPanel.newSearchGroupButton.addActionListener(e -> {
             String error = tryAddNewGroup();
             settingsPanel.setError(error);

@@ -17,6 +17,9 @@ public class References {
     public static final String PAYPAL_URL = "https://www.paypal.com/paypalme/zmilla93";
     public static final String PATREON_URL = "https://www.patreon.com/SlimTrade";
 
+    // Community Sites
+    public static final String POE_REGEX_LINK = "https://poe.re/";
+
     // Regex
     public static final String REGEX_CLIENT_DATA = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] ";
     public static final String REGEX_MESSAGE_PREFIX = REGEX_CLIENT_DATA + "@(?<messageType>От кого|\\S+) (?<guildName><.+> )?(?<playerName>.+):(\\s+)(?<message>";
