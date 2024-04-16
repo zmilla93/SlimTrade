@@ -351,6 +351,14 @@ public class ThemeManager {
         return colorB;
     }
 
+    public static float getBrightness(Color color) {
+        return 0.2126f * color.getRed() + 0.7152f * color.getGreen() + 0.0722f * color.getBlue();
+    }
+
+    public static boolean isDark(Color color) {
+        return getBrightness(color) < 128;
+    }
+
     public static Color modify(Color c, int mod) {
         int min = 0;
         int max = 255;

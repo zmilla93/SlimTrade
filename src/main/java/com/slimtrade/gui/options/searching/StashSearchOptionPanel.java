@@ -10,8 +10,6 @@ import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class StashSearchOptionPanel extends AbstractOptionPanel implements ISavable {

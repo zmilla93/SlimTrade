@@ -55,4 +55,5 @@ public class ColorPanel extends JPanel {
         if (value > max) return max;
         return (int) Math.floor(value);
     }
+
 }

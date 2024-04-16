@@ -32,14 +32,11 @@ public class ChatScannerMessagePanel extends NotificationPanel {
         topMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.TOP_ROW);
         bottomMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.BOTTOM_ROW);
         setup();
-        applyMessageColor();
     }
 
     @Override
-    public void updateUI() {
-        super.updateUI();
+    protected void resolveMessageColor() {
         messageColor = ThemeColorVariant.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
-        applyMessageColor();
     }
 
 }

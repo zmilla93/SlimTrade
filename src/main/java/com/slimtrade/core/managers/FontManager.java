@@ -124,18 +124,21 @@ public class FontManager {
     }
 
     public static JLabel applyFont(JLabel component) {
+        if (component == null) return null;
         FontLanguage language = UnicodeRange.getLanguage(component.getText());
         component.setFont(getFont(component.getFont(), language));
         return component;
     }
 
     public static JButton applyFont(JButton component) {
+        if (component == null) return null;
         FontLanguage language = UnicodeRange.getLanguage(component.getText());
         component.setFont(getFont(component.getFont(), language));
         return component;
     }
 
     public static JTextField applyFont(JTextField component) {
+        if (component == null) return null;
         FontLanguage language = UnicodeRange.getLanguage(component.getText());
         component.setFont(getFont(component.getFont(), language));
         return component;

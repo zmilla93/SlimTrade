@@ -8,7 +8,6 @@ import com.slimtrade.core.hotkeys.IHotkeyAction;
 import com.slimtrade.core.hotkeys.NotificationPanelHotkey;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.POEInterface;
@@ -16,7 +15,6 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.BorderlessButton;
 import com.slimtrade.gui.components.CurrencyLabelFactory;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.theme.components.ColorPanel;
 
 import javax.swing.*;
@@ -25,46 +23,47 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NotificationPanel extends ColorPanel {
+/**
+ * Extend this for every unique type of panel added to the MessageManager.
+ */
+public abstract class NotificationPanel extends ColorPanel {
 
-    // Panels
-    protected final NotificationButton playerNameButton = new NotificationButton("Player Name");
+    // Components
+    protected final NotificationButton playerNameButton = new NotificationButton("Placeholder Player Name");
     protected final JPanel pricePanel = new JPanel(new GridBagLayout());
     protected final BorderlessButton itemButton = new BorderlessButton();
-    protected final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
     protected final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
+    protected final JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
+    private final JLabel timerLabel = new JLabel("0s");
 
+    // Container Panels
+    protected final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
+    private final JPanel topPanel;
     private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
-    private final JPanel topPanel;
     protected final JPanel bottomContainer = new JPanel(new BorderLayout());
     private Component bottomVerticalStrut;
 
-    private final JLabel timerLabel = new JLabel("0s");
-    protected JButton closeButton;
-
-    protected float namePanelWeight = 0.7f;
-    protected float pricePanelWeight = 0.3f;
+    private static final float NAME_PANEL_WEIGHT = 0.7f;
+    private static final float PRICE_PANEL_WEIGHT = 0.3f;
 
     protected ArrayList<MacroButton> topMacros = new ArrayList<>();
     protected ArrayList<MacroButton> bottomMacros = new ArrayList<>();
 
-    protected boolean createListeners;
-
-    protected TradeOffer tradeOffer;
     protected PasteReplacement pasteReplacement;
+    protected boolean createListeners;
     private boolean playerJoinedArea;
 
     protected Color messageColor = new Color(60, 173, 173, 255);
     protected Color currencyTextColor;
 
-    // Timers
+    // Timer
     private Timer timer;
     private boolean minuteSwitch = false;
     private int secondCount;
     private int minuteCount;
 
-    private HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
+    private final HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
 
     public NotificationPanel() {
         this(true);
@@ -75,15 +74,11 @@ public class NotificationPanel extends ColorPanel {
         // Panels
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel topContainer = new JPanel(new BorderLayout());
-
         topPanel = new JPanel(new GridBagLayout());
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
-
         // Border Setup
-        borderPanel.setBackground(Color.ORANGE);
         setLayout(new GridBagLayout());
-        int inset = 2;
         GridBagConstraints gc = ZUtil.getGC();
         gc.insets = new Insets(2, 2, 2, 2);
         gc.fill = GridBagConstraints.BOTH;
@@ -93,9 +88,7 @@ public class NotificationPanel extends ColorPanel {
         borderPanel.add(mainPanel, gc);
 
         // Main Panel
-        mainPanel.setBackground(Color.GREEN);
         mainPanel.add(topContainer, BorderLayout.NORTH);
-//        mainPanel.add(Box.createHorizontalStrut(400), BorderLayout.CENTER);
         mainPanel.add(bottomContainer, BorderLayout.SOUTH);
 
         // Containers
@@ -104,25 +97,17 @@ public class NotificationPanel extends ColorPanel {
         bottomContainer.add(bottomPanel, BorderLayout.CENTER);
         bottomContainer.add(bottomButtonPanel, BorderLayout.EAST);
 
-        // FIXME: Temp
-        topPanel.setBackground(Color.YELLOW);
-        bottomPanel.setBackground(Color.RED);
-        bottomContainer.setBackground(Color.RED);
-        bottomButtonPanel.setBackground(Color.RED);
-        mainPanel.setBackground(Color.YELLOW);
-
         // Top Panel
         gc = ZUtil.getGC();
         gc.weighty = 1;
         gc.fill = GridBagConstraints.BOTH;
-        gc.weightx = namePanelWeight;
+        gc.weightx = NAME_PANEL_WEIGHT;
         topPanel.add(playerNameButton, gc);
         gc.gridx++;
-        gc.weightx = pricePanelWeight;
+        gc.weightx = PRICE_PANEL_WEIGHT;
         topPanel.add(pricePanel, gc);
 
         // Bottom Panel
-//        pricePanel.add(priceLabel);
         bottomPanel.add(timerPanel, BorderLayout.WEST);
         bottomPanel.add(itemButton, BorderLayout.CENTER);
         int timerInset = 4;
@@ -130,30 +115,25 @@ public class NotificationPanel extends ColorPanel {
         timerPanel.add(Box.createHorizontalStrut(timerInset), BorderLayout.EAST);
         timerPanel.add(timerLabel, BorderLayout.CENTER);
 
-        setWidth(SaveManager.overlaySaveFile.data.messageWidth);
-    }
-
-    /**
-     * Should be called after properties are applied.
-     */
-    public void setup() {
-        GridBagConstraints gc = addMacrosToPanel(topButtonPanel, topMacros);
-        closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
-        topButtonPanel.add(closeButton, gc);
-        addMacrosToPanel(bottomButtonPanel, bottomMacros);
-
         // Colors
         setBackgroundKey("Separator.background");
         playerNameButton.setBackgroundKey("Panel.background");
         itemButton.setBackgroundKey("ComboBox.background");
         timerPanel.setColorMultiplier(1.1f);
         timerPanel.setBackgroundKey("ComboBox.background");
-        ThemeManager.recursiveUpdateUI(this);
-        resizeStrut();
-        if (createListeners)
-            addListeners();
-        updateSize();
-        FontManager.applyFont(playerNameButton);
+    }
+
+    /**
+     * Classes that extend NotificationPanel must call setup after completing their constructor.
+     */
+    public void setup() {
+        // Add buttons
+        GridBagConstraints gc = addMacrosToPanel(topButtonPanel, topMacros);
+        topButtonPanel.add(closeButton, gc);
+        addMacrosToPanel(bottomButtonPanel, bottomMacros);
+
+        updateUI();
+        if (createListeners) addListeners();
     }
 
     private GridBagConstraints addMacrosToPanel(JPanel panel, ArrayList<MacroButton> macros) {
@@ -161,7 +141,6 @@ public class NotificationPanel extends ColorPanel {
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.BOTH;
         gc.weighty = 1;
-        NotificationPanel self = this;
         hotkeyMap.clear();
         for (MacroButton macro : macros) {
             JButton button;
@@ -197,9 +176,8 @@ public class NotificationPanel extends ColorPanel {
         return gc;
     }
 
-    private void addListeners() {
-        NotificationPanel self = this;
-        closeButton.addActionListener(e -> FrameManager.messageManager.removeMessage(self));
+    protected void addListeners() {
+        closeButton.addActionListener(e -> FrameManager.messageManager.removeMessage(NotificationPanel.this));
         startTimer();
     }
 
@@ -228,11 +206,11 @@ public class NotificationPanel extends ColorPanel {
         if (timer != null) timer.stop();
         secondCount = 0;
         minuteCount = 1;
-        timer = new Timer(1000, e -> procTimer());
+        timer = new Timer(1000, e -> incrementTimer());
         timer.start();
     }
 
-    private void procTimer() {
+    private void incrementTimer() {
         if (minuteSwitch) {
             minuteCount++;
             timerLabel.setText(minuteCount + "m");
@@ -243,18 +221,21 @@ public class NotificationPanel extends ColorPanel {
                 timerLabel.setText(1 + "m");
                 minuteSwitch = true;
                 timer.stop();
-                timer = new Timer(60000, e -> procTimer());
+                timer = new Timer(60000, e -> incrementTimer());
                 timer.start();
             }
         }
     }
 
+    protected abstract void resolveMessageColor();
+
     public void applyMessageColor() {
         if (borderPanel == null) return;
+        resolveMessageColor();
         borderPanel.setBackground(messageColor);
         pricePanel.setBackground(messageColor);
         topPanel.setBackground(messageColor);
-        pricePanel.setForeground(currencyTextColor);
+        CurrencyLabelFactory.applyColorToLabel(pricePanel, currencyTextColor);
         if (playerJoinedArea) {
             playerNameButton.setForeground(messageColor);
             timerLabel.setForeground(messageColor);
@@ -274,11 +255,8 @@ public class NotificationPanel extends ColorPanel {
         }
     }
 
-    public TradeOffer getTradeOffer() {
-        return tradeOffer;
-    }
-
     public void resizeStrut() {
+        if (closeButton == null) return;
         if (bottomVerticalStrut != null) bottomContainer.remove(bottomVerticalStrut);
         bottomVerticalStrut = Box.createVerticalStrut(closeButton.getPreferredSize().height);
         bottomContainer.add(bottomVerticalStrut, BorderLayout.WEST);
@@ -303,7 +281,7 @@ public class NotificationPanel extends ColorPanel {
      * Called when a button is pressed that uses the /invite command.
      */
     protected void onInvite() {
-        // Overwrite this!
+        // Override this!
     }
 
     /**
@@ -312,6 +290,14 @@ public class NotificationPanel extends ColorPanel {
     public void cleanup() {
         timer.stop();
         // Override this, but call super!
+    }
+
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        updateSize();
+        applyMessageColor();
+        FontManager.applyFont(playerNameButton);
     }
 
 }

@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class ItemIgnoreWindow extends CustomDialog {
 
-    IgnoreInputPanel inputPanel = new IgnoreInputPanel();
+    private final IgnoreInputPanel inputPanel = new IgnoreInputPanel();
 
     public ItemIgnoreWindow() {
         super("Ignore Item");
@@ -18,14 +18,10 @@ public class ItemIgnoreWindow extends CustomDialog {
         pinButton.setVisible(false);
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-        int inset = 20;
-        gc.insets = new Insets(inset, inset, inset, inset);
-        contentPanel.add(inputPanel);
+        final int INSET = 20;
+        gc.insets = new Insets(INSET, INSET, INSET, INSET);
+        contentPanel.add(inputPanel, gc);
         pack();
-        Dimension size = getSize();
-        size.width += 120;
-        size.height += 40;
-        setSize(size);
         setMinimumSize(getSize());
         addListeners();
     }
@@ -39,7 +35,7 @@ public class ItemIgnoreWindow extends CustomDialog {
         });
     }
 
-    public void setItemName(String itemName) {
+    public void showWindow(String itemName) {
         inputPanel.setIgnoreItem(new IgnoreItemData(itemName, MatchType.EXACT_MATCH, 60));
         setLocationRelativeTo(null);
         pack();

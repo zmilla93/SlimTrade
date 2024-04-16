@@ -20,6 +20,7 @@ public class TradeMessagePanel extends NotificationPanel {
 
     private StashHelperPanel stashHelperPanel;
     private StashHelperBulkWrapper stashHelperBulkWrapper;
+    private final TradeOffer tradeOffer;
 
     public TradeMessagePanel(TradeOffer offer) {
         this(offer, true);
@@ -54,12 +55,12 @@ public class TradeMessagePanel extends NotificationPanel {
                 bottomMacros = SaveManager.settingsSaveFile.data.outgoingBottomMacros;
                 break;
         }
-        updateUI();
         setup();
-        if (createListeners) addListeners();
     }
 
-    private void addListeners() {
+    @Override
+    protected void addListeners() {
+        super.addListeners();
         TradeMessagePanel self = this;
         addPlayerButtonListener(tradeOffer.playerName);
         switch (tradeOffer.offerType) {
@@ -68,13 +69,11 @@ public class TradeMessagePanel extends NotificationPanel {
                     @Override
                     public void click(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
-                            if (stashHelperPanel != null)
-                                stashHelperPanel.setVisible(true);
-                            if (stashHelperBulkWrapper != null)
-                                stashHelperBulkWrapper.setVisible(true);
+                            if (stashHelperPanel != null) stashHelperPanel.setVisible(true);
+                            if (stashHelperBulkWrapper != null) stashHelperBulkWrapper.setVisible(true);
                             FrameManager.stashHelperContainer.refresh();
                         } else if (e.getButton() == MouseEvent.BUTTON3) {
-                            FrameManager.itemIgnoreWindow.setItemName(tradeOffer.itemName);
+                            FrameManager.itemIgnoreWindow.showWindow(tradeOffer.itemName);
                         }
                     }
                 });
@@ -99,20 +98,12 @@ public class TradeMessagePanel extends NotificationPanel {
         }
     }
 
-    @Override
-    protected void onInvite() {
-        super.onInvite();
-        if (stashHelperPanel != null)
-            stashHelperPanel.setVisible(true);
-        if (stashHelperBulkWrapper != null) {
-            stashHelperBulkWrapper.setVisible(true);
-        }
-        FrameManager.stashHelperContainer.refresh();
+    public TradeOffer getTradeOffer() {
+        return tradeOffer;
     }
 
     @Override
-    public void updateUI() {
-        super.updateUI();
+    protected void resolveMessageColor() {
         if (tradeOffer == null) return;
         StashTabColor stashTabColor = tradeOffer.getStashTabColor();
         if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE
@@ -125,9 +116,14 @@ public class TradeMessagePanel extends NotificationPanel {
             messageColor = ThemeColorVariant.getMessageColor(tradeOffer.offerType);
             currencyTextColor = null;
         }
-        revalidate();
-        repaint();
-        applyMessageColor();
+    }
+
+    @Override
+    protected void onInvite() {
+        super.onInvite();
+        if (stashHelperPanel != null) stashHelperPanel.setVisible(true);
+        if (stashHelperBulkWrapper != null) stashHelperBulkWrapper.setVisible(true);
+        FrameManager.stashHelperContainer.refresh();
     }
 
     @Override

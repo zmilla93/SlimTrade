@@ -76,6 +76,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         messageContainer.setBackground(ThemeManager.TRANSPARENT);
         messageWrapperPanel = new JPanel(new BorderLayout());
         messageWrapperPanel.add(messageContainer, BorderLayout.CENTER);
+        messageWrapperPanel.setBackground(ThemeManager.TRANSPARENT);
+
         contentPanel.add(messageWrapperPanel, DEFAULT_KEY);
         contentPanel.add(tabbedPane, TAB_KEY);
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -192,7 +194,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         }
         TradeMessagePanel panel = new TradeMessagePanel(tradeOffer);
         addMessageMutual(panel);
-        panel.resizeStrut();
+//        panel.resizeStrut();
     }
 
     public void addScannerMessage(ChatScannerEntry entry, PlayerMessage playerMessage) {
@@ -269,11 +271,10 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         setIgnoreRepaint(true);
         for (int i = getMessageCount() - 1; i >= 0; i--) {
             Component comp = getMessageComponent(i);
-            if (comp instanceof TradeMessagePanel) {
-                TradeMessagePanel otherPanel = (TradeMessagePanel) comp;
-                TradeOffer trade = otherPanel.getTradeOffer();
-                if (trade.offerType == TradeOfferType.OUTGOING_TRADE && comp != panel) removeMessage(otherPanel);
-            }
+            if (!(comp instanceof TradeMessagePanel)) continue;
+            TradeMessagePanel otherPanel = (TradeMessagePanel) comp;
+            TradeOffer trade = otherPanel.getTradeOffer();
+            if (trade.offerType == TradeOfferType.OUTGOING_TRADE && comp != panel) removeMessage(otherPanel);
         }
         refresh();
     }
@@ -285,15 +286,14 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         setIgnoreRepaint(true);
         for (int i = getMessageCount() - 1; i >= 0; i--) {
             Component comp = getMessageComponent(i);
-            if (comp instanceof TradeMessagePanel) {
-                TradeMessagePanel panel = (TradeMessagePanel) comp;
-                TradeOffer trade = panel.getTradeOffer();
-                if (trade.offerType == TradeOfferType.INCOMING_TRADE
-                        && trade.itemName.equals(targetOffer.itemName)
-                        && trade.priceName.equals(targetOffer.priceName)
-                        && trade.priceQuantity == targetOffer.priceQuantity) {
-                    removeMessage(panel);
-                }
+            if (!(comp instanceof TradeMessagePanel)) continue;
+            TradeMessagePanel panel = (TradeMessagePanel) comp;
+            TradeOffer trade = panel.getTradeOffer();
+            if (trade.offerType == TradeOfferType.INCOMING_TRADE
+                    && trade.itemName.equals(targetOffer.itemName)
+                    && trade.priceName.equals(targetOffer.priceName)
+                    && trade.priceQuantity == targetOffer.priceQuantity) {
+                removeMessage(panel);
             }
         }
         refresh();
@@ -306,15 +306,14 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         setIgnoreRepaint(true);
         for (int i = getMessageCount() - 1; i >= 0; i--) {
             Component comp = getMessageComponent(i);
-            if (comp instanceof TradeMessagePanel) {
-                TradeMessagePanel panel = (TradeMessagePanel) comp;
-                TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
-                if (trade.offerType != TradeOfferType.INCOMING_TRADE) continue;
-                if (item.matchType == MatchType.EXACT_MATCH) {
-                    if (trade.itemName.equals(item.itemName)) removeMessage(panel);
-                } else if (item.matchType == MatchType.CONTAINS_TEXT) {
-                    if (trade.itemNameLower.contains(item.itemNameLower())) removeMessage(panel);
-                }
+            if (!(comp instanceof TradeMessagePanel)) continue;
+            TradeMessagePanel panel = (TradeMessagePanel) comp;
+            TradeOffer trade = ((TradeMessagePanel) comp).getTradeOffer();
+            if (trade.offerType != TradeOfferType.INCOMING_TRADE) continue;
+            if (item.matchType == MatchType.EXACT_MATCH) {
+                if (trade.itemName.equals(item.itemName)) removeMessage(panel);
+            } else if (item.matchType == MatchType.CONTAINS_TEXT) {
+                if (trade.itemNameLower.contains(item.itemNameLower())) removeMessage(panel);
             }
         }
         refresh();
@@ -323,13 +322,13 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     public void closeOldestTrade() {
         int componentCount = getMessageCount();
         if (componentCount < 1) return;
-        Component component = getMessageComponent(0);
-        if (component instanceof NotificationPanel) removeMessage((NotificationPanel) component);
+        NotificationPanel panel = getMessageComponent(0);
+        removeMessage(panel);
     }
 
     private void expandMessages() {
-        for (Component c : messageContainer.getComponents()) {
-            c.setVisible(true);
+        for (Component comp : messageContainer.getComponents()) {
+            comp.setVisible(true);
         }
         updateExpandText();
         refresh();
@@ -343,14 +342,6 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         }
         updateExpandText();
         refresh();
-    }
-
-    public void showPreviousTabMessage() {
-        changeMessageTab(-1);
-    }
-
-    public void showNextTabMessage() {
-        changeMessageTab(1);
     }
 
     public void changeMessageTab(int change) {
@@ -402,8 +393,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
         return SaveManager.settingsSaveFile.data.useMessageTabs ? tabbedPane.getTabbedComponents() : messageContainer.getComponents();
     }
 
-    private Component getMessageComponent(int index) {
-        return SaveManager.settingsSaveFile.data.useMessageTabs ? tabbedPane.getComponentAt(index) : messageContainer.getComponent(index);
+    private NotificationPanel getMessageComponent(int index) {
+        return (NotificationPanel) (SaveManager.settingsSaveFile.data.useMessageTabs ? tabbedPane.getComponentAt(index) : messageContainer.getComponent(index));
     }
 
     private int getMessageCount() {
@@ -498,6 +489,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     @Override
     public void onJoinedArea(String playerName) {
         for (Component comp : getMessageComponents()) {
+            if (!(comp instanceof TradeMessagePanel)) continue;
             TradeMessagePanel panel = ((TradeMessagePanel) comp);
             TradeOffer offer = panel.getTradeOffer();
             if (offer.offerType == TradeOfferType.INCOMING_TRADE && offer.playerName.equals(playerName)) {
@@ -510,7 +502,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     @Override
     public void onFontChanged() {
         for (Component comp : getMessageComponents()) {
-            ((NotificationPanel) comp).resizeStrut();
+//            ((NotificationPanel) comp).resizeStrut();
         }
         refresh();
     }
