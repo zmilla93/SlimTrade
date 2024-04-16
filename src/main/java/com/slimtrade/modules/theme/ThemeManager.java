@@ -195,8 +195,9 @@ public class ThemeManager {
             ImageIcon icon = new ImageIcon(getColorImage(img, UIManager.getColor("Button.foreground")).getScaledInstance(size, size, Image.SCALE_SMOOTH));
             if (size == cachedIconSize) colorIconMap.put(path, icon);
             return icon;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | NullPointerException e) {
+            ZLogger.err("Invalid path: " + path);
+            ZLogger.err(e.getStackTrace());
         }
         return null;
     }

@@ -54,6 +54,7 @@ public class MenubarDialog extends BasicDialog implements IFontChangeListener, I
     private void buildIconButtons() {
         contentPanel.removeAll();
         contentPanel.setLayout(new GridBagLayout());
+        contentPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
         GridBagConstraints gc = ZUtil.getGC();
         optionsButton = new IconButton(DefaultIcon.LIST);
         historyButton = new IconButton(DefaultIcon.STOPWATCH);
@@ -67,7 +68,8 @@ public class MenubarDialog extends BasicDialog implements IFontChangeListener, I
         for (int i = 0; i < components.length; i++) {
             Component c = components[i];
             if (i == getComponentCount() - 1) gc.insets.right = INSET;
-            contentPanel.add(c, gc);
+//            contentPanel.add(c, gc);
+            contentPanel.add(c);
             gc.gridx++;
             gc.insets.left = 0;
         }

@@ -10,6 +10,7 @@ public enum DefaultIcon implements IIcon {
     CALENDER("calender"),
     CHAOS_ORB("chaos-orb"),
     CLOSE("close"),
+    DND("volume-mute"),
     HOME("home"),
     LIST("th-list"),
     PIN1("pin1"),

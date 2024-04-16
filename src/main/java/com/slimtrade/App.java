@@ -249,8 +249,11 @@ public class App {
         // Message Manager
         chatParser.addTradeListener(FrameManager.messageManager);
         chatParser.addJoinedAreaListener(FrameManager.messageManager);
+        // Menubar
+        chatParser.addOnLoadedCallback(FrameManager.menubarIcon);
+        chatParser.addDndListener(FrameManager.menubarIcon);
         // Open
-        chatParser.open(SaveManager.settingsSaveFile.data.clientPath, false);
+        chatParser.open(SaveManager.settingsSaveFile.data.clientPath);
     }
 
     public static AppInfo readAppInfo() {

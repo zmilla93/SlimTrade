@@ -1,5 +1,6 @@
 package com.slimtrade.gui.options;
 
+import com.slimtrade.App;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
@@ -37,11 +38,22 @@ public class DisplayPreviewPanel extends JPanel {
         bottomPanel.add(outgoingTradePreview);
         bottomPanel.add(scannerPreview);
 
+        JPanel debugPanel = new JPanel(new FlowLayout());
+        JButton disabledButton = new JButton("Button");
+        disabledButton.setEnabled(false);
+        debugPanel.add(new JButton("Button"));
+        debugPanel.add(disabledButton);
+
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.HORIZONTAL;
         add(topPanel, gc);
         gc.gridy++;
         add(bottomPanel, gc);
+        gc.gridy++;
+        if (App.debug) {
+            add(debugPanel, gc);
+            gc.gridy++;
+        }
         updateUI();
     }
 
@@ -73,4 +85,5 @@ public class DisplayPreviewPanel extends JPanel {
         if (bottomPanel == null) return;
         bottomPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Button.borderColor"), 2));
     }
+
 }

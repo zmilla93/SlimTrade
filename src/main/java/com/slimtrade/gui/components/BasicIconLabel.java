@@ -11,7 +11,7 @@ import javax.swing.*;
 public class BasicIconLabel extends JLabel {
 
     private final int BORDER_SIZE;
-    protected final String iconPath;
+    protected String iconPath;
 
     public BasicIconLabel(IIcon iconData) {
         this(iconData, 0);
@@ -23,7 +23,13 @@ public class BasicIconLabel extends JLabel {
         updateUI();
     }
 
+    public void setIcon(IIcon iconData) {
+        this.iconPath = iconData.path();
+        updateUI();
+    }
+
     protected void applyIcon() {
+        assert SwingUtilities.isEventDispatchThread();
         setIcon(ThemeManager.getIcon(iconPath));
     }
 

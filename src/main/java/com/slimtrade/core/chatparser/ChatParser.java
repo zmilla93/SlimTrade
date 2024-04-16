@@ -17,6 +17,7 @@ import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
@@ -31,28 +32,41 @@ public class ChatParser implements FileTailerListener {
     private final ArrayList<IPreloadTradeListener> preloadTradeListeners = new ArrayList<>();
     private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
     private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
+    private final ArrayList<IDndListener> dndListeners = new ArrayList<>();
 
     // State
     private String currentZone = "The Twilight Strand";
+    private boolean dnd = false;
     private boolean open;
     private String path;
-    private boolean end;
     private int lineCount;
     private int whisperCount;
 
-    // FIXME: Should remove end option from chat parser (keep on file tailer)
-    public void open(String path, boolean end) {
-        this.end = end;
+    public void open(String path) {
+        open(path, null);
+    }
+
+    public void open(InputStreamReader inputStream) {
+        open(null, inputStream);
+    }
+
+    private void open(String path, InputStreamReader inputStream) {
         lineCount = 0;
         whisperCount = 0;
         if (open) close();
-        if (path == null) return;
-        File clientFile = new File(path);
-        if (clientFile.exists() && clientFile.isFile()) {
-            this.path = path;
-            tailer = FileTailer.createTailer(clientFile, this, tailerDelayMS, end);
-            open = true;
+        if (inputStream != null) {
+            tailer = FileTailer.createTailer(inputStream, this, tailerDelayMS, false);
+            this.path = null;
+        } else if (path != null) {
+            File clientFile = new File(path);
+            if (clientFile.exists() && clientFile.isFile()) {
+                this.path = path;
+                tailer = FileTailer.createTailer(clientFile, this, tailerDelayMS, false);
+            }
+        } else {
+            return;
         }
+        open = true;
     }
 
     public void close() {
@@ -76,6 +90,7 @@ public class ChatParser implements FileTailerListener {
                 return;
             }
         }
+        if (handleDndToggle(line)) return;
         if (tailer.isLoaded()) {
             // Chat Scanner
             handleChatScanner(line);
@@ -194,12 +209,37 @@ public class ChatParser implements FileTailerListener {
         }
     }
 
+    private boolean handleDndToggle(String line) {
+        Matcher metaMatcher = References.clientMetaPattern.matcher(line);
+        if (!metaMatcher.matches()) return false;
+        String message = metaMatcher.group("message");
+        if (message == null) return false;
+        for (LangRegex lang : LangRegex.values()) {
+            if (lang.dndOn == null || lang.dndOff == null) continue;
+            if (message.contains(lang.dndOn)) {
+                dnd = true;
+                for (IDndListener listener : dndListeners) listener.onDndToggle(dnd, tailer.isLoaded());
+                return true;
+            }
+            if (message.contains(lang.dndOff)) {
+                dnd = false;
+                for (IDndListener listener : dndListeners) listener.onDndToggle(dnd, tailer.isLoaded());
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void handleIgnoreItem() {
         if (tailer.isLoaded()) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound);
     }
 
     public String getCurrentZone() {
         return currentZone;
+    }
+
+    public boolean dndEnabled() {
+        return dnd;
     }
 
     // Listeners
@@ -221,6 +261,10 @@ public class ChatParser implements FileTailerListener {
 
     public void addJoinedAreaListener(IJoinedAreaListener listener) {
         joinedAreaListeners.add(listener);
+    }
+
+    public void addDndListener(IDndListener listener) {
+        dndListeners.add(listener);
     }
 
     public void removeAllListeners() {
