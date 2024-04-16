@@ -1,0 +1,37 @@
+DND Toggle Test
+
+English
+2024/04/15 07:06:32 157954812 cff94598 [INFO Client 19684] : DND mode is now ON. Autoreply "This player has DND mode enabled."
+2024/04/15 07:06:33 157955531 cff94598 [INFO Client 19684] : DND mode is now OFF.
+
+French
+2024/04/15 07:08:58 158040500 cff94598 [INFO Client 10128] : Le mode Ne Pas Déranger (DND) est désormais activé. Réponse automatique : « Ce joueur est en mode NPD (Ne pas déranger). »
+2024/04/15 07:08:00 158042734 cff94598 [INFO Client 10128] : Le mode Ne Pas Déranger (DND) est désactivé.
+
+German
+2024/04/16 07:10:15 179478734 cff94598 [INFO Client 17372] : Nicht-Stören-Modus ist nun AN. Automatische Antwort: 'Dieser Spieler hat den DND-Modus aktiviert.'
+2024/04/16 07:10:20 179483609 cff94598 [INFO Client 17372] : Nicht-Stören-Modus ist nun AUS.
+
+Portuguese (Brazil)
+2024/04/16 07:12:33 179616500 cff94598 [INFO Client 7644] : Modo NP Ativado. Resposta automática "Este jogador está com o modo DND habilitado."
+2024/04/16 07:12:36 179620031 cff94598 [INFO Client 7644] : Modo NP Desativado.
+
+Russian
+2024/04/16 07:27:52 730812 cff94598 [INFO Client 16368] : Режим "недоступен" включён. Авто-ответ "Игрок находится в режиме афк.".
+2024/04/16 07:27:54 732968 cff94598 [INFO Client 16368] : Режим "недоступен" выключен.
+
+Thai
+2024/04/16 07:29:03 801828 cff94598 [INFO Client 7940] : เปิดโหมด DND แล้ว ตอบกลับอัตโนมัติ "ผู้เล่นคนนี้เปิดใช้โหมด DND"
+2024/04/16 07:29:04 803031 cff94598 [INFO Client 7940] : ปิดโหมด DND แล้ว
+
+Spanish
+2024/04/16 07:31:52 971593 cff94598 [INFO Client 16588] : El modo No Molestar está habilitado. Autorespuesta "Este jugador tiene el modo NM habilitado."
+2024/04/16 07:31:54 973015 cff94598 [INFO Client 16588] : El modo No Molestar está deshabilitado.
+
+Korean
+2024/04/16 07:32:47 1026437 cff94598 [INFO Client 16800] : 방해 금지 모드를 설정했습니다. "이 플레이어는 방해금지 모드 상태입니다."을(를) 자동으로 답신합니다.
+2024/04/16 07:32:49 1027718 cff94598 [INFO Client 16800] : 방해 금지 모드를 해제했습니다.
+
+Japanese
+2024/04/16 07:34:43 1142609 cff94598 [INFO Client 16600] : DNDモードがONになっています。自動応答 "そのプレイヤーにはDNDモードを有効にしています。"
+2024/04/16 07:34:46 1144718 cff94598 [INFO Client 16600] : DNDモードはOFFになっています。
