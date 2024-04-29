@@ -19,7 +19,6 @@ public class ComponentPair extends JPanel {
         add(component1, gc);
         gc.gridx++;
         gc.insets.left = insetSize;
-        add(Box.createHorizontalStrut(insetSize), gc);
         add(component2, gc);
     }
 

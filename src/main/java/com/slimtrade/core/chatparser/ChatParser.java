@@ -238,7 +238,7 @@ public class ChatParser implements FileTailerListener {
         return currentZone;
     }
 
-    public boolean dndEnabled() {
+    public boolean isDndEnabled() {
         return dnd;
     }
 

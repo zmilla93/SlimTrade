@@ -251,7 +251,9 @@ public class App {
         chatParser.addJoinedAreaListener(FrameManager.messageManager);
         // Menubar
         chatParser.addOnLoadedCallback(FrameManager.menubarIcon);
+        chatParser.addOnLoadedCallback(FrameManager.menubarDialog);
         chatParser.addDndListener(FrameManager.menubarIcon);
+        chatParser.addDndListener(FrameManager.menubarDialog);
         // Open
         chatParser.open(SaveManager.settingsSaveFile.data.clientPath);
     }

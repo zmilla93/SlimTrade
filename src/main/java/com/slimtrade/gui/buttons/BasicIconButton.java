@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public class BasicIconButton extends JButton {
 
-    protected final String path;
+    protected String path;
     protected int size;
 
     public BasicIconButton(IIcon icon) {
@@ -25,6 +25,11 @@ public class BasicIconButton extends JButton {
         super();
         this.path = icon.path();
         this.size = size;
+        updateUI();
+    }
+
+    public void setIcon(IIcon icon) {
+        this.path = icon.path();
         updateUI();
     }
 

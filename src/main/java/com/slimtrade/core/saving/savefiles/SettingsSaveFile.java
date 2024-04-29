@@ -60,6 +60,8 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public String clientPath;
 
     // Enable Features
+//    public MenubarStyle menubarStyle = MenubarStyle.ICON;
+//    public boolean menubarAlwaysExpanded;
     public boolean enableIncomingTrades = true;
     public boolean enableOutgoingTrades = true;
     public boolean enableItemHighlighter = true;

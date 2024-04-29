@@ -43,4 +43,5 @@ public class GlobalMouseListener implements NativeMouseInputListener {
     public void nativeMouseDragged(NativeMouseEvent nativeMouseEvent) {
         // Do Nothing
     }
+
 }
