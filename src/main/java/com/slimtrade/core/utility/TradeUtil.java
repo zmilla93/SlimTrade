@@ -16,7 +16,7 @@ import java.util.Date;
 public class TradeUtil {
 
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private static Desktop desktop = Desktop.getDesktop();
+    private static final Desktop desktop = Desktop.getDesktop();
 
     public static String getFixedItemName(String item, double count, boolean paren) {
         String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");
@@ -49,7 +49,7 @@ public class TradeUtil {
     }
 
     public static Rectangle getBufferedBounds(Rectangle bounds) {
-        int buffer = 2;
+        int buffer = 3;
         bounds.x -= buffer;
         bounds.y -= buffer;
         bounds.width += buffer * 2;

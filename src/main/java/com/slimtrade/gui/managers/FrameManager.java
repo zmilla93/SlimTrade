@@ -4,7 +4,6 @@ import com.slimtrade.App;
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerWindow;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
@@ -213,15 +212,14 @@ public class FrameManager {
     }
 
     public static void checkMenubarVisibility(Point point) {
-        // FIXME (OPTIMIZE) : buffered bounds should be cached since this function is called frequently.
         if (!SaveManager.settingsSaveFile.data.enableMenuBar) return;
         if (menubarExpanded) {
-            if (!TradeUtil.getBufferedBounds(menubarDialog.getBounds()).contains(point)) {
+            if (!menubarDialog.getBufferedBounds().contains(point)) {
                 menubarExpanded = false;
                 updateMenubarVisibility();
             }
         } else {
-            if (TradeUtil.getBufferedBounds(menubarIcon.getBounds()).contains(point)) {
+            if (menubarIcon.getBufferedBounds().contains(point)) {
                 menubarExpanded = true;
                 updateMenubarVisibility();
             }

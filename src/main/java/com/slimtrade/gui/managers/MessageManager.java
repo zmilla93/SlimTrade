@@ -429,7 +429,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     public void checkMouseHover(Point p) {
-        if (TradeUtil.getBufferedBounds(getBounds()).contains(p)) {
+        if (getBufferedBounds().contains(p)) {
             if (!mouseHover) {
                 mouseHover = true;
                 fadeToOpacity(1);
