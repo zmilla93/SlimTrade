@@ -78,7 +78,7 @@ public class ParserTest implements IParserLoadedListener {
         });
         parser.open("/client/client_scanner.txt");
         waitForParser();
-        assertEquals(8, count);
+        assertEquals(10, count);
     }
 
     @Override
