@@ -177,7 +177,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
 
     @Override
     public void applyDefaultSizeAndLocation() {
-        setSize(900, 600);
+        setSize(1000, 650);
         setLocationRelativeTo(null);
     }
 
