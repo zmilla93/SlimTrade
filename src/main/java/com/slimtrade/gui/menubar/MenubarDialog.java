@@ -104,8 +104,8 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
         Anchor anchor = SaveManager.overlaySaveFile.data.menubarAnchor;
         Component[] components;
         components = new Component[]{
-                hideoutButton, optionsButton, historyButton,
-                chatScannerButton, dndButton,
+                optionsButton, historyButton,
+                chatScannerButton, hideoutButton, dndButton,
                 horizontalSeparator, verticalSeparator, exitButton};
         if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT)
             Collections.reverse(Arrays.asList(components));
