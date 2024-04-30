@@ -34,6 +34,10 @@ public class ChatScannerMessagePanel extends NotificationPanel {
         setup();
     }
 
+    public PlayerMessage getPlayerMessage() {
+        return playerMessage;
+    }
+
     @Override
     protected void resolveMessageColor() {
         messageColor = ThemeColorVariant.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);

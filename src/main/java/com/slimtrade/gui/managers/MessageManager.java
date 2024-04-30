@@ -483,6 +483,11 @@ public class MessageManager extends BasicDialog implements ITradeListener, IChat
         currentlyUsingTabs = SaveManager.settingsSaveFile.data.useMessageTabs;
     }
 
+    private void handlePlayerJoinedArea(NotificationPanel panel) {
+        AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+        panel.setPlayerJoinedArea();
+    }
+
     @Override
     public void handleTrade(TradeOffer tradeOffer) {
         SwingUtilities.invokeLater(() -> addMessage(tradeOffer));
@@ -497,16 +502,16 @@ public class MessageManager extends BasicDialog implements ITradeListener, IChat
     public void onJoinedArea(String playerName) {
         SwingUtilities.invokeLater(() -> {
             for (Component comp : getMessageComponents()) {
-                if (!(comp instanceof TradeMessagePanel)) continue;
-                TradeMessagePanel panel = ((TradeMessagePanel) comp);
-                TradeOffer offer = panel.getTradeOffer();
-                if (offer.offerType == TradeOfferType.INCOMING_TRADE && offer.playerName.equals(playerName)) {
-                    AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
-                    panel.setPlayerJoinedArea();
+                String panelPlayerName = null;
+                if (comp instanceof TradeMessagePanel) {
+                    panelPlayerName = ((TradeMessagePanel) comp).getTradeOffer().playerName;
+                } else if (comp instanceof ChatScannerMessagePanel) {
+                    panelPlayerName = ((ChatScannerMessagePanel) comp).getPlayerMessage().player;
                 }
+                if (panelPlayerName == null) continue;
+                if (panelPlayerName.equals(playerName)) handlePlayerJoinedArea((NotificationPanel) comp);
             }
         });
-
     }
 
     @Override
