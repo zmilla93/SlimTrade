@@ -209,7 +209,7 @@ public class TradeOffer {
         exampleTrade.priceName = "Chaos Orb";
         exampleTrade.priceQuantity = 100;
         exampleTrade.itemQuantity = 0;
-        exampleTrade.stashTabName = "~price 5 chaos";
+        exampleTrade.stashTabName = "/SlimTrade/";
         exampleTrade.stashTabX = 3;
         exampleTrade.stashTabY = 5;
         return exampleTrade;
