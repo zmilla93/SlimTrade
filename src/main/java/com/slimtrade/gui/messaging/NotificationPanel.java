@@ -39,6 +39,7 @@ public abstract class NotificationPanel extends ColorPanel {
     // Container Panels
     protected final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
     private final JPanel topPanel;
+    private final JPanel bottomPanel = new JPanel(new BorderLayout());
     private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
     protected final JPanel bottomContainer = new JPanel(new BorderLayout());
@@ -75,7 +76,6 @@ public abstract class NotificationPanel extends ColorPanel {
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel topContainer = new JPanel(new BorderLayout());
         topPanel = new JPanel(new GridBagLayout());
-        JPanel bottomPanel = new JPanel(new BorderLayout());
 
         // Border Setup
         setLayout(new GridBagLayout());
@@ -235,6 +235,9 @@ public abstract class NotificationPanel extends ColorPanel {
         borderPanel.setBackground(messageColor);
         pricePanel.setBackground(messageColor);
         topPanel.setBackground(messageColor);
+        bottomPanel.setBackground(messageColor);
+        topButtonPanel.setBackground(messageColor);
+        bottomButtonPanel.setBackground(messageColor);
         CurrencyLabelFactory.applyColorToLabel(pricePanel, currencyTextColor);
         if (playerJoinedArea) {
             playerNameButton.setForeground(messageColor);
