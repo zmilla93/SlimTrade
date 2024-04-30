@@ -1,0 +1,43 @@
+// Whisper
+2024/04/29 15:58:47 514169140 cff94598 [INFO Client 7976] @From CoolWindBreather: why hello there!
+2024/04/29 15:58:47 514169140 cff94598 [INFO Client 7976] @From CoolWindBreather: why hello there! test
+2024/04/29 15:58:47 514169140 cff94598 [INFO Client 7976] @From CoolWindBreather: why hello there! test ignore me
+
+// Whisper (Guild)
+2024/04/29 15:58:47 514169140 cff94598 [INFO Client 7976] @From <£¤O> CoolWindBreather: why hello there!
+2024/04/29 15:58:47 514169140 cff94598 [INFO Client 7976] @From <£¤O> CoolWindBreather: why hello there! test
+2024/04/29 15:58:47 514169140 cff94598 [INFO Client 7976] @From <£¤O> CoolWindBreather: why hello there! test ignore me
+
+// Global
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy test
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy test ignore me
+
+// Global (Guild)
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #<HELP!> Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #<HELP!> Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy test
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #<HELP!> Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy test ignore me
+
+// Trade
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] $Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] $Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy test
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] $Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy test ignore me
+
+// Trade (Guild)
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] $<HELP!> Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] $<HELP!> Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy test
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] $<HELP!> Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy test ignore me
+
+// WTB
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #<HELP!> Starang_Spiders: WTB 1 x -1 Explicit Modifiers - 80, Total 0d 4c
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #<HELP!> Starang_Spiders: WTB 1 x -1 Explicit Modifiers - 80, Total: 0d 4c
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] @From ReJackyBowNEC: WTB 1 x -1 Explicit Modifiers - 80, Total 0d 4c
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] @From ReJackyBowNEC: WTB 1 x -1 Explicit Modifiers - 80, Total: 0d 4c
+
+// Gibberish
+2023/12/17 02:14:34 163936921 cff94598 [INFO Client 1340] @To Harem_of_Suvi Hi, I'd like to buy your 1 Divine Orb for my 129 Chaos Orb in Necropolis
+2024/04/15 23:11:32 157954812 cff94598 [INFO Client 19684] : DND mode is now ON. Autoreply "This player has DND mode enabled."
+2024/04/15 23:11:33 157955531 cff94598 [INFO Client 19684] : DND mode is now OFF.
+2024/04/29 15:58:24 514145765 cff94598 [INFO Client 7976] #<HELP!> Starang_Spiders: On my stat sheet I have my 10/10 power/frenzy
+2024/04/29 15:58:29 514150796 cff94598 [INFO Client 7976] #<HELP!> Starang_Spiders: not showing around my char or top of screen
+2024/04/29 15:58:38 514159656 cff94598 [INFO Client 7976] #<BLooÐ>> Sindurel: yea what? yea darkness or yea mb is better?

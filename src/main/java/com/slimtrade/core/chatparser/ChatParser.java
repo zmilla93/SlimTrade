@@ -1,6 +1,5 @@
 package com.slimtrade.core.chatparser;
 
-import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.data.PlayerMessage;
@@ -80,22 +79,22 @@ public class ChatParser implements FileTailerListener {
             }
         }
         if (handleDndToggle(line)) return;
-        if (tailer.isLoaded()) {
-            // Chat Scanner
-            handleChatScanner(line);
-            // Player Joined Area
-            for (LangRegex lang : LangRegex.values()) {
-                if (lang.joinedArea == null) continue;
-                Matcher matcher = lang.joinedAreaPattern.matcher(line);
-                if (matcher.matches()) {
-                    String playerName = matcher.group("playerName");
-                    for (IJoinedAreaListener listener : joinedAreaListeners) {
-                        listener.onJoinedArea(playerName);
-                    }
-                    return;
+//        if (tailer.isLoaded()) {
+        // Chat Scanner
+        handleChatScanner(line);
+        // Player Joined Area
+        for (LangRegex lang : LangRegex.values()) {
+            if (lang.joinedArea == null) continue;
+            Matcher matcher = lang.joinedAreaPattern.matcher(line);
+            if (matcher.matches()) {
+                String playerName = matcher.group("playerName");
+                for (IJoinedAreaListener listener : joinedAreaListeners) {
+                    listener.onJoinedArea(playerName);
                 }
+                return;
             }
         }
+//        }
         // Zone Tracking
         for (LangRegex lang : LangRegex.values()) {
             if (lang.enteredArea == null) continue;
@@ -124,8 +123,6 @@ public class ChatParser implements FileTailerListener {
         } else {
             return;
         }
-        if (App.chatInConsole)
-            System.out.println(chatMatcher.group("playerName") + ": " + chatMatcher.group("message"));
         if (messageType == null) return;
         message = message.toLowerCase();
         messageType = messageType.toLowerCase();

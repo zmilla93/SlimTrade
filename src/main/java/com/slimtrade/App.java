@@ -63,7 +63,7 @@ public class App {
     public static boolean noLock = false;
     public static boolean debug = false;
     public static boolean debugUIAlwaysOnTop = false;
-    public static boolean chatInConsole = false;
+    public static boolean chatInConsole = false; // TODO: This is broken, should fix or remove
     public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
     public static final boolean debugProfileLaunch = false;
     public static boolean showOptionsOnLaunch = false;

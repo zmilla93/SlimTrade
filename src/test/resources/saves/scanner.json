@@ -1,0 +1,23 @@
+{
+  "scannerEntries": [
+    {
+      "title": "test",
+      "searchTermsRaw": "test",
+      "ignoreTermsRaw": "ignore me",
+      "macros": [],
+      "allowGlobalAndTradeChat": true,
+      "allowWhispers": true,
+      "allowMetaText": false
+    },
+    {
+      "title": "wtb",
+      "searchTermsRaw": "wtb",
+      "ignoreTermsRaw": "",
+      "macros": [],
+      "allowGlobalAndTradeChat": true,
+      "allowWhispers": true,
+      "allowMetaText": false
+    }
+  ],
+  "saveFileVersion": 2
+}

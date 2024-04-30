@@ -7,6 +7,7 @@ import com.slimtrade.core.saving.savefiles.AbstractSaveFile;
 import com.slimtrade.core.saving.savefiles.VersionSaveFile;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.modules.listening.ListenManager;
+import com.slimtrade.modules.updater.ZLogger;
 
 import java.awt.*;
 import java.io.*;
@@ -120,16 +121,18 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
      */
     public synchronized void loadFromDisk() {
         saveFileVersion = fetchSaveFileVersion();
-        File file = new File(path);
-        if (file.exists()) {
+        if (ZUtil.fileExists(path)) {
             try {
-                data = gson.fromJson(getFileAsString(file.getPath()), classType);
+                data = gson.fromJson(getFileAsString(path), classType);
                 if (data != null) {
                     loadedExistingData = true;
                     return;
                 }
             } catch (JsonSyntaxException ignore) {
+                ZLogger.err("Save file '" + path + "' is corrupted, creating new file.");
             }
+        } else {
+            ZLogger.log("Save file '" + path + "' doesn't exist, creating new file.");
         }
         initData();
     }
