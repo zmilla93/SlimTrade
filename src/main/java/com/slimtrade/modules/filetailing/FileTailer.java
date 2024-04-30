@@ -1,13 +1,9 @@
 package com.slimtrade.modules.filetailing;
 
-import com.slimtrade.modules.updater.ZLogger;
+import com.slimtrade.core.utility.ZUtil;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 /**
  * Simple file tailer implementation.
@@ -18,19 +14,15 @@ public class FileTailer implements Runnable {
     private final int delay;
     private final boolean end;
 
-    private BufferedReader reader;
+    private final BufferedReader reader;
     private boolean running;
     private boolean loaded;
 
-    public FileTailer(File file, FileTailerListener listener, int delay, boolean end) throws IOException {
-        this(new InputStreamReader(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8), listener, delay, end);
-    }
-
-    public FileTailer(InputStreamReader inputStream, FileTailerListener listener, int delay, boolean end) {
+    public FileTailer(String path, FileTailerListener listener, int delay, boolean end) {
         this.listener = listener;
         this.delay = delay;
         this.end = end;
-        reader = new BufferedReader(inputStream);
+        reader = ZUtil.getBufferedReader(path);
     }
 
     public void stop() {
@@ -44,23 +36,10 @@ public class FileTailer implements Runnable {
     /**
      * Creates a tailer and runs it on a background thread.
      */
-
-    public static FileTailer createTailer(InputStreamReader inputStream, FileTailerListener listener, int delay, boolean end) {
-        FileTailer tailer = new FileTailer(inputStream, listener, delay, end);
+    public static FileTailer createTailer(String path, FileTailerListener listener, int delay, boolean end) {
+        FileTailer tailer = new FileTailer(path, listener, delay, end);
         launchThread(tailer);
         return tailer;
-    }
-
-    public static FileTailer createTailer(File file, FileTailerListener listener, int delay, boolean end) {
-        try {
-            FileTailer tailer = new FileTailer(file, listener, delay, end);
-            launchThread(tailer);
-            return tailer;
-        } catch (IOException e) {
-            ZLogger.err("FileTailer failed to open file: " + file);
-            ZLogger.err(e.getStackTrace());
-            throw new RuntimeException(e);
-        }
     }
 
     private static void launchThread(FileTailer tailer) {

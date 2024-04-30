@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.slimtrade.core.saving.savefiles.AbstractSaveFile;
 import com.slimtrade.core.saving.savefiles.VersionSaveFile;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.modules.listening.ListenManager;
 
 import java.awt.*;
@@ -12,7 +13,6 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -176,28 +176,14 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
         autoSaveTimer.schedule(saveTask, 1500);
     }
 
-//    public void addListener(ISaveListener listener) {
-//        saveListeners.add(listener);
-//    }
-//
-//    public void removeListener(ISaveListener listener) {
-//        saveListeners.remove(listener);
-//    }
-//
-//    public void removeAllListeners() {
-//        saveListeners.clear();
-//    }
-
-    // FIXME : This can be cleaned up
     private static String getFileAsString(String path) {
         StringBuilder builder = new StringBuilder();
-        BufferedReader br;
+        BufferedReader reader = ZUtil.getBufferedReader(path);
         try {
-            br = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8));
-            while (br.ready()) {
-                builder.append(br.readLine());
+            while (reader.ready()) {
+                builder.append(reader.readLine());
             }
-            br.close();
+            reader.close();
             return builder.toString();
         } catch (IOException e) {
             return null;

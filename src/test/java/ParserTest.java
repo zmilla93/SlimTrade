@@ -5,10 +5,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest implements IParserLoadedListener {
@@ -34,10 +30,6 @@ public class ParserTest implements IParserLoadedListener {
         loaded = false;
     }
 
-    private static void openTestParser() {
-        parser.open(new InputStreamReader(Objects.requireNonNull(ParserTest.class.getResourceAsStream("text/client_dnd.txt")), StandardCharsets.UTF_8));
-    }
-
     private static void waitForParser() {
         while (!loaded) {
             try {
@@ -56,7 +48,7 @@ public class ParserTest implements IParserLoadedListener {
             if (state) onCount++;
             else offCount++;
         });
-        openTestParser();
+        parser.open("/text/client_dnd.txt");
         waitForParser();
         assertEquals(8, onCount);
         assertEquals(8, offCount);

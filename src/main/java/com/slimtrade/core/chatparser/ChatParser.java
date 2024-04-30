@@ -9,24 +9,24 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.modules.filetailing.FileTailer;
 import com.slimtrade.modules.filetailing.FileTailerListener;
 import com.slimtrade.modules.updater.ZLogger;
 
-import java.io.File;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class ChatParser implements FileTailerListener {
 
-    private FileTailer tailer;
     public static final int tailerDelayMS = 250;
+    private FileTailer tailer;
 
     // Listeners
     private final ArrayList<IParserInitListener> onInitListeners = new ArrayList<>();
     private final ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
+
     private final ArrayList<IPreloadTradeListener> preloadTradeListeners = new ArrayList<>();
     private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
     private final ArrayList<IChatScannerListener> chatScannerListeners = new ArrayList<>();
@@ -34,37 +34,27 @@ public class ChatParser implements FileTailerListener {
     private final ArrayList<IDndListener> dndListeners = new ArrayList<>();
 
     // State
-    private String currentZone = "The Twilight Strand";
-    private boolean dnd = false;
-    private boolean open;
     private String path;
+    private boolean open;
     private int lineCount;
     private int whisperCount;
+    private String currentZone = "The Twilight Strand";
+    private boolean dnd = false;
 
     public void open(String path) {
-        open(path, null);
-    }
-
-    public void open(InputStreamReader inputStream) {
-        open(null, inputStream);
-    }
-
-    private void open(String path, InputStreamReader inputStream) {
         lineCount = 0;
         whisperCount = 0;
         if (open) close();
-        if (inputStream != null) {
-            tailer = FileTailer.createTailer(inputStream, this, tailerDelayMS, false);
-            this.path = null;
-        } else if (path != null) {
-            File clientFile = new File(path);
-            if (clientFile.exists() && clientFile.isFile()) {
-                this.path = path;
-                tailer = FileTailer.createTailer(clientFile, this, tailerDelayMS, false);
-            }
-        } else {
+        if (path == null) {
+            ZLogger.err("Chat parser was given a null path!");
             return;
         }
+        if (!ZUtil.fileExists(path)) {
+            ZLogger.err("Chat parser could not find file: " + path);
+            return;
+        }
+        this.path = path;
+        tailer = FileTailer.createTailer(path, this, tailerDelayMS, false);
         open = true;
     }
 

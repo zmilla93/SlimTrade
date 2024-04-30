@@ -68,7 +68,7 @@ public class DonationPanel extends AbstractOptionPanel {
 
     private ArrayList<Supporter> parseSupporters() {
         ArrayList<Supporter> supporters = new ArrayList<>();
-        BufferedReader reader = ZUtil.getResourceReader("/text/supporters.txt");
+        BufferedReader reader = ZUtil.getBufferedReader("/text/supporters.txt");
         String currentCurrency = null;
         try {
             while (reader.ready()) {

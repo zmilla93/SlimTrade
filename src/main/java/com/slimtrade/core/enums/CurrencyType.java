@@ -1,14 +1,12 @@
 package com.slimtrade.core.enums;
 
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IIcon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * Stores metadata for POE currency icons.
@@ -48,8 +46,7 @@ public class CurrencyType implements IIcon {
     public static void initIconList() {
         currencyNameMap.clear();
         try {
-            InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyType.class.getResourceAsStream("/text/currency.txt")), StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(stream);
+            BufferedReader reader = ZUtil.getBufferedReader("/text/currency.txt");
             while (reader.ready()) {
                 String line = reader.readLine();
                 if (line.matches("\\s+")) continue;

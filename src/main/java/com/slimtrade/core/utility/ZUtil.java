@@ -2,7 +2,7 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.App;
 import com.slimtrade.core.data.PasteReplacement;
-import com.slimtrade.core.enums.CurrencyType;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,11 +21,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 public class ZUtil {
 
-    private static NumberFormat numberFormatter = new DecimalFormat("##.##");
+    private static final NumberFormat NUMBER_FORMATTER = new DecimalFormat("##.##");
 
     /**
      * Returns a printable version of an enum name.
@@ -72,7 +72,7 @@ public class ZUtil {
                 clean = clean.replaceAll("\\{item}", itemPrefix + pasteReplacement.itemName);
             }
             if (pasteReplacement.priceName != null) {
-                clean = clean.replaceAll("\\{price}", numberFormatter.format(pasteReplacement.priceQuantity) + " " + pasteReplacement.priceName);
+                clean = clean.replaceAll("\\{price}", NUMBER_FORMATTER.format(pasteReplacement.priceQuantity) + " " + pasteReplacement.priceName);
             }
             commands.set(i, clean);
         }
@@ -97,7 +97,7 @@ public class ZUtil {
     }
 
     public static String formatNumber(double d) {
-        return numberFormatter.format(d);
+        return NUMBER_FORMATTER.format(d);
     }
 
     /**
@@ -243,19 +243,44 @@ public class ZUtil {
         }
     }
 
-    public static BufferedReader getResourceReader(String path) {
-        InputStreamReader stream = new InputStreamReader(Objects.requireNonNull(CurrencyType.class.getResourceAsStream(path)), StandardCharsets.UTF_8);
-        return new BufferedReader(stream);
+    public static boolean fileExists(String path) {
+        path = cleanPath(path);
+        if (isPathRelative(path)) {
+            URL url = ZUtil.class.getResource(path);
+            return url != null;
+        } else {
+            File file = new File(path);
+            return file.exists();
+        }
     }
 
-    public static String getFileAsString(String path) {
-        StringBuilder builder = new StringBuilder();
-        try (Stream<String> lines = Files.lines(Paths.get(path), StandardCharsets.UTF_8)) {
-            lines.forEach(builder::append);
-        } catch (IOException e) {
-            return null;
+    public static boolean isPathRelative(String path) {
+        path = cleanPath(path);
+        return path.startsWith("/");
+    }
+
+    public static String cleanPath(String path) {
+        return path.replaceAll("\\\\", "/");
+    }
+
+    /**
+     * Returns a BufferedReader for a given file path set to UTF-8 encoding.
+     * If given a relative path (starts with "/"), will load the file from the resources folder.
+     */
+    public static BufferedReader getBufferedReader(String path) {
+        path = cleanPath(path);
+        InputStreamReader streamReader;
+        if (path.startsWith("/")) {
+            streamReader = new InputStreamReader(Objects.requireNonNull(ZUtil.class.getResourceAsStream(path)), StandardCharsets.UTF_8);
+        } else {
+            try {
+                streamReader = new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                ZLogger.err("File not found: " + path);
+                return null;
+            }
         }
-        return builder.toString();
+        return new BufferedReader(streamReader);
     }
 
 }
