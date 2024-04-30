@@ -1,9 +1,10 @@
 package com.slimtrade.core.chatparser;
 
-import com.slimtrade.core.trading.ChatScan;
+import com.slimtrade.core.data.PlayerMessage;
+import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 
 public interface IChatScannerListener {
 
-    void handle(ChatScan message);
+    void onScannerMessage(ChatScannerEntry entry, PlayerMessage message);
 
 }

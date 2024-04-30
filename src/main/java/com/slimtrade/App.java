@@ -248,6 +248,7 @@ public class App {
         chatParser.addTradeListener(FrameManager.historyWindow);
         // Message Manager
         chatParser.addTradeListener(FrameManager.messageManager);
+        chatParser.addChatScannerListener(FrameManager.messageManager);
         chatParser.addJoinedAreaListener(FrameManager.messageManager);
         // Menubar
         chatParser.addOnLoadedCallback(FrameManager.menubarIcon);

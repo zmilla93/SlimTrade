@@ -10,12 +10,10 @@ import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
-import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.filetailing.FileTailer;
 import com.slimtrade.modules.filetailing.FileTailerListener;
 import com.slimtrade.modules.updater.ZLogger;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -31,6 +29,7 @@ public class ChatParser implements FileTailerListener {
     private final ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
     private final ArrayList<IPreloadTradeListener> preloadTradeListeners = new ArrayList<>();
     private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
+    private final ArrayList<IChatScannerListener> chatScannerListeners = new ArrayList<>();
     private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
     private final ArrayList<IDndListener> dndListeners = new ArrayList<>();
 
@@ -171,8 +170,9 @@ public class ChatParser implements FileTailerListener {
                         }
                         if (entry.allowMetaText && messageType.equals("meta")) allow = true;
                         if (ignore || !allow) continue;
-                        String finalMessage = message;
-                        SwingUtilities.invokeLater(() -> FrameManager.messageManager.addScannerMessage(entry, new PlayerMessage(player, finalMessage)));
+                        PlayerMessage playerMessage = new PlayerMessage(player, message);
+                        for (IChatScannerListener listener : chatScannerListeners)
+                            listener.onScannerMessage(entry, playerMessage);
                         return;
                     }
                 }
@@ -259,6 +259,10 @@ public class ChatParser implements FileTailerListener {
         tradeListeners.add(listener);
     }
 
+    public void addChatScannerListener(IChatScannerListener listener) {
+        chatScannerListeners.add(listener);
+    }
+
     public void addJoinedAreaListener(IJoinedAreaListener listener) {
         joinedAreaListeners.add(listener);
     }
@@ -272,6 +276,7 @@ public class ChatParser implements FileTailerListener {
         onLoadListeners.clear();
         preloadTradeListeners.clear();
         tradeListeners.clear();
+        chatScannerListeners.clear();
         joinedAreaListeners.clear();
     }
 

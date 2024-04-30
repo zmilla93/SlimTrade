@@ -1,6 +1,7 @@
 package com.slimtrade.gui.managers;
 
 import com.slimtrade.core.audio.SoundComponent;
+import com.slimtrade.core.chatparser.IChatScannerListener;
 import com.slimtrade.core.chatparser.IJoinedAreaListener;
 import com.slimtrade.core.chatparser.ITradeListener;
 import com.slimtrade.core.data.IgnoreItemData;
@@ -37,7 +38,7 @@ import java.util.concurrent.Executors;
  * @see ChatScannerMessagePanel
  * @see UpdateMessagePanel
  */
-public class MessageManager extends BasicDialog implements ITradeListener, IJoinedAreaListener, IFontChangeListener, ISaveListener {
+public class MessageManager extends BasicDialog implements ITradeListener, IChatScannerListener, IJoinedAreaListener, IFontChangeListener, ISaveListener {
 
     private final GridBagConstraints gc;
     private static final int MESSAGE_GAP = 1;
@@ -459,6 +460,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     private void setDisplayMode(boolean useTabs) {
+        assert SwingUtilities.isEventDispatchThread();
         Component[] components;
         if (currentlyUsingTabs) components = tabbedPane.getTabbedComponents();
         else components = messageContainer.getComponents();
@@ -487,23 +489,28 @@ public class MessageManager extends BasicDialog implements ITradeListener, IJoin
     }
 
     @Override
+    public void onScannerMessage(ChatScannerEntry entry, PlayerMessage message) {
+        SwingUtilities.invokeLater(() -> addScannerMessage(entry, message));
+    }
+
+    @Override
     public void onJoinedArea(String playerName) {
-        for (Component comp : getMessageComponents()) {
-            if (!(comp instanceof TradeMessagePanel)) continue;
-            TradeMessagePanel panel = ((TradeMessagePanel) comp);
-            TradeOffer offer = panel.getTradeOffer();
-            if (offer.offerType == TradeOfferType.INCOMING_TRADE && offer.playerName.equals(playerName)) {
-                AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
-                panel.setPlayerJoinedArea();
+        SwingUtilities.invokeLater(() -> {
+            for (Component comp : getMessageComponents()) {
+                if (!(comp instanceof TradeMessagePanel)) continue;
+                TradeMessagePanel panel = ((TradeMessagePanel) comp);
+                TradeOffer offer = panel.getTradeOffer();
+                if (offer.offerType == TradeOfferType.INCOMING_TRADE && offer.playerName.equals(playerName)) {
+                    AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+                    panel.setPlayerJoinedArea();
+                }
             }
-        }
+        });
+
     }
 
     @Override
     public void onFontChanged() {
-        for (Component comp : getMessageComponents()) {
-//            ((NotificationPanel) comp).resizeStrut();
-        }
         refresh();
     }
 
