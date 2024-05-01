@@ -494,7 +494,8 @@ public class MessageManager extends BasicDialog implements ITradeListener, IChat
     }
 
     @Override
-    public void onScannerMessage(ChatScannerEntry entry, PlayerMessage message) {
+    public void onScannerMessage(boolean loaded, ChatScannerEntry entry, PlayerMessage message) {
+        if (!loaded) return;
         SwingUtilities.invokeLater(() -> addScannerMessage(entry, message));
     }
 

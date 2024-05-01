@@ -73,7 +73,7 @@ public class ParserTest implements IParserLoadedListener {
         SaveManager.chatScannerSaveFile.loadFromDisk();
         SaveManager.chatScannerSaveFile.data.searching = true;
         SaveManager.chatScannerSaveFile.data.activeSearches = SaveManager.chatScannerSaveFile.data.scannerEntries;
-        parser.addChatScannerListener((entry, message) -> {
+        parser.addChatScannerListener((loaded, entry, message) -> {
             count++;
         });
         parser.open("/client/client_scanner.txt");

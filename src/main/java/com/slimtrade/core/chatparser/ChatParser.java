@@ -67,6 +67,8 @@ public class ChatParser implements FileTailerListener {
         return path;
     }
 
+    // FIXME: Should add early returns when a valid endpoint is found
+    // FIXME: Should send loaded status inside event instead of handling it here so that all events can be easily tested
     public void parseLine(String line) {
         if (!open) return;
         lineCount++;
@@ -159,7 +161,7 @@ public class ChatParser implements FileTailerListener {
                         if (ignore || !allow) continue;
                         PlayerMessage playerMessage = new PlayerMessage(player, message);
                         for (IChatScannerListener listener : chatScannerListeners)
-                            listener.onScannerMessage(entry, playerMessage);
+                            listener.onScannerMessage(tailer.isLoaded(), entry, playerMessage);
                         return;
                     }
                 }
