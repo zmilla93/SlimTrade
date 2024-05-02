@@ -35,6 +35,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
     private static final int EXIT_INSET = 8;
     private static final String DND_ENABLED = "DND is On";
     private static final String DND_DISABLED = "DND is Off";
+    boolean dnd;
 
     public MenubarDialog() {
         horizontalSeparator = Box.createHorizontalStrut(EXIT_INSET);
@@ -59,7 +60,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
 //        if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.ICON) buildIconButtons();
 //        else buildTextButtons();
         buildTextButtons();
-        if (App.chatParser != null) updateDndButton(App.chatParser.isDndEnabled());
+        if (App.chatParser != null) updateDndButton();
         TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
     }
 
@@ -133,7 +134,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
         handleResize();
     }
 
-    private void updateDndButton(boolean dnd) {
+    private void updateDndButton() {
         SwingUtilities.invokeLater(() -> {
             if (dndButton instanceof IconButton) {
                 IconButton dndIconButton = (IconButton) dndButton;
@@ -149,13 +150,15 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
 
     @Override
     public void onDndToggle(boolean state, boolean loaded) {
+        dnd = state;
         if (!loaded) return;
-        updateDndButton(state);
+        updateDndButton();
     }
 
     @Override
-    public void onParserLoaded() {
-        updateDndButton(App.chatParser.isDndEnabled());
+    public void onParserLoaded(boolean dnd) {
+        this.dnd = dnd;
+        updateDndButton();
     }
 
     @Override

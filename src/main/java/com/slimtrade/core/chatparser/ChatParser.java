@@ -224,10 +224,6 @@ public class ChatParser implements FileTailerListener {
         return currentZone;
     }
 
-    public boolean isDndEnabled() {
-        return dnd;
-    }
-
     // Listeners
     public void addOnInitCallback(IParserInitListener listener) {
         onInitListeners.add(listener);
@@ -282,7 +278,7 @@ public class ChatParser implements FileTailerListener {
     public void onLoad() {
         float endTime = (System.currentTimeMillis() - startTime) / 1000f;
         ZLogger.log("Chat parser loaded in " + endTime + " seconds. Found " + lineCount + " lines and " + whisperCount + " whispers.");
-        for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded();
+        for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded(dnd);
     }
 
     @Override

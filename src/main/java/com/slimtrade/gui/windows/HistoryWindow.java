@@ -59,7 +59,7 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
     }
 
     @Override
-    public void onParserLoaded() {
+    public void onParserLoaded(boolean dnd) {
         SwingUtilities.invokeLater(() -> {
             incomingTrades.reloadUI();
             outgoingTrades.reloadUI();

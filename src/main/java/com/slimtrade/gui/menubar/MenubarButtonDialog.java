@@ -1,6 +1,5 @@
 package com.slimtrade.gui.menubar;
 
-import com.slimtrade.App;
 import com.slimtrade.core.chatparser.IDndListener;
 import com.slimtrade.core.chatparser.IParserLoadedListener;
 import com.slimtrade.core.enums.DefaultIcon;
@@ -46,8 +45,8 @@ public class MenubarButtonDialog extends BasicDialog implements IFontChangeListe
     }
 
     @Override
-    public void onParserLoaded() {
-        updateIcon(App.chatParser.isDndEnabled());
+    public void onParserLoaded(boolean dnd) {
+        updateIcon(dnd);
     }
 
 }

@@ -2,6 +2,6 @@ package com.slimtrade.core.chatparser;
 
 public interface IParserLoadedListener {
 
-    void onParserLoaded();
+    void onParserLoaded(boolean dnd);
 
 }
