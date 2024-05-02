@@ -4,12 +4,9 @@ import com.slimtrade.gui.options.general.*;
 
 public class GeneralOptionPanel extends AbstractOptionPanel {
 
-    private final BasicsPanel basicsPanel = new BasicsPanel();
-
     public GeneralOptionPanel() {
-
         addHeader("Basics");
-        addComponent(basicsPanel);
+        addComponent(new BasicsPanel());
         addVerticalStrut();
         addHeader("Enable Features");
         addComponent(new EnableFeaturesPanel());
@@ -22,10 +19,7 @@ public class GeneralOptionPanel extends AbstractOptionPanel {
         addVerticalStrut();
         addHeader("Path of Exile");
         addComponent(new ClientPathPanel());
-    }
-
-    public BasicsPanel getBasicsPanel() {
-        return basicsPanel;
+        addComponent(new PoeChatHotkeyPanel());
     }
 
 }

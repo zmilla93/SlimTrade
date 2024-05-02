@@ -2,9 +2,12 @@ package com.slimtrade.gui.components;
 
 import com.slimtrade.App;
 import com.slimtrade.core.hotkeys.HotkeyData;
+import com.slimtrade.gui.listening.IHotkeyChangeListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * A button for settings hotkeys.
@@ -13,18 +16,21 @@ public class HotkeyButton extends JButton {
 
     private HotkeyData data;
     private static final String UNSET_TEXT = "Hotkey Not Set";
+    private static final String PRESS_ANY_KEY_TEXT = "Press Any Key";
+    private final ArrayList<IHotkeyChangeListener> hotkeyChangeListeners = new ArrayList<>();
 
     public HotkeyButton() {
         super(UNSET_TEXT);
         addActionListener(e -> {
-            setText("Press Any Key");
+            setText(PRESS_ANY_KEY_TEXT);
             App.globalKeyboardListener.listenForHotkey(HotkeyButton.this);
         });
     }
 
-    public void updateText() {
+    public void updateHotkey() {
         if (data != null) setText(data.toString());
         else setText(UNSET_TEXT);
+        for (IHotkeyChangeListener listener : hotkeyChangeListeners) listener.onHotkeyChange(data);
     }
 
     public HotkeyData getData() {
@@ -34,7 +40,17 @@ public class HotkeyButton extends JButton {
     public void setData(HotkeyData data) {
         this.data = data;
         if (data != null && data.keyCode == NativeKeyEvent.VC_ESCAPE) this.data = null;
-        updateText();
+        updateHotkey();
+    }
+
+    public void addHotkeyChangeListener(IHotkeyChangeListener listener) {
+        hotkeyChangeListeners.add(listener);
+    }
+
+    // Ignore default event processing to prevent enter and space from double triggering button
+    @Override
+    protected void processKeyEvent(KeyEvent e) {
+        e.consume();
     }
 
 }

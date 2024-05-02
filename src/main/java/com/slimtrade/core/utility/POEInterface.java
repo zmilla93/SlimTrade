@@ -2,6 +2,9 @@ package com.slimtrade.core.utility;
 
 import com.slimtrade.core.References;
 import com.slimtrade.core.data.PasteReplacement;
+import com.slimtrade.core.hotkeys.HotkeyData;
+import com.slimtrade.core.jna.JnaAwtEvent;
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.ClientFileChooser;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
@@ -46,21 +49,49 @@ public class POEInterface {
         }
     }
 
-    public static void pasteFromClipboard() {
+    // FIXME : invert stop before send
+    public static void pasteFromClipboard(boolean stopBeforeSend) {
         assert (!SwingUtilities.isEventDispatchThread());
+        // FIXME: isgamefocused is called twices
         if (!isGameFocused()) return;
+        // Clear Alt
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
+        // Try opening chat with custom hotkey
+        HotkeyData poeChatHotkey = SaveManager.settingsSaveFile.data.poeChatHotkey;
+        boolean openChatOverride = false;
+        if (poeChatHotkey != null) {
+            int keyCode = JnaAwtEvent.hotkeyToEvent(poeChatHotkey);
+            if (keyCode != -1) {
+                if (poeChatHotkey.isAltPressed()) robot.keyPress(KeyEvent.VK_ALT);
+                if (poeChatHotkey.isCtrlPressed()) robot.keyPress(KeyEvent.VK_CONTROL);
+                if (poeChatHotkey.isShiftPressed()) robot.keyPress(KeyEvent.VK_SHIFT);
+                robot.keyPress(keyCode);
+                robot.keyRelease(keyCode);
+                if (poeChatHotkey.isAltPressed()) robot.keyRelease(KeyEvent.VK_ALT);
+                if (poeChatHotkey.isCtrlPressed()) robot.keyRelease(KeyEvent.VK_CONTROL);
+                if (poeChatHotkey.isShiftPressed()) robot.keyRelease(KeyEvent.VK_SHIFT);
+                openChatOverride = true;
+            } else ZLogger.err("Invalid JNA to Swing conversion:" + poeChatHotkey + ", " + poeChatHotkey.keyCode);
+        }
+        // Fallback to opening chat using enter
+        if (!openChatOverride) {
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+        }
+        // Select all text
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_A);
         robot.keyRelease(KeyEvent.VK_A);
+        // Paste
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
+        // Send Message
+        if (!stopBeforeSend) {
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+        }
         // This sleep is required
         try {
             Thread.sleep(10);
@@ -83,19 +114,7 @@ public class POEInterface {
             ZLogger.err("Failed to set clipboard contents, aborting...");
             return;
         }
-        robot.keyPress(KeyEvent.VK_ALT);
-        robot.keyRelease(KeyEvent.VK_ALT);
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_A);
-        robot.keyRelease(KeyEvent.VK_A);
-        robot.keyPress(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        if (stopBeforeSend) return;
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
+        pasteFromClipboard(stopBeforeSend);
     }
 
     public static void pasteWithFocus(String input) {

@@ -59,7 +59,7 @@ public class QuickPasteManager {
         TradeOffer offer = TradeOffer.getTradeFromQuickPaste(clipboardContents);
         if (offer != null) {
             if (POEInterface.focusGame()) {
-                POEInterface.pasteFromClipboard();
+                POEInterface.pasteFromClipboard(false);
                 clearClipboard();
                 VisibilityManager.showOverlay();
             }
@@ -72,7 +72,7 @@ public class QuickPasteManager {
             TradeOffer offer = TradeOffer.getTradeFromQuickPaste(clipboardContents);
             if (offer != null) {
                 if (POEInterface.focusGame()) {
-                    POEInterface.pasteFromClipboard();
+                    POEInterface.pasteFromClipboard(false);
                     VisibilityManager.showOverlay();
                 }
             }

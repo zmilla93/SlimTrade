@@ -16,7 +16,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     private static volatile boolean altPressed;
     private static volatile boolean shiftPressed;
     // Masks for the 5 mouse buttons
-    private static final int[] mouseMasks = {256, 512, 1024, 2048, 4096};
+    private static final int[] MOUSE_MASKS = {256, 512, 1024, 2048, 4096};
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
@@ -87,23 +87,23 @@ public class GlobalKeyboardListener implements NativeKeyListener {
     public void listenForHotkey(HotkeyButton hotkeyListener) {
         // If the hotkey button being modified is clicked a 2nd time, cancel the process
         if (this.hotkeyBeingModified == hotkeyListener) {
-            this.hotkeyBeingModified.updateText();
+            this.hotkeyBeingModified.updateHotkey();
             this.hotkeyBeingModified = null;
             return;
         }
         // Update the hotkey that is being modified
-        if (this.hotkeyBeingModified != null) this.hotkeyBeingModified.updateText();
+        if (this.hotkeyBeingModified != null) this.hotkeyBeingModified.updateHotkey();
         this.hotkeyBeingModified = hotkeyListener;
     }
 
     public void clearHotkeyListener() {
-        this.hotkeyBeingModified.updateText();
+        this.hotkeyBeingModified.updateHotkey();
         this.hotkeyBeingModified = null;
     }
 
     // Removes the 5 mouse buttons as modifiers for key events
     public static int cleanModifiers(int mods) {
-        for (int mask : mouseMasks) {
+        for (int mask : MOUSE_MASKS) {
             if ((mods & mask) > 0) {
                 mods -= mask;
             }

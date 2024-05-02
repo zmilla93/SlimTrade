@@ -15,6 +15,7 @@ import com.slimtrade.gui.options.searching.StashSearchTermData;
 import com.slimtrade.gui.options.searching.StashSearchWindowMode;
 import com.slimtrade.modules.theme.Theme;
 import com.slimtrade.modules.updater.data.AppVersion;
+import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,6 +59,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
 
     // Path of Exile
     public String clientPath;
+    public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
 
     // Enable Features
 //    public MenubarStyle menubarStyle = MenubarStyle.ICON;

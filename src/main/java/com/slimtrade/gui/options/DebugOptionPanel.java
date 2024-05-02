@@ -1,12 +1,14 @@
 package com.slimtrade.gui.options;
 
 import com.slimtrade.core.data.PlayerMessage;
+import com.slimtrade.core.jna.JnaAwtEvent;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
+import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.theme.ThemeManager;
@@ -17,6 +19,8 @@ import java.awt.*;
 public class DebugOptionPanel extends AbstractOptionPanel {
 
     private static final boolean GROUP_FONTS_BY_FAMILY = true;
+
+    private final HotkeyButton chatHotkeyButton = new HotkeyButton();
 
     private final JButton incomingMessageButton = new JButton("Incoming Trade");
     private final JButton outgoingMessageButton = new JButton("Outgoing Trade");
@@ -36,6 +40,13 @@ public class DebugOptionPanel extends AbstractOptionPanel {
     private final JLabel[] translationLabels = new JLabel[]{chineseLabel, japaneseLabel, koreanLabel, russianLabel, thaiLabel, slashLabel};
 
     public DebugOptionPanel() {
+        chatHotkeyButton.addHotkeyChangeListener(e -> {
+            if (chatHotkeyButton.getData() != null) {
+                System.out.println(chatHotkeyButton.getData().toString());
+                JnaAwtEvent.hotkeyToEvent(chatHotkeyButton.getData());
+            }
+        });
+
         addHeader("Debug Tools");
         addComponent(incomingMessageButton);
         addComponent(outgoingMessageButton);
@@ -43,6 +54,9 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         addComponent(updateMessageButton);
         addComponent(clientButton);
         addComponent(uiDump);
+        addVerticalStrut();
+        addHeader("Hotkey Test");
+        addComponent(chatHotkeyButton);
         addVerticalStrut();
         addHeader("Font Test");
         addComponent(new StyledLabel("Almost before we knew it, we had left the ground."));
