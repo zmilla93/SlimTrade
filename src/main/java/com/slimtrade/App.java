@@ -244,7 +244,6 @@ public class App {
         // History
         chatParser.addOnInitCallback(FrameManager.historyWindow);
         chatParser.addOnLoadedCallback(FrameManager.historyWindow);
-        chatParser.addPreloadTradeListener(FrameManager.historyWindow);
         chatParser.addTradeListener(FrameManager.historyWindow);
         // Message Manager
         chatParser.addTradeListener(FrameManager.messageManager);

@@ -4,6 +4,6 @@ import com.slimtrade.core.trading.TradeOffer;
 
 public interface ITradeListener {
 
-    void handleTrade(TradeOffer tradeOffer);
+    void handleTrade(TradeOffer tradeOffer, boolean loaded);
 
 }

@@ -26,7 +26,6 @@ public class ChatParser implements FileTailerListener {
     private final ArrayList<IParserInitListener> onInitListeners = new ArrayList<>();
     private final ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
 
-    private final ArrayList<IPreloadTradeListener> preloadTradeListeners = new ArrayList<>();
     private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
     private final ArrayList<IChatScannerListener> chatScannerListeners = new ArrayList<>();
     private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
@@ -39,6 +38,7 @@ public class ChatParser implements FileTailerListener {
     private int whisperCount;
     private String currentZone = "The Twilight Strand";
     private boolean dnd = false;
+    private long startTime;
 
     public void open(String path) {
         lineCount = 0;
@@ -54,6 +54,7 @@ public class ChatParser implements FileTailerListener {
         }
         this.path = path;
         tailer = FileTailer.createTailer(path, this, tailerDelayMS, false);
+        startTime = System.currentTimeMillis();
         open = true;
     }
 
@@ -67,7 +68,6 @@ public class ChatParser implements FileTailerListener {
         return path;
     }
 
-    // FIXME: Should send loaded status inside event instead of handling it here so that all events can be easily tested
     public void parseLine(String line) {
         if (!open) return;
         lineCount++;
@@ -99,7 +99,6 @@ public class ChatParser implements FileTailerListener {
         if (messageType == null) return false;
         message = message.toLowerCase();
         messageType = messageType.toLowerCase();
-//        if (SaveManager.chatScannerSaveFile.data.searching) {
         // Iterate though all active searches and look for matching phrases
         for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
             if (entry.getSearchTerms() == null) continue;
@@ -132,21 +131,22 @@ public class ChatParser implements FileTailerListener {
                     if (ignore || !allow) continue;
                     PlayerMessage playerMessage = new PlayerMessage(player, message);
                     for (IChatScannerListener listener : chatScannerListeners)
-                        listener.onScannerMessage(tailer.isLoaded(), entry, playerMessage);
+                        listener.onScannerMessage(entry, playerMessage, tailer.isLoaded());
                     return true;
                 }
             }
-//            }
         }
         return false;
     }
 
     private boolean handleTradeOffer(String line) {
+        // Check if it is a whisper
         if (!line.contains("@")) return false;
         whisperCount++;
+        // Check if it is a trade
         TradeOffer offer = TradeOffer.getTradeFromMessage(line);
         if (offer == null) return false;
-        // Check if trade should be ignored
+        // Check if the trade should be ignored
         String itemNameLower = offer.itemName.toLowerCase();
         if (offer.offerType == TradeOfferType.INCOMING_TRADE) {
             IgnoreItemData item = SaveManager.ignoreSaveFile.data.exactMatchIgnoreMap.get(itemNameLower);
@@ -162,15 +162,8 @@ public class ChatParser implements FileTailerListener {
             }
         }
         // Handle trade
-        if (tailer.isLoaded()) {
-            for (ITradeListener listener : tradeListeners) {
-                listener.handleTrade(offer);
-            }
-        } else {
-            for (IPreloadTradeListener listener : preloadTradeListeners) {
-                listener.handlePreloadTrade(offer);
-            }
-        }
+        for (ITradeListener listener : tradeListeners)
+            listener.handleTrade(offer, tailer.isLoaded());
         return true;
     }
 
@@ -244,10 +237,6 @@ public class ChatParser implements FileTailerListener {
         onLoadListeners.add(listener);
     }
 
-    public void addPreloadTradeListener(IPreloadTradeListener listener) {
-        preloadTradeListeners.add(listener);
-    }
-
     public void addTradeListener(ITradeListener listener) {
         tradeListeners.add(listener);
     }
@@ -267,7 +256,6 @@ public class ChatParser implements FileTailerListener {
     public void removeAllListeners() {
         onInitListeners.clear();
         onLoadListeners.clear();
-        preloadTradeListeners.clear();
         tradeListeners.clear();
         chatScannerListeners.clear();
         joinedAreaListeners.clear();
@@ -292,7 +280,8 @@ public class ChatParser implements FileTailerListener {
 
     @Override
     public void onLoad() {
-        ZLogger.log("Chat parser loaded. Found " + lineCount + " lines and " + whisperCount + " whispers.");
+        float endTime = (System.currentTimeMillis() - startTime) / 1000f;
+        ZLogger.log("Chat parser loaded in " + endTime + " seconds. Found " + lineCount + " lines and " + whisperCount + " whispers.");
         for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded();
     }
 
