@@ -10,7 +10,6 @@ import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.managers.FrameManager;
@@ -138,7 +137,6 @@ public class App {
         // Init Managers
         Stopwatch.start();
         CurrencyType.initIconList();
-        LangRegex.compileAll();
         POEInterface.init();
         AudioManager.init();
         profileLaunch("Managers Launched");

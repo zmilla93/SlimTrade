@@ -2,9 +2,7 @@ import com.slimtrade.core.chatparser.ChatParser;
 import com.slimtrade.core.chatparser.IParserLoadedListener;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.saving.savefiles.ChatScannerSaveFile;
-import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.modules.saving.SaveFile;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,11 +15,6 @@ public class ParserTest implements IParserLoadedListener {
     private int offCount;
     private static boolean loaded = false;
     private static ChatParser parser;
-
-    @BeforeAll
-    private static void beforeAll() {
-        LangRegex.compileAll();
-    }
 
     @BeforeEach
     private void beforeEach() {
@@ -82,7 +75,7 @@ public class ParserTest implements IParserLoadedListener {
     }
 
     @Override
-    public void onParserLoaded() {
+    public void onParserLoaded(boolean dnd) {
         loaded = true;
     }
 

@@ -89,6 +89,10 @@ public enum LangRegex {
     public Pattern joinedAreaPattern;
     public Pattern enteredAreaPattern;
 
+    static {
+        compileAll();
+    }
+
     LangRegex(String wantToBuy, String joinedArea, String enteredArea, String messageTo, String messageFrom, String dndOff, String dndOn, String[] messages) {
         this.wantToBuy = wantToBuy;
         this.joinedArea = joinedArea;
@@ -112,7 +116,7 @@ public enum LangRegex {
         }
     }
 
-    public static void compileAll() {
+    private static void compileAll() {
         for (LangRegex lang : LangRegex.values()) {
             lang.compile();
         }
