@@ -7,8 +7,9 @@ import java.util.ArrayList;
 public class ChatScannerSaveFile extends AbstractSaveFile {
 
     public ArrayList<ChatScannerEntry> scannerEntries = new ArrayList<>();
-    public transient boolean searching;
     public transient ArrayList<ChatScannerEntry> activeSearches = new ArrayList<>();
+    public int[] selectedIndexes;
+    public boolean searching;
 
     @Override
     public int getTargetFileVersion() {

@@ -168,15 +168,17 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
             ChatScannerCustomizerPanel panel = entryList.getModel().getElementAt(i);
             activeEntries.add(panel.getData());
         }
-        SaveManager.chatScannerSaveFile.saveToDisk();
         SaveManager.chatScannerSaveFile.data.searching = true;
         SaveManager.chatScannerSaveFile.data.activeSearches = activeEntries;
+        SaveManager.chatScannerSaveFile.data.selectedIndexes = values;
+        SaveManager.chatScannerSaveFile.saveToDisk();
         cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         enableComponents(false);
     }
 
     public void stopSearch() {
         SaveManager.chatScannerSaveFile.data.searching = false;
+        SaveManager.chatScannerSaveFile.saveToDisk(false);
         ChatScannerCustomizerPanel selectedPanel = entryList.getSelectedValue();
         if (selectedPanel == null) cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         else cardLayout.show(cardPanel, selectedPanel.getTitle());
@@ -307,6 +309,10 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
             cardPanel.add(panel, entry.title);
         }
         updateList();
+        if (SaveManager.chatScannerSaveFile.data.searching) {
+            entryList.setSelectedIndices(SaveManager.chatScannerSaveFile.data.selectedIndexes);
+            tryStartSearch();
+        }
     }
 
     @Override
