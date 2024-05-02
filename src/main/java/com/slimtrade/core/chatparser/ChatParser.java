@@ -67,48 +67,19 @@ public class ChatParser implements FileTailerListener {
         return path;
     }
 
-    // FIXME: Should add early returns when a valid endpoint is found
     // FIXME: Should send loaded status inside event instead of handling it here so that all events can be easily tested
     public void parseLine(String line) {
         if (!open) return;
         lineCount++;
-        if (line.contains("@")) {
-            whisperCount++;
-            TradeOffer tradeOffer = TradeOffer.getTradeFromMessage(line);
-            if (tradeOffer != null) {
-                handleTradeOffer(tradeOffer);
-                return;
-            }
-        }
+        if (handleZoneChange(line)) return;
+        if (handleTradeOffer(line)) return;
         if (handleDndToggle(line)) return;
-//        if (tailer.isLoaded()) {
-        // Chat Scanner
-        handleChatScanner(line);
-        // Player Joined Area
-        for (LangRegex lang : LangRegex.values()) {
-            if (lang.joinedArea == null) continue;
-            Matcher matcher = lang.joinedAreaPattern.matcher(line);
-            if (matcher.matches()) {
-                String playerName = matcher.group("playerName");
-                for (IJoinedAreaListener listener : joinedAreaListeners) {
-                    listener.onJoinedArea(playerName);
-                }
-                return;
-            }
-        }
-//        }
-        // Zone Tracking
-        for (LangRegex lang : LangRegex.values()) {
-            if (lang.enteredArea == null) continue;
-            Matcher matcher = lang.enteredAreaPattern.matcher(line);
-            if (matcher.matches()) {
-                currentZone = matcher.group("zone");
-                return;
-            }
-        }
+        if (handleChatScanner(line)) return;
+        if (handlePlayerJoinedArea(line)) return;
     }
 
-    private void handleChatScanner(String line) {
+    private boolean handleChatScanner(String line) {
+        if (!SaveManager.chatScannerSaveFile.data.searching) return false;
         Matcher chatMatcher = References.chatPatten.matcher(line);
         Matcher metaMatcher = References.clientMetaPattern.matcher(line);
         String message;
@@ -123,66 +94,70 @@ public class ChatParser implements FileTailerListener {
             messageType = "meta";
             player = "Meta Text";
         } else {
-            return;
+            return false;
         }
-        if (messageType == null) return;
+        if (messageType == null) return false;
         message = message.toLowerCase();
         messageType = messageType.toLowerCase();
-        if (SaveManager.chatScannerSaveFile.data.searching) {
-            // Iterate though all active searches and look for matching phrases
-            for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
-                if (entry.getSearchTerms() == null) continue;
-                for (String term : entry.getSearchTerms()) {
-                    if (message.contains(term)) {
-                        boolean allow = false;
-                        boolean ignore = false;
-                        // Check if this message should be ignored
-                        if (entry.getIgnoreTerms() != null) {
-                            for (String ignoreTerm : entry.getIgnoreTerms()) {
-                                if (message.contains(ignoreTerm)) {
-                                    ignore = true;
-                                    break;
-                                }
+//        if (SaveManager.chatScannerSaveFile.data.searching) {
+        // Iterate though all active searches and look for matching phrases
+        for (ChatScannerEntry entry : SaveManager.chatScannerSaveFile.data.activeSearches) {
+            if (entry.getSearchTerms() == null) continue;
+            for (String term : entry.getSearchTerms()) {
+                if (message.contains(term)) {
+                    boolean allow = false;
+                    boolean ignore = false;
+                    // Check if this message should be ignored
+                    if (entry.getIgnoreTerms() != null) {
+                        for (String ignoreTerm : entry.getIgnoreTerms()) {
+                            if (message.contains(ignoreTerm)) {
+                                ignore = true;
+                                break;
                             }
                         }
-                        // Verify the message is allowed
-                        if (entry.allowGlobalAndTradeChat && (messageType.equals("#") || messageType.equals("$")))
-                            allow = true;
-                        if (entry.allowWhispers) {
-                            for (LangRegex lang : LangRegex.values()) {
-                                if (lang.messageFrom == null) continue;
-                                if (messageType.contains(lang.messageFrom)) {
-                                    allow = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (entry.allowMetaText && messageType.equals("meta")) allow = true;
-                        if (ignore || !allow) continue;
-                        PlayerMessage playerMessage = new PlayerMessage(player, message);
-                        for (IChatScannerListener listener : chatScannerListeners)
-                            listener.onScannerMessage(tailer.isLoaded(), entry, playerMessage);
-                        return;
                     }
+                    // Verify the message is allowed
+                    if (entry.allowGlobalAndTradeChat && (messageType.equals("#") || messageType.equals("$")))
+                        allow = true;
+                    if (entry.allowWhispers) {
+                        for (LangRegex lang : LangRegex.values()) {
+                            if (lang.messageFrom == null) continue;
+                            if (messageType.contains(lang.messageFrom)) {
+                                allow = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (entry.allowMetaText && messageType.equals("meta")) allow = true;
+                    if (ignore || !allow) continue;
+                    PlayerMessage playerMessage = new PlayerMessage(player, message);
+                    for (IChatScannerListener listener : chatScannerListeners)
+                        listener.onScannerMessage(tailer.isLoaded(), entry, playerMessage);
+                    return true;
                 }
             }
+//            }
         }
-
+        return false;
     }
 
-    private void handleTradeOffer(TradeOffer offer) {
+    private boolean handleTradeOffer(String line) {
+        if (!line.contains("@")) return false;
+        whisperCount++;
+        TradeOffer offer = TradeOffer.getTradeFromMessage(line);
+        if (offer == null) return false;
         // Check if trade should be ignored
         String itemNameLower = offer.itemName.toLowerCase();
         if (offer.offerType == TradeOfferType.INCOMING_TRADE) {
             IgnoreItemData item = SaveManager.ignoreSaveFile.data.exactMatchIgnoreMap.get(itemNameLower);
             if (item != null && !item.isExpired()) {
                 handleIgnoreItem();
-                return;
+                return true;
             }
             for (IgnoreItemData ignoreItemData : SaveManager.ignoreSaveFile.data.containsTextIgnoreList) {
                 if (itemNameLower.contains(ignoreItemData.itemNameLower()) && !ignoreItemData.isExpired()) {
                     handleIgnoreItem();
-                    return;
+                    return true;
                 }
             }
         }
@@ -196,6 +171,7 @@ public class ChatParser implements FileTailerListener {
                 listener.handlePreloadTrade(offer);
             }
         }
+        return true;
     }
 
     private boolean handleDndToggle(String line) {
@@ -221,6 +197,34 @@ public class ChatParser implements FileTailerListener {
 
     private void handleIgnoreItem() {
         if (tailer.isLoaded()) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound);
+    }
+
+
+    private boolean handlePlayerJoinedArea(String line) {
+        for (LangRegex lang : LangRegex.values()) {
+            if (lang.joinedArea == null) continue;
+            Matcher matcher = lang.joinedAreaPattern.matcher(line);
+            if (matcher.matches()) {
+                String playerName = matcher.group("playerName");
+                for (IJoinedAreaListener listener : joinedAreaListeners) {
+                    listener.onJoinedArea(playerName);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean handleZoneChange(String line) {
+        for (LangRegex lang : LangRegex.values()) {
+            if (lang.enteredArea == null) continue;
+            Matcher matcher = lang.enteredAreaPattern.matcher(line);
+            if (matcher.matches()) {
+                currentZone = matcher.group("zone");
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getCurrentZone() {
