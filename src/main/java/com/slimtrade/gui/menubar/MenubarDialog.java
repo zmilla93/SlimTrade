@@ -1,11 +1,14 @@
 package com.slimtrade.gui.menubar;
 
 import com.slimtrade.App;
+import com.slimtrade.core.chatparser.IChatScannerToggleListener;
 import com.slimtrade.core.chatparser.IDndListener;
 import com.slimtrade.core.chatparser.IParserLoadedListener;
 import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.core.enums.MenubarStyle;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
@@ -19,10 +22,11 @@ import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class MenubarDialog extends BasicDialog implements ISaveListener, IFontChangeListener, IThemeListener, IParserLoadedListener, IDndListener {
+public class MenubarDialog extends BasicDialog implements ISaveListener, IFontChangeListener, IThemeListener, IParserLoadedListener, IChatScannerToggleListener, IDndListener {
 
     private JButton optionsButton;
     private JButton chatScannerButton;
@@ -35,54 +39,69 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
     private static final int EXIT_INSET = 8;
     private static final String DND_ENABLED = "DND is On";
     private static final String DND_DISABLED = "DND is Off";
+    private final MenubarStyle TEMP_STYLE = MenubarStyle.ICON;
     boolean dnd;
+
+    private final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
     public MenubarDialog() {
         horizontalSeparator = Box.createHorizontalStrut(EXIT_INSET);
         verticalSeparator = Box.createVerticalStrut(EXIT_INSET);
+
+        setLayout(new BorderLayout());
+        add(buttonPanel, BorderLayout.CENTER);
+
         rebuild();
+
         ThemeManager.addFontListener(this);
         ThemeManager.addThemeListener(this);
         SaveManager.settingsSaveFile.addListener(this);
+        FrameManager.chatScannerWindow.addChatScannerToggleListener(this);
     }
 
     private void addListeners() {
-        optionsButton.addActionListener(e -> FrameManager.optionsWindow.setVisible(true));
-        historyButton.addActionListener(e -> FrameManager.historyWindow.setVisible(true));
-        chatScannerButton.addActionListener(e -> FrameManager.chatScannerWindow.setVisible(true));
-        // FIXME:
+        optionsButton.addActionListener(e -> FrameManager.optionsWindow.setVisible(!FrameManager.optionsWindow.isVisible()));
+        historyButton.addActionListener(e -> FrameManager.historyWindow.setVisible(!FrameManager.historyWindow.isVisible()));
+        chatScannerButton.addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1)
+                    FrameManager.chatScannerWindow.setVisible(!FrameManager.chatScannerWindow.isVisible());
+                else if (e.getButton() == MouseEvent.BUTTON3) FrameManager.chatScannerWindow.toggleSearch();
+            }
+        });
         hideoutButton.addActionListener(e -> POEInterface.pasteWithFocus("/hideout"));
         dndButton.addActionListener(e -> POEInterface.pasteWithFocus("/dnd"));
         exitButton.addActionListener(e -> System.exit(0));
     }
 
     public void rebuild() {
-//        if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.ICON) buildIconButtons();
-//        else buildTextButtons();
-        buildTextButtons();
+        if (TEMP_STYLE == MenubarStyle.ICON) buildIconButtons();
+        else buildTextButtons();
         if (App.chatParser != null) updateDndButton();
+        updateScannerButton();
         TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
     }
 
     private void buildIconButtons() {
-        contentPanel.removeAll();
-        contentPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        buttonPanel.removeAll();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         optionsButton = new IconButton(DefaultIcon.COG);
         historyButton = new IconButton(DefaultIcon.CHART);
-        chatScannerButton = new IconButton(DefaultIcon.SCANNER);
+        chatScannerButton = new IconButton(DefaultIcon.SCANNER_OFF);
         hideoutButton = new IconButton(DefaultIcon.HOME);
         dndButton = new IconButton(DefaultIcon.TAG);
         exitButton = new IconButton(DefaultIcon.POWER);
 
-        for (Component comp : getOrderedComponents()) contentPanel.add(comp);
+        for (Component comp : getOrderedComponents()) buttonPanel.add(comp);
         addListeners();
         pack();
     }
 
     private void buildTextButtons() {
-        contentPanel.removeAll();
-        contentPanel.setLayout(new GridBagLayout());
+        buttonPanel.removeAll();
+        buttonPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.BOTH;
 
@@ -94,7 +113,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
         exitButton = new MenubarButton("Exit");
 
         for (Component comp : getOrderedComponents()) {
-            contentPanel.add(comp, gc);
+            buttonPanel.add(comp, gc);
             gc.gridy++;
         }
         addListeners();
@@ -108,14 +127,14 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
                 optionsButton, historyButton,
                 chatScannerButton, hideoutButton, dndButton,
                 horizontalSeparator, verticalSeparator, exitButton};
-        if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT)
-            Collections.reverse(Arrays.asList(components));
-//        boolean reverse = false;
-//        if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.ICON && (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT))
-//            reverse = true;
-//        else if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.TEXT && (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT))
-//            reverse = true;
-//        if (reverse) Collections.reverse(Arrays.asList(components));
+//        if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT)
+//            Collections.reverse(Arrays.asList(components));
+        boolean reverse = false;
+        if (TEMP_STYLE == MenubarStyle.ICON && (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT))
+            reverse = true;
+        else if (TEMP_STYLE == MenubarStyle.TEXT && (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT))
+            reverse = true;
+        if (reverse) Collections.reverse(Arrays.asList(components));
         return components;
     }
 
@@ -146,6 +165,30 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
             }
             handleResize();
         });
+    }
+
+    private void updateScannerButton() {
+        switch (TEMP_STYLE) {
+            case TEXT:
+                if (SaveManager.chatScannerSaveFile.data.searching)
+                    chatScannerButton.setFont(chatScannerButton.getFont().deriveFont(Font.ITALIC));
+                else
+                    chatScannerButton.setFont(chatScannerButton.getFont().deriveFont(Font.PLAIN));
+                break;
+            case ICON:
+                if (SaveManager.chatScannerSaveFile.data.searching)
+                    ((IconButton) chatScannerButton).setIcon(DefaultIcon.SCANNER_ON);
+                else
+                    ((IconButton) chatScannerButton).setIcon(DefaultIcon.SCANNER_OFF);
+                break;
+        }
+        pack();
+    }
+
+
+    @Override
+    public void onChatScannerToggle(boolean state) {
+        updateScannerButton();
     }
 
     @Override

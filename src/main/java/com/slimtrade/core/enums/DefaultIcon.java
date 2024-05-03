@@ -27,7 +27,8 @@ public enum DefaultIcon implements IIcon {
     VOLUME_DOWN("volume-down"),
     VOLUME_MUTE("volume-mute"),
     VOLUME_UP("volume-up"),
-    SCANNER("rss"),
+    SCANNER_ON("message-typing"),
+    SCANNER_OFF("message"),
     ;
 
     private final String path;

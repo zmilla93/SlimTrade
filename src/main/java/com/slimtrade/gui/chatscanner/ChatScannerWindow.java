@@ -1,5 +1,6 @@
 package com.slimtrade.gui.chatscanner;
 
+import com.slimtrade.core.chatparser.IChatScannerToggleListener;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
@@ -41,6 +42,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
     private static final String DELETE_PANEL_TITLE = "SLIMTRADE::DELETE_PANEL";
 
     private final ArrayList<ChatScannerCustomizerPanel> panels = new ArrayList<>();
+    private final ArrayList<IChatScannerToggleListener> toggleListeners = new ArrayList<>();
 
     private final JButton revertButton = new JButton("Revert Changes");
     private final JButton saveButton = new JButton("Save");
@@ -174,6 +176,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
         SaveManager.chatScannerSaveFile.saveToDisk();
         cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         enableComponents(false);
+        for (IChatScannerToggleListener listener : toggleListeners) listener.onChatScannerToggle(true);
     }
 
     public void stopSearch() {
@@ -183,6 +186,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
         if (selectedPanel == null) cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         else cardLayout.show(cardPanel, selectedPanel.getTitle());
         enableComponents(true);
+        for (IChatScannerToggleListener listener : toggleListeners) listener.onChatScannerToggle(false);
     }
 
     private void enableComponents(boolean enable) {
@@ -287,6 +291,10 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
             if (listPanelName.equals(name)) return true;
         }
         return false;
+    }
+
+    public void addChatScannerToggleListener(IChatScannerToggleListener listener) {
+        toggleListeners.add(listener);
     }
 
     @Override
