@@ -148,7 +148,7 @@ public class ChatParser implements FileTailerListener {
         if (offer == null) return false;
         // Check if the trade should be ignored
         String itemNameLower = offer.itemName.toLowerCase();
-        if (offer.offerType == TradeOfferType.INCOMING_TRADE) {
+        if (offer.offerType == TradeOfferType.INCOMING_TRADE && SaveManager.ignoreSaveFile.data != null) {
             IgnoreItemData item = SaveManager.ignoreSaveFile.data.exactMatchIgnoreMap.get(itemNameLower);
             if (item != null && !item.isExpired()) {
                 handleIgnoreItem();

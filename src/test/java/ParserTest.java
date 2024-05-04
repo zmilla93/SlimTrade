@@ -45,6 +45,27 @@ public class ParserTest implements IParserLoadedListener {
         }
     }
 
+    int incomingTradeCount = 0;
+    int outgoingTradeCount = 0;
+
+    @Test
+    public void tradeTest() {
+        parser.addTradeListener((tradeOffer, loaded) -> {
+            switch (tradeOffer.offerType) {
+                case INCOMING_TRADE:
+                    incomingTradeCount++;
+                    break;
+                case OUTGOING_TRADE:
+                    outgoingTradeCount++;
+                    break;
+            }
+        });
+        parser.open("/client/client_trade.txt");
+        waitForParser();
+        assertEquals(14, incomingTradeCount);
+        assertEquals(14, outgoingTradeCount);
+    }
+
     @Test
     public void dndTest() {
         onCount = 0;

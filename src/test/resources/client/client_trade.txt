@@ -1,0 +1,59 @@
+/////////////
+// English //
+/////////////
+
+// Item
+2024/05/04 00:30:09 358510625 cff94598 [INFO Client 18508] @To CoolWindBreather: Hi, I would like to buy your Hate Strap, Leather Belt listed for 5 chaos in Necropolis (stash tab "~price 5 chaos q1"; position: left 1, top 14)
+2024/05/04 00:30:09 358510625 cff94598 [INFO Client 18508] @From <£¤O> CoolWindBreather: Hi, I would like to buy your Hate Strap, Leather Belt listed for 5 chaos in Necropolis (stash tab "~price 5 chaos q1"; position: left 1, top 14)
+
+// Normal, Magic, & Rare Maps
+2024/05/04 00:10:43 357344171 cff94598 [INFO Client 18508] @To CoolWindBreather: Hi, I would like to buy your Basilica Map (T6) listed for 5 chaos in Necropolis (stash tab "maps"; position: left 1, top 3)
+2024/05/04 00:10:43 357344171 cff94598 [INFO Client 18508] @From <£¤O> CoolWindBreather: Hi, I would like to buy your Basilica Map (T6) listed for 5 chaos in Necropolis (stash tab "maps"; position: left 1, top 3)
+2024/05/04 00:10:46 357347687 cff94598 [INFO Client 18508] @To CoolWindBreather: Hi, I would like to buy your Cruel Apex, Basilica Map (T6) listed for 10 chaos in Necropolis (stash tab "maps"; position: left 1, top 2)
+2024/05/04 00:10:46 357347687 cff94598 [INFO Client 18508] @From <£¤O> CoolWindBreather: Hi, I would like to buy your Cruel Apex, Basilica Map (T6) listed for 10 chaos in Necropolis (stash tab "maps"; position: left 1, top 2)
+2024/05/04 00:10:49 357350359 cff94598 [INFO Client 18508] @To CoolWindBreather: Hi, I would like to buy your Punishing Basilica Map of Balance (T6) listed for 15 chaos in Necropolis (stash tab "maps"; position: left 1, top 1)
+2024/05/04 00:10:49 357350359 cff94598 [INFO Client 18508] @From <£¤O> CoolWindBreather: Hi, I would like to buy your Punishing Basilica Map of Balance (T6) listed for 15 chaos in Necropolis (stash tab "maps"; position: left 1, top 1)
+
+// Bulk Maps
+2024/05/04 00:18:18 357800031 cff94598 [INFO Client 18508] @To CoolWindBreather: Hi, I'd like to buy your 3 Basilica Map (T6) for my 15 Chaos Orb in Necropolis
+2024/05/04 00:18:18 357800031 cff94598 [INFO Client 18508] @From <£¤O> CoolWindBreather: Hi, I'd like to buy your 3 Basilica Map (T6) for my 15 Chaos Orb in Necropolis
+
+////////////
+// French //
+////////////
+
+// Item
+2024/05/04 00:34:25 358766875 cff94598 [INFO Client 18968] @À CoolWindBreather: Bonjour, je souhaiterais t'acheter Pourtour haineux, Ceinture en cuir pour 5 chaos dans la ligue Necropolis (onglet de réserve "~price 5 chaos q1" ; 1e en partant de la gauche, 14e en partant du haut)
+2024/05/04 00:34:25 358766875 cff94598 [INFO Client 18968] @De <£¤O> CoolWindBreather: Bonjour, je souhaiterais t'acheter Pourtour haineux, Ceinture en cuir pour 5 chaos dans la ligue Necropolis (onglet de réserve "~price 5 chaos q1" ; 1e en partant de la gauche, 14e en partant du haut)
+
+// Normal, Magic, & Rare Maps
+2024/05/04 00:35:11 358812875 cff94598 [INFO Client 18968] @À CoolWindBreather: Bonjour, je souhaiterais t'acheter Basilique, Carte (P6) pour 5 chaos dans la ligue Necropolis (onglet de réserve "maps" ; 1e en partant de la gauche, 3e en partant du haut)
+2024/05/04 00:35:11 358812875 cff94598 [INFO Client 18968] @De <£¤O> CoolWindBreather: Bonjour, je souhaiterais t'acheter Basilique, Carte (P6) pour 5 chaos dans la ligue Necropolis (onglet de réserve "maps" ; 1e en partant de la gauche, 3e en partant du haut)
+2024/05/04 00:35:16 358817203 cff94598 [INFO Client 18968] @À CoolWindBreather: Bonjour, je souhaiterais t'acheter Sommet cruel, Basilique, Carte (P6) pour 10 chaos dans la ligue Necropolis (onglet de réserve "maps" ; 1e en partant de la gauche, 2e en partant du haut)
+2024/05/04 00:35:16 358817203 cff94598 [INFO Client 18968] @De <£¤O> CoolWindBreather: Bonjour, je souhaiterais t'acheter Sommet cruel, Basilique, Carte (P6) pour 10 chaos dans la ligue Necropolis (onglet de réserve "maps" ; 1e en partant de la gauche, 2e en partant du haut)
+2024/05/04 00:35:17 358818359 cff94598 [INFO Client 18968] @À CoolWindBreather: Bonjour, je souhaiterais t'acheter Basilique, Carte Punisseuse de l'Équilibre (P6) pour 15 chaos dans la ligue Necropolis (onglet de réserve "maps" ; 1e en partant de la gauche, 1e en partant du haut)
+2024/05/04 00:35:17 358818359 cff94598 [INFO Client 18968] @De <£¤O> CoolWindBreather: Bonjour, je souhaiterais t'acheter Basilique, Carte Punisseuse de l'Équilibre (P6) pour 15 chaos dans la ligue Necropolis (onglet de réserve "maps" ; 1e en partant de la gauche, 1e en partant du haut)
+
+// Bulk Maps - FIXME: doesn't work
+2024/05/04 00:36:27 358888140 cff94598 [INFO Client 18968] @À CoolWindBreather: Salut, je voudrais t'acheter 3 Basilique, Carte (P6) contre 15 Orbe du chaos (ligue Necropolis)
+2024/05/04 00:36:27 358888140 cff94598 [INFO Client 18968] @De <£¤O> CoolWindBreather: Salut, je voudrais t'acheter 3 Basilique, Carte (P6) contre 15 Orbe du chaos (ligue Necropolis)
+
+/////////////
+// Russian //
+/////////////
+
+// Item
+2024/05/04 00:48:05 359586828 cff94598 [INFO Client 15104] @To CoolWindBreather: Здравствуйте, хочу купить у вас Hate Strap, Leather Belt за 5 chaos в лиге Necropolis (секция "~price 5 chaos q1"; позиция: 1 столбец, 14 ряд)
+2024/05/04 00:48:05 359586828 cff94598 [INFO Client 15104] @From <£¤O> CoolWindBreather: Здравствуйте, хочу купить у вас Hate Strap, Leather Belt за 5 chaos в лиге Necropolis (секция "~price 5 chaos q1"; позиция: 1 столбец, 14 ряд)
+
+// Normal, Magic, & Rare Maps
+2024/05/04 00:54:25 359966640 cff94598 [INFO Client 19260] @Кому CoolWindBreather: Здравствуйте, хочу купить у вас Карта базилики (T6) за 5 chaos в лиге Necropolis (секция "maps"; позиция: 1 столбец, 3 ряд)
+2024/05/04 00:54:25 359966656 cff94598 [INFO Client 19260] @От кого <£¤O> CoolWindBreather: Здравствуйте, хочу купить у вас Карта базилики (T6) за 5 chaos в лиге Necropolis (секция "maps"; позиция: 1 столбец, 3 ряд)
+2024/05/04 00:54:27 359968640 cff94598 [INFO Client 19260] @Кому CoolWindBreather: Здравствуйте, хочу купить у вас Жестокая вершина, Карта базилики (T6) за 10 chaos в лиге Necropolis (секция "maps"; позиция: 1 столбец, 2 ряд)
+2024/05/04 00:54:27 359968640 cff94598 [INFO Client 19260] @От кого <£¤O> CoolWindBreather: Здравствуйте, хочу купить у вас Жестокая вершина, Карта базилики (T6) за 10 chaos в лиге Necropolis (секция "maps"; позиция: 1 столбец, 2 ряд)
+2024/05/04 00:54:28 359969859 cff94598 [INFO Client 19260] @Кому CoolWindBreather: Здравствуйте, хочу купить у вас Карающая Карта базилики равновесия (T6) за 15 chaos в лиге Necropolis (секция "maps"; позиция: 1 столбец, 1 ряд)
+2024/05/04 00:54:28 359969875 cff94598 [INFO Client 19260] @От кого <£¤O> CoolWindBreather: Здравствуйте, хочу купить у вас Карающая Карта базилики равновесия (T6) за 15 chaos в лиге Necropolis (секция "maps"; позиция: 1 столбец, 1 ряд)
+
+// Bulk Maps
+2024/05/04 00:55:22 360024000 cff94598 [INFO Client 19260] @Кому CoolWindBreather: Здравствуйте, хочу купить у вас 3 Карта базилики (T6) за 15 Сфера хаоса в лиге Necropolis
+2024/05/04 00:55:22 360024000 cff94598 [INFO Client 19260] @От кого <£¤O> CoolWindBreather: Здравствуйте, хочу купить у вас 3 Карта базилики (T6) за 15 Сфера хаоса в лиге Necropolis
