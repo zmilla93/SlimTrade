@@ -8,6 +8,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.LangRegex;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
+import com.slimtrade.core.trading.WhisperData;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
 import com.slimtrade.modules.filetailing.FileTailer;
@@ -16,16 +17,17 @@ import com.slimtrade.modules.updater.ZLogger;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ChatParser implements FileTailerListener {
 
     public static final int tailerDelayMS = 250;
     private FileTailer tailer;
 
-    // Listeners
+    // Listeners - Parser State
     private final ArrayList<IParserInitListener> onInitListeners = new ArrayList<>();
     private final ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
-
+    // Listeners - Game Events
     private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
     private final ArrayList<IChatScannerListener> chatScannerListeners = new ArrayList<>();
     private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
@@ -36,13 +38,21 @@ public class ChatParser implements FileTailerListener {
     private boolean open;
     private int lineCount;
     private int whisperCount;
+    private int tradeCount;
     private String currentZone = "The Twilight Strand";
     private boolean dnd = false;
     private long startTime;
 
+    // Regex
+    public static final String CLIENT_MESSAGE_REGEX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] (?<message>.+)";
+    public static final String CLIENT_WHISPER_REGEX = "@(?<messageType>От кого|\\S+) (?<guildName><.+>)? ?(?<playerName>[^:]+):(\\s+)(?<message>.+)";
+    private static final Pattern clientMessage = Pattern.compile(CLIENT_MESSAGE_REGEX);
+    private static final Pattern clientWhisper = Pattern.compile(CLIENT_WHISPER_REGEX);
+
     public void open(String path) {
         lineCount = 0;
         whisperCount = 0;
+        tradeCount = 0;
         if (open) close();
         if (path == null) {
             ZLogger.err("Chat parser was given a null path!");
@@ -70,12 +80,45 @@ public class ChatParser implements FileTailerListener {
 
     public void parseLine(String line) {
         if (!open) return;
+        Matcher fullClientMessage = clientMessage.matcher(line);
+        if (!fullClientMessage.matches()) return;
+        String fullMessage = fullClientMessage.group("message");
+        String date = fullClientMessage.group("date");
+        String time = fullClientMessage.group("time");
+        if (fullMessage == null || fullMessage.length() == 0) return;
+        char firstChar = fullMessage.charAt(0);
         lineCount++;
-        if (handleZoneChange(line)) return;
-        if (handleTradeOffer(line)) return;
-        if (handleDndToggle(line)) return;
+        // Meta stuff
+        // FIXME : Switch to passing fullMessage to everything
+        if (firstChar == ':') {
+            if (handleZoneChange(line)) return;
+            if (handleDndToggle(line)) return;
+            if (handlePlayerJoinedArea(line)) return;
+        }
+        // Whispers
+        if (firstChar == '@') {
+            whisperCount++;
+            Matcher whisperMatcher = clientWhisper.matcher(fullMessage);
+            if (whisperMatcher.matches()) {
+                String message = whisperMatcher.group("message");
+                String guildName = whisperMatcher.group("guildName");
+                String playerName = whisperMatcher.group("playerName");
+                String messageType = whisperMatcher.group("messageType");
+                WhisperData metaData = new WhisperData();
+                metaData.date = date;
+                metaData.time = time;
+                metaData.message = message;
+                metaData.guildName = guildName;
+                metaData.playerName = playerName;
+                metaData.offerType = LangRegex.getMessageType(messageType);
+                if (message != null && handleTradeOffer(metaData, message)) {
+                    tradeCount++;
+                    return;
+                }
+            }
+        }
+        // Scanner
         if (handleChatScanner(line)) return;
-        if (handlePlayerJoinedArea(line)) return;
     }
 
     private boolean handleChatScanner(String line) {
@@ -115,6 +158,7 @@ public class ChatParser implements FileTailerListener {
                             }
                         }
                     }
+                    if (ignore) continue;
                     // Verify the message is allowed
                     if (entry.allowGlobalAndTradeChat && (messageType.equals("#") || messageType.equals("$")))
                         allow = true;
@@ -128,7 +172,7 @@ public class ChatParser implements FileTailerListener {
                         }
                     }
                     if (entry.allowMetaText && messageType.equals("meta")) allow = true;
-                    if (ignore || !allow) continue;
+                    if (!allow) continue;
                     PlayerMessage playerMessage = new PlayerMessage(player, message);
                     for (IChatScannerListener listener : chatScannerListeners)
                         listener.onScannerMessage(entry, playerMessage, tailer.isLoaded());
@@ -139,12 +183,9 @@ public class ChatParser implements FileTailerListener {
         return false;
     }
 
-    private boolean handleTradeOffer(String line) {
-        // Check if it is a whisper
-        if (!line.contains("@")) return false;
-        whisperCount++;
-        // Check if it is a trade
-        TradeOffer offer = TradeOffer.getTradeFromMessage(line);
+    private boolean handleTradeOffer(WhisperData data, String line) {
+        // Check for a trade
+        TradeOffer offer = TradeOffer.getTradeFromMessage(data, line);
         if (offer == null) return false;
         // Check if the trade should be ignored
         String itemNameLower = offer.itemName.toLowerCase();
@@ -277,7 +318,7 @@ public class ChatParser implements FileTailerListener {
     @Override
     public void onLoad() {
         float endTime = (System.currentTimeMillis() - startTime) / 1000f;
-        ZLogger.log("Chat parser loaded in " + endTime + " seconds. Found " + lineCount + " lines and " + whisperCount + " whispers.");
+        ZLogger.log("Chat parser loaded in " + endTime + " seconds. Found " + lineCount + " lines, " + whisperCount + " whispers, and " + tradeCount + " trades.");
         for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded(dnd);
     }
 

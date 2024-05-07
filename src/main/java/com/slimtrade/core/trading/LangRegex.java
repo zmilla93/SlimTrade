@@ -1,7 +1,10 @@
 package com.slimtrade.core.trading;
 
 import com.slimtrade.core.References;
+import com.slimtrade.modules.updater.ZLogger;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -84,10 +87,14 @@ public enum LangRegex {
     public final String[] messages;
 
     // Generated
-    public Pattern[] tradeOfferPatterns;
+//    public Pattern[] tradeOfferPatterns;
+    public Pattern[] tradeOfferPatternsNew;
     public Pattern[] quickPastePatterns;
     public Pattern joinedAreaPattern;
     public Pattern enteredAreaPattern;
+    //    public Pattern enteredAreaPatternNew;
+    private static final Set<String> incomingTags = new HashSet<>();
+    private static final Set<String> outgoingTags = new HashSet<>();
 
     static {
         compileAll();
@@ -105,20 +112,32 @@ public enum LangRegex {
     }
 
     public void compile() {
-        tradeOfferPatterns = new Pattern[messages.length];
+//        tradeOfferPatterns = new Pattern[messages.length];
+        tradeOfferPatternsNew = new Pattern[messages.length];
         quickPastePatterns = new Pattern[messages.length];
         for (int i = 0; i < messages.length; i++) {
-            String s = References.REGEX_MESSAGE_PREFIX + messages[i] + References.REGEX_SUFFIX;
-            tradeOfferPatterns[i] = Pattern.compile(s);
+//            String s = References.REGEX_MESSAGE_PREFIX + messages[i] + References.REGEX_SUFFIX;
+//            tradeOfferPatterns[i] = Pattern.compile(s);
+            tradeOfferPatternsNew[i] = Pattern.compile(messages[i]);
             quickPastePatterns[i] = Pattern.compile(References.REGEX_QUICK_PASTE_PREFIX + messages[i] + References.REGEX_SUFFIX);
             joinedAreaPattern = Pattern.compile(References.REGEX_JOINED_AREA_PREFIX + joinedArea + References.REGEX_SUFFIX);
             enteredAreaPattern = Pattern.compile(References.REGEX_CLIENT_DATA + References.REGEX_ENTERED_AREA_PREFIX + enteredArea);
         }
     }
 
+    public static TradeOfferType getMessageType(String toFrom) {
+        toFrom = toFrom.toLowerCase();
+        if (incomingTags.contains(toFrom)) return TradeOfferType.INCOMING_TRADE;
+        if (outgoingTags.contains(toFrom)) return TradeOfferType.OUTGOING_TRADE;
+        ZLogger.err("Invalid message type: " + toFrom);
+        return TradeOfferType.UNKNOWN;
+    }
+
     private static void compileAll() {
         for (LangRegex lang : LangRegex.values()) {
             lang.compile();
+            incomingTags.add(lang.messageFrom);
+            outgoingTags.add(lang.messageTo);
         }
     }
 

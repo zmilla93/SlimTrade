@@ -7,7 +7,6 @@ import com.slimtrade.core.enums.StashTabColor;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,28 +36,28 @@ public class TradeOffer {
     public boolean isBulkTrade;
     private ArrayList<SaleItem> saleItems;
 
-    private static DecimalFormat formatter = new DecimalFormat("0.00");
-
     // Static function instead of constructors to avoid allocation if no trade is found.
-    public static TradeOffer getTradeFromMessage(String input) {
+    public static TradeOffer getTradeFromMessage(WhisperData data, String input) {
         for (LangRegex l : LangRegex.values()) {
             if (!input.contains(l.wantToBuy)) continue;
-            for (Pattern pattern : l.tradeOfferPatterns) {
+            for (Pattern pattern : l.tradeOfferPatternsNew) {
                 Matcher matcher = pattern.matcher(input);
                 if (!matcher.matches()) continue;
-                return getTradeFromMatcher(matcher);
+                return getTradeFromMatcher(data, matcher);
             }
         }
         return null;
     }
 
+    @Deprecated
     public static TradeOffer getTradeFromQuickPaste(String input) {
         for (LangRegex l : LangRegex.values()) {
             if (!input.contains(l.wantToBuy)) continue;
             for (Pattern pattern : l.quickPastePatterns) {
                 Matcher matcher = pattern.matcher(input);
                 if (!matcher.matches()) continue;
-                return getTradeFromMatcher(matcher);
+                // FIXME : This is broken with no data
+                return getTradeFromMatcher(null, matcher);
             }
         }
         return null;
@@ -69,16 +68,16 @@ public class TradeOffer {
         else return Double.toString(itemQuantity);
     }
 
-    private static TradeOffer getTradeFromMatcher(Matcher matcher) {
+    private static TradeOffer getTradeFromMatcher(WhisperData data, Matcher matcher) {
         TradeOffer trade;
         trade = new TradeOffer();
-        trade.message = cleanResult(matcher, "message");
-        trade.date = cleanResult(matcher, "date");
+        trade.message = data.message;
+        trade.time = data.time;
+        trade.date = data.date;
+        trade.offerType = data.offerType;
         if (trade.date != null) trade.date = trade.date.replaceAll("/", "-");
-        trade.time = cleanResult(matcher, "time");
-        trade.offerType = getMessageType(cleanResult(matcher, "messageType"));
-        trade.guildName = matcher.group("guildName");
-        trade.playerName = matcher.group("playerName");
+        trade.guildName = data.guildName;
+        trade.playerName = data.playerName;
         trade.itemName = matcher.group("itemName");
         trade.itemNameLower = trade.itemName.toLowerCase();
         trade.itemQuantity = cleanInt(cleanResult(matcher, "itemQuantity"));
