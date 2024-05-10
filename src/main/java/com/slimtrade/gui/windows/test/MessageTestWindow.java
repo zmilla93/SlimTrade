@@ -20,7 +20,6 @@ public class MessageTestWindow extends JFrame {
         tabbedPane.addTab("Messages (Joined)", getTradeMessagePanel(true));
 
         setContentPane(tabbedPane);
-        setVisible(true);
         pack();
         setSize(new Dimension(1800, 800));
     }
