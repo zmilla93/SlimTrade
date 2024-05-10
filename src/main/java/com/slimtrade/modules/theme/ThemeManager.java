@@ -35,7 +35,7 @@ public class ThemeManager {
     private static final ArrayList<IFontChangeListener> fontChangeListeners = new ArrayList<>();
     private static final ArrayList<IDetailedFontChangeListener> detailedFontChangeListeners = new ArrayList<>();
 
-    private static int cachedIconSize = 0;
+    private static int cachedIconSize = 18;
     private static int currentFontSize;
     private static final HashMap<String, ImageIcon> iconMap = new HashMap<>();
     private static final HashMap<String, ImageIcon> colorIconMap = new HashMap<>();

@@ -20,6 +20,7 @@ import java.util.Objects;
  */
 public class FontManager {
 
+    private static boolean loaded = false;
     public static final boolean USE_SYSTEM_DEFAULT = false;
     public static String DEFAULT_FONT = "Arial";
 
@@ -61,6 +62,7 @@ public class FontManager {
         checkPreferredFontLanguageSupport();
         if (preferredFont.getFontName().equals("Dialog.plain"))
             ZLogger.err("[FontManager] Loaded font does not exist!");
+        loaded = true;
     }
 
     private static void checkPreferredFontLanguageSupport() {
@@ -82,6 +84,7 @@ public class FontManager {
     }
 
     private static Font getFont(FontLanguage language) {
+        if (!loaded) ZLogger.err("Attempted to use the FontManager without first calling FontManager.loadFonts()!");
         switch (language) {
             case CHINESE:
                 if (preferredFontSupport.chinese) return preferredFont;

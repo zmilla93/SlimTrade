@@ -67,6 +67,7 @@ public class App {
     public static final boolean debugProfileLaunch = false;
     public static boolean showOptionsOnLaunch = false;
     public static boolean forceSetup = false;
+    public static boolean messageUITest = false;
 
     public static void main(String[] args) {
         parseLaunchArgs(args);

@@ -20,6 +20,7 @@ import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashHelperContainer;
 import com.slimtrade.gui.windows.*;
+import com.slimtrade.gui.windows.test.MessageTestWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +43,9 @@ public class FrameManager {
     public static StashSearchWindow combinedSearchWindow;
     public static SetupWindow setupWindow;
     public static UpdateProgressWindow updateProgressWindow;
+
+    // Debug Windows
+    public static MessageTestWindow debugMessageWindow;
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -113,6 +117,8 @@ public class FrameManager {
         for (IDefaultSizeAndLocation window : defaultSizeAndLocationWindows) {
             window.applyDefaultSizeAndLocation();
         }
+        // Debug
+        if (App.messageUITest) debugMessageWindow = new MessageTestWindow();
         initialized = true;
     }
 

@@ -7,7 +7,6 @@ import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.hotkeys.IHotkeyAction;
 import com.slimtrade.core.hotkeys.NotificationPanelHotkey;
 import com.slimtrade.core.managers.FontManager;
-import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.POEInterface;
@@ -267,7 +266,7 @@ public abstract class NotificationPanel extends ColorPanel {
 
     public void updateSize() {
         resizeStrut();
-        setWidth(SaveManager.overlaySaveFile.data.messageWidth);
+//        setWidth(SaveManager.overlaySaveFile.data.messageWidth);
     }
 
     public void checkHotkeys(HotkeyData hotkeyData) {
@@ -300,6 +299,7 @@ public abstract class NotificationPanel extends ColorPanel {
         super.updateUI();
         updateSize();
         applyMessageColor();
+        // FIXME:
         FontManager.applyFont(playerNameButton);
     }
 
