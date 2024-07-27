@@ -87,7 +87,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
         buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         optionsButton = new IconButton(DefaultIcon.COG);
-        historyButton = new IconButton(DefaultIcon.CHART);
+        historyButton = new IconButton(DefaultIcon.HISTORY);
         chatScannerButton = new IconButton(DefaultIcon.SCANNER_OFF);
         hideoutButton = new IconButton(DefaultIcon.HOME);
         dndButton = new IconButton(DefaultIcon.TAG);
