@@ -39,7 +39,6 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
     private static final int EXIT_INSET = 8;
     private static final String DND_ENABLED = "DND is On";
     private static final String DND_DISABLED = "DND is Off";
-    private final MenubarStyle TEMP_STYLE = MenubarStyle.ICON;
     boolean dnd;
 
     private final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -76,7 +75,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
     }
 
     public void rebuild() {
-        if (TEMP_STYLE == MenubarStyle.ICON) buildIconButtons();
+        if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.ICON) buildIconButtons();
         else buildTextButtons();
         if (App.chatParser != null) updateDndButton();
         updateScannerButton();
@@ -127,12 +126,10 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
                 optionsButton, historyButton,
                 chatScannerButton, hideoutButton, dndButton,
                 horizontalSeparator, verticalSeparator, exitButton};
-//        if (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT)
-//            Collections.reverse(Arrays.asList(components));
         boolean reverse = false;
-        if (TEMP_STYLE == MenubarStyle.ICON && (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT))
+        if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.ICON && (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT))
             reverse = true;
-        else if (TEMP_STYLE == MenubarStyle.TEXT && (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT))
+        else if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.TEXT && (anchor == Anchor.BOTTOM_LEFT || anchor == Anchor.BOTTOM_RIGHT))
             reverse = true;
         if (reverse) Collections.reverse(Arrays.asList(components));
         return components;
@@ -168,7 +165,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
     }
 
     private void updateScannerButton() {
-        switch (TEMP_STYLE) {
+        switch (SaveManager.settingsSaveFile.data.menubarStyle) {
             case TEXT:
                 if (SaveManager.chatScannerSaveFile.data.searching)
                     chatScannerButton.setFont(chatScannerButton.getFont().deriveFont(Font.ITALIC));

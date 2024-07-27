@@ -3,6 +3,7 @@ package com.slimtrade.gui.options.general;
 import com.slimtrade.core.enums.MenubarStyle;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.ComponentPair;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -18,7 +19,6 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
     private final JCheckBox incomingMessages = new JCheckBox("Incoming Messages");
     private final JCheckBox outgoingMessages = new JCheckBox("Outgoing Messages");
     private final JCheckBox itemHighlighter = new JCheckBox("Item Highlighter");
-    private final JCheckBox menubarButton = new JCheckBox("Menubar Button");
     private final JCheckBox autoUpdateCheckbox = new JCheckBox("Update Automatically");
     private final JCheckBox hideWhenPOENotFocusedCheckbox = new JCheckBox("Hide overlay when POE is not focused");
 
@@ -27,21 +27,20 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
         gc.weightx = 1;
         gc.anchor = GridBagConstraints.WEST;
         for (MenubarStyle style : MenubarStyle.values()) menubarStyleCombo.addItem(style);
-//        addRow(new ComponentPair(new JLabel("Menubar Style"), menubarStyleCombo));
-//        addRow(menubarAlwaysExpanded);
+        addRow(new ComponentPair(new JLabel("Menubar Style"), menubarStyleCombo));
+        addRow(menubarAlwaysExpanded);
         addRow(incomingMessages);
         addRow(outgoingMessages);
         addRow(itemHighlighter);
-        addRow(menubarButton);
         addRow(autoUpdateCheckbox);
         addRow(hideWhenPOENotFocusedCheckbox);
-        menubarStyleCombo.addActionListener(e -> updateVisibility());
+        menubarStyleCombo.addActionListener(e -> updateCheckboxVisibility());
     }
 
-    private void updateVisibility() {
+    private void updateCheckboxVisibility() {
         MenubarStyle style = (MenubarStyle) menubarStyleCombo.getSelectedItem();
         if (style == null) return;
-        menubarAlwaysExpanded.setVisible(style != MenubarStyle.DiSABLED);
+        menubarAlwaysExpanded.setVisible(style != MenubarStyle.DISABLED);
     }
 
     private void addRow(JComponent component) {
@@ -51,34 +50,26 @@ public class EnableFeaturesPanel extends JPanel implements ISavable {
 
     @Override
     public void save() {
-//        SaveManager.settingsSaveFile.data.menubarStyle = (MenubarStyle) menubarStyleCombo.getSelectedItem();
-//        SaveManager.settingsSaveFile.data.menubarAlwaysExpanded = menubarAlwaysExpanded.isSelected();
+        SaveManager.settingsSaveFile.data.menubarStyle = (MenubarStyle) menubarStyleCombo.getSelectedItem();
+        SaveManager.settingsSaveFile.data.menubarAlwaysExpanded = menubarAlwaysExpanded.isSelected();
         SaveManager.settingsSaveFile.data.enableIncomingTrades = incomingMessages.isSelected();
         SaveManager.settingsSaveFile.data.enableOutgoingTrades = outgoingMessages.isSelected();
         SaveManager.settingsSaveFile.data.enableItemHighlighter = itemHighlighter.isSelected();
-        SaveManager.settingsSaveFile.data.enableMenuBar = menubarButton.isSelected();
         SaveManager.settingsSaveFile.data.enableAutomaticUpdate = autoUpdateCheckbox.isSelected();
         SaveManager.settingsSaveFile.data.hideWhenPOENotFocused = hideWhenPOENotFocusedCheckbox.isSelected();
-        // FIXME : Move to listener
-        // Update Menubar visibility
-        FrameManager.menubarDialog.setVisible(false);
-        if (SaveManager.settingsSaveFile.data.enableMenuBar) {
-            FrameManager.menubarIcon.setVisible(true);
-        } else {
-            FrameManager.menubarIcon.setVisible(false);
-        }
+        // FIXME : Move to listener?
+        FrameManager.updateMenubarVisibility();
     }
 
     @Override
     public void load() {
-//        menubarStyleCombo.setSelectedItem(SaveManager.settingsSaveFile.data.menubarStyle);
-//        menubarAlwaysExpanded.setSelected(SaveManager.settingsSaveFile.data.menubarAlwaysExpanded);
+        menubarStyleCombo.setSelectedItem(SaveManager.settingsSaveFile.data.menubarStyle);
+        menubarAlwaysExpanded.setSelected(SaveManager.settingsSaveFile.data.menubarAlwaysExpanded);
         incomingMessages.setSelected(SaveManager.settingsSaveFile.data.enableIncomingTrades);
         outgoingMessages.setSelected(SaveManager.settingsSaveFile.data.enableOutgoingTrades);
         itemHighlighter.setSelected(SaveManager.settingsSaveFile.data.enableItemHighlighter);
-        menubarButton.setSelected(SaveManager.settingsSaveFile.data.enableMenuBar);
         autoUpdateCheckbox.setSelected(SaveManager.settingsSaveFile.data.enableAutomaticUpdate);
         hideWhenPOENotFocusedCheckbox.setSelected(SaveManager.settingsSaveFile.data.hideWhenPOENotFocused);
-        updateVisibility();
+        updateCheckboxVisibility();
     }
 }

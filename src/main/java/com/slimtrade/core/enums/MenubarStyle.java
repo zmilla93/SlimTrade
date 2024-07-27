@@ -4,7 +4,7 @@ import com.slimtrade.core.utility.ZUtil;
 
 public enum MenubarStyle {
 
-    DiSABLED, TEXT, ICON;
+    DISABLED, TEXT, ICON;
 
     private final String name;
 

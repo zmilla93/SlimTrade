@@ -3,6 +3,7 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.App;
 import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.enums.AppState;
+import com.slimtrade.core.enums.MenubarStyle;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.chatscanner.ChatScannerWindow;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
@@ -130,9 +131,7 @@ public class FrameManager {
         // FIXME: Show proper windows
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         messageManager.setVisible(true);
-        if (SaveManager.settingsSaveFile.data.enableMenuBar) {
-            menubarIcon.setVisible(true);
-        }
+        updateMenubarVisibility();
     }
 
     public static void setWindowVisibility(AppState newState) {
@@ -218,7 +217,7 @@ public class FrameManager {
     }
 
     public static void checkMenubarVisibility(Point point) {
-        if (!SaveManager.settingsSaveFile.data.enableMenuBar) return;
+        if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.DISABLED) return;
         if (menubarExpanded) {
             if (!menubarDialog.getBufferedBounds().contains(point)) {
                 menubarExpanded = false;
@@ -232,12 +231,12 @@ public class FrameManager {
         }
     }
 
-    private static void updateMenubarVisibility() {
+    public static void updateMenubarVisibility() {
         SwingUtilities.invokeLater(() -> {
-            if (!SaveManager.settingsSaveFile.data.enableMenuBar) {
+            if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.DISABLED) {
                 menubarDialog.setVisible(false);
                 menubarIcon.setVisible(false);
-            } else if (menubarExpanded) {
+            } else if (SaveManager.settingsSaveFile.data.menubarAlwaysExpanded || menubarExpanded) {
                 menubarDialog.setVisible(true);
                 menubarIcon.setVisible(false);
             } else {

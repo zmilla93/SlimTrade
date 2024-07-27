@@ -62,12 +62,12 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
 
     // Enable Features
-//    public MenubarStyle menubarStyle = MenubarStyle.ICON;
-//    public boolean menubarAlwaysExpanded;
+    public MenubarStyle menubarStyle = MenubarStyle.ICON;
+    public boolean menubarAlwaysExpanded = true;
     public boolean enableIncomingTrades = true;
     public boolean enableOutgoingTrades = true;
     public boolean enableItemHighlighter = true;
-    public boolean enableMenuBar = true;
+    //    public boolean enableMenuBar = true;
     public boolean enableAutomaticUpdate = true;
     public boolean hideWhenPOENotFocused = true;
 
