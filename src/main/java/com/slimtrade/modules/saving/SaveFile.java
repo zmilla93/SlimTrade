@@ -36,7 +36,6 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     public SaveFile(String path, Class<T> classType) {
         this.path = path;
         this.classType = classType;
-//        loadFromDisk();
     }
 
     public int saveFileVersion() {

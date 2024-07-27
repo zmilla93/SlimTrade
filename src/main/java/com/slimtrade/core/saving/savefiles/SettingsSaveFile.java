@@ -118,6 +118,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public ArrayList<StashSearchGroupData> stashSearchData = new ArrayList<>();
 
     public SettingsSaveFile() {
+        incomingMacroButtons.add(new MacroButton(CustomIcon.REFRESH, "Hi, do you still want to buy my {item} listed for {price}?", "", ButtonRow.TOP_ROW, null, false));
         incomingMacroButtons.add(new MacroButton(CustomIcon.INVITE, "/invite {player}", "", ButtonRow.BOTTOM_ROW, null, false));
         incomingMacroButtons.add(new MacroButton(CustomIcon.CART, "/tradewith {player}", "", ButtonRow.BOTTOM_ROW, null, false));
         incomingMacroButtons.add(new MacroButton(CustomIcon.THUMB, "thanks", "", ButtonRow.BOTTOM_ROW, null, false));
