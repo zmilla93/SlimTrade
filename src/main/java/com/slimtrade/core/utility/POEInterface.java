@@ -9,6 +9,7 @@ import com.slimtrade.gui.components.ClientFileChooser;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
 import com.slimtrade.modules.updater.ZLogger;
+import com.sun.javafx.PlatformUtil;
 import com.sun.jna.Native;
 import com.sun.jna.platform.DesktopWindow;
 import com.sun.jna.platform.WindowUtils;
@@ -52,7 +53,7 @@ public class POEInterface {
     // FIXME : invert stop before send
     public static void pasteFromClipboard(boolean stopBeforeSend) {
         assert (!SwingUtilities.isEventDispatchThread());
-        // FIXME: isgamefocused is called twices
+        // FIXME: isGameFocused is called twice
         if (!isGameFocused()) return;
         // Clear Alt
         robot.keyPress(KeyEvent.VK_ALT);
@@ -157,6 +158,8 @@ public class POEInterface {
     public static boolean focusGame() {
         assert (!SwingUtilities.isEventDispatchThread());
         if (isGameFocused()) return true;
+        // Show, click, then hide a dummy window.
+        // This is required because swing needs focus before it can give it to another program
         FrameManager.dummyWindow.setVisible(true);
         Point point = MouseInfo.getPointerInfo().getLocation();
         point.x -= DummyWindow.HALF_SIZE;
@@ -165,21 +168,9 @@ public class POEInterface {
         robot.mousePress(0);
         robot.mouseRelease(0);
         FrameManager.dummyWindow.setVisible(false);
-        User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
-            char[] className = new char[512];
-            User32.INSTANCE.GetClassName(hWnd, className, 512);
-            String wText = Native.toString(className);
-            if (wText.isEmpty()) {
-                return true;
-            }
-            if (wText.equals("POEWindowClass")) {
-                User32.INSTANCE.SetForegroundWindow(hWnd);
-                User32.INSTANCE.SetFocus(hWnd);
-                User32.INSTANCE.ShowWindow(hWnd, User32.SW_SHOW);
-                return false;
-            }
-            return true;
-        }, null);
+        // Focus the actual game window
+        focusPathOfExileWindow();
+        // Wait until the window actually gains focus
         int i = 0;
         while (!isGameFocused()) {
             try {
@@ -195,6 +186,28 @@ public class POEInterface {
         return isGameFocused();
     }
 
+    // FIXME : Add cross platform support
+    private static void focusPathOfExileWindow(){
+        if(Platform.current == Platform.WINDOWS){
+            User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
+                char[] className = new char[512];
+                User32.INSTANCE.GetClassName(hWnd, className, 512);
+                String wText = Native.toString(className);
+                if (wText.isEmpty()) {
+                    return true;
+                }
+                if (wText.equals("POEWindowClass")) {
+                    User32.INSTANCE.SetForegroundWindow(hWnd);
+                    User32.INSTANCE.SetFocus(hWnd);
+                    User32.INSTANCE.ShowWindow(hWnd, User32.SW_SHOW);
+                    return false;
+                }
+                return true;
+            }, null);
+        }
+        // TODO : More platforms
+    }
+
     public static boolean isGameFocused() {
         return isGameFocused(false);
     }
@@ -206,11 +219,18 @@ public class POEInterface {
         return focusedWindowTitle.equals(GAME_TITLE);
     }
 
+    // FIXME : Add cross platform support.
+    //         Could alternatively add support to isGameFocused if there is a way
+    //         to know if POE is focused other than checking the window title.
     private static String getFocusedWindowTitle() {
-        char[] buffer = new char[MAX_TITLE_LENGTH * 2];
-        WinDef.HWND hwnd = User32.INSTANCE.GetForegroundWindow();
-        User32.INSTANCE.GetWindowText(hwnd, buffer, MAX_TITLE_LENGTH);
-        return Native.toString(buffer);
+        if(Platform.current == Platform.WINDOWS){
+            char[] buffer = new char[MAX_TITLE_LENGTH * 2];
+            WinDef.HWND hwnd = User32.INSTANCE.GetForegroundWindow();
+            User32.INSTANCE.GetWindowText(hwnd, buffer, MAX_TITLE_LENGTH);
+            return Native.toString(buffer);
+        }
+        // TODO : More platforms
+        return "";
     }
 
     @Nullable

@@ -3,6 +3,7 @@ package com.slimtrade.core.managers;
 import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.saving.legacy.SaveFilePatcherManager;
 import com.slimtrade.core.saving.savefiles.*;
+import com.slimtrade.core.utility.Platform;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.SaveFile;
 import com.slimtrade.modules.theme.ThemeManager;
@@ -101,12 +102,10 @@ public class SaveManager {
 
     public static String getSaveDirectory() {
         if (saveDirectory == null) {
-            String os = (System.getProperty("os.name")).toUpperCase();
-            if (os.contains("WIN")) {
+            if (Platform.current == Platform.WINDOWS)
                 saveDirectory = System.getenv("LocalAppData") + File.separator + folderWin + File.separator;
-            } else {
+            else
                 saveDirectory = System.getProperty("user.home") + File.separator + folderOther + File.separator;
-            }
             validateDirectory(saveDirectory);
         }
         return saveDirectory;
