@@ -11,8 +11,4 @@ public class PinSaveFile extends AbstractSaveFile {
     public PinData combinedSearchWindow;
     public ArrayList<PinData> searchWindows = new ArrayList<>();
 
-    @Override
-    public int getTargetFileVersion() {
-        return 1;
-    }
 }

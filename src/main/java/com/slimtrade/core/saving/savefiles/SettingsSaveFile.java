@@ -147,11 +147,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
         stashSearchData.add(new StashSearchGroupData(2, "Passives", null, passiveTerms));
     }
 
-    @Override
-    public int getTargetFileVersion() {
-        return 2;
-    }
-
     // Macro Generators
     public void buildMacroCache() {
         incomingTopMacros.clear();

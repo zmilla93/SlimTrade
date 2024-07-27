@@ -12,11 +12,6 @@ public class IgnoreSaveFile extends AbstractSaveFile {
     public transient HashMap<String, IgnoreItemData> exactMatchIgnoreMap = new HashMap<>();
     public transient ArrayList<IgnoreItemData> containsTextIgnoreList = new ArrayList<>();
 
-    @Override
-    public int getTargetFileVersion() {
-        return 1;
-    }
-
     public void buildCache() {
         exactMatchIgnoreMap.clear();
         containsTextIgnoreList.clear();

@@ -21,7 +21,7 @@ public class PatcherSettings0to1 implements ISavePatcher {
 
     @Override
     public boolean requiresPatch() {
-        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.saveFileVersion() < 1;
+        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.data.saveFileVersion < 1;
     }
 
     @Override
@@ -41,6 +41,8 @@ public class PatcherSettings0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
+        SaveManager.ignoreSaveFile.data.saveFileVersion = 1;
+        SaveManager.settingsSaveFile.data.saveFileVersion = 1;
         SaveManager.settingsSaveFile.saveToDisk(false);
         SaveManager.ignoreSaveFile.saveToDisk(false);
     }

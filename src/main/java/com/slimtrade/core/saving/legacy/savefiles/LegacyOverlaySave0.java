@@ -22,11 +22,6 @@ public class LegacyOverlaySave0 extends AbstractSaveFile {
     public static Dimension DEFAULT_MESSAGE_SIZE = new Dimension(400, 40);
     public static int TOTAL_BORDER_SIZE = 8;
 
-    @Override
-    public int getTargetFileVersion() {
-        return 0;
-    }
-
     public enum LegacyExpandDirection {
         UP(ExpandDirection.UPWARDS),
         DOWN(ExpandDirection.DOWNWARDS);

@@ -36,6 +36,7 @@ public class PatcherScanner0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
+        SaveManager.chatScannerSaveFile.data.saveFileVersion = 1;
         SaveManager.chatScannerSaveFile.saveToDisk(false);
     }
 

@@ -111,11 +111,6 @@ public class LegacySettingsSave0 extends AbstractSaveFile {
     public HotkeyData remainingMonstersHotkey = null;
     public HotkeyData hideoutHotkey = null;
 
-    @Override
-    public int getTargetFileVersion() {
-        return 0;
-    }
-
     // Cheat Sheet Data
     public static class LegacyCheatSheetData {
         public String fileName;

@@ -9,7 +9,7 @@ public class PatcherScanner1to2 implements ISavePatcher {
 
     @Override
     public boolean requiresPatch() {
-        return SaveManager.chatScannerSaveFile.fileExists() && SaveManager.chatScannerSaveFile.saveFileVersion() < 2;
+        return SaveManager.chatScannerSaveFile.fileExists() && SaveManager.chatScannerSaveFile.data.saveFileVersion < 2;
     }
 
     @Override
@@ -25,6 +25,7 @@ public class PatcherScanner1to2 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
+        SaveManager.chatScannerSaveFile.data.saveFileVersion = 2;
         SaveManager.chatScannerSaveFile.saveToDisk(false);
     }
 

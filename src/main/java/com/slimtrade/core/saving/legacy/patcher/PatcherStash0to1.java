@@ -31,6 +31,7 @@ public class PatcherStash0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
+        SaveManager.stashSaveFile.data.saveFileVersion = 1;
         SaveManager.stashSaveFile.saveToDisk(false);
     }
 

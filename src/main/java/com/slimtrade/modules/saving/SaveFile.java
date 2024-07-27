@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.slimtrade.core.saving.savefiles.AbstractSaveFile;
-import com.slimtrade.core.saving.savefiles.VersionSaveFile;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.modules.listening.ListenManager;
 import com.slimtrade.modules.updater.ZLogger;
@@ -26,7 +25,6 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     public T data;
     public final String path;
     public final Class<T> classType;
-    private int saveFileVersion;
     private boolean loadedExistingData = false;
     private final ArrayList<ISavable> savables = new ArrayList<>();
     private final Timer autoSaveTimer = new Timer();
@@ -36,10 +34,6 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     public SaveFile(String path, Class<T> classType) {
         this.path = path;
         this.classType = classType;
-    }
-
-    public int saveFileVersion() {
-        return saveFileVersion;
     }
 
     public boolean loadedExistingData() {
@@ -100,7 +94,6 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
                     c.save();
                 }
             }
-            data.saveFileVersion = data.getTargetFileVersion();
             File file = new File(path);
             Writer writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(file.toPath()), StandardCharsets.UTF_8));
             writer.write(gson.toJson(data));
@@ -119,7 +112,6 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
      * Automatically called when SaveFile is created.
      */
     public synchronized void loadFromDisk() {
-        saveFileVersion = fetchSaveFileVersion();
         if (ZUtil.fileExists(path)) {
             try {
                 data = gson.fromJson(getFileAsString(path), classType);
@@ -147,17 +139,6 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
                  NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private int fetchSaveFileVersion() {
-        File file = new File(path);
-        if (!file.exists()) return -1;
-        try {
-            VersionSaveFile saveFile = gson.fromJson(getFileAsString(file.getPath()), VersionSaveFile.class);
-            if (saveFile != null) return saveFile.saveFileVersion;
-        } catch (JsonSyntaxException ignore) {
-        }
-        return -1;
     }
 
     /**

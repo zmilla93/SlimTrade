@@ -52,6 +52,7 @@ public class PatcherOverlay0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
+        SaveManager.overlaySaveFile.data.saveFileVersion = 1;
         SaveManager.overlaySaveFile.saveToDisk(false);
     }
 

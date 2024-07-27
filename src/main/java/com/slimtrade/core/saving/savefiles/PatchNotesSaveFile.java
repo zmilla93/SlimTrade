@@ -16,9 +16,4 @@ public class PatchNotesSaveFile extends AbstractSaveFile {
         return appVersion;
     }
 
-    @Override
-    public int getTargetFileVersion() {
-        return 1;
-    }
-
 }

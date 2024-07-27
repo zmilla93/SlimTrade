@@ -18,9 +18,4 @@ public class OverlaySaveFile extends AbstractSaveFile {
     public Anchor menubarAnchor = Anchor.TOP_LEFT;
     public int messageWidth = SliderRange.MESSAGE_WIDTH.START;
 
-    @Override
-    public int getTargetFileVersion() {
-        return 1;
-    }
-
 }

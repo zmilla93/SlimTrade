@@ -10,11 +10,6 @@ public class LegacyScannerSave0 extends AbstractSaveFile {
 
     public LegacyScannerMessage[] messages = new LegacyScannerMessage[0];
 
-    @Override
-    public int getTargetFileVersion() {
-        return 0;
-    }
-
     public static class LegacyScannerMessage {
         public String name;
         public String searchTermsRaw;

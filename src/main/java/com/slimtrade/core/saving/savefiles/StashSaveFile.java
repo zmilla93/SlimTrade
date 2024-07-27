@@ -8,11 +8,6 @@ public class StashSaveFile extends AbstractSaveFile {
     private transient Dimension cellSize;
     private transient Dimension cellSizeQuad;
 
-    @Override
-    public int getTargetFileVersion() {
-        return 1;
-    }
-
     public void buildCache() {
         if (gridRect == null) return;
         int width = Math.round(gridRect.width / 12f);
