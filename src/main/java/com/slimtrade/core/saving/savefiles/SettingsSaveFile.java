@@ -107,9 +107,9 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public HotkeyData exitToMenuHotkey;
     public HotkeyData guildHideoutHotkey;
     public HotkeyData hideoutHotkey;
+    public HotkeyData kingsmarchHotkey;
     public HotkeyData leavePartyHotkey;
     public HotkeyData menagerieHotkey;
-    public HotkeyData necropolisHotkey;
     public HotkeyData remainingMonstersHotkey;
 
     // Searching

@@ -38,9 +38,9 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.exitToMenuHotkey, new PoeCommandHotkey("/exit"));
         registerHotkey(SaveManager.settingsSaveFile.data.guildHideoutHotkey, new PoeCommandHotkey("/guild"));
         registerHotkey(SaveManager.settingsSaveFile.data.hideoutHotkey, new PoeCommandHotkey("/hideout"));
+        registerHotkey(SaveManager.settingsSaveFile.data.kingsmarchHotkey, new PoeCommandHotkey("/kingsmarch"));
         registerHotkey(SaveManager.settingsSaveFile.data.leavePartyHotkey, new PoeCommandHotkey("/leave"));
         registerHotkey(SaveManager.settingsSaveFile.data.menagerieHotkey, new PoeCommandHotkey("/menagerie"));
-        registerHotkey(SaveManager.settingsSaveFile.data.necropolisHotkey, new PoeCommandHotkey("/necropolis"));
         registerHotkey(SaveManager.settingsSaveFile.data.remainingMonstersHotkey, new PoeCommandHotkey("/remaining"));
         // Stash Searching
         if (SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.COMBINED) {

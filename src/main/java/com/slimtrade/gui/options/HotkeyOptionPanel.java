@@ -28,9 +28,9 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
     private final HotkeyButton exitToMenu = new HotkeyButton();
     private final HotkeyButton guildHideout = new HotkeyButton();
     private final HotkeyButton hideout = new HotkeyButton();
+    private final HotkeyButton kingsmarch = new HotkeyButton();
     private final HotkeyButton leaveParty = new HotkeyButton();
     private final HotkeyButton menagerie = new HotkeyButton();
-    private final HotkeyButton necropolis = new HotkeyButton();
     private final HotkeyButton remainingMonsters = new HotkeyButton();
 
     public static final int SPACING_INSET = 20;
@@ -58,9 +58,9 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         addHotkey(poeHotkeyPanel, "Exit to Menu", exitToMenu);
         addHotkey(poeHotkeyPanel, "Guild Hideout", guildHideout);
         addHotkey(poeHotkeyPanel, "Hideout", hideout);
+        addHotkey(poeHotkeyPanel, "Kingsmarch", kingsmarch);
         addHotkey(poeHotkeyPanel, "Leave Party", leaveParty);
         addHotkey(poeHotkeyPanel, "Menagerie", menagerie);
-        addHotkey(poeHotkeyPanel, "Necropolis", necropolis);
         addHotkey(poeHotkeyPanel, "Remaining Monsters", remainingMonsters);
 
         addHeader("Hotkey Info");
@@ -116,9 +116,9 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         SaveManager.settingsSaveFile.data.exitToMenuHotkey = exitToMenu.getData();
         SaveManager.settingsSaveFile.data.guildHideoutHotkey = guildHideout.getData();
         SaveManager.settingsSaveFile.data.hideoutHotkey = hideout.getData();
+        SaveManager.settingsSaveFile.data.kingsmarchHotkey = kingsmarch.getData();
         SaveManager.settingsSaveFile.data.leavePartyHotkey = leaveParty.getData();
         SaveManager.settingsSaveFile.data.menagerieHotkey = menagerie.getData();
-        SaveManager.settingsSaveFile.data.necropolisHotkey = necropolis.getData();
         SaveManager.settingsSaveFile.data.remainingMonstersHotkey = remainingMonsters.getData();
     }
 
@@ -137,9 +137,9 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         exitToMenu.setData(SaveManager.settingsSaveFile.data.exitToMenuHotkey);
         guildHideout.setData(SaveManager.settingsSaveFile.data.guildHideoutHotkey);
         hideout.setData(SaveManager.settingsSaveFile.data.hideoutHotkey);
+        kingsmarch.setData(SaveManager.settingsSaveFile.data.kingsmarchHotkey);
         leaveParty.setData(SaveManager.settingsSaveFile.data.leavePartyHotkey);
         menagerie.setData(SaveManager.settingsSaveFile.data.menagerieHotkey);
-        necropolis.setData(SaveManager.settingsSaveFile.data.necropolisHotkey);
         remainingMonsters.setData(SaveManager.settingsSaveFile.data.remainingMonstersHotkey);
     }
 }
