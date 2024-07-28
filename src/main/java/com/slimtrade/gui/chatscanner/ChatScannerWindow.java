@@ -317,7 +317,8 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
             cardPanel.add(panel, entry.title);
         }
         updateList();
-        entryList.setSelectedIndices(SaveManager.chatScannerSaveFile.data.selectedIndexes);
+        if (SaveManager.chatScannerSaveFile.data.selectedIndexes != null)
+            entryList.setSelectedIndices(SaveManager.chatScannerSaveFile.data.selectedIndexes);
         if (SaveManager.chatScannerSaveFile.data.searching) tryStartSearch();
     }
 
