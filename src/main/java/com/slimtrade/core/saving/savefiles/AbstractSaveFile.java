@@ -10,4 +10,9 @@ public abstract class AbstractSaveFile {
      */
     public int saveFileVersion;
 
+    /**
+     * The version of the newest save file. Used when creating a new save file.
+     */
+    public abstract int getCurrentTargetVersion();
+
 }

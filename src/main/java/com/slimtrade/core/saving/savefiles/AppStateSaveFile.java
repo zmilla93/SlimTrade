@@ -9,4 +9,9 @@ public class AppStateSaveFile extends AbstractSaveFile {
 
     public int tutorialVersion;
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 0;
+    }
+
 }

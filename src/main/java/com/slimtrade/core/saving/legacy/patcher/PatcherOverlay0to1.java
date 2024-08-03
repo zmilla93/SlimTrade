@@ -1,5 +1,6 @@
 package com.slimtrade.core.saving.legacy.patcher;
 
+import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.saving.legacy.ISavePatcher;
 import com.slimtrade.core.saving.legacy.savefiles.LegacyOverlaySave0;
@@ -29,6 +30,7 @@ public class PatcherOverlay0to1 implements ISavePatcher {
         OverlaySaveFile data = SaveManager.overlaySaveFile.data;
 
         // Messages
+        ExpandDirection legacyExpandDirection = legacyData.messageExpandDirection.expandDirection;
         data.messageExpandDirection = legacyData.messageExpandDirection.expandDirection;
         if (legacyData.messageExpandDirection == LegacyOverlaySave0.LegacyExpandDirection.DOWN) {
             data.messageLocation = new Point(legacyData.messageX, legacyData.messageY);

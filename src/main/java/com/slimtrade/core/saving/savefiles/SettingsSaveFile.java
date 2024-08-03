@@ -208,4 +208,9 @@ public class SettingsSaveFile extends AbstractSaveFile {
         return appVersion;
     }
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 3;
+    }
+
 }

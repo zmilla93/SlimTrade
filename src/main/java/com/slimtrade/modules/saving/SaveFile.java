@@ -135,6 +135,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     public void initData() {
         try {
             data = classType.getDeclaredConstructor().newInstance();
+            data.saveFileVersion = data.getCurrentTargetVersion();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
             throw new RuntimeException(e);

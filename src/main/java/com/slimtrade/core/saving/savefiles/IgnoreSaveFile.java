@@ -25,4 +25,9 @@ public class IgnoreSaveFile extends AbstractSaveFile {
         }
     }
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 0;
+    }
+
 }

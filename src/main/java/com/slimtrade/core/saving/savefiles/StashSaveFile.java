@@ -26,4 +26,9 @@ public class StashSaveFile extends AbstractSaveFile {
         return cellSizeQuad;
     }
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 1;
+    }
+
 }

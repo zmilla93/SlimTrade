@@ -7,4 +7,9 @@ public class LegacySettingsSave2 extends AbstractSaveFile {
 
     public HotkeyData necropolisHotkey;
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 0;
+    }
+
 }

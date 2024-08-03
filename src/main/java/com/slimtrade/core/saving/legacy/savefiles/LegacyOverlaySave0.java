@@ -46,4 +46,9 @@ public class LegacyOverlaySave0 extends AbstractSaveFile {
         }
     }
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 0;
+    }
+
 }

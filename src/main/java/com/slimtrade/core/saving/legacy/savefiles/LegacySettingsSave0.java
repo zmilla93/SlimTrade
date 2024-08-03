@@ -278,4 +278,9 @@ public class LegacySettingsSave0 extends AbstractSaveFile {
         TWENTYONE, TWENTYTWO, TWENTYTRHEE, TWENTYFOUR, TWENTYFIVE, TWENTYSIX, TWENTYSEVEN,
     }
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 0;
+    }
+
 }

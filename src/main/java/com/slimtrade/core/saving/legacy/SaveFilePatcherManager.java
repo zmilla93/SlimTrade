@@ -43,6 +43,7 @@ public class SaveFilePatcherManager {
             if (patched) patcher.applyNewVersion();
         } catch (Exception e) {
             ZLogger.err("[" + patcherName + "] Encountered corrupted legacy save file, recreating data.");
+            System.out.println("Error: " + patcher.getErrorMessage());
             e.printStackTrace();
             patcher.handleCorruptedFile();
         }

@@ -11,4 +11,8 @@ public class ChatScannerSaveFile extends AbstractSaveFile {
     public int[] selectedIndexes;
     public boolean searching;
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 2;
+    }
 }
