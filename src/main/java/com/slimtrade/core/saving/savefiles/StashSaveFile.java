@@ -28,7 +28,7 @@ public class StashSaveFile extends AbstractSaveFile {
 
     @Override
     public int getCurrentTargetVersion() {
-        return 1;
+        return 2;
     }
 
 }

@@ -23,6 +23,7 @@ public class SaveFilePatcherManager {
         handlePatch(new PatcherSettings1to2());
         handlePatch(new PatcherSettings2to3());
         handlePatch(new PatcherStash0to1());
+        handlePatch(new PatcherStash1to2());
         handlePatch(new PatcherScanner0to1());
         handlePatch(new PatcherScanner1to2());
         handlePatch(new PatcherOverlay0to1());
