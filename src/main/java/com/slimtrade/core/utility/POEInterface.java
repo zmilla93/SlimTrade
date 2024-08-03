@@ -9,7 +9,6 @@ import com.slimtrade.gui.components.ClientFileChooser;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
 import com.slimtrade.modules.updater.ZLogger;
-import com.sun.javafx.PlatformUtil;
 import com.sun.jna.Native;
 import com.sun.jna.platform.DesktopWindow;
 import com.sun.jna.platform.WindowUtils;
@@ -187,8 +186,8 @@ public class POEInterface {
     }
 
     // FIXME : Add cross platform support
-    private static void focusPathOfExileWindow(){
-        if(Platform.current == Platform.WINDOWS){
+    private static void focusPathOfExileWindow() {
+        if (Platform.current == Platform.WINDOWS) {
             User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
                 char[] className = new char[512];
                 User32.INSTANCE.GetClassName(hWnd, className, 512);
@@ -223,7 +222,7 @@ public class POEInterface {
     //         Could alternatively add support to isGameFocused if there is a way
     //         to know if POE is focused other than checking the window title.
     private static String getFocusedWindowTitle() {
-        if(Platform.current == Platform.WINDOWS){
+        if (Platform.current == Platform.WINDOWS) {
             char[] buffer = new char[MAX_TITLE_LENGTH * 2];
             WinDef.HWND hwnd = User32.INSTANCE.GetForegroundWindow();
             User32.INSTANCE.GetWindowText(hwnd, buffer, MAX_TITLE_LENGTH);
