@@ -24,6 +24,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
 
     public T data;
     public final String path;
+    public final boolean isPathRelative;
     public final Class<T> classType;
     private boolean loadedExistingData = false;
     private final ArrayList<ISavable> savables = new ArrayList<>();
@@ -32,8 +33,13 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public SaveFile(String path, Class<T> classType) {
+       this(path, classType, false);
+    }
+
+    public SaveFile(String path, Class<T> classType, boolean isPathRelative) {
         this.path = path;
         this.classType = classType;
+        this.isPathRelative = isPathRelative;
     }
 
     public boolean loadedExistingData() {
@@ -112,7 +118,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
      * Automatically called when SaveFile is created.
      */
     public synchronized void loadFromDisk() {
-        if (ZUtil.fileExists(path)) {
+        if (ZUtil.fileExists(path, isPathRelative)) {
             try {
                 data = gson.fromJson(getFileAsString(path), classType);
                 if (data != null) {

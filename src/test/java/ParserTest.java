@@ -60,7 +60,7 @@ public class ParserTest implements IParserLoadedListener {
                     break;
             }
         });
-        parser.open("/client/client_trade.txt");
+        parser.open("/client/client_trade.txt", true);
         waitForParser();
         assertEquals(14, incomingTradeCount);
         assertEquals(14, outgoingTradeCount);
@@ -74,7 +74,7 @@ public class ParserTest implements IParserLoadedListener {
             if (state) onCount++;
             else offCount++;
         });
-        parser.open("/client/client_dnd.txt");
+        parser.open("/client/client_dnd.txt", true);
         waitForParser();
         assertEquals(8, onCount);
         assertEquals(8, offCount);
@@ -83,14 +83,15 @@ public class ParserTest implements IParserLoadedListener {
     @Test
     public void scannerTest() {
         count = 0;
-        SaveManager.chatScannerSaveFile = new SaveFile<>("/saves/scanner.json", ChatScannerSaveFile.class);
+        SaveManager.chatScannerSaveFile = new SaveFile<>("/saves/scanner.json", ChatScannerSaveFile.class, true);
         SaveManager.chatScannerSaveFile.loadFromDisk();
         SaveManager.chatScannerSaveFile.data.searching = true;
         SaveManager.chatScannerSaveFile.data.activeSearches = SaveManager.chatScannerSaveFile.data.scannerEntries;
         parser.addChatScannerListener((entry, message, loaded) -> {
+            System.out.println("entry:" + message);
             count++;
         });
-        parser.open("/client/client_scanner.txt");
+        parser.open("/client/client_scanner.txt", true);
         waitForParser();
         assertEquals(10, count);
     }

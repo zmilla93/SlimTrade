@@ -50,6 +50,10 @@ public class ChatParser implements FileTailerListener {
     private static final Pattern clientWhisper = Pattern.compile(CLIENT_WHISPER_REGEX);
 
     public void open(String path) {
+        open(path, false);
+    }
+
+    public void open(String path, boolean isPathRelative) {
         lineCount = 0;
         whisperCount = 0;
         tradeCount = 0;
@@ -58,7 +62,7 @@ public class ChatParser implements FileTailerListener {
             ZLogger.err("Chat parser was given a null path!");
             return;
         }
-        if (!ZUtil.fileExists(path)) {
+        if (!ZUtil.fileExists(path, isPathRelative)) {
             ZLogger.err("Chat parser could not find file: " + path);
             return;
         }

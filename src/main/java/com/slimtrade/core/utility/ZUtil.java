@@ -243,20 +243,15 @@ public class ZUtil {
         }
     }
 
-    public static boolean fileExists(String path) {
+    public static boolean fileExists(String path, boolean isPathRelative) {
         path = cleanPath(path);
-        if (isPathRelative(path)) {
+        if (isPathRelative) {
             URL url = ZUtil.class.getResource(path);
             return url != null;
         } else {
             File file = new File(path);
             return file.exists();
         }
-    }
-
-    public static boolean isPathRelative(String path) {
-        path = cleanPath(path);
-        return path.startsWith("/");
     }
 
     public static String cleanPath(String path) {
