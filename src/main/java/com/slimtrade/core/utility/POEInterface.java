@@ -212,6 +212,7 @@ public class POEInterface {
     }
 
     public static boolean isGameFocused(boolean includeApp) {
+        if (Platform.current != Platform.WINDOWS) return true;
         String focusedWindowTitle = getFocusedWindowTitle();
         if (includeApp && focusedWindowTitle.startsWith(References.APP_PREFIX)) return true;
         if (includeApp && focusedWindowTitle.equals(ClientFileChooser.TITLE)) return true;
@@ -229,7 +230,7 @@ public class POEInterface {
             return Native.toString(buffer);
         }
         // TODO : More platforms
-        return "";
+        return GAME_TITLE;
     }
 
     @Nullable

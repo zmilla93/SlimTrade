@@ -33,7 +33,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public SaveFile(String path, Class<T> classType) {
-       this(path, classType, false);
+        this(path, classType, false);
     }
 
     public SaveFile(String path, Class<T> classType, boolean isPathRelative) {
