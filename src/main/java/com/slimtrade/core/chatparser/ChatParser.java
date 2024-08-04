@@ -67,7 +67,7 @@ public class ChatParser implements FileTailerListener {
             return;
         }
         this.path = path;
-        tailer = FileTailer.createTailer(path, this, tailerDelayMS, false);
+        tailer = FileTailer.createTailer(path, isPathRelative, this, tailerDelayMS, false);
         startTime = System.currentTimeMillis();
         open = true;
     }

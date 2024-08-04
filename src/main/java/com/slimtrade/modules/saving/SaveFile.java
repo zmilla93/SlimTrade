@@ -120,7 +120,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     public synchronized void loadFromDisk() {
         if (ZUtil.fileExists(path, isPathRelative)) {
             try {
-                data = gson.fromJson(getFileAsString(path), classType);
+                data = gson.fromJson(getFileAsString(path, isPathRelative), classType);
                 if (data != null) {
                     loadedExistingData = true;
                     return;
@@ -166,9 +166,9 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
         autoSaveTimer.schedule(saveTask, 1500);
     }
 
-    private static String getFileAsString(String path) {
+    private static String getFileAsString(String path, boolean isPathRelative) {
         StringBuilder builder = new StringBuilder();
-        BufferedReader reader = ZUtil.getBufferedReader(path);
+        BufferedReader reader = ZUtil.getBufferedReader(path, isPathRelative);
         try {
             while (reader.ready()) {
                 builder.append(reader.readLine());

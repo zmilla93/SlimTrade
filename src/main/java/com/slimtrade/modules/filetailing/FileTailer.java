@@ -18,11 +18,11 @@ public class FileTailer implements Runnable {
     private boolean running;
     private boolean loaded;
 
-    public FileTailer(String path, FileTailerListener listener, int delay, boolean end) {
+    public FileTailer(String path, boolean isPathRelative, FileTailerListener listener, int delay, boolean end) {
         this.listener = listener;
         this.delay = delay;
         this.end = end;
-        reader = ZUtil.getBufferedReader(path);
+        reader = ZUtil.getBufferedReader(path, isPathRelative);
     }
 
     public void stop() {
@@ -36,8 +36,8 @@ public class FileTailer implements Runnable {
     /**
      * Creates a tailer and runs it on a background thread.
      */
-    public static FileTailer createTailer(String path, FileTailerListener listener, int delay, boolean end) {
-        FileTailer tailer = new FileTailer(path, listener, delay, end);
+    public static FileTailer createTailer(String path, boolean isPathRelative, FileTailerListener listener, int delay, boolean end) {
+        FileTailer tailer = new FileTailer(path, isPathRelative, listener, delay, end);
         launchThread(tailer);
         return tailer;
     }

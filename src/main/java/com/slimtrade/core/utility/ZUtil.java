@@ -262,18 +262,23 @@ public class ZUtil {
      * Returns a BufferedReader for a given file path set to UTF-8 encoding.
      * If given a relative path (starts with "/"), will load the file from the resources folder.
      */
-    public static BufferedReader getBufferedReader(String path) {
+    public static BufferedReader getBufferedReader(String path, boolean isPathRelative) {
         path = cleanPath(path);
         InputStreamReader streamReader;
-        if (path.startsWith("/")) {
-            streamReader = new InputStreamReader(Objects.requireNonNull(ZUtil.class.getResourceAsStream(path)), StandardCharsets.UTF_8);
-        } else {
-            try {
-                streamReader = new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8);
-            } catch (IOException e) {
-                ZLogger.err("File not found: " + path);
-                return null;
+        try {
+            if (isPathRelative) {
+                streamReader = new InputStreamReader(Objects.requireNonNull(ZUtil.class.getResourceAsStream(path)), StandardCharsets.UTF_8);
+            } else {
+                try {
+                    streamReader = new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8);
+                } catch (IOException e) {
+                    ZLogger.err("File not found: " + path);
+                    return null;
+                }
             }
+        } catch (NullPointerException e) {
+            ZLogger.log("File not found: " + path + " (relative: " + isPathRelative + ")");
+            return null;
         }
         return new BufferedReader(streamReader);
     }

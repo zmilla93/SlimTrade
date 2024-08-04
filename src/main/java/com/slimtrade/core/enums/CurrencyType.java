@@ -46,7 +46,7 @@ public class CurrencyType implements IIcon {
     public static void initIconList() {
         currencyNameMap.clear();
         try {
-            BufferedReader reader = ZUtil.getBufferedReader("/text/currency.txt");
+            BufferedReader reader = ZUtil.getBufferedReader("/text/currency.txt", true);
             while (reader.ready()) {
                 String line = reader.readLine();
                 if (line.matches("\\s+")) continue;
