@@ -98,6 +98,9 @@ public enum LangRegex {
 
     static {
         compileAll();
+        // Support for chinese messages
+        incomingTags.add("來自");
+        outgoingTags.add("向");
     }
 
     LangRegex(String wantToBuy, String joinedArea, String enteredArea, String messageTo, String messageFrom, String dndOff, String dndOn, String[] messages) {
