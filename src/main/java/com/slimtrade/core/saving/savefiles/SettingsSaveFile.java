@@ -70,6 +70,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
     //    public boolean enableMenuBar = true;
     public boolean enableAutomaticUpdate = true;
     public boolean hideWhenPOENotFocused = true;
+    public boolean kalguurAutoClearTimers = true;
 
     // Stash
     public ArrayList<StashTabData> stashTabs = new ArrayList<>();
@@ -100,6 +101,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public HotkeyData closeTradeHotkey;
     public HotkeyData previousMessageTabHotkey;
     public HotkeyData nextMessageTabHotkey;
+    public HotkeyData kalguurWindowHotkey;
 
     // POE Hotkeys
     public HotkeyData delveHotkey;

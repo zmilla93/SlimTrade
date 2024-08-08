@@ -37,6 +37,7 @@ public class FrameManager {
     public static HistoryWindow historyWindow;
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
+    public static KalguurHelperWindow kalguurHelperWindow;
     public static TutorialWindow tutorialWindow;
     public static PatchNotesWindow patchNotesWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
@@ -77,6 +78,7 @@ public class FrameManager {
         historyWindow = new HistoryWindow();
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
+        kalguurHelperWindow = new KalguurHelperWindow();
         tutorialWindow = new TutorialWindow();
         patchNotesWindow = new PatchNotesWindow();
 
@@ -132,6 +134,8 @@ public class FrameManager {
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         messageManager.setVisible(true);
         updateMenubarVisibility();
+        // FIXME : Temp
+//        kalguurCalculatorWindow.setVisible(true);
     }
 
     public static void setWindowVisibility(AppState newState) {

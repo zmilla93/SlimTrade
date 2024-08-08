@@ -18,6 +18,7 @@ public enum DefaultIcon implements IIcon {
     PIN1("pin1"),
     PIN2("pin2"),
     PLAY("play"),
+    PLUS("plus"),
     POWER("power"),
     STOPWATCH("stopwatch"),
     REFRESH("refresh"),

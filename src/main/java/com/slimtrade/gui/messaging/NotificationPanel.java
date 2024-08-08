@@ -35,6 +35,7 @@ public abstract class NotificationPanel extends ColorPanel {
     protected final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
     protected final JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
     private final JLabel timerLabel = new JLabel("0s");
+    protected boolean closeButtonInTopRow = true;
 
     // Container Panels
     protected final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
@@ -42,6 +43,7 @@ public abstract class NotificationPanel extends ColorPanel {
     private final JPanel bottomPanel = new JPanel(new BorderLayout());
     private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
     private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
+    protected final JPanel topContainer = new JPanel(new BorderLayout());
     protected final JPanel bottomContainer = new JPanel(new BorderLayout());
     private Component bottomVerticalStrut;
 
@@ -74,7 +76,6 @@ public abstract class NotificationPanel extends ColorPanel {
         this.createListeners = createListeners;
         // Panels
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel topContainer = new JPanel(new BorderLayout());
         topPanel = new JPanel(new GridBagLayout());
 
         // Border Setup
@@ -128,9 +129,10 @@ public abstract class NotificationPanel extends ColorPanel {
      */
     public void setup() {
         // Add buttons
-        GridBagConstraints gc = addMacrosToPanel(topButtonPanel, topMacros);
-        topButtonPanel.add(closeButton, gc);
-        addMacrosToPanel(bottomButtonPanel, bottomMacros);
+        GridBagConstraints topGC = addMacrosToPanel(topButtonPanel, topMacros);
+        GridBagConstraints bottomGC = addMacrosToPanel(bottomButtonPanel, bottomMacros);
+        if (closeButtonInTopRow) topButtonPanel.add(closeButton, topGC);
+        else bottomButtonPanel.add(closeButton, bottomGC);
 
         updateUI();
         if (createListeners) addListeners();

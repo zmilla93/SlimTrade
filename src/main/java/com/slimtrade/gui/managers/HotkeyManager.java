@@ -27,6 +27,7 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new WindowHotkey(FrameManager.optionsWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new WindowHotkey(FrameManager.historyWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new WindowHotkey(FrameManager.chatScannerWindow));
+        registerHotkey(SaveManager.settingsSaveFile.data.kalguurWindowHotkey, new WindowHotkey(FrameManager.kalguurHelperWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, new SwingActionHotkey(() -> FrameManager.messageManager.closeOldestTrade()));
         if (SaveManager.settingsSaveFile.data.useMessageTabs) {
             registerHotkey(SaveManager.settingsSaveFile.data.previousMessageTabHotkey, new ChangeMessageTabHotkey(-1));
