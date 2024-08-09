@@ -210,6 +210,7 @@ public class App {
             FrameManager.setupWindow = null;
         }
         isRunningSetup = false;
+        SaveManager.appStateSaveFile.revertChanges();
         SaveManager.settingsSaveFile.revertChanges();
         SaveManager.stashSaveFile.revertChanges();
         SaveManager.chatScannerSaveFile.revertChanges();

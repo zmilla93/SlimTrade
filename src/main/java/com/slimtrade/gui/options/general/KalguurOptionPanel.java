@@ -22,10 +22,12 @@ public class KalguurOptionPanel extends JPanel implements ISavable {
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
         JLabel label1 = new JLabel("Set timers to track shipments. Quickly divide by 5.");
-        JLabel label2 = new StyledLabel("Press ENTER to save values.").bold();
+        JLabel label2 = new JLabel("Timer format is 'Hours:Minutes', ie '1:20' for 1 hour 20 minutes.");
+        JLabel label3 = new StyledLabel("Press ENTER to save values.").bold();
 //        addRow(new ComponentPair(label1, label2));
         addRow(label1);
         addRow(label2);
+        addRow(label3);
         gc.fill = GridBagConstraints.NONE;
         gc.weightx = 0;
         gc.anchor = GridBagConstraints.WEST;

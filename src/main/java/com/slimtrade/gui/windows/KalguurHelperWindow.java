@@ -1,5 +1,6 @@
 package com.slimtrade.gui.windows;
 
+import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.kalguur.KalguurCalculatorPanel;
 import com.slimtrade.gui.kalguur.KalguurTimerPanel;
 
@@ -20,6 +21,7 @@ public class KalguurHelperWindow extends CustomDialog {
         add(timerPanel, BorderLayout.SOUTH);
         pack();
         setLocationRelativeTo(null);
+        SaveManager.appStateSaveFile.registerSavableContainer(this);
     }
 
     @Override

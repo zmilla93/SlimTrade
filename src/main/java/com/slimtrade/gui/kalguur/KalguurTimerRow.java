@@ -17,17 +17,16 @@ public class KalguurTimerRow extends JPanel {
 
     private final JDialog parentWindow;
     private final Container parentContainer;
-    private final KalguurTimerPanel timerPanel;
     private final HourMinute remainingTime;
     private final JLabel label;
     private final Timer timer;
     private final Instant expirationTime;
+    private static final String COMPLETE_TEXT = "Complete";
 
-    public KalguurTimerRow(JDialog parentWindow, Container parentContainer, KalguurTimerPanel timerPanel, Instant expirationTime) {
+    public KalguurTimerRow(JDialog parentWindow, Container parentContainer, Instant expirationTime) {
         this.expirationTime = expirationTime;
         this.parentWindow = parentWindow;
         this.parentContainer = parentContainer;
-        this.timerPanel = timerPanel;
         this.remainingTime = getRemainingTime(expirationTime);
         label = new JLabel();
         setLayout(new GridBagLayout());
@@ -39,9 +38,8 @@ public class KalguurTimerRow extends JPanel {
         JButton deleteButton = new IconButton(DefaultIcon.CLOSE);
         add(deleteButton, gc);
         updateLabel();
-        // FIXME : Set timer to 1 minute
         timer = new Timer(1000 * 60, e -> tickTimer());
-        timer.start();
+        if (!isExpired()) timer.start();
         deleteButton.addActionListener(e -> destroyTimer());
     }
 
@@ -49,9 +47,16 @@ public class KalguurTimerRow extends JPanel {
         return expirationTime;
     }
 
+    public boolean isExpired() {
+        return remainingTime.hour <= 0 && remainingTime.minute <= 0;
+    }
+
     private void updateLabel() {
         String text = "";
-        if (remainingTime.hour > 0) text += remainingTime.hour + "h ";
+        if (isExpired()) {
+            text = COMPLETE_TEXT;
+        }
+        if (remainingTime.hour > 0) text += remainingTime.hour + "h";
         if (remainingTime.minute > 0) {
             if (remainingTime.hour > 0) text += " ";
             text += remainingTime.minute + "m";
@@ -75,16 +80,16 @@ public class KalguurTimerRow extends JPanel {
         timer.stop();
         parentContainer.remove(KalguurTimerRow.this);
         parentWindow.pack();
-        timerPanel.save();
+        SaveManager.appStateSaveFile.saveToDisk();
     }
 
     private void handleExpiration() {
-        if (remainingTime.hour > 0 || remainingTime.minute > 0) return;
+        if (!isExpired()) return;
         timer.stop();
         if (SaveManager.settingsSaveFile.data.kalguurAutoClearTimers) {
             destroyTimer();
         } else {
-            label.setText("Complete");
+            label.setText(COMPLETE_TEXT);
         }
         FrameManager.messageManager.addKalguurMessage();
     }
@@ -93,6 +98,10 @@ public class KalguurTimerRow extends JPanel {
         Duration diff = Duration.between(Instant.now().truncatedTo(ChronoUnit.MINUTES), instant.truncatedTo(ChronoUnit.MINUTES));
         int hours = (int) diff.toHours();
         int minutes = (int) diff.minusHours(hours).toMinutes();
+        if (minutes == 0 && hours > 0) {
+            hours--;
+            minutes += 60;
+        }
         return new HourMinute(hours, minutes);
     }
 

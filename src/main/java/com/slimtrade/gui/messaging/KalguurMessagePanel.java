@@ -1,5 +1,7 @@
 package com.slimtrade.gui.messaging;
 
+import com.slimtrade.core.utility.POEInterface;
+
 import java.awt.*;
 
 public class KalguurMessagePanel extends NotificationPanel {
@@ -8,6 +10,7 @@ public class KalguurMessagePanel extends NotificationPanel {
         closeButtonInTopRow = false;
         topContainer.setVisible(false);
         itemButton.setText("Shipment Complete!");
+        itemButton.addActionListener(e -> POEInterface.pasteWithFocus("/kingsmarch"));
         setup();
     }
 

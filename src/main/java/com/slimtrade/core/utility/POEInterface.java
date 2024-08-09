@@ -55,7 +55,7 @@ public class POEInterface {
         // FIXME: isGameFocused is called twice
         if (!isGameFocused()) return;
         // Clear Alt
-        robot.keyPress(KeyEvent.VK_ALT);
+//        robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
         // Try opening chat with custom hotkey
         HotkeyData poeChatHotkey = SaveManager.settingsSaveFile.data.poeChatHotkey;

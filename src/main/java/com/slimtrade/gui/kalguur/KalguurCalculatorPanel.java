@@ -39,7 +39,6 @@ public class KalguurCalculatorPanel extends JPanel implements ISavable {
 
         addListeners();
         updateLabels();
-        load();
     }
 
     public JTextField getInputField() {
@@ -69,7 +68,7 @@ public class KalguurCalculatorPanel extends JPanel implements ISavable {
             rowContainer.add(row);
             clearInput();
             parentWindow.pack();
-            save();
+            SaveManager.appStateSaveFile.saveToDisk();
         });
     }
 
@@ -77,7 +76,8 @@ public class KalguurCalculatorPanel extends JPanel implements ISavable {
         int input = getInput();
         int output = 0;
         if (input >= 5) output = input / 5;
-        outputLabel.setText("/5 = " + output);
+        String outputText = output > 0 ? Integer.toString(output) : "?";
+        outputLabel.setText("/5 = " + outputText);
         parentWindow.pack();
     }
 
@@ -94,7 +94,6 @@ public class KalguurCalculatorPanel extends JPanel implements ISavable {
             values.add(row.getOreCount());
         }
         SaveManager.appStateSaveFile.data.kalguurQuantities = values;
-        SaveManager.appStateSaveFile.saveToDisk();
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.PlaceholderTextField;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ import java.util.regex.Pattern;
 public class KalguurTimerPanel extends JPanel implements ISavable {
 
     private final JDialog parentWindow;
-    private final JTextField inputFiled = new PlaceholderTextField("Timer", 6);
+    private final JTextField inputFiled = new PlaceholderTextField("Timer (h:m)", 6);
     private final JPanel rowContainer = new JPanel();
     private final Pattern timerPattern = Pattern.compile("((?<hours>\\d*):)?(?<minutes>\\d+)");
 
@@ -43,11 +44,10 @@ public class KalguurTimerPanel extends JPanel implements ISavable {
         JButton submitButton = new IconButton(DefaultIcon.PLUS);
         submitButton.addActionListener(e -> submitInput());
         inputFiled.addActionListener(e -> submitInput());
-        load();
     }
 
     private void submitInput() {
-        String input = inputFiled.getText();
+        String input = inputFiled.getText().replaceAll("\\s*", "");
         inputFiled.setText("");
         Matcher matcher = timerPattern.matcher(input);
         if (!matcher.matches()) return;
@@ -64,10 +64,10 @@ public class KalguurTimerPanel extends JPanel implements ISavable {
         expirationTime.add(Calendar.HOUR_OF_DAY, hour);
         expirationTime.add(Calendar.MINUTE, minute);
 
-        rowContainer.add(new KalguurTimerRow(parentWindow, rowContainer, this, expirationTime.toInstant()));
+        rowContainer.add(new KalguurTimerRow(parentWindow, rowContainer, expirationTime.toInstant()));
 
         parentWindow.pack();
-        save();
+        SaveManager.appStateSaveFile.saveToDisk();
     }
 
     public void clearInput() {
@@ -81,11 +81,10 @@ public class KalguurTimerPanel extends JPanel implements ISavable {
             KalguurTimerRow row = (KalguurTimerRow) comp;
             Instant expirationTime = row.getExpirationTime();
             HourMinute remainingTime = KalguurTimerRow.getRemainingTime(expirationTime);
-            if (remainingTime.hour <= 0 && remainingTime.minute <= 0) continue;
+            if (row.isExpired() && SaveManager.settingsSaveFile.data.kalguurAutoClearTimers) continue;
             timestamps.add(expirationTime.toString());
         }
         SaveManager.appStateSaveFile.data.kalguurTimers = timestamps;
-        SaveManager.appStateSaveFile.saveToDisk();
     }
 
     @Override
@@ -94,15 +93,22 @@ public class KalguurTimerPanel extends JPanel implements ISavable {
             KalguurTimerRow row = (KalguurTimerRow) rowContainer.getComponent(i);
             row.destroyTimer();
         }
+        boolean save = false;
         for (String timestamp : SaveManager.appStateSaveFile.data.kalguurTimers) {
             Instant expirationTime = Instant.parse(timestamp);
             HourMinute remainingTime = KalguurTimerRow.getRemainingTime(expirationTime);
             if (SaveManager.settingsSaveFile.data.kalguurAutoClearTimers
                     && remainingTime.hour <= 0
-                    && remainingTime.minute <= 0)
-                continue;
-            rowContainer.add(new KalguurTimerRow(parentWindow, rowContainer, this, Instant.parse(timestamp)));
+                    && remainingTime.minute <= 0) {
+                FrameManager.messageManager.addKalguurMessage();
+                save = true;
+            } else {
+                KalguurTimerRow row = new KalguurTimerRow(parentWindow, rowContainer, Instant.parse(timestamp));
+                rowContainer.add(row);
+                if (row.isExpired()) FrameManager.messageManager.addKalguurMessage();
+            }
         }
+        if (save) SaveManager.appStateSaveFile.saveToDisk();
         parentWindow.pack();
     }
 
