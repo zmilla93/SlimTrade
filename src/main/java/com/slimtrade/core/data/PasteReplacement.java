@@ -9,8 +9,8 @@ public class PasteReplacement {
     public final String priceName; // Price Quantity + Price Name
     public final double priceQuantity; // Price Quantity + Price Name
 
-    public PasteReplacement(String player) {
-        this.message = "";
+    public PasteReplacement(String message, String player) {
+        this.message = message;
         this.playerName = player;
         this.itemName = "";
         this.itemQuantity = 0;
