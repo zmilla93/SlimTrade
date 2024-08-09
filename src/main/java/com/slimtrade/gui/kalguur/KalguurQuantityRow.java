@@ -1,7 +1,6 @@
 package com.slimtrade.gui.kalguur;
 
 import com.slimtrade.core.enums.DefaultIcon;
-import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
 
@@ -12,7 +11,7 @@ public class KalguurQuantityRow extends JPanel {
 
     private final int oreCount;
 
-    public KalguurQuantityRow(JDialog parentWindow,KalguurCalculatorPanel calcPanel, Container parentContainer, int oreCount) {
+    public KalguurQuantityRow(JDialog parentWindow, KalguurCalculatorPanel calcPanel, Container parentContainer, int oreCount) {
         this.oreCount = oreCount;
         int ingotCount = (int) Math.ceil(oreCount / 5f);
         JLabel label = new JLabel(oreCount + " ~ " + ingotCount);

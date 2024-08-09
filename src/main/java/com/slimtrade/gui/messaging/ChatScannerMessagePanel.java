@@ -4,17 +4,17 @@ import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.data.PlayerMessage;
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.trading.TradeOfferType;
+import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
-import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.modules.theme.ThemeColorVariant;
 import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.MouseEvent;
 
 public class ChatScannerMessagePanel extends NotificationPanel {
 
@@ -32,7 +32,6 @@ public class ChatScannerMessagePanel extends NotificationPanel {
             pasteReplacement = new PasteReplacement(playerMessage.message, playerMessage.player);
             playerNameButton.setText(playerMessage.player);
             itemButton.setText(playerMessage.message);
-            addPlayerButtonListener(playerMessage.player);
         }
         pricePanel.add(new JLabel(scannerEntry.title));
         messageColor = ThemeColorVariant.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
@@ -53,7 +52,7 @@ public class ChatScannerMessagePanel extends NotificationPanel {
     @Override
     protected void addListeners() {
         super.addListeners();
-        addPlayerButtonListener(playerMessage.player);
+        if (playerMessage != null && !playerMessage.isMetaText) addPlayerButtonListener(playerMessage.player);
         itemButton.addMouseListener(new AdvancedMouseListener() {
             @Override
             public void click(MouseEvent e) {
@@ -62,8 +61,7 @@ public class ChatScannerMessagePanel extends NotificationPanel {
                         StringSelection copyString = new StringSelection(playerMessage.message);
                         clipboard.setContents(copyString, null);
                     } catch (IllegalStateException err) {
-                        ZLogger.err("Failed to set clipboard contents, aborting...");
-                        return;
+                        ZLogger.err("Failed to set clipboard contents.");
                     }
                 }
             }

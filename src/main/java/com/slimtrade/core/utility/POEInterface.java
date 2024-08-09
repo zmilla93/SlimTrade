@@ -111,7 +111,7 @@ public class POEInterface {
         try {
             clipboard.setContents(pasteString, null);
         } catch (IllegalStateException e) {
-            ZLogger.err("Failed to set clipboard contents, aborting...");
+            ZLogger.err("Failed to set clipboard contents.");
             return;
         }
         pasteFromClipboard(stopBeforeSend);

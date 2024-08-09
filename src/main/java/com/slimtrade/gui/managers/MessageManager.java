@@ -208,7 +208,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IChat
         addMessageMutual(panel);
     }
 
-    public void addKalguurMessage(){
+    public void addKalguurMessage() {
         AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.incomingSound);
         addMessageMutual(new KalguurMessagePanel());
     }

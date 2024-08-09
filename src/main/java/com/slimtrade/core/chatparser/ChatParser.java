@@ -175,9 +175,14 @@ public class ChatParser implements FileTailerListener {
                             }
                         }
                     }
-                    if (entry.allowMetaText && messageType.equals("meta")) allow = true;
+                    boolean isMetaText = false;
+                    if (entry.allowMetaText && messageType.equals("meta")) {
+                        allow = true;
+                        player = entry.title;
+                        isMetaText = true;
+                    }
                     if (!allow) continue;
-                    PlayerMessage playerMessage = new PlayerMessage(player, message);
+                    PlayerMessage playerMessage = new PlayerMessage(player, message, isMetaText);
                     for (IChatScannerListener listener : chatScannerListeners)
                         listener.onScannerMessage(entry, playerMessage, tailer.isLoaded());
                     return true;
