@@ -81,6 +81,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public SoundComponent outgoingSound = new SoundComponent(new Sound("Ping 1", Sound.SoundType.INBUILT), 50);
     public SoundComponent itemIgnoredSound = new SoundComponent(new Sound("Blip 2", Sound.SoundType.INBUILT), 50);
     public SoundComponent chatScannerSound = new SoundComponent(new Sound("Ping 2", Sound.SoundType.INBUILT), 50);
+    public SoundComponent kalguurSound = new SoundComponent(new Sound("Ping 3", Sound.SoundType.INBUILT), 50);
     public SoundComponent playerJoinedAreaSound = new SoundComponent(new Sound("Blip 1", Sound.SoundType.INBUILT), 50);
     public SoundComponent updateSound = new SoundComponent(new Sound("Blip 3", Sound.SoundType.INBUILT), 50);
     public ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();

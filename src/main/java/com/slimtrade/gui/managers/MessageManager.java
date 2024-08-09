@@ -209,7 +209,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IChat
     }
 
     public void addKalguurMessage() {
-        AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.incomingSound);
+        AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.kalguurSound);
         addMessageMutual(new KalguurMessagePanel());
     }
 

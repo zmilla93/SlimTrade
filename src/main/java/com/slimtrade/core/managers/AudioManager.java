@@ -50,10 +50,11 @@ public class AudioManager {
     private static void addDefaultSoundFiles() {
         soundFiles.add(new Sound("Ping 1", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Ping 2", Sound.SoundType.INBUILT));
+        soundFiles.add(new Sound("Ping 3", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 1", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 2", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Blip 3", Sound.SoundType.INBUILT));
-        pingCount = 5;
+        pingCount = 6;
 
         soundFiles.add(new Sound("Loot 1", Sound.SoundType.INBUILT));
         soundFiles.add(new Sound("Loot 2", Sound.SoundType.INBUILT));

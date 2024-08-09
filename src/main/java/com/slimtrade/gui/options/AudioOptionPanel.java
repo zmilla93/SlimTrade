@@ -33,6 +33,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     private final AudioRowControls incomingTradeControls;
     private final AudioRowControls outgoingTradeControls;
     private final AudioRowControls chatScannerControls;
+    private final AudioRowControls kalguurControls;
     private final AudioRowControls playerJoinedAreaControls;
     private final AudioRowControls ignoredItemControls;
     private final AudioRowControls updateAlertControls;
@@ -47,6 +48,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         incomingTradeControls = addRow("Incoming Trade");
         outgoingTradeControls = addRow("Outgoing Trade");
         chatScannerControls = addRow("Chat Scanner");
+        kalguurControls = addRow("Kalguur Shipments");
         playerJoinedAreaControls = addRow("Player Joined Area");
         ignoredItemControls = addRow("Ignored Item");
         updateAlertControls = addRow("Update Alert");
@@ -147,6 +149,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         SaveManager.settingsSaveFile.data.incomingSound = incomingTradeControls.getSoundComponent();
         SaveManager.settingsSaveFile.data.outgoingSound = outgoingTradeControls.getSoundComponent();
         SaveManager.settingsSaveFile.data.chatScannerSound = chatScannerControls.getSoundComponent();
+        SaveManager.settingsSaveFile.data.kalguurSound = kalguurControls.getSoundComponent();
         SaveManager.settingsSaveFile.data.playerJoinedAreaSound = playerJoinedAreaControls.getSoundComponent();
         SaveManager.settingsSaveFile.data.itemIgnoredSound = ignoredItemControls.getSoundComponent();
         SaveManager.settingsSaveFile.data.updateSound = updateAlertControls.getSoundComponent();
@@ -158,6 +161,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         incomingTradeControls.setSoundComponent(SaveManager.settingsSaveFile.data.incomingSound);
         outgoingTradeControls.setSoundComponent(SaveManager.settingsSaveFile.data.outgoingSound);
         chatScannerControls.setSoundComponent(SaveManager.settingsSaveFile.data.chatScannerSound);
+        kalguurControls.setSoundComponent(SaveManager.settingsSaveFile.data.kalguurSound);
         playerJoinedAreaControls.setSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
         ignoredItemControls.setSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound);
         updateAlertControls.setSoundComponent(SaveManager.settingsSaveFile.data.updateSound);
