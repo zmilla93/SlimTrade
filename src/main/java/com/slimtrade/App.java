@@ -142,6 +142,18 @@ public class App {
         AudioManager.init();
         profileLaunch("Managers Launched");
 
+        // JNativeHook Setup
+        try {
+            GlobalScreen.registerNativeHook();
+        } catch (NativeHookException e) {
+            e.printStackTrace();
+        }
+        globalKeyboardListener = new GlobalKeyboardListener();
+        globalMouseListener = new GlobalMouseListener();
+        GlobalScreen.addNativeKeyListener(globalKeyboardListener);
+        GlobalScreen.addNativeMouseListener(globalMouseListener);
+        GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
+
         // UI
         try {
             Stopwatch.start();
@@ -154,18 +166,6 @@ public class App {
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
         }
-
-        // JNativeHook Setup
-        try {
-            GlobalScreen.registerNativeHook();
-        } catch (NativeHookException e) {
-            e.printStackTrace();
-        }
-        globalKeyboardListener = new GlobalKeyboardListener();
-        globalMouseListener = new GlobalMouseListener();
-        GlobalScreen.addNativeKeyListener(globalKeyboardListener);
-        GlobalScreen.addNativeMouseListener(globalMouseListener);
-        GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
 
         // Final Setup
         if (SetupManager.getSetupPhases().size() > 0) runSetupWizard();
