@@ -1,11 +1,15 @@
 package com.slimtrade.gui.ninja;
 
+import com.slimtrade.App;
+import com.slimtrade.core.jna.NativeMouseAdapter;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.NinjaGridSection;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.ThemeLineBorder;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
+import org.jnativehook.mouse.NativeMouseEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +37,7 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
 
     public AbstractNinjaGridPanel() {
         setBackground(ThemeManager.TRANSPARENT);
-        setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        setBorder(new ThemeLineBorder());
         updateSize();
 
         // FIXME: Switching to a global mouse listener avoids having to draw buttons,

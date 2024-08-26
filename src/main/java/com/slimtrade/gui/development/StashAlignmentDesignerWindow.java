@@ -17,7 +17,6 @@ public class StashAlignmentDesignerWindow extends BasicDialog implements ISaveLi
     public StashAlignmentDesignerWindow() {
         setLayout(new BorderLayout());
         add(stashAlignmentDesignerPanel, BorderLayout.CENTER);
-        setBackground(Color.GREEN);
         pack();
         updateBounds();
         setBackground(ThemeManager.TRANSPARENT);
