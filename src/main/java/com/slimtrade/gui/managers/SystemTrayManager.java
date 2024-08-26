@@ -3,6 +3,7 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.App;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.enums.DefaultIcon;
+import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class SystemTrayManager {
     private static final MenuItem exitButton = new MenuItem("Exit SlimTrade");
 
     public static void init() {
+        if (!SystemTray.isSupported()) return;
         // Tray
         SystemTray tray = SystemTray.getSystemTray();
         Image img = new ImageIcon(Objects.requireNonNull(SystemTrayManager.class.getResource(DefaultIcon.CHAOS_ORB.path()))).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
@@ -33,7 +35,8 @@ public class SystemTrayManager {
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
-            e.printStackTrace();
+            ZLogger.err("Failed to set tray icon.");
+            ZLogger.log(e.getStackTrace());
         }
         addListeners();
         showSimple();
@@ -48,11 +51,13 @@ public class SystemTrayManager {
     }
 
     public static void showSimple() {
+        if (!SystemTray.isSupported()) return;
         popupMenu.removeAll();
         popupMenu.add(exitButton);
     }
 
     public static void showDefault() {
+        if (!SystemTray.isSupported()) return;
         popupMenu.removeAll();
         popupMenu.add(optionsButton);
         popupMenu.add(historyButton);
