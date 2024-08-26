@@ -14,7 +14,6 @@ import java.util.Map;
 public class NinjaFragmentsPanel extends AbstractNinjaGridPanel {
 
     public NinjaFragmentsPanel() {
-        super(34, 5);
 
         // FIXME: Move buttons to config file
         addTab("General", new Rectangle(12, 10, 138, 33));

@@ -7,7 +7,6 @@ import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.gui.buttons.BasicIconButton;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.StyledLabel;
-import com.slimtrade.gui.components.ThemeLineBorder;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
@@ -30,9 +29,6 @@ public class NinjaWindow extends BasicDialog implements ISaveListener {
         NinjaInterface.sync();
         setBackground(ThemeManager.TRANSPARENT);
 
-        contentPanel.setLayout(new BorderLayout());
-        contentPanel.setBorder(new ThemeLineBorder());
-
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         buttonPanel.add(currencyButton);
         buttonPanel.add(essenceButton);
@@ -51,6 +47,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener {
         southPanel.add(buttonPanel, BorderLayout.WEST);
         southPanel.add(syncPanel, BorderLayout.EAST);
 
+        contentPanel.setLayout(new BorderLayout());
         contentPanel.add(new NinjaFragmentsPanel(), BorderLayout.CENTER);
         contentPanel.add(southPanel, BorderLayout.SOUTH);
 

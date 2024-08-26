@@ -21,4 +21,9 @@ public class NinjaScarabEntry {
         return cleanChaosValue;
     }
 
+    @Override
+    public String toString() {
+        return cleanChaosValue() + "c";
+    }
+
 }

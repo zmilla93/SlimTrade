@@ -2,7 +2,8 @@ tab: General
 cellSize: 50
 
 # 99, 64
-offset: 12
+offsetX: 12
+offsetY: 9
 Sacrifice at Dusk, Sacrifice at Midnight
 Sacrifice at Noon, Sacrifice at Dawn
 

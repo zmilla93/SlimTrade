@@ -33,12 +33,12 @@ public class NinjaInterface {
 
     public static NinjaScarabEntry getScarab(String name) {
         if (scarabData.containsKey(name)) return scarabData.get(name);
-        return null;
+        throw new RuntimeException("Invalid Scarab: " + name);
     }
 
     public static NinjaFragmentEntry getFragment(String name) {
         if (fragmentData.containsKey(name)) return fragmentData.get(name);
-        return null;
+        throw new RuntimeException("Invalid Fragment: " + name);
     }
 
 }

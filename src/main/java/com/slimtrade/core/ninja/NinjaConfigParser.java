@@ -40,9 +40,10 @@ public class NinjaConfigParser {
         sectionY = Integer.parseInt(values[1].trim());
     }
 
+    // Appends the current section to the current tab's list of sections
     private static void appendCurrentSection() {
         if (!sectionRows.isEmpty()) {
-            NinjaGridSection section = new NinjaGridSection(sectionX, sectionY, cellSpacingX, cellSpacingY, sectionRows.toArray(new String[0][]));
+            NinjaGridSection section = new NinjaGridSection(cellSize, sectionX, sectionY, cellSpacingX, cellSpacingY, sectionRows.toArray(new String[0][]));
             sections.add(section);
         }
         sectionRows = new ArrayList<>();
@@ -53,8 +54,8 @@ public class NinjaConfigParser {
         String[] values = line.split(":");
         String key = values[0];
         String value = values[1];
-        if (key.equals("cellSize")) cellSize = parseInt(value);
-        else if (key.equals("tab")) startNewTab(value);
+        if (key.equals("tab")) startNewTab(value);
+        else if (key.equals("cellSize")) cellSize = parseInt(value);
         else if (key.equals("offsetX")) cellSpacingX = parseInt(value);
         else if (key.equals("offsetY")) cellSpacingY = parseInt(value);
         else if (key.equals("offset")) {
@@ -78,6 +79,7 @@ public class NinjaConfigParser {
     private static void finishTab() {
         appendCurrentSection();
         if (sections.isEmpty()) return;
+        if (currentTab == null) return;
         tabMap.put(currentTab, sections);
         sections = new ArrayList<>();
         currentTab = null;

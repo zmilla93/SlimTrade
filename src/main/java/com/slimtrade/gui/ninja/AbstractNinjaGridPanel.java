@@ -2,12 +2,10 @@ package com.slimtrade.gui.ninja;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.NinjaGridSection;
-import com.slimtrade.core.ninja.responses.NinjaScarabEntry;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
-import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,11 +18,9 @@ import java.util.HashSet;
 
 public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveListener {
 
-    private final int cellSize;
-    private final int cellSpacing;
     private final ArrayList<NinjaGridSection> gridSections = new ArrayList<>();
     private final HashMap<String, ArrayList<NinjaGridSection>> tabSectionMap = new HashMap<>();
-    private final boolean drawCellBorders = false;
+    private final boolean drawCellBorders = true;
 
     public static final Color TEXT_COLOR = new Color(255, 182, 81);
     public static final Color BACKGROUND_COLOR = new Color(0, 0, 0, 150);
@@ -35,10 +31,9 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
     private String pressedTab;
     private String selectedTab = "Scarabs";
 
-    public AbstractNinjaGridPanel(int cellSize, int cellSpacing) {
-        this.cellSize = cellSize;
-        this.cellSpacing = cellSpacing;
+    public AbstractNinjaGridPanel() {
         setBackground(ThemeManager.TRANSPARENT);
+        setBorder(BorderFactory.createLineBorder(Color.GREEN));
         updateSize();
 
         // FIXME: Switching to a global mouse listener avoids having to draw buttons,
@@ -117,23 +112,18 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
     private void drawCell(Graphics g, NinjaGridSection section, int x, int y, String value) {
         if (selectedTab.equals("General")) {
             // TODO
+            drawText(g, section, x, y, NinjaInterface.getFragment(value).toString());
         } else if (selectedTab.equals("Scarabs")) {
-            drawScarabCell(g, section, x, y, value);
+            drawText(g, section, x, y, NinjaInterface.getScarab(value).toString());
         }
     }
 
-    private void drawScarabCell(Graphics g, NinjaGridSection section, int x, int y, String value) {
-        NinjaScarabEntry entry = NinjaInterface.getScarab(value);
-        if (entry == null) {
-            ZLogger.err("Invalid scarab entry: " + value);
-            return;
-        }
-        // FIXME : Move font metrics up to a higher level so it is called less often
-        g.setFont(g.getFont().deriveFont(Font.PLAIN, 12));
-        FontMetrics fontMetrics = g.getFontMetrics();
-        String text = entry.cleanChaosValue() + "c";
+    private void drawText(Graphics g, NinjaGridSection section, int x, int y, String text) {
+        int cellSize = section.cellSize;
         int cellX = section.x + (x * cellSize + x * section.spacingX);
         int cellY = section.y + (y * cellSize + y * section.spacingY);
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, 12));
+        FontMetrics fontMetrics = g.getFontMetrics();
         Rectangle2D textBounds = fontMetrics.getStringBounds(text, g);
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(cellX, cellY + cellSize - fontMetrics.getAscent(), (int) textBounds.getWidth(), (int) textBounds.getHeight());
