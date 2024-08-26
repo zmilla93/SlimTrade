@@ -103,6 +103,8 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public HotkeyData previousMessageTabHotkey;
     public HotkeyData nextMessageTabHotkey;
     public HotkeyData kalguurWindowHotkey;
+    public HotkeyData ninjaWindowHotkey;
+    public HotkeyData designerWindowHotkey;
 
     // POE Hotkeys
     public HotkeyData delveHotkey;

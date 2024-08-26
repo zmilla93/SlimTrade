@@ -23,7 +23,7 @@ public class BasicDialog extends VisibilityDialog {
         ThemeManager.addFrame(this);
     }
 
-    protected void updateBounds() {
+    protected void updateBufferedBounds() {
         bufferedBounds = TradeUtil.getBufferedBounds(getBounds());
     }
 
@@ -34,55 +34,55 @@ public class BasicDialog extends VisibilityDialog {
     @Override
     public void pack() {
         super.pack();
-        updateBounds();
+        updateBufferedBounds();
     }
 
     @Override
     public void setLocation(int x, int y) {
         super.setLocation(x, y);
-        updateBounds();
+        updateBufferedBounds();
     }
 
     @Override
     public void setLocation(@NotNull Point p) {
         super.setLocation(p);
-        updateBounds();
+        updateBufferedBounds();
     }
 
     @Override
     public void setLocationRelativeTo(Component c) {
         super.setLocationRelativeTo(c);
-        updateBounds();
+        updateBufferedBounds();
     }
 
     @Override
     public void setMinimumSize(Dimension minimumSize) {
         super.setMinimumSize(minimumSize);
-        updateBounds();
+        updateBufferedBounds();
     }
 
     @Override
     public void setSize(Dimension d) {
         super.setSize(d);
-        updateBounds();
+        updateBufferedBounds();
     }
 
     @Override
     public void setSize(int width, int height) {
         super.setSize(width, height);
-        updateBounds();
+        updateBufferedBounds();
     }
 
     @Override
     public void setBounds(int x, int y, int width, int height) {
         super.setBounds(x, y, width, height);
-        updateBounds();
+        updateBufferedBounds();
     }
 
     @Override
     public void setBounds(Rectangle r) {
         super.setBounds(r);
-        updateBounds();
+        updateBufferedBounds();
     }
 
 }

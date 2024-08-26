@@ -1,6 +1,6 @@
 package com.slimtrade.core.hotkeys;
 
-import com.slimtrade.gui.windows.CustomDialog;
+import com.slimtrade.gui.windows.VisibilityDialog;
 
 import javax.swing.*;
 
@@ -9,9 +9,9 @@ import javax.swing.*;
  */
 public class WindowHotkey implements IHotkeyAction {
 
-    private final CustomDialog window;
+    private final VisibilityDialog window;
 
-    public WindowHotkey(CustomDialog window) {
+    public WindowHotkey(VisibilityDialog window) {
         this.window = window;
     }
 

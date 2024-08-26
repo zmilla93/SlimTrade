@@ -1,0 +1,29 @@
+tab: General
+cellSize: 50
+
+# 99, 64
+offset: 12
+Sacrifice at Dusk, Sacrifice at Midnight
+Sacrifice at Noon, Sacrifice at Dawn
+
+tab: Scarabs
+cellSize: 34
+
+# 121, 53
+offsetX: 5
+offsetY: 6
+Titanic Scarab, Titanic Scarab of Treasures, Titanic Scarab of Legend
+Anarchy Scarab, Anarchy Scarab of Gigantification, Anarchy Scarab of Partnership
+
+# 260, 53
+Sulphite Scarab, Sulphite Scarab of Fumes
+Ritual Scarab of Selectiveness, Ritual Scarab of Wisps, Ritual Scarab of Abundance
+
+# 104, 269
+offsetX: 6
+offsetY: 10
+Cartography Scarab of Escalation, Cartography Scarab of Risk, Cartography Scarab of Corruption, Cartography Scarab of the Multitude
+Ambush Scarab, Ambush Scarab of Hidden Compartments, Ambush Scarab of Potency, Ambush Scarab of Containment, Ambush Scarab of Discernment
+Expedition Scarab, Expedition Scarab of Runefinding, Expedition Scarab of Verisium Powder, Expedition Scarab of Archaeology
+Legion Scarab, Legion Scarab of Officers, Legion Scarab of Command, Legion Scarab of Eternal Conflict
+Abyss Scarab, Abyss Scarab of Multitudes, Abyss Scarab of Edifice, Abyss Scarab of Profound Depth

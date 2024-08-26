@@ -6,9 +6,12 @@ import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.enums.MenubarStyle;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.chatscanner.ChatScannerWindow;
+import com.slimtrade.gui.development.DesignerConfigWindow;
+import com.slimtrade.gui.development.StashAlignmentDesignerWindow;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.menubar.MenubarButtonDialog;
 import com.slimtrade.gui.menubar.MenubarDialog;
+import com.slimtrade.gui.ninja.NinjaWindow;
 import com.slimtrade.gui.options.ignore.ItemIgnoreWindow;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSearchWindow;
@@ -38,7 +41,10 @@ public class FrameManager {
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
     public static KalguurHelperWindow kalguurHelperWindow;
+    public static NinjaWindow ninjaWindow;
     public static TutorialWindow tutorialWindow;
+    public static StashAlignmentDesignerWindow stashAlignmentDesignerWindow;
+    public static DesignerConfigWindow designerConfigWindow;
     public static PatchNotesWindow patchNotesWindow;
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
     public static HashMap<String, StashSearchWindow> searchWindows = new HashMap<>();
@@ -79,8 +85,13 @@ public class FrameManager {
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
         kalguurHelperWindow = new KalguurHelperWindow();
+        ninjaWindow = new NinjaWindow();
         tutorialWindow = new TutorialWindow();
         patchNotesWindow = new PatchNotesWindow();
+        if (App.debug) {
+            stashAlignmentDesignerWindow = new StashAlignmentDesignerWindow();
+            designerConfigWindow = new DesignerConfigWindow();
+        }
 
         setupWindow = new SetupWindow();
 

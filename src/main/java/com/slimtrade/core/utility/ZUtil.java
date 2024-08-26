@@ -25,6 +25,7 @@ import java.util.Objects;
 public class ZUtil {
 
     private static final NumberFormat NUMBER_FORMATTER = new DecimalFormat("##.##");
+    private static final NumberFormat NUMBER_FORMATTER_ONE_DECIMAL = new DecimalFormat("##.#");
 
     /**
      * Returns a printable version of an enum name.
@@ -99,6 +100,11 @@ public class ZUtil {
     public static String formatNumber(double d) {
         return NUMBER_FORMATTER.format(d);
     }
+
+    public static String formatNumberOneDecimal(double d) {
+        return NUMBER_FORMATTER_ONE_DECIMAL.format(d);
+    }
+
 
     /**
      * Returns a new GridBagConstraint with gridX and gridY initialized to 0.
@@ -281,6 +287,28 @@ public class ZUtil {
             return null;
         }
         return new BufferedReader(streamReader);
+    }
+
+    public static String getFileAsString(String path, boolean isPathRelative) {
+        StringBuilder builder = new StringBuilder();
+        BufferedReader reader = ZUtil.getBufferedReader(path, isPathRelative);
+        if (reader == null) return null;
+        try {
+            while (reader.ready()) {
+                builder.append(reader.readLine());
+            }
+            reader.close();
+            return builder.toString();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public static void clearTransparentComponent(Graphics g, Component component) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setComposite(AlphaComposite.Clear);
+        g2d.fillRect(0, 0, component.getWidth(), component.getHeight());
+        g2d.setComposite(AlphaComposite.SrcOver);
     }
 
 }
