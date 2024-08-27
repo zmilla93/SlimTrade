@@ -17,7 +17,10 @@ public class NinjaScarabEntry {
     }
 
     public String cleanChaosValue() {
-        if (cleanChaosValue == null) cleanChaosValue = ZUtil.formatNumberOneDecimal(chaosValue);
+        if (cleanChaosValue == null) {
+            float value = chaosValue >= 100 ? Math.round(chaosValue) : chaosValue;
+            cleanChaosValue = ZUtil.formatNumberOneDecimal(value);
+        }
         return cleanChaosValue;
     }
 

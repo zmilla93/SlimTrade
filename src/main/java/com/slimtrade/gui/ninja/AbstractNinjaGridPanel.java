@@ -1,7 +1,5 @@
 package com.slimtrade.gui.ninja;
 
-import com.slimtrade.App;
-import com.slimtrade.core.jna.NativeMouseAdapter;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.NinjaGridSection;
 import com.slimtrade.core.utility.NinjaInterface;
@@ -9,7 +7,6 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ThemeLineBorder;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
-import org.jnativehook.mouse.NativeMouseEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +21,7 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
 
     private final ArrayList<NinjaGridSection> gridSections = new ArrayList<>();
     private final HashMap<String, ArrayList<NinjaGridSection>> tabSectionMap = new HashMap<>();
-    private final boolean drawCellBorders = true;
+    private final boolean drawCellBorders = false;
 
     public static final Color TEXT_COLOR = new Color(255, 182, 81);
     public static final Color BACKGROUND_COLOR = new Color(0, 0, 0, 150);
@@ -114,8 +111,8 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
     }
 
     private void drawCell(Graphics g, NinjaGridSection section, int x, int y, String value) {
+        if (value.equals("NULL")) return;
         if (selectedTab.equals("General")) {
-            // TODO
             drawText(g, section, x, y, NinjaInterface.getFragment(value).toString());
         } else if (selectedTab.equals("Scarabs")) {
             drawText(g, section, x, y, NinjaInterface.getScarab(value).toString());

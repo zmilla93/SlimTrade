@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 public class DesignerCopyMonitor implements Runnable {
 
-    private static boolean running = true;
+    private static boolean running = false;
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
     private static final int delayMs = 100;
     private static String previousString = "";
@@ -28,6 +28,8 @@ public class DesignerCopyMonitor implements Runnable {
     }
 
     public static void start(JTextArea textArea) {
+        running = true;
+        newLine = true;
         currentMonitor = new DesignerCopyMonitor(textArea);
         executor.submit(currentMonitor);
     }

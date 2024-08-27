@@ -12,6 +12,7 @@ import org.jnativehook.mouse.NativeMouseEvent;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -22,6 +23,7 @@ import java.awt.event.KeyEvent;
  */
 public class DesignerConfigWindow extends CustomDialog {
 
+    private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static final String START_MONITOR_TEXT = "Start Copy Monitor";
     private static final String STOP_MONITOR_TEXT = "Stop Copy Monitor";
 
@@ -40,6 +42,7 @@ public class DesignerConfigWindow extends CustomDialog {
     private final JButton copyMonitorButton = new JButton(START_MONITOR_TEXT);
     private final JButton copyTextButton = new JButton("Copy Text");
     private final JTextArea copyTextArea = new JTextArea(8, 20);
+    private final JButton copyPositionAndOffsetButton = new JButton("Copy Position & Offset");
 
     private boolean moveCellOnNextClick = false;
     private boolean runCopyMonitor = false;
@@ -71,6 +74,7 @@ public class DesignerConfigWindow extends CustomDialog {
         panel.add(sizePanel);
         panel.add(countPanel);
         panel.add(offsetPanel);
+        panel.add(copyPositionAndOffsetButton);
         panel.add(moveCellOnNextClickButton);
         panel.add(copyMonitorButton);
         panel.add(copyTextButton);
@@ -84,7 +88,11 @@ public class DesignerConfigWindow extends CustomDialog {
     }
 
     private void addListeners() {
-        copyTextButton.addActionListener(e -> Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(copyTextArea.getText()), null));
+        copyPositionAndOffsetButton.addActionListener(e -> {
+            String value = "# " + inputX.getText() + ", " + inputY.getText() + "\n" + "offsets: " + inputOffsetX.getText() + ", " + inputOffsetY.getText();
+            clipboard.setContents(new StringSelection(value), null);
+        });
+        copyTextButton.addActionListener(e -> clipboard.setContents(new StringSelection(copyTextArea.getText()), null));
         copyMonitorButton.addActionListener(e -> {
             runCopyMonitor = !runCopyMonitor;
             if (runCopyMonitor) {

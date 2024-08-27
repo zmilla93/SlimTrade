@@ -47,6 +47,13 @@ public class ZUtil {
         return builder.toString();
     }
 
+    public static String[] trimArray(String[] array) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = array[i].trim();
+        }
+        return array;
+    }
+
     public static ArrayList<String> getCommandList(String input, PasteReplacement pasteReplacement) {
         ArrayList<String> commands = new ArrayList<>();
         StringBuilder builder = new StringBuilder();

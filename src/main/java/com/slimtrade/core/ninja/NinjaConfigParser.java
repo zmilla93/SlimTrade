@@ -1,5 +1,7 @@
 package com.slimtrade.core.ninja;
 
+import com.slimtrade.core.utility.ZUtil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,9 +58,14 @@ public class NinjaConfigParser {
         String value = values[1];
         if (key.equals("tab")) startNewTab(value);
         else if (key.equals("cellSize")) cellSize = parseInt(value);
-        else if (key.equals("offsetX")) cellSpacingX = parseInt(value);
-        else if (key.equals("offsetY")) cellSpacingY = parseInt(value);
-        else if (key.equals("offset")) {
+        else if (key.equals("spacingX")) cellSpacingX = parseInt(value);
+        else if (key.equals("spacingY")) cellSpacingY = parseInt(value);
+        else if (key.equals("spacing")){
+            String[] offsets = value.split(",");
+            cellSpacingX = parseInt(offsets[0]);
+            cellSpacingY =  parseInt(offsets[1]);
+        }
+        else if (key.equals("spacingXY")) {
             int offset = parseInt(value);
             cellSpacingX = offset;
             cellSpacingY = offset;

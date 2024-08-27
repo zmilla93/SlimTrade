@@ -2,8 +2,7 @@ tab: General
 cellSize: 50
 
 # 99, 64
-offsetX: 12
-offsetY: 9
+spacing: 12, 9
 Sacrifice at Dusk, Sacrifice at Midnight
 Sacrifice at Noon, Sacrifice at Dawn
 
@@ -11,8 +10,7 @@ tab: Scarabs
 cellSize: 34
 
 # 121, 53
-offsetX: 5
-offsetY: 6
+spacing: 5, 6
 Titanic Scarab, Titanic Scarab of Treasures, Titanic Scarab of Legend
 Anarchy Scarab, Anarchy Scarab of Gigantification, Anarchy Scarab of Partnership
 
@@ -20,11 +18,51 @@ Anarchy Scarab, Anarchy Scarab of Gigantification, Anarchy Scarab of Partnership
 Sulphite Scarab, Sulphite Scarab of Fumes
 Ritual Scarab of Selectiveness, Ritual Scarab of Wisps, Ritual Scarab of Abundance
 
+# 396, 54
+spacing: 4, 8
+Divination Scarab of The Cloister, Divination Scarab of Plenty, Divination Scarab of Pilfering
+Harvest Scarab, Harvest Scarab of Doubling, Harvest Scarab of Cornucopia
+
+# 56, 162
+spacing: 4, 11
+Bestiary Scarab, Bestiary Scarab of the Herd, Bestiary Scarab of Duplicating
+Incursion Scarab, Incursion Scarab of Invasion, Incursion Scarab of Champions, Incursion Scarab of Timelines
+
+# 241, 139
+spacing: 4, 10
+Influencing Scarab of the Shaper, Influencing Scarab of the Elder, Influencing Scarab of Hordes, Influencing Scarab of Conversion
+Betrayal Scarab, Betrayal Scarab of Intelligence, Betrayal Scarab of Reinforcements
+Torment Scarab, Torment Scarab of Peculiarity, Torment Scarab of Possession
+
+# 425, 162
+Harbinger Scarab, Harbinger Scarab of Obelisks, Harbinger Scarab of Regency, Harbinger Scarab of Warhoards
+Domination Scarab, Domination Scarab of Apparitions, Domination Scarab of Evolution, Domination Scarab of Terrors
+
 # 104, 269
-offsetX: 6
-offsetY: 10
+spacing: 5, 10
 Cartography Scarab of Escalation, Cartography Scarab of Risk, Cartography Scarab of Corruption, Cartography Scarab of the Multitude
 Ambush Scarab, Ambush Scarab of Hidden Compartments, Ambush Scarab of Potency, Ambush Scarab of Containment, Ambush Scarab of Discernment
 Expedition Scarab, Expedition Scarab of Runefinding, Expedition Scarab of Verisium Powder, Expedition Scarab of Archaeology
 Legion Scarab, Legion Scarab of Officers, Legion Scarab of Command, Legion Scarab of Eternal Conflict
 Abyss Scarab, Abyss Scarab of Multitudes, Abyss Scarab of Edifice, Abyss Scarab of Profound Depth
+
+# 337, 269
+Beyond Scarab, Beyond Scarab of Haemophilia, Beyond Scarab of Resurgence, Beyond Scarab of the Invasion
+Ultimatum Scarab, Ultimatum Scarab of Bribing, Ultimatum Scarab of Dueling, Ultimatum Scarab of Catalysing, Ultimatum Scarab of Inscription
+Delirium Scarab, Delirium Scarab of Mania, Delirium Scarab of Paranoia, Delirium Scarab of Neuroses, Delirium Scarab of Delusions
+Blight Scarab, Blight Scarab of the Blightheart, Blight Scarab of Blooming, Blight Scarab of Invigoration
+Essence Scarab, Essence Scarab of Ascent, Essence Scarab of Stability, Essence Scarab of Calcification, Essence Scarab of Adaptation
+
+# 199, 489
+spacingX: 6
+Breach Scarab, Breach Scarab of Lordship, Breach Scarab of Splintering, Breach Scarab of Snares, Breach Scarab of Resonant Cascade
+
+# 115, 533
+spacing: 8, 9
+Scarab of Monstrous Lineage, Scarab of Adversaries, Scarab of Divinity, Scarab of Hunted Traitors
+Scarab of Stability, Scarab of Wisps, Scarab of Radiant Storms, Scarab of Bisection
+
+# 336, 533
+Horned Scarab of Bloodlines, Horned Scarab of Nemeses, Horned Scarab of Preservation, Horned Scarab of Awakening, Horned Scarab of Tradition
+# 398, 576
+Horned Scarab of Glittering, Horned Scarab of Pandemonium
