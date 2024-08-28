@@ -1,8 +1,10 @@
-package com.slimtrade.gui.ninja;
+package com.slimtrade.gui.ninja.panels;
 
 import com.slimtrade.core.ninja.NinjaConfigParser;
 import com.slimtrade.core.ninja.NinjaGridSection;
+import com.slimtrade.core.ninja.NinjaTabType;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.ninja.AbstractNinjaGridPanel;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -19,7 +21,7 @@ public class NinjaFragmentsPanel extends AbstractNinjaGridPanel {
         addTab("General", new Rectangle(12, 10, 138, 33));
         addTab("Scarabs", new Rectangle(169, 10, 138, 33));
         addTab("Breach", new Rectangle(326, 10, 138, 33));
-        addTab("Eldrich", new Rectangle(483, 10, 138, 33));
+        addTab("Eldritch", new Rectangle(483, 10, 138, 33));
 
         BufferedReader reader = ZUtil.getBufferedReader("/ninja/fragments.txt", true);
         if (reader == null) return;
@@ -36,6 +38,11 @@ public class NinjaFragmentsPanel extends AbstractNinjaGridPanel {
                 addSection(entry.getKey(), section);
             }
         }
+    }
+
+    @Override
+    public NinjaTabType getTabType() {
+        return NinjaTabType.FRAGMENTS;
     }
 
 }

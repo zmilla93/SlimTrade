@@ -17,7 +17,7 @@ public class WindowHotkey implements IHotkeyAction {
 
     @Override
     public void execute() {
-        if(window == null) return;
+        if (window == null) return;
         SwingUtilities.invokeLater(() -> window.setVisible(!window.isVisible()));
     }
 

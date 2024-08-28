@@ -20,7 +20,6 @@ public class StashAlignmentDesignerWindow extends BasicDialog implements ISaveLi
         pack();
         updateBounds();
         setBackground(ThemeManager.TRANSPARENT);
-        setVisible(true);
         SaveManager.stashSaveFile.addListener(this);
     }
 

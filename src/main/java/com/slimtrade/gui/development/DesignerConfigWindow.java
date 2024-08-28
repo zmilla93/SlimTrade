@@ -82,7 +82,6 @@ public class DesignerConfigWindow extends CustomDialog {
         contentPanel.add(panel);
         setMinimumSize(null);
         pack();
-        setVisible(true);
         applyProperties();
         addListeners();
     }

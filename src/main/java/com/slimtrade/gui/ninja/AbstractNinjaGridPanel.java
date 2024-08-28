@@ -2,6 +2,7 @@ package com.slimtrade.gui.ninja;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.NinjaGridSection;
+import com.slimtrade.core.ninja.NinjaTabType;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ThemeLineBorder;
@@ -61,6 +62,8 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
             }
         });
     }
+
+    public abstract NinjaTabType getTabType();
 
     private String getTabNameAtPoint(Point point) {
         for (Rectangle rect : buttonRects) {
