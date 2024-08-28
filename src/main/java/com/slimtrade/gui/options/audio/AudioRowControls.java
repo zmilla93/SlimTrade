@@ -2,16 +2,17 @@ package com.slimtrade.gui.options.audio;
 
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.audio.SoundComponent;
+import com.slimtrade.gui.components.AudioComboBox;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
 public class AudioRowControls {
 
-    public final JComboBox<Sound> comboBox;
+    public final AudioComboBox comboBox;
     public final JSlider slider;
 
-    public AudioRowControls(JComboBox<Sound> comboBox, JSlider slider) {
+    public AudioRowControls(AudioComboBox comboBox, JSlider slider) {
         this.comboBox = comboBox;
         this.slider = slider;
     }

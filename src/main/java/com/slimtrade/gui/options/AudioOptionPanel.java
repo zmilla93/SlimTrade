@@ -90,11 +90,9 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private AudioRowControls addRow(String title) {
         JButton previewButton = new IconButton(DefaultIcon.PLAY);
-        JComboBox<Sound> soundCombo = new AudioComboBox();
+        AudioComboBox soundCombo = new AudioComboBox();
         JSlider volumeSlider = new JSlider();
         JLabel volumeLabel = new JLabel();
-        for (Sound sound : AudioManager.getSoundFiles())
-            soundCombo.addItem(sound);
         innerPanel.add(new JLabel(title), gc);
         gc.gridx++;
         innerPanel.add(Box.createHorizontalStrut(GUIReferences.SMALL_INSET), gc);
@@ -123,13 +121,8 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     private void refreshCombos() {
-        for (AudioRowControls control : controlList) {
-            JComboBox<Sound> combo = control.comboBox;
-            combo.removeAllItems();
-            for (Sound sound : AudioManager.getSoundFiles()) {
-                combo.addItem(sound);
-            }
-        }
+        for (AudioRowControls control : controlList)
+            control.comboBox.refresh();
         audioThresholdPanel.refreshCombos();
     }
 

@@ -19,13 +19,15 @@ import java.util.Objects;
 public class AudioManager {
 
     // TODO : Should make clips cacheable, but current implementation leads to buggy playback under certain conditions
-    private static final ArrayList<Sound> soundFiles = new ArrayList<>();
+    public static final ArrayList<Sound> soundFiles = new ArrayList<>();
+    public static final ArrayList<Sound> pingSoundFiles = new ArrayList<>();
+    public static final ArrayList<Sound> lootSoundFiles = new ArrayList<>();
+    public static final ArrayList<Sound> customSoundFiles = new ArrayList<>();
+
+
     public static final int MIN_VOLUME = -30;
     public static final int MAX_VOLUME = 6;
     public static final int RANGE = Math.abs(MIN_VOLUME) + MAX_VOLUME;
-    private static int pingCount;
-    private static int lootCount;
-    private static int inbuiltCount;
 
     private static final HashMap<Sound, Clip> clipCache = new HashMap<>();
     private static final HashMap<Clip, AudioInputStream> streamCache = new HashMap<>();
@@ -36,10 +38,6 @@ public class AudioManager {
         rebuildSoundList();
     }
 
-    public static ArrayList<Sound> getSoundFiles() {
-        return soundFiles;
-    }
-
     public static void rebuildSoundList() {
         clearCache();
         soundFiles.clear();
@@ -48,34 +46,38 @@ public class AudioManager {
     }
 
     private static void addDefaultSoundFiles() {
-        soundFiles.add(new Sound("Ping 1", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Ping 2", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Ping 3", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Blip 1", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Blip 2", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Blip 3", Sound.SoundType.INBUILT));
-        pingCount = 6;
+        addPingSound("Ping 1");
+        addPingSound("Ping 2");
+        addPingSound("Ping 3");
+        addPingSound("Blip 1");
+        addPingSound("Blip 2");
+        addPingSound("Blip 3");
 
-        soundFiles.add(new Sound("Loot 1", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Loot 2", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Loot 3", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Loot 4", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Loot 5", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Loot 6", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Loot 7", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Loot 8", Sound.SoundType.INBUILT));
-        soundFiles.add(new Sound("Loot 9", Sound.SoundType.INBUILT));
-        lootCount = 9;
-
-        inbuiltCount = pingCount + lootCount;
+        addLootSound("Loot 1");
+        addLootSound("Loot 2");
+        addLootSound("Loot 3");
+        addLootSound("Loot 4");
+        addLootSound("Loot 5");
+        addLootSound("Loot 6");
+        addLootSound("Loot 7");
+        addLootSound("Loot 8");
+        addLootSound("Loot 9");
     }
 
-    public static int getPingCount() {
-        return pingCount;
+    private static void addPingSound(String name) {
+        Sound sound = new Sound(name, Sound.SoundType.INBUILT);
+        pingSoundFiles.add(sound);
+        addSoundMutual(sound);
     }
 
-    public static int getInbuiltCount() {
-        return inbuiltCount;
+    private static void addLootSound(String name) {
+        Sound sound = new Sound(name, Sound.SoundType.INBUILT);
+        lootSoundFiles.add(sound);
+        addSoundMutual(sound);
+    }
+
+    private static void addSoundMutual(Sound sound) {
+        soundFiles.add(sound);
     }
 
     public static int indexOfSound(Sound sound) {
@@ -92,7 +94,9 @@ public class AudioManager {
         if (audioDir.exists()) {
             for (File file : Objects.requireNonNull(audioDir.listFiles())) {
                 if (file.getName().endsWith(".wav")) {
-                    soundFiles.add(new Sound(file.getName(), Sound.SoundType.CUSTOM));
+                    Sound sound = new Sound(file.getName(), Sound.SoundType.CUSTOM);
+                    soundFiles.add(sound);
+                    customSoundFiles.add(sound);
                     customCount++;
                 }
             }
