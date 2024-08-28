@@ -1,40 +1,31 @@
 package com.slimtrade.gui.components;
 
 import com.slimtrade.core.audio.Sound;
-import com.slimtrade.core.managers.AudioManager;
-import com.slimtrade.core.utility.ZUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class AudioListCellRenderer extends JPanel implements ListCellRenderer<Sound> {
+public class AudioListCellRenderer implements ListCellRenderer<Sound> {
 
+    private final JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
     private final JLabel label = new JLabel();
 
     public AudioListCellRenderer() {
-        setLayout(new GridBagLayout());
+        label.setOpaque(true);
     }
 
     @Override
     public Component getListCellRendererComponent(JList<? extends Sound> list, Sound value, int index, boolean isSelected, boolean cellHasFocus) {
-        removeAll();
-        if (isSelected) {
-            setBackground(list.getSelectionBackground());
-            setForeground(list.getSelectionForeground());
-        } else {
-            setBackground(list.getBackground());
-            setForeground(list.getForeground());
-        }
+        if (value == null) return separator;
         label.setText(value.name);
-        GridBagConstraints gc = ZUtil.getGC();
-        gc.fill = GridBagConstraints.HORIZONTAL;
-        gc.weightx = 1;
-        if (index == AudioManager.getPingCount() || index == AudioManager.getInbuiltCount()) {
-            add(new JSeparator(), gc);
+        if (isSelected) {
+            label.setBackground(list.getSelectionBackground());
+            label.setForeground(list.getSelectionForeground());
+        } else {
+            label.setBackground(list.getBackground());
+            label.setForeground(list.getForeground());
         }
-        gc.gridy++;
-        add(label, gc);
-        return this;
+        return label;
     }
 
 }

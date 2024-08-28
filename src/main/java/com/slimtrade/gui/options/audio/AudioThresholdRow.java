@@ -22,13 +22,12 @@ public class AudioThresholdRow extends AddRemovePanel {
 
     private final JSpinner quantitySpinner = new RangeSpinner(SpinnerRange.PRICE_THRESHOLD);
     private final JComboBox<CurrencyType> currencyTypeCombo = new LimitCombo<>();
-    private final JComboBox<Sound> soundCombo = new AudioComboBox();
+    private final AudioComboBox soundCombo = new AudioComboBox();
     private final JSlider volumeSlider = new RangeSlider(SliderRange.AUDIO_VOLUME);
     private final JLabel volumeLabel = new JLabel();
 
     public AudioThresholdRow(AddRemoveContainer<?> parent) {
         super(parent);
-        refreshCombo();
         for (CurrencyType currency : CurrencyType.getCommonCurrencyTypes()) currencyTypeCombo.addItem(currency);
         currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyType("Chaos Orb"));
 
@@ -64,10 +63,7 @@ public class AudioThresholdRow extends AddRemovePanel {
     }
 
     public void refreshCombo() {
-        soundCombo.removeAllItems();
-        for (Sound sound : AudioManager.getSoundFiles()) {
-            soundCombo.addItem(sound);
-        }
+        soundCombo.refresh();
     }
 
     public void setData(PriceThresholdData data) {
