@@ -164,11 +164,21 @@ public class ThemeManager {
             if (resourceFolder) img = ImageIO.read(Objects.requireNonNull(ThemeManager.class.getResource(path)));
             else img = ImageIO.read(new File(path));
             if (img == null) return null; // This will only trigger with user submitted images
+            int width = size;
+            int height = size;
+            // Scale non square images
+            if (img.getWidth() > img.getHeight()) {
+                float mult = (float) size / img.getHeight();
+                width = Math.round(img.getWidth() * mult);
+            } else {
+                float mult = (float) size / img.getWidth();
+                height = Math.round(img.getHeight() * mult);
+            }
             ImageIcon icon;
             if (size == -1) {
                 icon = new ImageIcon(img);
             } else {
-                icon = new ImageIcon(img.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+                icon = new ImageIcon(img.getScaledInstance(width, height, Image.SCALE_SMOOTH));
             }
             if (size == cachedIconSize) iconMap.put(path, icon);
             return icon;
@@ -410,6 +420,7 @@ public class ThemeManager {
         themeListeners.remove(listener);
     }
 
+    // FIXME : Font listener should be moved to FontManager
     public static void addFontListener(IFontChangeListener listener) {
         fontChangeListeners.add(listener);
     }
