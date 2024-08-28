@@ -25,7 +25,7 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
     private final JButton discordButton = new JButton("Discord");
     private final JButton donateButton = new JButton("Donate");
 
-    private static final String PREFIX = "**Enjoying the app? [Consider supporting on Patreon!](" + References.PATREON_URL + ")**";
+    private static final String PREFIX = "**Enjoying the app? Consider supporting on [Patreon](" + References.PATREON_URL + ") or [PayPal](" + References.PAYPAL_URL + ")!**<br>";
     private static final String POSTFIX = "*Want to report a bug or give feedback? Post on [GitHub](" + References.GITHUB_ISSUES_URL + ") or join the [Discord](" + References.DISCORD_INVITE + ")!*";
 
     public PatchNotesWindow() {
