@@ -1,7 +1,9 @@
 package com.slimtrade.gui.ninja;
 
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.ninja.NinjaConfigParser;
 import com.slimtrade.core.ninja.NinjaGridSection;
+import com.slimtrade.core.ninja.NinjaTab;
 import com.slimtrade.core.ninja.NinjaTabType;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.core.utility.ZUtil;
@@ -14,9 +16,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * Renders an overlay on the stash that displays prices from poe.ninja.
@@ -26,7 +31,7 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
 
     private final ArrayList<NinjaGridSection> gridSections = new ArrayList<>();
     private final HashMap<String, ArrayList<NinjaGridSection>> tabSectionMap = new HashMap<>();
-    private final boolean drawCellBorders = false;
+    private static final boolean DRAW_CELL_BORDERS = false;
 
     public static final Color TEXT_COLOR = new Color(255, 182, 81);
     public static final Color BACKGROUND_COLOR = new Color(0, 0, 0, 150);
@@ -37,11 +42,35 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
     private String pressedTab;
     private String selectedTab = "Scarabs";
 
-    public AbstractNinjaGridPanel() {
+    public AbstractNinjaGridPanel(String layoutFileName) {
         setBackground(ThemeManager.TRANSPARENT);
         setBorder(new ThemeLineBorder());
         updateSize();
+        if (layoutFileName != null) {
+            buildLayoutFromFile(layoutFileName);
+            addListeners();
+        }
+    }
 
+    private void buildLayoutFromFile(String fileName) {
+        BufferedReader reader = ZUtil.getBufferedReader("/ninja/" + fileName + ".txt", true);
+        ArrayList<String> lines = new ArrayList<>();
+        try {
+            while (reader.ready())
+                lines.add(reader.readLine());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        HashMap<String, NinjaTab> map = NinjaConfigParser.parse(lines.toArray(new String[0]));
+        for (Map.Entry<String, NinjaTab> entry : map.entrySet()) {
+            NinjaTab tab = entry.getValue();
+            if (tab.button != null) addTabButton(tab.button);
+            for (NinjaGridSection section : entry.getValue().sections)
+                addSection(entry.getKey(), section);
+        }
+    }
+
+    private void addListeners() {
         // FIXME: Switching to a global mouse listener avoids having to draw buttons,
         //        which currently causes the mouse cursor to change on button hover.
         addMouseListener(new MouseAdapter() {
@@ -74,11 +103,11 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
         return null;
     }
 
-    protected void addTab(String tabName, Rectangle buttonBounds) {
-        tabSectionMap.put(tabName, new ArrayList<>());
-        tabNames.add(tabName);
-        buttonRects.add(buttonBounds);
-        buttonMap.put(buttonBounds, tabName);
+    protected void addTabButton(NinjaVirtualTabButton button) {
+        tabSectionMap.put(button.name, new ArrayList<>());
+        tabNames.add(button.name);
+        buttonRects.add(button.rect);
+        buttonMap.put(button.rect, button.name);
     }
 
     protected void addSection(String tab, NinjaGridSection section) {
@@ -137,7 +166,7 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
         g.fillRect(cellX, cellY + cellSize - fontMetrics.getAscent(), (int) textBounds.getWidth(), (int) textBounds.getHeight());
         g.setColor(TEXT_COLOR);
         g.drawString(text, cellX, cellY + cellSize);
-        if (drawCellBorders) {
+        if (DRAW_CELL_BORDERS) {
             g.setColor(TEXT_COLOR);
             g.drawRect(cellX, cellY, cellSize, cellSize);
         }

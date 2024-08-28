@@ -1,11 +1,16 @@
 package com.slimtrade.core.ninja;
 
+import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.ninja.NinjaVirtualTabButton;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NinjaConfigParser {
 
     private static String currentTab;
+    private static NinjaVirtualTabButton currentTabButton;
     private static int cellSize;
     private static int cellSpacingX;
     private static int cellSpacingY;
@@ -14,9 +19,10 @@ public class NinjaConfigParser {
 
     private static ArrayList<String[]> sectionRows = new ArrayList<>();
     private static ArrayList<NinjaGridSection> sections = new ArrayList<>();
-    private static HashMap<String, ArrayList<NinjaGridSection>> tabMap = new HashMap<>();
+    private static ArrayList<NinjaVirtualTabButton> buttons = new ArrayList<>();
+    private static HashMap<String, NinjaTab> tabMap = new HashMap<>();
 
-    public static HashMap<String, ArrayList<NinjaGridSection>> parse(String[] lines) {
+    public static HashMap<String, NinjaTab> parse(String[] lines) {
         tabMap.clear();
         for (String line : lines) {
             line = line.trim();
@@ -65,6 +71,10 @@ public class NinjaConfigParser {
             int offset = parseInt(value);
             cellSpacingX = offset;
             cellSpacingY = offset;
+        } else if (key.equals("button")) {
+            int[] bounds = ZUtil.csvToIntArray(value);
+            Rectangle rect = new Rectangle(bounds[0], bounds[1], bounds[2], bounds[3]);
+            currentTabButton = new NinjaVirtualTabButton(currentTab, rect);
         }
     }
 
@@ -81,11 +91,13 @@ public class NinjaConfigParser {
 
     private static void finishTab() {
         appendCurrentSection();
-        if (sections.isEmpty()) return;
-        if (currentTab == null) return;
-        tabMap.put(currentTab, sections);
+//        if (sections.isEmpty()) return;
+//        if (currentTab == null) return;
+        NinjaTab tab = new NinjaTab(currentTab, sections, currentTabButton);
+        tabMap.put(currentTab, tab);
         sections = new ArrayList<>();
         currentTab = null;
+        currentTabButton = null;
     }
 
     // Try to parse the line as a CSV

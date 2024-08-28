@@ -1,4 +1,7 @@
+buttonBufferX: 10
+
 tab: General
+button: 12, 10, 138, 33
 cellSize: 44
 
 # 100, 65
@@ -36,6 +39,7 @@ Unrelenting Timeless Eternal Emblem, Unrelenting Timeless Karui Emblem, Unrelent
 =================================================
 
 tab: Scarabs
+button: 169, 10, 138, 33
 cellSize: 34
 
 # 121, 53
@@ -95,3 +99,9 @@ Scarab of Stability, Scarab of Wisps, Scarab of Radiant Storms, Scarab of Bisect
 Horned Scarab of Bloodlines, Horned Scarab of Nemeses, Horned Scarab of Preservation, Horned Scarab of Awakening, Horned Scarab of Tradition
 # 398, 576
 Horned Scarab of Glittering, Horned Scarab of Pandemonium
+
+tab: Breach
+button: 326, 10, 138, 33
+
+tab: Eldritch
+button: 483, 10, 138, 33

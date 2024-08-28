@@ -12,6 +12,7 @@ public class OptionListPanelCellRenderer implements ListCellRenderer<OptionListP
     private static final int INSET_VERTICAL = 1;
     private static final int SEPARATOR_INSET_HORIZONTAL = 4;
     private static final int SEPARATOR_INSET_VERTICAL = 2;
+    private static final int LARGE_VERTICAL_INSET = 8;
 
     private final Color background;
     private final Color backgroundSelected;
@@ -43,7 +44,7 @@ public class OptionListPanelCellRenderer implements ListCellRenderer<OptionListP
 
     private JPanel createSeparatorTitlePanel() {
         JPanel titlePanel = new JPanel(new BorderLayout());
-        ZUtil.addStrutsToBorderPanel(titlePanel, new Insets(8, TEXT_INSET_HORIZONTAL, 0, TEXT_INSET_HORIZONTAL));
+        ZUtil.addStrutsToBorderPanel(titlePanel, new Insets(LARGE_VERTICAL_INSET, TEXT_INSET_HORIZONTAL, 0, TEXT_INSET_HORIZONTAL));
         titlePanel.add(separatorLabel, BorderLayout.CENTER);
 
         JPanel separatorPanel = new JPanel(new BorderLayout());
@@ -59,7 +60,7 @@ public class OptionListPanelCellRenderer implements ListCellRenderer<OptionListP
 
     private JPanel createSeparatorPanel() {
         JPanel separatorPanel = new JPanel(new BorderLayout());
-        ZUtil.addStrutsToBorderPanel(separatorPanel, new Insets(SEPARATOR_INSET_VERTICAL, SEPARATOR_INSET_HORIZONTAL, SEPARATOR_INSET_VERTICAL, SEPARATOR_INSET_HORIZONTAL));
+        ZUtil.addStrutsToBorderPanel(separatorPanel, new Insets(LARGE_VERTICAL_INSET, SEPARATOR_INSET_HORIZONTAL, SEPARATOR_INSET_VERTICAL, SEPARATOR_INSET_HORIZONTAL));
         separatorPanel.add(new JSeparator(JSeparator.HORIZONTAL), BorderLayout.CENTER);
         return separatorPanel;
     }

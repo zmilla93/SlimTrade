@@ -286,12 +286,11 @@ public class ZUtil {
                     streamReader = new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8);
                 } catch (IOException e) {
                     ZLogger.err("File not found: " + path);
-                    return null;
+                    throw new RuntimeException("File not found: " + path + " (relative: " + isPathRelative + ")");
                 }
             }
         } catch (NullPointerException e) {
-            ZLogger.log("File not found: " + path + " (relative: " + isPathRelative + ")");
-            return null;
+            throw new RuntimeException("File not found: " + path + " (relative: " + isPathRelative + ")");
         }
         return new BufferedReader(streamReader);
     }
@@ -299,7 +298,6 @@ public class ZUtil {
     public static String getFileAsString(String path, boolean isPathRelative) {
         StringBuilder builder = new StringBuilder();
         BufferedReader reader = ZUtil.getBufferedReader(path, isPathRelative);
-        if (reader == null) return null;
         try {
             while (reader.ready()) {
                 builder.append(reader.readLine());
@@ -309,6 +307,15 @@ public class ZUtil {
         } catch (IOException e) {
             return null;
         }
+    }
+
+    public static int[] csvToIntArray(String text) {
+        String[] stringValues = trimArray(text.split(","));
+        int[] intValues = new int[stringValues.length];
+        for (int i = 0; i < stringValues.length; i++) {
+            intValues[i] = Integer.parseInt(stringValues[i]);
+        }
+        return intValues;
     }
 
     public static void clearTransparentComponent(Graphics g, Component component) {
