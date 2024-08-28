@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * Renders an overlay on the stash that displays prices from poe.ninja.
+ * Handles a single tab (and any sub tabs, like with currency, fragments, etc.)
+ */
 public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveListener {
 
     private final ArrayList<NinjaGridSection> gridSections = new ArrayList<>();

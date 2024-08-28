@@ -23,7 +23,7 @@ public class NinjaConfigParser {
         tabMap.clear();
         for (String line : lines) {
             line = line.trim();
-            if (line.startsWith("//")) continue;
+            if (line.startsWith("//") || line.startsWith("=")) continue;
             if (line.startsWith("#")) startNewSection(line);
             else if (line.contains(":")) setKeyValue(line);
             else parseCSV(line);

@@ -89,7 +89,7 @@ public class DesignerConfigWindow extends CustomDialog {
 
     private void addListeners() {
         copyPositionAndOffsetButton.addActionListener(e -> {
-            String value = "# " + inputX.getText() + ", " + inputY.getText() + "\n" + "offsets: " + inputOffsetX.getText() + ", " + inputOffsetY.getText();
+            String value = "# " + inputX.getText() + ", " + inputY.getText() + "\n" + "spacing: " + inputOffsetX.getText() + ", " + inputOffsetY.getText();
             clipboard.setContents(new StringSelection(value), null);
         });
         copyTextButton.addActionListener(e -> clipboard.setContents(new StringSelection(copyTextArea.getText()), null));
