@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.slimtrade.core.ninja.NinjaResponse;
 import com.slimtrade.core.ninja.responses.NinjaFragmentEntry;
 import com.slimtrade.core.ninja.responses.NinjaScarabEntry;
+import com.slimtrade.core.ninja.responses.NinjaSimpleEntry;
 
 import java.util.HashMap;
 
@@ -12,35 +13,26 @@ import java.util.HashMap;
  */
 public class NinjaInterface {
 
-    private static final HashMap<String, NinjaScarabEntry> scarabData = new HashMap<>();
-    private static final HashMap<String, NinjaFragmentEntry> fragmentData = new HashMap<>();
+    private static final HashMap<String, Object> dataMap = new HashMap<>();
 
     public static void sync() {
         // TODO: Use actual poe.ninja api.
-        String json = ZUtil.getFileAsString("C:\\Docs\\ninja-scarabs.json", false);
-        String fragmentJson = ZUtil.getFileAsString("C:\\Docs\\ninja-fragments.json", false);
-        if (json == null) return;
         Gson gson = new Gson();
-        NinjaResponse.Scarab data = gson.fromJson(json, NinjaResponse.Scarab.class);
+        String scarabJson = ZUtil.getFileAsString("C:\\Docs\\ninja-scarabs.json", false);
+        String fragmentJson = ZUtil.getFileAsString("C:\\Docs\\ninja-fragments.json", false);
+        String essenceJson = ZUtil.getFileAsString("C:\\Docs\\ninja-essence.json", false);
+        NinjaResponse.Scarab data = gson.fromJson(scarabJson, NinjaResponse.Scarab.class);
         NinjaResponse.Fragment fragmentResponse = gson.fromJson(fragmentJson, NinjaResponse.Fragment.class);
-        for (NinjaScarabEntry entry : data.lines) {
-            scarabData.put(entry.name, entry);
-        }
-        for (NinjaFragmentEntry entry : fragmentResponse.lines) {
-            fragmentData.put(entry.currencyTypeName, entry);
-        }
+        NinjaResponse.Simple essenceResponse = gson.fromJson(essenceJson, NinjaResponse.Simple.class);
+        for (NinjaScarabEntry entry : data.lines) dataMap.put(entry.name, entry);
+        for (NinjaFragmentEntry entry : fragmentResponse.lines) dataMap.put(entry.currencyTypeName, entry);
+        for (NinjaSimpleEntry entry : essenceResponse.lines) dataMap.put(entry.name, entry);
     }
 
-    public static NinjaScarabEntry getScarab(String name) {
-        if (scarabData.containsKey(name)) return scarabData.get(name);
-        // FIXME : return null instead
-        throw new RuntimeException("Invalid Scarab: " + name);
-    }
-
-    public static NinjaFragmentEntry getFragment(String name) {
-        if (fragmentData.containsKey(name)) return fragmentData.get(name);
-        // FIXME : return null instead
-        throw new RuntimeException("Invalid Fragment: " + name);
+    public static String getText(String name) {
+        Object obj = dataMap.get(name);
+        if (obj == null) return null;
+        return obj.toString();
     }
 
 }

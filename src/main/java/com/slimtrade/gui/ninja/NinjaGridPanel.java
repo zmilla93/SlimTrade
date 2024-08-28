@@ -27,22 +27,26 @@ import java.util.Map;
  * Renders an overlay on the stash that displays prices from poe.ninja.
  * Handles a single tab (and any sub tabs, like with currency, fragments, etc.)
  */
-public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveListener {
+public class NinjaGridPanel extends JPanel implements ISaveListener {
 
-    private final ArrayList<NinjaGridSection> gridSections = new ArrayList<>();
+    // FIXME: Make this fully support panels with no tabs
+    private final ArrayList<NinjaGridSection> fullSectionList = new ArrayList<>();
     private final HashMap<String, ArrayList<NinjaGridSection>> tabSectionMap = new HashMap<>();
     private static final boolean DRAW_CELL_BORDERS = false;
 
     public static final Color TEXT_COLOR = new Color(255, 182, 81);
     public static final Color BACKGROUND_COLOR = new Color(0, 0, 0, 150);
 
+    private boolean hasTabs;
     private final ArrayList<Rectangle> buttonRects = new ArrayList<>();
     private final HashMap<Rectangle, String> buttonMap = new HashMap<>();
     private final HashSet<String> tabNames = new HashSet<>();
     private String pressedTab;
-    private String selectedTab = "Scarabs";
+    private String selectedTab = null;
+    public final NinjaTabType tabType;
 
-    public AbstractNinjaGridPanel(String layoutFileName) {
+    public NinjaGridPanel(String layoutFileName, NinjaTabType tabType) {
+        this.tabType = tabType;
         setBackground(ThemeManager.TRANSPARENT);
         setBorder(new ThemeLineBorder());
         updateSize();
@@ -62,12 +66,15 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
             throw new RuntimeException(e);
         }
         HashMap<String, NinjaTab> map = NinjaConfigParser.parse(lines.toArray(new String[0]));
+        boolean hasTabs = false;
         for (Map.Entry<String, NinjaTab> entry : map.entrySet()) {
             NinjaTab tab = entry.getValue();
-            if (tab.button != null) addTabButton(tab.button);
-            for (NinjaGridSection section : entry.getValue().sections)
+            addTab(tab);
+            if (tab.button != null) hasTabs = true;
+            for (NinjaGridSection section : tab.sections)
                 addSection(entry.getKey(), section);
         }
+        this.hasTabs = hasTabs;
     }
 
     private void addListeners() {
@@ -92,8 +99,6 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
         });
     }
 
-    public abstract NinjaTabType getTabType();
-
     private String getTabNameAtPoint(Point point) {
         for (Rectangle rect : buttonRects) {
             if (rect.contains(point) && buttonMap.containsKey(rect)) {
@@ -103,21 +108,25 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
         return null;
     }
 
-    protected void addTabButton(NinjaVirtualTabButton button) {
-        tabSectionMap.put(button.name, new ArrayList<>());
-        tabNames.add(button.name);
-        buttonRects.add(button.rect);
-        buttonMap.put(button.rect, button.name);
+    protected void addTab(NinjaTab tab) {
+        NinjaVirtualTabButton button = tab.button;
+        tabSectionMap.put(tab.name, new ArrayList<>());
+        tabNames.add(tab.name);
+        if (button != null) {
+            buttonRects.add(button.rect);
+            buttonMap.put(button.rect, tab.name);
+        }
     }
 
     protected void addSection(String tab, NinjaGridSection section) {
-        if (!tabNames.contains(tab)) {
-            System.err.println("Ninja grid panel attempted to add section to non existent tab: " + tab);
-            return;
-        }
-        ArrayList<NinjaGridSection> sectionList = tabSectionMap.get(tab);
-        gridSections.add(section);
-        sectionList.add(section);
+//        if (!tabNames.contains(tab)) {
+//            System.err.println("Ninja grid panel attempted to add section to non existent tab: " + tab);
+//            ZUtil.printStackTrace();
+//            return;
+//        }
+        ArrayList<NinjaGridSection> tabSectionList = tabSectionMap.get(tab);
+        if (tabSectionList != null) tabSectionList.add(section);
+        fullSectionList.add(section);
     }
 
     private void updateSize() {
@@ -140,22 +149,15 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
         for (int y = 0; y < section.data.length; y++) {
             for (int x = 0; x < section.data[y].length; x++) {
                 String value = section.data[y][x];
-                if (value == null) continue;
-                drawCell(g, section, x, y, value);
+                if (value == null || value.equals("NULL")) continue;
+                String text = NinjaInterface.getText(value);
+                if (text == null) continue;
+                drawCell(g, section, x, y, text);
             }
         }
     }
 
-    private void drawCell(Graphics g, NinjaGridSection section, int x, int y, String value) {
-        if (value.equals("NULL")) return;
-        if (selectedTab.equals("General")) {
-            drawText(g, section, x, y, NinjaInterface.getFragment(value).toString());
-        } else if (selectedTab.equals("Scarabs")) {
-            drawText(g, section, x, y, NinjaInterface.getScarab(value).toString());
-        }
-    }
-
-    private void drawText(Graphics g, NinjaGridSection section, int x, int y, String text) {
+    private void drawCell(Graphics g, NinjaGridSection section, int x, int y, String text) {
         int cellSize = section.cellSize;
         int cellX = section.x + (x * cellSize + x * section.spacingX);
         int cellY = section.y + (y * cellSize + y * section.spacingY);
@@ -177,8 +179,13 @@ public abstract class AbstractNinjaGridPanel extends JPanel implements ISaveList
         super.paintComponent(g);
         ZUtil.clearTransparentComponent(g, this);
         drawTabButtons(g);
-        if (selectedTab == null) return;
-        ArrayList<NinjaGridSection> sections = tabSectionMap.get(selectedTab);
+        ArrayList<NinjaGridSection> sections;
+        if (hasTabs) {
+            if (selectedTab == null) return;
+            sections = tabSectionMap.get(selectedTab);
+        } else {
+            sections = fullSectionList;
+        }
         if (sections == null) return;
         for (NinjaGridSection section : sections) {
             drawGridSection(g, section);

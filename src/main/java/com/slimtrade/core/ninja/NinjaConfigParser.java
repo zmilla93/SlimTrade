@@ -19,8 +19,7 @@ public class NinjaConfigParser {
 
     private static ArrayList<String[]> sectionRows = new ArrayList<>();
     private static ArrayList<NinjaGridSection> sections = new ArrayList<>();
-    private static ArrayList<NinjaVirtualTabButton> buttons = new ArrayList<>();
-    private static HashMap<String, NinjaTab> tabMap = new HashMap<>();
+    private static final HashMap<String, NinjaTab> tabMap = new HashMap<>();
 
     public static HashMap<String, NinjaTab> parse(String[] lines) {
         tabMap.clear();
@@ -91,8 +90,6 @@ public class NinjaConfigParser {
 
     private static void finishTab() {
         appendCurrentSection();
-//        if (sections.isEmpty()) return;
-//        if (currentTab == null) return;
         NinjaTab tab = new NinjaTab(currentTab, sections, currentTabButton);
         tabMap.put(currentTab, tab);
         sections = new ArrayList<>();

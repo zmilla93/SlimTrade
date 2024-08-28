@@ -2,7 +2,7 @@ package com.slimtrade.core.ninja.responses;
 
 import com.slimtrade.core.utility.ZUtil;
 
-public class NinjaScarabEntry implements INinjaEntry {
+public class NinjaSimpleEntry implements INinjaEntry {
 
     public final String name;
     public final float chaosValue;
@@ -10,12 +10,13 @@ public class NinjaScarabEntry implements INinjaEntry {
     private String chaosText;
     private String divineText;
 
-    public NinjaScarabEntry(String name, float chaosValue, float divineValue) {
+    public NinjaSimpleEntry(String name, float chaosValue, float divineValue) {
         this.name = name;
         this.chaosValue = chaosValue;
         this.divineValue = divineValue;
     }
 
+    @Override
     public String getChaosText() {
         if (chaosText == null) {
             // Remove numbers above a threshold to save screen space
@@ -26,6 +27,7 @@ public class NinjaScarabEntry implements INinjaEntry {
         return chaosText;
     }
 
+    @Override
     public String getDivineText() {
         if (divineText == null) {
             float value = divineValue >= 100 ? Math.round(divineValue) : divineValue;

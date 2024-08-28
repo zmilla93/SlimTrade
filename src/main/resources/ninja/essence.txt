@@ -1,0 +1,32 @@
+cellSize: 42
+
+# 31, 27
+spacing: 7, 7
+Deafening Essence of Greed, Shrieking Essence of Greed, Screaming Essence of Greed, Wailing Essence of Greed, Weeping Essence of Greed, Muttering Essence of Greed, Whispering Essence of Greed
+Deafening Essence of Contempt, Shrieking Essence of Contempt, Screaming Essence of Contempt, Wailing Essence of Contempt, Weeping Essence of Contempt, Muttering Essence of Contempt, Whispering Essence of Contempt
+Deafening Essence of Hatred, Shrieking Essence of Hatred, Screaming Essence of Hatred, Wailing Essence of Hatred, Weeping Essence of Hatred, Muttering Essence of Hatred, Whispering Essence of Hatred
+Deafening Essence of Woe, Shrieking Essence of Woe, Screaming Essence of Woe, Wailing Essence of Woe, Weeping Essence of Woe, Muttering Essence of Woe, Whispering Essence of Woe
+Deafening Essence of Fear, Shrieking Essence of Fear, Screaming Essence of Fear, Wailing Essence of Fear, Weeping Essence of Fear, Muttering Essence of Fear
+Deafening Essence of Anger, Shrieking Essence of Anger, Screaming Essence of Anger, Wailing Essence of Anger, Weeping Essence of Anger, Muttering Essence of Anger
+Deafening Essence of Torment, Shrieking Essence of Torment, Screaming Essence of Torment, Wailing Essence of Torment, Weeping Essence of Torment, Muttering Essence of Torment
+Deafening Essence of Sorrow, Shrieking Essence of Sorrow, Screaming Essence of Sorrow, Wailing Essence of Sorrow, Weeping Essence of Sorrow, Muttering Essence of Sorrow
+Deafening Essence of Rage, Shrieking Essence of Rage, Screaming Essence of Rage, Wailing Essence of Rage, Weeping Essence of Rage
+Deafening Essence of Suffering, Shrieking Essence of Suffering, Screaming Essence of Suffering, Wailing Essence of Suffering, Weeping Essence of Suffering
+Deafening Essence of Wrath, Shrieking Essence of Wrath, Screaming Essence of Wrath, Wailing Essence of Wrath, Weeping Essence of Wrath
+Deafening Essence of Doubt, Shrieking Essence of Doubt, Screaming Essence of Doubt, Wailing Essence of Doubt, Weeping Essence of Doubt
+
+# 415, 27
+spacing: 7, 7
+// Note: Nulls are required in this section for alignment
+Wailing Essence of Loathing, Screaming Essence of Loathing, Shrieking Essence of Loathing, Deafening Essence of Loathing
+Wailing Essence of Zeal, Screaming Essence of Zeal, Shrieking Essence of Zeal, Deafening Essence of Zeal
+Wailing Essence of Anguish, Screaming Essence of Anguish, Shrieking Essence of Anguish, Deafening Essence of Anguish
+Wailing Essence of Spite, Screaming Essence of Spite, Shrieking Essence of Spite, Deafening Essence of Spite
+NULL, Screaming Essence of Scorn, Shrieking Essence of Scorn, Deafening Essence of Scorn
+NULL, Screaming Essence of Envy, Shrieking Essence of Envy, Deafening Essence of Envy
+NULL, Screaming Essence of Misery, Shrieking Essence of Misery, Deafening Essence of Misery
+NULL, Screaming Essence of Dread, Shrieking Essence of Dread, Deafening Essence of Dread
+NULL, NULL, Remnant of Corruption, Essence of Insanity
+NULL, NULL, NULL, Essence of Horror
+NULL, NULL, NULL, Essence of Delirium
+NULL, NULL, NULL, Essence of Hysteria

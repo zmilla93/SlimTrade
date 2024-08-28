@@ -2,14 +2,12 @@ package com.slimtrade.gui.ninja;
 
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.ninja.NinjaTabType;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.gui.buttons.BasicIconButton;
 import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.StyledLabel;
-import com.slimtrade.gui.ninja.panels.NinjaCurrencyPanel;
-import com.slimtrade.gui.ninja.panels.NinjaDummyPanel;
-import com.slimtrade.gui.ninja.panels.NinjaFragmentsPanel;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.IFontChangeListener;
@@ -20,7 +18,7 @@ import java.awt.*;
 
 /**
  * Parent window for displaying poe.ninja prices above the stash.
- * Contains many {@link AbstractNinjaGridPanel} instances.
+ * Contains many {@link NinjaGridPanel} instances.
  */
 public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChangeListener {
 
@@ -41,9 +39,10 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     private final JPanel cardPanel = new JPanel(cardLayout);
 
     private final String NULL_PANEL_NAME = "NULL";
-    private final NinjaFragmentsPanel fragmentsPanel = new NinjaFragmentsPanel();
-    private final NinjaCurrencyPanel currencyPanel = new NinjaCurrencyPanel();
-    private final NinjaDummyPanel dummyPanel = new NinjaDummyPanel();
+    private final NinjaGridPanel fragmentsPanel = new NinjaGridPanel("fragments", NinjaTabType.FRAGMENTS);
+    private final NinjaGridPanel essencePanel = new NinjaGridPanel("essence", NinjaTabType.ESSENCE);
+    private final NinjaGridPanel currencyPanel = new NinjaGridPanel(null, NinjaTabType.CURRENCY);
+    private final NinjaGridPanel dummyPanel = new NinjaGridPanel(null, null);
 
     public NinjaWindow() {
         // FIXME: Temp sync
@@ -76,6 +75,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         addCard(dummyPanel, hideButton);
         addCard(currencyPanel, currencyButton);
         addCard(fragmentsPanel, fragmentsButton);
+        addCard(essencePanel, essenceButton);
 
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(cardPanel, BorderLayout.CENTER);
@@ -95,16 +95,15 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         closeButton.addActionListener(e -> setVisible(false));
     }
 
-    private void changePanel(AbstractNinjaGridPanel panel, JButton button) {
+    private void changePanel(NinjaGridPanel panel, JButton button) {
         for (Component component : buttonPanel.getComponents()) component.setEnabled(true);
         button.setEnabled(false);
-        String panelName = panel.getTabType() == null ? NULL_PANEL_NAME : panel.getTabType().toString();
+        String panelName = panel.tabType == null ? NULL_PANEL_NAME : panel.tabType.toString();
         cardLayout.show(cardPanel, panelName);
     }
 
-    private void addCard(AbstractNinjaGridPanel panel, JButton button) {
-        String panelName = panel.getTabType() == null ? NULL_PANEL_NAME : panel.getTabType().toString();
-        System.out.println(panelName);
+    private void addCard(NinjaGridPanel panel, JButton button) {
+        String panelName = panel.tabType == null ? NULL_PANEL_NAME : panel.tabType.toString();
         cardPanel.add(panel, panelName);
         button.addActionListener(e -> changePanel(panel, button));
     }
