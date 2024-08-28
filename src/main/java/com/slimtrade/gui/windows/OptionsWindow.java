@@ -22,8 +22,8 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     private final AbstractMacroOptionPanel outgoingMacroPanel;
     private final IgnoreItemOptionPanel ignorePanel = new IgnoreItemOptionPanel();
     private final HotkeyOptionPanel hotkeyPanel = new HotkeyOptionPanel();
-    private final OptionPanel donate = new OptionPanel("Donate", new DonationPanel());
-    private final JList<OptionPanel> optionsList;
+    private final OptionListPanel donationPanel = new OptionListPanel("Donate", new DonationPanel());
+    private final JList<OptionListPanel> optionsList;
 
     private final JButton donateButton = new JButton("Donate");
     private final JButton updateButton = new JButton("Install Update");
@@ -37,26 +37,35 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         outgoingMacroPanel = new OutgoingMacroPanel();
 
         // Panels
-        OptionPanel general = new OptionPanel("General", new GeneralOptionPanel());
-        OptionPanel display = new OptionPanel("Display", new DisplayOptionPanel());
-        OptionPanel audio = new OptionPanel("Audio", new AudioOptionPanel());
-        OptionPanel stash = new OptionPanel("Stash Tabs", new StashOptionPanel());
-        OptionPanel information = new OptionPanel("Information", new InformationOptionPanel());
-        OptionPanel incomingMacros = new OptionPanel("Incoming Macros", incomingMacroPanel);
-        OptionPanel outgoingMacros = new OptionPanel("Outgoing Macros", outgoingMacroPanel);
-        OptionPanel hotkeys = new OptionPanel("Hotkeys", hotkeyPanel);
-        OptionPanel ignoreItems = new OptionPanel("Ignore Items", ignorePanel);
-        OptionPanel cheatSheets = new OptionPanel("Cheat Sheets", new CheatSheetsOptionPanel());
-        OptionPanel stashSearch = new OptionPanel("Searching", new StashSearchOptionPanel());
-        OptionPanel debug = new OptionPanel("Debug", new DebugOptionPanel());
-        OptionPanel[] panelList = new OptionPanel[]{general, display, audio, stash, incomingMacros, outgoingMacros, hotkeys, ignoreItems, cheatSheets, stashSearch, information, donate};
+        OptionListPanel general = new OptionListPanel("General", new GeneralOptionPanel());
+        OptionListPanel display = new OptionListPanel("Display", new DisplayOptionPanel());
+        OptionListPanel audio = new OptionListPanel("Audio", new AudioOptionPanel());
+        OptionListPanel stash = new OptionListPanel("Stash Tabs", new StashOptionPanel());
+        OptionListPanel information = new OptionListPanel("Information", new InformationOptionPanel());
+        OptionListPanel incomingMacros = new OptionListPanel("Incoming Macros", incomingMacroPanel);
+        OptionListPanel outgoingMacros = new OptionListPanel("Outgoing Macros", outgoingMacroPanel);
+        OptionListPanel hotkeys = new OptionListPanel("Hotkeys", hotkeyPanel);
+        OptionListPanel ignoreItems = new OptionListPanel("Ignore Items", ignorePanel);
+        OptionListPanel cheatSheets = new OptionListPanel("Cheat Sheets", new CheatSheetsOptionPanel());
+        OptionListPanel stashSearch = new OptionListPanel("Searching", new StashSearchOptionPanel());
+        OptionListPanel debug = new OptionListPanel("Debug", new DebugOptionPanel());
+        OptionListPanel[] panelList = new OptionListPanel[]{
+                general, display, audio, hotkeys,
+                new OptionListPanel("Trading"),
+                incomingMacros, outgoingMacros, stash, ignoreItems,
+                new OptionListPanel("Tools"),
+                cheatSheets, stashSearch,
+                new OptionListPanel(),
+                information, donationPanel
+        };
         if (App.debug) {
-            OptionPanel[] newList = new OptionPanel[panelList.length + 1];
+            OptionListPanel[] newList = new OptionListPanel[panelList.length + 1];
             System.arraycopy(panelList, 0, newList, 0, panelList.length);
             newList[newList.length - 1] = debug;
             panelList = newList;
         }
         optionsList = new JList<>(panelList);
+        optionsList.setCellRenderer(new OptionListPanelCellRenderer());
         JPanel sidebar = createSidebar();
 
         // Save & Revert Panel
@@ -76,10 +85,11 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         gc = new GridBagConstraints();
         gc.insets = new Insets(1, 1, 1, 1);
 
-        for (OptionPanel panel : panelList) {
+        for (OptionListPanel panel : panelList) {
+            if (panel == null || panel.isSeparator) continue;
             cardPanel.add(panel.panel, panel.title);
         }
-        cardPanel.add(donate.panel, donate.title);
+        cardPanel.add(donationPanel.panel, donationPanel.title);
         displayPanel.add(cardPanel, gc);
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(sidebar, BorderLayout.WEST);
@@ -115,6 +125,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
 
         optionsList.setSelectedIndex(0);
 //        if (App.debug) optionsList.setSelectedIndex(panelList.length - 1);
+        topButtonPanel.add(Box.createVerticalStrut(4), BorderLayout.NORTH);
         topButtonPanel.add(optionsList, BorderLayout.CENTER);
 
         // Bottom Button Panel
@@ -140,7 +151,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         return sidebar;
     }
 
-    private void showPanel(OptionPanel panel) {
+    private void showPanel(OptionListPanel panel) {
         if (panel == null) return;
         cardLayout.show(cardPanel, panel.title);
     }
@@ -152,9 +163,9 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
 
     public void showDonationPanel() {
         optionsList.clearSelection();
-        optionsList.setSelectedValue(donate, true);
-        showPanel(donate);
-        ((DonationPanel) donate.panel).getButtonToFocus().requestFocus();
+        optionsList.setSelectedValue(donationPanel, true);
+        showPanel(donationPanel);
+        ((DonationPanel) donationPanel.panel).getButtonToFocus().requestFocus();
     }
 
     public IgnoreItemOptionPanel getIgnorePanel() {
@@ -183,17 +194,3 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
 
 }
 
-class OptionPanel {
-    String title;
-    JPanel panel;
-
-    public OptionPanel(String title, JPanel panel) {
-        this.title = title;
-        this.panel = panel;
-    }
-
-    @Override
-    public String toString() {
-        return title;
-    }
-}

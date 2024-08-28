@@ -3,7 +3,8 @@ package com.slimtrade.gui.options.stash;
 import javax.swing.*;
 import java.awt.*;
 
-public class StashTabCellRenderer extends JPanel implements ListCellRenderer<Object> {
+// FIXME: Make this color not object?
+public class StashTabCellRenderer extends JPanel implements ListCellRenderer<Color> {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,15 +22,17 @@ public class StashTabCellRenderer extends JPanel implements ListCellRenderer<Obj
         super.setBackground(bg);
     }
 
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    @Override
+    public Component getListCellRendererComponent(JList<? extends Color> list, Color value, int index, boolean isSelected, boolean cellHasFocus) {
         active = true;
         if (isSelected) {
             this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.WHITE));
         } else {
             this.setBorder(BorderFactory.createEmptyBorder());
         }
-        setBackground((Color) value);
+        setBackground(value);
         active = false;
         return this;
     }
+
 }

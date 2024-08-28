@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A JPanel with a header label and a separate below.
+ * A JPanel with a header label and a separator below.
  *
  * @see AbstractOptionPanel
  */
