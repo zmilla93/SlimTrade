@@ -11,6 +11,7 @@ import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.POEInterface;
+import com.slimtrade.core.utility.Platform;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.HotkeyManager;
@@ -85,6 +86,7 @@ public class App {
         // Logger
         ZLogger.open(SaveManager.getSaveDirectory(), args);
         ZLogger.log("SlimTrade launching... " + Arrays.toString(args));
+        ZLogger.log("Current Platform: " + System.getProperty("os.name") + " [" + Platform.current + "]");
         ZLogger.cleanOldLogFiles();
 
         // Launch profiling
