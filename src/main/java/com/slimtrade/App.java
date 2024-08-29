@@ -6,6 +6,7 @@ import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.enums.CurrencyType;
 import com.slimtrade.core.jna.GlobalKeyboardListener;
 import com.slimtrade.core.jna.GlobalMouseListener;
+import com.slimtrade.core.jna.GlobalMouseWheelListener;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.LockManager;
@@ -45,6 +46,7 @@ public class App {
 
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
+    public static GlobalMouseWheelListener globalMouseWheelListener;
     private static LoadingWindow loadingWindow;
     private static LockManager lockManager;
     public static UpdateManager updateManager;
@@ -152,9 +154,11 @@ public class App {
         }
         globalKeyboardListener = new GlobalKeyboardListener();
         globalMouseListener = new GlobalMouseListener();
+        globalMouseWheelListener = new GlobalMouseWheelListener();
         GlobalScreen.addNativeKeyListener(globalKeyboardListener);
         GlobalScreen.addNativeMouseListener(globalMouseListener);
         GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
+        GlobalScreen.addNativeMouseWheelListener(globalMouseWheelListener);
 
         // UI
         try {

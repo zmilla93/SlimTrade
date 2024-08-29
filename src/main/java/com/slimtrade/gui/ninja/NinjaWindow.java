@@ -1,5 +1,6 @@
 package com.slimtrade.gui.ninja;
 
+import com.slimtrade.App;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.NinjaTabType;
@@ -12,6 +13,8 @@ import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.ThemeManager;
+import org.jnativehook.mouse.NativeMouseWheelEvent;
+import org.jnativehook.mouse.NativeMouseWheelListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +23,7 @@ import java.awt.*;
  * Parent window for displaying poe.ninja prices above the stash.
  * Contains many {@link NinjaGridPanel} instances.
  */
-public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChangeListener {
+public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChangeListener, NativeMouseWheelListener {
 
     private final JButton closeButton = new IconButton(DefaultIcon.CLOSE);
     private final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -89,6 +92,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         ThemeManager.addFontListener(this);
 
         changePanel(fragmentsPanel, fragmentsButton);
+        App.globalMouseWheelListener.addListener(this);
     }
 
     private void addListeners() {
@@ -122,6 +126,12 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     @Override
     public void onFontChanged() {
         pack();
+    }
+
+    @Override
+    public void nativeMouseWheelMoved(NativeMouseWheelEvent nativeMouseWheelEvent) {
+        if (!isVisible()) return;
+        System.out.println("Wheel: " + nativeMouseWheelEvent.getWheelRotation());
     }
 
 }
