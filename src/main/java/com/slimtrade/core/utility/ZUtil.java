@@ -6,10 +6,7 @@ import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,6 +20,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ZUtil {
+
+    private ZUtil() {
+
+    }
 
     private static final NumberFormat NUMBER_FORMATTER = new DecimalFormat("##.##");
     private static final NumberFormat NUMBER_FORMATTER_ONE_DECIMAL = new DecimalFormat("##.#");
@@ -277,13 +278,13 @@ public class ZUtil {
      */
     public static BufferedReader getBufferedReader(String path, boolean isPathRelative) {
         path = cleanPath(path);
-        InputStreamReader streamReader;
+        InputStream inputStream;
         try {
             if (isPathRelative) {
-                streamReader = new InputStreamReader(Objects.requireNonNull(ZUtil.class.getResourceAsStream(path)), StandardCharsets.UTF_8);
+                inputStream = Objects.requireNonNull(ZUtil.class.getResourceAsStream(path));
             } else {
                 try {
-                    streamReader = new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8);
+                    inputStream = Files.newInputStream(Paths.get(path));
                 } catch (IOException e) {
                     ZLogger.err("File not found: " + path);
                     throw new RuntimeException("File not found: " + path + " (relative: " + isPathRelative + ")");
@@ -292,7 +293,21 @@ public class ZUtil {
         } catch (NullPointerException e) {
             throw new RuntimeException("File not found: " + path + " (relative: " + isPathRelative + ")");
         }
-        return new BufferedReader(streamReader);
+        return new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+    }
+
+    public static BufferedWriter getBufferedWriter(String path) {
+        path = cleanPath(path);
+        OutputStream outputStream;
+        File file = new File(path).getParentFile();
+        if (!file.exists() && !file.mkdirs())
+            throw new RuntimeException("Failed to create directory for file writer: " + path);
+        try {
+            outputStream = Files.newOutputStream(Paths.get(path));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to open file writer: " + path);
+        }
+        return new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
     }
 
     public static String getFileAsString(String path, boolean isPathRelative) {

@@ -1,12 +1,23 @@
 package com.slimtrade.gui.development;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.slimtrade.App;
+import com.slimtrade.core.enums.PathOfExileLeague;
 import com.slimtrade.core.jna.NativeMouseAdapter;
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.ninja.NinjaEndpoint;
 import com.slimtrade.core.utility.DesignerCopyMonitor;
+import com.slimtrade.core.utility.HttpRequester;
+import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ComponentPair;
 import com.slimtrade.gui.listening.TextChangeListener;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.CustomDialog;
+import com.slimtrade.modules.stopwatch.Stopwatch;
+import com.slimtrade.modules.updater.ZLogger;
 import org.jnativehook.mouse.NativeMouseEvent;
 
 import javax.swing.*;
@@ -16,10 +27,18 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This is a window used only during development. It is used to get measurements for in game UI elements.
  * Measurements are recorded at 1920x1080 resolution, then scaled for resolution.
+ * Also has some tools for fetching data from public APIs.
+ * Data is saved in debug folder the SlimTrade settings directory.
  */
 public class DesignerConfigWindow extends CustomDialog {
 
@@ -43,6 +62,9 @@ public class DesignerConfigWindow extends CustomDialog {
     private final JButton copyTextButton = new JButton("Copy Text");
     private final JTextArea copyTextArea = new JTextArea(8, 20);
     private final JButton copyPositionAndOffsetButton = new JButton("Copy Position & Offset");
+    private final JButton fetchNinjaButton = new JButton("Download Full Poe.Ninja Datasets");
+
+    private final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
 
     private boolean moveCellOnNextClick = false;
     private boolean runCopyMonitor = false;
@@ -78,6 +100,7 @@ public class DesignerConfigWindow extends CustomDialog {
         panel.add(moveCellOnNextClickButton);
         panel.add(copyMonitorButton);
         panel.add(copyTextButton);
+        panel.add(fetchNinjaButton);
         panel.add(new JScrollPane(copyTextArea));
         contentPanel.add(panel);
         setMinimumSize(null);
@@ -87,6 +110,7 @@ public class DesignerConfigWindow extends CustomDialog {
     }
 
     private void addListeners() {
+        fetchNinjaButton.addActionListener(e -> installNinjaDataset());
         copyPositionAndOffsetButton.addActionListener(e -> {
             String value = "# " + inputX.getText() + ", " + inputY.getText() + "\n" + "spacing: " + inputOffsetX.getText() + ", " + inputOffsetY.getText();
             clipboard.setContents(new StringSelection(value), null);
@@ -135,6 +159,41 @@ public class DesignerConfigWindow extends CustomDialog {
                 if (runCopyMonitor && nativeMouseEvent.getButton() == 3) DesignerCopyMonitor.lineBreak();
             }
         });
+    }
+
+    private void installNinjaDataset() {
+        ZLogger.log("Downloading all datasets from poe.ninja, saving to '" + SaveManager.getDebugDirectory() + "'...");
+        fetchNinjaButton.setEnabled(false);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Stopwatch.start();
+        for (NinjaEndpoint endpoint : NinjaEndpoint.values()) {
+            for (PathOfExileLeague league : PathOfExileLeague.values()) {
+                if (league == PathOfExileLeague.SSF_BTW) continue;
+                executor.submit(() -> {
+                    String url = endpoint.getURL(league);
+                    String value = HttpRequester.getPageContents(url);
+                    BufferedWriter writer = ZUtil.getBufferedWriter(SaveManager.getDebugDirectory() + league + File.separator + endpoint.type + ".txt");
+                    try {
+                        JsonElement json = JsonParser.parseString(value);
+                        writer.write(gson.toJson(json));
+                        writer.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+        }
+        new Thread(() -> {
+            executor.shutdown();
+            try {
+                if (executor.awaitTermination(10, TimeUnit.SECONDS))
+                    System.out.println("Datasets downloaded successfully in " + Stopwatch.getElapsedSeconds() + " seconds.");
+                else
+                    System.out.println("Failed to download datasets.");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 
     private void applyProperties() {

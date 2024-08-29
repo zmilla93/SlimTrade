@@ -23,12 +23,14 @@ public class SaveManager {
     private static final String audioFolderName = "audio";
     private static final String imagesFolderName = "images";
     private static final String logFolderName = "logs";
+    private static final String debugFolderName = "debug";
 
     // Full paths
     private static String saveDirectory;
     private static String audioDirectory;
     private static String logsDirectory;
     private static String imagesDirectory;
+    private static String debugDirectory;
 
     // Safe Files
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
@@ -96,8 +98,14 @@ public class SaveManager {
 
     public static String getLogsDirectory() {
         if (logsDirectory == null)
-            logsDirectory = getSaveDirectory() + logFolderName + File.separator;
+            logsDirectory = validateDirectory(getSaveDirectory() + logFolderName + File.separator);
         return logsDirectory;
+    }
+
+    public static String getDebugDirectory() {
+        if (debugDirectory == null)
+            debugDirectory = validateDirectory(getSaveDirectory() + debugFolderName + File.separator);
+        return debugDirectory;
     }
 
     public static String getSaveDirectory() {

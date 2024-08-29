@@ -19,6 +19,7 @@ public class References {
 
     // Community Sites
     public static final String POE_REGEX_LINK = "https://poe.re/";
+    public static final String POE_LEAGUE_API = "https://www.pathofexile.com/api/leagues";
 
     // Regex
     public static final String REGEX_CLIENT_DATA = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] ";
