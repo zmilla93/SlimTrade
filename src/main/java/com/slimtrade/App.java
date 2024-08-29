@@ -88,7 +88,7 @@ public class App {
         // Logger
         ZLogger.open(SaveManager.getSaveDirectory(), args);
         ZLogger.log("SlimTrade launching... " + Arrays.toString(args));
-        ZLogger.log("Current Platform: " + System.getProperty("os.name") + " [" + Platform.current + "]");
+        ZLogger.log("Platform: " + System.getProperty("os.name") + " [" + Platform.current + "]");
         ZLogger.cleanOldLogFiles();
 
         // Launch profiling

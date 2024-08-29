@@ -1,0 +1,43 @@
+
+cellSize: 41
+tab: General
+button: 162, 4, 138, 33
+
+# 21, 54
+spacing: 16, 10
+Scroll Fragment, Scroll of Wisdom, Portal Scroll
+
+# 210, 54
+spacing: 15, 10
+Enkindling Orb, Instilling Orb
+
+# 344, 55
+spacing: 16, 10
+Blacksmith's Whetstone, Armourer's Scrap, Glassblower's Bauble, Gemcutter's Prism, Cartographer's Chisel
+
+# 20, 123
+spacing: 16, 16
+Orb of Transmutation, Orb of Alteration, Orb of Annulment, Orb of Chance
+Transmutation Shard, Alteration Shard, Annulment Shard, Orb of Augmentation
+
+# 268, 123
+Exalted Orb, Mirror of Kalandra
+Exalted Shard, Mirror Shard
+
+# 401, 123
+Regal Orb, Orb of Alchemy, Chaos Orb, Veiled Orb
+Regal Shard, Alchemy Shard, Chaos Shard, Divine Orb
+
+# 21, 248
+Hinekora's Lock, Jeweller's Orb, Orb of Fusing, Chromatic Orb
+Fracturing Orb, Ancient Orb, Orb of Binding, Engineer's Orb
+Fracturing Shard, Ancient Shard, Binding Shard, Engineer's Shard
+
+# 400, 248
+spacing: 14, 14
+NULL, Stacked Deck, Harbinger's Orb, Orb of Horizons
+Orb of Regret, Orb of Unmaking, Harbinger's Shard, Horizon Shard
+Orb of Scouring, Sacred Orb, Blessed Orb, Vaal Orb
+
+tab: Exotic
+button: 333, 4, 138, 33

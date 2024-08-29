@@ -42,9 +42,9 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     private final JPanel cardPanel = new JPanel(cardLayout);
 
     private final String NULL_PANEL_NAME = "NULL";
+    private final NinjaGridPanel currencyPanel = new NinjaGridPanel("currency", NinjaTabType.CURRENCY);
     private final NinjaGridPanel fragmentsPanel = new NinjaGridPanel("fragments", NinjaTabType.FRAGMENTS);
     private final NinjaGridPanel essencePanel = new NinjaGridPanel("essence", NinjaTabType.ESSENCE);
-    private final NinjaGridPanel currencyPanel = new NinjaGridPanel(null, NinjaTabType.CURRENCY);
     private final NinjaGridPanel dummyPanel = new NinjaGridPanel(null, null);
 
     public NinjaWindow() {
@@ -131,7 +131,6 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     @Override
     public void nativeMouseWheelMoved(NativeMouseWheelEvent nativeMouseWheelEvent) {
         if (!isVisible()) return;
-        System.out.println("Wheel: " + nativeMouseWheelEvent.getWheelRotation());
     }
 
 }

@@ -31,7 +31,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -64,7 +63,7 @@ public class DesignerConfigWindow extends CustomDialog {
     private final JButton copyPositionAndOffsetButton = new JButton("Copy Position & Offset");
     private final JButton fetchNinjaButton = new JButton("Download Full Poe.Ninja Datasets");
 
-    private final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
+    private final ExecutorService executor = ZUtil.getMaxSpeedExecutor();
 
     private boolean moveCellOnNextClick = false;
     private boolean runCopyMonitor = false;
@@ -172,7 +171,7 @@ public class DesignerConfigWindow extends CustomDialog {
                 executor.submit(() -> {
                     String url = endpoint.getURL(league);
                     String value = HttpRequester.getPageContents(url);
-                    BufferedWriter writer = ZUtil.getBufferedWriter(SaveManager.getDebugDirectory() + league + File.separator + endpoint.type + ".txt");
+                    BufferedWriter writer = ZUtil.getBufferedWriter(SaveManager.getDebugDirectory() + league + File.separator + endpoint.type + ".json");
                     try {
                         JsonElement json = JsonParser.parseString(value);
                         writer.write(gson.toJson(json));

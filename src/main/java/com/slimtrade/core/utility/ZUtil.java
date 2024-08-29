@@ -18,6 +18,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ZUtil {
 
@@ -338,6 +340,10 @@ public class ZUtil {
         g2d.setComposite(AlphaComposite.Clear);
         g2d.fillRect(0, 0, component.getWidth(), component.getHeight());
         g2d.setComposite(AlphaComposite.SrcOver);
+    }
+
+    public static ExecutorService getMaxSpeedExecutor() {
+        return Executors.newFixedThreadPool(Math.max(1, Runtime.getRuntime().availableProcessors() - 1));
     }
 
 }
