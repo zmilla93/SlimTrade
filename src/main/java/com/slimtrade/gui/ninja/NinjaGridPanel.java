@@ -148,7 +148,11 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
             g.setColor(ThemeManager.TRANSPARENT_CLICKABLE);
             g.fillRect(rect.x, rect.y, rect.width, rect.height);
             g.setColor(Color.WHITE);
-            g.drawRect(rect.x, rect.y, rect.width, rect.height);
+            int arc = 10;
+            if (selectedTab.equals(button.name)) {
+                g.setColor(TEXT_COLOR);
+            }
+            g.drawRoundRect(rect.x, rect.y, rect.width, rect.height, arc, arc);
         }
     }
 
