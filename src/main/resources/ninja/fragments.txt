@@ -25,16 +25,29 @@ Fragment of Knowledge, Fragment of Terror
 Fragment of Shape, Fragment of Emptiness
 
 # 100, 191
-spacingY: 15
-// Ritual Splinter
-// Ritual Vessel
-// NULL
+spacing: 10, 15
+Ritual Splinter
+Ritual Vessel
+An Audience With The King
 
 # 173, 191
 spacing: 17, 14
 Timeless Eternal Empire Splinter, Timeless Karui Splinter, Timeless Vaal Splinter, Timeless Templar Splinter, Timeless Maraketh Splinter
 Timeless Eternal Emblem, Timeless Karui Emblem, Timeless Vaal Emblem, Timeless Templar Emblem, Timeless Maraketh Emblem
 Unrelenting Timeless Eternal Emblem, Unrelenting Timeless Karui Emblem, Unrelenting Timeless Vaal Emblem, Unrelenting Timeless Templar Emblem, Unrelenting Timeless Maraketh Emblem
+
+# 490, 220
+spacing: 10, 15
+Crescent Splinter
+The Maven's Writ
+
+# 100, 375
+spacing: 34, 15
+Divine Vessel, Offering to the Goddess, Dedication to the Goddess, Gift to the Goddess, Tribute to the Goddess, Sacred Blossom
+
+# 112, 564
+spacing: 17, 15
+Awakening Fragment, Cosmic Fragment, Blazing Fragment, Reality Fragment, Decaying Fragment, Devouring Fragment, Synthesising Fragment
 
 =================================================
 

@@ -180,7 +180,7 @@ public class App {
         SwingUtilities.invokeLater(() -> loadingWindow.dispose());
 
         if (debugProfileLaunch) ZLogger.log("Profiling launch complete!\n");
-        ZLogger.log("Slimtrade Launched");
+        ZLogger.log("SlimTrade Launched");
     }
 
     private static void profileLaunch(String context) {

@@ -122,11 +122,6 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
     }
 
     protected void addSection(String tab, NinjaGridSection section) {
-//        if (!tabNames.contains(tab)) {
-//            System.err.println("Ninja grid panel attempted to add section to non existent tab: " + tab);
-//            ZUtil.printStackTrace();
-//            return;
-//        }
         ArrayList<NinjaGridSection> tabSectionList = tabSectionMap.get(tab);
         if (tabSectionList != null) tabSectionList.add(section);
         fullSectionList.add(section);
