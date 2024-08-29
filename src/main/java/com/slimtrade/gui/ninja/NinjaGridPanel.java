@@ -70,7 +70,10 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         for (Map.Entry<String, NinjaTab> entry : map.entrySet()) {
             NinjaTab tab = entry.getValue();
             addTab(tab);
-            if (tab.button != null) hasTabs = true;
+            if (tab.button != null && !hasTabs) {
+                hasTabs = true;
+                selectedTab = tab.button.name;
+            }
             for (NinjaGridSection section : tab.sections)
                 addSection(entry.getKey(), section);
         }
