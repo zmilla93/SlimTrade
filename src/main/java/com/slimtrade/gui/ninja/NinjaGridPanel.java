@@ -38,7 +38,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
     public static final Color BACKGROUND_COLOR = new Color(0, 0, 0, 150);
 
     private boolean hasTabs;
-    private final ArrayList<Rectangle> buttonRects = new ArrayList<>();
+    private final ArrayList<NinjaVirtualTabButton> buttonList = new ArrayList<>();
     private final HashMap<Rectangle, String> buttonMap = new HashMap<>();
     private final HashSet<String> tabNames = new HashSet<>();
     private String pressedTab;
@@ -54,6 +54,29 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
             buildLayoutFromFile(layoutFileName);
             addListeners();
         }
+        SaveManager.stashSaveFile.addListener(this);
+    }
+
+    private void addListeners() {
+        // FIXME: Switching to a global mouse listener avoids having to draw buttons,
+        //        which currently causes the mouse cursor to change on button hover.
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                pressedTab = getTabNameAtPoint(e.getPoint());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (pressedTab == null) return;
+                String tab = getTabNameAtPoint(e.getPoint());
+                if (tab == null) return;
+                if (tab.equals(pressedTab) && !tab.equals(selectedTab)) {
+                    selectedTab = tab;
+                    repaint();
+                }
+            }
+        });
     }
 
     private void buildLayoutFromFile(String fileName) {
@@ -80,30 +103,15 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         this.hasTabs = hasTabs;
     }
 
-    private void addListeners() {
-        // FIXME: Switching to a global mouse listener avoids having to draw buttons,
-        //        which currently causes the mouse cursor to change on button hover.
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                pressedTab = getTabNameAtPoint(e.getPoint());
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (pressedTab == null) return;
-                String tab = getTabNameAtPoint(e.getPoint());
-                if (tab == null) return;
-                if (tab.equals(pressedTab) && !tab.equals(selectedTab)) {
-                    selectedTab = tab;
-                    repaint();
-                }
-            }
-        });
+    private void rebuildButtonMap() {
+        buttonMap.clear();
+        for (NinjaVirtualTabButton button : buttonList) buttonMap.put(button.rect, button.name);
     }
 
+    // FIXME : Should this just return the tab object itself?
     private String getTabNameAtPoint(Point point) {
-        for (Rectangle rect : buttonRects) {
+        for (NinjaVirtualTabButton button : buttonList) {
+            Rectangle rect = button.rect;
             if (rect.contains(point) && buttonMap.containsKey(rect)) {
                 return buttonMap.get(rect);
             }
@@ -116,7 +124,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         tabSectionMap.put(tab.name, new ArrayList<>());
         tabNames.add(tab.name);
         if (button != null) {
-            buttonRects.add(button.rect);
+            buttonList.add(button);
             buttonMap.put(button.rect, tab.name);
         }
     }
@@ -135,7 +143,8 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
     }
 
     private void drawTabButtons(Graphics g) {
-        for (Rectangle rect : buttonRects) {
+        for (NinjaVirtualTabButton button : buttonList) {
+            Rectangle rect = button.rect;
             g.setColor(ThemeManager.TRANSPARENT_CLICKABLE);
             g.fillRect(rect.x, rect.y, rect.width, rect.height);
             g.setColor(Color.WHITE);
@@ -192,7 +201,12 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
 
     @Override
     public void onSave() {
+        for (NinjaGridSection section : fullSectionList) section.applyScaling();
+        for (NinjaVirtualTabButton button : buttonList) button.applyScaling();
+        rebuildButtonMap();
         updateSize();
+        revalidate();
+        repaint();
     }
 
 }
