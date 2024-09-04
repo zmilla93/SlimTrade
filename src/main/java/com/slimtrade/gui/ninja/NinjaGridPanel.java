@@ -45,13 +45,13 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
     private String selectedTab = null;
     public final NinjaTabType tabType;
 
-    public NinjaGridPanel(String layoutFileName, NinjaTabType tabType) {
+    public NinjaGridPanel(NinjaTabType tabType) {
         this.tabType = tabType;
         setBackground(ThemeManager.TRANSPARENT);
         setBorder(new ThemeLineBorder());
         updateSize();
-        if (layoutFileName != null) {
-            buildLayoutFromFile(layoutFileName);
+        if (tabType != null) {
+            buildLayoutFromFile(tabType.toString().toLowerCase());
             addListeners();
         }
         SaveManager.stashSaveFile.addListener(this);

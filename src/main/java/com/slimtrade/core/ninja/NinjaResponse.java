@@ -1,7 +1,6 @@
 package com.slimtrade.core.ninja;
 
 import com.slimtrade.core.ninja.responses.NinjaFragmentEntry;
-import com.slimtrade.core.ninja.responses.NinjaScarabEntry;
 import com.slimtrade.core.ninja.responses.NinjaSimpleEntry;
 
 /**
@@ -13,10 +12,6 @@ public class NinjaResponse {
 
     public static class Simple {
         public NinjaSimpleEntry[] lines;
-    }
-
-    public static class Scarab {
-        public NinjaScarabEntry[] lines;
     }
 
     public static class Fragment {

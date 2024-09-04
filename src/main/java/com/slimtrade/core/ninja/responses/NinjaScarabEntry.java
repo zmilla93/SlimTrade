@@ -16,6 +16,11 @@ public class NinjaScarabEntry implements INinjaEntry {
         this.divineValue = divineValue;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
     public String getChaosText() {
         if (chaosText == null) {
             // Remove numbers above a threshold to save screen space

@@ -161,7 +161,7 @@ public class DesignerConfigWindow extends CustomDialog {
     }
 
     private void installNinjaDataset() {
-        ZLogger.log("Downloading all datasets from poe.ninja, saving to '" + SaveManager.getDebugDirectory() + "'...");
+        ZLogger.log("Downloading all datasets from poe.ninja, saving to '" + SaveManager.getNinjaDirectory() + "'...");
         fetchNinjaButton.setEnabled(false);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Stopwatch.start();
@@ -171,7 +171,7 @@ public class DesignerConfigWindow extends CustomDialog {
                 executor.submit(() -> {
                     String url = endpoint.getURL(league);
                     String value = HttpRequester.getPageContents(url);
-                    BufferedWriter writer = ZUtil.getBufferedWriter(SaveManager.getDebugDirectory() + league + File.separator + endpoint.type + ".json");
+                    BufferedWriter writer = ZUtil.getBufferedWriter(SaveManager.getNinjaDirectory() + league + File.separator + endpoint.type + ".json");
                     try {
                         JsonElement json = JsonParser.parseString(value);
                         writer.write(gson.toJson(json));

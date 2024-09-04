@@ -1,0 +1,7 @@
+cellSize: 48
+
+# 29, 52
+spacing: 18, 18
+NULL, Jagged Fossil, Dense Fossil, Frigid Fossil, Aberrant Fossil, Scorched Fossil, Metallic Fossil, Pristine Fossil
+Bound Fossil, Corroded Fossil, Opulent Fossil, Prismatic Fossil, Deft Fossil, Aetheric Fossil, Lucent Fossil, Serrated Fossil, Shuddering Fossil
+NULL, NULL, NULL, Gilded Fossil, Fundamental Fossil, Sanctified Fossil

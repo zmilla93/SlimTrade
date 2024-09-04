@@ -1,0 +1,20 @@
+cellSize: 48
+
+# 41, 31
+spacing: 21, 20
+Fine Delirium Orb
+Singular Delirium Orb, Cartographer's Delirium Orb
+Thaumaturge's Delirium Orb, Jeweller's Delirium Orb, Foreboding Delirium Orb
+Blacksmith's Delirium Orb, Abyssal Delirium Orb, Obscured Delirium Orb
+
+# 409, 31
+NULL, NULL, Primal Delirium Orb
+NULL, Skittering Delirium Orb, Armoursmith's Delirium Orb
+Whispering Delirium Orb, Fossilised Delirium Orb, Timeless Delirium Orb
+Fragmented Delirium Orb, Diviner's Delirium Orb, Blighted Delirium Orb
+
+# 208, 46
+Simulacrum Splinter
+
+# 381, 46
+Simulacrum

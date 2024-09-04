@@ -1,0 +1,15 @@
+cellSize: 48
+
+# 294, 37
+spacing: 18, 18
+Tainted Catalyst
+
+# 194, 104
+Abrasive Catalyst, Tempering Catalyst, Fertile Catalyst, Accelerating Catalyst
+
+# 73, 177
+Unstable Catalyst, Turbulent Catalyst, Imbued Catalyst
+
+# 381, 177
+spacing: 18, 18
+Prismatic Catalyst, Intrinsic Catalyst, Noxious Catalyst

@@ -17,6 +17,11 @@ public class NinjaSimpleEntry implements INinjaEntry {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public String getChaosText() {
         if (chaosText == null) {
             // Remove numbers above a threshold to save screen space

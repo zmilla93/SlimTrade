@@ -1,0 +1,12 @@
+cellSize: 39
+spacing: 23, 18
+
+# 36, 32
+Clear Oil, Sepia Oil, Amber Oil, Verdant Oil, Teal Oil, Azure Oil, Indigo Oil
+
+# 67, 87
+Violet Oil, Crimson Oil, Black Oil, Opalescent Oil, Silver Oil, Golden Oil
+
+# 496, 32
+Tainted Oil
+Reflective Oil, Prismatic Oil

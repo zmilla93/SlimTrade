@@ -102,9 +102,9 @@ public class SaveManager {
         return logsDirectory;
     }
 
-    public static String getDebugDirectory() {
+    public static String getNinjaDirectory() {
         if (debugDirectory == null)
-            debugDirectory = validateDirectory(getSaveDirectory() + debugFolderName + File.separator);
+            debugDirectory = validateDirectory(getSaveDirectory() + "ninja" + File.separator);
         return debugDirectory;
     }
 

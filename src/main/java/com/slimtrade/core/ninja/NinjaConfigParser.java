@@ -22,6 +22,7 @@ public class NinjaConfigParser {
     private static final HashMap<String, NinjaTab> tabMap = new HashMap<>();
 
     public static HashMap<String, NinjaTab> parse(String[] lines) {
+        cellSize = -1;
         tabMap.clear();
         for (String line : lines) {
             line = line.trim();

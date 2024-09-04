@@ -8,7 +8,9 @@ import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.gui.buttons.BasicIconButton;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.components.ButtonPanelPair;
 import com.slimtrade.gui.components.StyledLabel;
+import com.slimtrade.gui.components.ThemeLineBorder;
 import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.IFontChangeListener;
@@ -28,38 +30,17 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     private final JButton closeButton = new IconButton(DefaultIcon.CLOSE);
     private final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
     private final JButton syncButton = new IconButton(DefaultIcon.ARROW_SYNC);
-    private final JButton hideButton = new IconButton(DefaultIcon.EYE);
-    private final JButton currencyButton = new BasicIconButton(() -> "/icons/edits/currency.png");
-    private final JButton fragmentsButton = new BasicIconButton(() -> "/currency/Essence_Scarab_Of_Ascent.png");
-    private final JButton essenceButton = new BasicIconButton(() -> "/currency/Deafening_Essence_of_Anguish.png");
-    private final JButton delveButton = new BasicIconButton(() -> "/currency/Aberrant_Fossil.png");
-    private final JButton blightButton = new BasicIconButton(() -> "/currency/Prismatic_Oil.png");
-    private final JButton deliriumButton = new BasicIconButton(() -> "/currency/Delirium_Orb.png");
-    private final JButton ultimatumButton = new BasicIconButton(() -> "/currency/Imbued_Catalyst.png");
     private final JLabel syncLabel = new StyledLabel("Synced 2m ago").italic();
 
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardLayout);
 
     private final String NULL_PANEL_NAME = "NULL";
-    private final NinjaGridPanel currencyPanel = new NinjaGridPanel("currency", NinjaTabType.CURRENCY);
-    private final NinjaGridPanel fragmentsPanel = new NinjaGridPanel("fragments", NinjaTabType.FRAGMENTS);
-    private final NinjaGridPanel essencePanel = new NinjaGridPanel("essence", NinjaTabType.ESSENCE);
-    private final NinjaGridPanel dummyPanel = new NinjaGridPanel(null, null);
 
     public NinjaWindow() {
         // FIXME: Temp sync
         NinjaInterface.sync();
         setBackground(ThemeManager.TRANSPARENT);
-
-        buttonPanel.add(hideButton);
-        buttonPanel.add(currencyButton);
-        buttonPanel.add(fragmentsButton);
-        buttonPanel.add(essenceButton);
-        buttonPanel.add(delveButton);
-        buttonPanel.add(blightButton);
-        buttonPanel.add(deliriumButton);
-        buttonPanel.add(ultimatumButton);
 
         JPanel syncAndClosePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         syncAndClosePanel.add(syncLabel);
@@ -69,16 +50,19 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         syncButton.setEnabled(false);
 
         JPanel southPanel = new JPanel(new BorderLayout());
-//        southPanel.add(new JSeparator(JSeparator.HORIZONTAL), BorderLayout.NORTH);
         southPanel.add(buttonPanel, BorderLayout.WEST);
         southPanel.add(syncAndClosePanel, BorderLayout.EAST);
+        southPanel.setBorder(new ThemeLineBorder(0, 1, 1, 1));
 
         // Card Panel
-
-        addCard(dummyPanel, hideButton);
-        addCard(currencyPanel, currencyButton);
-        addCard(fragmentsPanel, fragmentsButton);
-        addCard(essencePanel, essenceButton);
+        addCard(null, new IconButton(DefaultIcon.EYE));
+        ButtonPanelPair selectedPanel = addCard(NinjaTabType.CURRENCY, "/icons/edits/currency.png");
+        addCard(NinjaTabType.FRAGMENTS, "/currency/Essence_Scarab_Of_Ascent.png");
+        addCard(NinjaTabType.ESSENCE, "/currency/Deafening_Essence_of_Anguish.png");
+        addCard(NinjaTabType.DELVE, "/currency/Aberrant_Fossil.png");
+        addCard(NinjaTabType.BLIGHT, "/currency/Prismatic_Oil.png");
+        addCard(NinjaTabType.DELIRIUM, "/currency/Delirium_Orb.png");
+        addCard(NinjaTabType.ULTIMATUM, "/currency/Imbued_Catalyst.png");
 
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(cardPanel, BorderLayout.CENTER);
@@ -91,7 +75,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         SaveManager.stashSaveFile.addListener(this);
         ThemeManager.addFontListener(this);
 
-        changePanel(fragmentsPanel, fragmentsButton);
+        changePanel((NinjaGridPanel) selectedPanel.panel, selectedPanel.button);
         App.globalMouseWheelListener.addListener(this);
     }
 
@@ -106,10 +90,18 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         cardLayout.show(cardPanel, panelName);
     }
 
-    private void addCard(NinjaGridPanel panel, JButton button) {
-        String panelName = panel.tabType == null ? NULL_PANEL_NAME : panel.tabType.toString();
+    private ButtonPanelPair addCard(NinjaTabType tabType, String iconPath) {
+        JButton button = new BasicIconButton(() -> iconPath);
+        return addCard(tabType, button);
+    }
+
+    private ButtonPanelPair addCard(NinjaTabType tabType, JButton button) {
+        NinjaGridPanel panel = new NinjaGridPanel(tabType);
+        String panelName = tabType == null ? NULL_PANEL_NAME : tabType.toString();
         cardPanel.add(panel, panelName);
+        buttonPanel.add(button);
         button.addActionListener(e -> changePanel(panel, button));
+        return new ButtonPanelPair(button, panel);
     }
 
     private void updateBounds() {

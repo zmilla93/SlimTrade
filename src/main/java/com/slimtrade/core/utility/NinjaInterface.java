@@ -1,11 +1,11 @@
 package com.slimtrade.core.utility;
 
 import com.google.gson.Gson;
+import com.slimtrade.core.enums.PathOfExileLeague;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.NinjaResponse;
-import com.slimtrade.core.ninja.responses.NinjaFragmentEntry;
-import com.slimtrade.core.ninja.responses.NinjaScarabEntry;
-import com.slimtrade.core.ninja.responses.NinjaSimpleEntry;
+import com.slimtrade.core.ninja.responses.INinjaEntry;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.HashMap;
@@ -19,23 +19,34 @@ public class NinjaInterface {
 
     public static void sync() {
         // TODO: Use actual poe.ninja api.
-        String league = "Settlers";
-        Gson gson = new Gson();
-        String currencyJson = ZUtil.getFileAsString(SaveManager.getDebugDirectory() + league + File.separator + "Currency.json", false);
-        String scarabJson = ZUtil.getFileAsString("C:\\Docs\\ninja-scarabs.json", false);
-        String fragmentJson = ZUtil.getFileAsString("C:\\Docs\\ninja-fragments.json", false);
-        String essenceJson = ZUtil.getFileAsString("C:\\Docs\\ninja-essence.json", false);
-        NinjaResponse.Fragment currencyData = gson.fromJson(currencyJson, NinjaResponse.Fragment.class);
-        NinjaResponse.Scarab data = gson.fromJson(scarabJson, NinjaResponse.Scarab.class);
-        NinjaResponse.Fragment fragmentResponse = gson.fromJson(fragmentJson, NinjaResponse.Fragment.class);
-        NinjaResponse.Simple essenceResponse = gson.fromJson(essenceJson, NinjaResponse.Simple.class);
-        for (NinjaFragmentEntry entry : currencyData.lines) dataMap.put(entry.currencyTypeName, entry);
-        for (NinjaScarabEntry entry : data.lines) dataMap.put(entry.name, entry);
-        for (NinjaFragmentEntry entry : fragmentResponse.lines) dataMap.put(entry.currencyTypeName, entry);
-        for (NinjaSimpleEntry entry : essenceResponse.lines) dataMap.put(entry.name, entry);
+        loadLocalDatasets();
     }
 
-    public static String getText(String name) {
+    private static void loadLocalDatasets() {
+        loadDataset(getDatasetFromFile("Currency", NinjaResponse.Fragment.class).lines);
+        loadDataset(getDatasetFromFile("DeliriumOrb", NinjaResponse.Simple.class).lines);
+        loadDataset(getDatasetFromFile("Essence", NinjaResponse.Simple.class).lines);
+        loadDataset(getDatasetFromFile("Fossil", NinjaResponse.Simple.class).lines);
+        loadDataset(getDatasetFromFile("Fragment", NinjaResponse.Fragment.class).lines);
+        loadDataset(getDatasetFromFile("Oil", NinjaResponse.Simple.class).lines);
+        loadDataset(getDatasetFromFile("Scarab", NinjaResponse.Simple.class).lines);
+    }
+
+    private static void loadDataset(INinjaEntry[] data) {
+        for (INinjaEntry entry : data) dataMap.put(entry.getName(), entry);
+    }
+
+    private static void unloadDataset(INinjaEntry[] data) {
+        for (INinjaEntry entry : data) dataMap.remove(entry.getName());
+    }
+
+    private static <T> T getDatasetFromFile(String fileName, Class<T> classType) {
+        PathOfExileLeague league = PathOfExileLeague.TEMP;
+        String text = ZUtil.getFileAsString(SaveManager.getNinjaDirectory() + league + File.separator + fileName + ".json", false);
+        return new Gson().fromJson(text, classType);
+    }
+
+    public static @Nullable String getText(String name) {
         Object obj = dataMap.get(name);
         if (obj == null) return null;
         return obj.toString();
