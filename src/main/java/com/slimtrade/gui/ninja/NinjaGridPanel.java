@@ -10,6 +10,9 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ThemeLineBorder;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.mouse.NativeMouseEvent;
+import org.jnativehook.mouse.NativeMouseMotionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +30,7 @@ import java.util.Map;
  * Renders an overlay on the stash that displays prices from poe.ninja.
  * Handles a single tab (and any sub tabs, like with currency, fragments, etc.)
  */
-public class NinjaGridPanel extends JPanel implements ISaveListener {
+public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouseMotionListener {
 
     // FIXME: Make this fully support panels with no tabs
     private final ArrayList<NinjaGridSection> fullSectionList = new ArrayList<>();
@@ -45,6 +48,8 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
     private String currentTab = null;
     private ArrayList<NinjaGridSection> currentSections = new ArrayList<>();
     public final NinjaTabType tabType;
+    private int hoverYValue;
+    private static final int HOVER_Y_BUFFER = 4;
 
     public NinjaGridPanel(NinjaTabType tabType) {
         this.tabType = tabType;
@@ -56,6 +61,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
             addListeners();
         }
         SaveManager.stashSaveFile.addListener(this);
+        GlobalScreen.addNativeMouseMotionListener(this);
     }
 
     private void addListeners() {
@@ -156,6 +162,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
     private void drawTabButtons(Graphics g) {
         for (NinjaVirtualTabButton button : buttonList) {
             Rectangle rect = button.rect;
+            if (hoverYValue != -1 && rect.y + HOVER_Y_BUFFER < hoverYValue) return;
             g.setColor(ThemeManager.TRANSPARENT_CLICKABLE);
             g.fillRect(rect.x, rect.y, rect.width, rect.height);
             g.setColor(Color.WHITE);
@@ -183,6 +190,8 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         int cellSize = section.cellSize;
         int cellX = section.x + (x * cellSize + x * section.spacingX);
         int cellY = section.y + (y * cellSize + y * section.spacingY);
+        // Return early if a cell below this is being hovered to avoid obscuring tooltip
+        if (hoverYValue != -1 && cellY + HOVER_Y_BUFFER < hoverYValue) return;
         g.setFont(g.getFont().deriveFont(Font.PLAIN, 12));
         FontMetrics fontMetrics = g.getFontMetrics();
         Rectangle2D textBounds = fontMetrics.getStringBounds(text, g);
@@ -196,6 +205,13 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         }
     }
 
+    private void setHoverYValue(int value) {
+        if (hoverYValue == value) return;
+        hoverYValue = value;
+        revalidate();
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -204,6 +220,12 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         if (currentSections == null) return;
         for (NinjaGridSection section : currentSections) {
             drawGridSection(g, section);
+            if (DRAW_CELL_BORDERS) {
+                Rectangle rect = section.boundingBox;
+                g.setColor(Color.BLUE);
+                g.drawRect(rect.x, rect.y, rect.width, rect.height);
+            }
+
         }
     }
 
@@ -215,6 +237,35 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         updateSize();
         revalidate();
         repaint();
+    }
+
+    private Point screenPosToWindowPos(Point screenPoint) {
+        Point windowPos = getLocationOnScreen();
+        screenPoint.x -= windowPos.x;
+        screenPoint.y -= windowPos.y;
+        return screenPoint;
+    }
+
+    @Override
+    public void nativeMouseMoved(NativeMouseEvent nativeMouseEvent) {
+        if (!isVisible()) return;
+        Point pos = screenPosToWindowPos(nativeMouseEvent.getPoint());
+        if (pos.x < 0 || pos.y < 0) return;
+        // FIXME : cache this value?
+        Rectangle gridRect = SaveManager.stashSaveFile.data.gridRect;
+        if (pos.x > gridRect.width || pos.y > gridRect.height) return;
+        for (NinjaGridSection section : currentSections) {
+            if (!section.boundingBox.contains(pos)) continue;
+            int value = ZUtil.roundTo(pos.y - section.cellSize, 10);
+            setHoverYValue(value);
+            return;
+        }
+        setHoverYValue(-1);
+    }
+
+    @Override
+    public void nativeMouseDragged(NativeMouseEvent nativeMouseEvent) {
+
     }
 
 }
