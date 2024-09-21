@@ -249,7 +249,12 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
     @Override
     public void nativeMouseMoved(NativeMouseEvent nativeMouseEvent) {
         if (!isVisible()) return;
-        Point pos = screenPosToWindowPos(nativeMouseEvent.getPoint());
+        Point pos;
+        try {
+            pos = screenPosToWindowPos(nativeMouseEvent.getPoint());
+        } catch (IllegalComponentStateException ignore) {
+            return;
+        }
         if (pos.x < 0 || pos.y < 0) return;
         // FIXME : cache this value?
         Rectangle gridRect = SaveManager.stashSaveFile.data.gridRect;
