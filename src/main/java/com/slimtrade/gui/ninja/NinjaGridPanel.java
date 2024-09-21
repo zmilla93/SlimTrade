@@ -98,6 +98,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
         // FIXME: Turn parser return into an array of objects to preserve order
         //        Until then, the initial tab is wrong
         HashMap<String, NinjaTab> map = NinjaConfigParser.parse(lines.toArray(new String[0]));
+        boolean initCurrentTab = false;
         for (Map.Entry<String, NinjaTab> entry : map.entrySet()) {
             NinjaTab tab = entry.getValue();
             addTab(tab);
@@ -106,8 +107,10 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
             if (tab.button != null && !hasTabs) {
                 hasTabs = true;
                 setCurrentTab(tab.button.name);
+                initCurrentTab = true;
             }
         }
+        if(!initCurrentTab) setCurrentTab("");
     }
 
     private void rebuildButtonMap() {
@@ -133,6 +136,8 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
             if (currentTab != null) currentSections = tabSectionMap.get(currentTab);
         } else {
             currentSections = fullSectionList;
+            System.out.println(tab);
+            System.out.println(fullSectionList.size());
         }
     }
 
