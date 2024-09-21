@@ -4,9 +4,9 @@ import com.slimtrade.core.utility.ZUtil;
 
 public enum NinjaTabType {
 
-    CURRENCY("Normal", "Exotic"),
-    FRAGMENTS("General", "Scarab", "Breach", "Eldritch"),
-    ESSENCE,
+    CURRENCY(new String[]{"Normal", "Exotic"}, NinjaEndpoint.CURRENCY),
+    FRAGMENTS(new String[]{"General", "Scarab", "Breach", "Eldritch"}, NinjaEndpoint.FRAGMENTS),
+    ESSENCE(NinjaEndpoint.ESSENCE),
     DELVE,
     BLIGHT,
     DELIRIUM,
@@ -14,15 +14,18 @@ public enum NinjaTabType {
 
     public final String[] subTabs;
     private final String name;
+    private final NinjaEndpoint[] dependencies;
 
-    NinjaTabType() {
+    NinjaTabType(NinjaEndpoint... dependencies) {
         name = ZUtil.enumToString(name());
         subTabs = null;
+        this.dependencies = dependencies;
     }
 
-    NinjaTabType(String... subTabs) {
+    NinjaTabType(String[] subTabs, NinjaEndpoint... dependencies) {
         name = ZUtil.enumToString(name());
         this.subTabs = subTabs;
+        this.dependencies = dependencies;
     }
 
     @Override

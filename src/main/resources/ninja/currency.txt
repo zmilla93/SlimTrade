@@ -8,7 +8,7 @@ spacing: 16, 10
 Scroll Fragment, Scroll of Wisdom, Portal Scroll
 
 # 210, 54
-spacing: 15, 10
+spacing: 16, 10
 Enkindling Orb, Instilling Orb
 
 # 344, 55
@@ -25,6 +25,7 @@ Exalted Orb, Mirror of Kalandra
 Exalted Shard, Mirror Shard
 
 # 401, 123
+
 Regal Orb, Orb of Alchemy, Chaos Orb, Veiled Orb
 Regal Shard, Alchemy Shard, Chaos Shard, Divine Orb
 

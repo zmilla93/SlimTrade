@@ -15,7 +15,7 @@ public enum NinjaEndpoint {
     ;
 
     public final String type;
-    private final NinjaOverview overview;
+    public final NinjaOverview overview;
 
     NinjaEndpoint(String type, NinjaOverview overview) {
         this.type = type;

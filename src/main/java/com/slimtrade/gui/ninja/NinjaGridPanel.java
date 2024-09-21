@@ -161,7 +161,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
             for (int x = 0; x < section.data[y].length; x++) {
                 String value = section.data[y][x];
                 if (value == null || value.equals("NULL")) continue;
-                String text = NinjaInterface.getText(value);
+                String text = NinjaInterface.getItemPriceText(value);
                 if (text == null) continue;
                 drawCell(g, section, x, y, text);
             }
