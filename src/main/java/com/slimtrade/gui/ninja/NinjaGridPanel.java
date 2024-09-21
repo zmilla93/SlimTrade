@@ -42,7 +42,8 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
     private final HashMap<Rectangle, String> buttonMap = new HashMap<>();
     private final HashSet<String> tabNames = new HashSet<>();
     private String pressedTab;
-    private String selectedTab = null;
+    private String currentTab = null;
+    private ArrayList<NinjaGridSection> currentSections = new ArrayList<>();
     public final NinjaTabType tabType;
 
     public NinjaGridPanel(NinjaTabType tabType) {
@@ -71,8 +72,8 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
                 if (pressedTab == null) return;
                 String tab = getTabNameAtPoint(e.getPoint());
                 if (tab == null) return;
-                if (tab.equals(pressedTab) && !tab.equals(selectedTab)) {
-                    selectedTab = tab;
+                if (tab.equals(pressedTab) && !tab.equals(currentTab)) {
+                    setCurrentTab(tab);
                     repaint();
                 }
             }
@@ -88,19 +89,19 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        // FIXME: Turn parser return into an array of objects to preserve order
+        //        Until then, the initial tab is wrong
         HashMap<String, NinjaTab> map = NinjaConfigParser.parse(lines.toArray(new String[0]));
-        boolean hasTabs = false;
         for (Map.Entry<String, NinjaTab> entry : map.entrySet()) {
             NinjaTab tab = entry.getValue();
             addTab(tab);
-            if (tab.button != null && !hasTabs) {
-                hasTabs = true;
-                selectedTab = tab.button.name;
-            }
             for (NinjaGridSection section : tab.sections)
                 addSection(entry.getKey(), section);
+            if (tab.button != null && !hasTabs) {
+                hasTabs = true;
+                setCurrentTab(tab.button.name);
+            }
         }
-        this.hasTabs = hasTabs;
     }
 
     private void rebuildButtonMap() {
@@ -117,6 +118,16 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
             }
         }
         return null;
+    }
+
+    private void setCurrentTab(String tab) {
+        currentTab = tab;
+        currentSections = new ArrayList<>();
+        if (hasTabs) {
+            if (currentTab != null) currentSections = tabSectionMap.get(currentTab);
+        } else {
+            currentSections = fullSectionList;
+        }
     }
 
     protected void addTab(NinjaTab tab) {
@@ -149,7 +160,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
             g.fillRect(rect.x, rect.y, rect.width, rect.height);
             g.setColor(Color.WHITE);
             int arc = 10;
-            if (selectedTab.equals(button.name)) {
+            if (currentTab.equals(button.name)) {
                 g.setColor(TEXT_COLOR);
             }
             g.drawRoundRect(rect.x, rect.y, rect.width, rect.height, arc, arc);
@@ -190,15 +201,8 @@ public class NinjaGridPanel extends JPanel implements ISaveListener {
         super.paintComponent(g);
         ZUtil.clearTransparentComponent(g, this);
         drawTabButtons(g);
-        ArrayList<NinjaGridSection> sections;
-        if (hasTabs) {
-            if (selectedTab == null) return;
-            sections = tabSectionMap.get(selectedTab);
-        } else {
-            sections = fullSectionList;
-        }
-        if (sections == null) return;
-        for (NinjaGridSection section : sections) {
+        if (currentSections == null) return;
+        for (NinjaGridSection section : currentSections) {
             drawGridSection(g, section);
         }
     }
