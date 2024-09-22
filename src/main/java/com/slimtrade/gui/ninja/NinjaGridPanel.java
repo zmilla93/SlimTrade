@@ -12,6 +12,7 @@ import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
+import org.jnativehook.mouse.NativeMouseListener;
 import org.jnativehook.mouse.NativeMouseMotionListener;
 
 import javax.swing.*;
@@ -30,7 +31,7 @@ import java.util.Map;
  * Renders an overlay on the stash that displays prices from poe.ninja.
  * Handles a single tab (and any sub tabs, like with currency, fragments, etc.)
  */
-public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouseMotionListener {
+public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouseListener, NativeMouseMotionListener {
 
     // FIXME: Make this fully support panels with no tabs
     private final ArrayList<NinjaGridSection> fullSectionList = new ArrayList<>();
@@ -56,34 +57,12 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
         setBackground(ThemeManager.TRANSPARENT);
         setBorder(new ThemeLineBorder());
         updateSize();
-        if (tabType != null) {
-            buildLayoutFromFile(tabType.toString().toLowerCase());
-            addListeners();
-        }
+        if (tabType != null) buildLayoutFromFile(tabType.toString().toLowerCase());
         SaveManager.stashSaveFile.addListener(this);
+        // FIXME (Optimize) : Rather than adding this to the global screen directly,
+        //  have the parent object subscribe to the global screen and pass the event down to the active panel.
+        GlobalScreen.addNativeMouseListener(this);
         GlobalScreen.addNativeMouseMotionListener(this);
-    }
-
-    private void addListeners() {
-        // FIXME: Switching to a global mouse listener avoids having to draw buttons,
-        //        which currently causes the mouse cursor to change on button hover.
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                pressedTab = getTabNameAtPoint(e.getPoint());
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (pressedTab == null) return;
-                String tab = getTabNameAtPoint(e.getPoint());
-                if (tab == null) return;
-                if (tab.equals(pressedTab) && !tab.equals(currentTab)) {
-                    setCurrentTab(tab);
-                    repaint();
-                }
-            }
-        });
     }
 
     private void buildLayoutFromFile(String fileName) {
@@ -110,7 +89,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
                 initCurrentTab = true;
             }
         }
-        if(!initCurrentTab) setCurrentTab("");
+        if (!initCurrentTab) setCurrentTab("");
     }
 
     private void rebuildButtonMap() {
@@ -273,7 +252,30 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
 
     @Override
     public void nativeMouseDragged(NativeMouseEvent nativeMouseEvent) {
+        // Do nothing
+    }
 
+    @Override
+    public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
+        // Do nothing
+    }
+
+    @Override
+    public void nativeMousePressed(NativeMouseEvent e) {
+        if (!isVisible()) return;
+        pressedTab = getTabNameAtPoint(screenPosToWindowPos(e.getPoint()));
+    }
+
+    @Override
+    public void nativeMouseReleased(NativeMouseEvent e) {
+        if (!isVisible()) return;
+        if (pressedTab == null) return;
+        String tab = getTabNameAtPoint(screenPosToWindowPos(e.getPoint()));
+        if (tab == null) return;
+        if (tab.equals(pressedTab) && !tab.equals(currentTab)) {
+            setCurrentTab(tab);
+            repaint();
+        }
     }
 
 }

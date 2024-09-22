@@ -9,7 +9,7 @@
 
     <groupId>com.github.zrmiller</groupId>
     <artifactId>slimtrade</artifactId>
-    <version>0.4.8</version>
+    <version>0.4.9-pre1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -174,7 +174,7 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.6.0</version>
                     <configuration>
-                        <outputDirectory>D:\Programming\Java\_EXPORTED JARS</outputDirectory>
+                        <outputDirectory>C:\Users\zmill\Documents</outputDirectory>
                         <finalName>SlimTrade</finalName>
                         <appendAssemblyId>false</appendAssemblyId>
                         <archive>
