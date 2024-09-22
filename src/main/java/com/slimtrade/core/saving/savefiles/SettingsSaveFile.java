@@ -122,6 +122,9 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public StashSearchWindowMode stashSearchWindowMode = StashSearchWindowMode.COMBINED;
     public ArrayList<StashSearchGroupData> stashSearchData = new ArrayList<>();
 
+    // poe.ninja
+    public PathOfExileLeague pathOfExileLeague = PathOfExileLeague.TEMP;
+
     public SettingsSaveFile() {
         incomingMacroButtons.add(new MacroButton(CustomIcon.REFRESH, "Hi, do you still want to buy my {item} listed for {price}?", "", ButtonRow.TOP_ROW, null, false));
         incomingMacroButtons.add(new MacroButton(CustomIcon.INVITE, "/invite {player}", "", ButtonRow.BOTTOM_ROW, null, false));

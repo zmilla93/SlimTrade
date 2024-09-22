@@ -57,7 +57,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         // Card Panel
         addCard(null, new IconButton(DefaultIcon.EYE));
         ButtonPanelPair selectedPanel = addCard(NinjaTabType.CURRENCY, "/icons/edits/currency.png");
-        addCard(NinjaTabType.FRAGMENTS, "/currency/Essence_Scarab_Of_Ascent.png");
+        addCard(NinjaTabType.FRAGMENTS, "/currency/Essence_Scarab_of_Ascent.png");
         addCard(NinjaTabType.ESSENCE, "/currency/Deafening_Essence_of_Anguish.png");
         addCard(NinjaTabType.DELVE, "/currency/Aberrant_Fossil.png");
         addCard(NinjaTabType.BLIGHT, "/currency/Prismatic_Oil.png");

@@ -26,6 +26,7 @@ public class NinjaInterface {
         // TODO: Use actual poe.ninja api.
         loadLocalDatasets();
 //        sync(NinjaEndpoint.CURRENCY);
+//        for (NinjaEndpoint endpoint : NinjaEndpoint.values()) sync(endpoint);
     }
 
     public static void sync(NinjaEndpoint endpoint) {

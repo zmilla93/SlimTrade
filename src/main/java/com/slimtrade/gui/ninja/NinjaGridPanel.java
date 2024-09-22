@@ -136,8 +136,6 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
             if (currentTab != null) currentSections = tabSectionMap.get(currentTab);
         } else {
             currentSections = fullSectionList;
-            System.out.println(tab);
-            System.out.println(fullSectionList.size());
         }
     }
 
