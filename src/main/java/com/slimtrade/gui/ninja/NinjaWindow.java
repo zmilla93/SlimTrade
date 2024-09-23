@@ -1,8 +1,8 @@
 package com.slimtrade.gui.ninja;
 
-import com.slimtrade.App;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.ninja.NinjaMouseAdapter;
 import com.slimtrade.core.ninja.NinjaTabType;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.NinjaInterface;
@@ -15,8 +15,8 @@ import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.ThemeManager;
-import org.jnativehook.mouse.NativeMouseWheelEvent;
-import org.jnativehook.mouse.NativeMouseWheelListener;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.mouse.NativeMouseEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,12 +25,13 @@ import java.awt.*;
  * Parent window for displaying poe.ninja prices above the stash.
  * Contains many {@link NinjaGridPanel} instances.
  */
-public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChangeListener, NativeMouseWheelListener {
+public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChangeListener, NinjaMouseAdapter {
 
     private final JButton closeButton = new IconButton(DefaultIcon.CLOSE);
     private final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
     private final JButton syncButton = new IconButton(DefaultIcon.ARROW_SYNC);
     private final JLabel syncLabel = new StyledLabel("Synced 2m ago").italic();
+    private NinjaMouseAdapter selectedPanel;
 
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardLayout);
@@ -76,7 +77,8 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         ThemeManager.addFontListener(this);
 
         changePanel((NinjaGridPanel) selectedPanel.panel, selectedPanel.button);
-        App.globalMouseWheelListener.addListener(this);
+        GlobalScreen.addNativeMouseListener(this);
+        GlobalScreen.addNativeMouseMotionListener(this);
     }
 
     private void addListeners() {
@@ -88,6 +90,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         button.setEnabled(false);
         String panelName = panel.tabType == null ? NULL_PANEL_NAME : panel.tabType.toString();
         cardLayout.show(cardPanel, panelName);
+        selectedPanel = panel;
     }
 
     private ButtonPanelPair addCard(NinjaTabType tabType, String iconPath) {
@@ -120,9 +123,30 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         pack();
     }
 
+
     @Override
-    public void nativeMouseWheelMoved(NativeMouseWheelEvent nativeMouseWheelEvent) {
-        if (!isVisible()) return;
+    public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
+        selectedPanel.nativeMouseClicked(nativeMouseEvent);
+    }
+
+    @Override
+    public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
+        selectedPanel.nativeMousePressed(nativeMouseEvent);
+    }
+
+    @Override
+    public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
+        selectedPanel.nativeMouseReleased(nativeMouseEvent);
+    }
+
+    @Override
+    public void nativeMouseMoved(NativeMouseEvent nativeMouseEvent) {
+        selectedPanel.nativeMouseMoved(nativeMouseEvent);
+    }
+
+    @Override
+    public void nativeMouseDragged(NativeMouseEvent nativeMouseEvent) {
+        selectedPanel.nativeMouseDragged(nativeMouseEvent);
     }
 
 }

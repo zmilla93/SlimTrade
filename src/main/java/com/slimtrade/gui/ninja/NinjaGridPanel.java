@@ -1,24 +1,16 @@
 package com.slimtrade.gui.ninja;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.ninja.NinjaConfigParser;
-import com.slimtrade.core.ninja.NinjaGridSection;
-import com.slimtrade.core.ninja.NinjaTab;
-import com.slimtrade.core.ninja.NinjaTabType;
+import com.slimtrade.core.ninja.*;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ThemeLineBorder;
 import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
-import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
-import org.jnativehook.mouse.NativeMouseListener;
-import org.jnativehook.mouse.NativeMouseMotionListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,7 +23,7 @@ import java.util.Map;
  * Renders an overlay on the stash that displays prices from poe.ninja.
  * Handles a single tab (and any sub tabs, like with currency, fragments, etc.)
  */
-public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouseListener, NativeMouseMotionListener {
+public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseAdapter {
 
     // FIXME: Make this fully support panels with no tabs
     private final ArrayList<NinjaGridSection> fullSectionList = new ArrayList<>();
@@ -39,6 +31,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
     private static final boolean DRAW_CELL_BORDERS = false;
 
     public static final Color TEXT_COLOR = new Color(255, 182, 81);
+    //    public static final Color TEXT_COLOR = Color.WHITE;
     public static final Color BACKGROUND_COLOR = new Color(0, 0, 0, 150);
 
     private boolean hasTabs;
@@ -59,10 +52,6 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
         updateSize();
         if (tabType != null) buildLayoutFromFile(tabType.toString().toLowerCase());
         SaveManager.stashSaveFile.addListener(this);
-        // FIXME (Optimize) : Rather than adding this to the global screen directly,
-        //  have the parent object subscribe to the global screen and pass the event down to the active panel.
-        GlobalScreen.addNativeMouseListener(this);
-        GlobalScreen.addNativeMouseMotionListener(this);
     }
 
     private void buildLayoutFromFile(String fileName) {
@@ -145,14 +134,16 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
         for (NinjaVirtualTabButton button : buttonList) {
             Rectangle rect = button.rect;
             if (hoverYValue != -1 && rect.y + HOVER_Y_BUFFER < hoverYValue) return;
-            g.setColor(ThemeManager.TRANSPARENT_CLICKABLE);
-            g.fillRect(rect.x, rect.y, rect.width, rect.height);
+//            g.setColor(ThemeManager.TRANSPARENT_CLICKABLE);
+//            g.fillRect(rect.x, rect.y, rect.width, rect.height);
             g.setColor(Color.WHITE);
             int arc = 10;
+            boolean drawButton = false;
             if (currentTab.equals(button.name)) {
                 g.setColor(TEXT_COLOR);
+                drawButton = true;
             }
-            g.drawRoundRect(rect.x, rect.y, rect.width, rect.height, arc, arc);
+            if (drawButton || DRAW_CELL_BORDERS) g.drawRoundRect(rect.x, rect.y, rect.width, rect.height, arc, arc);
         }
     }
 
@@ -237,7 +228,14 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
         } catch (IllegalComponentStateException ignore) {
             return;
         }
-        if (pos.x < 0 || pos.y < 0) return;
+        if (!getBounds().contains(pos)) {
+            setHoverYValue(-1);
+            return;
+        }
+//        int cellSize = currentSections.size() > 0 ? currentSections.get(0).cellSize : 50;
+//        int value = ZUtil.roundTo(pos.y - cellSize, 10);
+//        setHoverYValue(value);
+//        if (pos.x < 0 || pos.y < 0) return;
         // FIXME : cache this value?
         Rectangle gridRect = SaveManager.stashSaveFile.data.gridRect;
         if (pos.x > gridRect.width || pos.y > gridRect.height) return;
@@ -263,7 +261,11 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NativeMouse
     @Override
     public void nativeMousePressed(NativeMouseEvent e) {
         if (!isVisible()) return;
-        pressedTab = getTabNameAtPoint(screenPosToWindowPos(e.getPoint()));
+        try {
+            pressedTab = getTabNameAtPoint(screenPosToWindowPos(e.getPoint()));
+        } catch (IllegalComponentStateException err) {
+            pressedTab = null;
+        }
     }
 
     @Override
