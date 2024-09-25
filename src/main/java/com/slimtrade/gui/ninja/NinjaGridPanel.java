@@ -9,7 +9,6 @@ import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
 import org.jnativehook.mouse.NativeMouseEvent;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +21,7 @@ import java.util.*;
  * Renders an overlay on the stash that displays prices from poe.ninja.
  * Handles a single tab (and any sub tabs, like with currency, fragments, etc.)
  */
-public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseAdapter {
+public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseAdapter, NinjaSyncListener {
 
     // FIXME: Make this fully support panels with no tabs
     private final ArrayList<NinjaGridSection> fullSectionList = new ArrayList<>();
@@ -55,8 +54,11 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
         setBackground(ThemeManager.TRANSPARENT);
         setBorder(new ThemeLineBorder());
         updateSize();
-        if (tabType != null) buildLayoutFromFile(tabType.toString().toLowerCase());
-        SaveManager.stashSaveFile.addListener(this);
+        if (tabType != null) {
+            buildLayoutFromFile(tabType.toString().toLowerCase());
+            SaveManager.stashSaveFile.addListener(this);
+            NinjaInterface.addSyncListener(this, tabType.dependencies);
+        }
     }
 
     private void buildLayoutFromFile(String fileName) {
@@ -298,6 +300,11 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
             setCurrentTab(tab);
             repaint();
         }
+    }
+
+    @Override
+    public void onSync() {
+        if (isVisible()) repaint();
     }
 
 }

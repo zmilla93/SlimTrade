@@ -1,6 +1,6 @@
 package com.slimtrade.core.ninja;
 
-public interface INinjaSyncListener {
+public interface NinjaSyncListener {
 
     void onSync();
 

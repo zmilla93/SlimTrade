@@ -91,6 +91,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         String panelName = panel.tabType == null ? NULL_PANEL_NAME : panel.tabType.toString();
         cardLayout.show(cardPanel, panelName);
         selectedPanel = panel;
+        if (panel.tabType != null) NinjaInterface.sync(panel.tabType.dependencies);
     }
 
     private ButtonPanelPair addCard(NinjaTabType tabType, String iconPath) {

@@ -6,47 +6,79 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.NinjaEndpoint;
 import com.slimtrade.core.ninja.NinjaOverview;
 import com.slimtrade.core.ninja.NinjaResponse;
+import com.slimtrade.core.ninja.NinjaSyncListener;
 import com.slimtrade.core.ninja.responses.INinjaEntry;
 import com.slimtrade.modules.updater.ZLogger;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This class handles interfacing with poe.ninja.
+ * This class handles interfacing with poe.ninja asynchronously.
+ * <p>
+ * 1. Add a NinjaSyncListener, the onSync callback will be called anytime new data is fetched.
+ * <p>
+ * 2. Call sync(Endpoints...) anytime you want to ensure data is fresh. Safe to call this frequently,
+ * as it will only fetch data when current data is stale.
  */
 public class NinjaInterface {
 
     private static final HashMap<String, INinjaEntry> dataCache = new HashMap<>();
     private static final HashMap<NinjaEndpoint, Long> endpointTimerCache = new HashMap<>();
+    private static final HashMap<NinjaEndpoint, ArrayList<NinjaSyncListener>> listenerMap = new HashMap<>();
+    private static final Executor executor = Executors.newSingleThreadExecutor();
 
-    public static void sync() {
-        // TODO: Use actual poe.ninja api.
-        loadLocalDatasets();
-//        sync(NinjaEndpoint.CURRENCY);
-//        for (NinjaEndpoint endpoint : NinjaEndpoint.values()) sync(endpoint);
+    static {
+        for (NinjaEndpoint endpoint : NinjaEndpoint.values())
+            listenerMap.put(endpoint, new ArrayList<>());
     }
 
-    public static void sync(NinjaEndpoint endpoint) {
-        if (isCached(endpoint)) return;
-        // FIXME: Temp league
-        INinjaEntry[] data = fetchData(endpoint, PathOfExileLeague.TEMP);
-        cacheData(endpoint, data);
-    }
-
-    private static INinjaEntry[] fetchData(NinjaEndpoint endpoint, PathOfExileLeague league) {
-        String url = endpoint.getURL(league);
-        ZLogger.log("Fetching " + endpoint.toString().toLowerCase() + " data from poe.ninja.");
-        String value = HttpRequester.getPageContents(url);
-        INinjaEntry[] data = null;
-        if (endpoint.overview == NinjaOverview.ITEM) {
-            data = new Gson().fromJson(value, NinjaResponse.Simple.class).lines;
-        } else if (endpoint.overview == NinjaOverview.CURRENCY) {
-            data = new Gson().fromJson(value, NinjaResponse.Fragment.class).lines;
+    public static void sync(NinjaEndpoint... endpoints) {
+        for (NinjaEndpoint endpoint : endpoints) {
+            if (isCached(endpoint)) continue;
+            // FIXME: Temp league
+            fetchData(endpoint, PathOfExileLeague.TEMP);
         }
-        return data;
+    }
+
+    public static void addSyncListener(NinjaSyncListener listener, NinjaEndpoint... endpoints) {
+        for (NinjaEndpoint endpoint : endpoints) {
+            ArrayList<NinjaSyncListener> listeners = listenerMap.get(endpoint);
+            listeners.add(listener);
+        }
+    }
+
+    public static void removeSyncListener(NinjaSyncListener listener, NinjaEndpoint... endpoints) {
+        for (NinjaEndpoint endpoint : endpoints) {
+            ArrayList<NinjaSyncListener> listeners = listenerMap.get(endpoint);
+            listeners.remove(listener);
+        }
+    }
+
+    private static void fetchData(NinjaEndpoint endpoint, PathOfExileLeague league) {
+        executor.execute(() -> {
+            String url = endpoint.getURL(league);
+            ZLogger.log("Fetching " + endpoint.toString().toLowerCase() + " data from poe.ninja.");
+            String value = HttpRequester.getPageContents(url);
+            INinjaEntry[] data = null;
+            if (endpoint.overview == NinjaOverview.ITEM) {
+                data = new Gson().fromJson(value, NinjaResponse.Simple.class).lines;
+            } else if (endpoint.overview == NinjaOverview.CURRENCY) {
+                data = new Gson().fromJson(value, NinjaResponse.Fragment.class).lines;
+            }
+            cacheData(endpoint, data);
+            ArrayList<NinjaSyncListener> listeners = listenerMap.get(endpoint);
+            SwingUtilities.invokeLater(() -> {
+                for (NinjaSyncListener listener : listeners) listener.onSync();
+            });
+
+        });
     }
 
     private static void cacheData(NinjaEndpoint endpoint, INinjaEntry[] data) {
@@ -65,14 +97,14 @@ public class NinjaInterface {
         // FIXME : Make this configurable?
         long cacheDuration = TimeUnit.MINUTES.toMillis(60);
         long expirationTime = cacheTime + cacheDuration;
-        return System.currentTimeMillis() > expirationTime;
+        return System.currentTimeMillis() < expirationTime;
     }
 
     private static void markCache(NinjaEndpoint endpoint) {
         endpointTimerCache.put(endpoint, System.currentTimeMillis());
     }
 
-    private static void loadLocalDatasets() {
+    public static void loadLocalDatasets() {
         loadDataset(getDatasetFromFile("Currency", NinjaResponse.Fragment.class).lines);
         loadDataset(getDatasetFromFile("DeliriumOrb", NinjaResponse.Simple.class).lines);
         loadDataset(getDatasetFromFile("Essence", NinjaResponse.Simple.class).lines);
