@@ -47,8 +47,8 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         OptionListPanel hotkeys = new OptionListPanel("Hotkeys", hotkeyPanel);
         OptionListPanel ignoreItems = new OptionListPanel("Ignore Items", ignorePanel);
         OptionListPanel cheatSheets = new OptionListPanel("Cheat Sheets", new CheatSheetsOptionPanel());
-        OptionListPanel stashSearch = new OptionListPanel("Searching", new StashSearchOptionPanel());
-        OptionListPanel poeNinjaPricing = new OptionListPanel("Ninja Pricing", new NinjaOptionPanel());
+        OptionListPanel stashSearch = new OptionListPanel("POE Searching", new StashSearchOptionPanel());
+        OptionListPanel poeNinjaPricing = new OptionListPanel("Stash Pricing", new NinjaOptionPanel());
         OptionListPanel debug = new OptionListPanel("Debug", new DebugOptionPanel());
         OptionListPanel[] panelList = new OptionListPanel[]{
                 general, display, audio, hotkeys,

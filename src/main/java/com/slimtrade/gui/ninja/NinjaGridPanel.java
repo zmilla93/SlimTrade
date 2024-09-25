@@ -9,15 +9,14 @@ import com.slimtrade.modules.saving.ISaveListener;
 import com.slimtrade.modules.theme.ThemeManager;
 import org.jnativehook.mouse.NativeMouseEvent;
 
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Renders an overlay on the stash that displays prices from poe.ninja.
@@ -33,6 +32,8 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
     public static final Color TEXT_COLOR = new Color(255, 182, 81);
     //    public static final Color TEXT_COLOR = Color.WHITE;
     public static final Color BACKGROUND_COLOR = new Color(0, 0, 0, 150);
+    private Image chaosImage;
+    private Image divineImage;
 
     private boolean hasTabs;
     private final ArrayList<NinjaVirtualTabButton> buttonList = new ArrayList<>();
@@ -44,6 +45,10 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
     public final NinjaTabType tabType;
     private int hoverYValue;
     private static final int HOVER_Y_BUFFER = 4;
+
+    private int textHeight;
+    private int fontMetricAscent;
+
 
     public NinjaGridPanel(NinjaTabType tabType) {
         this.tabType = tabType;
@@ -79,6 +84,15 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
             }
         }
         if (!initCurrentTab) setCurrentTab("");
+    }
+
+    private void resizeIcons(int size) {
+        try {
+            chaosImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/currency/Chaos_Orb.png"))).getScaledInstance(size, size, Image.SCALE_SMOOTH);
+            divineImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/currency/Divine_Orb.png"))).getScaledInstance(size, size, Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void rebuildButtonMap() {
@@ -166,12 +180,14 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
         // Return early if a cell below this is being hovered to avoid obscuring tooltip
         if (hoverYValue != -1 && cellY + HOVER_Y_BUFFER < hoverYValue) return;
         g.setFont(g.getFont().deriveFont(Font.PLAIN, 12));
-        FontMetrics fontMetrics = g.getFontMetrics();
-        Rectangle2D textBounds = fontMetrics.getStringBounds(text, g);
+        Rectangle2D textBounds = g.getFontMetrics().getStringBounds(text, g);
+        int topOfText = cellY + cellSize - fontMetricAscent;
         g.setColor(BACKGROUND_COLOR);
-        g.fillRect(cellX, cellY + cellSize - fontMetrics.getAscent(), (int) textBounds.getWidth(), (int) textBounds.getHeight());
+        g.fillRect(cellX, topOfText, (int) textBounds.getWidth(), (int) textBounds.getHeight());
         g.setColor(TEXT_COLOR);
         g.drawString(text, cellX, cellY + cellSize);
+        int textWidth = g.getFontMetrics().stringWidth(text);
+//        g.drawImage(chaosImage, cellX + textWidth, topOfText, null);
         if (DRAW_CELL_BORDERS) {
             g.setColor(TEXT_COLOR);
             g.drawRect(cellX, cellY, cellSize, cellSize);
@@ -188,6 +204,10 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        int previousTextHeight = textHeight;
+        fontMetricAscent = g.getFontMetrics().getAscent();
+        textHeight = g.getFontMetrics().getHeight();
+        if (textHeight != previousTextHeight) resizeIcons(textHeight);
         ZUtil.clearTransparentComponent(g, this);
         drawTabButtons(g);
         if (currentSections == null) return;
