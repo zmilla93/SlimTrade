@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.slimtrade.App;
 import com.slimtrade.core.data.PatchNotesEntry;
-import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.managers.VisibilityManager;
