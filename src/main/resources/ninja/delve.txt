@@ -5,3 +5,31 @@ spacing: 18, 18
 NULL, Jagged Fossil, Dense Fossil, Frigid Fossil, Aberrant Fossil, Scorched Fossil, Metallic Fossil, Pristine Fossil
 Bound Fossil, Corroded Fossil, Opulent Fossil, Prismatic Fossil, Deft Fossil, Aetheric Fossil, Lucent Fossil, Serrated Fossil, Shuddering Fossil
 NULL, NULL, NULL, Gilded Fossil, Fundamental Fossil, Sanctified Fossil
+
+# 61, 185
+spacing: 19, 10
+Tangled Fossil, Bloodstained Fossil
+# 94, 251
+Glyphic Fossil
+
+cellSize: 47
+# 460, 185
+spacing: 19, 10
+Hollow Fossil, Fractured Fossil
+# 493, 251
+Faceted Fossil
+
+cellSize: 48
+# 152, 505
+Primitive Chaotic Resonator
+
+# 220, 488
+// FIXME : cellSize should support x and y, currently expects only square cells.
+// cellSize: 42, 86
+cellSize: 86
+Potent Chaotic Resonator
+
+cellSize: 85
+# 287, 488
+spacing: 20, 10
+Powerful Chaotic Resonator, Prime Chaotic Resonator

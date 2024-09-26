@@ -116,5 +116,14 @@ Horned Scarab of Glittering, Horned Scarab of Pandemonium
 tab: Breach
 button: 326, 10, 138, 33
 
+# 157, 191
+cellSize: 49
+spacing: 19, 19
+
+Blessing of Xoph, Blessing of Tul, Blessing of Esh, Blessing of Uul-Netol, Blessing of Chayula,
+Splinter of Xoph, Splinter of Tul, Splinter of Esh, Splinter of Uul-Netol, Splinter of Chayula
+Xoph's Breachstone, Tul's Breachstone, Esh's Breachstone, Uul-Netol's Breachstone, Chayula's Breachstone
+Xoph's Flawless Breachstone, Tul's Flawless Breachstone, Esh's Flawless Breachstone, Uul-Netol's Flawless Breachstone, Chayula's Flawless Breachstone
+
 tab: Eldritch
 button: 483, 10, 138, 33

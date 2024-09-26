@@ -21,23 +21,75 @@ Orb of Transmutation, Orb of Alteration, Orb of Annulment, Orb of Chance
 Transmutation Shard, Alteration Shard, Annulment Shard, Orb of Augmentation
 
 # 268, 123
+spacing: 16, 16
 Exalted Orb, Mirror of Kalandra
 Exalted Shard, Mirror Shard
 
 # 401, 123
-
+spacing: 16, 16
 Regal Orb, Orb of Alchemy, Chaos Orb, Veiled Orb
 Regal Shard, Alchemy Shard, Chaos Shard, Divine Orb
 
 # 21, 248
+spacing: 16, 16
 Hinekora's Lock, Jeweller's Orb, Orb of Fusing, Chromatic Orb
 Fracturing Orb, Ancient Orb, Orb of Binding, Engineer's Orb
 Fracturing Shard, Ancient Shard, Binding Shard, Engineer's Shard
 
 # 401, 249
+spacing: 16, 16
 NULL, Stacked Deck, Harbinger's Orb, Orb of Horizons
 Orb of Regret, Orb of Unmaking, Harbinger's Shard, Horizon Shard
 Orb of Scouring, Sacred Orb, Blessed Orb, Vaal Orb
 
 tab: Exotic
+cellSize: 41
 button: 333, 4, 138, 33
+
+# 32, 59
+spacing: 10, 19
+Maven's Chisel of Procurement
+Maven's Chisel of Proliferation
+Maven's Chisel of Scarabs
+Maven's Chisel of Avarice
+Maven's Chisel of Divination
+
+# 100, 59
+spacing: 22, 19
+Lesser Eldritch Ichor, Greater Eldritch Ichor
+Grand Eldritch Ichor, Exceptional Eldritch Ichor
+Lesser Eldritch Ember, Greater Eldritch Ember
+Grand Eldritch Ember, Exceptional Eldritch Ember
+
+# 131, 313
+spacing: 25, 18
+Orb of Conflict
+
+# 240, 59
+spacing: 16, 19
+Tainted Chaos Orb, Tainted Exalted Orb, Tainted Blacksmith's Whetstone
+Tainted Armourer's Scrap, Tainted Divine Teardrop,  Tainted Mythic Orb
+Tainted Orb of Fusing, Tainted Jeweller's Orb, Tainted Chromatic Orb
+
+# 429, 59
+spacing: 21, 18
+Hunter's Exalted Orb, Crusader's Exalted Orb
+Redeemer's Exalted Orb, Warlord's Exalted Orb
+Orb of Dominance, Awakener's Orb
+
+cellSize: 42
+# 429, 253
+spacing: 18, 19
+Eldritch Chaos Orb, Eldritch Orb of Annulment
+cellSize: 41
+
+# 460, 315
+spacing: 18, 19
+Eldritch Exalted Orb
+
+# 100, 386
+spacing: 22, 18
+Wild Crystallised Lifeforce, Vivid Crystallised Lifeforce
+# 431, 386
+spacing: 19, 18
+Primal Crystallised Lifeforce, Sacred Crystallised Lifeforce
