@@ -44,6 +44,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
     public final NinjaTabType tabType;
     private int hoverYValue;
     private static final int HOVER_Y_BUFFER = 4;
+    private boolean hasBeenSynced = false;
 
     private int textHeight;
     private int fontMetricAscent;
@@ -203,14 +204,24 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
         repaint();
     }
 
+    private void printLoadingMessage(Graphics g) {
+        int textHeight = g.getFontMetrics().getHeight();
+        g.setColor(TEXT_COLOR);
+        g.drawString("Loading...", 5, textHeight);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        ZUtil.clearTransparentComponent(g, this);
+        if (!hasBeenSynced) {
+            printLoadingMessage(g);
+            return;
+        }
         int previousTextHeight = textHeight;
         fontMetricAscent = g.getFontMetrics().getAscent();
         textHeight = g.getFontMetrics().getHeight();
         if (textHeight != previousTextHeight) resizeIcons(textHeight);
-        ZUtil.clearTransparentComponent(g, this);
         drawTabButtons(g);
         if (currentSections == null) return;
         for (NinjaGridSection section : currentSections) {
@@ -304,6 +315,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
 
     @Override
     public void onSync() {
+        hasBeenSynced = true;
         if (isVisible()) repaint();
     }
 

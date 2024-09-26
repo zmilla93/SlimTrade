@@ -31,7 +31,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     private final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
     private final JButton syncButton = new IconButton(DefaultIcon.ARROW_SYNC);
     private final JLabel syncLabel = new StyledLabel("Synced 2m ago").italic();
-    private NinjaMouseAdapter selectedPanel;
+    private NinjaGridPanel selectedPanel;
 
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardLayout);
@@ -44,9 +44,9 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         setBackground(ThemeManager.TRANSPARENT);
 
         JPanel syncAndClosePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        syncAndClosePanel.add(syncLabel);
-        syncAndClosePanel.add(Box.createHorizontalStrut(GUIReferences.HORIZONTAL_INSET_SMALL));
-        syncAndClosePanel.add(syncButton);
+//        syncAndClosePanel.add(syncLabel);
+//        syncAndClosePanel.add(Box.createHorizontalStrut(GUIReferences.HORIZONTAL_INSET_SMALL));
+//        syncAndClosePanel.add(syncButton);
         syncAndClosePanel.add(closeButton);
         syncButton.setEnabled(false);
 
@@ -112,6 +112,13 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         Rectangle rect = SaveManager.stashSaveFile.data.gridRect;
         setLocation(rect.getLocation());
         pack();
+    }
+
+    @Override
+    public void setVisible(boolean b) {
+        super.setVisible(b);
+        if (selectedPanel != null && selectedPanel.tabType != null)
+            NinjaInterface.sync(selectedPanel.tabType.dependencies);
     }
 
     @Override
