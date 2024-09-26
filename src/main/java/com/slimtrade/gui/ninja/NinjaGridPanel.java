@@ -44,7 +44,7 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
     public final NinjaTabType tabType;
     private int hoverYValue;
     private static final int HOVER_Y_BUFFER = 4;
-    private boolean hasBeenSynced = false;
+    private boolean hasBeenSynced = NinjaInterface.useLocalDatasets;
 
     private int textHeight;
     private int fontMetricAscent;

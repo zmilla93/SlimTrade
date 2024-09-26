@@ -2,6 +2,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.saving.legacy.SaveFilePatcherManager;
+import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.modules.updater.UpdateManager;
 import com.slimtrade.modules.updater.data.AppInfo;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,7 @@ public class ReleaseTest {
         assertFalse(App.showOptionsOnLaunch);
         assertFalse(App.forceSetup);
         assertFalse(App.messageUITest);
+        assertFalse(NinjaInterface.useLocalDatasets);
         assertEquals(0, App.debugUIBorders);
         assertFalse(SaveFilePatcherManager.DEBUG_REPORT);
         assertFalse(UpdateManager.DEBUG_FAST_PERIODIC_CHECK);

@@ -5,7 +5,7 @@ import com.slimtrade.core.utility.ZUtil;
 public class NinjaUtil {
 
     private NinjaUtil() {
-
+        // Static class
     }
 
     public static String getChaosText(float chaosValue) {

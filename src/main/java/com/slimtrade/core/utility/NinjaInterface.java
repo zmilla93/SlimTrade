@@ -33,13 +33,18 @@ public class NinjaInterface {
     private static final HashMap<NinjaEndpoint, Long> endpointTimerCache = new HashMap<>();
     private static final HashMap<NinjaEndpoint, ArrayList<NinjaSyncListener>> listenerMap = new HashMap<>();
     private static final Executor executor = Executors.newSingleThreadExecutor();
+    public static final boolean useLocalDatasets = true;
 
     static {
         for (NinjaEndpoint endpoint : NinjaEndpoint.values())
             listenerMap.put(endpoint, new ArrayList<>());
+        if (useLocalDatasets){
+            loadLocalDatasets();
+        }
     }
 
     public static void sync(NinjaEndpoint... endpoints) {
+        if (useLocalDatasets) return;
         for (NinjaEndpoint endpoint : endpoints) {
             if (isCached(endpoint)) continue;
             // FIXME: Temp league
