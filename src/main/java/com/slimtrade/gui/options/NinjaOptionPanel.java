@@ -7,10 +7,8 @@ import com.slimtrade.gui.components.ComponentPair;
 import com.slimtrade.gui.components.ErrorLabel;
 import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.modules.saving.ISavable;
-import javafx.scene.control.ColorPicker;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class NinjaOptionPanel extends AbstractOptionPanel implements ISavable {
 

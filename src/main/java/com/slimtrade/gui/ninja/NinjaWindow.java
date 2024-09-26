@@ -4,7 +4,6 @@ import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.NinjaMouseAdapter;
 import com.slimtrade.core.ninja.NinjaTabType;
-import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.gui.buttons.BasicIconButton;
 import com.slimtrade.gui.buttons.IconButton;
