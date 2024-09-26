@@ -9,6 +9,7 @@ public enum NinjaEndpoint {
     FRAGMENTS("Fragment", NinjaOverview.CURRENCY),
     SCARAB("Scarab", NinjaOverview.ITEM),
     DELVE("Fossil", NinjaOverview.ITEM),
+    RESONATOR("Resonator", NinjaOverview.ITEM),
     BLIGHT("Oil", NinjaOverview.ITEM),
     DELIRIUM("DeliriumOrb", NinjaOverview.ITEM),
     // Note: Ultimatum catalysts are in Currency

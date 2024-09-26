@@ -7,7 +7,7 @@ public enum NinjaTabType {
     CURRENCY(new String[]{"Normal", "Exotic"}, NinjaEndpoint.CURRENCY),
     FRAGMENTS(new String[]{"General", "Scarab", "Breach", "Eldritch"}, NinjaEndpoint.FRAGMENTS, NinjaEndpoint.SCARAB),
     ESSENCE(NinjaEndpoint.ESSENCE),
-    DELVE(NinjaEndpoint.DELVE),
+    DELVE(NinjaEndpoint.DELVE, NinjaEndpoint.RESONATOR),
     BLIGHT(NinjaEndpoint.BLIGHT),
     DELIRIUM(NinjaEndpoint.DELIRIUM),
     ULTIMATUM(NinjaEndpoint.CURRENCY);
