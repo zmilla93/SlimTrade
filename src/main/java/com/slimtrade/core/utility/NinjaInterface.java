@@ -9,7 +9,6 @@ import com.slimtrade.core.ninja.NinjaResponse;
 import com.slimtrade.core.ninja.NinjaSyncListener;
 import com.slimtrade.core.ninja.responses.INinjaEntry;
 import com.slimtrade.modules.updater.ZLogger;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.io.File;
@@ -38,7 +37,7 @@ public class NinjaInterface {
     static {
         for (NinjaEndpoint endpoint : NinjaEndpoint.values())
             listenerMap.put(endpoint, new ArrayList<>());
-        if (useLocalDatasets){
+        if (useLocalDatasets) {
             loadLocalDatasets();
         }
     }
@@ -140,10 +139,8 @@ public class NinjaInterface {
      * When using this function, be sure to sync the required endpoints and register a callback
      * to correctly update to UI when the cache expires.
      */
-    public static @Nullable String getItemPriceText(String name) {
-        Object obj = dataCache.get(name);
-        if (obj == null) return null;
-        return obj.toString();
+    public static INinjaEntry getEntry(String name) {
+        return dataCache.get(name);
     }
 
 }

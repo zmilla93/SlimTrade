@@ -1,6 +1,6 @@
 package com.slimtrade.core.ninja.responses;
 
-import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.core.ninja.NinjaUtil;
 
 public class NinjaSimpleEntry implements INinjaEntry {
 
@@ -22,14 +22,19 @@ public class NinjaSimpleEntry implements INinjaEntry {
     }
 
     @Override
+    public float getChaosValue() {
+        return chaosValue;
+    }
+
+    @Override
     public String getChaosText() {
-        if (chaosText == null) {
-            // Remove numbers above a threshold to save screen space
-            // FIXME : Should this threshold be adjustable?
-            float value = chaosValue >= 50 ? Math.round(chaosValue) : chaosValue;
-            chaosText = ZUtil.formatNumberOneDecimal(value) + "c";
-        }
+        if (chaosText == null) chaosText = NinjaUtil.getChaosText(chaosValue);
         return chaosText;
+    }
+
+    @Override
+    public float getDivineValue() {
+        return divineValue;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.slimtrade.gui.ninja;
 
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.ninja.*;
+import com.slimtrade.core.ninja.responses.INinjaEntry;
 import com.slimtrade.core.utility.NinjaInterface;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ThemeLineBorder;
@@ -169,14 +170,16 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
             for (int x = 0; x < section.data[y].length; x++) {
                 String value = section.data[y][x];
                 if (value == null || value.equals("NULL")) continue;
-                String text = NinjaInterface.getItemPriceText(value);
-                if (text == null) continue;
+                INinjaEntry entry = NinjaInterface.getEntry(value);
+                if (entry == null) continue;
+                String text = entry.getChaosText();
                 drawCell(g, section, x, y, text);
             }
         }
     }
 
     private void drawCell(Graphics g, NinjaGridSection section, int x, int y, String text) {
+        if (text.isEmpty()) return;
         int cellSize = section.cellSize;
         int cellX = section.x + (x * cellSize + x * section.spacingX);
         int cellY = section.y + (y * cellSize + y * section.spacingY);
@@ -186,11 +189,17 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
         Rectangle2D textBounds = g.getFontMetrics().getStringBounds(text, g);
         int topOfText = cellY + cellSize - fontMetricAscent;
         g.setColor(BACKGROUND_COLOR);
-        g.fillRect(cellX, topOfText, (int) textBounds.getWidth(), (int) textBounds.getHeight());
+        int arc = 4;
+        int buffer = 1;
+        int bufferDouble = buffer * 2;
+        g.fillRoundRect(cellX - buffer, topOfText - buffer,
+                (int) textBounds.getWidth() + chaosImage.getWidth(null) + bufferDouble,
+                (int) textBounds.getHeight() + bufferDouble,
+                arc, arc);
         g.setColor(TEXT_COLOR);
         g.drawString(text, cellX, cellY + cellSize);
         int textWidth = g.getFontMetrics().stringWidth(text);
-//        g.drawImage(chaosImage, cellX + textWidth, topOfText, null);
+        g.drawImage(chaosImage, cellX + textWidth, topOfText, null);
         if (DRAW_CELL_BORDERS) {
             g.setColor(TEXT_COLOR);
             g.drawRect(cellX, cellY, cellSize, cellSize);
@@ -231,7 +240,6 @@ public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseA
                 g.setColor(Color.BLUE);
                 g.drawRect(rect.x, rect.y, rect.width, rect.height);
             }
-
         }
     }
 

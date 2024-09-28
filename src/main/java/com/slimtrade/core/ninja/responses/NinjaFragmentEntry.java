@@ -22,9 +22,20 @@ public class NinjaFragmentEntry implements INinjaEntry {
     }
 
     @Override
+    public float getChaosValue() {
+        return chaosEquivalent;
+    }
+
+    @Override
     public String getChaosText() {
         if (chaosText == null) chaosText = NinjaUtil.getChaosText(chaosEquivalent);
         return chaosText;
+    }
+
+    @Override
+    public float getDivineValue() {
+        // TODO : this
+        return -1;
     }
 
     @Override
