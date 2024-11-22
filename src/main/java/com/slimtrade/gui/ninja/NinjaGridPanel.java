@@ -20,7 +20,7 @@ import java.util.*;
 
 /**
  * Renders an overlay on the stash that displays prices from poe.ninja.
- * Handles a single tab (and any sub tabs, like with currency, fragments, etc.)
+ * Handles a single tab (and any sub tabs, like with currency, fragment, etc.)
  */
 public class NinjaGridPanel extends JPanel implements ISaveListener, NinjaMouseAdapter, NinjaSyncListener {
 

@@ -38,7 +38,8 @@ public class POEInterface {
     private static final int MAX_TITLE_LENGTH = 1024;
     private static final Random random = new Random();
 
-    private static final String GAME_TITLE = "Path of Exile";
+    //    private static final String GAME_TITLE = "Path of Exile";
+    private static final String GAME_TITLE = "Path of Exile on GeForce NOW";
 
     public static void init() {
         try {
@@ -55,7 +56,7 @@ public class POEInterface {
         // FIXME: isGameFocused is called twice
         if (!isGameFocused()) return;
         // Clear Alt
-//        robot.keyPress(KeyEvent.VK_ALT);
+        robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
         // Try opening chat with custom hotkey
         HotkeyData poeChatHotkey = SaveManager.settingsSaveFile.data.poeChatHotkey;

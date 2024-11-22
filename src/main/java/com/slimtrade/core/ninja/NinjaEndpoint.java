@@ -6,7 +6,7 @@ public enum NinjaEndpoint {
 
     CURRENCY("Currency", NinjaOverview.CURRENCY),
     ESSENCE("Essence", NinjaOverview.ITEM),
-    FRAGMENTS("Fragment", NinjaOverview.CURRENCY),
+    FRAGMENT("Fragment", NinjaOverview.CURRENCY),
     SCARAB("Scarab", NinjaOverview.ITEM),
     DELVE("Fossil", NinjaOverview.ITEM),
     RESONATOR("Resonator", NinjaOverview.ITEM),

@@ -19,6 +19,8 @@ import org.jnativehook.mouse.NativeMouseEvent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Parent window for displaying poe.ninja prices above the stash.
@@ -31,6 +33,8 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     private final JButton syncButton = new IconButton(DefaultIcon.ARROW_SYNC);
     private final JLabel syncLabel = new StyledLabel("Synced 2m ago").italic();
     private NinjaGridPanel selectedPanel;
+    private ArrayList<ButtonPanelPair> buttonPanelPairs = new ArrayList<>();
+    private HashMap<NinjaTabType, ButtonPanelPair> buttonPanelPairMap = new HashMap<>();
 
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardLayout);
@@ -57,7 +61,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         // Card Panel
         addCard(null, new IconButton(DefaultIcon.EYE));
         ButtonPanelPair selectedPanel = addCard(NinjaTabType.CURRENCY, "/icons/edits/currency.png");
-        addCard(NinjaTabType.FRAGMENTS, "/currency/Essence_Scarab_of_Ascent.png");
+        addCard(NinjaTabType.FRAGMENT, "/currency/Essence_Scarab_of_Ascent.png");
         addCard(NinjaTabType.ESSENCE, "/currency/Deafening_Essence_of_Anguish.png");
         addCard(NinjaTabType.DELVE, "/currency/Aberrant_Fossil.png");
         addCard(NinjaTabType.BLIGHT, "/currency/Prismatic_Oil.png");
@@ -68,14 +72,16 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         contentPanel.add(cardPanel, BorderLayout.CENTER);
         contentPanel.add(southPanel, BorderLayout.SOUTH);
 
+        updateButtonVisibility();
         pack();
         updateBounds();
         setVisible(true);
         addListeners();
         SaveManager.stashSaveFile.addListener(this);
+        SaveManager.settingsSaveFile.addListener(this);
         ThemeManager.addFontListener(this);
 
-        changePanel((NinjaGridPanel) selectedPanel.panel, selectedPanel.button);
+        changePanel(selectedPanel);
         GlobalScreen.addNativeMouseListener(this);
         GlobalScreen.addNativeMouseMotionListener(this);
     }
@@ -84,13 +90,18 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         closeButton.addActionListener(e -> setVisible(false));
     }
 
-    private void changePanel(NinjaGridPanel panel, JButton button) {
+    private void changePanel(NinjaTabType tabType){
+        ButtonPanelPair pair = buttonPanelPairMap.get(tabType);
+        changePanel(pair);
+    }
+
+    private void changePanel(ButtonPanelPair pair) {
         for (Component component : buttonPanel.getComponents()) component.setEnabled(true);
-        button.setEnabled(false);
-        String panelName = panel.tabType == null ? NULL_PANEL_NAME : panel.tabType.toString();
+        pair.button.setEnabled(false);
+        String panelName = pair.tabType == null ? NULL_PANEL_NAME : pair.tabType.toString();
         cardLayout.show(cardPanel, panelName);
-        selectedPanel = panel;
-        if (panel.tabType != null) NinjaInterface.sync(panel.tabType.dependencies);
+        selectedPanel = pair.panel;
+        if (pair.tabType != null) NinjaInterface.sync(pair.tabType.dependencies);
     }
 
     private ButtonPanelPair addCard(NinjaTabType tabType, String iconPath) {
@@ -103,14 +114,27 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         String panelName = tabType == null ? NULL_PANEL_NAME : tabType.toString();
         cardPanel.add(panel, panelName);
         buttonPanel.add(button);
-        button.addActionListener(e -> changePanel(panel, button));
-        return new ButtonPanelPair(button, panel);
+        ButtonPanelPair pair = new ButtonPanelPair(button, panel, tabType);
+        button.addActionListener(e -> changePanel(pair));
+        buttonPanelPairs.add(pair);
+        buttonPanelPairMap.put(tabType, pair);
+        return pair;
     }
 
     private void updateBounds() {
         Rectangle rect = SaveManager.stashSaveFile.data.gridRect;
         setLocation(rect.getLocation());
         pack();
+    }
+
+    private void updateButtonVisibility() {
+        buttonPanelPairMap.get(NinjaTabType.CURRENCY).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableCurrencyTab);
+        buttonPanelPairMap.get(NinjaTabType.FRAGMENT).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableFragmentTab);
+        buttonPanelPairMap.get(NinjaTabType.ESSENCE).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableEssenceTab);
+        buttonPanelPairMap.get(NinjaTabType.DELVE).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableDelveTab);
+        buttonPanelPairMap.get(NinjaTabType.BLIGHT).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableBlightTab);
+        buttonPanelPairMap.get(NinjaTabType.DELIRIUM).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableDeliriumTab);
+        buttonPanelPairMap.get(NinjaTabType.ULTIMATUM).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableUltimatumTab);
     }
 
     @Override
@@ -123,6 +147,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     @Override
     public void onSave() {
         updateBounds();
+        updateButtonVisibility();
     }
 
     @Override

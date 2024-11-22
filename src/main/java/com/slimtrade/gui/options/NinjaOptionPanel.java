@@ -50,11 +50,25 @@ public class NinjaOptionPanel extends AbstractOptionPanel implements ISavable {
     @Override
     public void save() {
         SaveManager.settingsSaveFile.data.pathOfExileLeague = (PathOfExileLeague) leagueCombo.getSelectedItem();
+        SaveManager.settingsSaveFile.data.ninjaEnableCurrencyTab = currencyCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.ninjaEnableFragmentTab = fragmentCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.ninjaEnableEssenceTab = essenceCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.ninjaEnableDelveTab = delveCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.ninjaEnableBlightTab = blightCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.ninjaEnableDeliriumTab = deliriumCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.ninjaEnableUltimatumTab = ultimatumCheckbox.isSelected();
     }
 
     @Override
     public void load() {
         leagueCombo.setSelectedItem(SaveManager.settingsSaveFile.data.pathOfExileLeague);
+        currencyCheckbox.setSelected(SaveManager.settingsSaveFile.data.ninjaEnableCurrencyTab);
+        fragmentCheckbox.setSelected(SaveManager.settingsSaveFile.data.ninjaEnableFragmentTab);
+        essenceCheckbox.setSelected(SaveManager.settingsSaveFile.data.ninjaEnableEssenceTab);
+        delveCheckbox.setSelected(SaveManager.settingsSaveFile.data.ninjaEnableDelveTab);
+        blightCheckbox.setSelected(SaveManager.settingsSaveFile.data.ninjaEnableBlightTab);
+        deliriumCheckbox.setSelected(SaveManager.settingsSaveFile.data.ninjaEnableDeliriumTab);
+        ultimatumCheckbox.setSelected(SaveManager.settingsSaveFile.data.ninjaEnableUltimatumTab);
     }
 
 }
