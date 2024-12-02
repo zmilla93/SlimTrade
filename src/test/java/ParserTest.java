@@ -17,7 +17,7 @@ public class ParserTest implements IParserLoadedListener {
     private static ChatParser parser;
 
     @BeforeEach
-    private void beforeEach() {
+    public void beforeEach() {
         if (parser != null) {
             parser.close();
             parser.removeAllListeners();
