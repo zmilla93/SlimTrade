@@ -6,6 +6,7 @@ import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
+import com.slimtrade.gui.options.general.KalguurSettingsPanel;
 import com.slimtrade.gui.options.searching.StashSearchOptionPanel;
 import com.slimtrade.gui.options.stash.StashOptionPanel;
 import com.slimtrade.modules.saving.ISaveListener;
@@ -48,6 +49,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         OptionListPanel ignoreItems = new OptionListPanel("Ignore Items", ignorePanel);
         OptionListPanel cheatSheets = new OptionListPanel("Cheat Sheets", new CheatSheetsOptionPanel());
         OptionListPanel stashSearch = new OptionListPanel("POE Searching", new StashSearchOptionPanel());
+        OptionListPanel kalguurHelper = new OptionListPanel("Kalguur Helper", new KalguurOptionPanel());
 //        OptionListPanel poeNinjaPricing = new OptionListPanel("Stash Pricing", new NinjaOptionPanel());
         OptionListPanel debug = new OptionListPanel("Debug", new DebugOptionPanel());
         OptionListPanel[] panelList = new OptionListPanel[]{
@@ -55,7 +57,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
                 new OptionListPanel("Trading"),
                 incomingMacros, outgoingMacros, stash, ignoreItems,
                 new OptionListPanel("Tools"),
-                cheatSheets, stashSearch,
+                cheatSheets, stashSearch, kalguurHelper,
                 new OptionListPanel(),
                 information, donationPanel
         };

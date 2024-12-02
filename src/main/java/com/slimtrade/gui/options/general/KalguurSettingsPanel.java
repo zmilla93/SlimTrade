@@ -10,14 +10,14 @@ import com.slimtrade.modules.saving.ISavable;
 import javax.swing.*;
 import java.awt.*;
 
-public class KalguurOptionPanel extends JPanel implements ISavable {
+public class KalguurSettingsPanel extends JPanel implements ISavable {
 
     private final HotkeyButton kalguurWindowHotkey = new HotkeyButton();
     private final JCheckBox clearCompletedTimers = new JCheckBox("Auto Clear Completed Timers");
 
     private final GridBagConstraints gc = ZUtil.getGC();
 
-    public KalguurOptionPanel() {
+    public KalguurSettingsPanel() {
         setLayout(new GridBagLayout());
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;

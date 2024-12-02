@@ -7,7 +7,7 @@ import java.awt.*;
 public class GeneralOptionPanel extends AbstractOptionPanel {
 
     public GeneralOptionPanel() {
-        addRow("Kalguur Helper", new KalguurOptionPanel());
+//        addRow("Kalguur Helper", new KalguurOptionPanel());
         addRow("Basics", new BasicsPanel());
         addRow("Enable Features", new EnableFeaturesPanel());
         addRow("Message Popups", new MessageSettingsPanel());
