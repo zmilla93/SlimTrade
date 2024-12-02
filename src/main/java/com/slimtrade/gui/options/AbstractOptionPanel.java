@@ -144,7 +144,7 @@ public class AbstractOptionPanel extends JPanel {
     }
 
     private void incorrectAddMethod() {
-        ZLogger.err("[OptionPanel] Components should not be added directly to an OptionPanel! Use addHeader() or addPanel() instead.");
+        ZLogger.err("[OptionPanel] Components should not be added directly to an OptionPanel! Use addHeader() or addComponent() instead.");
         ZUtil.printCallingFunction(AbstractOptionPanel.class);
     }
 
