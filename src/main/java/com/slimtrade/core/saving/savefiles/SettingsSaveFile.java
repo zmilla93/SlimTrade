@@ -60,6 +60,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
     // Path of Exile
     public String clientPath;
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
+    public PathOfExileLeague pathOfExileLeague = PathOfExileLeague.TEMP;
 
     // Enable Features
     public MenubarStyle menubarStyle = MenubarStyle.ICON;
@@ -123,14 +124,13 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public ArrayList<StashSearchGroupData> stashSearchData = new ArrayList<>();
 
     // poe.ninja
-    public PathOfExileLeague pathOfExileLeague = PathOfExileLeague.TEMP;
-    public boolean ninjaEnableCurrencyTab = true;
-    public boolean ninjaEnableFragmentTab = true;
-    public boolean ninjaEnableEssenceTab = true;
-    public boolean ninjaEnableDelveTab = true;
-    public boolean ninjaEnableBlightTab = true;
-    public boolean ninjaEnableDeliriumTab = true;
-    public boolean ninjaEnableUltimatumTab = true;
+//    public boolean ninjaEnableCurrencyTab = true;
+//    public boolean ninjaEnableFragmentTab = true;
+//    public boolean ninjaEnableEssenceTab = true;
+//    public boolean ninjaEnableDelveTab = true;
+//    public boolean ninjaEnableBlightTab = true;
+//    public boolean ninjaEnableDeliriumTab = true;
+//    public boolean ninjaEnableUltimatumTab = true;
 
     public SettingsSaveFile() {
         incomingMacroButtons.add(new MacroButton(CustomIcon.REFRESH, "Hi, do you still want to buy my {item} listed for {price}?", "", ButtonRow.TOP_ROW, null, false));

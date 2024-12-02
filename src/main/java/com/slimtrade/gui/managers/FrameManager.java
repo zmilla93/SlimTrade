@@ -85,7 +85,7 @@ public class FrameManager {
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
         kalguurHelperWindow = new KalguurHelperWindow();
-        ninjaWindow = new NinjaWindow();
+//        ninjaWindow = new NinjaWindow();
         tutorialWindow = new TutorialWindow();
         patchNotesWindow = new PatchNotesWindow();
         if (App.debug) {

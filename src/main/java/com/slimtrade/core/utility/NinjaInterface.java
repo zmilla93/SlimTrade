@@ -32,7 +32,7 @@ public class NinjaInterface {
     private static final HashMap<NinjaEndpoint, Long> endpointTimerCache = new HashMap<>();
     private static final HashMap<NinjaEndpoint, ArrayList<NinjaSyncListener>> listenerMap = new HashMap<>();
     private static final Executor executor = Executors.newSingleThreadExecutor();
-    public static final boolean useLocalDatasets = true;
+    public static final boolean useLocalDatasets = false;
 
     static {
         for (NinjaEndpoint endpoint : NinjaEndpoint.values())
@@ -46,7 +46,7 @@ public class NinjaInterface {
         if (useLocalDatasets) return;
         for (NinjaEndpoint endpoint : endpoints) {
             if (isCached(endpoint)) continue;
-            // FIXME: Temp league
+            // FIXME: Temp league, use league from save file instead
             fetchData(endpoint, PathOfExileLeague.TEMP);
         }
     }

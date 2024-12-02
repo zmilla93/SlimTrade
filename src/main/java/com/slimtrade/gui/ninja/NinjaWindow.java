@@ -42,14 +42,9 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     private final String NULL_PANEL_NAME = "NULL";
 
     public NinjaWindow() {
-        // FIXME: Temp sync
-        NinjaInterface.sync();
         setBackground(ThemeManager.TRANSPARENT);
 
         JPanel syncAndClosePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-//        syncAndClosePanel.add(syncLabel);
-//        syncAndClosePanel.add(Box.createHorizontalStrut(GUIReferences.HORIZONTAL_INSET_SMALL));
-//        syncAndClosePanel.add(syncButton);
         syncAndClosePanel.add(closeButton);
         syncButton.setEnabled(false);
 
@@ -90,7 +85,7 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
         closeButton.addActionListener(e -> setVisible(false));
     }
 
-    private void changePanel(NinjaTabType tabType){
+    private void changePanel(NinjaTabType tabType) {
         ButtonPanelPair pair = buttonPanelPairMap.get(tabType);
         changePanel(pair);
     }
@@ -128,13 +123,14 @@ public class NinjaWindow extends BasicDialog implements ISaveListener, IFontChan
     }
 
     private void updateButtonVisibility() {
-        buttonPanelPairMap.get(NinjaTabType.CURRENCY).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableCurrencyTab);
-        buttonPanelPairMap.get(NinjaTabType.FRAGMENT).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableFragmentTab);
-        buttonPanelPairMap.get(NinjaTabType.ESSENCE).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableEssenceTab);
-        buttonPanelPairMap.get(NinjaTabType.DELVE).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableDelveTab);
-        buttonPanelPairMap.get(NinjaTabType.BLIGHT).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableBlightTab);
-        buttonPanelPairMap.get(NinjaTabType.DELIRIUM).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableDeliriumTab);
-        buttonPanelPairMap.get(NinjaTabType.ULTIMATUM).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableUltimatumTab);
+        // FIXME : Button visibility
+//        buttonPanelPairMap.get(NinjaTabType.CURRENCY).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableCurrencyTab);
+//        buttonPanelPairMap.get(NinjaTabType.FRAGMENT).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableFragmentTab);
+//        buttonPanelPairMap.get(NinjaTabType.ESSENCE).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableEssenceTab);
+//        buttonPanelPairMap.get(NinjaTabType.DELVE).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableDelveTab);
+//        buttonPanelPairMap.get(NinjaTabType.BLIGHT).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableBlightTab);
+//        buttonPanelPairMap.get(NinjaTabType.DELIRIUM).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableDeliriumTab);
+//        buttonPanelPairMap.get(NinjaTabType.ULTIMATUM).button.setVisible(SaveManager.settingsSaveFile.data.ninjaEnableUltimatumTab);
     }
 
     @Override
