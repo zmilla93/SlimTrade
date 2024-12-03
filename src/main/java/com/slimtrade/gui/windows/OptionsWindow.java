@@ -6,7 +6,6 @@ import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
-import com.slimtrade.gui.options.general.KalguurSettingsPanel;
 import com.slimtrade.gui.options.searching.StashSearchOptionPanel;
 import com.slimtrade.gui.options.stash.StashOptionPanel;
 import com.slimtrade.modules.saving.ISaveListener;
