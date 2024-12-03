@@ -34,7 +34,7 @@ public class PoeChatHotkeyPanel extends JPanel implements ISavable {
         poeChatHotkey.addHotkeyChangeListener(data -> {
             int key = JnaAwtEvent.hotkeyToEvent(data);
             if (data != null && key == JnaAwtEvent.INVALID_HOTKEY) {
-                setError("Unsupported key, report [" + data + ": " + data.keyCode + "]");
+                setError("Unsupported hotkey. Use a different hotkey or report a bug with KeyCodeError[" + data + ":" + data.keyCode + "].");
             } else {
                 setError(null);
             }
