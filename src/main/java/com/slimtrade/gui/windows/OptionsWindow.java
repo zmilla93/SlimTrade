@@ -49,7 +49,6 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         OptionListPanel cheatSheets = new OptionListPanel("Cheat Sheets", new CheatSheetsOptionPanel());
         OptionListPanel stashSearch = new OptionListPanel("POE Searching", new StashSearchOptionPanel());
         OptionListPanel kalguurHelper = new OptionListPanel("Kalguur Helper", new KalguurOptionPanel());
-//        OptionListPanel poeNinjaPricing = new OptionListPanel("Stash Pricing", new NinjaOptionPanel());
         OptionListPanel debug = new OptionListPanel("Debug", new DebugOptionPanel());
         OptionListPanel[] panelList = new OptionListPanel[]{
                 general, display, audio, hotkeys,
@@ -68,6 +67,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         }
         optionsList = new JList<>(panelList);
         optionsList.setCellRenderer(new OptionListPanelCellRenderer());
+        optionsList.setSelectionModel(new OptionListSelectionModel(panelList));
         JPanel sidebar = createSidebar();
 
         // Save & Revert Panel
