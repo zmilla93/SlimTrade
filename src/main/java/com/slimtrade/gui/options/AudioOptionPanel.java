@@ -10,7 +10,7 @@ import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AudioComboBox;
 import com.slimtrade.gui.components.ButtonPanel;
 import com.slimtrade.gui.components.StyledLabel;
-import com.slimtrade.gui.options.audio.AudioRowControls;
+import com.slimtrade.gui.options.audio.OLD_AudioRowControls;
 import com.slimtrade.gui.options.audio.AudioThresholdPanel;
 import com.slimtrade.modules.saving.ISavable;
 
@@ -29,14 +29,14 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     private final AudioThresholdPanel audioThresholdPanel = new AudioThresholdPanel();
 
     // Controls
-    private final ArrayList<AudioRowControls> controlList = new ArrayList<>();
-    private final AudioRowControls incomingTradeControls;
-    private final AudioRowControls outgoingTradeControls;
-    private final AudioRowControls chatScannerControls;
-    private final AudioRowControls kalguurControls;
-    private final AudioRowControls playerJoinedAreaControls;
-    private final AudioRowControls ignoredItemControls;
-    private final AudioRowControls updateAlertControls;
+    private final ArrayList<OLD_AudioRowControls> controlList = new ArrayList<>();
+    private final OLD_AudioRowControls incomingTradeControls;
+    private final OLD_AudioRowControls outgoingTradeControls;
+    private final OLD_AudioRowControls chatScannerControls;
+    private final OLD_AudioRowControls kalguurControls;
+    private final OLD_AudioRowControls playerJoinedAreaControls;
+    private final OLD_AudioRowControls ignoredItemControls;
+    private final OLD_AudioRowControls updateAlertControls;
 
     public AudioOptionPanel() {
         gc.gridx = 0;
@@ -87,7 +87,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         });
     }
 
-    private AudioRowControls addRow(String title) {
+    private OLD_AudioRowControls addRow(String title) {
         JButton previewButton = new IconButton(DefaultIcon.PLAY);
         AudioComboBox soundCombo = new AudioComboBox();
         JSlider volumeSlider = new JSlider();
@@ -110,7 +110,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         previewButton.addActionListener(e -> AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
         volumeSlider.addChangeListener(e -> updateVolumeSlider(volumeSlider, volumeLabel));
         updateVolumeSlider(volumeSlider, volumeLabel);
-        AudioRowControls controls = new AudioRowControls(soundCombo, volumeSlider);
+        OLD_AudioRowControls controls = new OLD_AudioRowControls(soundCombo, volumeSlider);
         controlList.add(controls);
         return controls;
     }
@@ -120,7 +120,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     private void refreshCombos() {
-        for (AudioRowControls control : controlList)
+        for (OLD_AudioRowControls control : controlList)
             control.comboBox.refresh();
         audioThresholdPanel.refreshCombos();
     }
