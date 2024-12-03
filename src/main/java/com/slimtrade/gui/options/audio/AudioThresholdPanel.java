@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class AudioThresholdPanel extends JPanel implements ISavable {
 
     private final JButton newThresholdButton = new JButton("New Price Threshold");
-    private final AddRemoveContainer<AudioThresholdRow> container = new AddRemoveContainer<>();
+    private final AddRemoveContainer<AudioThresholdRowControls> container = new AddRemoveContainer<>();
 
     public AudioThresholdPanel() {
         setLayout(new GridBagLayout());
@@ -29,13 +29,13 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
     }
 
     private void addListeners() {
-        newThresholdButton.addActionListener(e -> container.add(new AudioThresholdRow(container)));
+        newThresholdButton.addActionListener(e -> container.add(new AudioThresholdRowControls(container)));
     }
 
     public void refreshCombos() {
         for (Component c : container.getComponents()) {
-            if (c instanceof AudioThresholdRow) {
-                ((AudioThresholdRow) c).refreshCombo();
+            if (c instanceof AudioThresholdRowControls) {
+                ((AudioThresholdRowControls) c).refreshCombo();
             }
         }
         load();
@@ -44,7 +44,7 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
     @Override
     public void save() {
         ArrayList<PriceThresholdData> priceThresholds = new ArrayList<>();
-        for (AudioThresholdRow row : container.getComponentsTyped()) {
+        for (AudioThresholdRowControls row : container.getComponentsTyped()) {
             priceThresholds.add(row.getData());
         }
         SaveManager.settingsSaveFile.data.priceThresholds = priceThresholds;
@@ -55,7 +55,7 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
     public void load() {
         container.removeAll();
         for (PriceThresholdData data : SaveManager.settingsSaveFile.data.priceThresholds) {
-            AudioThresholdRow row = new AudioThresholdRow(container);
+            AudioThresholdRowControls row = new AudioThresholdRowControls(container);
             row.setData(data);
             container.add(row);
         }

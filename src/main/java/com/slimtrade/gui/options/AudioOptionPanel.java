@@ -80,7 +80,6 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     private void addListeners() {
         openFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getAudioDirectory()));
         refreshButton.addActionListener(e -> {
-            AudioManager.clearCache();
             AudioManager.rebuildSoundList();
             updateInfoLabel();
             refreshCombos();
@@ -127,7 +126,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     }
 
     public void updateInfoLabel() {
-        int count = AudioManager.getCustomFileCount();
+        int count = AudioManager.getCustomSoundFileCount();
         if (count == 0) {
             customAudioLabel.setText("No custom files loaded.");
         } else if (count == 1) {

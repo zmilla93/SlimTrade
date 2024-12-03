@@ -16,9 +16,11 @@ public class AudioListCellRenderer implements ListCellRenderer<Sound> {
 
     @Override
     public Component getListCellRendererComponent(JList<? extends Sound> list, Sound value, int index, boolean isSelected, boolean cellHasFocus) {
-        if (value == null) return separator;
+        if (value == null) {
+            separator.setForeground(UIManager.getColor("Separator.foreground"));
+            return separator;
+        }
         label.setText(value.name);
-        separator.setForeground(UIManager.getColor("Separator.foreground"));
         if (isSelected) {
             label.setBackground(list.getSelectionBackground());
             label.setForeground(list.getSelectionForeground());
@@ -26,6 +28,7 @@ public class AudioListCellRenderer implements ListCellRenderer<Sound> {
             label.setBackground(list.getBackground());
             label.setForeground(list.getForeground());
         }
+
         return label;
     }
 

@@ -15,7 +15,7 @@ import com.slimtrade.gui.components.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class AudioThresholdRow extends AddRemovePanel {
+public class AudioThresholdRowControls extends AddRemovePanel {
 
     private final JButton previewButton = new IconButton(DefaultIcon.PLAY);
     private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
@@ -26,7 +26,7 @@ public class AudioThresholdRow extends AddRemovePanel {
     private final JSlider volumeSlider = new RangeSlider(SliderRange.AUDIO_VOLUME);
     private final JLabel volumeLabel = new JLabel();
 
-    public AudioThresholdRow(AddRemoveContainer<?> parent) {
+    public AudioThresholdRowControls(AddRemoveContainer<?> parent) {
         super(parent);
         for (CurrencyType currency : CurrencyType.getCommonCurrencyTypes()) currencyTypeCombo.addItem(currency);
         currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyType("Chaos Orb"));
@@ -69,7 +69,7 @@ public class AudioThresholdRow extends AddRemovePanel {
     public void setData(PriceThresholdData data) {
         currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyType(data.currencyType.ID));
         quantitySpinner.setValue(data.quantity);
-        soundCombo.setSelectedIndex(AudioManager.indexOfSound(data.soundComponent.sound));
+        soundCombo.setSelectedItem(data.soundComponent.sound);
         volumeSlider.setValue(data.soundComponent.volume);
     }
 

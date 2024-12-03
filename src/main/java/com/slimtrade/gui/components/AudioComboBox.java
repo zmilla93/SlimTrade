@@ -17,8 +17,16 @@ public class AudioComboBox extends JComboBox<Sound> {
         for (Sound sound : AudioManager.pingSoundFiles) addItem(sound);
         addItem(null);
         for (Sound sound : AudioManager.lootSoundFiles) addItem(sound);
-        if (AudioManager.getCustomFileCount() > 0) addItem(null);
+        if (AudioManager.getCustomSoundFileCount() > 0)
+            addItem(null);
         for (Sound sound : AudioManager.customSoundFiles) addItem(sound);
+    }
+
+    // Separators are represented by null values, so don't allow them to be selected.
+    @Override
+    public void setSelectedItem(Object obj) {
+        if (obj == null) return;
+        super.setSelectedItem(obj);
     }
 
 }

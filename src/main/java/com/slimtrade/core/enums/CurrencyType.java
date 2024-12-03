@@ -130,4 +130,5 @@ public class CurrencyType implements IIcon {
     public String toString() {
         return words[0];
     }
+
 }

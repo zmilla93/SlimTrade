@@ -10,4 +10,9 @@ public class SoundComponent {
         this.volume = volume;
     }
 
+    @Override
+    public String toString() {
+        String soundString = sound == null ? "null" : sound.toString();
+        return "SoundComponent[sound=" + soundString + ", volume=" + volume + "]";
+    }
 }
