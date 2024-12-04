@@ -21,7 +21,6 @@ import com.slimtrade.gui.managers.SystemTrayManager;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.windows.LoadingWindow;
 import com.slimtrade.gui.windows.TutorialWindow;
-import com.slimtrade.gui.windows.VisibilityDialog;
 import com.slimtrade.modules.stopwatch.Stopwatch;
 import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.updater.UpdateAction;
@@ -33,7 +32,6 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;

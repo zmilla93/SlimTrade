@@ -5,7 +5,6 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.IVisibilityFrame;
 import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.messaging.NotificationIconButton;
 import com.slimtrade.gui.messaging.PinButton;
@@ -26,7 +25,7 @@ import java.awt.event.MouseMotionAdapter;
  * Unlike a normal JDialog, content can be made transparent without affecting the title bar and border.
  * Add content to the contentPanel variable (or use getContentPane()).
  */
-public abstract class CustomDialog extends VisibilityDialog implements IPinnable, IThemeListener, IVisibilityFrame {
+public abstract class CustomDialog extends VisibilityDialog implements IPinnable, IThemeListener {
 
     // Sizes
     protected static final int RESIZER_PANEL_SIZE = 8; // If a child needs this value, use getResizerSize()
@@ -378,18 +377,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     @Override
     public Rectangle getPinRect() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
-    }
-
-    @Override
-    public void showOverlay() {
-        if (visibility == Visibility.SHOW) setVisible(true);
-        visibility = Visibility.UNSET;
-    }
-
-    @Override
-    public void hideOverlay() {
-        visibility = isVisible() ? Visibility.SHOW : Visibility.HIDE;
-        setVisible(false);
     }
 
     @Override

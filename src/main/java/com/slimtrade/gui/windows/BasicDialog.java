@@ -18,8 +18,7 @@ public class BasicDialog extends VisibilityDialog {
     private int bufferedBoundsSize = DEFAULT_BUFFERED_BOUNDS_SIZE;
 
     public BasicDialog() {
-        assert SwingUtilities.isEventDispatchThread();
-        setTitle(References.APP_PREFIX + "BasicDialog");
+        setTitle(References.APP_PREFIX);
         setUndecorated(true);
         setAlwaysOnTop(true);
         setFocusable(false);
@@ -41,6 +40,7 @@ public class BasicDialog extends VisibilityDialog {
 
     /**
      * Adjusts the size of the buffer for the bufferedBounds.
+     *
      * @param size Size of buffer in pixels
      */
     public void setBufferedBoundsSize(int size) {

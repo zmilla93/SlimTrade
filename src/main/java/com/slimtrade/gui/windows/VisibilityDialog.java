@@ -16,6 +16,7 @@ public class VisibilityDialog extends JDialog {
     private boolean ignoreVisibilitySystem = false;
 
     public VisibilityDialog() {
+        assert SwingUtilities.isEventDispatchThread();
         VisibilityManager.addFrame(this);
         ThemeManager.addFrame(this);
     }
