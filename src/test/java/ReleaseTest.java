@@ -30,7 +30,7 @@ public class ReleaseTest {
     @Test
     public void checkDebugFlags() {
         assertFalse(App.noUpdate);
-        assertFalse(App.noLock);
+        assertTrue(App.useLockFile);
         assertFalse(App.debug);
         assertFalse(App.debugUIAlwaysOnTop);
         assertFalse(App.chatInConsole);
