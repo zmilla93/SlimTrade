@@ -1,26 +1,27 @@
 package com.slimtrade.gui.components;
 
-import com.slimtrade.core.audio.Sound;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class AudioListCellRenderer implements ListCellRenderer<Sound> {
+/**
+ * Renders normal objects as strings, and null values as separators.
+ */
+public class SeparatedListCellRenderer implements ListCellRenderer<Object> {
 
     private final JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
     private final JLabel label = new JLabel();
 
-    public AudioListCellRenderer() {
+    public SeparatedListCellRenderer() {
         label.setOpaque(true);
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Sound> list, Sound value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         if (value == null) {
             separator.setForeground(UIManager.getColor("Separator.foreground"));
             return separator;
         }
-        label.setText(value.name);
+        label.setText(value.toString());
         if (isSelected) {
             label.setBackground(list.getSelectionBackground());
             label.setForeground(list.getSelectionForeground());
@@ -28,7 +29,6 @@ public class AudioListCellRenderer implements ListCellRenderer<Sound> {
             label.setBackground(list.getBackground());
             label.setForeground(list.getForeground());
         }
-
         return label;
     }
 

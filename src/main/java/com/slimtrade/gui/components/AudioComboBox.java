@@ -3,19 +3,17 @@ package com.slimtrade.gui.components;
 import com.slimtrade.core.audio.Sound;
 import com.slimtrade.core.managers.AudioManager;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 /**
  * A JComboBox that displays all loaded sound files.
  */
-public class AudioComboBox extends JComboBox<Sound> {
+public class AudioComboBox extends SeparatedComboBox<Sound> {
 
     private static final ArrayList<AudioComboBox> comboBoxes = new ArrayList<>();
 
     public AudioComboBox() {
         comboBoxes.add(this);
-        setRenderer(new AudioListCellRenderer());
         refreshSoundList();
     }
 
@@ -45,13 +43,6 @@ public class AudioComboBox extends JComboBox<Sound> {
             if (comboBox.getParent() == null) {
                 comboBox.remove(comboBox);
             }
-    }
-
-    // Separators are represented by null values, so don't allow them to be selected.
-    @Override
-    public void setSelectedItem(Object obj) {
-        if (obj == null) return;
-        super.setSelectedItem(obj);
     }
 
 }
