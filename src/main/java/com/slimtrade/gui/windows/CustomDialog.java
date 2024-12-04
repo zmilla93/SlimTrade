@@ -5,7 +5,6 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.utility.AdvancedMouseListener;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.Visibility;
 import com.slimtrade.gui.messaging.NotificationIconButton;
 import com.slimtrade.gui.messaging.PinButton;
 import com.slimtrade.gui.pinning.IPinnable;
@@ -34,7 +33,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
 
     // State
     private boolean pinned;
-    private Visibility visibility;
     protected boolean pinRespectsSize = true;
     private String title;
 
