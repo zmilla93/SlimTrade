@@ -186,12 +186,13 @@ public class AudioManager {
             clip.addLineListener(event -> {
                 LineEvent.Type type = event.getType();
                 if (type.equals(LineEvent.Type.STOP)) {
-                    try {
-                        finalStream.close();
-                    } catch (IOException ignore) {
-                    }
                     clip.stop();
                     clip.close();
+                    try {
+                        finalStream.close();
+                    } catch (IOException e) {
+                        ZLogger.err("Failed to close audio stream!");
+                    }
                 }
             });
             return clip;
