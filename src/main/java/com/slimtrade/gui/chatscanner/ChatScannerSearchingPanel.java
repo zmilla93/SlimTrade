@@ -1,6 +1,7 @@
 package com.slimtrade.gui.chatscanner;
 
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.CustomScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class ChatScannerSearchingPanel extends JPanel {
         progressBar.setIndeterminate(true);
         panel.add(progressBar, gc);
         gc.gridy++;
-        JScrollPane scrollPane = new JScrollPane(panel);
+        JScrollPane scrollPane = new CustomScrollPane(panel);
         add(scrollPane, BorderLayout.CENTER);
     }
 

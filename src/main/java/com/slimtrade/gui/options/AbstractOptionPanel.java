@@ -3,6 +3,7 @@ package com.slimtrade.gui.options;
 import com.slimtrade.App;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.CustomScrollPane;
 import com.slimtrade.modules.updater.ZLogger;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,11 +18,8 @@ import java.awt.*;
 public class AbstractOptionPanel extends JPanel {
 
     protected JPanel contentPanel;
-    private static final int SCROLL_SPEED = 10;
     private final GridBagConstraints gc = new GridBagConstraints();
     private static final int CONTENT_PANEL_INSET = 10;
-    private static final int HEADER_INSET = 5;
-    private static final int COMPONENT_INSET = 10;
 
     public AbstractOptionPanel() {
         this(true);
@@ -43,9 +41,7 @@ public class AbstractOptionPanel extends JPanel {
         JPanel bufferPanel = new JPanel(new BorderLayout());
         bufferPanel.add(insetPanel, BorderLayout.NORTH);
         if (addScrollPanel) {
-            JScrollPane scrollPane = new JScrollPane(bufferPanel);
-            scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_SPEED);
-            scrollPane.getHorizontalScrollBar().setUnitIncrement(SCROLL_SPEED);
+            JScrollPane scrollPane = new CustomScrollPane(bufferPanel);
             super.add(scrollPane, BorderLayout.CENTER);
         } else {
             super.add(bufferPanel, BorderLayout.CENTER);
