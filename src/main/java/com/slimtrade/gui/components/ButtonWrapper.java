@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Adds a panel to a button with a horizontal strut, functionally giving the button a minimum width.
+ * Adds a button to a panel with a horizontal strut, functionally giving the button a minimum width.
  */
 public class ButtonWrapper extends JPanel {
 
