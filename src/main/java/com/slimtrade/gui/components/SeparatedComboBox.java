@@ -4,6 +4,7 @@ import javax.swing.*;
 
 /**
  * The same as a normal JComboBox, but renders a separator when given a null value.
+ *
  * @param <T>
  */
 public class SeparatedComboBox<T> extends JComboBox<T> {

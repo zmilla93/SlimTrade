@@ -15,6 +15,7 @@ public class LoadingWindow extends AbstractDialog {
     private static final int INSET_VERTICAL = 20;
 
     public LoadingWindow(AppInfo appInfo) {
+        ignoreVisibilitySystem(true);
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         gc.insets = new Insets(INSET_VERTICAL, INSET_HORIZONTAL, INSET_VERTICAL, INSET_HORIZONTAL);

@@ -78,8 +78,7 @@ public class App {
         // Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
         if (!noLock) {
-            boolean lockSuccess = lockManager.tryAndLock();
-            if (!lockSuccess) {
+            if (!lockManager.tryAndLock()) {
                 System.err.println("SlimTrade is already running. Terminating new instance.");
                 System.exit(0);
             }
@@ -177,7 +176,10 @@ public class App {
         if (SetupManager.getSetupPhases().size() > 0) runSetupWizard();
         else ZUtil.invokeAndWait(App::launchApp);
 
-        SwingUtilities.invokeLater(() -> loadingWindow.dispose());
+        ZUtil.invokeAndWait(() -> {
+            loadingWindow.setVisible(false);
+            loadingWindow.dispose();
+        });
 
         if (debugProfileLaunch) ZLogger.log("Profiling launch complete!\n");
         ZLogger.log("SlimTrade Launched");
@@ -255,7 +257,7 @@ public class App {
         chatParser.addTradeListener(FrameManager.messageManager);
         chatParser.addChatScannerListener(FrameManager.messageManager);
         chatParser.addJoinedAreaListener(FrameManager.messageManager);
-        // Menubar
+        // Menu Bar
         chatParser.addOnLoadedCallback(FrameManager.menubarIcon);
         chatParser.addOnLoadedCallback(FrameManager.menubarDialog);
         chatParser.addDndListener(FrameManager.menubarIcon);

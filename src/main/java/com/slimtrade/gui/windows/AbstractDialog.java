@@ -6,7 +6,7 @@ import com.slimtrade.modules.theme.ThemeManager;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class AbstractDialog extends JDialog {
+public abstract class AbstractDialog extends VisibilityDialog {
 
     protected final JPanel contentPanel = new JPanel();
 
@@ -23,8 +23,8 @@ public abstract class AbstractDialog extends JDialog {
 
     @Override
     public void dispose() {
-        super.dispose();
         ThemeManager.removeFrame(this);
+        super.dispose();
     }
 
 }
