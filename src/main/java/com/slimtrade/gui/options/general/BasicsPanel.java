@@ -3,7 +3,7 @@ package com.slimtrade.gui.options.general;
 import com.slimtrade.core.enums.AppState;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.ComponentPair;
+import com.slimtrade.gui.components.ComponentPanel;
 import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.modules.saving.ISavable;
@@ -26,7 +26,7 @@ public class BasicsPanel extends JPanel implements ISavable {
         gc.anchor = GridBagConstraints.WEST;
 
         // Add components
-        JPanel buttonPanel = new ComponentPair(editOverlayButton, editStashLocationButton);
+        JPanel buttonPanel = new ComponentPanel(editOverlayButton, editStashLocationButton);
         addComponent(folderOffsetCheckbox);
         addComponent(buttonPanel);
 

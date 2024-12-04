@@ -1,0 +1,75 @@
+package com.slimtrade.gui.components;
+
+import com.slimtrade.core.utility.GUIReferences;
+import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.modules.updater.ZLogger;
+import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Lays out child components from left to right with the given inset in between each component.
+ */
+public class ComponentPanel extends JPanel {
+
+    private static final int DEFAULT_HORIZONTAL_INSET = GUIReferences.SMALL_INSET;
+
+    private final int inset;
+    private final GridBagConstraints gc = ZUtil.getGC();
+
+    public ComponentPanel() {
+        this(DEFAULT_HORIZONTAL_INSET);
+    }
+
+    public ComponentPanel(int inset) {
+        super(new GridBagLayout());
+        this.inset = inset;
+    }
+
+    public ComponentPanel(JComponent... components) {
+        this(DEFAULT_HORIZONTAL_INSET, components);
+    }
+
+    public ComponentPanel(int inset, JComponent... components) {
+        super(new GridBagLayout());
+        this.inset = inset;
+        for (JComponent component : components) add(component);
+    }
+
+    @Override
+    public Component add(Component comp) {
+        super.add(comp, gc);
+        gc.gridx++;
+        gc.insets.left = inset;
+        return comp;
+    }
+
+    private void incorrectAddMethod() {
+        ZLogger.err("[" + getClass().getSimpleName() + "] Components should only be added using the default add(Component) function!");
+        ZUtil.printCallingFunction(ComponentPanel.class);
+    }
+
+    @Override
+    public void add(@NotNull Component comp, Object constraints) {
+        incorrectAddMethod();
+    }
+
+    @Override
+    public void add(Component comp, Object constraints, int index) {
+        incorrectAddMethod();
+    }
+
+    @Override
+    public Component add(String name, Component comp) {
+        incorrectAddMethod();
+        return null;
+    }
+
+    @Override
+    public Component add(Component comp, int index) {
+        incorrectAddMethod();
+        return null;
+    }
+
+}

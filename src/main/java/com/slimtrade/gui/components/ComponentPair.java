@@ -5,6 +5,9 @@ import com.slimtrade.core.utility.ZUtil;
 import javax.swing.*;
 import java.awt.*;
 
+// FIXME: Should switch to using ComponentPanel instead, since it provides
+//        the same functionality, but for any number of children.
+@Deprecated
 public class ComponentPair extends JPanel {
 
     private static final int DEFAULT_INSET = 5;

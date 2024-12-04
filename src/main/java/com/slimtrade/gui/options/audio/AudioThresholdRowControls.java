@@ -63,7 +63,7 @@ public class AudioThresholdRowControls extends AddRemovePanel {
     }
 
     public void refreshCombo() {
-        soundCombo.refresh();
+        soundCombo.refreshSoundList();
     }
 
     public void setData(PriceThresholdData data) {

@@ -1,78 +1,65 @@
 package com.slimtrade.gui.options;
 
-import com.slimtrade.core.audio.Sound;
-import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AudioComboBox;
-import com.slimtrade.gui.components.ButtonPanel;
+import com.slimtrade.gui.components.ComponentPanel;
 import com.slimtrade.gui.components.StyledLabel;
-import com.slimtrade.gui.options.audio.OLD_AudioRowControls;
+import com.slimtrade.gui.options.audio.AudioRowControls;
 import com.slimtrade.gui.options.audio.AudioThresholdPanel;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
-    private final JPanel innerPanel = new JPanel(new GridBagLayout());
-    private final GridBagConstraints gc = new GridBagConstraints();
+    // Custom Audio Controls
     private final JButton openFolderButton = new JButton("Open Audio Folder");
     private final JButton refreshButton = new JButton("Refresh");
-
     private final JLabel customAudioLabel = new JLabel();
-    private final AudioThresholdPanel audioThresholdPanel = new AudioThresholdPanel();
 
-    // Controls
-    private final ArrayList<OLD_AudioRowControls> controlList = new ArrayList<>();
-    private final OLD_AudioRowControls incomingTradeControls;
-    private final OLD_AudioRowControls outgoingTradeControls;
-    private final OLD_AudioRowControls chatScannerControls;
-    private final OLD_AudioRowControls kalguurControls;
-    private final OLD_AudioRowControls playerJoinedAreaControls;
-    private final OLD_AudioRowControls ignoredItemControls;
-    private final OLD_AudioRowControls updateAlertControls;
+    // Sound Settings Controls
+    private final AudioRowControls incomingTradeControls;
+    private final AudioRowControls outgoingTradeControls;
+    private final AudioRowControls chatScannerControls;
+    private final AudioRowControls kalguurControls;
+    private final AudioRowControls playerJoinedAreaControls;
+    private final AudioRowControls ignoredItemControls;
+    private final AudioRowControls updateAlertControls;
 
     public AudioOptionPanel() {
-        gc.gridx = 0;
-        gc.gridy = 0;
+        // Sound Setting Controls
+        JPanel soundSettingsPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 1;
+        incomingTradeControls = new AudioRowControls("Incoming Trade", soundSettingsPanel, gc);
+        outgoingTradeControls = new AudioRowControls("Outgoing Trade", soundSettingsPanel, gc);
+        chatScannerControls = new AudioRowControls("Chat Scanner", soundSettingsPanel, gc);
+        kalguurControls = new AudioRowControls("Kalguur Shipments", soundSettingsPanel, gc);
+        playerJoinedAreaControls = new AudioRowControls("Player Joined Area", soundSettingsPanel, gc);
+        ignoredItemControls = new AudioRowControls("Ignored Item", soundSettingsPanel, gc);
+        updateAlertControls = new AudioRowControls("Update Alert", soundSettingsPanel, gc);
 
-        // Controls
-        incomingTradeControls = addRow("Incoming Trade");
-        outgoingTradeControls = addRow("Outgoing Trade");
-        chatScannerControls = addRow("Chat Scanner");
-        kalguurControls = addRow("Kalguur Shipments");
-        playerJoinedAreaControls = addRow("Player Joined Area");
-        ignoredItemControls = addRow("Ignored Item");
-        updateAlertControls = addRow("Update Alert");
-
-        ButtonPanel customButtons = new ButtonPanel();
-
-        customButtons.add(openFolderButton);
-        customButtons.add(refreshButton);
-
+        // Build Panel
         addHeader("Custom Audio");
         addComponent(new JLabel("Add audio files to the audio folder, then refresh. Custom files will then be available in all audio dropdowns."));
         JLabel label = new StyledLabel("Only supports .wav files. Online file converters are available if you have different formats.").bold();
         addComponent(label);
-        addComponent(customButtons);
+        addComponent(new ComponentPanel(openFolderButton, refreshButton));
         addComponent(customAudioLabel);
         addVerticalStrut();
 
         addHeader("Sound Settings");
-        addComponent(innerPanel);
+        addComponent(soundSettingsPanel);
         addVerticalStrut();
 
         addHeader("Price Thresholds");
-        addComponent(audioThresholdPanel);
+        addComponent(new AudioThresholdPanel());
 
+        // Finalize
         updateInfoLabel();
         addListeners();
     }
@@ -82,47 +69,8 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         refreshButton.addActionListener(e -> {
             AudioManager.rebuildSoundList();
             updateInfoLabel();
-            refreshCombos();
-            load();
+            AudioComboBox.refreshAllComboSoundLists();
         });
-    }
-
-    private OLD_AudioRowControls addRow(String title) {
-        JButton previewButton = new IconButton(DefaultIcon.PLAY);
-        AudioComboBox soundCombo = new AudioComboBox();
-        JSlider volumeSlider = new JSlider();
-        JLabel volumeLabel = new JLabel();
-        innerPanel.add(new JLabel(title), gc);
-        gc.gridx++;
-        innerPanel.add(Box.createHorizontalStrut(GUIReferences.SMALL_INSET), gc);
-        gc.gridx++;
-        innerPanel.add(soundCombo, gc);
-        gc.gridx++;
-        innerPanel.add(previewButton, gc);
-        gc.gridx++;
-        innerPanel.add(volumeSlider, gc);
-        gc.gridx++;
-        innerPanel.add(volumeLabel, gc);
-
-        gc.gridx = 0;
-        gc.gridy++;
-
-        previewButton.addActionListener(e -> AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
-        volumeSlider.addChangeListener(e -> updateVolumeSlider(volumeSlider, volumeLabel));
-        updateVolumeSlider(volumeSlider, volumeLabel);
-        OLD_AudioRowControls controls = new OLD_AudioRowControls(soundCombo, volumeSlider);
-        controlList.add(controls);
-        return controls;
-    }
-
-    private void updateVolumeSlider(JSlider volumeSlider, JLabel volumeLabel) {
-        volumeLabel.setText(ZUtil.getVolumeText(volumeSlider.getValue()));
-    }
-
-    private void refreshCombos() {
-        for (OLD_AudioRowControls control : controlList)
-            control.comboBox.refresh();
-        audioThresholdPanel.refreshCombos();
     }
 
     public void updateInfoLabel() {
@@ -138,25 +86,27 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
     @Override
     public void save() {
-        SaveManager.settingsSaveFile.data.incomingSound = incomingTradeControls.getSoundComponent();
-        SaveManager.settingsSaveFile.data.outgoingSound = outgoingTradeControls.getSoundComponent();
-        SaveManager.settingsSaveFile.data.chatScannerSound = chatScannerControls.getSoundComponent();
-        SaveManager.settingsSaveFile.data.kalguurSound = kalguurControls.getSoundComponent();
-        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = playerJoinedAreaControls.getSoundComponent();
-        SaveManager.settingsSaveFile.data.itemIgnoredSound = ignoredItemControls.getSoundComponent();
-        SaveManager.settingsSaveFile.data.updateSound = updateAlertControls.getSoundComponent();
+        AudioComboBox.purgeUnusedCombos();
+        SaveManager.settingsSaveFile.data.incomingSound = incomingTradeControls.getData();
+        SaveManager.settingsSaveFile.data.outgoingSound = outgoingTradeControls.getData();
+        SaveManager.settingsSaveFile.data.chatScannerSound = chatScannerControls.getData();
+        SaveManager.settingsSaveFile.data.kalguurSound = kalguurControls.getData();
+        SaveManager.settingsSaveFile.data.playerJoinedAreaSound = playerJoinedAreaControls.getData();
+        SaveManager.settingsSaveFile.data.itemIgnoredSound = ignoredItemControls.getData();
+        SaveManager.settingsSaveFile.data.updateSound = updateAlertControls.getData();
     }
 
     @Override
     public void load() {
-        refreshCombos();
-        incomingTradeControls.setSoundComponent(SaveManager.settingsSaveFile.data.incomingSound);
-        outgoingTradeControls.setSoundComponent(SaveManager.settingsSaveFile.data.outgoingSound);
-        chatScannerControls.setSoundComponent(SaveManager.settingsSaveFile.data.chatScannerSound);
-        kalguurControls.setSoundComponent(SaveManager.settingsSaveFile.data.kalguurSound);
-        playerJoinedAreaControls.setSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
-        ignoredItemControls.setSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound);
-        updateAlertControls.setSoundComponent(SaveManager.settingsSaveFile.data.updateSound);
+        AudioComboBox.purgeUnusedCombos();
+        AudioComboBox.refreshAllComboSoundLists();
+        incomingTradeControls.setData(SaveManager.settingsSaveFile.data.incomingSound);
+        outgoingTradeControls.setData(SaveManager.settingsSaveFile.data.outgoingSound);
+        chatScannerControls.setData(SaveManager.settingsSaveFile.data.chatScannerSound);
+        kalguurControls.setData(SaveManager.settingsSaveFile.data.kalguurSound);
+        playerJoinedAreaControls.setData(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+        ignoredItemControls.setData(SaveManager.settingsSaveFile.data.itemIgnoredSound);
+        updateAlertControls.setData(SaveManager.settingsSaveFile.data.updateSound);
     }
 
 }

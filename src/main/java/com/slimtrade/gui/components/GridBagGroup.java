@@ -10,10 +10,10 @@ import java.awt.*;
  */
 public abstract class GridBagGroup<T> {
 
-    public abstract void addToParent(JComponent parent, GridBagConstraints gc);
-
     public abstract T getData();
 
     public abstract void setData(T data);
+
+    public abstract void addToParent(JComponent parent, GridBagConstraints gc);
 
 }

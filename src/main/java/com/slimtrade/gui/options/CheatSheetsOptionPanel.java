@@ -4,8 +4,8 @@ import com.slimtrade.core.data.CheatSheetData;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.ButtonPanel;
 import com.slimtrade.gui.components.ButtonWrapper;
+import com.slimtrade.gui.components.ComponentPanel;
 import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.options.cheatsheets.CheatSheetComponentGroup;
@@ -28,7 +28,7 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
 
     public CheatSheetsOptionPanel() {
         // Setup
-        ButtonPanel buttonPanel = new ButtonPanel();
+        ComponentPanel buttonPanel = new ComponentPanel();
         buttonPanel.add(browseButton);
         buttonPanel.add(refreshButton);
         cheatSheetContainer.setLayout(new GridBagLayout());
