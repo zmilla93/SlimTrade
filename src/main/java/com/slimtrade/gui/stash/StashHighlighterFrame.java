@@ -5,13 +5,13 @@ import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.options.stash.StashTabType;
-import com.slimtrade.gui.windows.AbstractDialog;
+import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StashHighlighterFrame extends AbstractDialog {
+public class StashHighlighterFrame extends BasicDialog {
 
     private final TradeOffer tradeOffer;
     private Timer timer;

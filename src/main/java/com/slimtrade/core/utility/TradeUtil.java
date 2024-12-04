@@ -48,15 +48,6 @@ public class TradeUtil {
         window.setLocation(adjustedPoint);
     }
 
-    public static Rectangle getBufferedBounds(Rectangle bounds) {
-        int buffer = 3;
-        bounds.x -= buffer;
-        bounds.y -= buffer;
-        bounds.width += buffer * 2;
-        bounds.height += buffer * 2;
-        return bounds;
-    }
-
     public static int getAudioPercent(float f) {
         f = f + AudioManager.RANGE - AudioManager.MAX_VOLUME;
         int i = (int) ((f / AudioManager.RANGE) * 100);

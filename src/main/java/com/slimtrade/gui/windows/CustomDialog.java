@@ -78,7 +78,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
         setAlwaysOnTop(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         getRootPane().setOpaque(false);
-        ThemeManager.addFrame(this);
         ThemeManager.addThemeListener(this);
         if (isDefaultPin) PinManager.addAppWindow(this);
 
@@ -406,7 +405,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     @Override
     public void dispose() {
         ThemeManager.removeThemeListener(this);
-        ThemeManager.removeFrame(this);
         PinManager.removePinnable(this);
         super.dispose();
     }

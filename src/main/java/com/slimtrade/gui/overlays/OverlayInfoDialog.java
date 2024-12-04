@@ -12,7 +12,7 @@ import com.slimtrade.gui.components.ErrorLabel;
 import com.slimtrade.gui.components.LabeledSlider;
 import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.managers.FrameManager;
-import com.slimtrade.gui.windows.AbstractDialog;
+import com.slimtrade.gui.windows.BasicDialog;
 import com.slimtrade.modules.saving.ISavable;
 import com.slimtrade.modules.theme.IFontChangeListener;
 import com.slimtrade.modules.theme.IThemeListener;
@@ -21,7 +21,7 @@ import com.slimtrade.modules.theme.ThemeManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class OverlayInfoDialog extends AbstractDialog implements ISavable, IThemeListener, IFontChangeListener {
+public class OverlayInfoDialog extends BasicDialog implements ISavable, IThemeListener, IFontChangeListener {
 
     // Buttons
     private final JButton cancelButton = new JButton("Cancel");

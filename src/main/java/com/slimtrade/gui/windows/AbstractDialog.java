@@ -6,6 +6,8 @@ import com.slimtrade.modules.theme.ThemeManager;
 import javax.swing.*;
 import java.awt.*;
 
+// FIXME : Switch to using BasicDialog instead.
+@Deprecated
 public abstract class AbstractDialog extends VisibilityDialog {
 
     protected final JPanel contentPanel = new JPanel();
@@ -18,13 +20,6 @@ public abstract class AbstractDialog extends VisibilityDialog {
         setFocusableWindowState(false);
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(contentPanel, BorderLayout.CENTER);
-        ThemeManager.addFrame(this);
-    }
-
-    @Override
-    public void dispose() {
-        ThemeManager.removeFrame(this);
-        super.dispose();
     }
 
 }

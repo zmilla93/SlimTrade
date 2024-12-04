@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class AbstractMovableDialog extends AbstractDialog {
+public class AbstractMovableDialog extends BasicDialog {
 
     private int mouseWindowX;
     private int mouseWindowY;

@@ -1,12 +1,14 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.gui.managers.VisibilityManager;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 
 /**
- * This is the root of all custom windows, which controls showing and hiding of overlay windows.
- * Windows can also op out of this using ignoreVisibilitySystem().
+ * This is the root of all custom windows.
+ * Registers with the theme system, allowing themes to be changed during runtime.
+ * Hooks into the visibility manager, which allows windows to retain their visibility when the overlay is shown/hidden.
  */
 public class VisibilityDialog extends JDialog {
 
@@ -15,6 +17,7 @@ public class VisibilityDialog extends JDialog {
 
     public VisibilityDialog() {
         VisibilityManager.addFrame(this);
+        ThemeManager.addFrame(this);
     }
 
     public void showOverlay() {
@@ -38,6 +41,13 @@ public class VisibilityDialog extends JDialog {
         assert (SwingUtilities.isEventDispatchThread());
         super.setVisible(visible);
         this.visible = visible;
+    }
+
+    @Override
+    public void dispose() {
+        VisibilityManager.removeFrame(this);
+        ThemeManager.removeFrame(this);
+        super.dispose();
     }
 
 }

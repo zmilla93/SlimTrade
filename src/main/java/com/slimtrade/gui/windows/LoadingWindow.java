@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 
-public class LoadingWindow extends AbstractDialog {
+public class LoadingWindow extends BasicDialog {
 
     private static final int INSET_HORIZONTAL = 25;
     private static final int INSET_VERTICAL = 20;
