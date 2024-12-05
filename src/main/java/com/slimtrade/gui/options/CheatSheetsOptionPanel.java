@@ -82,7 +82,7 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
                     }
                 }
                 CheatSheetData data = new CheatSheetData(file.getName(), hotkeyData);
-                if (!data.isValid()) continue;
+                if (!data.hasImageExtension()) continue;
                 addRow(data);
             }
         }

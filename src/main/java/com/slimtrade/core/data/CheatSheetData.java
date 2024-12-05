@@ -29,8 +29,8 @@ public class CheatSheetData {
         return extension;
     }
 
-    public boolean isValid() {
-        switch (extension) {
+    public boolean hasImageExtension() {
+        switch (extension.toLowerCase()) {
             case "png":
             case "jpg":
             case "jpeg":
