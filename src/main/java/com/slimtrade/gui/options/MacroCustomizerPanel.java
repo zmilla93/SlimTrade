@@ -149,8 +149,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
             }
             iconCombo.setSelectedIndex(selectedIndex);
         }
-        setBorder(BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground")));
+        setBorder(UIManager.getBorder("TextField.border"));
     }
-
 
 }
