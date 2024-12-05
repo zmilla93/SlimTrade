@@ -8,17 +8,19 @@ import com.slimtrade.gui.components.ComponentPanel;
 import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.options.audio.AudioRowControls;
 import com.slimtrade.gui.options.audio.AudioThresholdPanel;
+import com.slimtrade.modules.filemonitor.FileChangeEvent;
+import com.slimtrade.modules.filemonitor.FileChangeListener;
+import com.slimtrade.modules.filemonitor.FileMonitor;
 import com.slimtrade.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
+public class AudioOptionPanel extends AbstractOptionPanel implements ISavable, FileChangeListener {
 
     // Custom Audio Controls
     private final JButton openFolderButton = new JButton("Open Audio Folder");
-    private final JButton refreshButton = new JButton("Refresh");
-    private final JLabel customAudioLabel = new JLabel();
+    private final JLabel customFileCountLabel = new JLabel();
 
     // Sound Settings Controls
     private final AudioRowControls incomingTradeControls;
@@ -45,11 +47,10 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
 
         // Build Panel
         addHeader("Custom Audio");
-        addComponent(new JLabel("Add audio files to the audio folder, then refresh. Custom files will then be available in all audio dropdowns."));
+        addComponent(new JLabel("Add custom .wav files to the audio folder, and they will appear in all dropdowns."));
         JLabel label = new StyledLabel("Only supports .wav files. Online file converters are available if you have different formats.").bold();
         addComponent(label);
-        addComponent(new ComponentPanel(openFolderButton, refreshButton));
-        addComponent(customAudioLabel);
+        addComponent(new ComponentPanel(openFolderButton, customFileCountLabel));
         addVerticalStrut();
 
         addHeader("Sound Settings");
@@ -62,11 +63,15 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         // Finalize
         updateInfoLabel();
         addListeners();
+        FileMonitor.startNewMonitor(SaveManager.getAudioDirectory(), this);
     }
 
     private void addListeners() {
         openFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getAudioDirectory()));
-        refreshButton.addActionListener(e -> {
+    }
+
+    private void updateSoundCombos() {
+        SwingUtilities.invokeLater(() -> {
             AudioManager.rebuildSoundList();
             updateInfoLabel();
             AudioComboBox.refreshAllComboSoundLists();
@@ -76,11 +81,11 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
     public void updateInfoLabel() {
         int count = AudioManager.getCustomSoundFileCount();
         if (count == 0) {
-            customAudioLabel.setText("No custom files loaded.");
+            customFileCountLabel.setText("No custom files loaded.");
         } else if (count == 1) {
-            customAudioLabel.setText("1 custom file loaded.");
+            customFileCountLabel.setText("1 custom file loaded.");
         } else {
-            customAudioLabel.setText(count + " custom files loaded.");
+            customFileCountLabel.setText(count + " custom files loaded.");
         }
     }
 
@@ -107,6 +112,11 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable {
         playerJoinedAreaControls.setData(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
         ignoredItemControls.setData(SaveManager.settingsSaveFile.data.itemIgnoredSound);
         updateAlertControls.setData(SaveManager.settingsSaveFile.data.updateSound);
+    }
+
+    @Override
+    public void onFileChanged(FileChangeEvent event) {
+        updateSoundCombos();
     }
 
 }

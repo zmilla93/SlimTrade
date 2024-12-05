@@ -5,6 +5,6 @@ package com.slimtrade.modules.filemonitor;
  */
 public interface FileChangeListener {
 
-     void onFileChanged(FileChangeEvent event);
+    void onFileChanged(FileChangeEvent event);
 
 }

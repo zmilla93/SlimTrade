@@ -51,6 +51,11 @@ public class FileMonitor {
         path = Paths.get(pathString);
     }
 
+    public FileMonitor(String pathString, FileChangeListener listener) {
+        this(pathString);
+        listeners.add(listener);
+    }
+
     /**
      * Starts monitoring the target file or directory.
      */
@@ -118,6 +123,7 @@ public class FileMonitor {
     }
 
     public void addListener(FileChangeListener listener) {
+        if (listener == null) return;
         listeners.add(listener);
     }
 
@@ -127,6 +133,14 @@ public class FileMonitor {
 
     public void removeAllListeners() {
         listeners.clear();
+    }
+
+    public static FileMonitor startNewMonitor(String path) {
+        return new FileMonitor(path).start();
+    }
+
+    public static FileMonitor startNewMonitor(String path, FileChangeListener listener) {
+        return new FileMonitor(path, listener).start();
     }
 
     private static void startWatchThread() {
