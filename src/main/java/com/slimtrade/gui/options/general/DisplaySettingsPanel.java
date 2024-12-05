@@ -6,7 +6,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.FontListCellRenderer;
 import com.slimtrade.gui.components.RangeSpinner;
-import com.slimtrade.gui.options.DisplayPreviewPanel;
+import com.slimtrade.gui.options.display.DisplayPreviewPanel;
 import com.slimtrade.modules.saving.ISavable;
 import com.slimtrade.modules.theme.ThemeManager;
 

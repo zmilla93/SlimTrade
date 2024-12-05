@@ -1,8 +1,10 @@
-package com.slimtrade.gui.options;
+package com.slimtrade.gui.options.display;
 
+import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.LimitCombo;
+import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.gui.options.general.DisplaySettingsPanel;
 import com.slimtrade.modules.saving.ISavable;
 import com.slimtrade.modules.theme.Theme;
@@ -41,6 +43,7 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
 
         addHeader("Display Preview");
         addComponent(previewPanel);
+        if (App.debug) addComponent(new DisplayDebugPanel());
 
         addListeners();
     }

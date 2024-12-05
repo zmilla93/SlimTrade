@@ -6,6 +6,7 @@ import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
+import com.slimtrade.gui.options.display.DisplayOptionPanel;
 import com.slimtrade.gui.options.searching.StashSearchOptionPanel;
 import com.slimtrade.gui.options.stash.StashOptionPanel;
 import com.slimtrade.modules.saving.ISaveListener;
@@ -29,6 +30,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     private final JButton updateButton = new JButton("Install Update");
     private final JButton saveButton = new JButton("Save");
     private final JButton revertButton = new JButton("Revert Changes");
+    public static final String debugPanel = "Display";
 
     public OptionsWindow() {
         super("Options");
@@ -104,6 +106,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         SaveManager.settingsSaveFile.registerSavableContainer(this);
         SaveManager.settingsSaveFile.addListener(this);
         addListeners();
+        showDebugPanel();
     }
 
     private void addListeners() {
@@ -120,11 +123,23 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         optionsList.addListSelectionListener(e -> showPanel(optionsList.getSelectedValue()));
     }
 
+    private void showDebugPanel() {
+        if (debugPanel != null) {
+            ListModel<OptionListPanel> model = optionsList.getModel();
+            for (int i = 0; i < model.getSize(); i++) {
+                OptionListPanel panel = model.getElementAt(i);
+                if (panel.title.equals(debugPanel)) {
+                    optionsList.setSelectedIndex(i);
+                    break;
+                }
+            }
+        }
+    }
+
     private JPanel createSidebar() {
         JPanel sidebar = new JPanel(new BorderLayout());
         // Top Button Panel
         JPanel topButtonPanel = new JPanel(new BorderLayout());
-
         optionsList.setSelectedIndex(0);
 //        if (App.debug) optionsList.setSelectedIndex(panelList.length - 1);
         topButtonPanel.add(Box.createVerticalStrut(4), BorderLayout.NORTH);

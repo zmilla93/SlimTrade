@@ -1,9 +1,10 @@
-package com.slimtrade.gui.options;
+package com.slimtrade.gui.options.display;
 
 import com.slimtrade.App;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
+import com.slimtrade.gui.options.TradeColorPreviewPanel;
 import com.slimtrade.modules.theme.ThemeColorVariant;
 import com.slimtrade.modules.theme.ThemeColorVariantSetting;
 
