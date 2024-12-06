@@ -13,6 +13,7 @@ public enum DefaultIcon implements IIcon {
     CANCEL("cancel"),
     CLOSE("close"),
     COG("cog"),
+    DRAG("drag1"),
     EYE("eye"),
     EYE_OUTLINE("eye-outline"),
     HIDDEN("hidden"),

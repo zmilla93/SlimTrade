@@ -6,10 +6,18 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
+/**
+ * Jna and Awt both work with keycodes, but unfortunately don't use the same ones.
+ * This class handles converting from one to the other for common keys.
+ */
 public class JnaAwtEvent {
 
     public static final int INVALID_HOTKEY = 0;
     private static final HashMap<Integer, Integer> keyMap = new HashMap<>();
+
+    private JnaAwtEvent() {
+        // Static Class
+    }
 
     static {
         // Common Keys

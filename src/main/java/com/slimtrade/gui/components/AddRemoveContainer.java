@@ -1,13 +1,16 @@
 package com.slimtrade.gui.components;
 
+import com.slimtrade.App;
+import com.slimtrade.core.jna.NativeMouseAdapter;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.modules.updater.ZLogger;
 import org.jetbrains.annotations.NotNull;
+import org.jnativehook.mouse.NativeMouseEvent;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * A panel that allows children to be added, removed, and easily reordered.
@@ -17,17 +20,102 @@ import java.util.HashMap;
 // FIXME (Optimize) : Could probably simplify this by storing index in AddRemovePanel, but not a high priority
 public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
 
-    private final HashMap<Component, Integer> panelToInt = new HashMap<>();
-    private final HashMap<Integer, Component> intToPanel = new HashMap<>();
-    private boolean usingGeneric = false;
-
-    private final GridBagConstraints gc = ZUtil.getGC();
     private int spacing;
+    private final GridBagConstraints gc = ZUtil.getGC();
+
+    private final ArrayList<Component> components = new ArrayList<>();
+    private final ArrayList<Rectangle> componentBounds = new ArrayList<>();
+    private final ArrayList<Component> nonDraggedComponents = new ArrayList<>();
+    private AddRemovePanel componentBeingDragged = null;
+
+    // Drag Border
+    private boolean useDragBorder = true;
+    private static final Border DEFAULT_DRAG_BORDER = new InsetBorder();
+    private Border dragBorder = DEFAULT_DRAG_BORDER;
+    private Border previousBorder;
 
     public AddRemoveContainer() {
         setLayout(new GridBagLayout());
         gc.weightx = 1;
         gc.anchor = GridBagConstraints.WEST;
+        App.globalMouseListener.addMouseAdapter(new NativeMouseAdapter() {
+            @Override
+            public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
+                if (componentBeingDragged != null) {
+                    if (useDragBorder) componentBeingDragged.setBorder(previousBorder);
+                    componentBeingDragged = null;
+                }
+            }
+
+            @Override
+            public void nativeMouseDragged(NativeMouseEvent nativeMouseEvent) {
+                if (componentBeingDragged == null) return;
+                handleComponentDrag(nativeMouseEvent);
+            }
+        });
+    }
+
+    /**
+     * This should be called in the mouse down event of whatever controls the component being dragged.
+     *
+     * @param component Component being dragged
+     */
+    public void setComponentBeingDragged(AddRemovePanel component) {
+        componentBeingDragged = component;
+        if (useDragBorder) {
+            previousBorder = component.getBorder();
+            component.setBorder(dragBorder);
+        }
+        Point screenPos = getLocationOnScreen();
+        components.clear();
+        componentBounds.clear();
+        for (Component child : getComponents()) {
+            Rectangle rect = child.getBounds();
+            rect.x += screenPos.x;
+            rect.y += screenPos.y;
+            components.add(child);
+            componentBounds.add(rect);
+        }
+        nonDraggedComponents.clear();
+        for (Component comp : getComponents()) {
+            if (comp == componentBeingDragged) continue;
+            nonDraggedComponents.add(comp);
+        }
+    }
+
+    public void setUseDragBorder(boolean state) {
+        useDragBorder = state;
+    }
+
+    public void setDragBorder(Border border) {
+        dragBorder = border;
+    }
+
+    private void handleComponentDrag(NativeMouseEvent nativeMouseEvent) {
+        int mouseY = nativeMouseEvent.getY();
+        int targetIndex = 0;
+        int currentPanelIndex = components.indexOf(componentBeingDragged);
+        // Calculate the desired index of the dragged panel.
+        for (Rectangle rect : componentBounds) {
+            if (mouseY < rect.y + rect.height) break;
+            targetIndex++;
+        }
+        if (targetIndex > components.size() - 1) targetIndex = components.size() - 1;
+        // Return early in the panel being dragged is already in the correct position.
+        if (currentPanelIndex == targetIndex) return;
+        // Reorder the component list
+        int nonDragIndex = 0;
+        int componentCount = components.size();
+        components.clear();
+        for (int i = 0; i < componentCount; i++) {
+            if (i == targetIndex) {
+                components.add(componentBeingDragged);
+            } else {
+                components.add(nonDraggedComponents.get(nonDragIndex));
+                nonDragIndex++;
+            }
+        }
+        rebuildComponentList();
     }
 
     public void setSpacing(int spacing) {
@@ -35,56 +123,41 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
     }
 
     protected void shiftUp(Component panel) {
-        if (panelToInt.size() <= 1) return;
-        int index = panelToInt.get(panel);
-        if (index == 0) return;
+        int index = components.indexOf(panel);
         int swapIndex = index - 1;
         swapPanels(index, swapIndex);
     }
 
     protected void shiftDown(Component panel) {
-        if (panelToInt.size() <= 1) return;
-        int index = panelToInt.get(panel);
-        if (index >= intToPanel.size() - 1) return;
+        int index = components.indexOf(panel);
         int swapIndex = index + 1;
         swapPanels(index, swapIndex);
     }
 
-    private void swapPanels(int index, int swapIndex) {
-        Component panel = intToPanel.get(index);
-        Component swapPanel = intToPanel.get(swapIndex);
-        panelToInt.put(panel, swapIndex);
-        panelToInt.put(swapPanel, index);
-        intToPanel.put(swapIndex, panel);
-        intToPanel.put(index, swapPanel);
-        rebuild();
+    private void swapPanels(int indexA, int indexB) {
+        if (isInvalidIndex(indexA) || isInvalidIndex(indexB)) return;
+        Component panelA = components.get(indexA);
+        Component panelB = components.get(indexB);
+        components.set(indexA, panelB);
+        components.set(indexB, panelA);
+        rebuildComponentList();
     }
 
-    private void rebuild() {
-        HashMap<Integer, Component> tempIntToPanel = new HashMap<>(intToPanel);
-        removeAll();
+    private boolean isInvalidIndex(int index) {
+        return index < 0 || index >= components.size();
+    }
+
+    private void rebuildComponentList() {
+        super.removeAll();
         gc.insets.top = 0;
-        intToPanel.clear();
-        panelToInt.clear();
-        for (int i = 0; i < tempIntToPanel.size(); i++) {
-            Component comp = tempIntToPanel.get(i);
-            gc.gridy = i;
+        gc.gridy = 0;
+        for (Component comp : components) {
             super.add(comp, gc);
             gc.insets.top = spacing;
-            intToPanel.put(i, comp);
-            panelToInt.put(comp, i);
+            gc.gridy++;
         }
         revalidate();
         repaint();
-    }
-
-    private void rebuildMaps() {
-        intToPanel.clear();
-        panelToInt.clear();
-        for (int i = 0; i < getComponentCount(); i++) {
-            intToPanel.put(i, getComponent(i));
-            panelToInt.put(getComponent(i), i);
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -98,29 +171,12 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         return components;
     }
 
-    private void genericMisuse() {
-        ZLogger.err("AddRemoveContainer is operating on a class different than the generic class it was assigned!");
-        ZUtil.printCallingFunction(AddRemoveContainer.class);
-    }
-
-    private void checkGeneric() {
-        if (!usingGeneric) genericMisuse();
-        usingGeneric = false;
-    }
-
-    public T add(T component) {
-        usingGeneric = true;
-        add((Component) component);
-        return component;
-    }
-
     @Override
     public Component add(Component comp) {
-        checkGeneric();
-        gc.gridy = panelToInt.size();
+//        checkGeneric();
+        gc.gridy = getComponentCount();
         super.add(comp, gc);
-        panelToInt.put(comp, panelToInt.size());
-        intToPanel.put(intToPanel.size(), comp);
+        components.add(comp);
         gc.insets.top = spacing;
         revalidate();
         repaint();
@@ -130,15 +186,20 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
     @Override
     public void remove(Component comp) {
         super.remove(comp);
-        rebuildMaps();
-        rebuild();
+        components.remove(comp);
+        rebuildComponentList();
     }
 
     @Override
     public void removeAll() {
         super.removeAll();
-        panelToInt.clear();
-        intToPanel.clear();
+        components.clear();
+    }
+
+    @Override
+    public void remove(int index) {
+        super.remove(index);
+        components.remove(index);
     }
 
     //

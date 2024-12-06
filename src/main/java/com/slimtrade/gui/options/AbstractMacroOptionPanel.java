@@ -14,6 +14,7 @@ import com.slimtrade.gui.messaging.ChatScannerMessagePanel;
 import com.slimtrade.gui.messaging.TradeMessagePanel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -38,6 +39,11 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
         gc.gridy = 0;
         gc.insets = new Insets(0, 0, 2, 0);
         macroContainer.setSpacing(4);
+        // FIXME : Need to make a matching drag border
+//        macroContainer.setUseDragBorder(false);
+        Border border = UIManager.getBorder("TextField.border");
+//        setBorder(border);
+//        System.out.println(((FlatTextBorder)border).());
 
         JButton addMacroButton = new JButton("Add New Macro");
         addMacroButton.addActionListener(e -> {

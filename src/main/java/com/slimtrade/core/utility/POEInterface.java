@@ -27,8 +27,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
- * Interacts with Path of Exile using a Robot
- * https://docs.oracle.com/javase/7/docs/api/java/awt/Robot.html
+ * Interacts with Path of Exile using a <a href="https://docs.oracle.com/javase/7/docs/api/java/awt/Robot.html">Java Robot</a>.
  */
 public class POEInterface {
 
@@ -38,8 +37,8 @@ public class POEInterface {
     private static final int MAX_TITLE_LENGTH = 1024;
     private static final Random random = new Random();
 
-    //    private static final String GAME_TITLE = "Path of Exile";
-    private static final String GAME_TITLE = "Path of Exile on GeForce NOW";
+    private static final String GAME_TITLE = "Path of Exile";
+//    private static final String GAME_TITLE = "Path of Exile on GeForce NOW";
 
     public static void init() {
         try {

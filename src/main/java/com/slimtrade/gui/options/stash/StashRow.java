@@ -16,6 +16,8 @@ import java.awt.*;
 public class StashRow extends AddRemovePanel {
 
     private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
+    private final JButton upButton = new IconButton(DefaultIcon.ARROW_UP);
+    private final JButton downButton = new IconButton(DefaultIcon.ARROW_DOWN);
     private final JTextField nameInput = new PlaceholderTextField("Stash Tab Name...", 20);
     private final JComboBox<MatchType> matchTypeCombo = new JComboBox<>();
     private final JComboBox<StashTabType> stashTypeCombo = new JComboBox<>();
@@ -24,12 +26,13 @@ public class StashRow extends AddRemovePanel {
     public StashRow(AddRemoveContainer<?> parent) {
         super(parent);
         setLayout(new GridBagLayout());
-
         for (MatchType matchType : MatchType.values()) matchTypeCombo.addItem(matchType);
         for (StashTabType stashType : StashTabType.values()) stashTypeCombo.addItem(stashType);
 
         GridBagConstraints gc = ZUtil.getGC();
-        add(removeButton, gc);
+        add(deleteButton, gc);
+        gc.gridx++;
+        add(dragButton, gc);
         gc.gridx++;
         add(nameInput, gc);
         gc.gridx++;
@@ -47,6 +50,8 @@ public class StashRow extends AddRemovePanel {
         removeButton.addActionListener(e -> {
             removeFromParent();
         });
+        upButton.addActionListener(e -> shiftUp(upButton));
+        downButton.addActionListener(e -> shiftDown(upButton));
     }
 
     public StashTabData getData() {

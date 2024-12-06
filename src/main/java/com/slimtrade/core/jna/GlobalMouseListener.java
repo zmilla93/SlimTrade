@@ -11,6 +11,9 @@ import org.jnativehook.mouse.NativeMouseInputListener;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * A mouse listener for global events.
+ */
 public class GlobalMouseListener implements NativeMouseInputListener {
 
     private final ArrayList<NativeMouseAdapter> mouseAdapters = new ArrayList<>();
@@ -29,6 +32,7 @@ public class GlobalMouseListener implements NativeMouseInputListener {
         for (NativeMouseAdapter adapter : mouseAdapters) adapter.nativeMousePressed(nativeMouseEvent);
     }
 
+    // FIXME : Should move app logic to an adapter so that this class is general purpose.
     @Override
     public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
         for (NativeMouseAdapter adapter : mouseAdapters) adapter.nativeMouseReleased(nativeMouseEvent);

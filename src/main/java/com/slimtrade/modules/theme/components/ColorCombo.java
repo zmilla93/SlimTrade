@@ -1,12 +1,12 @@
 package com.slimtrade.modules.theme.components;
 
 import com.slimtrade.core.enums.StashTabColor;
-import com.slimtrade.gui.components.LimitCombo;
 import com.slimtrade.gui.options.stash.StashTabCellRenderer;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class ColorCombo extends LimitCombo<Color> {
+public class ColorCombo extends JComboBox<Color> {
 
     /**
      * A ComboBox that displays POE stash colors.

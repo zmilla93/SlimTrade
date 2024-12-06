@@ -3,6 +3,9 @@ package com.slimtrade.core.jna;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;
 
+/**
+ * An adapter class for the jna native mouse listener.
+ */
 public class NativeMouseAdapter implements NativeMouseInputListener {
 
     @Override

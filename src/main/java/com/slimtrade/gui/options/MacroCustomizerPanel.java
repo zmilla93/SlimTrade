@@ -54,6 +54,9 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         // Delete & Shift Buttons
         GridBagConstraints gc = ZUtil.getGC();
         add(deleteButton, gc);
+        gc.gridy++;
+        add(super.dragButton, gc);
+        gc.gridy = 0;
         gc.gridx++;
         gc.insets = new Insets(0, 0, 0, 2);
         add(shiftUpButton, gc);

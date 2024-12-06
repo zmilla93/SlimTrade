@@ -4,6 +4,7 @@ import com.slimtrade.modules.listening.ListenManager;
 import org.jnativehook.mouse.NativeMouseWheelEvent;
 import org.jnativehook.mouse.NativeMouseWheelListener;
 
+// FIXME: Comment and remove ListenManager?
 public class GlobalMouseWheelListener extends ListenManager<NativeMouseWheelListener> implements NativeMouseWheelListener {
 
     @Override
