@@ -5,7 +5,6 @@ import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.PlaceholderTextField;
 import com.slimtrade.modules.theme.components.ColorCombo;
@@ -23,8 +22,7 @@ public class StashRow extends AddRemovePanel {
     private final JComboBox<StashTabType> stashTypeCombo = new JComboBox<>();
     private final JComboBox<Color> colorCombo = new ColorCombo();
 
-    public StashRow(AddRemoveContainer<?> parent) {
-        super(parent);
+    public StashRow() {
         setLayout(new GridBagLayout());
         for (MatchType matchType : MatchType.values()) matchTypeCombo.addItem(matchType);
         for (StashTabType stashType : StashTabType.values()) stashTypeCombo.addItem(stashType);

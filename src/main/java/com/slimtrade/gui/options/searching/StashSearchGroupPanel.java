@@ -34,7 +34,6 @@ public class StashSearchGroupPanel extends AddRemovePanel {
     }
 
     public StashSearchGroupPanel(AddRemoveContainer<StashSearchGroupPanel> parent, StashSearchOptionPanel optionPanel, String name, int id) {
-        super(parent);
         this.optionPanel = optionPanel;
         this.id = id == -1 ? optionPanel.getNextId() : id;
 

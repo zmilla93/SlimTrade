@@ -29,7 +29,7 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
     }
 
     private void addListeners() {
-        newThresholdButton.addActionListener(e -> container.add(new AudioThresholdRowControls(container)));
+        newThresholdButton.addActionListener(e -> container.add(new AudioThresholdRowControls()));
     }
 
     public void refreshCombos() {
@@ -55,7 +55,7 @@ public class AudioThresholdPanel extends JPanel implements ISavable {
     public void load() {
         container.removeAll();
         for (PriceThresholdData data : SaveManager.settingsSaveFile.data.priceThresholds) {
-            AudioThresholdRowControls row = new AudioThresholdRowControls(container);
+            AudioThresholdRowControls row = new AudioThresholdRowControls();
             row.setData(data);
             container.add(row);
         }

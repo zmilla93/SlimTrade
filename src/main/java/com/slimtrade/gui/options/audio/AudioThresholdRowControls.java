@@ -26,8 +26,7 @@ public class AudioThresholdRowControls extends AddRemovePanel {
     private final JSlider volumeSlider = new RangeSlider(SliderRange.AUDIO_VOLUME);
     private final JLabel volumeLabel = new JLabel();
 
-    public AudioThresholdRowControls(AddRemoveContainer<?> parent) {
-        super(parent);
+    public AudioThresholdRowControls() {
         for (CurrencyType currency : CurrencyType.getCommonCurrencyTypes()) currencyTypeCombo.addItem(currency);
         currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyType("Chaos Orb"));
 

@@ -47,7 +47,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
         JButton addMacroButton = new JButton("Add New Macro");
         addMacroButton.addActionListener(e -> {
-            macroContainer.add(new MacroCustomizerPanel(macroContainer));
+            macroContainer.add(new MacroCustomizerPanel());
             gc.gridy++;
             macroContainer.revalidate();
             macroContainer.repaint();
@@ -220,7 +220,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
     }
 
     public void addMacro(MacroButton macro) {
-        MacroCustomizerPanel macroPanel = new MacroCustomizerPanel(macroContainer);
+        MacroCustomizerPanel macroPanel = new MacroCustomizerPanel();
         macroPanel.setMacro(macro);
         macroContainer.add(macroPanel);
         gc.gridy++;

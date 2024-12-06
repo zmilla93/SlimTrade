@@ -35,8 +35,7 @@ public class MacroCustomizerPanel extends AddRemovePanel {
     private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN);
     private final JButton deleteButton = new IconButton(DefaultIcon.CLOSE);
 
-    public MacroCustomizerPanel(AddRemoveContainer<?> parent) {
-        super(parent);
+    public MacroCustomizerPanel() {
         setLayout(new GridBagLayout());
 
         // Labels

@@ -30,7 +30,7 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
 
     private void addListeners() {
         addButton.addActionListener(e -> {
-            tabContainer.add(new StashRow(tabContainer));
+            tabContainer.add(new StashRow());
             revalidate();
             repaint();
         });
@@ -50,7 +50,7 @@ public class StashOptionPanel extends AbstractOptionPanel implements ISavable {
     public void load() {
         tabContainer.removeAll();
         for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
-            StashRow row = new StashRow(tabContainer);
+            StashRow row = new StashRow();
             row.setData(data);
             tabContainer.add(row);
         }

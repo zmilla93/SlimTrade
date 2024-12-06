@@ -21,8 +21,6 @@ public class StashSearchTermPanel extends AddRemovePanel {
     private final ColorCombo colorCombo = new ColorCombo();
 
     public StashSearchTermPanel(AddRemoveContainer<StashSearchTermPanel> parent) {
-        super(parent);
-
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         add(removeButton);
         add(shiftDownButton);

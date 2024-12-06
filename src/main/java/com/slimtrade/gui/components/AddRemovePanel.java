@@ -14,14 +14,12 @@ import java.awt.event.MouseEvent;
  *
  * @see AddRemoveContainer
  */
-public class AddRemovePanel extends JPanel {
+public abstract class AddRemovePanel extends JPanel {
 
-    public final AddRemoveContainer<? extends AddRemovePanel> parent;
     public final JButton deleteButton = new IconButton(DefaultIcon.CLOSE);
     public final JLabel dragButton = new JLabel();
 
-    public AddRemovePanel(AddRemoveContainer<? extends AddRemovePanel> parent) {
-        this.parent = parent;
+    public AddRemovePanel() {
 
         // FIXME : Create a class that handles auto resizing and color theme!
         dragButton.setIcon(ThemeManager.getColorIcon(DefaultIcon.DRAG.path()));
@@ -39,12 +37,12 @@ public class AddRemovePanel extends JPanel {
     }
 
     public void shiftUp(JButton button) {
-        parent.shiftUp(this);
+        ((AddRemoveContainer) getParent()).shiftUp(this);
         button.requestFocus();
     }
 
     public void shiftDown(JButton button) {
-        parent.shiftDown(this);
+        ((AddRemoveContainer) getParent()).shiftDown(this);
         button.requestFocus();
     }
 
