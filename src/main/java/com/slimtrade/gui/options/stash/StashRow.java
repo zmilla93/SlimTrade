@@ -12,7 +12,7 @@ import com.slimtrade.modules.theme.components.ColorCombo;
 import javax.swing.*;
 import java.awt.*;
 
-public class StashRow extends AddRemovePanel {
+public class StashRow extends AddRemovePanel<StashTabData> {
 
     private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
     private final JButton upButton = new IconButton(DefaultIcon.ARROW_UP);
@@ -52,6 +52,7 @@ public class StashRow extends AddRemovePanel {
         downButton.addActionListener(e -> shiftDown(upButton));
     }
 
+    @Override
     public StashTabData getData() {
         return new StashTabData(
                 nameInput.getText(),
@@ -60,12 +61,12 @@ public class StashRow extends AddRemovePanel {
                 colorCombo.getSelectedIndex());
     }
 
+    @Override
     public void setData(StashTabData data) {
         nameInput.setText(data.stashTabName);
         matchTypeCombo.setSelectedItem(data.matchType);
         stashTypeCombo.setSelectedItem(data.stashTabType);
         colorCombo.setSelectedIndex(data.stashColorIndex);
-//        colorCombo.setSelectedItem(data.stashTabColor.getBackground());
     }
 
 }

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class StashSearchGroupPanel extends AddRemovePanel {
+public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> {
 
     private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
     private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP);
@@ -75,8 +75,8 @@ public class StashSearchGroupPanel extends AddRemovePanel {
         updateSavedGroupName();
         boolean showHotkeyButton = optionPanel.settingsPanel.modeCombo.getSelectedItem() == StashSearchWindowMode.SEPARATE;
         updateHotkeyVisibility(showHotkeyButton);
-        termContainer.add(new StashSearchTermPanel(termContainer));
-        termContainer.add(new StashSearchTermPanel(termContainer));
+        termContainer.add(new StashSearchTermPanel());
+        termContainer.add(new StashSearchTermPanel());
     }
 
     public StashSearchGroupPanel(AddRemoveContainer<StashSearchGroupPanel> parent, StashSearchOptionPanel optionPanel, StashSearchGroupData groupData, boolean hotkeyVisibility) {
@@ -84,7 +84,7 @@ public class StashSearchGroupPanel extends AddRemovePanel {
         hotkeyButton.setData(groupData.hotkeyData);
         termContainer.removeAll();
         for (StashSearchTermData termData : groupData.terms) {
-            termContainer.add(new StashSearchTermPanel(termContainer, termData));
+            termContainer.add(new StashSearchTermPanel(termData));
         }
         updateHotkeyVisibility(hotkeyVisibility);
     }
@@ -96,7 +96,7 @@ public class StashSearchGroupPanel extends AddRemovePanel {
             optionPanel.addIdToReset(id);
             removeFromParent();
         });
-        newTermButton.addActionListener(e -> termContainer.add(new StashSearchTermPanel(termContainer)));
+        newTermButton.addActionListener(e -> termContainer.add(new StashSearchTermPanel()));
         renameButton.addActionListener(e -> showHideRename(true));
         applyRenameButton.addActionListener(e -> {
             showHideRename(false);
@@ -149,12 +149,18 @@ public class StashSearchGroupPanel extends AddRemovePanel {
         updateGroupName(renameInput.getText());
     }
 
+    @Override
     public StashSearchGroupData getData() {
         ArrayList<StashSearchTermData> terms = new ArrayList<>();
         for (StashSearchTermPanel termPanel : termContainer.getComponentsTyped()) {
             terms.add(termPanel.getData());
         }
         return new StashSearchGroupData(id, groupName, hotkeyButton.getData(), terms);
+    }
+
+    @Override
+    public void setData(StashSearchGroupData data) {
+        // TODO : this
     }
 
 }

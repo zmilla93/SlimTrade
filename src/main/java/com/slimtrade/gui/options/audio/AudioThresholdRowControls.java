@@ -15,7 +15,7 @@ import com.slimtrade.gui.components.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class AudioThresholdRowControls extends AddRemovePanel {
+public class AudioThresholdRowControls extends AddRemovePanel<PriceThresholdData> {
 
     private final JButton previewButton = new IconButton(DefaultIcon.PLAY);
     private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
@@ -65,6 +65,7 @@ public class AudioThresholdRowControls extends AddRemovePanel {
         soundCombo.refreshSoundList();
     }
 
+    @Override
     public void setData(PriceThresholdData data) {
         currencyTypeCombo.setSelectedItem(CurrencyType.getCurrencyType(data.currencyType.ID));
         quantitySpinner.setValue(data.quantity);
@@ -72,6 +73,7 @@ public class AudioThresholdRowControls extends AddRemovePanel {
         volumeSlider.setValue(data.soundComponent.volume);
     }
 
+    @Override
     public PriceThresholdData getData() {
         CurrencyType currency = (CurrencyType) currencyTypeCombo.getSelectedItem();
         int quantity = (int) quantitySpinner.getValue();

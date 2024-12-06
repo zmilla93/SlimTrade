@@ -10,7 +10,7 @@ import com.slimtrade.modules.theme.components.ColorCombo;
 import javax.swing.*;
 import java.awt.*;
 
-public class StashSearchTermPanel extends AddRemovePanel {
+public class StashSearchTermPanel extends AddRemovePanel<StashSearchTermData> {
 
     private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
     private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP);
@@ -20,7 +20,7 @@ public class StashSearchTermPanel extends AddRemovePanel {
     private final JTextField searchInput = new PlaceholderTextField("Search Term...", 20);
     private final ColorCombo colorCombo = new ColorCombo();
 
-    public StashSearchTermPanel(AddRemoveContainer<StashSearchTermPanel> parent) {
+    public StashSearchTermPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         add(removeButton);
         add(shiftDownButton);
@@ -32,11 +32,9 @@ public class StashSearchTermPanel extends AddRemovePanel {
         addListeners();
     }
 
-    public StashSearchTermPanel(AddRemoveContainer<StashSearchTermPanel> parent, StashSearchTermData data) {
-        this(parent);
-        titleInput.setText(data.title);
-        searchInput.setText(data.searchTerm);
-        colorCombo.setSelectedIndex(data.colorIndex);
+    public StashSearchTermPanel(StashSearchTermData data) {
+        this();
+        setData(data);
     }
 
     private void addListeners() {
@@ -45,8 +43,16 @@ public class StashSearchTermPanel extends AddRemovePanel {
         removeButton.addActionListener(e -> removeFromParent());
     }
 
+    @Override
     public StashSearchTermData getData() {
         return new StashSearchTermData(titleInput.getText(), searchInput.getText(), colorCombo.getSelectedIndex());
+    }
+
+    @Override
+    public void setData(StashSearchTermData data) {
+        titleInput.setText(data.title);
+        searchInput.setText(data.searchTerm);
+        colorCombo.setSelectedIndex(data.colorIndex);
     }
 
 }

@@ -14,7 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class MacroCustomizerPanel extends AddRemovePanel {
+public class MacroCustomizerPanel extends AddRemovePanel<MacroButton> {
 
     // Macro Button
     private final JComboBox<ImageIcon> iconCombo = new LimitCombo<>();
@@ -114,22 +114,24 @@ public class MacroCustomizerPanel extends AddRemovePanel {
         });
     }
 
-    public MacroButton getMacroButton() {
-        MacroButton button = new MacroButton();
-        button.lmbResponse = lmbInput.getText();
-        button.rmbResponse = rmbInput.getText();
-        button.row = (ButtonRow) rowCombo.getSelectedItem();
-        button.buttonType = (MacroButtonType) buttonType.getSelectedItem();
-        button.text = buttonText.getText();
-        button.hotkeyData = hotkeyButton.getData();
-        button.close = closeCheckbox.isSelected();
+    @Override
+    public MacroButton getData() {
+        MacroButton macro = new MacroButton();
+        macro.lmbResponse = lmbInput.getText();
+        macro.rmbResponse = rmbInput.getText();
+        macro.row = (ButtonRow) rowCombo.getSelectedItem();
+        macro.buttonType = (MacroButtonType) buttonType.getSelectedItem();
+        macro.text = buttonText.getText();
+        macro.hotkeyData = hotkeyButton.getData();
+        macro.close = closeCheckbox.isSelected();
         int index = iconCombo.getSelectedIndex();
         if (index == -1) index = 0;
-        button.icon = CustomIcon.values()[index];
-        return button;
+        macro.icon = CustomIcon.values()[index];
+        return macro;
     }
 
-    public void setMacro(MacroButton macro) {
+    @Override
+    public void setData(MacroButton macro) {
         lmbInput.setText(macro.lmbResponse);
         rmbInput.setText(macro.rmbResponse);
         rowCombo.setSelectedItem(macro.row);

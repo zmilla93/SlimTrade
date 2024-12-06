@@ -221,7 +221,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
 
     public void addMacro(MacroButton macro) {
         MacroCustomizerPanel macroPanel = new MacroCustomizerPanel();
-        macroPanel.setMacro(macro);
+        macroPanel.setData(macro);
         macroContainer.add(macroPanel);
         gc.gridy++;
     }
@@ -229,7 +229,7 @@ public class AbstractMacroOptionPanel extends AbstractOptionPanel {
     public ArrayList<MacroButton> getMacros() {
         ArrayList<MacroButton> macros = new ArrayList<>(macroContainer.getComponentCount());
         for (MacroCustomizerPanel panel : macroContainer.getComponentsTyped()) {
-            MacroButton macro = panel.getMacroButton();
+            MacroButton macro = panel.getData();
             macros.add(macro);
         }
         return macros;

@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
  *
  * @see AddRemoveContainer
  */
-public abstract class AddRemovePanel extends JPanel {
+public abstract class AddRemovePanel<T> extends JPanel {
 
     public final JButton deleteButton = new IconButton(DefaultIcon.CLOSE);
     public final JLabel dragButton = new JLabel();
@@ -54,5 +54,9 @@ public abstract class AddRemovePanel extends JPanel {
         parent.revalidate();
         parent.repaint();
     }
+
+    public abstract T getData();
+
+    public abstract void setData(T data);
 
 }
