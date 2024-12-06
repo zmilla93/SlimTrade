@@ -20,16 +20,17 @@ public abstract class AddRemovePanel<T> extends JPanel {
     public final JLabel dragButton = new JLabel();
 
     public AddRemovePanel() {
-
         // FIXME : Create a class that handles auto resizing and color theme!
         dragButton.setIcon(ThemeManager.getColorIcon(DefaultIcon.DRAG.path()));
         dragButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                Container parent = getParent();
-                if (parent instanceof AddRemoveContainer)
-                    ((AddRemoveContainer<?>) parent).setComponentBeingDragged(AddRemovePanel.this);
+                ((AddRemoveContainer<?>) getParent()).setComponentBeingDragged(AddRemovePanel.this);
+//                Container parent = getParent();
+
+//                if (parent instanceof AddRemoveContainer<?>) ((AddRemoveContainer<?>) parent).setComponentBeingDragged(self);
+//                    ((AddRemoveContainer<T>) parent).setComponentBeingDragged((self);
             }
         });
         dragButton.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));

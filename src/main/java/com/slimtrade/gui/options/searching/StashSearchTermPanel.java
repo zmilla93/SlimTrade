@@ -2,7 +2,6 @@ package com.slimtrade.gui.options.searching;
 
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.gui.buttons.IconButton;
-import com.slimtrade.gui.components.AddRemoveContainer;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.PlaceholderTextField;
 import com.slimtrade.modules.theme.components.ColorCombo;

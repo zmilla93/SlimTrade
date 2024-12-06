@@ -17,15 +17,16 @@ import java.util.ArrayList;
  *
  * @see AddRemovePanel
  */
-public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
+public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
 
     private int spacing = 0;
     private final GridBagConstraints gc = ZUtil.getGC();
 
-    private final ArrayList<Component> components = new ArrayList<>();
+    private final ArrayList<T> components = new ArrayList<>();
+    private final ArrayList<T> orderedComponents = new ArrayList<>();
+    private final ArrayList<T> nonDraggedComponents = new ArrayList<>();
     private final ArrayList<Rectangle> componentBounds = new ArrayList<>();
-    private final ArrayList<Component> nonDraggedComponents = new ArrayList<>();
-    private AddRemovePanel componentBeingDragged = null;
+    private T componentBeingDragged = null;
 
     // Drag Border
     private boolean useDragBorder = true;
@@ -54,6 +55,15 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         });
     }
 
+    /**
+     * The same as getComponents(), but returns an ordered list of typed components.
+     *
+     * @return Typed \ components
+     */
+    public ArrayList<T> getComponentsTyped() {
+        return components;
+    }
+
     public void setUseDragBorder(boolean state) {
         useDragBorder = state;
     }
@@ -63,18 +73,27 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
     }
 
     /**
+     *
+     */
+    public void setComponentBeingDragged(Object obj) {
+        @SuppressWarnings("unchecked")
+        T typedObject = (T) obj;
+        setComponentBeingDragged(typedObject);
+    }
+
+    /**
      * This should be called in the mouse down event of whatever controls the component being dragged.
      *
      * @param component Component being dragged
      */
-    public void setComponentBeingDragged(AddRemovePanel component) {
+    public void setComponentBeingDragged(T component) {
         componentBeingDragged = component;
         if (useDragBorder) {
             previousBorder = component.getBorder();
             component.setBorder(dragBorder);
         }
         nonDraggedComponents.clear();
-        for (Component comp : getComponents()) {
+        for (T comp : getComponentsTyped()) {
             if (comp == componentBeingDragged) continue;
             nonDraggedComponents.add(comp);
         }
@@ -86,14 +105,15 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
      */
     private void calculateBoundsOfChildren() {
         Point screenPos = getLocationOnScreen();
-        components.clear();
         componentBounds.clear();
-        // Component list is built here as an easy way to get the index of the component being dragged.
-        for (Component child : getComponents()) {
+        orderedComponents.clear();
+        // Ordered component list is built here as an easy way to get the index of the component being dragged.
+        // FIXME : Should be able to use component list instead?
+        for (T child : getComponentsTyped()) {
             Rectangle rect = child.getBounds();
             rect.x += screenPos.x;
             rect.y += screenPos.y;
-            components.add(child);
+            orderedComponents.add(child);
             componentBounds.add(rect);
         }
     }
@@ -116,12 +136,14 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         if (currentPanelIndex == targetIndex) return;
         // Rebuild the component list based on the target index for the component being dragged
         int nonDragIndex = 0;
-        components.clear();
+        orderedComponents.clear();
+//        System.out.println("Comp count: " + getComponentCount());
+//        System.out.println("Typed count: " + getComponentsTyped().size());
         for (int i = 0; i < componentCount; i++) {
             if (i == targetIndex) {
-                components.add(componentBeingDragged);
+                orderedComponents.add(componentBeingDragged);
             } else {
-                components.add(nonDraggedComponents.get(nonDragIndex));
+                orderedComponents.add(nonDraggedComponents.get(nonDragIndex));
                 nonDragIndex++;
             }
         }
@@ -154,8 +176,8 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
     @Deprecated // FIXME : Use the new dragButton instead.
     private void swapPanels(int indexA, int indexB) {
         if (isInvalidIndex(indexA) || isInvalidIndex(indexB)) return;
-        Component panelA = components.get(indexA);
-        Component panelB = components.get(indexB);
+        T panelA = components.get(indexA);
+        T panelB = components.get(indexB);
         components.set(indexA, panelB);
         components.set(indexB, panelA);
         rebuildComponentList();
@@ -175,41 +197,47 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         super.removeAll();
         gc.insets.top = 0;
         gc.gridy = 0;
-        for (Component comp : components) {
+        if (orderedComponents.isEmpty()) orderedComponents.addAll(components);
+        components.clear();
+        for (T comp : orderedComponents) {
             super.add(comp, gc);
             gc.insets.top = spacing;
             gc.gridy++;
+            components.add(comp);
         }
         revalidate();
         repaint();
     }
 
-    @SuppressWarnings("unchecked")
-    public ArrayList<T> getComponentsTyped() {
-        // Warnings are suppressed here because there is no clean way to safely cast to a generic type.
-        // Component types are checked when being added, so errors should be caught before ever getting to here.
-        ArrayList<T> components = new ArrayList<>();
-        for (Component c : getComponents()) {
-            components.add((T) c);
-        }
-        return components;
+    public Component add(T comp) {
+        components.add(comp);
+        add((Component) comp);
+        return comp;
     }
 
     @Override
     public Component add(Component comp) {
         gc.gridy = getComponentCount();
-        super.add(comp, gc);
         gc.insets.top = spacing;
+        super.add(comp, gc);
         revalidate();
         repaint();
         return comp;
     }
 
-    @Override
-    public void remove(Component comp) {
+    public Component remove(T comp) {
         super.remove(comp);
         components.remove(comp);
+        orderedComponents.remove(comp);
         rebuildComponentList();
+        return comp;
+    }
+
+    @Override
+    public void removeAll() {
+        super.removeAll();
+        components.clear();
+        orderedComponents.clear();
     }
 
     //
