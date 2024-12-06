@@ -23,7 +23,7 @@ public class AddRemovePanel extends JPanel {
     public AddRemovePanel(AddRemoveContainer<? extends AddRemovePanel> parent) {
         this.parent = parent;
 
-        // FIXME : Create a class that handles auto resizing!
+        // FIXME : Create a class that handles auto resizing and color theme!
         dragButton.setIcon(ThemeManager.getColorIcon(DefaultIcon.DRAG.path()));
         dragButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -35,8 +35,6 @@ public class AddRemovePanel extends JPanel {
             }
         });
         dragButton.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
-
-
         deleteButton.addActionListener(e -> removeFromParent());
     }
 

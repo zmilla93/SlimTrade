@@ -20,6 +20,7 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
     private final JButton poeRegexButton = new JButton("Path of Exile Regex");
 
     public StashSearchOptionPanel() {
+        entryContainer.setUseDragBorder(false);
         addHeader("Info");
         addComponent(new JLabel("Pastes search terms into any POE window with a search bar (stashes, skill tree, vendors, etc)."));
         addComponent(new JLabel("Search groups can be separate windows, or a single combined window with a group selector."));

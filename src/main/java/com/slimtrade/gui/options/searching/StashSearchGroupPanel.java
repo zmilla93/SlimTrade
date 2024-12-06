@@ -44,6 +44,7 @@ public class StashSearchGroupPanel extends AddRemovePanel {
         // Controls Panel
         JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         controlsPanel.add(removeButton);
+        controlsPanel.add(dragButton);
         controlsPanel.add(shiftDownButton);
         controlsPanel.add(shiftUpButton);
         controlsPanel.add(renameButton);

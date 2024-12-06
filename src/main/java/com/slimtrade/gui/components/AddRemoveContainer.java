@@ -13,14 +13,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * A panel that allows children to be added, removed, and easily reordered.
+ * A panel that allows {@link AddRemovePanel}s to be added, removed, and easily reordered.
  *
  * @see AddRemovePanel
  */
-// FIXME (Optimize) : Could probably simplify this by storing index in AddRemovePanel, but not a high priority
 public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
 
-    private int spacing;
+    private int spacing = 0;
     private final GridBagConstraints gc = ZUtil.getGC();
 
     private final ArrayList<Component> components = new ArrayList<>();
@@ -55,6 +54,14 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         });
     }
 
+    public void setUseDragBorder(boolean state) {
+        useDragBorder = state;
+    }
+
+    public void setDragBorder(Border border) {
+        dragBorder = border;
+    }
+
     /**
      * This should be called in the mouse down event of whatever controls the component being dragged.
      *
@@ -66,9 +73,22 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
             previousBorder = component.getBorder();
             component.setBorder(dragBorder);
         }
+        nonDraggedComponents.clear();
+        for (Component comp : getComponents()) {
+            if (comp == componentBeingDragged) continue;
+            nonDraggedComponents.add(comp);
+        }
+        calculateBoundsOfChildren();
+    }
+
+    /**
+     * Create a list of Rectangles that represent the bounds of all child components.
+     */
+    private void calculateBoundsOfChildren() {
         Point screenPos = getLocationOnScreen();
         components.clear();
         componentBounds.clear();
+        // Component list is built here as an easy way to get the index of the component being dragged.
         for (Component child : getComponents()) {
             Rectangle rect = child.getBounds();
             rect.x += screenPos.x;
@@ -76,36 +96,26 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
             components.add(child);
             componentBounds.add(rect);
         }
-        nonDraggedComponents.clear();
-        for (Component comp : getComponents()) {
-            if (comp == componentBeingDragged) continue;
-            nonDraggedComponents.add(comp);
-        }
     }
 
-    public void setUseDragBorder(boolean state) {
-        useDragBorder = state;
-    }
-
-    public void setDragBorder(Border border) {
-        dragBorder = border;
-    }
-
+    /**
+     * Calculate the desired order of components based on the mouse screen position and the component being dragged.
+     */
     private void handleComponentDrag(NativeMouseEvent nativeMouseEvent) {
         int mouseY = nativeMouseEvent.getY();
         int targetIndex = 0;
+        int componentCount = getComponentCount();
         int currentPanelIndex = components.indexOf(componentBeingDragged);
         // Calculate the desired index of the dragged panel.
         for (Rectangle rect : componentBounds) {
             if (mouseY < rect.y + rect.height) break;
             targetIndex++;
         }
-        if (targetIndex > components.size() - 1) targetIndex = components.size() - 1;
+        if (targetIndex > componentCount - 1) targetIndex = componentCount - 1;
         // Return early in the panel being dragged is already in the correct position.
         if (currentPanelIndex == targetIndex) return;
-        // Reorder the component list
+        // Rebuild the component list based on the target index for the component being dragged
         int nonDragIndex = 0;
-        int componentCount = components.size();
         components.clear();
         for (int i = 0; i < componentCount; i++) {
             if (i == targetIndex) {
@@ -118,22 +128,30 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         rebuildComponentList();
     }
 
+    /**
+     * Adds a gap between components.
+     *
+     * @param spacing Spacing in pixels
+     */
     public void setSpacing(int spacing) {
         this.spacing = spacing;
     }
 
+    @Deprecated // FIXME : Use the new dragButton instead.
     protected void shiftUp(Component panel) {
         int index = components.indexOf(panel);
         int swapIndex = index - 1;
         swapPanels(index, swapIndex);
     }
 
+    @Deprecated // FIXME : Use the new dragButton instead.
     protected void shiftDown(Component panel) {
         int index = components.indexOf(panel);
         int swapIndex = index + 1;
         swapPanels(index, swapIndex);
     }
 
+    @Deprecated // FIXME : Use the new dragButton instead.
     private void swapPanels(int indexA, int indexB) {
         if (isInvalidIndex(indexA) || isInvalidIndex(indexB)) return;
         Component panelA = components.get(indexA);
@@ -143,10 +161,16 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         rebuildComponentList();
     }
 
+    /**
+     * Array bounds checking
+     */
     private boolean isInvalidIndex(int index) {
         return index < 0 || index >= components.size();
     }
 
+    /**
+     * Removes then adds all child components based on the order the of components array.
+     */
     private void rebuildComponentList() {
         super.removeAll();
         gc.insets.top = 0;
@@ -173,10 +197,8 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
 
     @Override
     public Component add(Component comp) {
-//        checkGeneric();
         gc.gridy = getComponentCount();
         super.add(comp, gc);
-        components.add(comp);
         gc.insets.top = spacing;
         revalidate();
         repaint();
@@ -188,18 +210,6 @@ public class AddRemoveContainer<T extends AddRemovePanel> extends JPanel {
         super.remove(comp);
         components.remove(comp);
         rebuildComponentList();
-    }
-
-    @Override
-    public void removeAll() {
-        super.removeAll();
-        components.clear();
-    }
-
-    @Override
-    public void remove(int index) {
-        super.remove(index);
-        components.remove(index);
     }
 
     //
