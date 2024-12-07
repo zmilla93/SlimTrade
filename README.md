@@ -1,5 +1,7 @@
 # SlimTrade
-A trade UI overlay for Path of Exile. Also includes a chat scanner, trade history, item ignoring, 20+ color themes, custom audio, cheat sheet overlays, update checker, and more! <b>POE must be run in 'Windowed Fullscreen' or 'Windowed' mode.</b><br><br>
+A highly customizable trade UI overlay for Path of Exile 1. Support for Path of Exile 2 coming soon.<br>
+Includes a chat scanner, trade history, cheat sheet overlays, and more!<br>
+
 [**Download Latest Version**](https://github.com/zmilla93/SlimTrade/releases/latest)<br>
 **Support this project!** [**PayPal**](https://www.paypal.me/zmilla93) | 
 [**Patreon**](https://www.patreon.com/SlimTrade)<br><br>
