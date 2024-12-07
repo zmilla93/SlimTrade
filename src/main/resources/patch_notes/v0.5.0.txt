@@ -1,9 +1,14 @@
 ## Path of Exile 2
 - Full support for Path of Exile 2 coming soon... :)
 
-## New Features
-- Many small UI improvements
+## Improvements
 - Reordering UI elements now uses click & drag
+- Many small UI improvements
+
+## Cloud Gaming
+- Some support has been added for GeForce Now, other platforms upon request
+- Trade features that require parsing chat DO NOT work (trade popups, chat scanner)
+- All other features work (hotkeys, cheat sheets, searching)
 
 # Developer Notes
 - The entire code base has been cleaned up & commented

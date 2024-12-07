@@ -4,6 +4,7 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.jna.JnaAwtEvent;
+import com.slimtrade.core.jna.NativeWindow;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.ClientFileChooser;
 import com.slimtrade.gui.managers.FrameManager;
@@ -22,6 +23,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -34,17 +37,25 @@ public class POEInterface {
     private static Robot robot;
     private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static final Executor executor = Executors.newSingleThreadExecutor();
-    private static final int MAX_TITLE_LENGTH = 1024;
     private static final Random random = new Random();
+    private static final int MAX_TITLE_LENGTH = 1024;
+    private static WinDef.HWND gameWindowHandle;
 
-    private static final String GAME_TITLE = "Path of Exile";
-//    private static final String GAME_TITLE = "Path of Exile on GeForce NOW";
+    private static final HashSet<String> gameTitleSet = new HashSet<>();
+    private static final String[] gameTitles = new String[]{
+            "Path of Exile",
+            "Path of Exile 2",
+            "Path of Exile on GeForce NOW",
+            "Path of Exile 2 on GeForce NOW",
+    };
 
-    public static void init() {
+    static {
+        gameTitleSet.addAll(Arrays.asList(gameTitles));
         try {
             robot = new Robot();
 //            robot.setAutoWaitForIdle(true);
         } catch (AWTException e) {
+            // FIXME : Logging
             e.printStackTrace();
         }
     }
@@ -95,8 +106,7 @@ public class POEInterface {
         // This sleep is required
         try {
             Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException ignore) {
         }
         robot.waitForIdle();
     }
@@ -158,7 +168,7 @@ public class POEInterface {
         assert (!SwingUtilities.isEventDispatchThread());
         if (isGameFocused()) return true;
         // Show, click, then hide a dummy window.
-        // This is required because swing needs focus before it can give it to another program
+        // This is required because swing needs focus before it can give focus to another program
         FrameManager.dummyWindow.setVisible(true);
         Point point = MouseInfo.getPointerInfo().getLocation();
         point.x -= DummyWindow.HALF_SIZE;
@@ -167,9 +177,9 @@ public class POEInterface {
         robot.mousePress(0);
         robot.mouseRelease(0);
         FrameManager.dummyWindow.setVisible(false);
-        // Focus the actual game window
+        // Focus the Path of Exile game window
         focusPathOfExileWindow();
-        // Wait until the window actually gains focus
+        // Wait until Path of Exile gains focus
         int i = 0;
         while (!isGameFocused()) {
             try {
@@ -185,26 +195,43 @@ public class POEInterface {
         return isGameFocused();
     }
 
-    // FIXME : Add cross platform support
+    // TODO : Add cross platform support
     private static void focusPathOfExileWindow() {
-        if (Platform.current == Platform.WINDOWS) {
-            User32.INSTANCE.EnumWindows((hWnd, arg1) -> {
-                char[] className = new char[512];
-                User32.INSTANCE.GetClassName(hWnd, className, 512);
-                String wText = Native.toString(className);
-                if (wText.isEmpty()) {
-                    return true;
-                }
-                if (wText.equals("POEWindowClass")) {
-                    User32.INSTANCE.SetForegroundWindow(hWnd);
-                    User32.INSTANCE.SetFocus(hWnd);
-                    User32.INSTANCE.ShowWindow(hWnd, User32.SW_SHOW);
+        if (Platform.current != Platform.WINDOWS) return;
+        // Use cached window handle if available
+        if (gameWindowHandle != null) {
+            focusWindowNative(gameWindowHandle);
+            return;
+        }
+        // Enumerate through all windows. Loop continues until the callback returns false
+        User32.INSTANCE.EnumWindows((handle, arg1) -> {
+            char[] classNameBuffer = new char[512];
+            User32.INSTANCE.GetClassName(handle, classNameBuffer, 512);
+            String className = Native.toString(classNameBuffer);
+            System.out.println(className);
+            if (className.isEmpty()) return true;
+            // Path of Exile 1 & 2 windows have the class name POEWindowClass
+            if (className.equals("POEWindowClass")) {
+                focusWindowNative(handle);
+                return false;
+            }
+            // GeForce Now has the class name CEFCLIENT. Unsure if this is unique, so the window title is also checked.
+            if (className.equals("CEFCLIENT")) {
+                String title = getNativeWindowTitle(handle);
+                if (gameTitleSet.contains(title)) {
+                    focusWindowNative(handle);
                     return false;
                 }
-                return true;
-            }, null);
-        }
-        // TODO : More platforms
+            }
+            return true;
+        }, null);
+    }
+
+    private static void focusWindowNative(WinDef.HWND handle) {
+        gameWindowHandle = handle;
+        User32.INSTANCE.SetForegroundWindow(handle);
+        User32.INSTANCE.SetFocus(handle);
+        User32.INSTANCE.ShowWindow(handle, User32.SW_SHOW);
     }
 
     public static boolean isGameFocused() {
@@ -213,30 +240,41 @@ public class POEInterface {
 
     public static boolean isGameFocused(boolean includeApp) {
         if (Platform.current != Platform.WINDOWS) return true;
-        String focusedWindowTitle = getFocusedWindowTitle();
-        if (includeApp && focusedWindowTitle.startsWith(References.APP_PREFIX)) return true;
-        if (includeApp && focusedWindowTitle.equals(ClientFileChooser.TITLE)) return true;
-        return focusedWindowTitle.equals(GAME_TITLE);
+        NativeWindow focusedWindow = getFocusedWindowNative();
+        if (focusedWindow == null) return false;
+        if (gameTitleSet.contains(focusedWindow.title)) {
+            gameWindowHandle = focusedWindow.handle;
+            return true;
+        }
+        if (includeApp && focusedWindow.title.startsWith(References.APP_PREFIX)) return true;
+        if (includeApp && focusedWindow.title.equals(ClientFileChooser.TITLE)) return true;
+        return false;
     }
 
     // FIXME : Add cross platform support.
     //         Could alternatively add support to isGameFocused if there is a way
     //         to know if POE is focused other than checking the window title.
-    private static String getFocusedWindowTitle() {
+    private static NativeWindow getFocusedWindowNative() {
         if (Platform.current == Platform.WINDOWS) {
             char[] buffer = new char[MAX_TITLE_LENGTH * 2];
-            WinDef.HWND hwnd = User32.INSTANCE.GetForegroundWindow();
-            User32.INSTANCE.GetWindowText(hwnd, buffer, MAX_TITLE_LENGTH);
-            return Native.toString(buffer);
+            WinDef.HWND handle = User32.INSTANCE.GetForegroundWindow();
+            User32.INSTANCE.GetWindowText(handle, buffer, MAX_TITLE_LENGTH);
+            String title = Native.toString(buffer);
+            return new NativeWindow(title, handle);
         }
-        // TODO : More platforms
-        return GAME_TITLE;
+        return null;
+    }
+
+    private static String getNativeWindowTitle(WinDef.HWND handle) {
+        char[] buffer = new char[MAX_TITLE_LENGTH * 2];
+        User32.INSTANCE.GetWindowText(handle, buffer, MAX_TITLE_LENGTH);
+        return Native.toString(buffer);
     }
 
     @Nullable
     public static Rectangle getGameRect() {
         for (DesktopWindow window : WindowUtils.getAllWindows(true)) {
-            if (window.getTitle().equals(GAME_TITLE)) {
+            if (gameTitleSet.contains(window.getTitle())) {
                 return window.getLocAndSize();
             }
         }
