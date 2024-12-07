@@ -11,6 +11,9 @@ import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 
 public class SaveManager {
@@ -18,8 +21,10 @@ public class SaveManager {
     // Install folder names
     public static final String folderWin = "SlimTrade";
     public static final String folderOther = ".slimtrade";
+    private static final String backupSuffix = "-Backup";
 
     // Subfolder Names
+    private static final String backupFolderName = "backup";
     private static final String audioFolderName = "audio";
     private static final String imagesFolderName = "images";
     private static final String logFolderName = "logs";
@@ -31,8 +36,10 @@ public class SaveManager {
     private static String logsDirectory;
     private static String imagesDirectory;
     private static String debugDirectory;
+    private static String ninjaDirectory;
+    private static String backupDirectory;
 
-    // Safe Files
+    // Save Files
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
     public static SaveFile<AppStateSaveFile> appStateSaveFile = new SaveFile<>(getSaveDirectory() + "app_state.json", AppStateSaveFile.class);
     public static SaveFile<OverlaySaveFile> overlaySaveFile = new SaveFile<>(getSaveDirectory() + "overlay.json", OverlaySaveFile.class);
@@ -103,9 +110,9 @@ public class SaveManager {
     }
 
     public static String getNinjaDirectory() {
-        if (debugDirectory == null)
-            debugDirectory = validateDirectory(getSaveDirectory() + "ninja" + File.separator);
-        return debugDirectory;
+        if (ninjaDirectory == null)
+            ninjaDirectory = validateDirectory(getSaveDirectory() + "ninja" + File.separator);
+        return ninjaDirectory;
     }
 
     public static String getSaveDirectory() {
@@ -117,6 +124,17 @@ public class SaveManager {
             validateDirectory(saveDirectory);
         }
         return saveDirectory;
+    }
+
+    public static String getBackupDirectory() {
+        if (backupDirectory == null) {
+            if (Platform.current == Platform.WINDOWS)
+                backupDirectory = System.getenv("LocalAppData") + File.separator + folderWin + backupSuffix + File.separator;
+            else
+                backupDirectory = System.getProperty("user.home") + File.separator + folderOther + backupSuffix.toLowerCase() + File.separator;
+            validateDirectory(backupDirectory);
+        }
+        return backupDirectory;
     }
 
     public static String validateDirectory(String path) {
@@ -140,21 +158,86 @@ public class SaveManager {
         ArrayList<String> paths = new ArrayList<>();
         // Iterates A - Z
         for (int i = 65; i <= 90; i++) {
-            char c = (char) i;
+            char letter = (char) i;
             // Stand Alone
-            paths.add(c + ":/Grinding Gear Games/Path of Exile/logs/Client.txt");
-            paths.add(c + ":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
-            paths.add(c + ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
             // Steam
-            paths.add(c + ":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(c + ":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(c + ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
             // Steam Library
-            paths.add(c + ":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(c + ":/Program Files/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(c + ":/Program Files (x86)/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/Program Files/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(letter + ":/Program Files (x86)/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
         }
         return paths;
     }
 
+    public static void createBackup() {
+        try {
+            deleteDirectoryContents(Paths.get(getBackupDirectory()));
+            copyFilesRecursively(Paths.get(getSaveDirectory()), Paths.get(getBackupDirectory()));
+            ZLogger.log("Created new backup.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void loadBackup() {
+        try {
+            deleteDirectoryContents(Paths.get(getSaveDirectory()));
+            copyFilesRecursively(Paths.get(getBackupDirectory()), Paths.get(getSaveDirectory()));
+            // FIXME : Call load from file on all files, then revert UI.
+            ZLogger.log("Loaded backup.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void copyFilesRecursively(Path source, Path destination) throws IOException {
+        if (!Files.exists(destination)) Files.createDirectories(destination);
+        Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                Path targetDir = destination.resolve(source.relativize(dir));
+                if (!Files.exists(targetDir)) Files.createDirectories(targetDir);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Path targetFile = destination.resolve(source.relativize(file));
+                try {
+                    Files.copy(file, targetFile, StandardCopyOption.REPLACE_EXISTING);
+                } catch (FileSystemException ignore) {
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    public static void deleteDirectoryContents(Path directory) throws IOException {
+        if (!Files.exists(directory) || !Files.isDirectory(directory)) return;
+        Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                try {
+                    Files.delete(file);
+                } catch (FileSystemException ignore) {
+                }
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                try {
+                    Files.delete(dir);
+                } catch (FileSystemException ignore) {
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
 }

@@ -7,8 +7,8 @@
 
 ## Cloud Gaming
 - Added partial support for GeForce Now (other platforms upon request)
-- Trade features that require reading game chat DO NOT work (trade popups, chat scanner)
-- All other features work (game macros, cheat sheets, stash/npc searching)
+- Features that require access to game files DO NOT work (trade popups, chat scanner, history)
+- All other features should work (game macros, cheat sheets, stash/npc searching)
 
 # Developer Notes
 - The entire code base has been cleaned up & commented

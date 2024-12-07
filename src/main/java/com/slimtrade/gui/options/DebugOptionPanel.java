@@ -8,6 +8,7 @@ import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.trading.TradeOfferType;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.chatscanner.ChatScannerEntry;
+import com.slimtrade.gui.components.ComponentPanel;
 import com.slimtrade.gui.components.HotkeyButton;
 import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.managers.FrameManager;
@@ -26,6 +27,8 @@ public class DebugOptionPanel extends AbstractOptionPanel {
     private final JButton outgoingMessageButton = new JButton("Outgoing Trade");
     private final JButton scannerMessageButton = new JButton("Scanner Message");
     private final JButton updateMessageButton = new JButton("Update Message");
+    private final JButton createBackupButton = new JButton("Create New Backup");
+    private final JButton loadBackupButton = new JButton("Load Backup");
     private final JButton clientButton = new JButton("Open Client.txt");
     private final JButton uiDump = new JButton("Dump UIManager to Clipboard");
     private final JComboBox<String> fontCombo = new JComboBox<>();
@@ -54,6 +57,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         addComponent(updateMessageButton);
         addComponent(clientButton);
         addComponent(uiDump);
+        addComponent(new ComponentPanel(createBackupButton, loadBackupButton));
         addVerticalStrut();
         addHeader("Hotkey Test");
         addComponent(chatHotkeyButton);
@@ -90,6 +94,8 @@ public class DebugOptionPanel extends AbstractOptionPanel {
             revalidate();
             repaint();
         });
+        createBackupButton.addActionListener(e -> SaveManager.createBackup());
+        loadBackupButton.addActionListener(e -> SaveManager.loadBackup());
     }
 
     private JPanel createFontTranslationPanel() {
