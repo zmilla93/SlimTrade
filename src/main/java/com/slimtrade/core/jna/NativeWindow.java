@@ -3,6 +3,7 @@ package com.slimtrade.core.jna;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.Platform;
 import com.sun.jna.Native;
+import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 
@@ -31,9 +32,7 @@ public class NativeWindow {
     }
 
     public static String getWindowTitle(WinDef.HWND handle) {
-        char[] buffer = new char[MAX_TITLE_LENGTH * 2];
-        User32.INSTANCE.GetWindowText(handle, buffer, MAX_TITLE_LENGTH);
-        return Native.toString(buffer);
+        return WindowUtils.getWindowTitle(handle);
     }
 
     public static NativeWindow getFocusedWindow() {
