@@ -133,6 +133,13 @@
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.3.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>com.slimtrade.App</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
@@ -174,7 +181,7 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.6.0</version>
                     <configuration>
-                        <outputDirectory>C:\Users\zmill\Documents</outputDirectory>
+                        <outputDirectory>target</outputDirectory>
                         <finalName>SlimTrade</finalName>
                         <appendAssemblyId>false</appendAssemblyId>
                         <archive>
