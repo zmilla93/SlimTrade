@@ -1,0 +1,8 @@
+## Patch Notes
+- Added the ability to disable various features
+- Updated betrayal cheat sheet
+- Added helper text to ignore item panel
+- Added tooltips to several things on the options menu
+- Adjusted POE specific options
+- Fixed coloring on overlay editor
+- Fixed coloring on ignore window

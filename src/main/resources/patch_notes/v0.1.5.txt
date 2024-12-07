@@ -1,0 +1,14 @@
+## Patch Notes
+- Complete UI Overhaul with potential support for color themes
+- Added a setup window
+- Added a tutorial window
+- Added outgoing macro customizer
+- Added ability to ignore items indefinitely
+- Thank message is now customizable
+- Player joined indicator is now color coded
+- Reworked settings save file, previous save files will be overwitten
+- Numerous small bug fixes
+- Close on kick now works with all message types
+- Fixed several issues with overlay hiding
+- Fixed several issues with item ignore system
+- Update checker works properly with github api

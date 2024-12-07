@@ -1,0 +1,4 @@
+### Hotfix for v0.2.5
+
+## Bug Fixes
+- Removed close on kick from basics panel, this functionality has been moved to the new macro system

@@ -1,0 +1,13 @@
+## Changes
+- Searching panel now has a link to [Path of Exile Regex](https://poe.re/)
+- Added DND button to menu bar
+- Menu bar now responds visually to DND status
+- Player joined area trigger now applies to all message types
+
+## Bug Fixes
+- Fixed tab messages not responding to player joined area notification
+- Fixed incoming messages using the wrong price text color when matching a stash tab name
+- Menu bar button order now inverts correctly based on anchor corner
+- Fixed colons breaking chat scanner message detection
+- The message manager no longer loses transparency when using the collapse button
+- Gruvbox hover colors now match the message color

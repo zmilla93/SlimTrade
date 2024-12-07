@@ -1,0 +1,5 @@
+## Bug Fixes
+- Fixed Unicode characters not saving correctly.
+- Added Korean and Thai font support to resolve characters appearing as boxes.
+- Fixed a crash that could occur when attempting to use unsupported file types as cheat sheets.
+- Fixed many multithreading issues.

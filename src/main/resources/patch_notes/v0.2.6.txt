@@ -1,0 +1,5 @@
+### Hotfix for v0.2.5
+
+## Bug Fixes
+- Fixed quick paste hotkey not working
+- Fixed a crash that would occur the first time the program was run after using the setup window

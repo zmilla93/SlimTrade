@@ -1,0 +1,11 @@
+## Patch Notes
+- Updated ReadMe
+- Icons have been updated to match text color
+- Fixed menubar being incorrectly shown at launch while disabled
+- Fixed coloring on setup window
+- Fixed coloring on update window
+
+## How to Install
+- Ensure you have Java : https://www.java.com/
+- If you have an existing version of SlimTrade already, delete your current 'SlimTrade.jar' file
+- **Download and run 'SlimTrade.jar' from below**

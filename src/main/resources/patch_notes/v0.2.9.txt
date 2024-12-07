@@ -1,0 +1,12 @@
+## Bug Fixes
+- Message detection now works with all client language settings.
+- Fixed trade messages in German not being detected correctly.
+- Stash search dialog is now automatically unfocused after searching item name.
+- Readded e-mail for people wanting to send feedback but who don't use github.
+- Fixed a graphics bug that could cause the client path select window to turn white.
+- Fixed a crash that could occur if the client path was changed during initial setup phase.
+
+## How to Install/Update
+- Ensure you have Java : https://www.java.com/
+- If you have an existing version of SlimTrade already, delete your current 'SlimTrade.jar' file
+- **Download and run 'SlimTrade.jar' from below**

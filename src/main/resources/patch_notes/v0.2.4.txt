@@ -1,0 +1,14 @@
+## New Features
+- Added hotkeys for remaining monsters and leave party
+- Added Year/Month/Date option to history window
+- History changes no longer require a restart
+- Added support for unpriced items, messages starting with "wtb", and messages with backslashes around stash names
+- Added templates for bug reporting and feature requests on github
+
+## Bug Fixes
+- Item highlighter is now correctly resized for quad tabs
+- Fixed several incorrectly colored components
+- Menubar is now hidden on launch if POE is not focused
+- Fixed several issues with the stash and overlay editors
+- Fixed an issue that could cause the chat parser close
+- Fixed several multithreading issues

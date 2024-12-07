@@ -1,0 +1,15 @@
+## Message Tabs
+- Trade notifications can now use tabs *(Options > General > Message Popups > Use Tabs)*
+- Middle mouse clicking a tab will close the tab
+- Using hotkeys while in tabbed mode will use the hotkey of the selected tab
+- Hotkeys to change tab can be found in the hotkey panel (only visible when tabs are enabled)
+
+## Changes
+- Added a visual indicator to the message overlay editor to show message anchor point
+- Editing hotkeys can now be canceled by clicking the button a second time
+- Added currency icons to the donation panel, updated patrons, fixed typo
+
+## Bug Fixes
+- Fixed hotkey buttons displaying incorrect text or not reverting correctly under certain circumstances
+- Fixed a crash when trying to parse trade messages where the item count was a decimal
+- The edit stash window will no longer get stuck open

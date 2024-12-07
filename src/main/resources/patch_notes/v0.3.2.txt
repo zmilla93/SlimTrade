@@ -1,0 +1,4 @@
+## Bug Fixes
+- Fixed white border on pinned cheat sheets.
+- Added additional term check for jeweller orb icon.
+- Improved audio handling.

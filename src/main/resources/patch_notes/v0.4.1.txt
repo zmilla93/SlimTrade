@@ -1,0 +1,15 @@
+## Changes
+- Changed app icon to a chaos orb
+- Added necropolis hotkey, which warps you to the new league zone
+- Chat scanner now works with whispers and meta text (zone info, level ups, debug text, etc.)
+- Removed character name requirement, switched to using the new "/leave" command
+- Added note about trade quick close to the tutorial (right click close button on trade panels, works different for incoming/outgoing, see macro customizers for details)
+- Added patrons, thank you!
+
+## Bug Fixes
+- Fixed {message} macro not being replaced with the actual trade message
+- Fixed lock file not working correctly for new installations (also hotfixed in previous version)
+- History can reopen trades even when trade messages are turned off
+- Chat scanner ignores capitalization
+- Chat scanner focus a newly created entry
+- Removed metamorph hotkey

@@ -1,0 +1,21 @@
+### SlimTrade now has a Discord, [click here to join](https://discord.gg/yKdExMe)!
+
+**If you are experiencing a graphical bug, a temporary fix can be found [here](https://github.com/zmilla93/SlimTrade/issues/5#issuecomment-646707751).**
+
+## New Features
+- Warp macros added for Delve, Harvest, Menagerie, Metamorph, and exiting to menu. Custom macros will likely be added in the future.
+- Increased maximum message size to help with high resolution monitors. Full window scaling will be addressed later.
+- Incraesed max delay for fading messages.
+- [Troubleshooting](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting) has been added to the wiki.
+
+## Bug Fixes
+- Added better labeling to macro close checkbox.
+- Chat scanner now saves and loads correctly.
+- Ignored items will now correctly be ignored.
+- Fixed a crash that could occur when loading custom cheat sheets.
+
+## How to Install/Update
+- Ensure you have Java : https://www.java.com/
+- If you have an existing version of SlimTrade already, delete your current 'SlimTrade.jar' file
+- **Download and run 'SlimTrade.jar' from below**
+- Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).

@@ -1,0 +1,11 @@
+**Hotfix for v0.4.5, patch notes are repeated**
+
+## New Features
+- The menu bar can now be set to icon mode, and be set to always expanded
+- The above settings are the new default (*Options > General > Enable Features* to modify)
+- Replaced /necropolis hotkey with /kingsmarch hotkey (previously bound key will carry over)
+- The chat scanner will automatically resume if it was running when then the program was closed
+- Chat scanner menu bar button responds visually when the chat scanner is running
+- Chat scanner menu bar button can be right clicked to toggle the scanner using the most recent settings
+- POE's open chat hotkey can now be set
+- Hotkeys can now be set to space and enter

@@ -1,0 +1,20 @@
+## New Macro System
+- Macro buttons now allow you to run one or more commands using the variables {self}, {player}, {item}, {price}, and {message}
+- All macros can now be reordered and assigned hotkeys
+- Replaced close on kick option with a checkbox to close message on button use
+- Old presets will be added as defaults using the new system, old custom macros will need to be remade
+- New chat scanner messages will have default buttons added, old scanner messages will need to have default buttons added manually or need to be remade
+
+## New Features
+- Trade messages can now be resized. *Options > General > Edit Overlay Size & Location*
+- Quick pasting trades can now be set to fully automatic, skipping the need to use a hotkey. This has also been moved to *Options > General > Basics*
+- Added 2 new sound effects, as well as an option to play sound when a player joins your hideout.
+- Added support for trade messages in the following languages: French, German, Korean, Portuguese, Russian, Spanish, and Thai
+- Added hotkey to close oldest trade
+- Updated information panel with direct link to github, as well as a donation link
+
+## Bug Fixes
+- Updated Betrayal cheat sheet
+- Message Panel now properly locks to the bottom and right sides of the screen
+- Fixed control being wrongly detected when setting a hotkey
+- Fixed unknown keys being set as hotkeys

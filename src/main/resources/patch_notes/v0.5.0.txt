@@ -1,0 +1,16 @@
+## Path of Exile 2
+- Full support for Path of Exile 2 coming soon... :)
+
+## New Features
+- Many small UI improvements
+- Reordering UI elements now uses click & drag
+
+# Developer Notes
+- The entire code base has been cleaned up & commented
+- Building & releasing new versions has been automated with GitHub Actions+
+
+## How to Install
+- Make sure you have [Java](https://www.java.com) installed
+- Download and run 'SlimTrade.jar' from below
+
+*Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*

@@ -1,0 +1,2 @@
+# Initial Public Release
+- v0.2.0 Marks the beginning of public testing

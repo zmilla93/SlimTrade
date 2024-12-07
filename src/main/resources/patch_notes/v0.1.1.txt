@@ -1,0 +1,6 @@
+## Patch Notes
+- Various UI improvements
+- Fixed a bug with chat scanner
+- Fixed a bug with saving client path
+- Fixed currency display bug
+- Fixed stash helper not displaying on invite

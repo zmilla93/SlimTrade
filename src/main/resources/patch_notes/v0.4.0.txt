@@ -1,0 +1,42 @@
+## Notice
+- Due to excessive UI changes, window pins will not be imported from previous versions. Sorry for the inconvenience!
+- [This project now has a Patreon!](https://www.patreon.com/SlimTrade) If you enjoy my work, please consider supporting.
+
+## UI Rework
+- The UI has been completely rebuilt
+- 20+ color themes
+- Font picker
+- Text and Icons can now be resized
+- Message popup width can be set when editing the message overlay, height is determined by text and icon sizes
+- Macro buttons can now optionally use text instead of icons
+- Icons for every currency type with full language support
+- Most windows are now focusable, allowing for keyboard controls
+- Resizable windows can now be be dragged from any edge instead of only the bottom and right
+- Monitor edge snapping works with all windows and with multiple monitor setups (hold SHIFT when moving a window)
+
+## Audio
+- Added support for custom audio files
+- Price thresholds can be created to play specific sounds when prices exceed a given value
+- Added 9 new sound effects (loot filters sounds)
+- Added an audio option for when an item is ignored
+
+## New Features
+- Added support for bulk trading (pathofexile.com/trade > Bulk Item Exchange > Filters > Group by Seller)
+- Stash tabs name can now be specified with containing text instead of just exact match
+- Stash tab color can now be applied to the trade notification panel
+- "Stash Sorting" has been renamed to "Searching" since it works with any window with a search bar (stash, vendors, passive tree, etc)
+- Searching can now have multiple groups using either separate windows or a single window with a group selector
+- Cheat sheets now support animated gifs
+- Added a hotkey to change character name. Requires that your previous character still exists.
+- Added {zone} text replacement for macros to inform people of the current zone you are in
+- Added examples for how to write more complex macros
+- The chat scanner now allows selecting multiple searches at once
+
+## Bug Fixes
+- Fixed stash searching not working due to item names having a comma
+- Checkbox labels are now clickable
+- Fixed a long standing graphical glitch
+- Fixed a rare issue that prevented trade messages from being closed
+- Removed quick paste, as this is now a POE feature
+- Removed Betrayal image due to being massively outdated, use the cheat sheet feature instead
+- Many small bug fixes and optimizations

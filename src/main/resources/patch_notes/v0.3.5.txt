@@ -1,0 +1,5 @@
+## Bug Fixes
+- Added a guild hideout hotkey.
+- Removed harvest hotkey.
+- Searching for a map no longer highlights all maps.
+- Fixed Chinese text using the wrong font.

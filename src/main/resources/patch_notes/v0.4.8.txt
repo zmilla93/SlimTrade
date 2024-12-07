@@ -1,0 +1,12 @@
+## Kalguur Helper Window
+- Track shipment timers, receiving a message when they return (timers work through restarts, includes new audio option)
+- Quickly divide by 5
+- *Options > General > Kalguur Helper*
+
+## New Features
+- {message} text replacement now works with the chat scanner
+- Chat scanner messages can be clicked to copy the message to the clipboard
+- Chat scanner meta text now uses the correct title
+- Fixed chat scanner message player button not working correctly
+- Added support for Chinese 'to' and 'from' message prefixes
+- Improved support for Mac & Linux

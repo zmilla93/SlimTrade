@@ -1,0 +1,39 @@
+### SlimTrade now has a Discord, [click here to join](https://discord.gg/yKdExMe)!
+
+**If your experiencing a graphical bug, a temporary fix can be found [here](https://github.com/zmilla93/SlimTrade/issues/5#issuecomment-646707751).**
+
+## Stash Sorting
+- Create a list of search terms that can be quickly entered into your stash to assist with sorting.
+- Color coding to match stash tab colors.
+- *Options > Stash Sorting*
+- [Example gif.](https://i.imgur.com/eg3zP9e.mp4)
+
+## Custom Cheat Sheets
+- Custom images can now be displayed within the SlimTrade application.
+- *Options > Cheat Sheets*
+
+## Window Improvements
+- All windows can now be pinned to save their size and location between restarts.
+- Right clicking the pin button resets to default size and location, middle click to just center.
+- Holding shift while moving a window will prevent it from leaving the main monitor.
+
+## Additional Changes
+- Messages can now be collapsed.
+- Messages can now fade out to a set transparency.
+- *Options > General > Message Popups*
+- Added more hotkeys.
+- Added duplication check for chat scanner messages.
+- Added quick close for chat scanner messages.
+- SlimTrade now has the MIT liscence.
+
+## Bug Fixes
+- Hotkeys will be ignored while tabbed out (except for quick paste).
+- Icon button hover border now matches text color.
+- Resetting the UI now correctly reverts message expand direction.
+- If stash search is used outside of stash, message will be sent in local instead of global.
+- Fixed menu selection buttons getting stuck in a painting loop when hovered while selected.
+
+## How to Install/Update
+- Ensure you have Java : https://www.java.com/
+- If you have an existing version of SlimTrade already, delete your current 'SlimTrade.jar' file
+- **Download and run 'SlimTrade.jar' from below**

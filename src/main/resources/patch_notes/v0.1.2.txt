@@ -1,0 +1,6 @@
+## Patch Notes
+- Added temporary fixed for message manager and stash helper container repainting all white
+- Fixed slow saving when updating client path
+- Fixed issue parsing and displaying nonstandard characters
+- Improved fast close system for outgoing trades
+- Removed delay when searching items in stash tab - issues are related to POE-TradeMacro

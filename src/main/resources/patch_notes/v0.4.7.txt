@@ -1,0 +1,7 @@
+## New Features
+- Added many new icons (scarabs, omens, runes, chisels, etc)
+
+## Bug Fixes
+- Fixed stash location window getting stuck off screen
+- Fixed menu bar location not being saved
+- Improved support for Mac & Linux (testing still required)

@@ -1,0 +1,25 @@
+**If you are experiencing a graphical bug, a temporary fix can be found [here](https://github.com/zmilla93/SlimTrade/issues/5#issuecomment-646707751).**
+
+## Automatic Updating
+- New versions will automatically be installed at launch, or alert you depending on setting. Options > General > Toggle Features
+- Checks for a new version once a day, which result in an alert and one click install from the options menu.
+
+## New Features
+- Player joined area indicators now work with all supported languages.
+- Betrayal guide has updated to match http://poesyn.xyz/syndicate.
+- New sound effect, Blip 3.
+- New logging system has been added to help with debugging.
+- Patch notes and log folder have been added to the information panel.
+- Only one instance of SlimTrade can be running at once.
+
+## Bug Fixes
+- Automated quick paste trading now works consistently.
+- Fixed an issue with international keyboard layouts.
+- Fixed Korean translations not working.
+- Added support for POE's Chinese client setting.
+
+## How to Install/Update
+- Ensure you have Java : https://www.java.com/
+- If you have an existing version of SlimTrade already, delete your current 'SlimTrade.jar' file
+- **Download and run 'SlimTrade.jar' from below**
+- Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).

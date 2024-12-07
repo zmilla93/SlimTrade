@@ -1,0 +1,3 @@
+## Bug Fixes
+- Fixed chat parser not triggering if a player had no guild name
+- Right clicking to open a blank whisper with a player adds a space after the player name

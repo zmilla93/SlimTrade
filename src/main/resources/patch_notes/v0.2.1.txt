@@ -1,0 +1,8 @@
+## Patch Notes
+- Added color theme support, currently 4 themes to choose from
+- Added a color blind option
+- Added custom hotkey support for certain actions
+- Added betrayal cheat sheet
+- Added quick paste option to paste trade messages into POE
+- Multiple menu windows can now be opened simultaneously
+- Menu windows are reopened when tabbing back into the game
