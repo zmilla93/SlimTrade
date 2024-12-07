@@ -3,7 +3,6 @@ package com.slimtrade.gui.components;
 import com.slimtrade.App;
 import com.slimtrade.core.jna.NativeMouseAdapter;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.modules.updater.ZLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jnativehook.mouse.NativeMouseEvent;
 
@@ -13,15 +12,15 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * A panel that allows {@link AddRemovePanel}s to be added, removed, and easily reordered.
- *
- * @see AddRemovePanel
+ * A panel that allows {@link AddRemovePanel}s to be dynamically added, removed, and easily reordered.
  */
 public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
 
-    private int spacing = 0;
+    // Layout
     private final GridBagConstraints gc = ZUtil.getGC();
+    private int spacing = 0;
 
+    // Component dragging
     private final ArrayList<T> components = new ArrayList<>();
     private final ArrayList<T> orderedComponents = new ArrayList<>();
     private final ArrayList<T> nonDraggedComponents = new ArrayList<>();
@@ -58,7 +57,7 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
     /**
      * The same as getComponents(), but returns an ordered list of typed components.
      *
-     * @return Typed \ components
+     * @return Typed components
      */
     public ArrayList<T> getComponentsTyped() {
         return components;
@@ -73,16 +72,17 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
     }
 
     /**
-     *
+     * See {@link AddRemoveContainer#setComponentBeingDragged(AddRemovePanel)}.
      */
     public void setComponentBeingDragged(Object obj) {
-        @SuppressWarnings("unchecked")
-        T typedObject = (T) obj;
-        setComponentBeingDragged(typedObject);
+        // This unchecked cast is required since T and AddRemovePanel<T>
+        // aren't type safe without combining data and gui classes.
+        //noinspection unchecked
+        setComponentBeingDragged((T) obj);
     }
 
     /**
-     * This should be called in the mouse down event of whatever controls the component being dragged.
+     * This should be called in the mouse down event of whatever component controls the AddRemovePanel being dragged.
      *
      * @param component Component being dragged
      */
@@ -108,7 +108,6 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
         componentBounds.clear();
         orderedComponents.clear();
         // Ordered component list is built here as an easy way to get the index of the component being dragged.
-        // FIXME : Should be able to use component list instead?
         for (T child : getComponentsTyped()) {
             Rectangle rect = child.getBounds();
             rect.x += screenPos.x;
@@ -132,13 +131,11 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
             targetIndex++;
         }
         if (targetIndex > componentCount - 1) targetIndex = componentCount - 1;
-        // Return early in the panel being dragged is already in the correct position.
+        // Return early if the panel being dragged is already in the correct position.
         if (currentPanelIndex == targetIndex) return;
         // Rebuild the component list based on the target index for the component being dragged
         int nonDragIndex = 0;
         orderedComponents.clear();
-//        System.out.println("Comp count: " + getComponentCount());
-//        System.out.println("Typed count: " + getComponentsTyped().size());
         for (int i = 0; i < componentCount; i++) {
             if (i == targetIndex) {
                 orderedComponents.add(componentBeingDragged);
@@ -186,12 +183,13 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
     /**
      * Array bounds checking
      */
+    @Deprecated
     private boolean isInvalidIndex(int index) {
         return index < 0 || index >= components.size();
     }
 
     /**
-     * Removes then adds all child components based on the order the of components array.
+     * Removes then adds all child components based on the orderedComponents array.
      */
     private void rebuildComponentList() {
         super.removeAll();
@@ -209,14 +207,12 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
         repaint();
     }
 
+    /**
+     * This should be the only add method used by AddRemoveContainer.
+     */
     public Component add(T comp) {
         components.add(comp);
         add((Component) comp);
-        return comp;
-    }
-
-    @Override
-    public Component add(Component comp) {
         gc.gridy = getComponentCount();
         gc.insets.top = spacing;
         super.add(comp, gc);
@@ -225,52 +221,55 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
         return comp;
     }
 
-    public Component remove(T comp) {
-        super.remove(comp);
+    public void remove(T comp) {
         components.remove(comp);
         orderedComponents.remove(comp);
         rebuildComponentList();
-        return comp;
+        super.remove(comp);
     }
 
     @Override
     public void removeAll() {
-        super.removeAll();
         components.clear();
         orderedComponents.clear();
+        super.removeAll();
     }
 
-    //
-    // Add functions that should not be used - Prints error if they are.
-    //
+    // Overrides to prevent incorrect add/remove usage.
 
-    private void incorrectAddMethod() {
-        ZLogger.err("AddRemoveContainer should only have elements added using the add(Component) method!");
-        ZUtil.printCallingFunction(AddRemoveContainer.class);
+    @Override
+    public Component add(Component comp) {
+        return comp;
     }
 
     @Override
     public Component add(String name, Component comp) {
-        incorrectAddMethod();
-        return super.add(name, comp);
+        return comp;
     }
 
     @Override
     public Component add(Component comp, int index) {
-        incorrectAddMethod();
-        return super.add(comp, index);
+        return comp;
     }
 
     @Override
     public void add(@NotNull Component comp, Object constraints) {
-        incorrectAddMethod();
-        super.add(comp, constraints);
+        // Do nothing
     }
 
     @Override
     public void add(Component comp, Object constraints, int index) {
-        incorrectAddMethod();
-        super.add(comp, constraints, index);
+        // Do nothing
+    }
+
+    @Override
+    public void remove(int index) {
+        // Do nothing
+    }
+
+    @Override
+    public void remove(Component comp) {
+        // Do nothing
     }
 
 }

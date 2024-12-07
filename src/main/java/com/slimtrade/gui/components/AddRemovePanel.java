@@ -10,9 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * A child that can be added to a container and easily reordered.
- *
- * @see AddRemoveContainer
+ * A panel that can be dynamically added to an {@link AddRemoveContainer} and be easily reordered.
  */
 public abstract class AddRemovePanel<T> extends JPanel {
 
@@ -22,26 +20,23 @@ public abstract class AddRemovePanel<T> extends JPanel {
     public AddRemovePanel() {
         // FIXME : Create a class that handles auto resizing and color theme!
         dragButton.setIcon(ThemeManager.getColorIcon(DefaultIcon.DRAG.path()));
+        dragButton.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
         dragButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
                 ((AddRemoveContainer<?>) getParent()).setComponentBeingDragged(AddRemovePanel.this);
-//                Container parent = getParent();
-
-//                if (parent instanceof AddRemoveContainer<?>) ((AddRemoveContainer<?>) parent).setComponentBeingDragged(self);
-//                    ((AddRemoveContainer<T>) parent).setComponentBeingDragged((self);
             }
         });
-        dragButton.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
         deleteButton.addActionListener(e -> removeFromParent());
     }
 
+    @Deprecated
     public void shiftUp(JButton button) {
         ((AddRemoveContainer) getParent()).shiftUp(this);
         button.requestFocus();
     }
 
+    @Deprecated
     public void shiftDown(JButton button) {
         ((AddRemoveContainer) getParent()).shiftDown(this);
         button.requestFocus();
