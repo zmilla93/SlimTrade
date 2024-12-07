@@ -10,12 +10,6 @@ import com.slimtrade.gui.components.ClientFileChooser;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
 import com.slimtrade.modules.updater.ZLogger;
-import com.sun.jna.Native;
-import com.sun.jna.platform.DesktopWindow;
-import com.sun.jna.platform.WindowUtils;
-import com.sun.jna.platform.win32.User32;
-import com.sun.jna.platform.win32.WinDef;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,10 +32,8 @@ public class POEInterface {
     private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static final Executor executor = Executors.newSingleThreadExecutor();
     private static final Random random = new Random();
-    private static final int MAX_TITLE_LENGTH = 1024;
-    private static WinDef.HWND gameWindowHandle;
 
-    private static final HashSet<String> gameTitleSet = new HashSet<>();
+    public static final HashSet<String> gameTitleSet = new HashSet<>();
     private static final String[] gameTitles = new String[]{
             "Path of Exile",
             "Path of Exile 2",
@@ -68,9 +60,10 @@ public class POEInterface {
         // Clear Alt
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyRelease(KeyEvent.VK_ALT);
-        // Try opening chat with custom hotkey
+        // Open Chat
         HotkeyData poeChatHotkey = SaveManager.settingsSaveFile.data.poeChatHotkey;
         boolean openChatOverride = false;
+        // If a custom chat hotkey is set, try using that.
         if (poeChatHotkey != null) {
             int keyCode = JnaAwtEvent.hotkeyToEvent(poeChatHotkey);
             if (keyCode != -1) {
@@ -85,7 +78,7 @@ public class POEInterface {
                 openChatOverride = true;
             } else ZLogger.err("Invalid JNA to Swing conversion:" + poeChatHotkey + ", " + poeChatHotkey.keyCode);
         }
-        // Fallback to opening chat using enter
+        // If the custom hotkey failed or isn't set, fallback to using enter
         if (!openChatOverride) {
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
@@ -160,15 +153,17 @@ public class POEInterface {
     }
 
     /**
-     * SlimTrade can't focus Path of Exile unless it has focus itself, so the robot clicks a dummy window first.
+     * Attempts to focus the Path of Exile game window.
      *
-     * @return True if game was successfully focused.
+     * @return True if window was focused successfully
      */
     public static boolean focusGame() {
+        // FIXME : Add support for more platforms.
+        if (Platform.current != Platform.WINDOWS) return true;
         assert (!SwingUtilities.isEventDispatchThread());
         if (isGameFocused()) return true;
         // Show, click, then hide a dummy window.
-        // This is required because swing needs focus before it can give focus to another program
+        // This is required because the Java program needs focus before it can give focus to another program.
         FrameManager.dummyWindow.setVisible(true);
         Point point = MouseInfo.getPointerInfo().getLocation();
         point.x -= DummyWindow.HALF_SIZE;
@@ -178,7 +173,8 @@ public class POEInterface {
         robot.mouseRelease(0);
         FrameManager.dummyWindow.setVisible(false);
         // Focus the Path of Exile game window
-        focusPathOfExileWindow();
+        // FIXME : This might be the best spot to add platform support.
+        NativeWindow.focusPathOfExileNativeWindow();
         // Wait until Path of Exile gains focus
         int i = 0;
         while (!isGameFocused()) {
@@ -195,90 +191,26 @@ public class POEInterface {
         return isGameFocused();
     }
 
-    // TODO : Add cross platform support
-    private static void focusPathOfExileWindow() {
-        if (Platform.current != Platform.WINDOWS) return;
-        // Use cached window handle if available
-        if (gameWindowHandle != null) {
-            focusWindowNative(gameWindowHandle);
-            return;
-        }
-        // Enumerate through all windows. Loop continues until the callback returns false
-        User32.INSTANCE.EnumWindows((handle, arg1) -> {
-            char[] classNameBuffer = new char[512];
-            User32.INSTANCE.GetClassName(handle, classNameBuffer, 512);
-            String className = Native.toString(classNameBuffer);
-            System.out.println(className);
-            if (className.isEmpty()) return true;
-            // Path of Exile 1 & 2 windows have the class name POEWindowClass
-            if (className.equals("POEWindowClass")) {
-                focusWindowNative(handle);
-                return false;
-            }
-            // GeForce Now has the class name CEFCLIENT. Unsure if this is unique, so the window title is also checked.
-            if (className.equals("CEFCLIENT")) {
-                String title = getNativeWindowTitle(handle);
-                if (gameTitleSet.contains(title)) {
-                    focusWindowNative(handle);
-                    return false;
-                }
-            }
-            return true;
-        }, null);
-    }
-
-    private static void focusWindowNative(WinDef.HWND handle) {
-        gameWindowHandle = handle;
-        User32.INSTANCE.SetForegroundWindow(handle);
-        User32.INSTANCE.SetFocus(handle);
-        User32.INSTANCE.ShowWindow(handle, User32.SW_SHOW);
-    }
-
     public static boolean isGameFocused() {
         return isGameFocused(false);
     }
 
     public static boolean isGameFocused(boolean includeApp) {
-        if (Platform.current != Platform.WINDOWS) return true;
-        NativeWindow focusedWindow = getFocusedWindowNative();
-        if (focusedWindow == null) return false;
-        if (gameTitleSet.contains(focusedWindow.title)) {
-            gameWindowHandle = focusedWindow.handle;
-            return true;
-        }
-        if (includeApp && focusedWindow.title.startsWith(References.APP_PREFIX)) return true;
-        if (includeApp && focusedWindow.title.equals(ClientFileChooser.TITLE)) return true;
-        return false;
-    }
-
-    // FIXME : Add cross platform support.
-    //         Could alternatively add support to isGameFocused if there is a way
-    //         to know if POE is focused other than checking the window title.
-    private static NativeWindow getFocusedWindowNative() {
         if (Platform.current == Platform.WINDOWS) {
-            char[] buffer = new char[MAX_TITLE_LENGTH * 2];
-            WinDef.HWND handle = User32.INSTANCE.GetForegroundWindow();
-            User32.INSTANCE.GetWindowText(handle, buffer, MAX_TITLE_LENGTH);
-            String title = Native.toString(buffer);
-            return new NativeWindow(title, handle);
-        }
-        return null;
-    }
-
-    private static String getNativeWindowTitle(WinDef.HWND handle) {
-        char[] buffer = new char[MAX_TITLE_LENGTH * 2];
-        User32.INSTANCE.GetWindowText(handle, buffer, MAX_TITLE_LENGTH);
-        return Native.toString(buffer);
-    }
-
-    @Nullable
-    public static Rectangle getGameRect() {
-        for (DesktopWindow window : WindowUtils.getAllWindows(true)) {
-            if (gameTitleSet.contains(window.getTitle())) {
-                return window.getLocAndSize();
+            NativeWindow focusedWindow = NativeWindow.getFocusedWindow();
+            if (focusedWindow == null) return false;
+            if (includeApp && focusedWindow.title.startsWith(References.APP_PREFIX)) return true;
+            if (includeApp && focusedWindow.title.equals(ClientFileChooser.TITLE)) return true;
+            if (gameTitleSet.contains(focusedWindow.title)) {
+                NativeWindow.setGameWindow(focusedWindow);
+                return true;
             }
+            return false;
         }
-        return null;
+        // TODO : Add support for more platforms
+        //        If window title is used, reuse logic from Windows handling.
+        return true;
+
     }
 
     /**
@@ -302,8 +234,7 @@ public class POEInterface {
             robot.keyRelease(KeyEvent.VK_F);
             try {
                 Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (InterruptedException ignore) {
             }
             robot.keyPress(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_V);
