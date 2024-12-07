@@ -30,22 +30,10 @@ public abstract class AddRemovePanel<T> extends JPanel {
         deleteButton.addActionListener(e -> removeFromParent());
     }
 
-    @Deprecated
-    public void shiftUp(JButton button) {
-        ((AddRemoveContainer) getParent()).shiftUp(this);
-        button.requestFocus();
-    }
-
-    @Deprecated
-    public void shiftDown(JButton button) {
-        ((AddRemoveContainer) getParent()).shiftDown(this);
-        button.requestFocus();
-    }
-
     public void removeFromParent() {
         Component parentComponent = getParent();
         if (!(parentComponent instanceof AddRemoveContainer)) return;
-        AddRemoveContainer parent = (AddRemoveContainer) parentComponent;
+        AddRemoveContainer<?> parent = (AddRemoveContainer<?>) parentComponent;
         parent.remove(this);
         parent.revalidate();
         parent.repaint();

@@ -152,38 +152,6 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
         this.spacing = spacing;
     }
 
-    @Deprecated // FIXME : Use the new dragButton instead.
-    protected void shiftUp(Component panel) {
-        int index = components.indexOf(panel);
-        int swapIndex = index - 1;
-        swapPanels(index, swapIndex);
-    }
-
-    @Deprecated // FIXME : Use the new dragButton instead.
-    protected void shiftDown(Component panel) {
-        int index = components.indexOf(panel);
-        int swapIndex = index + 1;
-        swapPanels(index, swapIndex);
-    }
-
-    @Deprecated // FIXME : Use the new dragButton instead.
-    private void swapPanels(int indexA, int indexB) {
-        if (isInvalidIndex(indexA) || isInvalidIndex(indexB)) return;
-        T panelA = components.get(indexA);
-        T panelB = components.get(indexB);
-        components.set(indexA, panelB);
-        components.set(indexB, panelA);
-        rebuildComponentList();
-    }
-
-    /**
-     * Array bounds checking
-     */
-    @Deprecated
-    private boolean isInvalidIndex(int index) {
-        return index < 0 || index >= components.size();
-    }
-
     /**
      * Removes then adds all child components based on the orderedComponents array.
      */

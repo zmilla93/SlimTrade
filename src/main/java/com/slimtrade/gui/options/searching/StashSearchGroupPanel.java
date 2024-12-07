@@ -12,8 +12,6 @@ import java.util.ArrayList;
 public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> {
 
     private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
-    private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP);
-    private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN);
     private final int id;
     private String groupName;
     private String savedGroupName;
@@ -44,8 +42,6 @@ public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> 
         JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         controlsPanel.add(removeButton);
         controlsPanel.add(dragButton);
-        controlsPanel.add(shiftDownButton);
-        controlsPanel.add(shiftUpButton);
         controlsPanel.add(renameButton);
         controlsPanel.add(applyRenameButton);
         controlsPanel.add(renameInput);
@@ -90,8 +86,6 @@ public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> 
     }
 
     private void addListeners() {
-        shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
-        shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
         removeButton.addActionListener(e -> {
             optionPanel.addIdToReset(id);
             removeFromParent();

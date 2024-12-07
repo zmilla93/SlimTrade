@@ -12,8 +12,6 @@ import java.awt.*;
 public class StashSearchTermPanel extends AddRemovePanel<StashSearchTermData> {
 
     private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
-    private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP);
-    private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN);
 
     private final JTextField titleInput = new PlaceholderTextField("Display Title...", 15);
     private final JTextField searchInput = new PlaceholderTextField("Search Term...", 20);
@@ -22,12 +20,10 @@ public class StashSearchTermPanel extends AddRemovePanel<StashSearchTermData> {
     public StashSearchTermPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         add(removeButton);
-        add(shiftDownButton);
-        add(shiftUpButton);
+        add(dragButton);
         add(titleInput);
         add(searchInput);
         add(colorCombo);
-
         addListeners();
     }
 
@@ -37,8 +33,6 @@ public class StashSearchTermPanel extends AddRemovePanel<StashSearchTermData> {
     }
 
     private void addListeners() {
-        shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
-        shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
         removeButton.addActionListener(e -> removeFromParent());
     }
 

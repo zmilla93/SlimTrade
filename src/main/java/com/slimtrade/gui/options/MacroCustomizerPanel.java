@@ -2,11 +2,9 @@ package com.slimtrade.gui.options;
 
 import com.slimtrade.core.enums.ButtonRow;
 import com.slimtrade.core.enums.CustomIcon;
-import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MacroButtonType;
 import com.slimtrade.core.utility.MacroButton;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.*;
 import com.slimtrade.modules.theme.ThemeManager;
 
@@ -31,9 +29,6 @@ public class MacroCustomizerPanel extends AddRemovePanel<MacroButton> {
     // Internal
     private final CardLayout displayLayout = new CardLayout();
     private final JPanel displayPanel = new JPanel(displayLayout);
-    private final JButton shiftUpButton = new IconButton(DefaultIcon.ARROW_UP);
-    private final JButton shiftDownButton = new IconButton(DefaultIcon.ARROW_DOWN);
-    private final JButton deleteButton = new IconButton(DefaultIcon.CLOSE);
 
     public MacroCustomizerPanel() {
         setLayout(new GridBagLayout());
@@ -58,11 +53,6 @@ public class MacroCustomizerPanel extends AddRemovePanel<MacroButton> {
         gc.gridy = 0;
         gc.gridx++;
         gc.insets = new Insets(0, 0, 0, 2);
-        add(shiftUpButton, gc);
-        gc.gridy++;
-        add(shiftDownButton, gc);
-        gc.gridx++;
-        gc.gridy = 0;
         gc.insets.right = 0;
 
         // Mouse Labels
@@ -102,8 +92,6 @@ public class MacroCustomizerPanel extends AddRemovePanel<MacroButton> {
     }
 
     private void addListeners() {
-        shiftUpButton.addActionListener(e -> shiftUp(shiftUpButton));
-        shiftDownButton.addActionListener(e -> shiftDown(shiftDownButton));
         deleteButton.addActionListener(e -> {
             removeFromParent();
             ThemeManager.removeStickyCombo(iconCombo);
