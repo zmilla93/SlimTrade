@@ -2,8 +2,9 @@
 - Full support for Path of Exile 2 coming soon... :)
 
 ## Improvements
-- Reordering UI elements now uses click & drag
 - Many small UI improvements
+- Reordering UI elements now uses click & drag
+- Fixed a crash on systems that don't support a system tray.
 
 ## Cloud Gaming
 - Added partial support for GeForce Now (other platforms upon request)
