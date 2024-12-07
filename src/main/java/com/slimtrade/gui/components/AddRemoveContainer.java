@@ -22,7 +22,6 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
 
     // Component dragging
     private final ArrayList<T> components = new ArrayList<>();
-    private final ArrayList<T> orderedComponents = new ArrayList<>();
     private final ArrayList<T> nonDraggedComponents = new ArrayList<>();
     private final ArrayList<Rectangle> componentBounds = new ArrayList<>();
     private T componentBeingDragged = null;
@@ -106,13 +105,10 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
     private void calculateBoundsOfChildren() {
         Point screenPos = getLocationOnScreen();
         componentBounds.clear();
-        orderedComponents.clear();
-        // Ordered component list is built here as an easy way to get the index of the component being dragged.
         for (T child : getComponentsTyped()) {
             Rectangle rect = child.getBounds();
             rect.x += screenPos.x;
             rect.y += screenPos.y;
-            orderedComponents.add(child);
             componentBounds.add(rect);
         }
     }
@@ -135,12 +131,12 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
         if (currentPanelIndex == targetIndex) return;
         // Rebuild the component list based on the target index for the component being dragged
         int nonDragIndex = 0;
-        orderedComponents.clear();
+        components.clear();
         for (int i = 0; i < componentCount; i++) {
             if (i == targetIndex) {
-                orderedComponents.add(componentBeingDragged);
+                components.add(componentBeingDragged);
             } else {
-                orderedComponents.add(nonDraggedComponents.get(nonDragIndex));
+                components.add(nonDraggedComponents.get(nonDragIndex));
                 nonDragIndex++;
             }
         }
@@ -195,13 +191,10 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
         super.removeAll();
         gc.insets.top = 0;
         gc.gridy = 0;
-        if (orderedComponents.isEmpty()) orderedComponents.addAll(components);
-        components.clear();
-        for (T comp : orderedComponents) {
+        for (T comp : components) {
             super.add(comp, gc);
             gc.insets.top = spacing;
             gc.gridy++;
-            components.add(comp);
         }
         revalidate();
         repaint();
@@ -223,7 +216,6 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
 
     public void remove(T comp) {
         components.remove(comp);
-        orderedComponents.remove(comp);
         rebuildComponentList();
         super.remove(comp);
     }
@@ -231,7 +223,6 @@ public class AddRemoveContainer<T extends AddRemovePanel<?>> extends JPanel {
     @Override
     public void removeAll() {
         components.clear();
-        orderedComponents.clear();
         super.removeAll();
     }
 
