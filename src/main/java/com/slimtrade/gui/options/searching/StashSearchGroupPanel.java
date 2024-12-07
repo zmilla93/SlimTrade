@@ -1,8 +1,6 @@
 package com.slimtrade.gui.options.searching;
 
-import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.*;
 
 import javax.swing.*;
@@ -11,7 +9,6 @@ import java.util.ArrayList;
 
 public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> {
 
-    private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
     private final int id;
     private String groupName;
     private String savedGroupName;
@@ -27,11 +24,11 @@ public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> 
     private final StashSearchOptionPanel optionPanel;
 
     // TODO : Window hotkey button
-    public StashSearchGroupPanel(AddRemoveContainer<StashSearchGroupPanel> parent, StashSearchOptionPanel optionPanel, String name) {
-        this(parent, optionPanel, name, -1);
+    public StashSearchGroupPanel(StashSearchOptionPanel optionPanel, String name) {
+        this(optionPanel, name, -1);
     }
 
-    public StashSearchGroupPanel(AddRemoveContainer<StashSearchGroupPanel> parent, StashSearchOptionPanel optionPanel, String name, int id) {
+    public StashSearchGroupPanel(StashSearchOptionPanel optionPanel, String name, int id) {
         this.optionPanel = optionPanel;
         this.id = id == -1 ? optionPanel.getNextId() : id;
 
@@ -40,7 +37,7 @@ public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> 
 
         // Controls Panel
         JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        controlsPanel.add(removeButton);
+        controlsPanel.add(deleteButton);
         controlsPanel.add(dragButton);
         controlsPanel.add(renameButton);
         controlsPanel.add(applyRenameButton);
@@ -75,8 +72,8 @@ public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> 
         termContainer.add(new StashSearchTermPanel());
     }
 
-    public StashSearchGroupPanel(AddRemoveContainer<StashSearchGroupPanel> parent, StashSearchOptionPanel optionPanel, StashSearchGroupData groupData, boolean hotkeyVisibility) {
-        this(parent, optionPanel, groupData.title, groupData.id);
+    public StashSearchGroupPanel(StashSearchOptionPanel optionPanel, StashSearchGroupData groupData, boolean hotkeyVisibility) {
+        this(optionPanel, groupData.title, groupData.id);
         hotkeyButton.setData(groupData.hotkeyData);
         termContainer.removeAll();
         for (StashSearchTermData termData : groupData.terms) {
@@ -86,10 +83,6 @@ public class StashSearchGroupPanel extends AddRemovePanel<StashSearchGroupData> 
     }
 
     private void addListeners() {
-        removeButton.addActionListener(e -> {
-            optionPanel.addIdToReset(id);
-            removeFromParent();
-        });
         newTermButton.addActionListener(e -> termContainer.add(new StashSearchTermPanel()));
         renameButton.addActionListener(e -> showHideRename(true));
         applyRenameButton.addActionListener(e -> {

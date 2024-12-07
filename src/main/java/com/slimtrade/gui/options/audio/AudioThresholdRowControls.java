@@ -18,7 +18,6 @@ import java.awt.*;
 public class AudioThresholdRowControls extends AddRemovePanel<PriceThresholdData> {
 
     private final JButton previewButton = new IconButton(DefaultIcon.PLAY);
-    private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
 
     private final JSpinner quantitySpinner = new RangeSpinner(SpinnerRange.PRICE_THRESHOLD);
     private final JComboBox<CurrencyType> currencyTypeCombo = new LimitCombo<>();
@@ -32,7 +31,7 @@ public class AudioThresholdRowControls extends AddRemovePanel<PriceThresholdData
 
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        add(removeButton, gc);
+        add(deleteButton, gc);
         gc.gridx++;
         add(quantitySpinner, gc);
         gc.gridx++;
@@ -53,7 +52,6 @@ public class AudioThresholdRowControls extends AddRemovePanel<PriceThresholdData
 
     private void addListeners() {
         previewButton.addActionListener(e -> AudioManager.playSoundPercent((Sound) soundCombo.getSelectedItem(), volumeSlider.getValue()));
-        removeButton.addActionListener(e -> removeFromParent());
         volumeSlider.addChangeListener(e -> updateVolumeLabel());
     }
 

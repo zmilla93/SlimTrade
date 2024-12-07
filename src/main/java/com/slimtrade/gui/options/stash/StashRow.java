@@ -1,10 +1,8 @@
 package com.slimtrade.gui.options.stash;
 
 import com.slimtrade.core.data.StashTabData;
-import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.PlaceholderTextField;
 import com.slimtrade.modules.theme.components.ColorCombo;
@@ -14,7 +12,6 @@ import java.awt.*;
 
 public class StashRow extends AddRemovePanel<StashTabData> {
 
-    private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
     private final JTextField nameInput = new PlaceholderTextField("Stash Tab Name...", 20);
     private final JComboBox<MatchType> matchTypeCombo = new JComboBox<>();
     private final JComboBox<StashTabType> stashTypeCombo = new JComboBox<>();
@@ -38,11 +35,6 @@ public class StashRow extends AddRemovePanel<StashTabData> {
         gc.gridx++;
         add(colorCombo, gc);
         gc.gridx++;
-        addListeners();
-    }
-
-    private void addListeners() {
-        removeButton.addActionListener(e -> removeFromParent());
     }
 
     @Override

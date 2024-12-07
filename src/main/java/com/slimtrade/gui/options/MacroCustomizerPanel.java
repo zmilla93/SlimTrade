@@ -93,7 +93,7 @@ public class MacroCustomizerPanel extends AddRemovePanel<MacroButton> {
 
     private void addListeners() {
         deleteButton.addActionListener(e -> {
-            removeFromParent();
+            // FIXME : Handle sticky combo purging better
             ThemeManager.removeStickyCombo(iconCombo);
         });
         buttonType.addActionListener(e -> {

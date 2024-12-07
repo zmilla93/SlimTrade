@@ -16,8 +16,7 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
 
     protected final StashSearchSettingsPanel settingsPanel = new StashSearchSettingsPanel();
     private final AddRemoveContainer<StashSearchGroupPanel> entryContainer = new AddRemoveContainer<>();
-    private final ArrayList<Integer> idsToReset = new ArrayList<>();
-    private final JButton poeRegexButton = new JButton("Path of Exile Regex");
+    private final JButton poeRegexButton = new JButton("Path of Regex");
 
     public StashSearchOptionPanel() {
         entryContainer.setUseDragBorder(false);
@@ -54,7 +53,7 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
         String name = settingsPanel.getNewSearchGroupName();
         if (name.equals("")) return "Enter a valid group name!";
         if (isDuplicateName(name)) return "Duplicate name, group names must be unique!";
-        entryContainer.add(new StashSearchGroupPanel(entryContainer, this, name));
+        entryContainer.add(new StashSearchGroupPanel(this, name));
         settingsPanel.clearText();
         return null;
     }
@@ -82,19 +81,11 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
         return id;
     }
 
-    public void addIdToReset(int id) {
-        idsToReset.add(id);
-    }
-
     @Override
     public void save() {
-        // TODO : Reset id data
-        idsToReset.clear();
-        ArrayList<StashSearchGroupPanel> panels = new ArrayList<>();
         ArrayList<StashSearchGroupData> data = new ArrayList<>();
         for (StashSearchGroupPanel groupPanel : entryContainer.getComponentsTyped()) {
             groupPanel.applyPendingGroupRename();
-            panels.add(groupPanel);
             data.add(groupPanel.getData());
         }
         // FIXME : Settings panel is saved twice. Doesn't really matter
@@ -106,10 +97,9 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
     @Override
     public void load() {
         entryContainer.removeAll();
-        idsToReset.clear();
         boolean groupHotkeyVisibility = SaveManager.settingsSaveFile.data.stashSearchWindowMode == StashSearchWindowMode.SEPARATE;
         for (StashSearchGroupData data : SaveManager.settingsSaveFile.data.stashSearchData) {
-            entryContainer.add(new StashSearchGroupPanel(entryContainer, this, data, groupHotkeyVisibility));
+            entryContainer.add(new StashSearchGroupPanel(this, data, groupHotkeyVisibility));
         }
     }
 

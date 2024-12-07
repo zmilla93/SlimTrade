@@ -30,7 +30,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     private final JButton updateButton = new JButton("Install Update");
     private final JButton saveButton = new JButton("Save");
     private final JButton revertButton = new JButton("Revert Changes");
-//    public static final String debugPanel = "Stash Tabs";
+    //    public static final String debugPanel = "Stash Tabs";
     public static final String debugPanel = null;
 
     public OptionsWindow() {

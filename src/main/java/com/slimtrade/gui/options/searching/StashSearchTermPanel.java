@@ -1,7 +1,5 @@
 package com.slimtrade.gui.options.searching;
 
-import com.slimtrade.core.enums.DefaultIcon;
-import com.slimtrade.gui.buttons.IconButton;
 import com.slimtrade.gui.components.AddRemovePanel;
 import com.slimtrade.gui.components.PlaceholderTextField;
 import com.slimtrade.modules.theme.components.ColorCombo;
@@ -11,29 +9,22 @@ import java.awt.*;
 
 public class StashSearchTermPanel extends AddRemovePanel<StashSearchTermData> {
 
-    private final JButton removeButton = new IconButton(DefaultIcon.CLOSE);
-
     private final JTextField titleInput = new PlaceholderTextField("Display Title...", 15);
     private final JTextField searchInput = new PlaceholderTextField("Search Term...", 20);
     private final ColorCombo colorCombo = new ColorCombo();
 
     public StashSearchTermPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        add(removeButton);
+        add(deleteButton);
         add(dragButton);
         add(titleInput);
         add(searchInput);
         add(colorCombo);
-        addListeners();
     }
 
     public StashSearchTermPanel(StashSearchTermData data) {
         this();
         setData(data);
-    }
-
-    private void addListeners() {
-        removeButton.addActionListener(e -> removeFromParent());
     }
 
     @Override

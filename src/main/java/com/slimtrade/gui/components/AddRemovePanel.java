@@ -32,8 +32,9 @@ public abstract class AddRemovePanel<T> extends JPanel {
 
     public void removeFromParent() {
         Component parentComponent = getParent();
-        if (!(parentComponent instanceof AddRemoveContainer)) return;
-        AddRemoveContainer<?> parent = (AddRemoveContainer<?>) parentComponent;
+        if (!(parentComponent instanceof AddRemoveContainer<?>)) return;
+        //noinspection unchecked
+        AddRemoveContainer<AddRemovePanel<T>> parent = (AddRemoveContainer<AddRemovePanel<T>>) parentComponent;
         parent.remove(this);
         parent.revalidate();
         parent.repaint();
