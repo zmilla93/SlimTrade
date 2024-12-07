@@ -6,9 +6,9 @@
 - Many small UI improvements
 
 ## Cloud Gaming
-- Some support has been added for GeForce Now, other platforms upon request
-- Trade features that require parsing chat DO NOT work (trade popups, chat scanner)
-- All other features work (hotkeys, cheat sheets, searching)
+- Added partial support for GeForce Now (other platforms upon request)
+- Trade features that require reading game chat DO NOT work (trade popups, chat scanner)
+- All other features work (game macros, cheat sheets, stash/npc searching)
 
 # Developer Notes
 - The entire code base has been cleaned up & commented
