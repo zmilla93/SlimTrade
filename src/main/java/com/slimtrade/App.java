@@ -163,7 +163,7 @@ public class App {
             SwingUtilities.invokeAndWait(() -> {
                 // Initialize GUI
                 SystemTrayManager.init();
-                FrameManager.init();
+                FrameManager.createGUI();
             });
             profileLaunch("UI Creation");
         } catch (InterruptedException | InvocationTargetException e) {
@@ -256,10 +256,10 @@ public class App {
         chatParser.addChatScannerListener(FrameManager.messageManager);
         chatParser.addJoinedAreaListener(FrameManager.messageManager);
         // Menu Bar
-        chatParser.addOnLoadedCallback(FrameManager.menubarIcon);
-        chatParser.addOnLoadedCallback(FrameManager.menubarDialog);
-        chatParser.addDndListener(FrameManager.menubarIcon);
-        chatParser.addDndListener(FrameManager.menubarDialog);
+        chatParser.addOnLoadedCallback(FrameManager.menuBarIcon);
+        chatParser.addOnLoadedCallback(FrameManager.menuBarDialog);
+        chatParser.addDndListener(FrameManager.menuBarIcon);
+        chatParser.addDndListener(FrameManager.menuBarDialog);
         // Open
         chatParser.open(SaveManager.settingsSaveFile.data.clientPath);
     }

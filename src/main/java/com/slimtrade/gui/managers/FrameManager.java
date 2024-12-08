@@ -63,65 +63,60 @@ public class FrameManager {
     public static StashGridWindow stashGridWindow;
     public static StashHelperContainer stashHelperContainer;
 
-    // Menubar
-    public static MenubarButtonDialog menubarIcon;
-    public static MenubarDialog menubarDialog;
+    // Menu Bar
+    public static MenubarButtonDialog menuBarIcon;
+    public static MenubarDialog menuBarDialog;
 
     private static final HashMap<AppState, Window[]> windowMap = new HashMap<>();
     private static final HashMap<AppState, Boolean[]> windowVisibilityMap = new HashMap<>();
     private static IDefaultSizeAndLocation[] defaultSizeAndLocationWindows;
 
-    private static boolean menubarExpanded = false;
+    private static boolean menuBarExpanded = false;
     private static boolean initialized = false;
 
-    public static void init() {
-        // Windows
-        // FIXME : Remove debug window
-        debugWindow = new DebugWindow();
-        stashHelperContainer = new StashHelperContainer();
-        messageManager = new MessageManager();
+    public static void createGUI() {
+        /// App Windows
+        setupWindow = new SetupWindow();
         optionsWindow = new OptionsWindow();
         historyWindow = new HistoryWindow();
         chatScannerWindow = new ChatScannerWindow();
         itemIgnoreWindow = new ItemIgnoreWindow();
         kalguurHelperWindow = new KalguurHelperWindow();
-//        ninjaWindow = new NinjaWindow();
+        stashGridWindow = new StashGridWindow();
         tutorialWindow = new TutorialWindow();
         patchNotesWindow = new PatchNotesWindow();
+        dummyWindow = new DummyWindow(); // Omitted from visibility list
+        // FIXME : Remove debug window
+        debugWindow = new DebugWindow();
+        /// Menu Bar
+        menuBarIcon = new MenubarButtonDialog();
+        menuBarDialog = new MenubarDialog();
+        /// Overlays
+        menubarOverlay = new MenubarOverlay();
+        messageManager = new MessageManager();
+        stashHelperContainer = new StashHelperContainer();
+        overlayInfoWindow = new OverlayInfoDialog();
+        messageOverlay = new MessageOverlay();
+        /// Dynamic windows
+        rebuildCheatSheetWindows();
+        rebuildSearchWindows();
+        /// Debug Windows
         if (App.debug) {
             stashAlignmentDesignerWindow = new StashAlignmentDesignerWindow();
             designerConfigWindow = new DesignerConfigWindow();
         }
 
-        setupWindow = new SetupWindow();
-
-        // Overlays
-        overlayInfoWindow = new OverlayInfoDialog();
-        messageOverlay = new MessageOverlay();
-        menubarOverlay = new MenubarOverlay();
-        stashGridWindow = new StashGridWindow();
-
-        dummyWindow = new DummyWindow(); // Omitted from visibility list
-
-        // Menubar
-        menubarIcon = new MenubarButtonDialog();
-        menubarDialog = new MenubarDialog();
-
-        buildCheatSheetWindows();
-        buildSearchWindows();
-
+        /// Organize windows into groups
         // FIXME : Add all windows
         // FIXME: Check CheatSheet windows and StashSearch windows.
-        // Group windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menubarIcon, menubarDialog, stashHelperContainer, tutorialWindow, patchNotesWindow};
+        // Arrays of windows that need to be shown/hidden during state changes
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menuBarIcon, menuBarDialog, stashHelperContainer, tutorialWindow, patchNotesWindow};
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
         defaultSizeAndLocationWindows = new IDefaultSizeAndLocation[]{optionsWindow, historyWindow, chatScannerWindow, tutorialWindow, patchNotesWindow};
-
         // Matching boolean array so running remember previous visibility.
         Boolean[] runningWindowsVisibility = new Boolean[runningWindows.length];
-
         // Throw the data into maps for ease of use
         windowMap.put(AppState.RUNNING, runningWindows);
         windowMap.put(AppState.EDIT_OVERLAY, overlayWindows);
@@ -131,8 +126,8 @@ public class FrameManager {
         for (IDefaultSizeAndLocation window : defaultSizeAndLocationWindows) {
             window.applyDefaultSizeAndLocation();
         }
-        // Debug
         if (App.messageUITest) debugMessageWindow = new MessageTestWindow();
+        /// Finish
         initialized = true;
     }
 
@@ -179,7 +174,7 @@ public class FrameManager {
         App.setState(newState);
     }
 
-    public static void buildCheatSheetWindows() {
+    public static void rebuildCheatSheetWindows() {
         HashSet<String> openWindows = new HashSet<>();
         for (CheatSheetWindow window : cheatSheetWindows.values()) {
             if (window.isVisible()) openWindows.add(window.getPinTitle());
@@ -197,7 +192,7 @@ public class FrameManager {
         }
     }
 
-    public static void buildSearchWindows() {
+    public static void rebuildSearchWindows() {
         assert (SwingUtilities.isEventDispatchThread());
         // Dispose of existing windows
         HashSet<String> openWindows = new HashSet<>();
@@ -233,14 +228,14 @@ public class FrameManager {
 
     public static void checkMenubarVisibility(Point point) {
         if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.DISABLED) return;
-        if (menubarExpanded) {
-            if (!menubarDialog.getBufferedBounds().contains(point)) {
-                menubarExpanded = false;
+        if (menuBarExpanded) {
+            if (!menuBarDialog.getBufferedBounds().contains(point)) {
+                menuBarExpanded = false;
                 updateMenubarVisibility();
             }
         } else {
-            if (menubarIcon.getBufferedBounds().contains(point)) {
-                menubarExpanded = true;
+            if (menuBarIcon.getBufferedBounds().contains(point)) {
+                menuBarExpanded = true;
                 updateMenubarVisibility();
             }
         }
@@ -249,14 +244,14 @@ public class FrameManager {
     public static void updateMenubarVisibility() {
         SwingUtilities.invokeLater(() -> {
             if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.DISABLED) {
-                menubarDialog.setVisible(false);
-                menubarIcon.setVisible(false);
-            } else if (SaveManager.settingsSaveFile.data.menubarAlwaysExpanded || menubarExpanded) {
-                menubarDialog.setVisible(true);
-                menubarIcon.setVisible(false);
+                menuBarDialog.setVisible(false);
+                menuBarIcon.setVisible(false);
+            } else if (SaveManager.settingsSaveFile.data.menubarAlwaysExpanded || menuBarExpanded) {
+                menuBarDialog.setVisible(true);
+                menuBarIcon.setVisible(false);
             } else {
-                menubarIcon.setVisible(true);
-                menubarDialog.setVisible(false);
+                menuBarIcon.setVisible(true);
+                menuBarDialog.setVisible(false);
             }
         });
     }

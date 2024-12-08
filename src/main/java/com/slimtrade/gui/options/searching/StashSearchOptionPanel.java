@@ -91,7 +91,7 @@ public class StashSearchOptionPanel extends AbstractOptionPanel implements ISava
         // FIXME : Settings panel is saved twice. Doesn't really matter
         settingsPanel.save();
         SaveManager.settingsSaveFile.data.stashSearchData = data;
-        FrameManager.buildSearchWindows();
+        FrameManager.rebuildSearchWindows();
     }
 
     @Override

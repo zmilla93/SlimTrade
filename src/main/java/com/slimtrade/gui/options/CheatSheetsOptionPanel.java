@@ -108,7 +108,7 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
         SaveManager.settingsSaveFile.data.cheatSheets = cheatSheetData;
         // Don't rebuild cheat sheets if files have not changed
         if (matchingWindows != FrameManager.cheatSheetWindows.size() || matchingWindows != rows.size() || forceRebuild) {
-            FrameManager.buildCheatSheetWindows();
+            FrameManager.rebuildCheatSheetWindows();
         }
         forceRebuild = false;
     }

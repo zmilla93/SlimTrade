@@ -160,9 +160,9 @@ public class OverlayInfoDialog extends BasicDialog implements ISavable, IThemeLi
 
         // Update Other UI
         FrameManager.messageManager.refresh();
-        TradeUtil.applyAnchorPoint(FrameManager.menubarDialog, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
-        TradeUtil.applyAnchorPoint(FrameManager.menubarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
-        FrameManager.menubarDialog.rebuild();
+        TradeUtil.applyAnchorPoint(FrameManager.menuBarDialog, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+        TradeUtil.applyAnchorPoint(FrameManager.menuBarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+        FrameManager.menuBarDialog.rebuild();
         FrameManager.setWindowVisibility(AppState.RUNNING);
     }
 
@@ -174,8 +174,8 @@ public class OverlayInfoDialog extends BasicDialog implements ISavable, IThemeLi
         menubarAnchorCombo.setSelectedItem(SaveManager.overlaySaveFile.data.menubarAnchor);
         messageWidthSlider.setValue(SaveManager.overlaySaveFile.data.messageWidth);
 
-        TradeUtil.applyAnchorPoint(FrameManager.menubarDialog, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
-        TradeUtil.applyAnchorPoint(FrameManager.menubarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+        TradeUtil.applyAnchorPoint(FrameManager.menuBarDialog, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+        TradeUtil.applyAnchorPoint(FrameManager.menuBarIcon, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
     }
 
     @Override
