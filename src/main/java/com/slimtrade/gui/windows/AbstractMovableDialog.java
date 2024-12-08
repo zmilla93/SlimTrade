@@ -3,6 +3,7 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.utility.ZUtil;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -43,12 +44,12 @@ public class AbstractMovableDialog extends BasicDialog {
                     if (targetY < screenBounds.y) targetY = screenBounds.y;
                 }
                 Point targetLocation = new Point(targetX, targetY);
-                if (getLocation() != targetLocation)
-                    setLocation(targetLocation);
+                if (!getLocation().equals(targetLocation))
+                    SwingUtilities.invokeLater(() -> setLocation(targetLocation));
+
             }
         };
 
-//        getGlassPane().setEnabled(true)
         getGlassPane().setVisible(true);
         getGlassPane().addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
