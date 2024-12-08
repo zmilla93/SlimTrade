@@ -16,8 +16,6 @@ public class POEWindow {
     // FIXME : Temp static info
     private static final Rectangle POE_1_STASH_1920_1080 = new Rectangle(13, 126, 634, 634);
 
-    // FIXME : Is title actually needed? It isn't very useful and it won't be set correctly when using monitor bounds anyway.
-//    private static String title;
     private static Rectangle gameBounds = new Rectangle(0, 0, 1920, 1080);
     private static Rectangle poe1StashBounds = POE_1_STASH_1920_1080;
     private static Dimension poe1StashCellSize;
@@ -40,24 +38,12 @@ public class POEWindow {
         dialog.setVisible(true);
     }
 
-//    public static void setWindow(String title, Rectangle gameBounds) {
-////        setTitle(title);
-//        setGameBounds(gameBounds);
-//    }
-
-//    public static String getTitle() {
-//        return title;
-//    }
-//
-//    public static void setTitle(String title) {
-//        POEWindow.title = title;
-//    }
-
     public static Rectangle getGameBounds() {
         return gameBounds;
     }
 
     public static void setGameBounds(Rectangle gameBounds) {
+        if (POEWindow.gameBounds.equals(gameBounds)) return;
         POEWindow.gameBounds = gameBounds;
         calculatePoe1StashBounds();
         for (POEWindowListener listener : listeners) listener.onGameBoundsChange();
