@@ -9,6 +9,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
 
+// FIXME : Switch to using Paths
 public class LockManager {
 
     private final String installDirectory;

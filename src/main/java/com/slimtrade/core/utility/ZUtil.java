@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -264,6 +265,17 @@ public class ZUtil {
         }
     }
 
+//    public static boolean fileExists(Path path, boolean isPathRelative) {
+//        path = cleanPath(path);
+//        if (isPathRelative) {
+//            URL url = ZUtil.class.getResource(path);
+//            return url != null;
+//        } else {
+//            File file = new File(path);
+//            return file.exists();
+//        }
+//    }
+
     public static boolean fileExists(String path, boolean isPathRelative) {
         path = cleanPath(path);
         if (isPathRelative) {
@@ -272,6 +284,18 @@ public class ZUtil {
         } else {
             File file = new File(path);
             return file.exists();
+        }
+    }
+
+    /**
+     * Handles file checking for files that might be stored within the JAR file.
+     */
+    public static boolean fileExists(Path path, boolean isPathRelative) {
+        if (isPathRelative) {
+            URL url = ZUtil.class.getResource(cleanPath(path.toString()));
+            return url != null;
+        } else {
+            return path.toFile().exists();
         }
     }
 

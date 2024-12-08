@@ -21,32 +21,27 @@ import java.util.ArrayList;
 public class SaveManager {
 
     // Install folder names
-    protected static Path persistentDataDirectory;
     public static final String saveFolderName = App.getAppInfo().appName;
-    public static final String folderWin = "SlimTrade";
-    public static final String folderOther = ".slimtrade";
     private static final String backupSuffix = "-Backup";
 
-    // Full Paths
-    private static Path saveDirectoryPath;
-    private static Path backupDirectoryPath;
-    private static final Path logsDirectoryPath = getSaveDirectoryPath().resolve("logs");
-    private static final Path audioDirectory = getSaveDirectoryPath().resolve("audio");
-    private static final Path imagesDirectoryPath = getSaveDirectoryPath().resolve("images");
-    private static final Path ninjaDirectoryPath = getSaveDirectoryPath().resolve("ninja");
-
-    // Full Paths (OLD)
-    private static String saveDirectory;
+    // Save Directories - Use getters to ensure directories exist!
+    private static Path persistentDataDirectory; // LocalAppData on Windows, user.home on Mac/Linux
+    private static Path saveDirectory; // Save stuff here!
+    private static Path backupDirectory; // Used for making backups of saveDirectory
+    private static final Path audioDirectory = getSaveDirectory().resolve("audio");
+    private static final Path imagesDirectory = getSaveDirectory().resolve("images");
+    private static final Path ninjaDirectory = getSaveDirectory().resolve("ninja");
+    private static final Path logsDirectory = getSaveDirectory().resolve("logs");
 
     // Save Files
-    public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectoryPath().resolve("settings.json").toString(), SettingsSaveFile.class);
-    public static SaveFile<AppStateSaveFile> appStateSaveFile = new SaveFile<>(getSaveDirectory() + "app_state.json", AppStateSaveFile.class);
-    public static SaveFile<OverlaySaveFile> overlaySaveFile = new SaveFile<>(getSaveDirectory() + "overlay.json", OverlaySaveFile.class);
-    public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + "stash.json", StashSaveFile.class);
-    public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory() + "ignore.json", IgnoreSaveFile.class);
-    public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory() + "pins.json", PinSaveFile.class);
-    public static SaveFile<ChatScannerSaveFile> chatScannerSaveFile = new SaveFile<>(getSaveDirectory() + "scanner.json", ChatScannerSaveFile.class);
-    public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory() + "patch_notes.json", PatchNotesSaveFile.class);
+    public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory().resolve("settings.json"), SettingsSaveFile.class);
+    public static SaveFile<AppStateSaveFile> appStateSaveFile = new SaveFile<>(getSaveDirectory().resolve("app_state.json"), AppStateSaveFile.class);
+    public static SaveFile<OverlaySaveFile> overlaySaveFile = new SaveFile<>(getSaveDirectory().resolve("overlay.json"), OverlaySaveFile.class);
+    public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory().resolve("stash.json"), StashSaveFile.class);
+    public static SaveFile<IgnoreSaveFile> ignoreSaveFile = new SaveFile<>(getSaveDirectory().resolve("ignore.json"), IgnoreSaveFile.class);
+    public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory().resolve("pins.json"), PinSaveFile.class);
+    public static SaveFile<ChatScannerSaveFile> chatScannerSaveFile = new SaveFile<>(getSaveDirectory().resolve("scanner.json"), ChatScannerSaveFile.class);
+    public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory().resolve("patch_notes.json"), PatchNotesSaveFile.class);
 
     public static void init() {
         // Load all save files from disk
@@ -62,8 +57,10 @@ public class SaveManager {
         settingsSaveFile.data.buildMacroCache();
         ignoreSaveFile.data.buildCache();
         stashSaveFile.data.buildCache();
-        // Finish
+        // Add Listeners
+        // FIXME: Should listeners be last?
         addStaticListeners();
+        // Handle save file patching
         SaveFilePatcherManager.handleSaveFilePatching();
     }
 
@@ -94,48 +91,36 @@ public class SaveManager {
         return validatePath(audioDirectory);
     }
 
-    public static Path getImagesDirectoryPath() {
-        return validatePath(imagesDirectoryPath);
+    public static Path getImagesDirectory() {
+        return validatePath(imagesDirectory);
     }
 
-    public static Path getNinjaDirectoryPath() {
-        return validatePath(ninjaDirectoryPath);
+    public static Path getNinjaDirectory() {
+        return validatePath(ninjaDirectory);
     }
 
-    public static Path getLogsDirectoryPath() {
-        return validatePath(logsDirectoryPath);
+    public static Path getLogsDirectory() {
+        return validatePath(logsDirectory);
     }
 
-    public static String getSaveDirectory() {
+    public static Path getSaveDirectory() {
         if (saveDirectory == null) {
             if (Platform.current == Platform.WINDOWS)
-                saveDirectory = System.getenv("LocalAppData") + File.separator + folderWin + File.separator;
+                saveDirectory = getPersistentDataDirectory().resolve(saveFolderName);
             else
-                saveDirectory = System.getProperty("user.home") + File.separator + folderOther + File.separator;
-            validateDirectory(saveDirectory);
+                saveDirectory = getPersistentDataDirectory().resolve("." + saveFolderName.toLowerCase());
         }
-        return saveDirectory;
+        return validatePath(saveDirectory);
     }
 
-    public static Path getSaveDirectoryPath() {
-        if (saveDirectoryPath == null) {
+    public static Path getBackupDirectory() {
+        if (backupDirectory == null) {
             if (Platform.current == Platform.WINDOWS)
-                saveDirectoryPath = getPersistentDataDirectory().resolve(saveFolderName);
-            else saveDirectoryPath = getPersistentDataDirectory().resolve("." + saveFolderName.toLowerCase());
-            validatePath(saveDirectoryPath);
-        }
-        return saveDirectoryPath;
-    }
-
-    public static Path getBackupDirectoryPath() {
-        if (backupDirectoryPath == null) {
-            if (Platform.current == Platform.WINDOWS)
-                backupDirectoryPath = getPersistentDataDirectory().resolve(saveFolderName + backupSuffix);
+                backupDirectory = getPersistentDataDirectory().resolve(saveFolderName + backupSuffix);
             else
-                backupDirectoryPath = getPersistentDataDirectory().resolve("." + saveFolderName.toLowerCase() + backupSuffix.toLowerCase());
-            validatePath(backupDirectoryPath);
+                backupDirectory = getPersistentDataDirectory().resolve("." + saveFolderName.toLowerCase() + backupSuffix.toLowerCase());
         }
-        return backupDirectoryPath;
+        return validatePath(backupDirectory);
     }
 
     /**
@@ -148,11 +133,12 @@ public class SaveManager {
             else
                 persistentDataDirectory = Paths.get(System.getProperty("user.home"));
         }
-        return persistentDataDirectory;
+        return validatePath(persistentDataDirectory);
     }
 
     /// Ensures that all directories in a path exist. Throws a fatal exception if validation fails.
     public static Path validatePath(Path path) {
+        if (path.toFile().exists()) return path;
         try {
             Files.createDirectories(path);
         } catch (IOException e) {
@@ -162,13 +148,6 @@ public class SaveManager {
         return path;
     }
 
-    public static String validateDirectory(String path) {
-        File file = new File(path);
-        if (!file.exists()) {
-            if (!file.mkdirs()) ZLogger.err("Failed to validate directory: " + path);
-        }
-        return path;
-    }
 
     public static ArrayList<String> getPotentialClients() {
         ArrayList<String> paths = new ArrayList<>();
@@ -202,8 +181,8 @@ public class SaveManager {
 
     public static void createBackup() {
         try {
-            deleteDirectoryContents(getBackupDirectoryPath());
-            copyFilesRecursively(getSaveDirectoryPath(), getBackupDirectoryPath());
+            deleteDirectoryContents(getBackupDirectory());
+            copyFilesRecursively(getSaveDirectory(), getBackupDirectory());
             ZLogger.log("Created new backup.");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -212,8 +191,8 @@ public class SaveManager {
 
     public static void loadBackup() {
         try {
-            deleteDirectoryContents(getSaveDirectoryPath());
-            copyFilesRecursively(getBackupDirectoryPath(), getSaveDirectoryPath());
+            deleteDirectoryContents(getSaveDirectory());
+            copyFilesRecursively(getBackupDirectory(), getSaveDirectory());
             // FIXME : Call loadFromDisk on all save files, then revert UI.
             ZLogger.log("Loaded backup.");
         } catch (IOException e) {

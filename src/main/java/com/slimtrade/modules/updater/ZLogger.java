@@ -30,6 +30,7 @@ public class ZLogger {
     private static final SimpleDateFormat timestampFormatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static final String regString = FILE_PREFIX + "(?<year>\\d+)-(?<month>\\d+)-(?<day>\\d+)_(?<hour>\\d+)h(?<minute>\\d+)m(?<second>\\d+)s\\.txt";
 
+    // FIXME: Switch to using Path
     public static void open(String appDirectory, String[] args) {
         directory = UpdateUtil.cleanFileSeparators(appDirectory) + SUBFOLDER;
         if (!UpdateUtil.validateDirectory(directory)) {

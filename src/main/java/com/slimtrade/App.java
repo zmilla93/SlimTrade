@@ -77,7 +77,7 @@ public class App {
         parseLaunchArgs(args);
 
         // Lock file to prevent duplicate instances
-        lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
+        lockManager = new LockManager(SaveManager.getSaveDirectory().toString(), "app.lock");
         if (useLockFile) {
             if (!lockManager.tryAndLock()) {
                 System.err.println("SlimTrade is already running. Terminating new instance.");
@@ -86,7 +86,7 @@ public class App {
         }
 
         // Logger
-        ZLogger.open(SaveManager.getSaveDirectory(), args);
+        ZLogger.open(SaveManager.getSaveDirectory().toString(), args);
         ZLogger.log("SlimTrade launching... " + Arrays.toString(args));
         ZLogger.log("Platform: " + System.getProperty("os.name") + " [" + Platform.current + "]");
         ZLogger.cleanOldLogFiles();
@@ -111,7 +111,7 @@ public class App {
         profileLaunch("Time to start update");
 
         // Update
-        updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory(), getAppInfo(), getAppInfo().appVersion.isPreRelease);
+        updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory().toString(), getAppInfo(), getAppInfo().appVersion.isPreRelease);
         updateManager.continueUpdateProcess(args);
         if (!noUpdate) {
             if (updateManager.getCurrentUpdateAction() != UpdateAction.CLEAN && updateManager.isUpdateAvailable()) {

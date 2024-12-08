@@ -18,7 +18,7 @@ public class PatcherStash0to1 implements ISavePatcher {
 
     @Override
     public boolean patch() {
-        SaveFile<LegacyStashSave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory() + "stash.json", LegacyStashSave0.class);
+        SaveFile<LegacyStashSave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory().resolve("stash.json"), LegacyStashSave0.class);
         legacySaveFile.loadFromDisk();
         if (!legacySaveFile.loadedExistingData()) {
             errorMessage = FAILED_TO_LOAD;

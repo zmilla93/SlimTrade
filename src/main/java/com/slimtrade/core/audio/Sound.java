@@ -2,6 +2,7 @@ package com.slimtrade.core.audio;
 
 import com.slimtrade.core.managers.SaveManager;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -18,62 +19,77 @@ public class Sound {
     public enum SoundType {INBUILT, CUSTOM}
 
     public final String name;
+    private String displayName;
+    public String fileName;
     public SoundType soundType;
 
-    private transient String pathString;
     private transient Path path;
     private transient URL url;
 
+    /**
+     * Acts as a reference to a .wav file.
+     *
+     * @param name      Display name for Inbuilt, File name for Custom
+     * @param soundType Inbuilt or Custom
+     */
     public Sound(String name, SoundType soundType) {
-        if (name == null) name = "null";
+        this.name = name;
         this.soundType = soundType;
-        if (soundType == SoundType.INBUILT) {
-            this.name = name;
-            pathString = "/audio/" + name.toLowerCase().replaceAll(" ", "") + ".wav";
-        } else if (soundType == SoundType.CUSTOM) {
-            this.name = name.replaceFirst("\\.wav\\Z", "");
-            pathString = name;
-        } else {
-            this.name = "UNDEFINED_SOUND_TYPE";
-        }
+    }
+
+    public String getDisplayName() {
+        if (displayName == null) displayName = name.replaceAll(".wav", "");
+        return displayName;
     }
 
     public Path getPath() {
-        if (path != null) return path;
-        if (soundType == SoundType.INBUILT) {
-            try {
-                path = Paths.get(getURL().toURI());
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
+        if (path == null) {
+            if (soundType == SoundType.INBUILT) {
+                try {
+                    path = Paths.get(getURL().toURI());
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (soundType == SoundType.CUSTOM) {
+                path = SaveManager.getAudioDirectory().resolve(getFileName());
             }
-        } else if (soundType == SoundType.CUSTOM) {
-            path = SaveManager.getAudioDirectory().resolve(pathString);
         }
         return path;
     }
 
     public URL getURL() {
-        if (url != null) return url;
-        if (soundType == SoundType.INBUILT) {
-            this.url = Objects.requireNonNull(getClass().getResource(pathString));
-        } else if (soundType == SoundType.CUSTOM) {
-            try {
-                this.url = getPath().toUri().toURL();
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
+        if (url == null) {
+            if (soundType == SoundType.INBUILT) {
+                this.url = Objects.requireNonNull(getClass().getResource(getFileName()));
+            } else if (soundType == SoundType.CUSTOM) {
+                try {
+                    this.url = getPath().toUri().toURL();
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return url;
     }
 
+    private String getFileName() {
+        if (fileName == null) {
+            if (soundType == SoundType.INBUILT) {
+                String audioFolderName = SaveManager.getAudioDirectory().getFileName().toString();
+                fileName = "/" + audioFolderName + "/" + name.toLowerCase().replaceAll(" ", "") + ".wav";
+            } else fileName = name;
+        }
+        return fileName;
+    }
+
     /// A more debug friendly version of toString().
     public String getDetails() {
-        return "Sound[" + soundType + ", " + pathString + "]";
+        return "Sound[" + soundType + ", " + getFileName() + "]";
     }
 
     @Override
     public String toString() {
-        return name;
+        return getDisplayName();
     }
 
     @Override

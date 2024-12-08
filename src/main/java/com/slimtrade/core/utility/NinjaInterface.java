@@ -128,7 +128,7 @@ public class NinjaInterface {
 
     private static <T> T getDatasetFromFile(String fileName, Class<T> classType) {
         PathOfExileLeague league = PathOfExileLeague.TEMP;
-        String text = ZUtil.getFileAsString(SaveManager.getNinjaDirectoryPath().resolve(league + File.separator + fileName + ".json").toString(), false);
+        String text = ZUtil.getFileAsString(SaveManager.getNinjaDirectory().resolve(league + File.separator + fileName + ".json").toString(), false);
         return new Gson().fromJson(text, classType);
     }
 

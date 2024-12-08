@@ -20,7 +20,7 @@ public class PatcherOverlay0to1 implements ISavePatcher {
 
     @Override
     public boolean patch() {
-        SaveFile<LegacyOverlaySave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory() + "overlay.json", LegacyOverlaySave0.class);
+        SaveFile<LegacyOverlaySave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory().resolve("overlay.json"), LegacyOverlaySave0.class);
         legacySaveFile.loadFromDisk();
         if (!legacySaveFile.loadedExistingData()) {
             errorMessage = FAILED_TO_LOAD;

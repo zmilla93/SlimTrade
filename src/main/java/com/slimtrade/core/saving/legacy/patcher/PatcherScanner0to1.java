@@ -19,7 +19,7 @@ public class PatcherScanner0to1 implements ISavePatcher {
 
     @Override
     public boolean patch() {
-        SaveFile<LegacyScannerSave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory() + "scanner.json", LegacyScannerSave0.class);
+        SaveFile<LegacyScannerSave0> legacySaveFile = new SaveFile<>(SaveManager.getSaveDirectory().resolve("scanner.json"), LegacyScannerSave0.class);
         legacySaveFile.loadFromDisk();
         if (!legacySaveFile.loadedExistingData()) {
             errorMessage = FAILED_TO_LOAD;

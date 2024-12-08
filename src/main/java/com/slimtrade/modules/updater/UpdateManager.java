@@ -79,6 +79,7 @@ public class UpdateManager {
      * @param directory Directory where downloaded file will be stored temporarily
      * @param appInfo   Information about the currently running app
      */
+    // FIXME: Switch to using Path
     public UpdateManager(String author, String repo, String directory, AppInfo appInfo, boolean allowPreRelease) {
         this.DIRECTORY = UpdateUtil.cleanFileSeparators(directory);
         this.CURRENT_VERSION = appInfo.appVersion;

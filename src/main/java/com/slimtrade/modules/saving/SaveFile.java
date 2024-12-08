@@ -13,6 +13,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,7 +24,7 @@ import java.util.TimerTask;
 public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveListener> {
 
     public T data;
-    public final String path;
+    public final Path path;
     public final boolean isPathRelative;
     public final Class<T> classType;
     private boolean loadedExistingData = false;
@@ -32,11 +33,11 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     private TimerTask saveTask;
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public SaveFile(String path, Class<T> classType) {
+    public SaveFile(Path path, Class<T> classType) {
         this(path, classType, false);
     }
 
-    public SaveFile(String path, Class<T> classType, boolean isPathRelative) {
+    public SaveFile(Path path, Class<T> classType, boolean isPathRelative) {
         this.path = path;
         this.classType = classType;
         this.isPathRelative = isPathRelative;
@@ -47,8 +48,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
     }
 
     public boolean fileExists() {
-        File file = new File(path);
-        return file.exists() && file.isFile();
+        return path.toFile().exists();
     }
 
     /**
@@ -100,8 +100,7 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
                     c.save();
                 }
             }
-            File file = new File(path);
-            Writer writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(file.toPath()), StandardCharsets.UTF_8));
+            Writer writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(path), StandardCharsets.UTF_8));
             writer.write(gson.toJson(data));
             writer.close();
         } catch (IOException e) {
@@ -118,9 +117,10 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
      * Automatically called when SaveFile is created.
      */
     public synchronized void loadFromDisk() {
-        if (ZUtil.fileExists(path, isPathRelative)) {
+//        if (ZUtil.fileExists(path.toString(), isPathRelative)) {
+        if (ZUtil.fileExists(path.toString(), isPathRelative)) {
             try {
-                data = gson.fromJson(getFileAsString(path, isPathRelative), classType);
+                data = gson.fromJson(getFileAsString(path.toString(), isPathRelative), classType);
                 if (data != null) {
                     loadedExistingData = true;
                     return;

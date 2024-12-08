@@ -26,8 +26,7 @@ public class PatcherSettings0to1 implements ISavePatcher {
 
     @Override
     public boolean patch() {
-        String filePath = SaveManager.settingsSaveFile.path;
-        SaveFile<LegacySettingsSave0> legacySaveFile = new SaveFile<>(filePath, LegacySettingsSave0.class);
+        SaveFile<LegacySettingsSave0> legacySaveFile = new SaveFile<>(SaveManager.settingsSaveFile.path, LegacySettingsSave0.class);
         legacySaveFile.loadFromDisk();
         if (!legacySaveFile.loadedExistingData()) {
             errorMessage = FAILED_TO_LOAD;
