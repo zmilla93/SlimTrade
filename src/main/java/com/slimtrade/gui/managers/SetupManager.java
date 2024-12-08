@@ -3,6 +3,7 @@ package com.slimtrade.gui.managers;
 import com.slimtrade.App;
 import com.slimtrade.core.enums.SetupPhase;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.GameDetectionMethod;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ public class SetupManager {
             }
         }
         // Game Detection Method
-//        if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.UNSET)
-//            setupPhases.add(SetupPhase.GAME_DETECTION_METHOD);
+        if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.UNSET)
+            setupPhases.add(SetupPhase.GAME_DETECTION_METHOD);
         // Stash location
         if (SaveManager.stashSaveFile.data.gridRect == null)
             setupPhases.add(SetupPhase.STASH_POSITION);

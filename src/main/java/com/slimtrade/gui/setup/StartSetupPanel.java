@@ -13,6 +13,8 @@ public class StartSetupPanel extends JPanel {
         GridBagConstraints gc = ZUtil.getGC();
         centerPanel.add(new JLabel("Welcome to SlimTrade!"), gc);
         gc.gridy++;
+        centerPanel.add(new JLabel("Let's do some quick setup."), gc);
+        gc.gridy++;
         add(centerPanel, BorderLayout.CENTER);
     }
 

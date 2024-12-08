@@ -102,4 +102,29 @@ public class NativeWindow {
         }, null);
     }
 
+    public static void findPathOfExileWindow(WindowCallback callback) {
+        User32.INSTANCE.EnumWindows((handle, arg1) -> {
+            char[] classNameBuffer = new char[512];
+            User32.INSTANCE.GetClassName(handle, classNameBuffer, 512);
+            String className = Native.toString(classNameBuffer);
+            // NOTE : Can print class name here for debugging/finding new window handles for cloud gaming
+//            System.out.println(className);
+            if (className.isEmpty()) return true;
+            // Path of Exile 1 & 2 windows have the class name POEWindowClass
+            if (className.equals("POEWindowClass")) {
+                String title = getWindowTitle(handle);
+                callback.onWindowFound(title, handle);
+                return false;
+            }
+            // GeForce Now has the class name CEFCLIENT. Unsure if this is unique, so the window title is also checked.
+            if (className.equals("CEFCLIENT")) {
+                String title = getWindowTitle(handle);
+                if (POEInterface.gameTitleSet.contains(title)) {
+                    callback.onWindowFound(title, handle);
+                    return false;
+                }
+            }
+            return true;
+        }, null);
+    }
 }
