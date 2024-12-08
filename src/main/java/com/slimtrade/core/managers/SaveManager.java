@@ -21,30 +21,26 @@ public class SaveManager {
 
     // Install folder names
     protected static Path persistentDataDirectory;
-    public static final String appName = App.getAppInfo().appName;
+    public static final String saveFolderName = App.getAppInfo().appName;
     public static final String folderWin = "SlimTrade";
     public static final String folderOther = ".slimtrade";
     private static final String backupSuffix = "-Backup";
 
     // Subfolder Names
-    private static final String backupFolderName = "backup";
-    private static final String audioFolderName = "audio";
-    private static final String imagesFolderName = "images";
     private static final String logFolderName = "logs";
-    private static final String debugFolderName = "debug";
 
     // Full Paths
     private static Path saveDirectoryPath;
     private static Path backupDirectoryPath;
+    private static final Path logsDirectoryPath = getSaveDirectoryPath().resolve("logs");
     private static final Path audioDirectory = getSaveDirectoryPath().resolve("audio");
+    private static final Path imagesDirectoryPath = getSaveDirectoryPath().resolve("images");
+    private static final Path ninjaDirectoryPath = getSaveDirectoryPath().resolve("ninja");
 
     // Full Paths (OLD)
     private static String saveDirectory;
     private static String logsDirectory;
-    private static String imagesDirectory;
-    private static String debugDirectory;
     private static String ninjaDirectory;
-    private static String backupDirectory;
 
     // Save Files
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectoryPath().resolve("settings.json").toString(), SettingsSaveFile.class);
@@ -98,11 +94,11 @@ public class SaveManager {
         stashSaveFile.addListener(() -> stashSaveFile.data.buildCache());
     }
 
-    public static String getImagesDirectory() {
-        if (imagesDirectory == null)
-            imagesDirectory = validateDirectory(getSaveDirectory() + imagesFolderName + File.separator);
-        return imagesDirectory;
-    }
+//    public static String getImagesDirectory() {
+//        if (imagesDirectory == null)
+//            imagesDirectory = validateDirectory(getSaveDirectory() + imagesFolderName + File.separator);
+//        return imagesDirectory;
+//    }
 
     public static String getLogsDirectory() {
         if (logsDirectory == null)
@@ -120,6 +116,18 @@ public class SaveManager {
         return validatePath(audioDirectory);
     }
 
+    public static Path getImagesDirectoryPath() {
+        return validatePath(imagesDirectoryPath);
+    }
+
+    public static Path getNinjaDirectoryPath() {
+        return validatePath(ninjaDirectoryPath);
+    }
+
+    public static Path getLogsDirectoryPath() {
+        return validatePath(logsDirectoryPath);
+    }
+
     public static String getSaveDirectory() {
         if (saveDirectory == null) {
             if (Platform.current == Platform.WINDOWS)
@@ -133,8 +141,9 @@ public class SaveManager {
 
     public static Path getSaveDirectoryPath() {
         if (saveDirectoryPath == null) {
-            if (Platform.current == Platform.WINDOWS) saveDirectoryPath = getPersistentDataDirectory().resolve(appName);
-            else saveDirectoryPath = getPersistentDataDirectory().resolve("." + appName.toLowerCase());
+            if (Platform.current == Platform.WINDOWS)
+                saveDirectoryPath = getPersistentDataDirectory().resolve(saveFolderName);
+            else saveDirectoryPath = getPersistentDataDirectory().resolve("." + saveFolderName.toLowerCase());
             validatePath(saveDirectoryPath);
         }
         return saveDirectoryPath;
@@ -143,9 +152,9 @@ public class SaveManager {
     public static Path getBackupDirectoryPath() {
         if (backupDirectoryPath == null) {
             if (Platform.current == Platform.WINDOWS)
-                backupDirectoryPath = getPersistentDataDirectory().resolve(appName + backupSuffix);
+                backupDirectoryPath = getPersistentDataDirectory().resolve(saveFolderName + backupSuffix);
             else
-                backupDirectoryPath = getPersistentDataDirectory().resolve("." + appName.toLowerCase() + backupSuffix.toLowerCase());
+                backupDirectoryPath = getPersistentDataDirectory().resolve("." + saveFolderName.toLowerCase() + backupSuffix.toLowerCase());
             validatePath(backupDirectoryPath);
         }
         return backupDirectoryPath;

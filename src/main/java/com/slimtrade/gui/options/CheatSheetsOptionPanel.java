@@ -69,7 +69,7 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
 
     private void rebuildFromFolder() {
         startRebuild();
-        File imagesFolder = new File(SaveManager.getImagesDirectory());
+        File imagesFolder = SaveManager.getImagesDirectoryPath().toFile();
         if (imagesFolder.exists() && imagesFolder.isDirectory()) {
             File[] files = imagesFolder.listFiles();
             if (files == null) return;
@@ -92,7 +92,7 @@ public class CheatSheetsOptionPanel extends AbstractOptionPanel implements ISava
     }
 
     private void addListeners() {
-        browseButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getImagesDirectory()));
+        browseButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getImagesDirectoryPath().toString()));
         refreshButton.addActionListener(e -> rebuildFromFolder());
     }
 

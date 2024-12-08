@@ -13,7 +13,7 @@ public class CheatSheetWindow extends CustomDialog implements IDefaultSizeAndLoc
     protected boolean valid = true;
 
     public static CheatSheetWindow createCheatSheet(CheatSheetData data) {
-        File file = new File(SaveManager.getImagesDirectory() + data.fileName);
+        File file = SaveManager.getImagesDirectoryPath().resolve(data.fileName).toFile();
         if (file.exists() && file.isFile()) {
             CheatSheetWindow window = new CheatSheetWindow(data);
             if (window.valid) return window;
@@ -29,7 +29,7 @@ public class CheatSheetWindow extends CustomDialog implements IDefaultSizeAndLoc
         setMinimumSize(new Dimension(0, 0));
         setFocusable(false);
         setFocusableWindowState(false);
-        ImageIcon icon = new ImageIcon(SaveManager.getImagesDirectory() + data.fileName);
+        ImageIcon icon = new ImageIcon(SaveManager.getImagesDirectoryPath().resolve(data.fileName).toString());
         JLabel label = new JLabel();
         label.setIcon(icon);
         if (label.getIcon() == null) valid = false;
