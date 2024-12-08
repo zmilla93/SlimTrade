@@ -80,7 +80,7 @@ public class InformationOptionPanel extends AbstractOptionPanel {
         });
         openClientButton.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.clientPath));
         settingsFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getSaveDirectory()));
-        logsFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getLogsDirectory()));
+        logsFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getLogsDirectoryPath().toString()));
         troubleshootingButton.addActionListener(e -> ZUtil.openLink(References.FAQ_URL));
         bugReportButton.addActionListener(e -> ZUtil.openLink(References.GITHUB_ISSUES_URL));
         githubButton.addActionListener(e -> ZUtil.openLink(References.GITHUB_URL));

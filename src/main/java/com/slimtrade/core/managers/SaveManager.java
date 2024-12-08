@@ -17,6 +17,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 
+// FIXME : Should switch to using instances to allow SaveManager to become a library.
 public class SaveManager {
 
     // Install folder names
@@ -25,9 +26,6 @@ public class SaveManager {
     public static final String folderWin = "SlimTrade";
     public static final String folderOther = ".slimtrade";
     private static final String backupSuffix = "-Backup";
-
-    // Subfolder Names
-    private static final String logFolderName = "logs";
 
     // Full Paths
     private static Path saveDirectoryPath;
@@ -39,8 +37,6 @@ public class SaveManager {
 
     // Full Paths (OLD)
     private static String saveDirectory;
-    private static String logsDirectory;
-    private static String ninjaDirectory;
 
     // Save Files
     public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectoryPath().resolve("settings.json").toString(), SettingsSaveFile.class);
@@ -92,24 +88,6 @@ public class SaveManager {
             }
         });
         stashSaveFile.addListener(() -> stashSaveFile.data.buildCache());
-    }
-
-//    public static String getImagesDirectory() {
-//        if (imagesDirectory == null)
-//            imagesDirectory = validateDirectory(getSaveDirectory() + imagesFolderName + File.separator);
-//        return imagesDirectory;
-//    }
-
-    public static String getLogsDirectory() {
-        if (logsDirectory == null)
-            logsDirectory = validateDirectory(getSaveDirectory() + logFolderName + File.separator);
-        return logsDirectory;
-    }
-
-    public static String getNinjaDirectory() {
-        if (ninjaDirectory == null)
-            ninjaDirectory = validateDirectory(getSaveDirectory() + "ninja" + File.separator);
-        return ninjaDirectory;
     }
 
     public static Path getAudioDirectory() {
@@ -287,4 +265,5 @@ public class SaveManager {
             }
         });
     }
+
 }
