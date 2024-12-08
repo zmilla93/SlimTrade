@@ -122,7 +122,6 @@ public class TradeMessagePanel extends NotificationPanel {
         super.onInvite();
         if (stashHelperPanel != null) stashHelperPanel.setVisible(true);
         if (stashHelperBulkWrapper != null) stashHelperBulkWrapper.setVisible(true);
-        FrameManager.stashHelperContainerLegacy.refresh();
     }
 
     @Override
@@ -137,7 +136,6 @@ public class TradeMessagePanel extends NotificationPanel {
                 FrameManager.stashHelperContainerLegacy.remove(stashHelperBulkWrapper);
                 stashHelperBulkWrapper.cleanup();
             }
-            FrameManager.stashHelperContainerLegacy.refresh();
         }
     }
 

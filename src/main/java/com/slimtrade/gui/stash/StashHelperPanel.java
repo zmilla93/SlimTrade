@@ -93,7 +93,6 @@ public class StashHelperPanel extends AdvancedButton {
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     setVisible(false);
                     if (highlighterFrame != null) highlighterFrame.setVisible(false);
-                    FrameManager.stashHelperContainerLegacy.refresh();
                 }
             }
 

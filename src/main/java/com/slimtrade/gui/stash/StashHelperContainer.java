@@ -53,26 +53,15 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
         Component panel = new StashHelperPanel(offer);
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(panel, gc);
-        refresh();
+        pack();
         return panel;
     }
 
     public void addHelper(Component component) {
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(component, gc);
-        refresh();
         pack();
-        revalidate();
-        repaint();
         updateLocation();
-    }
-
-    public void refresh() {
-        pack();
-        revalidate();
-        repaint();
-        // FIXME : Refresh no longer updates location. Make sure this is accounted for!
-//        updateLocation();
     }
 
     public JPanel getContentPanel() {
@@ -81,7 +70,7 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
 
     @Override
     public void onThemeChange() {
-        refresh();
+        pack();
     }
 
     @Override
