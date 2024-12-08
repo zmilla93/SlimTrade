@@ -22,9 +22,10 @@ public class SetupWindow extends JFrame {
     private final FinishSetupPanel finishPanel = new FinishSetupPanel();
 
     private final JButton previousButton = new JButton("Previous");
-    private final JButton nextButton = new JButton(NEXT_TEXT);
+    public final JButton nextButton = new JButton(NEXT_TEXT);
 
     private final ClientSetupPanel clientPanel = new ClientSetupPanel(nextButton);
+    private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel(nextButton);
     private final StashSetupPanel stashPanel = new StashSetupPanel(nextButton);
     private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel(nextButton);
 
@@ -129,6 +130,10 @@ public class SetupWindow extends JFrame {
                 case CLIENT_PATH:
                     panelMap.put(cardPanel.getComponentCount(), clientPanel);
                     cardPanel.add(clientPanel, Integer.toString(cardPanel.getComponentCount()));
+                    break;
+                case GAME_DETECTION_METHOD:
+                    panelMap.put(cardPanel.getComponentCount(), gameDetectionPanel);
+                    cardPanel.add(gameDetectionPanel, Integer.toString(cardPanel.getComponentCount()));
                     break;
                 case STASH_POSITION:
                     panelMap.put(cardPanel.getComponentCount(), stashPanel);

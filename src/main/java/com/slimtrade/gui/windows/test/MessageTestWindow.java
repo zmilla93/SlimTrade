@@ -10,8 +10,11 @@ import com.slimtrade.modules.theme.ThemeManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A window that creates a TradeMessagePanel using every color theme.
+ * WARNING: This can take a little while to load.
+ */
 public class MessageTestWindow extends JFrame {
-
 
     public MessageTestWindow() {
         setTitle("SlimTrade - Notification Panel Theme Test");
@@ -22,6 +25,7 @@ public class MessageTestWindow extends JFrame {
         setContentPane(tabbedPane);
         pack();
         setSize(new Dimension(1800, 800));
+        setVisible(true);
     }
 
     private JPanel getTradeMessagePanel(boolean playerJoinedArea) {

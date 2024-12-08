@@ -30,6 +30,9 @@ public class SetupManager {
                 setupPhases.add(SetupPhase.CLIENT_PATH);
             }
         }
+        // Game Detection Method
+//        if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.UNSET)
+//            setupPhases.add(SetupPhase.GAME_DETECTION_METHOD);
         // Stash location
         if (SaveManager.stashSaveFile.data.gridRect == null)
             setupPhases.add(SetupPhase.STASH_POSITION);

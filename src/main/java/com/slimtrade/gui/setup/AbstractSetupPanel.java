@@ -1,6 +1,7 @@
 package com.slimtrade.gui.setup;
 
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.managers.FrameManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public abstract class AbstractSetupPanel extends JPanel {
     public abstract boolean isSetupValid();
 
     public void validateNextButton() {
-        nextButton.setEnabled(isSetupValid());
+        FrameManager.setupWindow.nextButton.setEnabled(isSetupValid());
     }
 
 }

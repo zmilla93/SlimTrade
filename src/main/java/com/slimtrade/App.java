@@ -59,17 +59,19 @@ public class App {
     private static boolean updateIsAvailable = false;
     private static boolean isRunningSetup = false;
 
-    // Debug Flags
-    public static boolean noUpdate = false;
-    public static boolean useLockFile = true;
-    public static boolean debug = false;
-    public static boolean debugUIAlwaysOnTop = false;
+    // Debug Flags - The commented flags can be used as program arguments
+    // Suggested dev flags: -d -no -ui -o
+    // Also add -ea as a VM option (not program argument) to enable assertions
+    public static boolean debug = false; //  -d, -debug: enables various developer windows and features
+    public static boolean noUpdate = false; // -nu, -noupdate: disable update check
+    public static boolean useLockFile = true; // -nl, -nolock: disable file locking
+    public static boolean showOptionsOnLaunch = false; // -o, -options: show the options menu at launch
+    public static boolean debugUIAlwaysOnTop = false; // -ui: forces the UI to always be on top no matter what
+    public static boolean forceSetup = false; // -setup: forces the setup wizard to run with all phases
     public static boolean chatInConsole = false; // TODO: This is broken, should fix or remove
-    public static int debugUIBorders = 0; // Adds borders to certain UI elements. 0 for off, 1 or 2 for debugging
-    public static final boolean debugProfileLaunch = false;
-    public static boolean showOptionsOnLaunch = false;
-    public static boolean forceSetup = false;
-    public static boolean messageUITest = false;
+    public static int debugUIBorders = 0; // No flag: Adds debug borders to UI elements. 0 for off, 1 or 2 for debugging
+    public static boolean messageUITest = false; // No flag: Creates a theme testing window (WARNING: takes a bit to load)
+    public static final boolean debugProfileLaunch = false; // No flag: prints some profiling info during app launch
 
     public static void main(String[] args) {
         parseLaunchArgs(args);

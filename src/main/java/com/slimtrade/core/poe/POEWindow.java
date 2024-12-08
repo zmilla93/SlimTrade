@@ -27,7 +27,8 @@ public class POEWindow {
     public static BasicDialog dialog;
 
     static {
-        // FIXME : Calculating bounds early to avoid errors. Check if this can be removed once system is fully implemented
+        // FIXME : Calculating bounds early using 1920x1080 to avoid errors.
+        //  Should instead use the bounds of the first monitor, then let the automated system take over.
         calculatePoe1StashBounds();
     }
 
@@ -66,12 +67,12 @@ public class POEWindow {
         POEWindow.poe1StashBounds = new Rectangle(
                 gameBounds.x + POE_1_STASH_1920_1080.x, gameBounds.y + POE_1_STASH_1920_1080.y,
                 POE_1_STASH_1920_1080.width, POE_1_STASH_1920_1080.height);
-        int width = Math.round(gameBounds.width / 12f);
-        int height = Math.round(gameBounds.height / 12f);
-        int widthQuad = Math.round(gameBounds.width / 24f);
-        int heightQuad = Math.round(gameBounds.height / 24f);
-        poe1StashCellSize = new Dimension(width, height);
-        poe1StashCellSizeQuad = new Dimension(widthQuad, heightQuad);
+        int cellWidth = Math.round(poe1StashBounds.width / 12f);
+        int cellHeight = Math.round(poe1StashBounds.height / 12f);
+        poe1StashCellSize = new Dimension(cellWidth, cellHeight);
+        int quadCellWidth = Math.round(poe1StashBounds.width / 24f);
+        int quadCellHeight = Math.round(poe1StashBounds.height / 24f);
+        poe1StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
     }
 
     public static void addListener(POEWindowListener listener) {
