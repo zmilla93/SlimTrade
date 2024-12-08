@@ -32,7 +32,7 @@ public class StashHelperBulkWrapper extends JPanel {
             gc.insets.left = StashHelperContainer.INSET;
             helperPanels.add(panel);
         }
-        FrameManager.stashHelperContainer.addHelper(this);
+        FrameManager.stashHelperContainerLegacy.addHelper(this);
     }
 
     public ArrayList<StashHelperPanel> getHelperPanels() {
@@ -40,7 +40,7 @@ public class StashHelperBulkWrapper extends JPanel {
     }
 
     public void cleanup() {
-        FrameManager.stashHelperContainer.remove(this);
+        FrameManager.stashHelperContainerLegacy.remove(this);
         for (StashHelperPanel panel : helperPanels) panel.cleanup();
     }
 

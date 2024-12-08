@@ -32,7 +32,6 @@ public class NativeWindow {
     public void updateGameBounds() {
         assert POEInterface.gameTitleSet.contains(title);
         bounds = WindowUtils.getWindowLocationAndSize(handle);
-        System.out.println("Bounds: " + bounds);
         POEWindow.setGameBounds(bounds);
     }
 
@@ -82,7 +81,8 @@ public class NativeWindow {
             char[] classNameBuffer = new char[512];
             User32.INSTANCE.GetClassName(handle, classNameBuffer, 512);
             String className = Native.toString(classNameBuffer);
-            System.out.println(className);
+            // NOTE : Can print class name here for debugging/finding new window handles for cloud gaming
+//            System.out.println(className);
             if (className.isEmpty()) return true;
             // Path of Exile 1 & 2 windows have the class name POEWindowClass
             if (className.equals("POEWindowClass")) {

@@ -23,6 +23,8 @@ import com.slimtrade.gui.pinning.IPinnable;
 import com.slimtrade.gui.pinning.PinManager;
 import com.slimtrade.gui.setup.SetupWindow;
 import com.slimtrade.gui.stash.StashHelperContainer;
+import com.slimtrade.gui.stash.StashHelperContainerLegacy;
+import com.slimtrade.gui.stash.StashHelperContainerPoe1;
 import com.slimtrade.gui.windows.*;
 import com.slimtrade.gui.windows.test.MessageTestWindow;
 
@@ -61,7 +63,8 @@ public class FrameManager {
     public static MessageOverlay messageOverlay;
     public static MenubarOverlay menubarOverlay;
     public static StashGridWindow stashGridWindow;
-    public static StashHelperContainer stashHelperContainer;
+    public static StashHelperContainer stashHelperContainerLegacy;
+    public static StashHelperContainer stashHelperContainerPoe1;
 
     // Menu Bar
     public static MenubarButtonDialog menuBarIcon;
@@ -94,7 +97,8 @@ public class FrameManager {
         /// Overlays
         menubarOverlay = new MenubarOverlay();
         messageManager = new MessageManager();
-        stashHelperContainer = new StashHelperContainer();
+        stashHelperContainerLegacy = new StashHelperContainerLegacy();
+        stashHelperContainerPoe1 = new StashHelperContainerPoe1();
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
         /// Dynamic windows
@@ -110,7 +114,7 @@ public class FrameManager {
         // FIXME : Add all windows
         // FIXME: Check CheatSheet windows and StashSearch windows.
         // Arrays of windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menuBarIcon, menuBarDialog, stashHelperContainer, tutorialWindow, patchNotesWindow};
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menuBarIcon, menuBarDialog, stashHelperContainerLegacy, stashHelperContainerPoe1, tutorialWindow, patchNotesWindow};
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};

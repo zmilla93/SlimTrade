@@ -19,10 +19,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * A helper panel that displays an item name and stash tab name. Use StashHelperBulkWrapper for bulk trades.
- * Displays a StashHighlighterFrame when hovered. Searches item name in stash when clicked.
- *
- * @see StashHelperContainer
- * @see StashHelperBulkWrapper
+ * Displays a {@link StashHighlighterFrame} when hovered. Searches item name in stash when clicked.
  */
 public class StashHelperPanel extends AdvancedButton {
 
@@ -52,8 +49,9 @@ public class StashHelperPanel extends AdvancedButton {
         assert (SwingUtilities.isEventDispatchThread());
         // FIXME : default visibility to true and make sure no debug panels are being added
         setVisible(false);
+        // FIXME : Add check for making POE2 highlighter frame
         if (tradeOffer.stashTabName != null)
-            highlighterFrame = new StashHighlighterFrame(tradeOffer);
+            highlighterFrame = new StashHighlighterFramePoe1(tradeOffer);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setLayout(new GridBagLayout());
         JLabel stashTabLabel = new JLabel(tradeOffer.stashTabName);
@@ -79,8 +77,10 @@ public class StashHelperPanel extends AdvancedButton {
             CurrencyLabelFactory.applyColorToLabel(itemPanel, stashTabColor.getForeground());
         }
         createBorder(stashTabColor);
+        revalidate();
         addListeners();
-        if (!this.tradeOffer.isBulkTrade) FrameManager.stashHelperContainer.addHelper(this);
+        // FIXME : Add check for POE2
+        if (!this.tradeOffer.isBulkTrade) FrameManager.stashHelperContainerPoe1.addHelper(this);
     }
 
     private void addListeners() {
@@ -93,7 +93,7 @@ public class StashHelperPanel extends AdvancedButton {
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     setVisible(false);
                     if (highlighterFrame != null) highlighterFrame.setVisible(false);
-                    FrameManager.stashHelperContainer.refresh();
+                    FrameManager.stashHelperContainerLegacy.refresh();
                 }
             }
 
@@ -132,12 +132,22 @@ public class StashHelperPanel extends AdvancedButton {
     }
 
     public void cleanup() {
+        setVisible(false); // Hide to trigger a repack on parent window
         if (!tradeOffer.isBulkTrade)
-            FrameManager.stashHelperContainer.getContentPanel().remove(this);
+            FrameManager.stashHelperContainerLegacy.getContentPanel().remove(this);
         if (highlighterFrame != null) {
             highlighterFrame.dispose();
             highlighterFrame = null;
         }
+    }
+
+    // Repack the parent window anytime the visibility of this panel changes
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        Container parent = getTopLevelAncestor();
+        if (parent == null) return;
+        if (parent instanceof Window) ((Window) parent).pack();
     }
 
     @Override

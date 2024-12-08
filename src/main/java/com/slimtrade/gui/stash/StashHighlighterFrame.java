@@ -3,6 +3,8 @@ package com.slimtrade.gui.stash;
 import com.slimtrade.core.data.StashTabData;
 import com.slimtrade.core.enums.MatchType;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.POEWindow;
+import com.slimtrade.core.poe.POEWindowListener;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.options.stash.StashTabType;
 import com.slimtrade.gui.windows.BasicDialog;
@@ -11,9 +13,9 @@ import com.slimtrade.modules.theme.ThemeManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class StashHighlighterFrame extends BasicDialog {
+public abstract class StashHighlighterFrame extends BasicDialog implements POEWindowListener {
 
-    private final TradeOffer tradeOffer;
+    protected final TradeOffer tradeOffer;
     private Timer timer;
 
     public StashHighlighterFrame(TradeOffer tradeOffer) {
@@ -31,6 +33,7 @@ public class StashHighlighterFrame extends BasicDialog {
         });
         pack();
         updateSizeAndLocation();
+        POEWindow.addListener(this);
     }
 
     public void updateSizeAndLocation() {
@@ -45,7 +48,12 @@ public class StashHighlighterFrame extends BasicDialog {
         setSize(cellSize);
     }
 
-    private boolean isQuadTab() {
+    /**
+     * Determines if the given stash tab is a quad tab or not.
+     *
+     * @return True if the stash tab is a quad tab
+     */
+    protected boolean isQuadTab() {
         if (tradeOffer.stashTabName == null) return false;
         if (tradeOffer.stashTabX > 12 || tradeOffer.stashTabY > 12) return true;
         for (StashTabData savedStashTab : SaveManager.settingsSaveFile.data.stashTabs) {
@@ -63,6 +71,12 @@ public class StashHighlighterFrame extends BasicDialog {
 
     public void stopTimer() {
         timer.stop();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        POEWindow.removeListener(this);
     }
 
 }

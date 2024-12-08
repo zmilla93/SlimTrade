@@ -3,24 +3,35 @@ package com.slimtrade.core.poe;
 import com.slimtrade.gui.windows.BasicDialog;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * A platform independent representation of the Path of Exile game window.
+ * Used to calculate the screen location of in game UI elements, or to pin things relative to the game window.
  * Can be updated using the bounds of a monitor, or by listening to platform specific window events.
+ * Attach a {@link POEWindowListener} to listen for events.
  */
+// TODO : Could also add the option to manually define the game window region to support Mac/Linux users who play in windowed mode.
 public class POEWindow {
+    // FIXME : Temp static info
+    private static final Rectangle POE_1_STASH_1920_1080 = new Rectangle(13, 126, 634, 634);
 
     // FIXME : Is title actually needed? It isn't very useful and it won't be set correctly when using monitor bounds anyway.
 //    private static String title;
-    private static Rectangle gameBounds;
-    private static Rectangle poe1StashBounds;
+    private static Rectangle gameBounds = new Rectangle(0, 0, 1920, 1080);
+    private static Rectangle poe1StashBounds = POE_1_STASH_1920_1080;
     private static Dimension poe1StashCellSize;
     private static Dimension poe1StashCellSizeQuad;
 
-    // FIXME : Temp static info
-    private static final Rectangle POE_1_STASH_1920_1080 = new Rectangle(13, 126, 634, 634);
+    private static final ArrayList<POEWindowListener> listeners = new ArrayList<>();
+
     // FIXME : Temp dialog
     public static BasicDialog dialog;
+
+    static {
+        // FIXME : Calculating bounds early to avoid errors. Check if this can be removed once system is fully implemented
+        calculatePoe1StashBounds();
+    }
 
     // FIXME : Temp function
     public static void createAndShowWindow() {
@@ -49,16 +60,18 @@ public class POEWindow {
     public static void setGameBounds(Rectangle gameBounds) {
         POEWindow.gameBounds = gameBounds;
         calculatePoe1StashBounds();
+        for (POEWindowListener listener : listeners) listener.onGameBoundsChange();
     }
 
-    public Rectangle getPoe1StashBonds() {
+    public static Rectangle getPoe1StashBonds() {
         return poe1StashBounds;
     }
 
-    public Dimension getPoe1StashCellSize() {
+    public static Dimension getPoe1StashCellSize() {
         return poe1StashCellSize;
     }
-    public Dimension getPoe1StashCellSizeQuad() {
+
+    public static Dimension getPoe1StashCellSizeQuad() {
         return poe1StashCellSizeQuad;
     }
 
@@ -73,6 +86,14 @@ public class POEWindow {
         int heightQuad = Math.round(gameBounds.height / 24f);
         poe1StashCellSize = new Dimension(width, height);
         poe1StashCellSizeQuad = new Dimension(widthQuad, heightQuad);
+    }
+
+    public static void addListener(POEWindowListener listener) {
+        listeners.add(listener);
+    }
+
+    public static void removeListener(POEWindowListener listener) {
+        listeners.remove(listener);
     }
 
 }

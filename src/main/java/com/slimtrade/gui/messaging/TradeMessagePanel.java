@@ -30,7 +30,7 @@ public class TradeMessagePanel extends NotificationPanel {
         super(createListeners);
         this.tradeOffer = tradeOffer;
         this.pasteReplacement = new PasteReplacement(tradeOffer.message, tradeOffer.playerName, tradeOffer.itemName, tradeOffer.itemQuantity, tradeOffer.priceName, tradeOffer.priceQuantity);
-        if (FrameManager.stashHelperContainer != null && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE && createListeners) {
+        if (FrameManager.stashHelperContainerLegacy != null && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE && createListeners) {
             if (this.tradeOffer.isBulkTrade) {
                 stashHelperBulkWrapper = new StashHelperBulkWrapper(tradeOffer);
             } else {
@@ -71,7 +71,6 @@ public class TradeMessagePanel extends NotificationPanel {
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             if (stashHelperPanel != null) stashHelperPanel.setVisible(true);
                             if (stashHelperBulkWrapper != null) stashHelperBulkWrapper.setVisible(true);
-                            FrameManager.stashHelperContainer.refresh();
                         } else if (e.getButton() == MouseEvent.BUTTON3) {
                             FrameManager.itemIgnoreWindow.showWindow(tradeOffer.itemName);
                         }
@@ -123,7 +122,7 @@ public class TradeMessagePanel extends NotificationPanel {
         super.onInvite();
         if (stashHelperPanel != null) stashHelperPanel.setVisible(true);
         if (stashHelperBulkWrapper != null) stashHelperBulkWrapper.setVisible(true);
-        FrameManager.stashHelperContainer.refresh();
+        FrameManager.stashHelperContainerLegacy.refresh();
     }
 
     @Override
@@ -131,14 +130,14 @@ public class TradeMessagePanel extends NotificationPanel {
         super.cleanup();
         if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE) {
             if (stashHelperPanel != null) {
-                FrameManager.stashHelperContainer.remove(stashHelperPanel);
+                FrameManager.stashHelperContainerLegacy.remove(stashHelperPanel);
                 stashHelperPanel.cleanup();
             }
             if (stashHelperBulkWrapper != null) {
-                FrameManager.stashHelperContainer.remove(stashHelperBulkWrapper);
+                FrameManager.stashHelperContainerLegacy.remove(stashHelperBulkWrapper);
                 stashHelperBulkWrapper.cleanup();
             }
-            FrameManager.stashHelperContainer.refresh();
+            FrameManager.stashHelperContainerLegacy.refresh();
         }
     }
 

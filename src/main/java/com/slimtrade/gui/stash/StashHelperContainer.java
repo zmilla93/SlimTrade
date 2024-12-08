@@ -1,6 +1,8 @@
 package com.slimtrade.gui.stash;
 
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.POEWindow;
+import com.slimtrade.core.poe.POEWindowListener;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.windows.BasicDialog;
@@ -17,7 +19,7 @@ import java.awt.*;
  * @see StashHelperPanel
  * @see StashHelperBulkWrapper
  */
-public class StashHelperContainer extends BasicDialog implements IThemeListener, ISaveListener {
+public abstract class StashHelperContainer extends BasicDialog implements POEWindowListener, IThemeListener, ISaveListener {
 
     private static final int DEFAULT_OFFSET = 30;
     private static final int FOLDER_OFFSET = 75;
@@ -34,9 +36,12 @@ public class StashHelperContainer extends BasicDialog implements IThemeListener,
         updateLocation();
         ThemeManager.addThemeListener(this);
         SaveManager.stashSaveFile.addListener(this);
+        POEWindow.addListener(this);
     }
 
     public void updateLocation() {
+//        Rectangle stashBounds = POEWindow.getPoe1StashBonds();
+//        setLocation(stashBounds.x, stashBounds.y);
         if (SaveManager.stashSaveFile.data.gridRect == null) return;
         Point target = SaveManager.stashSaveFile.data.gridRect.getLocation();
         int offset = SaveManager.settingsSaveFile.data.folderOffset ? FOLDER_OFFSET : DEFAULT_OFFSET;
@@ -56,13 +61,18 @@ public class StashHelperContainer extends BasicDialog implements IThemeListener,
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(component, gc);
         refresh();
+        pack();
+        revalidate();
+        repaint();
+        updateLocation();
     }
 
     public void refresh() {
+        pack();
         revalidate();
         repaint();
-        pack();
-        updateLocation();
+        // FIXME : Refresh no longer updates location. Make sure this is accounted for!
+//        updateLocation();
     }
 
     public JPanel getContentPanel() {
