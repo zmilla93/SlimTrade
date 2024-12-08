@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * A platform independent representation of the Path of Exile game window.
  * Used to calculate the screen location of in game UI elements, or to pin things relative to the game window.
- * Can be updated using the bounds of a monitor, or by listening to platform specific window events.
+ * Bounds can be updated via different {@link GameDetectionMethod}s.
  * Attach a {@link POEWindowListener} to listen for events.
  */
 // TODO : Could also add the option to manually define the game window region to support Mac/Linux users who play in windowed mode.

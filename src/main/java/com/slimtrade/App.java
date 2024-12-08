@@ -60,7 +60,7 @@ public class App {
     private static boolean isRunningSetup = false;
 
     // Debug Flags - The commented flags can be used as program arguments
-    // Suggested dev flags: -d -no -ui -o
+    // Suggested dev flags: -d -nu -ui -o
     // Also add -ea as a VM option (not program argument) to enable assertions
     public static boolean debug = false; //  -d, -debug: enables various developer windows and features
     public static boolean noUpdate = false; // -nu, -noupdate: disable update check
