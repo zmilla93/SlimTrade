@@ -52,7 +52,7 @@ public class App {
 
     public static ChatParser chatParser;
 
-    public static AppInfo appInfo;
+    private static AppInfo appInfo;
     private static AppState state = AppState.LOADING;
     private static AppState previousState = AppState.LOADING;
     private static boolean themesHaveBeenInitialized = false;
@@ -107,12 +107,11 @@ public class App {
         logger.setUseParentHandlers(false);
 
         // Load save files & app info
-        appInfo = readAppInfo();
         SaveManager.init();
         profileLaunch("Time to start update");
 
         // Update
-        updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory(), appInfo, appInfo.appVersion.isPreRelease);
+        updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory(), getAppInfo(), getAppInfo().appVersion.isPreRelease);
         updateManager.continueUpdateProcess(args);
         if (!noUpdate) {
             if (updateManager.getCurrentUpdateAction() != UpdateAction.CLEAN && updateManager.isUpdateAvailable()) {
@@ -131,7 +130,7 @@ public class App {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
                 initializeThemes();
-                loadingWindow = new LoadingWindow(appInfo);
+                loadingWindow = new LoadingWindow(getAppInfo());
                 loadingWindow.setVisible(true);
             });
             profileLaunch("ThemeManager");
@@ -266,7 +265,12 @@ public class App {
         chatParser.open(SaveManager.settingsSaveFile.data.clientPath);
     }
 
-    public static AppInfo readAppInfo() {
+    public static AppInfo getAppInfo() {
+        if (appInfo == null) appInfo = readAppInfo();
+        return appInfo;
+    }
+
+    private static AppInfo readAppInfo() {
         Properties properties = new Properties();
         try {
             InputStream stream = new BufferedInputStream(Objects.requireNonNull(UpdateManager.class.getClassLoader().getResourceAsStream("project.properties")));

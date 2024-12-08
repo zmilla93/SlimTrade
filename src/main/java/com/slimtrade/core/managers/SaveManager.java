@@ -1,5 +1,6 @@
 package com.slimtrade.core.managers;
 
+import com.slimtrade.App;
 import com.slimtrade.core.data.IgnoreItemData;
 import com.slimtrade.core.saving.legacy.SaveFilePatcherManager;
 import com.slimtrade.core.saving.savefiles.*;
@@ -19,6 +20,10 @@ import java.util.ArrayList;
 public class SaveManager {
 
     // Install folder names
+    protected static Path persistentDataDirectory;
+    private static Path saveDirectoryPath;
+    private static Path backupDirectoryPath;
+    public static final String appName = App.getAppInfo().appName;
     public static final String folderWin = "SlimTrade";
     public static final String folderOther = ".slimtrade";
     private static final String backupSuffix = "-Backup";
@@ -40,7 +45,7 @@ public class SaveManager {
     private static String backupDirectory;
 
     // Save Files
-    public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectory() + "settings.json", SettingsSaveFile.class);
+    public static SaveFile<SettingsSaveFile> settingsSaveFile = new SaveFile<>(getSaveDirectoryPath().resolve("settings.json").toString(), SettingsSaveFile.class);
     public static SaveFile<AppStateSaveFile> appStateSaveFile = new SaveFile<>(getSaveDirectory() + "app_state.json", AppStateSaveFile.class);
     public static SaveFile<OverlaySaveFile> overlaySaveFile = new SaveFile<>(getSaveDirectory() + "overlay.json", OverlaySaveFile.class);
     public static SaveFile<StashSaveFile> stashSaveFile = new SaveFile<>(getSaveDirectory() + "stash.json", StashSaveFile.class);
@@ -126,15 +131,48 @@ public class SaveManager {
         return saveDirectory;
     }
 
-    public static String getBackupDirectory() {
-        if (backupDirectory == null) {
-            if (Platform.current == Platform.WINDOWS)
-                backupDirectory = System.getenv("LocalAppData") + File.separator + folderWin + backupSuffix + File.separator;
-            else
-                backupDirectory = System.getProperty("user.home") + File.separator + folderOther + backupSuffix.toLowerCase() + File.separator;
-            validateDirectory(backupDirectory);
+    public static Path getSaveDirectoryPath() {
+        if (saveDirectoryPath == null) {
+            if (Platform.current == Platform.WINDOWS) saveDirectoryPath = getPersistentDataDirectory().resolve(appName);
+            else saveDirectoryPath = getPersistentDataDirectory().resolve("." + appName.toLowerCase());
+            validatePath(saveDirectoryPath);
         }
-        return backupDirectory;
+        return saveDirectoryPath;
+    }
+
+    public static Path getBackupDirectoryPath() {
+        if (backupDirectoryPath == null) {
+            if (Platform.current == Platform.WINDOWS)
+                backupDirectoryPath = getPersistentDataDirectory().resolve(appName + backupSuffix);
+            else
+                backupDirectoryPath = getPersistentDataDirectory().resolve("." + appName.toLowerCase() + backupSuffix.toLowerCase());
+            validatePath(backupDirectoryPath);
+        }
+        return backupDirectoryPath;
+    }
+
+    /**
+     * Returns a directory to store a persistent app data folder based on the current {@link Platform}.
+     */
+    private static Path getPersistentDataDirectory() {
+        if (persistentDataDirectory == null) {
+            if (Platform.current == Platform.WINDOWS)
+                persistentDataDirectory = Paths.get(System.getenv("LocalAppData"));
+            else
+                persistentDataDirectory = Paths.get(System.getProperty("user.home"));
+        }
+        return persistentDataDirectory;
+    }
+
+    /// Ensures that all directories in a path exist. Throws a fatal exception if validation fails.
+    public static Path validatePath(Path path) {
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            ZLogger.err("Failed to validate path: " + path);
+            throw new RuntimeException(e);
+        }
+        return path;
     }
 
     public static String validateDirectory(String path) {
@@ -177,8 +215,8 @@ public class SaveManager {
 
     public static void createBackup() {
         try {
-            deleteDirectoryContents(Paths.get(getBackupDirectory()));
-            copyFilesRecursively(Paths.get(getSaveDirectory()), Paths.get(getBackupDirectory()));
+            deleteDirectoryContents(getBackupDirectoryPath());
+            copyFilesRecursively(getSaveDirectoryPath(), getBackupDirectoryPath());
             ZLogger.log("Created new backup.");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -187,9 +225,9 @@ public class SaveManager {
 
     public static void loadBackup() {
         try {
-            deleteDirectoryContents(Paths.get(getSaveDirectory()));
-            copyFilesRecursively(Paths.get(getBackupDirectory()), Paths.get(getSaveDirectory()));
-            // FIXME : Call load from file on all files, then revert UI.
+            deleteDirectoryContents(getSaveDirectoryPath());
+            copyFilesRecursively(getBackupDirectoryPath(), getSaveDirectoryPath());
+            // FIXME : Call loadFromDisk on all save files, then revert UI.
             ZLogger.log("Loaded backup.");
         } catch (IOException e) {
             throw new RuntimeException(e);

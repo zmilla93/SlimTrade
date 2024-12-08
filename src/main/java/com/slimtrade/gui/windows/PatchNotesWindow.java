@@ -33,7 +33,7 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
         pinButton.setVisible(false);
 
         // Combo
-        ArrayList<PatchNotesEntry> entries = App.updateManager.getPatchNotes(App.appInfo.appVersion);
+        ArrayList<PatchNotesEntry> entries = App.updateManager.getPatchNotes(App.getAppInfo().appVersion);
         if (entries != null && entries.size() > 0) {
             for (int i = 0; i < entries.size(); i++) {
                 PatchNotesEntry entry = entries.get(i);

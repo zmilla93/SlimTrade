@@ -35,7 +35,7 @@ public class UpdateProgressWindow extends JFrame implements IThemeListener, IUpd
 
         JPanel innerPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        innerPanel.add(new StyledLabel("Updating to " + appInfo.name + targetVersion + "...").bold(), gc);
+        innerPanel.add(new StyledLabel("Updating to " + appInfo.appName + targetVersion + "...").bold(), gc);
         gc.gridy++;
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.weightx = 1;

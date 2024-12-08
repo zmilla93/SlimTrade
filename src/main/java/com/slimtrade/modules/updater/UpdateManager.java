@@ -100,7 +100,7 @@ public class UpdateManager {
                 ZLogger.log("Creating update progress window.");
                 App.initializeThemes();
                 VisibilityManager.hideAllFrames();
-                FrameManager.updateProgressWindow = new UpdateProgressWindow(App.appInfo, getLatestRelease().appVersion);
+                FrameManager.updateProgressWindow = new UpdateProgressWindow(App.getAppInfo(), getLatestRelease().appVersion);
                 addProgressListener(FrameManager.updateProgressWindow);
                 FrameManager.updateProgressWindow.setVisible(true);
                 FrameManager.updateProgressWindow.setAlwaysOnTop(true);

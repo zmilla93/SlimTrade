@@ -151,7 +151,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.gridy = 0;
-        String appName = App.appInfo.fullName;
+        String appName = App.getAppInfo().fullName;
         if (App.debug) appName += "-DEV";
         bottomButtonPanel.add(new StyledLabel(appName).bold(), gc);
         gc.gridy++;

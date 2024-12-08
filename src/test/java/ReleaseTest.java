@@ -19,9 +19,9 @@ public class ReleaseTest {
     @Test
     public void checkAppSettings() {
         // TODO : Make sure this has all relevant info
-        AppInfo appInfo = App.readAppInfo();
+        AppInfo appInfo = App.getAppInfo();
         if (appInfo == null) fail();
-        assertEquals("SlimTrade", appInfo.name);
+        assertEquals("SlimTrade", appInfo.appName);
         assertEquals("SlimTrade", SaveManager.folderWin);
         assertEquals(".slimtrade", SaveManager.folderOther);
         assertEquals("SlimTrade", References.GITHUB_REPO);

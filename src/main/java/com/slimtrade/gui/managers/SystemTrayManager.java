@@ -27,7 +27,7 @@ public class SystemTrayManager {
         Image img = new ImageIcon(Objects.requireNonNull(SystemTrayManager.class.getResource(DefaultIcon.CHAOS_ORB.path()))).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
         TrayIcon trayIcon = new TrayIcon(img);
         trayIcon.setImageAutoSize(true);
-        trayIcon.setToolTip(App.appInfo.fullName);
+        trayIcon.setToolTip(App.getAppInfo().fullName);
         trayIcon.setPopupMenu(popupMenu);
         trayIcon.addActionListener(e -> {
             if (App.getState() == AppState.RUNNING) FrameManager.optionsWindow.setVisible(true);

@@ -222,7 +222,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public AppVersion appVersion() {
         if (appVersion == null) {
             appVersion = new AppVersion(appVersionString);
-            if (!appVersion.valid) appVersion = new AppVersion(App.appInfo.appVersion.toString());
+            if (!appVersion.valid) appVersion = new AppVersion(App.getAppInfo().appVersion.toString());
         }
         return appVersion;
     }
