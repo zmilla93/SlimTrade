@@ -11,7 +11,7 @@ import java.awt.*;
 public class POEWindow {
 
     // FIXME : Is title actually needed? It isn't very useful and it won't be set correctly when using monitor bounds anyway.
-    private static String title;
+//    private static String title;
     private static Rectangle gameBounds;
     private static Rectangle poe1StashBounds;
     private static Dimension poe1StashCellSize;
@@ -29,18 +29,18 @@ public class POEWindow {
         dialog.setVisible(true);
     }
 
-    public static void setWindow(String title, Rectangle gameBounds) {
-        setTitle(title);
-        setGameBounds(gameBounds);
-    }
+//    public static void setWindow(String title, Rectangle gameBounds) {
+////        setTitle(title);
+//        setGameBounds(gameBounds);
+//    }
 
-    public static String getTitle() {
-        return title;
-    }
-
-    public static void setTitle(String title) {
-        POEWindow.title = title;
-    }
+//    public static String getTitle() {
+//        return title;
+//    }
+//
+//    public static void setTitle(String title) {
+//        POEWindow.title = title;
+//    }
 
     public static Rectangle getGameBounds() {
         return gameBounds;

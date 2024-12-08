@@ -3,11 +3,9 @@ package com.slimtrade.core.jna;
 import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.Platform;
-import com.slimtrade.modules.updater.ZLogger;
 import com.sun.jna.Native;
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
-import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinDef;
 
 import java.awt.*;
@@ -19,7 +17,7 @@ import java.awt.*;
  */
 public class NativeWindow {
 
-    public static NativeWindow gameWindow;
+    private static NativeWindow gameWindow;
 
     public final String title;
     public final WinDef.HWND handle;
@@ -28,19 +26,12 @@ public class NativeWindow {
     public NativeWindow(String title, WinDef.HWND handle) {
         this.title = title;
         this.handle = handle;
-        updateBounds();
-        POEWindow.setWindow(title, bounds);
+        bounds = WindowUtils.getWindowLocationAndSize(handle);
     }
 
-    public void updateBounds() {
-        if (handle == null) {
-            ZLogger.err("Null window handle with title: " + title);
-        }
-        try {
-            bounds = WindowUtils.getWindowLocationAndSize(handle);
-        } catch (Win32Exception e) {
-            ZLogger.err("Win32 Exception on handle '" + handle + "' with title " + title);
-        }
+    public void updateGameBounds() {
+        assert POEInterface.gameTitleSet.contains(title);
+        bounds = WindowUtils.getWindowLocationAndSize(handle);
         System.out.println("Bounds: " + bounds);
         POEWindow.setGameBounds(bounds);
     }
@@ -52,6 +43,7 @@ public class NativeWindow {
     public static void setGameWindow(NativeWindow window) {
         assert POEInterface.gameTitleSet.contains(window.title);
         gameWindow = window;
+        gameWindow.updateGameBounds();
     }
 
     public static String getWindowTitle(WinDef.HWND handle) {
@@ -61,6 +53,7 @@ public class NativeWindow {
     public static NativeWindow getFocusedWindow() {
         if (Platform.current == Platform.WINDOWS) {
             WinDef.HWND handle = User32.INSTANCE.GetForegroundWindow();
+            if (handle == null) return null;
             String title = getWindowTitle(handle);
             return new NativeWindow(title, handle);
         }
