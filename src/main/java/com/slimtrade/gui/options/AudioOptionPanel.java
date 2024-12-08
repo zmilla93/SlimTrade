@@ -67,7 +67,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable, F
     }
 
     private void addListeners() {
-        openFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getAudioDirectory()));
+        openFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getAudioDirectory().toString()));
     }
 
     private void updateSoundCombos() {

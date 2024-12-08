@@ -3,7 +3,6 @@ package com.slimtrade.core.utility;
 import com.slimtrade.App;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.modules.updater.ZLogger;
-import com.slimtrade.modules.updater.data.AppInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -198,6 +197,7 @@ public class ZUtil {
         return false;
     }
 
+    // FIXME : Switch to path!
     public static void openExplorer(String path) {
         File targetDir = new File(path);
         if (!targetDir.exists()) {

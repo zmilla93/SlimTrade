@@ -1,10 +1,15 @@
 ## Path of Exile 2
 - Full support for Path of Exile 2 coming soon... :)
 
+# POE Window Detection
+- A new window detection system is replacing having to manually mark your stash location
+- The game window can be detected automatically (windows only), set to a monitor, or marked manually
+- Stash location (and other POE UI elements) are then calculated using the game window
+- **Be sure to report any alignment issues with the new system!**
+
 ## Improvements
 - Many small UI improvements
 - Reordering UI elements now uses click & drag
--
 - Fixed a crash on systems that don't support a system tray.
 
 ## Cloud Gaming

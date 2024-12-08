@@ -21,8 +21,6 @@ public class SaveManager {
 
     // Install folder names
     protected static Path persistentDataDirectory;
-    private static Path saveDirectoryPath;
-    private static Path backupDirectoryPath;
     public static final String appName = App.getAppInfo().appName;
     public static final String folderWin = "SlimTrade";
     public static final String folderOther = ".slimtrade";
@@ -35,9 +33,13 @@ public class SaveManager {
     private static final String logFolderName = "logs";
     private static final String debugFolderName = "debug";
 
-    // Full paths
+    // Full Paths
+    private static Path saveDirectoryPath;
+    private static Path backupDirectoryPath;
+    private static final Path audioDirectory = getSaveDirectoryPath().resolve("audio");
+
+    // Full Paths (OLD)
     private static String saveDirectory;
-    private static String audioDirectory;
     private static String logsDirectory;
     private static String imagesDirectory;
     private static String debugDirectory;
@@ -96,12 +98,6 @@ public class SaveManager {
         stashSaveFile.addListener(() -> stashSaveFile.data.buildCache());
     }
 
-    public static String getAudioDirectory() {
-        if (audioDirectory == null)
-            audioDirectory = validateDirectory(getSaveDirectory() + audioFolderName + File.separator);
-        return audioDirectory;
-    }
-
     public static String getImagesDirectory() {
         if (imagesDirectory == null)
             imagesDirectory = validateDirectory(getSaveDirectory() + imagesFolderName + File.separator);
@@ -118,6 +114,10 @@ public class SaveManager {
         if (ninjaDirectory == null)
             ninjaDirectory = validateDirectory(getSaveDirectory() + "ninja" + File.separator);
         return ninjaDirectory;
+    }
+
+    public static Path getAudioDirectory() {
+        return validatePath(audioDirectory);
     }
 
     public static String getSaveDirectory() {

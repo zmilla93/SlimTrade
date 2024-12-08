@@ -1,16 +1,17 @@
 package com.slimtrade.core.audio;
 
 import com.slimtrade.core.managers.SaveManager;
-import com.slimtrade.modules.updater.ZLogger;
 
-import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
- * Represents a .wav audio file somewhere on disk. Can either be Inbuilt or Custom.
- * Inbuilt files come packaged with the .jar file, while custom files are supplied by the user via the audio folder.
+ * Represents a .wav audio file somewhere on disk,
+ * either in the JAR file (INBUILT) or in the SlimTrade audio directory (CUSTOM).
  */
 public class Sound {
 
@@ -19,7 +20,8 @@ public class Sound {
     public final String name;
     public SoundType soundType;
 
-    private transient String path;
+    private transient String pathString;
+    private transient Path path;
     private transient URL url;
 
     public Sound(String name, SoundType soundType) {
@@ -27,54 +29,46 @@ public class Sound {
         this.soundType = soundType;
         if (soundType == SoundType.INBUILT) {
             this.name = name;
+            pathString = "/audio/" + name.toLowerCase().replaceAll(" ", "") + ".wav";
         } else if (soundType == SoundType.CUSTOM) {
             this.name = name.replaceFirst("\\.wav\\Z", "");
-            path = SaveManager.getAudioDirectory() + name;
+            pathString = name;
         } else {
             this.name = "UNDEFINED_SOUND_TYPE";
         }
     }
 
-    public String getPath() {
-        if (path == null) {
-            if (soundType == SoundType.INBUILT) {
-                path = "/audio/" + name.toLowerCase().replaceAll(" ", "") + ".wav";
-            } else if (soundType == SoundType.CUSTOM) {
-                path = SaveManager.getAudioDirectory() + name + ".wav";
+    public Path getPath() {
+        if (path != null) return path;
+        if (soundType == SoundType.INBUILT) {
+            try {
+                path = Paths.get(getURL().toURI());
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
             }
+        } else if (soundType == SoundType.CUSTOM) {
+            path = SaveManager.getAudioDirectory().resolve(pathString);
         }
         return path;
     }
 
     public URL getURL() {
-        if (url == null) {
-            if (soundType == SoundType.INBUILT) {
-                this.url = getClass().getClassLoader().getResource(getPath());
-            } else if (soundType == SoundType.CUSTOM) {
-                File file = new File(getPath());
-                try {
-                    url = file.toURI().toURL();
-                } catch (MalformedURLException e) {
-                    ZLogger.err("Malformed sound URL: " + getPath());
-                    return null;
-                }
+        if (url != null) return url;
+        if (soundType == SoundType.INBUILT) {
+            this.url = Objects.requireNonNull(getClass().getResource(pathString));
+        } else if (soundType == SoundType.CUSTOM) {
+            try {
+                this.url = getPath().toUri().toURL();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
             }
         }
         return url;
     }
 
-    public boolean fileExists() {
-        if (soundType == SoundType.INBUILT) {
-            URL url = getClass().getResource(getPath());
-            return url != null;
-        } else {
-            File file = new File(getPath());
-            return file.exists() && file.isFile();
-        }
-    }
-
+    /// A more debug friendly version of toString().
     public String getDetails() {
-        return "Sound[" + soundType + ", " + path + "]";
+        return "Sound[" + soundType + ", " + pathString + "]";
     }
 
     @Override

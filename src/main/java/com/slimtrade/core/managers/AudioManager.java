@@ -147,16 +147,16 @@ public class AudioManager {
      * Adds all .wav files in the audio directory to the sound lists.
      */
     private static void addCustomSoundFiles() {
-        File audioDir = new File(SaveManager.getAudioDirectory());
-        if (audioDir.exists()) {
-            for (File file : Objects.requireNonNull(audioDir.listFiles())) {
-                if (file.getName().endsWith(".wav")) {
-                    Sound sound = new Sound(file.getName(), Sound.SoundType.CUSTOM);
-                    soundFiles.add(sound);
-                    customSoundFiles.add(sound);
-                }
+        File audioFolder = SaveManager.getAudioDirectory().toFile();
+        if (!SaveManager.getAudioDirectory().toFile().exists()) return;
+        for (File file : Objects.requireNonNull(audioFolder.listFiles())) {
+            if (file.getName().endsWith(".wav")) {
+                Sound sound = new Sound(file.getName(), Sound.SoundType.CUSTOM);
+                soundFiles.add(sound);
+                customSoundFiles.add(sound);
             }
         }
+
     }
 
     /**
@@ -170,17 +170,12 @@ public class AudioManager {
         try {
             Clip clip = AudioSystem.getClip();
             if (sound.soundType == Sound.SoundType.CUSTOM) {
-                File file = new File(sound.getPath());
-                if (!file.exists()) {
+                if (!sound.getPath().toFile().exists()) {
                     ZLogger.err("Audio file not found: " + sound.getDetails());
                     return null;
                 }
             }
-            if (sound.soundType == Sound.SoundType.INBUILT) {
-                stream = AudioSystem.getAudioInputStream(Objects.requireNonNull(AudioManager.class.getResource(sound.getPath())));
-            } else {
-                stream = AudioSystem.getAudioInputStream(sound.getURL());
-            }
+            stream = AudioSystem.getAudioInputStream(sound.getURL());
             clip.open(stream);
             final AudioInputStream finalStream = stream;
             clip.addLineListener(event -> {

@@ -47,12 +47,12 @@ public class FileMonitor {
         }
     }
 
-    public FileMonitor(String pathString) {
-        path = Paths.get(pathString);
+    public FileMonitor(Path path) {
+        this.path = path;
     }
 
-    public FileMonitor(String pathString, FileChangeListener listener) {
-        this(pathString);
+    public FileMonitor(Path path, FileChangeListener listener) {
+        this(path);
         listeners.add(listener);
     }
 
@@ -135,11 +135,11 @@ public class FileMonitor {
         listeners.clear();
     }
 
-    public static FileMonitor startNewMonitor(String path) {
+    public static FileMonitor startNewMonitor(Path path) {
         return new FileMonitor(path).start();
     }
 
-    public static FileMonitor startNewMonitor(String path, FileChangeListener listener) {
+    public static FileMonitor startNewMonitor(Path path, FileChangeListener listener) {
         return new FileMonitor(path, listener).start();
     }
 
