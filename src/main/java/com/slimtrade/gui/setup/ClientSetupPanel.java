@@ -1,85 +1,47 @@
 package com.slimtrade.gui.setup;
 
-import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.Game;
 import com.slimtrade.core.utility.ZUtil;
-import com.slimtrade.gui.components.ClientFileChooser;
+import com.slimtrade.gui.components.slimtrade.POEFolderPicker;
+import com.slimtrade.gui.components.slimtrade.POEInstallFolderExplanationPanel;
+import com.slimtrade.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class ClientSetupPanel extends AbstractSetupPanel {
 
-    private final JButton browseButton = new JButton("Browse");
-    private final JTextField clientTextField = new JTextField(25);
-    private final JFileChooser fileChooser = new ClientFileChooser();
+    //    private final JCheckBox poe1NotInstalledCheckbox = new JCheckBox("Not Installed");
+//    private final JCheckBox poe2NotInstalledCheckbox = new JCheckBox("Not Installed");
+    private final JButton moreInfoButton = new JButton("Detailed Explanation");
 
-    public ClientSetupPanel(JButton button) {
-        super(button);
-        contentPanel.setLayout(new GridBagLayout());
-        clientTextField.setEditable(false);
+    public ClientSetupPanel(JButton nextButton) {
+        super(nextButton);
+        AbstractOptionPanel panel = new AbstractOptionPanel(false, false);
+        POEInstallFolderExplanationPanel moreInfoPanel = new POEInstallFolderExplanationPanel(true, false);
+        panel.addHeader("Path of Exile Install Folder");
+        panel.addComponent(new JLabel("SlimTrade needs to know where Path of Exile is installed in order to read chat logs."));
+        panel.addComponent(new JLabel("Select the folder named 'Path of Exile' or 'Path of Exile 2'."));
+        panel.addVerticalStrut();
+        panel.addHeader(Game.PATH_OF_EXILE_1.toString());
+        panel.addComponent(new POEFolderPicker());
+        panel.addVerticalStrut();
+        panel.addHeader(Game.PATH_OF_EXILE_2.toString());
+        panel.addComponent(new POEFolderPicker());
+        panel.addVerticalStrut();
+        panel.addComponent(moreInfoButton);
+        panel.addComponent(moreInfoPanel);
 
-        JPanel selectionPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gc = ZUtil.getGC();
-        ArrayList<String> paths = SaveManager.getPotentialClients();
-        for (String s : paths) {
-            JButton selectButton = new JButton("Select");
-            selectionPanel.add(selectButton, gc);
-            gc.gridx++;
-            gc.fill = GridBagConstraints.HORIZONTAL;
-            selectionPanel.add(new JLabel(s), gc);
-            gc.fill = GridBagConstraints.NONE;
-            gc.gridx = 0;
-            gc.gridy++;
-            selectButton.addActionListener(e -> {
-                clientTextField.setText(s);
-                validateNextButton();
-            });
-        }
-
-        selectionPanel.add(browseButton, gc);
-        gc.gridx++;
-        gc.fill = GridBagConstraints.HORIZONTAL;
-        selectionPanel.add(clientTextField, gc);
-        gc.fill = GridBagConstraints.NONE;
-
-        contentPanel.add(new JLabel("Select Path of Exile's Client.txt file."), gc);
-        gc.gridy++;
-        contentPanel.add(new JLabel("This is located in the logs folder of Path of Exile's install folder."), gc);
-        gc.gridy++;
-
-        gc.insets.top = 10;
-        contentPanel.add(selectionPanel, gc);
-        gc.insets.top = 0;
-        gc.gridy++;
-
-        addListeners();
-    }
-
-    private void addListeners() {
-        browseButton.addActionListener(e -> {
-            int result = fileChooser.showOpenDialog(ClientSetupPanel.this);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                clientTextField.setText(fileChooser.getSelectedFile().getPath());
-                validateNextButton();
-            }
+        contentPanel.add(panel, BorderLayout.CENTER);
+        moreInfoButton.addActionListener(e -> {
+            moreInfoPanel.setVisible(!moreInfoPanel.isVisible());
+            ZUtil.packComponentWindow(this);
         });
-    }
-
-    public String getClientPath() {
-        return clientTextField.getText();
-    }
-
-    @Override
-    public void updateUI() {
-        super.updateUI();
-        if (fileChooser != null) fileChooser.updateUI();
     }
 
     @Override
     public boolean isSetupValid() {
-        String text = clientTextField.getText();
-        return !text.trim().equals("");
+        return true;
     }
 
 }

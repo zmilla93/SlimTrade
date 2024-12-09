@@ -15,25 +15,25 @@ public class ComponentPanel extends JPanel {
 
     private static final int DEFAULT_HORIZONTAL_INSET = GUIReferences.SMALL_INSET;
 
-    private final int inset;
+    private final int gapBetweenComponents;
     private final GridBagConstraints gc = ZUtil.getGC();
 
     public ComponentPanel() {
         this(DEFAULT_HORIZONTAL_INSET);
     }
 
-    public ComponentPanel(int inset) {
+    public ComponentPanel(int gapBetweenComponents) {
         super(new GridBagLayout());
-        this.inset = inset;
+        this.gapBetweenComponents = gapBetweenComponents;
     }
 
     public ComponentPanel(JComponent... components) {
         this(DEFAULT_HORIZONTAL_INSET, components);
     }
 
-    public ComponentPanel(int inset, JComponent... components) {
+    public ComponentPanel(int gapBetweenComponents, JComponent... components) {
         super(new GridBagLayout());
-        this.inset = inset;
+        this.gapBetweenComponents = gapBetweenComponents;
         for (JComponent component : components) add(component);
     }
 
@@ -41,7 +41,7 @@ public class ComponentPanel extends JPanel {
     public Component add(Component comp) {
         super.add(comp, gc);
         gc.gridx++;
-        gc.insets.left = inset;
+        gc.insets.left = gapBetweenComponents;
         return comp;
     }
 

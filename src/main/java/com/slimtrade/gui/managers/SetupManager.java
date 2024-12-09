@@ -9,6 +9,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Generates a list of {@link SetupPhase}s, which are used by the {@link com.slimtrade.gui.setup.SetupWindow}
+ */
 public class SetupManager {
 
     private static ArrayList<SetupPhase> setupPhases;

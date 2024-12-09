@@ -4,6 +4,7 @@ import com.slimtrade.App;
 import com.slimtrade.core.utility.GUIReferences;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CustomScrollPane;
+import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.modules.updater.ZLogger;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,7 +39,7 @@ public class AbstractOptionPanel extends JPanel {
             contentPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
         }
         // FIXME: if insets are disable, should not add insets panel at all
-        if(addInsets){
+        if (addInsets) {
             insetPanel.add(Box.createVerticalStrut(CONTENT_PANEL_INSET), BorderLayout.NORTH);
             insetPanel.add(Box.createVerticalStrut(CONTENT_PANEL_INSET), BorderLayout.SOUTH);
             insetPanel.add(Box.createHorizontalStrut(CONTENT_PANEL_INSET), BorderLayout.EAST);
@@ -70,6 +71,18 @@ public class AbstractOptionPanel extends JPanel {
         contentPanel.add(Box.createVerticalStrut(2), gc);
         gc.gridy++;
         return headerPanel;
+    }
+
+    public JLabel addLabel(String text) {
+        JLabel label = new JLabel(text);
+        addComponent(label);
+        return label;
+    }
+
+    public StyledLabel addStyledLabel(String text) {
+        StyledLabel label = new StyledLabel(text);
+        addComponent(label);
+        return label;
     }
 
     public Component addComponent(Component component) {

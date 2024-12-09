@@ -19,6 +19,7 @@ import com.slimtrade.modules.updater.data.AppVersion;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.awt.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,7 +63,10 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public DateFormat historyDateFormat = DateFormat.MM_DD_YY;
 
     // Path of Exile
+    @Deprecated
     public String clientPath;
+    public Path poe1InstallDirectory;
+    public Path poe2InstallDirectory;
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
     public PathOfExileLeague pathOfExileLeague = PathOfExileLeague.TEMP;
 

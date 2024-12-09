@@ -1,41 +1,49 @@
 package com.slimtrade.gui.setup;
 
-import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class StashFolderSetupPanel extends AbstractSetupPanel {
 
-    private final JRadioButton yesButton = new JRadioButton("Yes");
-    private final JRadioButton noButton = new JRadioButton("No");
+    private final JRadioButton yesRadioButton = new JRadioButton("Yes");
+    private final JRadioButton noRadioButton = new JRadioButton("No");
 
     public StashFolderSetupPanel(JButton nextButton) {
         super(nextButton);
         ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(yesButton);
-        buttonGroup.add(noButton);
+        buttonGroup.add(yesRadioButton);
+        buttonGroup.add(noRadioButton);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
-        buttonPanel.add(yesButton);
-        buttonPanel.add(noButton);
+        buttonPanel.add(yesRadioButton);
+        buttonPanel.add(noRadioButton);
 
-        contentPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gc = ZUtil.getGC();
-        contentPanel.add(new JLabel("Are you using any stash folders?"), gc);
-        gc.gridy++;
-        contentPanel.add(buttonPanel, gc);
+        AbstractOptionPanel panel = new AbstractOptionPanel(false, false);
+        panel.addHeader("Stash Tab Folders");
+        panel.addComponent(new JLabel("Do you use any stash tab folders?"));
+        panel.addComponent(new JLabel("Using folders affects UI alignment. This settings needs to be updated manually."));
+        panel.addVerticalStrutSmall();
+        panel.addComponent(yesRadioButton);
+        panel.addComponent(noRadioButton);
 
-        yesButton.addActionListener(e -> validateNextButton());
-        noButton.addActionListener(e -> validateNextButton());
+//        contentPanel.setLayout(new GridBagLayout());
+//        GridBagConstraints gc = ZUtil.getGC();
+//        contentPanel.add(new JLabel("Do you use any stash tab folders?"), gc);
+//        gc.gridy++;
+        contentPanel.add(panel, BorderLayout.CENTER);
+
+        yesRadioButton.addActionListener(e -> validateNextButton());
+        noRadioButton.addActionListener(e -> validateNextButton());
     }
 
     public boolean isUsingFolders() {
-        return yesButton.isSelected();
+        return yesRadioButton.isSelected();
     }
 
     @Override
     public boolean isSetupValid() {
-        return yesButton.isSelected() || noButton.isSelected();
+        return yesRadioButton.isSelected() || noRadioButton.isSelected();
     }
 
 }

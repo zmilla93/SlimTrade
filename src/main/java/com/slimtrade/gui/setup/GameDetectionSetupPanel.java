@@ -19,12 +19,12 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     private static final String monitorHeader = "Monitor Selection";
     private static final String regionHeader = "Screen Region Selection";
 
-    private final JRadioButton automaticRadioButton = new JRadioButton("Automatically (Recommended)");
-    private final JRadioButton monitorRadioButton = new JRadioButton("Use a Monitor (Windowed Fullscreen Only)");
-    private final JRadioButton regionRadioButton = new JRadioButton("Manually Mark Screen Region");
+    private final JRadioButton automaticRadioButton = new JRadioButton("Automatically");
+    private final JRadioButton monitorRadioButton = new JRadioButton("Select Monitor (Windowed Fullscreen Only)");
+    private final JRadioButton regionRadioButton = new JRadioButton("Create Screen Region");
 
     // Automatic
-    private static final String automaticTestFail = "No Path of Exile window found! Make sure the game is open.";
+    private static final String automaticTestFail = "No game window found! Make sure Path of Exile 1 or 2 is running.";
     private static final String automaticTestSuccess = "Game window detected!";
     private final JButton automaticTestButton = new JButton("Detect");
     private final JLabel automaticTestLabel = new JLabel("Verify game detection is working.");
@@ -37,9 +37,8 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         buttonGroup.add(monitorRadioButton);
         buttonGroup.add(regionRadioButton);
 
-        AbstractOptionPanel optionPanel = new AbstractOptionPanel(false);
+        AbstractOptionPanel optionPanel = new AbstractOptionPanel(false, false);
         contentPanel.add(optionPanel, BorderLayout.CENTER);
-
 
         optionPanel.addHeader("Game Window Detection");
         optionPanel.addComponent(new JLabel("How should SlimTrade detect where the Path of Exile game window is?"));

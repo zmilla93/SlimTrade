@@ -24,6 +24,7 @@ public class SetupWindow extends JFrame {
     private final JButton previousButton = new JButton("Previous");
     public final JButton nextButton = new JButton(NEXT_TEXT);
 
+    private final LegacyClientSetupPanel legacyClientPanel = new LegacyClientSetupPanel(nextButton);
     private final ClientSetupPanel clientPanel = new ClientSetupPanel(nextButton);
     private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel(nextButton);
     private final StashSetupPanel stashPanel = new StashSetupPanel(nextButton);
@@ -79,6 +80,44 @@ public class SetupWindow extends JFrame {
         setLocationRelativeTo(null);
     }
 
+
+    /**
+     * Adds setup panels to the window based on the results of {@link SetupManager}.
+     */
+    public void buildSetupCardPanel() {
+        cardPanel.add(startPanel, Integer.toString(cardPanel.getComponentCount()));
+        for (SetupPhase phase : SetupManager.getSetupPhases()) {
+            switch (phase) {
+                case CLIENT_PATH:
+                    panelMap.put(cardPanel.getComponentCount(), legacyClientPanel);
+                    cardPanel.add(legacyClientPanel, Integer.toString(cardPanel.getComponentCount()));
+                    panelMap.put(cardPanel.getComponentCount(), clientPanel);
+                    cardPanel.add(clientPanel, Integer.toString(cardPanel.getComponentCount()));
+                    break;
+                case GAME_DETECTION_METHOD:
+                    panelMap.put(cardPanel.getComponentCount(), gameDetectionPanel);
+                    cardPanel.add(gameDetectionPanel, Integer.toString(cardPanel.getComponentCount()));
+                    break;
+                case STASH_POSITION:
+                    panelMap.put(cardPanel.getComponentCount(), stashPanel);
+                    cardPanel.add(stashPanel, Integer.toString(cardPanel.getComponentCount()));
+                    break;
+                case STASH_FOLDERS:
+                    panelMap.put(cardPanel.getComponentCount(), stashFolderPanel);
+                    cardPanel.add(stashFolderPanel, Integer.toString(cardPanel.getComponentCount()));
+                    break;
+            }
+        }
+        cardPanel.add(finishPanel, Integer.toString(cardPanel.getComponentCount()));
+        pack();
+        setLocationRelativeTo(null);
+    }
+
+    private void addSetupPanel(AbstractSetupPanel panel) {
+        panelMap.put(cardPanel.getComponentCount(), panel);
+        cardPanel.add(panel, Integer.toString(cardPanel.getComponentCount()));
+    }
+
     private void addListeners() {
         previousButton.addActionListener(e -> {
             if (panelIndex > 0) {
@@ -101,8 +140,8 @@ public class SetupWindow extends JFrame {
 
     private void finishSetup() {
         if (panelMap.values().size() > 0) {
-            if (clientPanel.isSetupValid())
-                SaveManager.settingsSaveFile.data.clientPath = clientPanel.getClientPath();
+            if (legacyClientPanel.isSetupValid())
+                SaveManager.settingsSaveFile.data.clientPath = legacyClientPanel.getClientPath();
             if (stashFolderPanel.isSetupValid()) {
                 SaveManager.settingsSaveFile.data.folderOffset = stashFolderPanel.isUsingFolders();
                 SaveManager.settingsSaveFile.data.initializedFolderOffset = true;
@@ -121,33 +160,6 @@ public class SetupWindow extends JFrame {
         else nextButton.setText("Finish");
         countLabel.setText(panelIndex + "/" + (cardPanel.getComponentCount() - 2));
         countLabel.setVisible(panelIndex > 0 && panelIndex < cardPanel.getComponentCount() - 1);
-    }
-
-    public void setup() {
-        cardPanel.add(startPanel, Integer.toString(cardPanel.getComponentCount()));
-        for (SetupPhase phase : SetupManager.getSetupPhases()) {
-            switch (phase) {
-                case CLIENT_PATH:
-                    panelMap.put(cardPanel.getComponentCount(), clientPanel);
-                    cardPanel.add(clientPanel, Integer.toString(cardPanel.getComponentCount()));
-                    break;
-                case GAME_DETECTION_METHOD:
-                    panelMap.put(cardPanel.getComponentCount(), gameDetectionPanel);
-                    cardPanel.add(gameDetectionPanel, Integer.toString(cardPanel.getComponentCount()));
-                    break;
-                case STASH_POSITION:
-                    panelMap.put(cardPanel.getComponentCount(), stashPanel);
-                    cardPanel.add(stashPanel, Integer.toString(cardPanel.getComponentCount()));
-                    break;
-                case STASH_FOLDERS:
-                    panelMap.put(cardPanel.getComponentCount(), stashFolderPanel);
-                    cardPanel.add(stashFolderPanel, Integer.toString(cardPanel.getComponentCount()));
-                    break;
-            }
-        }
-        cardPanel.add(finishPanel, Integer.toString(cardPanel.getComponentCount()));
-        pack();
-        setLocationRelativeTo(null);
     }
 
     public StashSetupPanel getStashPanel() {

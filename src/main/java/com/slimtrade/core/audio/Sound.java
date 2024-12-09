@@ -2,7 +2,6 @@ package com.slimtrade.core.audio;
 
 import com.slimtrade.core.managers.SaveManager;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;

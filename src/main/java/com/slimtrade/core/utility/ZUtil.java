@@ -31,6 +31,13 @@ public class ZUtil {
     private static final NumberFormat NUMBER_FORMATTER = new DecimalFormat("##.##");
     private static final NumberFormat NUMBER_FORMATTER_ONE_DECIMAL = new DecimalFormat("##.#");
 
+    // FIXME : Move this somewhere better?
+    // FIXME : Implement this anytime getTopLevelAncestor is used for packing
+    public static void packComponentWindow(JComponent component) {
+        Container window = component.getTopLevelAncestor();
+        if (window instanceof Window) ((Window) window).pack();
+    }
+
     /**
      * Returns a printable version of an enum name.
      *

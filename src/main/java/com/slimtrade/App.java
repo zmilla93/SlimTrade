@@ -192,7 +192,7 @@ public class App {
     private static void runSetupWizard() {
         isRunningSetup = true;
         SwingUtilities.invokeLater(() -> {
-            FrameManager.setupWindow.setup();
+            FrameManager.setupWindow.buildSetupCardPanel();
             FrameManager.setWindowVisibility(AppState.SETUP);
         });
     }
