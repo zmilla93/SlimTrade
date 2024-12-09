@@ -19,7 +19,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
     public POEFolderPicker(Game game) {
         super("Select the '" + game + "' install folder.");
         this.game = game;
-        notInstalledLabel = new ResultLabel(ResultStatus.INDETERMINATE, "If you ever install " + game + ", make sure to update this setting.");
+        notInstalledLabel = new ResultLabel(ResultStatus.INDETERMINATE, "If you ever install " + game + ", update this setting.");
         notInstalledLabel.setVisible(false);
         fileChooser = new POEFileChooser(game);
         JPanel pathWrapperPanel = new JPanel(new BorderLayout());
@@ -64,9 +64,9 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
         if (validFolderName) {
             Path logsFolder = path.resolve(SaveManager.POE_LOG_FOLDER_NAME);
             if (logsFolder.toFile().exists()) {
-                setErrorText("Everything looks correct!", ResultStatus.APPROVE);
+                setErrorText("Selected folder looks correct.", ResultStatus.APPROVE);
             } else {
-                setErrorText("Correct folder name, wrong folder! The install folder should contain a '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder.", ResultStatus.INDETERMINATE);
+                setErrorText("Correct folder name, wrong folder! The install folder must contain a '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder.", ResultStatus.INDETERMINATE);
             }
         } else {
             setErrorText("Folder should be named '" + game + "'.", ResultStatus.DENY);

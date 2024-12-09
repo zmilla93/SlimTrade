@@ -26,7 +26,7 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         super(nextButton);
         AbstractOptionPanel panel = new AbstractOptionPanel(false, false);
         panel.addHeader("Path of Exile Install Folder");
-        panel.addComponent(new JLabel("SlimTrade needs to know where Path of Exile is installed in order to read the game's chat logs."));
+        panel.addComponent(new JLabel("SlimTrade requires Path of Exile's install location to read chat logs."));
         panel.addVerticalStrut();
         panel.addHeader(Game.PATH_OF_EXILE_1.toString());
         panel.addComponent(poe1FolderPicker);
@@ -69,12 +69,12 @@ public class ClientSetupPanel extends AbstractSetupPanel {
             Path[] validDirectories = SaveManager.getValidGameDirectories(game);
             picker.createDuplicatePathPanels(validDirectories);
             if (validDirectories.length == 0)
-                picker.setErrorText("Failed to auto detect an install folder.", ResultStatus.DENY);
+                picker.setErrorText("Auto detection of install folder failed.", ResultStatus.DENY);
             else if (validDirectories.length == 1) {
                 picker.setSelectedPath(validDirectories[0]);
-                picker.setErrorText("Install folder auto detected, verify it looks correct.", ResultStatus.APPROVE);
+                picker.setErrorText("Install folder auto detected, verify it's correct.", ResultStatus.APPROVE);
             } else
-                picker.setErrorText("Multiple install folders auto detected, select the correct one.", ResultStatus.INDETERMINATE);
+                picker.setErrorText("Multiple install folders detected, select the correct one.", ResultStatus.INDETERMINATE);
         } else {
             if (path.toFile().isFile()) {
                 picker.setSelectedPath(path);
@@ -82,9 +82,9 @@ public class ClientSetupPanel extends AbstractSetupPanel {
                     if (path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists())
                         picker.setErrorText("Using a previously set install folder.", ResultStatus.APPROVE);
                     else
-                        picker.setErrorText("Using a previously set install folder, but the '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder no longer exists.", ResultStatus.INDETERMINATE);
+                        picker.setErrorText("Using a previously set install folder, but the '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder is missing.", ResultStatus.INDETERMINATE);
                 } else
-                    picker.setErrorText("An install folder was set previously, but no longer exists.", ResultStatus.APPROVE);
+                    picker.setErrorText("The previously set install folder no longer exists.", ResultStatus.INDETERMINATE);
             }
         }
     }
