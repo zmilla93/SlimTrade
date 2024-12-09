@@ -7,10 +7,10 @@ import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.slimtrade.POEFolderPicker;
 import com.slimtrade.gui.components.slimtrade.POEInstallFolderExplanationPanel;
 import com.slimtrade.gui.options.AbstractOptionPanel;
-import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.nio.file.Path;
 
 public class ClientSetupPanel extends AbstractSetupPanel {
@@ -44,7 +44,10 @@ public class ClientSetupPanel extends AbstractSetupPanel {
     }
 
     private void addListeners() {
-
+        poe1FolderPicker.addPathChangeListener(path -> runSetupValidation());
+        poe2FolderPicker.addPathChangeListener(path -> runSetupValidation());
+        poe1FolderPicker.notInstalledCheckbox.addActionListener(e -> runSetupValidation());
+        poe2FolderPicker.notInstalledCheckbox.addActionListener(e -> runSetupValidation());
         moreInfoButton.addActionListener(e -> {
             moreInfoPanel.setVisible(!moreInfoPanel.isVisible());
             ZUtil.packComponentWindow(this);
@@ -86,15 +89,30 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         }
     }
 
-    private void updateErrorLabel(JLabel label, ResultStatus resultStatus, String message) {
-        label.setText(message);
-        if (resultStatus == ResultStatus.APPROVE) label.setForeground(ThemeManager.getCurrentExtensions().approve);
-        if (resultStatus == ResultStatus.DENY) label.setForeground(ThemeManager.getCurrentExtensions().deny);
+
+    /**
+     * Verify that a given path points to the Path of Exile 1 or 2's install directory.
+     * Checks that the path isn't null, is a directory that ends with Path of Exile 1 or 2, and contains a 'logs' subfolder
+     */
+    // FIXME : Move somewhere more general?
+    private boolean isValidPOEFolder(Path path, Game game) {
+        if (path == null) return false;
+        if (!path.endsWith(game.toString())) return false;
+        File file = path.toFile();
+        boolean validFolder = file.exists() && file.isDirectory();
+        if (!validFolder) return false;
+        return path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists();
     }
 
     @Override
     public boolean isSetupValid() {
-        return true;
+        Path poe1Path = poe1FolderPicker.getSelectedPath();
+        Path poe2Path = poe2FolderPicker.getSelectedPath();
+        boolean poe1NotInstalled = poe1FolderPicker.notInstalledCheckboxValue();
+        boolean poe2NotInstalled = poe2FolderPicker.notInstalledCheckboxValue();
+        boolean validPoe1Path = poe1NotInstalled || isValidPOEFolder(poe1Path, Game.PATH_OF_EXILE_1);
+        boolean validPoe2Path = poe2NotInstalled || isValidPOEFolder(poe2Path, Game.PATH_OF_EXILE_2);
+        return validPoe1Path && validPoe2Path;
     }
 
 }

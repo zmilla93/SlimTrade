@@ -67,8 +67,8 @@ public class FilePicker extends JPanel {
             fileChooser.setSelectedFile(null);
         } else {
             File file = path.toFile();
-            if (file.isDirectory()) fileChooser.setCurrentDirectory(file.getParentFile());
             fileChooser.setSelectedFile(file);
+            if (file.isDirectory()) fileChooser.setCurrentDirectory(file);
         }
         String text = path == null ? noFileSelectedText : path.toString();
         pathLabel.setText(text);
@@ -82,7 +82,7 @@ public class FilePicker extends JPanel {
         errorLabel.setForeground(result.toColor());
     }
 
-    public void addListener(PathChangeListener listener) {
+    public void addPathChangeListener(PathChangeListener listener) {
         listeners.add(listener);
     }
 

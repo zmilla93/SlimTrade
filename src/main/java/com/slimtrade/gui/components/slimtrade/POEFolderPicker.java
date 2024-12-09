@@ -19,7 +19,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
     public POEFolderPicker(Game game) {
         super("Select the '" + game + "' install folder.");
         this.game = game;
-        notInstalledLabel = new ResultLabel(ResultStatus.INDETERMINATE, "If you ever install " + game + ", be sure to update this setting.");
+        notInstalledLabel = new ResultLabel(ResultStatus.INDETERMINATE, "If you ever install " + game + ", make sure to update this setting.");
         notInstalledLabel.setVisible(false);
         fileChooser = new POEFileChooser(game);
         JPanel pathWrapperPanel = new JPanel(new BorderLayout());
@@ -27,7 +27,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
         pathWrapperPanel.add(pathPanel, BorderLayout.SOUTH);
         add(notInstalledCheckbox, BorderLayout.NORTH);
         add(pathWrapperPanel, BorderLayout.SOUTH);
-        addListener(this);
+        addPathChangeListener(this);
         notInstalledCheckbox.addActionListener(e -> {
             boolean showMainComponents = !notInstalledCheckbox.isSelected();
             chooserPanel.setVisible(showMainComponents);
@@ -52,6 +52,10 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
             gc.gridy++;
             pathButton.addActionListener(e -> setSelectedPath(path));
         }
+    }
+
+    public boolean notInstalledCheckboxValue() {
+        return notInstalledCheckbox.isSelected();
     }
 
     @Override

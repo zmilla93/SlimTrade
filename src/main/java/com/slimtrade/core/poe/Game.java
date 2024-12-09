@@ -2,6 +2,7 @@ package com.slimtrade.core.poe;
 
 /**
  * An enum for knowing which version of Path of Exile is being referenced.
+ * The toString() value also matches the name of the Path of Exile's install folder, and the game's window title.
  */
 public enum Game {
 
