@@ -114,6 +114,18 @@ public class AbstractOptionPanel extends JPanel {
         return outerPanel;
     }
 
+    public Component addFullWidthComponent(Component component) {
+        int prevFill = gc.fill;
+        double prevWeightX = gc.weightx;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.weightx = 1;
+        contentPanel.add(component, gc);
+        gc.fill = prevFill;
+        gc.weightx = prevWeightX;
+        gc.gridy++;
+        return component;
+    }
+
     public Component addVerticalStrut() {
         Component strut = Box.createVerticalStrut(GUIReferences.INSET);
         addComponent(strut);
