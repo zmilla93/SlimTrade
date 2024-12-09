@@ -22,10 +22,14 @@ public class AbstractOptionPanel extends JPanel {
     private static final int CONTENT_PANEL_INSET = 10;
 
     public AbstractOptionPanel() {
-        this(true);
+        this(true, true);
     }
 
     public AbstractOptionPanel(boolean addScrollPanel) {
+        this(addScrollPanel, true);
+    }
+
+    public AbstractOptionPanel(boolean addScrollPanel, boolean addInsets) {
         setLayout(new BorderLayout());
         contentPanel = new JPanel(new GridBagLayout());
         JPanel insetPanel = new JPanel(new BorderLayout());
@@ -33,10 +37,13 @@ public class AbstractOptionPanel extends JPanel {
             setBackground(new Color(96, 236, 122));
             contentPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
         }
-        insetPanel.add(Box.createVerticalStrut(CONTENT_PANEL_INSET), BorderLayout.NORTH);
-        insetPanel.add(Box.createVerticalStrut(CONTENT_PANEL_INSET), BorderLayout.SOUTH);
-        insetPanel.add(Box.createHorizontalStrut(CONTENT_PANEL_INSET), BorderLayout.EAST);
-        insetPanel.add(Box.createHorizontalStrut(CONTENT_PANEL_INSET), BorderLayout.WEST);
+        // FIXME: if insets are disable, should not add insets panel at all
+        if(addInsets){
+            insetPanel.add(Box.createVerticalStrut(CONTENT_PANEL_INSET), BorderLayout.NORTH);
+            insetPanel.add(Box.createVerticalStrut(CONTENT_PANEL_INSET), BorderLayout.SOUTH);
+            insetPanel.add(Box.createHorizontalStrut(CONTENT_PANEL_INSET), BorderLayout.EAST);
+            insetPanel.add(Box.createHorizontalStrut(CONTENT_PANEL_INSET), BorderLayout.WEST);
+        }
         insetPanel.add(contentPanel, BorderLayout.CENTER);
         JPanel bufferPanel = new JPanel(new BorderLayout());
         bufferPanel.add(insetPanel, BorderLayout.NORTH);

@@ -22,6 +22,9 @@ public class NativeWindow {
     public final String title;
     public final WinDef.HWND handle;
     public Rectangle bounds;
+    private WinDef.HWND enumeratingHandle;
+    private static boolean enumerationSuccessFlag;
+    private NativeWindow enumeratingWindow;
 
     public NativeWindow(String title, WinDef.HWND handle) {
         this.title = title;
@@ -60,8 +63,9 @@ public class NativeWindow {
     }
 
     public static void focus(NativeWindow window) {
-        WinDef.HWND handle = window.handle;
+        if (window == null) return;
         setGameWindow(window);
+        WinDef.HWND handle = window.handle;
         User32.INSTANCE.SetForegroundWindow(handle);
         User32.INSTANCE.SetFocus(handle);
         User32.INSTANCE.ShowWindow(handle, User32.SW_SHOW);
@@ -76,55 +80,51 @@ public class NativeWindow {
             focus(gameWindow);
             return;
         }
-        // Enumerate through all windows. Loop continues until the callback returns false
-        User32.INSTANCE.EnumWindows((handle, arg1) -> {
-            char[] classNameBuffer = new char[512];
-            User32.INSTANCE.GetClassName(handle, classNameBuffer, 512);
-            String className = Native.toString(classNameBuffer);
-            // NOTE : Can print class name here for debugging/finding new window handles for cloud gaming
-//            System.out.println(className);
-            if (className.isEmpty()) return true;
-            // Path of Exile 1 & 2 windows have the class name POEWindowClass
-            if (className.equals("POEWindowClass")) {
-                String title = getWindowTitle(handle);
-                focus(new NativeWindow(title, handle));
-                return false;
-            }
-            // GeForce Now has the class name CEFCLIENT. Unsure if this is unique, so the window title is also checked.
-            if (className.equals("CEFCLIENT")) {
-                String title = getWindowTitle(handle);
-                if (POEInterface.gameTitleSet.contains(title)) {
-                    focus(new NativeWindow(title, handle));
-                    return false;
-                }
-            }
-            return true;
-        }, null);
+        findPathOfExileWindow(window -> focus(window));
     }
 
+    /**
+     * Enumerates through all open windows, looking for the Path of Exile 1 or 2 window.
+     */
     public static void findPathOfExileWindow(WindowCallback callback) {
-        User32.INSTANCE.EnumWindows((handle, arg1) -> {
-            char[] classNameBuffer = new char[512];
-            User32.INSTANCE.GetClassName(handle, classNameBuffer, 512);
+        System.out.println("Looking for window...");
+        boolean found = false;
+        setEnumerationSuccess(false);
+        User32.INSTANCE.EnumWindows((enumeratingHandle, arg1) -> {
+            // The class name string is truncated if it is longer than the buffer.
+            int BUFFER_SIZE = 64;
+            char[] classNameBuffer = new char[BUFFER_SIZE];
+            User32.INSTANCE.GetClassName(enumeratingHandle, classNameBuffer, BUFFER_SIZE);
             String className = Native.toString(classNameBuffer);
             // NOTE : Can print class name here for debugging/finding new window handles for cloud gaming
 //            System.out.println(className);
             if (className.isEmpty()) return true;
             // Path of Exile 1 & 2 windows have the class name POEWindowClass
             if (className.equals("POEWindowClass")) {
-                String title = getWindowTitle(handle);
-                callback.onWindowFound(title, handle);
+                String title = getWindowTitle(enumeratingHandle);
+                NativeWindow window = new NativeWindow(title, enumeratingHandle);
+                callback.onWindowFound(window);
+                setEnumerationSuccess(true);
                 return false;
             }
             // GeForce Now has the class name CEFCLIENT. Unsure if this is unique, so the window title is also checked.
             if (className.equals("CEFCLIENT")) {
-                String title = getWindowTitle(handle);
+                String title = getWindowTitle(enumeratingHandle);
                 if (POEInterface.gameTitleSet.contains(title)) {
-                    callback.onWindowFound(title, handle);
+                    NativeWindow window = new NativeWindow(title, enumeratingHandle);
+                    callback.onWindowFound(window);
+                    System.out.println("gfn window");
+                    setEnumerationSuccess(true);
                     return false;
                 }
             }
             return true;
         }, null);
+        if (!enumerationSuccessFlag) callback.onWindowFound(null);
     }
+
+    private static void setEnumerationSuccess(boolean success) {
+        enumerationSuccessFlag = success;
+    }
+
 }
