@@ -65,6 +65,9 @@ public class SettingsSaveFile extends AbstractSaveFile {
     // Path of Exile
     @Deprecated
     public String clientPath;
+    public boolean hasInitializedGamePaths;
+    public boolean poe1NotInstalled;
+    public boolean poe2NotInstalled;
     public Path poe1InstallDirectory;
     public Path poe2InstallDirectory;
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);

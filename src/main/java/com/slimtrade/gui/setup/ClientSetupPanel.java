@@ -21,13 +21,12 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         POEInstallFolderExplanationPanel moreInfoPanel = new POEInstallFolderExplanationPanel(true, false);
         panel.addHeader("Path of Exile Install Folder");
         panel.addComponent(new JLabel("SlimTrade needs to know where Path of Exile is installed in order to read chat logs."));
-        panel.addComponent(new JLabel("Select the folder named 'Path of Exile' or 'Path of Exile 2'."));
         panel.addVerticalStrut();
         panel.addHeader(Game.PATH_OF_EXILE_1.toString());
-        panel.addComponent(new POEFolderPicker());
+        panel.addComponent(new POEFolderPicker(Game.PATH_OF_EXILE_1));
         panel.addVerticalStrut();
         panel.addHeader(Game.PATH_OF_EXILE_2.toString());
-        panel.addComponent(new POEFolderPicker());
+        panel.addComponent(new POEFolderPicker(Game.PATH_OF_EXILE_2));
         panel.addVerticalStrut();
         panel.addComponent(moreInfoButton);
         panel.addComponent(moreInfoPanel);
