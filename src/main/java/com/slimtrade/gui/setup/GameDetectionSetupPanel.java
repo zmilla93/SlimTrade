@@ -5,6 +5,7 @@ import com.slimtrade.core.utility.Platform;
 import com.slimtrade.gui.components.ComponentPanel;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.slimtrade.gui.options.HeaderPanel;
+import com.slimtrade.modules.theme.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +59,6 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
         for (Enumeration<AbstractButton> buttonIterator = buttonGroup.getElements(); buttonIterator.hasMoreElements(); )
             addRadioButtonListener(buttonIterator.nextElement());
-
         if (Platform.current == Platform.WINDOWS) {
             setHeaderText(automaticHeader);
             automaticRadioButton.setSelected(true);
@@ -71,9 +71,15 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     }
 
     private void addListeners() {
+        // FIXME : Should create confirm/deny labels
         automaticTestButton.addActionListener(e -> NativeWindow.findPathOfExileWindow(window -> {
-            if (window == null) automaticTestLabel.setText(automaticTestFail);
-            else automaticTestLabel.setText(automaticTestSuccess);
+            if (window == null) {
+                automaticTestLabel.setForeground(ThemeManager.getCurrentExtensions().deny);
+                automaticTestLabel.setText(automaticTestFail);
+            } else {
+                automaticTestLabel.setForeground(ThemeManager.getCurrentExtensions().approve);
+                automaticTestLabel.setText(automaticTestSuccess);
+            }
         }));
     }
 

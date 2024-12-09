@@ -2,7 +2,7 @@
 
 ## Automatic Updating
 - New versions will automatically be installed at launch, or alert you depending on setting. Options > General > Toggle Features
-- Checks for a new version once a day, which result in an alert and one click install from the options menu.
+- Checks for a new version once a day, which resultStatus in an alert and one click install from the options menu.
 
 ## New Features
 - Player joined area indicators now work with all supported languages.

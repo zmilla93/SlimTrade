@@ -22,8 +22,14 @@ public abstract class AbstractSetupPanel extends JPanel {
 
     public abstract boolean isSetupValid();
 
-    public void validateNextButton() {
+    protected void runSetupValidation() {
         FrameManager.setupWindow.nextButton.setEnabled(isSetupValid());
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        // FIXME : Call runSetupValidation on setVisible(true) instead of wherever it is done currently
     }
 
 }

@@ -2,6 +2,7 @@ package com.slimtrade.core.managers;
 
 import com.slimtrade.App;
 import com.slimtrade.core.data.IgnoreItemData;
+import com.slimtrade.core.poe.Game;
 import com.slimtrade.core.saving.legacy.SaveFilePatcherManager;
 import com.slimtrade.core.saving.savefiles.*;
 import com.slimtrade.core.utility.Platform;
@@ -42,6 +43,9 @@ public class SaveManager {
     public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory().resolve("pins.json"), PinSaveFile.class);
     public static SaveFile<ChatScannerSaveFile> chatScannerSaveFile = new SaveFile<>(getSaveDirectory().resolve("scanner.json"), ChatScannerSaveFile.class);
     public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory().resolve("patch_notes.json"), PatchNotesSaveFile.class);
+
+    // Path of Exile
+    public static final String POE_LOG_FOLDER_NAME = "logs";
 
     public static void init() {
         // Load all save files from disk
@@ -148,7 +152,7 @@ public class SaveManager {
         return path;
     }
 
-
+    @Deprecated
     public static ArrayList<String> getPotentialClients() {
         ArrayList<String> paths = new ArrayList<>();
         for (String path : getCommonDirectories()) {
@@ -158,23 +162,54 @@ public class SaveManager {
         return paths;
     }
 
+    @Deprecated
     private static ArrayList<String> getCommonDirectories() {
         ArrayList<String> paths = new ArrayList<>();
+        // Iterates letters A - Z
+        for (int i = 65; i <= 90; i++) {
+            char driveLetter = (char) i;
+            // Stand Alone
+            paths.add(driveLetter + ":/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            paths.add(driveLetter + ":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            paths.add(driveLetter + ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            // Steam
+            paths.add(driveLetter + ":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(driveLetter + ":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(driveLetter + ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            // Steam Library
+            paths.add(driveLetter + ":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(driveLetter + ":/Program Files/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(driveLetter + ":/Program Files (x86)/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+        }
+        return paths;
+    }
+
+    public static Path[] getValidGameDirectories(Game game) {
+        ArrayList<Path> paths = getPotentialGameDirectories(game);
+        for (int i = paths.size() - 1; i >= 0; i--) {
+            Path path = paths.get(i);
+            if (!path.toFile().exists()) paths.remove(i);
+        }
+        return paths.toArray(new Path[0]);
+    }
+
+    private static ArrayList<Path> getPotentialGameDirectories(Game game) {
+        ArrayList<Path> paths = new ArrayList<>();
         // Iterates A - Z
         for (int i = 65; i <= 90; i++) {
             char letter = (char) i;
             // Stand Alone
-            paths.add(letter + ":/Grinding Gear Games/Path of Exile/logs/Client.txt");
-            paths.add(letter + ":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
-            paths.add(letter + ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
+            paths.add(Paths.get(letter + ":/Grinding Gear Games/" + game));
+            paths.add(Paths.get(letter + ":/Program Files/Grinding Gear Games/" + game));
+            paths.add(Paths.get(letter + ":/Program Files (x86)/Grinding Gear Games/" + game));
             // Steam
-            paths.add(letter + ":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(letter + ":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(letter + ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(Paths.get(letter + ":/Steam/steamapps/common/" + game));
+            paths.add(Paths.get(letter + ":/Program Files/Steam/steamapps/common/" + game));
+            paths.add(Paths.get(letter + ":/Program Files (x86)/Steam/steamapps/common/" + game));
             // Steam Library
-            paths.add(letter + ":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(letter + ":/Program Files/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(letter + ":/Program Files (x86)/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
+            paths.add(Paths.get(letter + ":/SteamLibrary/steamapps/common/" + game));
+            paths.add(Paths.get(letter + ":/Program Files/SteamLibrary/steamapps/common/" + game));
+            paths.add(Paths.get(letter + ":/Program Files (x86)/SteamLibrary/steamapps/common/" + game));
         }
         return paths;
     }

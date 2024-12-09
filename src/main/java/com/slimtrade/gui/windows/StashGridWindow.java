@@ -80,8 +80,9 @@ public class StashGridWindow extends CustomDialog implements ISavable, IThemeLis
         saveButton.addActionListener(e -> {
             save();
             SaveManager.stashSaveFile.saveToDisk();
-            if (FrameManager.setupWindow != null)
-                FrameManager.setupWindow.getStashPanel().validateNextButton();
+            // FIXME : REMOVE
+//            if (FrameManager.setupWindow != null)
+//                FrameManager.setupWindow.getStashPanel().validateNextButton();
             restorePreviousWindowVisibility();
         });
         cancelButton.addActionListener(e -> {

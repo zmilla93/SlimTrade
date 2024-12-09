@@ -33,7 +33,7 @@ public class LegacyClientSetupPanel extends AbstractSetupPanel {
             gc.gridy++;
             selectButton.addActionListener(e -> {
                 clientTextField.setText(s);
-                validateNextButton();
+                runSetupValidation();
             });
         }
 
@@ -61,7 +61,7 @@ public class LegacyClientSetupPanel extends AbstractSetupPanel {
             int result = fileChooser.showOpenDialog(LegacyClientSetupPanel.this);
             if (result == JFileChooser.APPROVE_OPTION) {
                 clientTextField.setText(fileChooser.getSelectedFile().getPath());
-                validateNextButton();
+                runSetupValidation();
             }
         });
     }

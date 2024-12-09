@@ -120,6 +120,10 @@ public class ThemeManager {
         return currentTheme;
     }
 
+    public static ThemeExtension getCurrentExtensions() {
+        return getCurrentTheme().extensions;
+    }
+
     // Apply custom patching for theme issues. This is a bit hacky, but should be good enough until the themes are updated.
     private static void patchTheme() {
         // If the text areas and panels have the same background, add a border to the text area.

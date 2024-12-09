@@ -87,8 +87,6 @@ public class NativeWindow {
      * Enumerates through all open windows, looking for the Path of Exile 1 or 2 window.
      */
     public static void findPathOfExileWindow(WindowCallback callback) {
-        System.out.println("Looking for window...");
-        boolean found = false;
         setEnumerationSuccess(false);
         User32.INSTANCE.EnumWindows((enumeratingHandle, arg1) -> {
             // The class name string is truncated if it is longer than the buffer.

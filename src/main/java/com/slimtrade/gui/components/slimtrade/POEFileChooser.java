@@ -1,17 +1,26 @@
 package com.slimtrade.gui.components.slimtrade;
 
+import com.slimtrade.core.poe.Game;
+
 import javax.swing.*;
 
+/**
+ * This is the JFileChooser that appears when the Browse buttons is clicked on a  {@link POEFolderPicker}.
+ */
+
+/// FIXME : Make a ThemeFileChooser and inherit from that
 public class POEFileChooser extends JFileChooser {
 
-    public static String TITLE = "SlimTrade - FIXME";
+    public static String TITLE_PREFIX = "SlimTrade - Select ";
+    public static String TITLE_SUFFIX = " Folder";
 
-    public POEFileChooser() {
-        setDialogTitle(TITLE);
+    public POEFileChooser(Game game) {
+        setDialogTitle(getWindowTitle(game));
         setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//        setAcceptAllFileFilterUsed(false);
-//        setFileFilter(new FileNameExtensionFilter("Text Files", "txt", "text"));
+    }
 
+    public static String getWindowTitle(Game game) {
+        return TITLE_PREFIX + game + TITLE_SUFFIX;
     }
 
 }

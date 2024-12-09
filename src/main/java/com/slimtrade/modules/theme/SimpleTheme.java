@@ -8,11 +8,15 @@ import com.slimtrade.core.utility.ZUtil;
 
 import java.awt.*;
 
-// FIXME : Can theme extensions be made generic by switching this to a class?
-public enum Theme {
+/**
+ * A theme implementation without the ThemeExtension implementation.
+ */
+@Deprecated
+public enum SimpleTheme {
 
     // https://github.com/JFormDesigner/FlatLaf/tree/main/flatlaf-intellij-themes#themes
     // Disabled themes are either redundant or hide separators which ruin the look of menus.
+
     ARK(new FlatArcIJTheme()),
     ARK_ORANGE(new FlatArcOrangeIJTheme()),
     ARK_DARK(new FlatArcDarkIJTheme()),
@@ -55,17 +59,15 @@ public enum Theme {
 
     public final Color red;
     public final Color green;
-    public final ThemeExtension extensions;
 
-    Theme(IntelliJTheme.ThemeLaf lookAndFeel) {
+    SimpleTheme(IntelliJTheme.ThemeLaf lookAndFeel) {
         this.lookAndFeel = lookAndFeel;
         this.red = Color.RED;
         this.green = Color.GREEN;
-        this.extensions = lookAndFeel.isDark() ? new DefaultDarkThemeExtension() : new DefaultLightThemeExtension();
     }
 
-    public static Theme getDefaultColorTheme() {
-        return Theme.SOLARIZED_LIGHT;
+    public static SimpleTheme getDefaultColorTheme() {
+        return SimpleTheme.SOLARIZED_LIGHT;
     }
 
     public boolean isDark() {

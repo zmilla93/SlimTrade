@@ -1,5 +1,7 @@
 package com.slimtrade.gui.setup;
 
+import com.slimtrade.core.enums.ResultStatus;
+import com.slimtrade.gui.components.slimtrade.ResultLabel;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
@@ -12,29 +14,27 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
 
     public StashFolderSetupPanel(JButton nextButton) {
         super(nextButton);
+
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(yesRadioButton);
         buttonGroup.add(noRadioButton);
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
-        buttonPanel.add(yesRadioButton);
-        buttonPanel.add(noRadioButton);
 
         AbstractOptionPanel panel = new AbstractOptionPanel(false, false);
         panel.addHeader("Stash Tab Folders");
-        panel.addComponent(new JLabel("Do you use any stash tab folders?"));
-        panel.addComponent(new JLabel("Using folders affects UI alignment. This settings needs to be updated manually."));
+        panel.addComponent(new JLabel("Do you use any stash tab folders? Doing so affects UI alignment."));
+        panel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "This settings needs to be updated manually if changed."));
         panel.addVerticalStrutSmall();
         panel.addComponent(yesRadioButton);
         panel.addComponent(noRadioButton);
 
-//        contentPanel.setLayout(new GridBagLayout());
-//        GridBagConstraints gc = ZUtil.getGC();
-//        contentPanel.add(new JLabel("Do you use any stash tab folders?"), gc);
-//        gc.gridy++;
         contentPanel.add(panel, BorderLayout.CENTER);
 
-        yesRadioButton.addActionListener(e -> validateNextButton());
-        noRadioButton.addActionListener(e -> validateNextButton());
+        addListeners();
+    }
+
+    private void addListeners() {
+        yesRadioButton.addActionListener(e -> runSetupValidation());
+        noRadioButton.addActionListener(e -> runSetupValidation());
     }
 
     public boolean isUsingFolders() {

@@ -153,7 +153,7 @@ public class SetupWindow extends JFrame {
 
     private void showIndexedPanel() {
         AbstractSetupPanel panel = panelMap.get(panelIndex);
-        if (panel != null) panel.validateNextButton();
+        if (panel != null) panel.runSetupValidation();
         cardLayout.show(cardPanel, Integer.toString(panelIndex));
         previousButton.setVisible(panelIndex != 0);
         if (panelIndex < cardPanel.getComponentCount() - 1) nextButton.setText(NEXT_TEXT);
