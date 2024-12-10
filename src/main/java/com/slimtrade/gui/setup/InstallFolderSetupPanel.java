@@ -39,7 +39,6 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
 
         contentPanel.add(panel, BorderLayout.CENTER);
 
-        setAllErrorLabelsToInitialStatus();
         addListeners();
     }
 
@@ -57,13 +56,6 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
             moreInfoPanel.setVisible(!moreInfoPanel.isVisible());
             ZUtil.packComponentWindow(this);
         });
-    }
-
-    private void setAllErrorLabelsToInitialStatus() {
-        Path poe1Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.poe1InstallDirectory);
-        Path poe2Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.poe2InstallDirectory);
-        setInitialErrorLabelStatus(poe1Dir, poe1FolderPicker);
-        setInitialErrorLabelStatus(poe2Dir, poe2FolderPicker);
     }
 
     /**
@@ -94,6 +86,14 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
                 picker.createDuplicatePathPanels(true);
             }
         }
+    }
+
+    @Override
+    public void initializeComponents() {
+        Path poe1Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.poe1InstallDirectory);
+        Path poe2Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.poe2InstallDirectory);
+        setInitialErrorLabelStatus(poe1Dir, poe1FolderPicker);
+        setInitialErrorLabelStatus(poe2Dir, poe2FolderPicker);
     }
 
     @Override

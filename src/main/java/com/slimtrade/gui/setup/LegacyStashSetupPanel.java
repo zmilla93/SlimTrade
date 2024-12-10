@@ -24,6 +24,11 @@ public class LegacyStashSetupPanel extends AbstractSetupPanel {
     }
 
     @Override
+    public void initializeComponents() {
+        // Legacy class, do nothing
+    }
+
+    @Override
     public boolean isSetupValid() {
         return SaveManager.stashSaveFile.data.gridRect != null;
     }

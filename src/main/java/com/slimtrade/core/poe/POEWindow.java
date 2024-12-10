@@ -3,6 +3,7 @@ package com.slimtrade.core.poe;
 import com.slimtrade.core.jna.NativeWindow;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.MonitorInfo;
+import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
 
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class POEWindow {
 
     static {
         // FIXME : Temp calculation
+        System.out.println("Calculating inital game bounds");
         calculateNewGameBounds();
         // FIXME : Calculating bounds early using 1920x1080 to avoid errors.
         //  Should instead use the bounds of the first monitor, then let the automated system take over.
@@ -60,6 +62,7 @@ public class POEWindow {
         if (monitor.equals(currentMonitor)) return;
         POEWindow.gameBounds = monitor.bounds;
         calculateNewGameBounds();
+        System.out.println("Bounds set via monitor: " + gameBounds);
     }
 
     public static void setBoundsByNativeWindow(NativeWindow window) {
@@ -69,15 +72,18 @@ public class POEWindow {
         currentGameWindow = window;
         POEWindow.gameBounds = currentGameWindow.bounds;
         calculateNewGameBounds();
+        System.out.println("Bounds set via native window: " + gameBounds);
     }
 
     private static void setBoundsFallback() {
         MonitorInfo monitor = MonitorInfo.getAllMonitors().get(0);
         POEWindow.gameBounds = monitor.bounds;
         calculateNewGameBounds();
+        System.out.println("Bounds fallback set: " + gameBounds);
     }
 
     private static void calculateNewGameBounds() {
+        System.out.println("New Game Bounds: " + gameBounds);
         centerOfScreen = new Point(gameBounds.x + gameBounds.width / 2, gameBounds.y + gameBounds.height / 2);
         calculatePoe1UIData();
         for (POEWindowListener listener : listeners) listener.onGameBoundsChange();
@@ -111,15 +117,21 @@ public class POEWindow {
         }
     }
 
-    /// Center a window relative to the current game bounds.
+    /// Center a window relative to the current "game bounds",
+    /// which could be the actual game window bounds, a monitor bounds, or a screen region.
     public static void centerWindow(Window window) {
         assert SwingUtilities.isEventDispatchThread();
+        if (window.equals(FrameManager.setupWindow))
+            System.out.println("Centering Setup using game bounds: " + gameBounds);
         if (gameBounds == null) {
             window.setLocationRelativeTo(null);
         } else {
             int halfWidth = window.getWidth() / 2;
             int halfHeight = window.getHeight() / 2;
-            window.setLocation(centerOfScreen.x - halfWidth, centerOfScreen.y - halfHeight);
+            Point location = new Point(centerOfScreen.x - halfWidth, centerOfScreen.y - halfHeight);
+            if (window.equals(FrameManager.setupWindow))
+                System.out.println("Setup Window Location: " + location);
+            window.setLocation(location);
         }
     }
 

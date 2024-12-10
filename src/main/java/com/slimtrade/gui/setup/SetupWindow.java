@@ -4,8 +4,10 @@ import com.slimtrade.App;
 import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.SetupPhase;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CardPanel;
+import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.SetupManager;
 
 import javax.swing.*;
@@ -13,7 +15,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SetupWindow extends JFrame {
+public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
 
     // Card Panel - startPanel > setupPanels[] > finishPanel
     private final CardPanel cardPanel = new CardPanel();
@@ -71,7 +73,6 @@ public class SetupWindow extends JFrame {
         addListeners();
         pack();
         countLabel.setText("");
-        setLocationRelativeTo(null);
     }
 
     private void addListeners() {
@@ -109,10 +110,10 @@ public class SetupWindow extends JFrame {
         }
         cardPanel.add(finishPanel);
         pack();
-        setLocationRelativeTo(null);
     }
 
     private void addSetupPanel(AbstractSetupPanel panel) {
+        panel.initializeComponents();
         setupPanels.add(panel);
         cardPanel.add(panel);
     }
@@ -132,6 +133,18 @@ public class SetupWindow extends JFrame {
         for (AbstractSetupPanel panel : setupPanels) panel.applyCompletedSetup();
         SaveManager.settingsSaveFile.saveToDisk(false);
         App.launchApp();
+    }
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
+        pack();
+        POEWindow.centerWindow(this);
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) applyDefaultSizeAndLocation();
     }
 
 }

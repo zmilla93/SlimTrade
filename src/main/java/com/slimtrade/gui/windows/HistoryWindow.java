@@ -3,6 +3,7 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.core.chatparser.IParserInitListener;
 import com.slimtrade.core.chatparser.IParserLoadedListener;
 import com.slimtrade.core.chatparser.ITradeListener;
+import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.trading.TradeOffer;
 import com.slimtrade.gui.history.HistoryPanel;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
@@ -69,7 +70,7 @@ public class HistoryWindow extends CustomDialog implements ITradeListener, IPars
     @Override
     public void applyDefaultSizeAndLocation() {
         setSize(600, 400);
-        setLocationRelativeTo(null);
+        POEWindow.centerWindow(this);
     }
 
 }

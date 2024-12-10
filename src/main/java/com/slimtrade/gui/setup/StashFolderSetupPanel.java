@@ -40,6 +40,11 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
     }
 
     @Override
+    public void initializeComponents() {
+        // FIXME: Implement this!
+    }
+
+    @Override
     public boolean isSetupValid() {
         return yesRadioButton.isSelected() || noRadioButton.isSelected();
     }

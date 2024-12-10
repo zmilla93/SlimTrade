@@ -3,6 +3,7 @@ package com.slimtrade.gui.windows;
 import com.slimtrade.App;
 import com.slimtrade.core.References;
 import com.slimtrade.core.data.PatchNotesEntry;
+import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.MarkdownParser;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CustomScrollPane;
@@ -124,7 +125,7 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
     @Override
     public void applyDefaultSizeAndLocation() {
         setSize(new Dimension(600, 600));
-        setLocationRelativeTo(null);
+        POEWindow.centerWindow(this);
     }
 
 }

@@ -31,8 +31,8 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     private final ResultLabel automaticTestLabel = new ResultLabel(ResultStatus.NEUTRAL, "Verify game detection is working.");
 
     // Monitor
-    private final MonitorCombo monitorCombo = new MonitorCombo();
     private final JButton identifyMonitorsButton = new JButton("Identify Monitors");
+    private final MonitorCombo monitorCombo = new MonitorCombo();
 
     // Card Panel
     private final CardPanel cardPanel = new CardPanel();
@@ -67,8 +67,9 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
-        monitorPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Requires using Windowed Fullscreen"));
+        // FIXME : Make monitor selector it's own component
         monitorPanel.addComponent(new ComponentPanel(monitorCombo, identifyMonitorsButton));
+        monitorPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Requires using Windowed Fullscreen"));
 
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
@@ -97,9 +98,45 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
             ZUtil.packComponentWindow(this);
         }));
         identifyMonitorsButton.addActionListener(e -> {
+            MonitorInfo selectedMonitor = (MonitorInfo) monitorCombo.getSelectedItem();
             ArrayList<MonitorInfo> monitors = MonitorIdentificationFrame.visuallyIdentifyMonitors();
             monitorCombo.setMonitorList(monitors);
+            if (selectedMonitor != null) monitorCombo.setSelectedItem(selectedMonitor);
         });
+    }
+
+    private void initializeComponents(GameDetectionMethod method) {
+        switch (method) {
+            case AUTOMATIC:
+                automaticRadioButton.setSelected(true);
+                cardPanel.showCard(automaticPanel);
+                break;
+            case MONITOR:
+                monitorRadioButton.setSelected(true);
+                cardPanel.showCard(monitorPanel);
+                break;
+            case SCREEN_REGION:
+                screenRegionRadioButton.setSelected(true);
+                cardPanel.showCard(screenRegionPanel);
+                break;
+            case UNSET:
+            default:
+                if (Platform.current == Platform.WINDOWS) {
+                    automaticRadioButton.setSelected(true);
+                    cardPanel.showCard(automaticPanel);
+                } else {
+                    monitorRadioButton.setSelected(true);
+                    cardPanel.showCard(monitorPanel);
+                }
+        }
+    }
+
+    @Override
+    public void initializeComponents() {
+        GameDetectionMethod method = SaveManager.settingsSaveFile.data.gameDetectionMethod;
+        initializeComponents(method);
+        // FIXME : Null check?
+        monitorCombo.setSelectedItem(SaveManager.settingsSaveFile.data.selectedMonitor);
     }
 
     @Override

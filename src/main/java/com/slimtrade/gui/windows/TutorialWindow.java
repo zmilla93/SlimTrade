@@ -1,6 +1,7 @@
 package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
+import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.ImageLabel;
 import com.slimtrade.gui.components.TutorialPanel;
@@ -189,7 +190,7 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         setMinimumSize(null);
         pack();
         setMinimumSize(getSize());
-        setLocationRelativeTo(null);
+        POEWindow.centerWindow(this);
     }
 
 }

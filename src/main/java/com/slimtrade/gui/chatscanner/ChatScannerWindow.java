@@ -2,6 +2,7 @@ package com.slimtrade.gui.chatscanner;
 
 import com.slimtrade.core.chatparser.IChatScannerToggleListener;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.windows.CustomDialog;
@@ -325,7 +326,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
     @Override
     public void applyDefaultSizeAndLocation() {
         setSize(900, 700);
-        setLocationRelativeTo(null);
+        POEWindow.centerWindow(this);
     }
 
 }

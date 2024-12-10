@@ -19,6 +19,11 @@ public abstract class AbstractSetupPanel extends JPanel {
     }
 
     /**
+     * Called once after the component is created.
+     */
+    public abstract void initializeComponents();
+
+    /**
      * Determine if the current panel contains completely valid information.
      */
     public abstract boolean isSetupValid();
