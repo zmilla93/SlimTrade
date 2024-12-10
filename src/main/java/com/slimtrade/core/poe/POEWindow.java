@@ -2,9 +2,11 @@ package com.slimtrade.core.poe;
 
 import com.slimtrade.core.jna.NativePoeWindow;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.utility.Platform;
 import com.slimtrade.gui.components.MonitorInfo;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.BasicDialog;
+import com.sun.jna.platform.win32.WinDef;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,12 +67,12 @@ public class POEWindow {
         System.out.println("Bounds set via monitor: " + gameBounds);
     }
 
-    public static void setBoundsByNativeWindow(NativePoeWindow window) {
+    public static void setBoundsByWindowHandle(WinDef.HWND handle) {
         assert SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.AUTOMATIC;
-        assert window != null;
-        if (window.equals(currentGameWindow)) return;
-        currentGameWindow = window;
-        POEWindow.gameBounds = currentGameWindow.bounds;
+        assert handle != null;
+        if (currentGameWindow != null && handle.equals(currentGameWindow.handle)) return;
+        currentGameWindow = new NativePoeWindow(handle);
+        POEWindow.gameBounds = currentGameWindow.clientBounds;
         calculateNewGameBounds();
         System.out.println("Bounds set via native window: " + gameBounds);
     }
@@ -97,9 +99,13 @@ public class POEWindow {
         GameDetectionMethod method = SaveManager.settingsSaveFile.data.gameDetectionMethod;
         switch (method) {
             case AUTOMATIC:
-                NativePoeWindow window = NativePoeWindow.findPathOfExileWindow();
-                if (window != null) setBoundsByNativeWindow(window);
-                else setBoundsFallback();
+                // NOTE : This currently shouldn't be reachable on non Windows platforms, just future proofing.
+                if (Platform.WINDOWS == Platform.current) {
+                    WinDef.HWND handle = NativePoeWindow.findPathOfExileWindow();
+                    System.out.println("The handle! : " + handle);
+                    if (handle != null) setBoundsByWindowHandle(handle);
+                    else setBoundsFallback();
+                }
                 break;
             case MONITOR:
                 MonitorInfo monitor = SaveManager.settingsSaveFile.data.selectedMonitor;

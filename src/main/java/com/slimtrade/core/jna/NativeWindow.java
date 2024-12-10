@@ -7,7 +7,9 @@ import com.sun.jna.platform.win32.WinUser;
 
 import java.awt.*;
 
-public class WindowInfo {
+public class NativeWindow {
+
+    private static final String EMPTY_WINDOW_TITLE = "";
 
     // Constant Info
     public final String title;
@@ -20,7 +22,14 @@ public class WindowInfo {
     public boolean borderless;
     public boolean minimized;
 
-    public WindowInfo(String title, WinDef.HWND handle) {
+    public NativeWindow(WinDef.HWND handle) {
+        this.handle = handle;
+        this.title = WindowUtils.getWindowTitle(handle);
+        refreshInfo();
+    }
+
+    @Deprecated
+    public NativeWindow(String title, WinDef.HWND handle) {
         this.title = title;
         this.handle = handle;
         refreshInfo();
@@ -45,6 +54,24 @@ public class WindowInfo {
             }
         }
         if (!foundClientRect) clientBounds = bounds;
+    }
+
+    public static String getFocusedWindowTitle() {
+        WinDef.HWND handle = User32.INSTANCE.GetForegroundWindow();
+        if (handle == null) return null;
+        return WindowUtils.getWindowTitle(handle);
+    }
+
+    public static WinDef.HWND getFocusedWindow() {
+        return User32.INSTANCE.GetForegroundWindow();
+    }
+
+    // FIXME : Forcing POE to front probably isn't necessary at all?
+    //  Could just have actions fail instead, might fix this disappearing frames issue.
+    public static void toFront(WinDef.HWND handle) {
+        User32.INSTANCE.ShowWindow(handle, User32.SW_SHOW);
+        User32.INSTANCE.SetForegroundWindow(handle);
+        User32.INSTANCE.SetFocus(handle);
     }
 
 }

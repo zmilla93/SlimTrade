@@ -5,12 +5,15 @@ import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.jna.JnaAwtEvent;
 import com.slimtrade.core.jna.NativePoeWindow;
+import com.slimtrade.core.jna.NativeWindow;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.poe.Game;
 import com.slimtrade.gui.components.slimtrade.POEFileChooser;
 import com.slimtrade.gui.managers.FrameManager;
 import com.slimtrade.gui.windows.DummyWindow;
 import com.slimtrade.modules.updater.ZLogger;
+import com.sun.jna.platform.WindowUtils;
+import com.sun.jna.platform.win32.WinDef;
 
 import javax.swing.*;
 import java.awt.*;
@@ -202,14 +205,16 @@ public class POEInterface {
 
     public static boolean isGameFocused(boolean includeApp) {
         if (Platform.current == Platform.WINDOWS) {
-            NativePoeWindow focusedWindow = NativePoeWindow.getFocusedWindow();
+            WinDef.HWND focusedWindow = NativeWindow.getFocusedWindow();
             if (focusedWindow == null) return false;
+            String focusedWindowTitle = WindowUtils.getWindowTitle(focusedWindow);
+            if (focusedWindowTitle == null) return false;
             if (includeApp) {
-                if (focusedWindow.title.startsWith(References.APP_PREFIX)) return true;
-                if (focusedWindow.title.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_1))) return true;
-                if (focusedWindow.title.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_2))) return true;
+                if (focusedWindowTitle.startsWith(References.APP_PREFIX)) return true;
+                if (focusedWindowTitle.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_1))) return true;
+                if (focusedWindowTitle.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_2))) return true;
             }
-            if (gameTitleSet.contains(focusedWindow.title)) {
+            if (gameTitleSet.contains(focusedWindowTitle)) {
                 NativePoeWindow.setPOEGameWindow(focusedWindow);
                 return true;
             }

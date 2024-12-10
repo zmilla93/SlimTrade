@@ -2,6 +2,7 @@ package com.slimtrade.gui.setup;
 
 import com.slimtrade.core.enums.ResultStatus;
 import com.slimtrade.core.jna.NativePoeWindow;
+import com.slimtrade.core.jna.NativeWindow;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.poe.GameDetectionMethod;
 import com.slimtrade.core.utility.Platform;
@@ -13,6 +14,7 @@ import com.slimtrade.gui.components.MonitorInfo;
 import com.slimtrade.gui.components.slimtrade.ResultLabel;
 import com.slimtrade.gui.components.slimtrade.combos.MonitorCombo;
 import com.slimtrade.gui.options.AbstractOptionPanel;
+import com.sun.jna.platform.win32.WinDef;
 
 import javax.swing.*;
 import java.awt.*;
@@ -97,9 +99,11 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 assert SwingUtilities.isEventDispatchThread();
-                NativePoeWindow window = NativePoeWindow.findPathOfExileWindow();
-                if (window == null) automaticTestLabel.setText(ResultStatus.DENY, automaticTestFail);
+                // FIXME: Display more info.
+                WinDef.HWND handle = NativePoeWindow.findPathOfExileWindow();
+                if (handle == null) automaticTestLabel.setText(ResultStatus.DENY, automaticTestFail);
                 else {
+                    NativeWindow window = new NativeWindow(handle);
                     automaticTestLabel.setText(ResultStatus.APPROVE, automaticTestSuccess);
                     PoeIdentificationFrame.identify(window.clientBounds);
                 }
