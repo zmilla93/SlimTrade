@@ -214,7 +214,7 @@ public class App {
 
     public static void launchApp() {
         assert SwingUtilities.isEventDispatchThread();
-
+        POEWindow.forceGameBoundsRefresh();
         if (FrameManager.setupWindow != null) {
             FrameManager.setupWindow.dispose();
             FrameManager.setupWindow = null;
@@ -227,6 +227,7 @@ public class App {
         SaveManager.overlaySaveFile.revertChanges();
         FrameManager.optionsWindow.reloadExampleTrades();
 
+        FrameManager.applyAllDefaultSizesAndLocations();
         PinManager.applyAllPins();
         FrameManager.showAppFrames();
         SystemTrayManager.showDefault();

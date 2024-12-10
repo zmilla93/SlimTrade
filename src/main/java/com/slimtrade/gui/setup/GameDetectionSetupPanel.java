@@ -1,7 +1,7 @@
 package com.slimtrade.gui.setup;
 
 import com.slimtrade.core.enums.ResultStatus;
-import com.slimtrade.core.jna.NativeWindow;
+import com.slimtrade.core.jna.NativePoeWindow;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.poe.GameDetectionMethod;
 import com.slimtrade.core.utility.Platform;
@@ -16,6 +16,8 @@ import com.slimtrade.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GameDetectionSetupPanel extends AbstractSetupPanel {
@@ -31,7 +33,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     private final ResultLabel automaticTestLabel = new ResultLabel(ResultStatus.NEUTRAL, "Verify game detection is working.");
 
     // Monitor
-    private final JButton identifyMonitorsButton = new JButton("Identify Monitors");
+    private final JButton identifyButton = new JButton("Identify");
     private final MonitorCombo monitorCombo = new MonitorCombo();
 
     // Card Panel
@@ -67,9 +69,9 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
-        // FIXME : Make monitor selector it's own component
-        monitorPanel.addComponent(new ComponentPanel(monitorCombo, identifyMonitorsButton));
+        // FIXME : Make monitor selector its own component
         monitorPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Requires using Windowed Fullscreen"));
+        monitorPanel.addComponent(new ComponentPanel(identifyButton, monitorCombo));
 
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
@@ -91,13 +93,23 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         automaticRadioButton.addActionListener(e -> cardPanel.showCard(automaticPanel));
         monitorRadioButton.addActionListener(e -> cardPanel.showCard(monitorPanel));
         screenRegionRadioButton.addActionListener(e -> cardPanel.showCard(screenRegionPanel));
-        automaticTestButton.addActionListener(e -> NativeWindow.findPathOfExileWindow(window -> {
-            assert SwingUtilities.isEventDispatchThread();
-            if (window == null) automaticTestLabel.setText(ResultStatus.DENY, automaticTestFail);
-            else automaticTestLabel.setText(ResultStatus.APPROVE, automaticTestSuccess);
-            ZUtil.packComponentWindow(this);
+        automaticTestButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                assert SwingUtilities.isEventDispatchThread();
+                NativePoeWindow window = NativePoeWindow.findPathOfExileWindow();
+                if (window == null) automaticTestLabel.setText(ResultStatus.DENY, automaticTestFail);
+                else {
+                    automaticTestLabel.setText(ResultStatus.APPROVE, automaticTestSuccess);
+                    PoeIdentificationFrame.identify(window.clientBounds);
+                }
+                ZUtil.packComponentWindow(GameDetectionSetupPanel.this);
+            }
+        });
+        automaticTestButton.addActionListener(e -> NativePoeWindow.findPathOfExileWindow(window -> {
+
         }));
-        identifyMonitorsButton.addActionListener(e -> {
+        identifyButton.addActionListener(e -> {
             MonitorInfo selectedMonitor = (MonitorInfo) monitorCombo.getSelectedItem();
             ArrayList<MonitorInfo> monitors = MonitorIdentificationFrame.visuallyIdentifyMonitors();
             monitorCombo.setMonitorList(monitors);

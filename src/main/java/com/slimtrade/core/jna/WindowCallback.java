@@ -4,6 +4,6 @@ import org.jetbrains.annotations.Nullable;
 
 public interface WindowCallback {
 
-    void onWindowFound(@Nullable NativeWindow window);
+    void onWindowFound(@Nullable NativePoeWindow window);
 
 }

@@ -302,4 +302,9 @@ public class FrameManager {
         SaveManager.overlaySaveFile.saveToDisk();
     }
 
+    public static void applyAllDefaultSizesAndLocations() {
+        for (IDefaultSizeAndLocation window : defaultSizeAndLocationWindows)
+            window.applyDefaultSizeAndLocation();
+    }
+
 }

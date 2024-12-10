@@ -1,6 +1,6 @@
 package com.slimtrade.core.poe;
 
-import com.slimtrade.core.jna.NativeWindow;
+import com.slimtrade.core.jna.NativePoeWindow;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.gui.components.MonitorInfo;
 import com.slimtrade.gui.managers.FrameManager;
@@ -27,7 +27,7 @@ public class POEWindow {
     private static Dimension poe1StashCellSize;
     private static Dimension poe1StashCellSizeQuad;
 
-    private static NativeWindow currentGameWindow;
+    private static NativePoeWindow currentGameWindow;
     private static MonitorInfo currentMonitor;
 
 
@@ -65,7 +65,7 @@ public class POEWindow {
         System.out.println("Bounds set via monitor: " + gameBounds);
     }
 
-    public static void setBoundsByNativeWindow(NativeWindow window) {
+    public static void setBoundsByNativeWindow(NativePoeWindow window) {
         assert SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.AUTOMATIC;
         assert window != null;
         if (window.equals(currentGameWindow)) return;
@@ -97,7 +97,7 @@ public class POEWindow {
         GameDetectionMethod method = SaveManager.settingsSaveFile.data.gameDetectionMethod;
         switch (method) {
             case AUTOMATIC:
-                NativeWindow window = NativeWindow.findPathOfExileWindow();
+                NativePoeWindow window = NativePoeWindow.findPathOfExileWindow();
                 if (window != null) setBoundsByNativeWindow(window);
                 else setBoundsFallback();
                 break;
@@ -117,8 +117,11 @@ public class POEWindow {
         }
     }
 
-    /// Center a window relative to the current "game bounds",
-    /// which could be the actual game window bounds, a monitor bounds, or a screen region.
+    /**
+     * Center a window relative to the current "game bounds",
+     * which could be the actual game window bounds, a monitor bounds, or a screen region.
+     */
+    // FIXME: Should ensure that window is fully on the monitor
     public static void centerWindow(Window window) {
         assert SwingUtilities.isEventDispatchThread();
         if (window.equals(FrameManager.setupWindow))

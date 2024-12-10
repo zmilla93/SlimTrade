@@ -4,7 +4,7 @@ import com.slimtrade.core.References;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.jna.JnaAwtEvent;
-import com.slimtrade.core.jna.NativeWindow;
+import com.slimtrade.core.jna.NativePoeWindow;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.poe.Game;
 import com.slimtrade.gui.components.slimtrade.POEFileChooser;
@@ -175,7 +175,7 @@ public class POEInterface {
             FrameManager.dummyWindow.setVisible(false);
             // Focus the Path of Exile game window
             // FIXME : This might be the best spot to add platform support?
-            NativeWindow.focusPathOfExileNativeWindow();
+            NativePoeWindow.focusPathOfExileNativeWindow();
             // Wait until Path of Exile gains focus
             int i = 0;
             while (!isGameFocused()) {
@@ -202,7 +202,7 @@ public class POEInterface {
 
     public static boolean isGameFocused(boolean includeApp) {
         if (Platform.current == Platform.WINDOWS) {
-            NativeWindow focusedWindow = NativeWindow.getFocusedWindow();
+            NativePoeWindow focusedWindow = NativePoeWindow.getFocusedWindow();
             if (focusedWindow == null) return false;
             if (includeApp) {
                 if (focusedWindow.title.startsWith(References.APP_PREFIX)) return true;
@@ -210,7 +210,7 @@ public class POEInterface {
                 if (focusedWindow.title.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_2))) return true;
             }
             if (gameTitleSet.contains(focusedWindow.title)) {
-                NativeWindow.setPOEGameWindow(focusedWindow);
+                NativePoeWindow.setPOEGameWindow(focusedWindow);
                 return true;
             }
             return false;

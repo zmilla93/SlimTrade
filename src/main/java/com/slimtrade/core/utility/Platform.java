@@ -9,13 +9,25 @@ public enum Platform {
     UNKNOWN, WINDOWS, MAC, LINUX;
 
     public static final Platform current;
+    public static final String currentOS;
+
+    private final String name;
 
     static {
-        String os = System.getProperty("os.name");
-        if (os.startsWith("Windows")) current = WINDOWS;
-        else if (os.startsWith("Mac")) current = MAC;
-        else if (os.startsWith("Linux")) current = LINUX;
+        currentOS = System.getProperty("os.name");
+        if (currentOS.startsWith("Windows")) current = WINDOWS;
+        else if (currentOS.startsWith("Mac")) current = MAC;
+        else if (currentOS.startsWith("Linux")) current = LINUX;
         else current = UNKNOWN;
+    }
+
+    Platform() {
+        name = name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
 }

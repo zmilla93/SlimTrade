@@ -6,9 +6,11 @@ import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.Platform;
 import com.sun.jna.Native;
+import com.sun.jna.NativeLong;
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinUser;
 
 import java.awt.*;
 
@@ -18,30 +20,28 @@ import java.awt.*;
  * <a href="https://java-native-access.github.io/jna/4.2.0/com/sun/jna/platform/WindowUtils.html">WindowUtils</a>.
  * Updates {@link POEWindow} to control the game bounds when using {@link com.slimtrade.core.poe.GameDetectionMethod#AUTOMATIC}.
  */
-public class NativeWindow {
+public class NativePoeWindow extends WindowInfo {
 
-    private static NativeWindow gameWindow;
+    // Static windows
+    private static NativePoeWindow poeWindow;
+    private static NativePoeWindow enumerationWindow;
+    private static NativePoeWindow foundWindow;
 
-    public final String title;
-    public final WinDef.HWND handle;
-    public Rectangle bounds;
-    private static boolean enumerationSuccessFlag;
-    private static NativeWindow enumerationWindow;
-    private static NativeWindow foundWindow;
-
-    public NativeWindow(String title, WinDef.HWND handle) {
-        this.title = title;
-        this.handle = handle;
-        bounds = WindowUtils.getWindowLocationAndSize(handle);
+    // FIXME : These get created a lot, make jna calls lazy, only create them for when the window changes, and reuse when same window is used
+    public NativePoeWindow(String title, WinDef.HWND handle) {
+        super(title, handle);
+        System.out.println("created native window obj: " + title);
+        refreshInfo();
     }
 
     public void focus() {
         focus(this);
     }
 
-    public static void setPOEGameWindow(NativeWindow window) {
+    public static void setPOEGameWindow(NativePoeWindow window) {
         assert POEInterface.gameTitleSet.contains(window.title);
-        gameWindow = window;
+        poeWindow = window;
+        System.out.println("POE Process Path: " + WindowUtils.getProcessFilePath(window.handle));
         if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.AUTOMATIC)
             POEWindow.setBoundsByNativeWindow(window);
     }
@@ -50,17 +50,17 @@ public class NativeWindow {
         return WindowUtils.getWindowTitle(handle);
     }
 
-    public static NativeWindow getFocusedWindow() {
+    public static NativePoeWindow getFocusedWindow() {
         if (Platform.current == Platform.WINDOWS) {
             WinDef.HWND handle = User32.INSTANCE.GetForegroundWindow();
             if (handle == null) return null;
             String title = getWindowTitle(handle);
-            return new NativeWindow(title, handle);
+            return new NativePoeWindow(title, handle);
         }
         return null;
     }
 
-    public static void focus(NativeWindow window) {
+    public static void focus(NativePoeWindow window) {
         if (window == null) return;
         setPOEGameWindow(window);
         WinDef.HWND handle = window.handle;
@@ -74,14 +74,14 @@ public class NativeWindow {
      */
     public static void focusPathOfExileNativeWindow() {
         // Use cached window handle if available
-        if (gameWindow != null) {
-            focus(gameWindow);
+        if (poeWindow != null) {
+            focus(poeWindow);
             return;
         }
         findPathOfExileWindow(window -> focus(window));
     }
 
-    public static synchronized NativeWindow findPathOfExileWindow() {
+    public static synchronized NativePoeWindow findPathOfExileWindow() {
         foundWindow = null;
         findPathOfExileWindow(window -> foundWindow = window);
         return foundWindow;
@@ -92,7 +92,6 @@ public class NativeWindow {
      * Uses the same callback pattern used by jna.
      */
     public static synchronized void findPathOfExileWindow(WindowCallback callback) {
-        enumerationSuccessFlag = false;
         enumerationWindow = null;
         User32.INSTANCE.EnumWindows((enumeratingHandle, arg1) -> {
             // The class name string is truncated if it is longer than the buffer.
@@ -106,7 +105,7 @@ public class NativeWindow {
             // Path of Exile 1 & 2 windows have the class name POEWindowClass
             if (className.equals("POEWindowClass")) {
                 String title = getWindowTitle(enumeratingHandle);
-                NativeWindow window = new NativeWindow(title, enumeratingHandle);
+                NativePoeWindow window = new NativePoeWindow(title, enumeratingHandle);
                 callback.onWindowFound(window);
                 enumerationWindow = window;
                 return false;
@@ -115,7 +114,7 @@ public class NativeWindow {
             if (className.equals("CEFCLIENT")) {
                 String title = getWindowTitle(enumeratingHandle);
                 if (POEInterface.gameTitleSet.contains(title)) {
-                    NativeWindow window = new NativeWindow(title, enumeratingHandle);
+                    NativePoeWindow window = new NativePoeWindow(title, enumeratingHandle);
                     callback.onWindowFound(window);
                     System.out.println("gfn window");
                     enumerationWindow = window;

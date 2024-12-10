@@ -11,9 +11,9 @@ public class FinishSetupPanel extends JPanel {
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
 
-        mainPanel.add(new JLabel("Setup complete."), gc);
+        mainPanel.add(new JLabel("Setup complete!"), gc);
         gc.gridy++;
-        mainPanel.add(new JLabel("Stay sane, exile!"), gc);
+        mainPanel.add(new JLabel("Stay sane, exile."), gc);
 
         setLayout(new BorderLayout());
         ZUtil.addStrutsToBorderPanel(this, AbstractSetupPanel.INSET_SIZE);

@@ -26,7 +26,7 @@ import java.util.concurrent.Executors;
 public class ZUtil {
 
     private ZUtil() {
-
+        /// Static class
     }
 
     private static final NumberFormat NUMBER_FORMATTER = new DecimalFormat("##.##");

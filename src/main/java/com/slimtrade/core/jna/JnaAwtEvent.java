@@ -16,7 +16,7 @@ public class JnaAwtEvent {
     private static final HashMap<Integer, Integer> keyMap = new HashMap<>();
 
     private JnaAwtEvent() {
-        // Static Class
+        /// Static class
     }
 
     static {

@@ -18,8 +18,11 @@ import java.util.Date;
 // TODO : CLEAN UP THIS FILE
 public class TradeUtil {
 
-    public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Desktop desktop = Desktop.getDesktop();
+
+    private TradeUtil() {
+        /// Static class
+    }
 
     /**
      * Verify that a given path points to the Path of Exile 1 or 2's install directory.
