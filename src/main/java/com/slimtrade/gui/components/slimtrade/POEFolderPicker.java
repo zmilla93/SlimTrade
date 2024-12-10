@@ -15,10 +15,16 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
     public final JCheckBox notInstalledCheckbox = new JCheckBox("Not Installed");
     private final JLabel notInstalledLabel;
     private final JPanel pathPanel = new JPanel(new GridBagLayout());
+    public boolean packParentWindow;
 
     public POEFolderPicker(Game game) {
+        this(game, false);
+    }
+
+    public POEFolderPicker(Game game, boolean packParentWindow) {
         super("Select the '" + game + "' install folder.");
         this.game = game;
+        this.packParentWindow = packParentWindow;
         notInstalledLabel = new ResultLabel(ResultStatus.INDETERMINATE, "If you ever install " + game + ", update this setting.");
         notInstalledLabel.setVisible(false);
         fileChooser = new POEFileChooser(game);
@@ -33,7 +39,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
             chooserPanel.setVisible(showMainComponents);
             pathPanel.setVisible(showMainComponents);
             notInstalledLabel.setVisible(!showMainComponents);
-            ZUtil.packComponentWindow(POEFolderPicker.this);
+            if (packParentWindow) ZUtil.packComponentWindow(this);
         });
     }
 
@@ -64,13 +70,14 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
         if (validFolderName) {
             Path logsFolder = path.resolve(SaveManager.POE_LOG_FOLDER_NAME);
             if (logsFolder.toFile().exists()) {
-                setErrorText("Selected folder looks correct.", ResultStatus.APPROVE);
+                setErrorText("Install folder set correctly.", ResultStatus.APPROVE);
             } else {
                 setErrorText("Correct folder name, wrong folder! The install folder must contain a '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder.", ResultStatus.INDETERMINATE);
             }
         } else {
             setErrorText("Folder should be named '" + game + "'.", ResultStatus.DENY);
         }
+        if (packParentWindow) ZUtil.packComponentWindow(this);
     }
 
 }

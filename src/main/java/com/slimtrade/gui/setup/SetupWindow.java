@@ -89,8 +89,8 @@ public class SetupWindow extends JFrame {
         for (SetupPhase phase : SetupManager.getSetupPhases()) {
             switch (phase) {
                 case GAME_INSTALL_DIRECTORY:
-                    panelMap.put(cardPanel.getComponentCount(), legacyClientPanel);
-                    cardPanel.add(legacyClientPanel, Integer.toString(cardPanel.getComponentCount()));
+//                    panelMap.put(cardPanel.getComponentCount(), legacyClientPanel);
+//                    cardPanel.add(legacyClientPanel, Integer.toString(cardPanel.getComponentCount()));
                     panelMap.put(cardPanel.getComponentCount(), clientPanel);
                     cardPanel.add(clientPanel, Integer.toString(cardPanel.getComponentCount()));
                     break;

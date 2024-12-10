@@ -35,6 +35,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
 
     public OptionsWindow() {
         super("Options");
+
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         incomingMacroPanel = new IncomingMacroPanel();
         outgoingMacroPanel = new OutgoingMacroPanel();
@@ -108,6 +109,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         SaveManager.settingsSaveFile.addListener(this);
         addListeners();
         showDebugPanel();
+
     }
 
     private void addListeners() {

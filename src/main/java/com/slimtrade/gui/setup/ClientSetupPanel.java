@@ -16,8 +16,8 @@ import java.nio.file.Path;
 public class ClientSetupPanel extends AbstractSetupPanel {
 
     private final JButton moreInfoButton = new JButton("Detailed Explanation");
-    private final POEFolderPicker poe1FolderPicker = new POEFolderPicker(Game.PATH_OF_EXILE_1);
-    private final POEFolderPicker poe2FolderPicker = new POEFolderPicker(Game.PATH_OF_EXILE_2);
+    private final POEFolderPicker poe1FolderPicker = new POEFolderPicker(Game.PATH_OF_EXILE_1, true);
+    private final POEFolderPicker poe2FolderPicker = new POEFolderPicker(Game.PATH_OF_EXILE_2, true);
     POEInstallFolderExplanationPanel moreInfoPanel = new POEInstallFolderExplanationPanel(true, false);
 
     // FIXME: Paste from clipboard button?
@@ -46,8 +46,13 @@ public class ClientSetupPanel extends AbstractSetupPanel {
     private void addListeners() {
         poe1FolderPicker.addPathChangeListener(path -> runSetupValidation());
         poe2FolderPicker.addPathChangeListener(path -> runSetupValidation());
-        poe1FolderPicker.notInstalledCheckbox.addActionListener(e -> runSetupValidation());
-        poe2FolderPicker.notInstalledCheckbox.addActionListener(e -> runSetupValidation());
+        poe1FolderPicker.notInstalledCheckbox.addActionListener(e -> {
+            runSetupValidation();
+        });
+        poe2FolderPicker.notInstalledCheckbox.addActionListener(e -> {
+
+            runSetupValidation();
+        });
         moreInfoButton.addActionListener(e -> {
             moreInfoPanel.setVisible(!moreInfoPanel.isVisible());
             ZUtil.packComponentWindow(this);
@@ -72,7 +77,7 @@ public class ClientSetupPanel extends AbstractSetupPanel {
                 picker.setErrorText("Auto detection of install folder failed.", ResultStatus.DENY);
             else if (validDirectories.length == 1) {
                 picker.setSelectedPath(validDirectories[0]);
-                picker.setErrorText("Install folder auto detected, verify it's correct.", ResultStatus.APPROVE);
+                picker.setErrorText("Install folder auto detected.", ResultStatus.APPROVE);
             } else
                 picker.setErrorText("Multiple install folders detected, select the correct one.", ResultStatus.INDETERMINATE);
         } else {
@@ -103,6 +108,14 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         if (!validFolder) return false;
         return path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists();
     }
+
+//    @Override
+//    protected void runSetupValidation() {
+//        super.runSetupValidation();
+////        assert SwingUtilities.isEventDispatchThread();
+////        System.out.println("PACK!");
+////        ZUtil.packComponentWindow(this);
+//    }
 
     @Override
     public boolean isSetupValid() {

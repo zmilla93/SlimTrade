@@ -3,73 +3,80 @@ package com.slimtrade.gui.setup;
 import com.slimtrade.core.enums.ResultStatus;
 import com.slimtrade.core.jna.NativeWindow;
 import com.slimtrade.core.utility.Platform;
+import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.CardPanel;
 import com.slimtrade.gui.components.ComponentPanel;
+import com.slimtrade.gui.components.MonitorIdentificationFrame;
+import com.slimtrade.gui.components.MonitorInfo;
 import com.slimtrade.gui.components.slimtrade.ResultLabel;
+import com.slimtrade.gui.components.slimtrade.combos.MonitorCombo;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Enumeration;
+import java.util.ArrayList;
 
 public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
-    private static final String automaticHeader = "Test Automatic Detection";
-    private static final String monitorHeader = "Monitor Selection";
-    private static final String regionHeader = "Screen Region Selection";
-
     private final JRadioButton automaticRadioButton = new JRadioButton("Automatically");
-    private final JRadioButton monitorRadioButton = new JRadioButton("Select Monitor (Windowed Fullscreen Only)");
-    private final JRadioButton regionRadioButton = new JRadioButton("Create Screen Region");
+    private final JRadioButton monitorRadioButton = new JRadioButton("Select Monitor");
+    private final JRadioButton screenRegionRadioButton = new JRadioButton("Create Screen Region");
 
     // Automatic
-    private static final String automaticTestFail = "No game window found. Make sure Path of Exile 1 or 2 is running.";
+    private static final String automaticTestFail = "Game window not found. Make sure Path of Exile 1 or 2 is running.";
     private static final String automaticTestSuccess = "Game window detected!";
     private final JButton automaticTestButton = new JButton("Detect");
     private final ResultLabel automaticTestLabel = new ResultLabel(ResultStatus.NEUTRAL, "Verify game detection is working.");
 
+    // Monitor
+    private final MonitorCombo monitorCombo = new MonitorCombo();
+    private final JButton identifyMonitorsButton = new JButton("Identify Monitors");
+
     // Card Panel
-    private final CardLayout cardLayout = new CardLayout();
-    private final JPanel cardPanel = new JPanel(cardLayout);
+    private final CardPanel cardPanel = new CardPanel();
+    private final AbstractOptionPanel automaticPanel = new AbstractOptionPanel(false, false);
+    private final AbstractOptionPanel monitorPanel = new AbstractOptionPanel(false, false);
+    private final AbstractOptionPanel screenRegionPanel = new AbstractOptionPanel(false, false);
 
     public GameDetectionSetupPanel(JButton nextButton) {
         super(nextButton);
 
-
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(automaticRadioButton);
         buttonGroup.add(monitorRadioButton);
-        buttonGroup.add(regionRadioButton);
+        buttonGroup.add(screenRegionRadioButton);
 
-        AbstractOptionPanel optionPanel = new AbstractOptionPanel(false, false);
-        contentPanel.add(optionPanel, BorderLayout.CENTER);
+        AbstractOptionPanel methodPanel = new AbstractOptionPanel(false, false);
+        contentPanel.add(methodPanel, BorderLayout.CENTER);
 
-        optionPanel.addHeader("Game Window Detection");
-        optionPanel.addComponent(new JLabel("How should SlimTrade detect where the Path of Exile game window is?"));
-        optionPanel.addVerticalStrutSmall();
-        optionPanel.addComponent(automaticRadioButton);
-        optionPanel.addComponent(monitorRadioButton);
-        optionPanel.addComponent(regionRadioButton);
-        optionPanel.addVerticalStrut();
-//        dynamicHeader = optionPanel.addHeader("Dynamic Method Header");
-        // FIXME : Switch to CardLayoutPanel
+        // Detection Method Panel
+        methodPanel.addHeader("Game Window Detection");
+        methodPanel.addComponent(new JLabel("How should SlimTrade detect where the Path of Exile game window is?"));
+        methodPanel.addVerticalStrutSmall();
+        methodPanel.addComponent(automaticRadioButton);
+        methodPanel.addComponent(monitorRadioButton);
+        methodPanel.addComponent(screenRegionRadioButton);
+        methodPanel.addVerticalStrut();
 
         // Automatic Panel
 //        new ComponentPanel(automaticTestButton, automaticTestLabel)
-        AbstractOptionPanel automaticPanel = new AbstractOptionPanel(false, false);
         automaticPanel.addHeader("Detection Test");
         automaticPanel.addComponent(new ComponentPanel(automaticTestButton, automaticTestLabel));
 
-        AbstractOptionPanel monitorPanel = new AbstractOptionPanel(false, false);
-        monitorPanel.addHeader("Select Monitor");
-        monitorPanel.addComponent(new JLabel("Montior Stuff!"));
+        // Monitor Panel
+        monitorPanel.addHeader("Monitor Selection");
+        monitorPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Requires using Windowed Fullscreen"));
+        monitorPanel.addComponent(new ComponentPanel(monitorCombo, identifyMonitorsButton));
+
+        // Screen Region Panel
+        screenRegionPanel.addHeader("Create Screen Region");
 
         // Card Panel
-        cardPanel.add(automaticPanel, "AUTO");
-        cardPanel.add(monitorPanel, "MONITOR");
-        cardPanel.setBackground(Color.RED);
-        optionPanel.addFullWidthComponent(cardPanel);
-        for (Enumeration<AbstractButton> buttonIterator = buttonGroup.getElements(); buttonIterator.hasMoreElements(); )
-            addRadioButtonListener(buttonIterator.nextElement());
+        cardPanel.add(automaticPanel);
+        cardPanel.add(monitorPanel);
+        cardPanel.add(screenRegionPanel);
+        methodPanel.addFullWidthComponent(cardPanel);
+
         if (Platform.current == Platform.WINDOWS) {
             automaticRadioButton.setSelected(true);
         } else {
@@ -79,31 +86,19 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     }
 
     private void addListeners() {
-        automaticRadioButton.addActionListener(e -> cardLayout.show(cardPanel, "AUTO"));
-        monitorRadioButton.addActionListener(e -> cardLayout.show(cardPanel, "MONITOR"));
+        automaticRadioButton.addActionListener(e -> cardPanel.showCard(automaticPanel));
+        monitorRadioButton.addActionListener(e -> cardPanel.showCard(monitorPanel));
+        screenRegionRadioButton.addActionListener(e -> cardPanel.showCard(screenRegionPanel));
         automaticTestButton.addActionListener(e -> NativeWindow.findPathOfExileWindow(window -> {
+            assert SwingUtilities.isEventDispatchThread();
             if (window == null) automaticTestLabel.setText(ResultStatus.DENY, automaticTestFail);
             else automaticTestLabel.setText(ResultStatus.APPROVE, automaticTestSuccess);
+            ZUtil.packComponentWindow(this);
         }));
-    }
-
-//    private void updateHeaderTextUsingSelectingButton(Object button) {
-//        if (button.equals(automaticRadioButton)) {
-//            setHeaderText(automaticHeader);
-//        } else if (button.equals(monitorRadioButton)) {
-//            setHeaderText(monitorHeader);
-//        } else if (button.equals(regionRadioButton)) {
-//            setHeaderText(regionHeader);
-//        }
-//    }
-
-    private void addRadioButtonListener(AbstractButton button) {
-//        button.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                updateHeaderTextUsingSelectingButton(e.getSource());
-//            }
-//        });
+        identifyMonitorsButton.addActionListener(e -> {
+            ArrayList<MonitorInfo> monitors = MonitorIdentificationFrame.visuallyIdentifyMonitors();
+            monitorCombo.setMonitorList(monitors);
+        });
     }
 
     @Override
