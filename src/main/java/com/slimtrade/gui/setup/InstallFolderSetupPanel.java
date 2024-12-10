@@ -3,6 +3,7 @@ package com.slimtrade.gui.setup;
 import com.slimtrade.core.enums.ResultStatus;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.poe.Game;
+import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.slimtrade.POEFolderPicker;
 import com.slimtrade.gui.components.slimtrade.POEInstallFolderExplanationPanel;
@@ -10,7 +11,6 @@ import com.slimtrade.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.nio.file.Path;
 
 /**
@@ -62,15 +62,14 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
     private void setAllErrorLabelsToInitialStatus() {
         Path poe1Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.poe1InstallDirectory);
         Path poe2Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.poe2InstallDirectory);
-        setInitialErrorLabelStatus(poe1Dir, poe1FolderPicker, Game.PATH_OF_EXILE_1);
-        setInitialErrorLabelStatus(poe2Dir, poe2FolderPicker, Game.PATH_OF_EXILE_2);
+        setInitialErrorLabelStatus(poe1Dir, poe1FolderPicker);
+        setInitialErrorLabelStatus(poe2Dir, poe2FolderPicker);
     }
 
     /**
      * Sets a very specific error message based on the state of settings.json and what files actually exist on disk.
      */
-    private void setInitialErrorLabelStatus(Path path, POEFolderPicker picker, Game game) {
-        System.out.println("PATH : " + path);
+    private void setInitialErrorLabelStatus(Path path, POEFolderPicker picker) {
         if (path == null) {
             Path[] validDirectories = picker.createDuplicatePathPanels(false);
             if (validDirectories.length == 0)
@@ -85,31 +84,16 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
                 picker.setSelectedPath(path);
                 if (path.toFile().exists()) {
                     if (path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists())
-                        picker.setErrorText("Using a previously set install folder.", ResultStatus.APPROVE);
+                        picker.setErrorText("Using a saved install folder.", ResultStatus.APPROVE);
                     else
-                        picker.setErrorText("Using a previously set install folder, but the '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder is missing.", ResultStatus.INDETERMINATE);
+                        picker.setErrorText("Using a saved install folder, but the '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder is missing.", ResultStatus.INDETERMINATE);
                 } else
                     picker.setErrorText("The previously set install folder no longer exists.", ResultStatus.INDETERMINATE);
             } else {
                 picker.setErrorText("The previously set folder no longer exists.", ResultStatus.DENY);
                 picker.createDuplicatePathPanels(true);
             }
-
         }
-    }
-
-    /**
-     * Verify that a given path points to the Path of Exile 1 or 2's install directory.
-     * Checks that the path isn't null, is a directory that ends with Path of Exile 1 or 2, and contains a 'logs' subfolder
-     */
-    // FIXME : Move somewhere more general?
-    private boolean isValidPOEFolder(Path path, Game game) {
-        if (path == null) return false;
-        if (!path.endsWith(game.toString())) return false;
-        File file = path.toFile();
-        boolean validFolder = file.exists() && file.isDirectory();
-        if (!validFolder) return false;
-        return path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists();
     }
 
     @Override
@@ -118,8 +102,8 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
         Path poe2Path = poe2FolderPicker.getSelectedPath();
         boolean poe1NotInstalled = poe1FolderPicker.notInstalledCheckboxValue();
         boolean poe2NotInstalled = poe2FolderPicker.notInstalledCheckboxValue();
-        boolean validPoe1Path = poe1NotInstalled || isValidPOEFolder(poe1Path, Game.PATH_OF_EXILE_1);
-        boolean validPoe2Path = poe2NotInstalled || isValidPOEFolder(poe2Path, Game.PATH_OF_EXILE_2);
+        boolean validPoe1Path = poe1NotInstalled || TradeUtil.isValidPOEFolder(poe1Path, Game.PATH_OF_EXILE_1);
+        boolean validPoe2Path = poe2NotInstalled || TradeUtil.isValidPOEFolder(poe2Path, Game.PATH_OF_EXILE_2);
         return validPoe1Path && validPoe2Path;
     }
 

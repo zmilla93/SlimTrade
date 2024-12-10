@@ -3,6 +3,8 @@ package com.slimtrade.core.utility;
 import com.slimtrade.core.enums.Anchor;
 import com.slimtrade.core.enums.ExpandDirection;
 import com.slimtrade.core.managers.AudioManager;
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.Game;
 
 import java.awt.*;
 import java.io.File;
@@ -10,6 +12,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 
 // TODO : CLEAN UP THIS FILE
@@ -17,6 +20,19 @@ public class TradeUtil {
 
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Desktop desktop = Desktop.getDesktop();
+
+    /**
+     * Verify that a given path points to the Path of Exile 1 or 2's install directory.
+     * Checks that the path isn't null, is a directory that ends with Path of Exile 1 or 2, and contains a 'logs' subfolder
+     */
+    public static boolean isValidPOEFolder(Path path, Game game) {
+        if (path == null) return false;
+        if (!path.endsWith(game.toString())) return false;
+        File file = path.toFile();
+        boolean validFolder = file.exists() && file.isDirectory();
+        if (!validFolder) return false;
+        return path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists();
+    }
 
     public static String getFixedItemName(String item, double count, boolean paren) {
         String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");

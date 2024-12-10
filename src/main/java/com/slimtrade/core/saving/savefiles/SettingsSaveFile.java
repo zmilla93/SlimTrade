@@ -10,6 +10,7 @@ import com.slimtrade.core.enums.*;
 import com.slimtrade.core.hotkeys.HotkeyData;
 import com.slimtrade.core.poe.GameDetectionMethod;
 import com.slimtrade.core.utility.MacroButton;
+import com.slimtrade.gui.components.MonitorInfo;
 import com.slimtrade.gui.listening.IColorBlindChangeListener;
 import com.slimtrade.gui.options.searching.StashSearchGroupData;
 import com.slimtrade.gui.options.searching.StashSearchTermData;
@@ -19,7 +20,6 @@ import com.slimtrade.modules.updater.data.AppVersion;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.awt.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,8 +38,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public boolean initializedFolderOffset;
     public HotkeyData quickPasteHotkey;
     public ArrayList<CheatSheetData> cheatSheets = new ArrayList<>();
-    public GameDetectionMethod gameDetectionMethod = GameDetectionMethod.UNSET;
-    public Rectangle gameBounds = new Rectangle(0, 0, 1920, 1080);
 
     // Message Popups
     public boolean fadeMessages;
@@ -72,6 +70,9 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public String poe2InstallDirectory;
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
     public PathOfExileLeague pathOfExileLeague = PathOfExileLeague.TEMP;
+    public GameDetectionMethod gameDetectionMethod = GameDetectionMethod.UNSET;
+    public MonitorInfo selectedMonitor;
+    public Rectangle gameBounds = new Rectangle(0, 0, 1920, 1080);
 
     // Enable Features
     public MenubarStyle menubarStyle = MenubarStyle.ICON;

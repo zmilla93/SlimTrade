@@ -2,6 +2,8 @@ package com.slimtrade.gui.setup;
 
 import com.slimtrade.core.enums.ResultStatus;
 import com.slimtrade.core.jna.NativeWindow;
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.GameDetectionMethod;
 import com.slimtrade.core.utility.Platform;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CardPanel;
@@ -19,8 +21,8 @@ import java.util.ArrayList;
 public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
     private final JRadioButton automaticRadioButton = new JRadioButton("Automatically");
-    private final JRadioButton monitorRadioButton = new JRadioButton("Select Monitor");
-    private final JRadioButton screenRegionRadioButton = new JRadioButton("Create Screen Region");
+    private final JRadioButton monitorRadioButton = new JRadioButton("Select a monitor");
+    private final JRadioButton screenRegionRadioButton = new JRadioButton("Create a screen region");
 
     // Automatic
     private static final String automaticTestFail = "Game window not found. Make sure Path of Exile 1 or 2 is running.";
@@ -49,7 +51,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
         // Detection Method Panel
         methodPanel.addHeader("Game Window Detection");
-        methodPanel.addComponent(new JLabel("How should SlimTrade detect where the Path of Exile game window is?"));
+        methodPanel.addComponent(new JLabel("How should SlimTrade know where the Path of Exile game window is located?"));
         methodPanel.addVerticalStrutSmall();
         methodPanel.addComponent(automaticRadioButton);
         methodPanel.addComponent(monitorRadioButton);
@@ -68,7 +70,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         monitorPanel.addComponent(new ComponentPanel(monitorCombo, identifyMonitorsButton));
 
         // Screen Region Panel
-        screenRegionPanel.addHeader("Create Screen Region");
+        screenRegionPanel.addHeader("Screen Region");
 
         // Card Panel
         cardPanel.add(automaticPanel);
@@ -108,7 +110,15 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void applyCompletedSetup() {
-        // FIXME: this
+        if (automaticRadioButton.isSelected()) {
+            SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.AUTOMATIC;
+        } else if (monitorRadioButton.isSelected()) {
+            SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.MONITOR;
+            SaveManager.settingsSaveFile.data.selectedMonitor = (MonitorInfo) monitorCombo.getSelectedItem();
+        } else if (screenRegionRadioButton.isSelected()) {
+            SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.SCREEN_REGION;
+            // FIXME : Save region
+        }
     }
 
 }

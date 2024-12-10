@@ -13,10 +13,10 @@ public class MonitorInfo {
     private static int CURRENT_ID;
 
     public final int id;
-    public final String deviceName;
     public final boolean isFullScreenSupported;
     public final Rectangle bounds;
     public final int refreshRate;
+    private transient String displayName;
 
     private MonitorInfo(GraphicsDevice device) {
         DisplayMode displayMode = device.getDisplayMode();
@@ -24,8 +24,12 @@ public class MonitorInfo {
         isFullScreenSupported = device.isFullScreenSupported();
         bounds = device.getDefaultConfiguration().getBounds();
         refreshRate = displayMode.getRefreshRate();
-        deviceName = "Monitor " + id + " [" + bounds.width + "x" + bounds.height + "]";
         MonitorInfo.CURRENT_ID++;
+    }
+
+    public String getDisplayName() {
+        if (displayName == null) displayName = "Monitor " + id + " [" + bounds.width + "x" + bounds.height + "]";
+        return displayName;
     }
 
     public static synchronized ArrayList<MonitorInfo> getAllMonitors() {
@@ -38,7 +42,7 @@ public class MonitorInfo {
 
     @Override
     public String toString() {
-        return deviceName;
+        return getDisplayName();
     }
 
 }

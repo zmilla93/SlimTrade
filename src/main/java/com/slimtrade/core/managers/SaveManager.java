@@ -12,7 +12,6 @@ import com.slimtrade.modules.theme.ThemeManager;
 import com.slimtrade.modules.updater.ZLogger;
 
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -150,38 +149,6 @@ public class SaveManager {
             throw new RuntimeException(e);
         }
         return path;
-    }
-
-    @Deprecated
-    public static ArrayList<String> getPotentialClients() {
-        ArrayList<String> paths = new ArrayList<>();
-        for (String path : getCommonDirectories()) {
-            File file = new File(path);
-            if (file.isFile()) paths.add(path);
-        }
-        return paths;
-    }
-
-    @Deprecated
-    private static ArrayList<String> getCommonDirectories() {
-        ArrayList<String> paths = new ArrayList<>();
-        // Iterates letters A - Z
-        for (int i = 65; i <= 90; i++) {
-            char driveLetter = (char) i;
-            // Stand Alone
-            paths.add(driveLetter + ":/Grinding Gear Games/Path of Exile/logs/Client.txt");
-            paths.add(driveLetter + ":/Program Files/Grinding Gear Games/Path of Exile/logs/Client.txt");
-            paths.add(driveLetter + ":/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt");
-            // Steam
-            paths.add(driveLetter + ":/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(driveLetter + ":/Program Files/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(driveLetter + ":/Program Files (x86)/Steam/steamapps/common/Path of Exile/logs/Client.txt");
-            // Steam Library
-            paths.add(driveLetter + ":/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(driveLetter + ":/Program Files/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-            paths.add(driveLetter + ":/Program Files (x86)/SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt");
-        }
-        return paths;
     }
 
     public static Path[] getValidGameDirectories(Game game) {

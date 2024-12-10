@@ -8,6 +8,6 @@ package com.slimtrade.core.poe;
  */
 public enum GameDetectionMethod {
 
-    UNSET, AUTOMATIC, MONITOR, REGION
+    UNSET, AUTOMATIC, MONITOR, SCREEN_REGION
 
 }
