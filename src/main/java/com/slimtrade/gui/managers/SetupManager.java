@@ -6,6 +6,7 @@ import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.poe.GameDetectionMethod;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -29,8 +30,8 @@ public class SetupManager {
         boolean hasInitializedGamePaths = SaveManager.settingsSaveFile.data.hasInitializedGamePaths;
         boolean poe1MarkedNotInstalled = SaveManager.settingsSaveFile.data.poe1NotInstalled && hasInitializedGamePaths;
         boolean poe2MarkedNotInstalled = SaveManager.settingsSaveFile.data.poe2NotInstalled && hasInitializedGamePaths;
-        Path poe1Path = SaveManager.settingsSaveFile.data.poe1InstallDirectory;
-        Path poe2Path = SaveManager.settingsSaveFile.data.poe2InstallDirectory;
+        Path poe1Path = Paths.get(SaveManager.settingsSaveFile.data.poe1InstallDirectory);
+        Path poe2Path = Paths.get(SaveManager.settingsSaveFile.data.poe2InstallDirectory);
         boolean poe1ValidPath = poe1Path != null && poe1Path.toFile().exists();
         boolean poe2ValidPath = poe2Path != null && poe2Path.toFile().exists();
         boolean poe1FullPathValidation = poe1ValidPath || poe1MarkedNotInstalled;

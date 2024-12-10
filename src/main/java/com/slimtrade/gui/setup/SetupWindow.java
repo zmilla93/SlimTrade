@@ -11,35 +11,30 @@ import com.slimtrade.gui.managers.SetupManager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class SetupWindow extends JFrame {
 
+    // Card Panel - startPanel > setupPanels[] > finishPanel
     private final CardPanel cardPanel = new CardPanel();
-
     private final StartSetupPanel startPanel = new StartSetupPanel();
     private final FinishSetupPanel finishPanel = new FinishSetupPanel();
-
-    private final JButton previousButton = new JButton("Previous");
-    public final JButton nextButton = new JButton(NEXT_TEXT);
-
-    private final ClientSetupPanel clientPanel = new ClientSetupPanel();
-    private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel();
-    private final LegacyStashSetupPanel stashPanel = new LegacyStashSetupPanel();
-    private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel();
-
+    // Card Panel Components
     private static final String NEXT_TEXT = "Next";
     private static final String FINISH_TEXT = "Finish";
-
+    private final JButton previousButton = new JButton("Previous");
+    public final JButton nextButton = new JButton(NEXT_TEXT);
     private final JLabel countLabel = new JLabel("10/10");
-
-    private final HashMap<Integer, AbstractSetupPanel> panelMap = new HashMap<>();
+    // Setup Panels
+    private final ArrayList<AbstractSetupPanel> setupPanels = new ArrayList<>();
+    private final InstallFolderSetupPanel clientPanel = new InstallFolderSetupPanel();
+    private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel();
+    private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel();
 
     public SetupWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SlimTrade Setup");
-        // FIXME : Make a window that handles icons automatically so this can be reused?
+        // FIXME : Make a window that handles icons automatically so this code can be reused?
         ArrayList<Image> images = new ArrayList<>();
         images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage());
         images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
@@ -79,38 +74,11 @@ public class SetupWindow extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    /**
-     * Adds setup panels to the window based on the results of the {@link SetupManager}.
-     */
-    public void buildSetupCardPanel() {
-        cardPanel.add(startPanel);
-        for (SetupPhase phase : SetupManager.getSetupPhases()) {
-            switch (phase) {
-                case GAME_INSTALL_DIRECTORY:
-                    cardPanel.add(clientPanel);
-                    break;
-                case GAME_DETECTION_METHOD:
-                    cardPanel.add(gameDetectionPanel);
-                    break;
-                case STASH_POSITION:
-                    cardPanel.add(stashPanel);
-                    break;
-                case STASH_FOLDERS:
-                    cardPanel.add(stashFolderPanel);
-                    break;
-            }
-        }
-        cardPanel.add(finishPanel);
-        pack();
-        setLocationRelativeTo(null);
-    }
-
     private void addListeners() {
         previousButton.addActionListener(e -> {
             cardPanel.previous();
             updateComponents();
         });
-
         nextButton.addActionListener(e -> {
             if (cardPanel.getCurrentCardIndex() == cardPanel.getComponentCount() - 1) {
                 finishSetup();
@@ -121,18 +89,47 @@ public class SetupWindow extends JFrame {
         });
     }
 
+    /**
+     * Adds setup panels to the window based on the results of the {@link SetupManager}.
+     */
+    public void buildSetupCardPanel() {
+        cardPanel.add(startPanel);
+        for (SetupPhase phase : SetupManager.getSetupPhases()) {
+            switch (phase) {
+                case GAME_INSTALL_DIRECTORY:
+                    addSetupPanel(clientPanel);
+                    break;
+                case GAME_DETECTION_METHOD:
+                    addSetupPanel(gameDetectionPanel);
+                    break;
+                case STASH_FOLDERS:
+                    addSetupPanel(stashFolderPanel);
+                    break;
+            }
+        }
+        cardPanel.add(finishPanel);
+        pack();
+        setLocationRelativeTo(null);
+    }
+
+    private void addSetupPanel(AbstractSetupPanel panel) {
+        setupPanels.add(panel);
+        cardPanel.add(panel);
+    }
+
     private void updateComponents() {
         int cardIndex = cardPanel.getCurrentCardIndex();
         if (cardIndex == 0) nextButton.setEnabled(true);
         previousButton.setVisible(cardPanel.getCurrentCardIndex() > 0);
         if (cardPanel.getCurrentCardIndex() < cardPanel.getComponentCount() - 1) nextButton.setText(NEXT_TEXT);
         else nextButton.setText(FINISH_TEXT);
-        countLabel.setText(cardIndex + "/" + (cardPanel.getComponentCount() - 2));
+        countLabel.setText(cardIndex + "/" + setupPanels.size());
         countLabel.setVisible(cardIndex > 0 && cardIndex < cardPanel.getComponentCount() - 1);
         pack();
     }
 
     private void finishSetup() {
+        for (AbstractSetupPanel panel : setupPanels) panel.applyCompletedSetup();
         SaveManager.settingsSaveFile.saveToDisk(false);
         App.launchApp();
     }

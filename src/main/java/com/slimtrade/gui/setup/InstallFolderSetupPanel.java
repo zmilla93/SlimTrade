@@ -13,16 +13,17 @@ import java.awt.*;
 import java.io.File;
 import java.nio.file.Path;
 
-public class ClientSetupPanel extends AbstractSetupPanel {
+/**
+ * Handles finding the Path of Exile 1 and/or 2 install folders.
+ */
+public class InstallFolderSetupPanel extends AbstractSetupPanel {
 
     private final JButton moreInfoButton = new JButton("Detailed Explanation");
     private final POEFolderPicker poe1FolderPicker = new POEFolderPicker(Game.PATH_OF_EXILE_1, true);
     private final POEFolderPicker poe2FolderPicker = new POEFolderPicker(Game.PATH_OF_EXILE_2, true);
-    POEInstallFolderExplanationPanel moreInfoPanel = new POEInstallFolderExplanationPanel(true, false);
+    private final POEInstallFolderExplanationPanel moreInfoPanel = new POEInstallFolderExplanationPanel(true, false);
 
-    // FIXME: Paste from clipboard button?
-
-    public ClientSetupPanel() {
+    public InstallFolderSetupPanel() {
         AbstractOptionPanel panel = new AbstractOptionPanel(false, false);
         panel.addHeader("Path of Exile Install Folder");
         panel.addComponent(new JLabel("SlimTrade requires Path of Exile's install location to read chat logs."));
@@ -59,8 +60,8 @@ public class ClientSetupPanel extends AbstractSetupPanel {
     }
 
     private void setAllErrorLabelsToInitialStatus() {
-        Path poe1Dir = SaveManager.settingsSaveFile.data.poe1InstallDirectory;
-        Path poe2Dir = SaveManager.settingsSaveFile.data.poe1InstallDirectory;
+        Path poe1Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.poe1InstallDirectory);
+        Path poe2Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.poe2InstallDirectory);
         setInitialErrorLabelStatus(poe1Dir, poe1FolderPicker, Game.PATH_OF_EXILE_1);
         setInitialErrorLabelStatus(poe2Dir, poe2FolderPicker, Game.PATH_OF_EXILE_2);
     }
@@ -69,9 +70,9 @@ public class ClientSetupPanel extends AbstractSetupPanel {
      * Sets a very specific error message based on the state of settings.json and what files actually exist on disk.
      */
     private void setInitialErrorLabelStatus(Path path, POEFolderPicker picker, Game game) {
+        System.out.println("PATH : " + path);
         if (path == null) {
-            Path[] validDirectories = SaveManager.getValidGameDirectories(game);
-            picker.createDuplicatePathPanels(validDirectories);
+            Path[] validDirectories = picker.createDuplicatePathPanels(false);
             if (validDirectories.length == 0)
                 picker.setErrorText("Auto detection of install folder failed.", ResultStatus.DENY);
             else if (validDirectories.length == 1) {
@@ -80,7 +81,7 @@ public class ClientSetupPanel extends AbstractSetupPanel {
             } else
                 picker.setErrorText("Multiple install folders detected, select the correct one.", ResultStatus.INDETERMINATE);
         } else {
-            if (path.toFile().isFile()) {
+            if (path.toFile().exists()) {
                 picker.setSelectedPath(path);
                 if (path.toFile().exists()) {
                     if (path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists())
@@ -89,10 +90,13 @@ public class ClientSetupPanel extends AbstractSetupPanel {
                         picker.setErrorText("Using a previously set install folder, but the '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder is missing.", ResultStatus.INDETERMINATE);
                 } else
                     picker.setErrorText("The previously set install folder no longer exists.", ResultStatus.INDETERMINATE);
+            } else {
+                picker.setErrorText("The previously set folder no longer exists.", ResultStatus.DENY);
+                picker.createDuplicatePathPanels(true);
             }
+
         }
     }
-
 
     /**
      * Verify that a given path points to the Path of Exile 1 or 2's install directory.
@@ -121,8 +125,9 @@ public class ClientSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void applyCompletedSetup() {
-        SaveManager.settingsSaveFile.data.poe1InstallDirectory = poe1FolderPicker.getSelectedPath();
-        SaveManager.settingsSaveFile.data.poe2InstallDirectory = poe2FolderPicker.getSelectedPath();
+        SaveManager.settingsSaveFile.data.poe1InstallDirectory = poe1FolderPicker.getSelectedPath().toString();
+        SaveManager.settingsSaveFile.data.poe2InstallDirectory = poe2FolderPicker.getSelectedPath().toString();
+        SaveManager.settingsSaveFile.data.hasInitializedGamePaths = true;
     }
 
 }

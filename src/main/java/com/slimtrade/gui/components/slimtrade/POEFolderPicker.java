@@ -43,8 +43,9 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
         });
     }
 
-    public void createDuplicatePathPanels(Path[] paths) {
-        if (paths.length < 2) return;
+    public Path[] createDuplicatePathPanels(boolean showIfOnlyOneResult) {
+        Path[] paths = SaveManager.getValidGameDirectories(game);
+        if (paths.length < 2 && !showIfOnlyOneResult) return paths;
         GridBagConstraints gc = ZUtil.getGC();
         gc.weightx = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -58,6 +59,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
             gc.gridy++;
             pathButton.addActionListener(e -> setSelectedPath(path));
         }
+        return paths;
     }
 
     public boolean notInstalledCheckboxValue() {

@@ -3,6 +3,7 @@ package com.slimtrade.core.utility;
 import com.slimtrade.App;
 import com.slimtrade.core.data.PasteReplacement;
 import com.slimtrade.modules.updater.ZLogger;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -380,6 +381,16 @@ public class ZUtil {
 
     public static ExecutorService getMaxSpeedExecutor() {
         return Executors.newFixedThreadPool(Math.max(1, Runtime.getRuntime().availableProcessors() - 1));
+    }
+
+    /**
+     * A nullable version of {@link Paths#get(String, String...)}.
+     * Only allows a single string parameter.
+     */
+    @Nullable
+    public static Path getPath(@Nullable String pathString) {
+        if (pathString == null) return null;
+        return Paths.get(pathString);
     }
 
 }
