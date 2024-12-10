@@ -59,7 +59,8 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         methodPanel.addVerticalStrut();
 
         // Automatic Panel
-//        new ComponentPanel(automaticTestButton, automaticTestLabel)
+        // FIXME : Run detection at start
+        // FIXME : Make it so you can't undo test completion
         automaticPanel.addHeader("Detection Test");
         automaticPanel.addComponent(new ComponentPanel(automaticTestButton, automaticTestLabel));
 
@@ -104,8 +105,12 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     @Override
     public boolean isSetupValid() {
         // FIXME: this
-//        return SaveManager.settingsSaveFile.data.gameDetectionMethod != GameDetectionMethod.UNSET;
         return true;
+    }
+
+    @Override
+    public void applyCompletedSetup() {
+        // FIXME: this
     }
 
 }

@@ -46,4 +46,9 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
         return yesRadioButton.isSelected() || noRadioButton.isSelected();
     }
 
+    @Override
+    public void applyCompletedSetup() {
+        // TODO: this
+    }
+
 }

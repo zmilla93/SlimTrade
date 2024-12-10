@@ -22,6 +22,8 @@ public abstract class AbstractSetupPanel extends JPanel {
 
     public abstract boolean isSetupValid();
 
+    public abstract void applyCompletedSetup();
+
     protected void runSetupValidation() {
         assert SwingUtilities.isEventDispatchThread();
         FrameManager.setupWindow.nextButton.setEnabled(isSetupValid());

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+//FIXME : This file needs cleaup
 public class SetupWindow extends JFrame {
 
     private final CardLayout cardLayout = new CardLayout();
@@ -27,7 +28,7 @@ public class SetupWindow extends JFrame {
     private final LegacyClientSetupPanel legacyClientPanel = new LegacyClientSetupPanel(nextButton);
     private final ClientSetupPanel clientPanel = new ClientSetupPanel(nextButton);
     private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel(nextButton);
-    private final StashSetupPanel stashPanel = new StashSetupPanel(nextButton);
+    private final LegacyStashSetupPanel stashPanel = new LegacyStashSetupPanel(nextButton);
     private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel(nextButton);
 
     private static final String NEXT_TEXT = "Next";
@@ -139,15 +140,7 @@ public class SetupWindow extends JFrame {
     }
 
     private void finishSetup() {
-        if (panelMap.values().size() > 0) {
-            if (legacyClientPanel.isSetupValid())
-                SaveManager.settingsSaveFile.data.clientPath = legacyClientPanel.getClientPath();
-            if (stashFolderPanel.isSetupValid()) {
-                SaveManager.settingsSaveFile.data.folderOffset = stashFolderPanel.isUsingFolders();
-                SaveManager.settingsSaveFile.data.initializedFolderOffset = true;
-            }
-            SaveManager.settingsSaveFile.saveToDisk(false);
-        }
+        if (!panelMap.values().isEmpty()) SaveManager.settingsSaveFile.saveToDisk(false);
         App.launchApp();
     }
 
@@ -160,10 +153,6 @@ public class SetupWindow extends JFrame {
         else nextButton.setText("Finish");
         countLabel.setText(panelIndex + "/" + (cardPanel.getComponentCount() - 2));
         countLabel.setVisible(panelIndex > 0 && panelIndex < cardPanel.getComponentCount() - 1);
-    }
-
-    public StashSetupPanel getStashPanel() {
-        return stashPanel;
     }
 
 }

@@ -109,14 +109,6 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         return path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists();
     }
 
-//    @Override
-//    protected void runSetupValidation() {
-//        super.runSetupValidation();
-////        assert SwingUtilities.isEventDispatchThread();
-////        System.out.println("PACK!");
-////        ZUtil.packComponentWindow(this);
-//    }
-
     @Override
     public boolean isSetupValid() {
         Path poe1Path = poe1FolderPicker.getSelectedPath();
@@ -126,6 +118,12 @@ public class ClientSetupPanel extends AbstractSetupPanel {
         boolean validPoe1Path = poe1NotInstalled || isValidPOEFolder(poe1Path, Game.PATH_OF_EXILE_1);
         boolean validPoe2Path = poe2NotInstalled || isValidPOEFolder(poe2Path, Game.PATH_OF_EXILE_2);
         return validPoe1Path && validPoe2Path;
+    }
+
+    @Override
+    public void applyCompletedSetup() {
+        SaveManager.settingsSaveFile.data.poe1InstallDirectory = poe1FolderPicker.getSelectedPath();
+        SaveManager.settingsSaveFile.data.poe2InstallDirectory = poe2FolderPicker.getSelectedPath();
     }
 
 }

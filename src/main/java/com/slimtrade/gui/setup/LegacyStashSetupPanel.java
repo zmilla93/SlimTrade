@@ -8,9 +8,10 @@ import com.slimtrade.gui.managers.FrameManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class StashSetupPanel extends AbstractSetupPanel {
+@Deprecated
+public class LegacyStashSetupPanel extends AbstractSetupPanel {
 
-    public StashSetupPanel(JButton button) {
+    public LegacyStashSetupPanel(JButton button) {
         super(button);
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
@@ -26,6 +27,11 @@ public class StashSetupPanel extends AbstractSetupPanel {
     @Override
     public boolean isSetupValid() {
         return SaveManager.stashSaveFile.data.gridRect != null;
+    }
+
+    @Override
+    public void applyCompletedSetup() {
+        // Legacy class, do nothing
     }
 
 }

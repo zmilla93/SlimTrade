@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+@Deprecated
 public class LegacyClientSetupPanel extends AbstractSetupPanel {
 
     private final JButton browseButton = new JButton("Browse");
@@ -80,6 +81,11 @@ public class LegacyClientSetupPanel extends AbstractSetupPanel {
     public boolean isSetupValid() {
         String text = clientTextField.getText();
         return !text.trim().equals("");
+    }
+
+    @Override
+    public void applyCompletedSetup() {
+        // Legacy class, do nothing
     }
 
 }
