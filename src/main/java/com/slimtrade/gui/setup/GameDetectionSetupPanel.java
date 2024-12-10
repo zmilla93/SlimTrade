@@ -38,9 +38,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     private final AbstractOptionPanel monitorPanel = new AbstractOptionPanel(false, false);
     private final AbstractOptionPanel screenRegionPanel = new AbstractOptionPanel(false, false);
 
-    public GameDetectionSetupPanel(JButton nextButton) {
-        super(nextButton);
-
+    public GameDetectionSetupPanel() {
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(automaticRadioButton);
         buttonGroup.add(monitorRadioButton);

@@ -61,6 +61,7 @@ public class FilePicker extends JPanel {
      * @param path Target path
      */
     public void setSelectedPath(Path path) {
+        assert SwingUtilities.isEventDispatchThread();
         selectedPath = path;
         if (path == null) {
             fileChooser.setCurrentDirectory(null);

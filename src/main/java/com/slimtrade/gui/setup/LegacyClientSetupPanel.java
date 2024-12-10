@@ -15,8 +15,7 @@ public class LegacyClientSetupPanel extends AbstractSetupPanel {
     private final JTextField clientTextField = new JTextField(25);
     private final JFileChooser fileChooser = new ClientFileChooser();
 
-    public LegacyClientSetupPanel(JButton button) {
-        super(button);
+    public LegacyClientSetupPanel() {
         contentPanel.setLayout(new GridBagLayout());
         clientTextField.setEditable(false);
 

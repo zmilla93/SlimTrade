@@ -22,13 +22,12 @@ public class ClientSetupPanel extends AbstractSetupPanel {
 
     // FIXME: Paste from clipboard button?
 
-    public ClientSetupPanel(JButton nextButton) {
-        super(nextButton);
+    public ClientSetupPanel() {
         AbstractOptionPanel panel = new AbstractOptionPanel(false, false);
         panel.addHeader("Path of Exile Install Folder");
         panel.addComponent(new JLabel("SlimTrade requires Path of Exile's install location to read chat logs."));
         panel.addVerticalStrut();
-        panel.addHeader(Game.PATH_OF_EXILE_1.toString());
+        panel.addHeader(Game.PATH_OF_EXILE_1.getExplicitName());
         panel.addComponent(poe1FolderPicker);
         panel.addVerticalStrut();
         panel.addHeader(Game.PATH_OF_EXILE_2.toString());

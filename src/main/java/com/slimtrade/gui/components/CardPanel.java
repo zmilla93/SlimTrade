@@ -2,6 +2,7 @@ package com.slimtrade.gui.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -14,10 +15,17 @@ import java.util.HashMap;
 public class CardPanel extends JPanel {
 
     private final CardLayout cardLayout = new CardLayout();
-    private final HashMap<Component, String> cardMap = new HashMap<>();
+    private final HashMap<Component, Integer> cardMap = new HashMap<>();
+    private final ArrayList<Component> cards = new ArrayList<>();
+    private int currentCardIndex = 0;
+    private boolean allowWrap;
 
     public CardPanel() {
         setLayout(cardLayout);
+    }
+
+    public int getCurrentCardIndex() {
+        return currentCardIndex;
     }
 
     /**
@@ -27,8 +35,32 @@ public class CardPanel extends JPanel {
      */
     public void showCard(Component component) {
         if (!cardMap.containsKey(component)) return;
-        String key = cardMap.get(component);
-        cardLayout.show(this, key);
+        int key = cardMap.get(component);
+        currentCardIndex = key;
+        cardLayout.show(this, Integer.toString(key));
+    }
+
+    /**
+     * Sets if previous() and next() will cause the card panel to wrap between the first and last panels.
+     */
+    public void setAllowWrapAround(boolean allow) {
+        this.allowWrap = allow;
+    }
+
+    public void previous() {
+        boolean wrap = currentCardIndex == 0;
+        if (wrap && !allowWrap) return;
+        cardLayout.previous(this);
+        if (wrap) currentCardIndex = getComponentCount() - 1;
+        else currentCardIndex--;
+    }
+
+    public void next() {
+        boolean wrap = currentCardIndex == getComponentCount() - 1;
+        if (wrap && !allowWrap) return;
+        cardLayout.next(this);
+        if (wrap) currentCardIndex = 0;
+        else currentCardIndex++;
     }
 
     /**
@@ -36,9 +68,10 @@ public class CardPanel extends JPanel {
      */
     @Override
     public Component add(Component comp) {
-        String key = Integer.toString(getComponentCount());
-        add(comp, key);
+        int key = getComponentCount();
+        add(comp, Integer.toString(key));
         cardMap.put(comp, key);
+        cards.add(comp);
         return comp;
     }
 

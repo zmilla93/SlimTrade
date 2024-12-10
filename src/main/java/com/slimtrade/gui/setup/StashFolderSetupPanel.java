@@ -12,9 +12,7 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
     private final JRadioButton yesRadioButton = new JRadioButton("Yes");
     private final JRadioButton noRadioButton = new JRadioButton("No");
 
-    public StashFolderSetupPanel(JButton nextButton) {
-        super(nextButton);
-
+    public StashFolderSetupPanel() {
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(yesRadioButton);
         buttonGroup.add(noRadioButton);

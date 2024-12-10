@@ -5,6 +5,7 @@ import com.slimtrade.core.enums.DefaultIcon;
 import com.slimtrade.core.enums.SetupPhase;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.CardPanel;
 import com.slimtrade.gui.managers.SetupManager;
 
 import javax.swing.*;
@@ -13,11 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-//FIXME : This file needs cleaup
 public class SetupWindow extends JFrame {
 
-    private final CardLayout cardLayout = new CardLayout();
-    private final JPanel cardPanel = new JPanel(cardLayout);
+    private final CardPanel cardPanel = new CardPanel();
 
     private final StartSetupPanel startPanel = new StartSetupPanel();
     private final FinishSetupPanel finishPanel = new FinishSetupPanel();
@@ -25,23 +24,22 @@ public class SetupWindow extends JFrame {
     private final JButton previousButton = new JButton("Previous");
     public final JButton nextButton = new JButton(NEXT_TEXT);
 
-    private final LegacyClientSetupPanel legacyClientPanel = new LegacyClientSetupPanel(nextButton);
-    private final ClientSetupPanel clientPanel = new ClientSetupPanel(nextButton);
-    private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel(nextButton);
-    private final LegacyStashSetupPanel stashPanel = new LegacyStashSetupPanel(nextButton);
-    private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel(nextButton);
+    private final ClientSetupPanel clientPanel = new ClientSetupPanel();
+    private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel();
+    private final LegacyStashSetupPanel stashPanel = new LegacyStashSetupPanel();
+    private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel();
 
     private static final String NEXT_TEXT = "Next";
+    private static final String FINISH_TEXT = "Finish";
 
     private final JLabel countLabel = new JLabel("10/10");
 
     private final HashMap<Integer, AbstractSetupPanel> panelMap = new HashMap<>();
 
-    private int panelIndex;
-
     public SetupWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SlimTrade Setup");
+        // FIXME : Make a window that handles icons automatically so this can be reused?
         ArrayList<Image> images = new ArrayList<>();
         images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage());
         images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
@@ -81,78 +79,62 @@ public class SetupWindow extends JFrame {
         setLocationRelativeTo(null);
     }
 
-
     /**
-     * Adds setup panels to the window based on the results of {@link SetupManager}.
+     * Adds setup panels to the window based on the results of the {@link SetupManager}.
      */
     public void buildSetupCardPanel() {
-        cardPanel.add(startPanel, Integer.toString(cardPanel.getComponentCount()));
+        cardPanel.add(startPanel);
         for (SetupPhase phase : SetupManager.getSetupPhases()) {
             switch (phase) {
                 case GAME_INSTALL_DIRECTORY:
-//                    panelMap.put(cardPanel.getComponentCount(), legacyClientPanel);
-//                    cardPanel.add(legacyClientPanel, Integer.toString(cardPanel.getComponentCount()));
-                    panelMap.put(cardPanel.getComponentCount(), clientPanel);
-                    cardPanel.add(clientPanel, Integer.toString(cardPanel.getComponentCount()));
+                    cardPanel.add(clientPanel);
                     break;
                 case GAME_DETECTION_METHOD:
-                    panelMap.put(cardPanel.getComponentCount(), gameDetectionPanel);
-                    cardPanel.add(gameDetectionPanel, Integer.toString(cardPanel.getComponentCount()));
+                    cardPanel.add(gameDetectionPanel);
                     break;
                 case STASH_POSITION:
-                    panelMap.put(cardPanel.getComponentCount(), stashPanel);
-                    cardPanel.add(stashPanel, Integer.toString(cardPanel.getComponentCount()));
+                    cardPanel.add(stashPanel);
                     break;
                 case STASH_FOLDERS:
-                    panelMap.put(cardPanel.getComponentCount(), stashFolderPanel);
-                    cardPanel.add(stashFolderPanel, Integer.toString(cardPanel.getComponentCount()));
+                    cardPanel.add(stashFolderPanel);
                     break;
             }
         }
-        cardPanel.add(finishPanel, Integer.toString(cardPanel.getComponentCount()));
+        cardPanel.add(finishPanel);
         pack();
         setLocationRelativeTo(null);
     }
 
-    private void addSetupPanel(AbstractSetupPanel panel) {
-        panelMap.put(cardPanel.getComponentCount(), panel);
-        cardPanel.add(panel, Integer.toString(cardPanel.getComponentCount()));
-    }
-
     private void addListeners() {
         previousButton.addActionListener(e -> {
-            if (panelIndex > 0) {
-                panelIndex--;
-                showIndexedPanel();
-                nextButton.setEnabled(true);
-            }
+            cardPanel.previous();
+            updateComponents();
         });
 
         nextButton.addActionListener(e -> {
-            if (panelIndex == cardPanel.getComponentCount() - 1) {
+            if (cardPanel.getCurrentCardIndex() == cardPanel.getComponentCount() - 1) {
                 finishSetup();
-            }
-            if (panelIndex < cardPanel.getComponentCount() - 1) {
-                panelIndex++;
-                showIndexedPanel();
+            } else {
+                cardPanel.next();
+                updateComponents();
             }
         });
     }
 
-    private void finishSetup() {
-        if (!panelMap.values().isEmpty()) SaveManager.settingsSaveFile.saveToDisk(false);
-        App.launchApp();
+    private void updateComponents() {
+        int cardIndex = cardPanel.getCurrentCardIndex();
+        if (cardIndex == 0) nextButton.setEnabled(true);
+        previousButton.setVisible(cardPanel.getCurrentCardIndex() > 0);
+        if (cardPanel.getCurrentCardIndex() < cardPanel.getComponentCount() - 1) nextButton.setText(NEXT_TEXT);
+        else nextButton.setText(FINISH_TEXT);
+        countLabel.setText(cardIndex + "/" + (cardPanel.getComponentCount() - 2));
+        countLabel.setVisible(cardIndex > 0 && cardIndex < cardPanel.getComponentCount() - 1);
+        pack();
     }
 
-    private void showIndexedPanel() {
-        AbstractSetupPanel panel = panelMap.get(panelIndex);
-        if (panel != null) panel.runSetupValidation();
-        cardLayout.show(cardPanel, Integer.toString(panelIndex));
-        previousButton.setVisible(panelIndex != 0);
-        if (panelIndex < cardPanel.getComponentCount() - 1) nextButton.setText(NEXT_TEXT);
-        else nextButton.setText("Finish");
-        countLabel.setText(panelIndex + "/" + (cardPanel.getComponentCount() - 2));
-        countLabel.setVisible(panelIndex > 0 && panelIndex < cardPanel.getComponentCount() - 1);
+    private void finishSetup() {
+        SaveManager.settingsSaveFile.saveToDisk(false);
+        App.launchApp();
     }
 
 }

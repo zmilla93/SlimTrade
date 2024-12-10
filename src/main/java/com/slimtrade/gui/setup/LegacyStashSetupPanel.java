@@ -11,8 +11,7 @@ import java.awt.*;
 @Deprecated
 public class LegacyStashSetupPanel extends AbstractSetupPanel {
 
-    public LegacyStashSetupPanel(JButton button) {
-        super(button);
+    public LegacyStashSetupPanel() {
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
 //        int inset = 20;
