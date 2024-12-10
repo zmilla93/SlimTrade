@@ -2,6 +2,7 @@ package com.slimtrade.gui.windows;
 
 import com.slimtrade.App;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.gui.components.StyledLabel;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.HotkeyManager;
@@ -209,7 +210,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     @Override
     public void applyDefaultSizeAndLocation() {
         setSize(1000, 650);
-        setLocationRelativeTo(null);
+        POEWindow.centerWindow(this);
     }
 
 }

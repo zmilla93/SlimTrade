@@ -1,5 +1,7 @@
 package com.slimtrade.core.jna;
 
+import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.GameDetectionMethod;
 import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.POEInterface;
 import com.slimtrade.core.utility.Platform;
@@ -14,6 +16,7 @@ import java.awt.*;
  * Handles interacting with native windows on the Windows platform.
  * See <a href="https://java-native-access.github.io/jna/4.2.1/com/sun/jna/platform/win32/User32.html">User32</a> &
  * <a href="https://java-native-access.github.io/jna/4.2.0/com/sun/jna/platform/WindowUtils.html">WindowUtils</a>.
+ * Updates {@link POEWindow} to control the game bounds when using {@link com.slimtrade.core.poe.GameDetectionMethod#AUTOMATIC}.
  */
 public class NativeWindow {
 
@@ -22,9 +25,9 @@ public class NativeWindow {
     public final String title;
     public final WinDef.HWND handle;
     public Rectangle bounds;
-    private WinDef.HWND enumeratingHandle;
     private static boolean enumerationSuccessFlag;
-    private NativeWindow enumeratingWindow;
+    private static NativeWindow enumerationWindow;
+    private static NativeWindow foundWindow;
 
     public NativeWindow(String title, WinDef.HWND handle) {
         this.title = title;
@@ -32,20 +35,15 @@ public class NativeWindow {
         bounds = WindowUtils.getWindowLocationAndSize(handle);
     }
 
-    public void updateGameBounds() {
-        assert POEInterface.gameTitleSet.contains(title);
-        bounds = WindowUtils.getWindowLocationAndSize(handle);
-        POEWindow.setGameBounds(bounds);
-    }
-
     public void focus() {
         focus(this);
     }
 
-    public static void setGameWindow(NativeWindow window) {
+    public static void setPOEGameWindow(NativeWindow window) {
         assert POEInterface.gameTitleSet.contains(window.title);
         gameWindow = window;
-        gameWindow.updateGameBounds();
+        if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.AUTOMATIC)
+            POEWindow.setBoundsByNativeWindow(window);
     }
 
     public static String getWindowTitle(WinDef.HWND handle) {
@@ -64,7 +62,7 @@ public class NativeWindow {
 
     public static void focus(NativeWindow window) {
         if (window == null) return;
-        setGameWindow(window);
+        setPOEGameWindow(window);
         WinDef.HWND handle = window.handle;
         User32.INSTANCE.SetForegroundWindow(handle);
         User32.INSTANCE.SetFocus(handle);
@@ -83,11 +81,19 @@ public class NativeWindow {
         findPathOfExileWindow(window -> focus(window));
     }
 
+    public static synchronized NativeWindow findPathOfExileWindow() {
+        foundWindow = null;
+        findPathOfExileWindow(window -> foundWindow = window);
+        return foundWindow;
+    }
+
     /**
      * Enumerates through all open windows, looking for the Path of Exile 1 or 2 window.
+     * Uses the same callback pattern used by jna.
      */
-    public static void findPathOfExileWindow(WindowCallback callback) {
-        setEnumerationSuccess(false);
+    public static synchronized void findPathOfExileWindow(WindowCallback callback) {
+        enumerationSuccessFlag = false;
+        enumerationWindow = null;
         User32.INSTANCE.EnumWindows((enumeratingHandle, arg1) -> {
             // The class name string is truncated if it is longer than the buffer.
             int BUFFER_SIZE = 64;
@@ -102,7 +108,7 @@ public class NativeWindow {
                 String title = getWindowTitle(enumeratingHandle);
                 NativeWindow window = new NativeWindow(title, enumeratingHandle);
                 callback.onWindowFound(window);
-                setEnumerationSuccess(true);
+                enumerationWindow = window;
                 return false;
             }
             // GeForce Now has the class name CEFCLIENT. Unsure if this is unique, so the window title is also checked.
@@ -112,17 +118,18 @@ public class NativeWindow {
                     NativeWindow window = new NativeWindow(title, enumeratingHandle);
                     callback.onWindowFound(window);
                     System.out.println("gfn window");
-                    setEnumerationSuccess(true);
+                    enumerationWindow = window;
+                    callback.onWindowFound(window);
                     return false;
                 }
             }
             return true;
         }, null);
-        if (!enumerationSuccessFlag) callback.onWindowFound(null);
+        if (enumerationWindow == null) callback.onWindowFound(null);
     }
 
-    private static void setEnumerationSuccess(boolean success) {
-        enumerationSuccessFlag = success;
-    }
+//    private static void setEnumerationSuccess(boolean success) {
+//        enumerationSuccessFlag = success;
+//    }
 
 }

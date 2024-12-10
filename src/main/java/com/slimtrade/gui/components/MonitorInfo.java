@@ -2,6 +2,7 @@ package com.slimtrade.gui.components;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Stores a simple version of the info stored in {@link GraphicsDevice} and {@link DisplayMode}.
@@ -10,6 +11,7 @@ import java.util.ArrayList;
  */
 public class MonitorInfo {
 
+    private static final GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
     private static int CURRENT_ID;
 
     public final int id;
@@ -35,14 +37,34 @@ public class MonitorInfo {
     public static synchronized ArrayList<MonitorInfo> getAllMonitors() {
         MonitorInfo.CURRENT_ID = 1;
         ArrayList<MonitorInfo> monitors = new ArrayList<>();
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        for (GraphicsDevice device : ge.getScreenDevices()) monitors.add(new MonitorInfo(device));
+        for (GraphicsDevice device : graphicsEnvironment.getScreenDevices()) monitors.add(new MonitorInfo(device));
         return monitors;
+    }
+
+    public boolean exists() {
+        for (GraphicsDevice device : graphicsEnvironment.getScreenDevices()) {
+            MonitorInfo monitor = new MonitorInfo(device);
+            if (monitor.equals(this)) return true;
+        }
+        return false;
     }
 
     @Override
     public String toString() {
         return getDisplayName();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        MonitorInfo info = (MonitorInfo) object;
+        return isFullScreenSupported == info.isFullScreenSupported && refreshRate == info.refreshRate && Objects.equals(bounds, info.bounds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isFullScreenSupported, bounds, refreshRate);
     }
 
 }

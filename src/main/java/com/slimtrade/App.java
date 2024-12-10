@@ -11,6 +11,7 @@ import com.slimtrade.core.managers.AudioManager;
 import com.slimtrade.core.managers.FontManager;
 import com.slimtrade.core.managers.LockManager;
 import com.slimtrade.core.managers.SaveManager;
+import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.Platform;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.managers.FrameManager;
@@ -108,6 +109,8 @@ public class App {
 
         // Load save files & app info
         SaveManager.init();
+        // FIXME: is this correct spot for fresh? Or after UI init for callbacks? Or both? (maybe an alertBounds() function for after)
+        POEWindow.forceGameBoundsRefresh();
         profileLaunch("Time to start update");
 
         // Update

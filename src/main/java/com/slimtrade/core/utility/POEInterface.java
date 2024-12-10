@@ -159,35 +159,39 @@ public class POEInterface {
      * @return True if window was focused successfully
      */
     public static boolean focusGame() {
-        // FIXME : Add support for more platforms.
-        if (Platform.current != Platform.WINDOWS) return true;
         assert (!SwingUtilities.isEventDispatchThread());
+        // FIXME : Add support for more platforms.
         if (isGameFocused()) return true;
-        // Show, click, then hide a dummy window.
-        // This is required because the Java program needs focus before it can give focus to another program.
-        FrameManager.dummyWindow.setVisible(true);
-        Point point = MouseInfo.getPointerInfo().getLocation();
-        point.x -= DummyWindow.HALF_SIZE;
-        point.y -= DummyWindow.HALF_SIZE;
-        FrameManager.dummyWindow.setLocation(point);
-        robot.mousePress(0);
-        robot.mouseRelease(0);
-        FrameManager.dummyWindow.setVisible(false);
-        // Focus the Path of Exile game window
-        // FIXME : This might be the best spot to add platform support.
-        NativeWindow.focusPathOfExileNativeWindow();
-        // Wait until Path of Exile gains focus
-        int i = 0;
-        while (!isGameFocused()) {
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (Platform.current == Platform.WINDOWS) {
+            // Show, click, then hide a dummy window.
+            // This is required because the Java program needs focus before it can give focus to another program.
+            FrameManager.dummyWindow.setVisible(true);
+            Point point = MouseInfo.getPointerInfo().getLocation();
+            point.x -= DummyWindow.HALF_SIZE;
+            point.y -= DummyWindow.HALF_SIZE;
+            FrameManager.dummyWindow.setLocation(point);
+            robot.mousePress(0);
+            robot.mouseRelease(0);
+            FrameManager.dummyWindow.setVisible(false);
+            // Focus the Path of Exile game window
+            // FIXME : This might be the best spot to add platform support?
+            NativeWindow.focusPathOfExileNativeWindow();
+            // Wait until Path of Exile gains focus
+            int i = 0;
+            while (!isGameFocused()) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                i++;
+                if (i > 100) {
+                    break;
+                }
             }
-            i++;
-            if (i > 100) {
-                break;
-            }
+        } else {
+            // Non Windows OS, just return true
+            return true;
         }
         return isGameFocused();
     }
@@ -206,7 +210,7 @@ public class POEInterface {
                 if (focusedWindow.title.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_2))) return true;
             }
             if (gameTitleSet.contains(focusedWindow.title)) {
-                NativeWindow.setGameWindow(focusedWindow);
+                NativeWindow.setPOEGameWindow(focusedWindow);
                 return true;
             }
             return false;

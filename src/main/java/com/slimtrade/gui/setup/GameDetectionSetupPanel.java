@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
-    private final JRadioButton automaticRadioButton = new JRadioButton("Automatically");
+    private final JRadioButton automaticRadioButton = new JRadioButton("Automatic");
     private final JRadioButton monitorRadioButton = new JRadioButton("Select a monitor");
     private final JRadioButton screenRegionRadioButton = new JRadioButton("Create a screen region");
 
@@ -53,7 +53,8 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         methodPanel.addHeader("Game Window Detection");
         methodPanel.addComponent(new JLabel("How should SlimTrade know where the Path of Exile game window is located?"));
         methodPanel.addVerticalStrutSmall();
-        methodPanel.addComponent(automaticRadioButton);
+        if (Platform.current == Platform.WINDOWS)
+            methodPanel.addComponent(automaticRadioButton);
         methodPanel.addComponent(monitorRadioButton);
         methodPanel.addComponent(screenRegionRadioButton);
         methodPanel.addVerticalStrut();
@@ -71,6 +72,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
+        screenRegionPanel.addLabel("Coming soon!");
 
         // Card Panel
         cardPanel.add(automaticPanel);
@@ -78,11 +80,9 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         cardPanel.add(screenRegionPanel);
         methodPanel.addFullWidthComponent(cardPanel);
 
-        if (Platform.current == Platform.WINDOWS) {
-            automaticRadioButton.setSelected(true);
-        } else {
-            monitorRadioButton.setSelected(true);
-        }
+        if (Platform.current == Platform.WINDOWS) automaticRadioButton.setSelected(true);
+        else monitorRadioButton.setSelected(true);
+
         addListeners();
     }
 
