@@ -4,6 +4,7 @@ import github.zmilla93.core.References;
 import github.zmilla93.core.chatparser.ChatParser;
 import github.zmilla93.core.enums.AppState;
 import github.zmilla93.core.enums.CurrencyType;
+import github.zmilla93.core.enums.SetupPhase;
 import github.zmilla93.core.jna.GlobalKeyboardListener;
 import github.zmilla93.core.jna.GlobalMouseListener;
 import github.zmilla93.core.jna.GlobalMouseWheelListener;
@@ -36,6 +37,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Properties;
@@ -59,16 +61,17 @@ public class App {
     private static boolean themesHaveBeenInitialized = false;
     private static boolean updateIsAvailable = false;
     private static boolean isRunningSetup = false;
+    public static final ArrayList<SetupPhase> forcedSetupPhases = new ArrayList<>(); // no flag, used internally by previous command
 
-    // Debug Flags - The commented flags can be used as program arguments
-    // Suggested dev flags: -d -nu -ui -o
-    // Also add -ea as a VM option (not program argument) to enable assertions
-    public static boolean debug = false; //  -d, -debug: enables various developer windows and features
-    public static boolean noUpdate = false; // -nu, -noupdate: disable update check
-    public static boolean useLockFile = true; // -nl, -nolock: disable file locking
-    public static boolean showOptionsOnLaunch = false; // -o, -options: show the options menu at launch
+    // Debug Flags - The commented flags can be used as program arguments (case-insensitive)
+    // Suggested dev flags: -debug -noupdate -ui -options
+    // Add -ea as a VM option (not program argument) to enable assertions
+    public static boolean debug = false; // -debug: enables various developer windows and features
+    public static boolean noUpdate = false; // -noupdate: disable update check
+    public static boolean useLockFile = true; // -nolock: disable file locking
+    public static boolean showOptionsOnLaunch = false; // -options: show the options menu at launch
     public static boolean debugUIAlwaysOnTop = false; // -ui: forces the UI to always be on top no matter what
-    public static boolean forceSetup = false; // -setup: forces the setup wizard to run with all phases
+    public static boolean forceSetup = false; // -setup: forces the setup wizard to run with all phases (can also do setup:SetupPhase to force a specific phase, ie 'setup:game_window')
     public static boolean chatInConsole = false; // TODO: This is broken, should fix or remove
     public static int debugUIBorders = 0; // No flag: Adds debug borders to UI elements. 0 for off, 1 or 2 for debugging
     public static boolean messageUITest = false; // No flag: Creates a theme testing window (WARNING: takes a bit to load)
@@ -293,12 +296,22 @@ public class App {
     private static void parseLaunchArgs(String[] args) {
         for (String arg : args) {
             arg = arg.toLowerCase();
-            if (arg.equals("-nu") || arg.equals("-noupdate")) noUpdate = true;
-            if (arg.equals("-nl") || arg.equals("-nolock")) useLockFile = false;
-            if (arg.equals("-d") || arg.equals("-debug")) debug = true;
-            if (arg.equals("-o") || arg.equals("-options")) showOptionsOnLaunch = true;
+            if (arg.equals("-noupdate")) noUpdate = true;
+            if (arg.equals("-nolock")) useLockFile = false;
+            if (arg.equals("-debug")) debug = true;
+            if (arg.equals("-options")) showOptionsOnLaunch = true;
             if (arg.equals("-ui")) debugUIAlwaysOnTop = true;
             if (arg.equals("-setup")) forceSetup = true;
+            if (arg.startsWith("-setup:")) {
+                String targetPhase = arg.replace("-setup:", "").toLowerCase();
+                for (SetupPhase phase : SetupPhase.values()) {
+//                    System.out.println("PHASE: " +P);
+                    if (phase.toString().toLowerCase().equals(targetPhase)) {
+                        forcedSetupPhases.add(phase);
+                        break;
+                    }
+                }
+            }
         }
     }
 

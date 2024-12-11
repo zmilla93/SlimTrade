@@ -46,17 +46,24 @@ public class SetupManager {
             boolean poe1FullPathValidation = poe1ValidPath || poe1MarkedNotInstalled;
             boolean poe2FullPathValidation = poe2ValidPath || poe2MarkedNotInstalled;
             if (!poe1FullPathValidation || !poe2FullPathValidation)
-                setupPhases.add(SetupPhase.GAME_INSTALL_DIRECTORY);
+                setupPhases.add(SetupPhase.INSTALL_DIRECTORY);
         } else {
-            setupPhases.add(SetupPhase.GAME_INSTALL_DIRECTORY);
+            setupPhases.add(SetupPhase.INSTALL_DIRECTORY);
         }
         // Game Detection Method
         // FIXME : Make this more robust once done with screen region
         if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.UNSET)
-            setupPhases.add(SetupPhase.GAME_DETECTION_METHOD);
+            setupPhases.add(SetupPhase.GAME_WINDOW);
         // Using Stash Folders
         boolean hasInitFolders = SaveManager.settingsSaveFile.data.initUsingStashFolders == SettingsSaveFile.targetInitUsingStashFolders;
-        if (!hasInitFolders) setupPhases.add(SetupPhase.STASH_FOLDERS);
+        if (!hasInitFolders) setupPhases.add(SetupPhase.USING_STASH_FOLDERS);
+        // Add any forced setup phases
+        if (!App.forcedSetupPhases.isEmpty()) {
+            for (SetupPhase phase : App.forcedSetupPhases) {
+                if (!setupPhases.contains(phase))
+                    setupPhases.add(phase);
+            }
+        }
         // Finished
         return setupPhases;
     }

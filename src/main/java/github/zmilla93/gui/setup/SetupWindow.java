@@ -96,13 +96,13 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
         cardPanel.add(startPanel);
         for (SetupPhase phase : SetupManager.getSetupPhases()) {
             switch (phase) {
-                case GAME_INSTALL_DIRECTORY:
+                case INSTALL_DIRECTORY:
                     addSetupPanel(installFolderPanel);
                     break;
-                case GAME_DETECTION_METHOD:
+                case GAME_WINDOW:
                     addSetupPanel(gameDetectionPanel);
                     break;
-                case STASH_FOLDERS:
+                case USING_STASH_FOLDERS:
                     addSetupPanel(stashFolderPanel);
                     break;
             }
