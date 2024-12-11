@@ -2,7 +2,6 @@ package com.slimtrade.gui.components;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -16,12 +15,17 @@ public class CardPanel extends JPanel {
 
     private final CardLayout cardLayout = new CardLayout();
     private final HashMap<Component, Integer> cardMap = new HashMap<>();
-    private final ArrayList<Component> cards = new ArrayList<>();
     private int currentCardIndex = 0;
     private boolean allowWrap;
 
     public CardPanel() {
         setLayout(cardLayout);
+    }
+
+    public CardPanel(Component... components) {
+        this();
+        for (Component component : components)
+            add(component);
     }
 
     public int getCurrentCardIndex() {
@@ -64,6 +68,13 @@ public class CardPanel extends JPanel {
     }
 
     /**
+     * An add(Component) alias to make it easier to identify the correct add method.
+     */
+    public Component addCard(Component comp) {
+        return add(comp);
+    }
+
+    /**
      * This is the only version of add() that should ever be used!
      */
     @Override
@@ -71,7 +82,6 @@ public class CardPanel extends JPanel {
         int key = getComponentCount();
         add(comp, Integer.toString(key));
         cardMap.put(comp, key);
-        cards.add(comp);
         return comp;
     }
 

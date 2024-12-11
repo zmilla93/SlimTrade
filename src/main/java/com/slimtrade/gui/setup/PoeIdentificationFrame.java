@@ -20,7 +20,7 @@ public class PoeIdentificationFrame extends JDialog {
         setFocusable(false);
         setFocusableWindowState(false);
         setBackground(new Color(0, 0, 0, 0));
-        add(createBorder());
+        add(createBorderComponent());
     }
 
     public static void identify(Rectangle rect) {
@@ -48,7 +48,7 @@ public class PoeIdentificationFrame extends JDialog {
         disposeFramesTimer.restart();
     }
 
-    private JComponent createBorder() {
+    private JComponent createBorderComponent() {
         return new JComponent() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -57,7 +57,7 @@ public class PoeIdentificationFrame extends JDialog {
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 // FIXME : Use theme color?
                 g2d.setColor(Color.RED);
-                g2d.setStroke(new BasicStroke(1));
+                g2d.setStroke(new BasicStroke(2));
                 g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
             }
         };

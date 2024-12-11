@@ -18,8 +18,6 @@ import com.sun.jna.platform.win32.WinDef;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GameDetectionSetupPanel extends AbstractSetupPanel {
@@ -29,10 +27,15 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     private final JRadioButton screenRegionRadioButton = new JRadioButton("Create a screen region");
 
     // Automatic
-    private static final String automaticTestFail = "Game window not found. Make sure Path of Exile 1 or 2 is running.";
-    private static final String automaticTestSuccess = "Game window detected!";
+    private final JLabel automaticTestNotRun = new JLabel("Click to set the game window location.");
+    private final ResultLabel automaticTestFail = new ResultLabel(ResultStatus.DENY, "No window found. Ensure Path of Exile 1 or 2 is running.");
+    private final ResultLabel automaticTestMinimized = new ResultLabel(ResultStatus.INDETERMINATE, "Game is minimized.");
+    private final ResultLabel automaticTestSuccess = new ResultLabel(ResultStatus.APPROVE, "Game window location set.");
+    private final ResultLabel automaticTestNotSupported = new ResultLabel(ResultStatus.DENY, "Not supported on " + Platform.current + ".");
+    private final CardPanel automaticResultsCardPanel = new CardPanel(automaticTestNotRun, automaticTestSuccess, automaticTestFail, automaticTestMinimized, automaticTestNotSupported);
     private final JButton automaticTestButton = new JButton("Detect");
     private final ResultLabel automaticTestLabel = new ResultLabel(ResultStatus.NEUTRAL, "Verify game detection is working.");
+    private boolean automaticTestResult = false;
 
     // Monitor
     private final JButton identifyButton = new JButton("Identify");
@@ -54,8 +57,9 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         contentPanel.add(methodPanel, BorderLayout.CENTER);
 
         // Detection Method Panel
-        methodPanel.addHeader("Game Window Detection");
-        methodPanel.addComponent(new JLabel("How should SlimTrade know where the Path of Exile game window is located?"));
+        methodPanel.addHeader("Game Window Location");
+        methodPanel.addComponent(new JLabel("How should SlimTrade determine the Path of Exile window location?"));
+        methodPanel.addComponent(new JLabel("This is used to align UI Elements."));
         methodPanel.addVerticalStrutSmall();
         if (Platform.current == Platform.WINDOWS)
             methodPanel.addComponent(automaticRadioButton);
@@ -66,8 +70,8 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         // Automatic Panel
         // FIXME : Run detection at start
         // FIXME : Make it so you can't undo test completion
-        automaticPanel.addHeader("Detection Test");
-        automaticPanel.addComponent(new ComponentPanel(automaticTestButton, automaticTestLabel));
+        automaticPanel.addHeader("Detect Window");
+        automaticPanel.addComponent(new ComponentPanel(automaticTestButton, automaticResultsCardPanel));
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
@@ -92,32 +96,46 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     }
 
     private void addListeners() {
-        automaticRadioButton.addActionListener(e -> cardPanel.showCard(automaticPanel));
-        monitorRadioButton.addActionListener(e -> cardPanel.showCard(monitorPanel));
-        screenRegionRadioButton.addActionListener(e -> cardPanel.showCard(screenRegionPanel));
-        automaticTestButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                assert SwingUtilities.isEventDispatchThread();
-                // FIXME: Display more info.
-                WinDef.HWND handle = NativePoeWindow.findPathOfExileWindow();
-                if (handle == null) automaticTestLabel.setText(ResultStatus.DENY, automaticTestFail);
-                else {
-                    NativeWindow window = new NativeWindow(handle);
-                    automaticTestLabel.setText(ResultStatus.APPROVE, automaticTestSuccess);
-                    PoeIdentificationFrame.identify(window.clientBounds);
-                }
-                ZUtil.packComponentWindow(GameDetectionSetupPanel.this);
-            }
+        automaticRadioButton.addActionListener(e -> {
+            cardPanel.showCard(automaticPanel);
+            runSetupValidation();
         });
-        automaticTestButton.addActionListener(e -> NativePoeWindow.findPathOfExileWindow(window -> {
-
-        }));
+        monitorRadioButton.addActionListener(e -> {
+            cardPanel.showCard(monitorPanel);
+            runSetupValidation();
+        });
+        screenRegionRadioButton.addActionListener(e -> {
+            cardPanel.showCard(screenRegionPanel);
+            runSetupValidation();
+        });
+        automaticTestButton.addActionListener(e -> {
+            automaticTestResult = false;
+            // FIXME: Windows only
+            if (Platform.current != Platform.WINDOWS) {
+                automaticResultsCardPanel.showCard(automaticTestNotSupported);
+                return;
+            }
+            WinDef.HWND handle = NativePoeWindow.findPathOfExileWindow();
+            if (handle == null) automaticResultsCardPanel.showCard(automaticTestFail);
+            else {
+                NativeWindow window = new NativeWindow(handle);
+                if (window.minimized) {
+                    automaticResultsCardPanel.showCard(automaticTestMinimized);
+                } else {
+                    automaticResultsCardPanel.showCard(automaticTestSuccess);
+                    PoeIdentificationFrame.identify(window.clientBounds);
+                    automaticTestResult = true;
+                }
+            }
+            runSetupValidation();
+            ZUtil.packComponentWindow(GameDetectionSetupPanel.this);
+        });
         identifyButton.addActionListener(e -> {
             MonitorInfo selectedMonitor = (MonitorInfo) monitorCombo.getSelectedItem();
             ArrayList<MonitorInfo> monitors = MonitorIdentificationFrame.visuallyIdentifyMonitors();
             monitorCombo.setMonitorList(monitors);
             if (selectedMonitor != null) monitorCombo.setSelectedItem(selectedMonitor);
+            runSetupValidation();
         });
     }
 
@@ -151,14 +169,17 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     public void initializeComponents() {
         GameDetectionMethod method = SaveManager.settingsSaveFile.data.gameDetectionMethod;
         initializeComponents(method);
-        // FIXME : Null check?
-        monitorCombo.setSelectedItem(SaveManager.settingsSaveFile.data.selectedMonitor);
+        MonitorInfo monitor = SaveManager.settingsSaveFile.data.selectedMonitor;
+        if (monitor != null) monitorCombo.setSelectedItem(SaveManager.settingsSaveFile.data.selectedMonitor);
     }
 
     @Override
     public boolean isSetupValid() {
-        // FIXME: this
-        return true;
+        if (automaticRadioButton.isSelected() && automaticTestResult) return true;
+        else if (monitorRadioButton.isSelected()) return true;
+            // TODO: implement screen region
+        else if (screenRegionRadioButton.isSelected()) return false;
+        return false;
     }
 
     @Override

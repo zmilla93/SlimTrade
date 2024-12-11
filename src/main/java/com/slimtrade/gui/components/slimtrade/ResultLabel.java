@@ -8,8 +8,16 @@ public class ResultLabel extends StyledLabel {
 
     private ResultStatus status;
 
+    public ResultLabel() {
+        this(ResultStatus.NEUTRAL, null);
+    }
+
     public ResultLabel(ResultStatus status) {
         this(status, null);
+    }
+
+    public ResultLabel(String text) {
+        this(ResultStatus.NEUTRAL, text);
     }
 
     public ResultLabel(ResultStatus status, String text) {
