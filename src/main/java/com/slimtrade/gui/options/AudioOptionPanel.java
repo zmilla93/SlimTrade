@@ -47,7 +47,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable, F
 
         // Build Panel
         addHeader("Custom Audio");
-        addComponent(new JLabel("Add custom .wav files to the audio folder, and they will appear in all dropdowns."));
+        addComponent(new JLabel("Add .wav files to the audio folder and they will appear at the end of all dropdowns."));
         JLabel label = new StyledLabel("Only supports .wav files. Online file converters are available if you have different formats.").bold();
         addComponent(label);
         addComponent(new ComponentPanel(openFolderButton, customFileCountLabel));

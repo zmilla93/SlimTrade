@@ -6,6 +6,7 @@ import com.slimtrade.core.enums.SetupPhase;
 import com.slimtrade.core.managers.SaveManager;
 import com.slimtrade.core.poe.POEWindow;
 import com.slimtrade.core.utility.ZUtil;
+import com.slimtrade.gui.components.BufferPanel;
 import com.slimtrade.gui.components.CardPanel;
 import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.SetupManager;
@@ -41,12 +42,10 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
         images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage());
         images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         setIconImages(images);
-        JPanel contentPanel = new JPanel();
+        JPanel contentPanel = new JPanel(new BorderLayout());
         setContentPane(contentPanel);
         previousButton.setVisible(false);
-
-        contentPanel.setLayout(new BorderLayout());
-        contentPanel.add(cardPanel, BorderLayout.CENTER);
+        contentPanel.add(new BufferPanel(cardPanel, 20), BorderLayout.CENTER);
 
         JPanel progressPanel = new JPanel(new GridBagLayout());
         JPanel buttonPanel = new JPanel(new GridBagLayout());

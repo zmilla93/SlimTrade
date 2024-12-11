@@ -7,10 +7,8 @@ import com.slimtrade.core.utility.TradeUtil;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.slimtrade.POEFolderPicker;
 import com.slimtrade.gui.components.slimtrade.POEInstallFolderExplanationPanel;
-import com.slimtrade.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.nio.file.Path;
 
 /**
@@ -24,20 +22,17 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
     private final POEInstallFolderExplanationPanel moreInfoPanel = new POEInstallFolderExplanationPanel(true, false);
 
     public InstallFolderSetupPanel() {
-        AbstractOptionPanel panel = new AbstractOptionPanel(false, false);
-        panel.addHeader("Path of Exile Install Folder");
-        panel.addComponent(new JLabel("SlimTrade requires Path of Exile's install location to read chat logs."));
-        panel.addVerticalStrut();
-        panel.addHeader(Game.PATH_OF_EXILE_1.getExplicitName());
-        panel.addComponent(poe1FolderPicker);
-        panel.addVerticalStrut();
-        panel.addHeader(Game.PATH_OF_EXILE_2.toString());
-        panel.addComponent(poe2FolderPicker);
-        panel.addVerticalStrut();
-        panel.addComponent(moreInfoButton);
-        panel.addComponent(moreInfoPanel);
-
-        contentPanel.add(panel, BorderLayout.CENTER);
+        addHeader("Path of Exile Install Folder");
+        addComponent(new JLabel("SlimTrade requires Path of Exile's install location to read chat logs."));
+        addVerticalStrut();
+        addHeader(Game.PATH_OF_EXILE_1.getExplicitName());
+        addComponent(poe1FolderPicker);
+        addVerticalStrut();
+        addHeader(Game.PATH_OF_EXILE_2.toString());
+        addComponent(poe2FolderPicker);
+        addVerticalStrut();
+        addComponent(moreInfoButton);
+        addComponent(moreInfoPanel);
 
         addListeners();
     }

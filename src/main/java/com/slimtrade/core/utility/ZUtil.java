@@ -138,10 +138,14 @@ public class ZUtil {
         return gc;
     }
 
+    @Deprecated
+    // FIXME : Switch to BufferPanel
     public static JPanel addStrutsToBorderPanel(JPanel panel, int inset) {
         return addStrutsToBorderPanel(panel, new Insets(inset, inset, inset, inset));
     }
 
+    @Deprecated
+    // FIXME : Switch to BufferPanel
     public static JPanel addStrutsToBorderPanel(JPanel panel, Insets insets) {
         if (insets.left > 0) panel.add(Box.createHorizontalStrut(insets.left), BorderLayout.WEST);
         if (insets.right > 0) panel.add(Box.createHorizontalStrut(insets.right), BorderLayout.EAST);

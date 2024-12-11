@@ -17,7 +17,6 @@ import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.sun.jna.platform.win32.WinDef;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class GameDetectionSetupPanel extends AbstractSetupPanel {
@@ -53,19 +52,16 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         buttonGroup.add(monitorRadioButton);
         buttonGroup.add(screenRegionRadioButton);
 
-        AbstractOptionPanel methodPanel = new AbstractOptionPanel(false, false);
-        contentPanel.add(methodPanel, BorderLayout.CENTER);
-
         // Detection Method Panel
-        methodPanel.addHeader("Game Window Location");
-        methodPanel.addComponent(new JLabel("How should SlimTrade determine the Path of Exile window location?"));
-        methodPanel.addComponent(new JLabel("This is used to align UI Elements."));
-        methodPanel.addVerticalStrutSmall();
+        addHeader("Game Window Location");
+        addComponent(new JLabel("How should SlimTrade determine the Path of Exile window location?"));
+        addComponent(new JLabel("This is used to align UI Elements."));
+        addVerticalStrutSmall();
         if (Platform.current == Platform.WINDOWS)
-            methodPanel.addComponent(automaticRadioButton);
-        methodPanel.addComponent(monitorRadioButton);
-        methodPanel.addComponent(screenRegionRadioButton);
-        methodPanel.addVerticalStrut();
+            addComponent(automaticRadioButton);
+        addComponent(monitorRadioButton);
+        addComponent(screenRegionRadioButton);
+        addVerticalStrut();
 
         // Automatic Panel
         // FIXME : Run detection at start
@@ -87,7 +83,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         cardPanel.add(automaticPanel);
         cardPanel.add(monitorPanel);
         cardPanel.add(screenRegionPanel);
-        methodPanel.addFullWidthComponent(cardPanel);
+        addFullWidthComponent(cardPanel);
 
         if (Platform.current == Platform.WINDOWS) automaticRadioButton.setSelected(true);
         else monitorRadioButton.setSelected(true);
