@@ -12,7 +12,7 @@ import java.nio.file.Path;
 public class POEFolderPicker extends FilePicker implements PathChangeListener {
 
     private final Game game;
-    public final JCheckBox notInstalledCheckbox = new JCheckBox("Not Installed");
+    public final JCheckBox notInstalledCheckbox;
     private final JLabel notInstalledLabel;
     private final JPanel pathPanel = new JPanel(new GridBagLayout());
     public boolean packParentWindow;
@@ -25,6 +25,13 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
         super("Select the '" + game + "' install folder.");
         this.game = game;
         this.packParentWindow = packParentWindow;
+        notInstalledCheckbox = new JCheckBox("Not Installed") {
+            @Override
+            public void setSelected(boolean b) {
+                super.setSelected(b);
+                refreshComponentVisibility();
+            }
+        };
         notInstalledLabel = new ResultLabel(ResultStatus.INDETERMINATE, "If you ever install " + game + ", update this setting.");
         notInstalledLabel.setVisible(false);
         fileChooser = new POEFileChooser(game);
@@ -35,12 +42,16 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
         add(pathWrapperPanel, BorderLayout.SOUTH);
         addPathChangeListener(this);
         notInstalledCheckbox.addActionListener(e -> {
-            boolean showMainComponents = !notInstalledCheckbox.isSelected();
-            chooserPanel.setVisible(showMainComponents);
-            pathPanel.setVisible(showMainComponents);
-            notInstalledLabel.setVisible(!showMainComponents);
-            if (packParentWindow) ZUtil.packComponentWindow(this);
+            refreshComponentVisibility();
         });
+    }
+
+    public void refreshComponentVisibility() {
+        boolean showMainComponents = !notInstalledCheckbox.isSelected();
+        chooserPanel.setVisible(showMainComponents);
+        pathPanel.setVisible(showMainComponents);
+        notInstalledLabel.setVisible(!showMainComponents);
+        if (packParentWindow) ZUtil.packComponentWindow(this);
     }
 
     public Path[] createDuplicatePathPanels(boolean showIfOnlyOneResult) {
@@ -72,7 +83,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
         if (validFolderName) {
             Path logsFolder = path.resolve(SaveManager.POE_LOG_FOLDER_NAME);
             if (logsFolder.toFile().exists()) {
-                setErrorText("Install folder set correctly.", ResultStatus.APPROVE);
+                setErrorText("Folder set correctly.", ResultStatus.APPROVE);
             } else {
                 setErrorText("Correct folder name, wrong folder! The install folder must contain a '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder.", ResultStatus.INDETERMINATE);
             }

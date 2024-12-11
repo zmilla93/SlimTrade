@@ -60,14 +60,19 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public TimeFormat historyTimeFormat = TimeFormat.H12;
     public DateFormat historyDateFormat = DateFormat.MM_DD_YY;
 
-    // Path of Exile
+    // Path of Exile - Install Directory
     @Deprecated
     public String clientPath;
-    public boolean hasInitializedGamePaths;
+    public boolean hasInitializedGameDirectories;
     public boolean poe1NotInstalled;
     public boolean poe2NotInstalled;
-    public String poe1InstallDirectory;
-    public String poe2InstallDirectory;
+    public String installFolderPoe1;
+    public String installFolderPoe2;
+    // Path of Exile - Using Stash Folders
+    public boolean hasInitializedUsingStashFolders = false;
+    public boolean usingStashFoldersPoe1;
+    public boolean usingStashFoldersPoe2;
+    // Path of Exile - Mutual
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
     public PathOfExileLeague pathOfExileLeague = PathOfExileLeague.TEMP;
     public GameDetectionMethod gameDetectionMethod = GameDetectionMethod.UNSET;

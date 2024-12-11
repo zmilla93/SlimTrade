@@ -87,8 +87,6 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
         if (Platform.current == Platform.WINDOWS) automaticRadioButton.setSelected(true);
         else monitorRadioButton.setSelected(true);
-
-        addListeners();
     }
 
     private void addListeners() {
@@ -167,6 +165,11 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         initializeComponents(method);
         MonitorInfo monitor = SaveManager.settingsSaveFile.data.selectedMonitor;
         if (monitor != null) monitorCombo.setSelectedItem(SaveManager.settingsSaveFile.data.selectedMonitor);
+    }
+
+    @Override
+    public void addComponentListeners() {
+        addListeners();
     }
 
     @Override

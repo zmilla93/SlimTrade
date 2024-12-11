@@ -27,11 +27,11 @@ public class SetupManager {
         }
 
         // Path of Exile Folders
-        boolean hasInitializedGamePaths = SaveManager.settingsSaveFile.data.hasInitializedGamePaths;
+        boolean hasInitializedGamePaths = SaveManager.settingsSaveFile.data.hasInitializedGameDirectories;
         boolean poe1MarkedNotInstalled = SaveManager.settingsSaveFile.data.poe1NotInstalled && hasInitializedGamePaths;
         boolean poe2MarkedNotInstalled = SaveManager.settingsSaveFile.data.poe2NotInstalled && hasInitializedGamePaths;
-        Path poe1Path = Paths.get(SaveManager.settingsSaveFile.data.poe1InstallDirectory);
-        Path poe2Path = Paths.get(SaveManager.settingsSaveFile.data.poe2InstallDirectory);
+        Path poe1Path = Paths.get(SaveManager.settingsSaveFile.data.installFolderPoe1);
+        Path poe2Path = Paths.get(SaveManager.settingsSaveFile.data.installFolderPoe2);
         boolean poe1ValidPath = poe1Path != null && poe1Path.toFile().exists();
         boolean poe2ValidPath = poe2Path != null && poe2Path.toFile().exists();
         boolean poe1FullPathValidation = poe1ValidPath || poe1MarkedNotInstalled;

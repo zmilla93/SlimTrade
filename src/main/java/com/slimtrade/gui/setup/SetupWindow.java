@@ -30,7 +30,7 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
     private final JLabel countLabel = new JLabel("10/10");
     // Setup Panels
     private final ArrayList<AbstractSetupPanel> setupPanels = new ArrayList<>();
-    private final InstallFolderSetupPanel clientPanel = new InstallFolderSetupPanel();
+    private final InstallFolderSetupPanel installFolderPanel = new InstallFolderSetupPanel();
     private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel();
     private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel();
 
@@ -97,7 +97,7 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
         for (SetupPhase phase : SetupManager.getSetupPhases()) {
             switch (phase) {
                 case GAME_INSTALL_DIRECTORY:
-                    addSetupPanel(clientPanel);
+                    addSetupPanel(installFolderPanel);
                     break;
                 case GAME_DETECTION_METHOD:
                     addSetupPanel(gameDetectionPanel);
@@ -113,6 +113,7 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
 
     private void addSetupPanel(AbstractSetupPanel panel) {
         panel.initializeComponents();
+        panel.addComponentListeners();
         setupPanels.add(panel);
         cardPanel.add(panel);
     }

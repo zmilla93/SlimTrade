@@ -14,7 +14,12 @@ public abstract class AbstractSetupPanel extends AbstractOptionPanel {
     /**
      * Called once after the component is created.
      */
-    public abstract void initializeComponents();
+    protected abstract void initializeComponents();
+
+    /**
+     * Called once after initializeComponents is called, in order to avoid premature setup checks
+     */
+    protected abstract void addComponentListeners();
 
     /**
      * Determine if the current panel contains completely valid information.
@@ -24,10 +29,14 @@ public abstract class AbstractSetupPanel extends AbstractOptionPanel {
     /**
      * Override this to apply the values that this panel is responsible for.
      */
-    public abstract void applyCompletedSetup();
+    protected abstract void applyCompletedSetup();
 
     protected void runSetupValidation() {
         assert SwingUtilities.isEventDispatchThread();
+//        if (!isVisible()) return;
+//        System.err.println("Ran setup validation: " + getClass().getSimpleName());
+//        System.out.println("Visible: " + isVisible());
+//        ZUtil.printStackTrace();
         FrameManager.setupWindow.nextButton.setEnabled(isSetupValid());
     }
 
