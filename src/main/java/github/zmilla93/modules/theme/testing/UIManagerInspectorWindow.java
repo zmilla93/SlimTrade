@@ -21,7 +21,6 @@ import java.util.*;
 /**
  * A window for inspecting every unique color in the current color theme.
  */
-// FIXME: Initial count shows 0 until a component is updated.
 public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListener {
 
     private final HashMap<Color, ArrayList<String>> colorMap = new HashMap<>();
@@ -34,6 +33,8 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
     private int visibleComponentCount = 0;
 
     public UIManagerInspectorWindow() {
+        setTitle("UIManager Inspector");
+        buildSharedKeysList();
         sharedKeysCheckbox.setSelected(true);
         containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.PAGE_AXIS));
         JPanel northPanel = new JPanel(new BorderLayout());
@@ -46,10 +47,9 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
         pack();
         setSize(800, 900);
         ThemeManager.addThemeListener(this);
-        buildSharedKeysList();
         addListeners();
-        refreshVisiblePanels();
-        updateCountLabel();
+//        refreshVisiblePanels();
+//        updateCountLabel();
     }
 
     private void addListeners() {
@@ -82,7 +82,6 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
             }
         }
         for (DisplayPanel panel : panelsToShow) panel.setVisible(true);
-        System.out.println("Refreshing..." + panelsToShow.size());
         UIManagerInspectorWindow.this.revalidate();
         UIManagerInspectorWindow.this.repaint();
         if (!panelsToShow.isEmpty()) visibleComponentCount = panelsToShow.size();
@@ -91,9 +90,9 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
 
     private @NotNull ArrayList<DisplayPanel> getInitialPanelList() {
         ArrayList<DisplayPanel> panelsToShow = new ArrayList<>();
-        System.out.println("INITIAL: " + containerPanel.getComponentCount());
         for (Component component : containerPanel.getComponents()) {
             DisplayPanel panel = (DisplayPanel) component;
+            panel.applyFilter(searchTextField.getText().trim());
             panel.setVisible(false);
             if (sharedKeysCheckbox.isSelected()) {
                 for (String key : panel.keys) {
@@ -114,6 +113,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
             dirty = true;
             return;
         }
+        // Build a map of unique colors, mapped to an array of keys for that color.
         Enumeration<Object> keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
@@ -132,6 +132,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
         visibleComponentCount = colorMap.size();
         for (Map.Entry<Color, ArrayList<String>> entry : colorMap.entrySet())
             containerPanel.add(new DisplayPanel(entry.getKey(), entry.getValue()));
+        refreshVisiblePanels();
     }
 
     private Set<String> getColorsKeysForCurrentTheme() {
@@ -148,6 +149,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
     }
 
     private void buildSharedKeysList() {
+        LookAndFeel currentLAF = UIManager.getLookAndFeel();
         sharedKeys.clear();
         boolean isFirstTheme = true;
         for (Theme theme : Theme.values()) {
@@ -165,6 +167,10 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
                     if (sharedKeys.contains(string)) newSharedKeys.add(string);
                 sharedKeys = newSharedKeys;
             }
+        }
+        try {
+            UIManager.setLookAndFeel(currentLAF);
+        } catch (UnsupportedLookAndFeelException ignore) {
         }
     }
 
@@ -187,6 +193,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
     private static class DisplayPanel extends JPanel {
 
         public final ArrayList<String> keys;
+        public final ArrayList<String> filteredKeys = new ArrayList<>();
         private int keyIndex = 0;
 
         private final JLabel label = new JLabel();
@@ -200,7 +207,8 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
             Color colorNoAlpha = new Color(color.getRed(), color.getGreen(), color.getBlue());
             setBackground(colorNoAlpha);
             label.setOpaque(true);
-            label.setBackground(new Color(0, 0, 0, 180));
+            Color backgroundColor = ThemeManager.getCurrentTheme().isDark() ? new Color(0, 0, 0, 180) : new Color(255, 255, 255, 180);
+            label.setBackground(backgroundColor);
 
             setLayout(new GridBagLayout());
             GridBagConstraints gc = ZUtil.getGC();
@@ -219,6 +227,19 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
             addListeners();
         }
 
+        public void applyFilter(String searchTerm) {
+            if (searchTerm == null) {
+                filteredKeys.clear();
+                filteredKeys.addAll(keys);
+                return;
+            }
+            filteredKeys.clear();
+            for (String key : keys) {
+                if (key.toLowerCase().contains(searchTerm)) filteredKeys.add(key);
+            }
+            updateLabel();
+        }
+
         private void addListeners() {
             copyColorButton.addActionListener(e -> ZUtil.setClipboardContents(toColorString(color)));
             copyKeyButton.addActionListener(e -> ZUtil.setClipboardContents(keys.get(keyIndex)));
@@ -233,7 +254,9 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
         }
 
         private void updateLabel() {
-            label.setText(keys.get(keyIndex) + " " + (keyIndex + 1) + "/" + keys.size());
+            if (filteredKeys.isEmpty()) return;
+            if (keyIndex > filteredKeys.size() - 1) keyIndex = filteredKeys.size() - 1;
+            label.setText(filteredKeys.get(keyIndex) + " " + (keyIndex + 1) + "/" + filteredKeys.size());
         }
 
         private String toColorString(Color color) {
@@ -243,7 +266,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
         private void cycleKey(boolean forward) {
             if (forward) keyIndex++;
             else keyIndex--;
-            if (keyIndex < 0) keyIndex = 0;
+            if (keyIndex < 0) keyIndex = keys.size() - 1;
             if (keyIndex >= keys.size()) keyIndex = 0;
             updateLabel();
         }
