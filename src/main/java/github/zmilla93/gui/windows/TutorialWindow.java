@@ -96,7 +96,7 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         nextButton.setEnabled(activePanel < cardPanel.getComponentCount());
     }
 
-    public void showFirstPanel() {
+    private void showFirstPanel() {
         activePanel = 1;
         cardLayout.show(cardPanel, "1");
         updatePageLabel();
@@ -191,6 +191,12 @@ public class TutorialWindow extends CustomDialog implements IDefaultSizeAndLocat
         pack();
         setMinimumSize(getSize());
         POEWindow.centerWindow(this);
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        showFirstPanel();
     }
 
 }

@@ -66,17 +66,10 @@ public class InformationOptionPanel extends AbstractOptionPanel {
     }
 
     private void addListeners() {
-        tutorialButton.addActionListener(e -> {
-            FrameManager.optionsWindow.setVisible(false);
-            FrameManager.tutorialWindow.showFirstPanel();
-            FrameManager.tutorialWindow.setVisible(true);
-            FrameManager.tutorialWindow.toFront();
-        });
+        tutorialButton.addActionListener(e -> FrameManager.tutorialWindow.setVisible(true));
         patchNotesButton.addActionListener(e -> {
             // FIXME : Make sure patch notes have been fetched, probably using another thread.
-            FrameManager.optionsWindow.setVisible(false);
             FrameManager.patchNotesWindow.setVisible(true);
-            FrameManager.patchNotesWindow.toFront();
         });
         openClientButton.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.clientPath));
         settingsFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getSaveDirectory().toString()));
