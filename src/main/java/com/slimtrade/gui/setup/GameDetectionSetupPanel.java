@@ -9,15 +9,13 @@ import com.slimtrade.core.utility.Platform;
 import com.slimtrade.core.utility.ZUtil;
 import com.slimtrade.gui.components.CardPanel;
 import com.slimtrade.gui.components.ComponentPanel;
-import com.slimtrade.gui.components.MonitorIdentificationFrame;
 import com.slimtrade.gui.components.MonitorInfo;
+import com.slimtrade.gui.components.MonitorPicker;
 import com.slimtrade.gui.components.slimtrade.ResultLabel;
-import com.slimtrade.gui.components.slimtrade.combos.MonitorCombo;
 import com.slimtrade.gui.options.AbstractOptionPanel;
 import com.sun.jna.platform.win32.WinDef;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
@@ -33,12 +31,13 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     private final ResultLabel automaticTestNotSupported = new ResultLabel(ResultStatus.DENY, "Not supported on " + Platform.current + ".");
     private final CardPanel automaticResultsCardPanel = new CardPanel(automaticTestNotRun, automaticTestSuccess, automaticTestFail, automaticTestMinimized, automaticTestNotSupported);
     private final JButton automaticTestButton = new JButton("Detect");
-    private final ResultLabel automaticTestLabel = new ResultLabel(ResultStatus.NEUTRAL, "Verify game detection is working.");
     private boolean automaticTestResult = false;
 
     // Monitor
-    private final JButton identifyButton = new JButton("Identify");
-    private final MonitorCombo monitorCombo = new MonitorCombo();
+    private final MonitorPicker monitorPicker = new MonitorPicker();
+
+    // Screen Region
+    // TODO: Screen Region
 
     // Card Panel
     private final CardPanel cardPanel = new CardPanel();
@@ -64,16 +63,13 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         addVerticalStrut();
 
         // Automatic Panel
-        // FIXME : Run detection at start
-        // FIXME : Make it so you can't undo test completion
         automaticPanel.addHeader("Detect Window");
         automaticPanel.addComponent(new ComponentPanel(automaticTestButton, automaticResultsCardPanel));
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
-        // FIXME : Make monitor selector its own component
         monitorPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Requires using Windowed Fullscreen"));
-        monitorPanel.addComponent(new ComponentPanel(identifyButton, monitorCombo));
+        monitorPanel.addComponent(monitorPicker);
 
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
@@ -104,7 +100,6 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         });
         automaticTestButton.addActionListener(e -> {
             automaticTestResult = false;
-            // FIXME: Windows only
             if (Platform.current != Platform.WINDOWS) {
                 automaticResultsCardPanel.showCard(automaticTestNotSupported);
                 return;
@@ -123,13 +118,6 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
             }
             runSetupValidation();
             ZUtil.packComponentWindow(GameDetectionSetupPanel.this);
-        });
-        identifyButton.addActionListener(e -> {
-            MonitorInfo selectedMonitor = (MonitorInfo) monitorCombo.getSelectedItem();
-            ArrayList<MonitorInfo> monitors = MonitorIdentificationFrame.visuallyIdentifyMonitors();
-            monitorCombo.setMonitorList(monitors);
-            if (selectedMonitor != null) monitorCombo.setSelectedItem(selectedMonitor);
-            runSetupValidation();
         });
     }
 
@@ -164,7 +152,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         GameDetectionMethod method = SaveManager.settingsSaveFile.data.gameDetectionMethod;
         initializeComponents(method);
         MonitorInfo monitor = SaveManager.settingsSaveFile.data.selectedMonitor;
-        if (monitor != null) monitorCombo.setSelectedItem(SaveManager.settingsSaveFile.data.selectedMonitor);
+        if (monitor != null) monitorPicker.setMonitor(monitor);
     }
 
     @Override
@@ -187,7 +175,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
             SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.AUTOMATIC;
         } else if (monitorRadioButton.isSelected()) {
             SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.MONITOR;
-            SaveManager.settingsSaveFile.data.selectedMonitor = (MonitorInfo) monitorCombo.getSelectedItem();
+            SaveManager.settingsSaveFile.data.selectedMonitor = monitorPicker.getSelectedMonitor();
         } else if (screenRegionRadioButton.isSelected()) {
             SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.SCREEN_REGION;
             // FIXME : Save region
