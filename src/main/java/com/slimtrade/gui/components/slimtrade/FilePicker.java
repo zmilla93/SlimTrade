@@ -19,7 +19,7 @@ public class FilePicker extends JPanel {
     private static final String DEFAULT_NO_SELECTION_STRING = "No folder selected.";
 
     public final JLabel pathLabel;
-    public final JLabel errorLabel = new JLabel("This is an error!");
+    public final ResultLabel errorLabel = new ResultLabel("This is an error!");
     public JFileChooser fileChooser = new JFileChooser();
     public final JPanel chooserPanel = new JPanel(new BorderLayout());
 
@@ -46,6 +46,7 @@ public class FilePicker extends JPanel {
                 setSelectedPath(path);
             }
         });
+        setErrorText(null);
     }
 
     /**
@@ -76,11 +77,16 @@ public class FilePicker extends JPanel {
         for (PathChangeListener listener : listeners) listener.onPathChanged(path);
     }
 
+    public void setErrorText(String text) {
+        boolean hideLabel = (text == null || text.isEmpty());
+        errorLabel.setVisible(!hideLabel);
+        errorLabel.setText(text);
+    }
+
     public void setErrorText(String text, ResultStatus result) {
         boolean hideLabel = (text == null || text.isEmpty());
-        setVisible(!hideLabel);
-        errorLabel.setText(text);
-        errorLabel.setForeground(result.toColor());
+        errorLabel.setVisible(!hideLabel);
+        errorLabel.setText(result, text);
     }
 
     public void addPathChangeListener(PathChangeListener listener) {

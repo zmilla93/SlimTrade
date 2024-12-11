@@ -85,6 +85,7 @@ public class AbstractOptionPanel extends JPanel {
         return label;
     }
 
+    // FIXME: Refactor to add()?
     public Component addComponent(Component component) {
         if (App.debugUIBorders >= 1) {
             if (component instanceof JPanel)

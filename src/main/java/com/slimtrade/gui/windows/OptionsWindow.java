@@ -8,6 +8,7 @@ import com.slimtrade.gui.listening.IDefaultSizeAndLocation;
 import com.slimtrade.gui.managers.HotkeyManager;
 import com.slimtrade.gui.options.*;
 import com.slimtrade.gui.options.display.DisplayOptionPanel;
+import com.slimtrade.gui.options.poe.PathOfExileOptionPanel;
 import com.slimtrade.gui.options.searching.StashSearchOptionPanel;
 import com.slimtrade.gui.options.stash.StashOptionPanel;
 import com.slimtrade.modules.saving.ISaveListener;
@@ -46,6 +47,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         OptionListPanel display = new OptionListPanel("Display", new DisplayOptionPanel());
         OptionListPanel audio = new OptionListPanel("Audio", new AudioOptionPanel());
         OptionListPanel stash = new OptionListPanel("Stash Tabs", new StashOptionPanel());
+        OptionListPanel pathOfExile = new OptionListPanel("Path of Exile", new PathOfExileOptionPanel());
         OptionListPanel information = new OptionListPanel("Information", new InformationOptionPanel());
         OptionListPanel incomingMacros = new OptionListPanel("Incoming Macros", incomingMacroPanel);
         OptionListPanel outgoingMacros = new OptionListPanel("Outgoing Macros", outgoingMacroPanel);
@@ -56,7 +58,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         OptionListPanel kalguurHelper = new OptionListPanel("Kalguur Helper", new KalguurOptionPanel());
         OptionListPanel debug = new OptionListPanel("Debug", new DebugOptionPanel());
         OptionListPanel[] panelList = new OptionListPanel[]{
-                general, display, audio, hotkeys,
+                general, display, audio, hotkeys, pathOfExile,
                 new OptionListPanel("Trading"),
                 incomingMacros, outgoingMacros, stash, ignoreItems,
                 new OptionListPanel("Tools"),

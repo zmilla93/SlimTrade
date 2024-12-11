@@ -7,7 +7,7 @@ public class KalguurOptionPanel extends AbstractOptionPanel {
 
     public KalguurOptionPanel() {
         addHeader("Deprecated");
-        addComponent(new ErrorLabel("This feature is for POE 1's Settlers of Kalguur league and is likely to be removed in the future."));
+        addComponent(new ErrorLabel("This feature is for Path of Exile 1's Settlers of Kalguur league. It is likely to be removed in the future."));
         addVerticalStrut();
         addHeader("Kalguur Helper");
         addComponent(new KalguurSettingsPanel());
