@@ -2,6 +2,7 @@ package github.zmilla93.core.enums;
 
 public enum PathOfExileLeague {
 
+    UNSET,
     TEMP, HARDCORE_TEMP, RUTHLESS_TEMP, HC_RUTHLESS_TEMP,
     STANDARD, HARDCORE, RUTHLESS, HARDCORE_RUTHLESS,
     SSF_BTW;
@@ -17,7 +18,6 @@ public enum PathOfExileLeague {
         tempName = tempName.replace("STANDARD", "Standard");
         tempName = tempName.replace("HARDCORE", "Hardcore");
         tempName = tempName.replace("RUTHLESS", "Ruthless");
-//        tempName = tempName.replace("_", "%20");
         tempName = tempName.replace("_", " ");
         name = tempName;
     }

@@ -83,8 +83,8 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
     public void initializeComponents() {
         Path poe1Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.installFolderPoe1);
         Path poe2Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.installFolderPoe2);
-        poe1FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.poe1NotInstalled);
-        poe2FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.poe2NotInstalled);
+        poe1FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.notInstalledPoe1);
+        poe2FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.notInstalledPoe2);
         setInitialErrorLabelStatus(poe1Dir, poe1FolderPicker);
         setInitialErrorLabelStatus(poe2Dir, poe2FolderPicker);
     }
@@ -105,8 +105,8 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
 
         boolean poe1NotInstalled = poe1FolderPicker.notInstalledCheckboxValue();
         boolean poe2NotInstalled = poe2FolderPicker.notInstalledCheckboxValue();
-        SaveManager.settingsSaveFile.data.poe1NotInstalled = poe1NotInstalled;
-        SaveManager.settingsSaveFile.data.poe2NotInstalled = poe2NotInstalled;
+        SaveManager.settingsSaveFile.data.notInstalledPoe1 = poe1NotInstalled;
+        SaveManager.settingsSaveFile.data.notInstalledPoe2 = poe2NotInstalled;
         Path poe1Path = poe1FolderPicker.getSelectedPath();
         Path poe2Path = poe2FolderPicker.getSelectedPath();
         if (!poe1NotInstalled && TradeUtil.isValidPOEFolder(poe1Path, Game.PATH_OF_EXILE_1))

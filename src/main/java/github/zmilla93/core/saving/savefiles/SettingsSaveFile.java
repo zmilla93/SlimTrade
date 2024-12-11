@@ -19,7 +19,6 @@ import github.zmilla93.modules.theme.Theme;
 import github.zmilla93.modules.updater.data.AppVersion;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -60,24 +59,26 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public TimeFormat historyTimeFormat = TimeFormat.H12;
     public DateFormat historyDateFormat = DateFormat.MM_DD_YY;
 
-    // Path of Exile - Install Directory
+    // Path of Exile 1 & 2 - Install Directory
     @Deprecated
     public String clientPath;
     public boolean hasInitializedGameDirectories;
-    public boolean poe1NotInstalled;
-    public boolean poe2NotInstalled;
+    public boolean notInstalledPoe1;
+    public boolean notInstalledPoe2;
     public String installFolderPoe1;
     public String installFolderPoe2;
-    // Path of Exile - Using Stash Folders
+    // Path of Exile 1 & 2 - Using Stash Folders
     public boolean hasInitializedUsingStashFolders = false;
     public boolean usingStashFoldersPoe1;
     public boolean usingStashFoldersPoe2;
-    // Path of Exile - Mutual
-    public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
-    public PathOfExileLeague pathOfExileLeague = PathOfExileLeague.TEMP;
+    // TODO : League is not used yet
+    // Path of Exile 1 & 2 - League
+//    public PathOfExileLeague leaguePoe1 = PathOfExileLeague.UNSET;
+//    public PathOfExileLeague leaguePoe2 = PathOfExileLeague.UNSET;
+    // Path of Exile - Shared Between Games
     public GameDetectionMethod gameDetectionMethod = GameDetectionMethod.UNSET;
     public MonitorInfo selectedMonitor;
-    public Rectangle gameBounds = new Rectangle(0, 0, 1920, 1080);
+    public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
 
     // Enable Features
     public MenubarStyle menubarStyle = MenubarStyle.ICON;
