@@ -62,13 +62,15 @@ public class SettingsSaveFile extends AbstractSaveFile {
     // Path of Exile 1 & 2 - Install Directory
     @Deprecated
     public String clientPath;
-    public boolean hasInitializedGameDirectories;
+    public int initGameDirectories;
+    public static final int targetInitGameDirectories = 1;
     public boolean notInstalledPoe1;
     public boolean notInstalledPoe2;
     public String installFolderPoe1;
     public String installFolderPoe2;
     // Path of Exile 1 & 2 - Using Stash Folders
-    public boolean hasInitializedUsingStashFolders = false;
+    public int initUsingStashFolders;
+    public static final int targetInitUsingStashFolders = 1;
     public boolean usingStashFoldersPoe1;
     public boolean usingStashFoldersPoe2;
     // TODO : League is not used yet

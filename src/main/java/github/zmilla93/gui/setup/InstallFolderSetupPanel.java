@@ -3,6 +3,7 @@ package github.zmilla93.gui.setup;
 import github.zmilla93.core.enums.ResultStatus;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
+import github.zmilla93.core.saving.savefiles.SettingsSaveFile;
 import github.zmilla93.core.utility.TradeUtil;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.slimtrade.POEFolderPicker;
@@ -102,7 +103,6 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void applyCompletedSetup() {
-
         boolean poe1NotInstalled = poe1FolderPicker.notInstalledCheckboxValue();
         boolean poe2NotInstalled = poe2FolderPicker.notInstalledCheckboxValue();
         SaveManager.settingsSaveFile.data.notInstalledPoe1 = poe1NotInstalled;
@@ -113,7 +113,7 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
             SaveManager.settingsSaveFile.data.installFolderPoe1 = poe1Path.toString();
         if (!poe2NotInstalled && TradeUtil.isValidPOEFolder(poe2Path, Game.PATH_OF_EXILE_2))
             SaveManager.settingsSaveFile.data.installFolderPoe2 = poe2Path.toString();
-        SaveManager.settingsSaveFile.data.hasInitializedGameDirectories = true;
+        SaveManager.settingsSaveFile.data.initGameDirectories = SettingsSaveFile.targetInitGameDirectories;
     }
 
 }

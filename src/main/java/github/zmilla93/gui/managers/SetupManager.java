@@ -5,6 +5,7 @@ import github.zmilla93.core.enums.SetupPhase;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.GameDetectionMethod;
+import github.zmilla93.core.saving.savefiles.SettingsSaveFile;
 import github.zmilla93.core.utility.TradeUtil;
 import github.zmilla93.gui.setup.SetupWindow;
 
@@ -29,9 +30,9 @@ public class SetupManager {
             return setupPhases;
         }
         /// Start of setup phase checks
-        // Path of Exile Folders
-        boolean hasInitializedGamePaths = SaveManager.settingsSaveFile.data.hasInitializedGameDirectories;
-        if (hasInitializedGamePaths) {
+        // Game Directories
+        boolean initializedGamePaths = SaveManager.settingsSaveFile.data.initGameDirectories == SettingsSaveFile.targetInitGameDirectories;
+        if (initializedGamePaths) {
             boolean poe1MarkedNotInstalled = SaveManager.settingsSaveFile.data.notInstalledPoe1;
             boolean poe2MarkedNotInstalled = SaveManager.settingsSaveFile.data.notInstalledPoe2;
             boolean poe1ValidPath = false;
@@ -50,12 +51,12 @@ public class SetupManager {
             setupPhases.add(SetupPhase.GAME_INSTALL_DIRECTORY);
         }
         // Game Detection Method
-        // FIXME : Make this more robust
+        // FIXME : Make this more robust once done with screen region
         if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.UNSET)
             setupPhases.add(SetupPhase.GAME_DETECTION_METHOD);
-        // Stash Folders
-        if (!SaveManager.settingsSaveFile.data.hasInitializedUsingStashFolders)
-            setupPhases.add(SetupPhase.STASH_FOLDERS);
+        // Using Stash Folders
+        boolean hasInitFolders = SaveManager.settingsSaveFile.data.initUsingStashFolders == SettingsSaveFile.targetInitUsingStashFolders;
+        if (!hasInitFolders) setupPhases.add(SetupPhase.STASH_FOLDERS);
         // Finished
         return setupPhases;
     }

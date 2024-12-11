@@ -3,6 +3,7 @@ package github.zmilla93.gui.setup;
 import github.zmilla93.core.enums.ResultStatus;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
+import github.zmilla93.core.saving.savefiles.SettingsSaveFile;
 import github.zmilla93.gui.components.slimtrade.ResultLabel;
 
 import javax.swing.*;
@@ -46,7 +47,8 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void initializeComponents() {
-        if (SaveManager.settingsSaveFile.data.hasInitializedUsingStashFolders) {
+        boolean initialized = SaveManager.settingsSaveFile.data.initUsingStashFolders == SettingsSaveFile.targetInitUsingStashFolders;
+        if (initialized) {
             if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe1) poe1YesRadioButton.setSelected(true);
             else poe1NoRadioButton.setSelected(true);
             if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe2) poe2YesRadioButton.setSelected(true);
@@ -65,7 +67,7 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
     public void applyCompletedSetup() {
         SaveManager.settingsSaveFile.data.usingStashFoldersPoe1 = poe1YesRadioButton.isSelected();
         SaveManager.settingsSaveFile.data.usingStashFoldersPoe2 = poe2YesRadioButton.isSelected();
-        SaveManager.settingsSaveFile.data.hasInitializedUsingStashFolders = true;
+        SaveManager.settingsSaveFile.data.initUsingStashFolders = SettingsSaveFile.targetInitUsingStashFolders;
     }
 
 }

@@ -52,9 +52,9 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         buttonGroup.add(screenRegionRadioButton);
 
         // Detection Method Panel
-        addHeader("Game Window Location");
-        addComponent(new JLabel("How should SlimTrade determine the Path of Exile window location?"));
-        addComponent(new JLabel("This is used to align UI Elements."));
+        addHeader("Window Location");
+        addComponent(new JLabel("How should SlimTrade determine the window location of Path of Exile?"));
+        addComponent(new ResultLabel("This setting aligns the UI for both games."));
         addVerticalStrutSmall();
         if (Platform.current == Platform.WINDOWS)
             addComponent(automaticRadioButton);

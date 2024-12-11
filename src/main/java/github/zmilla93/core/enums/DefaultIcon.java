@@ -4,7 +4,7 @@ import github.zmilla93.gui.buttons.IIcon;
 
 public enum DefaultIcon implements IIcon {
 
-    APP_ICON("/poe1/icons/Chaos Orb.png"),
+    APP_ICON("/icons/default/chaos-orb.png"),
     ARROW_SYNC("/icons/default/arrow-sync.png"),
     ARROW_DOWN("/icons/default/arrow-down.png"),
     ARROW_UP("/icons/default/arrow-up.png"),
