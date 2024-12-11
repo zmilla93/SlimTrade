@@ -1,7 +1,7 @@
 package github.zmilla93.gui.windows;
 
 import github.zmilla93.gui.managers.VisibilityManager;
-import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.components.ThemeDialog;
 
 import javax.swing.*;
 
@@ -10,7 +10,7 @@ import javax.swing.*;
  * Registers with the theme system, allowing themes to be changed during runtime.
  * Hooks into the visibility manager, which allows windows to retain their visibility when the overlay is shown/hidden.
  */
-public class VisibilityDialog extends JDialog {
+public class VisibilityDialog extends ThemeDialog {
 
     private boolean visible;
     private boolean ignoreVisibilitySystem = false;
@@ -18,7 +18,6 @@ public class VisibilityDialog extends JDialog {
     public VisibilityDialog() {
         assert SwingUtilities.isEventDispatchThread();
         VisibilityManager.addFrame(this);
-        ThemeManager.addFrame(this);
     }
 
     public void showOverlay() {
@@ -47,7 +46,6 @@ public class VisibilityDialog extends JDialog {
     @Override
     public void dispose() {
         VisibilityManager.removeFrame(this);
-        ThemeManager.removeFrame(this);
         super.dispose();
     }
 
