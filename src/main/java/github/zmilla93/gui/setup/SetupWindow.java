@@ -39,8 +39,8 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
         setTitle("SlimTrade Setup");
         // FIXME : Make a window that handles icons automatically so this code can be reused?
         ArrayList<Image> images = new ArrayList<>();
-        images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage());
-        images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.CHAOS_ORB.path()))).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.APP_ICON.path()))).getImage());
+        images.add(new ImageIcon(Objects.requireNonNull(getClass().getResource(DefaultIcon.APP_ICON.path()))).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         setIconImages(images);
         JPanel contentPanel = new JPanel(new BorderLayout());
         setContentPane(contentPanel);
