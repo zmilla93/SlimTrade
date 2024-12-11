@@ -7,7 +7,7 @@
     <name>SlimTrade</name>
     <url>https://github.com/zmilla93/SlimTrade</url>
 
-    <groupId>com.github.zrmiller</groupId>
+    <groupId>github.zmilla93</groupId>
     <artifactId>slimtrade</artifactId>
     <version>0.5.0</version>
     <packaging>jar</packaging>
@@ -136,7 +136,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>com.slimtrade.App</mainClass>
+                                <mainClass>github.zmilla93.App</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
@@ -172,7 +172,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>com.slimtrade.App</mainClass>
+                        <mainClass>github.zmilla93.App</mainClass>
                     </configuration>
                 </plugin>
                 <!-- Used to build jar -->
@@ -186,7 +186,7 @@
                         <appendAssemblyId>false</appendAssemblyId>
                         <archive>
                             <manifest>
-                                <mainClass>com.slimtrade.App</mainClass>
+                                <mainClass>github.zmilla93.App</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>
