@@ -30,7 +30,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
     private final JButton createBackupButton = new JButton("Create New Backup");
     private final JButton loadBackupButton = new JButton("Load Backup");
     private final JButton clientButton = new JButton("Open Client.txt");
-    private final JButton uiDump = new JButton("Dump UIManager to Clipboard");
+    private final JButton uiDumpButton = new JButton("Dump UIManager to Clipboard");
     private final JComboBox<String> fontCombo = new JComboBox<>();
 
     private static final String slashString = "Slash - // \\\\";
@@ -56,7 +56,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         addComponent(scannerMessageButton);
         addComponent(updateMessageButton);
         addComponent(clientButton);
-        addComponent(uiDump);
+        addComponent(uiDumpButton);
         addComponent(new ComponentPanel(createBackupButton, loadBackupButton));
         addVerticalStrut();
         addHeader("Hotkey Test");
@@ -83,7 +83,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         outgoingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE)));
         scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addScannerMessage(new ChatScannerEntry("alch"), new PlayerMessage("CoolTrader123", "wtb alch for chaos")));
         updateMessageButton.addActionListener(e -> FrameManager.messageManager.addUpdateMessage(true));
-        uiDump.addActionListener(e -> ThemeManager.debugKeyValueDump());
+        uiDumpButton.addActionListener(e -> ThemeManager.debugKeyValueDump());
         clientButton.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.clientPath));
         fontCombo.addActionListener(e -> {
             String s = (String) fontCombo.getSelectedItem();

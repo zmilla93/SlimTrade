@@ -33,6 +33,7 @@ import java.util.concurrent.Executors;
 public class POEInterface {
 
     private static Robot robot;
+    // FIXME : Switch to new ZUtil function
     private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private static final Executor executor = Executors.newSingleThreadExecutor();
     private static final Random random = new Random();

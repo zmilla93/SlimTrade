@@ -7,6 +7,8 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
@@ -25,12 +27,13 @@ import java.util.concurrent.Executors;
 
 public class ZUtil {
 
+    private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    private static final NumberFormat NUMBER_FORMATTER = new DecimalFormat("##.##");
+    private static final NumberFormat NUMBER_FORMATTER_ONE_DECIMAL = new DecimalFormat("##.#");
+
     private ZUtil() {
         /// Static class
     }
-
-    private static final NumberFormat NUMBER_FORMATTER = new DecimalFormat("##.##");
-    private static final NumberFormat NUMBER_FORMATTER_ONE_DECIMAL = new DecimalFormat("##.#");
 
     // FIXME : Move this somewhere better?
     // FIXME : Implement this anytime getTopLevelAncestor is used for packing
@@ -39,12 +42,17 @@ public class ZUtil {
         if (window instanceof Window) ((Window) window).pack();
     }
 
-    /**
-     * Returns a printable version of an enum name.
-     *
-     * @param input
-     * @return
-     */
+    public static void setClipboardContents(String text) {
+        StringSelection pasteString = new StringSelection(text);
+        try {
+            clipboard.setContents(pasteString, null);
+        } catch (IllegalStateException e) {
+            ZLogger.err("Failed to set clipboard contents.");
+        }
+    }
+
+
+    /// Returns a printable version of an enum name.
     public static String enumToString(String input) {
         input = input.replaceAll("_", " ");
         input = input.toLowerCase();
@@ -276,17 +284,6 @@ public class ZUtil {
             }
         }
     }
-
-//    public static boolean fileExists(Path path, boolean isPathRelative) {
-//        path = cleanPath(path);
-//        if (isPathRelative) {
-//            URL url = ZUtil.class.getResource(path);
-//            return url != null;
-//        } else {
-//            File file = new File(path);
-//            return file.exists();
-//        }
-//    }
 
     public static boolean fileExists(String path, boolean isPathRelative) {
         path = cleanPath(path);

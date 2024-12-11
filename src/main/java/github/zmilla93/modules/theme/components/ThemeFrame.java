@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class ThemeFrame extends JFrame {
 
-    public ThemeFrame(){
+    public ThemeFrame() {
         ThemeManager.addFrame(this);
     }
 

@@ -23,8 +23,7 @@ public class ComponentPanel extends JPanel {
     }
 
     public ComponentPanel(int gapBetweenComponents) {
-        super(new GridBagLayout());
-        this.gapBetweenComponents = gapBetweenComponents;
+        this(gapBetweenComponents, new JComponent[0]);
     }
 
     public ComponentPanel(JComponent... components) {

@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class ThemeDialog extends JDialog {
 
-    public ThemeDialog(){
+    public ThemeDialog() {
         ThemeManager.addFrame(this);
     }
 

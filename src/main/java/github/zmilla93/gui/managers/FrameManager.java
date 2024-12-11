@@ -27,6 +27,7 @@ import github.zmilla93.gui.stash.StashHelperContainerLegacy;
 import github.zmilla93.gui.stash.StashHelperContainerPoe1;
 import github.zmilla93.gui.windows.*;
 import github.zmilla93.gui.windows.test.MessageTestWindow;
+import github.zmilla93.modules.theme.testing.UIManagerInspectorWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,6 +57,7 @@ public class FrameManager {
 
     // Debug Windows
     public static MessageTestWindow debugMessageWindow;
+    public static UIManagerInspectorWindow uiManagerInspectorWindow;
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -108,6 +110,7 @@ public class FrameManager {
         if (App.debug) {
             stashAlignmentDesignerWindow = new StashAlignmentDesignerWindow();
             designerConfigWindow = new DesignerConfigWindow();
+            uiManagerInspectorWindow = new UIManagerInspectorWindow();
         }
 
         /// Organize windows into groups
@@ -141,6 +144,9 @@ public class FrameManager {
 
     public static void showAppFrames() {
         // FIXME: Show proper windows
+        if (App.debug) {
+            uiManagerInspectorWindow.setVisible(true);
+        }
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         messageManager.setVisible(true);
         updateMenubarVisibility();
