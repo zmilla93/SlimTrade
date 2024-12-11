@@ -61,19 +61,21 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
             } else
                 picker.setErrorText("Multiple install folders detected, select the correct one.", ResultStatus.INDETERMINATE);
         } else {
+            boolean valid = false;
             if (path.toFile().exists()) {
                 picker.setSelectedPath(path);
                 if (path.toFile().exists()) {
-                    if (path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists())
+                    if (path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists()) {
                         picker.setErrorText("Using a saved folder.", ResultStatus.APPROVE);
-                    else
+                        valid = true;
+                    } else
                         picker.setErrorText("Using a saved folder, but the '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder is missing.", ResultStatus.INDETERMINATE);
                 } else
                     picker.setErrorText("The previously set install folder no longer exists.", ResultStatus.INDETERMINATE);
             } else {
                 picker.setErrorText("The previously set folder no longer exists.", ResultStatus.DENY);
-                picker.createDuplicatePathPanels(true);
             }
+            if (!valid) picker.createDuplicatePathPanels(true);
         }
     }
 
