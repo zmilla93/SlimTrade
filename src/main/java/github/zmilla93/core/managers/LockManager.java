@@ -8,30 +8,39 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 // FIXME : Switch to using Paths
 public class LockManager {
 
-    private final String installDirectory;
+    private final Path installDirectory;
     private final String fileName;
     private File lockFile;
     private FileLock lock;
     private FileChannel channel;
+    private final int MAX_DELETE_ATTEMPTS = 10;
+    private final int DELAY_BETWEEN_DELETE_ATTEMPTS_MS = 100;
 
-    public LockManager(String installDirectory, String fileName) {
+    public LockManager(Path installDirectory, String fileName) {
         this.installDirectory = installDirectory;
         this.fileName = fileName;
     }
 
     public boolean tryAndLock() {
         try {
-            File directory = new File(installDirectory);
-            if (!directory.exists()) {
-                if (!directory.mkdirs()) return false;
+            Files.createDirectories(installDirectory);
+            lockFile = installDirectory.resolve(fileName).toFile();
+            if (lockFile.exists()) {
+                boolean deleteSuccess = false;
+                for (int i = 0; i < MAX_DELETE_ATTEMPTS; i++) {
+                    if (lockFile.delete()) {
+                        deleteSuccess = true;
+                        break;
+                    }
+                }
+                if (!deleteSuccess) return false;
             }
-            lockFile = new File(installDirectory, fileName);
-            if (lockFile.exists())
-                if (!lockFile.delete()) return false;
             //noinspection resource
             channel = new RandomAccessFile(lockFile, "rw").getChannel();
             try {

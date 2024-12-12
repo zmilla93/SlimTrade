@@ -78,7 +78,7 @@ public class App {
         parseLaunchArgs(args);
 
         // Lock file to prevent duplicate instances
-        lockManager = new LockManager(SaveManager.getSaveDirectory().toString(), "app.lock");
+        lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
         if (useLockFile) {
             if (!lockManager.tryAndLock()) {
                 System.err.println("SlimTrade is already running. Terminating new instance.");
@@ -329,7 +329,7 @@ public class App {
         return isRunningSetup;
     }
 
-    public static void unlock(){
+    public static void unlock() {
         lockManager.closeLock();
     }
 
