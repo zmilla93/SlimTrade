@@ -1,11 +1,11 @@
-package github.zmilla93.gui.managers;
+package github.zmilla93.core.managers;
 
 import github.zmilla93.App;
 import github.zmilla93.core.data.CheatSheetData;
 import github.zmilla93.core.enums.AppState;
 import github.zmilla93.core.hotkeys.*;
-import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.POEInterface;
+import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.options.searching.StashSearchGroupData;
 import github.zmilla93.gui.options.searching.StashSearchWindowMode;
 import github.zmilla93.gui.windows.CheatSheetWindow;

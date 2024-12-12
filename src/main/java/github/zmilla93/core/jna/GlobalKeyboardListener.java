@@ -2,7 +2,7 @@ package github.zmilla93.core.jna;
 
 import github.zmilla93.core.hotkeys.HotkeyData;
 import github.zmilla93.gui.components.HotkeyButton;
-import github.zmilla93.gui.managers.HotkeyManager;
+import github.zmilla93.core.managers.HotkeyManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 

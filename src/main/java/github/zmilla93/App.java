@@ -16,7 +16,7 @@ import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.managers.FrameManager;
-import github.zmilla93.gui.managers.HotkeyManager;
+import github.zmilla93.core.managers.HotkeyManager;
 import github.zmilla93.gui.managers.SetupManager;
 import github.zmilla93.gui.managers.SystemTrayManager;
 import github.zmilla93.gui.pinning.PinManager;
