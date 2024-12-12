@@ -16,7 +16,7 @@ import javax.swing.*;
 
 public class GameWindowSetupPanel extends AbstractSetupPanel {
 
-    private final JRadioButton automaticRadioButton = new JRadioButton("Automatic");
+    private final JRadioButton detectRadioButton = new JRadioButton("Automatic");
     private final JRadioButton monitorRadioButton = new JRadioButton("Select a monitor");
     private final JRadioButton screenRegionRadioButton = new JRadioButton("Create a screen region");
 
@@ -26,13 +26,13 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
 
     // Card Panel
     private final CardPanel cardPanel = new CardPanel();
-    private final AbstractOptionPanel automaticPanel = new AbstractOptionPanel(false, false);
+    private final AbstractOptionPanel detectPanel = new AbstractOptionPanel(false, false);
     private final AbstractOptionPanel monitorPanel = new AbstractOptionPanel(false, false);
     private final AbstractOptionPanel screenRegionPanel = new AbstractOptionPanel(false, false);
 
     public GameWindowSetupPanel() {
         ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(automaticRadioButton);
+        buttonGroup.add(detectRadioButton);
         buttonGroup.add(monitorRadioButton);
         buttonGroup.add(screenRegionRadioButton);
 
@@ -42,14 +42,14 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
         addComponent(new ResultLabel("This aligns the UI for both games."));
         addVerticalStrutSmall();
         if (Platform.current == Platform.WINDOWS)
-            addComponent(automaticRadioButton);
+            addComponent(detectRadioButton);
         addComponent(monitorRadioButton);
         addComponent(screenRegionRadioButton);
         addVerticalStrut();
 
-        // Automatic Panel
-        automaticPanel.addHeader("Detect Window");
-        automaticPanel.addComponent(detectionButton);
+        // Detect Panel
+        detectPanel.addHeader("Detect Window");
+        detectPanel.addComponent(detectionButton);
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
@@ -63,19 +63,19 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
         screenRegionPanel.addLabel("If that means you, let me know on GitHub or Discord.");
 
         // Card Panel
-        cardPanel.add(automaticPanel);
+        cardPanel.add(detectPanel);
         cardPanel.add(monitorPanel);
         cardPanel.add(screenRegionPanel);
         addFullWidthComponent(cardPanel);
 
-        if (Platform.current == Platform.WINDOWS) automaticRadioButton.setSelected(true);
+        if (Platform.current == Platform.WINDOWS) detectRadioButton.setSelected(true);
         else monitorRadioButton.setSelected(true);
     }
 
     @Override
     protected void addComponentListeners() {
-        automaticRadioButton.addActionListener(e -> {
-            cardPanel.showCard(automaticPanel);
+        detectRadioButton.addActionListener(e -> {
+            cardPanel.showCard(detectPanel);
             runSetupValidation();
         });
         monitorRadioButton.addActionListener(e -> {
@@ -97,8 +97,8 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
         GameWindowMode mode = SaveManager.settingsSaveFile.data.gameWindowMode;
         switch (mode) {
             case DETECT:
-                automaticRadioButton.setSelected(true);
-                cardPanel.showCard(automaticPanel);
+                detectRadioButton.setSelected(true);
+                cardPanel.showCard(detectPanel);
                 break;
             case MONITOR:
                 monitorRadioButton.setSelected(true);
@@ -113,8 +113,8 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
             case UNSET:
             default:
                 if (Platform.current == Platform.WINDOWS) {
-                    automaticRadioButton.setSelected(true);
-                    cardPanel.showCard(automaticPanel);
+                    detectRadioButton.setSelected(true);
+                    cardPanel.showCard(detectPanel);
                 } else {
                     monitorRadioButton.setSelected(true);
                     cardPanel.showCard(monitorPanel);
@@ -124,7 +124,7 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
 
     @Override
     public boolean isSetupValid() {
-        if (automaticRadioButton.isSelected() && detectionButton.getLatestResultWasSuccess()) return true;
+        if (detectRadioButton.isSelected() && detectionButton.getLatestResultWasSuccess()) return true;
         else if (monitorRadioButton.isSelected()) return true;
             // TODO: implement screen region
         else if (screenRegionRadioButton.isSelected()) return false;
@@ -133,7 +133,7 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void applyCompletedSetup() {
-        if (automaticRadioButton.isSelected()) {
+        if (detectRadioButton.isSelected()) {
             SaveManager.settingsSaveFile.data.gameWindowMode = GameWindowMode.DETECT;
             SaveManager.settingsSaveFile.data.detectedGameBounds = detectionButton.getLatestResultWindow().clientBounds;
         } else if (monitorRadioButton.isSelected()) {

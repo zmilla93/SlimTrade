@@ -82,8 +82,6 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         });
     }
 
-    // FIXME : Detection panel needs to store result
-
     @Override
     public void save() {
         /// Shared
