@@ -30,7 +30,8 @@ public class MonitorInfo {
     }
 
     public String getDisplayName() {
-        if (displayName == null) displayName = "Monitor " + id + " [" + bounds.width + "x" + bounds.height + "]";
+//        if (displayName == null) displayName = "Monitor " + id + " [" + bounds.width + "x" + bounds.height + "]";
+        if (displayName == null) displayName = "Monitor " + id;
         return displayName;
     }
 

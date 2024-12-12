@@ -92,8 +92,10 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
         });
     }
 
-    private void initializeComponents(GameWindowMode method) {
-        switch (method) {
+    @Override
+    public void initializeComponents() {
+        GameWindowMode mode = SaveManager.settingsSaveFile.data.gameWindowMode;
+        switch (mode) {
             case DETECT:
                 automaticRadioButton.setSelected(true);
                 cardPanel.showCard(automaticPanel);
@@ -101,6 +103,8 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
             case MONITOR:
                 monitorRadioButton.setSelected(true);
                 cardPanel.showCard(monitorPanel);
+                MonitorInfo monitor = SaveManager.settingsSaveFile.data.selectedMonitor;
+                if (monitor != null) monitorPicker.setMonitor(monitor);
                 break;
             case SCREEN_REGION:
                 screenRegionRadioButton.setSelected(true);
@@ -116,14 +120,6 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
                     cardPanel.showCard(monitorPanel);
                 }
         }
-    }
-
-    @Override
-    public void initializeComponents() {
-        GameWindowMode mode = SaveManager.settingsSaveFile.data.gameWindowMode;
-        initializeComponents(mode);
-        MonitorInfo monitor = SaveManager.settingsSaveFile.data.selectedMonitor;
-        if (monitor != null) monitorPicker.setMonitor(monitor);
     }
 
     @Override
