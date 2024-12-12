@@ -13,7 +13,6 @@ import github.zmilla93.gui.options.AbstractOptionPanel;
 import github.zmilla93.modules.saving.ISavable;
 
 import javax.swing.*;
-import java.nio.file.Paths;
 
 public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISavable {
 
@@ -96,8 +95,8 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         /// Game Specific
         SaveManager.settingsSaveFile.data.notInstalledPoe1 = poe1FolderPicker.notInstalledCheckbox.isSelected();
         SaveManager.settingsSaveFile.data.notInstalledPoe2 = poe2FolderPicker.notInstalledCheckbox.isSelected();
-        SaveManager.settingsSaveFile.data.installFolderPoe1 = poe1FolderPicker.getSelectedPath().toString();
-        SaveManager.settingsSaveFile.data.installFolderPoe2 = poe2FolderPicker.getSelectedPath().toString();
+        SaveManager.settingsSaveFile.data.installFolderPoe1 = poe1FolderPicker.getPathString();
+        SaveManager.settingsSaveFile.data.installFolderPoe2 = poe2FolderPicker.getPathString();
         SaveManager.settingsSaveFile.data.usingStashFoldersPoe1 = usingStashFoldersPoe1Checkbox.isSelected();
         SaveManager.settingsSaveFile.data.usingStashFoldersPoe2 = usingStashFoldersPoe2Checkbox.isSelected();
     }
@@ -113,8 +112,8 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         chatHotkeyButton.setData(SaveManager.settingsSaveFile.data.poeChatHotkey);
         poe1FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.notInstalledPoe1);
         poe2FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.notInstalledPoe2);
-        poe1FolderPicker.setSelectedPath(Paths.get(SaveManager.settingsSaveFile.data.installFolderPoe1));
-        poe2FolderPicker.setSelectedPath(Paths.get(SaveManager.settingsSaveFile.data.installFolderPoe2));
+        poe1FolderPicker.setSelectedPath(SaveManager.settingsSaveFile.data.installFolderPoe1);
+        poe2FolderPicker.setSelectedPath(SaveManager.settingsSaveFile.data.installFolderPoe2);
         usingStashFoldersPoe1Checkbox.setSelected(SaveManager.settingsSaveFile.data.usingStashFoldersPoe1);
         usingStashFoldersPoe2Checkbox.setSelected(SaveManager.settingsSaveFile.data.usingStashFoldersPoe1);
         refreshPanelVisibility();

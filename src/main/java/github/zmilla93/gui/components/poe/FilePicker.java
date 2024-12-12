@@ -49,6 +49,11 @@ public class FilePicker extends JPanel {
         setErrorText(null);
     }
 
+    public String getPathString() {
+        if (selectedPath == null) return null;
+        return selectedPath.toString();
+    }
+
     /**
      * @return The currently selected path
      */

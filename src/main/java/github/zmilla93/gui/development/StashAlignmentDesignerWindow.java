@@ -29,6 +29,7 @@ public class StashAlignmentDesignerWindow extends BasicDialog implements ISaveLi
 
     private void updateBounds() {
         Rectangle rect = SaveManager.stashSaveFile.data.gridRect;
+        if (rect == null) return;
         setLocation(rect.getLocation());
         pack();
     }

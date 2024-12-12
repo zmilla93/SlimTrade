@@ -1,8 +1,12 @@
+**This version is not well tested and contains incomplete features. Please report any bugs, especially related to UI alignment and disappearing windows.**
+
 # Path of Exile 2
-- SlimTrade now works seamlessly with both POE 1 & 2
-- Added currency icons & translations for POE 2 (updated for POE1)
-- A new window detection system for UI alignment
-- **Be sure to report any alignment issues with the new system!**
+- SlimTrade now works seamlessly with Path of Exile 1 & 2
+- Added currency icons & currency translations for POE 2 (updated for POE1)
+
+## Game Window
+- Added a new window detection system for UI alignment, replacing the old stash alignment window
+- Unpinned windows are centered in the game window, rather than your first monitor
 
 ## Cloud Gaming
 - Added partial support for GeForce Now (other platforms upon request)
@@ -10,9 +14,11 @@
 - All other features should work (game macros, cheat sheets, stash/npc searching)
 - Things might be buggy
 
-## Improvements
+## Additional Changes
 - Many small UI improvements
+- Adjusted the way windows are displayed on top of the game window.
 - Fixed a crash on systems that don't support a system tray
+- Possible improvements for Mac & Linux (untested)
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed

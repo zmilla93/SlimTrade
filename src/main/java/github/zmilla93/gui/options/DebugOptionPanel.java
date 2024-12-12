@@ -94,8 +94,14 @@ public class DebugOptionPanel extends AbstractOptionPanel {
             revalidate();
             repaint();
         });
-        createBackupButton.addActionListener(e -> SaveManager.createBackup());
-        loadBackupButton.addActionListener(e -> SaveManager.loadBackup());
+        createBackupButton.addActionListener(e -> {
+            int response = JOptionPane.showConfirmDialog(DebugOptionPanel.this, "Are you sure you want to create a new backup of all app settings?\nThis will delete the existing backup.", "Create Backup", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.OK_OPTION) SaveManager.createBackup();
+        });
+        loadBackupButton.addActionListener(e -> {
+            int response = JOptionPane.showConfirmDialog(DebugOptionPanel.this, "Are you sure you want to load the existing settings backup?\n", "Load Backup", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.OK_OPTION) SaveManager.loadBackup();
+        });
     }
 
     private JPanel createFontTranslationPanel() {

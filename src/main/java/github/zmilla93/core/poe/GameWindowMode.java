@@ -4,9 +4,9 @@ import github.zmilla93.core.utility.ZUtil;
 
 /**
  * SlimTrade needs to know where the Path of Exile game window is. This can be done three ways.
- * 1. Periodically check where the game window is (Windows os only)
- * 2. Save the bounds information of a monitor
- * 3. Have the user define a screen region
+ *      1. Save the bounds of the POE game window.
+ *      2. Save the bounds of a monitor
+ *      3. Have the user define a screen region (not implemented)
  */
 public enum GameWindowMode {
 

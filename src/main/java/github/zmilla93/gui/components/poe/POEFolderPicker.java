@@ -3,11 +3,13 @@ package github.zmilla93.gui.components.poe;
 import github.zmilla93.core.enums.ResultStatus;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
+import github.zmilla93.core.utility.TradeUtil;
 import github.zmilla93.core.utility.ZUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class POEFolderPicker extends FilePicker implements PathChangeListener {
 
@@ -75,6 +77,15 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
 
     public boolean notInstalledCheckboxValue() {
         return notInstalledCheckbox.isSelected();
+    }
+
+    /**
+     * Allows setting the path via a string with an added null check.
+     */
+    // FIXME: Should either add a isValidPOEPath check, or move this to parent
+    public void setSelectedPath(String pathString){
+        if(pathString == null) return;
+        setSelectedPath(Paths.get(pathString));
     }
 
     @Override

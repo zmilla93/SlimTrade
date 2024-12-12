@@ -46,6 +46,7 @@ public class StashAlignmentDesignerPanel extends JPanel implements ISaveListener
 
     private void updateSize() {
         Rectangle rect = SaveManager.stashSaveFile.data.gridRect;
+        if (rect == null) return;
         setMinimumSize(rect.getSize());
         setPreferredSize(rect.getSize());
         setSize(rect.getSize());

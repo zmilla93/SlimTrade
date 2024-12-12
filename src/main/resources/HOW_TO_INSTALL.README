@@ -1,0 +1,12 @@
+Whoops! If you are reading this, you took a wrong turn. SlimTrade is a jar file that runs on Java 8 or newer.
+
+Step 1
+======
+Make sure you have Java installed.
+Java Download - https://www.java.com/en/
+
+Step 2
+======
+A jar file can be opened like an archive/zip file (what you did), or run as a program (what you need to do).
+Right click SlimTrade.jar > Open with > Choose Another App >  Java Platform SE Binary
+When using "Choose Another App", select to always use this option. This lets you double click to run the jar file in the future.
