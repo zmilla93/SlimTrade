@@ -54,7 +54,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         // Detection Method Panel
         addHeader("Window Location");
         addComponent(new JLabel("How should SlimTrade determine the window location of Path of Exile?"));
-        addComponent(new ResultLabel("This setting aligns the UI for both games."));
+        addComponent(new ResultLabel("This aligns the UI for both games."));
         addVerticalStrutSmall();
         if (Platform.current == Platform.WINDOWS)
             addComponent(automaticRadioButton);
@@ -73,7 +73,9 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
-        screenRegionPanel.addLabel("Coming soon!");
+        screenRegionPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Coming soon (maybe)."));
+        screenRegionPanel.addLabel("This is only required for Mac & Linux users playing in windowed mode.");
+        screenRegionPanel.addLabel("If that is you, let me know on GitHub or Discord.");
 
         // Card Panel
         cardPanel.add(automaticPanel);

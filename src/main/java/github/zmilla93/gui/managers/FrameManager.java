@@ -54,6 +54,7 @@ public class FrameManager {
     public static StashSearchWindow combinedSearchWindow;
     public static SetupWindow setupWindow;
     public static UpdateProgressWindow updateProgressWindow;
+    public static MoverDialog testMoverDialog;
 
     // Debug Windows
     public static MessageTestWindow debugMessageWindow;
@@ -93,6 +94,9 @@ public class FrameManager {
         dummyWindow = new DummyWindow(); // Omitted from visibility list
         // FIXME : Remove debug window
         debugWindow = new DebugWindow();
+        testMoverDialog = new MoverDialog();
+        testMoverDialog.setSize(400, 400);
+        testMoverDialog.setVisible(true);
         /// Menu Bar
         menuBarIcon = new MenubarButtonDialog();
         menuBarDialog = new MenubarDialog();
@@ -145,7 +149,7 @@ public class FrameManager {
     public static void showAppFrames() {
         // FIXME: Show proper windows
         if (App.debug) {
-            uiManagerInspectorWindow.setVisible(true);
+//            uiManagerInspectorWindow.setVisible(true);
         }
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         messageManager.setVisible(true);

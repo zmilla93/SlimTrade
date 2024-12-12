@@ -1,21 +1,19 @@
-## Path of Exile 2
-- Full support for Path of Exile 2 coming soon... :)
-
-# POE Window Detection
-- A new window detection system is replacing having to manually mark your stash location
-- The game window can be detected automatically (windows only), set to a monitor, or marked manually
-- Stash location (and other POE UI elements) are then calculated using the game window
+# Path of Exile 2
+- SlimTrade now works seamlessly with both POE 1 & 2
+- Added currency icons & translations for POE 2 (updated for POE1)
+- A new window detection system for UI alignment
 - **Be sure to report any alignment issues with the new system!**
-
-## Improvements
-- Many small UI improvements
-- Reordering UI elements now uses click & drag
-- Fixed a crash on systems that don't support a system tray.
 
 ## Cloud Gaming
 - Added partial support for GeForce Now (other platforms upon request)
 - Features that require access to game files DO NOT work (trade popups, chat scanner, history)
 - All other features should work (game macros, cheat sheets, stash/npc searching)
+- Things might be buggy
+
+## Improvements
+- Many small UI improvements
+- Reordering UI elements now uses click & drag
+- Fixed a crash on systems that don't support a system tray.
 
 # Developer Notes
 - The entire code base has been cleaned up & commented

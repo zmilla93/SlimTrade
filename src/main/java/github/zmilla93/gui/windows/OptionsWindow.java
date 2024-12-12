@@ -1,11 +1,11 @@
 package github.zmilla93.gui.windows;
 
 import github.zmilla93.App;
+import github.zmilla93.core.managers.HotkeyManager;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.gui.components.StyledLabel;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
-import github.zmilla93.gui.managers.HotkeyManager;
 import github.zmilla93.gui.options.*;
 import github.zmilla93.gui.options.display.DisplayOptionPanel;
 import github.zmilla93.gui.options.poe.PathOfExileOptionPanel;
