@@ -9,14 +9,15 @@ import java.awt.*;
 
 public class NativeWindow {
 
-    private static final String EMPTY_WINDOW_TITLE = "";
-
     // Constant Info
     public final String title;
     public final WinDef.HWND handle;
 
     // Dynamic Info
-    public Rectangle bounds;
+    // FIXME (Cleanup) : Full window bounds currently unused, set to private to avoid accidental use.
+    //  Could remove if it has no use? Or maybe just a verbose getter.
+    private Rectangle bounds;
+    /// This is the screen space window bounds excluding title bar & border
     public Rectangle clientBounds;
     public WindowMode mode;
     public boolean borderless;

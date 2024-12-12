@@ -9,8 +9,7 @@ import github.zmilla93.gui.components.CardPanel;
 import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.ResultLabel;
-import github.zmilla93.gui.components.poe.detection.GameDetectionPanel;
-import github.zmilla93.gui.components.poe.detection.GameDetectionResult;
+import github.zmilla93.gui.components.poe.detection.GameDetectionButton;
 import github.zmilla93.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
@@ -21,15 +20,9 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
     private final JRadioButton monitorRadioButton = new JRadioButton("Select a monitor");
     private final JRadioButton screenRegionRadioButton = new JRadioButton("Create a screen region");
 
-    // Automatic
-    private final GameDetectionPanel detectionPanel = new GameDetectionPanel();
-    private boolean automaticTestResult = false;
-
-    // Monitor
+    private final GameDetectionButton detectionButton = new GameDetectionButton();
     private final MonitorPicker monitorPicker = new MonitorPicker();
-
-    // Screen Region
-    // TODO: Screen Region
+    // TODO: Screen Region ?
 
     // Card Panel
     private final CardPanel cardPanel = new CardPanel();
@@ -56,7 +49,7 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
 
         // Automatic Panel
         automaticPanel.addHeader("Detect Window");
-        automaticPanel.addComponent(detectionPanel);
+        automaticPanel.addComponent(detectionButton);
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
@@ -79,7 +72,8 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
         else monitorRadioButton.setSelected(true);
     }
 
-    private void addListeners() {
+    @Override
+    protected void addComponentListeners() {
         automaticRadioButton.addActionListener(e -> {
             cardPanel.showCard(automaticPanel);
             runSetupValidation();
@@ -92,8 +86,7 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
             cardPanel.showCard(screenRegionPanel);
             runSetupValidation();
         });
-        detectionPanel.addGameDetectionTestListener((result, handle) -> {
-            automaticTestResult = result == GameDetectionResult.SUCCESS;
+        detectionButton.addGameDetectionTestListener((result, handle) -> {
             runSetupValidation();
             ZUtil.packComponentWindow(GameWindowSetupPanel.this);
         });
@@ -127,20 +120,15 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void initializeComponents() {
-        GameWindowMode method = SaveManager.settingsSaveFile.data.gameWindowMode;
-        initializeComponents(method);
+        GameWindowMode mode = SaveManager.settingsSaveFile.data.gameWindowMode;
+        initializeComponents(mode);
         MonitorInfo monitor = SaveManager.settingsSaveFile.data.selectedMonitor;
         if (monitor != null) monitorPicker.setMonitor(monitor);
     }
 
     @Override
-    public void addComponentListeners() {
-        addListeners();
-    }
-
-    @Override
     public boolean isSetupValid() {
-        if (automaticRadioButton.isSelected() && automaticTestResult) return true;
+        if (automaticRadioButton.isSelected() && detectionButton.getLatestResultWasSuccess()) return true;
         else if (monitorRadioButton.isSelected()) return true;
             // TODO: implement screen region
         else if (screenRegionRadioButton.isSelected()) return false;
@@ -151,6 +139,7 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
     public void applyCompletedSetup() {
         if (automaticRadioButton.isSelected()) {
             SaveManager.settingsSaveFile.data.gameWindowMode = GameWindowMode.DETECT;
+            SaveManager.settingsSaveFile.data.detectedGameBounds = detectionButton.getLatestResultWindow().clientBounds;
         } else if (monitorRadioButton.isSelected()) {
             SaveManager.settingsSaveFile.data.gameWindowMode = GameWindowMode.MONITOR;
             SaveManager.settingsSaveFile.data.selectedMonitor = monitorPicker.getSelectedMonitor();

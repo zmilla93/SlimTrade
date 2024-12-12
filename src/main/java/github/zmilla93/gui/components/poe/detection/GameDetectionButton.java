@@ -17,15 +17,17 @@ import java.util.ArrayList;
 /**
  * Handles automatically detecting the Path of Exile game window.
  */
-public class GameDetectionPanel extends ComponentPanel implements GameDetectionTestListener {
+public class GameDetectionButton extends ComponentPanel implements GameDetectionTestListener {
 
     // FIXME: Should switch to a card panel to avoid component resizing (remove the pack listener from setup if so)
     private final JButton runTestButton = new JButton("Detect");
     private final ResultLabel resultLabel = new ResultLabel(GameDetectionResult.NOT_RUN.message);
     private final ArrayList<GameDetectionTestListener> listeners = new ArrayList<>();
     private final Timer timer;
+    private GameDetectionResult latestResult;
+    private NativeWindow latestResultWindow;
 
-    public GameDetectionPanel() {
+    public GameDetectionButton() {
         add(runTestButton);
         add(resultLabel);
         runTestButton.addActionListener(e -> runTest());
@@ -61,11 +63,25 @@ public class GameDetectionPanel extends ComponentPanel implements GameDetectionT
         listeners.add(listener);
     }
 
+    public boolean getLatestResultWasSuccess() {
+        return getLatestResult() == GameDetectionResult.SUCCESS;
+    }
+
+    public GameDetectionResult getLatestResult() {
+        return latestResult;
+    }
+
+    public NativeWindow getLatestResultWindow() {
+        return latestResultWindow;
+    }
+
     @Override
     public void onTestResult(GameDetectionResult result, WinDef.HWND handle) {
+        latestResult = result;
         resultLabel.setText(result.status, result.message);
         if (result == GameDetectionResult.SUCCESS) {
             NativeWindow window = new NativeWindow(handle);
+            latestResultWindow = window;
             PoeIdentificationFrame.identify(window.clientBounds);
             timer.start();
         }
