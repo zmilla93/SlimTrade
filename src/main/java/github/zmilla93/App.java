@@ -114,7 +114,7 @@ public class App {
         profileLaunch("Time to start update");
 
         // Update
-        updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory().toString(), getAppInfo(), getAppInfo().appVersion.isPreRelease);
+        updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory(), getAppInfo(), getAppInfo().appVersion.isPreRelease);
         updateManager.continueUpdateProcess(args);
         if (!noUpdate) {
             if (updateManager.getCurrentUpdateAction() != UpdateAction.CLEAN && updateManager.isUpdateAvailable()) {
@@ -327,6 +327,10 @@ public class App {
 
     public static boolean isRunningSetup() {
         return isRunningSetup;
+    }
+
+    public static void unlock(){
+        lockManager.closeLock();
     }
 
     private static void closeProgram() {

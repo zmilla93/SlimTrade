@@ -117,7 +117,7 @@ public class ZLogger {
     }
 
     public static String getLaunchArg() {
-        return LOG_ARG_PREFIX + currentLogFileName;
+        return LOG_ARG_PREFIX + logsDirectory.resolve(currentLogFileName);
     }
 
     public static void close() {

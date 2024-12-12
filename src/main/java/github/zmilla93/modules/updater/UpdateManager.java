@@ -55,7 +55,8 @@ public class UpdateManager {
     public static final boolean DEBUG_FAST_PERIODIC_CHECK = false;
 
     private final AppVersion CURRENT_VERSION;
-    private final String DIRECTORY;
+    //    private final Path DIRECTORY;
+    private final Path tempJarFile;
     private final String LATEST_VERSION_URL;
     private final String ALL_RELEASES_URL;
     private final boolean VALID_DIRECTORY;
@@ -68,7 +69,7 @@ public class UpdateManager {
     private final ArrayList<IUpdateProgressListener> progressListeners = new ArrayList<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    private static final int MAX_ACTION_ATTEMPTS = 5;
+    private static final int MAX_ACTION_ATTEMPTS = 20;
     private static final int ACTION_RETRY_DELAY_MS = 100;
 
     /**
@@ -80,14 +81,16 @@ public class UpdateManager {
      * @param appInfo   Information about the currently running app
      */
     // FIXME: Switch to using Path
-    public UpdateManager(String author, String repo, String directory, AppInfo appInfo, boolean allowPreRelease) {
-        this.DIRECTORY = UpdateUtil.cleanFileSeparators(directory);
+    public UpdateManager(String author, String repo, Path directory, AppInfo appInfo, boolean allowPreRelease) {
+//        this.DIRECTORY = directory;
         this.CURRENT_VERSION = appInfo.appVersion;
         this.allowPreRelease = allowPreRelease;
+        tempJarFile = directory.resolve(TEMP_FILE_NAME);
         LATEST_VERSION_URL = "https://api.github.com/repos/" + author + "/" + repo + "/releases/latest";
         ALL_RELEASES_URL = "https://api.github.com/repos/" + author + "/" + repo + "/releases";
-        VALID_DIRECTORY = UpdateUtil.validateDirectory(DIRECTORY);
-        if (!VALID_DIRECTORY) ZLogger.log("Failed to validate directory: " + DIRECTORY);
+        File directoryFile = directory.toFile();
+        VALID_DIRECTORY = directoryFile.exists() && directoryFile.isDirectory();
+        if (!VALID_DIRECTORY) ZLogger.log("Failed to validate directory: " + directory);
     }
 
     /**
@@ -147,7 +150,7 @@ public class UpdateManager {
         switch (currentAction) {
             case DOWNLOAD:
                 boolean success = downloadFile();
-                if (success) runProcess(DIRECTORY + TEMP_FILE_NAME, UpdateAction.PATCH, launchArgs);
+                if (success) runProcess(tempJarFile.toString(), UpdateAction.PATCH, launchArgs);
                 break;
             case PATCH:
                 patch();
@@ -213,6 +216,7 @@ public class UpdateManager {
         try {
             ZLogger.log("Running '" + updateAction + "' process... " + Arrays.toString(args.toArray()));
             ZLogger.close();
+            App.unlock();
             builder.start();
             System.exit(0);
         } catch (IOException e) {
@@ -343,7 +347,7 @@ public class UpdateManager {
             HttpURLConnection httpConnection = (HttpURLConnection) (new URL(latestRelease.downloadURL).openConnection());
             int fileSize = httpConnection.getContentLength();
             BufferedInputStream inputStream = new BufferedInputStream(httpConnection.getInputStream());
-            BufferedOutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(Paths.get(DIRECTORY + TEMP_FILE_NAME)));
+            BufferedOutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(tempJarFile));
             byte[] data = new byte[BYTE_BUFFER_SIZE];
             int totalBytesRead = 0;
             int numBytesRead;
@@ -380,12 +384,12 @@ public class UpdateManager {
      */
     private void patch() {
         ZLogger.log("Copying file...");
-        ZLogger.log("Target: " + DIRECTORY + TEMP_FILE_NAME);
+        ZLogger.log("Target: " + tempJarFile);
         ZLogger.log("Destination: " + launchPath);
         Exception exception = null;
         for (int i = 1; i <= MAX_ACTION_ATTEMPTS; i++) {
             try {
-                Files.copy(Paths.get(DIRECTORY + TEMP_FILE_NAME), Paths.get(launchPath), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(tempJarFile, Paths.get(launchPath), StandardCopyOption.REPLACE_EXISTING);
                 ZLogger.log("File copied successfully.");
                 return;
             } catch (IOException e) {
@@ -407,12 +411,11 @@ public class UpdateManager {
      */
     private void clean() {
         ZLogger.log("Cleaning...");
-        Path tempFilePath = Paths.get(DIRECTORY + TEMP_FILE_NAME);
         Exception exception = null;
         for (int i = 1; i <= MAX_ACTION_ATTEMPTS; i++) {
             try {
-                Files.delete(tempFilePath);
-                ZLogger.log("Deleted temporary file: " + DIRECTORY + TEMP_FILE_NAME);
+                Files.delete(tempJarFile);
+                ZLogger.log("Deleted temporary file: " + tempJarFile);
                 return;
             } catch (IOException e) {
                 ZLogger.log("Failed to delete file, retrying...");
@@ -424,7 +427,7 @@ public class UpdateManager {
                 }
             }
         }
-        ZLogger.log("Failed to delete file: " + DIRECTORY + TEMP_FILE_NAME);
+        ZLogger.log("Failed to delete file: " + tempJarFile);
         ZLogger.log(exception.getStackTrace());
     }
 
