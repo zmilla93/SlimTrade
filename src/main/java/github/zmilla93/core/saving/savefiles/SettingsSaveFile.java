@@ -8,7 +8,7 @@ import github.zmilla93.core.data.PriceThresholdData;
 import github.zmilla93.core.data.StashTabData;
 import github.zmilla93.core.enums.*;
 import github.zmilla93.core.hotkeys.HotkeyData;
-import github.zmilla93.core.poe.GameDetectionMethod;
+import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.listening.IColorBlindChangeListener;
@@ -78,7 +78,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
 //    public PathOfExileLeague leaguePoe1 = PathOfExileLeague.UNSET;
 //    public PathOfExileLeague leaguePoe2 = PathOfExileLeague.UNSET;
     // Path of Exile - Shared Between Games
-    public GameDetectionMethod gameDetectionMethod = GameDetectionMethod.UNSET;
+    public GameWindowMode gameWindowMode = GameWindowMode.UNSET;
     public MonitorInfo selectedMonitor;
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
 

@@ -1,36 +1,28 @@
 package github.zmilla93.gui.setup;
 
-import com.sun.jna.platform.win32.WinDef;
 import github.zmilla93.core.enums.ResultStatus;
-import github.zmilla93.core.jna.NativePoeWindow;
-import github.zmilla93.core.jna.NativeWindow;
 import github.zmilla93.core.managers.SaveManager;
-import github.zmilla93.core.poe.GameDetectionMethod;
+import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.CardPanel;
-import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.ResultLabel;
+import github.zmilla93.gui.components.poe.detection.GameDetectionPanel;
+import github.zmilla93.gui.components.poe.detection.GameDetectionResult;
 import github.zmilla93.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;
 
-public class GameDetectionSetupPanel extends AbstractSetupPanel {
+public class GameWindowSetupPanel extends AbstractSetupPanel {
 
     private final JRadioButton automaticRadioButton = new JRadioButton("Automatic");
     private final JRadioButton monitorRadioButton = new JRadioButton("Select a monitor");
     private final JRadioButton screenRegionRadioButton = new JRadioButton("Create a screen region");
 
     // Automatic
-    private final JLabel automaticTestNotRun = new JLabel("Click to set the game window location.");
-    private final ResultLabel automaticTestFail = new ResultLabel(ResultStatus.DENY, "No window found. Ensure Path of Exile 1 or 2 is running.");
-    private final ResultLabel automaticTestMinimized = new ResultLabel(ResultStatus.INDETERMINATE, "Game is minimized.");
-    private final ResultLabel automaticTestSuccess = new ResultLabel(ResultStatus.APPROVE, "Game window location set.");
-    private final ResultLabel automaticTestNotSupported = new ResultLabel(ResultStatus.DENY, "Not supported on " + Platform.current + ".");
-    private final CardPanel automaticResultsCardPanel = new CardPanel(automaticTestNotRun, automaticTestSuccess, automaticTestFail, automaticTestMinimized, automaticTestNotSupported);
-    private final JButton automaticTestButton = new JButton("Detect");
+    private final GameDetectionPanel detectionPanel = new GameDetectionPanel();
     private boolean automaticTestResult = false;
 
     // Monitor
@@ -45,7 +37,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     private final AbstractOptionPanel monitorPanel = new AbstractOptionPanel(false, false);
     private final AbstractOptionPanel screenRegionPanel = new AbstractOptionPanel(false, false);
 
-    public GameDetectionSetupPanel() {
+    public GameWindowSetupPanel() {
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(automaticRadioButton);
         buttonGroup.add(monitorRadioButton);
@@ -64,7 +56,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
         // Automatic Panel
         automaticPanel.addHeader("Detect Window");
-        automaticPanel.addComponent(new ComponentPanel(automaticTestButton, automaticResultsCardPanel));
+        automaticPanel.addComponent(detectionPanel);
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
@@ -75,7 +67,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
         screenRegionPanel.addHeader("Screen Region");
         screenRegionPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Coming soon (maybe)."));
         screenRegionPanel.addLabel("This is only required for Mac & Linux users playing in windowed mode.");
-        screenRegionPanel.addLabel("If that is you, let me know on GitHub or Discord.");
+        screenRegionPanel.addLabel("If that means you, let me know on GitHub or Discord.");
 
         // Card Panel
         cardPanel.add(automaticPanel);
@@ -100,32 +92,16 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
             cardPanel.showCard(screenRegionPanel);
             runSetupValidation();
         });
-        automaticTestButton.addActionListener(e -> {
-            automaticTestResult = false;
-            if (Platform.current != Platform.WINDOWS) {
-                automaticResultsCardPanel.showCard(automaticTestNotSupported);
-                return;
-            }
-            WinDef.HWND handle = NativePoeWindow.findPathOfExileWindow();
-            if (handle == null) automaticResultsCardPanel.showCard(automaticTestFail);
-            else {
-                NativeWindow window = new NativeWindow(handle);
-                if (window.minimized) {
-                    automaticResultsCardPanel.showCard(automaticTestMinimized);
-                } else {
-                    automaticResultsCardPanel.showCard(automaticTestSuccess);
-                    PoeIdentificationFrame.identify(window.clientBounds);
-                    automaticTestResult = true;
-                }
-            }
+        detectionPanel.addGameDetectionTestListener((result, handle) -> {
+            automaticTestResult = result == GameDetectionResult.SUCCESS;
             runSetupValidation();
-            ZUtil.packComponentWindow(GameDetectionSetupPanel.this);
+            ZUtil.packComponentWindow(GameWindowSetupPanel.this);
         });
     }
 
-    private void initializeComponents(GameDetectionMethod method) {
+    private void initializeComponents(GameWindowMode method) {
         switch (method) {
-            case AUTOMATIC:
+            case DETECT:
                 automaticRadioButton.setSelected(true);
                 cardPanel.showCard(automaticPanel);
                 break;
@@ -151,7 +127,7 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void initializeComponents() {
-        GameDetectionMethod method = SaveManager.settingsSaveFile.data.gameDetectionMethod;
+        GameWindowMode method = SaveManager.settingsSaveFile.data.gameWindowMode;
         initializeComponents(method);
         MonitorInfo monitor = SaveManager.settingsSaveFile.data.selectedMonitor;
         if (monitor != null) monitorPicker.setMonitor(monitor);
@@ -174,12 +150,12 @@ public class GameDetectionSetupPanel extends AbstractSetupPanel {
     @Override
     public void applyCompletedSetup() {
         if (automaticRadioButton.isSelected()) {
-            SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.AUTOMATIC;
+            SaveManager.settingsSaveFile.data.gameWindowMode = GameWindowMode.DETECT;
         } else if (monitorRadioButton.isSelected()) {
-            SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.MONITOR;
+            SaveManager.settingsSaveFile.data.gameWindowMode = GameWindowMode.MONITOR;
             SaveManager.settingsSaveFile.data.selectedMonitor = monitorPicker.getSelectedMonitor();
         } else if (screenRegionRadioButton.isSelected()) {
-            SaveManager.settingsSaveFile.data.gameDetectionMethod = GameDetectionMethod.SCREEN_REGION;
+            SaveManager.settingsSaveFile.data.gameWindowMode = GameWindowMode.SCREEN_REGION;
             // FIXME : Save region
         }
     }

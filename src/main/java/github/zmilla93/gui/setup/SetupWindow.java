@@ -31,7 +31,7 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
     // Setup Panels
     private final ArrayList<AbstractSetupPanel> setupPanels = new ArrayList<>();
     private final InstallFolderSetupPanel installFolderPanel = new InstallFolderSetupPanel();
-    private final GameDetectionSetupPanel gameDetectionPanel = new GameDetectionSetupPanel();
+    private final GameWindowSetupPanel gameDetectionPanel = new GameWindowSetupPanel();
     private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel();
 
     public SetupWindow() {

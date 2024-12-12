@@ -8,13 +8,13 @@ import github.zmilla93.core.utility.ZUtil;
  * 2. Save the bounds information of a monitor
  * 3. Have the user define a screen region
  */
-public enum GameDetectionMethod {
+public enum GameWindowMode {
 
-    UNSET, AUTOMATIC, MONITOR, SCREEN_REGION;
+    UNSET, DETECT, MONITOR, SCREEN_REGION;
 
     private final String name;
 
-    GameDetectionMethod() {
+    GameWindowMode() {
         this.name = ZUtil.enumToString(name());
     }
 

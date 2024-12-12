@@ -4,7 +4,7 @@ import github.zmilla93.App;
 import github.zmilla93.core.enums.SetupPhase;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
-import github.zmilla93.core.poe.GameDetectionMethod;
+import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.saving.savefiles.SettingsSaveFile;
 import github.zmilla93.core.utility.TradeUtil;
 import github.zmilla93.gui.setup.SetupWindow;
@@ -52,7 +52,7 @@ public class SetupManager {
         }
         // Game Detection Method
         // FIXME : Make this more robust once done with screen region
-        if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.UNSET)
+        if (SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.UNSET)
             setupPhases.add(SetupPhase.GAME_WINDOW);
         // Using Stash Folders
         boolean hasInitFolders = SaveManager.settingsSaveFile.data.initUsingStashFolders == SettingsSaveFile.targetInitUsingStashFolders;

@@ -24,7 +24,10 @@ public class MonitorIdentificationFrame extends BasicDialog {
     public MonitorIdentificationFrame() {
         assert SwingUtilities.isEventDispatchThread();
         int colorInt = 0;
-        setBackground(new Color(colorInt, colorInt, colorInt, 200));
+        int whiteInt = 255;
+        int alpha = 200;
+        setBackground(new Color(colorInt, colorInt, colorInt, alpha));
+        setForeground(new Color(whiteInt, whiteInt, whiteInt));
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         int insetX = 120;

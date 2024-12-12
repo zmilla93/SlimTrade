@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * A platform independent representation of the Path of Exile game window.
  * Used to calculate the screen location of in game UI elements, or to pin things relative to the game window.
- * Bounds can be updated via different {@link GameDetectionMethod}s.
+ * Bounds can be updated via different {@link GameWindowMode}s.
  * Attach a {@link POEWindowListener} to listen for events.
  */
 // TODO : Could also add the option to manually define the game window region to support Mac/Linux users who play in windowed mode.
@@ -59,7 +59,7 @@ public class POEWindow {
     }
 
     public static void setBoundsByMonitor(MonitorInfo monitor) {
-        assert SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.MONITOR;
+        assert SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.MONITOR;
         assert monitor != null;
         if (monitor.equals(currentMonitor)) return;
         POEWindow.gameBounds = monitor.bounds;
@@ -68,7 +68,7 @@ public class POEWindow {
     }
 
     public static void setBoundsByWindowHandle(WinDef.HWND handle) {
-        assert SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.AUTOMATIC;
+        assert SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT;
         assert handle != null;
         if (currentGameWindow != null && handle.equals(currentGameWindow.handle)) return;
         currentGameWindow = new NativePoeWindow(handle);
@@ -96,9 +96,9 @@ public class POEWindow {
      * This should only be used to manually force updates, like on launch or when detection method changes.
      */
     public static void forceGameBoundsRefresh() {
-        GameDetectionMethod method = SaveManager.settingsSaveFile.data.gameDetectionMethod;
+        GameWindowMode method = SaveManager.settingsSaveFile.data.gameWindowMode;
         switch (method) {
-            case AUTOMATIC:
+            case DETECT:
                 // NOTE : This currently shouldn't be reachable on non Windows platforms, just future proofing.
                 if (Platform.WINDOWS == Platform.current) {
                     WinDef.HWND handle = NativePoeWindow.findPathOfExileWindow();

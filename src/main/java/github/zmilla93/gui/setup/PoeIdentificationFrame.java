@@ -9,6 +9,8 @@ public class PoeIdentificationFrame extends JDialog {
 
     private static Timer hideFramesTimer;
     private static Timer disposeFramesTimer;
+    private static final int BORDER_SIZE = 8;
+    private static final Color BORDER_COLOR = new Color(225, 54, 54);
 
     static {
         setupTimers();
@@ -55,9 +57,8 @@ public class PoeIdentificationFrame extends JDialog {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                // FIXME : Use theme color?
-                g2d.setColor(Color.RED);
-                g2d.setStroke(new BasicStroke(2));
+                g2d.setColor(BORDER_COLOR);
+                g2d.setStroke(new BasicStroke(BORDER_SIZE));
                 g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
             }
         };

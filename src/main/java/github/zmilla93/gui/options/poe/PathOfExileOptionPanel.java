@@ -1,7 +1,7 @@
 package github.zmilla93.gui.options.poe;
 
 import github.zmilla93.core.poe.Game;
-import github.zmilla93.core.poe.GameDetectionMethod;
+import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.HotkeyButton;
 import github.zmilla93.gui.components.MonitorPicker;
@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 public class PathOfExileOptionPanel extends AbstractOptionPanel {
 
     // Shared
-    private final JComboBox<GameDetectionMethod> gameDetectionMethodCombo = new JComboBox<>();
+    private final JComboBox<GameWindowMode> gameDetectionMethodCombo = new JComboBox<>();
     private final GameDetectionPanel detectionPanel = new GameDetectionPanel();
     private final MonitorPicker monitorPicker = new MonitorPicker();
     private final HotkeyButton chatHotkeyButton = new HotkeyButton();
@@ -33,12 +33,12 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel {
     private final AbstractOptionPanel poe2OptionPanel = new AbstractOptionPanel(false, false);
 
     public PathOfExileOptionPanel() {
-        gameDetectionMethodCombo.addItem(GameDetectionMethod.AUTOMATIC);
-        gameDetectionMethodCombo.addItem(GameDetectionMethod.MONITOR);
+        gameDetectionMethodCombo.addItem(GameWindowMode.DETECT);
+        gameDetectionMethodCombo.addItem(GameWindowMode.MONITOR);
 
         /// Shared
         addHeader("Path of Exile 1 & 2");
-        addComponent(new ComponentPanel(new JLabel("Window Detection"), gameDetectionMethodCombo));
+        addComponent(new ComponentPanel(new JLabel("Game Window"), gameDetectionMethodCombo));
         addComponent(detectionPanel);
         addComponent(monitorPicker);
         addComponent(new ComponentPanel(new JLabel("Open Chat Hotkey"), chatHotkeyButton));
@@ -67,7 +67,7 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel {
         gameDetectionMethodCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
             }
         });
         explanationButton.addActionListener(e -> explanationPanel.setVisible(!explanationPanel.isVisible()));

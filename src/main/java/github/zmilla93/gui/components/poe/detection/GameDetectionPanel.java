@@ -1,6 +1,7 @@
 package github.zmilla93.gui.components.poe.detection;
 
 import com.sun.jna.platform.win32.WinDef;
+import github.zmilla93.core.enums.ResultStatus;
 import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.jna.NativeWindow;
 import github.zmilla93.core.utility.Platform;
@@ -9,6 +10,8 @@ import github.zmilla93.gui.components.poe.ResultLabel;
 import github.zmilla93.gui.setup.PoeIdentificationFrame;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -16,15 +19,25 @@ import java.util.ArrayList;
  */
 public class GameDetectionPanel extends ComponentPanel implements GameDetectionTestListener {
 
+    // FIXME: Should switch to a card panel to avoid component resizing (remove the pack listener from setup if so)
     private final JButton runTestButton = new JButton("Detect");
     private final ResultLabel resultLabel = new ResultLabel(GameDetectionResult.NOT_RUN.message);
     private final ArrayList<GameDetectionTestListener> listeners = new ArrayList<>();
+    private final Timer timer;
 
     public GameDetectionPanel() {
         add(runTestButton);
         add(resultLabel);
         runTestButton.addActionListener(e -> runTest());
         addGameDetectionTestListener(this);
+        // Clears success message after 10 seconds to make it clear that this component can be reused.
+        timer = new Timer(10000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timer.stop();
+                resultLabel.setText(ResultStatus.NEUTRAL, GameDetectionResult.NOT_RUN.message);
+            }
+        });
     }
 
     private void runTest() {
@@ -54,6 +67,7 @@ public class GameDetectionPanel extends ComponentPanel implements GameDetectionT
         if (result == GameDetectionResult.SUCCESS) {
             NativeWindow window = new NativeWindow(handle);
             PoeIdentificationFrame.identify(window.clientBounds);
+            timer.start();
         }
     }
 

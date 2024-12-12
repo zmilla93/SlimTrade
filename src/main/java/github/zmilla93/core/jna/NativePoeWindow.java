@@ -5,7 +5,7 @@ import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 import github.zmilla93.core.managers.SaveManager;
-import github.zmilla93.core.poe.GameDetectionMethod;
+import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.POEInterface;
 
@@ -13,7 +13,7 @@ import github.zmilla93.core.utility.POEInterface;
  * Handles interacting with native windows on the Windows platform.
  * See <a href="https://java-native-access.github.io/jna/4.2.1/com/sun/jna/platform/win32/User32.html">User32</a> &
  * <a href="https://java-native-access.github.io/jna/4.2.0/com/sun/jna/platform/WindowUtils.html">WindowUtils</a>.
- * Updates {@link POEWindow} to control the game bounds when using {@link GameDetectionMethod#AUTOMATIC}.
+ * Updates {@link POEWindow} to control the game bounds when using {@link GameWindowMode#DETECT}.
  */
 public class NativePoeWindow extends NativeWindow {
 
@@ -35,7 +35,7 @@ public class NativePoeWindow extends NativeWindow {
     public static void setPOEGameWindow(WinDef.HWND handle) {
         poeWindowHandle = handle;
         System.out.println("POE Process Path: " + WindowUtils.getProcessFilePath(handle));
-        if (SaveManager.settingsSaveFile.data.gameDetectionMethod == GameDetectionMethod.AUTOMATIC)
+        if (SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT)
             POEWindow.setBoundsByWindowHandle(handle);
     }
 
