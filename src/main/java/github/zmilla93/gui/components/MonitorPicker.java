@@ -1,6 +1,6 @@
 package github.zmilla93.gui.components;
 
-import github.zmilla93.gui.components.slimtrade.combos.MonitorCombo;
+import github.zmilla93.gui.components.poe.combos.MonitorCombo;
 
 import javax.swing.*;
 import java.util.ArrayList;

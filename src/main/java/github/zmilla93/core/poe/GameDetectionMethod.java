@@ -1,5 +1,7 @@
 package github.zmilla93.core.poe;
 
+import github.zmilla93.core.utility.ZUtil;
+
 /**
  * SlimTrade needs to know where the Path of Exile game window is. This can be done three ways.
  * 1. Periodically check where the game window is (Windows os only)
@@ -8,6 +10,17 @@ package github.zmilla93.core.poe;
  */
 public enum GameDetectionMethod {
 
-    UNSET, AUTOMATIC, MONITOR, SCREEN_REGION
+    UNSET, AUTOMATIC, MONITOR, SCREEN_REGION;
+
+    private final String name;
+
+    GameDetectionMethod() {
+        this.name = ZUtil.enumToString(name());
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 
 }

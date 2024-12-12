@@ -1,4 +1,4 @@
-package github.zmilla93.gui.components.slimtrade;
+package github.zmilla93.gui.components.poe;
 
 import github.zmilla93.core.enums.ResultStatus;
 import github.zmilla93.core.managers.SaveManager;

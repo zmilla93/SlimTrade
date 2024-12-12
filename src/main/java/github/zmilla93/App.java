@@ -59,6 +59,7 @@ public class App {
     private static boolean isRunningSetup = false;
     public static final ArrayList<SetupPhase> forcedSetupPhases = new ArrayList<>(); // no flag, used internally by previous command
 
+    // TODO : Add a flag to set which option panel shows at launch
     // Debug Flags - The commented flags can be used as program arguments (case-insensitive)
     // Suggested dev flags: -debug -noupdate -ui -options
     // Add -ea as a VM option (not program argument) to enable assertions
@@ -301,7 +302,6 @@ public class App {
             if (arg.startsWith("-setup:")) {
                 String targetPhase = arg.replace("-setup:", "").toLowerCase();
                 for (SetupPhase phase : SetupPhase.values()) {
-//                    System.out.println("PHASE: " +P);
                     if (phase.toString().toLowerCase().equals(targetPhase)) {
                         forcedSetupPhases.add(phase);
                         break;

@@ -10,7 +10,7 @@ import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.jna.NativeWindow;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
-import github.zmilla93.gui.components.slimtrade.POEFileChooser;
+import github.zmilla93.gui.components.poe.POEFileChooser;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.windows.DummyWindow;
 import github.zmilla93.modules.updater.ZLogger;

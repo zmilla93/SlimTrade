@@ -6,8 +6,8 @@ import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.saving.savefiles.SettingsSaveFile;
 import github.zmilla93.core.utility.TradeUtil;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.gui.components.slimtrade.POEFolderPicker;
-import github.zmilla93.gui.components.slimtrade.POEInstallFolderExplanationPanel;
+import github.zmilla93.gui.components.poe.POEFolderPicker;
+import github.zmilla93.gui.components.poe.POEInstallFolderExplanationPanel;
 
 import javax.swing.*;
 import java.nio.file.Path;

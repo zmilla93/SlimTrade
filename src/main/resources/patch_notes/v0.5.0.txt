@@ -12,12 +12,7 @@
 
 ## Improvements
 - Many small UI improvements
-- Reordering UI elements now uses click & drag
-- Fixed a crash on systems that don't support a system tray.
-
-# Developer Notes
-- The entire code base has been cleaned up & commented
-- Building & releasing new versions has been automated with GitHub Actions+
+- Fixed a crash on systems that don't support a system tray
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed

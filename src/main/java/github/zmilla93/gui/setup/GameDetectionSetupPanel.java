@@ -12,7 +12,7 @@ import github.zmilla93.gui.components.CardPanel;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.components.MonitorPicker;
-import github.zmilla93.gui.components.slimtrade.ResultLabel;
+import github.zmilla93.gui.components.poe.ResultLabel;
 import github.zmilla93.gui.options.AbstractOptionPanel;
 
 import javax.swing.*;

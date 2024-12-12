@@ -1,4 +1,4 @@
-package github.zmilla93.gui.components.slimtrade;
+package github.zmilla93.gui.components.poe;
 
 import java.nio.file.Path;
 

@@ -4,7 +4,7 @@ import github.zmilla93.core.enums.ResultStatus;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.saving.savefiles.SettingsSaveFile;
-import github.zmilla93.gui.components.slimtrade.ResultLabel;
+import github.zmilla93.gui.components.poe.ResultLabel;
 
 import javax.swing.*;
 

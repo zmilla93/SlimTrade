@@ -94,9 +94,9 @@ public class FrameManager {
         dummyWindow = new DummyWindow(); // Omitted from visibility list
         // FIXME : Remove debug window
         debugWindow = new DebugWindow();
-        testMoverDialog = new MoverDialog();
-        testMoverDialog.setSize(400, 400);
-        testMoverDialog.setVisible(true);
+//        testMoverDialog = new MoverDialog();
+//        testMoverDialog.setSize(400, 400);
+//        testMoverDialog.setVisible(true);
         /// Menu Bar
         menuBarIcon = new MenubarButtonDialog();
         menuBarDialog = new MenubarDialog();

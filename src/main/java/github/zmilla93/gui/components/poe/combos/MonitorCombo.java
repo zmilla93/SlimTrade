@@ -1,4 +1,4 @@
-package github.zmilla93.gui.components.slimtrade.combos;
+package github.zmilla93.gui.components.poe.combos;
 
 import github.zmilla93.gui.components.MonitorInfo;
 
