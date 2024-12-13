@@ -69,8 +69,8 @@ public class UpdateManager {
     private final ArrayList<IUpdateProgressListener> progressListeners = new ArrayList<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    private static final int MAX_ACTION_ATTEMPTS = 20;
-    private static final int ACTION_RETRY_DELAY_MS = 100;
+    private static final int MAX_ACTION_ATTEMPTS = 15;
+    private static final int ACTION_RETRY_DELAY_MS = 200;
 
     /**
      * Handles updating a single JAR file program using the GitHub API.

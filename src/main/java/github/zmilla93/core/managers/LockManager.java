@@ -19,8 +19,8 @@ public class LockManager {
     private File lockFile;
     private FileLock lock;
     private FileChannel channel;
-    private final int MAX_DELETE_ATTEMPTS = 10;
-    private final int DELAY_BETWEEN_DELETE_ATTEMPTS_MS = 100;
+    private static final int MAX_DELETE_ATTEMPTS = 5;
+    private static final int DELAY_BETWEEN_DELETE_ATTEMPTS_MS = 100;
 
     public LockManager(Path installDirectory, String fileName) {
         this.installDirectory = installDirectory;
@@ -37,6 +37,10 @@ public class LockManager {
                     if (lockFile.delete()) {
                         deleteSuccess = true;
                         break;
+                    }
+                    try {
+                        Thread.sleep(DELAY_BETWEEN_DELETE_ATTEMPTS_MS);
+                    } catch (InterruptedException ignore) {
                     }
                 }
                 if (!deleteSuccess) return false;
