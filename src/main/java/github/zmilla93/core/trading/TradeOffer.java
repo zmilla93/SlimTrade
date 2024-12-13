@@ -5,16 +5,20 @@ import github.zmilla93.core.data.StashTabData;
 import github.zmilla93.core.enums.MatchType;
 import github.zmilla93.core.enums.StashTabColor;
 import github.zmilla93.core.managers.SaveManager;
+import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.utility.ZUtil;
+import github.zmilla93.gui.components.poe.detection.GameDetectionResult;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// FIXME : This file needs some serious cleanup. Would be nice to separate Trades from Scanner results
 public class TradeOffer {
 
     public TradeOfferType offerType;
     public String message;
+    public Game game;
     public String date;
     public String time;
     public String guildName;

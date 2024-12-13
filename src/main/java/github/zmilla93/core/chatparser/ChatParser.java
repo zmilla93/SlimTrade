@@ -9,12 +9,12 @@ import github.zmilla93.core.trading.LangRegex;
 import github.zmilla93.core.trading.TradeOffer;
 import github.zmilla93.core.trading.TradeOfferType;
 import github.zmilla93.core.trading.WhisperData;
-import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.chatscanner.ChatScannerEntry;
 import github.zmilla93.modules.filetailing.FileTailer;
 import github.zmilla93.modules.filetailing.FileTailerListener;
 import github.zmilla93.modules.updater.ZLogger;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,7 +34,7 @@ public class ChatParser implements FileTailerListener {
     private final ArrayList<IDndListener> dndListeners = new ArrayList<>();
 
     // State
-    private String path;
+    private Path path;
     private boolean open;
     private int lineCount;
     private int whisperCount;
@@ -49,11 +49,12 @@ public class ChatParser implements FileTailerListener {
     private static final Pattern clientMessage = Pattern.compile(CLIENT_MESSAGE_REGEX);
     private static final Pattern clientWhisper = Pattern.compile(CLIENT_WHISPER_REGEX);
 
-    public void open(String path) {
+    public void open(Path path) {
         open(path, false);
     }
 
-    public void open(String path, boolean isPathRelative) {
+    public void open(Path path, boolean isPathRelative) {
+        this.path = path;
         lineCount = 0;
         whisperCount = 0;
         tradeCount = 0;
@@ -62,11 +63,9 @@ public class ChatParser implements FileTailerListener {
             ZLogger.err("Chat parser was given a null path!");
             return;
         }
-        if (!ZUtil.fileExists(path, isPathRelative)) {
-            ZLogger.err("Chat parser could not find file: " + path);
-            return;
+        if(!path.toFile().exists()){
+            ZLogger.err("Chat parser was given a file that doesn't exist: " + path);
         }
-        this.path = path;
         tailer = FileTailer.createTailer(path, isPathRelative, this, tailerDelayMS, false);
         startTime = System.currentTimeMillis();
         open = true;
@@ -78,7 +77,7 @@ public class ChatParser implements FileTailerListener {
         open = false;
     }
 
-    public String getPath() {
+    public Path getPath() {
         return path;
     }
 
@@ -89,7 +88,7 @@ public class ChatParser implements FileTailerListener {
         String fullMessage = fullClientMessage.group("message");
         String date = fullClientMessage.group("date");
         String time = fullClientMessage.group("time");
-        if (fullMessage == null || fullMessage.length() == 0) return;
+        if (fullMessage == null || fullMessage.isEmpty()) return;
         char firstChar = fullMessage.charAt(0);
         lineCount++;
         // Meta stuff

@@ -321,10 +321,15 @@ public class ZUtil {
         return path.replaceAll("\\\\", "/");
     }
 
+    private static String convertToLocalPath(Path path) {
+        return path.toString().replaceAll("\\\\", "/");
+    }
+
     /**
      * Returns a BufferedReader for a given file path set to UTF-8 encoding.
      * If given a relative path (starts with "/"), will load the file from the resources folder.
      */
+    @Deprecated
     public static BufferedReader getBufferedReader(String path, boolean isPathRelative) {
         path = cleanPath(path);
         InputStream inputStream;
@@ -345,6 +350,7 @@ public class ZUtil {
         return new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     }
 
+    @Deprecated
     public static BufferedWriter getBufferedWriter(String path) {
         path = cleanPath(path);
         OutputStream outputStream;
@@ -353,6 +359,42 @@ public class ZUtil {
             throw new RuntimeException("Failed to create directory for file writer: " + path);
         try {
             outputStream = Files.newOutputStream(Paths.get(path));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to open file writer: " + path);
+        }
+        return new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+    }
+
+    public static BufferedReader getBufferedReader(Path path, boolean isPathRelative) {
+        InputStream inputStream;
+        try {
+            if (isPathRelative) {
+                inputStream = Objects.requireNonNull(ZUtil.class.getResourceAsStream(convertToLocalPath(path)));
+            } else {
+                try {
+                    inputStream = Files.newInputStream(path);
+                } catch (IOException e) {
+                    ZLogger.err("File not found: " + path);
+                    throw new RuntimeException("File not found: " + path);
+                }
+            }
+        } catch (NullPointerException e) {
+            throw new RuntimeException("File not found: " + path + " (relative: " + isPathRelative + ")");
+        }
+        return new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+    }
+
+    public static BufferedWriter getBufferedWriter(Path path) {
+        OutputStream outputStream;
+        if (!path.getParent().toFile().exists()) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to create directory for file writer: " + path);
+            }
+        }
+        try {
+            outputStream = Files.newOutputStream(path);
         } catch (IOException e) {
             throw new RuntimeException("Failed to open file writer: " + path);
         }

@@ -33,6 +33,8 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -51,6 +53,8 @@ public class App {
     public static UpdateManager updateManager;
 
     public static ChatParser chatParser;
+    public static ChatParser chatParserPoe1;
+    public static ChatParser chatParserPoe2;
 
     private static AppInfo appInfo;
     private static AppState state = AppState.LOADING;
@@ -256,6 +260,7 @@ public class App {
             SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
     }
 
+    @Deprecated
     public static void initParser() {
         if (chatParser != null) {
             chatParser.close();
@@ -276,7 +281,38 @@ public class App {
         chatParser.addDndListener(FrameManager.menuBarIcon);
         chatParser.addDndListener(FrameManager.menuBarDialog);
         // Open
-        chatParser.open(SaveManager.settingsSaveFile.data.clientPath);
+        chatParser.open(Paths.get(SaveManager.settingsSaveFile.data.clientPath));
+    }
+
+    public static void initParser(ChatParser parser, Path gamePath, boolean isGameInstalled) {
+        if (parser != null) {
+            parser.close();
+            parser.removeAllListeners();
+        }
+        // Make sure client.txt file exists.
+        if (!isGameInstalled) return;
+        Path clientPath = gamePath.resolve(Paths.get("logs", "Client.txt"));
+        if (!clientPath.toFile().exists()) {
+            ZLogger.err("Client.txt file not found: " + clientPath);
+            return;
+        }
+        parser = new ChatParser();
+        // History
+        parser.addOnInitCallback(FrameManager.historyWindow);
+        parser.addOnLoadedCallback(FrameManager.historyWindow);
+        parser.addTradeListener(FrameManager.historyWindow);
+        // Message Manager
+        parser.addTradeListener(FrameManager.messageManager);
+        parser.addChatScannerListener(FrameManager.messageManager);
+        parser.addJoinedAreaListener(FrameManager.messageManager);
+        // Menu Bar
+        parser.addOnLoadedCallback(FrameManager.menuBarIcon);
+        parser.addOnLoadedCallback(FrameManager.menuBarDialog);
+        parser.addDndListener(FrameManager.menuBarIcon);
+        parser.addDndListener(FrameManager.menuBarDialog);
+        // Open
+        // FIXME
+//        parser.open(clientPath);
     }
 
     public static AppInfo getAppInfo() {

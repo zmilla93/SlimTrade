@@ -4,6 +4,7 @@ import github.zmilla93.core.utility.ZUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * Simple file tailer implementation.
@@ -18,7 +19,7 @@ public class FileTailer implements Runnable {
     private boolean running;
     private boolean loaded;
 
-    public FileTailer(String path, boolean isPathRelative, FileTailerListener listener, int delay, boolean end) {
+    public FileTailer(Path path, boolean isPathRelative, FileTailerListener listener, int delay, boolean end) {
         this.listener = listener;
         this.delay = delay;
         this.end = end;
@@ -36,7 +37,7 @@ public class FileTailer implements Runnable {
     /**
      * Creates a tailer and runs it on a background thread.
      */
-    public static FileTailer createTailer(String path, boolean isPathRelative, FileTailerListener listener, int delay, boolean end) {
+    public static FileTailer createTailer(Path path, boolean isPathRelative, FileTailerListener listener, int delay, boolean end) {
         FileTailer tailer = new FileTailer(path, isPathRelative, listener, delay, end);
         launchThread(tailer);
         return tailer;

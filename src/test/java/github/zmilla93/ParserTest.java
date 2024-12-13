@@ -64,7 +64,7 @@ public class ParserTest implements IParserLoadedListener {
                     break;
             }
         });
-        parser.open("/client/client_trade.txt", true);
+        parser.open(Paths.get("/client/client_trade.txt"), true);
         waitForParser();
         assertEquals(14, incomingTradeCount);
         assertEquals(14, outgoingTradeCount);
@@ -78,7 +78,7 @@ public class ParserTest implements IParserLoadedListener {
             if (state) onCount++;
             else offCount++;
         });
-        parser.open("/client/client_dnd.txt", true);
+        parser.open(Paths.get("/client/client_dnd.txt"), true);
         waitForParser();
         assertEquals(8, onCount);
         assertEquals(8, offCount);
@@ -95,7 +95,7 @@ public class ParserTest implements IParserLoadedListener {
             System.out.println("entry:" + message);
             count++;
         });
-        parser.open("/client/client_scanner.txt", true);
+        parser.open(Paths.get("/client/client_scanner.txt"), true);
         waitForParser();
         assertEquals(10, count);
     }
