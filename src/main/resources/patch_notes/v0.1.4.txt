@@ -3,10 +3,10 @@
 - Added ability to ignore specific items
 - Added indicator for player joining area
 - Quick close now works with chat scanner messages
-- Fixed buttons listeners on macro options window
+- Fixed buttons listeners on macro options windowId
 - Added version number to information panel
 - All add/remove components now use a consistent system
 - Fixed messages not being ignored by chat scanner
 - Fixed layering issue with message manager
 - Stash overlay settings now save properly
-- Options window now shows correctly after adjusting overlay settings
+- Options windowId now shows correctly after adjusting overlay settings

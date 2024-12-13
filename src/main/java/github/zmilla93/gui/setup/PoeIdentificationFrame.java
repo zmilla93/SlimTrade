@@ -3,6 +3,7 @@ package github.zmilla93.gui.setup;
 import javax.swing.*;
 import java.awt.*;
 
+// FIXME : Should inherit from DrawWindow
 public class PoeIdentificationFrame extends JDialog {
 
     private static PoeIdentificationFrame frame;

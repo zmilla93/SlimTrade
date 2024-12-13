@@ -5,4 +5,4 @@
 - Added tooltips to several things on the options menu
 - Adjusted POE specific options
 - Fixed coloring on overlay editor
-- Fixed coloring on ignore window
+- Fixed coloring on ignore windowId

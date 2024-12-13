@@ -1,5 +1,5 @@
 ## Notice
-- Due to excessive UI changes, window pins will not be imported from previous versions. Sorry for the inconvenience!
+- Due to excessive UI changes, windowId pins will not be imported from previous versions. Sorry for the inconvenience!
 - [This project now has a Patreon!](https://www.patreon.com/SlimTrade) If you enjoy my work, please consider supporting.
 
 ## UI Rework
@@ -12,7 +12,7 @@
 - Icons for every currency type with full language support
 - Most windows are now focusable, allowing for keyboard controls
 - Resizable windows can now be be dragged from any edge instead of only the bottom and right
-- Monitor edge snapping works with all windows and with multiple monitor setups (hold SHIFT when moving a window)
+- Monitor edge snapping works with all windows and with multiple monitor setups (hold SHIFT when moving a windowId)
 
 ## Audio
 - Added support for custom audio files
@@ -24,8 +24,8 @@
 - Added support for bulk trading (pathofexile.com/trade > Bulk Item Exchange > Filters > Group by Seller)
 - Stash tabs name can now be specified with containing text instead of just exact match
 - Stash tab color can now be applied to the trade notification panel
-- "Stash Sorting" has been renamed to "Searching" since it works with any window with a search bar (stash, vendors, passive tree, etc)
-- Searching can now have multiple groups using either separate windows or a single window with a group selector
+- "Stash Sorting" has been renamed to "Searching" since it works with any windowId with a search bar (stash, vendors, passive tree, etc)
+- Searching can now have multiple groups using either separate windows or a single windowId with a group selector
 - Cheat sheets now support animated gifs
 - Added a hotkey to change character name. Requires that your previous character still exists.
 - Added {zone} text replacement for macros to inform people of the current zone you are in

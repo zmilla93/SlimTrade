@@ -4,12 +4,15 @@ import com.sun.jna.platform.win32.WinDef;
 import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.Platform;
+import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.windows.BasicDialog;
+import github.zmilla93.gui.windows.test.DrawWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -22,29 +25,35 @@ import java.util.ArrayList;
 public class POEWindow {
     // FIXME : Temp static info
     private static final Rectangle POE_1_STASH_1920_1080 = new Rectangle(13, 126, 634, 634);
+    private static final Rectangle2D.Float POE_1_PERCENT_STASH_BOUNDS = ScaledRect.getPercentRect(
+            new Rectangle(13, 126, 634, 634),
+            new Rectangle(0, 0, 1920, 1080));
 
-    private static Rectangle gameBounds = new Rectangle(1920, 0, 1920, 1080);
+    /// Currently set game bounds
+    private static Rectangle gameBounds;
     private static Point centerOfScreen;
-    private static Rectangle poe1StashBounds = POE_1_STASH_1920_1080;
+
+    /// Calculated based on the current game bounds
+    private static Rectangle poe1StashBounds;
     private static Dimension poe1StashCellSize;
     private static Dimension poe1StashCellSizeQuad;
 
+    /// The components most recently used to update the game bounds
     private static NativePoeWindow currentGameWindow;
     private static MonitorInfo currentMonitor;
 
-
+    /// The things that care about the game bounds
     private static final ArrayList<POEWindowListener> listeners = new ArrayList<>();
-
     // FIXME : Temp dialog
     public static BasicDialog dialog;
 
     static {
         // FIXME : Temp calculation
-        System.out.println("Calculating inital game bounds");
-        calculateNewGameBounds();
+//        System.out.println("Calculating initial game bounds");
+//        calculateNewGameBounds();
         // FIXME : Calculating bounds early using 1920x1080 to avoid errors.
         //  Should instead use the bounds of the first monitor, then let the automated system take over.
-        calculatePoe1UIData();
+//        calculatePoe1UIData();
     }
 
     // FIXME : Temp function
@@ -68,9 +77,13 @@ public class POEWindow {
     }
 
     public static void setBoundsByWindowHandle(WinDef.HWND handle) {
+        setBoundsByWindowHandle(handle, false);
+    }
+
+    public static void setBoundsByWindowHandle(WinDef.HWND handle, boolean forceUpdate) {
         assert SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT;
         assert handle != null;
-        if (currentGameWindow != null && handle.equals(currentGameWindow.handle)) return;
+        if (currentGameWindow != null && handle.equals(currentGameWindow.handle) && !forceUpdate) return;
         currentGameWindow = new NativePoeWindow(handle);
         POEWindow.gameBounds = currentGameWindow.clientBounds;
         calculateNewGameBounds();
@@ -161,17 +174,35 @@ public class POEWindow {
     /**
      * Calculate the bounds of Path of Exile 1 UI elements.
      */
+//    private static void calculatePoe1UIData() {
+//        // FIXME : Scale stash bounds
+//        POEWindow.poe1StashBounds = new Rectangle(
+//                gameBounds.x + POE_1_STASH_1920_1080.x, gameBounds.y + POE_1_STASH_1920_1080.y,
+//                POE_1_STASH_1920_1080.width, POE_1_STASH_1920_1080.height);
+//        POEWindow.poe1StashBounds = new Rectangle(
+//                gameBounds.x + POE_1_STASH_1920_1080.x, gameBounds.y + POE_1_STASH_1920_1080.y,
+//                POE_1_STASH_1920_1080.width, POE_1_STASH_1920_1080.height);
+//        int cellWidth = Math.round(poe1StashBounds.width / 12f);
+//        int cellHeight = Math.round(poe1StashBounds.height / 12f);
+//        poe1StashCellSize = new Dimension(cellWidth, cellHeight);
+//        int quadCellWidth = Math.round(poe1StashBounds.width / 24f);
+//        int quadCellHeight = Math.round(poe1StashBounds.height / 24f);
+//        poe1StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
+//    }
     private static void calculatePoe1UIData() {
         // FIXME : Scale stash bounds
-        POEWindow.poe1StashBounds = new Rectangle(
-                gameBounds.x + POE_1_STASH_1920_1080.x, gameBounds.y + POE_1_STASH_1920_1080.y,
-                POE_1_STASH_1920_1080.width, POE_1_STASH_1920_1080.height);
+        System.out.println("POE1 % Bounds: " + POE_1_PERCENT_STASH_BOUNDS);
+        System.out.println("Game Bounds:" + gameBounds);
+        POEWindow.poe1StashBounds = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_BOUNDS, gameBounds);
+//        POEWindow.poe1StashBounds.x += gameBounds.x);
         int cellWidth = Math.round(poe1StashBounds.width / 12f);
         int cellHeight = Math.round(poe1StashBounds.height / 12f);
         poe1StashCellSize = new Dimension(cellWidth, cellHeight);
         int quadCellWidth = Math.round(poe1StashBounds.width / 24f);
         int quadCellHeight = Math.round(poe1StashBounds.height / 24f);
         poe1StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
+        System.out.println("New Stash Bounds: " + POEWindow.getPoe1StashBonds());
+        ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_DEBUG, POEWindow.poe1StashBounds));
     }
 
     public static void addListener(POEWindowListener listener) {

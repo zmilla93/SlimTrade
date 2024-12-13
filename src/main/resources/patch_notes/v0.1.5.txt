@@ -1,7 +1,7 @@
 ## Patch Notes
 - Complete UI Overhaul with potential support for color themes
-- Added a setup window
-- Added a tutorial window
+- Added a setup windowId
+- Added a tutorial windowId
 - Added outgoing macro customizer
 - Added ability to ignore items indefinitely
 - Thank message is now customizable

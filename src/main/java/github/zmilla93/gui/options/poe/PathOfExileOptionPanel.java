@@ -3,8 +3,10 @@ package github.zmilla93.gui.options.poe;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.GameWindowMode;
+import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.HotkeyButton;
+import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.POEFolderPicker;
 import github.zmilla93.gui.components.poe.POEInstallFolderExplanationPanel;
@@ -52,6 +54,7 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         addVerticalStrut();
 
         /// Path of Exile 2
+
         poe2OptionPanel.addComponent(usingStashFoldersPoe2Checkbox);
         addHeader(Game.PATH_OF_EXILE_2.toString());
         addComponent(poe2FolderPicker);
@@ -87,10 +90,15 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         GameWindowMode windowMode = (GameWindowMode) windowModeCombo.getSelectedItem();
         SaveManager.settingsSaveFile.data.gameWindowMode = windowMode;
         if (windowMode == GameWindowMode.DETECT)
-            if (detectionButton.getLatestResultWasSuccess())
+            if (detectionButton.getLatestResultWasSuccess()) {
                 SaveManager.settingsSaveFile.data.detectedGameBounds = detectionButton.getLatestResultWindow().clientBounds;
-        if (windowMode == GameWindowMode.MONITOR)
+                POEWindow.setBoundsByWindowHandle(detectionButton.getLatestResultWindow().handle, true);
+            }
+        if (windowMode == GameWindowMode.MONITOR) {
+            MonitorInfo monitor = monitorPicker.getSelectedMonitor();
             SaveManager.settingsSaveFile.data.selectedMonitor = monitorPicker.getSelectedMonitor();
+            POEWindow.setBoundsByMonitor(monitor);
+        }
         SaveManager.settingsSaveFile.data.poeChatHotkey = chatHotkeyButton.getData();
         /// Game Specific
         SaveManager.settingsSaveFile.data.notInstalledPoe1 = poe1FolderPicker.notInstalledCheckbox.isSelected();

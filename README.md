@@ -12,7 +12,7 @@ Popups are automatically created when trade messages are sent or received.<br>
 There is a color blind setting for alternate colors.<br>
 ![trade-messages](https://github.com/zmilla93/SlimTrade/assets/10750321/559cb020-76dd-4c80-b6de-6e95f34ccab7)
 
-Incoming trades create an info window above your stash with item and stash names.<br>
+Incoming trades create an info windowId above your stash with item and stash names.<br>
 This popup can be hovered to highlight the item, left clicked to search the name in the stash, or right clicked to close.<br>
 ![stash-helper](https://github.com/zmilla93/SlimTrade/assets/10750321/0a4710ea-f24a-48e5-815b-d51ecf6e313d)
 
@@ -35,5 +35,5 @@ Create multiple categories, and scan for one or more at the same time!<br>
 <i>Theme: One Dark</i>
 
 ## Searching
-Create buttons to paste search terms into any window with a search box (stash, vendors, passives, etc).
+Create buttons to paste search terms into any windowId with a search box (stash, vendors, passives, etc).
 ![search](https://github.com/zmilla93/SlimTrade/assets/10750321/20715518-69af-4227-9be1-09c0105f0045)

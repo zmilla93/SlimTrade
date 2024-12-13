@@ -15,7 +15,7 @@
 ## Window Improvements
 - All windows can now be pinned to save their size and location between restarts.
 - Right clicking the pin button resets to default size and location, middle click to just center.
-- Holding shift while moving a window will prevent it from leaving the main monitor.
+- Holding shift while moving a windowId will prevent it from leaving the main monitor.
 
 ## Additional Changes
 - Messages can now be collapsed.

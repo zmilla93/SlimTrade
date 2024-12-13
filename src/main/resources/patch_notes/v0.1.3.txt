@@ -1,6 +1,6 @@
 ## Patch Notes
 - Fixed internal jnativehook error on launch
-- Fixed menubar being hidden when focusable window is closed
+- Fixed menubar being hidden when focusable windowId is closed
 - Fixed empty strings in chat scanner causing a false positive
 - Chat scanner is no longer case sensitive
 - Audio drop downs only show relevant sounds

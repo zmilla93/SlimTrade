@@ -4,7 +4,7 @@
 
 ## New Features
 - Warp macros added for Delve, Harvest, Menagerie, Metamorph, and exiting to menu. Custom macros will likely be added in the future.
-- Increased maximum message size to help with high resolution monitors. Full window scaling will be addressed later.
+- Increased maximum message size to help with high resolution monitors. Full windowId scaling will be addressed later.
 - Incraesed max delay for fading messages.
 - [Troubleshooting](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting) has been added to the wiki.
 

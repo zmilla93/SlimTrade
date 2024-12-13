@@ -45,11 +45,14 @@ public class GlobalMouseListener implements NativeMouseInputListener {
 
     @Override
     public void nativeMouseMoved(NativeMouseEvent nativeMouseEvent) {
-        for (NativeMouseAdapter adapter : mouseAdapters) adapter.nativeMouseMoved(nativeMouseEvent);
         if (App.getState() != AppState.RUNNING) return;
         Point point = nativeMouseEvent.getPoint();
+        // FIXME : These should probably be moved to adapters.
         FrameManager.messageManager.checkMouseHover(point);
         FrameManager.checkMenubarVisibility(point);
+        // FIXME : This threw a concurrency exception one time, but it was being run App.getState() check.
+        //  That should be a sufficient fix, but the error is hard to reproduce for testing.
+        for (NativeMouseAdapter adapter : mouseAdapters) adapter.nativeMouseMoved(nativeMouseEvent);
     }
 
     @Override

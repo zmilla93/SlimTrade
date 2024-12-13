@@ -12,4 +12,4 @@
 ## Bug Fixes
 - Fixed hotkey buttons displaying incorrect text or not reverting correctly under certain circumstances
 - Fixed a crash when trying to parse trade messages where the item count was a decimal
-- The edit stash window will no longer get stuck open
+- The edit stash windowId will no longer get stuck open

@@ -1,6 +1,6 @@
 ## New Features
 - Added hotkeys for remaining monsters and leave party
-- Added Year/Month/Date option to history window
+- Added Year/Month/Date option to history windowId
 - History changes no longer require a restart
 - Added support for unpriced items, messages starting with "wtb", and messages with backslashes around stash names
 - Added templates for bug reporting and feature requests on github

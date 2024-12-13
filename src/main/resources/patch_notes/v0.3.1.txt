@@ -4,4 +4,4 @@
 
 ## Bug Fixes
 - Chat scanner buttons can now be correctly reordered using the arrow buttons.
-- Fixed a bug where various parts of the UI could be clicked to move the window instead of just the title bar.
+- Fixed a bug where various parts of the UI could be clicked to move the windowId instead of just the title bar.

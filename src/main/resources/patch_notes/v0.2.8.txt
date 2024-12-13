@@ -21,6 +21,6 @@
 - Fixed control being wrongly detected when setting a hotkey
 - Fixed unknown keys being set as hotkeys
 - **Fixed quick paste hotkey not working**
-- **Fixed a crash that would occur the first time the program was run after using the setup window**
+- **Fixed a crash that would occur the first time the program was run after using the setup windowId**
 - **Removed close on kick from basics panel, this functionality has been moved to the new macro system**
 - **Fixed a crash caused by client.txt containing alternative number formats from 3rd party trade sites**

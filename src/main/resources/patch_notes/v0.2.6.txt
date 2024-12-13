@@ -2,4 +2,4 @@
 
 ## Bug Fixes
 - Fixed quick paste hotkey not working
-- Fixed a crash that would occur the first time the program was run after using the setup window
+- Fixed a crash that would occur the first time the program was run after using the setup windowId

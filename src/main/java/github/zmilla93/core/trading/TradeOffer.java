@@ -209,8 +209,8 @@ public class TradeOffer {
         exampleTrade.priceQuantity = 100;
         exampleTrade.itemQuantity = 0;
         exampleTrade.stashTabName = "/SlimTrade/";
-        exampleTrade.stashTabX = 3;
-        exampleTrade.stashTabY = 5;
+        exampleTrade.stashTabX = 12;
+        exampleTrade.stashTabY = 12;
         return exampleTrade;
     }
 

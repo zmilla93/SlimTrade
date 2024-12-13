@@ -2,8 +2,8 @@
 - Updated ReadMe
 - Icons have been updated to match text color
 - Fixed menubar being incorrectly shown at launch while disabled
-- Fixed coloring on setup window
-- Fixed coloring on update window
+- Fixed coloring on setup windowId
+- Fixed coloring on update windowId
 
 ## How to Install
 - Ensure you have Java : https://www.java.com/

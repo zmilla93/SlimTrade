@@ -270,6 +270,15 @@ public class ZUtil {
     }
 
     /**
+     * A wrapper for SwingUtilities.invokeLater(). If already on the EDT, the function will be called directly.
+     */
+    // FIXME : Replace current usages of SwingUtilities.invokeLater() with this.
+    public static void invokeLater(Runnable runnable) {
+        if (SwingUtilities.isEventDispatchThread()) runnable.run();
+        else SwingUtilities.invokeLater(runnable);
+    }
+
+    /**
      * A wrapper for SwingUtilities.invokeAndWait(). Handles try/catch and can be safely called from EDT.
      *
      * @param runnable Target
