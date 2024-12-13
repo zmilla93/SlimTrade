@@ -37,10 +37,11 @@ public class LockManager {
                     if (lockFile.delete()) {
                         deleteSuccess = true;
                         break;
-                    }
-                    try {
-                        Thread.sleep(DELAY_BETWEEN_DELETE_ATTEMPTS_MS);
-                    } catch (InterruptedException ignore) {
+                    } else {
+                        try {
+                            Thread.sleep(DELAY_BETWEEN_DELETE_ATTEMPTS_MS);
+                        } catch (InterruptedException ignore) {
+                        }
                     }
                 }
                 if (!deleteSuccess) return false;
