@@ -11,7 +11,7 @@ public enum GameDetectionResult {
     NOT_RUN(ResultStatus.NEUTRAL, "Click to set the game window location."),
     FAIL(ResultStatus.DENY, "Window not found. Ensure Path of Exile 1 or 2 is running."),
     MINIMIZED(ResultStatus.INDETERMINATE, "Game is minimized."),
-    SUCCESS(ResultStatus.APPROVE, "Window location set."),
+    SUCCESS(ResultStatus.APPROVE, "Window location detected."),
     NOT_SUPPORTED(ResultStatus.DENY, "Not supported on " + Platform.current + ".");
 
     public final String message;
