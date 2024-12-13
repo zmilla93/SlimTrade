@@ -7,7 +7,6 @@ import github.zmilla93.core.enums.StashTabColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.gui.components.poe.detection.GameDetectionResult;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

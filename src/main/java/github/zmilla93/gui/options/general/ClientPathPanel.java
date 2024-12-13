@@ -1,6 +1,5 @@
 package github.zmilla93.gui.options.general;
 
-import github.zmilla93.App;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.ClientFileChooser;
@@ -10,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
+@Deprecated
 public class ClientPathPanel extends JPanel implements ISavable {
 
     private final JTextField clientTextField = new JTextField(30);
@@ -43,10 +43,10 @@ public class ClientPathPanel extends JPanel implements ISavable {
 
     @Override
     public void save() {
-        SaveManager.settingsSaveFile.data.clientPath = clientTextField.getText();
-        if (App.chatParser.getPath() != null && !App.chatParser.getPath().equals(clientTextField.getText())) {
-            App.initParser();
-        }
+//        SaveManager.settingsSaveFile.data.clientPath = clientTextField.getText();
+//        if (App.chatParser.getPath() != null && !App.chatParser.getPath().equals(clientTextField.getText())) {
+//            App.initParser();
+//        }
     }
 
     @Override

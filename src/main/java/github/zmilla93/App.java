@@ -262,36 +262,60 @@ public class App {
 
     @Deprecated
     public static void initParser() {
-        if (chatParser != null) {
-            chatParser.close();
-            chatParser.removeAllListeners();
-        }
-        chatParser = new ChatParser();
-        // History
-        chatParser.addOnInitCallback(FrameManager.historyWindow);
-        chatParser.addOnLoadedCallback(FrameManager.historyWindow);
-        chatParser.addTradeListener(FrameManager.historyWindow);
-        // Message Manager
-        chatParser.addTradeListener(FrameManager.messageManager);
-        chatParser.addChatScannerListener(FrameManager.messageManager);
-        chatParser.addJoinedAreaListener(FrameManager.messageManager);
-        // Menu Bar
-        chatParser.addOnLoadedCallback(FrameManager.menuBarIcon);
-        chatParser.addOnLoadedCallback(FrameManager.menuBarDialog);
-        chatParser.addDndListener(FrameManager.menuBarIcon);
-        chatParser.addDndListener(FrameManager.menuBarDialog);
-        // Open
-        chatParser.open(Paths.get(SaveManager.settingsSaveFile.data.clientPath));
+        // FIXME : TEMP REMAP
+        initChatParsers();
+//        if (chatParser != null) {
+//            chatParser.close();
+//            chatParser.removeAllListeners();
+//        }
+//        chatParser = new ChatParser();
+//        // History
+//        chatParser.addOnInitCallback(FrameManager.historyWindow);
+//        chatParser.addOnLoadedCallback(FrameManager.historyWindow);
+//        chatParser.addTradeListener(FrameManager.historyWindow);
+//        // Message Manager
+//        chatParser.addTradeListener(FrameManager.messageManager);
+//        chatParser.addChatScannerListener(FrameManager.messageManager);
+//        chatParser.addJoinedAreaListener(FrameManager.messageManager);
+//        // Menu Bar
+//        chatParser.addOnLoadedCallback(FrameManager.menuBarIcon);
+//        chatParser.addOnLoadedCallback(FrameManager.menuBarDialog);
+//        chatParser.addDndListener(FrameManager.menuBarIcon);
+//        chatParser.addDndListener(FrameManager.menuBarDialog);
+//        // Open
+//        chatParser.open(Paths.get(SaveManager.settingsSaveFile.data.clientPath));
     }
 
-    public static void initParser(ChatParser parser, Path gamePath, boolean isGameInstalled) {
+    public static void initChatParsers() {
+        closeChatParsers();
+        initChatParser(chatParserPoe1, SaveManager.settingsSaveFile.data.installFolderPoe1, SaveManager.settingsSaveFile.data.notInstalledPoe1);
+        initChatParser(chatParserPoe2, SaveManager.settingsSaveFile.data.installFolderPoe2, SaveManager.settingsSaveFile.data.notInstalledPoe2);
+    }
+
+    private static void closeChatParsers() {
+        if (chatParserPoe1 != null) {
+            chatParserPoe1.close();
+            chatParserPoe1.removeAllListeners();
+        }
+        if (chatParserPoe2 != null) {
+            chatParserPoe2.close();
+            chatParserPoe2.removeAllListeners();
+        }
+    }
+
+    public static void initChatParser(ChatParser parser, String installFolder, boolean notInstalled) {
+        if (notInstalled) return;
+        if (installFolder == null) return;
+        Path poeFolder = Paths.get(installFolder);
+        if (!poeFolder.toFile().exists()) return;
+        initParser(parser, poeFolder.resolve(Paths.get("logs", "Client.txt")));
+    }
+
+    public static void initParser(ChatParser parser, Path clientPath) {
         if (parser != null) {
             parser.close();
             parser.removeAllListeners();
         }
-        // Make sure client.txt file exists.
-        if (!isGameInstalled) return;
-        Path clientPath = gamePath.resolve(Paths.get("logs", "Client.txt"));
         if (!clientPath.toFile().exists()) {
             ZLogger.err("Client.txt file not found: " + clientPath);
             return;
@@ -312,6 +336,7 @@ public class App {
         parser.addDndListener(FrameManager.menuBarDialog);
         // Open
         // FIXME
+        parser.open(clientPath);
 //        parser.open(clientPath);
     }
 

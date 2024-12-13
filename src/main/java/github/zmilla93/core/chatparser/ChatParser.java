@@ -63,7 +63,7 @@ public class ChatParser implements FileTailerListener {
             ZLogger.err("Chat parser was given a null path!");
             return;
         }
-        if(!path.toFile().exists()){
+        if (!path.toFile().exists()) {
             ZLogger.err("Chat parser was given a file that doesn't exist: " + path);
         }
         tailer = FileTailer.createTailer(path, isPathRelative, this, tailerDelayMS, false);
