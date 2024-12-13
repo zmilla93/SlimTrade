@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,7 +78,7 @@ public class App {
     public static void main(String[] args) {
         parseLaunchArgs(args);
 
-        // Lock file to prevent duplicate instances
+        /// Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
         if (useLockFile) {
             if (!lockManager.tryAndLock()) {
@@ -86,34 +87,36 @@ public class App {
             }
         }
 
-        // Logger
+        /// Logger
         ZLogger.open(SaveManager.getSaveDirectory(), args);
         ZLogger.log("SlimTrade launching... " + Arrays.toString(args));
+        if (getAppInfo().appVersion.isPreRelease)
+            ZLogger.log("This is a prerelease version!");
         ZLogger.log("Platform: " + System.getProperty("os.name") + " [" + Platform.current + "]");
         ZLogger.cleanOldLogFiles();
 
-        // Launch profiling
+        /// Launch profiling
         if (debugProfileLaunch) ZLogger.log("Profiling launch actions....");
         Stopwatch.start();
 
-        // This setting gets rid of some rendering issues with transparent frames
+        /// This setting gets rid of some rendering issues with transparent frames
         System.setProperty("sun.java2d.noddraw", "true");
 
-        // Shutdown Hook
+        /// Shutdown Hook
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
-        // Reduce logging level for JNativeHook
+        /// Reduce logging level for JNativeHook
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
         logger.setLevel(Level.WARNING);
         logger.setUseParentHandlers(false);
 
-        // Load save files & app info
+        /// Load save files & app info
         SaveManager.init();
         // FIXME: is this correct spot for fresh? Or after UI init for callbacks? Or both? (maybe an alertBounds() function for after)
         POEWindow.forceGameBoundsRefresh();
         profileLaunch("Time to start update");
 
-        // Update
+        /// Update
         updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory(), getAppInfo(), getAppInfo().appVersion.isPreRelease);
         updateManager.continueUpdateProcess(args);
         if (!noUpdate) {
@@ -124,11 +127,18 @@ public class App {
                     updateIsAvailable = true;
                 }
             } else {
-                updateManager.runPeriodicUpdateCheck();
+                updateManager.runPeriodicUpdateCheck(1, TimeUnit.DAYS);
+                if (getAppInfo().appVersion.isPreRelease) {
+                    int MINUTES_FOR_FAST_UPDATE = 240;
+                    int FAST_UPDATE_CHECK_RATE_MINUTES = 30;
+                    for (int delay = FAST_UPDATE_CHECK_RATE_MINUTES; delay < MINUTES_FOR_FAST_UPDATE; delay += FAST_UPDATE_CHECK_RATE_MINUTES) {
+                        updateManager.runOneShotUpdateCheck(delay, TimeUnit.MINUTES);
+                    }
+                }
             }
         }
 
-        // Loading Window
+        /// Loading Window
         try {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
@@ -141,13 +151,13 @@ public class App {
             e.printStackTrace();
         }
 
-        // Init Managers
+        /// Init Managers
         Stopwatch.start();
         CurrencyType.initIconList();
         AudioManager.init();
         profileLaunch("Managers Launched");
 
-        // JNativeHook Setup
+        /// JNativeHook Setup
         try {
             GlobalScreen.registerNativeHook();
         } catch (NativeHookException e) {
@@ -161,7 +171,7 @@ public class App {
         GlobalScreen.addNativeMouseMotionListener(globalMouseListener);
         GlobalScreen.addNativeMouseWheelListener(globalMouseWheelListener);
 
-        // UI
+        /// UI
         try {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
@@ -174,7 +184,7 @@ public class App {
             e.printStackTrace();
         }
 
-        // Final Setup
+        /// Final Setup
         if (SetupManager.getSetupPhases().size() > 0) runSetupWizard();
         else ZUtil.invokeAndWait(App::launchApp);
 

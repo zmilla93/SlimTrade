@@ -431,17 +431,27 @@ public class UpdateManager {
         ZLogger.log(exception.getStackTrace());
     }
 
-    public void runPeriodicUpdateCheck() {
-        TimeUnit timeUnit = DEBUG_FAST_PERIODIC_CHECK ? TimeUnit.MINUTES : TimeUnit.DAYS;
+    public void runPeriodicUpdateCheck(int delay, TimeUnit timeUnit) {
         scheduler.schedule(() -> {
             ZLogger.log("Running daily update check...");
             boolean update = isUpdateAvailable(true);
             if (update) {
                 FrameManager.displayUpdateAvailable();
             } else {
-                runPeriodicUpdateCheck();
+                runPeriodicUpdateCheck(delay, timeUnit);
             }
-        }, 1, timeUnit);
+        }, delay, timeUnit);
+    }
+
+
+    public void runOneShotUpdateCheck(int delayValue, TimeUnit timeUnit) {
+        scheduler.schedule(() -> {
+            ZLogger.log("Running one shot update check...");
+            boolean update = isUpdateAvailable(true);
+            if (update) {
+                FrameManager.displayUpdateAvailable();
+            }
+        }, delayValue, timeUnit);
     }
 
 }
