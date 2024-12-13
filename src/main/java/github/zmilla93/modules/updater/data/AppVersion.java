@@ -50,7 +50,7 @@ public class AppVersion implements Comparable<AppVersion> {
             pre = -1;
             isPreRelease = false;
         }
-        string = "v" + major + "." + minor + "." + patch;
+        string = major + "." + minor + "." + patch;
         if (isPreRelease) string += "-pre" + pre;
     }
 
