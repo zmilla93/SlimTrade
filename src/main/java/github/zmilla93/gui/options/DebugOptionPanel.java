@@ -99,7 +99,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
             if (response == JOptionPane.OK_OPTION) SaveManager.createBackup();
         });
         loadBackupButton.addActionListener(e -> {
-            int response = JOptionPane.showConfirmDialog(DebugOptionPanel.this, "Are you sure you want to load the existing settings backup?\n", "Load Backup", JOptionPane.YES_NO_OPTION);
+            int response = JOptionPane.showConfirmDialog(DebugOptionPanel.this, "Are you sure you want to load the existing settings backup?\nThis requires a program restart after.", "Load Backup", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.OK_OPTION) SaveManager.loadBackup();
         });
     }
