@@ -9,6 +9,7 @@ import github.zmilla93.core.jna.GlobalKeyboardListener;
 import github.zmilla93.core.jna.GlobalMouseListener;
 import github.zmilla93.core.jna.GlobalMouseWheelListener;
 import github.zmilla93.core.managers.*;
+import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
@@ -286,10 +287,11 @@ public class App {
 //        chatParser.open(Paths.get(SaveManager.settingsSaveFile.data.clientPath));
     }
 
+    // FIXME : Should close/reopen existing chat parsers instead of creating new ones.
     public static void initChatParsers() {
         closeChatParsers();
-        initChatParser(chatParserPoe1, SaveManager.settingsSaveFile.data.installFolderPoe1, SaveManager.settingsSaveFile.data.notInstalledPoe1);
-        initChatParser(chatParserPoe2, SaveManager.settingsSaveFile.data.installFolderPoe2, SaveManager.settingsSaveFile.data.notInstalledPoe2);
+        initChatParser(chatParserPoe1, Game.PATH_OF_EXILE_1, SaveManager.settingsSaveFile.data.installFolderPoe1, SaveManager.settingsSaveFile.data.notInstalledPoe1);
+        initChatParser(chatParserPoe2, Game.PATH_OF_EXILE_2, SaveManager.settingsSaveFile.data.installFolderPoe2, SaveManager.settingsSaveFile.data.notInstalledPoe2);
     }
 
     private static void closeChatParsers() {
@@ -303,15 +305,15 @@ public class App {
         }
     }
 
-    public static void initChatParser(ChatParser parser, String installFolder, boolean notInstalled) {
+    public static void initChatParser(ChatParser parser, Game game, String installFolder, boolean notInstalled) {
         if (notInstalled) return;
         if (installFolder == null) return;
         Path poeFolder = Paths.get(installFolder);
         if (!poeFolder.toFile().exists()) return;
-        initParser(parser, poeFolder.resolve(Paths.get("logs", "Client.txt")));
+        initParser(parser, game, poeFolder.resolve(Paths.get("logs", "Client.txt")));
     }
 
-    public static void initParser(ChatParser parser, Path clientPath) {
+    public static void initParser(ChatParser parser, Game game, Path clientPath) {
         if (parser != null) {
             parser.close();
             parser.removeAllListeners();
@@ -320,7 +322,7 @@ public class App {
             ZLogger.err("Client.txt file not found: " + clientPath);
             return;
         }
-        parser = new ChatParser();
+        parser = new ChatParser(game);
         // History
         parser.addOnInitCallback(FrameManager.historyWindow);
         parser.addOnLoadedCallback(FrameManager.historyWindow);

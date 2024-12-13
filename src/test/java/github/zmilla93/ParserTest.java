@@ -3,6 +3,7 @@ package github.zmilla93;
 import github.zmilla93.core.chatparser.ChatParser;
 import github.zmilla93.core.chatparser.IParserLoadedListener;
 import github.zmilla93.core.managers.SaveManager;
+import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.saving.savefiles.ChatScannerSaveFile;
 import github.zmilla93.modules.saving.SaveFile;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ public class ParserTest implements IParserLoadedListener {
             parser.close();
             parser.removeAllListeners();
         }
-        parser = new ChatParser();
+        parser = new ChatParser(Game.PATH_OF_EXILE_1);
         parser.addOnLoadedCallback(this);
         loaded = false;
         count = 0;

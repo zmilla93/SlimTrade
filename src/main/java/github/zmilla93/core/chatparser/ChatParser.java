@@ -5,6 +5,7 @@ import github.zmilla93.core.data.IgnoreItemData;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.managers.AudioManager;
 import github.zmilla93.core.managers.SaveManager;
+import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.trading.LangRegex;
 import github.zmilla93.core.trading.TradeOffer;
 import github.zmilla93.core.trading.TradeOfferType;
@@ -33,8 +34,12 @@ public class ChatParser implements FileTailerListener {
     private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
     private final ArrayList<IDndListener> dndListeners = new ArrayList<>();
 
-    // State
+    // Settings
+    private final Game game;
     private Path path;
+    private final boolean isPoe1;
+
+    // State
     private boolean open;
     private int lineCount;
     private int whisperCount;
@@ -46,14 +51,23 @@ public class ChatParser implements FileTailerListener {
     // Regex
     public static final String CLIENT_MESSAGE_REGEX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] (?<message>.+)";
     public static final String CLIENT_WHISPER_REGEX = "@(?<messageType>От кого|\\S+) (?<guildName><.+>)? ?(?<playerName>[^:]+):(\\s+)(?<message>.+)";
+    // FIXME : POE2 is currently missing the to/from part of whispers, so it uses a different pattern.
+    public static final String CLIENT_WHISPER_REGEX_POE2 = "(?<messageType>@)(?<playerName>[^:]+):(\\s+)(?<message>.+)";
     private static final Pattern clientMessage = Pattern.compile(CLIENT_MESSAGE_REGEX);
     private static final Pattern clientWhisper = Pattern.compile(CLIENT_WHISPER_REGEX);
+    private static final Pattern clientWhisperPoe2 = Pattern.compile(CLIENT_WHISPER_REGEX_POE2);
+
+    public ChatParser(Game game) {
+        this.game = game;
+        this.isPoe1 = game == Game.PATH_OF_EXILE_1;
+    }
 
     public void open(Path path) {
         open(path, false);
     }
 
     public void open(Path path, boolean isPathRelative) {
+        System.out.println("Open chat parser for " + game);
         this.path = path;
         lineCount = 0;
         whisperCount = 0;
@@ -83,6 +97,7 @@ public class ChatParser implements FileTailerListener {
 
     public void parseLine(String line) {
         if (!open) return;
+//        System.out.println("PARSING " + game + " LINE.");
         Matcher fullClientMessage = clientMessage.matcher(line);
         if (!fullClientMessage.matches()) return;
         String fullMessage = fullClientMessage.group("message");
@@ -101,10 +116,13 @@ public class ChatParser implements FileTailerListener {
         // Whispers
         if (firstChar == '@') {
             whisperCount++;
-            Matcher whisperMatcher = clientWhisper.matcher(fullMessage);
+            Pattern whisperPattern = game == Game.PATH_OF_EXILE_1 ? clientWhisper : clientWhisperPoe2;
+            Matcher whisperMatcher = whisperPattern.matcher(fullMessage);
+            System.out.println("Checking phrase for " + game + ": " + fullMessage);
             if (whisperMatcher.matches()) {
+                System.out.println("Handling trade message: " + whisperMatcher.group(0));
                 String message = whisperMatcher.group("message");
-                String guildName = whisperMatcher.group("guildName");
+                String guildName = isPoe1 ? whisperMatcher.group("guildName") : null;
                 String playerName = whisperMatcher.group("playerName");
                 String messageType = whisperMatcher.group("messageType");
                 WhisperData metaData = new WhisperData();
@@ -113,7 +131,7 @@ public class ChatParser implements FileTailerListener {
                 metaData.message = message;
                 metaData.guildName = guildName;
                 metaData.playerName = playerName;
-                metaData.offerType = LangRegex.getMessageType(messageType);
+                metaData.offerType = getOfferType(messageType);
                 if (message != null && handleTradeOffer(metaData, message)) {
                     tradeCount++;
                     return;
@@ -122,6 +140,14 @@ public class ChatParser implements FileTailerListener {
         }
         // Scanner
         if (handleChatScanner(line)) return;
+    }
+
+    private TradeOfferType getOfferType(String messageType) {
+        if (isPoe1) return LangRegex.getMessageType(messageType);
+        else {
+            // FIXME : Add hotkey check for outgoing trades
+            return TradeOfferType.INCOMING_TRADE;
+        }
     }
 
     private boolean handleChatScanner(String line) {
