@@ -33,7 +33,6 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     private final JButton saveButton = new JButton("Save");
     private final JButton revertButton = new JButton("Revert Changes");
     //    public static final String debugPanel = "Stash Tabs";
-    public static final String debugPanel = null;
 
     public OptionsWindow() {
         super("Options");
@@ -130,11 +129,13 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     }
 
     private void showDebugPanel() {
-        if (debugPanel != null) {
+        if (App.debugOptionPanelName != null) {
+            System.out.println("PANEL:" + App.debugOptionPanelName);
             ListModel<OptionListPanel> model = optionsList.getModel();
             for (int i = 0; i < model.getSize(); i++) {
                 OptionListPanel panel = model.getElementAt(i);
-                if (panel.title.equals(debugPanel)) {
+                String panelTitle = panel.title == null ? null : panel.title.toLowerCase();
+                if (panelTitle != null && panelTitle.equals(App.debugOptionPanelName)) {
                     optionsList.setSelectedIndex(i);
                     break;
                 }

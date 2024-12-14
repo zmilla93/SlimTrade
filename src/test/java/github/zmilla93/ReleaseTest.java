@@ -42,6 +42,7 @@ public class ReleaseTest {
         assertFalse(SaveFilePatcherManager.DEBUG_REPORT);
         assertFalse(UpdateManager.DEBUG_FAST_PERIODIC_CHECK);
         assertNull(OptionsWindow.debugPanel);
+        assertNull(App.debugOptionPanelName);
     }
 
 }

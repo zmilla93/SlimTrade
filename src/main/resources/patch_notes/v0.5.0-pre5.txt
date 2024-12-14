@@ -8,8 +8,8 @@
 - Theme & UI improvements incomplete
 - "Zone" text replacement doesn't work
 
-## pre4
-- Fixed stash helper getting stuck when closing incoming trades
+## pre5
+- TODO
 
 ## Path of Exile 2
 - SlimTrade now works seamlessly with Path of Exile 1 & 2
