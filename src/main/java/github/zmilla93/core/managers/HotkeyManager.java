@@ -12,6 +12,7 @@ import github.zmilla93.gui.windows.CheatSheetWindow;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * To add a new hotkey type, implement IHotkeyAction then register with a HotkeyData object in loadHotkeys.
@@ -20,6 +21,7 @@ import java.util.HashMap;
 public class HotkeyManager {
 
     private static final HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
+    private static final HashSet<Integer> pressedKeys = new HashSet<>();
 
     public static void loadHotkeys() {
         hotkeyMap.clear();
@@ -67,7 +69,17 @@ public class HotkeyManager {
         hotkeyMap.put(hotkeyData, action);
     }
 
-    public static void processHotkey(NativeKeyEvent e) {
+    public static boolean isHotkeyPressed(HotkeyData data) {
+        if (data == null) return false;
+        if (!pressedKeys.contains(data.keyCode)) return false;
+        if (data.isCtrlPressed() && !App.globalKeyboardListener.isCtrlPressed()) return false;
+        if (data.isAltPressed() && !App.globalKeyboardListener.isAltPressed()) return false;
+        if (data.isShiftPressed() && !App.globalKeyboardListener.isShiftPressed()) return false;
+        return true;
+    }
+
+    public static void processHotkeyPressed(NativeKeyEvent e) {
+        pressedKeys.add(e.getKeyCode());
         if (App.getState() != AppState.RUNNING) return;
         if (!POEInterface.isGameFocused(true)) return;
         HotkeyData data = new HotkeyData(e.getKeyCode(), e.getModifiers());
@@ -77,6 +89,11 @@ public class HotkeyManager {
         } else {
             hotkeyAction.execute();
         }
+    }
+
+
+    public static void processHotkeyReleased(NativeKeyEvent e) {
+        pressedKeys.remove(e.getKeyCode());
     }
 
 }

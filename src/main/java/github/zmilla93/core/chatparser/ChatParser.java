@@ -4,6 +4,7 @@ import github.zmilla93.core.References;
 import github.zmilla93.core.data.IgnoreItemData;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.managers.AudioManager;
+import github.zmilla93.core.managers.HotkeyManager;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.trading.LangRegex;
@@ -143,7 +144,8 @@ public class ChatParser implements FileTailerListener {
     private TradeOfferType getOfferType(String messageType) {
         if (isPoe1) return LangRegex.getMessageType(messageType);
         else {
-            // FIXME : Add hotkey check for outgoing trades
+            if (HotkeyManager.isHotkeyPressed(SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey))
+                return TradeOfferType.OUTGOING_TRADE;
             return TradeOfferType.INCOMING_TRADE;
         }
     }

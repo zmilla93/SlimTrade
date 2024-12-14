@@ -2,6 +2,7 @@ package github.zmilla93.core.poe;
 
 import com.sun.jna.platform.win32.WinDef;
 import github.zmilla93.App;
+import github.zmilla93.core.jna.CustomUser32;
 import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.Platform;
@@ -110,6 +111,7 @@ public class POEWindow {
         assert SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT;
         assert handle != null;
         if (currentGameWindow != null && handle.equals(currentGameWindow.handle) && !forceUpdate) return;
+        if (CustomUser32.INSTANCE.IsIconic(handle)) return;
         currentGameWindow = new NativePoeWindow(handle);
         POEWindow.gameBounds = currentGameWindow.clientBounds;
         calculateNewGameBounds();

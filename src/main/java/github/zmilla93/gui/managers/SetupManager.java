@@ -57,6 +57,11 @@ public class SetupManager {
         // Using Stash Folders
         boolean hasInitFolders = SaveManager.settingsSaveFile.data.initUsingStashFolders == SettingsSaveFile.targetInitUsingStashFolders;
         if (!hasInitFolders) setupPhases.add(SetupPhase.USING_STASH_FOLDERS);
+        // POE2 Outgoing Trade Fix
+        if (SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey == null)
+            if (SaveManager.settingsSaveFile.data.initGameDirectories == SettingsSaveFile.targetInitGameDirectories)
+                if (!SaveManager.settingsSaveFile.data.notInstalledPoe2)
+                    setupPhases.add(SetupPhase.POE_2_OUTGOING_TRADE_FIX);
         // Add any forced setup phases
         if (!App.forcedSetupPhases.isEmpty()) {
             for (SetupPhase phase : App.forcedSetupPhases) {

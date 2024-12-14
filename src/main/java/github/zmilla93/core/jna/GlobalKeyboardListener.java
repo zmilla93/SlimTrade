@@ -52,7 +52,7 @@ public class GlobalKeyboardListener implements NativeKeyListener {
             hotkeyBeingModified = null;
         }
         // Otherwise check if the given keystroke is a hotkey
-        else HotkeyManager.processHotkey(e);
+        else HotkeyManager.processHotkeyPressed(e);
     }
 
     @Override
@@ -64,7 +64,8 @@ public class GlobalKeyboardListener implements NativeKeyListener {
             altPressed = false;
         } else if (e.getKeyCode() == NativeKeyEvent.VC_SHIFT_L || e.getKeyCode() == NativeKeyEvent.VC_SHIFT_R) {
             shiftPressed = false;
-        }
+        } else
+            HotkeyManager.processHotkeyReleased(e);
     }
 
     @Override

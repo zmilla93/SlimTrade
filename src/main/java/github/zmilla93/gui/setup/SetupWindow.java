@@ -33,6 +33,7 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
     private final InstallFolderSetupPanel installFolderPanel = new InstallFolderSetupPanel();
     private final GameWindowSetupPanel gameDetectionPanel = new GameWindowSetupPanel();
     private final StashFolderSetupPanel stashFolderPanel = new StashFolderSetupPanel();
+    private final Poe2OutgoingTradeFixSetupPanel poe2OutgoingTradeFixPanel = new Poe2OutgoingTradeFixSetupPanel();
 
     public SetupWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -104,6 +105,9 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
                     break;
                 case USING_STASH_FOLDERS:
                     addSetupPanel(stashFolderPanel);
+                    break;
+                case POE_2_OUTGOING_TRADE_FIX:
+                    addSetupPanel(poe2OutgoingTradeFixPanel);
                     break;
             }
         }

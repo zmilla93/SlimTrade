@@ -135,7 +135,7 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
     public void applyCompletedSetup() {
         if (detectRadioButton.isSelected()) {
             SaveManager.settingsSaveFile.data.gameWindowMode = GameWindowMode.DETECT;
-            SaveManager.settingsSaveFile.data.detectedGameBounds = detectionButton.getLatestResultWindow().clientBounds;
+//            SaveManager.settingsSaveFile.data.detectedGameBounds = detectionButton.getLatestResultWindow().clientBounds;
         } else if (monitorRadioButton.isSelected()) {
             SaveManager.settingsSaveFile.data.gameWindowMode = GameWindowMode.MONITOR;
             SaveManager.settingsSaveFile.data.selectedMonitor = monitorPicker.getSelectedMonitor();

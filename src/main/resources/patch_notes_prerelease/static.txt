@@ -1,0 +1,32 @@
+## Incomplete Features & Known Issues
+- When using game detection, bounds are not saved, but detection is rerun at launch (and manually from options)
+- Changing client.txt file requires a restart
+- Currency icons & translations only use POE1 data
+- Theme & UI improvements incomplete
+
+## Path of Exile 2
+- SlimTrade now works seamlessly with Path of Exile 1 & 2
+- Added currency icons & currency translations for POE 2 (updated for POE1)
+
+## Game Window
+- Added a new windowId detection system for UI alignment, replacing the old stash alignment windowId
+- Unpinned windows are centered in the game windowId, rather than your first monitor
+
+## Cloud Gaming
+- Added partial support for GeForce Now (other platforms upon request)
+- Features that require access to game files DO NOT work (trade popups, chat scanner, history)
+- All other features should work (game macros, cheat sheets, stash/npc searching)
+- Things might be buggy
+
+## Additional Changes
+- Many small UI improvements
+- Adjusted the way windows are displayed on top of the game window
+- Fixed a crash on systems that don't support a system tray
+- Fixed preferred font changed the first time you saved after installing
+- Possible improvements for Mac & Linux (untested)
+
+## How to Install
+- Make sure you have [Java](https://www.java.com) installed
+- Download and run 'SlimTrade.jar' from below
+
+*Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*

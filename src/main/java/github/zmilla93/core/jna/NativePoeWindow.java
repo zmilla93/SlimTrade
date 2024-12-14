@@ -45,15 +45,6 @@ public class NativePoeWindow extends NativeWindow {
         return WindowUtils.getWindowTitle(handle);
     }
 
-//    public static void focus(NativePoeWindow window) {
-//        if (window == null) return;
-//        setPOEGameWindow(window);
-//        WinDef.HWND handle = window.handle;
-//        User32.INSTANCE.ShowWindow(handle, User32.SW_SHOW);
-//        User32.INSTANCE.SetForegroundWindow(handle);
-//        User32.INSTANCE.SetFocus(handle);
-//    }
-
     /**
      * Focuses the Path of Exile game window on the Windows platform.
      */
