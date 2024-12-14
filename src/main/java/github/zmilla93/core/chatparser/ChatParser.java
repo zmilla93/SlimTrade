@@ -217,7 +217,7 @@ public class ChatParser implements FileTailerListener {
 
     private boolean handleTradeOffer(WhisperData data, String line) {
         // Check for a trade
-        TradeOffer offer = TradeOffer.getTradeFromMessage(data, line);
+        TradeOffer offer = TradeOffer.getTradeFromMessage(data, line, game);
         if (offer == null) return false;
         // Check if the trade should be ignored
         String itemNameLower = offer.itemName.toLowerCase();

@@ -59,8 +59,8 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
         screenRegionPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Coming soon (maybe)."));
-        screenRegionPanel.addLabel("This is only required for Mac & Linux users playing in windowed mode.");
-        screenRegionPanel.addLabel("If that means you, let me know on GitHub or Discord.");
+        screenRegionPanel.addLabel("Only required for windowed mode if other options fail.");
+        screenRegionPanel.addLabel("If this affects you, let me know on GitHub or Discord.");
 
         // Card Panel
         cardPanel.add(detectPanel);

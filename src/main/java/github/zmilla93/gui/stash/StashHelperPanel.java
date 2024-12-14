@@ -50,8 +50,11 @@ public class StashHelperPanel extends AdvancedButton {
         // FIXME : default visibility to true and make sure no debug panels are being added
         setVisible(false);
         // FIXME : Add check for making POE2 highlighter frame
-        if (tradeOffer.stashTabName != null)
-            highlighterFrame = new StashHighlighterFramePoe1(tradeOffer);
+        if (tradeOffer.stashTabName != null) {
+            if (tradeOffer.game.isPoe1()) highlighterFrame = new StashHighlighterFramePoe1(tradeOffer);
+            else highlighterFrame = new StashHighlighterFramePoe2(tradeOffer);
+        }
+
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setLayout(new GridBagLayout());
         JLabel stashTabLabel = new JLabel(tradeOffer.stashTabName);
@@ -80,7 +83,11 @@ public class StashHelperPanel extends AdvancedButton {
         revalidate();
         addListeners();
         // FIXME : Add check for POE2
-        if (!this.tradeOffer.isBulkTrade) FrameManager.stashHelperContainerPoe1.addHelper(this);
+        if (!this.tradeOffer.isBulkTrade) {
+            System.out.println("Trade offer game: " + tradeOffer.game);
+            if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.addHelper(this);
+            else FrameManager.stashHelperContainerPoe2.addHelper(this);
+        }
     }
 
     private void addListeners() {

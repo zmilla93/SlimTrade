@@ -28,6 +28,10 @@ public enum Game {
         this.explicitName = explicitName;
     }
 
+    public boolean isPoe1() {
+        return this == Game.PATH_OF_EXILE_1;
+    }
+
     @Override
     public String toString() {
         return name;

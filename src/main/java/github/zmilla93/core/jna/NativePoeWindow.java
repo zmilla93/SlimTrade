@@ -18,7 +18,7 @@ import github.zmilla93.core.utility.POEInterface;
 public class NativePoeWindow extends NativeWindow {
 
     // Static windows
-    private static WinDef.HWND poeWindowHandle;
+//    private static WinDef.HWND poeWindowHandle;
     private static WinDef.HWND enumeratingHandle;
     private static WinDef.HWND returnHandle;
 //    private static NativePoeWindow poeWindow;
@@ -32,8 +32,10 @@ public class NativePoeWindow extends NativeWindow {
         refreshInfo();
     }
 
+    // FIXME : Both this and POEWindow store handle, feels redundant and potentially buggy
     public static void setPOEGameWindow(WinDef.HWND handle) {
-        poeWindowHandle = handle;
+//        poeWindowHandle = handle;
+        System.out.println("Handle:" + handle);
         System.out.println("POE Process Path: " + WindowUtils.getProcessFilePath(handle));
         if (SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT)
             POEWindow.setBoundsByWindowHandle(handle);
@@ -57,8 +59,8 @@ public class NativePoeWindow extends NativeWindow {
      */
     public static void focusPathOfExileNativeWindow() {
         // Use cached window handle if available
-        if (poeWindowHandle != null) {
-            NativeWindow.toFront(poeWindowHandle);
+        if (POEWindow.getGameHandle() != null) {
+            NativeWindow.toFront(POEWindow.getGameHandle());
             return;
         }
         WinDef.HWND handle = findPathOfExileWindow();

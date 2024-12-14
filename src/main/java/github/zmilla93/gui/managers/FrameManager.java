@@ -25,6 +25,7 @@ import github.zmilla93.gui.setup.SetupWindow;
 import github.zmilla93.gui.stash.StashHelperContainer;
 import github.zmilla93.gui.stash.StashHelperContainerLegacy;
 import github.zmilla93.gui.stash.StashHelperContainerPoe1;
+import github.zmilla93.gui.stash.StashHelperContainerPoe2;
 import github.zmilla93.gui.windows.*;
 import github.zmilla93.gui.windows.test.MessageTestWindow;
 import github.zmilla93.modules.theme.testing.UIManagerInspectorWindow;
@@ -68,6 +69,7 @@ public class FrameManager {
     public static StashGridWindow stashGridWindow;
     public static StashHelperContainer stashHelperContainerLegacy;
     public static StashHelperContainer stashHelperContainerPoe1;
+    public static StashHelperContainer stashHelperContainerPoe2;
 
     // Menu Bar
     public static MenubarButtonDialog menuBarIcon;
@@ -105,6 +107,7 @@ public class FrameManager {
         messageManager = new MessageManager();
         stashHelperContainerLegacy = new StashHelperContainerLegacy();
         stashHelperContainerPoe1 = new StashHelperContainerPoe1();
+        stashHelperContainerPoe2 = new StashHelperContainerPoe2();
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
         /// Dynamic windows
@@ -121,7 +124,7 @@ public class FrameManager {
         // FIXME : Add all windows
         // FIXME: Check CheatSheet windows and StashSearch windows.
         // Arrays of windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menuBarIcon, menuBarDialog, stashHelperContainerLegacy, stashHelperContainerPoe1, tutorialWindow, patchNotesWindow};
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menuBarIcon, menuBarDialog, stashHelperContainerLegacy, stashHelperContainerPoe1, stashHelperContainerPoe2, tutorialWindow, patchNotesWindow};
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};

@@ -40,40 +40,23 @@ public class TradeOffer {
     private ArrayList<SaleItem> saleItems;
 
     // Static function instead of constructors to avoid allocation if no trade is found.
-    public static TradeOffer getTradeFromMessage(WhisperData data, String input) {
+    public static TradeOffer getTradeFromMessage(WhisperData data, String input, Game game) {
         for (LangRegex l : LangRegex.values()) {
             if (!input.contains(l.wantToBuy)) continue;
             for (Pattern pattern : l.tradeOfferPatternsNew) {
                 Matcher matcher = pattern.matcher(input);
                 if (!matcher.matches()) continue;
-                return getTradeFromMatcher(data, matcher);
+                return getTradeFromMatcher(data, matcher, game);
             }
         }
         return null;
     }
 
-    @Deprecated
-    public static TradeOffer getTradeFromQuickPaste(String input) {
-        for (LangRegex l : LangRegex.values()) {
-            if (!input.contains(l.wantToBuy)) continue;
-            for (Pattern pattern : l.quickPastePatterns) {
-                Matcher matcher = pattern.matcher(input);
-                if (!matcher.matches()) continue;
-                // FIXME : This is broken with no data
-                return getTradeFromMatcher(null, matcher);
-            }
-        }
-        return null;
-    }
 
-    public static String cleanItemQuantity(double itemQuantity) {
-        if (itemQuantity % 1 == 0) return String.format("%.0f", itemQuantity);
-        else return Double.toString(itemQuantity);
-    }
-
-    private static TradeOffer getTradeFromMatcher(WhisperData data, Matcher matcher) {
+    private static TradeOffer getTradeFromMatcher(WhisperData data, Matcher matcher, Game game) {
         TradeOffer trade;
         trade = new TradeOffer();
+        trade.game = game;
         trade.message = data.message;
         trade.time = data.time;
         trade.date = data.date;
@@ -93,6 +76,25 @@ public class TradeOffer {
         trade.bonusText = cleanResult(matcher, "bonusText");
         trade.isBulkTrade = trade.itemName.matches(".+, \\d+ .+");
         return trade;
+    }
+
+    @Deprecated
+    public static TradeOffer getTradeFromQuickPaste(String input) {
+        for (LangRegex l : LangRegex.values()) {
+            if (!input.contains(l.wantToBuy)) continue;
+            for (Pattern pattern : l.quickPastePatterns) {
+                Matcher matcher = pattern.matcher(input);
+                if (!matcher.matches()) continue;
+                // FIXME : This is broken with no data and a hardcoded game
+                return getTradeFromMatcher(null, matcher, Game.PATH_OF_EXILE_1);
+            }
+        }
+        return null;
+    }
+
+    public static String cleanItemQuantity(double itemQuantity) {
+        if (itemQuantity % 1 == 0) return String.format("%.0f", itemQuantity);
+        else return Double.toString(itemQuantity);
     }
 
     public SaleItem getItem() {
@@ -194,6 +196,7 @@ public class TradeOffer {
     public static TradeOffer getExampleTrade(TradeOfferType type) {
         TradeOffer exampleTrade = new TradeOffer();
         exampleTrade.offerType = type;
+        exampleTrade.game = Game.PATH_OF_EXILE_1;
         exampleTrade.playerName = "ExamplePlayer123";
         switch (type) {
             case INCOMING_TRADE:

@@ -198,11 +198,11 @@ public class POEWindow {
     // Note: Poe 1 & 2 have the same stash size, so these values are always the same as POE1's.
     // Keeping this calculate independent anyway on the off chance it changes.
     public static Dimension getPoe2StashCellSize() {
-        return poe1StashCellSize;
+        return poe2StashCellSize;
     }
 
     public static Dimension getPoe2StashCellSizeQuad() {
-        return poe1StashCellSizeQuad;
+        return poe2StashCellSizeQuad;
     }
 
     private static void calculatePoe1UIData() {

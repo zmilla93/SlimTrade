@@ -5,12 +5,12 @@ import github.zmilla93.core.utility.ZUtil;
 
 import java.awt.*;
 
-public class StashHelperContainerPoe1 extends StashHelperContainer {
+public class StashHelperContainerPoe2 extends StashHelperContainer {
 
     @Override
     public void updateLocation() {
         ZUtil.invokeLater(() -> {
-            Rectangle stashBounds = POEWindow.getPoe1StashBonds();
+            Rectangle stashBounds = POEWindow.getPoe2StashBonds();
             if (stashBounds == null) return;
             setLocation(stashBounds.x, stashBounds.y);
             pack();
