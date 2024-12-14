@@ -15,7 +15,7 @@ public class InformationOptionPanel extends AbstractOptionPanel {
     private final JButton patchNotesButton = new JButton("Patch Notes");
     private final JButton settingsFolderButton = new JButton("Settings Folder");
     private final JButton logsFolderButton = new JButton("Logs Folder");
-    private final JButton openClientButton = new JButton("Open Client.txt");
+//    private final JButton openClientButton = new JButton("Open Client.txt");
 
     // Help
     private final JButton troubleshootingButton = new JButton("Troubleshooting");
@@ -71,7 +71,7 @@ public class InformationOptionPanel extends AbstractOptionPanel {
             // FIXME : Make sure patch notes have been fetched, probably using another thread.
             FrameManager.patchNotesWindow.setVisible(true);
         });
-        openClientButton.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.clientPath));
+//        openClientButton.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.clientPath));
         settingsFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getSaveDirectory().toString()));
         logsFolderButton.addActionListener(e -> ZUtil.openExplorer(SaveManager.getLogsDirectory().toString()));
         troubleshootingButton.addActionListener(e -> ZUtil.openLink(References.FAQ_URL));

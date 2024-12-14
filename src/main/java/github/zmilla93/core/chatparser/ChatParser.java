@@ -86,6 +86,7 @@ public class ChatParser implements FileTailerListener {
 
     public void close() {
         tailer.stop();
+        tailer = null;
         path = null;
         open = false;
     }

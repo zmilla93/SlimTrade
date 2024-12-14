@@ -28,6 +28,7 @@ public class TradeUtil {
      * Verify that a given path points to the Path of Exile 1 or 2's install directory.
      * Checks that the path isn't null, is a directory that ends with Path of Exile 1 or 2, and contains a 'logs' subfolder
      */
+    // FIXME : Client.txt check?
     public static boolean isValidPOEFolder(Path path, Game game) {
         if (path == null) return false;
         if (!path.endsWith(game.toString())) return false;

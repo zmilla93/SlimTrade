@@ -1,13 +1,11 @@
 package github.zmilla93.gui.options.general;
 
-import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.ClientFileChooser;
 import github.zmilla93.modules.saving.ISavable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 @Deprecated
 public class ClientPathPanel extends JPanel implements ISavable {
@@ -51,12 +49,12 @@ public class ClientPathPanel extends JPanel implements ISavable {
 
     @Override
     public void load() {
-        clientTextField.setText(SaveManager.settingsSaveFile.data.clientPath);
-        if (SaveManager.settingsSaveFile.data.clientPath == null) return;
-        File file = new File(SaveManager.settingsSaveFile.data.clientPath);
-        if (file.isFile()) {
-            fileChooser.setCurrentDirectory(file.getParentFile());
-        }
+//        clientTextField.setText(SaveManager.settingsSaveFile.data.clientPath);
+//        if (SaveManager.settingsSaveFile.data.clientPath == null) return;
+//        File file = new File(SaveManager.settingsSaveFile.data.clientPath);
+//        if (file.isFile()) {
+//            fileChooser.setCurrentDirectory(file.getParentFile());
+//        }
     }
 
     @Override

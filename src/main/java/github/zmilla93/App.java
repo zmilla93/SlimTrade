@@ -247,7 +247,7 @@ public class App {
         FrameManager.showAppFrames();
         SystemTrayManager.showDefault();
 
-        initParser();
+        initChatParsers();
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);
 
@@ -261,33 +261,6 @@ public class App {
             SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
     }
 
-    @Deprecated
-    public static void initParser() {
-        // FIXME : TEMP REMAP
-        initChatParsers();
-//        if (chatParser != null) {
-//            chatParser.close();
-//            chatParser.removeAllListeners();
-//        }
-//        chatParser = new ChatParser();
-//        // History
-//        chatParser.addOnInitCallback(FrameManager.historyWindow);
-//        chatParser.addOnLoadedCallback(FrameManager.historyWindow);
-//        chatParser.addTradeListener(FrameManager.historyWindow);
-//        // Message Manager
-//        chatParser.addTradeListener(FrameManager.messageManager);
-//        chatParser.addChatScannerListener(FrameManager.messageManager);
-//        chatParser.addJoinedAreaListener(FrameManager.messageManager);
-//        // Menu Bar
-//        chatParser.addOnLoadedCallback(FrameManager.menuBarIcon);
-//        chatParser.addOnLoadedCallback(FrameManager.menuBarDialog);
-//        chatParser.addDndListener(FrameManager.menuBarIcon);
-//        chatParser.addDndListener(FrameManager.menuBarDialog);
-//        // Open
-//        chatParser.open(Paths.get(SaveManager.settingsSaveFile.data.clientPath));
-    }
-
-    // FIXME : Should close/reopen existing chat parsers instead of creating new ones.
     public static void initChatParsers() {
         closeChatParsers();
         initChatParser(chatParserPoe1, Game.PATH_OF_EXILE_1, SaveManager.settingsSaveFile.data.installFolderPoe1, SaveManager.settingsSaveFile.data.notInstalledPoe1);
@@ -310,7 +283,7 @@ public class App {
         if (installFolder == null) return;
         Path poeFolder = Paths.get(installFolder);
         if (!poeFolder.toFile().exists()) return;
-        initParser(parser, game, poeFolder.resolve(Paths.get("logs", "Client.txt")));
+        initParser(parser, game, poeFolder.resolve(Paths.get(SaveManager.POE_LOG_FOLDER_NAME, SaveManager.POE_CLIENT_TXT_NAME)));
     }
 
     public static void initParser(ChatParser parser, Game game, Path clientPath) {

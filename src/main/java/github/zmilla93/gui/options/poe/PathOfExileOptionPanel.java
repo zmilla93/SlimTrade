@@ -107,6 +107,7 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         SaveManager.settingsSaveFile.data.installFolderPoe2 = poe2FolderPicker.getPathString();
         SaveManager.settingsSaveFile.data.usingStashFoldersPoe1 = usingStashFoldersPoe1Checkbox.isSelected();
         SaveManager.settingsSaveFile.data.usingStashFoldersPoe2 = usingStashFoldersPoe2Checkbox.isSelected();
+        // FIXME : Need to reinit parsers if paths have changed.
     }
 
     @Override

@@ -29,7 +29,8 @@ public class DebugOptionPanel extends AbstractOptionPanel {
     private final JButton updateMessageButton = new JButton("Update Message");
     private final JButton createBackupButton = new JButton("Create New Backup");
     private final JButton loadBackupButton = new JButton("Load Backup");
-    private final JButton clientButton = new JButton("Open Client.txt");
+    private final JButton clientButtonPoe1 = new JButton("Open Client.txt POE1");
+    private final JButton clientButtonPoe2 = new JButton("Open Client.txt POE2");
     private final JButton uiDumpButton = new JButton("Dump UIManager to Clipboard");
     private final JComboBox<String> fontCombo = new JComboBox<>();
 
@@ -55,7 +56,8 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         addComponent(outgoingMessageButton);
         addComponent(scannerMessageButton);
         addComponent(updateMessageButton);
-        addComponent(clientButton);
+        addComponent(clientButtonPoe1);
+        addComponent(clientButtonPoe2);
         addComponent(uiDumpButton);
         addComponent(new ComponentPanel(createBackupButton, loadBackupButton));
         addVerticalStrut();
@@ -84,7 +86,8 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addScannerMessage(new ChatScannerEntry("alch"), new PlayerMessage("CoolTrader123", "wtb alch for chaos")));
         updateMessageButton.addActionListener(e -> FrameManager.messageManager.addUpdateMessage(true));
         uiDumpButton.addActionListener(e -> ThemeManager.debugKeyValueDump());
-        clientButton.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.clientPath));
+        clientButtonPoe1.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.installFolderPoe1));
+        clientButtonPoe2.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.installFolderPoe2));
         fontCombo.addActionListener(e -> {
             String s = (String) fontCombo.getSelectedItem();
             Font font = new Font(s, Font.PLAIN, 12);

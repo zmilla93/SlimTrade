@@ -29,6 +29,11 @@ import java.util.HashMap;
  */
 public class SettingsSaveFile extends AbstractSaveFile {
 
+    @Override
+    public int getCurrentTargetVersion() {
+        return 4;
+    }
+
     public String appVersionString;
     private transient AppVersion appVersion;
 
@@ -61,8 +66,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public DateFormat historyDateFormat = DateFormat.MM_DD_YY;
 
     // Path of Exile 1 & 2 - Install Directory
-    @Deprecated
-    public String clientPath;
     public int initGameDirectories;
     public static final int targetInitGameDirectories = 1;
     public boolean notInstalledPoe1;
@@ -243,11 +246,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
             if (!appVersion.valid) appVersion = new AppVersion(App.getAppInfo().appVersion.toString());
         }
         return appVersion;
-    }
-
-    @Override
-    public int getCurrentTargetVersion() {
-        return 3;
     }
 
 }
