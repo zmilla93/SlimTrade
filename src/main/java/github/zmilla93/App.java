@@ -132,14 +132,8 @@ public class App {
                     updateIsAvailable = true;
                 }
             } else {
-                updateManager.runPeriodicUpdateCheck(1, TimeUnit.DAYS);
-                if (getAppInfo().appVersion.isPreRelease) {
-                    int MINUTES_FOR_FAST_UPDATE = 240;
-                    int FAST_UPDATE_CHECK_RATE_MINUTES = 30;
-                    for (int delay = FAST_UPDATE_CHECK_RATE_MINUTES; delay < MINUTES_FOR_FAST_UPDATE; delay += FAST_UPDATE_CHECK_RATE_MINUTES) {
-                        updateManager.runOneShotUpdateCheck(delay, TimeUnit.MINUTES);
-                    }
-                }
+                if (getAppInfo().appVersion.isPreRelease) updateManager.runPeriodicUpdateCheck(2, TimeUnit.HOURS);
+                else updateManager.runPeriodicUpdateCheck(1, TimeUnit.DAYS);
             }
         }
 

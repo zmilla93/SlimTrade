@@ -7,6 +7,10 @@
 - Currency icons & translations only use POE1 data
 - Theme & UI improvements incomplete
 
+# pre2
+- Removed old UI elements
+- Increased frequency of  timing of update checks when running prerelease
+
 ## Path of Exile 2
 - SlimTrade now works seamlessly with Path of Exile 1 & 2
 - Added currency icons & currency translations for POE 2 (updated for POE1)

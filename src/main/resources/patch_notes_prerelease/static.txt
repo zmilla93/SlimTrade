@@ -1,4 +1,7 @@
+**This version is not well tested.**
+
 ## Known Issues
+- Save file is not backwards compatible, backup "SlimTrade" folder if you care (Options > Information > Settings Folder)
 - When using game detection, bounds are not saved. Detection is rerun at launch (and can be triggered from options)
 - Changing client.txt file requires a restart
 - Currency icons & translations only use POE1 data

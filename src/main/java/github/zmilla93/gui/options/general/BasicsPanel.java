@@ -1,9 +1,7 @@
 package github.zmilla93.gui.options.general;
 
 import github.zmilla93.core.enums.AppState;
-import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.HotkeyButton;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.modules.saving.ISavable;
@@ -26,9 +24,7 @@ public class BasicsPanel extends JPanel implements ISavable {
         gc.anchor = GridBagConstraints.WEST;
 
         // Add components
-        JPanel buttonPanel = new ComponentPanel(editOverlayButton, editStashLocationButton);
-        addComponent(folderOffsetCheckbox);
-        addComponent(buttonPanel);
+        addComponent(editOverlayButton);
 
         addListeners();
     }
@@ -45,16 +41,16 @@ public class BasicsPanel extends JPanel implements ISavable {
 
     @Override
     public void save() {
-        SaveManager.settingsSaveFile.data.showGuildName = showGuildName.isSelected();
-        SaveManager.settingsSaveFile.data.folderOffset = folderOffsetCheckbox.isSelected();
-        SaveManager.settingsSaveFile.data.quickPasteHotkey = quickPasteHotkey.getData();
+//        SaveManager.settingsSaveFile.data.showGuildName = showGuildName.isSelected();
+//        SaveManager.settingsSaveFile.data.folderOffset = folderOffsetCheckbox.isSelected();
+//        SaveManager.settingsSaveFile.data.quickPasteHotkey = quickPasteHotkey.getData();
     }
 
     @Override
     public void load() {
-        showGuildName.setSelected(SaveManager.settingsSaveFile.data.showGuildName);
-        folderOffsetCheckbox.setSelected(SaveManager.settingsSaveFile.data.folderOffset);
-        quickPasteHotkey.setData(SaveManager.settingsSaveFile.data.quickPasteHotkey);
+//        showGuildName.setSelected(SaveManager.settingsSaveFile.data.showGuildName);
+//        folderOffsetCheckbox.setSelected(SaveManager.settingsSaveFile.data.folderOffset);
+//        quickPasteHotkey.setData(SaveManager.settingsSaveFile.data.quickPasteHotkey);
     }
 
 }
