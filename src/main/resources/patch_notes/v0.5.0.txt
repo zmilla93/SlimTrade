@@ -1,10 +1,16 @@
-# Path of Exile 2
+## Known Issues
+- When using game detection, bounds are not saved. Detection is rerun at launch (and can be triggered from options)
+- Changing client.txt file requires a restart
+- Currency icons & translations only use POE1 data
+- Theme & UI improvements incomplete
+
+## Path of Exile 2
 - SlimTrade now works seamlessly with Path of Exile 1 & 2
 - Added currency icons & currency translations for POE 2 (updated for POE1)
 
 ## Game Window
-- Added a new windowId detection system for UI alignment, replacing the old stash alignment windowId
-- Unpinned windows are centered in the game windowId, rather than your first monitor
+- Added a new window detection system for UI alignment, replacing the old stash alignment window
+- Unpinned windows are centered in the game window, rather than your first monitor
 
 ## Cloud Gaming
 - Added partial support for GeForce Now (other platforms upon request)
