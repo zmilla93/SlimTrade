@@ -34,9 +34,9 @@ public class NativePoeWindow extends NativeWindow {
 
     // FIXME : Both this and POEWindow store handle, feels redundant and potentially buggy
     public static void setPOEGameWindow(WinDef.HWND handle) {
-//        poeWindowHandle = handle;
-        System.out.println("Handle:" + handle);
-        System.out.println("POE Process Path: " + WindowUtils.getProcessFilePath(handle));
+        // FIXME : This gets called too frequently.
+//        System.out.println("Handle:" + handle);
+//        System.out.println("POE Process Path: " + WindowUtils.getProcessFilePath(handle));
         if (SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT)
             POEWindow.setBoundsByWindowHandle(handle);
     }
