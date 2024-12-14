@@ -2,7 +2,7 @@ name: Release JAR
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "prerelease" ]
 
 jobs:
   build-and-release:
