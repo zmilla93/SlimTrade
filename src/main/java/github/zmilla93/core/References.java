@@ -22,9 +22,9 @@ public class References {
     public static final String POE_LEAGUE_API = "https://www.pathofexile.com/api/leagues";
 
     // Regex
+    // FIXME : Move this stuff to ChatParser
     public static final String REGEX_CLIENT_DATA = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] ";
     public static final String REGEX_CLIENT_CHAT_PREFIX = REGEX_CLIENT_DATA + "(?<messageType>#|[$]|От кого|@[^\\s<>]+) ?(?<guildName><.+> )?(?<playerName>[^:]+):(\\s+)(?<message>.+";
-    public static final String REGEX_CLIENT_CHAT_PREFIX_POE2 = REGEX_CLIENT_DATA + "(?<messageType>@)(?<playerName>[^:]+):(\\s+)(?<message>.+";
     public static final String REGEX_CLIENT_META_PREFIX = REGEX_CLIENT_DATA + "(: )?(?<message>.+";
     public static final String REGEX_QUICK_PASTE_PREFIX = "@(?<guildName><.+> )?(?<playerName>.+)(\\s+)(?<message>";
     public static final String REGEX_JOINED_AREA_PREFIX = "(.+ : (?<playerName>.+) ";
@@ -33,7 +33,6 @@ public class References {
     public static final String APP_PREFIX = "SlimTradeApp::";
 
     public static final Pattern chatPatten = Pattern.compile(REGEX_CLIENT_CHAT_PREFIX + REGEX_SUFFIX);
-    public static final Pattern chatPattenPoe2 = Pattern.compile(REGEX_CLIENT_CHAT_PREFIX + REGEX_SUFFIX);
     public static final Pattern clientMetaPattern = Pattern.compile(REGEX_CLIENT_META_PREFIX + REGEX_SUFFIX);
 
     public static final Point DEFAULT_MESSAGE_LOCATION = new Point(800, 0);

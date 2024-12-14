@@ -2,6 +2,7 @@ package github.zmilla93.gui.components;
 
 import github.zmilla93.core.data.SaleItem;
 import github.zmilla93.core.enums.CurrencyType;
+import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.modules.theme.ThemeManager;
 
@@ -22,15 +23,15 @@ public class CurrencyLabelFactory extends JPanel {
     // Factory Functions //
     ///////////////////////
 
-    public static Container applyItemToComponent(Container container, ArrayList<SaleItem> saleItems) {
-        return applyItemToComponent(container, saleItems, false);
+    public static Container applyItemToComponent(Container container, Game game, ArrayList<SaleItem> saleItems) {
+        return applyItemToComponent(container, game, saleItems, false);
     }
 
-    public static Container applyItemToComponent(Container container, ArrayList<SaleItem> saleItems, boolean forceText) {
+    public static Container applyItemToComponent(Container container, Game game, ArrayList<SaleItem> saleItems, boolean forceText) {
         setupContainer(container);
         for (int i = 0; i < saleItems.size(); i++) {
             SaleItem item = saleItems.get(i);
-            addDataToContainer(container, item.itemName, item.quantity, forceText);
+            addDataToContainer(container, game, item.itemName, item.quantity, forceText);
             if (i < saleItems.size() - 1) addComma(container);
         }
         return container;
@@ -64,8 +65,8 @@ public class CurrencyLabelFactory extends JPanel {
         return container;
     }
 
-    private static Container addDataToContainer(Container container, String itemName, double quantity, boolean forceText) {
-        CurrencyType currencyType = CurrencyType.getCurrencyType(itemName);
+    private static Container addDataToContainer(Container container, Game game, String itemName, double quantity, boolean forceText) {
+        CurrencyType currencyType = CurrencyType.getCurrencyType(itemName, game);
         JLabel textLabel = textLabel(itemName, quantity, currencyType, forceText);
         container.add(textLabel, gc);
         gc.gridx++;

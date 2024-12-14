@@ -28,21 +28,29 @@ public class CurrencyType implements IIcon {
     public final String ID;
     // FIXME: Words don't actually need to be stored unless some form of translation is added,
     //        which isn't relevant unless info is added from the trade site for items without icons.
-    public transient final String[] words;
-    private transient String path;
+    private final transient String[] words;
+    // FIXME : This can just be public now that it is final.
+    private final transient String path;
+
+    @Deprecated
+    private CurrencyType(String line) {
+        this(Game.PATH_OF_EXILE_1, line);
+    }
 
     /// Static class, use CurrencyType.getCurrencyType().
-    private CurrencyType(String line) {
+    private CurrencyType(Game game, String line) {
         words = line.split(",");
         for (int i = 0; i < words.length; i++) {
             words[i] = words[i].trim();
         }
         ID = words[0];
+        path = String.format("/%s/icons/%s.png", game.assetsFolderName, ID);
     }
 
     /**
      * Converts a currency name in any language ("Orb of Alchemy", "Orbe d'alchimie"), or a currency tag ("alch"), into a CurrencyType.
      */
+    // FIXME : This gets called too frequently? Add serr statement to see.
     public static @Nullable CurrencyType getCurrencyType(String currency, Game game) {
         if (game.isPoe1()) return currencyMapPoe1.get(currency);
         else return currencyMapPoe2.get(currency);
@@ -92,11 +100,11 @@ public class CurrencyType implements IIcon {
     }
 
     public static void createCurrencyMaps() {
-        createCurrencyMap(currencyMapPoe1, Paths.get("/poe1/translations.csv"));
-        createCurrencyMap(currencyMapPoe2, Paths.get("/poe2/translations.csv"));
+        createCurrencyMap(Game.PATH_OF_EXILE_1, currencyMapPoe1, Paths.get("/poe1/translations.csv"));
+        createCurrencyMap(Game.PATH_OF_EXILE_2, currencyMapPoe2, Paths.get("/poe2/translations.csv"));
     }
 
-    private static void createCurrencyMap(HashMap<String, CurrencyType> map, Path csvPath) {
+    private static void createCurrencyMap(Game game, HashMap<String, CurrencyType> map, Path csvPath) {
         map.clear();
         try {
             BufferedReader reader = ZUtil.getBufferedReader(csvPath, true);
@@ -104,7 +112,7 @@ public class CurrencyType implements IIcon {
                 String line = reader.readLine().trim();
                 if (line.startsWith("//")) continue;
                 if (line.isEmpty()) continue;
-                parseCsvLineIntoMap(map, line);
+                parseCsvLineIntoMap(game, map, line);
             }
             reader.close();
         } catch (IOException e) {
@@ -112,13 +120,14 @@ public class CurrencyType implements IIcon {
         }
     }
 
-    private static void parseCsvLineIntoMap(HashMap<String, CurrencyType> map, String line) {
-        CurrencyType currency = new CurrencyType(line);
+    private static void parseCsvLineIntoMap(Game game, HashMap<String, CurrencyType> map, String line) {
+        CurrencyType currency = new CurrencyType(game, line);
         for (String word : currency.words) {
             map.put(word, currency);
         }
     }
 
+    @Deprecated
     private static void addCSV(String line) {
         CurrencyType currency = new CurrencyType(line);
         for (String word : currency.words) {
@@ -197,10 +206,6 @@ public class CurrencyType implements IIcon {
 
     @Override
     public String path() {
-        if (path == null) {
-            String fileName = words[0].replaceAll(" ", "_").replaceAll(":", "") + ".png";
-            path = "/currency/" + fileName;
-        }
         return path;
     }
 

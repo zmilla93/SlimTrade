@@ -19,7 +19,8 @@ public class SaleItemCellRenderer extends JLabel implements TableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         removeAll();
-        CurrencyLabelFactory.applyItemToComponent(this, ((SaleItemWrapper) value).items);
+        SaleItemWrapper saleItemWrapper = (SaleItemWrapper) value;
+        CurrencyLabelFactory.applyItemToComponent(this, saleItemWrapper.game, saleItemWrapper.items);
         if (isSelected) {
             setBackground(table.getSelectionBackground());
             setForeground(table.getSelectionForeground());

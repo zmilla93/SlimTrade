@@ -41,9 +41,9 @@ public class TradeMessagePanel extends NotificationPanel {
         JPanel itemPanel = new JPanel();
         itemPanel.setOpaque(false);
         boolean forceText = tradeOffer.getItems().size() <= 1;
-        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.getItems(), forceText);
+        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.game, tradeOffer.getItems(), forceText);
         itemButton.add(itemPanel);
-        CurrencyLabelFactory.applyItemToComponent(pricePanel, new SaleItem(tradeOffer.priceName, tradeOffer.priceQuantity).toArrayList());
+        CurrencyLabelFactory.applyItemToComponent(pricePanel, tradeOffer.game, new SaleItem(tradeOffer.priceName, tradeOffer.priceQuantity).toArrayList());
         // Message type specific stuff
         switch (tradeOffer.offerType) {
             case INCOMING_TRADE:

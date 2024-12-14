@@ -1,5 +1,7 @@
 package github.zmilla93.core.data;
 
+import github.zmilla93.core.poe.Game;
+
 import java.util.ArrayList;
 
 /**
@@ -7,9 +9,11 @@ import java.util.ArrayList;
  */
 public class SaleItemWrapper {
 
+    public final Game game;
     public final ArrayList<SaleItem> items;
 
-    public SaleItemWrapper(ArrayList<SaleItem> items) {
+    public SaleItemWrapper(Game game, ArrayList<SaleItem> items) {
+        this.game = game;
         this.items = items;
     }
 

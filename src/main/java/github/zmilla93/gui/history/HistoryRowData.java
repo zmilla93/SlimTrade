@@ -24,8 +24,8 @@ public class HistoryRowData {
         date = new DateString(tradeOffer.date);
         time = new TimeString(tradeOffer.time);
         playerNameWrapper = new PlayerNameWrapper(tradeOffer.playerName);
-        saleItemWrapper = new SaleItemWrapper(SaleItem.getItems(tradeOffer.itemQuantityString + " " + tradeOffer.itemName));
-        price = new SaleItemWrapper(new SaleItem(tradeOffer.priceName, tradeOffer.priceQuantity).toArrayList());
+        saleItemWrapper = new SaleItemWrapper(tradeOffer.game, SaleItem.getItems(tradeOffer.itemQuantityString + " " + tradeOffer.itemName));
+        price = new SaleItemWrapper(tradeOffer.game, new SaleItem(tradeOffer.priceName, tradeOffer.priceQuantity).toArrayList());
     }
 
 }
