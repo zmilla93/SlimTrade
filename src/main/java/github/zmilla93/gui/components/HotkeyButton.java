@@ -2,6 +2,7 @@ package github.zmilla93.gui.components;
 
 import github.zmilla93.App;
 import github.zmilla93.core.hotkeys.HotkeyData;
+import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.listening.IHotkeyChangeListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -28,9 +29,18 @@ public class HotkeyButton extends JButton {
     }
 
     public void updateHotkey() {
-        if (data != null) setText(data.toString());
-        else setText(UNSET_TEXT);
-        for (IHotkeyChangeListener listener : hotkeyChangeListeners) listener.onHotkeyChange(data);
+        ZUtil.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (data != null) setText(data.toString());
+                else setText(UNSET_TEXT);
+                for (IHotkeyChangeListener listener : hotkeyChangeListeners) {
+                    listener.onHotkeyChange(data);
+                }
+            }
+        });
+
+
     }
 
     public HotkeyData getData() {
