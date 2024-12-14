@@ -1,5 +1,5 @@
 # SlimTrade
-A highly customizable trade UI overlay for Path of Exile 1. [An unfinished prerelease for Path of Exile 2](https://github.com/zmilla93/SlimTrade/releases) is available for testing.<br>
+A highly customizable trade UI overlay for Path of Exile 1. [An unfinished prerelease for Path of Exile 2 is available for testing.](https://github.com/zmilla93/SlimTrade/releases)<br>
 Includes a chat scanner, trade history, cheat sheet overlays, and more!<br>
 
 [**Download Latest Version**](https://github.com/zmilla93/SlimTrade/releases/latest)<br>
