@@ -1,5 +1,6 @@
 package github.zmilla93.core.saving.legacy.patcher;
 
+import github.zmilla93.core.data.PriceThresholdData;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.saving.legacy.ISavePatcher;
@@ -26,6 +27,7 @@ public class PatcherSettings3to4 implements ISavePatcher {
             errorMessage = FAILED_TO_LOAD;
             return false;
         }
+        /// Intentionally not importing usingStashFolder setting to make sure people update it correctly.
         /// Import the old POE 1 client.txt file path, converting it to the new path format & validating it along the way.
         if (legacySave.data.clientPath == null) return true;
         Path clientPath = Paths.get(legacySave.data.clientPath);
@@ -36,7 +38,16 @@ public class PatcherSettings3to4 implements ISavePatcher {
         Path poe1Folder = logsFolder.getParent();
         if (!poe1Folder.endsWith(Game.PATH_OF_EXILE_1.toString())) return true;
         SaveManager.settingsSaveFile.data.installFolderPoe1 = poe1Folder.toString();
-        /// Intentionally not importing usingStashFolder setting to make sure people reset it correctly.
+        /// Convert custom audio files to new format.
+        SaveManager.settingsSaveFile.data.incomingSound.sound = new LegacySettingsSave3.LegacySound(SaveManager.settingsSaveFile.data.incomingSound.sound).toSound();
+        SaveManager.settingsSaveFile.data.outgoingSound.sound = new LegacySettingsSave3.LegacySound(SaveManager.settingsSaveFile.data.outgoingSound.sound).toSound();
+        SaveManager.settingsSaveFile.data.itemIgnoredSound.sound = new LegacySettingsSave3.LegacySound(SaveManager.settingsSaveFile.data.itemIgnoredSound.sound).toSound();
+        SaveManager.settingsSaveFile.data.chatScannerSound.sound = new LegacySettingsSave3.LegacySound(SaveManager.settingsSaveFile.data.chatScannerSound.sound).toSound();
+        SaveManager.settingsSaveFile.data.kalguurSound.sound = new LegacySettingsSave3.LegacySound(SaveManager.settingsSaveFile.data.kalguurSound.sound).toSound();
+        SaveManager.settingsSaveFile.data.playerJoinedAreaSound.sound = new LegacySettingsSave3.LegacySound(SaveManager.settingsSaveFile.data.playerJoinedAreaSound.sound).toSound();
+        SaveManager.settingsSaveFile.data.updateSound.sound = new LegacySettingsSave3.LegacySound(SaveManager.settingsSaveFile.data.updateSound.sound).toSound();
+        for (PriceThresholdData priceThreshold : SaveManager.settingsSaveFile.data.priceThresholds)
+            priceThreshold.soundComponent.sound = new LegacySettingsSave3.LegacySound(priceThreshold.soundComponent.sound).toSound();
         return true;
     }
 

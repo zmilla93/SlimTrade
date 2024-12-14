@@ -18,7 +18,7 @@ public class Sound {
     public enum SoundType {INBUILT, CUSTOM}
 
     public final String name;
-    private String displayName;
+    private transient String displayName;
     public String fileName;
     public SoundType soundType;
 

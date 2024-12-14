@@ -65,6 +65,9 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public TimeFormat historyTimeFormat = TimeFormat.H12;
     public DateFormat historyDateFormat = DateFormat.MM_DD_YY;
 
+    // FIXME : Old POE1 path for temporary backwards compatibility. Remove once full release is out.
+    @Deprecated
+    public String clientPath;
     // Path of Exile 1 & 2 - Install Directory
     public int initGameDirectories;
     public static final int targetInitGameDirectories = 1;

@@ -14,8 +14,9 @@
 
 ## Additional Changes
 - Many small UI improvements
-- Adjusted the way windows are displayed on top of the game windowId.
+- Adjusted the way windows are displayed on top of the game window
 - Fixed a crash on systems that don't support a system tray
+- Fixed preferred font changed the first time you saved after installing
 - Possible improvements for Mac & Linux (untested)
 
 ## How to Install
