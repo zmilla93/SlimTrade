@@ -67,7 +67,6 @@ public class ChatParser implements FileTailerListener {
     }
 
     public void open(Path path, boolean isPathRelative) {
-        System.out.println("Open chat parser for " + game);
         this.path = path;
         lineCount = 0;
         whisperCount = 0;
@@ -118,9 +117,7 @@ public class ChatParser implements FileTailerListener {
             whisperCount++;
             Pattern whisperPattern = game == Game.PATH_OF_EXILE_1 ? clientWhisper : clientWhisperPoe2;
             Matcher whisperMatcher = whisperPattern.matcher(fullMessage);
-            System.out.println("Checking phrase for " + game + ": " + fullMessage);
             if (whisperMatcher.matches()) {
-                System.out.println("Handling trade message: " + whisperMatcher.group(0));
                 String message = whisperMatcher.group("message");
                 String guildName = isPoe1 ? whisperMatcher.group("guildName") : null;
                 String playerName = whisperMatcher.group("playerName");
@@ -352,7 +349,7 @@ public class ChatParser implements FileTailerListener {
     @Override
     public void onLoad() {
         float endTime = (System.currentTimeMillis() - startTime) / 1000f;
-        ZLogger.log("Chat parser loaded in " + endTime + " seconds. Found " + lineCount + " lines, " + whisperCount + " whispers, and " + tradeCount + " trades.");
+        ZLogger.log("Chat parser loaded for " + game + " in " + endTime + " seconds. Found " + lineCount + " lines, " + whisperCount + " whispers, and " + tradeCount + " trades.");
         for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded(dnd);
     }
 

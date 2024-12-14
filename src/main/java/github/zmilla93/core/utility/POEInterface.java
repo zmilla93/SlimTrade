@@ -10,6 +10,7 @@ import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.jna.NativeWindow;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
+import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.gui.components.poe.POEFileChooser;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.windows.DummyWindow;
@@ -208,6 +209,7 @@ public class POEInterface {
         if (Platform.current == Platform.WINDOWS) {
             WinDef.HWND focusedWindow = NativeWindow.getFocusedWindow();
             if (focusedWindow == null) return false;
+            if (focusedWindow.equals(POEWindow.getGameHandle())) return true;
             String focusedWindowTitle = WindowUtils.getWindowTitle(focusedWindow);
             if (focusedWindowTitle == null) return false;
             if (includeApp) {

@@ -6,7 +6,6 @@ import java.awt.geom.Rectangle2D;
 public class ScaledRect {
 
     public static Rectangle2D.Float getPercentRect(Rectangle unscaledRect, Rectangle originalComparisonRect) {
-        System.out.println("X Compare:");
         float percentX = ScaledInt.getPercentValue(unscaledRect.x, originalComparisonRect.width);
         float percentY = ScaledInt.getPercentValue(unscaledRect.y, originalComparisonRect.height);
         float percentWidth = ScaledInt.getPercentValue(unscaledRect.width, originalComparisonRect.width);

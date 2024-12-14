@@ -12,7 +12,8 @@ public class DrawWindow extends JDialog {
     private static final int HIDE_FRAME_DELAY_MS = 2500;
     private static final int DISPOSE_FRAME_DELAY_MS = 10000;
     private static final int BORDER_SIZE = 1;
-    private static final Color BORDER_COLOR = new Color(225, 54, 54);
+    private static final Color DEFAULT_BORDER_COLOR = new Color(225, 54, 54);
+    private Color borderColor = DEFAULT_BORDER_COLOR;
     private static final HashMap<WindowId, DrawWindow> windowMap = new HashMap<>();
 
     private final WindowId id;
@@ -22,7 +23,8 @@ public class DrawWindow extends JDialog {
     public enum WindowId {
         GAME_BOUNDS,
         GAME_BOUNDS_DEBUG,
-        STASH_BOUNDS_DEBUG,
+        STASH_BOUNDS_POE_1,
+        STASH_BOUNDS_POE_2,
     }
 
     private DrawWindow(WindowId id) {
@@ -36,22 +38,30 @@ public class DrawWindow extends JDialog {
         setupTimers();
     }
 
+    public void setColor(Color color) {
+        this.borderColor = color;
+    }
+
+    public static void draw(WindowId windowId, Rectangle rect) {
+        draw(windowId, rect, Color.RED);
+    }
+
     /**
      * Use this function draw a rectangle to the screen that represents a given window.
      */
-    public static void draw(WindowId windowId, Rectangle rect) {
-        if (SwingUtilities.isEventDispatchThread()) updateWindow(windowId, rect);
-        else SwingUtilities.invokeLater(() -> updateWindow(windowId, rect));
+    public static void draw(WindowId windowId, Rectangle rect, Color color) {
+        if (SwingUtilities.isEventDispatchThread()) updateWindow(windowId, rect, color);
+        else SwingUtilities.invokeLater(() -> updateWindow(windowId, rect, color));
     }
 
-    private static void updateWindow(WindowId windowId, Rectangle rect) {
+    private static void updateWindow(WindowId windowId, Rectangle rect, Color color) {
         assert SwingUtilities.isEventDispatchThread();
         DrawWindow window = windowMap.get(windowId);
         if (window == null) {
             window = new DrawWindow(windowId);
             windowMap.put(windowId, window);
         }
-        System.out.println("DRAWING WINDOW!!! " + rect);
+        window.setColor(color);
         window.draw(rect);
     }
 
@@ -68,7 +78,7 @@ public class DrawWindow extends JDialog {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(BORDER_COLOR);
+                g2d.setColor(borderColor);
                 g2d.setStroke(new BasicStroke(BORDER_SIZE));
                 g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
             }
