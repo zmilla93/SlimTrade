@@ -128,16 +128,8 @@ public class TradeMessagePanel extends NotificationPanel {
     public void cleanup() {
         super.cleanup();
         if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE) {
-            if (stashHelperPanel != null) {
-                if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.remove(stashHelperPanel);
-                else FrameManager.stashHelperContainerPoe2.remove(stashHelperPanel);
-                stashHelperPanel.cleanup();
-            }
-            if (stashHelperBulkWrapper != null) {
-                if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.remove(stashHelperPanel);
-                else FrameManager.stashHelperContainerPoe2.remove(stashHelperPanel);
-                stashHelperBulkWrapper.cleanup();
-            }
+            if (stashHelperPanel != null) stashHelperPanel.cleanup();
+            if (stashHelperBulkWrapper != null) stashHelperBulkWrapper.cleanup();
         }
     }
 

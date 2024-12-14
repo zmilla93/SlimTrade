@@ -138,7 +138,9 @@ public class StashHelperPanel extends AdvancedButton {
     }
 
     public void cleanup() {
-        setVisible(false); // Hide to trigger a repack on parent window
+        /// Hide first to trigger a repack on parent window
+        setVisible(false);
+        ZUtil.removeFromParent(this);
         if (!tradeOffer.isBulkTrade) {
             if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.remove(this);
             else FrameManager.stashHelperContainerPoe2.remove(this);

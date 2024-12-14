@@ -4,10 +4,12 @@ import github.zmilla93.App;
 
 public class UpdateMessagePanel extends NotificationPanel {
 
-    public UpdateMessagePanel() {
+    public UpdateMessagePanel(String tag) {
         pricePanel.setVisible(false);
-        playerNameButton.setText("SlimTrade Update Available!");
-        itemButton.setText("Click here to install now, or restart the app later.");
+        if (tag != null && App.getAppInfo().appVersion.isPreRelease)
+            playerNameButton.setText("SlimTrade " + tag + " Available!");
+        else playerNameButton.setText("SlimTrade Update Available!");
+        itemButton.setText("Click here to update now, or restart later.");
         playerNameButton.addActionListener(e -> App.updateManager.runUpdateProcessFromSwing());
         itemButton.addActionListener(e -> App.updateManager.runUpdateProcessFromSwing());
         setup();

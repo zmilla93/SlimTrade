@@ -270,10 +270,10 @@ public class FrameManager {
         });
     }
 
-    public static void displayUpdateAvailable() {
+    public static void displayUpdateAvailable(String tag) {
         SwingUtilities.invokeLater(() -> {
             FrameManager.optionsWindow.showUpdateButton();
-            FrameManager.messageManager.addUpdateMessage(true);
+            FrameManager.messageManager.addUpdateMessage(true, tag);
         });
     }
 

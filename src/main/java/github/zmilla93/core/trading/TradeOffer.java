@@ -194,9 +194,13 @@ public class TradeOffer {
     }
 
     public static TradeOffer getExampleTrade(TradeOfferType type) {
+        return getExampleTrade(type, Game.PATH_OF_EXILE_1);
+    }
+
+    public static TradeOffer getExampleTrade(TradeOfferType type, Game game) {
         TradeOffer exampleTrade = new TradeOffer();
         exampleTrade.offerType = type;
-        exampleTrade.game = Game.PATH_OF_EXILE_1;
+        exampleTrade.game = game;
         exampleTrade.playerName = "ExamplePlayer123";
         switch (type) {
             case INCOMING_TRADE:

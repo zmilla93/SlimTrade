@@ -150,10 +150,10 @@ public class MessageManager extends BasicDialog implements ITradeListener, IChat
     }
 
     // FIXME: Should merge this with addMessage
-    public void addUpdateMessage(boolean playSound) {
+    public void addUpdateMessage(boolean playSound, String tag) {
         assert (SwingUtilities.isEventDispatchThread());
         if (playSound) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.updateSound);
-        UpdateMessagePanel panel = new UpdateMessagePanel();
+        UpdateMessagePanel panel = new UpdateMessagePanel(tag);
         addMessageMutual(panel);
     }
 

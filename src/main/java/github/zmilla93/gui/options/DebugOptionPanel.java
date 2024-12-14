@@ -1,9 +1,11 @@
 package github.zmilla93.gui.options;
 
+import github.zmilla93.App;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.jna.JnaAwtEvent;
 import github.zmilla93.core.managers.FontManager;
 import github.zmilla93.core.managers.SaveManager;
+import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.trading.TradeOffer;
 import github.zmilla93.core.trading.TradeOfferType;
 import github.zmilla93.core.utility.ZUtil;
@@ -23,8 +25,10 @@ public class DebugOptionPanel extends AbstractOptionPanel {
 
     private final HotkeyButton chatHotkeyButton = new HotkeyButton();
 
-    private final JButton incomingMessageButton = new JButton("Incoming Trade");
-    private final JButton outgoingMessageButton = new JButton("Outgoing Trade");
+    private final JButton incomingMessageButtonPoe1 = new JButton("Incoming Trade POE1");
+    private final JButton incomingMessageButtonPoe2 = new JButton("Incoming Trade POE2");
+    private final JButton outgoingMessageButtonPoe1 = new JButton("Outgoing Trade POE1");
+    private final JButton outgoingMessageButtonPoe2 = new JButton("Outgoing Trade POE2");
     private final JButton scannerMessageButton = new JButton("Scanner Message");
     private final JButton updateMessageButton = new JButton("Update Message");
     private final JButton createBackupButton = new JButton("Create New Backup");
@@ -52,8 +56,10 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         });
 
         addHeader("Debug Tools");
-        addComponent(incomingMessageButton);
-        addComponent(outgoingMessageButton);
+        addComponent(incomingMessageButtonPoe1);
+        addComponent(incomingMessageButtonPoe2);
+        addComponent(outgoingMessageButtonPoe1);
+        addComponent(outgoingMessageButtonPoe2);
         addComponent(scannerMessageButton);
         addComponent(updateMessageButton);
         addComponent(clientButtonPoe1);
@@ -81,10 +87,12 @@ public class DebugOptionPanel extends AbstractOptionPanel {
     }
 
     private void addListeners() {
-        incomingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE)));
-        outgoingMessageButton.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE)));
+        incomingMessageButtonPoe1.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE)));
+        incomingMessageButtonPoe2.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE, Game.PATH_OF_EXILE_2)));
+        outgoingMessageButtonPoe1.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE)));
+        outgoingMessageButtonPoe2.addActionListener(e -> FrameManager.messageManager.addMessage(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE, Game.PATH_OF_EXILE_2)));
         scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addScannerMessage(new ChatScannerEntry("alch"), new PlayerMessage("CoolTrader123", "wtb alch for chaos")));
-        updateMessageButton.addActionListener(e -> FrameManager.messageManager.addUpdateMessage(true));
+        updateMessageButton.addActionListener(e -> FrameManager.messageManager.addUpdateMessage(true, App.getAppInfo().appVersion.toString()));
         uiDumpButton.addActionListener(e -> ThemeManager.debugKeyValueDump());
         clientButtonPoe1.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.installFolderPoe1));
         clientButtonPoe2.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.installFolderPoe2));

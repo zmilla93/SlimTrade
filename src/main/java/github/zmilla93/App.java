@@ -53,7 +53,7 @@ public class App {
     private static LockManager lockManager;
     public static UpdateManager updateManager;
 
-//    public static ChatParser chatParser;
+    //    public static ChatParser chatParser;
     public static ChatParser chatParserPoe1;
     public static ChatParser chatParserPoe2;
 
@@ -132,8 +132,10 @@ public class App {
                     updateIsAvailable = true;
                 }
             } else {
-                if (getAppInfo().appVersion.isPreRelease) updateManager.runPeriodicUpdateCheck(2, TimeUnit.HOURS);
-                else updateManager.runPeriodicUpdateCheck(1, TimeUnit.DAYS);
+                if (getAppInfo().appVersion.isPreRelease) {
+                    updateManager.runOneShotUpdateCheck(1, TimeUnit.HOURS);
+                    updateManager.runPeriodicUpdateCheck(2, TimeUnit.HOURS);
+                } else updateManager.runPeriodicUpdateCheck(1, TimeUnit.DAYS);
             }
         }
 
@@ -250,7 +252,7 @@ public class App {
             SaveManager.appStateSaveFile.data.tutorialVersion = TutorialWindow.TUTORIAL_VERSION;
             SaveManager.appStateSaveFile.saveToDisk(false);
         }
-        if (updateIsAvailable) FrameManager.displayUpdateAvailable();
+        if (updateIsAvailable) FrameManager.displayUpdateAvailable(updateManager.getLatestReleaseTag());
         if (updateManager.getCurrentUpdateAction() == UpdateAction.CLEAN)
             SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
     }

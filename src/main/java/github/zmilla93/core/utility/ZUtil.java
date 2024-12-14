@@ -1,6 +1,5 @@
 package github.zmilla93.core.utility;
 
-import github.zmilla93.App;
 import github.zmilla93.core.data.PasteReplacement;
 import github.zmilla93.modules.updater.ZLogger;
 import org.jetbrains.annotations.Nullable;
@@ -434,6 +433,11 @@ public class ZUtil {
 
     public static ExecutorService getMaxSpeedExecutor() {
         return Executors.newFixedThreadPool(Math.max(1, Runtime.getRuntime().availableProcessors() - 1));
+    }
+
+    public static void removeFromParent(Component component) {
+        Container parent = component.getParent();
+        if (parent != null) parent.remove(component);
     }
 
     /**

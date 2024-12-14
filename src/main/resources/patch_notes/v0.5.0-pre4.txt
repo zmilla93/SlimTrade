@@ -1,7 +1,7 @@
-**This version is not well tested. Prereleases must be manually installed once, but still receive automated updates.**
+**This version is not well tested.** Prereleases must be installed manually once, but still receive automated updates.
 
 ## Known Issues
-- Save file is not backwards compatible, backup "SlimTrade" folder if you care (Options > Information > Settings Folder)
+- Save file is not backwards compatible and will corrupt if you downgrade. Backup "SlimTrade" folder if you care (Options > Information > Settings Folder)
 - When using game detection, bounds are not saved. Detection is rerun at launch (and can be triggered from options)
 - Changing client.txt file requires a restart
 - Currency icons & translations only use POE1 data
@@ -9,11 +9,12 @@
 - "Zone" text replacement doesn't work
 
 ## pre3
-- Fixed popup marco buttons not working
+- Fixed stash helper getting stuck when closing incoming trades
 
 ## Path of Exile 2
 - SlimTrade now works seamlessly with Path of Exile 1 & 2
 - Added currency icons & translations for POE 2 (updated for POE1)
+- **POE2 broke Incoming/Outgoing whisper detection. POE2 outgoing trades require an extra hotkey until fixed by GGG**
 
 ## Game Window
 - Added a new window detection system for UI alignment, replacing the old stash alignment window
@@ -34,6 +35,6 @@
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed
-- Download and run 'SlimTrade.jar' from below
+- Download and run 'SlimTrade.jar' from 'Assets' below
 
 *Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*

@@ -436,7 +436,7 @@ public class UpdateManager {
             ZLogger.log("Running daily update check...");
             boolean update = isUpdateAvailable(true);
             if (update) {
-                FrameManager.displayUpdateAvailable();
+                FrameManager.displayUpdateAvailable(getLatestReleaseTag());
             } else {
                 runPeriodicUpdateCheck(delay, timeUnit);
             }
@@ -449,9 +449,14 @@ public class UpdateManager {
             ZLogger.log("Running one shot update check...");
             boolean update = isUpdateAvailable(true);
             if (update) {
-                FrameManager.displayUpdateAvailable();
+                FrameManager.displayUpdateAvailable(getLatestReleaseTag());
             }
         }, delayValue, timeUnit);
+    }
+
+    public String getLatestReleaseTag() {
+        if (latestRelease == null) return null;
+        return latestRelease.tag;
     }
 
 }

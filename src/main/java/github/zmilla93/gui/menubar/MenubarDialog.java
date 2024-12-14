@@ -1,6 +1,5 @@
 package github.zmilla93.gui.menubar;
 
-import github.zmilla93.App;
 import github.zmilla93.core.chatparser.IChatScannerToggleListener;
 import github.zmilla93.core.chatparser.IDndListener;
 import github.zmilla93.core.chatparser.IParserLoadedListener;
