@@ -77,7 +77,8 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
     public void rebuild() {
         if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.ICON) buildIconButtons();
         else buildTextButtons();
-        if (App.chatParser != null) updateDndButton();
+        // FIXME : Update DND Button
+//        if (App.chatParser != null) updateDndButton();
         updateScannerButton();
         TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
     }

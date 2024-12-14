@@ -89,7 +89,8 @@ public class ZUtil {
             commands.add(builder.toString().trim());
         for (int i = 0; i < commands.size(); i++) {
             String clean = commands.get(i);
-            clean = clean.replaceAll("\\{zone}", App.chatParser.getCurrentZone());
+            // FIXME : {zone} replacement
+//            clean = clean.replaceAll("\\{zone}", App.chatParser.getCurrentZone());
             clean = clean.replaceAll("\\{message}", pasteReplacement.message);
             if (!clean.startsWith("@") && !clean.startsWith("/"))
                 clean = "@" + pasteReplacement.playerName + " " + clean;

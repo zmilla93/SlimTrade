@@ -53,7 +53,7 @@ public class App {
     private static LockManager lockManager;
     public static UpdateManager updateManager;
 
-    public static ChatParser chatParser;
+//    public static ChatParser chatParser;
     public static ChatParser chatParserPoe1;
     public static ChatParser chatParserPoe2;
 
