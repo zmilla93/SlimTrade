@@ -18,9 +18,11 @@ import java.util.ArrayList;
 public class StashHelperBulkWrapper extends JPanel {
 
     private final ArrayList<StashHelperPanel> helperPanels = new ArrayList<>();
+    private final TradeOffer tradeOffer;
 
     public StashHelperBulkWrapper(TradeOffer tradeOffer) {
         assert (tradeOffer.isBulkTrade);
+        this.tradeOffer = tradeOffer;
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
         ArrayList<SaleItem> items = tradeOffer.getItems();
@@ -32,7 +34,8 @@ public class StashHelperBulkWrapper extends JPanel {
             gc.insets.left = StashHelperContainer.INSET;
             helperPanels.add(panel);
         }
-        FrameManager.stashHelperContainerLegacy.addHelper(this);
+        if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.addHelper(this);
+        else FrameManager.stashHelperContainerPoe2.addHelper(this);
     }
 
     public ArrayList<StashHelperPanel> getHelperPanels() {
@@ -40,7 +43,9 @@ public class StashHelperBulkWrapper extends JPanel {
     }
 
     public void cleanup() {
-        FrameManager.stashHelperContainerLegacy.remove(this);
+//        FrameManager.stashHelperContainerLegacy.remove(this);
+        if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.remove(this);
+        else FrameManager.stashHelperContainerPoe2.remove(this);
         for (StashHelperPanel panel : helperPanels) panel.cleanup();
     }
 

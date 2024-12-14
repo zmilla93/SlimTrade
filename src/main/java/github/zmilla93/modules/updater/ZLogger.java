@@ -40,9 +40,9 @@ public class ZLogger {
         logsDirectory = appDirectory.resolve(SUBFOLDER);
         if (!logsDirectory.toFile().exists()) {
             try {
-                System.err.println("Failed to create log directory, logger will not run: " + logsDirectory);
                 Files.createDirectories(logsDirectory);
             } catch (IOException e) {
+                System.err.println("Failed to create log directory, logger will not run: " + logsDirectory);
                 return;
             }
         }

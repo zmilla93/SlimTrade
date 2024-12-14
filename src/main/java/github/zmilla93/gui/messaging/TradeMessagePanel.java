@@ -30,7 +30,7 @@ public class TradeMessagePanel extends NotificationPanel {
         super(createListeners);
         this.tradeOffer = tradeOffer;
         this.pasteReplacement = new PasteReplacement(tradeOffer.message, tradeOffer.playerName, tradeOffer.itemName, tradeOffer.itemQuantity, tradeOffer.priceName, tradeOffer.priceQuantity);
-        if (FrameManager.stashHelperContainerLegacy != null && tradeOffer.offerType == TradeOfferType.INCOMING_TRADE && createListeners) {
+        if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE && createListeners) {
             if (this.tradeOffer.isBulkTrade) {
                 stashHelperBulkWrapper = new StashHelperBulkWrapper(tradeOffer);
             } else {
@@ -129,11 +129,13 @@ public class TradeMessagePanel extends NotificationPanel {
         super.cleanup();
         if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE) {
             if (stashHelperPanel != null) {
-                FrameManager.stashHelperContainerLegacy.remove(stashHelperPanel);
+                if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.remove(stashHelperPanel);
+                else FrameManager.stashHelperContainerPoe2.remove(stashHelperPanel);
                 stashHelperPanel.cleanup();
             }
             if (stashHelperBulkWrapper != null) {
-                FrameManager.stashHelperContainerLegacy.remove(stashHelperBulkWrapper);
+                if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.remove(stashHelperPanel);
+                else FrameManager.stashHelperContainerPoe2.remove(stashHelperPanel);
                 stashHelperBulkWrapper.cleanup();
             }
         }

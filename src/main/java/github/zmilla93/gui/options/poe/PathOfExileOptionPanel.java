@@ -11,6 +11,7 @@ import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.POEFolderPicker;
 import github.zmilla93.gui.components.poe.POEInstallFolderExplanationPanel;
 import github.zmilla93.gui.components.poe.detection.GameDetectionButton;
+import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.options.AbstractOptionPanel;
 import github.zmilla93.modules.saving.ISavable;
 
@@ -108,6 +109,8 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         SaveManager.settingsSaveFile.data.usingStashFoldersPoe1 = usingStashFoldersPoe1Checkbox.isSelected();
         SaveManager.settingsSaveFile.data.usingStashFoldersPoe2 = usingStashFoldersPoe2Checkbox.isSelected();
         // FIXME : Need to reinit parsers if paths have changed.
+        FrameManager.stashHelperContainerPoe1.updateLocation();
+        FrameManager.stashHelperContainerPoe2.updateLocation();
     }
 
     @Override

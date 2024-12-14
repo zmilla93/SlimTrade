@@ -139,11 +139,21 @@ public class StashHelperPanel extends AdvancedButton {
 
     public void cleanup() {
         setVisible(false); // Hide to trigger a repack on parent window
-        if (!tradeOffer.isBulkTrade)
-            FrameManager.stashHelperContainerLegacy.getContentPanel().remove(this);
+        if (!tradeOffer.isBulkTrade) {
+            if (tradeOffer.game.isPoe1()) FrameManager.stashHelperContainerPoe1.remove(this);
+            else FrameManager.stashHelperContainerPoe2.remove(this);
+        }
         if (highlighterFrame != null) {
             highlighterFrame.dispose();
             highlighterFrame = null;
+        }
+    }
+
+    private void updateParent() {
+        Container parent = getTopLevelAncestor();
+        if (parent == null) return;
+        if (parent instanceof StashHelperContainer) {
+            ((StashHelperContainer) parent).updateLocation();
         }
     }
 
@@ -151,9 +161,7 @@ public class StashHelperPanel extends AdvancedButton {
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
-        Container parent = getTopLevelAncestor();
-        if (parent == null) return;
-        if (parent instanceof Window) ((Window) parent).pack();
+        updateParent();
     }
 
     @Override

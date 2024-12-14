@@ -39,15 +39,7 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
         POEWindow.addListener(this);
     }
 
-    public void updateLocation() {
-//        Rectangle stashBounds = POEWindow.getPoe1StashBonds();
-//        setLocation(stashBounds.x, stashBounds.y);
-        if (SaveManager.stashSaveFile.data.gridRect == null) return;
-        Point target = SaveManager.stashSaveFile.data.gridRect.getLocation();
-        int offset = SaveManager.settingsSaveFile.data.folderOffset ? FOLDER_OFFSET : DEFAULT_OFFSET;
-        target.y -= getHeight() + offset;
-        setLocation(target);
-    }
+    public abstract void updateLocation();
 
     public Component addHelper(TradeOffer offer) {
         Component panel = new StashHelperPanel(offer);
@@ -87,6 +79,11 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
                 }
             }
         }
+    }
+
+    @Override
+    public void onGameBoundsChange() {
+        updateLocation();
     }
 
 }

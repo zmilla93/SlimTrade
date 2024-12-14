@@ -134,7 +134,7 @@ public class StashGridWindow extends CustomDialog implements ISavable, IThemeLis
         int gridX = getX() + getResizerSize() + INSET_HORIZONTAL + getBorderSize();
         int gridY = getY() + getResizerSize() + INSET_VERTICAL + getTitleBarHeight() + getBorderSize();
         SaveManager.stashSaveFile.data.gridRect = new Rectangle(gridX, gridY, gridPanel.getWidth(), gridPanel.getHeight());
-        FrameManager.stashHelperContainerLegacy.updateLocation();
+//        FrameManager.stashHelperContainerLegacy.updateLocation();
     }
 
     @Override

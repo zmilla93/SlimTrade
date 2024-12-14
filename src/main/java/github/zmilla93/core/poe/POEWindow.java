@@ -41,20 +41,30 @@ public class POEWindow {
             new Rectangle(14, 160, 634, 634),
             new Rectangle(0, 0, 1920, 1080));
 
+    private static final float POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS = ScaledInt.getPercentValue(40, 1080);
+    private static final float POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(75, 1080);
+    private static final float POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS = ScaledInt.getPercentValue(40, 1080);
+    private static final float POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(75, 1080);
 
     /// Currently set game bounds
     private static Rectangle gameBounds;
     private static Point centerOfScreen;
 
     /// Calculated based on the current game bounds
-    private static Rectangle poe1StashBoundsNoFolders;
+    // Path of Exile 1
     private static Rectangle poe1StashBoundsWithFolders;
+    private static Rectangle poe1StashBoundsNoFolders;
     private static Dimension poe1StashCellSize;
     private static Dimension poe1StashCellSizeQuad;
+    private static int poe1StashHelperOffsetWithFolders;
+    private static int poe1StashHelperOffsetNoFolders;
+    // Path of Exile 2
     private static Rectangle poe2StashBoundsNoFolders;
     private static Rectangle poe2StashBoundsWithFolders;
     private static Dimension poe2StashCellSize;
     private static Dimension poe2StashCellSizeQuad;
+    private static int poe2StashHelperOffsetWithFolders;
+    private static int poe2StashHelperOffsetNoFolders;
 
     /// The components most recently used to update the game bounds
     private static NativePoeWindow currentGameWindow;
@@ -174,7 +184,7 @@ public class POEWindow {
     }
 
     // Path of Exile UI Info Getters
-
+    // FIXME : Should do this check in calculate, not getter. Same with helper offset, and ditto for POE2.
     public static Rectangle getPoe1StashBonds() {
         if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe1) {
             return poe1StashBoundsWithFolders;
@@ -187,6 +197,12 @@ public class POEWindow {
 
     public static Dimension getPoe1StashCellSizeQuad() {
         return poe1StashCellSizeQuad;
+    }
+
+    public static int getPoe1StashHelperOffset() {
+        if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe1) {
+            return poe1StashHelperOffsetWithFolders;
+        } else return poe1StashHelperOffsetNoFolders;
     }
 
     public static Rectangle getPoe2StashBonds() {
@@ -205,6 +221,12 @@ public class POEWindow {
         return poe2StashCellSizeQuad;
     }
 
+    public static int getPoe2StashHelperOffset() {
+        if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe1) {
+            return poe2StashHelperOffsetWithFolders;
+        } else return poe2StashHelperOffsetNoFolders;
+    }
+
     private static void calculatePoe1UIData() {
         POEWindow.poe1StashBoundsNoFolders = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_NO_FOLDERS, gameBounds);
         POEWindow.poe1StashBoundsWithFolders = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_WITH_FOLDERS, gameBounds);
@@ -214,6 +236,8 @@ public class POEWindow {
         int quadCellWidth = Math.round(poe1StashBoundsNoFolders.width / 24f);
         int quadCellHeight = Math.round(poe1StashBoundsNoFolders.height / 24f);
         poe1StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
+        poe1StashHelperOffsetWithFolders = ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds.height);
+        poe1StashHelperOffsetNoFolders = ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds.height);
         if (App.debug)
             ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_POE_1, getPoe1StashBonds()));
     }
@@ -227,6 +251,8 @@ public class POEWindow {
         int quadCellWidth = Math.round(poe2StashBoundsNoFolders.width / 24f);
         int quadCellHeight = Math.round(poe2StashBoundsNoFolders.height / 24f);
         poe2StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
+        poe2StashHelperOffsetWithFolders = ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds.height);
+        poe2StashHelperOffsetNoFolders = ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds.height);
         if (App.debug)
             ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_POE_2, getPoe2StashBonds(), Color.BLUE));
     }

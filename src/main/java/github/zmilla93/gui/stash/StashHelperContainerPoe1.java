@@ -12,14 +12,10 @@ public class StashHelperContainerPoe1 extends StashHelperContainer {
         ZUtil.invokeLater(() -> {
             Rectangle stashBounds = POEWindow.getPoe1StashBonds();
             if (stashBounds == null) return;
-            setLocation(stashBounds.x, stashBounds.y);
             pack();
+            int adjustedY = stashBounds.y - POEWindow.getPoe1StashHelperOffset() - getHeight();
+            setLocation(stashBounds.x, adjustedY);
         });
-    }
-
-    @Override
-    public void onGameBoundsChange() {
-        updateLocation();
     }
 
 }
