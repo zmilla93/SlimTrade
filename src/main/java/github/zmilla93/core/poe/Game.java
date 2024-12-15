@@ -1,8 +1,13 @@
 package github.zmilla93.core.poe;
 
+import github.zmilla93.core.managers.SaveManager;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * An enum for knowing which version of Path of Exile is being referenced.
- * The toString() value also matches the name of the Path of Exile's install folder, and the game's window title.
+ * Also contains utility functions for dealing with game disparity.
  */
 public enum Game {
 
@@ -27,6 +32,20 @@ public enum Game {
 
     public boolean isPoe1() {
         return this == Game.PATH_OF_EXILE_1;
+    }
+
+    /**
+     *
+     */
+    public boolean isClientPathValid() {
+        // FIXME : Should this check isInstalled first?
+        String pathString;
+        if (isPoe1()) pathString = SaveManager.settingsSaveFile.data.installFolderPoe1;
+        else pathString = SaveManager.settingsSaveFile.data.installFolderPoe2;
+        if (pathString == null) return false;
+        Path poeFolder = Paths.get(pathString);
+        Path clientPath = poeFolder.resolve(Paths.get(SaveManager.POE_LOG_FOLDER_NAME, SaveManager.POE_LOG_FOLDER_NAME));
+        return clientPath.toFile().exists();
     }
 
     @Override

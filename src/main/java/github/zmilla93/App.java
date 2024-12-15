@@ -2,6 +2,7 @@ package github.zmilla93;
 
 import github.zmilla93.core.References;
 import github.zmilla93.core.chatparser.ChatParser;
+import github.zmilla93.core.chatparser.ChatParserManager;
 import github.zmilla93.core.enums.AppState;
 import github.zmilla93.core.enums.CurrencyType;
 import github.zmilla93.core.enums.SetupPhase;
@@ -53,7 +54,6 @@ public class App {
     private static LockManager lockManager;
     public static UpdateManager updateManager;
 
-    //    public static ChatParser chatParser;
     public static ChatParser chatParserPoe1;
     public static ChatParser chatParserPoe2;
 
@@ -242,7 +242,14 @@ public class App {
         FrameManager.showAppFrames();
         SystemTrayManager.showDefault();
 
-        initChatParsers();
+//        initChatParsers();
+        ChatParserManager.initChatParsers();
+//        try {
+//            Thread.sleep(100);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        ChatParserManager.initChatParsers();
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);
 
@@ -305,9 +312,7 @@ public class App {
         parser.addDndListener(FrameManager.menuBarIcon);
         parser.addDndListener(FrameManager.menuBarDialog);
         // Open
-        // FIXME
         parser.open(clientPath);
-//        parser.open(clientPath);
     }
 
     public static AppInfo getAppInfo() {

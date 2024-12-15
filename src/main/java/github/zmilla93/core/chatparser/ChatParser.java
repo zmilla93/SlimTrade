@@ -17,29 +17,27 @@ import github.zmilla93.modules.filetailing.FileTailerListener;
 import github.zmilla93.modules.updater.ZLogger;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatParser implements FileTailerListener {
 
+    // File Tailing
     public static final int tailerDelayMS = 250;
     private FileTailer tailer;
-
+    /// Parser is multithreaded, so CopyOnWriteArrays are used to avoid a concurrency modification exception.
     // Listeners - Parser State
-    private final ArrayList<IParserInitListener> onInitListeners = new ArrayList<>();
-    private final ArrayList<IParserLoadedListener> onLoadListeners = new ArrayList<>();
+    private final CopyOnWriteArrayList<IParserInitListener> onInitListeners = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<IParserLoadedListener> onLoadListeners = new CopyOnWriteArrayList<>();
     // Listeners - Game Events
-    private final ArrayList<ITradeListener> tradeListeners = new ArrayList<>();
-    private final ArrayList<IChatScannerListener> chatScannerListeners = new ArrayList<>();
-    private final ArrayList<IJoinedAreaListener> joinedAreaListeners = new ArrayList<>();
-    private final ArrayList<IDndListener> dndListeners = new ArrayList<>();
-
+    private final CopyOnWriteArrayList<ITradeListener> tradeListeners = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<IChatScannerListener> chatScannerListeners = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<IJoinedAreaListener> joinedAreaListeners = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<IDndListener> dndListeners = new CopyOnWriteArrayList<>();
     // Settings
     private final Game game;
     private Path path;
-    private final boolean isPoe1;
-
     // State
     private boolean open;
     private int lineCount;
@@ -48,7 +46,6 @@ public class ChatParser implements FileTailerListener {
     private String currentZone = "The Twilight Strand";
     private boolean dnd = false;
     private long startTime;
-
     // Regex
     public static final String CLIENT_MESSAGE_REGEX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] (?<message>.+)";
     public static final String CLIENT_WHISPER_REGEX = "@(?<messageType>От кого|\\S+) (?<guildName><.+>)? ?(?<playerName>[^:]+):(\\s+)(?<message>.+)";
@@ -60,7 +57,10 @@ public class ChatParser implements FileTailerListener {
 
     public ChatParser(Game game) {
         this.game = game;
-        this.isPoe1 = game == Game.PATH_OF_EXILE_1;
+    }
+
+    public boolean isOpen() {
+        return open;
     }
 
     public void open(Path path) {
@@ -83,10 +83,14 @@ public class ChatParser implements FileTailerListener {
         tailer = FileTailer.createTailer(path, isPathRelative, this, tailerDelayMS, false);
         startTime = System.currentTimeMillis();
         open = true;
+        System.out.println("PARSER OPENED: " + path);
+
     }
 
     public void close() {
+        System.out.println("PARSER CLOSED: " + path);
         tailer.stop();
+        removeAllListeners();
         tailer = null;
         path = null;
         open = false;
@@ -121,7 +125,7 @@ public class ChatParser implements FileTailerListener {
             Matcher whisperMatcher = whisperPattern.matcher(fullMessage);
             if (whisperMatcher.matches()) {
                 String message = whisperMatcher.group("message");
-                String guildName = isPoe1 ? whisperMatcher.group("guildName") : null;
+                String guildName = game.isPoe1() ? whisperMatcher.group("guildName") : null;
                 String playerName = whisperMatcher.group("playerName");
                 String messageType = whisperMatcher.group("messageType");
                 WhisperData metaData = new WhisperData();
@@ -142,7 +146,7 @@ public class ChatParser implements FileTailerListener {
     }
 
     private TradeOfferType getOfferType(String messageType) {
-        if (isPoe1) return LangRegex.getMessageType(messageType);
+        if (game.isPoe1()) return LangRegex.getMessageType(messageType);
         else {
             if (HotkeyManager.isHotkeyPressed(SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey))
                 return TradeOfferType.OUTGOING_TRADE;
