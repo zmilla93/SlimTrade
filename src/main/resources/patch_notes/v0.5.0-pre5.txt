@@ -2,18 +2,19 @@
 
 ## Known Issues
 - When using game detection, bounds are not saved. Detection is rerun at launch (and can be triggered from options)
-- Changing client.txt file requires a restart
 - Theme & UI improvements incomplete
 - "Zone" text replacement doesn't work
+- History window hasn't been properly updated
 
 ## pre5
-- Added poe2 currency icons
+- Added PoE2 currency icons
 - Bug fixes
+- PoE2 setup will rerun
 
 ## Path of Exile 2
 - SlimTrade now works seamlessly with Path of Exile 1 & 2
-- Added currency icons & translations for POE 2 (updated for POE1)
-- **POE2 broke Incoming/Outgoing whisper detection. POE2 outgoing trades require an extra hotkey until fixed by GGG**
+- Added currency icons & translations for PoE2 (updated for PoE1)
+- **PoE2 broke Incoming/Outgoing whisper detection. PoE2 outgoing trades require an extra hotkey until fixed by GGG**
 
 ## Game Window
 - Added a new window detection system for UI alignment, replacing the old stash alignment window

@@ -21,6 +21,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses Path of Exile's chat using a {@link FileTailer} and listening for {@link FileTailerListener} events.
+ */
+// FIXME : This file could use some cleanup.
+// FIXME : Consolidate regex in References and LangRegex with this.
 public class ChatParser implements FileTailerListener {
 
     // File Tailing
@@ -30,7 +35,7 @@ public class ChatParser implements FileTailerListener {
     // Listeners - Parser State
     private final CopyOnWriteArrayList<IParserInitListener> onInitListeners = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<IParserLoadedListener> onLoadListeners = new CopyOnWriteArrayList<>();
-    // Listeners - Game Events
+    // Listeners - POE Game Events
     private final CopyOnWriteArrayList<ITradeListener> tradeListeners = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<IChatScannerListener> chatScannerListeners = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<IJoinedAreaListener> joinedAreaListeners = new CopyOnWriteArrayList<>();
@@ -59,6 +64,11 @@ public class ChatParser implements FileTailerListener {
         this.game = game;
     }
 
+
+    public Path getPath() {
+        return path;
+    }
+
     public boolean isOpen() {
         return open;
     }
@@ -68,11 +78,11 @@ public class ChatParser implements FileTailerListener {
     }
 
     public void open(Path path, boolean isPathRelative) {
+        if (open) return;
         this.path = path;
         lineCount = 0;
         whisperCount = 0;
         tradeCount = 0;
-        if (open) close();
         if (path == null) {
             ZLogger.err("Chat parser was given a null path!");
             return;
@@ -87,6 +97,7 @@ public class ChatParser implements FileTailerListener {
     }
 
     public void close() {
+        if (!open) return;
         tailer.stop();
         removeAllListeners();
         tailer = null;
@@ -94,13 +105,8 @@ public class ChatParser implements FileTailerListener {
         open = false;
     }
 
-    public Path getPath() {
-        return path;
-    }
-
     public void parseLine(String line) {
         if (!open) return;
-//        System.out.println("PARSING " + game + " LINE.");
         Matcher fullClientMessage = clientMessage.matcher(line);
         if (!fullClientMessage.matches()) return;
         String fullMessage = fullClientMessage.group("message");

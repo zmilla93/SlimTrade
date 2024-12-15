@@ -1,5 +1,6 @@
 package github.zmilla93.gui.options.poe;
 
+import github.zmilla93.core.chatparser.ChatParserManager;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.GameWindowMode;
@@ -116,7 +117,7 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         FrameManager.stashHelperContainerPoe1.updateLocation();
         FrameManager.stashHelperContainerPoe2.updateLocation();
         // FIXME : Need to reinit parsers if paths have changed.
-
+        ChatParserManager.initChatParsers();
     }
 
     @Override
