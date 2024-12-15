@@ -153,10 +153,12 @@ public class ZLogger {
         while (dates.size() > MAX_LOG_FILES && attempts < MAX_FILE_DELETIONS) {
             Date oldestDate = Collections.min(dates);
             String fileTimestamp = fileNameFormatter.format(oldestDate);
-            String path = logsDirectory + File.separator + FILE_PREFIX + fileTimestamp + ".txt";
-            File file = new File(path);
-            if (file.delete()) log("Deleted old log file: " + path);
-            else log("Failed to delete file: " + path);
+            Path path = logsDirectory.resolve(FILE_PREFIX + fileTimestamp + ".txt");
+            try {
+                Files.delete(path);
+            } catch (IOException ignore) {
+                System.err.println("Failed to delete log file: " + path);
+            }
             dates.remove(oldestDate);
             attempts++;
         }

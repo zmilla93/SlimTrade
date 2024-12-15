@@ -1,15 +1,14 @@
-**This version is not well tested.** Prereleases must be installed manually once, but still receive automated updates.
+**Save file is not backwards compatible. Backup "settings.json" if you prefer caution. (Options > Information > Settings Folder)**
 
 ## Known Issues
-- Save file is not backwards compatible and will corrupt if you downgrade. Backup "SlimTrade" folder if you care (Options > Information > Settings Folder)
 - When using game detection, bounds are not saved. Detection is rerun at launch (and can be triggered from options)
 - Changing client.txt file requires a restart
-- Currency icons & translations only use POE1 data
 - Theme & UI improvements incomplete
 - "Zone" text replacement doesn't work
 
 ## pre5
-- TODO
+- Added poe2 currency icons
+- Bug fixes
 
 ## Path of Exile 2
 - SlimTrade now works seamlessly with Path of Exile 1 & 2

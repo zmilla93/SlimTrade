@@ -51,7 +51,7 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
 
         /// Path of Exile 1
         poe1OptionPanel.addComponent(usingStashFoldersPoe1Checkbox);
-        addHeader(Game.PATH_OF_EXILE_1.getExplicitName());
+        addHeader(Game.PATH_OF_EXILE_1.explicitName);
         addComponent(poe1FolderPicker);
         addFullWidthComponent(poe1OptionPanel);
         addVerticalStrut();
@@ -106,12 +106,12 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         }
         SaveManager.settingsSaveFile.data.poeChatHotkey = chatHotkeyButton.getData();
         /// Game Specific
-        SaveManager.settingsSaveFile.data.notInstalledPoe1 = poe1FolderPicker.notInstalledCheckbox.isSelected();
-        SaveManager.settingsSaveFile.data.notInstalledPoe2 = poe2FolderPicker.notInstalledCheckbox.isSelected();
-        SaveManager.settingsSaveFile.data.installFolderPoe1 = poe1FolderPicker.getPathString();
-        SaveManager.settingsSaveFile.data.installFolderPoe2 = poe2FolderPicker.getPathString();
-        SaveManager.settingsSaveFile.data.usingStashFoldersPoe1 = usingStashFoldersPoe1Checkbox.isSelected();
-        SaveManager.settingsSaveFile.data.usingStashFoldersPoe2 = usingStashFoldersPoe2Checkbox.isSelected();
+        SaveManager.settingsSaveFile.data.settingsPoe1.notInstalled = poe1FolderPicker.notInstalledCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled = poe2FolderPicker.notInstalledCheckbox.isSelected();
+        SaveManager.settingsSaveFile.data.settingsPoe1.installFolder = poe1FolderPicker.getPathString();
+        SaveManager.settingsSaveFile.data.settingsPoe2.installFolder = poe2FolderPicker.getPathString();
+        SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder = usingStashFoldersPoe1Checkbox.isSelected();
+        SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder = usingStashFoldersPoe2Checkbox.isSelected();
         SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey = poe2OutgoingTradeHotkeyPanel.hotkeyButton.getData();
         FrameManager.stashHelperContainerPoe1.updateLocation();
         FrameManager.stashHelperContainerPoe2.updateLocation();
@@ -128,12 +128,12 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
             monitorPicker.setMonitor(SaveManager.settingsSaveFile.data.selectedMonitor);
         /// Game Specific
         chatHotkeyButton.setData(SaveManager.settingsSaveFile.data.poeChatHotkey);
-        poe1FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.notInstalledPoe1);
-        poe2FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.notInstalledPoe2);
-        poe1FolderPicker.setSelectedPath(SaveManager.settingsSaveFile.data.installFolderPoe1);
-        poe2FolderPicker.setSelectedPath(SaveManager.settingsSaveFile.data.installFolderPoe2);
-        usingStashFoldersPoe1Checkbox.setSelected(SaveManager.settingsSaveFile.data.usingStashFoldersPoe1);
-        usingStashFoldersPoe2Checkbox.setSelected(SaveManager.settingsSaveFile.data.usingStashFoldersPoe1);
+        poe1FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe1.notInstalled);
+        poe2FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled);
+        poe1FolderPicker.setSelectedPath(SaveManager.settingsSaveFile.data.settingsPoe1.installFolder);
+        poe2FolderPicker.setSelectedPath(SaveManager.settingsSaveFile.data.settingsPoe2.installFolder);
+        usingStashFoldersPoe1Checkbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder);
+        usingStashFoldersPoe2Checkbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder);
         poe2OutgoingTradeHotkeyPanel.hotkeyButton.setData(SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey);
         refreshPanelVisibility();
     }

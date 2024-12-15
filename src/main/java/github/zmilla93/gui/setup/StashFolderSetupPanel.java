@@ -3,7 +3,6 @@ package github.zmilla93.gui.setup;
 import github.zmilla93.core.enums.ResultStatus;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
-import github.zmilla93.core.saving.savefiles.SettingsSaveFile;
 import github.zmilla93.gui.components.poe.ResultLabel;
 
 import javax.swing.*;
@@ -28,7 +27,7 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
         addComponent(new JLabel("Do you use any stash tab folders? Doing so affects UI alignment."));
         addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "This settings needs to be updated manually if changed."));
         addVerticalStrut();
-        addHeader(Game.PATH_OF_EXILE_1.getExplicitName());
+        addHeader(Game.PATH_OF_EXILE_1.explicitName);
         addComponent(poe1YesRadioButton);
         addComponent(poe1NoRadioButton);
         addVerticalStrut();
@@ -47,11 +46,10 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void initializeComponents() {
-        boolean initialized = SaveManager.settingsSaveFile.data.initUsingStashFolders == SettingsSaveFile.targetInitUsingStashFolders;
-        if (initialized) {
-            if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe1) poe1YesRadioButton.setSelected(true);
+        if (SaveManager.settingsSaveFile.data.hasInitUsingStashFolders) {
+            if (SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder) poe1YesRadioButton.setSelected(true);
             else poe1NoRadioButton.setSelected(true);
-            if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe2) poe2YesRadioButton.setSelected(true);
+            if (SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder) poe2YesRadioButton.setSelected(true);
             else poe2NoRadioButton.setSelected(true);
         }
     }
@@ -65,9 +63,9 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
 
     @Override
     public void applyCompletedSetup() {
-        SaveManager.settingsSaveFile.data.usingStashFoldersPoe1 = poe1YesRadioButton.isSelected();
-        SaveManager.settingsSaveFile.data.usingStashFoldersPoe2 = poe2YesRadioButton.isSelected();
-        SaveManager.settingsSaveFile.data.initUsingStashFolders = SettingsSaveFile.targetInitUsingStashFolders;
+        SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder = poe1YesRadioButton.isSelected();
+        SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder = poe2YesRadioButton.isSelected();
+        SaveManager.settingsSaveFile.data.hasInitUsingStashFolders = true;
     }
 
 }

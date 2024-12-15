@@ -80,15 +80,13 @@ public class ChatParser implements FileTailerListener {
         if (!path.toFile().exists()) {
             ZLogger.err("Chat parser was given a file that doesn't exist: " + path);
         }
+        ZLogger.log("Starting chat parser for " + game.explicitName + ".");
         tailer = FileTailer.createTailer(path, isPathRelative, this, tailerDelayMS, false);
         startTime = System.currentTimeMillis();
         open = true;
-        System.out.println("PARSER OPENED: " + path);
-
     }
 
     public void close() {
-        System.out.println("PARSER CLOSED: " + path);
         tailer.stop();
         removeAllListeners();
         tailer = null;
@@ -356,7 +354,7 @@ public class ChatParser implements FileTailerListener {
     @Override
     public void onLoad() {
         float endTime = (System.currentTimeMillis() - startTime) / 1000f;
-        ZLogger.log("Chat parser loaded for " + game + " in " + endTime + " seconds. Found " + lineCount + " lines, " + whisperCount + " whispers, and " + tradeCount + " trades.");
+        ZLogger.log("Chat parser loaded for " + game.explicitName + " in " + endTime + " seconds. Found " + lineCount + " lines, " + whisperCount + " whispers, and " + tradeCount + " trades.");
         for (IParserLoadedListener listener : onLoadListeners) listener.onParserLoaded(dnd);
     }
 

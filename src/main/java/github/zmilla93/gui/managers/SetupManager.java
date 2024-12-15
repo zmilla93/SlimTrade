@@ -5,11 +5,9 @@ import github.zmilla93.core.enums.SetupPhase;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.GameWindowMode;
-import github.zmilla93.core.saving.savefiles.SettingsSaveFile;
-import github.zmilla93.core.utility.TradeUtil;
+import github.zmilla93.core.poe.PoeClientPath;
 import github.zmilla93.gui.setup.SetupWindow;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -31,36 +29,29 @@ public class SetupManager {
         }
         /// Start of setup phase checks
         // Game Directories
-        boolean initializedGamePaths = SaveManager.settingsSaveFile.data.initGameDirectories == SettingsSaveFile.targetInitGameDirectories;
-        if (initializedGamePaths) {
-            boolean poe1MarkedNotInstalled = SaveManager.settingsSaveFile.data.notInstalledPoe1;
-            boolean poe2MarkedNotInstalled = SaveManager.settingsSaveFile.data.notInstalledPoe2;
-            boolean poe1ValidPath = false;
-            boolean poe2ValidPath = false;
-            String poe1PathString = SaveManager.settingsSaveFile.data.installFolderPoe1;
-            String poe2PathString = SaveManager.settingsSaveFile.data.installFolderPoe2;
-            if (poe1PathString != null)
-                poe1ValidPath = TradeUtil.isValidPOEFolder(Paths.get(poe1PathString), Game.PATH_OF_EXILE_1);
-            if (poe2PathString != null)
-                poe2ValidPath = TradeUtil.isValidPOEFolder(Paths.get(poe2PathString), Game.PATH_OF_EXILE_2);
-            boolean poe1FullPathValidation = poe1ValidPath || poe1MarkedNotInstalled;
-            boolean poe2FullPathValidation = poe2ValidPath || poe2MarkedNotInstalled;
+        if (!SaveManager.settingsSaveFile.data.hasInitGameDirectories) {
+            setupPhases.add(SetupPhase.INSTALL_DIRECTORY);
+        } else {
+            boolean poe1MarkedNotInstalled = SaveManager.settingsSaveFile.data.settingsPoe1.notInstalled;
+            boolean poe2MarkedNotInstalled = SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled;
+            boolean poe1ValidPath = PoeClientPath.isValidInstallFolder(Game.PATH_OF_EXILE_1, SaveManager.settingsSaveFile.data.settingsPoe1.installFolder);
+            boolean poe2ValidPath = PoeClientPath.isValidInstallFolder(Game.PATH_OF_EXILE_2, SaveManager.settingsSaveFile.data.settingsPoe2.installFolder);
+            boolean poe1FullPathValidation = poe1MarkedNotInstalled || poe1ValidPath;
+            boolean poe2FullPathValidation = poe2MarkedNotInstalled || poe2ValidPath;
             if (!poe1FullPathValidation || !poe2FullPathValidation)
                 setupPhases.add(SetupPhase.INSTALL_DIRECTORY);
-        } else {
-            setupPhases.add(SetupPhase.INSTALL_DIRECTORY);
         }
         // Game Detection Method
         // FIXME : Make this more robust once done with screen region
         if (SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.UNSET)
             setupPhases.add(SetupPhase.GAME_WINDOW);
         // Using Stash Folders
-        boolean hasInitFolders = SaveManager.settingsSaveFile.data.initUsingStashFolders == SettingsSaveFile.targetInitUsingStashFolders;
-        if (!hasInitFolders) setupPhases.add(SetupPhase.USING_STASH_FOLDERS);
+        if (!SaveManager.settingsSaveFile.data.hasInitUsingStashFolders)
+            setupPhases.add(SetupPhase.USING_STASH_FOLDERS);
         // POE2 Outgoing Trade Fix
         if (SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey == null)
-            if (SaveManager.settingsSaveFile.data.initGameDirectories == SettingsSaveFile.targetInitGameDirectories)
-                if (!SaveManager.settingsSaveFile.data.notInstalledPoe2)
+            if (SaveManager.settingsSaveFile.data.hasInitGameDirectories)
+                if (!SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled)
                     setupPhases.add(SetupPhase.POE_2_OUTGOING_TRADE_FIX);
         // Add any forced setup phases
         if (!App.forcedSetupPhases.isEmpty()) {

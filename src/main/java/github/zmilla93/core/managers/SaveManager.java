@@ -43,10 +43,6 @@ public class SaveManager {
     public static SaveFile<ChatScannerSaveFile> chatScannerSaveFile = new SaveFile<>(getSaveDirectory().resolve("scanner.json"), ChatScannerSaveFile.class);
     public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory().resolve("patch_notes.json"), PatchNotesSaveFile.class);
 
-    // Path of Exile
-    public static final String POE_CLIENT_TXT_NAME = "Client.txt";
-    public static final String POE_LOG_FOLDER_NAME = "logs";
-
     public static void init() {
         // Load all save files from disk
         settingsSaveFile.loadFromDisk();

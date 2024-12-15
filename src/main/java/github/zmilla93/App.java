@@ -36,7 +36,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -95,10 +94,9 @@ public class App {
 
         /// Logger
         ZLogger.open(SaveManager.getSaveDirectory(), args);
-        ZLogger.log("SlimTrade launching... " + Arrays.toString(args));
-        if (getAppInfo().appVersion.isPreRelease)
-            ZLogger.log("This is a prerelease version!");
-        ZLogger.log("Platform: " + System.getProperty("os.name") + " [" + Platform.current + "]");
+        String argString = args.length == 0 ? "" : Arrays.toString(args);
+        ZLogger.log("SlimTrade " + getAppInfo().appVersion + " started... " + argString);
+        ZLogger.log("Current platform: " + System.getProperty("os.name") + " [" + Platform.current.name() + "]");
         ZLogger.cleanOldLogFiles();
 
         /// Launch profiling
@@ -194,7 +192,7 @@ public class App {
         });
 
         if (debugProfileLaunch) ZLogger.log("Profiling launch complete!\n");
-        ZLogger.log("SlimTrade Launched");
+        ZLogger.log("SlimTrade startup complete!");
     }
 
     private static void profileLaunch(String context) {
@@ -243,15 +241,13 @@ public class App {
         SystemTrayManager.showDefault();
 
 //        initChatParsers();
-        ChatParserManager.initChatParsers();
+//        ChatParserManager.initChatParsers();
 //        try {
 //            Thread.sleep(100);
 //        } catch (InterruptedException e) {
 //            throw new RuntimeException(e);
 //        }
-        ChatParserManager.initChatParsers();
-        HotkeyManager.loadHotkeys();
-        App.setState(AppState.RUNNING);
+
 
         if (SaveManager.appStateSaveFile.data.tutorialVersion < TutorialWindow.TUTORIAL_VERSION) {
             SwingUtilities.invokeLater(() -> FrameManager.tutorialWindow.setVisible(true));
@@ -261,13 +257,17 @@ public class App {
         if (updateIsAvailable) FrameManager.displayUpdateAvailable(updateManager.getLatestReleaseTag());
         if (updateManager.getCurrentUpdateAction() == UpdateAction.CLEAN)
             SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
+
+        HotkeyManager.loadHotkeys();
+        App.setState(AppState.RUNNING);
+        ChatParserManager.initChatParsers();
     }
 
-    public static void initChatParsers() {
-        closeChatParsers();
-        initChatParser(chatParserPoe1, Game.PATH_OF_EXILE_1, SaveManager.settingsSaveFile.data.installFolderPoe1, SaveManager.settingsSaveFile.data.notInstalledPoe1);
-        initChatParser(chatParserPoe2, Game.PATH_OF_EXILE_2, SaveManager.settingsSaveFile.data.installFolderPoe2, SaveManager.settingsSaveFile.data.notInstalledPoe2);
-    }
+//    public static void initChatParsers() {
+//        closeChatParsers();
+//        initChatParser(chatParserPoe1, Game.PATH_OF_EXILE_1, SaveManager.settingsSaveFile.data.installFolderPoe1, SaveManager.settingsSaveFile.data.notInstalledPoe1);
+//        initChatParser(chatParserPoe2, Game.PATH_OF_EXILE_2, SaveManager.settingsSaveFile.data.installFolderPoe2, SaveManager.settingsSaveFile.data.notInstalledPoe2);
+//    }
 
     private static void closeChatParsers() {
         if (chatParserPoe1 != null) {
@@ -280,13 +280,13 @@ public class App {
         }
     }
 
-    public static void initChatParser(ChatParser parser, Game game, String installFolder, boolean notInstalled) {
-        if (notInstalled) return;
-        if (installFolder == null) return;
-        Path poeFolder = Paths.get(installFolder);
-        if (!poeFolder.toFile().exists()) return;
-        initParser(parser, game, poeFolder.resolve(Paths.get(SaveManager.POE_LOG_FOLDER_NAME, SaveManager.POE_CLIENT_TXT_NAME)));
-    }
+//    public static void initChatParser(ChatParser parser, Game game, String installFolder, boolean notInstalled) {
+//        if (notInstalled) return;
+//        if (installFolder == null) return;
+//        Path poeFolder = Paths.get(installFolder);
+//        if (!poeFolder.toFile().exists()) return;
+//        initParser(parser, game, poeFolder.resolve(Paths.get(SaveManager.POE_LOG_FOLDER_NAME, SaveManager.POE_CLIENT_TXT_NAME)));
+//    }
 
     public static void initParser(ChatParser parser, Game game, Path clientPath) {
         if (parser != null) {

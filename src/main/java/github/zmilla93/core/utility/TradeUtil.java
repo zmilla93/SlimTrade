@@ -3,8 +3,8 @@ package github.zmilla93.core.utility;
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.enums.ExpandDirection;
 import github.zmilla93.core.managers.AudioManager;
-import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
+import github.zmilla93.core.poe.GameSettings;
 
 import java.awt.*;
 import java.io.File;
@@ -29,13 +29,14 @@ public class TradeUtil {
      * Checks that the path isn't null, is a directory that ends with Path of Exile 1 or 2, and contains a 'logs' subfolder
      */
     // FIXME : Client.txt check?
+    @Deprecated
     public static boolean isValidPOEFolder(Path path, Game game) {
         if (path == null) return false;
         if (!path.endsWith(game.toString())) return false;
         File file = path.toFile();
         boolean validFolder = file.exists() && file.isDirectory();
         if (!validFolder) return false;
-        return path.resolve(SaveManager.POE_LOG_FOLDER_NAME).toFile().exists();
+        return path.resolve(GameSettings.LOG_FOLDER_NAME).toFile().exists();
     }
 
     public static String getFixedItemName(String item, double count, boolean paren) {

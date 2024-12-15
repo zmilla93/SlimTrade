@@ -9,6 +9,8 @@ import github.zmilla93.core.data.StashTabData;
 import github.zmilla93.core.enums.*;
 import github.zmilla93.core.hotkeys.HotkeyData;
 import github.zmilla93.core.poe.GameWindowMode;
+import github.zmilla93.core.poe.Poe1Settings;
+import github.zmilla93.core.poe.Poe2Settings;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.listening.IColorBlindChangeListener;
@@ -67,27 +69,17 @@ public class SettingsSaveFile extends AbstractSaveFile {
     // FIXME : Old POE1 path for temporary backwards compatibility. Remove once full release is out.
     @Deprecated
     public String clientPath;
-    // Path of Exile 1 & 2 - Install Directory
-    public int initGameDirectories;
-    public static final int targetInitGameDirectories = 1;
-    public boolean notInstalledPoe1;
-    public boolean notInstalledPoe2;
-    public String installFolderPoe1;
-    public String installFolderPoe2;
-    // Path of Exile 1 & 2 - Using Stash Folders
-    public int initUsingStashFolders;
-    public static final int targetInitUsingStashFolders = 1;
-    public boolean usingStashFoldersPoe1;
-    public boolean usingStashFoldersPoe2;
-    // TODO : Hopefully this is temporary :^)
+    // Path of Exile - Instanced Settings
+    public boolean hasInitGameDirectories;
+    public boolean hasInitUsingStashFolders;
+    public Poe1Settings settingsPoe1 = new Poe1Settings();
+    public Poe2Settings settingsPoe2 = new Poe2Settings();
+    // TODO : Hopefully this hotkey is temporary :^)
     public HotkeyData poe2OutgoingTradeHotkey;
-    // TODO : League is not used yet
-    // Path of Exile 1 & 2 - League
-//    public PathOfExileLeague leaguePoe1 = PathOfExileLeague.UNSET;
-//    public PathOfExileLeague leaguePoe2 = PathOfExileLeague.UNSET;
     // Path of Exile - Shared Between Games
     public GameWindowMode gameWindowMode = GameWindowMode.UNSET;
-    //    public Rectangle detectedGameBounds;
+    // TODO : Save detected game bounds
+    // public Rectangle detectedGameBounds;
     public MonitorInfo selectedMonitor;
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
 

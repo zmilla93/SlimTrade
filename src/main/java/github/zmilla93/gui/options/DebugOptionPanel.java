@@ -94,8 +94,8 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         scannerMessageButton.addActionListener(e -> FrameManager.messageManager.addScannerMessage(new ChatScannerEntry("alch"), new PlayerMessage("CoolTrader123", "wtb alch for chaos")));
         updateMessageButton.addActionListener(e -> FrameManager.messageManager.addUpdateMessage(true, App.getAppInfo().appVersion.toString()));
         uiDumpButton.addActionListener(e -> ThemeManager.debugKeyValueDump());
-        clientButtonPoe1.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.installFolderPoe1));
-        clientButtonPoe2.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.installFolderPoe2));
+        clientButtonPoe1.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.settingsPoe1.installFolder));
+        clientButtonPoe2.addActionListener(e -> ZUtil.openFile(SaveManager.settingsSaveFile.data.settingsPoe2.installFolder));
         fontCombo.addActionListener(e -> {
             String s = (String) fontCombo.getSelectedItem();
             Font font = new Font(s, Font.PLAIN, 12);

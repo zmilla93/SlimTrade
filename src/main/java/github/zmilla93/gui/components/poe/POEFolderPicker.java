@@ -3,6 +3,7 @@ package github.zmilla93.gui.components.poe;
 import github.zmilla93.core.enums.ResultStatus;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
+import github.zmilla93.core.poe.PoeClientPath;
 import github.zmilla93.core.utility.ZUtil;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.nio.file.Paths;
 
 public class POEFolderPicker extends FilePicker implements PathChangeListener {
 
-    private final Game game;
+    public final Game game;
     public final JCheckBox notInstalledCheckbox;
     private final JLabel notInstalledLabel;
     private final JPanel pathPanel = new JPanel(new GridBagLayout());
@@ -90,16 +91,18 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
     @Override
     public void onPathChanged(Path path) {
         boolean validFolderName = path.endsWith(game.toString());
-        if (validFolderName) {
-            Path logsFolder = path.resolve(SaveManager.POE_LOG_FOLDER_NAME);
-            if (logsFolder.toFile().exists()) {
-                setErrorText("Folder set correctly.", ResultStatus.APPROVE);
-            } else {
-                setErrorText("Correct folder name, wrong folder! The install folder must contain a '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder.", ResultStatus.INDETERMINATE);
-            }
-        } else {
-            setErrorText("Folder should be named '" + game + "'.", ResultStatus.DENY);
-        }
+        PoeClientPath validator = PoeClientPath.validateInstallFolder(game, getSelectedPath());
+        setErrorText(validator.message, validator.status);
+//        if (validFolderName) {
+//            Path logsFolder = path.resolve(SaveManager.POE_LOG_FOLDER_NAME);
+//            if (logsFolder.toFile().exists()) {
+//                setErrorText("Folder set correctly.", ResultStatus.APPROVE);
+//            } else {
+//                setErrorText("Correct folder name, wrong folder! The install folder must contain a '" + SaveManager.POE_LOG_FOLDER_NAME + "' folder.", ResultStatus.INDETERMINATE);
+//            }
+//        } else {
+//            setErrorText("Folder should be named '" + game + "'.", ResultStatus.DENY);
+//        }
         if (packParentWindow) ZUtil.packComponentWindow(this);
     }
 

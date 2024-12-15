@@ -45,6 +45,7 @@ public class FileTailer implements Runnable {
 
     private static void launchThread(FileTailer tailer) {
         Thread thread = new Thread(tailer);
+        thread.setDaemon(true);
         thread.start();
         tailer.running = true;
     }

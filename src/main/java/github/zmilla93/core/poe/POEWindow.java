@@ -186,9 +186,10 @@ public class POEWindow {
     }
 
     // Path of Exile UI Info Getters
+    // FIXME : Switch to using Game parameter.
     // FIXME : Should do this check in calculate, not getter. Same with helper offset, and ditto for POE2.
     public static Rectangle getPoe1StashBonds() {
-        if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe1) {
+        if (SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder) {
             return poe1StashBoundsWithFolders;
         } else return poe1StashBoundsNoFolders;
     }
@@ -202,13 +203,13 @@ public class POEWindow {
     }
 
     public static int getPoe1StashHelperOffset() {
-        if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe1) {
+        if (SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder) {
             return poe1StashHelperOffsetWithFolders;
         } else return poe1StashHelperOffsetNoFolders;
     }
 
     public static Rectangle getPoe2StashBonds() {
-        if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe2) {
+        if (SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder) {
             return poe2StashBoundsWithFolders;
         } else return poe2StashBoundsNoFolders;
     }
@@ -224,7 +225,7 @@ public class POEWindow {
     }
 
     public static int getPoe2StashHelperOffset() {
-        if (SaveManager.settingsSaveFile.data.usingStashFoldersPoe1) {
+        if (SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder) {
             return poe2StashHelperOffsetWithFolders;
         } else return poe2StashHelperOffsetNoFolders;
     }
