@@ -218,7 +218,8 @@ public class ZUtil {
         return false;
     }
 
-    // FIXME : Switch to path!
+    @Deprecated
+    // FIXME : Switch to openFile. Might need a version that allows for directory creation, check use case
     public static void openExplorer(String path) {
         File targetDir = new File(path);
         if (!targetDir.exists()) {
@@ -233,6 +234,18 @@ public class ZUtil {
         }
     }
 
+    public static void openFile(Path path) {
+        if (path == null) return;
+        File file = path.toFile();
+        if (!file.exists()) return;
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Deprecated
     public static void openFile(String path) {
         if (path == null) return;
         File file = new File(path);
