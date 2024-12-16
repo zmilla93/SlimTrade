@@ -61,9 +61,8 @@ public class SetupManager {
             setupPhases.add(SetupPhase.USING_STASH_FOLDERS);
         // POE2 Outgoing Trade Fix
         if (SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey == null)
-            if (SaveManager.settingsSaveFile.data.hasInitGameDirectories)
-                if (!SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled)
-                    setupPhases.add(SetupPhase.POE_2_OUTGOING_TRADE_FIX);
+            if (!SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled)
+                setupPhases.add(SetupPhase.POE_2_OUTGOING_TRADE_FIX);
         // Add any forced setup phases
         if (!App.forcedSetupPhases.isEmpty()) {
             for (SetupPhase phase : App.forcedSetupPhases) {

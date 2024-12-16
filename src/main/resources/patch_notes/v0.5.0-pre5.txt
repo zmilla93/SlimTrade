@@ -1,14 +1,12 @@
 **Save file is not backwards compatible. Backup "settings.json" if you prefer caution. (Options > Information > Settings Folder)**
 
 ## Known Issues
-- When using game detection, bounds are not saved. Detection is rerun at launch (and can be triggered from options)
 - Theme & UI improvements incomplete
-- "Zone" text replacement doesn't work
 - History window hasn't been properly updated
+- "Zone" text replacement doesn't work
 
 ## pre5
 - Added PoE2 currency icons
-- PoE2 setup will rerun
 - Bug fixes
 
 ## Path of Exile 2

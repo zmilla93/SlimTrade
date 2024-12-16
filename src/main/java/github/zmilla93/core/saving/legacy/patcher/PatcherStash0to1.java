@@ -12,8 +12,13 @@ public class PatcherStash0to1 implements ISavePatcher {
     private String errorMessage;
 
     @Override
+    public int getNewVersion() {
+        return 1;
+    }
+
+    @Override
     public boolean requiresPatch() {
-        return SaveManager.stashSaveFile.fileExists() && SaveManager.stashSaveFile.data.saveFileVersion < 1;
+        return SaveManager.stashSaveFile.fileExists() && SaveManager.stashSaveFile.data.saveFileVersion < getNewVersion();
     }
 
     @Override
@@ -31,7 +36,7 @@ public class PatcherStash0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.stashSaveFile.data.saveFileVersion = 1;
+        SaveManager.stashSaveFile.data.saveFileVersion = getNewVersion();
         SaveManager.stashSaveFile.saveToDisk(false);
     }
 

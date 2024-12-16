@@ -13,8 +13,13 @@ public class PatcherScanner0to1 implements ISavePatcher {
     private String errorMessage;
 
     @Override
+    public int getNewVersion() {
+        return 1;
+    }
+
+    @Override
     public boolean requiresPatch() {
-        return SaveManager.chatScannerSaveFile.fileExists() && SaveManager.chatScannerSaveFile.data.saveFileVersion < 1;
+        return SaveManager.chatScannerSaveFile.fileExists() && SaveManager.chatScannerSaveFile.data.saveFileVersion < getNewVersion();
     }
 
     @Override
@@ -36,7 +41,7 @@ public class PatcherScanner0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.chatScannerSaveFile.data.saveFileVersion = 1;
+        SaveManager.chatScannerSaveFile.data.saveFileVersion = getNewVersion();
         SaveManager.chatScannerSaveFile.saveToDisk(false);
     }
 

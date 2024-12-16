@@ -20,8 +20,13 @@ public class PatcherSettings0to1 implements ISavePatcher {
     private String errorMessage;
 
     @Override
+    public int getNewVersion() {
+        return 1;
+    }
+
+    @Override
     public boolean requiresPatch() {
-        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.data.saveFileVersion < 1;
+        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.data.saveFileVersion < getNewVersion();
     }
 
     @Override
@@ -32,7 +37,6 @@ public class PatcherSettings0to1 implements ISavePatcher {
             errorMessage = FAILED_TO_LOAD;
             return false;
         }
-
         SaveFilePatcherManager.copyMatchingFields(legacySaveFile.data, SaveManager.settingsSaveFile.data);
         handleFieldConversions(legacySaveFile.data, SaveManager.settingsSaveFile.data);
         return true;
@@ -40,8 +44,9 @@ public class PatcherSettings0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.ignoreSaveFile.data.saveFileVersion = 1;
-        SaveManager.settingsSaveFile.data.saveFileVersion = 1;
+        /// Settings and ignore data were previously stored in the same file.
+        SaveManager.ignoreSaveFile.data.saveFileVersion = getNewVersion();
+        SaveManager.settingsSaveFile.data.saveFileVersion = getNewVersion();
         SaveManager.settingsSaveFile.saveToDisk(false);
         SaveManager.ignoreSaveFile.saveToDisk(false);
     }

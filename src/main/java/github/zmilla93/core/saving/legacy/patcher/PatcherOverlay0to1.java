@@ -14,8 +14,13 @@ public class PatcherOverlay0to1 implements ISavePatcher {
     private String errorMessage;
 
     @Override
+    public int getNewVersion() {
+        return 1;
+    }
+
+    @Override
     public boolean requiresPatch() {
-        return SaveManager.overlaySaveFile.fileExists() && SaveManager.overlaySaveFile.data.saveFileVersion < 1;
+        return SaveManager.overlaySaveFile.fileExists() && SaveManager.overlaySaveFile.data.saveFileVersion < getNewVersion();
     }
 
     @Override
@@ -54,7 +59,7 @@ public class PatcherOverlay0to1 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.overlaySaveFile.data.saveFileVersion = 1;
+        SaveManager.overlaySaveFile.data.saveFileVersion = getNewVersion();
         SaveManager.overlaySaveFile.saveToDisk(false);
     }
 

@@ -279,7 +279,6 @@ public class FrameManager {
 
     public static void requestRestoreUIDefaults() {
         assert SwingUtilities.isEventDispatchThread();
-        System.out.println("state:" + App.getState());
         if (App.getState() == AppState.SETUP) {
             restoreUIDefaults();
             return;

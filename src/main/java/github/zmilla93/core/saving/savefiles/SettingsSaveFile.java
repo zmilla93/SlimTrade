@@ -33,7 +33,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
 
     @Override
     public int getCurrentTargetVersion() {
-        return 4;
+        return 5;
     }
 
     public String appVersionString;

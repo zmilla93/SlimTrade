@@ -6,8 +6,13 @@ import github.zmilla93.core.saving.legacy.ISavePatcher;
 public class PatcherStash1to2 implements ISavePatcher {
 
     @Override
+    public int getNewVersion() {
+        return 2;
+    }
+
+    @Override
     public boolean requiresPatch() {
-        return SaveManager.stashSaveFile.fileExists() && SaveManager.stashSaveFile.data.saveFileVersion < 2;
+        return SaveManager.stashSaveFile.fileExists() && SaveManager.stashSaveFile.data.saveFileVersion < getNewVersion();
     }
 
     @Override
@@ -19,7 +24,7 @@ public class PatcherStash1to2 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.stashSaveFile.data.saveFileVersion = 2;
+        SaveManager.stashSaveFile.data.saveFileVersion = getNewVersion();
         SaveManager.stashSaveFile.saveToDisk(false);
     }
 

@@ -10,8 +10,13 @@ public class PatcherSettings2to3 implements ISavePatcher {
     private String errorMessage;
 
     @Override
+    public int getNewVersion() {
+        return 3;
+    }
+
+    @Override
     public boolean requiresPatch() {
-        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.data.saveFileVersion < 3;
+        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.data.saveFileVersion < getNewVersion();
     }
 
     @Override
@@ -28,7 +33,7 @@ public class PatcherSettings2to3 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.settingsSaveFile.data.saveFileVersion = 3;
+        SaveManager.settingsSaveFile.data.saveFileVersion = getNewVersion();
         SaveManager.settingsSaveFile.saveToDisk(false);
     }
 

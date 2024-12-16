@@ -7,8 +7,13 @@ import github.zmilla93.core.utility.MacroButton;
 public class PatcherSettings1to2 implements ISavePatcher {
 
     @Override
+    public int getNewVersion() {
+        return 2;
+    }
+
+    @Override
     public boolean requiresPatch() {
-        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.data.saveFileVersion < 2;
+        return SaveManager.settingsSaveFile.fileExists() && SaveManager.settingsSaveFile.data.saveFileVersion < getNewVersion();
     }
 
     @Override
@@ -26,7 +31,7 @@ public class PatcherSettings1to2 implements ISavePatcher {
 
     @Override
     public void applyNewVersion() {
-        SaveManager.settingsSaveFile.data.saveFileVersion = 2;
+        SaveManager.settingsSaveFile.data.saveFileVersion = getNewVersion();
         SaveManager.settingsSaveFile.saveToDisk(false);
     }
 
