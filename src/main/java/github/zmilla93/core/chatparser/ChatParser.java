@@ -103,6 +103,7 @@ public class ChatParser implements FileTailerListener {
         tailer = null;
         path = null;
         open = false;
+        ZLogger.log("Closed chat parser for " + game.explicitName + ".");
     }
 
     public void parseLine(String line) {
