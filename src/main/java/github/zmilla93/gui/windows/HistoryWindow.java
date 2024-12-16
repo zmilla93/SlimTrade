@@ -46,6 +46,12 @@ public class HistoryWindow extends CustomDialog implements IDefaultSizeAndLocati
 
         setMinimumSize(new Dimension(300, 200));
         pack();
+
+        openMessageButton.addActionListener(e -> {
+            JTabbedPane tabbedPane = poe1TabbedPanel.isVisible() ? poe1TabbedPanel : poe2TabbedPanel;
+            HistoryPanel panel = (HistoryPanel) tabbedPane.getSelectedComponent();
+            panel.refreshSelectedTrade();
+        });
         toggleGameButton.addActionListener(e -> {
             if (poe1TabbedPanel.isVisible()) {
                 cardPanel.showCard(poe2TabbedPanel);
