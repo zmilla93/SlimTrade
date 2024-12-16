@@ -26,14 +26,14 @@ public class ComponentPanel extends JPanel {
         this(gapBetweenComponents, new JComponent[0]);
     }
 
-    public ComponentPanel(JComponent... components) {
+    public ComponentPanel(Component... components) {
         this(DEFAULT_HORIZONTAL_INSET, components);
     }
 
-    public ComponentPanel(int gapBetweenComponents, JComponent... components) {
+    public ComponentPanel(int gapBetweenComponents, Component... components) {
         super(new GridBagLayout());
         this.gapBetweenComponents = gapBetweenComponents;
-        for (JComponent component : components) add(component);
+        for (Component component : components) add(component);
     }
 
     @Override

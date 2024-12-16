@@ -152,6 +152,7 @@ public class FrameManager {
 //            uiManagerInspectorWindow.setVisible(true);
         }
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
+        if (App.showHistoryOnLaunch) historyWindow.setVisible(true);
         messageManager.setVisible(true);
         updateMenubarVisibility();
         // FIXME : Temp

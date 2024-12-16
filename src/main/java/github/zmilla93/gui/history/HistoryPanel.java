@@ -1,10 +1,15 @@
 package github.zmilla93.gui.history;
 
+import github.zmilla93.core.chatparser.IParserInitListener;
+import github.zmilla93.core.chatparser.IParserLoadedListener;
+import github.zmilla93.core.chatparser.ITradeListener;
 import github.zmilla93.core.data.SaleItem;
 import github.zmilla93.core.data.SaleItemWrapper;
 import github.zmilla93.core.enums.HistoryOrder;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.trading.TradeOffer;
+import github.zmilla93.core.trading.TradeOfferType;
+import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.modules.saving.ISaveListener;
 
@@ -13,29 +18,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class HistoryPanel extends JPanel implements ISaveListener {
+/**
+ * Handles rendering for a specific category of trades (ie PoE1 incoming).
+ */
+public class HistoryPanel extends JPanel implements ISaveListener, ITradeListener, IParserInitListener, IParserLoadedListener {
 
     public static int MAX_MESSAGE_COUNT = 50;
 
     private final ArrayList<HistoryRowData> data = new ArrayList<>();
     private final HistoryTable table;
-    private final JButton reloadButton = new JButton("Open Selected Message");
+    private final TradeOfferType tradeOfferType;
 
-    public HistoryPanel() {
+    public HistoryPanel(TradeOfferType tradeOfferType) {
+        assert tradeOfferType == TradeOfferType.INCOMING_TRADE || tradeOfferType == TradeOfferType.OUTGOING_TRADE;
+        this.tradeOfferType = tradeOfferType;
         String[] columnNames = new String[]{"Date", "Time", "Player", "Item", "Price"};
-
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        JPanel buttonPanel = new JPanel(new GridBagLayout());
-
-        int inset = 2;
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = 0;
-        gc.gridy = 0;
-        gc.insets = new Insets(inset, 0, inset, inset);
-        buttonPanel.add(reloadButton, gc);
-        bottomPanel.add(buttonPanel, BorderLayout.EAST);
-
         // Table
+        // FIXME: Move renderer to a separate class?
         DefaultTableCellRenderer defaultCellRenderer = new DefaultTableCellRenderer();
         defaultCellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         table = new HistoryTable(columnNames, data);
@@ -50,16 +49,11 @@ public class HistoryPanel extends JPanel implements ISaveListener {
         setLayout(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
-        add(bottomPanel, BorderLayout.SOUTH);
 
-        // Listeners
-        addListeners();
+        // FIXME : Is this the best way to reload table?
         SaveManager.settingsSaveFile.addListener(this);
     }
 
-    private void addListeners() {
-        reloadButton.addActionListener(e -> refreshSelectedTrade());
-    }
 
     public void reloadUI() {
         table.getHistoryTableModel().fireTableDataChanged();
@@ -77,11 +71,12 @@ public class HistoryPanel extends JPanel implements ISaveListener {
         table.getHistoryTableModel().fireTableDataChanged();
     }
 
-    private void refreshSelectedTrade() {
+    public void refreshSelectedTrade() {
         int index = table.getSelectedRow();
+        if (index == -1) return;
         if (SaveManager.settingsSaveFile.data.historyOrder == HistoryOrder.NEWEST_FIRST)
             index = data.size() - 1 - index;
-        if (index == -1 || index >= data.size()) return;
+        if (index >= data.size()) return;
         TradeOffer trade = data.get(index).tradeOffer;
         FrameManager.messageManager.addMessage(trade, false, true);
     }
@@ -89,6 +84,22 @@ public class HistoryPanel extends JPanel implements ISaveListener {
     @Override
     public void onSave() {
         table.getHistoryTableModel().fireTableDataChanged();
+    }
+
+    @Override
+    public void handleTrade(TradeOffer tradeOffer, boolean loaded) {
+        if (tradeOffer.offerType != tradeOfferType) return;
+        ZUtil.invokeLater(() -> addRow(tradeOffer, loaded));
+    }
+
+    @Override
+    public void onParserInit() {
+        clearAllRows();
+    }
+
+    @Override
+    public void onParserLoaded(boolean dnd) {
+        reloadUI();
     }
 
 }

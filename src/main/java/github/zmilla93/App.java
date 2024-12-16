@@ -10,7 +10,6 @@ import github.zmilla93.core.jna.GlobalKeyboardListener;
 import github.zmilla93.core.jna.GlobalMouseListener;
 import github.zmilla93.core.jna.GlobalMouseWheelListener;
 import github.zmilla93.core.managers.*;
-import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
@@ -35,7 +34,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -58,7 +56,6 @@ public class App {
 
     private static AppInfo appInfo;
     private static AppState state = AppState.LOADING;
-    private static AppState previousState = AppState.LOADING;
     private static boolean themesHaveBeenInitialized = false;
     private static boolean updateIsAvailable = false;
     private static boolean isRunningSetup = false;
@@ -72,6 +69,7 @@ public class App {
     public static boolean noUpdate = false; // -nu, -noupdate: disable update check
     public static boolean useLockFile = true; // -nl, -nolock: disable file locking
     public static boolean showOptionsOnLaunch = false; // -o, -options: show the options menu at launch
+    public static boolean showHistoryOnLaunch = false; // -h, -history: show the history window at launch
     public static boolean debugUIAlwaysOnTop = false; // -ui: forces the UI to always be on top no matter what
     public static boolean forceSetup = false; // -s, -setup: forces the setup wizard to run with all phases (can also do setup:SetupPhase to force a specific phase, ie 'setup:game_window')
     public static boolean chatInConsole = false; // TODO: This is broken, should fix or remove
@@ -241,15 +239,6 @@ public class App {
         FrameManager.showAppFrames();
         SystemTrayManager.showDefault();
 
-//        initChatParsers();
-//        ChatParserManager.initChatParsers();
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-
-
         if (SaveManager.appStateSaveFile.data.tutorialVersion < TutorialWindow.TUTORIAL_VERSION) {
             SwingUtilities.invokeLater(() -> FrameManager.tutorialWindow.setVisible(true));
             SaveManager.appStateSaveFile.data.tutorialVersion = TutorialWindow.TUTORIAL_VERSION;
@@ -262,58 +251,6 @@ public class App {
         HotkeyManager.loadHotkeys();
         App.setState(AppState.RUNNING);
         ChatParserManager.initChatParsers();
-    }
-
-//    public static void initChatParsers() {
-//        closeChatParsers();
-//        initChatParser(chatParserPoe1, Game.PATH_OF_EXILE_1, SaveManager.settingsSaveFile.data.installFolderPoe1, SaveManager.settingsSaveFile.data.notInstalledPoe1);
-//        initChatParser(chatParserPoe2, Game.PATH_OF_EXILE_2, SaveManager.settingsSaveFile.data.installFolderPoe2, SaveManager.settingsSaveFile.data.notInstalledPoe2);
-//    }
-
-    private static void closeChatParsers() {
-        if (chatParserPoe1 != null) {
-            chatParserPoe1.close();
-            chatParserPoe1.removeAllListeners();
-        }
-        if (chatParserPoe2 != null) {
-            chatParserPoe2.close();
-            chatParserPoe2.removeAllListeners();
-        }
-    }
-
-//    public static void initChatParser(ChatParser parser, Game game, String installFolder, boolean notInstalled) {
-//        if (notInstalled) return;
-//        if (installFolder == null) return;
-//        Path poeFolder = Paths.get(installFolder);
-//        if (!poeFolder.toFile().exists()) return;
-//        initParser(parser, game, poeFolder.resolve(Paths.get(SaveManager.POE_LOG_FOLDER_NAME, SaveManager.POE_CLIENT_TXT_NAME)));
-//    }
-
-    public static void initParser(ChatParser parser, Game game, Path clientPath) {
-        if (parser != null) {
-            parser.close();
-            parser.removeAllListeners();
-        }
-        if (!clientPath.toFile().exists()) {
-            ZLogger.err("Client.txt file not found: " + clientPath);
-            return;
-        }
-        parser = new ChatParser(game);
-        // History
-        parser.addOnInitCallback(FrameManager.historyWindow);
-        parser.addOnLoadedCallback(FrameManager.historyWindow);
-        parser.addTradeListener(FrameManager.historyWindow);
-        // Message Manager
-        parser.addTradeListener(FrameManager.messageManager);
-        parser.addChatScannerListener(FrameManager.messageManager);
-        parser.addJoinedAreaListener(FrameManager.messageManager);
-        // Menu Bar
-        parser.addOnLoadedCallback(FrameManager.menuBarIcon);
-        parser.addOnLoadedCallback(FrameManager.menuBarDialog);
-        parser.addDndListener(FrameManager.menuBarIcon);
-        parser.addDndListener(FrameManager.menuBarDialog);
-        // Open
-        parser.open(clientPath);
     }
 
     public static AppInfo getAppInfo() {
@@ -344,6 +281,7 @@ public class App {
             if (arg.equals("-nl") || arg.equals("-nolock")) useLockFile = false;
             if (arg.equals("-d") || arg.equals("-debug")) debug = true;
             if (arg.equals("-o") || arg.equals("-options")) showOptionsOnLaunch = true;
+            if (arg.equals("-h") || arg.equals("-history")) showHistoryOnLaunch = true;
             if (arg.startsWith("-o:") || arg.startsWith("-options:")) {
                 App.debugOptionPanelName = arg.replace("-options:", "").replaceFirst("-o:", "").toLowerCase();
                 showOptionsOnLaunch = true;
@@ -364,16 +302,11 @@ public class App {
 
     // FIXME: This
     public static void setState(AppState state) {
-        previousState = App.state;
         App.state = state;
     }
 
     public static AppState getState() {
         return App.state;
-    }
-
-    public static AppState getPreviousState() {
-        return App.previousState;
     }
 
     public static boolean isRunningSetup() {
