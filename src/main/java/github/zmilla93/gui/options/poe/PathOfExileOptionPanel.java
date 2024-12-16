@@ -1,5 +1,7 @@
 package github.zmilla93.gui.options.poe;
 
+import com.sun.jna.platform.WindowUtils;
+import com.sun.jna.platform.win32.WinDef;
 import github.zmilla93.core.chatparser.ChatParserManager;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
@@ -98,7 +100,9 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         if (windowMode == GameWindowMode.DETECT)
             if (detectionButton.getLatestResultWasSuccess()) {
 //                SaveManager.settingsSaveFile.data.detectedGameBounds = detectionButton.getLatestResultWindow().clientBounds;
-                POEWindow.setBoundsByWindowHandle(detectionButton.getLatestResultWindow().handle, true);
+                WinDef.HWND handle = detectionButton.getLatestResultWindow().handle;
+                POEWindow.setBoundsByWindowHandle(handle, true);
+                SaveManager.settingsSaveFile.data.detectedGameBounds = WindowUtils.getWindowLocationAndSize(handle).getBounds();
             }
         if (windowMode == GameWindowMode.MONITOR) {
             MonitorInfo monitor = monitorPicker.getSelectedMonitor();
@@ -118,6 +122,7 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         FrameManager.stashHelperContainerPoe2.updateLocation();
         // FIXME : Need to reinit parsers if paths have changed.
         ChatParserManager.initChatParsers();
+        detectionButton.reset();
     }
 
     @Override
@@ -137,6 +142,7 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         usingStashFoldersPoe2Checkbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder);
         poe2OutgoingTradeHotkeyPanel.hotkeyButton.setData(SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey);
         refreshPanelVisibility();
+        detectionButton.reset();
     }
 
 }

@@ -3,7 +3,6 @@ package github.zmilla93.gui.components;
 import github.zmilla93.gui.components.poe.combos.MonitorCombo;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class MonitorPicker extends ComponentPanel {
 
@@ -15,7 +14,7 @@ public class MonitorPicker extends ComponentPanel {
         add(monitorCombo);
         identifyButton.addActionListener(e -> {
             MonitorInfo selectedMonitor = (MonitorInfo) monitorCombo.getSelectedItem();
-            ArrayList<MonitorInfo> monitors = MonitorIdentificationFrame.visuallyIdentifyMonitors();
+            MonitorInfo[] monitors = MonitorIdentificationFrame.visuallyIdentifyMonitors();
             monitorCombo.setMonitorList(monitors);
             if (selectedMonitor != null) monitorCombo.setSelectedItem(selectedMonitor);
         });

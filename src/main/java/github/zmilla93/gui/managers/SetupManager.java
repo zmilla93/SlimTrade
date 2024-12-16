@@ -4,8 +4,8 @@ import github.zmilla93.App;
 import github.zmilla93.core.enums.SetupPhase;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
-import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.poe.PoeClientPath;
+import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.setup.SetupWindow;
 
 import java.util.ArrayList;
@@ -41,10 +41,21 @@ public class SetupManager {
             if (!poe1FullPathValidation || !poe2FullPathValidation)
                 setupPhases.add(SetupPhase.INSTALL_DIRECTORY);
         }
-        // Game Detection Method
+        // Game Window Settings
         // FIXME : Make this more robust once done with screen region
-        if (SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.UNSET)
-            setupPhases.add(SetupPhase.GAME_WINDOW);
+        switch (SaveManager.settingsSaveFile.data.gameWindowMode) {
+            case UNSET:
+                setupPhases.add(SetupPhase.GAME_WINDOW);
+                break;
+            case DETECT:
+                if (SaveManager.settingsSaveFile.data.detectedGameBounds == null)
+                    setupPhases.add(SetupPhase.GAME_WINDOW);
+                break;
+            case MONITOR:
+                MonitorInfo selectedMonitor = SaveManager.settingsSaveFile.data.selectedMonitor;
+                if (selectedMonitor == null || !selectedMonitor.exists()) setupPhases.add(SetupPhase.GAME_WINDOW);
+                break;
+        }
         // Using Stash Folders
         if (!SaveManager.settingsSaveFile.data.hasInitUsingStashFolders)
             setupPhases.add(SetupPhase.USING_STASH_FOLDERS);

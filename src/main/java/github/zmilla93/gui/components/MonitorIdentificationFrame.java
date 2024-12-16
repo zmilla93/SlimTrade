@@ -73,16 +73,16 @@ public class MonitorIdentificationFrame extends BasicDialog {
      * Creates and displays an info frame on each monitor.
      * Hides all frames after 2.5 seconds, disposes all frames after 10 seconds of not being used.
      */
-    public static ArrayList<MonitorInfo> visuallyIdentifyMonitors() {
+    public static MonitorInfo[] visuallyIdentifyMonitors() {
         assert SwingUtilities.isEventDispatchThread();
         restartTimers();
-        ArrayList<MonitorInfo> monitors = MonitorInfo.getAllMonitors();
+        MonitorInfo[] monitors = MonitorInfo.getAllMonitors(false);
         // Make sure enough frames exist
-        while (identificationFrames.size() < monitors.size())
+        while (identificationFrames.size() < monitors.length)
             identificationFrames.add(new MonitorIdentificationFrame());
         // Set info & show frames
-        for (int i = 0; i < monitors.size(); i++) {
-            MonitorInfo info = monitors.get(i);
+        for (int i = 0; i < monitors.length; i++) {
+            MonitorInfo info = monitors[i];
             MonitorIdentificationFrame frame = identificationFrames.get(i);
             frame.setInfo(info);
             frame.setVisible(true);

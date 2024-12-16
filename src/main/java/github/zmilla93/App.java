@@ -95,7 +95,8 @@ public class App {
         /// Logger
         ZLogger.open(SaveManager.getSaveDirectory(), args);
         String argString = args.length == 0 ? "" : Arrays.toString(args);
-        ZLogger.log("SlimTrade " + getAppInfo().appVersion + " started... " + argString);
+        String debugString = debug ? " [DEBUG]" : "";
+        ZLogger.log("SlimTrade " + getAppInfo().appVersion + " started... " + argString + debugString);
         ZLogger.log("Current platform: " + System.getProperty("os.name") + " [" + Platform.current.name() + "]");
         ZLogger.cleanOldLogFiles();
 
@@ -183,7 +184,7 @@ public class App {
         }
 
         /// Final Setup
-        if (SetupManager.getSetupPhases().size() > 0) runSetupWizard();
+        if (!SetupManager.getSetupPhases().isEmpty()) runSetupWizard();
         else ZUtil.invokeAndWait(App::launchApp);
 
         ZUtil.invokeAndWait(() -> {

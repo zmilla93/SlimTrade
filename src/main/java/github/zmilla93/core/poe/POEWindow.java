@@ -1,15 +1,13 @@
 package github.zmilla93.core.poe;
 
+import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.WinDef;
 import github.zmilla93.App;
 import github.zmilla93.core.jna.CustomUser32;
-import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.MonitorInfo;
-import github.zmilla93.gui.managers.FrameManager;
-import github.zmilla93.gui.windows.BasicDialog;
 import github.zmilla93.gui.windows.test.DrawWindow;
 
 import javax.swing.*;
@@ -68,39 +66,15 @@ public class POEWindow {
     private static int poe2StashHelperOffsetNoFolders;
 
     /// The components most recently used to update the game bounds
-    private static NativePoeWindow currentGameWindow;
+//    private static NativePoeWindow currentGameWindow;
+    private static WinDef.HWND currentGameHandle;
     private static MonitorInfo currentMonitor;
 
     /// The things that care about the game bounds
     private static final ArrayList<POEWindowListener> listeners = new ArrayList<>();
-    // FIXME : Temp dialog
-    public static BasicDialog dialog;
-
-    static {
-        // FIXME : Temp calculation
-//        System.out.println("Calculating initial game bounds");
-//        calculateNewGameBounds();
-        // FIXME : Calculating bounds early using 1920x1080 to avoid errors.
-        //  Should instead use the bounds of the first monitor, then let the automated system take over.
-//        calculatePoe1UIData();
-    }
-
-    public static Rectangle getGameBounds() {
-        return gameBounds;
-    }
 
     public static WinDef.HWND getGameHandle() {
-        if (currentGameWindow != null) return currentGameWindow.handle;
-        return null;
-    }
-
-    public static void setBoundsByMonitor(MonitorInfo monitor) {
-        assert SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.MONITOR;
-        assert monitor != null;
-        if (monitor.equals(currentMonitor)) return;
-        POEWindow.gameBounds = monitor.bounds;
-        calculateNewGameBounds();
-        System.out.println("Bounds set via monitor: " + gameBounds);
+        return currentGameHandle;
     }
 
     public static void setBoundsByWindowHandle(WinDef.HWND handle) {
@@ -110,23 +84,34 @@ public class POEWindow {
     public static void setBoundsByWindowHandle(WinDef.HWND handle, boolean forceUpdate) {
         assert SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT;
         assert handle != null;
-        if (currentGameWindow != null && handle.equals(currentGameWindow.handle) && !forceUpdate) return;
+        if (handle.equals(currentGameHandle) && !forceUpdate) return;
         if (CustomUser32.INSTANCE.IsIconic(handle)) return;
-        currentGameWindow = new NativePoeWindow(handle);
-        POEWindow.gameBounds = currentGameWindow.clientBounds;
+        currentGameHandle = handle;
+        POEWindow.gameBounds = WindowUtils.getWindowLocationAndSize(handle).getBounds();
         calculateNewGameBounds();
-        System.out.println("Bounds set via native window: " + gameBounds);
+    }
+
+    public static void setBoundsByMonitor(MonitorInfo monitor) {
+        assert SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.MONITOR;
+        assert monitor != null;
+        if (monitor.equals(currentMonitor)) return;
+        currentMonitor = monitor;
+        POEWindow.gameBounds = monitor.bounds;
+        calculateNewGameBounds();
+    }
+
+    private static void setBoundsByRet(Rectangle rect) {
+        POEWindow.gameBounds = rect;
+        calculateNewGameBounds();
     }
 
     private static void setBoundsFallback() {
-        MonitorInfo monitor = MonitorInfo.getAllMonitors().get(0);
+        MonitorInfo monitor = MonitorInfo.getAllMonitors(false)[0];
         POEWindow.gameBounds = monitor.bounds;
         calculateNewGameBounds();
-        System.out.println("Bounds fallback set: " + gameBounds);
     }
 
     private static void calculateNewGameBounds() {
-        System.out.println("New Game Bounds: " + gameBounds);
         centerOfScreen = new Point(gameBounds.x + gameBounds.width / 2, gameBounds.y + gameBounds.height / 2);
         calculatePoe1UIData();
         calculatePoe2UIData();
@@ -141,11 +126,10 @@ public class POEWindow {
         GameWindowMode method = SaveManager.settingsSaveFile.data.gameWindowMode;
         switch (method) {
             case DETECT:
-                // NOTE : This currently shouldn't be reachable on non Windows platforms, just future proofing.
+                /// NOTE : This currently shouldn't be reachable on non Windows platforms, just future proofing.
                 if (Platform.WINDOWS == Platform.current) {
-                    WinDef.HWND handle = NativePoeWindow.findPathOfExileWindow();
-                    if (handle != null) setBoundsByWindowHandle(handle);
-                    else setBoundsFallback();
+                    Rectangle savedBounds = SaveManager.settingsSaveFile.data.detectedGameBounds;
+                    if (savedBounds != null) setBoundsByRet(savedBounds);
                 }
                 break;
             case MONITOR:
@@ -165,23 +149,24 @@ public class POEWindow {
     }
 
     /**
-     * Center a window relative to the current "game bounds",
-     * which could be the actual game window bounds, a monitor bounds, or a screen region.
+     * Center a window relative to the current "game bounds", which could be the
+     * actual game window bounds, a monitor bounds, or a screen region. Also ensures
+     * that the window is fully within the bounds of a single monitor.
      */
     // FIXME: Should ensure that window is fully on the monitor
     public static void centerWindow(Window window) {
         assert SwingUtilities.isEventDispatchThread();
-        if (window.equals(FrameManager.setupWindow))
-            System.out.println("Centering Setup using game bounds: " + gameBounds);
         if (gameBounds == null) {
             window.setLocationRelativeTo(null);
         } else {
+            Rectangle targetWindowBounds = window.getBounds();
             int halfWidth = window.getWidth() / 2;
             int halfHeight = window.getHeight() / 2;
-            Point location = new Point(centerOfScreen.x - halfWidth, centerOfScreen.y - halfHeight);
-            if (window.equals(FrameManager.setupWindow))
-                System.out.println("Setup Window Location: " + location);
-            window.setLocation(location);
+            targetWindowBounds.x = centerOfScreen.x - halfWidth;
+            targetWindowBounds.y = centerOfScreen.y - halfHeight;
+            if (!MonitorInfo.isRectWithinAMonitor(targetWindowBounds))
+                MonitorInfo.lockBoundsToCurrentMonitor(targetWindowBounds);
+            window.setLocation(targetWindowBounds.getLocation());
         }
     }
 

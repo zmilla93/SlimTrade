@@ -21,6 +21,7 @@ import github.zmilla93.modules.theme.Theme;
 import github.zmilla93.modules.updater.data.AppVersion;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -78,8 +79,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public HotkeyData poe2OutgoingTradeHotkey;
     // Path of Exile - Shared Between Games
     public GameWindowMode gameWindowMode = GameWindowMode.UNSET;
-    // TODO : Save detected game bounds
-    // public Rectangle detectedGameBounds;
+    public Rectangle detectedGameBounds;
     public MonitorInfo selectedMonitor;
     public HotkeyData poeChatHotkey = new HotkeyData(NativeKeyEvent.VC_ENTER, 0);
 

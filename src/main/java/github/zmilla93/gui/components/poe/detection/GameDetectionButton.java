@@ -10,8 +10,6 @@ import github.zmilla93.gui.components.poe.ResultLabel;
 import github.zmilla93.gui.setup.PoeIdentificationFrame;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +21,6 @@ public class GameDetectionButton extends ComponentPanel implements GameDetection
     private final JButton runTestButton = new JButton("Detect");
     private final ResultLabel resultLabel = new ResultLabel(GameDetectionResult.NOT_RUN.message);
     private final ArrayList<GameDetectionTestListener> listeners = new ArrayList<>();
-    private final Timer timer;
     private GameDetectionResult latestResult;
     private NativeWindow latestResultWindow;
 
@@ -33,13 +30,6 @@ public class GameDetectionButton extends ComponentPanel implements GameDetection
         runTestButton.addActionListener(e -> runTest());
         addGameDetectionTestListener(this);
         // Clears success message after 10 seconds to make it clear that this component can be reused.
-        timer = new Timer(10000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                timer.stop();
-                resultLabel.setText(ResultStatus.NEUTRAL, GameDetectionResult.NOT_RUN.message);
-            }
-        });
     }
 
     private void runTest() {
@@ -57,6 +47,12 @@ public class GameDetectionButton extends ComponentPanel implements GameDetection
             result = GameDetectionResult.NOT_SUPPORTED;
         }
         for (GameDetectionTestListener listener : listeners) listener.onTestResult(result, handle);
+    }
+
+    public void reset() {
+        latestResult = GameDetectionResult.NOT_RUN;
+        latestResultWindow = null;
+        resultLabel.setText(ResultStatus.NEUTRAL, GameDetectionResult.NOT_RUN.message);
     }
 
     public void addGameDetectionTestListener(GameDetectionTestListener listener) {
@@ -83,7 +79,6 @@ public class GameDetectionButton extends ComponentPanel implements GameDetection
             NativeWindow window = new NativeWindow(handle);
             latestResultWindow = window;
             PoeIdentificationFrame.identify(window.clientBounds);
-            timer.start();
         }
     }
 

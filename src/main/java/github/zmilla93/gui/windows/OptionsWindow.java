@@ -12,6 +12,7 @@ import github.zmilla93.gui.options.poe.PathOfExileOptionPanel;
 import github.zmilla93.gui.options.searching.StashSearchOptionPanel;
 import github.zmilla93.gui.options.stash.StashOptionPanel;
 import github.zmilla93.modules.saving.ISaveListener;
+import github.zmilla93.modules.updater.ZLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -130,7 +131,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
 
     private void showDebugPanel() {
         if (App.debugOptionPanelName != null) {
-            System.out.println("PANEL:" + App.debugOptionPanelName);
+            ZLogger.log("Setting debug option panel to '" + App.debugOptionPanelName + "'");
             ListModel<OptionListPanel> model = optionsList.getModel();
             for (int i = 0; i < model.getSize(); i++) {
                 OptionListPanel panel = model.getElementAt(i);

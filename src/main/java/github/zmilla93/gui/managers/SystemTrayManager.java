@@ -17,7 +17,7 @@ public class SystemTrayManager {
     private static final MenuItem optionsButton = new MenuItem("Options");
     private static final MenuItem historyButton = new MenuItem("History");
     private static final MenuItem chatScannerButton = new MenuItem("Chat Scanner");
-    private static final MenuItem restoreDefaultUIButton = new MenuItem("Restore UI Defaults");
+    private static final MenuItem resetUIButton = new MenuItem("Reset UI Position");
     private static final MenuItem exitButton = new MenuItem("Exit SlimTrade");
 
     public static void init() {
@@ -47,12 +47,14 @@ public class SystemTrayManager {
         historyButton.addActionListener(e -> FrameManager.historyWindow.setVisible(true));
         chatScannerButton.addActionListener(e -> FrameManager.chatScannerWindow.setVisible(true));
         exitButton.addActionListener(e -> System.exit(0));
-        restoreDefaultUIButton.addActionListener(e -> FrameManager.requestRestoreUIDefaults());
+        resetUIButton.addActionListener(e -> FrameManager.requestRestoreUIDefaults());
     }
 
     public static void showSimple() {
         if (!SystemTray.isSupported()) return;
         popupMenu.removeAll();
+        popupMenu.add(resetUIButton);
+        popupMenu.addSeparator();
         popupMenu.add(exitButton);
     }
 
@@ -63,7 +65,7 @@ public class SystemTrayManager {
         popupMenu.add(historyButton);
         popupMenu.add(chatScannerButton);
         popupMenu.addSeparator();
-        popupMenu.add(restoreDefaultUIButton);
+        popupMenu.add(resetUIButton);
         popupMenu.addSeparator();
         popupMenu.add(exitButton);
     }

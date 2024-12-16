@@ -4,7 +4,6 @@ import com.sun.jna.Native;
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
-import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.POEInterface;
@@ -37,8 +36,8 @@ public class NativePoeWindow extends NativeWindow {
         // FIXME : This gets called too frequently.
 //        System.out.println("Handle:" + handle);
 //        System.out.println("POE Process Path: " + WindowUtils.getProcessFilePath(handle));
-        if (SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT)
-            POEWindow.setBoundsByWindowHandle(handle);
+//        if (SaveManager.settingsSaveFile.data.gameWindowMode == GameWindowMode.DETECT)
+//            POEWindow.setBoundsByWindowHandle(handle);
     }
 
     public static String getWindowTitle(WinDef.HWND handle) {
@@ -59,7 +58,6 @@ public class NativePoeWindow extends NativeWindow {
     }
 
     public static synchronized WinDef.HWND findPathOfExileWindow() {
-        System.out.println("Finding POE Window...");
         returnHandle = null;
         findPathOfExileWindow(window -> returnHandle = window);
         return returnHandle;
@@ -90,7 +88,6 @@ public class NativePoeWindow extends NativeWindow {
             if (className.equals("CEFCLIENT")) {
                 String title = getWindowTitle(handle);
                 if (POEInterface.gameTitleSet.contains(title)) {
-                    System.out.println("gfn window");
                     enumeratingHandle = handle;
                     callback.onWindowFound(handle);
                     return false;

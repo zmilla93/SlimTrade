@@ -7,6 +7,7 @@ import com.sun.jna.platform.win32.WinUser;
 
 import java.awt.*;
 
+// FIXME : Switch this to full static class and just use handle directly
 public class NativeWindow {
 
     // Constant Info

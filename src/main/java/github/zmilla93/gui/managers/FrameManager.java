@@ -279,7 +279,12 @@ public class FrameManager {
 
     public static void requestRestoreUIDefaults() {
         assert SwingUtilities.isEventDispatchThread();
-        int result = JOptionPane.showConfirmDialog(optionsWindow,
+        System.out.println("state:" + App.getState());
+        if (App.getState() == AppState.SETUP) {
+            restoreUIDefaults();
+            return;
+        }
+        int result = JOptionPane.showConfirmDialog(null,
                 "Are you sure you want to reset the UI to its default state?\n" +
                         "This will clear all pins and reset the size and location of most windows.",
                 "Reset SlimTrade UI", JOptionPane.YES_NO_OPTION);
@@ -290,6 +295,10 @@ public class FrameManager {
 
     private static void restoreUIDefaults() {
         assert SwingUtilities.isEventDispatchThread();
+        if (App.getState() == AppState.SETUP) {
+            FrameManager.setupWindow.applyDefaultSizeAndLocation();
+            return;
+        }
         for (IDefaultSizeAndLocation window : defaultSizeAndLocationWindows) {
             if (window instanceof IPinnable) {
                 ((IPinnable) window).unpin();

@@ -120,7 +120,7 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         GridBagConstraints gc = ZUtil.getGC();
         buttonPanel.add(new JLabel(Game.PATH_OF_EXILE_1.explicitName), gc);
         gc.gridx++;
-        buttonPanel.add(new JLabel(Game.PATH_OF_EXILE_1.explicitName), gc);
+        buttonPanel.add(new JLabel(Game.PATH_OF_EXILE_2.explicitName), gc);
         gc.gridx = 0;
         gc.gridy = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;

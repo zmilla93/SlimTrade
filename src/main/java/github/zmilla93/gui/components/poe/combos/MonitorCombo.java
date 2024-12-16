@@ -3,7 +3,6 @@ package github.zmilla93.gui.components.poe.combos;
 import github.zmilla93.gui.components.MonitorInfo;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 //FIXME: This could be made generic
 public class MonitorCombo extends JComboBox<MonitorInfo> {
@@ -12,7 +11,7 @@ public class MonitorCombo extends JComboBox<MonitorInfo> {
         refreshMonitorList();
     }
 
-    public void setMonitorList(ArrayList<MonitorInfo> monitors) {
+    public void setMonitorList(MonitorInfo[] monitors) {
         removeAllItems();
         for (MonitorInfo monitor : monitors)
             addItem(monitor);
@@ -20,7 +19,7 @@ public class MonitorCombo extends JComboBox<MonitorInfo> {
 
     public void refreshMonitorList() {
         removeAllItems();
-        for (MonitorInfo monitor : MonitorInfo.getAllMonitors())
+        for (MonitorInfo monitor : MonitorInfo.getAllMonitors(false))
             addItem(monitor);
     }
 
