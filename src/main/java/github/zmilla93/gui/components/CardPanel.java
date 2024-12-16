@@ -17,6 +17,7 @@ public class CardPanel extends JPanel {
     private final HashMap<Component, Integer> cardMap = new HashMap<>();
     private int currentCardIndex = 0;
     private boolean allowWrap;
+    private Component currentCard;
 
     public CardPanel() {
         setLayout(cardLayout);
@@ -26,6 +27,7 @@ public class CardPanel extends JPanel {
         this();
         for (Component component : components)
             add(component);
+        if (components.length > 0) currentCard = components[0];
     }
 
     public int getCurrentCardIndex() {
@@ -42,6 +44,11 @@ public class CardPanel extends JPanel {
         int key = cardMap.get(component);
         currentCardIndex = key;
         cardLayout.show(this, Integer.toString(key));
+        currentCard = component;
+    }
+
+    public Component getCurrentCard() {
+        return currentCard;
     }
 
     /**
@@ -79,6 +86,7 @@ public class CardPanel extends JPanel {
      */
     @Override
     public Component add(Component comp) {
+        if (getComponentCount() == 0) currentCard = comp;
         int key = getComponentCount();
         add(comp, Integer.toString(key));
         cardMap.put(comp, key);
