@@ -3,6 +3,7 @@ package github.zmilla93.core.poe;
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.WinDef;
 import github.zmilla93.App;
+import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.jna.CustomUser32;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.Platform;
@@ -153,7 +154,6 @@ public class POEWindow {
      * actual game window bounds, a monitor bounds, or a screen region. Also ensures
      * that the window is fully within the bounds of a single monitor.
      */
-    // FIXME: Should ensure that window is fully on the monitor
     public static void centerWindow(Window window) {
         assert SwingUtilities.isEventDispatchThread();
         if (gameBounds == null) {
@@ -168,6 +168,22 @@ public class POEWindow {
                 MonitorInfo.lockBoundsToCurrentMonitor(targetWindowBounds);
             window.setLocation(targetWindowBounds.getLocation());
         }
+    }
+
+    public static void windowToCorner(Window window) {
+        windowToCorner(window, Anchor.TOP_LEFT);
+    }
+
+    /// Moves a window to the respective corner of the game window, while also
+    /// ensuring the window is fully visible on a monitor.
+    public static void windowToCorner(Window window, Anchor anchor) {
+        Rectangle targetBounds = window.getBounds();
+        targetBounds.setLocation(gameBounds.getLocation());
+        if (anchor.isRightSide()) targetBounds.x += gameBounds.width - window.getWidth();
+        if (anchor.isBottomSide()) targetBounds.y += gameBounds.height - window.getHeight();
+        if (!MonitorInfo.isRectWithinAMonitor(targetBounds))
+            MonitorInfo.lockBoundsToCurrentMonitor(targetBounds);
+        window.setLocation(targetBounds.getLocation());
     }
 
     // Path of Exile UI Info Getters

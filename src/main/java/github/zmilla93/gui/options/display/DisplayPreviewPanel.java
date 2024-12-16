@@ -4,7 +4,9 @@ import github.zmilla93.App;
 import github.zmilla93.core.enums.DefaultIcon;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.buttons.IconButton;
+import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.options.TradeColorPreviewPanel;
+import github.zmilla93.gui.utility.GuiUtil;
 import github.zmilla93.modules.theme.ThemeColorVariant;
 import github.zmilla93.modules.theme.ThemeColorVariantSetting;
 
@@ -45,9 +47,16 @@ public class DisplayPreviewPanel extends JPanel {
         debugPanel.add(new JButton("Button"));
         debugPanel.add(disabledButton);
 
+        JLabel approveLabel = new JLabel("Green Label.");
+        JLabel denyLabel = new JLabel("Red Label.");
+        GuiUtil.setLabelColorKey(approveLabel, "Objects.GreenAndroid");
+        GuiUtil.setLabelColorKey(denyLabel, "Objects.Red");
+
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.HORIZONTAL;
-        add(topPanel, gc);
+        add(new ComponentPanel(iconPreviewButton, fontPreviewLabel), gc);
+        gc.gridy++;
+        add(new ComponentPanel(approveLabel, denyLabel), gc);
         gc.gridy++;
         add(bottomPanel, gc);
         gc.gridy++;

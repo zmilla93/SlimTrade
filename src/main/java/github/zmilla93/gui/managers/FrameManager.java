@@ -27,6 +27,7 @@ import github.zmilla93.gui.stash.StashHelperContainerPoe1;
 import github.zmilla93.gui.stash.StashHelperContainerPoe2;
 import github.zmilla93.gui.windows.*;
 import github.zmilla93.gui.windows.test.MessageTestWindow;
+import github.zmilla93.modules.theme.testing.UIColorKeyViewer;
 import github.zmilla93.modules.theme.testing.UIManagerInspectorWindow;
 
 import javax.swing.*;
@@ -59,6 +60,7 @@ public class FrameManager {
     // Debug Windows
     public static MessageTestWindow debugMessageWindow;
     public static UIManagerInspectorWindow uiManagerInspectorWindow;
+    public static UIColorKeyViewer uiColorKeyViewer;
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -115,6 +117,7 @@ public class FrameManager {
             stashAlignmentDesignerWindow = new StashAlignmentDesignerWindow();
             designerConfigWindow = new DesignerConfigWindow();
             uiManagerInspectorWindow = new UIManagerInspectorWindow();
+            uiColorKeyViewer = new UIColorKeyViewer();
         }
 
         /// Organize windows into groups
@@ -149,7 +152,7 @@ public class FrameManager {
     public static void showAppFrames() {
         // FIXME: Show proper windows
         if (App.debug) {
-//            uiManagerInspectorWindow.setVisible(true);
+            uiManagerInspectorWindow.setVisible(true);
         }
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         if (App.showHistoryOnLaunch) historyWindow.setVisible(true);

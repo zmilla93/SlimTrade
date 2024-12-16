@@ -18,7 +18,7 @@ public enum ResultStatus {
             case INDETERMINATE:
                 return extension.indeterminate;
             case APPROVE:
-                return extension.approve;
+                return extension.approve();
             case DENY:
                 return extension.deny;
             case NEUTRAL:

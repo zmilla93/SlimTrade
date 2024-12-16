@@ -1,5 +1,7 @@
 package github.zmilla93.modules.theme.testing;
 
+import github.zmilla93.core.enums.Anchor;
+import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.DocumentChangeAdapter;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.ComponentPanel;
@@ -19,7 +21,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 
 /**
- * A window for inspecting every unique color in the current color theme.
+ * A window for inspecting every UIManager color in the current color theme.
  */
 public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListener {
 
@@ -48,6 +50,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
         setSize(800, 900);
         ThemeManager.addThemeListener(this);
         addListeners();
+        POEWindow.windowToCorner(this, Anchor.TOP_RIGHT);
 //        refreshVisiblePanels();
 //        updateCountLabel();
     }
@@ -120,6 +123,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
             Object value = UIManager.get(key);
             if (value instanceof ColorUIResource) {
                 Color color = (Color) value;
+                color = new Color(color.getRed(), color.getGreen(), color.getBlue());
                 ArrayList<String> localColorKeys;
                 if (colorMap.containsKey(color)) localColorKeys = colorMap.get(color);
                 else {
@@ -204,8 +208,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
         DisplayPanel(Color color, ArrayList<String> keys) {
             this.color = color;
             this.keys = keys;
-            Color colorNoAlpha = new Color(color.getRed(), color.getGreen(), color.getBlue());
-            setBackground(colorNoAlpha);
+            setBackground(color);
             label.setOpaque(true);
             Color backgroundColor = ThemeManager.getCurrentTheme().isDark() ? new Color(0, 0, 0, 180) : new Color(255, 255, 255, 180);
             label.setBackground(backgroundColor);
