@@ -1,4 +1,4 @@
-**Save file is not backwards compatible. Backup "settings.json" if you prefer caution. (Options > Information > Settings Folder)**
+**Save file is not backwards compatible. Backup "settings.json" if you want to be cautious. (Options > Information > Settings Folder)**
 
 ## Known Issues
 - Theme & UI improvements incomplete
@@ -7,7 +7,8 @@
 
 ## pre5
 - Added PoE2 currency icons
-- Bug fixes
+- Game detection is now saved
+- Install folder can be changed without a restart
 
 ## Path of Exile 2
 - SlimTrade now works seamlessly with Path of Exile 1 & 2
