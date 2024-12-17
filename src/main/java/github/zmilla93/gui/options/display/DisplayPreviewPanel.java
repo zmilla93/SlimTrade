@@ -9,6 +9,7 @@ import github.zmilla93.gui.options.TradeColorPreviewPanel;
 import github.zmilla93.gui.utility.GuiUtil;
 import github.zmilla93.modules.theme.ThemeColorVariant;
 import github.zmilla93.modules.theme.ThemeColorVariantSetting;
+import github.zmilla93.modules.theme.testing.ThemeColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,7 +50,9 @@ public class DisplayPreviewPanel extends JPanel {
 
         JLabel approveLabel = new JLabel("Green Label.");
         JLabel denyLabel = new JLabel("Red Label.");
-        GuiUtil.setLabelColorKey(approveLabel, "Objects.GreenAndroid");
+//        GuiUtil.setLabelColorKey(approveLabel, "Objects.GreenAndroid");
+        GuiUtil.applyForegroundColor(approveLabel, ThemeColor.APPROVE);
+//        GuiUtil.setLabelColorKey(approveLabel, "Objects.GreenAndroid");
         GuiUtil.setLabelColorKey(denyLabel, "Objects.Red");
 
         GridBagConstraints gc = ZUtil.getGC();

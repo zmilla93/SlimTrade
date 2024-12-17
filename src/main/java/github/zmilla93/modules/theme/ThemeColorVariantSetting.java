@@ -2,6 +2,7 @@ package github.zmilla93.modules.theme;
 
 import github.zmilla93.core.managers.SaveManager;
 
+@Deprecated
 public class ThemeColorVariantSetting {
 
     private final ThemeColorVariant variant;

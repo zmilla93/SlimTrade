@@ -6,6 +6,7 @@ import github.zmilla93.modules.updater.ZLogger;
 
 import java.awt.*;
 
+@Deprecated
 public enum ThemeColorVariant {
 
     RED, GREEN, ORANGE;

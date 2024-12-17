@@ -8,6 +8,7 @@ import github.zmilla93.gui.buttons.IconButton;
 import github.zmilla93.gui.windows.BasicDialog;
 import github.zmilla93.modules.stopwatch.Stopwatch;
 import github.zmilla93.modules.theme.components.ColorCheckbox;
+import github.zmilla93.modules.theme.extensions.ThemeExtension;
 import github.zmilla93.modules.updater.ZLogger;
 
 import javax.imageio.ImageIO;

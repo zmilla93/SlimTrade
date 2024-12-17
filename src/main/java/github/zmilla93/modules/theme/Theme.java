@@ -5,6 +5,9 @@ import com.formdev.flatlaf.intellijthemes.*;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatNightOwlContrastIJTheme;
 import github.zmilla93.core.utility.ZUtil;
+import github.zmilla93.modules.theme.extensions.DefaultDarkThemeExtension;
+import github.zmilla93.modules.theme.extensions.DefaultLightThemeExtension;
+import github.zmilla93.modules.theme.extensions.ThemeExtension;
 
 import java.awt.*;
 
