@@ -1,22 +1,18 @@
 package github.zmilla93.gui.components;
 
-import github.zmilla93.modules.theme.ThemeColorVariant;
-import github.zmilla93.modules.theme.ThemeColorVariantSetting;
+import github.zmilla93.core.enums.ThemeColor;
+import github.zmilla93.gui.components.poe.ResultLabel;
 
-public class ErrorLabel extends ThemedStyleLabel {
+public class ErrorLabel extends ResultLabel {
 
     public ErrorLabel() {
-        super();
-        setup();
+        super(ThemeColor.DENY);
+        bold();
     }
 
     public ErrorLabel(String text) {
-        super(text);
-        setup();
-    }
-
-    private void setup() {
-        setColor(new ThemeColorVariantSetting(ThemeColorVariant.RED, true));
+        super(ThemeColor.DENY, text);
+        bold();
     }
 
 }

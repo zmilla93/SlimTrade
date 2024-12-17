@@ -3,7 +3,10 @@ package github.zmilla93.gui.options.searching;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.GUIReferences;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.gui.components.*;
+import github.zmilla93.gui.components.ComponentPair;
+import github.zmilla93.gui.components.ErrorLabel;
+import github.zmilla93.gui.components.HotkeyButton;
+import github.zmilla93.gui.components.PlaceholderTextField;
 import github.zmilla93.gui.listening.TextChangeListener;
 import github.zmilla93.modules.saving.ISavable;
 
@@ -15,7 +18,7 @@ public class StashSearchSettingsPanel extends JPanel implements ISavable {
 
     public final JButton newSearchGroupButton = new JButton("New Search Group");
     private final JTextField newSearchGroupNameInput = new PlaceholderTextField("Group Name...", 20);
-    private final ThemedStyleLabel errorLabel = new ErrorLabel();
+    private final JLabel errorLabel = new ErrorLabel();
     private final JLabel windowHotkeyLabel = new JLabel("Window Hotkey");
 
     public final JComboBox<StashSearchWindowMode> modeCombo = new JComboBox<>();
