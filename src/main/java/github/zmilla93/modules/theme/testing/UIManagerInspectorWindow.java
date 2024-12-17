@@ -268,8 +268,8 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
         private void cycleKey(boolean forward) {
             if (forward) keyIndex++;
             else keyIndex--;
-            if (keyIndex < 0) keyIndex = keys.size() - 1;
-            if (keyIndex >= keys.size()) keyIndex = 0;
+            if (keyIndex < 0) keyIndex = filteredKeys.size() - 1;
+            if (keyIndex >= filteredKeys.size()) keyIndex = 0;
             updateLabel();
         }
 

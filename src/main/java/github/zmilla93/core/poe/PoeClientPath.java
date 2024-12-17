@@ -21,7 +21,7 @@ public enum PoeClientPath {
     ;
 
     public final ThemeColor status;
-    public final String message;
+    private final String message;
     public final boolean requiresFormatting;
 
     PoeClientPath(ThemeColor status, String message) {

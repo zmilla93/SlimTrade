@@ -34,7 +34,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
                 refreshComponentVisibility();
             }
         };
-        notInstalledLabel = new ResultLabel(ThemeColor.INDETERMINATE, "If you ever install " + game + ", update this setting.");
+        notInstalledLabel = new ResultLabel(ThemeColor.INDETERMINATE, "If you ever install " + game.explicitName + ", update this setting.");
         notInstalledLabel.setVisible(false);
         fileChooser = new POEFileChooser(game);
         JPanel pathWrapperPanel = new JPanel(new BorderLayout());
@@ -92,7 +92,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
     public void onPathChanged(Path path) {
         boolean validFolderName = path.endsWith(game.toString());
         PoeClientPath validator = PoeClientPath.validateInstallFolder(game, getSelectedPath());
-        setErrorText(validator.message, validator.status);
+        setErrorText(validator.getMessage(game), validator.status);
 //        if (validFolderName) {
 //            Path logsFolder = path.resolve(SaveManager.POE_LOG_FOLDER_NAME);
 //            if (logsFolder.toFile().exists()) {
