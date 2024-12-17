@@ -13,13 +13,11 @@ import java.awt.*;
  */
 public class UIColorKeyViewer extends JFrame {
 
-    private JTextField inputField = new PlaceholderTextField("Add Color Key...", 20);
+    public static final String[] startingKeys = {"Objects.Green", "Objects.Red"};
+    private final JTextField inputField = new PlaceholderTextField("Add Color Key...", 20);
     private final GridBagConstraints gc = ZUtil.getGC();
     private final JPanel containerPanel = new JPanel(new GridBagLayout());
-
-    public final String[] keys = {
-            "Objects.Green", "Objects.Red"
-    };
+    private final int startingColumnCount = startingKeys.length + 1;
 
     public UIColorKeyViewer() {
         setTitle("UI Color Key Viewer");
@@ -50,7 +48,7 @@ public class UIColorKeyViewer extends JFrame {
             JLabel themeNameLabel = new JLabel(theme.toString());
             containerPanel.add(wrapperPanel(themeNameLabel), gc);
             gc.gridx++;
-            for (String key : keys) {
+            for (String key : startingKeys) {
                 JLabel label = new JLabel(key);
                 label.setForeground(UIManager.getColor(key));
                 containerPanel.add(wrapperPanel(label), gc);
@@ -59,7 +57,7 @@ public class UIColorKeyViewer extends JFrame {
             gc.gridx = 0;
             gc.gridy++;
         }
-        gc.gridx = keys.length + 1;
+        gc.gridx = startingKeys.length + 1;
         gc.gridy = 0;
         try {
             UIManager.setLookAndFeel(currentLAF);
