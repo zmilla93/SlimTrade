@@ -2,14 +2,14 @@ package github.zmilla93.gui.options.display;
 
 import github.zmilla93.App;
 import github.zmilla93.core.enums.DefaultIcon;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.buttons.IconButton;
 import github.zmilla93.gui.components.ComponentPanel;
+import github.zmilla93.gui.components.poe.ResultLabel;
 import github.zmilla93.gui.options.TradeColorPreviewPanel;
-import github.zmilla93.gui.utility.GuiUtil;
 import github.zmilla93.modules.theme.ThemeColorVariant;
 import github.zmilla93.modules.theme.ThemeColorVariantSetting;
-import github.zmilla93.modules.theme.testing.ThemeColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,18 +48,15 @@ public class DisplayPreviewPanel extends JPanel {
         debugPanel.add(new JButton("Button"));
         debugPanel.add(disabledButton);
 
-        JLabel approveLabel = new JLabel("Green Label.");
-        JLabel denyLabel = new JLabel("Red Label.");
-//        GuiUtil.setLabelColorKey(approveLabel, "Objects.GreenAndroid");
-        GuiUtil.applyForegroundColor(approveLabel, ThemeColor.APPROVE);
-//        GuiUtil.setLabelColorKey(approveLabel, "Objects.GreenAndroid");
-        GuiUtil.setLabelColorKey(denyLabel, "Objects.Red");
+        JLabel approveLabel = new ResultLabel(ThemeColor.APPROVE, "Green Label.").bold();
+        JLabel denyLabel = new ResultLabel(ThemeColor.DENY, "Red Label.").bold();
+        JLabel indeterminateLabel = new ResultLabel(ThemeColor.INDETERMINATE, "Yellow Label.").bold();
 
         GridBagConstraints gc = ZUtil.getGC();
         gc.fill = GridBagConstraints.HORIZONTAL;
         add(new ComponentPanel(iconPreviewButton, fontPreviewLabel), gc);
         gc.gridy++;
-        add(new ComponentPanel(approveLabel, denyLabel), gc);
+        add(new ComponentPanel(approveLabel, denyLabel, indeterminateLabel), gc);
         gc.gridy++;
         add(bottomPanel, gc);
         gc.gridy++;

@@ -51,8 +51,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
         ThemeManager.addThemeListener(this);
         addListeners();
         POEWindow.windowToCorner(this, Anchor.TOP_RIGHT);
-//        refreshVisiblePanels();
-//        updateCountLabel();
+        setVisible(true);
     }
 
     private void addListeners() {

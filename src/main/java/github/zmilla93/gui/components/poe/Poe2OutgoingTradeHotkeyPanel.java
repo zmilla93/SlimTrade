@@ -1,6 +1,6 @@
 package github.zmilla93.gui.components.poe;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.gui.components.ButtonWrapper;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.HotkeyButton;
@@ -18,8 +18,8 @@ public class Poe2OutgoingTradeHotkeyPanel extends AbstractOptionPanel {
     public Poe2OutgoingTradeHotkeyPanel() {
         super(false, false);
         addHeader("POE2 Outgoing Trade Detection");
-        addComponent(new ResultLabel(ResultStatus.DENY, "POE2 broke incoming/outgoing whisper detection."));
-        addComponent(new ResultLabel(ResultStatus.DENY, "Until this is fixed, you need to hold a hotkey when sending OUTGOING trades in POE2."));
+        addComponent(new ResultLabel(ThemeColor.DENY, "POE2 broke incoming/outgoing whisper detection."));
+        addComponent(new ResultLabel(ThemeColor.DENY, "Until this is fixed, you need to hold a hotkey when sending OUTGOING trades in POE2."));
         addComponent(new ComponentPanel(new JLabel("Outgoing Trade Hotkey"), new ButtonWrapper(hotkeyButton)));
     }
 

@@ -1,6 +1,6 @@
 package github.zmilla93.gui.setup;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.PoeClientPath;
@@ -55,15 +55,15 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
         if (path == null) {
             Path[] validDirectories = picker.createDuplicatePathPanels(false);
             if (validDirectories.length == 0)
-                picker.setErrorText("Auto detection of install folder failed.", ResultStatus.DENY);
+                picker.setErrorText("Auto detection of install folder failed.", ThemeColor.DENY);
             else if (validDirectories.length == 1) {
                 picker.setSelectedPath(validDirectories[0]);
-                picker.setErrorText("Install folder auto detected.", ResultStatus.APPROVE);
+                picker.setErrorText("Install folder auto detected.", ThemeColor.APPROVE);
             } else
-                picker.setErrorText("Multiple install folders detected, select the correct one.", ResultStatus.INDETERMINATE);
+                picker.setErrorText("Multiple install folders detected, select the correct one.", ThemeColor.INDETERMINATE);
         } else {
             PoeClientPath validator = PoeClientPath.validateInstallFolder(picker.game, path);
-            if (validator.status != ResultStatus.APPROVE) picker.createDuplicatePathPanels(true);
+            if (validator.status != ThemeColor.APPROVE) picker.createDuplicatePathPanels(true);
         }
     }
 
@@ -73,6 +73,8 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
         Path poe2Dir = ZUtil.getPath(SaveManager.settingsSaveFile.data.settingsPoe2.installFolder);
         poe1FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe1.notInstalled);
         poe2FolderPicker.notInstalledCheckbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled);
+        poe1FolderPicker.setSelectedPath(poe1Dir);
+        poe2FolderPicker.setSelectedPath(poe2Dir);
         setInitialErrorLabelStatus(poe1Dir, poe1FolderPicker);
         setInitialErrorLabelStatus(poe2Dir, poe2FolderPicker);
     }

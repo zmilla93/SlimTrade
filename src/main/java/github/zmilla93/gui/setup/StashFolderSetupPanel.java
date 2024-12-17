@@ -1,6 +1,6 @@
 package github.zmilla93.gui.setup;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.gui.components.poe.ResultLabel;
@@ -25,7 +25,7 @@ public class StashFolderSetupPanel extends AbstractSetupPanel {
 
         addHeader("Stash Tab Folders");
         addComponent(new JLabel("Do you use any stash tab folders? Doing so affects UI alignment."));
-        addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "This settings needs to be updated manually if changed."));
+        addComponent(new ResultLabel(ThemeColor.INDETERMINATE, "This settings needs to be updated manually if changed."));
         addVerticalStrut();
         addHeader(Game.PATH_OF_EXILE_1.explicitName);
         addComponent(poe1YesRadioButton);

@@ -1,6 +1,6 @@
 package github.zmilla93.gui.components.poe.detection;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.utility.Platform;
 
 /**
@@ -8,16 +8,16 @@ import github.zmilla93.core.utility.Platform;
  */
 public enum GameDetectionResult {
 
-    NOT_RUN(ResultStatus.NEUTRAL, "Click to set the game window location."),
-    FAIL(ResultStatus.DENY, "Window not found. Ensure Path of Exile 1 or 2 is running."),
-    MINIMIZED(ResultStatus.INDETERMINATE, "Game is minimized."),
-    SUCCESS(ResultStatus.APPROVE, "Window location detected."),
-    NOT_SUPPORTED(ResultStatus.DENY, "Not supported on " + Platform.current + ".");
+    NOT_RUN(ThemeColor.NEUTRAL, "Click to set the game window location."),
+    FAIL(ThemeColor.DENY, "Window not found. Ensure Path of Exile 1 or 2 is running."),
+    MINIMIZED(ThemeColor.INDETERMINATE, "Game is minimized."),
+    SUCCESS(ThemeColor.APPROVE, "Window location detected."),
+    NOT_SUPPORTED(ThemeColor.DENY, "Not supported on " + Platform.current + ".");
 
     public final String message;
-    public final ResultStatus status;
+    public final ThemeColor status;
 
-    GameDetectionResult(ResultStatus status, String message) {
+    GameDetectionResult(ThemeColor status, String message) {
         this.message = message;
         this.status = status;
     }

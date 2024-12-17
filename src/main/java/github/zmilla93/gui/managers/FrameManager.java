@@ -118,6 +118,7 @@ public class FrameManager {
             designerConfigWindow = new DesignerConfigWindow();
             uiManagerInspectorWindow = new UIManagerInspectorWindow();
             uiColorKeyViewer = new UIColorKeyViewer();
+            debugMessageWindow = new MessageTestWindow();
         }
 
         /// Organize windows into groups
@@ -140,7 +141,7 @@ public class FrameManager {
         for (IDefaultSizeAndLocation window : defaultSizeAndLocationWindows) {
             window.applyDefaultSizeAndLocation();
         }
-        if (App.messageUITest) debugMessageWindow = new MessageTestWindow();
+
         /// Finish
         initialized = true;
     }

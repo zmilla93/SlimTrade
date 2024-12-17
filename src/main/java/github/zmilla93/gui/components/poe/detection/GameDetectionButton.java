@@ -1,7 +1,7 @@
 package github.zmilla93.gui.components.poe.detection;
 
 import com.sun.jna.platform.win32.WinDef;
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.jna.NativeWindow;
 import github.zmilla93.core.utility.Platform;
@@ -52,7 +52,7 @@ public class GameDetectionButton extends ComponentPanel implements GameDetection
     public void reset() {
         latestResult = GameDetectionResult.NOT_RUN;
         latestResultWindow = null;
-        resultLabel.setText(ResultStatus.NEUTRAL, GameDetectionResult.NOT_RUN.message);
+        resultLabel.setText(ThemeColor.NEUTRAL, GameDetectionResult.NOT_RUN.message);
     }
 
     public void addGameDetectionTestListener(GameDetectionTestListener listener) {

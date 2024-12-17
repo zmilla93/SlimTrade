@@ -2,14 +2,11 @@ package github.zmilla93.core.poe;
 
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.WinDef;
-import github.zmilla93.App;
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.jna.CustomUser32;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.Platform;
-import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.MonitorInfo;
-import github.zmilla93.gui.windows.test.DrawWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -242,8 +239,8 @@ public class POEWindow {
         poe1StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
         poe1StashHelperOffsetWithFolders = ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds.height);
         poe1StashHelperOffsetNoFolders = ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds.height);
-        if (App.debug)
-            ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_POE_1, getPoe1StashBonds()));
+//        if (App.debug)
+//            ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_POE_1, getPoe1StashBonds()));
     }
 
     private static void calculatePoe2UIData() {
@@ -257,8 +254,8 @@ public class POEWindow {
         poe2StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
         poe2StashHelperOffsetWithFolders = ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds.height);
         poe2StashHelperOffsetNoFolders = ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds.height);
-        if (App.debug)
-            ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_POE_2, getPoe2StashBonds(), Color.BLUE));
+//        if (App.debug)
+//            ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_POE_2, getPoe2StashBonds(), Color.BLUE));
     }
 
     public static void addListener(POEWindowListener listener) {

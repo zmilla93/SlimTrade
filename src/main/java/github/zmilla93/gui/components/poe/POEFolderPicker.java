@@ -1,6 +1,6 @@
 package github.zmilla93.gui.components.poe;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.PoeClientPath;
@@ -34,7 +34,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
                 refreshComponentVisibility();
             }
         };
-        notInstalledLabel = new ResultLabel(ResultStatus.INDETERMINATE, "If you ever install " + game + ", update this setting.");
+        notInstalledLabel = new ResultLabel(ThemeColor.INDETERMINATE, "If you ever install " + game + ", update this setting.");
         notInstalledLabel.setVisible(false);
         fileChooser = new POEFileChooser(game);
         JPanel pathWrapperPanel = new JPanel(new BorderLayout());

@@ -7,13 +7,18 @@ public class ThemeExtension {
 
     /// Response Colors
     protected Color approve;
-
-    public String APPROVE_KEY = "Objects.Green";
-    public String DENY_KEY = "Objects.Red";
-    public String INDETERMINATE_KEY = "Objects.Yellow";
+    /// Approve
+    public String APPROVE_KEY = "Actions.Green";
+    public String APPROVE_KEY_CB = "Actions.Green";
+    /// Deny
+    public String DENY_KEY = "Actions.Red";
+    public String DENY_KEY_CB = "Actions.Red";
+    /// Indeterminate
+    public String INDETERMINATE_KEY = "Actions.Yellow";
+    public String INDETERMINATE_KEY_CB = "Actions.Yellow";
+    /// Neutral
     public String NEUTRAL_KEY = "Label.foreground";
 
-    //    public Color approve = Color.GREEN;
     public Color deny = Color.RED;
     public Color indeterminate = Color.ORANGE;
 

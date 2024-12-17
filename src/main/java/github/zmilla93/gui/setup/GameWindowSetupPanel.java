@@ -1,6 +1,6 @@
 package github.zmilla93.gui.setup;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.utility.Platform;
@@ -53,12 +53,12 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
-        monitorPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Requires using Windowed Fullscreen"));
+        monitorPanel.addComponent(new ResultLabel(ThemeColor.INDETERMINATE, "Requires using Windowed Fullscreen"));
         monitorPanel.addComponent(monitorPicker);
 
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
-        screenRegionPanel.addComponent(new ResultLabel(ResultStatus.INDETERMINATE, "Coming soon (maybe)."));
+        screenRegionPanel.addComponent(new ResultLabel(ThemeColor.INDETERMINATE, "Coming soon (maybe)."));
         screenRegionPanel.addLabel("Only required for windowed mode if other options fail.");
         screenRegionPanel.addLabel("If this affects you, let me know on GitHub or Discord.");
 

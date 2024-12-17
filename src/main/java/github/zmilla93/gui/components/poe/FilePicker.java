@@ -1,6 +1,6 @@
 package github.zmilla93.gui.components.poe;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.gui.components.ComponentPanel;
 
 import javax.swing.*;
@@ -88,7 +88,7 @@ public class FilePicker extends JPanel {
         errorLabel.setText(text);
     }
 
-    public void setErrorText(String text, ResultStatus result) {
+    public void setErrorText(String text, ThemeColor result) {
         boolean hideLabel = (text == null || text.isEmpty());
         errorLabel.setVisible(!hideLabel);
         errorLabel.setText(result, text);

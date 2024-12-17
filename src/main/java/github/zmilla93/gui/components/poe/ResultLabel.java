@@ -1,43 +1,42 @@
 package github.zmilla93.gui.components.poe;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.gui.components.StyledLabel;
 
 //FIXME : Move to theme module once that is updated
 public class ResultLabel extends StyledLabel {
 
-    private ResultStatus status;
+    private ThemeColor status;
 
     public ResultLabel() {
-        this(ResultStatus.NEUTRAL, null);
+        this(ThemeColor.NEUTRAL, null);
     }
 
-    public ResultLabel(ResultStatus status) {
+    public ResultLabel(ThemeColor status) {
         this(status, null);
     }
 
     public ResultLabel(String text) {
-        this(ResultStatus.NEUTRAL, text);
+        this(ThemeColor.NEUTRAL, text);
     }
 
-    public ResultLabel(ResultStatus status, String text) {
+    public ResultLabel(ThemeColor status, String text) {
         this.status = status;
         setText(text);
         updateUI();
     }
 
-    public void setText(ResultStatus status, String text) {
+    public void setText(ThemeColor status, String text) {
         this.status = status;
         setText(text);
         updateUI();
     }
 
-    // FIXME : Implement
     @Override
     public void updateUI() {
         super.updateUI();
         if (status == null) return;
-        setForeground(status.toColor());
+        setForeground(status.current());
     }
 
 }

@@ -96,7 +96,7 @@ public class SettingsSaveFile extends AbstractSaveFile {
 
     // Stash
     public ArrayList<StashTabData> stashTabs = new ArrayList<>();
-    public boolean applyStashColorToMessage;
+    public boolean applyStashColorToMessage = true;
 
     // Audio
     public SoundComponent incomingSound = new SoundComponent(new Sound("Ping 1", Sound.SoundType.INBUILT), 50);

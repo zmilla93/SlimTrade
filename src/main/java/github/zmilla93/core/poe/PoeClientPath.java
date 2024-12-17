@@ -1,6 +1,6 @@
 package github.zmilla93.core.poe;
 
-import github.zmilla93.core.enums.ResultStatus;
+import github.zmilla93.core.enums.ThemeColor;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,25 +10,25 @@ import java.nio.file.Paths;
  */
 public enum PoeClientPath {
 
-    INCORRECT_FOLDER_NAME(ResultStatus.DENY, "Folder name must be '%s'.", true),
-    MISSING_POE_FOLDER(ResultStatus.DENY, "The '%s' no longer exists.", true),
-    MISSING_LOGS_FOLDER(ResultStatus.INDETERMINATE, "Folder name is correct, but is missing a '" + GameSettings.LOG_FOLDER_NAME + "' folder."),
-    MISSING_CLIENT_FILE(ResultStatus.INDETERMINATE, "%s's " + GameSettings.LOG_FOLDER_NAME + " folder is missing a " + GameSettings.CLIENT_TXT_NAME + " file.", true),
-    VALID(ResultStatus.APPROVE, "Folder set correctly."),
+    INCORRECT_FOLDER_NAME(ThemeColor.DENY, "Folder name must be '%s'.", true),
+    MISSING_POE_FOLDER(ThemeColor.DENY, "The '%s' no longer exists.", true),
+    MISSING_LOGS_FOLDER(ThemeColor.INDETERMINATE, "Folder name is correct, but is missing a '" + GameSettings.LOG_FOLDER_NAME + "' folder."),
+    MISSING_CLIENT_FILE(ThemeColor.INDETERMINATE, "%s's " + GameSettings.LOG_FOLDER_NAME + " folder is missing a " + GameSettings.CLIENT_TXT_NAME + " file.", true),
+    VALID(ThemeColor.APPROVE, "Folder set correctly."),
 
-    DETECTED_SINGLE(ResultStatus.APPROVE, "Folder auto detected."),
-    DETECTED_MULTIPLE(ResultStatus.INDETERMINATE, "Multiple folders auto detected."),
+    DETECTED_SINGLE(ThemeColor.APPROVE, "Folder auto detected."),
+    DETECTED_MULTIPLE(ThemeColor.INDETERMINATE, "Multiple folders auto detected."),
     ;
 
-    public final ResultStatus status;
+    public final ThemeColor status;
     public final String message;
     public final boolean requiresFormatting;
 
-    PoeClientPath(ResultStatus status, String message) {
+    PoeClientPath(ThemeColor status, String message) {
         this(status, message, false);
     }
 
-    PoeClientPath(ResultStatus status, String message, boolean requiresFormatting) {
+    PoeClientPath(ThemeColor status, String message, boolean requiresFormatting) {
         this.status = status;
         this.message = message;
         this.requiresFormatting = requiresFormatting;
@@ -46,7 +46,7 @@ public enum PoeClientPath {
     }
 
     public static boolean isValidInstallFolder(Game game, Path path) {
-        return validateInstallFolder(game, path).status == ResultStatus.APPROVE;
+        return validateInstallFolder(game, path).status == ThemeColor.APPROVE;
     }
 
     public static PoeClientPath validateInstallFolder(Game game, Path poeFolderPath) {

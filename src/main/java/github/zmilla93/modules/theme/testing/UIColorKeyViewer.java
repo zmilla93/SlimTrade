@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class UIColorKeyViewer extends JFrame {
 
-    public static final String[] startingKeys = {"Objects.Green", "Objects.Red"};
+    public static final String[] startingKeys = {"Actions.Green", "Actions.Red"};
     private final JTextField inputField = new PlaceholderTextField("Add Color Key...", 20);
     private final GridBagConstraints gc = ZUtil.getGC();
     private final JPanel containerPanel = new JPanel(new GridBagLayout());
@@ -68,19 +68,25 @@ public class UIColorKeyViewer extends JFrame {
 
     /// Adds a new color to the display if given a valid color key.
     private void tryAddNewColorKey(String colorKey) {
-        Object value = UIManager.get(colorKey);
-        if (!(value instanceof Color)) return;
-        Color color = (Color) value;
+
+        LookAndFeel currentLAF = UIManager.getLookAndFeel();
         for (Theme theme : Theme.values()) {
             try {
                 UIManager.setLookAndFeel(theme.lookAndFeel);
             } catch (UnsupportedLookAndFeelException e) {
                 continue;
             }
+            Object value = UIManager.get(colorKey);
+            if (!(value instanceof Color)) return;
+            Color color = (Color) value;
             JLabel label = new JLabel(colorKey);
             label.setForeground(color);
             containerPanel.add(wrapperPanel(label), gc);
             gc.gridy++;
+        }
+        try {
+            UIManager.setLookAndFeel(currentLAF);
+        } catch (UnsupportedLookAndFeelException ignore) {
         }
         gc.gridy = 0;
         gc.gridx++;
