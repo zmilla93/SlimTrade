@@ -131,7 +131,7 @@ public class FrameManager {
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
-        defaultSizeAndLocationWindows = new IDefaultSizeAndLocation[]{optionsWindow, historyWindow, chatScannerWindow, tutorialWindow, patchNotesWindow, setupWindow};
+        defaultSizeAndLocationWindows = new IDefaultSizeAndLocation[]{optionsWindow, historyWindow, chatScannerWindow, tutorialWindow, patchNotesWindow, setupWindow, overlayInfoWindow};
         // Matching boolean array so running remember previous visibility.
         Boolean[] runningWindowsVisibility = new Boolean[runningWindows.length];
         // Throw the data into maps for ease of use
@@ -140,9 +140,7 @@ public class FrameManager {
         windowMap.put(AppState.EDIT_STASH, stashWindows);
         windowMap.put(AppState.SETUP, setupWindows);
         windowVisibilityMap.put(AppState.RUNNING, runningWindowsVisibility);
-        for (IDefaultSizeAndLocation window : defaultSizeAndLocationWindows) {
-            window.applyDefaultSizeAndLocation();
-        }
+        applyAllDefaultSizesAndLocations();
 
         /// Finish
         initialized = true;

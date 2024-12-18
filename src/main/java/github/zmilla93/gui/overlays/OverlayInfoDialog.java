@@ -1,16 +1,17 @@
 package github.zmilla93.gui.overlays;
 
-import github.zmilla93.core.References;
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.enums.AppState;
 import github.zmilla93.core.enums.ExpandDirection;
 import github.zmilla93.core.enums.SliderRange;
 import github.zmilla93.core.managers.SaveManager;
+import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.TradeUtil;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.ErrorLabel;
 import github.zmilla93.gui.components.LabeledSlider;
 import github.zmilla93.gui.components.LimitCombo;
+import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.windows.BasicDialog;
 import github.zmilla93.modules.saving.ISavable;
@@ -21,7 +22,7 @@ import github.zmilla93.modules.theme.listeners.IThemeListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class OverlayInfoDialog extends BasicDialog implements ISavable, IThemeListener, IFontChangeListener {
+public class OverlayInfoDialog extends BasicDialog implements ISavable, IThemeListener, IFontChangeListener, IDefaultSizeAndLocation {
 
     // Buttons
     private final JButton cancelButton = new JButton("Cancel");
@@ -130,8 +131,10 @@ public class OverlayInfoDialog extends BasicDialog implements ISavable, IThemeLi
     }
 
     public void restoreDefaults() {
-        FrameManager.messageOverlay.setLocation(References.DEFAULT_MESSAGE_LOCATION);
-        FrameManager.menubarOverlay.setLocation(References.DEFAULT_MENUBAR_LOCATION);
+//        FrameManager.messageOverlay.setLocation(References.DEFAULT_MESSAGE_LOCATION);
+//        FrameManager.menubarOverlay.setLocation(References.DEFAULT_MENUBAR_LOCATION);
+        SaveManager.overlaySaveFile.data.applyDefaultMenuBarLocation();
+        SaveManager.overlaySaveFile.data.applyDefaultMessageLocation();
         messageWidthSlider.setValue(SliderRange.MESSAGE_WIDTH.START);
         menubarAnchorCombo.setSelectedItem(Anchor.TOP_LEFT);
         expandCombo.setSelectedItem(ExpandDirection.DOWNWARDS);
@@ -180,8 +183,13 @@ public class OverlayInfoDialog extends BasicDialog implements ISavable, IThemeLi
 
     @Override
     public void onFontChanged() {
+        applyDefaultSizeAndLocation();
+    }
+
+    @Override
+    public void applyDefaultSizeAndLocation() {
         pack();
-        setLocationRelativeTo(null);
+        POEWindow.centerWindow(this);
     }
 
 }

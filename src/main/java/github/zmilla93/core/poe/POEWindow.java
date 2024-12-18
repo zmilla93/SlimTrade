@@ -71,6 +71,10 @@ public class POEWindow {
     /// The things that care about the game bounds
     private static final ArrayList<POEWindowListener> listeners = new ArrayList<>();
 
+    public static Rectangle getGameBounds() {
+        return gameBounds;
+    }
+
     public static WinDef.HWND getGameHandle() {
         return currentGameHandle;
     }

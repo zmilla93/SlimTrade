@@ -132,6 +132,9 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
     private void finishSetup() {
         for (AbstractSetupPanel panel : setupPanels) panel.applyCompletedSetup();
         SaveManager.settingsSaveFile.saveToDisk(false);
+        POEWindow.forceGameBoundsRefresh();
+        boolean didInitOverlay = SaveManager.overlaySaveFile.data.initMessageAndMenuBarLocations();
+        if (didInitOverlay) SaveManager.overlaySaveFile.saveToDisk(false);
         App.launchApp();
     }
 

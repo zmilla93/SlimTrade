@@ -1,6 +1,5 @@
 package github.zmilla93.core;
 
-import java.awt.*;
 import java.util.regex.Pattern;
 
 public class References {
@@ -34,8 +33,5 @@ public class References {
 
     public static final Pattern chatPatten = Pattern.compile(REGEX_CLIENT_CHAT_PREFIX + REGEX_SUFFIX);
     public static final Pattern clientMetaPattern = Pattern.compile(REGEX_CLIENT_META_PREFIX + REGEX_SUFFIX);
-
-    public static final Point DEFAULT_MESSAGE_LOCATION = new Point(800, 0);
-    public static final Point DEFAULT_MENUBAR_LOCATION = new Point(0, 0);
 
 }

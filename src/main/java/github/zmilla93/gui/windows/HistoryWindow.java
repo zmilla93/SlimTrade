@@ -22,7 +22,7 @@ public class HistoryWindow extends CustomDialog implements IDefaultSizeAndLocati
     private final CardPanel cardPanel = new CardPanel();
     private final JTabbedPane poe1TabbedPanel = new JTabbedPane();
     private final JTabbedPane poe2TabbedPanel = new JTabbedPane();
-    private final JButton settingsButton = new IconButton(DefaultIcon.COG);
+    //    private final JButton settingsButton = new IconButton(DefaultIcon.COG);
     private final JButton toggleGameButton = new IconButton(DefaultIcon.ARROW_SYNC);
     private final JLabel gameLabel = new JLabel("Path of Exile 1");
     private final JButton openMessageButton = new JButton("Open Selected Message");
@@ -37,7 +37,7 @@ public class HistoryWindow extends CustomDialog implements IDefaultSizeAndLocati
         cardPanel.add(poe2TabbedPanel);
 
         JPanel buttonPanel = new JPanel(new BorderLayout());
-        buttonPanel.add(new ComponentPanel(0, settingsButton, toggleGameButton, Box.createHorizontalStrut(2), gameLabel), BorderLayout.WEST);
+        buttonPanel.add(new ComponentPanel(0, toggleGameButton, Box.createHorizontalStrut(2), gameLabel), BorderLayout.WEST);
         buttonPanel.add(openMessageButton, BorderLayout.EAST);
 
         contentPanel.setLayout(new BorderLayout());

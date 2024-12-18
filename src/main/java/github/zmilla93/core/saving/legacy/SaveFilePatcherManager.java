@@ -29,6 +29,7 @@ public class SaveFilePatcherManager {
         handlePatch(new PatcherScanner0to1());
         handlePatch(new PatcherScanner1to2());
         handlePatch(new PatcherOverlay0to1());
+        handlePatch(new PatcherOverlay1to2());
     }
 
     private static boolean handlePatch(ISavePatcher patcher) {
