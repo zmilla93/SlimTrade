@@ -17,7 +17,7 @@ public class DisplayDebugPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE), false));
         add(new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE), false));
-        add(new ChatScannerMessagePanel(new ChatScannerEntry("Example Search"), new PlayerMessage("ExampleUser789", CommonText.LOREM_IPSUM_SHORT), false));
+        add(new ChatScannerMessagePanel(new ChatScannerEntry("Search Name"), new PlayerMessage("ExampleUser789", CommonText.LOREM_IPSUM_SHORT), false));
     }
 
 }

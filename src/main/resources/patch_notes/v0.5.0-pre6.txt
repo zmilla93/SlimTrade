@@ -1,0 +1,33 @@
+**Save file is not backwards compatible. Backup "settings.json" if you want to be cautious. (Options > Information > Settings Folder)**
+
+## Known Issues
+- "Zone" text replacement doesn't work
+
+## pre6
+- Updated message colors for all 30 themes. *Hate the changes? Give it time, or try out a new theme since they all have a new look!*
+- Colors should match theme much better, but some themes may require further tweaks
+
+*0.5.0 Full Patch Notes Below*
+
+## Path of Exile 2
+- SlimTrade now works seamlessly with Path of Exile 1 & 2
+- **PoE2 broke incoming/outgoing whisper detection, so PoE2 outgoing trades require an extra hotkey until fixed by GGG**
+
+## Improvements
+- Updated all 30 color themes. *Hate the changes? Give it time, or try out a new theme since they all have a new look!*
+- Added a new window detection system for UI alignment, replacing the old stash alignment window
+- Unpinned windows are now centered relative to the game window on launch
+- Many small UI improvements & bug fixes
+- Possible improvements for Mac & Linux (untested)
+
+## Cloud Gaming
+- Added partial support for GeForce Now (other platforms upon request)
+- **Features that require access to game files DO NOT work (trade popups, chat scanner, history)**
+- All other features should work (game macros, cheat sheets, stash/npc searching)
+- **BUG: Game macros often repeat old commands, investigating**
+
+## How to Install
+- Make sure you have [Java](https://www.java.com) installed
+- Download and run 'SlimTrade.jar' from 'Assets' below
+
+*Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*

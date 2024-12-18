@@ -65,10 +65,10 @@ public class MessageTestWindow extends JFrame {
             columnFlag = !columnFlag;
         }
         ThemeManager.setTheme(currentTheme);
-//        try {
-//            UIManager.setLookAndFeel(currentTheme.lookAndFeel);
-//        } catch (UnsupportedLookAndFeelException ignore) {
-//        }
+        try {
+            UIManager.setLookAndFeel(currentTheme.lookAndFeel);
+        } catch (UnsupportedLookAndFeelException ignore) {
+        }
         return mainPanel;
     }
 

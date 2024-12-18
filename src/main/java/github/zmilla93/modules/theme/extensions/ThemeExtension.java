@@ -1,5 +1,9 @@
 package github.zmilla93.modules.theme.extensions;
 
+import github.zmilla93.core.enums.ThemeColor;
+
+import java.util.HashSet;
+
 public class ThemeExtension {
 
     /// Approve
@@ -10,7 +14,6 @@ public class ThemeExtension {
     public String DENY_KEY_CB = "Objects.Pink";
     /// Indeterminate
     public String INDETERMINATE_KEY = "Actions.Yellow";
-    public String INDETERMINATE_KEY_CB = "Actions.Yellow";
     /// Neutral
     public String NEUTRAL_KEY = "Label.foreground";
 
@@ -21,5 +24,7 @@ public class ThemeExtension {
     public String OUTGOING_TRADE_CB_KEY = "Objects.Pink";
     public String SCANNER_MESSAGE_CB_KEY = "Actions.Yellow";
     public String UPDATE_MESSAGE_CB_KEY = "Actions.Grey";
+
+    public HashSet<ThemeColor> invertTextColor = new HashSet<>();
 
 }

@@ -14,6 +14,7 @@ import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.core.utility.POEInterface;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.BorderlessButton;
+import github.zmilla93.gui.components.CurrencyLabelFactory;
 import github.zmilla93.gui.components.poe.ThemePanel;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.modules.theme.components.ColorPanel;
@@ -89,7 +90,8 @@ public abstract class NotificationPanel extends ColorPanel {
         // Border Setup
         setLayout(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        gc.insets = new Insets(2, 2, 2, 2);
+        int borderSize = 2;
+        gc.insets = new Insets(borderSize, borderSize, borderSize, borderSize);
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 1;
         gc.weighty = 1;
@@ -242,12 +244,11 @@ public abstract class NotificationPanel extends ColorPanel {
     public void applyMessageColor() {
         if (borderPanel == null) return;
         // FIXME : Need to fix player joined area.
-//        if (playerJoinedArea) {
-//            playerNameButton.setForeground(messageColor);
-//            timerLabel.setForeground(messageColor);
-//            itemButton.setForeground(messageColor);
-//            CurrencyLabelFactory.applyColorToLabel(itemButton, messageColor);
-//        }
+        if (playerJoinedArea) {
+            playerNameButton.setForeground(themeColor.current());
+            timerLabel.setForeground(themeColor.current());
+            CurrencyLabelFactory.applyColorToLabel(itemButton, themeColor.current());
+        }
     }
 
     public void setPlayerJoinedArea() {

@@ -40,6 +40,7 @@ public class CurrencyLabelFactory extends JPanel {
     /**
      * Recursively applies a foreground color to all labels within a container.
      */
+    /// FIXME : Move this to ThemeColor perhaps?
     public static Container applyColorToLabel(Container container, Color color) {
         for (Component component : container.getComponents()) {
             if (component instanceof JLabel) {
