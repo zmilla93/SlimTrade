@@ -75,8 +75,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public boolean hasInitUsingStashFolders;
     public Poe1Settings settingsPoe1 = new Poe1Settings();
     public Poe2Settings settingsPoe2 = new Poe2Settings();
-    // TODO : Hopefully this hotkey is temporary :^)
-    public HotkeyData poe2OutgoingTradeHotkey;
     // Path of Exile - Shared Between Games
     public GameWindowMode gameWindowMode = GameWindowMode.UNSET;
     public Rectangle detectedGameBounds;

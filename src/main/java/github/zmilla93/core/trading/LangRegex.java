@@ -1,7 +1,6 @@
 package github.zmilla93.core.trading;
 
 import github.zmilla93.core.References;
-import github.zmilla93.modules.updater.ZLogger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -132,7 +131,7 @@ public enum LangRegex {
         toFrom = toFrom.toLowerCase();
         if (incomingTags.contains(toFrom)) return TradeOfferType.INCOMING_TRADE;
         if (outgoingTags.contains(toFrom)) return TradeOfferType.OUTGOING_TRADE;
-        ZLogger.err("Invalid message type: " + toFrom);
+//        ZLogger.err("Invalid message type: " + toFrom);
         return TradeOfferType.UNKNOWN;
     }
 
