@@ -13,7 +13,6 @@ import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.POEFolderPicker;
 import github.zmilla93.gui.components.poe.POEInstallFolderExplanationPanel;
-import github.zmilla93.gui.components.poe.Poe2OutgoingTradeHotkeyPanel;
 import github.zmilla93.gui.components.poe.detection.GameDetectionButton;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.options.AbstractOptionPanel;
@@ -38,7 +37,6 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
     private final POEFolderPicker poe2FolderPicker = new POEFolderPicker(Game.PATH_OF_EXILE_2);
     private final AbstractOptionPanel poe1OptionPanel = new AbstractOptionPanel(false, false);
     private final AbstractOptionPanel poe2OptionPanel = new AbstractOptionPanel(false, false);
-    private final Poe2OutgoingTradeHotkeyPanel poe2OutgoingTradeHotkeyPanel = new Poe2OutgoingTradeHotkeyPanel();
 
     public PathOfExileOptionPanel() {
         windowModeCombo.addItem(GameWindowMode.DETECT);
@@ -64,8 +62,6 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         addHeader(Game.PATH_OF_EXILE_2.toString());
         addComponent(poe2FolderPicker);
         addFullWidthComponent(poe2OptionPanel);
-        addVerticalStrut();
-        addFullWidthComponent(poe2OutgoingTradeHotkeyPanel);
         addVerticalStrut();
 
         /// Explain Install Files
@@ -117,7 +113,6 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         SaveManager.settingsSaveFile.data.settingsPoe2.installFolder = poe2FolderPicker.getPathString();
         SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder = usingStashFoldersPoe1Checkbox.isSelected();
         SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder = usingStashFoldersPoe2Checkbox.isSelected();
-        SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey = poe2OutgoingTradeHotkeyPanel.hotkeyButton.getData();
         FrameManager.stashHelperContainerPoe1.updateLocation();
         FrameManager.stashHelperContainerPoe2.updateLocation();
         // FIXME : Need to reinit parsers if paths have changed.
@@ -140,7 +135,6 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         poe2FolderPicker.setSelectedPath(SaveManager.settingsSaveFile.data.settingsPoe2.installFolder);
         usingStashFoldersPoe1Checkbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder);
         usingStashFoldersPoe2Checkbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder);
-        poe2OutgoingTradeHotkeyPanel.hotkeyButton.setData(SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey);
         refreshPanelVisibility();
         detectionButton.reset();
     }

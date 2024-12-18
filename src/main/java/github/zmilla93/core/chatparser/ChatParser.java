@@ -4,7 +4,6 @@ import github.zmilla93.core.References;
 import github.zmilla93.core.data.IgnoreItemData;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.managers.AudioManager;
-import github.zmilla93.core.managers.HotkeyManager;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.trading.LangRegex;
@@ -54,11 +53,8 @@ public class ChatParser implements FileTailerListener {
     // Regex
     public static final String CLIENT_MESSAGE_REGEX = "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] (?<message>.+)";
     public static final String CLIENT_WHISPER_REGEX = "@(?<messageType>От кого|\\S+) (?<guildName><.+>)? ?(?<playerName>[^:]+):(\\s+)(?<message>.+)";
-    // FIXME : POE2 is currently missing the to/from part of whispers, so it uses a different pattern.
-    public static final String CLIENT_WHISPER_REGEX_POE2 = "(?<messageType>@)(?<playerName>[^:]+):(\\s+)(?<message>.+)";
     private static final Pattern clientMessage = Pattern.compile(CLIENT_MESSAGE_REGEX);
     private static final Pattern clientWhisper = Pattern.compile(CLIENT_WHISPER_REGEX);
-    private static final Pattern clientWhisperPoe2 = Pattern.compile(CLIENT_WHISPER_REGEX_POE2);
 
     public ChatParser(Game game) {
         this.game = game;
@@ -126,8 +122,7 @@ public class ChatParser implements FileTailerListener {
         // Whispers
         if (firstChar == '@') {
             whisperCount++;
-            Pattern whisperPattern = game == Game.PATH_OF_EXILE_1 ? clientWhisper : clientWhisperPoe2;
-            Matcher whisperMatcher = whisperPattern.matcher(fullMessage);
+            Matcher whisperMatcher = clientWhisper.matcher(fullMessage);
             if (whisperMatcher.matches()) {
                 String message = whisperMatcher.group("message");
                 String guildName = game.isPoe1() ? whisperMatcher.group("guildName") : null;
@@ -139,7 +134,8 @@ public class ChatParser implements FileTailerListener {
                 metaData.message = message;
                 metaData.guildName = guildName;
                 metaData.playerName = playerName;
-                metaData.offerType = getOfferType(messageType);
+                metaData.offerType = LangRegex.getMessageType(messageType);
+                if (metaData.offerType == TradeOfferType.UNKNOWN) return;
                 if (message != null && handleTradeOffer(metaData, message)) {
                     tradeCount++;
                     return;
@@ -148,15 +144,6 @@ public class ChatParser implements FileTailerListener {
         }
         // Scanner
         if (handleChatScanner(line)) return;
-    }
-
-    private TradeOfferType getOfferType(String messageType) {
-        if (game.isPoe1()) return LangRegex.getMessageType(messageType);
-        else {
-            if (HotkeyManager.isHotkeyPressed(SaveManager.settingsSaveFile.data.poe2OutgoingTradeHotkey))
-                return TradeOfferType.OUTGOING_TRADE;
-            return TradeOfferType.INCOMING_TRADE;
-        }
     }
 
     private boolean handleChatScanner(String line) {
