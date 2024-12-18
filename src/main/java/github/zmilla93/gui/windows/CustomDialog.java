@@ -9,8 +9,8 @@ import github.zmilla93.gui.messaging.NotificationIconButton;
 import github.zmilla93.gui.messaging.PinButton;
 import github.zmilla93.gui.pinning.IPinnable;
 import github.zmilla93.gui.pinning.PinManager;
-import github.zmilla93.modules.theme.IThemeListener;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IThemeListener;
 import github.zmilla93.modules.updater.ZLogger;
 
 import javax.swing.*;

@@ -7,6 +7,7 @@ import java.awt.*;
  * A panel that can have the background color set to a UIManager key using setBackgroundKey().
  * Can be given a multiplier to alter the color using setColorMultiplier().
  */
+@Deprecated
 public class ColorPanel extends JPanel {
 
     private String key;

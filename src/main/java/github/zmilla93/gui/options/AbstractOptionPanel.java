@@ -144,8 +144,7 @@ public class AbstractOptionPanel extends JPanel {
 
     @Override
     public Component add(Component comp) {
-        incorrectAddMethod();
-        return super.add(comp);
+        return addComponent(comp);
     }
 
     @Override

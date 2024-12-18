@@ -16,7 +16,6 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
     private final HotkeyButton options = new HotkeyButton();
     private final HotkeyButton history = new HotkeyButton();
     private final HotkeyButton chatScanner = new HotkeyButton();
-    private final HotkeyButton ninjaWindow = new HotkeyButton();
     private final HotkeyButton designerWindow = new HotkeyButton();
     private final HotkeyButton closeOldestTrade = new HotkeyButton();
     private final HotkeyButton previousMessageTab = new HotkeyButton();
@@ -50,7 +49,6 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         addHotkey(appHotkeyPanel, "Options", options);
         addHotkey(appHotkeyPanel, "History", history);
         addHotkey(appHotkeyPanel, "Chat Scanner", chatScanner);
-        addHotkey(appHotkeyPanel, "Price Ninja", ninjaWindow);
         if (App.debug) addHotkey(appHotkeyPanel, "Designer Window", designerWindow);
         addHotkey(appHotkeyPanel, "Close Oldest Trade", closeOldestTrade);
         previousMessageTabComponents = addHotkey(appHotkeyPanel, "Previous Message Tab", previousMessageTab);
@@ -112,7 +110,6 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         SaveManager.settingsSaveFile.data.optionsHotkey = options.getData();
         SaveManager.settingsSaveFile.data.historyHotkey = history.getData();
         SaveManager.settingsSaveFile.data.chatScannerHotkey = chatScanner.getData();
-        SaveManager.settingsSaveFile.data.ninjaWindowHotkey = ninjaWindow.getData();
         SaveManager.settingsSaveFile.data.designerWindowHotkey = designerWindow.getData();
         SaveManager.settingsSaveFile.data.closeTradeHotkey = closeOldestTrade.getData();
         SaveManager.settingsSaveFile.data.previousMessageTabHotkey = previousMessageTab.getData();
@@ -135,7 +132,6 @@ public class HotkeyOptionPanel extends AbstractOptionPanel implements ISavable {
         options.setData(SaveManager.settingsSaveFile.data.optionsHotkey);
         history.setData(SaveManager.settingsSaveFile.data.historyHotkey);
         chatScanner.setData(SaveManager.settingsSaveFile.data.chatScannerHotkey);
-        ninjaWindow.setData(SaveManager.settingsSaveFile.data.ninjaWindowHotkey);
         designerWindow.setData(SaveManager.settingsSaveFile.data.designerWindowHotkey);
         closeOldestTrade.setData(SaveManager.settingsSaveFile.data.closeTradeHotkey);
         previousMessageTab.setData(SaveManager.settingsSaveFile.data.previousMessageTabHotkey);

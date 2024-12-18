@@ -7,10 +7,10 @@ import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.CustomScrollPane;
 import github.zmilla93.gui.components.PlaceholderTextField;
-import github.zmilla93.modules.theme.IThemeListener;
 import github.zmilla93.modules.theme.Theme;
 import github.zmilla93.modules.theme.ThemeManager;
 import github.zmilla93.modules.theme.components.ThemeFrame;
+import github.zmilla93.modules.theme.listeners.IThemeListener;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -227,6 +227,7 @@ public class UIManagerInspectorWindow extends ThemeFrame implements IThemeListen
 
             updateLabel();
             addListeners();
+            setVisible(true);
         }
 
         public void applyFilter(String searchTerm) {

@@ -7,8 +7,8 @@ import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.TradeUtil;
 import github.zmilla93.gui.buttons.IconButton;
 import github.zmilla93.gui.windows.BasicDialog;
-import github.zmilla93.modules.theme.IFontChangeListener;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IFontChangeListener;
 
 import javax.swing.*;
 import java.awt.*;

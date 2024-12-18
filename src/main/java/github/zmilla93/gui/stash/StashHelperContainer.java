@@ -7,8 +7,8 @@ import github.zmilla93.core.trading.TradeOffer;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.windows.BasicDialog;
 import github.zmilla93.modules.saving.ISaveListener;
-import github.zmilla93.modules.theme.IThemeListener;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;

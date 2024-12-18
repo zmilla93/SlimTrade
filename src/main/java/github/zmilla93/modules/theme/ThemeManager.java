@@ -9,6 +9,10 @@ import github.zmilla93.gui.windows.BasicDialog;
 import github.zmilla93.modules.stopwatch.Stopwatch;
 import github.zmilla93.modules.theme.components.ColorCheckbox;
 import github.zmilla93.modules.theme.extensions.ThemeExtension;
+import github.zmilla93.modules.theme.listeners.ColorblindChangeListener;
+import github.zmilla93.modules.theme.listeners.IDetailedFontChangeListener;
+import github.zmilla93.modules.theme.listeners.IFontChangeListener;
+import github.zmilla93.modules.theme.listeners.IThemeListener;
 import github.zmilla93.modules.updater.ZLogger;
 
 import javax.imageio.ImageIO;
@@ -35,6 +39,7 @@ public class ThemeManager {
     private static final ArrayList<JComboBox<?>> stickyCombos = new ArrayList<>();
     private static final ArrayList<IFontChangeListener> fontChangeListeners = new ArrayList<>();
     private static final ArrayList<IDetailedFontChangeListener> detailedFontChangeListeners = new ArrayList<>();
+    private static final ArrayList<ColorblindChangeListener> colorblindChangeListeners = new ArrayList<>();
 
     private static int cachedIconSize = 18;
     private static int currentFontSize;
@@ -49,6 +54,7 @@ public class ThemeManager {
 
     private static Theme currentTheme;
     private static String currentFontName;
+    private static boolean colorblindMode;
 
     // Flags that monitor changes to font
     private static boolean iconSizeWasChanged = false;
@@ -78,6 +84,23 @@ public class ThemeManager {
         stickyCombos.remove(combo);
     }
 
+    public static boolean isColorblindMode() {
+        return colorblindMode;
+    }
+
+    public static void setColorblindMode(boolean state) {
+        if (state == colorblindMode) return;
+        colorblindMode = state;
+        try {
+            UIManager.setLookAndFeel(currentTheme.lookAndFeel.getClass().newInstance());
+        } catch (UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException ignore) {
+            throw new RuntimeException("Unsupported theme!");
+        }
+        updateAllComponentTrees();
+        for (ColorblindChangeListener listener : colorblindChangeListeners)
+            listener.onColorblindChange(state);
+    }
+
     public static void setTheme(Theme theme) {
         setTheme(theme, false);
     }
@@ -94,20 +117,12 @@ public class ThemeManager {
         colorIconMap.clear();
         currentTheme = theme;
         try {
-            UIManager.setLookAndFeel(currentTheme.lookAndFeel);
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+            UIManager.setLookAndFeel(currentTheme.lookAndFeel.getClass().newInstance());
+        } catch (UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException e) {
+            throw new RuntimeException("Unsupported theme!");
         }
         patchTheme();
-        for (Component frame : frames) {
-            JRootPane rootPane = null;
-            if (frame instanceof RootPaneContainer) rootPane = ((RootPaneContainer) frame).getRootPane();
-            if (rootPane != null) {
-                SwingUtilities.updateComponentTreeUI(rootPane);
-                frame.revalidate();
-                frame.repaint();
-            }
-        }
+        updateAllComponentTrees();
         for (int i = 0; i < stickyCombos.size(); i++) {
             stickyCombos.get(i).setSelectedIndex(comboIcons[i]);
         }
@@ -116,12 +131,17 @@ public class ThemeManager {
         }
     }
 
+    private static void updateAllComponentTrees() {
+        for (Component frame : frames) SwingUtilities.updateComponentTreeUI(frame);
+    }
+
+
     public static Theme getCurrentTheme() {
         if (currentTheme == null) return Theme.getDefaultColorTheme();
         return currentTheme;
     }
 
-    public static ThemeExtension getCurrentExtensions() {
+    public static ThemeExtension extensions() {
         return getCurrentTheme().extensions;
     }
 
@@ -433,6 +453,14 @@ public class ThemeManager {
 
     public static void removeFontChangeListener(IFontChangeListener listener) {
         fontChangeListeners.remove(listener);
+    }
+
+    public static void addColorblindChangeListener(ColorblindChangeListener listener) {
+        colorblindChangeListeners.add(listener);
+    }
+
+    public static void removeColorblindChangeListener(ColorblindChangeListener listener) {
+        colorblindChangeListeners.remove(listener);
     }
 
 }

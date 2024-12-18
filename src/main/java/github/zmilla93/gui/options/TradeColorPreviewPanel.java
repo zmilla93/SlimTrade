@@ -1,16 +1,16 @@
 package github.zmilla93.gui.options;
 
 import github.zmilla93.core.managers.SaveManager;
-import github.zmilla93.gui.listening.IColorBlindChangeListener;
-import github.zmilla93.modules.theme.IThemeListener;
 import github.zmilla93.modules.theme.ThemeColorVariant;
 import github.zmilla93.modules.theme.ThemeColorVariantSetting;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TradeColorPreviewPanel extends JPanel implements IThemeListener, IColorBlindChangeListener {
+@Deprecated
+public class TradeColorPreviewPanel extends JPanel implements IThemeListener {
 
     private final ThemeColorVariantSetting variantSetting;
     private final JLabel label;
@@ -21,7 +21,6 @@ public class TradeColorPreviewPanel extends JPanel implements IThemeListener, IC
         label = new JLabel(text);
         this.variantSetting = variantSetting;
         add(label);
-        SaveManager.settingsSaveFile.data.addColorBlindListener(this);
         setBackground(Color.RED);
         colorBlind = SaveManager.settingsSaveFile.data.colorBlindMode;
         ThemeManager.addThemeListener(this);
@@ -39,12 +38,6 @@ public class TradeColorPreviewPanel extends JPanel implements IThemeListener, IC
 
     @Override
     public void onThemeChange() {
-        updatePreview();
-    }
-
-    @Override
-    public void onColorBlindChange(boolean colorBlind) {
-        this.colorBlind = colorBlind;
         updatePreview();
     }
 

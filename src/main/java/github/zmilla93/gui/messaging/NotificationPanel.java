@@ -3,6 +3,7 @@ package github.zmilla93.gui.messaging;
 import github.zmilla93.core.data.PasteReplacement;
 import github.zmilla93.core.enums.DefaultIcon;
 import github.zmilla93.core.enums.MacroButtonType;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.hotkeys.HotkeyData;
 import github.zmilla93.core.hotkeys.IHotkeyAction;
 import github.zmilla93.core.hotkeys.NotificationPanelHotkey;
@@ -13,7 +14,7 @@ import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.core.utility.POEInterface;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.BorderlessButton;
-import github.zmilla93.gui.components.CurrencyLabelFactory;
+import github.zmilla93.gui.components.poe.ThemePanel;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.modules.theme.components.ColorPanel;
 
@@ -30,7 +31,7 @@ public abstract class NotificationPanel extends ColorPanel {
 
     // Components
     protected final NotificationButton playerNameButton = new NotificationButton("Placeholder Player Name");
-    protected final JPanel pricePanel = new JPanel(new GridBagLayout());
+    protected final JPanel pricePanel;
     protected final BorderlessButton itemButton = new BorderlessButton();
     protected final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
     protected final JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
@@ -38,11 +39,11 @@ public abstract class NotificationPanel extends ColorPanel {
     protected boolean closeButtonInTopRow = true;
 
     // Container Panels
-    protected final ColorPanel borderPanel = new ColorPanel(new GridBagLayout());
+    protected final JPanel borderPanel;
     private final JPanel topPanel;
-    private final JPanel bottomPanel = new JPanel(new BorderLayout());
-    private final JPanel topButtonPanel = new JPanel(new GridBagLayout());
-    private final JPanel bottomButtonPanel = new JPanel(new GridBagLayout());
+    private final JPanel bottomPanel;
+    private final JPanel topButtonPanel;
+    private final JPanel bottomButtonPanel;
     protected final JPanel topContainer = new JPanel(new BorderLayout());
     protected final JPanel bottomContainer = new JPanel(new BorderLayout());
     private Component bottomVerticalStrut;
@@ -59,6 +60,7 @@ public abstract class NotificationPanel extends ColorPanel {
 
     protected Color messageColor = new Color(60, 173, 173, 255);
     protected Color currencyTextColor;
+    protected final ThemeColor themeColor;
 
     // Timer
     private Timer timer;
@@ -68,15 +70,21 @@ public abstract class NotificationPanel extends ColorPanel {
 
     private final HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
 
-    public NotificationPanel() {
-        this(true);
+    public NotificationPanel(ThemeColor themeColor) {
+        this(themeColor, true);
     }
 
-    public NotificationPanel(boolean createListeners) {
+    public NotificationPanel(ThemeColor themeColor, boolean createListeners) {
+        this.themeColor = themeColor;
         this.createListeners = createListeners;
         // Panels
         JPanel mainPanel = new JPanel(new BorderLayout());
-        topPanel = new JPanel(new GridBagLayout());
+        borderPanel = new ThemePanel(themeColor, new GridBagLayout());
+        pricePanel = new ThemePanel(themeColor, new GridBagLayout());
+        topPanel = new ThemePanel(themeColor, new GridBagLayout());
+        topButtonPanel = new ThemePanel(themeColor, new GridBagLayout());
+        bottomPanel = new ThemePanel(themeColor, new BorderLayout());
+        bottomButtonPanel = new ThemePanel(themeColor, new GridBagLayout());
 
         // Border Setup
         setLayout(new GridBagLayout());
@@ -233,20 +241,13 @@ public abstract class NotificationPanel extends ColorPanel {
 
     public void applyMessageColor() {
         if (borderPanel == null) return;
-        resolveMessageColor();
-        borderPanel.setBackground(messageColor);
-        pricePanel.setBackground(messageColor);
-        topPanel.setBackground(messageColor);
-        bottomPanel.setBackground(messageColor);
-        topButtonPanel.setBackground(messageColor);
-        bottomButtonPanel.setBackground(messageColor);
-        CurrencyLabelFactory.applyColorToLabel(pricePanel, currencyTextColor);
-        if (playerJoinedArea) {
-            playerNameButton.setForeground(messageColor);
-            timerLabel.setForeground(messageColor);
-            itemButton.setForeground(messageColor);
-            CurrencyLabelFactory.applyColorToLabel(itemButton, messageColor);
-        }
+        // FIXME : Need to fix player joined area.
+//        if (playerJoinedArea) {
+//            playerNameButton.setForeground(messageColor);
+//            timerLabel.setForeground(messageColor);
+//            itemButton.setForeground(messageColor);
+//            CurrencyLabelFactory.applyColorToLabel(itemButton, messageColor);
+//        }
     }
 
     public void setPlayerJoinedArea() {
@@ -294,6 +295,7 @@ public abstract class NotificationPanel extends ColorPanel {
      */
     public void cleanup() {
         timer.stop();
+        timer = null;
         // Override this, but call super!
     }
 

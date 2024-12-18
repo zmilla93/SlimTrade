@@ -7,9 +7,9 @@ import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.stash.GridPanel;
 import github.zmilla93.modules.saving.ISavable;
-import github.zmilla93.modules.theme.IFontChangeListener;
-import github.zmilla93.modules.theme.IThemeListener;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IFontChangeListener;
+import github.zmilla93.modules.theme.listeners.IThemeListener;
 
 import javax.swing.*;
 import java.awt.*;

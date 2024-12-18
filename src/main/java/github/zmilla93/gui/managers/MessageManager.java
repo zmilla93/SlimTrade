@@ -20,8 +20,8 @@ import github.zmilla93.gui.components.CustomTabbedPane;
 import github.zmilla93.gui.messaging.*;
 import github.zmilla93.gui.windows.BasicDialog;
 import github.zmilla93.modules.saving.ISaveListener;
-import github.zmilla93.modules.theme.IFontChangeListener;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IFontChangeListener;
 import github.zmilla93.modules.updater.ZLogger;
 
 import javax.swing.*;
@@ -72,6 +72,7 @@ public class MessageManager extends BasicDialog implements ITradeListener, IChat
         setBackground(ThemeManager.TRANSPARENT);
 
         contentPanel.setLayout(cardLayout);
+        // FIXME : Tabbed pane probably doesn't update background on theme change
         contentPanel.setBackground(UIManager.getColor("Panel.background"));
         messageContainer = new JPanel(new GridBagLayout());
         messageContainer.setBackground(ThemeManager.TRANSPARENT);

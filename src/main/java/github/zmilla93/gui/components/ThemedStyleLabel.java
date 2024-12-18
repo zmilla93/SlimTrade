@@ -1,7 +1,5 @@
 package github.zmilla93.gui.components;
 
-import github.zmilla93.core.managers.SaveManager;
-import github.zmilla93.gui.listening.IColorBlindChangeListener;
 import github.zmilla93.modules.theme.ThemeColorVariant;
 import github.zmilla93.modules.theme.ThemeColorVariantSetting;
 
@@ -11,16 +9,14 @@ import github.zmilla93.modules.theme.ThemeColorVariantSetting;
  *
  * @see StyledLabel
  */
-public class ThemedStyleLabel extends StyledLabel implements IColorBlindChangeListener {
+public class ThemedStyleLabel extends StyledLabel {
 
     public ThemedStyleLabel() {
         super();
-        registerListener();
     }
 
     public ThemedStyleLabel(String text) {
         super(text);
-        registerListener();
     }
 
     /**
@@ -33,16 +29,6 @@ public class ThemedStyleLabel extends StyledLabel implements IColorBlindChangeLi
     public void setColor(ThemeColorVariantSetting colorVariantSetting) {
         this.colorVariant = colorVariantSetting;
         colorMode = ColorMode.VARIANT;
-        updateColor();
-    }
-
-    private void registerListener() {
-        SaveManager.settingsSaveFile.data.addColorBlindListener(this);
-    }
-
-    @Override
-    public void onColorBlindChange(boolean colorBlind) {
-        colorVariant.setColorBlind(colorBlind);
         updateColor();
     }
 

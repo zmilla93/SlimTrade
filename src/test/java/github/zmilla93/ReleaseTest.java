@@ -38,10 +38,11 @@ public class ReleaseTest {
         assertFalse(App.forceSetup);
         assertFalse(App.messageUITest);
         assertFalse(NinjaInterface.useLocalDatasets);
+        assertFalse(App.themeDebugWindows);
         assertEquals(0, App.debugUIBorders);
         assertFalse(SaveFilePatcherManager.DEBUG_REPORT);
         assertFalse(UpdateManager.DEBUG_FAST_PERIODIC_CHECK);
-        assertNull(OptionsWindow.debugPanel);
+        assertNull(App.debugOptionPanelName);
         assertNull(App.debugOptionPanelName);
     }
 

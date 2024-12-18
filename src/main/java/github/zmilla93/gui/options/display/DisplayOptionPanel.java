@@ -33,16 +33,16 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
 
         // Build Panel
         addHeader("Font Settings");
-        addComponent(displaySettingsPanel);
+        add(displaySettingsPanel);
         addVerticalStrut();
 
         addHeader("Theme");
-        addComponent(themePanel);
-        addComponent(colorBlindCheckBox);
+        add(themePanel);
+        add(colorBlindCheckBox);
         addVerticalStrut();
 
         addHeader("Display Preview");
-        addComponent(previewPanel);
+        add(previewPanel);
         if (App.debug) addComponent(new DisplayDebugPanel());
 
         addListeners();
@@ -50,7 +50,7 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
 
     private void addListeners() {
         themeCombo.addActionListener(e -> SwingUtilities.invokeLater(() -> ThemeManager.setTheme((Theme) themeCombo.getSelectedItem())));
-        colorBlindCheckBox.addActionListener(e -> SaveManager.settingsSaveFile.data.triggerColorBlindModeChange(colorBlindCheckBox.isSelected()));
+        colorBlindCheckBox.addItemListener(e -> ThemeManager.setColorblindMode(colorBlindCheckBox.isSelected()));
     }
 
     @Override
@@ -65,7 +65,6 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
         if (theme == null) theme = Theme.getDefaultColorTheme();
         themeCombo.setSelectedItem(theme);
         colorBlindCheckBox.setSelected(SaveManager.settingsSaveFile.data.colorBlindMode);
-        SaveManager.settingsSaveFile.data.triggerColorBlindModeChange(SaveManager.settingsSaveFile.data.colorBlindMode);
     }
 
 }

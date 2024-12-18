@@ -5,8 +5,8 @@ import github.zmilla93.core.enums.ExpandDirection;
 import github.zmilla93.gui.messaging.NotificationPanel;
 import github.zmilla93.gui.messaging.OverlayExamplePanel;
 import github.zmilla93.gui.windows.AbstractMovableDialog;
-import github.zmilla93.modules.theme.IFontChangeListener;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IFontChangeListener;
 
 import javax.swing.*;
 import java.awt.*;

@@ -13,7 +13,6 @@ import github.zmilla93.core.poe.Poe1Settings;
 import github.zmilla93.core.poe.Poe2Settings;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.gui.components.MonitorInfo;
-import github.zmilla93.gui.listening.IColorBlindChangeListener;
 import github.zmilla93.gui.options.searching.StashSearchGroupData;
 import github.zmilla93.gui.options.searching.StashSearchTermData;
 import github.zmilla93.gui.options.searching.StashSearchWindowMode;
@@ -60,7 +59,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public int fontSize = SpinnerRange.FONT_SIZE.START;
     public int iconSize = SpinnerRange.ICON_SIZE.START;
     public boolean colorBlindMode;
-    private final transient ArrayList<IColorBlindChangeListener> colorBlindChangeListeners = new ArrayList<>();
 
     // History
     public HistoryOrder historyOrder = HistoryOrder.NEWEST_FIRST;
@@ -125,7 +123,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
     public HotkeyData previousMessageTabHotkey;
     public HotkeyData nextMessageTabHotkey;
     public HotkeyData kalguurWindowHotkey;
-    public HotkeyData ninjaWindowHotkey;
     public HotkeyData designerWindowHotkey;
 
     // POE Hotkeys
@@ -219,21 +216,6 @@ public class SettingsSaveFile extends AbstractSaveFile {
         for (ArrayList<PriceThresholdData> thresholds : priceThresholdMap.values()) {
             thresholds.sort(Collections.reverseOrder());
         }
-    }
-
-    public void triggerColorBlindModeChange(boolean colorBlindMode) {
-        for (IColorBlindChangeListener listener : colorBlindChangeListeners) {
-            listener.onColorBlindChange(colorBlindMode);
-        }
-    }
-
-    public void addColorBlindListener(IColorBlindChangeListener listener) {
-        if (colorBlindChangeListeners.contains(listener)) return;
-        colorBlindChangeListeners.add(listener);
-    }
-
-    public void removeColorBlindListener(IColorBlindChangeListener listener) {
-        colorBlindChangeListeners.remove(listener);
     }
 
     public AppVersion appVersion() {

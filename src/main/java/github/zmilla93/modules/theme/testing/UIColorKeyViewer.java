@@ -68,7 +68,6 @@ public class UIColorKeyViewer extends JFrame {
 
     /// Adds a new color to the display if given a valid color key.
     private void tryAddNewColorKey(String colorKey) {
-
         LookAndFeel currentLAF = UIManager.getLookAndFeel();
         for (Theme theme : Theme.values()) {
             try {

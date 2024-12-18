@@ -86,6 +86,10 @@ public class ChatScannerEntry {
         return clean;
     }
 
+    public ChatScannerEntry getExampleEntry() {
+        return new ChatScannerEntry("Example Search");
+    }
+
     @Override
     public String toString() {
         return title;

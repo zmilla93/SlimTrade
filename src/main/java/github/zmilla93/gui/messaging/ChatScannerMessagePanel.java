@@ -3,11 +3,10 @@ package github.zmilla93.gui.messaging;
 import github.zmilla93.core.data.PasteReplacement;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.enums.ButtonRow;
-import github.zmilla93.core.trading.TradeOfferType;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.utility.AdvancedMouseListener;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.gui.chatscanner.ChatScannerEntry;
-import github.zmilla93.modules.theme.ThemeColorVariant;
 import github.zmilla93.modules.updater.ZLogger;
 
 import javax.swing.*;
@@ -26,7 +25,7 @@ public class ChatScannerMessagePanel extends NotificationPanel {
     }
 
     public ChatScannerMessagePanel(ChatScannerEntry scannerEntry, PlayerMessage playerMessage, boolean createListeners) {
-        super(createListeners);
+        super(ThemeColor.SCANNER_MESSAGE, createListeners);
         this.playerMessage = playerMessage;
         if (playerMessage != null) {
             pasteReplacement = new PasteReplacement(playerMessage.message, playerMessage.player);
@@ -34,7 +33,7 @@ public class ChatScannerMessagePanel extends NotificationPanel {
             itemButton.setText(playerMessage.message);
         }
         pricePanel.add(new JLabel(scannerEntry.title));
-        messageColor = ThemeColorVariant.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
+        messageColor = ThemeColor.SCANNER_MESSAGE.current();
         topMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.TOP_ROW);
         bottomMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.BOTTOM_ROW);
         setup();
@@ -46,7 +45,12 @@ public class ChatScannerMessagePanel extends NotificationPanel {
 
     @Override
     protected void resolveMessageColor() {
-        messageColor = ThemeColorVariant.getMessageColor(TradeOfferType.CHAT_SCANNER_MESSAGE);
+        Color color = ThemeColor.SCANNER_MESSAGE.current();
+        System.out.println("Scanner resolved color: " + color);
+//        System.out.println("COLOR:");
+//        System.out.println(color);
+//        messageColor = ThemeColor.SCANNER_MESSAGE.current();
+        messageColor = themeColor.current();
     }
 
     @Override

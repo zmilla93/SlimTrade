@@ -116,6 +116,8 @@ public class FrameManager {
         if (App.debug) {
             stashAlignmentDesignerWindow = new StashAlignmentDesignerWindow();
             designerConfigWindow = new DesignerConfigWindow();
+        }
+        if (App.themeDebugWindows) {
             uiManagerInspectorWindow = new UIManagerInspectorWindow();
             uiColorKeyViewer = new UIColorKeyViewer();
             debugMessageWindow = new MessageTestWindow();
@@ -152,9 +154,6 @@ public class FrameManager {
 
     public static void showAppFrames() {
         // FIXME: Show proper windows
-        if (App.debug) {
-            uiManagerInspectorWindow.setVisible(true);
-        }
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         if (App.showHistoryOnLaunch) historyWindow.setVisible(true);
         messageManager.setVisible(true);

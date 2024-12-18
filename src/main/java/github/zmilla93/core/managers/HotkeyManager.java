@@ -29,7 +29,6 @@ public class HotkeyManager {
         registerHotkey(SaveManager.settingsSaveFile.data.optionsHotkey, new WindowHotkey(FrameManager.optionsWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.historyHotkey, new WindowHotkey(FrameManager.historyWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.chatScannerHotkey, new WindowHotkey(FrameManager.chatScannerWindow));
-        registerHotkey(SaveManager.settingsSaveFile.data.ninjaWindowHotkey, new WindowHotkey(FrameManager.ninjaWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.designerWindowHotkey, new WindowHotkey(FrameManager.designerConfigWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.kalguurWindowHotkey, new WindowHotkey(FrameManager.kalguurHelperWindow));
         registerHotkey(SaveManager.settingsSaveFile.data.closeTradeHotkey, new SwingActionHotkey(() -> FrameManager.messageManager.closeOldestTrade()));

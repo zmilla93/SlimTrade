@@ -1,99 +1,109 @@
 package github.zmilla93.gui.options.display;
 
-import github.zmilla93.App;
 import github.zmilla93.core.enums.DefaultIcon;
 import github.zmilla93.core.enums.ThemeColor;
+import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.buttons.IconButton;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.poe.ResultLabel;
-import github.zmilla93.gui.options.TradeColorPreviewPanel;
-import github.zmilla93.modules.theme.ThemeColorVariant;
-import github.zmilla93.modules.theme.ThemeColorVariantSetting;
+import github.zmilla93.gui.components.poe.ThemePanel;
+import github.zmilla93.gui.options.AbstractOptionPanel;
+import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.ColorblindChangeListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class DisplayPreviewPanel extends JPanel {
+public class DisplayPreviewPanel extends AbstractOptionPanel implements ColorblindChangeListener {
 
     private final JLabel fontPreviewLabel = new JLabel("You are captured, stupid beast!");
     private final IconButton iconPreviewButton = new IconButton(DefaultIcon.TAG);
 
-    private final TradeColorPreviewPanel incomingTradePreview;
-    private final TradeColorPreviewPanel outgoingTradePreview;
-    private final TradeColorPreviewPanel scannerPreview;
+    private final JLabel approveLabel = new ResultLabel(ThemeColor.APPROVE, "Green Label.").bold();
+    private final JLabel denyLabel = new ResultLabel(ThemeColor.DENY, "Red Label.").bold();
+    private final JLabel indeterminateLabel = new ResultLabel(ThemeColor.INDETERMINATE, "Yellow Label.").bold();
 
-    private final JPanel bottomPanel;
+//    private final JPanel bottomPanel;
 
     public DisplayPreviewPanel() {
+        super(false, false);
         setLayout(new GridBagLayout());
         iconPreviewButton.setFocusable(false);
+        add(new ComponentPanel(iconPreviewButton, fontPreviewLabel));
+        add(createColorPreviewPanel());
+        updateColorblindLabels();
+        ThemeManager.addColorblindChangeListener(this);
+    }
 
-        incomingTradePreview = new TradeColorPreviewPanel("Incoming Trade", new ThemeColorVariantSetting(ThemeColorVariant.GREEN));
-        outgoingTradePreview = new TradeColorPreviewPanel("Outgoing Trade", new ThemeColorVariantSetting(ThemeColorVariant.RED));
-        scannerPreview = new TradeColorPreviewPanel("Scanner Message", new ThemeColorVariantSetting(ThemeColorVariant.ORANGE));
+    private JPanel createColorPreviewPanel() {
+        JPanel incomingPanel = new ThemePanel(ThemeColor.INCOMING_MESSAGE);
+        incomingPanel.add(new JLabel("Incoming Trade"));
+        JPanel outgoingPanel = new ThemePanel(ThemeColor.OUTGOING_MESSAGE);
+        outgoingPanel.add(new JLabel("Outgoing Trade"));
+        JPanel scannerPanel = new ThemePanel(ThemeColor.SCANNER_MESSAGE);
+        scannerPanel.add(new JLabel("Scanner Message"));
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.add(iconPreviewButton);
-        topPanel.add(fontPreviewLabel);
-
-        bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        bottomPanel.add(incomingTradePreview);
-        bottomPanel.add(outgoingTradePreview);
-        bottomPanel.add(scannerPreview);
-
-        JPanel debugPanel = new JPanel(new FlowLayout());
-        JButton disabledButton = new JButton("Button");
-        disabledButton.setEnabled(false);
-        debugPanel.add(new JButton("Button"));
-        debugPanel.add(disabledButton);
-
-        JLabel approveLabel = new ResultLabel(ThemeColor.APPROVE, "Green Label.").bold();
-        JLabel denyLabel = new ResultLabel(ThemeColor.DENY, "Red Label.").bold();
-        JLabel indeterminateLabel = new ResultLabel(ThemeColor.INDETERMINATE, "Yellow Label.").bold();
-
+        int horizontalGap = 4;
+        JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();
-        gc.fill = GridBagConstraints.HORIZONTAL;
-        add(new ComponentPanel(iconPreviewButton, fontPreviewLabel), gc);
+        panel.add(approveLabel, gc);
+        gc.insets.left = horizontalGap;
+        gc.gridx++;
+        panel.add(denyLabel, gc);
+        gc.gridx++;
+        panel.add(indeterminateLabel, gc);
+        gc.gridx = 0;
         gc.gridy++;
-        add(new ComponentPanel(approveLabel, denyLabel, indeterminateLabel), gc);
-        gc.gridy++;
-        add(bottomPanel, gc);
-        gc.gridy++;
-        if (App.debug) {
-            add(debugPanel, gc);
-            gc.gridy++;
-        }
-        updateUI();
+        gc.insets.left = 0;
+        panel.add(incomingPanel, gc);
+        gc.gridx++;
+        gc.insets.left = horizontalGap;
+        panel.add(outgoingPanel, gc);
+        gc.gridx++;
+        panel.add(scannerPanel, gc);
+        return panel;
     }
 
     public void setPreviewFontStyle(Font font) {
         Font previousFont = fontPreviewLabel.getFont();
         Font newFont = font.deriveFont(previousFont.getStyle(), previousFont.getSize());
         fontPreviewLabel.setFont(newFont);
-        incomingTradePreview.label().setFont(newFont);
-        outgoingTradePreview.label().setFont(newFont);
-        scannerPreview.label().setFont(newFont);
+//        incomingTradePreview.label().setFont(newFont);
+//        outgoingTradePreview.label().setFont(newFont);
+//        scannerPreview.label().setFont(newFont);
     }
 
     public void setPreviewFontSize(int fontSize) {
         Font font = fontPreviewLabel.getFont();
         font = font.deriveFont(font.getStyle(), fontSize);
         fontPreviewLabel.setFont(font);
-        incomingTradePreview.label().setFont(font);
-        outgoingTradePreview.label().setFont(font);
-        scannerPreview.label().setFont(font);
+//        incomingTradePreview.label().setFont(font);
+//        outgoingTradePreview.label().setFont(font);
+//        scannerPreview.label().setFont(font);
     }
 
     public void setPreviewIconSize(int iconSize) {
         iconPreviewButton.setIconSize(iconSize);
     }
 
+    private void updateColorblindLabels() {
+        updateColorblindLabels(SaveManager.settingsSaveFile.data.colorBlindMode);
+    }
+
+    private void updateColorblindLabels(boolean colorblindMode) {
+        if (colorblindMode) {
+            approveLabel.setText("Blue Label.");
+            denyLabel.setText("Pink Label.");
+        } else {
+            approveLabel.setText("Green Label.");
+            denyLabel.setText("Red Label.");
+        }
+    }
+
     @Override
-    public void updateUI() {
-        super.updateUI();
-        if (bottomPanel == null) return;
-        bottomPanel.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Button.borderColor"), 2));
+    public void onColorblindChange(boolean colorblindMode) {
+        updateColorblindLabels(colorblindMode);
     }
 
 }

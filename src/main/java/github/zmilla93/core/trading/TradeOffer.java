@@ -4,6 +4,7 @@ import github.zmilla93.core.data.SaleItem;
 import github.zmilla93.core.data.StashTabData;
 import github.zmilla93.core.enums.MatchType;
 import github.zmilla93.core.enums.StashTabColor;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.utility.ZUtil;
@@ -222,6 +223,12 @@ public class TradeOffer {
         exampleTrade.stashTabX = 12;
         exampleTrade.stashTabY = 12;
         return exampleTrade;
+    }
+
+    /// FIXME : Add support for more types?
+    public ThemeColor getMessageColor() {
+        if (offerType == TradeOfferType.INCOMING_TRADE) return ThemeColor.INCOMING_MESSAGE;
+        else return ThemeColor.OUTGOING_MESSAGE;
     }
 
 }

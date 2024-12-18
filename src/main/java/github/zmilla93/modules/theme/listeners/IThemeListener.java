@@ -1,4 +1,4 @@
-package github.zmilla93.modules.theme;
+package github.zmilla93.modules.theme.listeners;
 
 public interface IThemeListener {
 

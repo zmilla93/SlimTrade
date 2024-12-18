@@ -36,7 +36,8 @@ public class MessageTestWindow extends JFrame {
         GridBagConstraints gc = ZUtil.getGC();
         boolean columnFlag = false;
         for (Theme theme : Theme.values()) {
-            // FIXME : Using ThemeManager to change theme is much more expensive, but produces correct colors for icons
+            // FIXME : Using ThemeManager to change theme is much more expensive,
+            //  but produces correct colors for icons
 //            ThemeManager.setTheme(theme);
             try {
                 UIManager.setLookAndFeel(theme.lookAndFeel);

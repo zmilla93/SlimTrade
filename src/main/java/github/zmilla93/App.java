@@ -71,6 +71,7 @@ public class App {
     public static boolean showOptionsOnLaunch = false; // -o, -options: show the options menu at launch
     public static boolean showHistoryOnLaunch = false; // -h, -history: show the history window at launch
     public static boolean debugUIAlwaysOnTop = false; // -ui: forces the UI to always be on top no matter what
+    public static boolean themeDebugWindows = false; // -uim: shows UIManager inspection windows
     public static boolean forceSetup = false; // -s, -setup: forces the setup wizard to run with all phases (can also do setup:SetupPhase to force a specific phase, ie 'setup:game_window')
     public static boolean chatInConsole = false; // TODO: This is broken, should fix or remove
     public static int debugUIBorders = 0; // No flag: Adds debug borders to UI elements. 0 for off, 1 or 2 for debugging
@@ -212,6 +213,7 @@ public class App {
         if (themesHaveBeenInitialized) return;
         FontManager.loadFonts();
         ThemeManager.setTheme(SaveManager.settingsSaveFile.data.theme);
+        ThemeManager.setColorblindMode(SaveManager.settingsSaveFile.data.colorBlindMode);
         ThemeManager.setFont(SaveManager.settingsSaveFile.data.preferredFontName);
         ThemeManager.setIconSize(SaveManager.settingsSaveFile.data.iconSize);
         ThemeManager.setFontSize(SaveManager.settingsSaveFile.data.fontSize);
@@ -287,6 +289,7 @@ public class App {
                 showOptionsOnLaunch = true;
             }
             if (arg.equals("-ui")) debugUIAlwaysOnTop = true;
+            if (arg.equals("-uim")) themeDebugWindows = true;
             if (arg.equals("-s") || arg.equals("-setup")) forceSetup = true;
             if (arg.startsWith("-setup:") || arg.startsWith("-s:")) {
                 String targetPhase = arg.replace("-setup:", "").replaceFirst("-s:", "").toLowerCase();

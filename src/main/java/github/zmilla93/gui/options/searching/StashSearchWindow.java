@@ -7,9 +7,9 @@ import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
 import github.zmilla93.gui.pinning.PinManager;
 import github.zmilla93.gui.windows.CustomDialog;
-import github.zmilla93.modules.theme.IFontChangeListener;
 import github.zmilla93.modules.theme.ThemeManager;
 import github.zmilla93.modules.theme.components.AdvancedButton;
+import github.zmilla93.modules.theme.listeners.IFontChangeListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;

@@ -12,8 +12,8 @@ import github.zmilla93.gui.components.StyledLabel;
 import github.zmilla93.gui.components.ThemeLineBorder;
 import github.zmilla93.gui.windows.BasicDialog;
 import github.zmilla93.modules.saving.ISaveListener;
-import github.zmilla93.modules.theme.IFontChangeListener;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IFontChangeListener;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 

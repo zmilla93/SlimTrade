@@ -3,8 +3,8 @@ package github.zmilla93.gui.components;
 import github.zmilla93.core.enums.SliderRange;
 import github.zmilla93.core.utility.GUIReferences;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.modules.theme.IFontChangeListener;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.listeners.IFontChangeListener;
 
 import javax.swing.*;
 import java.awt.*;
