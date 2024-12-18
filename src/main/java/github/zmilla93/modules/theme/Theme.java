@@ -6,9 +6,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlContra
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatNightOwlContrastIJTheme;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.modules.theme.extensions.ThemeExtension;
-import github.zmilla93.modules.theme.extensions.themes.InvertScannerTextExtension;
-import github.zmilla93.modules.theme.extensions.themes.LightOwlExtension;
-import github.zmilla93.modules.theme.extensions.themes.NightOwlExtension;
+import github.zmilla93.modules.theme.extensions.themes.*;
 
 import java.awt.*;
 
@@ -47,8 +45,8 @@ public enum Theme {
     //    MONOKAI(new FlatMonokaiProIJTheme()),
     NORD(new FlatNordIJTheme()),
     ONE_DARK(new FlatOneDarkIJTheme()),
-    SOLARIZED_LIGHT(new FlatSolarizedLightIJTheme()),
-    SOLARIZED_DARK(new FlatSolarizedDarkIJTheme()),
+    SOLARIZED_LIGHT(new FlatSolarizedLightIJTheme(), new SolarizedLightExtension()),
+    SOLARIZED_DARK(new FlatSolarizedDarkIJTheme(), new SolarizedDarkExtension()),
     SPACEGRAY(new FlatSpacegrayIJTheme()),
     VUESION(new FlatVuesionIJTheme()),
     XCODE_DARK(new FlatXcodeDarkIJTheme()),

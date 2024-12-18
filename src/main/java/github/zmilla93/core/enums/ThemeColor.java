@@ -3,7 +3,6 @@ package github.zmilla93.core.enums;
 import github.zmilla93.modules.theme.Theme;
 import github.zmilla93.modules.theme.ThemeManager;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -48,14 +47,25 @@ public enum ThemeColor {
         this.keyGetterCb = keyGetterCb;
     }
 
+//    ThemeColor(ColorKeyGetter keyGetter, ColorKeyGetter keyGetterCb) {
+//
+//    }
+
+//    public Color color() {
+//        return color(ThemeManager.isColorblindMode());
+//    }
+
+//    public Color color(boolean colorblind) {
+//        return ThemeManager.extensions().resolve(this, colorblind);
+//    }
+
     public Color current() {
         return current(ThemeManager.isColorblindMode());
     }
 
     /// Uses the keyGetter to fetch a color from the UIManager
-    public Color current(boolean colorBlind) {
-        if (colorBlind) return UIManager.getColor(keyGetterCb.getKey());
-        else return UIManager.getColor(keyGetter.getKey());
+    public Color current(boolean colorblind) {
+        return ThemeManager.extensions().resolve(this, colorblind);
     }
 
     public Color getReadableTextColor() {
