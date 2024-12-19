@@ -13,53 +13,17 @@ import java.util.HashSet;
  */
 public class ThemeExtension {
 
-    /// Approve
-    public String APPROVE_KEY = "Actions.Green";
-    public String APPROVE_KEY_CB = "Actions.Blue";
-    public ColorVariant APPROVE = new ColorVariant(
-            new ColorOrKey("Actions.Green"),
-            new ColorOrKey("Actions.Blue")
-    );
-    public ColorVariant DENY = new ColorVariant(
-            new ColorOrKey("Actions.Red"),
-            new ColorOrKey("Objects.Pink")
-    );
-    public ColorVariant INDETERMINATE = new ColorVariant(
-            new ColorOrKey("Actions.Yellow")
-    );
-    public ColorVariant INCOMING_TRADE = new ColorVariant(
-            new ColorOrKey("Actions.Green"),
-            new ColorOrKey("Actions.Blue")
-    );
-    public ColorVariant OUTGOING_TRADE = new ColorVariant(
-            new ColorOrKey("Actions.Red"),
-            new ColorOrKey("Objects.Pink")
-    );
-    public ColorVariant SCANNER_MESSAGE = new ColorVariant(
-            new ColorOrKey("Actions.Yellow")
-    );
-    public ColorVariant UPDATE_MESSAGE = new ColorVariant(
-            new ColorOrKey("Actions.Grey")
-    );
-    /// Deny
-    public String DENY_KEY = "Actions.Red";
-    public String DENY_KEY_CB = "Objects.Pink";
-    /// Indeterminate
-    public String INDETERMINATE_KEY = "Actions.Yellow";
-    /// Neutral
-    public String NEUTRAL_KEY = "Label.foreground";
-
-    /// Message Colors
-    public String INCOMING_TRADE_KEY = "Actions.Green";
-    public String INCOMING_TRADE_CB_KEY = "Actions.Blue";
-    public String OUTGOING_TRADE_KEY = "Actions.Red";
-    public String OUTGOING_TRADE_CB_KEY = "Objects.Pink";
-    public String SCANNER_MESSAGE_CB_KEY = "Actions.Yellow";
-    public String UPDATE_MESSAGE_CB_KEY = "Actions.Grey";
+    public ColorVariant APPROVE = new ColorVariant("Actions.Green", "Actions.Blue");
+    public ColorVariant DENY = new ColorVariant("Actions.Red", "Objects.Pink");
+    public ColorVariant INDETERMINATE = new ColorVariant("Actions.Yellow");
+    public ColorVariant INCOMING_TRADE = new ColorVariant("Actions.Green", "Actions.Blue");
+    public ColorVariant OUTGOING_TRADE = new ColorVariant("Actions.Red", "Objects.Pink");
+    public ColorVariant SCANNER_MESSAGE = new ColorVariant("Actions.Yellow");
+    public ColorVariant UPDATE_MESSAGE = new ColorVariant("Actions.Grey");
 
     private final HashMap<ThemeColor, ColorVariant> colorMap = new HashMap<>();
-
-    public HashSet<ThemeColor> invertTextColor = new HashSet<>();
+    // FIXME : This should probably be moved elsewhere
+    public final HashSet<ThemeColor> invertTextColor = new HashSet<>();
 
     public ThemeExtension() {
         buildColorMap();
@@ -83,18 +47,30 @@ public class ThemeExtension {
         return colorVariant.color();
     }
 
-//    protected void updateKey(ThemeColor[] colors, ColorVariant newVariant) {
-//        for (ThemeColor color : colors) updateKey(color, newVariant);
-//    }
+    // A bunch of utility functions for updating keys
 
-//    protected void updateKey(ColorVariant newVariant, ThemeColor... colors) {
-//        for (ThemeColor color : colors) updateColorKey(color, newVariant);
-//    }
+    protected void updateKey(ThemeColor colorKey, String colorName) {
+        ColorVariant existingVariant = colorMap.get(colorKey);
+        existingVariant.setColor(new ColorOrKey(colorName));
+    }
 
-    /**
-     * Use this to update an existing colorVariant without overwriting existing values.
-     * IE you can change a colorblind variant without overwriting the default normal variant.
-     */
+    protected void updateKey(ThemeColor colorKey, Color color) {
+        ColorVariant existingVariant = colorMap.get(colorKey);
+        existingVariant.setColor(new ColorOrKey(color));
+    }
+
+    protected void updateKey(ThemeColor colorKey, String colorName, String colorNameCB) {
+        ColorVariant existingVariant = colorMap.get(colorKey);
+        existingVariant.setColor(new ColorOrKey(colorName));
+        existingVariant.setColorCB(new ColorOrKey(colorNameCB));
+    }
+
+    protected void updateKey(ThemeColor colorKey, Color color, Color colorCB) {
+        ColorVariant existingVariant = colorMap.get(colorKey);
+        existingVariant.setColor(new ColorOrKey(color));
+        existingVariant.setColorCB(new ColorOrKey(colorCB));
+    }
+
     protected void updateKey(ThemeColor color, ColorVariant newVariant) {
         ColorVariant existingVariant = colorMap.get(color);
         if (newVariant.getColorOrKey() != null) existingVariant.setColor(newVariant.getColorOrKey());

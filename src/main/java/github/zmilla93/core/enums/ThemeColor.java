@@ -6,64 +6,19 @@ import github.zmilla93.modules.theme.ThemeManager;
 import java.awt.*;
 
 /**
- * Maps a context specific color like "incoming trade" to a UIManager key defined by the current theme.
- * Allows optionally defining a secondary key for colorblind mode.
+ * Keys for context specific colors like "Approve" or "Deny". A ThemeExtension can map these keys to
+ * the actual colors that should be used by the current theme.
  */
 public enum ThemeColor {
 
-    APPROVE(
-            () -> ThemeManager.getCurrentTheme().extensions.APPROVE_KEY,
-            () -> ThemeManager.getCurrentTheme().extensions.APPROVE_KEY_CB),
-    DENY(
-            () -> ThemeManager.getCurrentTheme().extensions.DENY_KEY,
-            () -> ThemeManager.getCurrentTheme().extensions.DENY_KEY_CB),
-    INDETERMINATE(
-            () -> ThemeManager.getCurrentTheme().extensions.INDETERMINATE_KEY),
-    NEUTRAL(
-            () -> ThemeManager.getCurrentTheme().extensions.NEUTRAL_KEY),
-    INCOMING_MESSAGE(
-            () -> ThemeManager.getCurrentTheme().extensions.INCOMING_TRADE_KEY,
-            () -> ThemeManager.getCurrentTheme().extensions.INCOMING_TRADE_CB_KEY),
-    OUTGOING_MESSAGE(
-            () -> ThemeManager.getCurrentTheme().extensions.OUTGOING_TRADE_KEY,
-            () -> ThemeManager.getCurrentTheme().extensions.OUTGOING_TRADE_CB_KEY),
-    SCANNER_MESSAGE(
-            () -> ThemeManager.getCurrentTheme().extensions.SCANNER_MESSAGE_CB_KEY),
-    UPDATE_MESSAGE(
-            () -> ThemeManager.getCurrentTheme().extensions.UPDATE_MESSAGE_CB_KEY),
-    TEXT_COLOR(
-            () -> "Label.foreground", () -> "Label.foreground"),
-    ;
-
-    public final ColorKeyGetter keyGetter;
-    public final ColorKeyGetter keyGetterCb;
-
-    ThemeColor(ColorKeyGetter keyGetter) {
-        this(keyGetter, keyGetter);
-    }
-
-    ThemeColor(ColorKeyGetter keyGetter, ColorKeyGetter keyGetterCb) {
-        this.keyGetter = keyGetter;
-        this.keyGetterCb = keyGetterCb;
-    }
-
-//    ThemeColor(ColorKeyGetter keyGetter, ColorKeyGetter keyGetterCb) {
-//
-//    }
-
-//    public Color color() {
-//        return color(ThemeManager.isColorblindMode());
-//    }
-
-//    public Color color(boolean colorblind) {
-//        return ThemeManager.extensions().resolve(this, colorblind);
-//    }
+    APPROVE, DENY, INDETERMINATE, NEUTRAL,
+    INCOMING_MESSAGE, OUTGOING_MESSAGE, SCANNER_MESSAGE, UPDATE_MESSAGE,
+    TEXT_COLOR;
 
     public Color current() {
         return current(ThemeManager.isColorblindMode());
     }
 
-    /// Uses the keyGetter to fetch a color from the UIManager
     public Color current(boolean colorblind) {
         return ThemeManager.extensions().resolve(this, colorblind);
     }
@@ -74,11 +29,6 @@ public enum ThemeColor {
         if (ThemeManager.extensions().invertTextColor.contains(this)) whiteText = !whiteText;
         if (whiteText) return Color.WHITE;
         else return Color.BLACK;
-    }
-
-    /// Lambda for getting the UIManager color key from the current theme
-    public interface ColorKeyGetter {
-        String getKey();
     }
 
 }
