@@ -36,6 +36,7 @@ public class MessageTestWindow extends JFrame {
         GridBagConstraints gc = ZUtil.getGC();
         boolean columnFlag = false;
         for (Theme theme : Theme.values()) {
+//            ThemeManager.setTheme(theme);
             ThemeManager.setThemeFastDebug(theme, true);
             JPanel msgPanel = new JPanel(new BorderLayout());
             msgPanel.setBorder(BorderFactory.createTitledBorder(theme.toString()));

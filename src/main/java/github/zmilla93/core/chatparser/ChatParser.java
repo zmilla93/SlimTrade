@@ -285,6 +285,7 @@ public class ChatParser implements FileTailerListener {
             Matcher matcher = lang.enteredAreaPattern.matcher(line);
             if (matcher.matches()) {
                 currentZone = matcher.group("zone");
+                ChatParserManager.currentZone = currentZone;
                 return true;
             }
         }

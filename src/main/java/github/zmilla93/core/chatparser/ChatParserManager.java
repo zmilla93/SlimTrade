@@ -11,6 +11,8 @@ public class ChatParserManager {
 
     public static ChatParser chatParserPoe1;
     public static ChatParser chatParserPoe2;
+    // FIXME : Zone should be handled via listeners, quick fix for now
+    public static String currentZone = "The Twilight Strand";
 
     /// Initialize
     public static void initChatParsers() {
