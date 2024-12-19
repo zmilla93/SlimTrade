@@ -3,7 +3,6 @@ package github.zmilla93;
 import github.zmilla93.core.References;
 import github.zmilla93.core.saving.legacy.SaveFilePatcherManager;
 import github.zmilla93.core.utility.NinjaInterface;
-import github.zmilla93.gui.windows.OptionsWindow;
 import github.zmilla93.modules.updater.UpdateManager;
 import github.zmilla93.modules.updater.data.AppInfo;
 import org.junit.jupiter.api.Test;

@@ -16,6 +16,7 @@ public class ThemeExtension {
     public ColorVariant APPROVE = new ColorVariant("Actions.Green", "Actions.Blue");
     public ColorVariant DENY = new ColorVariant("Actions.Red", "Objects.Pink");
     public ColorVariant INDETERMINATE = new ColorVariant("Actions.Yellow");
+    public ColorVariant NEUTRAL = new ColorVariant("Label.foreground");
     public ColorVariant INCOMING_TRADE = new ColorVariant("Actions.Green", "Actions.Blue");
     public ColorVariant OUTGOING_TRADE = new ColorVariant("Actions.Red", "Objects.Pink");
     public ColorVariant SCANNER_MESSAGE = new ColorVariant("Actions.Yellow");
@@ -34,6 +35,7 @@ public class ThemeExtension {
         colorMap.put(ThemeColor.APPROVE, APPROVE);
         colorMap.put(ThemeColor.DENY, DENY);
         colorMap.put(ThemeColor.INDETERMINATE, INDETERMINATE);
+        colorMap.put(ThemeColor.NEUTRAL, NEUTRAL);
         colorMap.put(ThemeColor.INCOMING_MESSAGE, INCOMING_TRADE);
         colorMap.put(ThemeColor.OUTGOING_MESSAGE, OUTGOING_TRADE);
         colorMap.put(ThemeColor.SCANNER_MESSAGE, SCANNER_MESSAGE);

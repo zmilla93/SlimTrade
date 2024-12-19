@@ -1,6 +1,8 @@
 name: Release JAR
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [ "prerelease" ]
 
 jobs:
   build-and-release:
@@ -33,5 +35,6 @@ jobs:
           tag: ${{ env.VERSION }}
           prerelease: true
           bodyFile: src/main/resources/patch_notes/v${{ env.VERSION }}.txt
+#          bodyFile: src/main/resources/patch_notes/static.txv${{ env.VERSION }}.txtt
           artifacts: target/SlimTrade.jar
           token: ${{ secrets.GITHUB_TOKEN }}

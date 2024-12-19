@@ -3,8 +3,6 @@ package github.zmilla93.gui.messaging;
 import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.modules.theme.components.AdvancedButton;
 
-import javax.swing.*;
-
 public class ExpandPanel extends NotificationPanel {
 
     public ExpandPanel() {
@@ -21,7 +19,7 @@ public class ExpandPanel extends NotificationPanel {
 
     @Override
     protected void resolveMessageColor() {
-        messageColor = UIManager.getColor("Button.foreground");
+//        messageColor = UIManager.getColor("Button.foreground");
     }
 
     public void setText(String text) {
