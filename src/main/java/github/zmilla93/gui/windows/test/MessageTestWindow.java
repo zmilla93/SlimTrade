@@ -36,15 +36,7 @@ public class MessageTestWindow extends JFrame {
         GridBagConstraints gc = ZUtil.getGC();
         boolean columnFlag = false;
         for (Theme theme : Theme.values()) {
-            // FIXME : Using ThemeManager to change theme is much more expensive,
-            //  but produces correct colors for icons
-//            ThemeManager.setTheme(theme);
-            try {
-                UIManager.setLookAndFeel(theme.lookAndFeel);
-            } catch (UnsupportedLookAndFeelException e) {
-                continue;
-            }
-
+            ThemeManager.setThemeFastDebug(theme, true);
             JPanel msgPanel = new JPanel(new BorderLayout());
             msgPanel.setBorder(BorderFactory.createTitledBorder(theme.toString()));
             NotificationPanel panel1 = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE), false);

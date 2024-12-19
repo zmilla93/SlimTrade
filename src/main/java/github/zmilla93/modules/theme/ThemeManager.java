@@ -131,6 +131,20 @@ public class ThemeManager {
         }
     }
 
+    public static void setThemeFastDebug(Theme theme) {
+        setThemeFastDebug(theme, true);
+    }
+
+    public static void setThemeFastDebug(Theme theme, boolean rebuildIcons) {
+        currentTheme = theme;
+        if (rebuildIcons) colorIconMap.clear();
+        try {
+            UIManager.setLookAndFeel(currentTheme.lookAndFeel);
+        } catch (UnsupportedLookAndFeelException e) {
+            throw new RuntimeException("Unsupported theme!");
+        }
+    }
+
     private static void updateAllComponentTrees() {
         for (Component frame : frames) SwingUtilities.updateComponentTreeUI(frame);
     }
