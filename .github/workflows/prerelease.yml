@@ -1,4 +1,4 @@
-name: Release JAR
+name: Pre-Release JAR
 
 on:
   push:
