@@ -1,6 +1,6 @@
 # SlimTrade
-A highly customizable trade UI overlay for Path of Exile 1. [An unfinished prerelease for Path of Exile 2 is available for testing.](https://github.com/zmilla93/SlimTrade/releases)<br>
-Includes a chat scanner, trade history, cheat sheet overlays, and more!<br>
+A highly customizable Trade UI overlay for Path of Exile 1 & 2.<br>
+Includes a chat scanner, trade history, cheat sheet overlays, 25+ themes, and more!<br>
 
 [**Download Latest Version**](https://github.com/zmilla93/SlimTrade/releases/latest)<br>
 **Support this project!** [**PayPal**](https://www.paypal.me/zmilla93) | 
@@ -9,8 +9,9 @@ Includes a chat scanner, trade history, cheat sheet overlays, and more!<br>
 
 ## Incoming & Outgoing Trades
 Popups are automatically created when trade messages are sent or received.<br>
-There is a color blind setting for alternate colors.<br>
-![trade-messages](https://github.com/zmilla93/SlimTrade/assets/10750321/559cb020-76dd-4c80-b6de-6e95f34ccab7)
+![messages](https://github.com/user-attachments/assets/6d06c818-d6a9-4abf-9f43-8711007e5230)<br>
+Maybe tabs, a dark theme, and color blind mode are more your style.<br>
+![message_tabs_dark](https://github.com/user-attachments/assets/3270a476-8287-4c46-8675-64d6552e5e79)
 
 Incoming trades create an info windowId above your stash with item and stash names.<br>
 This popup can be hovered to highlight the item, left clicked to search the name in the stash, or right clicked to close.<br>
@@ -19,7 +20,7 @@ This popup can be hovered to highlight the item, left clicked to search the name
 ## Customization
 The interface is incredibly customizable.<br>
 Color themes, font picker, text & icon scaling, custom audio files, custom response buttons, and much more!<br>
-![options-incoming-trade](https://github.com/zmilla93/SlimTrade/assets/10750321/0ecbc10c-732e-4b53-be4b-bf2b07acb540)<br>
+![options](https://github.com/user-attachments/assets/0e27f326-633b-4ffa-8771-ca1114e280d4)<br>
 <i>Theme: Solarized Light</i>
 
 ## History
