@@ -13,9 +13,15 @@ import java.awt.*;
 public class ThemePanel extends JPanel {
 
     private final ThemeColor color;
+    private boolean useHighContrastTextColor;
 
     public ThemePanel(ThemeColor color) {
+        this(color, false);
+    }
+
+    public ThemePanel(ThemeColor color, boolean useHighContrastTextColor) {
         this.color = color;
+        this.useHighContrastTextColor = useHighContrastTextColor;
         updateUI();
     }
 
@@ -25,38 +31,50 @@ public class ThemePanel extends JPanel {
         updateUI();
     }
 
-    private void applyLabelColor(Component component) {
+    public ThemePanel(ThemeColor color, LayoutManager layoutManager, boolean useHighContrastTextColor) {
+        super(layoutManager);
+        this.color = color;
+        this.useHighContrastTextColor = useHighContrastTextColor;
+        updateUI();
+    }
+
+    public void useHighContrastTextColor(boolean useHighContractTextColor) {
+        this.useHighContrastTextColor = useHighContractTextColor;
+    }
+
+    private void applyHighContractTextColor(Component component) {
+        if (!useHighContrastTextColor) return;
         if (!(component instanceof JLabel)) return;
         component.setForeground(color.getReadableTextColor());
     }
 
     @Override
     public Component add(Component comp) {
-        applyLabelColor(comp);
+        applyHighContractTextColor(comp);
         return super.add(comp);
     }
 
     @Override
     public Component add(String name, Component comp) {
-        applyLabelColor(comp);
+        applyHighContractTextColor(comp);
         return super.add(name, comp);
     }
 
     @Override
     public Component add(Component comp, int index) {
-        applyLabelColor(comp);
+        applyHighContractTextColor(comp);
         return super.add(comp, index);
     }
 
     @Override
     public void add(@NotNull Component comp, Object constraints) {
-        applyLabelColor(comp);
+        applyHighContractTextColor(comp);
         super.add(comp, constraints);
     }
 
     @Override
     public void add(Component comp, Object constraints, int index) {
-        applyLabelColor(comp);
+        applyHighContractTextColor(comp);
         super.add(comp, constraints, index);
     }
 
@@ -65,7 +83,7 @@ public class ThemePanel extends JPanel {
         super.updateUI();
         if (this.color == null) return;
         setBackground(color.current());
-        for (Component comp : getComponents()) applyLabelColor(comp);
+        for (Component comp : getComponents()) applyHighContractTextColor(comp);
     }
 
 }

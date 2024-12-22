@@ -8,7 +8,7 @@ import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.CardPanel;
 import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.components.MonitorPicker;
-import github.zmilla93.gui.components.poe.ResultLabel;
+import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.detection.GameDetectionButton;
 import github.zmilla93.gui.options.AbstractOptionPanel;
 
@@ -39,7 +39,7 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
         // Detection Method Panel
         addHeader("Window Location");
         addComponent(new JLabel("How should SlimTrade determine the window location of Path of Exile?"));
-        addComponent(new ResultLabel("This aligns the UI for both games."));
+        addComponent(new ThemeLabel("This aligns the UI for both games."));
         addVerticalStrutSmall();
         if (Platform.current == Platform.WINDOWS)
             addComponent(detectRadioButton);
@@ -53,12 +53,12 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
-        monitorPanel.addComponent(new ResultLabel(ThemeColor.INDETERMINATE, "Requires using Windowed Fullscreen"));
+        monitorPanel.addComponent(new ThemeLabel(ThemeColor.INDETERMINATE, "Requires using Windowed Fullscreen"));
         monitorPanel.addComponent(monitorPicker);
 
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
-        screenRegionPanel.addComponent(new ResultLabel(ThemeColor.INDETERMINATE, "Coming soon (maybe)."));
+        screenRegionPanel.addComponent(new ThemeLabel(ThemeColor.INDETERMINATE, "Coming soon (maybe)."));
         screenRegionPanel.addLabel("Only required for windowed mode if other options fail.");
         screenRegionPanel.addLabel("If this affects you, report on GitHub or Discord.");
 

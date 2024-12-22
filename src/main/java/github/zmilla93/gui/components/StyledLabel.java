@@ -9,8 +9,6 @@ import java.awt.*;
 /**
  * A JLabel that allows setting bold, italic, and color.
  * Color can either be set directly, using a key from the UIManager.
- *
- * @see ThemedStyleLabel
  */
 public class StyledLabel extends JLabel {
 

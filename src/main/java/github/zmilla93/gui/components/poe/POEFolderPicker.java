@@ -34,7 +34,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
                 refreshComponentVisibility();
             }
         };
-        notInstalledLabel = new ResultLabel(ThemeColor.INDETERMINATE, "If you ever install " + game.explicitName + ", update this setting.");
+        notInstalledLabel = new ThemeLabel(ThemeColor.INDETERMINATE, "If you ever install " + game.explicitName + ", update this setting.");
         notInstalledLabel.setVisible(false);
         fileChooser = new POEFileChooser(game);
         JPanel pathWrapperPanel = new JPanel(new BorderLayout());

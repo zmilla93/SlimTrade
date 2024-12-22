@@ -39,7 +39,6 @@ public class OverlaySaveFile extends AbstractSaveFile {
 
     // FIXME : Move these to FrameManager?
     public void applyDefaultMessageLocation() {
-        System.out.println("Game bounds: " + POEWindow.getGameBounds());
         int messageX = POEWindow.getGameBounds().x
                 + ScaledInt.getScaledValue(DEFAULT_MESSAGE_X_PERCENT, POEWindow.getGameBounds().width)
                 - SliderRange.MESSAGE_WIDTH.START;

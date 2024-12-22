@@ -33,7 +33,6 @@ public class ChatScannerMessagePanel extends NotificationPanel {
             itemButton.setText(playerMessage.message);
         }
         pricePanel.add(new JLabel(scannerEntry.title));
-        messageColor = ThemeColor.SCANNER_MESSAGE.current();
         topMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.TOP_ROW);
         bottomMacros = MacroButton.getRowMacros(scannerEntry.macros, ButtonRow.BOTTOM_ROW);
         setup();
@@ -44,19 +43,10 @@ public class ChatScannerMessagePanel extends NotificationPanel {
     }
 
     @Override
-    protected void resolveMessageColor() {
-        Color color = ThemeColor.SCANNER_MESSAGE.current();
-        System.out.println("Scanner resolved color: " + color);
-//        System.out.println("COLOR:");
-//        System.out.println(color);
-//        messageColor = ThemeColor.SCANNER_MESSAGE.current();
-        messageColor = themeColor.current();
-    }
-
-    @Override
     protected void addListeners() {
         super.addListeners();
-        if (playerMessage != null && !playerMessage.isMetaText) addPlayerButtonListener(playerMessage.player);
+        if (playerMessage == null) return;
+        if (!playerMessage.isMetaText) addPlayerButtonListener(playerMessage.player);
         itemButton.addMouseListener(new AdvancedMouseListener() {
             @Override
             public void click(MouseEvent e) {

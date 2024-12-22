@@ -6,7 +6,7 @@ import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.jna.NativeWindow;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.gui.components.ComponentPanel;
-import github.zmilla93.gui.components.poe.ResultLabel;
+import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.setup.PoeIdentificationFrame;
 
 import javax.swing.*;
@@ -19,7 +19,7 @@ public class GameDetectionButton extends ComponentPanel implements GameDetection
 
     // FIXME: Should switch to a card panel to avoid component resizing (remove the pack listener from setup if so)
     private final JButton runTestButton = new JButton("Detect");
-    private final ResultLabel resultLabel = new ResultLabel(GameDetectionResult.NOT_RUN.message);
+    private final ThemeLabel resultLabel = new ThemeLabel(GameDetectionResult.NOT_RUN.message);
     private final ArrayList<GameDetectionTestListener> listeners = new ArrayList<>();
     private GameDetectionResult latestResult;
     private NativeWindow latestResultWindow;

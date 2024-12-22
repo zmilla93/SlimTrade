@@ -13,8 +13,8 @@ import github.zmilla93.core.utility.AdvancedMouseListener;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.core.utility.POEInterface;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.gui.components.BorderlessButton;
 import github.zmilla93.gui.components.CurrencyLabelFactory;
+import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.ThemePanel;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.modules.theme.components.ColorPanel;
@@ -32,11 +32,11 @@ public abstract class NotificationPanel extends ColorPanel {
 
     // Components
     protected final NotificationButton playerNameButton = new NotificationButton("Placeholder Player Name");
-    protected final JPanel pricePanel;
-    protected final BorderlessButton itemButton = new BorderlessButton();
-    protected final ColorPanel timerPanel = new ColorPanel(new BorderLayout());
+    protected final ThemePanel pricePanel;
+    protected final NotificationButton itemButton = new NotificationButton();
+    protected final ThemePanel timerPanel = new ThemePanel(ThemeColor.BUTTON_BACKGROUND, new BorderLayout());
     protected final JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
-    private final JLabel timerLabel = new JLabel("0s");
+    private final JLabel timerLabel = new ThemeLabel(ThemeColor.BUTTON_FOREGROUND, "0s");
     protected boolean closeButtonInTopRow = true;
 
     // Container Panels
@@ -59,9 +59,7 @@ public abstract class NotificationPanel extends ColorPanel {
     protected boolean createListeners;
     private boolean playerJoinedArea;
 
-    protected Color messageColor = new Color(60, 173, 173, 255);
-    protected Color currencyTextColor;
-    protected final ThemeColor themeColor;
+    protected final ThemeColor messageColor;
 
     // Timer
     private Timer timer;
@@ -71,21 +69,22 @@ public abstract class NotificationPanel extends ColorPanel {
 
     private final HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
 
-    public NotificationPanel(ThemeColor themeColor) {
-        this(themeColor, true);
+    public NotificationPanel(ThemeColor messageColor) {
+        this(messageColor, true);
     }
 
-    public NotificationPanel(ThemeColor themeColor, boolean createListeners) {
-        this.themeColor = themeColor;
+    public NotificationPanel(ThemeColor messageColor, boolean createListeners) {
+        this.messageColor = messageColor;
         this.createListeners = createListeners;
         // Panels
         JPanel mainPanel = new JPanel(new BorderLayout());
-        borderPanel = new ThemePanel(themeColor, new GridBagLayout());
-        pricePanel = new ThemePanel(themeColor, new GridBagLayout());
-        topPanel = new ThemePanel(themeColor, new GridBagLayout());
-        topButtonPanel = new ThemePanel(themeColor, new GridBagLayout());
-        bottomPanel = new ThemePanel(themeColor, new BorderLayout());
-        bottomButtonPanel = new ThemePanel(themeColor, new GridBagLayout());
+        borderPanel = new ThemePanel(messageColor, new GridBagLayout());
+        pricePanel = new ThemePanel(messageColor, new GridBagLayout());
+        topPanel = new ThemePanel(messageColor, new GridBagLayout());
+        topButtonPanel = new ThemePanel(messageColor, new GridBagLayout());
+        bottomPanel = new ThemePanel(messageColor, new BorderLayout());
+        bottomButtonPanel = new ThemePanel(messageColor, new GridBagLayout());
+        pricePanel.useHighContrastTextColor(true);
 
         // Border Setup
         setLayout(new GridBagLayout());
@@ -128,10 +127,7 @@ public abstract class NotificationPanel extends ColorPanel {
 
         // Colors
         setBackgroundKey("Separator.background");
-        playerNameButton.setBackgroundKey("Panel.background");
-        itemButton.setBackgroundKey("ComboBox.background");
-        timerPanel.setColorMultiplier(1.1f);
-        timerPanel.setBackgroundKey("ComboBox.background");
+//        timerPanel.setBackgroundKey("HelpButton.background");
     }
 
     /**
@@ -165,7 +161,7 @@ public abstract class NotificationPanel extends ColorPanel {
             button.updateUI();
             panel.add(button, gc);
             if (createListeners) {
-                if (!hotkeyMap.containsKey(macro.hotkeyData))
+                if (macro.hotkeyData != null && !hotkeyMap.containsKey(macro.hotkeyData))
                     hotkeyMap.put(macro.hotkeyData, new NotificationPanelHotkey(macro, this, pasteReplacement));
                 button.addMouseListener(new AdvancedMouseListener() {
                     @Override
@@ -239,21 +235,20 @@ public abstract class NotificationPanel extends ColorPanel {
         }
     }
 
-    protected abstract void resolveMessageColor();
-
-    public void applyMessageColor() {
+    // FIXME : Use result label so this only needs to be called once
+    public void applyPlayerJoinedAreaColor() {
         if (borderPanel == null) return;
         // FIXME : Need to fix player joined area.
         if (playerJoinedArea) {
-            playerNameButton.setForeground(themeColor.current());
-            timerLabel.setForeground(themeColor.current());
-            CurrencyLabelFactory.applyColorToLabel(itemButton, themeColor.current());
+            playerNameButton.setForeground(messageColor.current());
+            timerLabel.setForeground(messageColor.current());
+            CurrencyLabelFactory.applyColorToLabel(itemButton, messageColor.current());
         }
     }
 
     public void setPlayerJoinedArea() {
         playerJoinedArea = true;
-        applyMessageColor();
+        applyPlayerJoinedAreaColor();
     }
 
     public void stopTimer() {
@@ -277,6 +272,7 @@ public abstract class NotificationPanel extends ColorPanel {
     public void checkHotkeys(HotkeyData hotkeyData) {
         IHotkeyAction action = hotkeyMap.get(hotkeyData);
         if (action != null) action.execute();
+
     }
 
     public void handleHotkeyMutual(MacroButton macro) {
@@ -288,23 +284,23 @@ public abstract class NotificationPanel extends ColorPanel {
      * Called when a button is pressed that uses the /invite command.
      */
     protected void onInvite() {
-        // Override this!
+        /// Override this!
     }
 
     /**
-     * Called when a message is removed from the message manager.
+     * Called when a message is removed from the message manager. Make sure to call super!
      */
     public void cleanup() {
+        /// Override this, but call super!
         timer.stop();
         timer = null;
-        // Override this, but call super!
     }
 
     @Override
     public void updateUI() {
         super.updateUI();
         updateSize();
-        applyMessageColor();
+        applyPlayerJoinedAreaColor();
         // FIXME:
         FontManager.applyFont(playerNameButton);
     }

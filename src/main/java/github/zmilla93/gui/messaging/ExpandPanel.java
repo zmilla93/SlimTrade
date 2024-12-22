@@ -6,20 +6,13 @@ import github.zmilla93.modules.theme.components.AdvancedButton;
 public class ExpandPanel extends NotificationPanel {
 
     public ExpandPanel() {
-        // FIXME : Expand message color?
-        super(ThemeColor.NEUTRAL);
+        super(ThemeColor.BUTTON_FOREGROUND);
         playerNameButton.setText("Show Messages");
         bottomContainer.setVisible(false);
         pricePanel.setVisible(false);
-//        borderPanel.setBackgroundKey("Label.foreground");
         closeButton.setVisible(false);
         stopTimer();
         setup();
-    }
-
-    @Override
-    protected void resolveMessageColor() {
-//        messageColor = UIManager.getColor("Button.foreground");
     }
 
     public void setText(String text) {

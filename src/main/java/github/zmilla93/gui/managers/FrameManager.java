@@ -32,6 +32,7 @@ import github.zmilla93.modules.theme.testing.UIManagerInspectorWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -188,6 +189,19 @@ public class FrameManager {
         if (newState == AppState.RUNNING) SystemTrayManager.showDefault();
         else SystemTrayManager.showSimple();
         App.setState(newState);
+    }
+
+    public static <T extends Window> Window showLazyDebugWindow(Window window, Class<T> classType) {
+        if (window == null) {
+            try {
+                window = classType.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException ignore) {
+            }
+        }
+        if (window == null) return null;
+        window.setVisible(true);
+        return window;
     }
 
     public static void rebuildCheatSheetWindows() {

@@ -13,7 +13,10 @@ import github.zmilla93.gui.chatscanner.ChatScannerEntry;
 import github.zmilla93.gui.components.HotkeyButton;
 import github.zmilla93.gui.components.StyledLabel;
 import github.zmilla93.gui.managers.FrameManager;
+import github.zmilla93.gui.windows.test.MessageTestWindow;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.theme.testing.UIColorKeyViewer;
+import github.zmilla93.modules.theme.testing.UIManagerInspectorWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +43,11 @@ public class DebugOptionPanel extends AbstractOptionPanel {
     private final JButton uiDumpButton = new JButton("Dump UIManager to Clipboard");
     private final JComboBox<String> fontCombo = new JComboBox<>();
 
+    // Debug Buttons
+    private final JButton messageTestButton = new JButton("Message Test");
+    private final JButton themeInspectorButton = new JButton("Theme Inspector");
+    private final JButton uiKeyViewerButton = new JButton("UI Key Viewer");
+
     private static final String slashString = "Slash - // \\\\";
     private final JLabel chineseLabel = new JLabel(FontManager.CHINESE_EXAMPLE_TEXT);
     private final JLabel japaneseLabel = new JLabel(FontManager.JAPANESE_EXAMPLE_TEXT);
@@ -58,14 +66,10 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         });
 
 
-        addHeader("Debug Tools");
-
-
+        addHeader("Path of Exile Stuff");
         addComponent(createButtonPanel());
-//        addComponent(scannerMessageButton);
-//        addComponent(updateMessageButton);
-//        addComponent(uiDumpButton);
-//        addComponent(new ComponentPanel(createBackupButton, loadBackupButton));
+        addHeader("Debug Stuff");
+        addComponent(createDebugButtonPanel());
         addVerticalStrut();
         addHeader("Hotkey Test");
         addComponent(chatHotkeyButton);
@@ -113,6 +117,23 @@ public class DebugOptionPanel extends AbstractOptionPanel {
             int response = JOptionPane.showConfirmDialog(FrameManager.optionsWindow, "Are you sure you want to load the existing settings backup?\nThis requires a program restart after.", "Load Backup", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.OK_OPTION) SaveManager.loadBackup();
         });
+        themeInspectorButton.addActionListener(e -> FrameManager.uiManagerInspectorWindow = (UIManagerInspectorWindow) FrameManager.showLazyDebugWindow(FrameManager.uiManagerInspectorWindow, UIManagerInspectorWindow.class));
+        uiKeyViewerButton.addActionListener(e -> FrameManager.uiColorKeyViewer = (UIColorKeyViewer) FrameManager.showLazyDebugWindow(FrameManager.uiColorKeyViewer, UIColorKeyViewer.class));
+        messageTestButton.addActionListener(e -> FrameManager.debugMessageWindow = (MessageTestWindow) FrameManager.showLazyDebugWindow(FrameManager.debugMessageWindow, MessageTestWindow.class));
+    }
+
+    private JPanel createDebugButtonPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gc = ZUtil.getGC();
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(themeInspectorButton, gc);
+        gc.gridy++;
+        panel.add(uiKeyViewerButton, gc);
+        gc.gridy++;
+        panel.add(messageTestButton, gc);
+        gc.gridy++;
+        return panel;
     }
 
     private JPanel createButtonPanel() {
@@ -126,19 +147,19 @@ public class DebugOptionPanel extends AbstractOptionPanel {
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.weightx = 1;
         // POE1 Buttons
-        buttonPanel.add(clientButtonPoe1, gc);
+        buttonPanel.add(incomingMessageButtonPoe1, gc);
         gc.gridy++;
         buttonPanel.add(outgoingMessageButtonPoe1, gc);
         gc.gridy++;
-        buttonPanel.add(incomingMessageButtonPoe1, gc);
+        buttonPanel.add(clientButtonPoe1, gc);
         gc.gridx = 1;
         gc.gridy = 1;
         // POE2 Buttons
-        buttonPanel.add(clientButtonPoe2, gc);
+        buttonPanel.add(incomingMessageButtonPoe2, gc);
         gc.gridy++;
         buttonPanel.add(outgoingMessageButtonPoe2, gc);
         gc.gridy++;
-        buttonPanel.add(incomingMessageButtonPoe2, gc);
+        buttonPanel.add(clientButtonPoe2, gc);
         gc.gridy++;
         // Mutual Buttons
         gc.gridx = 0;

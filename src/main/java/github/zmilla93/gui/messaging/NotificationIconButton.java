@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class NotificationIconButton extends AdvancedButton {
 
-    private static final int DEFAULT_INSET = NotificationButton.INSET;
+    private static final int DEFAULT_INSET = NotificationButton.DEFAULT_INSET;
     protected String path;
     private int inset;
 

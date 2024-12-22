@@ -29,6 +29,7 @@ public class ColorPanel extends JPanel {
 
     public void setBackgroundKey(String key) {
         this.key = key;
+        updateUI();
     }
 
     public void setColorMultiplier(float colorMultiplier) {

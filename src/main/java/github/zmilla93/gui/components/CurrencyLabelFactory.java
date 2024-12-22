@@ -2,8 +2,10 @@ package github.zmilla93.gui.components;
 
 import github.zmilla93.core.data.SaleItem;
 import github.zmilla93.core.enums.CurrencyType;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.utility.ZUtil;
+import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.modules.theme.ThemeManager;
 
 import javax.swing.*;
@@ -22,16 +24,24 @@ public class CurrencyLabelFactory extends JPanel {
     ///////////////////////
     // Factory Functions //
     ///////////////////////
-
     public static Container applyItemToComponent(Container container, Game game, ArrayList<SaleItem> saleItems) {
-        return applyItemToComponent(container, game, saleItems, false);
+        return applyItemToComponent(container, game, saleItems, null, false);
     }
 
     public static Container applyItemToComponent(Container container, Game game, ArrayList<SaleItem> saleItems, boolean forceText) {
+        return applyItemToComponent(container, game, saleItems, null, forceText);
+    }
+
+
+    public static Container applyItemToComponent(Container container, Game game, ArrayList<SaleItem> saleItems, ThemeColor textColor) {
+        return applyItemToComponent(container, game, saleItems, textColor, false);
+    }
+
+    public static Container applyItemToComponent(Container container, Game game, ArrayList<SaleItem> saleItems, ThemeColor textColor, boolean forceText) {
         setupContainer(container);
         for (int i = 0; i < saleItems.size(); i++) {
             SaleItem item = saleItems.get(i);
-            addDataToContainer(container, game, item.itemName, item.quantity, forceText);
+            addDataToContainer(container, game, item.itemName, item.quantity, textColor, forceText);
             if (i < saleItems.size() - 1) addComma(container);
         }
         return container;
@@ -66,9 +76,9 @@ public class CurrencyLabelFactory extends JPanel {
         return container;
     }
 
-    private static Container addDataToContainer(Container container, Game game, String itemName, double quantity, boolean forceText) {
+    private static Container addDataToContainer(Container container, Game game, String itemName, double quantity, ThemeColor textColor, boolean forceText) {
         CurrencyType currencyType = CurrencyType.getCurrencyType(itemName, game);
-        JLabel textLabel = textLabel(itemName, quantity, currencyType, forceText);
+        JLabel textLabel = textLabel(itemName, quantity, currencyType, textColor, forceText);
         container.add(textLabel, gc);
         gc.gridx++;
         if (currencyType != null) {
@@ -93,12 +103,16 @@ public class CurrencyLabelFactory extends JPanel {
     // Components //
     ////////////////
 
-    private static JLabel textLabel(String itemName, double quantity, CurrencyType currencyType, boolean forceText) {
+    private static JLabel textLabel(String itemName, double quantity, CurrencyType currencyType, ThemeColor textColor, boolean forceText) {
         if (currencyType != null && quantity == 0) quantity = 1;
         String prefix = quantity > 0 ? "(" + ZUtil.formatNumber(quantity) + ")" : "";
         String suffix = currencyType == null || forceText ? " " + itemName : "";
         if (currencyType != null && forceText) suffix += " ";
-        return new JLabel(prefix + suffix);
+        boolean customColor = textColor != null;
+        JLabel label;
+        if (customColor) label = new ThemeLabel(textColor, prefix + suffix);
+        else label = new JLabel(prefix + suffix);
+        return label;
     }
 
     private static JLabel iconLabel(CurrencyType currencyType) {

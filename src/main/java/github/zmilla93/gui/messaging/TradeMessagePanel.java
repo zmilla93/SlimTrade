@@ -2,7 +2,7 @@ package github.zmilla93.gui.messaging;
 
 import github.zmilla93.core.data.PasteReplacement;
 import github.zmilla93.core.data.SaleItem;
-import github.zmilla93.core.enums.StashTabColor;
+import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.trading.TradeOffer;
 import github.zmilla93.core.trading.TradeOfferType;
@@ -11,7 +11,6 @@ import github.zmilla93.gui.components.CurrencyLabelFactory;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.stash.StashHelperBulkWrapper;
 import github.zmilla93.gui.stash.StashHelperPanel;
-import github.zmilla93.modules.theme.ThemeColorVariant;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -41,7 +40,7 @@ public class TradeMessagePanel extends NotificationPanel {
         JPanel itemPanel = new JPanel();
         itemPanel.setOpaque(false);
         boolean forceText = tradeOffer.getItems().size() <= 1;
-        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.game, tradeOffer.getItems(), forceText);
+        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.game, tradeOffer.getItems(), ThemeColor.BUTTON_FOREGROUND, forceText);
         itemButton.add(itemPanel);
         CurrencyLabelFactory.applyItemToComponent(pricePanel, tradeOffer.game, new SaleItem(tradeOffer.priceName, tradeOffer.priceQuantity).toArrayList());
         // Message type specific stuff
@@ -101,21 +100,21 @@ public class TradeMessagePanel extends NotificationPanel {
         return tradeOffer;
     }
 
-    @Override
-    protected void resolveMessageColor() {
-        if (tradeOffer == null) return;
-        StashTabColor stashTabColor = tradeOffer.getStashTabColor();
-        if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE
-                && SaveManager.settingsSaveFile.data.applyStashColorToMessage
-                && stashTabColor != StashTabColor.ZERO
-        ) {
-            messageColor = tradeOffer.getStashTabColor().getBackground();
-            currencyTextColor = tradeOffer.getStashTabColor().getForeground();
-        } else {
-            messageColor = ThemeColorVariant.getMessageColor(tradeOffer.offerType);
-            currencyTextColor = null;
-        }
-    }
+//    @Override
+//    protected void resolveMessageColor() {
+//        if (tradeOffer == null) return;
+//        StashTabColor stashTabColor = tradeOffer.getStashTabColor();
+//        if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE
+//                && SaveManager.settingsSaveFile.data.applyStashColorToMessage
+//                && stashTabColor != StashTabColor.ZERO
+//        ) {
+//            messageColor = tradeOffer.getStashTabColor().getBackground();
+//            currencyTextColor = tradeOffer.getStashTabColor().getForeground();
+//        } else {
+//            messageColor = ThemeColorVariant.getMessageColor(tradeOffer.offerType);
+//            currencyTextColor = null;
+//        }
+//    }
 
     @Override
     protected void onInvite() {

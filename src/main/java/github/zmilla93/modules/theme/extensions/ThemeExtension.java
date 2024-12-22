@@ -21,6 +21,9 @@ public class ThemeExtension {
     public ColorVariant OUTGOING_TRADE = new ColorVariant("Actions.Red", "Objects.Pink");
     public ColorVariant SCANNER_MESSAGE = new ColorVariant("Actions.Yellow");
     public ColorVariant UPDATE_MESSAGE = new ColorVariant("Actions.Grey");
+    public ColorVariant LABEL_FOREGROUND = new ColorVariant("Label.foreground");
+    public ColorVariant BUTTON_BACKGROUND = new ColorVariant("HelpButton.background");
+    public ColorVariant BUTTON_FOREGROUND = new ColorVariant("Button.foreground");
 
     private final HashMap<ThemeColor, ColorVariant> colorMap = new HashMap<>();
     // FIXME : This should probably be moved elsewhere
@@ -40,6 +43,9 @@ public class ThemeExtension {
         colorMap.put(ThemeColor.OUTGOING_MESSAGE, OUTGOING_TRADE);
         colorMap.put(ThemeColor.SCANNER_MESSAGE, SCANNER_MESSAGE);
         colorMap.put(ThemeColor.UPDATE_MESSAGE, UPDATE_MESSAGE);
+        colorMap.put(ThemeColor.LABEL_FOREGROUND, LABEL_FOREGROUND);
+        colorMap.put(ThemeColor.BUTTON_BACKGROUND, BUTTON_BACKGROUND);
+        colorMap.put(ThemeColor.BUTTON_FOREGROUND, BUTTON_FOREGROUND);
     }
 
     public Color resolve(ThemeColor themeColor, boolean colorblind) {

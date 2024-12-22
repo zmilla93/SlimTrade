@@ -6,14 +6,17 @@ import github.zmilla93.modules.theme.ThemeManager;
 import java.awt.*;
 
 /**
- * Keys for context specific colors like "Approve" or "Deny". A ThemeExtension can map these keys to
- * the actual colors that should be used by the current theme.
+ * Keys for context specific colors like "Approve" or "Deny". A {@link github.zmilla93.modules.theme.extensions.ThemeExtension}
+ * is used to map these keys to actual colors used by a theme.
  */
 public enum ThemeColor {
 
+    /// Results
     APPROVE, DENY, INDETERMINATE, NEUTRAL,
+    /// Message Colors
     INCOMING_MESSAGE, OUTGOING_MESSAGE, SCANNER_MESSAGE, UPDATE_MESSAGE,
-    TEXT_COLOR;
+    /// Swing References
+    LABEL_FOREGROUND, BUTTON_BACKGROUND, BUTTON_FOREGROUND;
 
     public Color current() {
         return current(ThemeManager.isColorblindMode());

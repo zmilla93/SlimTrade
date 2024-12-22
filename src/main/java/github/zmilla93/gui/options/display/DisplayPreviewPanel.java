@@ -6,7 +6,7 @@ import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.buttons.IconButton;
 import github.zmilla93.gui.components.ComponentPanel;
-import github.zmilla93.gui.components.poe.ResultLabel;
+import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.ThemePanel;
 import github.zmilla93.gui.options.AbstractOptionPanel;
 import github.zmilla93.modules.theme.ThemeManager;
@@ -20,9 +20,9 @@ public class DisplayPreviewPanel extends AbstractOptionPanel implements Colorbli
     private final JLabel fontPreviewLabel = new JLabel("You are captured, stupid beast!");
     private final IconButton iconPreviewButton = new IconButton(DefaultIcon.TAG);
 
-    private final JLabel approveLabel = new ResultLabel(ThemeColor.APPROVE, "Green Label.").bold();
-    private final JLabel denyLabel = new ResultLabel(ThemeColor.DENY, "Red Label.").bold();
-    private final JLabel indeterminateLabel = new ResultLabel(ThemeColor.INDETERMINATE, "Yellow Label.").bold();
+    private final JLabel approveLabel = new ThemeLabel(ThemeColor.APPROVE, "Green Label.").bold();
+    private final JLabel denyLabel = new ThemeLabel(ThemeColor.DENY, "Red Label.").bold();
+    private final JLabel indeterminateLabel = new ThemeLabel(ThemeColor.INDETERMINATE, "Yellow Label.").bold();
 
 //    private final JPanel bottomPanel;
 
@@ -37,11 +37,11 @@ public class DisplayPreviewPanel extends AbstractOptionPanel implements Colorbli
     }
 
     private JPanel createColorPreviewPanel() {
-        JPanel incomingPanel = new ThemePanel(ThemeColor.INCOMING_MESSAGE);
+        JPanel incomingPanel = new ThemePanel(ThemeColor.INCOMING_MESSAGE, true);
         incomingPanel.add(new JLabel("Incoming Trade"));
-        JPanel outgoingPanel = new ThemePanel(ThemeColor.OUTGOING_MESSAGE);
+        JPanel outgoingPanel = new ThemePanel(ThemeColor.OUTGOING_MESSAGE, true);
         outgoingPanel.add(new JLabel("Outgoing Trade"));
-        JPanel scannerPanel = new ThemePanel(ThemeColor.SCANNER_MESSAGE);
+        JPanel scannerPanel = new ThemePanel(ThemeColor.SCANNER_MESSAGE, true);
         scannerPanel.add(new JLabel("Scanner Message"));
 
         int horizontalGap = 4;

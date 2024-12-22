@@ -4,23 +4,23 @@ import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.gui.components.StyledLabel;
 
 //FIXME : Move to theme module once that is updated
-public class ResultLabel extends StyledLabel {
+public class ThemeLabel extends StyledLabel {
 
     private ThemeColor status;
 
-    public ResultLabel() {
+    public ThemeLabel() {
         this(ThemeColor.NEUTRAL, null);
     }
 
-    public ResultLabel(ThemeColor status) {
+    public ThemeLabel(ThemeColor status) {
         this(status, null);
     }
 
-    public ResultLabel(String text) {
+    public ThemeLabel(String text) {
         this(ThemeColor.NEUTRAL, text);
     }
 
-    public ResultLabel(ThemeColor status, String text) {
+    public ThemeLabel(ThemeColor status, String text) {
         this.status = status;
         setText(text);
         updateUI();

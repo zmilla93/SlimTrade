@@ -19,7 +19,7 @@ public class FilePicker extends JPanel {
     private static final String DEFAULT_NO_SELECTION_STRING = "No folder selected.";
 
     public final JLabel pathLabel;
-    public final ResultLabel errorLabel = new ResultLabel("This is an error!");
+    public final ThemeLabel errorLabel = new ThemeLabel("This is an error!");
     public JFileChooser fileChooser = new JFileChooser();
     public final JPanel chooserPanel = new JPanel(new BorderLayout());
 

@@ -6,8 +6,12 @@ import javax.swing.*;
 
 public class NotificationButton extends AdvancedButton {
 
-    public static final int INSET = 2;
+    public static final int DEFAULT_INSET = 2;
     private int horizontalInset = -1;
+
+    public NotificationButton() {
+        this(null);
+    }
 
     public NotificationButton(String text) {
         super();
@@ -23,8 +27,8 @@ public class NotificationButton extends AdvancedButton {
     @Override
     public void updateUI() {
         super.updateUI();
-        int horizontal = horizontalInset == -1 ? INSET : horizontalInset;
-        setBorder(BorderFactory.createEmptyBorder(INSET, horizontal, INSET, horizontal));
+        int horizontal = horizontalInset == -1 ? DEFAULT_INSET : horizontalInset;
+        setBorder(BorderFactory.createEmptyBorder(DEFAULT_INSET, horizontal, DEFAULT_INSET, horizontal));
     }
 
 }

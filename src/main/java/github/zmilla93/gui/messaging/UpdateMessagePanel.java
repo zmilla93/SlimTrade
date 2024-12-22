@@ -17,9 +17,4 @@ public class UpdateMessagePanel extends NotificationPanel {
         setup();
     }
 
-    @Override
-    protected void resolveMessageColor() {
-        // TODO
-    }
-
 }
