@@ -6,7 +6,7 @@ import github.zmilla93.modules.theme.components.AdvancedButton;
 public class ExpandPanel extends NotificationPanel {
 
     public ExpandPanel() {
-        super(ThemeColor.BUTTON_FOREGROUND);
+        super(ThemeColor.BUTTON_FOREGROUND, null);
         playerNameButton.setText("Show Messages");
         bottomContainer.setVisible(false);
         pricePanel.setVisible(false);

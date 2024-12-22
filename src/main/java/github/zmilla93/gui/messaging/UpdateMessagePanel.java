@@ -6,7 +6,7 @@ import github.zmilla93.core.enums.ThemeColor;
 public class UpdateMessagePanel extends NotificationPanel {
 
     public UpdateMessagePanel(String tag) {
-        super(ThemeColor.UPDATE_MESSAGE);
+        super(ThemeColor.UPDATE_MESSAGE, null);
         pricePanel.setVisible(false);
         if (tag != null && App.getAppInfo().appVersion.isPreRelease)
             playerNameButton.setText("SlimTrade " + tag + " Available!");

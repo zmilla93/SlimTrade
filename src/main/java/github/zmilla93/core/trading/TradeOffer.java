@@ -7,6 +7,7 @@ import github.zmilla93.core.enums.StashTabColor;
 import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
+import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.core.utility.ZUtil;
 
 import java.util.ArrayList;
@@ -229,6 +230,14 @@ public class TradeOffer {
     public ThemeColor getMessageColor() {
         if (offerType == TradeOfferType.INCOMING_TRADE) return ThemeColor.INCOMING_MESSAGE;
         else return ThemeColor.OUTGOING_MESSAGE;
+    }
+
+    public ArrayList<MacroButton> getMacros() {
+        if (offerType == TradeOfferType.INCOMING_TRADE)
+            return SaveManager.settingsSaveFile.data.incomingMacroButtons;
+        else if (offerType == TradeOfferType.OUTGOING_TRADE)
+            return SaveManager.settingsSaveFile.data.outgoingBottomMacros;
+        return null;
     }
 
 }

@@ -7,6 +7,9 @@ import github.zmilla93.core.hotkeys.HotkeyData;
 
 import java.util.ArrayList;
 
+/**
+ * Settings for a customizable macro button that can appear on a {@link github.zmilla93.gui.messaging.NotificationPanel}.
+ */
 public class MacroButton {
 
     public MacroButtonType buttonType = MacroButtonType.ICON;

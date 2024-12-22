@@ -1,0 +1,3 @@
+## Improvements
+- Fixed message hotkeys not working for buttons in the top row
+- Fixed notification color inconsistencies

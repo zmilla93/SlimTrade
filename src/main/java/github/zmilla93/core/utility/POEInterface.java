@@ -140,6 +140,7 @@ public class POEInterface {
 
     public static void runCommand(String input, PasteReplacement pasteReplacement) {
         if (pasteReplacement == null) return;
+        if (input == null || input.isEmpty()) return;
         executor.execute(() -> {
             if (!focusGame()) return;
             ArrayList<String> commands = ZUtil.getCommandList(input, pasteReplacement);

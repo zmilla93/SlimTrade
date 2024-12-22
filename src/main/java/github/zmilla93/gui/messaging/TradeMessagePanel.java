@@ -26,7 +26,7 @@ public class TradeMessagePanel extends NotificationPanel {
     }
 
     public TradeMessagePanel(TradeOffer tradeOffer, boolean createListeners) {
-        super(tradeOffer.getMessageColor(), createListeners);
+        super(tradeOffer.getMessageColor(), tradeOffer.getMacros(), createListeners);
         this.tradeOffer = tradeOffer;
         this.pasteReplacement = new PasteReplacement(tradeOffer.message, tradeOffer.playerName, tradeOffer.itemName, tradeOffer.itemQuantity, tradeOffer.priceName, tradeOffer.priceQuantity);
         if (tradeOffer.offerType == TradeOfferType.INCOMING_TRADE && createListeners) {

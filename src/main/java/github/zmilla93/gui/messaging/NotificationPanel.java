@@ -1,6 +1,7 @@
 package github.zmilla93.gui.messaging;
 
 import github.zmilla93.core.data.PasteReplacement;
+import github.zmilla93.core.enums.ButtonRow;
 import github.zmilla93.core.enums.DefaultIcon;
 import github.zmilla93.core.enums.MacroButtonType;
 import github.zmilla93.core.enums.ThemeColor;
@@ -37,7 +38,7 @@ public abstract class NotificationPanel extends ColorPanel {
     protected final ThemePanel timerPanel = new ThemePanel(ThemeColor.BUTTON_BACKGROUND, new BorderLayout());
     protected final JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
     private final JLabel timerLabel = new ThemeLabel(ThemeColor.BUTTON_FOREGROUND, "0s");
-    protected boolean closeButtonInTopRow = true;
+    private final ButtonRow closeButtonRow;
 
     // Container Panels
     protected final JPanel borderPanel;
@@ -52,7 +53,10 @@ public abstract class NotificationPanel extends ColorPanel {
     private static final float NAME_PANEL_WEIGHT = 0.7f;
     private static final float PRICE_PANEL_WEIGHT = 0.3f;
 
+    protected ArrayList<MacroButton> macros = new ArrayList<>();
+    @Deprecated
     protected ArrayList<MacroButton> topMacros = new ArrayList<>();
+    @Deprecated
     protected ArrayList<MacroButton> bottomMacros = new ArrayList<>();
 
     protected PasteReplacement pasteReplacement;
@@ -69,12 +73,22 @@ public abstract class NotificationPanel extends ColorPanel {
 
     private final HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
 
-    public NotificationPanel(ThemeColor messageColor) {
-        this(messageColor, true);
+    public NotificationPanel(ThemeColor messageColor, ArrayList<MacroButton> macros) {
+        this(messageColor, macros, ButtonRow.TOP_ROW);
     }
 
-    public NotificationPanel(ThemeColor messageColor, boolean createListeners) {
+    public NotificationPanel(ThemeColor messageColor, ArrayList<MacroButton> macros, ButtonRow closeButtonRow) {
+        this(messageColor, macros, closeButtonRow, true);
+    }
+
+    public NotificationPanel(ThemeColor messageColor, ArrayList<MacroButton> macros, boolean createListeners) {
+        this(messageColor, macros, ButtonRow.TOP_ROW, createListeners);
+    }
+
+    public NotificationPanel(ThemeColor messageColor, ArrayList<MacroButton> macros, ButtonRow closeButtonRow, boolean createListeners) {
         this.messageColor = messageColor;
+        this.macros = macros;
+        this.closeButtonRow = closeButtonRow;
         this.createListeners = createListeners;
         // Panels
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -128,20 +142,42 @@ public abstract class NotificationPanel extends ColorPanel {
         // Colors
         setBackgroundKey("Separator.background");
 //        timerPanel.setBackgroundKey("HelpButton.background");
+        setup();
     }
 
     /**
      * Classes that extend NotificationPanel must call setup after completing their constructor.
      */
-    public void setup() {
-        // Add buttons
-        GridBagConstraints topGC = addMacrosToPanel(topButtonPanel, topMacros);
-        GridBagConstraints bottomGC = addMacrosToPanel(bottomButtonPanel, bottomMacros);
-        if (closeButtonInTopRow) topButtonPanel.add(closeButton, topGC);
-        else bottomButtonPanel.add(closeButton, bottomGC);
-
+    protected void setup() {
+        GridBagConstraints gc = addMacroButtons();
+        if (closeButtonRow == ButtonRow.TOP_ROW) topButtonPanel.add(closeButton, gc);
+        else if (closeButtonRow == ButtonRow.BOTTOM_ROW) bottomButtonPanel.add(closeButton, gc);
         updateUI();
         if (createListeners) addListeners();
+    }
+
+    private GridBagConstraints addMacroButtons() {
+        topButtonPanel.removeAll();
+        bottomButtonPanel.removeAll();
+        //
+        GridBagConstraints gc = ZUtil.getGC();
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weighty = 1;
+        if (macros == null) return gc;
+        for (MacroButton macro : macros) {
+            JButton button;
+            if (macro.buttonType == MacroButtonType.ICON) {
+                button = new NotificationIconButton(macro.icon);
+            } else {
+                button = new NotificationButton(macro.text);
+                ((NotificationButton) button).setHorizontalInset(4);
+            }
+            if (createListeners) createMacroButtonListener(button, macro);
+            if (macro.row == ButtonRow.TOP_ROW) topButtonPanel.add(button, gc);
+            else if (macro.row == ButtonRow.BOTTOM_ROW) bottomButtonPanel.add(button, gc);
+            gc.gridx++;
+        }
+        return gc;
     }
 
     private GridBagConstraints addMacrosToPanel(JPanel panel, ArrayList<MacroButton> macros) {
@@ -160,28 +196,25 @@ public abstract class NotificationPanel extends ColorPanel {
             }
             button.updateUI();
             panel.add(button, gc);
-            if (createListeners) {
-                if (macro.hotkeyData != null && !hotkeyMap.containsKey(macro.hotkeyData))
-                    hotkeyMap.put(macro.hotkeyData, new NotificationPanelHotkey(macro, this, pasteReplacement));
-                button.addMouseListener(new AdvancedMouseListener() {
-                    @Override
-                    public void click(MouseEvent e) {
-                        if (e.getButton() == MouseEvent.BUTTON1) {
-                            if (!ZUtil.isEmptyString(macro.lmbResponse)) {
-                                POEInterface.runCommand(macro.lmbResponse, pasteReplacement);
-                            }
-                        }
-                        if (e.getButton() == MouseEvent.BUTTON3) {
-                            if (!ZUtil.isEmptyString(macro.rmbResponse))
-                                POEInterface.runCommand(macro.rmbResponse, pasteReplacement);
-                        }
-                        handleHotkeyMutual(macro);
-                    }
-                });
-            }
+            if (createListeners) createMacroButtonListener(button, macro);
             gc.gridx++;
         }
         return gc;
+    }
+
+    private void createMacroButtonListener(JButton button, MacroButton macro) {
+        /// Button listener
+        button.addMouseListener(new AdvancedMouseListener() {
+            @Override
+            public void click(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) POEInterface.runCommand(macro.lmbResponse, pasteReplacement);
+                if (e.getButton() == MouseEvent.BUTTON3) POEInterface.runCommand(macro.rmbResponse, pasteReplacement);
+                handleHotkeyMutual(macro);
+            }
+        });
+        /// Register the button's hotkey
+        if (macro.hotkeyData != null && !hotkeyMap.containsKey(macro.hotkeyData))
+            hotkeyMap.put(macro.hotkeyData, new NotificationPanelHotkey(macro, this, pasteReplacement));
     }
 
     protected void addListeners() {

@@ -25,7 +25,8 @@ public class ChatScannerMessagePanel extends NotificationPanel {
     }
 
     public ChatScannerMessagePanel(ChatScannerEntry scannerEntry, PlayerMessage playerMessage, boolean createListeners) {
-        super(ThemeColor.SCANNER_MESSAGE, createListeners);
+        // FIXME : Macros
+        super(ThemeColor.SCANNER_MESSAGE, scannerEntry.macros, createListeners);
         this.playerMessage = playerMessage;
         if (playerMessage != null) {
             pasteReplacement = new PasteReplacement(playerMessage.message, playerMessage.player);
