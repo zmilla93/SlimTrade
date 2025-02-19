@@ -141,7 +141,7 @@ public class SetupWindow extends JFrame implements IDefaultSizeAndLocation {
     @Override
     public void applyDefaultSizeAndLocation() {
         pack();
-        POEWindow.centerWindow(this);
+        setLocationRelativeTo(null);
     }
 
     @Override
