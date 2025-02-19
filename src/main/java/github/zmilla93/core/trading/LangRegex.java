@@ -40,6 +40,7 @@ public enum LangRegex {
             "안녕하세요, (?<league>.+)\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+))\\(으\\)로 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다",
             "안녕하세요, (?<league>.+)에 올려놓은(?<itemQuantity>\\d+) (?<itemName>.+) 오브\\(을\\)를 제 (?<priceQuantity>\\d+(\\.\\d+)?) (?<priceType>.+) 오브\\(으\\)로 구매하고 싶습니다",
             "안녕하세요, (?<league>.+)\\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashtabX>\\d+), 상단 (?<stashtabY>\\d+)\\)에 올려놓은 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다",
+            "안녕하세요, ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+))\\(으\\)로 올려놓은 (?<league>.+) 리그의 (?<itemName>.+)\\(을\\)를 구매하고 싶습니다 \\(보관함 탭 \\\\?\"(?<stashtabName>.+)\", 위치: 왼쪽 (?<stashX>\\d+), 상단 (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?"
     }),
     PORTUGUESE("eu gostaria de comprar", "entrou na área\\.", null,
             "para", "de", "Modo NP Desativado", "Modo NP Ativado", new String[]{
@@ -72,6 +73,14 @@ public enum LangRegex {
             "สวัสดี เรามีความต้องการจะชื้อ  ((?<itemQuantity>\\d+((\\.|,)\\d+)?) (?<itemName>.+)) ของคุณ ฉันมี ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) ใน (?<league>.+)\\.?(?<bonusText>.+)?",
             "สวัสดี, เราต้องการจะชื้อของคุณ (?<itemName>.+) ใน ราคา ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) ใน (?<league>.+)\\.?(?<bonusText>.+)?",
             "สวัสดี, เราต้องการจะชื้อของคุณ (?<itemName>.+) ใน (?<league>.+)\\.?(?<bonusText>.+)?",
+    }),
+    JAPANESE("を購入したいです", null, null,
+            "宛先", "差出人", "DNDモードはOFFになっています。", "DNDモードがONになっています。", new String[]{
+            "こんにちは、(?<league>.+) リーグで ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) で売っている、あなたの (?<itemName>.+) を購入したいです \\(スタッシュタブ \\\\?\"(?<stashtabName>.+)\"; 位置: 左から (?<stashX>\\d+), 上から (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?",
+    }),
+    CHINESE("我想購買", null, null,
+            "向", "來自", "勿擾模式關閉。", "勿擾模式啟動。自動回覆", new String[]{
+            "你好，我想購買 (?<itemName>.+) 標價 ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) 在 (?<league>.+) \\(倉庫頁 \\\\?\"(?<stashtabName>.+)\"; 位置: 左 (?<stashX>\\d+), 上 (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?",
     }),
     ;
 
