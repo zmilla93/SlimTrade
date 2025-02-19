@@ -3,4 +3,5 @@
 - Added Chinese & Japanese trade message support, updated Korean (by @theofbonin)
 - Fixed message hotkeys not working for buttons in top row
 - Fixed notification color inconsistencies
+- Fixed menubar reappearing when hovered while tabbed out
 - Fixed setup window sometimes appearing off-screen

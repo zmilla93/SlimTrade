@@ -29,7 +29,6 @@ public class MenubarButtonDialog extends BasicDialog implements IFontChangeListe
             if (dnd) iconLabel.setIcon(DefaultIcon.VOLUME_MUTE);
             else iconLabel.setIcon(DefaultIcon.TAG);
         });
-
     }
 
     @Override

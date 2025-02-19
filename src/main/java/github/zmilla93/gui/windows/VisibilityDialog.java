@@ -41,6 +41,10 @@ public class VisibilityDialog extends ThemeDialog {
         assert (SwingUtilities.isEventDispatchThread());
         super.setVisible(visible);
         this.visible = visible;
+        if (visible) {
+            setAlwaysOnTop(false);
+            setAlwaysOnTop(true);
+        }
     }
 
     @Override

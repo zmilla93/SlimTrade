@@ -14,6 +14,7 @@ public class VisibilityManager {
 
     private static final ArrayList<VisibilityDialog> frameList = new ArrayList<>();
     private static boolean show = true;
+    private static boolean hasShownOnce = false;
 
     public static void addFrame(VisibilityDialog frame) {
         frameList.add(frame);
@@ -34,13 +35,17 @@ public class VisibilityManager {
     }
 
     public static void showOverlay() {
-        if (show) return;
+        if (show && hasShownOnce) {
+            return;
+        }
         SwingUtilities.invokeLater(() -> {
             for (VisibilityDialog frame : frameList) {
                 frame.showOverlay();
             }
+            FrameManager.updateMenubarVisibility();
             show = true;
         });
+        hasShownOnce = true;
     }
 
     public static void hideAllFrames() {

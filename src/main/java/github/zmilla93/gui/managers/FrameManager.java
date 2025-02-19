@@ -5,6 +5,7 @@ import github.zmilla93.core.data.CheatSheetData;
 import github.zmilla93.core.enums.AppState;
 import github.zmilla93.core.enums.MenubarStyle;
 import github.zmilla93.core.managers.SaveManager;
+import github.zmilla93.core.utility.POEInterface;
 import github.zmilla93.gui.chatscanner.ChatScannerWindow;
 import github.zmilla93.gui.development.DesignerConfigWindow;
 import github.zmilla93.gui.development.StashAlignmentDesignerWindow;
@@ -157,8 +158,6 @@ public class FrameManager {
         if (App.showHistoryOnLaunch) historyWindow.setVisible(true);
         messageManager.setVisible(true);
         updateMenubarVisibility();
-        // FIXME : Temp
-//        kalguurCalculatorWindow.setVisible(true);
     }
 
     public static void setWindowVisibility(AppState newState) {
@@ -256,7 +255,7 @@ public class FrameManager {
         }
     }
 
-    public static void checkMenubarVisibility(Point point) {
+    public static void checkMenubarExpanded(Point point) {
         if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.DISABLED) return;
         if (menuBarExpanded) {
             if (!menuBarDialog.getBufferedBounds().contains(point)) {
@@ -273,10 +272,17 @@ public class FrameManager {
 
     public static void updateMenubarVisibility() {
         SwingUtilities.invokeLater(() -> {
-            if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.DISABLED) {
+            boolean shouldHide = false;
+            if (SaveManager.settingsSaveFile.data.menubarStyle == MenubarStyle.DISABLED) shouldHide = true;
+            else if (SaveManager.settingsSaveFile.data.hideWhenPOENotFocused && !POEInterface.isGameFocused(true))
+                shouldHide = true;
+            if (shouldHide) {
                 menuBarDialog.setVisible(false);
                 menuBarIcon.setVisible(false);
-            } else if (SaveManager.settingsSaveFile.data.menubarAlwaysExpanded || menuBarExpanded) {
+                return;
+            }
+            boolean expanded = menuBarExpanded || SaveManager.settingsSaveFile.data.menubarAlwaysExpanded;
+            if (expanded) {
                 menuBarDialog.setVisible(true);
                 menuBarIcon.setVisible(false);
             } else {
