@@ -61,6 +61,7 @@ public class TradeMessagePanel extends NotificationPanel {
     protected void addListeners() {
         super.addListeners();
         TradeMessagePanel self = this;
+        if (tradeOffer == null) return;
         addPlayerButtonListener(tradeOffer.playerName);
         switch (tradeOffer.offerType) {
             case INCOMING_TRADE:

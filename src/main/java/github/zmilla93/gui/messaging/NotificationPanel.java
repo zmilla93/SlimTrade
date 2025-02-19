@@ -325,7 +325,8 @@ public abstract class NotificationPanel extends ColorPanel {
      */
     public void cleanup() {
         /// Override this, but call super!
-        timer.stop();
+        // FIXME : Timer is null when it shouldn't be? Might be calling cleanup twice.
+        if (timer != null) timer.stop();
         timer = null;
     }
 
