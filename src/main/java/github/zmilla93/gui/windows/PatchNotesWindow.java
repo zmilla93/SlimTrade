@@ -84,7 +84,6 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
         wrapperPanel.add(new JButton("Flip"), BorderLayout.SOUTH);
         cardPanel.add(patchNotesPanel);
         cardPanel.add(announcementPanel);
-//        contentPanel.add(controlsPanel, BorderLayout.NORTH);
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(cardPanel, BorderLayout.CENTER);
         contentPanel.add(toggleButton, BorderLayout.SOUTH);
@@ -119,10 +118,9 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
         JTextPane textArea = new JTextPane();
         textArea.setEditable(false);
         textArea.setContentType("text/html");
-//        textArea.setLineWrap(true);
         textArea.setText("Hi there! ZMilla, author of SlimTrade here,<br><br>" +
                 "My desktop PC died, money is tight, and I can't play POE for a bit. If everyone reading this donated just one dollar... (you know how this goes)<br><br>" +
-                "Or don't! That's completely fine and no one should feel obligated. Just understand that I don't want to feel obligated to work on SlimTrade when I can't play POE myself.<br><br>" +
+                "Or don't! That's completely fine. Just understand that I don't want to feel obligated to work on SlimTrade when I can't play POE myself.<br><br>" +
                 "<b>I will still maintain SlimTrade with bug fixes, but new features & QOL are on hold.</b><br><br>" +
                 "Thanks for reading! Stay sane, exile.");
         panel.add(new BufferPanel(new JLabel("Annoying Announcement :^)"), 4), BorderLayout.NORTH);

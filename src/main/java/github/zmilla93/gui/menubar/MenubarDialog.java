@@ -90,7 +90,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
         historyButton = new IconButton(DefaultIcon.HISTORY);
         chatScannerButton = new IconButton(DefaultIcon.SCANNER_OFF);
         hideoutButton = new IconButton(DefaultIcon.HOME);
-        dndButton = new IconButton(DefaultIcon.TAG);
+        dndButton = new IconButton(DefaultIcon.VOLUME);
         exitButton = new IconButton(DefaultIcon.POWER);
 
         for (Component comp : getOrderedComponents()) buttonPanel.add(comp);
