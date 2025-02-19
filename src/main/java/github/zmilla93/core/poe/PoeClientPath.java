@@ -1,6 +1,6 @@
 package github.zmilla93.core.poe;
 
-import github.zmilla93.core.enums.ThemeColor;
+import github.zmilla93.modules.theme.ThemeColor;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

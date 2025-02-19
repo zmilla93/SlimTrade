@@ -1,7 +1,4 @@
-package github.zmilla93.core.enums;
-
-import github.zmilla93.modules.theme.Theme;
-import github.zmilla93.modules.theme.ThemeManager;
+package github.zmilla93.modules.theme;
 
 import java.awt.*;
 

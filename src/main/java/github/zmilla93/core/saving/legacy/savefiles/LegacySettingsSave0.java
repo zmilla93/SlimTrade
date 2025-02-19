@@ -8,10 +8,10 @@ import github.zmilla93.core.data.IgnoreItemData;
 import github.zmilla93.core.data.StashTabData;
 import github.zmilla93.core.enums.*;
 import github.zmilla93.core.hotkeys.HotkeyData;
-import github.zmilla93.core.saving.savefiles.AbstractSaveFile;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.gui.options.searching.StashSearchTermData;
 import github.zmilla93.gui.options.stash.StashTabType;
+import github.zmilla93.modules.saving.AbstractSaveFile;
 import github.zmilla93.modules.theme.Theme;
 
 import java.io.File;

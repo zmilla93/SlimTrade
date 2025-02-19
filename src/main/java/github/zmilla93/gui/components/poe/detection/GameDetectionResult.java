@@ -1,7 +1,7 @@
 package github.zmilla93.gui.components.poe.detection;
 
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.utility.Platform;
+import github.zmilla93.modules.theme.ThemeColor;
 
 /**
  * The possible results when trying to detect the Path of Exile game window.

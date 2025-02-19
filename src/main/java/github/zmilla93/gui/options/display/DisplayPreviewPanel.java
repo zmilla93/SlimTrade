@@ -1,7 +1,6 @@
 package github.zmilla93.gui.options.display;
 
 import github.zmilla93.core.enums.DefaultIcon;
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.buttons.IconButton;
@@ -9,6 +8,7 @@ import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.ThemePanel;
 import github.zmilla93.gui.options.AbstractOptionPanel;
+import github.zmilla93.modules.theme.ThemeColor;
 import github.zmilla93.modules.theme.ThemeManager;
 import github.zmilla93.modules.theme.listeners.ColorblindChangeListener;
 

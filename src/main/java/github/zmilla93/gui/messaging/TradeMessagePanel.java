@@ -2,7 +2,6 @@ package github.zmilla93.gui.messaging;
 
 import github.zmilla93.core.data.PasteReplacement;
 import github.zmilla93.core.data.SaleItem;
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.trading.TradeOffer;
 import github.zmilla93.core.trading.TradeOfferType;
@@ -11,6 +10,7 @@ import github.zmilla93.gui.components.CurrencyLabelFactory;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.stash.StashHelperBulkWrapper;
 import github.zmilla93.gui.stash.StashHelperPanel;
+import github.zmilla93.modules.theme.ThemeColor;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

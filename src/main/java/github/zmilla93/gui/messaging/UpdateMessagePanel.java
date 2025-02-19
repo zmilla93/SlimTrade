@@ -1,7 +1,7 @@
 package github.zmilla93.gui.messaging;
 
 import github.zmilla93.App;
-import github.zmilla93.core.enums.ThemeColor;
+import github.zmilla93.modules.theme.ThemeColor;
 
 public class UpdateMessagePanel extends NotificationPanel {
 

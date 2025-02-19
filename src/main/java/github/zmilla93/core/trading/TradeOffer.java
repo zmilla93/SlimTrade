@@ -4,24 +4,24 @@ import github.zmilla93.core.data.SaleItem;
 import github.zmilla93.core.data.StashTabData;
 import github.zmilla93.core.enums.MatchType;
 import github.zmilla93.core.enums.StashTabColor;
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.core.utility.ZUtil;
+import github.zmilla93.modules.theme.ThemeColor;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // FIXME : This file needs some serious cleanup. Would be nice to separate Trades from Scanner results
-public class TradeOffer {
+public class TradeOffer extends ClientMessage {
 
     public TradeOfferType offerType;
     public String message;
-    public Game game;
-    public String date;
-    public String time;
+    //    public Game game;
+//    public String date;
+//    public String time;
     public String guildName;
     public String playerName;
 
@@ -36,7 +36,6 @@ public class TradeOffer {
     public int stashTabX = 0;
     public int stashTabY = 0;
     public String bonusText;
-    private int stashColorIndex = -1;
     private StashTabColor stashTabColor;
     public boolean isBulkTrade;
     private ArrayList<SaleItem> saleItems;
@@ -145,20 +144,17 @@ public class TradeOffer {
     public StashTabColor getStashTabColor() {
         // FIXME : Switch to hashmap
         // FIXME : Caching this value makes history reloads not apply the new color, so its been removed for now
-        stashColorIndex = 0;
         stashTabColor = StashTabColor.ZERO;
         if (stashTabName != null) {
             for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
                 if (data.stashTabName == null || ZUtil.isEmptyString(data.stashTabName)) continue;
                 if (data.matchType == MatchType.EXACT_MATCH) {
                     if (stashTabName.equals(data.stashTabName)) {
-                        stashColorIndex = data.stashColorIndex;
                         stashTabColor = StashTabColor.values()[data.stashColorIndex];
                         break;
                     }
                 } else if (data.matchType == MatchType.CONTAINS_TEXT) {
                     if (stashTabName.contains(data.stashTabName)) {
-                        stashColorIndex = data.stashColorIndex;
                         stashTabColor = StashTabColor.values()[data.stashColorIndex];
                         break;
                     }

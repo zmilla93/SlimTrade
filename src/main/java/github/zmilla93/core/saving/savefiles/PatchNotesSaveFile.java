@@ -1,6 +1,7 @@
 package github.zmilla93.core.saving.savefiles;
 
 import github.zmilla93.core.data.PatchNotesEntry;
+import github.zmilla93.modules.saving.AbstractSaveFile;
 import github.zmilla93.modules.updater.data.AppVersion;
 
 import java.util.ArrayList;

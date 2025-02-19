@@ -1,13 +1,13 @@
 package github.zmilla93.gui.components.poe.detection;
 
 import com.sun.jna.platform.win32.WinDef;
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.jna.NativePoeWindow;
 import github.zmilla93.core.jna.NativeWindow;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.setup.PoeIdentificationFrame;
+import github.zmilla93.modules.theme.ThemeColor;
 
 import javax.swing.*;
 import java.util.ArrayList;

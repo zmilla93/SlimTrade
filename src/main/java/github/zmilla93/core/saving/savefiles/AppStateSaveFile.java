@@ -1,5 +1,7 @@
 package github.zmilla93.core.saving.savefiles;
 
+import github.zmilla93.modules.saving.AbstractSaveFile;
+
 import java.util.ArrayList;
 
 /**

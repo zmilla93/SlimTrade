@@ -4,7 +4,6 @@ import github.zmilla93.core.data.PasteReplacement;
 import github.zmilla93.core.enums.ButtonRow;
 import github.zmilla93.core.enums.DefaultIcon;
 import github.zmilla93.core.enums.MacroButtonType;
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.hotkeys.HotkeyData;
 import github.zmilla93.core.hotkeys.IHotkeyAction;
 import github.zmilla93.core.hotkeys.NotificationPanelHotkey;
@@ -18,6 +17,7 @@ import github.zmilla93.gui.components.CurrencyLabelFactory;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.ThemePanel;
 import github.zmilla93.gui.managers.FrameManager;
+import github.zmilla93.modules.theme.ThemeColor;
 import github.zmilla93.modules.theme.components.ColorPanel;
 
 import javax.swing.*;

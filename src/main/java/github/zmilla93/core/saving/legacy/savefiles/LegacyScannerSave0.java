@@ -1,8 +1,8 @@
 package github.zmilla93.core.saving.legacy.savefiles;
 
-import github.zmilla93.core.saving.savefiles.AbstractSaveFile;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.gui.chatscanner.ChatScannerEntry;
+import github.zmilla93.modules.saving.AbstractSaveFile;
 
 import java.util.ArrayList;
 

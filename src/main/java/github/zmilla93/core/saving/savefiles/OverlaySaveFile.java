@@ -5,6 +5,7 @@ import github.zmilla93.core.enums.ExpandDirection;
 import github.zmilla93.core.enums.SliderRange;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.poe.ScaledInt;
+import github.zmilla93.modules.saving.AbstractSaveFile;
 
 import java.awt.*;
 

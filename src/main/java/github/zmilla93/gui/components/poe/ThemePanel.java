@@ -1,6 +1,6 @@
 package github.zmilla93.gui.components.poe;
 
-import github.zmilla93.core.enums.ThemeColor;
+import github.zmilla93.modules.theme.ThemeColor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;

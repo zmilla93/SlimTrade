@@ -1,4 +1,4 @@
-package github.zmilla93.core.saving.savefiles;
+package github.zmilla93.modules.saving;
 
 /**
  * All save files extend this class to handle versioning.

@@ -1,6 +1,5 @@
 package github.zmilla93.gui.setup;
 
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.utility.Platform;
@@ -11,6 +10,7 @@ import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.detection.GameDetectionButton;
 import github.zmilla93.gui.options.AbstractOptionPanel;
+import github.zmilla93.modules.theme.ThemeColor;
 
 import javax.swing.*;
 

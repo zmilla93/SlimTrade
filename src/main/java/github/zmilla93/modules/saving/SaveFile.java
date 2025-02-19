@@ -3,7 +3,6 @@ package github.zmilla93.modules.saving;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import github.zmilla93.core.saving.savefiles.AbstractSaveFile;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.modules.listening.ListenManager;
 import github.zmilla93.modules.updater.ZLogger;

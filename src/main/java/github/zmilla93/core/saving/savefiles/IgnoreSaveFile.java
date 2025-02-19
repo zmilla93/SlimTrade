@@ -2,6 +2,7 @@ package github.zmilla93.core.saving.savefiles;
 
 import github.zmilla93.core.data.IgnoreItemData;
 import github.zmilla93.core.enums.MatchType;
+import github.zmilla93.modules.saving.AbstractSaveFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;

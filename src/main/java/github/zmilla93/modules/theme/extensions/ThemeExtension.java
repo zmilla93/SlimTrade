@@ -1,6 +1,6 @@
 package github.zmilla93.modules.theme.extensions;
 
-import github.zmilla93.core.enums.ThemeColor;
+import github.zmilla93.modules.theme.ThemeColor;
 
 import java.awt.*;
 import java.util.HashMap;

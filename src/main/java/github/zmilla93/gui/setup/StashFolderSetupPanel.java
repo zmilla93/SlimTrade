@@ -1,9 +1,9 @@
 package github.zmilla93.gui.setup;
 
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.gui.components.poe.ThemeLabel;
+import github.zmilla93.modules.theme.ThemeColor;
 
 import javax.swing.*;
 

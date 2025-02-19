@@ -2,10 +2,10 @@ package github.zmilla93.gui.components;
 
 import github.zmilla93.core.data.SaleItem;
 import github.zmilla93.core.enums.CurrencyType;
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.poe.ThemeLabel;
+import github.zmilla93.modules.theme.ThemeColor;
 import github.zmilla93.modules.theme.ThemeManager;
 
 import javax.swing.*;

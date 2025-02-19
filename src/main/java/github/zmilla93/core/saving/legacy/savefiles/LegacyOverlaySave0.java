@@ -2,7 +2,7 @@ package github.zmilla93.core.saving.legacy.savefiles;
 
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.enums.ExpandDirection;
-import github.zmilla93.core.saving.savefiles.AbstractSaveFile;
+import github.zmilla93.modules.saving.AbstractSaveFile;
 
 import java.awt.*;
 

@@ -1,7 +1,7 @@
 package github.zmilla93.gui.components.poe;
 
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.gui.components.ComponentPanel;
+import github.zmilla93.modules.theme.ThemeColor;
 
 import javax.swing.*;
 import java.awt.*;

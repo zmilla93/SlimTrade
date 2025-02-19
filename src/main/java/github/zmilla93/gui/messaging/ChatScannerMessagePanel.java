@@ -3,10 +3,10 @@ package github.zmilla93.gui.messaging;
 import github.zmilla93.core.data.PasteReplacement;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.enums.ButtonRow;
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.utility.AdvancedMouseListener;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.gui.chatscanner.ChatScannerEntry;
+import github.zmilla93.modules.theme.ThemeColor;
 import github.zmilla93.modules.updater.ZLogger;
 
 import javax.swing.*;

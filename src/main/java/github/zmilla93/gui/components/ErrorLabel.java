@@ -1,7 +1,7 @@
 package github.zmilla93.gui.components;
 
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.gui.components.poe.ThemeLabel;
+import github.zmilla93.modules.theme.ThemeColor;
 
 public class ErrorLabel extends ThemeLabel {
 

@@ -1,6 +1,6 @@
 package github.zmilla93.gui.messaging;
 
-import github.zmilla93.core.enums.ThemeColor;
+import github.zmilla93.modules.theme.ThemeColor;
 import github.zmilla93.modules.theme.components.AdvancedButton;
 
 public class ExpandPanel extends NotificationPanel {

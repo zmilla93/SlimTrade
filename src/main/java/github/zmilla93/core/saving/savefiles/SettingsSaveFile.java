@@ -16,6 +16,7 @@ import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.options.searching.StashSearchGroupData;
 import github.zmilla93.gui.options.searching.StashSearchTermData;
 import github.zmilla93.gui.options.searching.StashSearchWindowMode;
+import github.zmilla93.modules.saving.AbstractSaveFile;
 import github.zmilla93.modules.theme.Theme;
 import github.zmilla93.modules.updater.data.AppVersion;
 import org.jnativehook.keyboard.NativeKeyEvent;

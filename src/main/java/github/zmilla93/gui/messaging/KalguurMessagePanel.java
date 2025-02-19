@@ -1,8 +1,8 @@
 package github.zmilla93.gui.messaging;
 
 import github.zmilla93.core.enums.ButtonRow;
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.core.utility.POEInterface;
+import github.zmilla93.modules.theme.ThemeColor;
 
 public class KalguurMessagePanel extends NotificationPanel {
 

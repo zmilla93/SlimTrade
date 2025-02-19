@@ -1,7 +1,7 @@
 package github.zmilla93.gui.components.poe;
 
-import github.zmilla93.core.enums.ThemeColor;
 import github.zmilla93.gui.components.StyledLabel;
+import github.zmilla93.modules.theme.ThemeColor;
 
 //FIXME : Move to theme module once that is updated
 public class ThemeLabel extends StyledLabel {
