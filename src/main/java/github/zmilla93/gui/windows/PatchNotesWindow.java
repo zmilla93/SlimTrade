@@ -6,6 +6,8 @@ import github.zmilla93.core.data.PatchNotesEntry;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.MarkdownParser;
 import github.zmilla93.core.utility.ZUtil;
+import github.zmilla93.gui.components.BufferPanel;
+import github.zmilla93.gui.components.CardPanel;
 import github.zmilla93.gui.components.CustomScrollPane;
 import github.zmilla93.gui.components.LimitCombo;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
@@ -25,9 +27,16 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
     private final JButton githubButton = new JButton("GitHub");
     private final JButton discordButton = new JButton("Discord");
     private final JButton donateButton = new JButton("Donate");
+    private final CardPanel cardPanel = new CardPanel();
 
     private static final String PREFIX = "**Enjoying the app? Consider supporting on [Patreon](" + References.PATREON_URL + ") or [PayPal](" + References.PAYPAL_URL + ")!**<br>";
     private static final String POSTFIX = "*Want to report a bug or give feedback? Post on [GitHub](" + References.GITHUB_ISSUES_URL + ") or join the [Discord](" + References.DISCORD_INVITE + ")!*";
+
+    // Announcement Panel
+    private boolean showAnnouncement = true;
+    private JPanel announcementPanel = createAnnouncementPanel();
+    private JPanel patchNotesPanel;
+    private JButton toggleButton = new JButton();
 
     public PatchNotesWindow() {
         super("Patch Notes");
@@ -65,20 +74,67 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
         controlsPanel.add(comboBox, BorderLayout.EAST);
 
         // Build Panel
+        patchNotesPanel = new JPanel(new BorderLayout());
+        patchNotesPanel.add(controlsPanel, BorderLayout.NORTH);
+        patchNotesPanel.add(scrollPane, BorderLayout.CENTER);
+
+        toggleButton = new JButton("Toggle");
+        JPanel wrapperPanel = new JPanel(new BorderLayout());
+        wrapperPanel.add(cardPanel, BorderLayout.CENTER);
+        wrapperPanel.add(new JButton("Flip"), BorderLayout.SOUTH);
+        cardPanel.add(patchNotesPanel);
+        cardPanel.add(announcementPanel);
+//        contentPanel.add(controlsPanel, BorderLayout.NORTH);
         contentPanel.setLayout(new BorderLayout());
-        contentPanel.add(controlsPanel, BorderLayout.NORTH);
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        contentPanel.add(cardPanel, BorderLayout.CENTER);
+        contentPanel.add(toggleButton, BorderLayout.SOUTH);
 
         // Finalize
         addListeners();
         updateSelectedPatchNotes();
         comboBox.requestFocus();
 
+        showCurrentPanel();
         setMinimumSize(new Dimension(400, 400));
         pack();
     }
 
+    private void togglePanel() {
+        showAnnouncement = !showAnnouncement;
+        showCurrentPanel();
+    }
+
+    private void showCurrentPanel() {
+        if (showAnnouncement) {
+            toggleButton.setText("Show Patch Notes");
+            cardPanel.showCard(announcementPanel);
+        } else {
+            toggleButton.setText("Show Announcement");
+            cardPanel.showCard(patchNotesPanel);
+        }
+    }
+
+    private JPanel createAnnouncementPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        JTextPane textArea = new JTextPane();
+        textArea.setEditable(false);
+        textArea.setContentType("text/html");
+//        textArea.setLineWrap(true);
+        textArea.setText("Hi there! ZMilla, author of SlimTrade here,<br><br>" +
+                "My desktop PC died, money is tight, and I can't play POE for a bit. If everyone reading this donated just one dollar... (you know how this goes)<br><br>" +
+                "Or don't! That's completely fine and no one should feel obligated. Just understand that I don't want to feel obligated to work on SlimTrade when I can't play POE myself.<br><br>" +
+                "<b>I will still maintain SlimTrade with bug fixes, but new features & QOL are on hold.</b><br><br>" +
+                "Thanks for reading! Stay sane, exile.");
+        panel.add(new BufferPanel(new JLabel("Annoying Announcement :^)"), 4), BorderLayout.NORTH);
+        JButton donationButton = new JButton("Donate");
+        panel.add(new CustomScrollPane(textArea), BorderLayout.CENTER);
+        panel.add(donationButton, BorderLayout.SOUTH);
+        donationButton.addActionListener(e -> openDonationWindow());
+        return panel;
+    }
+
     private void addListeners() {
+        toggleButton.addActionListener(e -> togglePanel());
         comboBox.addActionListener(e -> updateSelectedPatchNotes());
         textPane.addHyperlinkListener(e -> {
             if (e.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED)) {
@@ -88,10 +144,14 @@ public class PatchNotesWindow extends CustomDialog implements IDefaultSizeAndLoc
         githubButton.addActionListener(e -> ZUtil.openLink(References.GITHUB_URL));
         discordButton.addActionListener(e -> ZUtil.openLink(References.DISCORD_INVITE));
         donateButton.addActionListener(e -> {
-            FrameManager.optionsWindow.setVisible(true);
-            FrameManager.optionsWindow.toFront();
-            FrameManager.optionsWindow.showDonationPanel();
+            openDonationWindow();
         });
+    }
+
+    private void openDonationWindow() {
+        FrameManager.optionsWindow.setVisible(true);
+        FrameManager.optionsWindow.toFront();
+        FrameManager.optionsWindow.showDonationPanel();
     }
 
     private void updateSelectedPatchNotes() {

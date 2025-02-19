@@ -1,3 +1,6 @@
-## Improvements
-- Fixed message hotkeys not working for buttons in the top row
+## Changes
+- Added Annoying Announcement :^)
+- Added Chinese & Japanese trade message support, updated Korean (by @theofbonin)
+- Fixed message hotkeys not working for buttons in top row
 - Fixed notification color inconsistencies
+- Fixed setup window sometimes appearing off-screen
