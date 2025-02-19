@@ -19,6 +19,10 @@ public enum LangRegex {
             "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) (listed for|for my) ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) in (?<league>.+)\\.?(?<bonusText>.+)?",
             "((Hi, )?(I would|I'd) like to buy your|wtb) (?<itemName>.+) in (?<league>.+)\\.?(?<bonusText>.+)?",
     }),
+    CHINESE("我想購買", null, null,
+            "向", "來自", "勿擾模式關閉。", "勿擾模式啟動。自動回覆", new String[]{
+            "你好，我想購買 (?<itemName>.+) 標價 ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) 在 (?<league>.+) \\(倉庫頁 \\\\?\"(?<stashtabName>.+)\"; 位置: 左 (?<stashX>\\d+), 上 (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?",
+    }),
     FRENCH("t'acheter", "a rejoint la zone\\.", null,
             "à", "de", "Le mode Ne Pas Déranger (DND) est désactivé", "Le mode Ne Pas Déranger (DND) est désormais activé", new String[]{
             "Bonjour, je souhaiterais t'acheter (?<itemName>.+) pour ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) dans la ligue (?<league>.+) \\(onglet de réserve \\\\?\"(?<stashtabName>.+)\" ; (?<stashX>\\d+)e en partant de la gauche, (?<stashY>\\d+)e en partant du haut\\)\\.?(?<bonusText>.+)?",
@@ -34,6 +38,10 @@ public enum LangRegex {
             "Hi, ich möchte '(?<itemName>.+)' in der '?(?<league>.+)'?-Liga kaufen \\(Truhenfach \\\\?\"(?<stashtabName>.+)\"; Position: (?<stashX>\\d+) von links, (?<stashY>\\d+) von oben\\)\\.?(?<bonusText>.+)?",
             "Hi, ich möchte '(?<itemName>.+)' zum angebotenen Preis von ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) in der '?(?<league>.+)'?-Liga kaufen\\.?(?<bonusText>.+)?",
             "Hi, ich möchte '(?<itemName>.+)' in der '?(?<league>.+)'?-Liga kaufen\\.?(?<bonusText>.+)?",
+    }),
+    JAPANESE("を購入したいです", null, null,
+            "宛先", "差出人", "DNDモードはOFFになっています。", "DNDモードがONになっています。", new String[]{
+            "こんにちは、(?<league>.+) リーグで ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) で売っている、あなたの (?<itemName>.+) を購入したいです \\(スタッシュタブ \\\\?\"(?<stashtabName>.+)\"; 位置: 左から (?<stashX>\\d+), 上から (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?",
     }),
     KOREAN("올려놓은", null, null,
             null, null, "방해 금지 모드를 해제했습니다", "방해 금지 모드를 설정했습니다", new String[]{
@@ -73,14 +81,6 @@ public enum LangRegex {
             "สวัสดี เรามีความต้องการจะชื้อ  ((?<itemQuantity>\\d+((\\.|,)\\d+)?) (?<itemName>.+)) ของคุณ ฉันมี ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) ใน (?<league>.+)\\.?(?<bonusText>.+)?",
             "สวัสดี, เราต้องการจะชื้อของคุณ (?<itemName>.+) ใน ราคา ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) ใน (?<league>.+)\\.?(?<bonusText>.+)?",
             "สวัสดี, เราต้องการจะชื้อของคุณ (?<itemName>.+) ใน (?<league>.+)\\.?(?<bonusText>.+)?",
-    }),
-    JAPANESE("を購入したいです", null, null,
-            "宛先", "差出人", "DNDモードはOFFになっています。", "DNDモードがONになっています。", new String[]{
-            "こんにちは、(?<league>.+) リーグで ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) で売っている、あなたの (?<itemName>.+) を購入したいです \\(スタッシュタブ \\\\?\"(?<stashtabName>.+)\"; 位置: 左から (?<stashX>\\d+), 上から (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?",
-    }),
-    CHINESE("我想購買", null, null,
-            "向", "來自", "勿擾模式關閉。", "勿擾模式啟動。自動回覆", new String[]{
-            "你好，我想購買 (?<itemName>.+) 標價 ((?<priceQuantity>\\d+((\\.|,)\\d+)?) (?<priceType>.+)) 在 (?<league>.+) \\(倉庫頁 \\\\?\"(?<stashtabName>.+)\"; 位置: 左 (?<stashX>\\d+), 上 (?<stashY>\\d+)\\)\\.?(?<bonusText>.+)?",
     }),
     ;
 
