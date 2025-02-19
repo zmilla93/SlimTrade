@@ -5,3 +5,9 @@
 - Fixed notification color inconsistencies
 - Fixed menubar reappearing when hovered while tabbed out
 - Fixed setup window sometimes appearing off-screen
+
+## How to Install
+- Make sure you have [Java](https://www.java.com) installed
+- Download and run 'SlimTrade.jar' from 'Assets' below
+
+*Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*

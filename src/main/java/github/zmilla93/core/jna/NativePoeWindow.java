@@ -16,13 +16,8 @@ import github.zmilla93.core.utility.POEInterface;
  */
 public class NativePoeWindow extends NativeWindow {
 
-    // Static windows
-//    private static WinDef.HWND poeWindowHandle;
     private static WinDef.HWND enumeratingHandle;
     private static WinDef.HWND returnHandle;
-//    private static NativePoeWindow poeWindow;
-//    private static NativePoeWindow enumerationWindow;
-//    private static NativePoeWindow foundWindow;
 
     // FIXME : These get created a lot, make jna calls lazy, only create them for when the window changes, and reuse when same window is used
     public NativePoeWindow(WinDef.HWND handle) {
@@ -32,6 +27,7 @@ public class NativePoeWindow extends NativeWindow {
     }
 
     // FIXME : Both this and POEWindow store handle, feels redundant and potentially buggy
+    @Deprecated
     public static void setPOEGameWindow(WinDef.HWND handle) {
         // FIXME : This gets called too frequently.
 //        System.out.println("Handle:" + handle);
@@ -48,7 +44,6 @@ public class NativePoeWindow extends NativeWindow {
      * Focuses the Path of Exile game window on the Windows platform.
      */
     public static void focusPathOfExileNativeWindow() {
-        // Use cached window handle if available
         if (POEWindow.getGameHandle() != null) {
             NativeWindow.toFront(POEWindow.getGameHandle());
             return;
