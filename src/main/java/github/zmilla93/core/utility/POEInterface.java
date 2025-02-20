@@ -21,6 +21,8 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -45,6 +47,14 @@ public class POEInterface {
             "Path of Exile 2",
             "Path of Exile on GeForce NOW",
             "Path of Exile 2 on GeForce NOW",
+    };
+
+    /**
+     * Steam Game App ID from <a href="https://steamdb.info">SteamDB</a>.
+     */
+    private static final String[] linuxGameClasses = new String[]{
+            "steam_app_238960",
+            "steam_app_2694490",
     };
 
     static {
@@ -168,36 +178,50 @@ public class POEInterface {
         assert (!SwingUtilities.isEventDispatchThread());
         // FIXME : Add support for more platforms.
         if (isGameFocused()) return true;
-        if (Platform.current == Platform.WINDOWS) {
-            // Show, click, then hide a dummy window.
-            // This is required because the Java program needs focus before it can give focus to another program.
-            FrameManager.dummyWindow.setVisible(true);
-            Point point = MouseInfo.getPointerInfo().getLocation();
-            point.x -= DummyWindow.HALF_SIZE;
-            point.y -= DummyWindow.HALF_SIZE;
-            FrameManager.dummyWindow.setLocation(point);
-            robot.mousePress(0);
-            robot.mouseRelease(0);
-            FrameManager.dummyWindow.setVisible(false);
-            // Focus the Path of Exile game window
-            // FIXME : This might be the best spot to add platform support?
-            NativePoeWindow.focusPathOfExileNativeWindow();
-            // Wait until Path of Exile gains focus
-            int i = 0;
-            while (!isGameFocused()) {
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        switch (Platform.current) {
+            case WINDOWS:
+                // Show, click, then hide a dummy window.
+                // This is required because the Java program needs focus before it can give focus to another program.
+                FrameManager.dummyWindow.setVisible(true);
+                Point point = MouseInfo.getPointerInfo().getLocation();
+                point.x -= DummyWindow.HALF_SIZE;
+                point.y -= DummyWindow.HALF_SIZE;
+                FrameManager.dummyWindow.setLocation(point);
+                robot.mousePress(0);
+                robot.mouseRelease(0);
+                FrameManager.dummyWindow.setVisible(false);
+                // Focus the Path of Exile game window
+                // FIXME : This might be the best spot to add platform support?
+                NativePoeWindow.focusPathOfExileNativeWindow();
+                // Wait until Path of Exile gains focus
+                int i = 0;
+                while (!isGameFocused()) {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    i++;
+                    if (i > 100) {
+                        break;
+                    }
                 }
-                i++;
-                if (i > 100) {
-                    break;
+                break;
+            case LINUX:
+                for (String gameClass : linuxGameClasses) {
+                    ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool windowactivate --sync $(xdotool search --onlyvisible --class " + gameClass + ")");
+                    try {
+                        Process process = processBuilder.start();
+                        int exitCode = process.waitFor();
+                        if (exitCode == 0) break;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        } else {
-            // Non Windows OS, just return true
-            return true;
+                break;
+            default:
+                // Non Windows or Linux X11 OS, just return true
+                return true;
         }
         return isGameFocused();
     }
@@ -207,27 +231,44 @@ public class POEInterface {
     }
 
     public static boolean isGameFocused(boolean includeApp) {
-        if (Platform.current == Platform.WINDOWS) {
-            WinDef.HWND focusedWindow = NativeWindow.getFocusedWindow();
-            if (focusedWindow == null) return false;
-            if (focusedWindow.equals(POEWindow.getGameHandle())) return true;
-            String focusedWindowTitle = WindowUtils.getWindowTitle(focusedWindow);
-            if (focusedWindowTitle == null) return false;
-            if (includeApp) {
-                if (focusedWindowTitle.startsWith(References.APP_PREFIX)) return true;
-                if (focusedWindowTitle.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_1))) return true;
-                if (focusedWindowTitle.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_2))) return true;
-            }
-            if (gameTitleSet.contains(focusedWindowTitle)) {
-                NativePoeWindow.setPOEGameWindow(focusedWindow);
-                return true;
-            }
-            return false;
-        }
-        // TODO : Add support for more platforms
-        //        If window title is used, reuse logic from Windows handling.
-        return true;
+        WinDef.HWND focusedWindow = null;
+        String focusedWindowTitle = null;
 
+        switch (Platform.current) {
+            case WINDOWS:
+                focusedWindow = NativeWindow.getFocusedWindow();
+                if (focusedWindow == null) return false;
+                if (focusedWindow.equals(POEWindow.getGameHandle())) return true;
+                focusedWindowTitle = WindowUtils.getWindowTitle(focusedWindow);
+                break;
+            case LINUX:
+                ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool getwindowname $(xdotool getwindowfocus)");
+                try {
+                    Process process = processBuilder.start();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    focusedWindowTitle = br.readLine();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                // TODO : Add support for more platforms
+                return true;
+        }
+
+        if (focusedWindowTitle == null) return false;
+        if (includeApp) {
+            if (focusedWindowTitle.startsWith(References.APP_PREFIX)) return true;
+            if (focusedWindowTitle.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_1))) return true;
+            if (focusedWindowTitle.equals(POEFileChooser.getWindowTitle(Game.PATH_OF_EXILE_2))) return true;
+        }
+        if (gameTitleSet.contains(focusedWindowTitle)) {
+            if (Platform.current == Platform.WINDOWS) {
+                NativePoeWindow.setPOEGameWindow(focusedWindow);
+            }
+            return true;
+       }
+       return false;
     }
 
     /**
