@@ -209,7 +209,7 @@ public class POEInterface {
                 break;
             case LINUX:
                 for (String gameClass : linuxGameClasses) {
-                    ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool windowactivate --sync $(xdotool search --onlyvisible --class " + gameClass + ")");
+                    ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool windowactivate --sync $(xdotool search --onlyvisible --class %s)".formatted(gameClass));
                     try {
                         Process process = processBuilder.start();
                         int exitCode = process.waitFor();
