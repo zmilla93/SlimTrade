@@ -1,0 +1,14 @@
+## Changes
+- Added Annoying Announcement :^)
+- Added Chinese & Japanese trade message support, updated Korean (by @theofbonin)
+- Fixed message hotkeys not working for buttons in top row
+- Fixed notification color inconsistencies
+- Fixed menubar reappearing when hovered while tabbed out
+- Fixed setup window sometimes appearing off-screen
+- *Hotfix: Fixed crash when reopening history messages*
+
+## How to Install
+- Make sure you have [Java](https://www.java.com) installed
+- Download and run 'SlimTrade.jar' from 'Assets' below
+
+*Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*
