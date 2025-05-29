@@ -213,7 +213,7 @@ public abstract class NotificationPanel extends ColorPanel {
             }
         });
         /// Register the button's hotkey
-        if (macro.hotkeyData != null && !hotkeyMap.containsKey(macro.hotkeyData))
+        if (macro.hotkeyData != null && !hotkeyMap.containsKey(macro.hotkeyData) && pasteReplacement != null)
             hotkeyMap.put(macro.hotkeyData, new NotificationPanelHotkey(macro, this, pasteReplacement));
     }
 
