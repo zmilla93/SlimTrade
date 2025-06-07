@@ -91,7 +91,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
     @Override
     public void onPathChanged(Path path) {
 //        boolean validFolderName = path.endsWith(game.toString());
-        PoeClientPath validator = PoeClientPath.validateInstallFolder(game, getSelectedPath());
+        PoeClientPath validator = PoeClientPath.validateInstallFolder( getSelectedPath());
         setErrorText(validator.getMessage(game), validator.status);
 //        if (validFolderName) {
 //            Path logsFolder = path.resolve(SaveManager.POE_LOG_FOLDER_NAME);

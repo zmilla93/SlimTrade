@@ -25,18 +25,15 @@ public class TradeUtil {
     }
 
     /**
-     * Verify that a given path points to the Path of Exile 1 or 2's install directory.
-     * Checks that the path isn't null, is a directory that ends with Path of Exile 1 or 2, and contains a 'logs' subfolder
+     * Verify that a given path points to the Path of Exile 1 or 2's
+     * install directory by looking for a "logs" folder.
      */
-    // FIXME : Client.txt check?
-    @Deprecated
-    public static boolean isValidPOEFolder(Path path, Game game) {
+    // FIXME : Move?
+    @Deprecated // FIXME : Switch to
+    public static boolean isValidPOEFolder(Path path) {
         if (path == null) return false;
-        if (!path.endsWith(game.toString())) return false;
-        File file = path.toFile();
-        boolean validFolder = file.exists() && file.isDirectory();
-        if (!validFolder) return false;
-        return path.resolve(GameSettings.LOG_FOLDER_NAME).toFile().exists();
+        File logFolder = path.resolve(GameSettings.LOG_FOLDER_NAME).toFile();
+        return logFolder.exists() && logFolder.isDirectory();
     }
 
     public static String getFixedItemName(String item, double count, boolean paren) {

@@ -36,7 +36,7 @@ public class PatcherSettings3to4 implements ISavePatcher {
         }
         /// Intentionally not importing usingStashFolder setting to make sure people update it correctly.
         /// Import the old POE 1 client.txt file path, converting it to the new path format & validating it along the way.
-        if (!PoeClientPath.isValidInstallFolder(Game.PATH_OF_EXILE_1, legacySave.data.clientPath)) return true;
+        if (!PoeClientPath.isValidInstallFolder( legacySave.data.clientPath)) return true;
         if (legacySave.data.clientPath == null) return true;
         Path clientPath = Paths.get(legacySave.data.clientPath);
         if (!clientPath.endsWith(GameSettings.CLIENT_TXT_NAME)) return true;

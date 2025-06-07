@@ -34,8 +34,8 @@ public class SetupManager {
         } else {
             boolean poe1MarkedNotInstalled = SaveManager.settingsSaveFile.data.settingsPoe1.notInstalled;
             boolean poe2MarkedNotInstalled = SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled;
-            boolean poe1ValidPath = PoeClientPath.isValidInstallFolder(Game.PATH_OF_EXILE_1, SaveManager.settingsSaveFile.data.settingsPoe1.installFolder);
-            boolean poe2ValidPath = PoeClientPath.isValidInstallFolder(Game.PATH_OF_EXILE_2, SaveManager.settingsSaveFile.data.settingsPoe2.installFolder);
+            boolean poe1ValidPath = PoeClientPath.isValidInstallFolder( SaveManager.settingsSaveFile.data.settingsPoe1.installFolder);
+            boolean poe2ValidPath = PoeClientPath.isValidInstallFolder(SaveManager.settingsSaveFile.data.settingsPoe2.installFolder);
             boolean poe1FullPathValidation = poe1MarkedNotInstalled || poe1ValidPath;
             boolean poe2FullPathValidation = poe2MarkedNotInstalled || poe2ValidPath;
             if (!poe1FullPathValidation || !poe2FullPathValidation)

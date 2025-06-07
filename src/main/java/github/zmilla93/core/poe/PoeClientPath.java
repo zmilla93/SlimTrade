@@ -10,7 +10,6 @@ import java.nio.file.Paths;
  */
 public enum PoeClientPath {
 
-    INCORRECT_FOLDER_NAME(ThemeColor.DENY, "Folder name must be '%s'.", true),
     MISSING_POE_FOLDER(ThemeColor.DENY, "The '%s' no longer exists.", true),
     MISSING_LOGS_FOLDER(ThemeColor.INDETERMINATE, "Folder name is correct, but is missing a '" + GameSettings.LOG_FOLDER_NAME + "' folder."),
     MISSING_CLIENT_FILE(ThemeColor.INDETERMINATE, "%s's " + GameSettings.LOG_FOLDER_NAME + " folder is missing a " + GameSettings.CLIENT_TXT_NAME + " file.", true),
@@ -40,18 +39,18 @@ public enum PoeClientPath {
         else return message;
     }
 
-    public static boolean isValidInstallFolder(Game game, String pathString) {
+    //
+    public static boolean isValidInstallFolder(String pathString) {
         if (pathString == null) return false;
-        return isValidInstallFolder(game, Paths.get(pathString));
+        return isValidInstallFolder( Paths.get(pathString));
     }
 
-    public static boolean isValidInstallFolder(Game game, Path path) {
-        return validateInstallFolder(game, path).status == ThemeColor.APPROVE;
+    public static boolean isValidInstallFolder(Path path) {
+        return validateInstallFolder( path).status == ThemeColor.APPROVE;
     }
 
-    public static PoeClientPath validateInstallFolder(Game game, Path poeFolderPath) {
+    public static PoeClientPath validateInstallFolder( Path poeFolderPath) {
         if (poeFolderPath == null) return MISSING_POE_FOLDER;
-        if (!poeFolderPath.endsWith(game.toString())) return INCORRECT_FOLDER_NAME;
         if (!poeFolderPath.toFile().exists()) return MISSING_POE_FOLDER;
         Path logsFolder = poeFolderPath.resolve(GameSettings.LOG_FOLDER_NAME);
         if (!logsFolder.toFile().exists()) return MISSING_LOGS_FOLDER;

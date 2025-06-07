@@ -62,7 +62,7 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
             } else
                 picker.setErrorText("Multiple install folders detected, select the correct one.", ThemeColor.INDETERMINATE);
         } else {
-            PoeClientPath validator = PoeClientPath.validateInstallFolder(picker.game, path);
+            PoeClientPath validator = PoeClientPath.validateInstallFolder( path);
             if (validator.status != ThemeColor.APPROVE) picker.createDuplicatePathPanels(true);
         }
     }
@@ -85,8 +85,8 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
         Path poe2Path = poe2FolderPicker.getSelectedPath();
         boolean poe1NotInstalled = poe1FolderPicker.notInstalledCheckboxValue();
         boolean poe2NotInstalled = poe2FolderPicker.notInstalledCheckboxValue();
-        boolean validPoe1Path = poe1NotInstalled || TradeUtil.isValidPOEFolder(poe1Path, Game.PATH_OF_EXILE_1);
-        boolean validPoe2Path = poe2NotInstalled || TradeUtil.isValidPOEFolder(poe2Path, Game.PATH_OF_EXILE_2);
+        boolean validPoe1Path = poe1NotInstalled || TradeUtil.isValidPOEFolder(poe1Path);
+        boolean validPoe2Path = poe2NotInstalled || TradeUtil.isValidPOEFolder(poe2Path);
         return validPoe1Path && validPoe2Path;
     }
 
@@ -98,9 +98,9 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
         SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled = poe2NotInstalled;
         Path poe1Path = poe1FolderPicker.getSelectedPath();
         Path poe2Path = poe2FolderPicker.getSelectedPath();
-        if (!poe1NotInstalled && TradeUtil.isValidPOEFolder(poe1Path, Game.PATH_OF_EXILE_1))
+        if (!poe1NotInstalled && TradeUtil.isValidPOEFolder(poe1Path))
             SaveManager.settingsSaveFile.data.settingsPoe1.installFolder = poe1Path.toString();
-        if (!poe2NotInstalled && TradeUtil.isValidPOEFolder(poe2Path, Game.PATH_OF_EXILE_2))
+        if (!poe2NotInstalled && TradeUtil.isValidPOEFolder(poe2Path))
             SaveManager.settingsSaveFile.data.settingsPoe2.installFolder = poe2Path.toString();
         SaveManager.settingsSaveFile.data.hasInitGameDirectories = true;
     }
