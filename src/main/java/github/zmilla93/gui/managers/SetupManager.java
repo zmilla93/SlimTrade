@@ -3,8 +3,7 @@ package github.zmilla93.gui.managers;
 import github.zmilla93.App;
 import github.zmilla93.core.enums.SetupPhase;
 import github.zmilla93.core.managers.SaveManager;
-import github.zmilla93.core.poe.Game;
-import github.zmilla93.core.poe.PoeClientPath;
+import github.zmilla93.core.poe.PoeClientPathCheck;
 import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.setup.SetupWindow;
 
@@ -34,8 +33,8 @@ public class SetupManager {
         } else {
             boolean poe1MarkedNotInstalled = SaveManager.settingsSaveFile.data.settingsPoe1.notInstalled;
             boolean poe2MarkedNotInstalled = SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled;
-            boolean poe1ValidPath = PoeClientPath.isValidInstallFolder( SaveManager.settingsSaveFile.data.settingsPoe1.installFolder);
-            boolean poe2ValidPath = PoeClientPath.isValidInstallFolder(SaveManager.settingsSaveFile.data.settingsPoe2.installFolder);
+            boolean poe1ValidPath = PoeClientPathCheck.isValidInstallFolder(SaveManager.settingsSaveFile.data.settingsPoe1.installFolder);
+            boolean poe2ValidPath = PoeClientPathCheck.isValidInstallFolder(SaveManager.settingsSaveFile.data.settingsPoe2.installFolder);
             boolean poe1FullPathValidation = poe1MarkedNotInstalled || poe1ValidPath;
             boolean poe2FullPathValidation = poe2MarkedNotInstalled || poe2ValidPath;
             if (!poe1FullPathValidation || !poe2FullPathValidation)

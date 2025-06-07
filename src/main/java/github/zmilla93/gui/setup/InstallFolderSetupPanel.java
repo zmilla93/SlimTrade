@@ -2,8 +2,7 @@ package github.zmilla93.gui.setup;
 
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
-import github.zmilla93.core.poe.PoeClientPath;
-import github.zmilla93.core.utility.TradeUtil;
+import github.zmilla93.core.poe.PoeClientPathCheck;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.poe.POEFolderPicker;
 import github.zmilla93.gui.components.poe.POEInstallFolderExplanationPanel;
@@ -62,7 +61,7 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
             } else
                 picker.setErrorText("Multiple install folders detected, select the correct one.", ThemeColor.INDETERMINATE);
         } else {
-            PoeClientPath validator = PoeClientPath.validateInstallFolder( path);
+            PoeClientPathCheck validator = PoeClientPathCheck.validateInstallFolder(path);
             if (validator.status != ThemeColor.APPROVE) picker.createDuplicatePathPanels(true);
         }
     }
@@ -85,8 +84,8 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
         Path poe2Path = poe2FolderPicker.getSelectedPath();
         boolean poe1NotInstalled = poe1FolderPicker.notInstalledCheckboxValue();
         boolean poe2NotInstalled = poe2FolderPicker.notInstalledCheckboxValue();
-        boolean validPoe1Path = poe1NotInstalled || TradeUtil.isValidPOEFolder(poe1Path);
-        boolean validPoe2Path = poe2NotInstalled || TradeUtil.isValidPOEFolder(poe2Path);
+        boolean validPoe1Path = poe1NotInstalled || PoeClientPathCheck.isValidInstallFolder(poe1Path);
+        boolean validPoe2Path = poe2NotInstalled || PoeClientPathCheck.isValidInstallFolder(poe2Path);
         return validPoe1Path && validPoe2Path;
     }
 
@@ -98,9 +97,9 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
         SaveManager.settingsSaveFile.data.settingsPoe2.notInstalled = poe2NotInstalled;
         Path poe1Path = poe1FolderPicker.getSelectedPath();
         Path poe2Path = poe2FolderPicker.getSelectedPath();
-        if (!poe1NotInstalled && TradeUtil.isValidPOEFolder(poe1Path))
+        if (!poe1NotInstalled && PoeClientPathCheck.isValidInstallFolder(poe1Path))
             SaveManager.settingsSaveFile.data.settingsPoe1.installFolder = poe1Path.toString();
-        if (!poe2NotInstalled && TradeUtil.isValidPOEFolder(poe2Path))
+        if (!poe2NotInstalled && PoeClientPathCheck.isValidInstallFolder(poe2Path))
             SaveManager.settingsSaveFile.data.settingsPoe2.installFolder = poe2Path.toString();
         SaveManager.settingsSaveFile.data.hasInitGameDirectories = true;
     }

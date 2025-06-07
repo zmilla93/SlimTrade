@@ -2,7 +2,7 @@ package github.zmilla93.gui.components.poe;
 
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
-import github.zmilla93.core.poe.PoeClientPath;
+import github.zmilla93.core.poe.PoeClientPathCheck;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.modules.theme.ThemeColor;
 
@@ -91,7 +91,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
     @Override
     public void onPathChanged(Path path) {
 //        boolean validFolderName = path.endsWith(game.toString());
-        PoeClientPath validator = PoeClientPath.validateInstallFolder( getSelectedPath());
+        PoeClientPathCheck validator = PoeClientPathCheck.validateInstallFolder(getSelectedPath());
         setErrorText(validator.getMessage(game), validator.status);
 //        if (validFolderName) {
 //            Path logsFolder = path.resolve(SaveManager.POE_LOG_FOLDER_NAME);

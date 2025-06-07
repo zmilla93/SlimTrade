@@ -4,7 +4,7 @@ import github.zmilla93.core.data.PriceThresholdData;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.GameSettings;
-import github.zmilla93.core.poe.PoeClientPath;
+import github.zmilla93.core.poe.PoeClientPathCheck;
 import github.zmilla93.core.saving.legacy.ISavePatcher;
 import github.zmilla93.core.saving.legacy.savefiles.LegacySettingsSave3;
 import github.zmilla93.modules.saving.SaveFile;
@@ -36,7 +36,7 @@ public class PatcherSettings3to4 implements ISavePatcher {
         }
         /// Intentionally not importing usingStashFolder setting to make sure people update it correctly.
         /// Import the old POE 1 client.txt file path, converting it to the new path format & validating it along the way.
-        if (!PoeClientPath.isValidInstallFolder( legacySave.data.clientPath)) return true;
+        if (!PoeClientPathCheck.isValidInstallFolder(legacySave.data.clientPath)) return true;
         if (legacySave.data.clientPath == null) return true;
         Path clientPath = Paths.get(legacySave.data.clientPath);
         if (!clientPath.endsWith(GameSettings.CLIENT_TXT_NAME)) return true;

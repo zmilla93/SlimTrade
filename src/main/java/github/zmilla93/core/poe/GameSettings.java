@@ -21,6 +21,7 @@ public abstract class GameSettings {
     }
 
     // TODO
+    @Deprecated // FIXME : Switch to or combine with PoeClientPathCheck
     public boolean isClientPathValid() {
         if (installFolder == null) return false;
         Path folderPath = Paths.get(installFolder);

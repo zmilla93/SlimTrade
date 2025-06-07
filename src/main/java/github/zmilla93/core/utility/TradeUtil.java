@@ -3,8 +3,6 @@ package github.zmilla93.core.utility;
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.enums.ExpandDirection;
 import github.zmilla93.core.managers.AudioManager;
-import github.zmilla93.core.poe.Game;
-import github.zmilla93.core.poe.GameSettings;
 
 import java.awt.*;
 import java.io.File;
@@ -12,7 +10,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Date;
 
 // TODO : CLEAN UP THIS FILE
@@ -29,12 +26,12 @@ public class TradeUtil {
      * install directory by looking for a "logs" folder.
      */
     // FIXME : Move?
-    @Deprecated // FIXME : Switch to
-    public static boolean isValidPOEFolder(Path path) {
-        if (path == null) return false;
-        File logFolder = path.resolve(GameSettings.LOG_FOLDER_NAME).toFile();
-        return logFolder.exists() && logFolder.isDirectory();
-    }
+    @Deprecated // FIXME : Switch
+//    public static boolean isValidPOEFolder(Path path) {
+//        if (path == null) return false;
+//        File logFolder = path.resolve(GameSettings.LOG_FOLDER_NAME).toFile();
+//        return logFolder.exists() && logFolder.isDirectory();
+//    }
 
     public static String getFixedItemName(String item, double count, boolean paren) {
         String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");
