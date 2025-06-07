@@ -1,7 +1,8 @@
-package github.zmilla93.core.data;
+package github.zmilla93.modules.updater;
 
 import github.zmilla93.modules.updater.data.AppVersion;
 
+// FIXME : Refactor no updater
 public class PatchNotesEntry {
 
     public String versionString;

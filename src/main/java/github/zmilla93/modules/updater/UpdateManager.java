@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import github.zmilla93.App;
-import github.zmilla93.core.data.PatchNotesEntry;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.managers.VisibilityManager;
@@ -320,7 +319,8 @@ public class UpdateManager {
 
     /////////////////////////
     //  Progress Listeners //
-    /////////////////////////
+
+    /// //////////////////////
 
     public void addProgressListener(IUpdateProgressListener progressListener) {
         progressListeners.add(progressListener);

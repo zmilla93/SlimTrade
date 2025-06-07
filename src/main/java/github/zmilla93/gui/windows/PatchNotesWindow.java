@@ -2,7 +2,6 @@ package github.zmilla93.gui.windows;
 
 import github.zmilla93.App;
 import github.zmilla93.core.References;
-import github.zmilla93.core.data.PatchNotesEntry;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.MarkdownParser;
 import github.zmilla93.core.utility.ZUtil;
@@ -12,6 +11,7 @@ import github.zmilla93.gui.components.CustomScrollPane;
 import github.zmilla93.gui.components.LimitCombo;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
 import github.zmilla93.gui.managers.FrameManager;
+import github.zmilla93.modules.updater.PatchNotesEntry;
 import github.zmilla93.modules.updater.data.AppVersion;
 
 import javax.swing.*;

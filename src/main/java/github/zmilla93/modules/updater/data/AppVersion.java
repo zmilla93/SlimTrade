@@ -14,13 +14,15 @@ public class AppVersion implements Comparable<AppVersion> {
 
     // Internal
     private String string;
-    private final int major;
-    private final int minor;
-    private final int patch;
-    private final int pre;
+    public final int major;
+    public final int minor;
+    public final int patch;
+    // FIXME : pre will need extra parsing when switching regex
+    public final int pre;
 
     // Matching
-    private static final String matchString = "v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(-pre(?<pre>\\d+))?";
+    // FIXME : Switch to official regex?
+    public static final String matchString = "v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(-pre(?<pre>\\d+))?";
     private static final Pattern pattern = Pattern.compile(matchString);
 
     public AppVersion(String tag) {
@@ -52,6 +54,10 @@ public class AppVersion implements Comparable<AppVersion> {
         }
         string = major + "." + minor + "." + patch;
         if (isPreRelease) string += "-pre" + pre;
+    }
+
+    public String getMinorGroupTag() {
+        return major + "." + minor + ".X";
     }
 
     @Override
