@@ -1,5 +1,6 @@
 package github.zmilla93.modules.updater
 
+import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.utility.FileUtil
 import github.zmilla93.core.utility.MarkdownParser
@@ -14,7 +15,6 @@ object PatchNotesManager {
     // FIXME: Underscore
     var patchNotesFolderName = "patch_notes"
     var localPatchNotes = ArrayList<PatchNotesEntry>()
-
 
     private val PREFIX =
         "**Enjoying the app? Consider supporting on [Patreon](" + References.PATREON_URL + ") or [PayPal](" + References.PAYPAL_URL + ")!**<br>"
@@ -51,16 +51,17 @@ object PatchNotesManager {
         val patchNotesResource = PatchNotesManager.javaClass.getResource("/$patchNotesFolderName")
         if (patchNotesResource == null) throw RuntimeException("Resource folder '$patchNotesFolderName' not found.")
         val patchNotesFile = File(patchNotesResource.file)
-        patchNotesFile.listFiles().sortedBy { it.name }.reversed().forEach {
+        patchNotesFile.listFiles().sortedBy { it.name }.reversed().forEachIndexed { i, it ->
             val version = AppVersion(it.nameWithoutExtension)
+            if (version.isPreRelease && !App.getAppInfo().appVersion.isPreRelease) return@forEachIndexed
             val contents = FileUtil.resourceAsString("$patchNotesFolderName/${it.name}")
-            val cleanPatchNotes = getCleanPatchNotes(version, contents, false)
+            val cleanPatchNotes = getCleanPatchNotes(version, contents, i == 0)
             localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
         }
     }
 
     /** Convert GitHub Markdown to HTML */
-    fun getCleanPatchNotes(version: AppVersion?, body: String, addExtraInfo: Boolean): String {
+    private fun getCleanPatchNotes(version: AppVersion?, body: String, addExtraInfo: Boolean): String {
         val lines = body.split("(\\n|\\\\r\\\\n)".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val builder = StringBuilder()
         builder.append("<h1>SlimTrade ").append(version).append("</h1>")

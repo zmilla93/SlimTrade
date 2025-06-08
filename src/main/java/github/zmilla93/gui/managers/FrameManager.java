@@ -12,7 +12,6 @@ import github.zmilla93.gui.development.StashAlignmentDesignerWindow;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
 import github.zmilla93.gui.menubar.MenubarButtonDialog;
 import github.zmilla93.gui.menubar.MenubarDialog;
-import github.zmilla93.gui.ninja.NinjaWindow;
 import github.zmilla93.gui.options.ignore.ItemIgnoreWindow;
 import github.zmilla93.gui.options.searching.StashSearchGroupData;
 import github.zmilla93.gui.options.searching.StashSearchWindow;
@@ -47,7 +46,6 @@ public class FrameManager {
     public static ChatScannerWindow chatScannerWindow;
     public static ItemIgnoreWindow itemIgnoreWindow;
     public static KalguurHelperWindow kalguurHelperWindow;
-    public static NinjaWindow ninjaWindow;
     public static TutorialWindow tutorialWindow;
     public static StashAlignmentDesignerWindow stashAlignmentDesignerWindow;
     public static DesignerConfigWindow designerConfigWindow;
@@ -157,6 +155,8 @@ public class FrameManager {
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         if (App.showHistoryOnLaunch) historyWindow.setVisible(true);
         messageManager.setVisible(true);
+        // FIXME: TEMP
+        patchNotesWindow.setVisible(true);
         updateMenubarVisibility();
     }
 

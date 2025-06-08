@@ -56,14 +56,13 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
         // FIXME : Combine local and remote
         val remoteEntries = App.updateManager.getPatchNotes(App.getAppInfo().appVersion)
         val localEntries = PatchNotesManager.getPatchNotes()
-        localEntries.forEachIndexed { i, it ->
-            it.text = getCleanPatchNotes(it.getAppVersion(), it.text, i == 0)
+        localEntries.forEach {
             byPatchCombo.addItem(it)
         }
         PatchNotesManager.patchNotesMyMinor().entries.sortedBy { it.key }.reversed().forEach {
             byMinorCombo.addItem(PatchNotesGroup(it.key, it.value))
         }
-        
+
         // Text Pane
         textPane.isEditable = false
         textPane.setContentType("text/html")
