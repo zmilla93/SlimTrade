@@ -3,6 +3,7 @@ package github.zmilla93.core.chatparser
 import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.data.PlayerMessage
+import github.zmilla93.core.event.ChatScannerEvent
 import github.zmilla93.core.event.PlayerJoinedAreaEvent
 import github.zmilla93.core.event.TradeEvent
 import github.zmilla93.core.managers.AudioManager
@@ -191,6 +192,7 @@ class ChatParser(// Settings
                         playerMessage,
                         tailer!!.isLoaded
                     )
+                    App.parserEvent.post(ChatScannerEvent(entry, playerMessage, tailer!!.isLoaded))
                     return true
                 }
             }

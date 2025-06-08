@@ -10,6 +10,7 @@ import java.util.ArrayList;
 /**
  * Stores all the data needed for a chat scanner search.
  */
+// FIXME : Rename ChatScannerSearchEntry?
 // FIXME : This is currently in GUI but is a data component. Should probably refactor
 public class ChatScannerEntry {
 
