@@ -1,6 +1,6 @@
-package github.zmilla93.core.poe;
+package github.zmilla93.core.poe
 
-import github.zmilla93.core.utility.ZUtil;
+import github.zmilla93.core.utility.ZUtil
 
 /**
  * SlimTrade needs to know where the Path of Exile game window is. This can be done three ways.
@@ -8,19 +8,14 @@ import github.zmilla93.core.utility.ZUtil;
  * 2. Save the bounds of a monitor
  * 3. Have the user define a screen region (not implemented)
  */
-public enum GameWindowMode {
+enum class GameWindowMode {
 
     UNSET, DETECT, MONITOR, SCREEN_REGION;
 
-    private final String name;
+    private val displayName: String = ZUtil.enumToString(name)
 
-    GameWindowMode() {
-        this.name = ZUtil.enumToString(name());
-    }
-
-    @Override
-    public String toString() {
-        return name;
+    override fun toString(): String {
+        return displayName
     }
 
 }

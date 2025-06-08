@@ -40,18 +40,18 @@ public class ChatParserManager {
 
     private static boolean shouldParserOpen(GameSettings settings) {
         if (settings.notInstalled) return false;
-        return settings.isClientPathValid();
+        return settings.doesClientLogExist();
     }
 
     public static void initChatParser(GameSettings settings) {
         if (settings.notInstalled) return;
-        if (!settings.isClientPathValid()) return;
+        if (!settings.doesClientLogExist()) return;
         ChatParser parser;
         if (settings.isPoe1()) {
-            chatParserPoe1 = new ChatParser(settings.game());
+            chatParserPoe1 = new ChatParser(settings.getGame());
             parser = chatParserPoe1;
         } else {
-            chatParserPoe2 = new ChatParser(settings.game());
+            chatParserPoe2 = new ChatParser(settings.getGame());
             parser = chatParserPoe2;
         }
         addParserListeners(settings, parser);
