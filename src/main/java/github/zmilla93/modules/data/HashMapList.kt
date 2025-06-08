@@ -6,7 +6,8 @@ package github.zmilla93.modules.data
 class HashMapList<T, U>(val allowRepeats: Boolean = true) {
 
     val map = HashMap<T, ArrayList<U>>()
-    val entries get() = map.values
+    val entries get() = map.entries
+    val values get() = map.values
 
     fun put(key: T, value: U) {
         if (!allowRepeats) {

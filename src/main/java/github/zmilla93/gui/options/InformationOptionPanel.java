@@ -48,9 +48,9 @@ public class InformationOptionPanel extends AbstractOptionPanel {
 
         JPanel linksPanel = new JPanel(new GridBagLayout());
         gc = getGC();
-        linksPanel.add(githubButton, gc);
-        gc.gridy++;
         linksPanel.add(discordButton, gc);
+        gc.gridy++;
+        linksPanel.add(githubButton, gc);
         gc.gridy++;
 
         addHeader("Utility");
