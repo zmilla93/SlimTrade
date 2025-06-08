@@ -7,6 +7,7 @@ import github.zmilla93.core.enums.MacroButtonType;
 import github.zmilla93.core.hotkeys.HotkeyData;
 import github.zmilla93.core.hotkeys.IHotkeyAction;
 import github.zmilla93.core.hotkeys.NotificationPanelHotkey;
+import github.zmilla93.core.managers.AudioManager;
 import github.zmilla93.core.managers.FontManager;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.AdvancedMouseListener;
@@ -279,7 +280,7 @@ public abstract class NotificationPanel extends ColorPanel {
         }
     }
 
-    public void setPlayerJoinedArea() {
+    public void setPlayerJoinedAreaColor() {
         playerJoinedArea = true;
         applyPlayerJoinedAreaColor();
     }
@@ -311,6 +312,13 @@ public abstract class NotificationPanel extends ColorPanel {
     public void handleHotkeyMutual(MacroButton macro) {
         if (macro.lmbResponse.contains("/invite")) onInvite();
         if (macro.close) FrameManager.messageManager.removeMessage(this);
+    }
+
+    public void markPlayerJoined() {
+//        private fun handlePlayerJoinedArea(panel: NotificationPanel) {
+        if (playerJoinedArea) return;
+        AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
+        setPlayerJoinedAreaColor();
     }
 
     /**

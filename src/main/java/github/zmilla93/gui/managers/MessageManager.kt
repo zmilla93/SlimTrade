@@ -130,7 +130,7 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
         App.chatParser.chatScannerListeners.add(this)
         App.chatParser.playerJoinedAreaListeners.add(this)
         App.parserEvent.subscribe(TradeEvent::class.java) { handleTrade(it) }
-        App.parserEvent.subscribe(PlayerJoinedAreaEvent::class.java) { onJoinedArea(it.playerName) }
+        App.parserEvent.subscribe(PlayerJoinedAreaEvent::class.java) { onJoinedArea(it) }
         App.parserEvent.subscribe(ChatScannerEvent::class.java) { onScannerMessage(it) }
         //        App.parserEvent.subscribe(TradeEvent.class, );
 //        parser.addTradeListener(FrameManager.messageManager)
@@ -493,7 +493,7 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
 
     private fun handlePlayerJoinedArea(panel: NotificationPanel) {
         AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound)
-        panel.setPlayerJoinedArea()
+        panel.setPlayerJoinedAreaColor()
     }
 
     fun handleTrade(event: TradeEvent) {
@@ -501,6 +501,7 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
         SwingUtilities.invokeLater { addMessage(event.tradeOffer) }
     }
 
+    @Deprecated("switch to event")
     override fun handleTrade(tradeOffer: TradeOffer, loaded: Boolean) {
         if (!loaded) return
         SwingUtilities.invokeLater { addMessage(tradeOffer) }
@@ -511,12 +512,30 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
         SwingUtilities.invokeLater { addScannerMessage(event.entry, event.message) }
     }
 
+    @Deprecated("switch to event")
     override fun onScannerMessage(entry: ChatScannerEntry, message: PlayerMessage, loaded: Boolean) {
         if (!loaded) return
         SwingUtilities.invokeLater { addScannerMessage(entry, message) }
     }
 
-    override fun onJoinedArea(playerName: String) {
+//    @Deprecated("switch to event")
+//    override fun onJoinedArea(playerName: String) {
+//        SwingUtilities.invokeLater {
+//            for (comp in this.messageComponents!!) {
+//                var panelPlayerName: String? = null
+//                if (comp is TradeMessagePanel) {
+//                    panelPlayerName = comp.tradeOffer.playerName
+//                } else if (comp is ChatScannerMessagePanel) {
+//                    panelPlayerName = comp.playerMessage.player
+//                }
+//                if (panelPlayerName == null) continue
+//                if (panelPlayerName == playerName) (comp as NotificationPanel).markPlayerJoined()
+//            }
+//        }
+//    }
+
+    fun onJoinedArea(event: PlayerJoinedAreaEvent) {
+        if (!event.loaded) return
         SwingUtilities.invokeLater {
             for (comp in this.messageComponents!!) {
                 var panelPlayerName: String? = null
@@ -526,7 +545,7 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
                     panelPlayerName = comp.playerMessage.player
                 }
                 if (panelPlayerName == null) continue
-                if (panelPlayerName == playerName) handlePlayerJoinedArea(comp as NotificationPanel)
+                if (panelPlayerName == event.playerName) (comp as NotificationPanel).markPlayerJoined()
             }
         }
     }
@@ -537,6 +556,10 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
 
     override fun onSave() {
         setDisplayMode(SaveManager.settingsSaveFile.data.useMessageTabs)
+    }
+
+    override fun onJoinedArea(playerName: String) {
+        
     }
 
     companion object {

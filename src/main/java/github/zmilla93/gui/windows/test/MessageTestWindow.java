@@ -43,8 +43,8 @@ public class MessageTestWindow extends JFrame {
             NotificationPanel panel1 = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.INCOMING_TRADE), false);
             NotificationPanel panel2 = new TradeMessagePanel(TradeOffer.getExampleTrade(TradeOfferType.OUTGOING_TRADE), false);
             if (playerJoinedArea) {
-                panel1.setPlayerJoinedArea();
-                panel2.setPlayerJoinedArea();
+                panel1.setPlayerJoinedAreaColor();
+                panel2.setPlayerJoinedAreaColor();
             }
             msgPanel.add(panel1, BorderLayout.WEST);
             msgPanel.add(panel2, BorderLayout.EAST);

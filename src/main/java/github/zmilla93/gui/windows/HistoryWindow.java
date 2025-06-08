@@ -15,10 +15,10 @@ import java.awt.*;
 
 public class HistoryWindow extends CustomDialog implements IDefaultSizeAndLocation {
 
-    public final HistoryPanel incomingTradesPoe1 = new HistoryPanel(TradeOfferType.INCOMING_TRADE);
-    public final HistoryPanel incomingTradesPoe2 = new HistoryPanel(TradeOfferType.INCOMING_TRADE);
-    public final HistoryPanel outgoingTradesPoe1 = new HistoryPanel(TradeOfferType.OUTGOING_TRADE);
-    public final HistoryPanel outgoingTradesPoe2 = new HistoryPanel(TradeOfferType.OUTGOING_TRADE);
+    public final HistoryPanel incomingTradesPoe1 = new HistoryPanel(Game.PATH_OF_EXILE_1, TradeOfferType.INCOMING_TRADE);
+    public final HistoryPanel incomingTradesPoe2 = new HistoryPanel(Game.PATH_OF_EXILE_2, TradeOfferType.INCOMING_TRADE);
+    public final HistoryPanel outgoingTradesPoe1 = new HistoryPanel(Game.PATH_OF_EXILE_1, TradeOfferType.OUTGOING_TRADE);
+    public final HistoryPanel outgoingTradesPoe2 = new HistoryPanel(Game.PATH_OF_EXILE_2, TradeOfferType.OUTGOING_TRADE);
     private final CardPanel cardPanel = new CardPanel();
     private final JTabbedPane poe1TabbedPanel = new JTabbedPane();
     private final JTabbedPane poe2TabbedPanel = new JTabbedPane();

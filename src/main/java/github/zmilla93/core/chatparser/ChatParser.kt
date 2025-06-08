@@ -4,6 +4,7 @@ import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.data.PlayerMessage
 import github.zmilla93.core.event.ChatScannerEvent
+import github.zmilla93.core.event.ParserEvent
 import github.zmilla93.core.event.PlayerJoinedAreaEvent
 import github.zmilla93.core.event.TradeEvent
 import github.zmilla93.core.managers.AudioManager
@@ -28,13 +29,11 @@ import java.util.regex.Pattern
  */
 // FIXME : This file could use some cleanup.
 // FIXME : Consolidate regex in References and LangRegex with this.
-class ChatParser(// Settings
-    private val game: Game
-) : FileTailerListener {
+class ChatParser(private val game: Game) : FileTailerListener {
     private var tailer: FileTailer? = null
 
     /** Parser is multithreaded, so CopyOnWriteArrays are used to avoid concurrency modification exceptions. */ // Listeners - Parser State
-    private val onInitListeners = CopyOnWriteArrayList<ParserInitListener>()
+    private val onInitListeners = CopyOnWriteArrayList<ParserRestartListener>()
     private val onLoadListeners = CopyOnWriteArrayList<ParserLoadedListener>()
 
     // Listeners - POE Game Events
@@ -77,7 +76,10 @@ class ChatParser(// Settings
     }
 
     fun close() {
-        if (!this.isOpen) return
+        if (!this.isOpen) {
+            System.err.println("Tried to close a parser that wasn't open!")
+            return
+        }
         tailer!!.stop()
         removeAllListeners()
         tailer = null
@@ -221,7 +223,7 @@ class ChatParser(// Settings
         }
         // Handle trade
         for (listener in tradeListeners) listener.handleTrade(offer, tailer!!.isLoaded)
-        App.parserEvent.post(TradeEvent(offer, tailer!!.isLoaded))
+        App.parserEvent.post(TradeEvent(offer, tailer!!.isLoaded, game))
         return true
     }
 
@@ -256,10 +258,10 @@ class ChatParser(// Settings
             val matcher = lang.joinedAreaPattern.matcher(line)
             if (matcher.matches()) {
                 val playerName = matcher.group("playerName")
-                for (listener in playerJoinedAreaListeners) {
-                    listener.onJoinedArea(playerName)
-                }
-                App.parserEvent.post(PlayerJoinedAreaEvent(playerName))
+//                for (listener in playerJoinedAreaListeners) {
+//                    listener.onJoinedArea(playerName)
+//                }
+                App.parserEvent.post(PlayerJoinedAreaEvent(playerName, tailer!!.isLoaded))
                 return true
             }
         }
@@ -280,7 +282,7 @@ class ChatParser(// Settings
     }
 
     // Listeners
-    fun addOnInitCallback(listener: ParserInitListener?) {
+    fun addOnInitCallback(listener: ParserRestartListener?) {
         onInitListeners.add(listener)
     }
 
@@ -314,7 +316,8 @@ class ChatParser(// Settings
 
     // File Tailing
     override fun init(tailer: FileTailer) {
-        for (listener in onInitListeners) listener.onParserInit()
+        for (listener in onInitListeners) listener.onParserRestart()
+        App.parserEvent.post(ParserEvent(ParserEvent.Type.RESTART, game.parser))
     }
 
     override fun fileNotFound() {

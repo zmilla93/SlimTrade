@@ -1,17 +1,20 @@
 package github.zmilla93.core.poe
 
+import github.zmilla93.core.event.ParserEvent
+
 /**
- * An enum for knowing which version of Path of Exile is being referenced.
- * Use explicitName to add the "1" to POE1.
+ * Static game info about Path of Exile 1 & 2.
+ * For mutable game settings, use [GameSettings].
  */
 enum class Game(
     val gameName: String,
     @JvmField val explicitName: String,
     /** Location of currency icons and translations. */
-    @JvmField val assetsFolderName: String
+    @JvmField val assetsFolderName: String,
+    val parser: ParserEvent.Parser,
 ) {
-    PATH_OF_EXILE_1("Path of Exile", "Path of Exile 1", "poe1"),
-    PATH_OF_EXILE_2("Path of Exile 2", "Path of Exile 2", "poe2");
+    PATH_OF_EXILE_1("Path of Exile", "Path of Exile 1", "poe1", ParserEvent.Parser.POE1),
+    PATH_OF_EXILE_2("Path of Exile 2", "Path of Exile 2", "poe2", ParserEvent.Parser.POE2);
 
     val isPoe1: Boolean get() = this == PATH_OF_EXILE_1
 

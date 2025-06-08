@@ -4,7 +4,8 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 /**
- * Fields that are shared 1:1 between Path of Exile 1 & 2.
+ * Mutable game settings that are shared 1:1 between Path of Exile 1 & 2.
+ * Hardcoded game data is stored in [Game].
  */
 abstract class GameSettings {
     @JvmField
@@ -27,10 +28,14 @@ abstract class GameSettings {
      * Check if client.txt exists.
      */
     fun doesClientLogExist(): Boolean {
-        if (installFolder == null) return false
-        val folderPath = Paths.get(installFolder)
+        if (installFolder == null) {
+            println("install folder is null$installFolder")
+            return false
+        }
+        val folderPath = Paths.get(installFolder!!)
         val clientPath = folderPath.resolve(Paths.get(LOG_FOLDER_NAME, CLIENT_TXT_NAME))
-        return clientPath.toFile().exists()
+        val exists = clientPath.toFile().exists()
+        return exists
     }
 
     abstract val game: Game

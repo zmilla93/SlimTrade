@@ -1,0 +1,4 @@
+- Combine parser init events
+- Fix history reloading
+- Disable forced parser restart
+- Have EventBus emit from EDT by default

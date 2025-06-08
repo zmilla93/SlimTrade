@@ -87,7 +87,6 @@ public class App {
     public static void main(String[] args) {
         parseLaunchArgs(args);
 
-
         /// Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
         if (useLockFile) {
@@ -260,7 +259,7 @@ public class App {
             SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
 
         HotkeyManager.loadHotkeys();
-        chatParser.restartChatParsers();
+        chatParser.restartChatParsers(true);
         App.setState(AppState.RUNNING);
     }
 
