@@ -1,13 +1,16 @@
 package github.zmilla93.core.chatparser
 
+import github.zmilla93.core.data.PlayerMessage
 import github.zmilla93.core.managers.SaveManager
 import github.zmilla93.core.poe.GameSettings
+import github.zmilla93.core.trading.TradeOffer
+import github.zmilla93.gui.chatscanner.ChatScannerEntry
 import github.zmilla93.gui.managers.FrameManager
 
 /**
  * Runs a chat parser for each game.
  */
-class CombinedChatParser {
+class CombinedChatParser : TradeListener, ChatScannerListener, JoinedAreaListener {
 
     var chatParserPoe1: ChatParser? = null
     var chatParserPoe2: ChatParser? = null
@@ -16,10 +19,10 @@ class CombinedChatParser {
     var currentZone: String = "The Twilight Strand"
 
     // Listeners - POE Game Events
-    val tradeListeners = ArrayList<ITradeListener>()
-    val chatScannerListeners = ArrayList<IChatScannerListener>()
-    val joinedAreaListeners = ArrayList<IJoinedAreaListener>()
-    val dndListeners = ArrayList<IDndListener>()
+    val tradeListeners = ArrayList<TradeListener>()
+    val chatScannerListeners = ArrayList<ChatScannerListener>()
+    val joinedAreaListeners = ArrayList<JoinedAreaListener>()
+    val dndListeners = ArrayList<DndListener>()
 
     fun restartChatParsers() {
         val shouldOpenPoe1Parser = shouldParserOpen(SaveManager.settingsSaveFile.data.settingsPoe1)
@@ -98,6 +101,20 @@ class CombinedChatParser {
         parser.addOnLoadedCallback(FrameManager.menuBarDialog)
         parser.addDndListener(FrameManager.menuBarIcon)
         parser.addDndListener(FrameManager.menuBarDialog)
+    }
+
+    override fun handleTrade(tradeOffer: TradeOffer, loaded: Boolean) {
+        tradeListeners.forEach { it.handleTrade(tradeOffer, loaded) }
+    }
+
+    override fun onScannerMessage(
+        entry: ChatScannerEntry, message: PlayerMessage, loaded: Boolean
+    ) {
+        chatScannerListeners.forEach { it.onScannerMessage(entry, message, loaded) }
+    }
+
+    override fun onJoinedArea(playerName: String?) {
+        joinedAreaListeners.forEach { it.onJoinedArea(playerName) }
     }
 
 }

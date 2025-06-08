@@ -1,7 +1,7 @@
 package github.zmilla93.gui.menubar;
 
-import github.zmilla93.core.chatparser.IDndListener;
-import github.zmilla93.core.chatparser.IParserLoadedListener;
+import github.zmilla93.core.chatparser.DndListener;
+import github.zmilla93.core.chatparser.ParserLoadedListener;
 import github.zmilla93.core.enums.DefaultIcon;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.TradeUtil;
@@ -13,7 +13,7 @@ import github.zmilla93.modules.theme.listeners.IFontChangeListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenubarButtonDialog extends BasicDialog implements IFontChangeListener, IParserLoadedListener, IDndListener {
+public class MenubarButtonDialog extends BasicDialog implements IFontChangeListener, ParserLoadedListener, DndListener {
 
     private final IconButton iconLabel = new IconButton(DefaultIcon.TAG);
 

@@ -1,6 +1,6 @@
 package github.zmilla93.gui.chatscanner;
 
-import github.zmilla93.core.chatparser.IChatScannerToggleListener;
+import github.zmilla93.core.chatparser.ChatScannerToggleListener;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.ZUtil;
@@ -43,7 +43,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
     private static final String DELETE_PANEL_TITLE = "SLIMTRADE::DELETE_PANEL";
 
     private final ArrayList<ChatScannerCustomizerPanel> panels = new ArrayList<>();
-    private final ArrayList<IChatScannerToggleListener> toggleListeners = new ArrayList<>();
+    private final ArrayList<ChatScannerToggleListener> toggleListeners = new ArrayList<>();
 
     private final JButton revertButton = new JButton("Revert Changes");
     private final JButton saveButton = new JButton("Save");
@@ -177,7 +177,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
         SaveManager.chatScannerSaveFile.saveToDisk();
         cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         enableComponents(false);
-        for (IChatScannerToggleListener listener : toggleListeners) listener.onChatScannerToggle(true);
+        for (ChatScannerToggleListener listener : toggleListeners) listener.onChatScannerToggle(true);
     }
 
     public void stopSearch() {
@@ -187,7 +187,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
         if (selectedPanel == null) cardLayout.show(cardPanel, SEARCHING_PANEL_TITLE);
         else cardLayout.show(cardPanel, selectedPanel.getTitle());
         enableComponents(true);
-        for (IChatScannerToggleListener listener : toggleListeners) listener.onChatScannerToggle(false);
+        for (ChatScannerToggleListener listener : toggleListeners) listener.onChatScannerToggle(false);
     }
 
     private void enableComponents(boolean enable) {
@@ -294,7 +294,7 @@ public class ChatScannerWindow extends CustomDialog implements ISavable, IDefaul
         return false;
     }
 
-    public void addChatScannerToggleListener(IChatScannerToggleListener listener) {
+    public void addChatScannerToggleListener(ChatScannerToggleListener listener) {
         toggleListeners.add(listener);
     }
 

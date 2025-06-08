@@ -1,8 +1,8 @@
 package github.zmilla93.gui.menubar;
 
-import github.zmilla93.core.chatparser.IChatScannerToggleListener;
-import github.zmilla93.core.chatparser.IDndListener;
-import github.zmilla93.core.chatparser.IParserLoadedListener;
+import github.zmilla93.core.chatparser.ChatScannerToggleListener;
+import github.zmilla93.core.chatparser.DndListener;
+import github.zmilla93.core.chatparser.ParserLoadedListener;
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.enums.DefaultIcon;
 import github.zmilla93.core.enums.MenubarStyle;
@@ -25,7 +25,7 @@ import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class MenubarDialog extends BasicDialog implements ISaveListener, IFontChangeListener, IThemeListener, IParserLoadedListener, IChatScannerToggleListener, IDndListener {
+public class MenubarDialog extends BasicDialog implements ISaveListener, IFontChangeListener, IThemeListener, ParserLoadedListener, ChatScannerToggleListener, DndListener {
 
     private JButton optionsButton;
     private JButton chatScannerButton;

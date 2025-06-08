@@ -1,7 +1,7 @@
 package github.zmilla93;
 
 import github.zmilla93.core.chatparser.ChatParser;
-import github.zmilla93.core.chatparser.IParserLoadedListener;
+import github.zmilla93.core.chatparser.ParserLoadedListener;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.saving.savefiles.ChatScannerSaveFile;
@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParserTest implements IParserLoadedListener {
+public class ParserTest implements ParserLoadedListener {
 
     private int count;
     private int onCount;

@@ -1,8 +1,8 @@
 package github.zmilla93.gui.history;
 
-import github.zmilla93.core.chatparser.IParserInitListener;
-import github.zmilla93.core.chatparser.IParserLoadedListener;
-import github.zmilla93.core.chatparser.ITradeListener;
+import github.zmilla93.core.chatparser.ParserInitListener;
+import github.zmilla93.core.chatparser.ParserLoadedListener;
+import github.zmilla93.core.chatparser.TradeListener;
 import github.zmilla93.core.data.SaleItem;
 import github.zmilla93.core.data.SaleItemWrapper;
 import github.zmilla93.core.enums.HistoryOrder;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Handles rendering for a specific category of trades (ie PoE1 incoming).
  */
-public class HistoryPanel extends JPanel implements ISaveListener, ITradeListener, IParserInitListener, IParserLoadedListener {
+public class HistoryPanel extends JPanel implements ISaveListener, TradeListener, ParserInitListener, ParserLoadedListener {
 
     public static int MAX_MESSAGE_COUNT = 50;
 

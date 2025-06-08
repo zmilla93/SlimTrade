@@ -1,5 +1,5 @@
 package github.zmilla93.core.chatparser
 
-interface IChatScannerToggleListener {
+interface ChatScannerToggleListener {
     fun onChatScannerToggle(state: Boolean)
 }

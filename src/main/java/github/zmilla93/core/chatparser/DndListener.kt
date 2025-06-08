@@ -1,5 +1,5 @@
 package github.zmilla93.core.chatparser
 
-interface IDndListener {
+interface DndListener {
     fun onDndToggle(state: Boolean, loaded: Boolean)
 }

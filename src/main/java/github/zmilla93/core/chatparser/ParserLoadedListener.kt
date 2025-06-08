@@ -1,5 +1,5 @@
 package github.zmilla93.core.chatparser
 
-interface IParserLoadedListener {
+interface ParserLoadedListener {
     fun onParserLoaded(dnd: Boolean)
 }

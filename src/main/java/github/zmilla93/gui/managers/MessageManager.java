@@ -2,9 +2,9 @@ package github.zmilla93.gui.managers;
 
 import github.zmilla93.App;
 import github.zmilla93.core.audio.SoundComponent;
-import github.zmilla93.core.chatparser.IChatScannerListener;
-import github.zmilla93.core.chatparser.IJoinedAreaListener;
-import github.zmilla93.core.chatparser.ITradeListener;
+import github.zmilla93.core.chatparser.ChatScannerListener;
+import github.zmilla93.core.chatparser.JoinedAreaListener;
+import github.zmilla93.core.chatparser.TradeListener;
 import github.zmilla93.core.data.IgnoreItemData;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.enums.ExpandDirection;
@@ -39,7 +39,7 @@ import java.util.concurrent.Executors;
  * @see ChatScannerMessagePanel
  * @see UpdateMessagePanel
  */
-public class MessageManager extends BasicDialog implements ITradeListener, IChatScannerListener, IJoinedAreaListener, IFontChangeListener, ISaveListener {
+public class MessageManager extends BasicDialog implements TradeListener, ChatScannerListener, JoinedAreaListener, IFontChangeListener, ISaveListener {
 
     private final GridBagConstraints gc;
     private static final int MESSAGE_GAP = 1;

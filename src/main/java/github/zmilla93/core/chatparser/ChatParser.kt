@@ -31,14 +31,14 @@ class ChatParser(// Settings
     private var tailer: FileTailer? = null
 
     /** Parser is multithreaded, so CopyOnWriteArrays are used to avoid concurrency modification exceptions. */ // Listeners - Parser State
-    private val onInitListeners = CopyOnWriteArrayList<IParserInitListener>()
-    private val onLoadListeners = CopyOnWriteArrayList<IParserLoadedListener>()
+    private val onInitListeners = CopyOnWriteArrayList<ParserInitListener>()
+    private val onLoadListeners = CopyOnWriteArrayList<ParserLoadedListener>()
 
     // Listeners - POE Game Events
-    val tradeListeners = CopyOnWriteArrayList<ITradeListener>()
-    val chatScannerListeners = CopyOnWriteArrayList<IChatScannerListener>()
-    val joinedAreaListeners = CopyOnWriteArrayList<IJoinedAreaListener>()
-    val dndListeners = CopyOnWriteArrayList<IDndListener>()
+    val tradeListeners = CopyOnWriteArrayList<TradeListener>()
+    val chatScannerListeners = CopyOnWriteArrayList<ChatScannerListener>()
+    val joinedAreaListeners = CopyOnWriteArrayList<JoinedAreaListener>()
+    val dndListeners = CopyOnWriteArrayList<DndListener>()
     var path: Path? = null
         private set
 
@@ -245,7 +245,6 @@ class ChatParser(// Settings
         if (tailer!!.isLoaded) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound)
     }
 
-
     private fun handlePlayerJoinedArea(line: String): Boolean {
         for (lang in LangRegex.entries) {
             if (lang.joinedArea == null) continue
@@ -275,27 +274,27 @@ class ChatParser(// Settings
     }
 
     // Listeners
-    fun addOnInitCallback(listener: IParserInitListener?) {
+    fun addOnInitCallback(listener: ParserInitListener?) {
         onInitListeners.add(listener)
     }
 
-    fun addOnLoadedCallback(listener: IParserLoadedListener?) {
+    fun addOnLoadedCallback(listener: ParserLoadedListener?) {
         onLoadListeners.add(listener)
     }
 
-    fun addTradeListener(listener: ITradeListener?) {
+    fun addTradeListener(listener: TradeListener?) {
         tradeListeners.add(listener)
     }
 
-    fun addChatScannerListener(listener: IChatScannerListener?) {
+    fun addChatScannerListener(listener: ChatScannerListener?) {
         chatScannerListeners.add(listener)
     }
 
-    fun addJoinedAreaListener(listener: IJoinedAreaListener?) {
+    fun addJoinedAreaListener(listener: JoinedAreaListener?) {
         joinedAreaListeners.add(listener)
     }
 
-    fun addDndListener(listener: IDndListener?) {
+    fun addDndListener(listener: DndListener?) {
         dndListeners.add(listener)
     }
 
