@@ -1,5 +1,6 @@
 package github.zmilla93.core.chatparser
 
+import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.data.PlayerMessage
 import github.zmilla93.core.managers.AudioManager
@@ -34,10 +35,10 @@ class ChatParser(// Settings
     private val onLoadListeners = CopyOnWriteArrayList<IParserLoadedListener>()
 
     // Listeners - POE Game Events
-    private val tradeListeners = CopyOnWriteArrayList<ITradeListener>()
-    private val chatScannerListeners = CopyOnWriteArrayList<IChatScannerListener>()
-    private val joinedAreaListeners = CopyOnWriteArrayList<IJoinedAreaListener>()
-    private val dndListeners = CopyOnWriteArrayList<IDndListener>()
+    val tradeListeners = CopyOnWriteArrayList<ITradeListener>()
+    val chatScannerListeners = CopyOnWriteArrayList<IChatScannerListener>()
+    val joinedAreaListeners = CopyOnWriteArrayList<IJoinedAreaListener>()
+    val dndListeners = CopyOnWriteArrayList<IDndListener>()
     var path: Path? = null
         private set
 
@@ -266,7 +267,7 @@ class ChatParser(// Settings
             val matcher = lang.enteredAreaPattern.matcher(line)
             if (matcher.matches()) {
                 currentZone = matcher.group("zone")
-                ChatParserManager.currentZone = currentZone
+                App.chatParser.currentZone = currentZone
                 return true
             }
         }

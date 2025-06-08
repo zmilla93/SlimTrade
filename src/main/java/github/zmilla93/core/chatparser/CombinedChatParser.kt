@@ -5,27 +5,31 @@ import github.zmilla93.core.poe.GameSettings
 import github.zmilla93.gui.managers.FrameManager
 
 /**
- * Manages opening and restarting two [ChatParser]s, one for each game.
+ * Runs a chat parser for each game.
  */
-object ChatParserManager {
+class CombinedChatParser {
+
     var chatParserPoe1: ChatParser? = null
     var chatParserPoe2: ChatParser? = null
 
     // FIXME : Zone should be handled via listeners, quick fix for now
-    @JvmField
     var currentZone: String = "The Twilight Strand"
 
-    /** Initialize */
-    @JvmStatic
-    fun initChatParsers() {
+    // Listeners - POE Game Events
+    private val tradeListeners = ArrayList<ITradeListener>()
+    private val chatScannerListeners = ArrayList<IChatScannerListener>()
+    private val joinedAreaListeners = ArrayList<IJoinedAreaListener>()
+    private val dndListeners = ArrayList<IDndListener>()
+
+    fun restartChatParsers() {
         val shouldOpenPoe1Parser = shouldParserOpen(SaveManager.settingsSaveFile.data.settingsPoe1)
         val shouldOpenPoe2Parser = shouldParserOpen(SaveManager.settingsSaveFile.data.settingsPoe2)
-        val poe1ParserStateChange = ChatParserManager.didParserStateChange(
+        val poe1ParserStateChange = didParserStateChange(
             chatParserPoe1,
             shouldOpenPoe1Parser,
             SaveManager.settingsSaveFile.data.settingsPoe1.installFolder!!
         )
-        val poe2ParserStateChange = ChatParserManager.didParserStateChange(
+        val poe2ParserStateChange = didParserStateChange(
             chatParserPoe2,
             shouldOpenPoe2Parser,
             SaveManager.settingsSaveFile.data.settingsPoe2.installFolder!!
@@ -56,19 +60,24 @@ object ChatParserManager {
     fun initChatParser(settings: GameSettings) {
         if (settings.notInstalled) return
         if (!settings.doesClientLogExist()) return
-        val parser: ChatParser?
-        if (settings.isPoe1) {
-            chatParserPoe1 = ChatParser(settings.game)
-            parser = chatParserPoe1
-        } else {
-            chatParserPoe2 = ChatParser(settings.game)
-            parser = chatParserPoe2
-        }
-        ChatParserManager.addParserListeners(settings, parser!!)
+        val parser = ChatParser(settings.game)
+//        if (settings.isPoe1) {
+//            chatParserPoe1 = ChatParser(settings.game)
+//            parser = chatParserPoe1
+//        } else {
+//            chatParserPoe2 = ChatParser(settings.game)
+//            parser = chatParserPoe2
+//        }
+//        if (parser == null) return
+        addParserListeners(settings, parser)
+//        parser.tradeListeners.addAll(tradeListeners)
+//        parser.chatScannerListeners.addAll(chatScannerListeners)
+//        parser.joinedAreaListeners.addAll(joinedAreaListeners)
+//        parser.dndListeners.addAll(dndListeners)
         parser.open(settings.clientPath)
     }
 
-    /** NOTE : Since chat parsers can be closed and reopened, listeners are
+    /** NOTE: Since chat parsers can be closed and reopened, listeners are
      * added here instead of in the UI elements like usual. */
     // FIXME : Moving these to the UI elements requires making the parser reopen-able.
     fun addParserListeners(settings: GameSettings, parser: ChatParser) {
@@ -88,9 +97,6 @@ object ChatParserManager {
             parser.addOnLoadedCallback(FrameManager.historyWindow.outgoingTradesPoe2)
             parser.addTradeListener(FrameManager.historyWindow.outgoingTradesPoe2)
         }
-        //        parser.addOnInitCallback(FrameManager.historyWindow);
-//        parser.addOnLoadedCallback(FrameManager.historyWindow);
-//        parser.addTradeListener(FrameManager.historyWindow);
         // Message Manager
         parser.addTradeListener(FrameManager.messageManager)
         parser.addChatScannerListener(FrameManager.messageManager)
@@ -101,4 +107,5 @@ object ChatParserManager {
         parser.addDndListener(FrameManager.menuBarIcon)
         parser.addDndListener(FrameManager.menuBarDialog)
     }
+
 }
