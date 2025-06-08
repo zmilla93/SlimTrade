@@ -11,7 +11,7 @@ import github.zmilla93.gui.managers.FrameManager
  * Runs a chat parser for each game.
  */
 // FIXME @important : Make sure chat parsers are fully closed and reopened
-class CombinedChatParser : TradeListener, ChatScannerListener, JoinedAreaListener {
+class CombinedChatParser : TradeListener, ChatScannerListener, PlayerJoinedAreaListener {
 
     var chatParserPoe1: ChatParser? = null
     var chatParserPoe2: ChatParser? = null
@@ -22,7 +22,7 @@ class CombinedChatParser : TradeListener, ChatScannerListener, JoinedAreaListene
     // Listeners - POE Game Events
     val tradeListeners = ArrayList<TradeListener>()
     val chatScannerListeners = ArrayList<ChatScannerListener>()
-    val joinedAreaListeners = ArrayList<JoinedAreaListener>()
+    val playerJoinedAreaListeners = ArrayList<PlayerJoinedAreaListener>()
     val dndListeners = ArrayList<DndListener>()
 
     fun restartChatParsers() {
@@ -66,9 +66,9 @@ class CombinedChatParser : TradeListener, ChatScannerListener, JoinedAreaListene
         if (!settings.doesClientLogExist()) return
         val parser = ChatParser(settings.game)
         addParserListeners(settings, parser)
-        parser.tradeListeners.addAll(tradeListeners)
-        parser.chatScannerListeners.addAll(chatScannerListeners)
-        parser.joinedAreaListeners.addAll(joinedAreaListeners)
+//        parser.tradeListeners.addAll(tradeListeners)
+//        parser.chatScannerListeners.addAll(chatScannerListeners)
+//        parser.joinedAreaListeners.addAll(joinedAreaListeners)
 //        parser.dndListeners.addAll(dndListeners)
         parser.open(settings.clientPath)
     }
@@ -112,8 +112,8 @@ class CombinedChatParser : TradeListener, ChatScannerListener, JoinedAreaListene
         chatScannerListeners.forEach { it.onScannerMessage(entry, message, loaded) }
     }
 
-    override fun onJoinedArea(playerName: String?) {
-        joinedAreaListeners.forEach { it.onJoinedArea(playerName) }
+    override fun onJoinedArea(playerName: String) {
+        playerJoinedAreaListeners.forEach { it.onJoinedArea(playerName) }
     }
 
 }

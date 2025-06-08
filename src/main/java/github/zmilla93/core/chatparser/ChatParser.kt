@@ -3,6 +3,7 @@ package github.zmilla93.core.chatparser
 import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.data.PlayerMessage
+import github.zmilla93.core.event.PlayerJoinedAreaEvent
 import github.zmilla93.core.event.TradeEvent
 import github.zmilla93.core.managers.AudioManager
 import github.zmilla93.core.managers.SaveManager
@@ -38,7 +39,7 @@ class ChatParser(// Settings
     // Listeners - POE Game Events
     val tradeListeners = CopyOnWriteArrayList<TradeListener>()
     val chatScannerListeners = CopyOnWriteArrayList<ChatScannerListener>()
-    val joinedAreaListeners = CopyOnWriteArrayList<JoinedAreaListener>()
+    val playerJoinedAreaListeners = CopyOnWriteArrayList<PlayerJoinedAreaListener>()
     val dndListeners = CopyOnWriteArrayList<DndListener>()
     var path: Path? = null
         private set
@@ -253,9 +254,10 @@ class ChatParser(// Settings
             val matcher = lang.joinedAreaPattern.matcher(line)
             if (matcher.matches()) {
                 val playerName = matcher.group("playerName")
-                for (listener in joinedAreaListeners) {
+                for (listener in playerJoinedAreaListeners) {
                     listener.onJoinedArea(playerName)
                 }
+                App.parserEvent.post(PlayerJoinedAreaEvent(playerName))
                 return true
             }
         }
@@ -292,8 +294,8 @@ class ChatParser(// Settings
         chatScannerListeners.add(listener)
     }
 
-    fun addJoinedAreaListener(listener: JoinedAreaListener?) {
-        joinedAreaListeners.add(listener)
+    fun addJoinedAreaListener(listener: PlayerJoinedAreaListener?) {
+        playerJoinedAreaListeners.add(listener)
     }
 
     fun addDndListener(listener: DndListener?) {
@@ -305,7 +307,7 @@ class ChatParser(// Settings
         onLoadListeners.clear()
         tradeListeners.clear()
         chatScannerListeners.clear()
-        joinedAreaListeners.clear()
+        playerJoinedAreaListeners.clear()
     }
 
     // File Tailing

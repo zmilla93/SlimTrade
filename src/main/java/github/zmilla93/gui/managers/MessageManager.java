@@ -3,12 +3,13 @@ package github.zmilla93.gui.managers;
 import github.zmilla93.App;
 import github.zmilla93.core.audio.SoundComponent;
 import github.zmilla93.core.chatparser.ChatScannerListener;
-import github.zmilla93.core.chatparser.JoinedAreaListener;
+import github.zmilla93.core.chatparser.PlayerJoinedAreaListener;
 import github.zmilla93.core.chatparser.TradeListener;
 import github.zmilla93.core.data.IgnoreItemData;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.enums.ExpandDirection;
 import github.zmilla93.core.enums.MatchType;
+import github.zmilla93.core.event.PlayerJoinedAreaEvent;
 import github.zmilla93.core.event.TradeEvent;
 import github.zmilla93.core.hotkeys.HotkeyData;
 import github.zmilla93.core.managers.AudioManager;
@@ -40,7 +41,7 @@ import java.util.concurrent.Executors;
  * @see ChatScannerMessagePanel
  * @see UpdateMessagePanel
  */
-public class MessageManager extends BasicDialog implements TradeListener, ChatScannerListener, JoinedAreaListener, IFontChangeListener, ISaveListener {
+public class MessageManager extends BasicDialog implements TradeListener, ChatScannerListener, PlayerJoinedAreaListener, IFontChangeListener, ISaveListener {
 
     private final GridBagConstraints gc;
     private static final int MESSAGE_GAP = 1;
@@ -130,10 +131,14 @@ public class MessageManager extends BasicDialog implements TradeListener, ChatSc
         SaveManager.settingsSaveFile.addListener(this);
         App.chatParser.getTradeListeners().add(this);
         App.chatParser.getChatScannerListeners().add(this);
-        App.chatParser.getJoinedAreaListeners().add(this);
+        App.chatParser.getPlayerJoinedAreaListeners().add(this);
         App.parserEvent.subscribe(TradeEvent.class, it -> {
             System.out.println("Trade Event: " + it);
             handleTrade(it);
+            return null;
+        });
+        App.parserEvent.subscribe(PlayerJoinedAreaEvent.class, it -> {
+            onJoinedArea(it.getPlayerName());
             return null;
         });
 //        App.parserEvent.subscribe(TradeEvent.class, );
