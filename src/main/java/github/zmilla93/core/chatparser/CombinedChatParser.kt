@@ -1,6 +1,8 @@
 package github.zmilla93.core.chatparser
 
+import github.zmilla93.App
 import github.zmilla93.core.data.PlayerMessage
+import github.zmilla93.core.event.ParserEventType
 import github.zmilla93.core.managers.SaveManager
 import github.zmilla93.core.poe.GameSettings
 import github.zmilla93.core.trading.TradeOffer
@@ -11,7 +13,7 @@ import github.zmilla93.gui.managers.FrameManager
  * Runs a chat parser for each game.
  */
 // FIXME @important : Make sure chat parsers are fully closed and reopened
-class CombinedChatParser : TradeListener, ChatScannerListener {
+class CombinedChatParser : TradeListener, ChatScannerListener, ParserRestartListener, ParserLoadedListener {
 
     var chatParserPoe1: ChatParser? = null
     var chatParserPoe2: ChatParser? = null
@@ -24,8 +26,16 @@ class CombinedChatParser : TradeListener, ChatScannerListener {
     val chatScannerListeners = ArrayList<ChatScannerListener>()
     val playerJoinedAreaListeners = ArrayList<PlayerJoinedAreaListener>()
     val dndListeners = ArrayList<DndListener>()
+    var parsersRestarted = 0
+        @Synchronized set
+    var parserLoadedCount = 0
+        @Synchronized set
+    var expectedParserCount = 0
 
-    /** Restarts chat parsers for both games only when required. */
+    /**
+     *  Restarts chat parsers for both games only when required.
+     *  IMPORTANT: Parsers are multithreaded, so over of execution is vital here.
+     */
     fun restartChatParsers(forceRestart: Boolean = false) {
         val shouldOpenPoe1Parser = shouldParserOpen(SaveManager.settingsSaveFile.data.settingsPoe1)
         val shouldOpenPoe2Parser = shouldParserOpen(SaveManager.settingsSaveFile.data.settingsPoe2)
@@ -43,11 +53,15 @@ class CombinedChatParser : TradeListener, ChatScannerListener {
         // Close existing parsers before creating new ones
         if (poe1ParserStateChange) chatParserPoe1?.close()
         if (poe2ParserStateChange) chatParserPoe2?.close()
+        val openPoe1 = poe1ParserStateChange && shouldOpenPoe1Parser
+        val openPoe2 = poe2ParserStateChange && shouldOpenPoe2Parser
+        // If any parsers are going to be reset, post a restart event
+        if (openPoe1) expectedParserCount++
+        if (openPoe2) expectedParserCount++
+        if (expectedParserCount > 0) App.parserEvent.post(ParserEventType.RESTART)
         // Create new parsers
-        if (poe1ParserStateChange && shouldOpenPoe1Parser)
-            chatParserPoe1 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe1)
-        if (poe2ParserStateChange && shouldOpenPoe2Parser)
-            chatParserPoe2 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe2)
+        if (openPoe1) chatParserPoe1 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe1)
+        if (openPoe2) chatParserPoe2 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe2)
     }
 
     private fun didParserStateChange(parser: ChatParser?, shouldOpen: Boolean, newPath: String): Boolean {
@@ -72,6 +86,8 @@ class CombinedChatParser : TradeListener, ChatScannerListener {
         }
         val parser = ChatParser(settings.game)
         addParserListeners(settings, parser)
+        parser.onInitListeners += this
+        parser.onLoadListeners += this
 //        parser.tradeListeners.addAll(tradeListeners)
 //        parser.chatScannerListeners.addAll(chatScannerListeners)
 //        parser.joinedAreaListeners.addAll(joinedAreaListeners)
@@ -83,27 +99,8 @@ class CombinedChatParser : TradeListener, ChatScannerListener {
     /** NOTE: Since chat parsers can be closed and reopened, listeners are
      * added here instead of in the UI elements like usual. */
     // FIXME : Moving these to the UI elements requires making the parser reopen-able.
+    @Deprecated("Move to new event system")
     fun addParserListeners(settings: GameSettings, parser: ChatParser) {
-        // History
-//        if (settings.isPoe1) {
-//            parser.addOnInitCallback(FrameManager.historyWindow.incomingTradesPoe1)
-//            parser.addOnLoadedCallback(FrameManager.historyWindow.incomingTradesPoe1)
-//            parser.addTradeListener(FrameManager.historyWindow.incomingTradesPoe1)
-//            parser.addOnInitCallback(FrameManager.historyWindow.outgoingTradesPoe1)
-//            parser.addOnLoadedCallback(FrameManager.historyWindow.outgoingTradesPoe1)
-//            parser.addTradeListener(FrameManager.historyWindow.outgoingTradesPoe1)
-//        } else {
-//            parser.addOnInitCallback(FrameManager.historyWindow.incomingTradesPoe2)
-//            parser.addOnLoadedCallback(FrameManager.historyWindow.incomingTradesPoe2)
-//            parser.addTradeListener(FrameManager.historyWindow.incomingTradesPoe2)
-//            parser.addOnInitCallback(FrameManager.historyWindow.outgoingTradesPoe2)
-//            parser.addOnLoadedCallback(FrameManager.historyWindow.outgoingTradesPoe2)
-//            parser.addTradeListener(FrameManager.historyWindow.outgoingTradesPoe2)
-//        }
-        // Message Manager
-//        parser.addTradeListener(FrameManager.messageManager)
-//        parser.addChatScannerListener(FrameManager.messageManager)
-//        parser.addJoinedAreaListener(FrameManager.messageManager)
         // Menu Bar
         // FIXME:
         parser.addOnLoadedCallback(FrameManager.menuBarIcon)
@@ -118,6 +115,20 @@ class CombinedChatParser : TradeListener, ChatScannerListener {
 
     override fun onScannerMessage(entry: ChatScannerEntry, message: PlayerMessage, loaded: Boolean) {
         chatScannerListeners.forEach { it.onScannerMessage(entry, message, loaded) }
+    }
+
+    override fun onParserRestart() {
+        println("PARSERS RESTARTED!!!")
+        parsersRestarted++
+    }
+
+    /** Posts a LOADED event after all expected chat parsers have loaded. */
+    override fun onParserLoaded(dnd: Boolean) {
+        parserLoadedCount++
+        if (parserLoadedCount == expectedParserCount) {
+            App.parserEvent.post(ParserEventType.LOADED)
+            println("PARSERS LOADED!!!")
+        }
     }
 
 //    override fun onJoinedArea(playerName: String) {

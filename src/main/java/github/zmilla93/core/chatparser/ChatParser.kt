@@ -33,13 +33,13 @@ class ChatParser(private val game: Game) : FileTailerListener {
     private var tailer: FileTailer? = null
 
     /** Parser is multithreaded, so CopyOnWriteArrays are used to avoid concurrency modification exceptions. */ // Listeners - Parser State
-    private val onInitListeners = CopyOnWriteArrayList<ParserRestartListener>()
-    private val onLoadListeners = CopyOnWriteArrayList<ParserLoadedListener>()
+    val onInitListeners = CopyOnWriteArrayList<ParserRestartListener>()
+    val onLoadListeners = CopyOnWriteArrayList<ParserLoadedListener>()
 
     // Listeners - POE Game Events
-    val tradeListeners = CopyOnWriteArrayList<TradeListener>()
-    val chatScannerListeners = CopyOnWriteArrayList<ChatScannerListener>()
-    val playerJoinedAreaListeners = CopyOnWriteArrayList<PlayerJoinedAreaListener>()
+//    val tradeListeners = CopyOnWriteArrayList<TradeListener>()
+//    val chatScannerListeners = CopyOnWriteArrayList<ChatScannerListener>()
+//    val playerJoinedAreaListeners = CopyOnWriteArrayList<PlayerJoinedAreaListener>()
     val dndListeners = CopyOnWriteArrayList<DndListener>()
     var path: Path? = null
         private set
@@ -189,11 +189,6 @@ class ChatParser(private val game: Game) : FileTailerListener {
                     }
                     if (!allow) continue
                     val playerMessage = PlayerMessage(player, message, isMetaText)
-                    for (listener in chatScannerListeners) listener.onScannerMessage(
-                        entry,
-                        playerMessage,
-                        tailer!!.isLoaded
-                    )
                     App.parserEvent.post(ChatScannerEvent(entry, playerMessage, tailer!!.isLoaded))
                     return true
                 }
@@ -222,7 +217,6 @@ class ChatParser(private val game: Game) : FileTailerListener {
             }
         }
         // Handle trade
-        for (listener in tradeListeners) listener.handleTrade(offer, tailer!!.isLoaded)
         App.parserEvent.post(TradeEvent(offer, tailer!!.isLoaded, game))
         return true
     }
@@ -290,18 +284,6 @@ class ChatParser(private val game: Game) : FileTailerListener {
         onLoadListeners.add(listener)
     }
 
-    fun addTradeListener(listener: TradeListener?) {
-        tradeListeners.add(listener)
-    }
-
-    fun addChatScannerListener(listener: ChatScannerListener?) {
-        chatScannerListeners.add(listener)
-    }
-
-    fun addJoinedAreaListener(listener: PlayerJoinedAreaListener?) {
-        playerJoinedAreaListeners.add(listener)
-    }
-
     fun addDndListener(listener: DndListener?) {
         dndListeners.add(listener)
     }
@@ -309,9 +291,6 @@ class ChatParser(private val game: Game) : FileTailerListener {
     fun removeAllListeners() {
         onInitListeners.clear()
         onLoadListeners.clear()
-        tradeListeners.clear()
-        chatScannerListeners.clear()
-        playerJoinedAreaListeners.clear()
     }
 
     // File Tailing
