@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public enum PoeClientPathCheck {
 
     MISSING_POE_FOLDER(ThemeColor.DENY, "The '%s' no longer exists.", true),
-    MISSING_LOGS_FOLDER(ThemeColor.INDETERMINATE, "Folder name is correct, but is missing a '" + GameSettings.LOG_FOLDER_NAME + "' folder."),
+    MISSING_LOGS_FOLDER(ThemeColor.INDETERMINATE, "Folder should contain a '" + GameSettings.LOG_FOLDER_NAME + "' folder."),
     MISSING_CLIENT_FILE(ThemeColor.INDETERMINATE, "%s's " + GameSettings.LOG_FOLDER_NAME + " folder is missing a " + GameSettings.CLIENT_TXT_NAME + " file.", true),
     VALID(ThemeColor.APPROVE, "Folder set correctly."),
 

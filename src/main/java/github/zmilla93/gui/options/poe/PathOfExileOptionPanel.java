@@ -115,7 +115,7 @@ public class PathOfExileOptionPanel extends AbstractOptionPanel implements ISava
         SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder = usingStashFoldersPoe2Checkbox.isSelected();
         FrameManager.stashHelperContainerPoe1.updateLocation();
         FrameManager.stashHelperContainerPoe2.updateLocation();
-        App.chatParser.restartChatParsers(true);
+        App.chatParser.restartChatParsers(false);
         detectionButton.reset();
     }
 

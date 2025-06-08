@@ -18,7 +18,7 @@ public class SetupManager {
     private static ArrayList<SetupPhase> setupPhases;
 
     public static ArrayList<SetupPhase> getSetupPhases() {
-        // Return cached list if possible
+        // Return cached values if possible
         if (setupPhases != null) return setupPhases;
         setupPhases = new ArrayList<>();
         // Debug - Force all setup phases

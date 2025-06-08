@@ -35,11 +35,6 @@ class ChatParser(private val game: Game) : FileTailerListener {
     /** Parser is multithreaded, so CopyOnWriteArrays are used to avoid concurrency modification exceptions. */ // Listeners - Parser State
     val onInitListeners = CopyOnWriteArrayList<ParserRestartListener>()
     val onLoadListeners = CopyOnWriteArrayList<ParserLoadedListener>()
-
-    // Listeners - POE Game Events
-//    val tradeListeners = CopyOnWriteArrayList<TradeListener>()
-//    val chatScannerListeners = CopyOnWriteArrayList<ChatScannerListener>()
-//    val playerJoinedAreaListeners = CopyOnWriteArrayList<PlayerJoinedAreaListener>()
     val dndListeners = CopyOnWriteArrayList<DndListener>()
     var path: Path? = null
         private set
@@ -81,7 +76,6 @@ class ChatParser(private val game: Game) : FileTailerListener {
             return
         }
         tailer!!.stop()
-        removeAllListeners()
         tailer = null
         path = null
         this.isOpen = false
@@ -275,23 +269,10 @@ class ChatParser(private val game: Game) : FileTailerListener {
         return false
     }
 
-    // Listeners
-    fun addOnInitCallback(listener: ParserRestartListener?) {
-        onInitListeners.add(listener)
-    }
-
-    fun addOnLoadedCallback(listener: ParserLoadedListener?) {
-        onLoadListeners.add(listener)
-    }
-
     fun addDndListener(listener: DndListener?) {
         dndListeners.add(listener)
     }
 
-    fun removeAllListeners() {
-        onInitListeners.clear()
-        onLoadListeners.clear()
-    }
 
     // File Tailing
     override fun init(tailer: FileTailer) {

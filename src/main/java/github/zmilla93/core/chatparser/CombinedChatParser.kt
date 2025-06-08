@@ -50,20 +50,26 @@ class CombinedChatParser : TradeListener, ChatScannerListener, ParserRestartList
             shouldOpenPoe2Parser,
             SaveManager.settingsSaveFile.data.settingsPoe2.installFolder!!
         ) || forceRestart
+        // Return early if no parser state changes occur
+        var parserChangedCount = 0
+        if (poe1ParserStateChange) parserChangedCount++
+        if (poe2ParserStateChange) parserChangedCount++
+        if (parserChangedCount == 0) return
         // Close existing parsers before creating new ones
-        if (poe1ParserStateChange) chatParserPoe1?.close()
-        if (poe2ParserStateChange) chatParserPoe2?.close()
-        val openPoe1 = poe1ParserStateChange && shouldOpenPoe1Parser
-        val openPoe2 = poe2ParserStateChange && shouldOpenPoe2Parser
+        if (poe1ParserStateChange) if (chatParserPoe1 != null) chatParserPoe1?.close()
+        if (poe2ParserStateChange) if (chatParserPoe2 != null) chatParserPoe2?.close()
+        parserLoadedCount = 0
+        expectedParserCount = 0
         // If any parsers are going to be reset, post a restart event
-        if (openPoe1) expectedParserCount++
-        if (openPoe2) expectedParserCount++
-        if (expectedParserCount > 0) App.parserEvent.post(ParserEventType.RESTART)
+        if (shouldOpenPoe1Parser) expectedParserCount++
+        if (shouldOpenPoe2Parser) expectedParserCount++
+        App.parserEvent.post(ParserEventType.RESTART)
         // Create new parsers
-        if (openPoe1) chatParserPoe1 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe1)
-        if (openPoe2) chatParserPoe2 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe2)
+        if (shouldOpenPoe1Parser) chatParserPoe1 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe1)
+        if (shouldOpenPoe2Parser) chatParserPoe2 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe2)
     }
 
+    /** Returns true if the chat parser is switching between on and off, or if already running but the client.txt path changed. */
     private fun didParserStateChange(parser: ChatParser?, shouldOpen: Boolean, newPath: String): Boolean {
         val isRunning = parser != null && parser.isOpen
         val runningChanged = isRunning != shouldOpen
@@ -72,6 +78,7 @@ class CombinedChatParser : TradeListener, ChatScannerListener, ParserRestartList
         return runningChanged || pathChanged
     }
 
+    /** Returns true if a valid client.txt file exists. */
     private fun shouldParserOpen(settings: GameSettings): Boolean {
         if (settings.notInstalled) return false
         if (!settings.doesClientLogExist()) return false
@@ -103,8 +110,8 @@ class CombinedChatParser : TradeListener, ChatScannerListener, ParserRestartList
     fun addParserListeners(settings: GameSettings, parser: ChatParser) {
         // Menu Bar
         // FIXME:
-        parser.addOnLoadedCallback(FrameManager.menuBarIcon)
-        parser.addOnLoadedCallback(FrameManager.menuBarDialog)
+        parser.onLoadListeners += FrameManager.menuBarIcon
+        parser.onLoadListeners += FrameManager.menuBarDialog
         parser.addDndListener(FrameManager.menuBarIcon)
         parser.addDndListener(FrameManager.menuBarDialog)
     }
@@ -120,11 +127,13 @@ class CombinedChatParser : TradeListener, ChatScannerListener, ParserRestartList
     override fun onParserRestart() {
         println("PARSERS RESTARTED!!!")
         parsersRestarted++
+
     }
 
     /** Posts a LOADED event after all expected chat parsers have loaded. */
     override fun onParserLoaded(dnd: Boolean) {
         parserLoadedCount++
+        println("Loaded Parser($parserLoadedCount)")
         if (parserLoadedCount == expectedParserCount) {
             App.parserEvent.post(ParserEventType.LOADED)
             println("PARSERS LOADED!!!")

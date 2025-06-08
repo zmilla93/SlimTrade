@@ -55,7 +55,7 @@ public class FrameManager {
     public static StashSearchWindow combinedSearchWindow;
     public static SetupWindow setupWindow;
     public static UpdateProgressWindow updateProgressWindow;
-    public static RoadMapWindow roadMapWindow;
+    public static RoadmapWindow roadMapWindow;
     public static MoverDialog testMoverDialog;
 
     // Debug Windows
@@ -94,7 +94,7 @@ public class FrameManager {
         stashGridWindow = new StashGridWindow();
         tutorialWindow = new TutorialWindow();
         patchNotesWindow = new PatchNotesWindow();
-        roadMapWindow = new RoadMapWindow();
+        roadMapWindow = new RoadmapWindow();
         dummyWindow = new DummyWindow(); // Omitted from visibility list
         // FIXME : Remove debug window
         debugWindow = new DebugWindow();
