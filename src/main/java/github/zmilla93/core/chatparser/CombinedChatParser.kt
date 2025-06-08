@@ -10,6 +10,7 @@ import github.zmilla93.gui.managers.FrameManager
 /**
  * Runs a chat parser for each game.
  */
+// FIXME @important : Make sure chat parsers are fully closed and reopened
 class CombinedChatParser : TradeListener, ChatScannerListener, JoinedAreaListener {
 
     var chatParserPoe1: ChatParser? = null
@@ -107,9 +108,7 @@ class CombinedChatParser : TradeListener, ChatScannerListener, JoinedAreaListene
         tradeListeners.forEach { it.handleTrade(tradeOffer, loaded) }
     }
 
-    override fun onScannerMessage(
-        entry: ChatScannerEntry, message: PlayerMessage, loaded: Boolean
-    ) {
+    override fun onScannerMessage(entry: ChatScannerEntry, message: PlayerMessage, loaded: Boolean) {
         chatScannerListeners.forEach { it.onScannerMessage(entry, message, loaded) }
     }
 

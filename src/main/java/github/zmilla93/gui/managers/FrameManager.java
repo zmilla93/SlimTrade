@@ -55,6 +55,7 @@ public class FrameManager {
     public static StashSearchWindow combinedSearchWindow;
     public static SetupWindow setupWindow;
     public static UpdateProgressWindow updateProgressWindow;
+    public static RoadMapWindow roadMapWindow;
     public static MoverDialog testMoverDialog;
 
     // Debug Windows
@@ -93,6 +94,7 @@ public class FrameManager {
         stashGridWindow = new StashGridWindow();
         tutorialWindow = new TutorialWindow();
         patchNotesWindow = new PatchNotesWindow();
+        roadMapWindow = new RoadMapWindow();
         dummyWindow = new DummyWindow(); // Omitted from visibility list
         // FIXME : Remove debug window
         debugWindow = new DebugWindow();
@@ -155,6 +157,7 @@ public class FrameManager {
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         if (App.showHistoryOnLaunch) historyWindow.setVisible(true);
         messageManager.setVisible(true);
+        roadMapWindow.setVisible(true);
         updateMenubarVisibility();
     }
 

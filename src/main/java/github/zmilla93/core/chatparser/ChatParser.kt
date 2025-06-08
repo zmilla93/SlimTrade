@@ -3,6 +3,7 @@ package github.zmilla93.core.chatparser
 import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.data.PlayerMessage
+import github.zmilla93.core.event.TradeEvent
 import github.zmilla93.core.managers.AudioManager
 import github.zmilla93.core.managers.SaveManager
 import github.zmilla93.core.poe.Game
@@ -217,6 +218,7 @@ class ChatParser(// Settings
         }
         // Handle trade
         for (listener in tradeListeners) listener.handleTrade(offer, tailer!!.isLoaded)
+        App.parserEvent.post(TradeEvent(offer, tailer!!.isLoaded))
         return true
     }
 

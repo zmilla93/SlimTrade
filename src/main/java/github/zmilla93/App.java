@@ -2,10 +2,11 @@ package github.zmilla93;
 
 import github.zmilla93.core.References;
 import github.zmilla93.core.chatparser.ChatParser;
-import github.zmilla93.core.chatparser.ChatParserManager;
+import github.zmilla93.core.chatparser.CombinedChatParser;
 import github.zmilla93.core.enums.AppState;
 import github.zmilla93.core.enums.CurrencyType;
 import github.zmilla93.core.enums.SetupPhase;
+import github.zmilla93.core.event.EventBus;
 import github.zmilla93.core.jna.GlobalKeyboardListener;
 import github.zmilla93.core.jna.GlobalMouseListener;
 import github.zmilla93.core.jna.GlobalMouseWheelListener;
@@ -21,6 +22,7 @@ import github.zmilla93.gui.windows.LoadingWindow;
 import github.zmilla93.gui.windows.TutorialWindow;
 import github.zmilla93.modules.stopwatch.Stopwatch;
 import github.zmilla93.modules.theme.ThemeManager;
+import github.zmilla93.modules.updater.PatchNotesManager;
 import github.zmilla93.modules.updater.UpdateAction;
 import github.zmilla93.modules.updater.UpdateManager;
 import github.zmilla93.modules.updater.ZLogger;
@@ -53,6 +55,7 @@ public class App {
 
     public static ChatParser chatParserPoe1;
     public static ChatParser chatParserPoe2;
+    public static CombinedChatParser chatParser = new CombinedChatParser();
 
     private static AppInfo appInfo;
     private static AppState state = AppState.LOADING;
@@ -79,8 +82,11 @@ public class App {
     public static final boolean debugProfileLaunch = false; // No flag: prints some profiling info during app launch
     public static String debugOptionPanelName = null; // No flag: prints some profiling info during app launch
 
+    public static EventBus parserEvent = new EventBus();
+
     public static void main(String[] args) {
         parseLaunchArgs(args);
+
 
         /// Lock file to prevent duplicate instances
         lockManager = new LockManager(SaveManager.getSaveDirectory(), "app.lock");
@@ -119,6 +125,9 @@ public class App {
         // FIXME: is this correct spot for fresh? Or after UI init for callbacks? Or both? (maybe an alertBounds() function for after)
         POEWindow.forceGameBoundsRefresh();
         profileLaunch("Time to start update");
+
+        // FIXME : TEMP
+        PatchNotesManager.INSTANCE.patchNotesMyMinor();
 
         /// Update
         updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory(), getAppInfo(), getAppInfo().appVersion.isPreRelease);
@@ -251,8 +260,8 @@ public class App {
             SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
 
         HotkeyManager.loadHotkeys();
+        chatParser.restartChatParsers();
         App.setState(AppState.RUNNING);
-        ChatParserManager.initChatParsers();
     }
 
     public static AppInfo getAppInfo() {

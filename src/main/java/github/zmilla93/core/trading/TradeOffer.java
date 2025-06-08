@@ -236,4 +236,26 @@ public class TradeOffer extends ClientMessage {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "TradeOffer{" +
+                "offerType=" + offerType +
+                ", message='" + message + '\'' +
+                ", guildName='" + guildName + '\'' +
+                ", playerName='" + playerName + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", itemNameLower='" + itemNameLower + '\'' +
+                ", itemQuantity=" + itemQuantity +
+                ", itemQuantityString='" + itemQuantityString + '\'' +
+                ", priceName='" + priceName + '\'' +
+                ", priceQuantity=" + priceQuantity +
+                ", stashTabName='" + stashTabName + '\'' +
+                ", stashTabX=" + stashTabX +
+                ", stashTabY=" + stashTabY +
+                ", bonusText='" + bonusText + '\'' +
+                ", stashTabColor=" + stashTabColor +
+                ", isBulkTrade=" + isBulkTrade +
+                ", saleItems=" + saleItems +
+                '}';
+    }
 }

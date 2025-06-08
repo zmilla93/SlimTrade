@@ -9,6 +9,7 @@ import github.zmilla93.core.data.IgnoreItemData;
 import github.zmilla93.core.data.PlayerMessage;
 import github.zmilla93.core.enums.ExpandDirection;
 import github.zmilla93.core.enums.MatchType;
+import github.zmilla93.core.event.TradeEvent;
 import github.zmilla93.core.hotkeys.HotkeyData;
 import github.zmilla93.core.managers.AudioManager;
 import github.zmilla93.core.managers.SaveManager;
@@ -130,6 +131,12 @@ public class MessageManager extends BasicDialog implements TradeListener, ChatSc
         App.chatParser.getTradeListeners().add(this);
         App.chatParser.getChatScannerListeners().add(this);
         App.chatParser.getJoinedAreaListeners().add(this);
+        App.parserEvent.subscribe(TradeEvent.class, it -> {
+            System.out.println("Trade Event: " + it);
+            handleTrade(it);
+            return null;
+        });
+//        App.parserEvent.subscribe(TradeEvent.class, );
 //        parser.addTradeListener(FrameManager.messageManager)
 //        parser.addChatScannerListener(FrameManager.messageManager)
 //        parser.addJoinedAreaListener(FrameManager.messageManager)
@@ -499,6 +506,11 @@ public class MessageManager extends BasicDialog implements TradeListener, ChatSc
     private void handlePlayerJoinedArea(NotificationPanel panel) {
         AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
         panel.setPlayerJoinedArea();
+    }
+
+    public void handleTrade(TradeEvent event) {
+        if (!event.isLoaded()) return;
+        SwingUtilities.invokeLater(() -> addMessage(event.getTradeOffer()));
     }
 
     @Override
