@@ -4,6 +4,7 @@ import github.zmilla93.core.References
 import github.zmilla93.core.utility.FileUtil
 import github.zmilla93.core.utility.MarkdownParser
 import github.zmilla93.modules.data.HashMapList
+import github.zmilla93.modules.updater.PatchNotesManager.localPatchNotes
 import github.zmilla93.modules.updater.data.AppVersion
 import java.io.File
 import java.util.*
@@ -20,14 +21,11 @@ object PatchNotesManager {
     private val SUFFIX =
         "*Want to report a bug or give feedback? Post on [GitHub](" + References.GITHUB_ISSUES_URL + ") or join the [Discord](" + References.DISCORD_INVITE + ")!*"
 
-
     fun patchNotesByMajor(): HashMapList<Int, PatchNotesEntry> {
         val map = HashMapList<Int, PatchNotesEntry>()
         getPatchNotes().forEach {
             map.put(it.appVersion.major, it)
         }
-        println("MAJOR")
-        println(map)
         return map
     }
 
@@ -36,12 +34,6 @@ object PatchNotesManager {
         getPatchNotes().forEach {
             map.put(it.appVersion.minorGroupTag, it)
         }
-        map.entries.forEach {
-            println("Key: ${it.key}")
-            println("Value: ${it.value}")
-        }
-//        println("MINOR")
-//        println(map)
         return map
     }
 
@@ -53,25 +45,21 @@ object PatchNotesManager {
         return localPatchNotes
     }
 
+    /** Load patch notes from resources into [localPatchNotes]*/
     fun readLocalPatchNotes() {
-//        val entries = ArrayList<PatchNotesEntry>()
         if (localPatchNotes.isNotEmpty()) return
         val patchNotesResource = PatchNotesManager.javaClass.getResource("/$patchNotesFolderName")
         if (patchNotesResource == null) throw RuntimeException("Resource folder '$patchNotesFolderName' not found.")
         val patchNotesFile = File(patchNotesResource.file)
-        patchNotesFile.listFiles().forEach {
-//            println(it.name)
+        patchNotesFile.listFiles().sortedBy { it.name }.reversed().forEach {
             val version = AppVersion(it.nameWithoutExtension)
             val contents = FileUtil.resourceAsString("$patchNotesFolderName/${it.name}")
-//            println(contents)
-//            localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension))
-//            println("VER: " + version.minor + ":" + version.patch)
             val cleanPatchNotes = getCleanPatchNotes(version, contents, false)
             localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
         }
-//        return entries
     }
 
+    /** Convert GitHub Markdown to HTML */
     fun getCleanPatchNotes(version: AppVersion?, body: String, addExtraInfo: Boolean): String {
         val lines = body.split("(\\n|\\\\r\\\\n)".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val builder = StringBuilder()

@@ -1,5 +1,6 @@
 package github.zmilla93.gui.managers;
 
+import github.zmilla93.App;
 import github.zmilla93.core.audio.SoundComponent;
 import github.zmilla93.core.chatparser.IChatScannerListener;
 import github.zmilla93.core.chatparser.IJoinedAreaListener;
@@ -126,6 +127,12 @@ public class MessageManager extends BasicDialog implements ITradeListener, IChat
         addListeners();
         ThemeManager.addFontListener(this);
         SaveManager.settingsSaveFile.addListener(this);
+        App.chatParser.getTradeListeners().add(this);
+        App.chatParser.getChatScannerListeners().add(this);
+        App.chatParser.getJoinedAreaListeners().add(this);
+//        parser.addTradeListener(FrameManager.messageManager)
+//        parser.addChatScannerListener(FrameManager.messageManager)
+//        parser.addJoinedAreaListener(FrameManager.messageManager)
     }
 
     private void addListeners() {

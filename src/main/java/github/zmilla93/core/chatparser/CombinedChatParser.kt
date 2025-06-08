@@ -16,10 +16,10 @@ class CombinedChatParser {
     var currentZone: String = "The Twilight Strand"
 
     // Listeners - POE Game Events
-    private val tradeListeners = ArrayList<ITradeListener>()
-    private val chatScannerListeners = ArrayList<IChatScannerListener>()
-    private val joinedAreaListeners = ArrayList<IJoinedAreaListener>()
-    private val dndListeners = ArrayList<IDndListener>()
+    val tradeListeners = ArrayList<ITradeListener>()
+    val chatScannerListeners = ArrayList<IChatScannerListener>()
+    val joinedAreaListeners = ArrayList<IJoinedAreaListener>()
+    val dndListeners = ArrayList<IDndListener>()
 
     fun restartChatParsers() {
         val shouldOpenPoe1Parser = shouldParserOpen(SaveManager.settingsSaveFile.data.settingsPoe1)
@@ -61,18 +61,10 @@ class CombinedChatParser {
         if (settings.notInstalled) return
         if (!settings.doesClientLogExist()) return
         val parser = ChatParser(settings.game)
-//        if (settings.isPoe1) {
-//            chatParserPoe1 = ChatParser(settings.game)
-//            parser = chatParserPoe1
-//        } else {
-//            chatParserPoe2 = ChatParser(settings.game)
-//            parser = chatParserPoe2
-//        }
-//        if (parser == null) return
         addParserListeners(settings, parser)
-//        parser.tradeListeners.addAll(tradeListeners)
-//        parser.chatScannerListeners.addAll(chatScannerListeners)
-//        parser.joinedAreaListeners.addAll(joinedAreaListeners)
+        parser.tradeListeners.addAll(tradeListeners)
+        parser.chatScannerListeners.addAll(chatScannerListeners)
+        parser.joinedAreaListeners.addAll(joinedAreaListeners)
 //        parser.dndListeners.addAll(dndListeners)
         parser.open(settings.clientPath)
     }
@@ -98,9 +90,9 @@ class CombinedChatParser {
             parser.addTradeListener(FrameManager.historyWindow.outgoingTradesPoe2)
         }
         // Message Manager
-        parser.addTradeListener(FrameManager.messageManager)
-        parser.addChatScannerListener(FrameManager.messageManager)
-        parser.addJoinedAreaListener(FrameManager.messageManager)
+//        parser.addTradeListener(FrameManager.messageManager)
+//        parser.addChatScannerListener(FrameManager.messageManager)
+//        parser.addJoinedAreaListener(FrameManager.messageManager)
         // Menu Bar
         parser.addOnLoadedCallback(FrameManager.menuBarIcon)
         parser.addOnLoadedCallback(FrameManager.menuBarDialog)
