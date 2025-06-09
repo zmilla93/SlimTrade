@@ -47,7 +47,7 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
         val anchor = gc.anchor
         gc.weightx = 0.0
         gc.anchor = GridBagConstraints.CENTER
-        gc.fill = GridBagConstraints.NORTH
+        gc.fill = GridBagConstraints.NONE
         add(comp)
         gc.weightx = weightx
         gc.fill = fill
@@ -82,8 +82,8 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
         gc.weighty = weightY
     }
 
-    fun strut() {
-        add(Box.createVerticalStrut(strutSize))
+    fun strut(size: Int = strutSize) {
+        add(Box.createVerticalStrut(size))
     }
 
     fun verticalStrutSmall() {

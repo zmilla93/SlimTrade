@@ -46,6 +46,9 @@ object ThemeManager {
     private val iconMap = HashMap<String?, ImageIcon?>()
     private val colorIconMap = HashMap<String?, ImageIcon?>()
 
+    val textColor: Color get() = UIManager.getColor("Label.foreground")
+    val backgroundColor: Color get() = UIManager.getColor("Panel.background")
+
     @JvmField
     val TRANSPARENT: Color = Color(0, 0, 0, 0)
 
@@ -132,6 +135,7 @@ object ThemeManager {
         for (i in stickyCombos.indices) {
             stickyCombos.get(i)!!.setSelectedIndex(comboIcons[i])
         }
+        print("Set Theme: $theme")
         for (listener in themeListeners) {
             listener.onThemeChange()
         }
@@ -459,14 +463,33 @@ object ThemeManager {
     //
     // Utility Color Functions
     //
-    fun getDarkerColor(colorA: Color, colorB: Color): Color {
-        if (colorIntValue(colorA) < colorIntValue(colorB)) return colorA
+//    fun getDarkerColor(colorA: Color, colorB: Color): Color {
+//        if (colorIntValue(colorA) < colorIntValue(colorB)) return colorA
+//        return colorB
+//    }
+
+    @JvmStatic
+    @Deprecated("Use getBrighterColor")
+    fun getLighterColor(colorA: Color, colorB: Color): Color {
+        if (colorIntValue(colorA) > colorIntValue(colorB)) return colorA
         return colorB
     }
 
-    @JvmStatic
-    fun getLighterColor(colorA: Color, colorB: Color): Color {
-        if (colorIntValue(colorA) > colorIntValue(colorB)) return colorA
+    fun getBrighterColor(colorA: Color, colorB: Color): Color {
+        val brightnessA = getBrightness(colorA)
+        val brightnessB = getBrightness(colorB)
+        if (brightnessA > brightnessB) {
+            println("A")
+            return colorA
+        }
+        println("B")
+        return colorB
+    }
+
+    fun getDarkerColor(colorA: Color, colorB: Color): Color {
+        val brightnessA = getBrightness(colorA)
+        val brightnessB = getBrightness(colorB)
+        if (brightnessA < brightnessB) return colorA
         return colorB
     }
 

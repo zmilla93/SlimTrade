@@ -195,8 +195,9 @@ public class App {
         else ZUtil.invokeAndWait(App::launchApp);
 
         ZUtil.invokeAndWait(() -> {
-            loadingWindow.setVisible(false);
-            loadingWindow.dispose();
+            // FIXME @important: Dispose loading window temp disabled
+//            loadingWindow.setVisible(false);
+//            loadingWindow.dispose();
         });
 
         if (debugProfileLaunch) ZLogger.log("Profiling launch complete!\n");

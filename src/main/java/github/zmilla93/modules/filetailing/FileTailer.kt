@@ -9,7 +9,7 @@ import java.nio.file.Path
  * Simple file tailer implementation.
  */
 class FileTailer(
-    path: Path?,
+    path: Path,
     isPathRelative: Boolean,
     private val listener: FileTailerListener,
     private val delay: Int,
@@ -55,7 +55,7 @@ class FileTailer(
          */
         @JvmStatic
         fun createTailer(
-            path: Path?,
+            path: Path,
             isPathRelative: Boolean,
             listener: FileTailerListener,
             delay: Int,
