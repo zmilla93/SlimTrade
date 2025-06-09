@@ -1,35 +1,31 @@
 package github.zmilla93.core.chatparser
 
 import github.zmilla93.App
-import github.zmilla93.core.data.PlayerMessage
 import github.zmilla93.core.event.ParserEventType
 import github.zmilla93.core.managers.SaveManager
+import github.zmilla93.core.poe.Game
 import github.zmilla93.core.poe.GameSettings
-import github.zmilla93.core.trading.TradeOffer
-import github.zmilla93.gui.chatscanner.ChatScannerEntry
 import github.zmilla93.gui.managers.FrameManager
 
 /**
  * Runs a chat parser for each game.
  */
 // FIXME @important : Make sure chat parsers are fully closed and reopened
-class CombinedChatParser : TradeListener, ChatScannerListener, ParserRestartListener, ParserLoadedListener {
+class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
 
     var chatParserPoe1: ChatParser? = null
     var chatParserPoe2: ChatParser? = null
 
     // FIXME : Zone should be handled via listeners, quick fix for now
+    /** The game with the most recent chat log timestamp. */
+    var currentGame: Game = Game.PATH_OF_EXILE_1
+        private set
+
+    // FIXME : Use timestamp
+    /** The last zone the player entered. */
     var currentZone: String = "The Twilight Strand"
 
-    // Listeners - POE Game Events
-    val tradeListeners = ArrayList<TradeListener>()
-    val chatScannerListeners = ArrayList<ChatScannerListener>()
-    val playerJoinedAreaListeners = ArrayList<PlayerJoinedAreaListener>()
-    val dndListeners = ArrayList<DndListener>()
-    var parsersRestarted = 0
-        @Synchronized set
-    var parserLoadedCount = 0
-        @Synchronized set
+    private var parserLoadedCount = 0 @Synchronized set
     var expectedParserCount = 0
 
     /**
@@ -116,32 +112,13 @@ class CombinedChatParser : TradeListener, ChatScannerListener, ParserRestartList
         parser.addDndListener(FrameManager.menuBarDialog)
     }
 
-    override fun handleTrade(tradeOffer: TradeOffer, loaded: Boolean) {
-        tradeListeners.forEach { it.handleTrade(tradeOffer, loaded) }
-    }
-
-    override fun onScannerMessage(entry: ChatScannerEntry, message: PlayerMessage, loaded: Boolean) {
-        chatScannerListeners.forEach { it.onScannerMessage(entry, message, loaded) }
-    }
-
-    override fun onParserRestart() {
-        println("PARSERS RESTARTED!!!")
-        parsersRestarted++
-
-    }
+    override fun onParserRestart() {}
 
     /** Posts a LOADED event after all expected chat parsers have loaded. */
+    @Synchronized
     override fun onParserLoaded(dnd: Boolean) {
         parserLoadedCount++
-        println("Loaded Parser($parserLoadedCount)")
-        if (parserLoadedCount == expectedParserCount) {
-            App.parserEvent.post(ParserEventType.LOADED)
-            println("PARSERS LOADED!!!")
-        }
+        if (parserLoadedCount == expectedParserCount) App.parserEvent.post(ParserEventType.LOADED)
     }
-
-//    override fun onJoinedArea(playerName: String) {
-//        playerJoinedAreaListeners.forEach { it.onJoinedArea(playerName) }
-//    }
 
 }

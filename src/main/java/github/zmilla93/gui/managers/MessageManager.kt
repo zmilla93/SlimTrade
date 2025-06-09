@@ -1,9 +1,6 @@
 package github.zmilla93.gui.managers
 
 import github.zmilla93.App
-import github.zmilla93.core.chatparser.ChatScannerListener
-import github.zmilla93.core.chatparser.PlayerJoinedAreaListener
-import github.zmilla93.core.chatparser.TradeListener
 import github.zmilla93.core.data.IgnoreItemData
 import github.zmilla93.core.data.PlayerMessage
 import github.zmilla93.core.enums.ExpandDirection
@@ -38,18 +35,10 @@ import kotlin.math.floor
 import kotlin.math.roundToInt
 
 /**
- * This window displays all popup notifications.
- *
- * @see NotificationPanel
- *
- * @see TradeMessagePanel
- *
- * @see ChatScannerMessagePanel
- *
- * @see UpdateMessagePanel
+ * Container for various popup notifications.
+ * See [NotificationPanel], [TradeMessagePanel], [ChatScannerMessagePanel] [UpdateMessagePanel].
  */
-class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, PlayerJoinedAreaListener, IFontChangeListener,
-    ISaveListener {
+class MessageManager : BasicDialog(), IFontChangeListener, ISaveListener {
     private val gc: GridBagConstraints
     private val messageContainer: JPanel
     private val messageWrapperPanel: JPanel
@@ -126,16 +115,9 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
         addListeners()
         ThemeManager.addFontListener(this)
         SaveManager.settingsSaveFile.addListener(this)
-        App.chatParser.tradeListeners.add(this)
-        App.chatParser.chatScannerListeners.add(this)
-        App.chatParser.playerJoinedAreaListeners.add(this)
         App.parserEvent.subscribe(TradeEvent::class.java) { handleTrade(it) }
         App.parserEvent.subscribe(PlayerJoinedAreaEvent::class.java) { onJoinedArea(it) }
         App.parserEvent.subscribe(ChatScannerEvent::class.java) { onScannerMessage(it) }
-        //        App.parserEvent.subscribe(TradeEvent.class, );
-//        parser.addTradeListener(FrameManager.messageManager)
-//        parser.addChatScannerListener(FrameManager.messageManager)
-//        parser.addJoinedAreaListener(FrameManager.messageManager)
     }
 
     private fun addListeners() {
@@ -491,63 +473,35 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
         currentlyUsingTabs = SaveManager.settingsSaveFile.data.useMessageTabs
     }
 
-    private fun handlePlayerJoinedArea(panel: NotificationPanel) {
-        AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound)
-        panel.setPlayerJoinedAreaColor()
-    }
+//    private fun handlePlayerJoinedArea(panel: NotificationPanel) {
+//        AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.playerJoinedAreaSound)
+//        panel.setPlayerJoinedAreaColor()
+//    }
 
     fun handleTrade(event: TradeEvent) {
         if (!event.isLoaded) return
-        SwingUtilities.invokeLater { addMessage(event.tradeOffer) }
-    }
-
-    @Deprecated("switch to event")
-    override fun handleTrade(tradeOffer: TradeOffer, loaded: Boolean) {
-        if (!loaded) return
-        SwingUtilities.invokeLater { addMessage(tradeOffer) }
+        addMessage(event.tradeOffer)
     }
 
     fun onScannerMessage(event: ChatScannerEvent) {
         if (!event.loaded) return
-        SwingUtilities.invokeLater { addScannerMessage(event.entry, event.message) }
+        addScannerMessage(event.entry, event.message)
     }
-
-    @Deprecated("switch to event")
-    override fun onScannerMessage(entry: ChatScannerEntry, message: PlayerMessage, loaded: Boolean) {
-        if (!loaded) return
-        SwingUtilities.invokeLater { addScannerMessage(entry, message) }
-    }
-
-//    @Deprecated("switch to event")
-//    override fun onJoinedArea(playerName: String) {
-//        SwingUtilities.invokeLater {
-//            for (comp in this.messageComponents!!) {
-//                var panelPlayerName: String? = null
-//                if (comp is TradeMessagePanel) {
-//                    panelPlayerName = comp.tradeOffer.playerName
-//                } else if (comp is ChatScannerMessagePanel) {
-//                    panelPlayerName = comp.playerMessage.player
-//                }
-//                if (panelPlayerName == null) continue
-//                if (panelPlayerName == playerName) (comp as NotificationPanel).markPlayerJoined()
-//            }
-//        }
-//    }
 
     fun onJoinedArea(event: PlayerJoinedAreaEvent) {
         if (!event.loaded) return
-        SwingUtilities.invokeLater {
-            for (comp in this.messageComponents!!) {
-                var panelPlayerName: String? = null
-                if (comp is TradeMessagePanel) {
-                    panelPlayerName = comp.tradeOffer.playerName
-                } else if (comp is ChatScannerMessagePanel) {
-                    panelPlayerName = comp.playerMessage.player
-                }
-                if (panelPlayerName == null) continue
-                if (panelPlayerName == event.playerName) (comp as NotificationPanel).markPlayerJoined()
+
+        for (comp in this.messageComponents!!) {
+            var panelPlayerName: String? = null
+            if (comp is TradeMessagePanel) {
+                panelPlayerName = comp.tradeOffer.playerName
+            } else if (comp is ChatScannerMessagePanel) {
+                panelPlayerName = comp.playerMessage.player
             }
+            if (panelPlayerName == null) continue
+            if (panelPlayerName == event.playerName) (comp as NotificationPanel).markPlayerJoined()
         }
+
     }
 
     override fun onFontChanged() {
@@ -556,10 +510,6 @@ class MessageManager : BasicDialog(), TradeListener, ChatScannerListener, Player
 
     override fun onSave() {
         setDisplayMode(SaveManager.settingsSaveFile.data.useMessageTabs)
-    }
-
-    override fun onJoinedArea(playerName: String) {
-        
     }
 
     companion object {

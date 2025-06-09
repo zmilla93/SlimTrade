@@ -13,13 +13,13 @@ import github.zmilla93.core.managers.SaveManager
 import github.zmilla93.core.poe.Game
 import github.zmilla93.core.trading.TradeOffer
 import github.zmilla93.core.trading.TradeOfferType
-import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.saving.ISaveListener
 import java.awt.BorderLayout
 import javax.swing.JPanel
 import javax.swing.JScrollPane
 import javax.swing.SwingConstants
+import javax.swing.SwingUtilities
 import javax.swing.table.DefaultTableCellRenderer
 
 /**
@@ -92,15 +92,17 @@ class HistoryPanel(val game: Game, tradeOfferType: TradeOfferType) : JPanel(), I
     }
 
     override fun handleTrade(tradeOffer: TradeOffer, loaded: Boolean) {
+        assert(SwingUtilities.isEventDispatchThread())
         if (tradeOffer.offerType != tradeOfferType) return
-        ZUtil.invokeLater { addRow(tradeOffer, loaded) }
+        addRow(tradeOffer, loaded)
     }
 
     fun onTrade(tradeEvent: TradeEvent) {
+        assert(SwingUtilities.isEventDispatchThread())
         val tradeOffer = tradeEvent.tradeOffer
         if (tradeOffer.offerType != tradeOfferType) return
         if (tradeOffer.game != game) return
-        ZUtil.invokeLater { addRow(tradeOffer, tradeEvent.isLoaded) }
+        addRow(tradeOffer, tradeEvent.isLoaded)
     }
 
     // FIXME : Remove

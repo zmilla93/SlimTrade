@@ -1,50 +1,70 @@
 package github.zmilla93.gui.windows
 
-import github.zmilla93.gui.components.CustomScrollPane
+import github.zmilla93.gui.components.BoxPanel
 import github.zmilla93.gui.components.HTMLTextArea
-import github.zmilla93.gui.options.AbstractOptionPanel
+import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.GridBagConstraints
+import java.awt.Insets
+import javax.swing.JLabel
+import javax.swing.JProgressBar
 
 class RoadmapWindow : CustomDialog("Roadmap") {
 
-    val panel = AbstractOptionPanel()
-
     init {
-
-        panel.addHeader("Spare some currency?")
-        panel.addFullWidthComponent(
-            HTMLTextArea(
-                "SlimTrade takes a lot of time to develop, and a man's gotta eat.<br>" +
-                        "Consider supporting on <a href=''>Patreon</a>. An occasional $1 can really add up with thousands of users."
-            )
-        )
-//        panel.addFullWidthComponent(JLabel("The road to 1.0.0..."))
-        panel.addVerticalStrut()
-        panel.addHeader("The road to 1.0.0...")
-        panel.addFullWidthComponent(HTMLTextArea("Here's some things I'd like to do. Not all features are promised, and depend on interest/support."))
-
-        contentPanel.layout = BorderLayout()
-//        contentPanel.layout = GridBagLayout()
-        val gc = GridBagConstraints()
-        gc.weightx = 1.0
-        gc.weighty = 1.0
-        gc.fill = GridBagConstraints.BOTH
+        // Content Panel
         contentPanel.background = Color.RED
-//        contentPanel.add(panel, gc)
-//        contentPanel.add(panel, BorderLayout.CENTER)
-        contentPanel.add(
-            CustomScrollPane(
-                HTMLTextArea(
-                    "SlimTrade takes a lot of time to develop, and a man's gotta eat.<br>" +
-                            "Consider supporting on <a href=''>Patreon</a>! An occasional $1 can really add up with thousands of users."
-                )
-            ), BorderLayout.CENTER
-        )
+        contentPanel.layout = BorderLayout()
+        contentPanel.add(RoadmapPanel(), BorderLayout.NORTH)
         pack()
         size = Dimension(600, 800)
+    }
+
+    class RoadmapPanel : BoxPanel() {
+
+        val t = "&nbsp;&nbsp;"
+
+        val minorFeatures = "- Currency stack conversion, ie \"173c [8s+13]\"<br>" +
+                "- Menubar customization<br>" +
+                "- Improve macro system - Switch chat channel, custom phrases<br>" +
+                "- Improve cheat sheets - Borderless, resizable, transparency<br>" +
+                "- URL Bookmarks - Save useful links, optionally give them a hotkey or add them to the menubar<br>" +
+                "- Dozens of small QOL, UI improvements, and bug fixes"
+
+        val majorFeatures = "" +
+                "- Customizable alert system<br>" +
+                "$t- Triggers like zone change, level ups, per character tracking (ie leveling )<br>" +
+                "$t- Map speedrunning timer<br>"
+
+        init {
+            header("Spare some currency?", 14)
+            add(
+                HTMLTextArea(
+                    "SlimTrade takes a lot of time to develop, and a man's gotta eat.<br>" +
+                            "<a href=''>Consider supporting me, especially on Patreon!</a> An occasional $1 really adds up when a lot of people do it. :)<br>"
+                )
+            )
+            verticalStrut()
+            val progressBar = JProgressBar()
+            progressBar.maximum = 500
+            progressBar.value = 8
+            addCenter(JLabel("Patreon Goal: 8 / 500").bold())
+            val insetX = 20
+            val insetY = 2
+            addWithInset(progressBar, Insets(insetY, insetX, insetY, insetX))
+            verticalStrut()
+            header("The road to 1.0.0...")
+            htmlLabel("SlimTrade is in a decent state, so what now... Nothing? More Tools? UI rework? <i>A full rebrand?!</i>")
+            label("These are currently ideas and not promises. Results depend on feedback.").bold()
+            verticalStrut()
+            header("Minor Feature Ideas")
+            add(HTMLTextArea(minorFeatures))
+            verticalStrut()
+            header("Major Feature Ideas")
+            add(HTMLTextArea(majorFeatures))
+        }
+
     }
 
 

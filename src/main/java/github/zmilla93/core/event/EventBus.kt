@@ -1,5 +1,7 @@
 package github.zmilla93.core.event
 
+import javax.swing.SwingUtilities
+
 class EventBus {
 
     private val listeners = mutableMapOf<Class<*>, MutableList<(Any) -> Unit>>()
@@ -17,7 +19,9 @@ class EventBus {
 
     @Synchronized
     fun post(event: Any) {
-        listeners[event::class.java]?.forEach { it(event) }
+        SwingUtilities.invokeLater {
+            listeners[event::class.java]?.forEach { it(event) }
+        }
     }
 
 }
