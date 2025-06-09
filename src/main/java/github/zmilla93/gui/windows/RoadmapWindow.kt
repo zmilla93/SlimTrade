@@ -19,6 +19,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         contentPanel.add(RoadmapPanel(), BorderLayout.NORTH)
         pack()
         size = Dimension(600, 800)
+        setLocationRelativeTo(null)
     }
 
     class RoadmapPanel : BoxPanel() {
@@ -38,6 +39,9 @@ class RoadmapWindow : CustomDialog("Roadmap") {
                 "$t- Map speedrunning timer<br>"
 
         init {
+            strutSize = 26
+
+            /** Patreon blurb */
             header("Spare some currency?", 14)
             add(
                 HTMLTextArea(
@@ -45,22 +49,28 @@ class RoadmapWindow : CustomDialog("Roadmap") {
                             "<a href=''>Consider supporting me, especially on Patreon!</a> An occasional $1 really adds up when a lot of people do it. :)<br>"
                 )
             )
-            verticalStrut()
+            strut()
             val progressBar = JProgressBar()
             progressBar.maximum = 500
             progressBar.value = 8
-            addCenter(JLabel("Patreon Goal: 8 / 500").bold())
+            addCenter(JLabel("Current Patreon Goal: 8 / 500").bold())
             val insetX = 20
             val insetY = 2
             addWithInset(progressBar, Insets(insetY, insetX, insetY, insetX))
-            verticalStrut()
+            strut()
+
+            /** Road to 1.0.0. */
             header("The road to 1.0.0...")
             htmlLabel("SlimTrade is in a decent state, so what now... Nothing? More Tools? UI rework? <i>A full rebrand?!</i>")
-            label("These are currently ideas and not promises. Results depend on feedback.").bold()
-            verticalStrut()
+            label("These are ideas and not promises. Results depend on feedback.").bold()
+            strut()
+
+            /** Minor Features */
             header("Minor Feature Ideas")
             add(HTMLTextArea(minorFeatures))
-            verticalStrut()
+            strut()
+
+            /** Major Features */
             header("Major Feature Ideas")
             add(HTMLTextArea(majorFeatures))
         }

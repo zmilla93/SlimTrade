@@ -50,7 +50,7 @@ public class DisplayOptionPanel extends AbstractOptionPanel implements ISavable 
 
     private void addListeners() {
         themeCombo.addActionListener(e -> SwingUtilities.invokeLater(() -> ThemeManager.setTheme((Theme) themeCombo.getSelectedItem())));
-        colorBlindCheckBox.addItemListener(e -> ThemeManager.setColorblindMode(colorBlindCheckBox.isSelected()));
+        colorBlindCheckBox.addItemListener(e -> ThemeManager.INSTANCE.setColorblindMode(colorBlindCheckBox.isSelected()));
     }
 
     @Override

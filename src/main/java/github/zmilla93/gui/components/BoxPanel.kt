@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder
 open class BoxPanel(inset: Int = 10) : JPanel() {
 
     val gc: GridBagConstraints = ZUtil.getGC()
+    var strutSize = 16
+    var headerSize = 26
 
     init {
         border = LineBorder(Color.RED)
@@ -63,7 +65,7 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
     }
 
     fun header(text: String, headerSize: Int = 0) {
-        val header = JLabel(text).fontSize(14).bold()
+        val header = JLabel(text).fontSize(24).bold()
         if (headerSize > 0) header.fontSize(headerSize)
         add(header)
         separator()
@@ -78,6 +80,10 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
         add(JSeparator(JSeparator.HORIZONTAL))
         gc.fill = fill
         gc.weighty = weightY
+    }
+
+    fun strut() {
+        add(Box.createVerticalStrut(strutSize))
     }
 
     fun verticalStrutSmall() {
