@@ -1,10 +1,14 @@
-- Roadmap Panel
 - Patreon Panel
+    - Patreon Nameplace
+    - Paypal Nameplate
+- Roadmap Panel
+- Flat/Colored Buttons?
+- Build and run jar - patch notes are broken due to trying to iterate file
 
 + Get restarting when toggling poe1 on and off working
 + Remove old parser events
 - DnD event?
-    - Need to add timestamping
+    - Need to add timestamping-
 + Fix history reloading
 + Disable forced parser restart
 + Have EventBus emit from EDT by default

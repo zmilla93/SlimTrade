@@ -55,7 +55,7 @@ class LoadingSplashWindow(appInfo: AppInfo) : BasicDialog(), IDefaultSizeAndLoca
         val textWidth = labelPanel.preferredSize.width
         val textHeight = labelPanel.preferredSize.height
         // Adjust the label slightly down
-        val labelYAdjust = 0
+        val labelYAdjust = 10
         val labelX = (imgWidth / 2) - textWidth / 2
         val labelY = (imgHeight / 2) - textHeight / 2
         labelPanel.bounds = Rectangle(labelX, labelY + labelYAdjust, textWidth, textHeight)

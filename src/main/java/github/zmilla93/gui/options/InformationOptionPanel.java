@@ -13,6 +13,7 @@ public class InformationOptionPanel extends AbstractOptionPanel {
     // Utility
     private final JButton tutorialButton = new JButton("Tutorial");
     private final JButton patchNotesButton = new JButton("Patch Notes");
+    private final JButton roadmapButton = new JButton("Roadmap");
     private final JButton settingsFolderButton = new JButton("Settings Folder");
     private final JButton logsFolderButton = new JButton("Logs Folder");
 //    private final JButton openClientButton = new JButton("Open Client.txt");
@@ -33,6 +34,8 @@ public class InformationOptionPanel extends AbstractOptionPanel {
         utilityPanel.add(tutorialButton, gc);
         gc.gridy++;
         utilityPanel.add(patchNotesButton, gc);
+        gc.gridy++;
+        utilityPanel.add(roadmapButton, gc);
         gc.gridy++;
         utilityPanel.add(settingsFolderButton, gc);
         gc.gridy++;

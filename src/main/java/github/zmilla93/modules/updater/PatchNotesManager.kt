@@ -47,16 +47,21 @@ object PatchNotesManager {
 
     /** Load patch notes from resources into [localPatchNotes]*/
     fun readLocalPatchNotes() {
-        if (localPatchNotes.isNotEmpty()) return
-        val patchNotesResource = PatchNotesManager.javaClass.getResource("/$patchNotesFolderName")
-        if (patchNotesResource == null) throw RuntimeException("Resource folder '$patchNotesFolderName' not found.")
-        val patchNotesFile = File(patchNotesResource.file)
-        patchNotesFile.listFiles().sortedBy { it.name }.reversed().forEachIndexed { i, it ->
-            val version = AppVersion(it.nameWithoutExtension)
-            if (version.isPreRelease && !App.getAppInfo().appVersion.isPreRelease) return@forEachIndexed
-            val contents = FileUtil.resourceAsString("$patchNotesFolderName/${it.name}")
-            val cleanPatchNotes = getCleanPatchNotes(version, contents, i == 0)
-            localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
+        try {
+            if (localPatchNotes.isNotEmpty()) return
+            val patchNotesResource = PatchNotesManager.javaClass.getResource("/$patchNotesFolderName")
+            if (patchNotesResource == null) throw RuntimeException("Resource folder '$patchNotesFolderName' not found.")
+            val patchNotesFile = File(patchNotesResource.file)
+            patchNotesFile.listFiles().sortedBy { it.name }.reversed().forEachIndexed { i, it ->
+                val version = AppVersion(it.nameWithoutExtension)
+                if (version.isPreRelease && !App.getAppInfo().appVersion.isPreRelease) return@forEachIndexed
+                val contents = FileUtil.resourceAsString("$patchNotesFolderName/${it.name}")
+                val cleanPatchNotes = getCleanPatchNotes(version, contents, i == 0)
+                localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
+            }
+        } catch (e: Exception) {
+            // FIXME @important : This
+            System.err.println("Error reading local patch notes!")
         }
     }
 

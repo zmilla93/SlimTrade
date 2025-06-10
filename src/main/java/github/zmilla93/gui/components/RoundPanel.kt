@@ -6,7 +6,7 @@ import java.awt.RenderingHints
 import javax.swing.JPanel
 
 
-class RoundPanel : JPanel() {
+open class RoundPanel : JPanel() {
 
     var arc = RoundBorder.DEFAULT_ARC
         set(value) {
