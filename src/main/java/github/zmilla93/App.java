@@ -18,7 +18,7 @@ import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.managers.SetupManager;
 import github.zmilla93.gui.managers.SystemTrayManager;
 import github.zmilla93.gui.pinning.PinManager;
-import github.zmilla93.gui.windows.LoadingWindow;
+import github.zmilla93.gui.windows.LoadingSplashWindow;
 import github.zmilla93.gui.windows.TutorialWindow;
 import github.zmilla93.modules.stopwatch.Stopwatch;
 import github.zmilla93.modules.theme.ThemeManager;
@@ -49,7 +49,7 @@ public class App {
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
     public static GlobalMouseWheelListener globalMouseWheelListener;
-    private static LoadingWindow loadingWindow;
+    private static LoadingSplashWindow loadingSplashWindow;
     private static LockManager lockManager;
     public static UpdateManager updateManager;
 
@@ -149,8 +149,8 @@ public class App {
             Stopwatch.start();
             SwingUtilities.invokeAndWait(() -> {
                 initializeThemes();
-                loadingWindow = new LoadingWindow(getAppInfo());
-                loadingWindow.setVisible(true);
+                loadingSplashWindow = new LoadingSplashWindow(getAppInfo());
+                loadingSplashWindow.setVisible(true);
             });
             profileLaunch("ThemeManager");
         } catch (InterruptedException | InvocationTargetException e) {
@@ -196,8 +196,8 @@ public class App {
 
         ZUtil.invokeAndWait(() -> {
             // FIXME @important: Dispose loading window temp disabled
-//            loadingWindow.setVisible(false);
-//            loadingWindow.dispose();
+            loadingSplashWindow.setVisible(false);
+            loadingSplashWindow.dispose();
         });
 
         if (debugProfileLaunch) ZLogger.log("Profiling launch complete!\n");

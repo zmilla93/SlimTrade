@@ -12,12 +12,11 @@ import github.zmilla93.modules.updater.data.AppInfo
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
 import io.github.zmilla93.modules.theme.UIProperty.FontSizeExtensions.fontSize
 import java.awt.*
-import javax.swing.BorderFactory
 import javax.swing.ImageIcon
 import javax.swing.JLabel
 import javax.swing.JLayeredPane
 
-class LoadingWindow(appInfo: AppInfo) : BasicDialog(), IDefaultSizeAndLocation {
+class LoadingSplashWindow(appInfo: AppInfo) : BasicDialog(), IDefaultSizeAndLocation {
 
     val image = ImageUtil.resourceImage("/league/sota/LoadingSplash.png")
     val imageLabel = JLabel(ImageIcon(image))
@@ -55,6 +54,7 @@ class LoadingWindow(appInfo: AppInfo) : BasicDialog(), IDefaultSizeAndLocation {
 
         val textWidth = labelPanel.preferredSize.width
         val textHeight = labelPanel.preferredSize.height
+        // Adjust the label slightly down
         val labelYAdjust = 0
         val labelX = (imgWidth / 2) - textWidth / 2
         val labelY = (imgHeight / 2) - textHeight / 2
@@ -65,7 +65,7 @@ class LoadingWindow(appInfo: AppInfo) : BasicDialog(), IDefaultSizeAndLocation {
         contentPanel.setLayout(GridBagLayout())
 
         contentPanel.add(backgroundPanel)
-        contentPanel.border = BorderFactory.createLineBorder(Color.RED)
+//        contentPanel.border = BorderFactory.createLineBorder(Color.RED)
 
         minimumSize = Dimension(image.getWidth(null), image.getHeight(null))
         pack()

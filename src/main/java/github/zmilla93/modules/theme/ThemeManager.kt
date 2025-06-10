@@ -135,7 +135,6 @@ object ThemeManager {
         for (i in stickyCombos.indices) {
             stickyCombos.get(i)!!.setSelectedIndex(comboIcons[i])
         }
-        print("Set Theme: $theme")
         for (listener in themeListeners) {
             listener.onThemeChange()
         }

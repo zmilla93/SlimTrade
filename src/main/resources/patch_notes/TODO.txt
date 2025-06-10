@@ -1,3 +1,6 @@
+- Roadmap Panel
+- Patreon Panel
+
 + Get restarting when toggling poe1 on and off working
 + Remove old parser events
 - DnD event?

@@ -4,6 +4,7 @@ import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ImageUtil
 import github.zmilla93.gui.components.BoxPanel
 import github.zmilla93.gui.components.CustomScrollPane
+import github.zmilla93.gui.components.HTMLLabel
 import github.zmilla93.gui.components.HTMLTextArea
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
 import io.github.zmilla93.modules.theme.UIProperty.FontSizeExtensions.fontSize
@@ -11,6 +12,8 @@ import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Insets
+import java.awt.event.ComponentAdapter
+import java.awt.event.ComponentEvent
 import javax.swing.*
 
 class RoadmapWindow : CustomDialog("Roadmap") {
@@ -19,14 +22,37 @@ class RoadmapWindow : CustomDialog("Roadmap") {
     init {
         val roadmapPanel = RoadmapPanel()
         // Content Panel
-//        contentPanel.background = Color.RED
         contentPanel.layout = BorderLayout()
+
+        val boxPanel = BoxPanel()
+        boxPanel.add(HTMLLabel("Here's some long HTML!!! Check it out it is just a bunch of text!!!!!!!!! It just goes and goes and goes!"))
+        boxPanel.add(HTMLLabel("Here's some long HTML!!! Check it out it is just a bunch of text!!!!!!!!! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes!"))
+        boxPanel.add(HTMLLabel("Here's some long HTML!!! Check it out it is just a bunch of text!!!!!!!!! It just goes and goes and goes!"))
+        boxPanel.add(HTMLLabel("Here's some long HTML!!! Check it out it is just a bunch of text!!!!!!!!! It just goes and goes and goes!"))
+
+        val mainPanel = JPanel(BorderLayout())
+        mainPanel.add(CustomScrollPane(roadmapPanel), BorderLayout.NORTH)
+
+        contentPanel.add(HeaderPanel(), BorderLayout.NORTH)
         contentPanel.add(CustomScrollPane(roadmapPanel), BorderLayout.CENTER)
         pack()
         size = Dimension(600, 800)
         setLocationRelativeTo(null)
         POEWindow.centerWindow(this)
         roadmapPanel.limit()
+    }
+
+    class HeaderPanel : BoxPanel() {
+        init {
+            /** Header */
+            strut(10)
+            val headerLabel = JLabel("SlimTrade Roadmap").fontSize(30).bold()
+            headerLabel.icon = ImageIcon(ImageUtil.scaledImage("/league/sota/POELogo.png", 25))
+//            addCenter(JLabel(ImageIcon(image)))
+            addCenter(headerLabel)
+//            addCenter(ComponentPanel(JLabel("SlimTrade Roadmap").fontSize(30).bold()))
+            strut()
+        }
     }
 
     class RoadmapPanel : BoxPanel() {
@@ -38,14 +64,22 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         init {
             strutSize = 20
 
+            addComponentListener(object : ComponentAdapter() {
+                override fun componentResized(e: ComponentEvent?) {
+                    println("Parent resized to: ${size.width} x ${size.height}")
+                    limit()
+//                    revalidate()
+                }
+            })
+
             /** Header */
-            strut(10)
-            val headerLabel = JLabel("SlimTrade Roadmap").fontSize(30).bold()
-            headerLabel.icon = ImageIcon(ImageUtil.scaledImage("/league/sota/POELogo.png", 25))
-//            addCenter(JLabel(ImageIcon(image)))
-            addCenter(headerLabel)
-//            addCenter(ComponentPanel(JLabel("SlimTrade Roadmap").fontSize(30).bold()))
-            strut()
+//            strut(10)
+//            val headerLabel = JLabel("SlimTrade Roadmap").fontSize(30).bold()
+//            headerLabel.icon = ImageIcon(ImageUtil.scaledImage("/league/sota/POELogo.png", 25))
+////            addCenter(JLabel(ImageIcon(image)))
+//            addCenter(headerLabel)
+////            addCenter(ComponentPanel(JLabel("SlimTrade Roadmap").fontSize(30).bold()))
+//            strut()
 
             /** Patreon blurb */
             val htmlText = HTMLTextArea(
@@ -61,7 +95,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 //            wrapPanel.maximumSize = Dimension(400, 9999)
 //            wrapPanel.preferredSize = Dimension(400, -1)
             header("Spare some currency?")
-            addCenter(wrapPanel)
+            add(wrapPanel)
             strut()
             val progressBar = JProgressBar()
             progressBar.maximum = 500
@@ -74,7 +108,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
             /** Road to 1.0.0. */
             header("The road to 1.0.0...")
-//            htmlLabel("SlimTrade is feel... Nothing? More Tools? UI rework? <i>A full rebrand?!</i>")
+            htmlLabel("SlimTrade is feel... Nothing? More Tools? UI rework? <i>A full rebrand?!</i>")
             label("These are ideas and not promises. Results depend on feedback.").bold()
             strut()
 
@@ -96,6 +130,11 @@ class RoadmapWindow : CustomDialog("Roadmap") {
     }
 
     class LimitPanel : JPanel() {
+
+        init {
+            background = Color.CYAN
+        }
+
         override fun getMaximumSize(): Dimension? {
             print("SIZE: ${parent.size}")
             return parent.size
@@ -115,7 +154,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             }
             if (pref != null) {
                 if (parent.width < pref.width) pref.width = parent.width
-                if (parent.height < pref.height) pref.height = parent.height
+//                if (parent.height < pref.height) pref.height = parent.height
             }
             println("modpref: " + pref)
             super.setPreferredSize(pref)
@@ -123,7 +162,10 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
         fun limit() {
             val widthBuffer = 50
-            preferredSize = Dimension(1000, 100)
+            preferredSize = null
+            val prefHeight = preferredSize.height
+            println("Pref height: $prefHeight")
+            preferredSize = Dimension(40, prefHeight)
             val root = SwingUtilities.getWindowAncestor(this) as JDialog
             val parent = root
             val pref = preferredSize
@@ -133,7 +175,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             val heightLimit = 9999
             if (pref != null) {
                 if (pref.width > widthLimit) pref.width = widthLimit
-                if (pref.height > heightLimit) pref.height = heightLimit
+//                if (pref.height > heightLimit) pref.height = heightLimit
             }
 //            pref.width = 40
             println("pref2:" + pref)
