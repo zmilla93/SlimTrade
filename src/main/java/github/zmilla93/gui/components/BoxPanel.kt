@@ -24,6 +24,7 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
         gc.weightx = 1.0
         gc.weighty = 0.0
         gc.fill = GridBagConstraints.HORIZONTAL
+//        gc.anchor = GridBagConstraints.WEST
         border = EmptyBorder(inset, inset, inset, inset)
     }
 

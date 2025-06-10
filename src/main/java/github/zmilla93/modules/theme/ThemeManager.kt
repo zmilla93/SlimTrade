@@ -132,6 +132,7 @@ object ThemeManager {
         }
         patchTheme()
         updateAllComponentTrees()
+        updateUIProperties()
         for (i in stickyCombos.indices) {
             stickyCombos.get(i)!!.setSelectedIndex(comboIcons[i])
         }
@@ -142,15 +143,17 @@ object ThemeManager {
 
     /** Call this anytime [UIProperty]s need to be reevaluated or reapplied. */
     fun updateUIProperties() {
-        updateAllComponents {
+        updateAllComponents { comp ->
             // FIXME @important : Check if default font size is enabled
-            // Apply default font size
-            it.font = it.font.deriveFont(FontManager.fontSize.toFloat())
+            /** Apply default font size (and any other global defaults that get added) */
+            comp.font = comp.font.deriveFont(FontManager.fontSize.toFloat())
+            /** Check for and apply any [UIProperty]s */
             for (prop in UIProperty.entries) {
-                val value = UIProperty.getProperty<Any>(it, prop)
+                val value = UIProperty.getProperty<Any>(comp, prop)
                 if (value != null) {
+                    println("Found prop: $prop]")
                     // Apply UI Property
-                    prop.runner.applyProperty(it, value)
+                    prop.runner.applyProperty(comp, value)
                 }
             }
         }

@@ -10,7 +10,7 @@ import github.zmilla93.gui.components.CurrencyLabelFactory;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.stash.StashHelperBulkWrapper;
 import github.zmilla93.gui.stash.StashHelperPanel;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -40,7 +40,7 @@ public class TradeMessagePanel extends NotificationPanel {
         JPanel itemPanel = new JPanel();
         itemPanel.setOpaque(false);
         boolean forceText = tradeOffer.getItems().size() <= 1;
-        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.game, tradeOffer.getItems(), ThemeColor.BUTTON_FOREGROUND, forceText);
+        CurrencyLabelFactory.applyItemToComponent(itemPanel, tradeOffer.game, tradeOffer.getItems(), OLD_ThemeColor.BUTTON_FOREGROUND, forceText);
         itemButton.add(itemPanel);
         CurrencyLabelFactory.applyItemToComponent(pricePanel, tradeOffer.game, new SaleItem(tradeOffer.priceName, tradeOffer.priceQuantity).toArrayList());
         // Message type specific stuff

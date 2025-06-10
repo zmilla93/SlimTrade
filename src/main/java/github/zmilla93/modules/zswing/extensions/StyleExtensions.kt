@@ -1,7 +1,9 @@
 package github.zmilla93.modules.zswing.extensions
 
 import java.awt.Font
+import javax.swing.JComponent
 import javax.swing.JLabel
+import javax.swing.border.Border
 
 object StyleExtensions {
 
@@ -20,6 +22,11 @@ object StyleExtensions {
     /** Sets a [JLabel] to italic. */
     fun JLabel.italic(): JLabel {
         font = font.deriveFont(font.style or Font.ITALIC)
+        return this
+    }
+
+    fun JComponent.border(border: Border?): JComponent {
+        this.border = border
         return this
     }
 

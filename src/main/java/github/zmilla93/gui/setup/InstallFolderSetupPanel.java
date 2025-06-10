@@ -6,7 +6,7 @@ import github.zmilla93.core.poe.PoeClientPathCheck;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.poe.POEFolderPicker;
 import github.zmilla93.gui.components.poe.POEInstallFolderExplanationPanel;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 
 import javax.swing.*;
 import java.nio.file.Path;
@@ -54,15 +54,15 @@ public class InstallFolderSetupPanel extends AbstractSetupPanel {
         if (path == null) {
             Path[] validDirectories = picker.createDuplicatePathPanels(false);
             if (validDirectories.length == 0)
-                picker.setErrorText("Auto detection of install folder failed.", ThemeColor.DENY);
+                picker.setErrorText("Auto detection of install folder failed.", OLD_ThemeColor.DENY);
             else if (validDirectories.length == 1) {
                 picker.setSelectedPath(validDirectories[0]);
-                picker.setErrorText("Install folder auto detected.", ThemeColor.APPROVE);
+                picker.setErrorText("Install folder auto detected.", OLD_ThemeColor.APPROVE);
             } else
-                picker.setErrorText("Multiple install folders detected, select the correct one.", ThemeColor.INDETERMINATE);
+                picker.setErrorText("Multiple install folders detected, select the correct one.", OLD_ThemeColor.INDETERMINATE);
         } else {
             PoeClientPathCheck validator = PoeClientPathCheck.validateInstallFolder(path);
-            if (validator.status != ThemeColor.APPROVE) picker.createDuplicatePathPanels(true);
+            if (validator.status != OLD_ThemeColor.APPROVE) picker.createDuplicatePathPanels(true);
         }
     }
 

@@ -5,6 +5,7 @@ enum class PayPalTier(val amount: String, val image: String) {
     ONE("$1", "/poe1/icons/Orb of Alchemy.png"),
     FIVE("$5", "/poe1/icons/Chaos Orb.png"),
     TEN("$10", "/poe1/icons/Exalted Orb.png"),
-    TWENTY("$20", "/poe1/icons/Divine Orb.png")
+    TWENTY("$20", "/poe1/icons/Divine Orb.png"),
+    FIFTY("$50", "/poe1/icons/Warlord's Exalted Orb.png"),
 
 }

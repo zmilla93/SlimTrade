@@ -18,7 +18,7 @@ import github.zmilla93.gui.components.CurrencyLabelFactory;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.ThemePanel;
 import github.zmilla93.gui.managers.FrameManager;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 import github.zmilla93.modules.theme.components.ColorPanel;
 
 import javax.swing.*;
@@ -36,9 +36,9 @@ public abstract class NotificationPanel extends ColorPanel {
     protected final NotificationButton playerNameButton = new NotificationButton("Placeholder Player Name");
     protected final ThemePanel pricePanel;
     protected final NotificationButton itemButton = new NotificationButton();
-    protected final ThemePanel timerPanel = new ThemePanel(ThemeColor.BUTTON_BACKGROUND, new BorderLayout());
+    protected final ThemePanel timerPanel = new ThemePanel(OLD_ThemeColor.BUTTON_BACKGROUND, new BorderLayout());
     protected final JButton closeButton = new NotificationIconButton(DefaultIcon.CLOSE);
-    private final JLabel timerLabel = new ThemeLabel(ThemeColor.BUTTON_FOREGROUND, "0s");
+    private final JLabel timerLabel = new ThemeLabel(OLD_ThemeColor.BUTTON_FOREGROUND, "0s");
     private final ButtonRow closeButtonRow;
 
     // Container Panels
@@ -64,7 +64,7 @@ public abstract class NotificationPanel extends ColorPanel {
     protected boolean createListeners;
     private boolean playerJoinedArea;
 
-    protected final ThemeColor messageColor;
+    protected final OLD_ThemeColor messageColor;
 
     // Timer
     private Timer timer;
@@ -74,19 +74,19 @@ public abstract class NotificationPanel extends ColorPanel {
 
     private final HashMap<HotkeyData, IHotkeyAction> hotkeyMap = new HashMap<>();
 
-    public NotificationPanel(ThemeColor messageColor, ArrayList<MacroButton> macros) {
+    public NotificationPanel(OLD_ThemeColor messageColor, ArrayList<MacroButton> macros) {
         this(messageColor, macros, ButtonRow.TOP_ROW);
     }
 
-    public NotificationPanel(ThemeColor messageColor, ArrayList<MacroButton> macros, ButtonRow closeButtonRow) {
+    public NotificationPanel(OLD_ThemeColor messageColor, ArrayList<MacroButton> macros, ButtonRow closeButtonRow) {
         this(messageColor, macros, closeButtonRow, true);
     }
 
-    public NotificationPanel(ThemeColor messageColor, ArrayList<MacroButton> macros, boolean createListeners) {
+    public NotificationPanel(OLD_ThemeColor messageColor, ArrayList<MacroButton> macros, boolean createListeners) {
         this(messageColor, macros, ButtonRow.TOP_ROW, createListeners);
     }
 
-    public NotificationPanel(ThemeColor messageColor, ArrayList<MacroButton> macros, ButtonRow closeButtonRow, boolean createListeners) {
+    public NotificationPanel(OLD_ThemeColor messageColor, ArrayList<MacroButton> macros, ButtonRow closeButtonRow, boolean createListeners) {
         this.messageColor = messageColor;
         this.macros = macros;
         this.closeButtonRow = closeButtonRow;

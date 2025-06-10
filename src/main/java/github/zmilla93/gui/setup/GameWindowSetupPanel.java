@@ -10,7 +10,7 @@ import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.detection.GameDetectionButton;
 import github.zmilla93.gui.options.AbstractOptionPanel;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 
 import javax.swing.*;
 
@@ -53,12 +53,12 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
 
         // Monitor Panel
         monitorPanel.addHeader("Monitor Selection");
-        monitorPanel.addComponent(new ThemeLabel(ThemeColor.INDETERMINATE, "Requires using Windowed Fullscreen"));
+        monitorPanel.addComponent(new ThemeLabel(OLD_ThemeColor.INDETERMINATE, "Requires using Windowed Fullscreen"));
         monitorPanel.addComponent(monitorPicker);
 
         // Screen Region Panel
         screenRegionPanel.addHeader("Screen Region");
-        screenRegionPanel.addComponent(new ThemeLabel(ThemeColor.INDETERMINATE, "Coming soon (maybe)."));
+        screenRegionPanel.addComponent(new ThemeLabel(OLD_ThemeColor.INDETERMINATE, "Coming soon (maybe)."));
         screenRegionPanel.addLabel("Only required for windowed mode if other options fail.");
         screenRegionPanel.addLabel("If this affects you, report on GitHub or Discord.");
 

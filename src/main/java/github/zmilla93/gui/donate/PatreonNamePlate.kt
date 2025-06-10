@@ -9,7 +9,7 @@ import javax.swing.BorderFactory
 import javax.swing.JLabel
 import javax.swing.JPanel
 
-class PatreonNamePlate(name: String, tier: PatreonTier) : JPanel() {
+class PatreonNamePlate(patron: PatreonSupporter) : JPanel() {
 
     var fontSize = 16
     val insetX = 10
@@ -17,10 +17,11 @@ class PatreonNamePlate(name: String, tier: PatreonTier) : JPanel() {
 
     init {
         // Label
-        val label = JLabel(name).bold()
-        label.foreground = tier.foreground
-        background = tier.background
-        border = BorderFactory.createLineBorder(tier.foreground, 2)
+        val label = JLabel(patron.name).bold()
+        var displayTier = if (patron.active) patron.tier else PatreonTier.ZERO
+        label.foreground = displayTier.foreground
+        background = displayTier.background
+        border = BorderFactory.createLineBorder(displayTier.foreground, 2)
         label.fontSize(fontSize)
         // Add
         layout = GridBagLayout()

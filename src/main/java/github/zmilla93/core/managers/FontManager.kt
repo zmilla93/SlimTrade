@@ -53,10 +53,11 @@ object FontManager {
     val MAX_FONT_SIZE = 42
     var fontSize = 12
         set(value) {
+            val previous = field
             if (value < MIN_FONT_SIZE) field = MIN_FONT_SIZE
             if (value > MAX_FONT_SIZE) field = MAX_FONT_SIZE
+            if (value != previous) ThemeManager.updateUIProperties()
             field = value
-            ThemeManager.updateUIProperties()
         }
 
     init {

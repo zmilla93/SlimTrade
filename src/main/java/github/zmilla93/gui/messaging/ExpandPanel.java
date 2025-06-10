@@ -1,12 +1,12 @@
 package github.zmilla93.gui.messaging;
 
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 import github.zmilla93.modules.theme.components.AdvancedButton;
 
 public class ExpandPanel extends NotificationPanel {
 
     public ExpandPanel() {
-        super(ThemeColor.BUTTON_FOREGROUND, null);
+        super(OLD_ThemeColor.BUTTON_FOREGROUND, null);
         playerNameButton.setText("Show Messages");
         bottomContainer.setVisible(false);
         pricePanel.setVisible(false);

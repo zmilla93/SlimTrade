@@ -6,7 +6,8 @@ import java.awt.*;
  * Keys for context specific colors like "Approve" or "Deny". A {@link github.zmilla93.modules.theme.extensions.ThemeExtension}
  * is used to map these keys to actual colors used by a theme.
  */
-public enum ThemeColor {
+@Deprecated // FIXME : Switch to new ThemeColor
+public enum OLD_ThemeColor {
 
     /// Results
     APPROVE, DENY, INDETERMINATE, NEUTRAL,

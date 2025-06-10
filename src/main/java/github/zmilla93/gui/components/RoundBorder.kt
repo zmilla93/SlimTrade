@@ -42,9 +42,9 @@ class RoundBorder(
         g2.color = color ?: UIManager.getColor("Button.startBorderColor")
         g2.stroke = BasicStroke(thickness.toFloat())
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
-
-        val offset = thickness
-        val offsetX2 = offset * 2
+        // FIXME : If this offset is correct, rename and clean up
+        val offset = 0
+        val offsetX2 = thickness
         if (solid) {
             g2.fillRoundRect(
                 x + offset, y + offset,

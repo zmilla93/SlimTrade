@@ -1,12 +1,12 @@
 package github.zmilla93.gui.messaging;
 
 import github.zmilla93.App;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 
 public class UpdateMessagePanel extends NotificationPanel {
 
     public UpdateMessagePanel(String tag) {
-        super(ThemeColor.UPDATE_MESSAGE, null);
+        super(OLD_ThemeColor.UPDATE_MESSAGE, null);
         pricePanel.setVisible(false);
         if (tag != null && App.getAppInfo().appVersion.isPreRelease)
             playerNameButton.setText("SlimTrade " + tag + " Available!");

@@ -5,19 +5,15 @@ import github.zmilla93.core.enums.CurrencyType
 import github.zmilla93.core.utility.ZUtil.getBufferedReader
 import github.zmilla93.core.utility.ZUtil.getGC
 import github.zmilla93.core.utility.ZUtil.openLink
-import github.zmilla93.gui.components.BasicIconLabel
-import github.zmilla93.gui.components.FlowPanel
+import github.zmilla93.gui.components.*
 import github.zmilla93.gui.donate.*
 import github.zmilla93.modules.updater.ZLogger
-import github.zmilla93.modules.zswing.extensions.PanelExtensions.limitWidth
 import java.awt.Color
 import java.awt.FlowLayout
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-import java.awt.event.ComponentAdapter
-import java.awt.event.ComponentEvent
 import java.io.IOException
 import java.util.*
 import javax.swing.JButton
@@ -25,68 +21,58 @@ import javax.swing.JLabel
 import javax.swing.JPanel
 
 class DonationPanel : AbstractOptionPanel() {
+
     private val paypalButton = JButton("PayPal")
     val buttonToFocus: JButton = JButton("Patreon")
     private val supporterPanel = JPanel(GridBagLayout())
     private val supporters: ArrayList<Supporter>
 
+    companion object {
+        val text1 = "Software"
+    }
+
     init {
         supporters = parseSupporters()
         background = Color.RED
 
-        val patreonSupporters = FlowPanel().limitWidth()
+        val patreonSupporters = BoxPanel()
         for (patron in Supporters.patrons)
-            patreonSupporters.add(PatreonNamePlate(patron.name, patron.tier))
+            patreonSupporters.add(PatreonNamePlate(patron))
 
-        val paypalSupporters = FlowPanel().limitWidth()
+        val paypalSupporters = BoxPanel()
         paypalSupporters.background = Color.ORANGE
         for (patron in Supporters.paypal)
             paypalSupporters.add(PayPalNamePlate(patron.name, patron.tier))
 
-        addComponentListener(object : ComponentAdapter() {
-            override fun componentResized(e: ComponentEvent) {
-                super.componentResized(e)
-                for (comp in paypalSupporters.components)
-                    if (comp is JPanel) comp.limitWidth()
-                for (comp in patreonSupporters.components)
-                    if (comp is JPanel) comp.limitWidth()
-            }
-        })
-
-        // Setup panel
-        addHeader("Donating")
-        addComponent(JLabel("If you enjoy using this app, please consider supporting me! Supporters will be added here."))
-        addComponent(JLabel("Contact me if you want your display named changed, or if you'd like to remain anonymous."))
-        addVerticalStrutSmall()
-        addComponent(createButtonPanel())
-        addVerticalStrut()
-        addHeader("Thank You!")
-        addComponent(supporterPanel)
-        addComponent(patreonSupporters)
-        addComponent(paypalSupporters)
-//        addComponent(PatreonNamePlate("Inactive", PatreonTier.ZERO))
-//        addComponent(PatreonNamePlate("$1", PatreonTier.ONE))
-//        addComponent(PatreonNamePlate("$3", PatreonTier.THREE))
-//        addComponent(PatreonNamePlate("$5", PatreonTier.FIVE))
-//        addComponent(PatreonNamePlate("$10", PatreonTier.TEN))
-//
-//        addComponent(PatreonNamePlate("Chris Wolcen", PatreonTier.ZERO))
-//        addComponent(PatreonNamePlate("Chris Wolcen", PatreonTier.ONE))
-//        addComponent(PatreonNamePlate("Chris Wolcen", PatreonTier.THREE))
-//        addComponent(PatreonNamePlate("Chris Wolcen", PatreonTier.FIVE))
-//        addComponent(PatreonNamePlate("Chris Wolcen", PatreonTier.TEN))
-
         // Patreon Tiers
         val patreonTiers = FlowPanel()
-        for (tier in PatreonTier.entries) patreonTiers.add(PatreonNamePlate(tier.amount, tier))
-        addComponent(patreonTiers)
+        for (tier in PatreonTier.entries)
+            patreonTiers.add(PatreonNamePlate(PatreonSupporter(tier.amount, tier, true)))
 
         // Paypal Tiers
         val paypalTiers = JPanel(FlowLayout())
         for (tier in PayPalTier.entries) paypalTiers.add(PayPalNamePlate(tier.amount, tier))
-        addComponent(paypalTiers)
 
-        //        addComponent();
+
+        // Setup panel
+        addHeader("Donating")
+        add(JLabel("If you enjoy using this app, please consider supporting me! Supporters will be added here."))
+        add(JLabel("Contact me if you want your display named changed, or if you'd like to remain anonymous."))
+        val htmlText = HTMLTextArea(
+            "<html>Software development is time consuming, and a man's gotta eat.<br>" +
+                    "<a href=''>Consider supporting me!</a> An occasional dollar really adds up when everyone does it.<br></html>"
+        )
+        add(htmlText)
+        addVerticalStrutSmall()
+        add(createButtonPanel())
+        add(patreonTiers)
+        add(paypalTiers)
+        addVerticalStrut()
+        addHeader("Thank You!")
+//        add(supporterPanel)
+        add(patreonSupporters)
+        add(CustomScrollPane(paypalSupporters))
+
         buildSupporterPanel()
 
         addListeners()

@@ -70,7 +70,6 @@ enum class UIProperty(val runner: UIPropertyApplier<Any>) {
 
     }
 
-
     /** Font Color */
     object FontColorExtensions {
 

@@ -4,7 +4,7 @@ import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.PoeClientPathCheck;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +34,7 @@ public class POEFolderPicker extends FilePicker implements PathChangeListener {
                 refreshComponentVisibility();
             }
         };
-        notInstalledLabel = new ThemeLabel(ThemeColor.INDETERMINATE, "If you ever install " + game.explicitName + ", update this setting.");
+        notInstalledLabel = new ThemeLabel(OLD_ThemeColor.INDETERMINATE, "If you ever install " + game.explicitName + ", update this setting.");
         notInstalledLabel.setVisible(false);
         fileChooser = new POEFileChooser(game);
         JPanel pathWrapperPanel = new JPanel(new BorderLayout());

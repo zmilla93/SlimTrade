@@ -1,32 +1,32 @@
 package github.zmilla93.gui.components.poe;
 
 import github.zmilla93.gui.components.StyledLabel;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 
 //FIXME : Move to theme module once that is updated
 public class ThemeLabel extends StyledLabel {
 
-    private ThemeColor status;
+    private OLD_ThemeColor status;
 
     public ThemeLabel() {
-        this(ThemeColor.NEUTRAL, null);
+        this(OLD_ThemeColor.NEUTRAL, null);
     }
 
-    public ThemeLabel(ThemeColor status) {
+    public ThemeLabel(OLD_ThemeColor status) {
         this(status, null);
     }
 
     public ThemeLabel(String text) {
-        this(ThemeColor.NEUTRAL, text);
+        this(OLD_ThemeColor.NEUTRAL, text);
     }
 
-    public ThemeLabel(ThemeColor status, String text) {
+    public ThemeLabel(OLD_ThemeColor status, String text) {
         this.status = status;
         setText(text);
         updateUI();
     }
 
-    public void setText(ThemeColor status, String text) {
+    public void setText(OLD_ThemeColor status, String text) {
         this.status = status;
         setText(text);
         updateUI();

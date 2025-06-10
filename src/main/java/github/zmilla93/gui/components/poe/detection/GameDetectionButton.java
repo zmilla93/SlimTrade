@@ -7,7 +7,7 @@ import github.zmilla93.core.utility.Platform;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.setup.PoeIdentificationFrame;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class GameDetectionButton extends ComponentPanel implements GameDetection
     public void reset() {
         latestResult = GameDetectionResult.NOT_RUN;
         latestResultWindow = null;
-        resultLabel.setText(ThemeColor.NEUTRAL, GameDetectionResult.NOT_RUN.message);
+        resultLabel.setText(OLD_ThemeColor.NEUTRAL, GameDetectionResult.NOT_RUN.message);
     }
 
     public void addGameDetectionTestListener(GameDetectionTestListener listener) {

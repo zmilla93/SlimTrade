@@ -2,12 +2,12 @@ package github.zmilla93.gui.windows
 
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ImageUtil
-import github.zmilla93.gui.components.BoxPanel
-import github.zmilla93.gui.components.CustomScrollPane
-import github.zmilla93.gui.components.HTMLLabel
-import github.zmilla93.gui.components.HTMLTextArea
+import github.zmilla93.gui.components.*
+import github.zmilla93.modules.zswing.extensions.PanelExtensions.fitParentWidth
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
-import io.github.zmilla93.modules.theme.UIProperty.FontSizeExtensions.fontSize
+import github.zmilla93.modules.zswing.extensions.StyleExtensions.border
+import github.zmilla93.modules.zswing.theme.ThemeColorBlind
+import io.github.zmilla93.modules.theme.UIProperty.FontColorExtensions.textColor
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.Insets
@@ -38,21 +38,24 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         contentPanel.add(HeaderPanel(), BorderLayout.NORTH)
         val wrapper = JPanel(BorderLayout())
         wrapper.add(roadmapPanel, BorderLayout.NORTH)
-        contentPanel.add(CustomScrollPane(wrapper), BorderLayout.CENTER)
+        contentPanel.add(CustomScrollPane(wrapper).border(null), BorderLayout.CENTER)
         pack()
         size = Dimension(600, 800)
         setLocationRelativeTo(null)
         POEWindow.centerWindow(this)
-        roadmapPanel.limit()
+//        roadmapPanel.limit()
     }
 
     class HeaderPanel : BoxPanel() {
         init {
             val gap = 10
             strut(gap)
-            val headerLabel = JLabel("SlimTrade Roadmap").fontSize(30).bold()
-            headerLabel.icon = ImageIcon(ImageUtil.scaledImage("/league/sota/POELogo.png", 20))
-            addCenter(headerLabel)
+//            val combedLabel = JLabel("SlimTrade Roadmap").fontSize(30).bold()
+//            combedLabel.icon = ImageIcon(ImageUtil.scaledImage("/league/sota/POELogo.png", 20))
+            val headerIconLabel = JLabel()
+            val headerTextLabel = HTMLLabel("<span style='font-size:30px;'><b>SlimTrade Roadmap</b></span>")
+            headerIconLabel.icon = ImageIcon(ImageUtil.scaledImage("/league/sota/POELogo.png", 20))
+            addCenter(ComponentPanel(headerIconLabel, headerTextLabel))
             strut(gap)
         }
     }
@@ -80,21 +83,13 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         init {
             strutSize = 20
 
-            addComponentListener(object : ComponentAdapter() {
-                override fun componentResized(e: ComponentEvent?) {
-                    println("Parent resized to: ${size.width} x ${size.height}")
-                    limit()
-//                    revalidate()
-                }
-            })
-
             /** Patreon blurb */
             val htmlText = HTMLTextArea(
                 "<html>Software development is time consuming, and a man's gotta eat.<br>" +
                         "<a href=''>Consider supporting me!</a> An occasional dollar really adds up when everyone does it.<br></html>"
             )
             header("Spare some currency?")
-            add(LimitPanel(htmlText))
+            add(htmlText.fitParentWidth())
             strut(8)
             val progressBar = JProgressBar()
             progressBar.preferredSize = Dimension(0, 10)
@@ -109,29 +104,20 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
             /** Road to 1.0.0. */
             header("The road to 1.0.0...")
-//            htmlLabel("SlimTrade is feel... Nothing? More Tools? UI rework? <i>A full rebrand?!</i>")
-            add(LimitPanel(HTMLTextArea("SlimTrade is feeling close to complete as a Trading App, so what now...")))
-//            add(LimitPanel(HTMLTextArea("SlimTrade original goal as a Trading App is clse to complete, so what now...")))
-            add(LimitPanel(HTMLTextArea("Nothing? Feature reworks? <i>New Tools?</i> <i><b>A full rebrand?!<b></i>")))
-            label("These are ideas, not guarantees. Results depend on feedback!").bold()
+            add(HTMLTextArea("SlimTrade feels close to complete as a Trading App, so what now...").fitParentWidth())
+            add(HTMLTextArea("Nothing? Feature reworks? <i>New Tools?</i> <i><b>A full rebrand?!<b></i>").fitParentWidth())
+            label("These are ideas, not guarantees. Results depend on feedback!").bold().textColor(ThemeColorBlind.RED)
             strut()
 
             /** Minor Features */
             header("Minor Feature Ideas")
-            add(LimitPanel(HTMLTextArea(minorFeatures)))
+            add(HTMLTextArea(minorFeatures).fitParentWidth())
             strut()
 
             /** Major Features */
             header("Major Feature Ideas")
-            add(LimitPanel(HTMLTextArea(majorFeatures)))
+            add(HTMLTextArea(majorFeatures).fitParentWidth())
 
-        }
-
-        fun limit() {
-            // FIXME : Temp
-            for (comp in components) {
-//                if (comp is LimitPanel) comp.limit()
-            }
         }
 
     }
@@ -151,40 +137,40 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
 
         // This gets called as the window resizes
-        override fun setPreferredSize(pref: Dimension?) {
-            println("SET PREF SIZE($pref)")
-            super.setPreferredSize(pref)
-            if (parent == null) return
-            if (pref != null) {
-                if (parent.width < pref.width) {
-                    pref.width = parent.width
-                }
-//                if (parent.height < pref.height) pref.height = parent.height
-            }
-            super.setPreferredSize(pref)
-        }
+//        override fun setPreferredSize(pref: Dimension?) {
+//            println("SET PREF SIZE($pref)")
+//            super.setPreferredSize(pref)
+//            if (parent == null) return
+//            if (pref != null) {
+//                if (parent.width < pref.width) {
+////                    pref.width = parent.width
+//                }
+////                if (parent.height < pref.height) pref.height = parent.height
+//            }
+//            super.setPreferredSize(pref)
+//        }
 
 
-        fun limit() {
-            val widthBuffer = 50
-            preferredSize = null
-            val prefHeight = preferredSize.height
-            println("Pref height: $prefHeight")
-            preferredSize = Dimension(0, prefHeight)
-            val root = SwingUtilities.getWindowAncestor(this) as JDialog
-            val parent = root
-            val pref = preferredSize
-            val widthLimit = parent.width - widthBuffer
-
-            if (pref != null) {
-                if (pref.width > widthLimit) {
-                    println("limit?")
-                    pref.width = widthLimit
-                }
-//                if (pref.height > heightLimit) pref.height = heightLimit
-            }
-//            preferredSize = pref
-        }
+//        fun limit() {
+//            val widthBuffer = 50
+//            preferredSize = null
+//            val prefHeight = preferredSize.height
+//            println("Pref height: $prefHeight")
+//            preferredSize = Dimension(0, prefHeight)
+//            val root = SwingUtilities.getWindowAncestor(this) as JDialog
+//            val parent = root
+//            val pref = preferredSize
+//            val widthLimit = parent.width - widthBuffer
+//
+//            if (pref != null) {
+//                if (pref.width > widthLimit) {
+//                    println("limit?")
+//                    pref.width = widthLimit
+//                }
+////                if (pref.height > heightLimit) pref.height = heightLimit
+//            }
+////            preferredSize = pref
+//        }
     }
 
 

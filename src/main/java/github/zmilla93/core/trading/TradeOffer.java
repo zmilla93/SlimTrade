@@ -8,7 +8,7 @@ import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -223,9 +223,9 @@ public class TradeOffer extends ClientMessage {
     }
 
     /// FIXME : Add support for more types?
-    public ThemeColor getMessageColor() {
-        if (offerType == TradeOfferType.INCOMING_TRADE) return ThemeColor.INCOMING_MESSAGE;
-        else return ThemeColor.OUTGOING_MESSAGE;
+    public OLD_ThemeColor getMessageColor() {
+        if (offerType == TradeOfferType.INCOMING_TRADE) return OLD_ThemeColor.INCOMING_MESSAGE;
+        else return OLD_ThemeColor.OUTGOING_MESSAGE;
     }
 
     public ArrayList<MacroButton> getMacros() {

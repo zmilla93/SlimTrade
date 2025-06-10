@@ -6,7 +6,7 @@ import github.zmilla93.core.enums.ButtonRow;
 import github.zmilla93.core.utility.AdvancedMouseListener;
 import github.zmilla93.core.utility.MacroButton;
 import github.zmilla93.gui.chatscanner.ChatScannerEntry;
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 import github.zmilla93.modules.updater.ZLogger;
 
 import javax.swing.*;
@@ -26,7 +26,7 @@ public class ChatScannerMessagePanel extends NotificationPanel {
 
     public ChatScannerMessagePanel(ChatScannerEntry scannerEntry, PlayerMessage playerMessage, boolean createListeners) {
         // FIXME : Macros
-        super(ThemeColor.SCANNER_MESSAGE, scannerEntry.macros, createListeners);
+        super(OLD_ThemeColor.SCANNER_MESSAGE, scannerEntry.macros, createListeners);
         this.playerMessage = playerMessage;
         if (playerMessage != null) {
             pasteReplacement = new PasteReplacement(playerMessage.message, playerMessage.player);

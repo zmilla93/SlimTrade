@@ -1,6 +1,6 @@
 package github.zmilla93.modules.theme.extensions.themes;
 
-import github.zmilla93.modules.theme.ThemeColor;
+import github.zmilla93.modules.theme.OLD_ThemeColor;
 import github.zmilla93.modules.theme.extensions.ThemeExtension;
 
 /**
@@ -9,7 +9,7 @@ import github.zmilla93.modules.theme.extensions.ThemeExtension;
 public class InvertScannerTextExtension extends ThemeExtension {
 
     public InvertScannerTextExtension() {
-        invertTextColor.add(ThemeColor.SCANNER_MESSAGE);
+        invertTextColor.add(OLD_ThemeColor.SCANNER_MESSAGE);
     }
 
 }

@@ -21,7 +21,7 @@ class Supporters {
             PayPalSupporter("Anthony Rampone", PayPalTier.ONE),
             PayPalSupporter("Anton Oparienko", PayPalTier.ONE),
             PayPalSupporter("casualbox", PayPalTier.TEN),
-            PayPalSupporter("David Stewart", PayPalTier.TWENTY),
+            PayPalSupporter("David Stewart", PayPalTier.FIFTY),
             PayPalSupporter("Ioan Petculescu", PayPalTier.ONE),
             PayPalSupporter("Jason Foster", PayPalTier.TWENTY),
             PayPalSupporter("Jordan Newman", PayPalTier.TWENTY),
@@ -33,7 +33,7 @@ class Supporters {
         )
     }
 
-    class PatreonSupporter(val name: String, val tier: PatreonTier, val active: Boolean = true)
-    class PayPalSupporter(val name: String, val tier: PayPalTier)
+//    class PatreonSupporter(val name: String, val tier: PatreonTier, val active: Boolean = true)
+//    class PayPalSupporter(val name: String, val tier: PayPalTier)
 
 }
