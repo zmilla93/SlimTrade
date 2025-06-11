@@ -3,6 +3,7 @@ package github.zmilla93.modules.zswing.extensions
 import java.awt.Dimension
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
+import java.beans.PropertyChangeEvent
 import javax.swing.JComponent
 import javax.swing.JPanel
 
@@ -18,10 +19,14 @@ object PanelExtensions {
     fun JComponent.fitParentWidth(): JComponent {
         addComponentListener(object : ComponentAdapter() {
             override fun componentResized(e: ComponentEvent) {
-                preferredSize = null
-                preferredSize = Dimension(0, preferredSize.height)
+//                preferredSize = null
+//                preferredSize = Dimension(0, preferredSize.height)
+                fitPanelToParentWidth(this@fitParentWidth)
             }
         })
+        addPropertyChangeListener("ancestor") { evt: PropertyChangeEvent ->
+            fitPanelToParentWidth(this)
+        }
         return this
     }
 
@@ -34,6 +39,12 @@ object PanelExtensions {
             }
         })
         return this
+    }
+
+    fun fitPanelToParentWidth(comp: JComponent): JComponent {
+        comp.preferredSize = null
+        comp.preferredSize = Dimension(0, comp.preferredSize.height)
+        return comp
     }
 
 }

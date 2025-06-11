@@ -16,7 +16,14 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
 
     val gc: GridBagConstraints = ZUtil.getGC()
     var strutSize = 16
-    var headerSize = 26
+    var headerSize = 0
+    var headerInset = 0
+    var leftInset: Int = 0
+//        get() = gc.insets.left
+//        set(value) {
+//            gc.insets.left = value
+//            field = value
+//        }
 
     init {
         border = LineBorder(Color.RED)
@@ -24,19 +31,47 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
         gc.weightx = 1.0
         gc.weighty = 0.0
         gc.fill = GridBagConstraints.HORIZONTAL
+        gc.insets.left = leftInset
 //        gc.anchor = GridBagConstraints.WEST
         border = EmptyBorder(inset, inset, inset, inset)
     }
 
     override fun add(comp: Component): Component {
+        gc.insets.left = leftInset
         super.add(comp, gc)
         gc.gridy++
+        return comp
+    }
+
+    fun addNoInset(comp: Component): Component {
+        gc.insets.left = 0
+        super.add(comp, gc)
+        gc.insets.left = leftInset
+        gc.gridy++
+        return comp
+    }
+
+    fun addWithInset(comp: Component, inset: Int): Component {
+        val prevInset = gc.insets.left
+        gc.insets.left = inset + leftInset
+        add(comp, gc)
+        gc.gridy++
+        gc.insets.left = prevInset
         return comp
     }
 
     fun addWithInset(comp: Component, inset: Insets): Component {
         val prevInset = gc.insets
         gc.insets = inset
+        add(comp, gc)
+        gc.gridy++
+        gc.insets = prevInset
+        return comp
+    }
+
+    fun addWithLeftInset(comp: Component, inset: Int): Component {
+        val prevInset = gc.insets
+        gc.insets = Insets(0, inset, 0, 0)
         add(comp)
         gc.insets = prevInset
         return comp
@@ -65,10 +100,10 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
         return add(HTMLLabel(text)) as HTMLLabel
     }
 
-    fun header(text: String, headerSize: Int = 0) {
-        val header = JLabel(text).fontSize(24).bold()
+    fun header(text: String, headerSize: Int = this.headerSize) {
+        val header = JLabel(text).bold()
         if (headerSize > 0) header.fontSize(headerSize)
-        add(header)
+        addNoInset(header)
         separator()
         verticalStrutSmall()
     }
@@ -78,7 +113,7 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
         val weightY = gc.weighty
         gc.fill = GridBagConstraints.BOTH
         gc.weighty = 1.0
-        add(JSeparator(JSeparator.HORIZONTAL))
+        addNoInset(JSeparator(JSeparator.HORIZONTAL))
         gc.fill = fill
         gc.weighty = weightY
     }

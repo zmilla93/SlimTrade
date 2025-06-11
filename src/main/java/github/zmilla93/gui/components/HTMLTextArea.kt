@@ -10,6 +10,7 @@ class HTMLTextArea(text: String? = null) : JTextPane() {
         isFocusable = false
         contentType = "text/html"
         this.text = text
+        border = null
     }
 
 }

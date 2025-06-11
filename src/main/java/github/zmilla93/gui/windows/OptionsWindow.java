@@ -6,6 +6,7 @@ import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.gui.components.StyledLabel;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
+import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.options.*;
 import github.zmilla93.gui.options.display.DisplayOptionPanel;
 import github.zmilla93.gui.options.poe.PathOfExileOptionPanel;
@@ -187,6 +188,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
     }
 
     public void showDonationPanel() {
+        FrameManager.optionsWindow.setVisible(true);
         optionsList.clearSelection();
         optionsList.setSelectedValue(donationPanel, true);
         showPanel(donationPanel);

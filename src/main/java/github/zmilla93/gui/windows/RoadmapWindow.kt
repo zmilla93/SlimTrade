@@ -1,19 +1,21 @@
 package github.zmilla93.gui.windows
 
+import github.zmilla93.core.References
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ImageUtil
+import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.gui.components.*
+import github.zmilla93.gui.managers.FrameManager
+import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.PanelExtensions.fitParentWidth
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
-import github.zmilla93.modules.zswing.extensions.StyleExtensions.border
 import github.zmilla93.modules.zswing.theme.ThemeColorBlind
 import io.github.zmilla93.modules.theme.UIProperty.FontColorExtensions.textColor
-import java.awt.BorderLayout
-import java.awt.Dimension
-import java.awt.Insets
+import java.awt.*
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 import javax.swing.*
+import javax.swing.event.HyperlinkEvent
 
 class RoadmapWindow : CustomDialog("Roadmap") {
 
@@ -22,28 +24,35 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         // Content Panel
         contentPanel.layout = BorderLayout()
 
-        val boxPanel = BoxPanel()
-        boxPanel.add(HTMLLabel("Here's some long HTML!!! Check it out it is just a bunch of text!!!!!!!!! It just goes and goes and goes!"))
-        boxPanel.add(HTMLLabel("Here's some long HTML!!! Check it out it is just a bunch of text!!!!!!!!! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes! It just goes and goes and goes!"))
-        boxPanel.add(HTMLLabel("Here's some long HTML!!! Check it out it is just a bunch of text!!!!!!!!! It just goes and goes and goes!"))
-        boxPanel.add(HTMLLabel("Here's some long HTML!!! Check it out it is just a bunch of text!!!!!!!!! It just goes and goes and goes!"))
+        val patchNotesButton = JButton("Patch Notes").onClick { FrameManager.patchNotesWindow.isVisible = true }
+        val supportButton = JButton("Support SlimTrade :)").onClick { FrameManager.optionsWindow.showDonationPanel() }
 
-//        val mainPanel = JPanel(BorderLayout())
-//        mainPanel.add(CustomScrollPane(roadmapPanel), BorderLayout.NORTH)
+        val southPanel = JPanel(GridBagLayout())
+        val gc = ZUtil.getGC()
+        val inset = 2
+        gc.insets = Insets(inset, inset, inset, inset)
+        gc.fill = GridBagConstraints.BOTH
+        gc.weightx = 1.0
 
-        val northPanel = JPanel(BorderLayout())
-//        northPanel.add(HeaderPanel(), BorderLayout.NORTH)
-//        northPanel.add(CustomScrollPane(roadmapPanel), BorderLayout.CENTER)
+        southPanel.add(patchNotesButton, gc)
+//        gc.gridy++
+//        gc.insets.top = 0
+        // FIXME : Top/Bottom margin appear slighly off, so subtracting one
+        //  Probably an issue with RoundBorder that needs fixing.
+//        gc.insets.bottom = insetY - 1
+        gc.gridx++
+        gc.insets.left = 0
+        southPanel.add(supportButton, gc)
 
-        contentPanel.add(HeaderPanel(), BorderLayout.NORTH)
         val wrapper = JPanel(BorderLayout())
         wrapper.add(roadmapPanel, BorderLayout.NORTH)
-        contentPanel.add(CustomScrollPane(wrapper).border(null), BorderLayout.CENTER)
+        contentPanel.add(HeaderPanel(), BorderLayout.NORTH)
+        contentPanel.add(CustomScrollPane(wrapper), BorderLayout.CENTER)
+        contentPanel.add(southPanel, BorderLayout.SOUTH)
         pack()
         size = Dimension(600, 800)
         setLocationRelativeTo(null)
         POEWindow.centerWindow(this)
-//        roadmapPanel.limit()
     }
 
     class HeaderPanel : BoxPanel() {
@@ -62,32 +71,62 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
     class RoadmapPanel : BoxPanel() {
 
-        val t = "&nbsp;&nbsp;"
+        val beingWorkedOn = arrayOf(
+            Entry("Converting Java to Kotlin (Faster development, less buggy)"),
+            Entry("Modernizing old code"),
+        )
 
-        val t2 = "&#9;"
+        val improvementIdeas = arrayOf(
+            Entry("Currency stack conversion, ie \"173c [8s+13]\""),
+            Entry("Macros - Switch chat channel, custom phrases"),
+            Entry("Cheat Sheets - Borderless, resizable, transparency, drag & drop"),
+            Entry("Chat Scanner - Regex support"),
+            Entry("Menubar customization"),
+            Entry("Window system rework"),
+            Entry("Discord Revamp"),
+            Entry("UI improvements and cleanup"),
+            Entry("Dozens of small QOL, UI improvements, and bug fixes"),
+        )
 
-        val minorFeatures = "- Currency stack conversion, ie \"173c [8s+13]\"<br>" +
-                "- Menubar customization<br>" +
-                "- Improve macro system - Switch chat channel, custom phrases<br>" +
-                "- Improve cheat sheets - Borderless, resizable, transparency<br>" +
-                "- URL Bookmarks - Save useful links, optionally give them a hotkey or add them to the menubar<br>" +
-                "- Dozens of small QOL, UI improvements, and bug fixes"
-
-        val majorFeatures = "" +
-                "- Customizable alert system<br>" +
-                "$t- Triggers like zone change, level ups, per character tracking (ie leveling )<br>" +
-                "$t- Map speedrunning timer<br>"
-
-//        val wrapPanel = LimitPanel()
+        val newFeatureIdeas = arrayOf(
+            Entry("Rebrand with a new name and new focus on 'poe tool overlay', rather than just trading"),
+            Entry("Mapping & leveling speedrun timer"),
+            Entry("Filter Manager - Drag & drop new filters, delete old filters, auto unzip"),
+            Entry("URL Bookmarks - Save useful links for easy access"),
+            Entry("Quick Wiki - Search common item names, open their wiki page"),
+            Entry("League specific tools"),
+            Entry("Customization Wizard"),
+            Entry("Feature Toggle - Hide unused features to free UI space"),
+            Entry("Customizable Alert System")
+                .sub("Trigger for zone change, level up, npc/boss dialog")
+                .sub("Per character tracking for level progression"),
+            Entry("UI Translations"),
+            Entry("Betrayal cheat sheet maker (likely web based)"),
+            Entry("Website (feature spotlight, downloads, FAQ, guides)"),
+            Entry("Web API for dynamic info"),
+            Entry("POE API integration"),
+            Entry("Native App (.exe, .dbn)")
+                .sub("Installing Java not required")
+                .sub("Run as admin"),
+        )
 
         init {
+            headerSize = 20
             strutSize = 20
+            leftInset = 10
 
             /** Patreon blurb */
+            // FIXME @important: Link to donater page, not patreon directly
             val htmlText = HTMLTextArea(
                 "<html>Software development is time consuming, and a man's gotta eat.<br>" +
-                        "<a href=''>Consider supporting me!</a> An occasional dollar really adds up when everyone does it.<br></html>"
+                        "<a href='${References.PATREON_URL}'>Consider supporting me!</a> An occasional dollar adds up when everyone does it.<br></html>"
             )
+            // FIXME : hyperlink class or extension
+            htmlText.addHyperlinkListener { e: HyperlinkEvent ->
+                if (e.eventType == HyperlinkEvent.EventType.ACTIVATED) {
+                    ZUtil.openLink(e.url.toString())
+                }
+            }
             header("Spare some currency?")
             add(htmlText.fitParentWidth())
             strut(8)
@@ -104,20 +143,49 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
             /** Road to 1.0.0. */
             header("The road to 1.0.0...")
-            add(HTMLTextArea("SlimTrade feels close to complete as a Trading App, so what now...").fitParentWidth())
-            add(HTMLTextArea("Nothing? Feature reworks? <i>New Tools?</i> <i><b>A full rebrand?!<b></i>").fitParentWidth())
-            label("These are ideas, not guarantees. Results depend on feedback!").bold().textColor(ThemeColorBlind.RED)
+//            label("SlimTrade feels close to complete as a Trading App, so what now...")
+            add(
+                HTMLTextArea(
+                    "SlimTrade feels close to complete as a <i>trading tool</i>. " +
+                            "I'm thinking of refocusing the project to be '<i>chat parser and tool overlay</i>'. " +
+                            "<b>This would include a new name, new features, UI rework, and a website.<b>"
+                )
+                    .fitParentWidth()
+            )
+            // FIXME : Switch to ComponentPanel of labels to allow option of no-wrap?
+//            add(HTMLTextArea("Nothing? Improvements? <i>New features?</i> <i><b>A full rebrand?!<b></i>").fitParentWidth())
+            add(JLabel("Thoughts on this idea? I want your feedback!").bold().textColor(ThemeColorBlind.GREEN))
+            add(JButton("Take Poll (8 Questions)"))
             strut()
 
             /** Minor Features */
-            header("Minor Feature Ideas")
-            add(HTMLTextArea(minorFeatures).fitParentWidth())
+            header("Improvement Ideas")
+            label("These are ideas, but will likely happen.").textColor(ThemeColorBlind.YELLOW)
+            addEntryGroup(improvementIdeas)
             strut()
 
-            /** Major Features */
-            header("Major Feature Ideas")
-            add(HTMLTextArea(majorFeatures).fitParentWidth())
+            /** New Features */
+            header("New Ideas")
+            label("These are just ideas, not guarantees.").textColor(ThemeColorBlind.RED)
+            addEntryGroup(newFeatureIdeas)
+            strut()
 
+
+            header("Being Worked On")
+            addEntryGroup(beingWorkedOn)
+            label("This may sound boring (it is), but lays important groundwork for future updates.").bold()
+                .textColor(ThemeColorBlind.YELLOW)
+//            add(HTMLTextArea(majorFeatures).fitParentWidth())
+
+        }
+
+        fun addEntryGroup(entries: Array<Entry>) {
+            for (entry in entries) {
+                add(HTMLLabel("- ${entry.text}").fitParentWidth())
+                for (sub in entry.subentries) {
+                    addWithInset(HTMLLabel("- $sub").fitParentWidth(), 20)
+                }
+            }
         }
 
     }
@@ -135,42 +203,17 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             })
         }
 
+    }
 
-        // This gets called as the window resizes
-//        override fun setPreferredSize(pref: Dimension?) {
-//            println("SET PREF SIZE($pref)")
-//            super.setPreferredSize(pref)
-//            if (parent == null) return
-//            if (pref != null) {
-//                if (parent.width < pref.width) {
-////                    pref.width = parent.width
-//                }
-////                if (parent.height < pref.height) pref.height = parent.height
-//            }
-//            super.setPreferredSize(pref)
-//        }
+    class Entry(val text: String) {
 
+        val subentries = ArrayList<String>()
 
-//        fun limit() {
-//            val widthBuffer = 50
-//            preferredSize = null
-//            val prefHeight = preferredSize.height
-//            println("Pref height: $prefHeight")
-//            preferredSize = Dimension(0, prefHeight)
-//            val root = SwingUtilities.getWindowAncestor(this) as JDialog
-//            val parent = root
-//            val pref = preferredSize
-//            val widthLimit = parent.width - widthBuffer
-//
-//            if (pref != null) {
-//                if (pref.width > widthLimit) {
-//                    println("limit?")
-//                    pref.width = widthLimit
-//                }
-////                if (pref.height > heightLimit) pref.height = heightLimit
-//            }
-////            preferredSize = pref
-//        }
+        fun sub(text: String): Entry {
+            subentries.add(text)
+            return this
+        }
+
     }
 
 
