@@ -2,6 +2,7 @@ package github.zmilla93.gui.windows
 
 import github.zmilla93.App
 import github.zmilla93.core.References
+import github.zmilla93.core.poe.LaunchPopups
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.MarkdownParser
 import github.zmilla93.core.utility.ZUtil
@@ -103,8 +104,19 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
         currentCombo.requestFocus()
 
         showCurrentPanel()
-        setMinimumSize(Dimension(400, 400))
+        minimumSize = Dimension(400, 400)
         pack()
+
+        LaunchPopups.registerFrame(this) { LaunchPopups.markPatchNotes() }
+//        addComponentListener(object : ComponentAdapter() {
+//            override fun componentShown(e: ComponentEvent) {
+//                LaunchPopups.markPatchNotes()
+//            }
+//
+//            override fun componentHidden(e: ComponentEvent?) {
+//                LaunchPopups.tryShowPopups()
+//            }
+//        })
     }
 
     private fun togglePanel() {

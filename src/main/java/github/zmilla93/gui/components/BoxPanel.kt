@@ -121,7 +121,7 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
     fun strut(size: Int = strutSize) {
         add(Box.createVerticalStrut(size))
     }
-    
+
     fun strutSmall() {
         add(Box.createVerticalStrut(GUIReferences.SMALL_INSET))
     }

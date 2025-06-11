@@ -1,10 +1,13 @@
 package github.zmilla93.gui.windows
 
-import github.zmilla93.core.References
+import github.zmilla93.core.poe.LaunchPopups
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ImageUtil
 import github.zmilla93.core.utility.ZUtil
-import github.zmilla93.gui.components.*
+import github.zmilla93.gui.components.BoxPanel
+import github.zmilla93.gui.components.ComponentPanel
+import github.zmilla93.gui.components.CustomScrollPane
+import github.zmilla93.gui.components.HTMLLabel
 import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.PanelExtensions.fitParentWidth
@@ -13,20 +16,18 @@ import github.zmilla93.modules.zswing.theme.ThemeColorBlind
 import io.github.zmilla93.modules.theme.UIProperty.FontColorExtensions.textColor
 import io.github.zmilla93.modules.theme.UIProperty.FontSizeExtensions.fontSize
 import java.awt.*
-import java.awt.event.ComponentAdapter
-import java.awt.event.ComponentEvent
 import javax.swing.*
-import javax.swing.event.HyperlinkEvent
 
 class RoadmapWindow : CustomDialog("Roadmap") {
+
+    val defaultSize = Dimension(700, 910)
 
     init {
         val roadmapPanel = RoadmapPanel()
         // Content Panel
         contentPanel.layout = BorderLayout()
 
-        val patchNotesButton = JButton("Patch Notes").onClick { FrameManager.patchNotesWindow.isVisible = true }
-        val supportButton = JButton("Support SlimTrade :)").onClick { FrameManager.optionsWindow.showDonationPanel() }
+//        val supportButton = JButton("Support SlimTrade :)").onClick { FrameManager.optionsWindow.showDonationPanel() }
 
         val southPanel = JPanel(GridBagLayout())
         val gc = ZUtil.getGC()
@@ -35,15 +36,13 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         gc.fill = GridBagConstraints.BOTH
         gc.weightx = 1.0
 
-        southPanel.add(patchNotesButton, gc)
-//        gc.gridy++
-//        gc.insets.top = 0
-        // FIXME : Top/Bottom margin appear slighly off, so subtracting one
-        //  Probably an issue with RoundBorder that needs fixing.
-//        gc.insets.bottom = insetY - 1
-        gc.gridx++
-        gc.insets.left = 0
-        southPanel.add(supportButton, gc)
+        southPanel.add(JButton("Patch Notes").onClick {
+            isVisible = false
+            FrameManager.patchNotesWindow.isVisible = true
+        }, gc)
+//        gc.gridx++
+//        gc.insets.left = 0
+//        southPanel.add(supportButton, gc)
 
         val wrapper = JPanel(BorderLayout())
         wrapper.add(roadmapPanel, BorderLayout.NORTH)
@@ -51,8 +50,8 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         contentPanel.add(CustomScrollPane(wrapper), BorderLayout.CENTER)
         contentPanel.add(southPanel, BorderLayout.SOUTH)
         pack()
-        size = Dimension(600, 800)
-        setLocationRelativeTo(null)
+        minimumSize = Dimension(size.width, 600)
+        size = defaultSize
         POEWindow.centerWindow(this)
     }
 
@@ -77,9 +76,9 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             Entry("Macros - Switch chat channel, send chat messages, custom commands"),
             Entry("Cheat Sheets - Borderless, resizable, transparency, drag & drop"),
             Entry("Chat Scanner - Regex support"),
-            Entry("Menubar customization"),
+//            Entry("Menubar customization"),
             Entry("Window system rework"),
-            Entry("Discord Revamp"),
+//            Entry("Discord Revamp"),
             Entry("UI improvements and cleanup"),
             Entry("Dozens of small QOL, UI improvements, and bug fixes"),
         )
@@ -101,9 +100,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             Entry("Website (feature spotlight, downloads, FAQ, guides)"),
             Entry("Web API for dynamic info"),
             Entry("POE API integration"),
-            Entry("Native App (.exe, .dbn)")
-                .sub("Installing Java not required")
-                .sub("Run as admin"),
+            Entry("Native App (.exe, .dbn)"),
             Entry("... and more?"),
         )
 
@@ -120,28 +117,32 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
             /** Patreon blurb */
             // FIXME @important: Link to donater page, not patreon directly
-            val htmlText = HTMLTextArea(
-                "<html>Software development is time consuming, and a man's gotta eat.<br>" +
-                        "<a href='${References.PATREON_URL}'>Consider supporting me!</a> An occasional dollar adds up when everyone does it.<br></html>"
-            )
+//            val htmlText = HTMLTextArea(
+//                "<html>Software development is time consuming. An occasional dollar really adds up when everyone does it. :)<br>" +
+//                        "<a href='${References.PATREON_URL}'>Consider supporting me!</a> An occasional dollar adds up when everyone does it.<br></html>"
+//            )
             // FIXME : hyperlink class or extension
-            htmlText.addHyperlinkListener { e: HyperlinkEvent ->
-                if (e.eventType == HyperlinkEvent.EventType.ACTIVATED) {
-                    ZUtil.openLink(e.url.toString())
-                }
-            }
+//            htmlText.addHyperlinkListener { e: HyperlinkEvent ->
+//                if (e.eventType == HyperlinkEvent.EventType.ACTIVATED) {
+//                    ZUtil.openLink(e.url.toString())
+//                }
+//            }
+
             header("Spare some currency?")
-            add(htmlText.fitParentWidth())
-            strut(8)
-            val progressBar = JProgressBar()
-            progressBar.preferredSize = Dimension(0, 10)
-            progressBar.value = 8
-            progressBar.maximum = 500
+            add(htmlLabel("Software development is time consuming. An occasional dollar adds up when everyone does it.").fitParentWidth())
+            strut(4)
+            // Progress Bar
+            val patreonProgressBar = JProgressBar()
+            patreonProgressBar.preferredSize = Dimension(0, 10)
+            patreonProgressBar.value = 8
+            patreonProgressBar.maximum = 500
             addCenter(JLabel("Current Patreon Goal: 8 / 500").bold())
             val insetX = 20
             val insetY = 2
-            addWithInset(progressBar, Insets(insetY, insetX, insetY, insetX))
-            add(progressBar)
+            addWithInset(patreonProgressBar, Insets(insetY, insetX, insetY, insetX))
+            add(patreonProgressBar)
+            strut(4)
+            add(JButton("Support SlimTrade :)").onClick { FrameManager.optionsWindow.showDonationPanel() })
             strut()
 
             /** Road to 1.0.0. */
@@ -151,13 +152,13 @@ class RoadmapWindow : CustomDialog("Roadmap") {
                 HTMLLabel(
                     "SlimTrade feels close to complete as a trading tool... so what now? " +
                             "I'm thinking about refocusing the project to be more of a general purpose overlay tool. " +
-                            "<b>This would include a new name, new features, a UI rework, and a website.<b>"
+                            "<b>This would include a new name, new features, UI rework, and a website.<b>"
                 ).fitParentWidth()
             )
             // FIXME : Switch to ComponentPanel of labels to allow option of no-wrap?
 //            add(HTMLTextArea("Nothing? Improvements? <i>New features?</i> <i><b>A full rebrand?!<b></i>").fitParentWidth())
             strutSmall()
-            addCenter(JLabel("Thoughts on this idea? I want your feedback!").bold().textColor(ThemeColorBlind.GREEN))
+            addCenter(JLabel("Thoughts? I want your feedback!").bold().textColor(ThemeColorBlind.GREEN))
             strutSmall()
             add(JButton("Take Poll (8 Questions)"))
             strut()
@@ -177,7 +178,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
             header("Being Worked On")
             addEntryGroup(beingWorkedOn)
-            label("This may sound boring (it is), but it's important groundwork for future updates.").bold()
+            label("This may sound boring (it is), but allows for better future updates.").bold()
                 .textColor(ThemeColorBlind.YELLOW)
 
         }
@@ -193,21 +194,20 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
     }
 
-    class LimitPanel(panel: JComponent) : JPanel() {
-
-        init {
-            layout = BorderLayout()
-            add(panel, BorderLayout.CENTER)
-            addComponentListener(object : ComponentAdapter() {
-                override fun componentResized(e: ComponentEvent) {
-                    preferredSize = null
-                    preferredSize = Dimension(0, preferredSize.height)
-                }
-            })
+    override fun setVisible(visible: Boolean) {
+        val wasVisible = isVisible
+        // FIXME : Dynamic html has some issues on first render, this pack seems to help.
+        //  Bug currently seems to appear only when showing this window after the tutorial window? idk
+        if (visible) {
+            val size = this.size
+            pack()
+            this.size = size
         }
-
+        super.setVisible(visible)
+        if (wasVisible && !visible) LaunchPopups.tryShowPopups()
     }
 
+    /** A class for displaying an entry, with possible subentries. */
     class Entry(val text: String) {
 
         val subentries = ArrayList<String>()
@@ -218,6 +218,5 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         }
 
     }
-
 
 }

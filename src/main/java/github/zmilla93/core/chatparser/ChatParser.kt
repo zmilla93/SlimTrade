@@ -30,9 +30,29 @@ import java.util.regex.Pattern
 // FIXME : This file could use some cleanup.
 // FIXME : Consolidate regex in References and LangRegex with this.
 class ChatParser(private val game: Game) : FileTailerListener {
+
+    companion object {
+        // File Tailing
+        const val tailerDelayMS: Int = 250
+
+        // FIXME : Could extract debug text for analysis.
+        /** A full client.txt line. Extracts date, time, and message. Skips debug text.  */
+        const val CLIENT_MESSAGE_REGEX: String =
+            "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] (?<message>.+)"
+
+        /** A whisper message. Extracts type (to/from), player name, and message. */
+        const val CLIENT_WHISPER_REGEX: String =
+            "@(?<messageType>От кого|\\S+) (?<guildName><.+>)? ?(?<playerName>[^:]+):(\\s+)(?<message>.+)"
+
+        // Compiled regex
+        private val clientMessage = Pattern.compile(CLIENT_MESSAGE_REGEX)
+        private val clientWhisper = Pattern.compile(CLIENT_WHISPER_REGEX)
+    }
+
     private var tailer: FileTailer? = null
 
-    /** Parser is multithreaded, so CopyOnWriteArrays are used to avoid concurrency modification exceptions. */ // Listeners - Parser State
+    /** Parser is multithreaded, so CopyOnWriteArrays are used to avoid concurrency modification exceptions. */
+    // FIXME : Switch to event bus
     val onInitListeners = CopyOnWriteArrayList<ParserRestartListener>()
     val onLoadListeners = CopyOnWriteArrayList<ParserLoadedListener>()
     val dndListeners = CopyOnWriteArrayList<DndListener>()
@@ -296,16 +316,4 @@ class ChatParser(private val game: Game) : FileTailerListener {
         parseLine(line)
     }
 
-    companion object {
-        // File Tailing
-        const val tailerDelayMS: Int = 250
-
-        // Regex
-        const val CLIENT_MESSAGE_REGEX: String =
-            "((?<date>\\d{4}\\/\\d{2}\\/\\d{2}) (?<time>\\d{2}:\\d{2}:\\d{2}))?.*] (?<message>.+)"
-        const val CLIENT_WHISPER_REGEX: String =
-            "@(?<messageType>От кого|\\S+) (?<guildName><.+>)? ?(?<playerName>[^:]+):(\\s+)(?<message>.+)"
-        private val clientMessage: Pattern = Pattern.compile(CLIENT_MESSAGE_REGEX)
-        private val clientWhisper: Pattern = Pattern.compile(CLIENT_WHISPER_REGEX)
-    }
 }

@@ -1,5 +1,6 @@
 package github.zmilla93.core.saving.savefiles
 
+import github.zmilla93.core.poe.LaunchPopups
 import github.zmilla93.modules.saving.AbstractSaveFile
 
 /**
@@ -9,14 +10,26 @@ import github.zmilla93.modules.saving.AbstractSaveFile
  */
 class AppStateSaveFile : AbstractSaveFile() {
 
-    @JvmField
-    var tutorialVersion: Int = 0
+    companion object {
+        /** Increment this to show the league launch popups. See [LaunchPopups] */
+        const val LEAGUE_POPUP_VERSION = 1
+        const val TUTORIAL_VERSION = 1
+    }
+
 
     @JvmField
     var kalguurQuantities: ArrayList<Int> = ArrayList()
 
     @JvmField
     var kalguurTimers: ArrayList<String> = ArrayList()
+
+    var roadmapPopupVersion = 0
+
+    //    var patchNotesPopupVersion = LeagueLaunchPopups.LEAGUE_POPUP_VERSION
+    @JvmField
+    var tutorialVersion = 0
+    var patchNotesPopupVersion = 0
+    var donatePopupVersion = 0
 
     override fun getCurrentTargetVersion(): Int {
         return 0

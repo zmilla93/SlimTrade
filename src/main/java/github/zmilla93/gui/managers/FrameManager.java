@@ -157,7 +157,7 @@ public class FrameManager {
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         if (App.showHistoryOnLaunch) historyWindow.setVisible(true);
         messageManager.setVisible(true);
-        roadMapWindow.setVisible(true);
+//        roadMapWindow.setVisible(true);
         updateMenubarVisibility();
     }
 

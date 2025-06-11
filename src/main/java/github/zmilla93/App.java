@@ -11,6 +11,7 @@ import github.zmilla93.core.jna.GlobalKeyboardListener;
 import github.zmilla93.core.jna.GlobalMouseListener;
 import github.zmilla93.core.jna.GlobalMouseWheelListener;
 import github.zmilla93.core.managers.*;
+import github.zmilla93.core.poe.LaunchPopups;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
@@ -19,7 +20,6 @@ import github.zmilla93.gui.managers.SetupManager;
 import github.zmilla93.gui.managers.SystemTrayManager;
 import github.zmilla93.gui.pinning.PinManager;
 import github.zmilla93.gui.windows.LoadingSplashWindow;
-import github.zmilla93.gui.windows.TutorialWindow;
 import github.zmilla93.modules.stopwatch.Stopwatch;
 import github.zmilla93.modules.theme.ThemeManager;
 import github.zmilla93.modules.updater.PatchNotesManager;
@@ -250,14 +250,15 @@ public class App {
         FrameManager.showAppFrames();
         SystemTrayManager.showDefault();
 
-        if (SaveManager.appStateSaveFile.data.tutorialVersion < TutorialWindow.TUTORIAL_VERSION) {
-            SwingUtilities.invokeLater(() -> FrameManager.tutorialWindow.setVisible(true));
-            SaveManager.appStateSaveFile.data.tutorialVersion = TutorialWindow.TUTORIAL_VERSION;
-            SaveManager.appStateSaveFile.saveToDisk(false);
-        }
+//        if (SaveManager.appStateSaveFile.data.tutorialVersion < TutorialWindow.TUTORIAL_VERSION) {
+//            SwingUtilities.invokeLater(() -> FrameManager.tutorialWindow.setVisible(true));
+//            SaveManager.appStateSaveFile.data.tutorialVersion = TutorialWindow.TUTORIAL_VERSION;
+//            SaveManager.appStateSaveFile.saveToDisk(false);
+//        }
         if (updateIsAvailable) FrameManager.displayUpdateAvailable(updateManager.getLatestReleaseTag());
-        if (updateManager.getCurrentUpdateAction() == UpdateAction.CLEAN)
-            SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
+        LaunchPopups.INSTANCE.tryShowPopups();
+//        if (updateManager.getCurrentUpdateAction() == UpdateAction.CLEAN)
+//            SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
 
         HotkeyManager.loadHotkeys();
         chatParser.restartChatParsers(true);

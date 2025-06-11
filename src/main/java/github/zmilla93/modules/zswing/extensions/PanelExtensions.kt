@@ -40,6 +40,7 @@ object PanelExtensions {
 
     fun fitPanelToParentWidth(comp: JComponent): JComponent {
         comp.preferredSize = null
+        comp.revalidate()
         comp.preferredSize = Dimension(0, comp.preferredSize.height)
         return comp
     }
