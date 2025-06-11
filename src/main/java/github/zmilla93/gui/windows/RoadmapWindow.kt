@@ -78,7 +78,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
         val improvementIdeas = arrayOf(
             Entry("Currency stack conversion, ie \"173c [8s+13]\""),
-            Entry("Macros - Switch chat channel, custom phrases"),
+            Entry("Macros - Switch chat channel, send chat messages, custom commands"),
             Entry("Cheat Sheets - Borderless, resizable, transparency, drag & drop"),
             Entry("Chat Scanner - Regex support"),
             Entry("Menubar customization"),
@@ -89,18 +89,18 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         )
 
         val newFeatureIdeas = arrayOf(
-            Entry("Rebrand with a new name and new focus on 'poe tool overlay', rather than just trading"),
-            Entry("Mapping & leveling speedrun timer"),
+            Entry("Rebrand with a new name and new focus on 'tool overlay' rather than just trading"),
+            Entry("Mapping speedrun timer"),
             Entry("Filter Manager - Drag & drop new filters, delete old filters, auto unzip"),
-            Entry("URL Bookmarks - Save useful links for easy access"),
-            Entry("Quick Wiki - Search common item names, open their wiki page"),
-            Entry("League specific tools"),
-            Entry("Customization Wizard"),
-            Entry("Feature Toggle - Hide unused features to free UI space"),
+            Entry("URL Bookmarks"),
+            Entry("Wiki Helper - Search common item names, open their wiki page"),
+//            Entry("League specific tools"),
+//            Entry("Integration with other tools"),
+//            Entry("Feature Toggle - Hide unused features to free UI space"),
             Entry("Customizable Alert System")
                 .sub("Trigger for zone change, level up, npc/boss dialog")
                 .sub("Per character tracking for level progression"),
-            Entry("UI Translations"),
+//            Entry("UI Translations"),
             Entry("Betrayal cheat sheet maker (likely web based)"),
             Entry("Website (feature spotlight, downloads, FAQ, guides)"),
             Entry("Web API for dynamic info"),
@@ -108,6 +108,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             Entry("Native App (.exe, .dbn)")
                 .sub("Installing Java not required")
                 .sub("Run as admin"),
+            Entry("... and more?"),
         )
 
         init {
@@ -173,9 +174,8 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
             header("Being Worked On")
             addEntryGroup(beingWorkedOn)
-            label("This may sound boring (it is), but lays important groundwork for future updates.").bold()
+            label("This may sound boring (it is), but it's important groundwork for future updates.").bold()
                 .textColor(ThemeColorBlind.YELLOW)
-//            add(HTMLTextArea(majorFeatures).fitParentWidth())
 
         }
 

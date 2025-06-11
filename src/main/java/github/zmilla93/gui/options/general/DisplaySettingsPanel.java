@@ -100,6 +100,7 @@ public class DisplaySettingsPanel extends JPanel implements ISavable {
         ThemeManager.setFont(preferredFont);
         ThemeManager.setFontSize(fontSize);
         ThemeManager.setIconSize(iconSize);
+        FontManager.INSTANCE.setFontSize(fontSize);
     }
 
     @Override

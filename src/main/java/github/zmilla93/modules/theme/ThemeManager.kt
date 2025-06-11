@@ -151,7 +151,6 @@ object ThemeManager {
             for (prop in UIProperty.entries) {
                 val value = UIProperty.getProperty<Any>(comp, prop)
                 if (value != null) {
-                    println("Found prop: $prop]")
                     // Apply UI Property
                     prop.runner.applyProperty(comp, value)
                 }

@@ -44,7 +44,7 @@ object FontManager {
     private var systemFontSupport: FontLanguageSupport? = null
     private var preferredFontSupport: FontLanguageSupport? = null
 
-    private val validFonts = java.util.ArrayList<String>()
+    private val validFonts = ArrayList<String>()
     private val fontBlacklist = HashSet<String?>()
 
 
@@ -54,11 +54,19 @@ object FontManager {
     var fontSize = 12
         set(value) {
             val previous = field
-            if (value < MIN_FONT_SIZE) field = MIN_FONT_SIZE
-            if (value > MAX_FONT_SIZE) field = MAX_FONT_SIZE
-            if (value != previous) ThemeManager.updateUIProperties()
-            field = value
+            var clampedValue = value
+            if (value < MIN_FONT_SIZE) clampedValue = MIN_FONT_SIZE
+            if (value > MAX_FONT_SIZE) clampedValue = MAX_FONT_SIZE
+            if (clampedValue != previous) {
+//                println("SET FONT SIZE: $target")
+                field = value
+                ThemeManager.updateUIProperties()
+            }
         }
+//        get() {
+//            println("GETTING: " + field)
+//            return field
+//        }
 
     init {
         fontBlacklist.add("Gabriola")
