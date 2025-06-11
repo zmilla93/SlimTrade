@@ -18,8 +18,6 @@ import github.zmilla93.modules.updater.data.AppVersion
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.GridBagLayout
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 import java.util.*
 import javax.swing.*
 import javax.swing.event.HyperlinkEvent
@@ -140,7 +138,7 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
         val donationButton = JButton("Donate")
         panel.add(CustomScrollPane(textArea), BorderLayout.CENTER)
         panel.add(donationButton, BorderLayout.SOUTH)
-        donationButton.addActionListener(ActionListener { e: ActionEvent? -> openDonationWindow() })
+        donationButton.addActionListener { openDonationWindow() }
         return panel
     }
 
@@ -164,13 +162,16 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
     }
 
     private fun updateSelectedPatchNotes() {
-        var patchNotes: String
+        // FIXME : Remove null after resource reading fix
+        var patchNotes: String? = null
         if (groupPatchNotes) {
             val group = byMinorCombo.selectedItem as PatchNotesGroup
             patchNotes = group.combinedPatchNotes
         } else {
-            val entry = byPatchCombo.selectedItem as PatchNotesEntry
-            patchNotes = entry.text
+            // FIXME : Remove this check after resource reading fix
+            val entry = byPatchCombo.selectedItem as? PatchNotesEntry
+            if (entry != null)
+                patchNotes = entry.text
         }
         textPane.text = patchNotes
         textPane.caretPosition = 0
@@ -198,7 +199,7 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
     }
 
     override fun applyDefaultSizeAndLocation() {
-        setSize(Dimension(600, 600))
+        size = Dimension(600, 600)
         POEWindow.centerWindow(this)
     }
 

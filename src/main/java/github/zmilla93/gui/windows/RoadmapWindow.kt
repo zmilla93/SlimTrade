@@ -11,6 +11,7 @@ import github.zmilla93.modules.zswing.extensions.PanelExtensions.fitParentWidth
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
 import github.zmilla93.modules.zswing.theme.ThemeColorBlind
 import io.github.zmilla93.modules.theme.UIProperty.FontColorExtensions.textColor
+import io.github.zmilla93.modules.theme.UIProperty.FontSizeExtensions.fontSize
 import java.awt.*
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
@@ -62,7 +63,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 //            val combedLabel = JLabel("SlimTrade Roadmap").fontSize(30).bold()
 //            combedLabel.icon = ImageIcon(ImageUtil.scaledImage("/league/sota/POELogo.png", 20))
             val headerIconLabel = JLabel()
-            val headerTextLabel = HTMLLabel("<span style='font-size:30px;'><b>SlimTrade Roadmap</b></span>")
+            val headerTextLabel = JLabel("SlimTrade Roadmap").fontSize(40).bold()
             headerIconLabel.icon = ImageIcon(ImageUtil.scaledImage("/league/sota/POELogo.png", 20))
             addCenter(ComponentPanel(headerIconLabel, headerTextLabel))
             strut(gap)
@@ -70,11 +71,6 @@ class RoadmapWindow : CustomDialog("Roadmap") {
     }
 
     class RoadmapPanel : BoxPanel() {
-
-        val beingWorkedOn = arrayOf(
-            Entry("Converting Java to Kotlin (Faster development, less buggy)"),
-            Entry("Modernizing old code"),
-        )
 
         val improvementIdeas = arrayOf(
             Entry("Currency stack conversion, ie \"173c [8s+13]\""),
@@ -109,6 +105,12 @@ class RoadmapWindow : CustomDialog("Roadmap") {
                 .sub("Installing Java not required")
                 .sub("Run as admin"),
             Entry("... and more?"),
+        )
+
+        val beingWorkedOn = arrayOf(
+            Entry("Converting Java to Kotlin (Faster development, less buggy)"),
+            Entry("Updating old code"),
+            Entry("Fixing bugs"),
         )
 
         init {
@@ -146,12 +148,11 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             header("The road to 1.0.0...")
 //            label("SlimTrade feels close to complete as a Trading App, so what now...")
             add(
-                HTMLTextArea(
-                    "SlimTrade feels close to complete as a <i>trading tool</i>. " +
+                HTMLLabel(
+                    "<html>SlimTrade feels close to complete as a <i>trading tool</i>. " +
                             "I'm thinking of refocusing the project to be '<i>chat parser and tool overlay</i>'. " +
-                            "<b>This would include a new name, new features, UI rework, and a website.<b>"
-                )
-                    .fitParentWidth()
+                            "<b>This would include a new name, new features, UI rework, and a website.<b></html>"
+                ).fitParentWidth()
             )
             // FIXME : Switch to ComponentPanel of labels to allow option of no-wrap?
 //            add(HTMLTextArea("Nothing? Improvements? <i>New features?</i> <i><b>A full rebrand?!<b></i>").fitParentWidth())

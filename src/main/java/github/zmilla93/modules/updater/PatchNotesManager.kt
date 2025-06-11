@@ -4,11 +4,14 @@ import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.utility.FileUtil
 import github.zmilla93.core.utility.MarkdownParser
+import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.modules.data.HashMapList
 import github.zmilla93.modules.updater.PatchNotesManager.localPatchNotes
 import github.zmilla93.modules.updater.data.AppVersion
 import java.io.File
+import java.io.FileNotFoundException
 import java.util.*
+import java.util.jar.JarFile
 
 object PatchNotesManager {
 
@@ -41,27 +44,70 @@ object PatchNotesManager {
         if (remote) {
             // FIXME : Add support for remote patch notes
         }
-        readLocalPatchNotes()
+//        readLocalPatchNotes()
+        if (localPatchNotes.isEmpty()) {
+            readLocalPatchNotesV2(patchNotesFolderName)
+            if (localPatchNotes.isEmpty()) readLocalPatchNotes()
+        }
         return localPatchNotes
     }
 
     /** Load patch notes from resources into [localPatchNotes]*/
     fun readLocalPatchNotes() {
         try {
-            if (localPatchNotes.isNotEmpty()) return
             val patchNotesResource = PatchNotesManager.javaClass.getResource("/$patchNotesFolderName")
-            if (patchNotesResource == null) throw RuntimeException("Resource folder '$patchNotesFolderName' not found.")
+            if (patchNotesResource == null) throw RuntimeException(" Resource folder '$patchNotesFolderName' not found.")
             val patchNotesFile = File(patchNotesResource.file)
             patchNotesFile.listFiles().sortedBy { it.name }.reversed().forEachIndexed { i, it ->
                 val version = AppVersion(it.nameWithoutExtension)
+                if (!version.valid) return
                 if (version.isPreRelease && !App.getAppInfo().appVersion.isPreRelease) return@forEachIndexed
                 val contents = FileUtil.resourceAsString("$patchNotesFolderName/${it.name}")
                 val cleanPatchNotes = getCleanPatchNotes(version, contents, i == 0)
                 localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
             }
-        } catch (e: Exception) {
+            println("Read local patch notes from disk (debug).")
+        } catch (_: Exception) {
             // FIXME @important : This
             System.err.println("Error reading local patch notes!")
+        }
+    }
+
+    fun readLocalPatchNotesV2(path: String) {
+        val resourceUrl = Thread.currentThread().contextClassLoader.getResource(path)
+        if (resourceUrl == null) {
+            System.err.println("Null patch notes resource: $path")
+            return
+        }
+        val jarPath = resourceUrl.path.substringAfter("file:").substringBefore("!")
+        val jarFile: JarFile
+        try {
+            jarFile = JarFile(jarPath)
+        } catch (_: FileNotFoundException) {
+            System.err.println("Failed to read patch notes from jar file. This is normal when running in the editor.")
+            return
+        }
+        val entries = jarFile.entries()
+        val foundVersions = mutableListOf<AppVersion>()
+        val pathWithSlash = if (!path.endsWith("/")) "$path/" else path
+        while (entries.hasMoreElements()) {
+            val name = entries.nextElement().name
+            if (name.startsWith(pathWithSlash) && name != pathWithSlash) {
+                val relative = name.removePrefix(pathWithSlash)
+                // Ignore directories
+                if (!relative.contains("/")) {
+                    val version = AppVersion(relative.removeSuffix(".txt"))
+                    if (version.valid) foundVersions.add(version)
+                }
+            }
+        }
+        var first = true
+        foundVersions.sortedBy { it }.reversed().forEach {
+            if (it.isPreRelease) return@forEach
+            val text = ZUtil.readResourceFileAsString("$patchNotesFolderName/v$it.txt")
+            val cleanPatchNotes = getCleanPatchNotes(it, text, first)
+            localPatchNotes.add(PatchNotesEntry(it.toString(), cleanPatchNotes))
+            first = false
         }
     }
 
