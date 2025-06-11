@@ -149,14 +149,16 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 //            label("SlimTrade feels close to complete as a Trading App, so what now...")
             add(
                 HTMLLabel(
-                    "<html>SlimTrade feels close to complete as a <i>trading tool</i>. " +
-                            "I'm thinking of refocusing the project to be '<i>chat parser and tool overlay</i>'. " +
-                            "<b>This would include a new name, new features, UI rework, and a website.<b></html>"
+                    "SlimTrade feels close to complete as a trading tool... so what now? " +
+                            "I'm thinking about refocusing the project to be more of a general purpose overlay tool. " +
+                            "<b>This would include a new name, new features, a UI rework, and a website.<b>"
                 ).fitParentWidth()
             )
             // FIXME : Switch to ComponentPanel of labels to allow option of no-wrap?
 //            add(HTMLTextArea("Nothing? Improvements? <i>New features?</i> <i><b>A full rebrand?!<b></i>").fitParentWidth())
-            add(JLabel("Thoughts on this idea? I want your feedback!").bold().textColor(ThemeColorBlind.GREEN))
+            strutSmall()
+            addCenter(JLabel("Thoughts on this idea? I want your feedback!").bold().textColor(ThemeColorBlind.GREEN))
+            strutSmall()
             add(JButton("Take Poll (8 Questions)"))
             strut()
 
