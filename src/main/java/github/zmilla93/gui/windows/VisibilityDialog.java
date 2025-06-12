@@ -22,24 +22,6 @@ public class VisibilityDialog extends ThemeDialog {
         timer.setRepeats(false);
         VisibilityManager.addFrame(this);
         setAlwaysOnTop(true);
-        // FIXME : This fixes window layering issues, but can cause an infinite loop without debouncing.
-        //  A better solution would be nice before a full release
-        //  Idea: Track gain/lose events, see what order of execution is
-//        addWindowFocusListener(new WindowFocusListener() {
-//            @Override
-//            public void windowGainedFocus(WindowEvent e) {
-//                if (debounceWindowFocus) return;
-////                setAlwaysOnTop(false);
-////                setAlwaysOnTop(true);
-//                debounceWindowFocus = true;
-//                timer.restart();
-//            }
-//
-//            @Override
-//            public void windowLostFocus(WindowEvent e) {
-//
-//            }
-//        });
     }
 
     public void showOverlay() {

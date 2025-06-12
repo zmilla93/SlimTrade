@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 
 public class KalguurTimerRow extends JPanel {
 
-    private final JDialog parentWindow;
+    private final Window parentWindow;
     private final Container parentContainer;
     private final HourMinute remainingTime;
     private final JLabel label;
@@ -23,7 +23,7 @@ public class KalguurTimerRow extends JPanel {
     private final Instant expirationTime;
     private static final String COMPLETE_TEXT = "Complete";
 
-    public KalguurTimerRow(JDialog parentWindow, Container parentContainer, Instant expirationTime) {
+    public KalguurTimerRow(Window parentWindow, Container parentContainer, Instant expirationTime) {
         this.expirationTime = expirationTime;
         this.parentWindow = parentWindow;
         this.parentContainer = parentContainer;

@@ -11,7 +11,7 @@ public class KalguurQuantityRow extends JPanel {
 
     private final int oreCount;
 
-    public KalguurQuantityRow(JDialog parentWindow, KalguurCalculatorPanel calcPanel, Container parentContainer, int oreCount) {
+    public KalguurQuantityRow(Window parentWindow, KalguurCalculatorPanel calcPanel, Container parentContainer, int oreCount) {
         this.oreCount = oreCount;
         int ingotCount = (int) Math.ceil(oreCount / 5f);
         JLabel label = new JLabel(oreCount + " ~ " + ingotCount);

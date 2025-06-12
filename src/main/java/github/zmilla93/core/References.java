@@ -29,7 +29,7 @@ public class References {
     public static final String REGEX_JOINED_AREA_PREFIX = "(.+ : (?<playerName>.+) ";
     public static final String REGEX_ENTERED_AREA_PREFIX = ": ";
     public static final String REGEX_SUFFIX = ")";
-    public static final String APP_PREFIX = "SlimTradeApp::";
+    public static final String APP_PREFIX = "SlimTrade - ";
 
     public static final Pattern chatPatten = Pattern.compile(REGEX_CLIENT_CHAT_PREFIX + REGEX_SUFFIX);
     public static final Pattern clientMetaPattern = Pattern.compile(REGEX_CLIENT_META_PREFIX + REGEX_SUFFIX);

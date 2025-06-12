@@ -19,12 +19,12 @@ import java.util.regex.Pattern;
 
 public class KalguurTimerPanel extends JPanel implements ISavable {
 
-    private final JDialog parentWindow;
+    private final Window parentWindow;
     private final JTextField inputFiled = new PlaceholderTextField("Timer (h:m)", 6);
     private final JPanel rowContainer = new JPanel();
     private final Pattern timerPattern = Pattern.compile("((?<hours>\\d*):)?(?<minutes>\\d+)");
 
-    public KalguurTimerPanel(JDialog parentWindow) {
+    public KalguurTimerPanel(Window parentWindow) {
         this.parentWindow = parentWindow;
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = ZUtil.getGC();

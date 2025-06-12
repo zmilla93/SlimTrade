@@ -22,8 +22,10 @@ class RoadmapWindow : CustomDialog("Roadmap") {
     val defaultSize = Dimension(700, 910)
 
     init {
+        pinButton.isVisible = false
         val roadmapPanel = RoadmapPanel()
         // Content Panel
+        val contentPanel = contentPane
         contentPanel.layout = BorderLayout()
 
 //        val supportButton = JButton("Support SlimTrade :)").onClick { FrameManager.optionsWindow.showDonationPanel() }

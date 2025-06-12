@@ -18,9 +18,9 @@ public class KalguurCalculatorPanel extends JPanel implements ISavable {
     private final JLabel outputLabel = new JLabel("0 ore");
     private final JPanel rowContainer = new JPanel();
     private final int ROW_LIMIT = 2;
-    private final JDialog parentWindow;
+    private final Window parentWindow;
 
-    public KalguurCalculatorPanel(JDialog parentWindow) {
+    public KalguurCalculatorPanel(Window parentWindow) {
         this.parentWindow = parentWindow;
         setLayout(new BorderLayout());
         rowContainer.setLayout(new BoxLayout(rowContainer, BoxLayout.PAGE_AXIS));

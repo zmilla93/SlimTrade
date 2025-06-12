@@ -1,11 +1,7 @@
 package github.zmilla93.gui.managers
 
 import github.zmilla93.core.managers.SaveManager
-import github.zmilla93.gui.popup.DonationPopup
-import github.zmilla93.gui.popup.PatchNotesPopup
-import github.zmilla93.gui.popup.RoadmapPopup
-import github.zmilla93.gui.popup.TutorialPopup
-import java.awt.Component
+import github.zmilla93.gui.popup.*
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 
@@ -26,8 +22,14 @@ object LaunchPopupManager {
 
     /** Add callbacks to all frames. */
     fun init() {
-        for (popup in popups)
-            registerFrameTrigger(popup.window())
+        for (popup in popups) {
+            registerFrameTrigger(popup)
+//            popup.window().addWindowListener(object : WindowAdapter() {
+//                override fun windowOpened(e: WindowEvent?) {
+//                    popup.markAsSeen()
+//                }
+//            })
+        }
     }
 
     /** Try and show the next popup that hasn't been shown yet, if any. */
@@ -45,10 +47,16 @@ object LaunchPopupManager {
     }
 
     /** Causes a frame to try and show the next popup whenever closed. */
-    fun registerFrameTrigger(comp: Component) {
-        comp.addComponentListener(object : ComponentAdapter() {
-            override fun componentHidden(e: ComponentEvent?) {
+    fun registerFrameTrigger(popup: AbstractLaunchPopup) {
+        popup.window().addComponentListener(object : ComponentAdapter() {
+            override fun componentHidden(e: ComponentEvent) {
                 tryShowNextPopup()
+            }
+
+            override fun componentShown(e: ComponentEvent?) {
+                super.componentShown(e)
+                println("MARK:${popup.window()}")
+                popup.markAsSeen()
             }
         })
     }
