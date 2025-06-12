@@ -4,8 +4,6 @@ import github.zmilla93.gui.managers.VisibilityManager;
 import github.zmilla93.modules.theme.components.ThemeDialog;
 
 import javax.swing.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 
 /**
  * This is the root of all custom windows.
@@ -21,26 +19,27 @@ public class VisibilityDialog extends ThemeDialog {
 
     public VisibilityDialog() {
         assert SwingUtilities.isEventDispatchThread();
-        VisibilityManager.addFrame(this);
         timer.setRepeats(false);
+        VisibilityManager.addFrame(this);
+        setAlwaysOnTop(true);
         // FIXME : This fixes window layering issues, but can cause an infinite loop without debouncing.
         //  A better solution would be nice before a full release
         //  Idea: Track gain/lose events, see what order of execution is
-        addWindowFocusListener(new WindowFocusListener() {
-            @Override
-            public void windowGainedFocus(WindowEvent e) {
-                if (debounceWindowFocus) return;
-//                setAlwaysOnTop(false);
-//                setAlwaysOnTop(true);
-                debounceWindowFocus = true;
-                timer.restart();
-            }
-
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-
-            }
-        });
+//        addWindowFocusListener(new WindowFocusListener() {
+//            @Override
+//            public void windowGainedFocus(WindowEvent e) {
+//                if (debounceWindowFocus) return;
+////                setAlwaysOnTop(false);
+////                setAlwaysOnTop(true);
+//                debounceWindowFocus = true;
+//                timer.restart();
+//            }
+//
+//            @Override
+//            public void windowLostFocus(WindowEvent e) {
+//
+//            }
+//        });
     }
 
     public void showOverlay() {
@@ -62,22 +61,22 @@ public class VisibilityDialog extends ThemeDialog {
     /**
      * Forces the window to the front in a way that accounts for isAlwaysOnTop
      */
-    public void forceToFront() {
-        boolean wasAlwaysOnTop = isAlwaysOnTop();
-        setAlwaysOnTop(false);
-        toFront();
-        requestFocus();
-        if (wasAlwaysOnTop) setAlwaysOnTop(true);
-    }
+    @Deprecated // FIXME This causes weird visibility issues.
+//    public void forceToFront() {
+//        boolean wasAlwaysOnTop = isAlwaysOnTop();
+//        setAlwaysOnTop(false);
+//        toFront();
+////        requestFocus();
+//        setAlwaysOnTop(true);
+//    }
 
     @Override
     public void setVisible(boolean visible) {
         assert (SwingUtilities.isEventDispatchThread());
+//        if (visible) forceToFront();
         super.setVisible(visible);
         this.visible = visible;
-        if (visible) {
-            forceToFront();
-        }
+
     }
 
     @Override
