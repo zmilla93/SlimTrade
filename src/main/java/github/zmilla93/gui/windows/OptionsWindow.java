@@ -7,6 +7,7 @@ import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.gui.components.StyledLabel;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
 import github.zmilla93.gui.managers.FrameManager;
+import github.zmilla93.gui.managers.LaunchPopupManager;
 import github.zmilla93.gui.options.*;
 import github.zmilla93.gui.options.display.DisplayOptionPanel;
 import github.zmilla93.gui.options.poe.PathOfExileOptionPanel;
@@ -193,6 +194,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
         optionsList.setSelectedValue(donationPanel, true);
         showPanel(donationPanel);
         ((DonationPanel) donationPanel.panel).getButtonToFocus().requestFocus();
+        LaunchPopupManager.INSTANCE.getDonationPopup().markAsSeen();
     }
 
     public IgnoreItemOptionPanel getIgnorePanel() {

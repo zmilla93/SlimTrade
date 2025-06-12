@@ -2,7 +2,6 @@ package github.zmilla93.gui.windows
 
 import github.zmilla93.App
 import github.zmilla93.core.References
-import github.zmilla93.core.poe.LaunchPopups
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.MarkdownParser
 import github.zmilla93.core.utility.ZUtil
@@ -12,6 +11,7 @@ import github.zmilla93.gui.components.CustomScrollPane
 import github.zmilla93.gui.components.LimitCombo
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation
 import github.zmilla93.gui.managers.FrameManager
+import github.zmilla93.gui.managers.LaunchPopupManager
 import github.zmilla93.modules.updater.PatchNotesEntry
 import github.zmilla93.modules.updater.PatchNotesGroup
 import github.zmilla93.modules.updater.PatchNotesManager
@@ -107,16 +107,7 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
         minimumSize = Dimension(400, 400)
         pack()
 
-        LaunchPopups.registerFrame(this) { LaunchPopups.markPatchNotes() }
-//        addComponentListener(object : ComponentAdapter() {
-//            override fun componentShown(e: ComponentEvent) {
-//                LaunchPopups.markPatchNotes()
-//            }
-//
-//            override fun componentHidden(e: ComponentEvent?) {
-//                LaunchPopups.tryShowPopups()
-//            }
-//        })
+        LaunchPopupManager.registerFrameTrigger(this)
     }
 
     private fun togglePanel() {
@@ -137,15 +128,13 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
     private fun createAnnouncementPanel(): JPanel {
         val panel = JPanel(BorderLayout())
         val textArea = JTextPane()
-        textArea.setEditable(false)
+        textArea.isEditable = false
         textArea.setContentType("text/html")
-        textArea.setText(
-            "Hi there! ZMilla, author of SlimTrade here,<br><br>" +
-                    "My desktop PC died, money is tight, and I can't play POE for a bit. If everyone reading this donated just one dollar... (you know how this goes)<br><br>" +
-                    "Or don't! That's completely fine. Just understand that I don't want to feel obligated to work on SlimTrade when I can't play POE myself.<br><br>" +
-                    "<b>I will still maintain SlimTrade with bug fixes, but new features & QOL are on hold.</b><br><br>" +
-                    "Thanks for reading! Stay sane, exile."
-        )
+        textArea.text = "Hi there! ZMilla, author of SlimTrade here,<br><br>" +
+                "My desktop PC died, money is tight, and I can't play POE for a bit. If everyone reading this donated just one dollar... (you know how this goes)<br><br>" +
+                "Or don't! That's completely fine. Just understand that I don't want to feel obligated to work on SlimTrade when I can't play POE myself.<br><br>" +
+                "<b>I will still maintain SlimTrade with bug fixes, but new features & QOL are on hold.</b><br><br>" +
+                "Thanks for reading! Stay sane, exile."
         panel.add(BufferPanel(JLabel("Annoying Announcement :^)"), 4), BorderLayout.NORTH)
         val donationButton = JButton("Donate")
         panel.add(CustomScrollPane(textArea), BorderLayout.CENTER)

@@ -61,7 +61,7 @@ public class VisibilityDialog extends ThemeDialog {
     /**
      * Forces the window to the front in a way that accounts for isAlwaysOnTop
      */
-    @Deprecated // FIXME This causes weird visibility issues.
+//    @Deprecated // FIXME This causes weird visibility issues.
 //    public void forceToFront() {
 //        boolean wasAlwaysOnTop = isAlwaysOnTop();
 //        setAlwaysOnTop(false);
@@ -69,7 +69,6 @@ public class VisibilityDialog extends ThemeDialog {
 ////        requestFocus();
 //        setAlwaysOnTop(true);
 //    }
-
     @Override
     public void setVisible(boolean visible) {
         assert (SwingUtilities.isEventDispatchThread());

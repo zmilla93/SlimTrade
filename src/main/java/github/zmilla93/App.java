@@ -11,11 +11,11 @@ import github.zmilla93.core.jna.GlobalKeyboardListener;
 import github.zmilla93.core.jna.GlobalMouseListener;
 import github.zmilla93.core.jna.GlobalMouseWheelListener;
 import github.zmilla93.core.managers.*;
-import github.zmilla93.core.poe.LaunchPopups;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.managers.FrameManager;
+import github.zmilla93.gui.managers.LaunchPopupManager;
 import github.zmilla93.gui.managers.SetupManager;
 import github.zmilla93.gui.managers.SystemTrayManager;
 import github.zmilla93.gui.pinning.PinManager;
@@ -256,7 +256,7 @@ public class App {
 //            SaveManager.appStateSaveFile.saveToDisk(false);
 //        }
         if (updateIsAvailable) FrameManager.displayUpdateAvailable(updateManager.getLatestReleaseTag());
-        LaunchPopups.INSTANCE.tryShowPopups();
+        LaunchPopupManager.INSTANCE.tryShowNextPopup();
 //        if (updateManager.getCurrentUpdateAction() == UpdateAction.CLEAN)
 //            SwingUtilities.invokeLater(() -> FrameManager.patchNotesWindow.setVisible(true));
 

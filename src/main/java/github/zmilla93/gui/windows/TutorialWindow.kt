@@ -1,12 +1,12 @@
 package github.zmilla93.gui.windows
 
 import github.zmilla93.App
-import github.zmilla93.core.poe.LaunchPopups
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ZUtil.addStrutsToBorderPanel
 import github.zmilla93.gui.components.ImageLabel
 import github.zmilla93.gui.components.TutorialPanel
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation
+import github.zmilla93.gui.managers.LaunchPopupManager
 import java.awt.BorderLayout
 import java.awt.CardLayout
 import java.awt.Color
@@ -62,6 +62,7 @@ class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
         addListeners()
         updatePageLabel()
         updateButtons()
+        LaunchPopupManager.registerFrameTrigger(this)
     }
 
     private fun addListeners() {
@@ -182,7 +183,7 @@ class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
         panel.addHeader("Getting Started")
         panel.addLabel("The trade UI will start working automatically.")
         panel.addLabel("Access additional features from the menubar in the top left, or from the system tray.")
-        panel.addLabel("Close this window to start customizing!").bold()
+        panel.addLabel("Close this window to get started!").bold()
         return panel
     }
 
@@ -197,7 +198,7 @@ class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
         val wasVisible = isVisible
         super.setVisible(visible)
         showFirstPanel()
-        if (!visible && wasVisible) LaunchPopups.tryShowPopups()
+//        if (!visible && wasVisible) LaunchPopupManager.tryShowNextPopup()
     }
 
     companion object {

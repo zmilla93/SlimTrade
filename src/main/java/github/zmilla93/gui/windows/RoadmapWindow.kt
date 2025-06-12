@@ -1,6 +1,5 @@
 package github.zmilla93.gui.windows
 
-import github.zmilla93.core.poe.LaunchPopups
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ImageUtil
 import github.zmilla93.core.utility.ZUtil
@@ -9,6 +8,7 @@ import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
 import github.zmilla93.gui.components.HTMLLabel
 import github.zmilla93.gui.managers.FrameManager
+import github.zmilla93.gui.managers.LaunchPopupManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.PanelExtensions.fitParentWidth
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
@@ -53,6 +53,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         minimumSize = Dimension(size.width, 600)
         size = defaultSize
         POEWindow.centerWindow(this)
+        LaunchPopupManager.registerFrameTrigger(this)
     }
 
     class HeaderPanel : BoxPanel() {
@@ -204,7 +205,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             this.size = size
         }
         super.setVisible(visible)
-        if (wasVisible && !visible) LaunchPopups.tryShowPopups()
+
     }
 
     /** A class for displaying an entry, with possible subentries. */
