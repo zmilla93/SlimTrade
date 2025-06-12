@@ -34,6 +34,7 @@ public class ReleaseTest {
         assertFalse(App.chatInConsole);
         assertFalse(App.debugProfileLaunch);
         assertFalse(App.showOptionsOnLaunch);
+        assertFalse(App.showPatchNotesOnLaunch);
         assertFalse(App.forceSetup);
         assertFalse(App.messageUITest);
         assertFalse(NinjaInterface.useLocalDatasets);

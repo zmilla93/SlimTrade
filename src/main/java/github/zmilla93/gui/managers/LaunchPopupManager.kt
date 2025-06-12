@@ -24,13 +24,20 @@ object LaunchPopupManager {
         donationPopup,
     )
 
+    /** Add callbacks to all frames. */
+    fun init() {
+        for (popup in popups)
+            registerFrameTrigger(popup.window())
+    }
 
     /** Try and show the next popup that hasn't been shown yet, if any. */
     fun tryShowNextPopup() {
+        popups.forEach { if (it.window().isVisible) return }
         for (popup in popups) {
             if (popup.shouldPopupBeShown()) {
                 popup.showPopup()
                 popup.markAsSeen()
+                popup.hasShownThisLaunch = true
                 SaveManager.appStateSaveFile.saveToDisk()
                 return
             }

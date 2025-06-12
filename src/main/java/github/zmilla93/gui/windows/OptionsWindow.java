@@ -64,7 +64,7 @@ public class OptionsWindow extends CustomDialog implements ISaveListener, IDefau
                 new OptionListPanel("Trading"),
                 incomingMacros, outgoingMacros, stash, ignoreItems,
                 new OptionListPanel("Tools"),
-                cheatSheets, stashSearch, kalguurHelper,
+                cheatSheets, stashSearch,
                 new OptionListPanel(),
                 information, donationPanel
         };

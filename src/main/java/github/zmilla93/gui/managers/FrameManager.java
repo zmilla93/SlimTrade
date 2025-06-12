@@ -145,6 +145,7 @@ public class FrameManager {
         applyAllDefaultSizesAndLocations();
 
         /// Finish
+        LaunchPopupManager.INSTANCE.init();
         initialized = true;
     }
 

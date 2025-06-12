@@ -26,7 +26,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable, F
     private final AudioRowControls incomingTradeControls;
     private final AudioRowControls outgoingTradeControls;
     private final AudioRowControls chatScannerControls;
-    private final AudioRowControls kalguurControls;
+    //    private final AudioRowControls kalguurControls;
     private final AudioRowControls playerJoinedAreaControls;
     private final AudioRowControls ignoredItemControls;
     private final AudioRowControls updateAlertControls;
@@ -40,7 +40,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable, F
         incomingTradeControls = new AudioRowControls("Incoming Trade", soundSettingsPanel, gc);
         outgoingTradeControls = new AudioRowControls("Outgoing Trade", soundSettingsPanel, gc);
         chatScannerControls = new AudioRowControls("Chat Scanner", soundSettingsPanel, gc);
-        kalguurControls = new AudioRowControls("Kalguur Shipments", soundSettingsPanel, gc);
+//        kalguurControls = new AudioRowControls("Kalguur Shipments", soundSettingsPanel, gc);
         playerJoinedAreaControls = new AudioRowControls("Player Joined Area", soundSettingsPanel, gc);
         ignoredItemControls = new AudioRowControls("Ignored Item", soundSettingsPanel, gc);
         updateAlertControls = new AudioRowControls("Update Alert", soundSettingsPanel, gc);
@@ -95,7 +95,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable, F
         SaveManager.settingsSaveFile.data.incomingSound = incomingTradeControls.getData();
         SaveManager.settingsSaveFile.data.outgoingSound = outgoingTradeControls.getData();
         SaveManager.settingsSaveFile.data.chatScannerSound = chatScannerControls.getData();
-        SaveManager.settingsSaveFile.data.kalguurSound = kalguurControls.getData();
+//        SaveManager.settingsSaveFile.data.kalguurSound = kalguurControls.getData();
         SaveManager.settingsSaveFile.data.playerJoinedAreaSound = playerJoinedAreaControls.getData();
         SaveManager.settingsSaveFile.data.itemIgnoredSound = ignoredItemControls.getData();
         SaveManager.settingsSaveFile.data.updateSound = updateAlertControls.getData();
@@ -108,7 +108,7 @@ public class AudioOptionPanel extends AbstractOptionPanel implements ISavable, F
         incomingTradeControls.setData(SaveManager.settingsSaveFile.data.incomingSound);
         outgoingTradeControls.setData(SaveManager.settingsSaveFile.data.outgoingSound);
         chatScannerControls.setData(SaveManager.settingsSaveFile.data.chatScannerSound);
-        kalguurControls.setData(SaveManager.settingsSaveFile.data.kalguurSound);
+//        kalguurControls.setData(SaveManager.settingsSaveFile.data.kalguurSound);
         playerJoinedAreaControls.setData(SaveManager.settingsSaveFile.data.playerJoinedAreaSound);
         ignoredItemControls.setData(SaveManager.settingsSaveFile.data.itemIgnoredSound);
         updateAlertControls.setData(SaveManager.settingsSaveFile.data.updateSound);

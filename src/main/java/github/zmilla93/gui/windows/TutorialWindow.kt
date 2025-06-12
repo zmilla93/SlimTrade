@@ -6,7 +6,6 @@ import github.zmilla93.core.utility.ZUtil.addStrutsToBorderPanel
 import github.zmilla93.gui.components.ImageLabel
 import github.zmilla93.gui.components.TutorialPanel
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation
-import github.zmilla93.gui.managers.LaunchPopupManager
 import java.awt.BorderLayout
 import java.awt.CardLayout
 import java.awt.Color
@@ -62,7 +61,6 @@ class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
         addListeners()
         updatePageLabel()
         updateButtons()
-        LaunchPopupManager.registerFrameTrigger(this)
     }
 
     private fun addListeners() {

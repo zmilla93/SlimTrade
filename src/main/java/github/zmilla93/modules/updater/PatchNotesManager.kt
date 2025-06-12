@@ -116,14 +116,10 @@ object PatchNotesManager {
         val lines = body.split("(\\n|\\\\r\\\\n)".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val builder = StringBuilder()
         builder.append("<h1>SlimTrade ").append(version).append("</h1>")
-        if (addExtraInfo) builder.append(MarkdownParser.getHtmlFromMarkdown(PREFIX))
         for (s in lines) {
-            if (s.lowercase(Locale.getDefault()).contains("how to install")) {
-                break
-            }
+            if (s.lowercase(Locale.getDefault()).contains("how to install")) break
             builder.append(MarkdownParser.getHtmlFromMarkdown(s))
         }
-        if (addExtraInfo) builder.append(MarkdownParser.getHtmlFromMarkdown(SUFFIX))
         return builder.toString()
     }
 

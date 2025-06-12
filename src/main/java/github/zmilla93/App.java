@@ -73,6 +73,7 @@ public class App {
     public static boolean useLockFile = true; // -nl, -nolock: disable file locking
     public static boolean showOptionsOnLaunch = false; // -o, -options: show the options menu at launch
     public static boolean showHistoryOnLaunch = false; // -h, -history: show the history window at launch
+    public static boolean showPatchNotesOnLaunch = false; // -patchnotes: show the patch notes window at launch
     public static boolean debugUIAlwaysOnTop = false; // -ui: forces the UI to always be on top no matter what
     public static boolean themeDebugWindows = false; // -uim: shows UIManager inspection windows
     public static boolean forceSetup = false; // -s, -setup: forces the setup wizard to run with all phases (can also do setup:SetupPhase to force a specific phase, ie 'setup:game_window')
@@ -294,6 +295,7 @@ public class App {
             if (arg.equals("-d") || arg.equals("-debug")) debug = true;
             if (arg.equals("-o") || arg.equals("-options")) showOptionsOnLaunch = true;
             if (arg.equals("-h") || arg.equals("-history")) showHistoryOnLaunch = true;
+            if (arg.equals("-patchnotes")) showPatchNotesOnLaunch = true;
             if (arg.startsWith("-o:") || arg.startsWith("-options:")) {
                 App.debugOptionPanelName = arg.replace("-options:", "").replaceFirst("-o:", "").toLowerCase();
                 showOptionsOnLaunch = true;

@@ -8,7 +8,6 @@ import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
 import github.zmilla93.gui.components.HTMLLabel
 import github.zmilla93.gui.managers.FrameManager
-import github.zmilla93.gui.managers.LaunchPopupManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.PanelExtensions.fitParentWidth
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
@@ -53,7 +52,6 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         minimumSize = Dimension(size.width, 600)
         size = defaultSize
         POEWindow.centerWindow(this)
-        LaunchPopupManager.registerFrameTrigger(this)
     }
 
     class HeaderPanel : BoxPanel() {
@@ -85,30 +83,29 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         )
 
         val newFeatureIdeas = arrayOf(
-            Entry("Rebrand with a new name and new focus on 'tool overlay' rather than just trading"),
+            Entry("Rebrand with a new name & new focus on 'tool overlay' rather than just trading"),
             Entry("Mapping speedrun timer"),
             Entry("Filter Manager - Drag & drop new filters, delete old filters, auto unzip"),
             Entry("URL Bookmarks"),
-            Entry("Wiki Helper - Search common item names, open their wiki page"),
+            Entry("Quick Search - Search common item names, open link to wiki, trade site, etc"),
 //            Entry("League specific tools"),
 //            Entry("Integration with other tools"),
 //            Entry("Feature Toggle - Hide unused features to free UI space"),
-            Entry("Customizable Alert System")
-                .sub("Trigger for zone change, level up, npc/boss dialog")
-                .sub("Per character tracking for level progression"),
+            Entry("Alert System for zone changes, npc/boss dialog, character progression"),
 //            Entry("UI Translations"),
             Entry("Betrayal cheat sheet maker (likely web based)"),
             Entry("Website (feature spotlight, downloads, FAQ, guides)"),
-            Entry("Web API for dynamic info"),
-            Entry("POE API integration"),
+            Entry("Possible web api interaction?"),
+//            Entry("Web API for dynamic info"),
+//            Entry("POE API integration"),
             Entry("Native App (.exe, .dbn)"),
             Entry("... and more?"),
         )
 
         val beingWorkedOn = arrayOf(
+            Entry("QoL for many existing features"),
+            Entry("Updating old code, fixing bugs"),
             Entry("Converting Java to Kotlin (Faster development, less buggy)"),
-            Entry("Updating old code"),
-            Entry("Fixing bugs"),
         )
 
         init {
@@ -137,7 +134,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             patreonProgressBar.preferredSize = Dimension(0, 10)
             patreonProgressBar.value = 8
             patreonProgressBar.maximum = 500
-            addCenter(JLabel("Current Patreon Goal: 8 / 500").bold())
+            addCenter(JLabel("Patreon Goal: 8 / 500").bold())
             val insetX = 20
             val insetY = 2
             addWithInset(patreonProgressBar, Insets(insetY, insetX, insetY, insetX))
@@ -148,7 +145,6 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
             /** Road to 1.0.0. */
             header("The road to 1.0.0...")
-//            label("SlimTrade feels close to complete as a Trading App, so what now...")
             add(
                 HTMLLabel(
                     "SlimTrade feels close to complete as a trading tool... so what now? " +
@@ -156,11 +152,11 @@ class RoadmapWindow : CustomDialog("Roadmap") {
                             "<b>This would include a new name, new features, UI rework, and a website.<b>"
                 ).fitParentWidth()
             )
-            // FIXME : Switch to ComponentPanel of labels to allow option of no-wrap?
-//            add(HTMLTextArea("Nothing? Improvements? <i>New features?</i> <i><b>A full rebrand?!<b></i>").fitParentWidth())
             strutSmall()
             addCenter(JLabel("Thoughts? I want your feedback!").bold().textColor(ThemeColorBlind.GREEN))
             strutSmall()
+
+            /** Take Poll */
             add(JButton("Take Poll (8 Questions)"))
             strut()
 
