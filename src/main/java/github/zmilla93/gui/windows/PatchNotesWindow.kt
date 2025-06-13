@@ -24,7 +24,7 @@ import javax.swing.event.HyperlinkEvent
 
 class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
 
-    private val groupPatchNotes = true
+    private val groupPatchNotes = false
     private val byPatchCombo = LimitCombo<PatchNotesEntry>()
     private val byMinorCombo = LimitCombo<PatchNotesGroup>()
     private val currentCombo = if (groupPatchNotes) byMinorCombo else byPatchCombo
@@ -145,8 +145,8 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
     private fun updateSelectedPatchNotes() {
         var patchNotes: String? = null
         if (groupPatchNotes) {
-            val group = byMinorCombo.selectedItem as PatchNotesGroup
-            patchNotes = group.combinedPatchNotes
+            val group = byMinorCombo.selectedItem as? PatchNotesGroup
+            if (group != null) patchNotes = group.combinedPatchNotes
         } else {
             val entry = byPatchCombo.selectedItem as? PatchNotesEntry
             if (entry != null) patchNotes = entry.text
