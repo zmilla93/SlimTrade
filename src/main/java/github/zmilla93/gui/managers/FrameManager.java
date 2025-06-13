@@ -54,7 +54,7 @@ public class FrameManager {
     public static HashMap<String, StashSearchWindow> searchWindows = new HashMap<>();
     public static StashSearchWindow combinedSearchWindow;
     public static SetupWindow setupWindow;
-    public static UpdateProgressWindow updateProgressWindow;
+    //        public static UpdateProgressWindow updateProgressWindow;
     public static RoadmapWindow roadMapWindow;
     public static MoverDialog testMoverDialog;
 

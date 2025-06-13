@@ -90,5 +90,13 @@ class UpdateProgressWindow(appInfo: AppInfo, targetVersion: AppVersion) : JFrame
         private const val BORDER_INSET = 20
         private const val VERTICAL_GAP = 3
         private const val WINDOW_OFFSET = 2
+
+        private var _progressWindow: UpdateProgressWindow? = null
+
+        fun getProgressWindow(appInfo: AppInfo, targetVersion: AppVersion): UpdateProgressWindow {
+            if (_progressWindow == null) _progressWindow = UpdateProgressWindow(appInfo, targetVersion)
+            return _progressWindow!!
+        }
+
     }
 }

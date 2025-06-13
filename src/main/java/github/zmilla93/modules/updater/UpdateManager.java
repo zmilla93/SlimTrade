@@ -7,6 +7,7 @@ import github.zmilla93.App;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.gui.managers.FrameManager;
 import github.zmilla93.gui.managers.VisibilityManager;
+import github.zmilla93.gui.windows.CrashReportWindow;
 import github.zmilla93.gui.windows.UpdateProgressWindow;
 import github.zmilla93.modules.updater.data.AppInfo;
 import github.zmilla93.modules.updater.data.AppVersion;
@@ -103,16 +104,22 @@ public class UpdateManager {
                 ZLogger.log("Creating update progress window.");
                 App.initializeThemes();
                 VisibilityManager.hideAllFrames();
-                FrameManager.updateProgressWindow = new UpdateProgressWindow(App.getAppInfo(), getLatestRelease().appVersion);
-                addProgressListener(FrameManager.updateProgressWindow);
-                FrameManager.updateProgressWindow.setVisible(true);
-                FrameManager.updateProgressWindow.setAlwaysOnTop(true);
+                UpdateProgressWindow window = UpdateProgressWindow.Companion.getProgressWindow(App.getAppInfo(), getLatestRelease().appVersion);
+//                FrameManager.updateProgressWindow = new UpdateProgressWindow(App.getAppInfo(), getLatestRelease().appVersion);
+                addProgressListener(window);
+                window.setVisible(true);
+                window.setAlwaysOnTop(true);
             });
         } catch (InterruptedException | InvocationTargetException e) {
+            CrashReportWindow.Companion.showCrashReport(e);
             throw new RuntimeException(e);
         }
         String[] args = new String[]{UpdateAction.DOWNLOAD.toString(), LAUNCH_PATH_PREFIX + getLaunchPath()};
-        continueUpdateProcess(args);
+        try {
+            continueUpdateProcess(args);
+        } catch (Exception e) {
+            CrashReportWindow.Companion.showCrashReport(e);
+        }
     }
 
     /**
