@@ -1,5 +1,6 @@
 package github.zmilla93.gui.components;
 
+import github.zmilla93.core.data.MonitorInfo;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.windows.BasicDialog;
 

@@ -1,6 +1,6 @@
 package github.zmilla93.gui.components.poe.combos;
 
-import github.zmilla93.gui.components.MonitorInfo;
+import github.zmilla93.core.data.MonitorInfo;
 
 import javax.swing.*;
 

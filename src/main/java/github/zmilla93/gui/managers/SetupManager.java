@@ -1,10 +1,10 @@
 package github.zmilla93.gui.managers;
 
 import github.zmilla93.App;
+import github.zmilla93.core.data.MonitorInfo;
 import github.zmilla93.core.enums.SetupPhase;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.PoeClientPathCheck;
-import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.setup.SetupWindow;
 
 import java.util.ArrayList;

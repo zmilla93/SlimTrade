@@ -1,4 +1,4 @@
-package github.zmilla93.gui.components;
+package github.zmilla93.core.data;
 
 import java.awt.*;
 import java.util.Objects;

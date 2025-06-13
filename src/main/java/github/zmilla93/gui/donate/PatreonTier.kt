@@ -19,7 +19,7 @@ enum class PatreonTier(val amount: String, val background: Color, val foreground
 
         const val PATRON_COUNT = 8
         const val PATRON_GOAL = 500
-        const val GOAL_TEXT = "Patreon Goal: $PATRON_COUNT/$PATRON_GOAL"
+        const val GOAL_TEXT = "Patreon Goal - $PATRON_COUNT/$PATRON_GOAL"
 
     }
 

@@ -19,11 +19,6 @@ open class BoxPanel(inset: Int = 10, fill: Int = GridBagConstraints.HORIZONTAL) 
     var headerSize = 0
     var headerInset = 0
     var leftInset: Int = 0
-//        get() = gc.insets.left
-//        set(value) {
-//            gc.insets.left = value
-//            field = value
-//        }
 
     init {
         border = LineBorder(Color.RED)

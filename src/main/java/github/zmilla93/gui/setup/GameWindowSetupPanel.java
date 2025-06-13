@@ -1,11 +1,11 @@
 package github.zmilla93.gui.setup;
 
+import github.zmilla93.core.data.MonitorInfo;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.CardPanel;
-import github.zmilla93.gui.components.MonitorInfo;
 import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.detection.GameDetectionButton;

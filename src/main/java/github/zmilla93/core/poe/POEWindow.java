@@ -2,11 +2,11 @@ package github.zmilla93.core.poe;
 
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.WinDef;
+import github.zmilla93.core.data.MonitorInfo;
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.jna.CustomUser32;
 import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.utility.Platform;
-import github.zmilla93.gui.components.MonitorInfo;
 
 import javax.swing.*;
 import java.awt.*;

@@ -20,7 +20,11 @@ import javax.swing.*
 
 class RoadmapWindow : CustomDialog("Roadmap") {
 
-    val defaultSize = Dimension(700, 910)
+    val defaultSize = Dimension(600, 840)
+
+    val pollButton = JButton("Take Poll (8 Questions)").onClick {
+        System.err.println("TODO: poll button")
+    }
 
     init {
         pinButton.isVisible = false
@@ -29,22 +33,34 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         val contentPanel = contentPane
         contentPanel.layout = BorderLayout()
 
-//        val supportButton = JButton("Support SlimTrade :)").onClick { FrameManager.optionsWindow.showDonationPanel() }
-
         val southPanel = JPanel(GridBagLayout())
         val gc = ZUtil.getGC()
-        val inset = 2
+        val inset = 1
         gc.insets = Insets(inset, inset, inset, inset)
-        gc.fill = GridBagConstraints.BOTH
+        gc.fill = GridBagConstraints.HORIZONTAL
         gc.weightx = 1.0
 
-        southPanel.add(JButton("Patch Notes").onClick {
+//        val pollBox = JPanel(GridBagLayout())
+//        val pollgc = ZUtil.getGC()
+//        pollgc.weightx = 1.0
+//        pollBox.add(JLabel("Thoughts? I want your feedback!").textColor(ThemeColorBlind.GREEN), pollgc)
+//        pollgc.gridx++
+//        pollgc.fill = GridBagConstraints.HORIZONTAL
+//        pollBox.add(pollButton, pollgc)
+
+        val southBox = BoxPanel(0)
+        southBox.strut(2)
+        southBox.addCenter(JLabel("Thoughts? I want your feedback!").textColor(ThemeColorBlind.GREEN))
+        southBox.strut(2)
+        southBox.add(pollButton)
+
+        southPanel.add(southBox, gc)
+        gc.gridy++
+        gc.insets.top = 0
+        southPanel.add(JButton("View Patch Notes").onClick {
             isVisible = false
             FrameManager.patchNotesWindow.isVisible = true
         }, gc)
-//        gc.gridx++
-//        gc.insets.left = 0
-//        southPanel.add(supportButton, gc)
 
         val wrapper = JPanel(BorderLayout())
         wrapper.add(roadmapPanel, BorderLayout.NORTH)
@@ -57,7 +73,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         POEWindow.centerWindow(this)
     }
 
-    class HeaderPanel : BoxPanel() {
+    inner class HeaderPanel : BoxPanel() {
         init {
             val gap = 10
             strut(gap)
@@ -71,7 +87,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         }
     }
 
-    class RoadmapPanel : BoxPanel() {
+    inner class RoadmapPanel : BoxPanel() {
 
         val improvementIdeas = arrayOf(
             Entry("Currency stack conversion, ie \"173c [8s+13]\""),
@@ -90,16 +106,16 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             Entry("Mapping speedrun timer"),
             Entry("URL Bookmarks"),
             Entry("Quick Search - Search common item names, open link to wiki, trade site, etc"),
-            Entry("Filter Manager (for people that don't use syncing)"),
+            Entry("Filter Manager (for people not using syncing)"),
 //            Entry("League specific tools"),
 //            Entry("Integration with other tools"),
 //            Entry("Feature Toggle - Hide unused features to free UI space"),
-            Entry("Updates to existing features"),
+//            Entry("Updates to existing features"),
             Entry("Alert System for zone changes, npc/boss dialog, character progression"),
 //            Entry("UI Translations"),
-            Entry("League specific tools when applicable"),
+            Entry("Helper tools for leveling, league mechanics, etc"),
             Entry("Betrayal cheat sheet maker (likely web based)"),
-            Entry("Website (feature spotlight, downloads, FAQ, guides)"),
+            Entry("Website (feature spotlight, downloads, FAQ, guides, web tools)"),
             Entry("Possible web api interaction?"),
             Entry("UI reorganization"),
             Entry("Native App (.exe, .dbn)"),
@@ -110,9 +126,8 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 
         val beingWorkedOn = arrayOf(
             Entry("Converting Java to Kotlin (Faster development, less bugs)"),
-            Entry("QoL and reworks for many existing features"),
-            Entry("UI improvements"),
             Entry("Updating old code, fixing bugs"),
+            Entry("QoL and UI improvements"),
         )
 
         init {
@@ -141,7 +156,7 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             patreonProgressBar.preferredSize = Dimension(0, 10)
             patreonProgressBar.value = PatreonTier.PATRON_COUNT
             patreonProgressBar.maximum = PatreonTier.PATRON_GOAL
-            addCenter(JLabel("Patreon Goal: 8 / 500").bold())
+            add(JLabel(PatreonTier.GOAL_TEXT).bold())
             val insetX = 20
             val insetY = 2
             addWithInset(patreonProgressBar, Insets(insetY, insetX, insetY, insetX))
@@ -154,17 +169,16 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             header("The road to 1.0.0...")
             add(
                 HTMLLabel(
-                    "SlimTrade feels close to complete as a trading tool... so what now? " +
-                            "I'm thinking about refocusing the project to be more of a general purpose overlay tool. " +
-                            "<b>This would include a new name, new features, UI rework, and a website.<b>"
+                    "SlimTrade feels close to complete as a trading tool... so now what? " +
+                            "I'm thinking about reworking the project to be more of a general purpose overlay tool. " +
+                            "<b>This would include a new name, new features, UI rework, website, and existing feature reworks.<b>"
                 ).fitParentWidth()
             )
             strutSmall()
-            addCenter(JLabel("Thoughts? I want your feedback!").bold().textColor(ThemeColorBlind.GREEN))
-            strutSmall()
+
 
             /** Take Poll */
-            add(JButton("Take Poll (8 Questions)"))
+//            add(pollB)
             strut()
 
             /** Minor Features */
@@ -179,12 +193,10 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             addEntryGroup(newFeatureIdeas)
             strut()
 
-
             header("Working on now")
             addEntryGroup(beingWorkedOn)
-            label("This may sound boring (it is), but is important prep work for future updates.").bold()
-                .textColor(ThemeColorBlind.YELLOW)
-
+//            label("This may sound boring (it is), but is needed prep work for future updates.").bold()
+//                .textColor(ThemeColorBlind.YELLOW)
         }
 
         fun addEntryGroup(entries: Array<Entry>) {
