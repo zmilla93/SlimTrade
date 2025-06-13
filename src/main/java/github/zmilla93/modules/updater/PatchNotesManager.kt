@@ -6,7 +6,7 @@ import github.zmilla93.core.utility.FileUtil
 import github.zmilla93.core.utility.MarkdownParser
 import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.modules.data.HashMapList
-import github.zmilla93.modules.updater.PatchNotesManager.localPatchNotes
+import github.zmilla93.modules.updater.PatchNotesManager.patchNotes
 import github.zmilla93.modules.updater.data.AppVersion
 import java.io.File
 import java.io.FileNotFoundException
@@ -17,7 +17,7 @@ object PatchNotesManager {
 
     // FIXME: Underscore
     var patchNotesFolderName = "patch_notes"
-    var localPatchNotes = ArrayList<PatchNotesEntry>()
+    var patchNotes = ArrayList<PatchNotesEntry>()
 
     private val PREFIX =
         "**Enjoying the app? Consider supporting on [Patreon](" + References.PATREON_URL + ") or [PayPal](" + References.PAYPAL_URL + ")!**<br>"
@@ -45,14 +45,17 @@ object PatchNotesManager {
             // FIXME : Add support for remote patch notes
         }
 //        readLocalPatchNotes()
-        if (localPatchNotes.isEmpty()) {
+        if (patchNotes.isEmpty()) {
             readLocalPatchNotesV2(patchNotesFolderName)
-            if (localPatchNotes.isEmpty()) readLocalPatchNotes()
+            if (patchNotes.isEmpty()) readLocalPatchNotes()
         }
-        return localPatchNotes
+        if (patchNotes.isEmpty()) {
+            patchNotes = App.updateManager.getPatchNotes(App.getAppInfo().appVersion)
+        }
+        return patchNotes
     }
 
-    /** Load patch notes from resources into [localPatchNotes]*/
+    /** Load patch notes from resources into [patchNotes]*/
     fun readLocalPatchNotes() {
         try {
             val patchNotesResource = PatchNotesManager.javaClass.getResource("/$patchNotesFolderName")
@@ -64,7 +67,7 @@ object PatchNotesManager {
                 if (version.isPreRelease && !App.getAppInfo().appVersion.isPreRelease) return@forEachIndexed
                 val contents = FileUtil.resourceAsString("$patchNotesFolderName/${it.name}")
                 val cleanPatchNotes = getCleanPatchNotes(version, contents, i == 0)
-                localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
+                patchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
             }
             println("Read local patch notes from disk (debug).")
         } catch (_: Exception) {
@@ -106,7 +109,7 @@ object PatchNotesManager {
             if (it.isPreRelease) return@forEach
             val text = ZUtil.readResourceFileAsString("$patchNotesFolderName/v$it.txt")
             val cleanPatchNotes = getCleanPatchNotes(it, text, first)
-            localPatchNotes.add(PatchNotesEntry(it.toString(), cleanPatchNotes))
+            patchNotes.add(PatchNotesEntry(it.toString(), cleanPatchNotes))
             first = false
         }
     }
