@@ -294,6 +294,7 @@ public class FrameManager {
         });
     }
 
+    // FIXME : Should check for duplicate message, since there are situations this could get called twice (ie on crash)
     public static void displayUpdateAvailable(String tag) {
         SwingUtilities.invokeLater(() -> {
             FrameManager.optionsWindow.showUpdateButton();

@@ -1,11 +1,13 @@
 package github.zmilla93.gui.windows
 
+import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.utility.ClipboardManager
 import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.gui.components.BoxPanel
 import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
+import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -48,6 +50,8 @@ class CrashReportWindow(error: Exception) : JFrame() {
                 window.size = Dimension(620, 400)
                 window.isVisible = true
                 window.setLocationRelativeTo(null)
+                if (App.updateManager.isUpdateAvailable)
+                    FrameManager.displayUpdateAvailable(App.updateManager.getLatestReleaseTag())
             }
         }
 

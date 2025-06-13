@@ -187,7 +187,6 @@ public class App {
 
                 } catch (Exception err) {
                     CrashReportWindow.Companion.showCrashReport(err);
-
                 }
             });
             profileLaunch("UI Creation");
