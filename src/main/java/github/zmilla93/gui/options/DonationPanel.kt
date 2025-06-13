@@ -1,148 +1,91 @@
 package github.zmilla93.gui.options
 
+import com.formdev.flatlaf.ui.FlatBorder
 import github.zmilla93.core.References
-import github.zmilla93.core.enums.CurrencyType
-import github.zmilla93.core.utility.ZUtil.getBufferedReader
-import github.zmilla93.core.utility.ZUtil.getGC
 import github.zmilla93.core.utility.ZUtil.openLink
-import github.zmilla93.gui.components.*
+import github.zmilla93.gui.components.BoxPanel
+import github.zmilla93.gui.components.FlowPanel
 import github.zmilla93.gui.donate.*
-import github.zmilla93.modules.updater.ZLogger
+import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
+import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
+import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.FlowLayout
-import java.awt.GridBagConstraints
-import java.awt.GridBagLayout
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
-import java.io.IOException
-import java.util.*
-import javax.swing.JButton
-import javax.swing.JLabel
-import javax.swing.JPanel
+import javax.swing.*
 
-class DonationPanel : AbstractOptionPanel() {
+class DonationPanel : JPanel() {
 
-    private val paypalButton = JButton("PayPal")
-    val buttonToFocus: JButton = JButton("Patreon")
-    private val supporterPanel = JPanel(GridBagLayout())
-    private val supporters: ArrayList<Supporter>
-
-    companion object {
-        val text1 = "Software"
-    }
+    val patreonButton = JButton("Patreon").onClick { openLink(References.PATREON_URL) }
+    private val paypalButton = JButton("PayPal").onClick { openLink(References.PAYPAL_URL) }
 
     init {
-        supporters = parseSupporters()
-        background = Color.RED
-
-        val patreonSupporters = BoxPanel()
-        for (patron in Supporters.patrons)
-            patreonSupporters.add(PatreonNamePlate(patron))
-
-        val paypalSupporters = BoxPanel()
-        paypalSupporters.background = Color.ORANGE
-        for (patron in Supporters.paypal)
-            paypalSupporters.add(PayPalNamePlate(patron.name, patron.tier))
-
-        // Patreon Tiers
-        val patreonTiers = FlowPanel()
-        for (tier in PatreonTier.entries)
-            patreonTiers.add(PatreonNamePlate(PatreonSupporter(tier.amount, tier, true)))
-
-        // Paypal Tiers
-        val paypalTiers = JPanel(FlowLayout())
-        for (tier in PayPalTier.entries) paypalTiers.add(PayPalNamePlate(tier.amount, tier))
-
-
-        // Setup panel
-        addHeader("Donating")
-        add(JLabel("If you enjoy using this app, please consider supporting me! Supporters will be added here."))
-        add(JLabel("Contact me if you want your display named changed, or if you'd like to remain anonymous."))
-        val htmlText = HTMLTextArea(
-            "<html>Software development is time consuming, and a man's gotta eat.<br>" +
-                    "<a href=''>Consider supporting me!</a> An occasional dollar really adds up when everyone does it.<br></html>"
-        )
-        add(htmlText)
-        addVerticalStrutSmall()
-        add(createButtonPanel())
-        add(patreonTiers)
-        add(paypalTiers)
-        addVerticalStrut()
-        addHeader("Thank You!")
-//        add(supporterPanel)
-        add(patreonSupporters)
-        add(CustomScrollPane(paypalSupporters))
-
-        buildSupporterPanel()
-
-        addListeners()
+        layout = BorderLayout()
+        add(HeaderPanel(), BorderLayout.NORTH)
+        add(BodyPanel(), BorderLayout.CENTER)
     }
 
-    private fun addListeners() {
-        paypalButton.addActionListener { openLink(References.PAYPAL_URL) }
-        buttonToFocus.addActionListener(ActionListener { e: ActionEvent? -> openLink(References.PATREON_URL) })
-    }
+    inner class HeaderPanel() : BoxPanel() {
+        init {
+            largeHeaders()
 
-    private fun createButtonPanel(): JPanel {
-        val panel = JPanel(GridBagLayout())
-        val gc = getGC()
-        panel.add(this.buttonToFocus)
-        gc.gridx++
-        gc.insets.left = 10
-        panel.add(paypalButton)
-        return panel
-    }
+            /** Intro - Blurb and progress bar */
+            header(PatreonTier.HEADER_TEXT)
+            label(PatreonTier.INFO_TEXT)
+            strutSmall()
+            add(JLabel(PatreonTier.GOAL_TEXT).bold())
+            val progressBar = JProgressBar()
+            progressBar.value = PatreonTier.PATRON_COUNT
+            progressBar.maximum = PatreonTier.PATRON_GOAL
+            add(progressBar)
+            strut()
 
-    private fun buildSupporterPanel() {
-        supporterPanel.removeAll()
-        val gc = getGC()
-        gc.anchor = GridBagConstraints.WEST
-        for (supporter in supporters) {
-            val label: JLabel = BasicIconLabel(CurrencyType.getCurrencyType(supporter.currencyType))
-            label.setText(supporter.name)
-            supporterPanel.add(label, gc)
-            gc.gridy++
+            /** Patreon Info */
+            header("Donate")
+            val patreonTiers = FlowPanel()
+            patreonTiers.add(patreonButton)
+            for (tier in PatreonTier.entries)
+                patreonTiers.add(PatreonNamePlate(PatreonSupporter(tier.amount, tier, true)))
+            addLeft(patreonTiers)
+//            strut()
+
+            /** PayPal Info */
+//            header("PayPal")
+            val paypalTiers = JPanel(FlowLayout())
+            paypalTiers.add(paypalButton)
+            for (tier in PayPalTier.entries)
+                paypalTiers.add(PayPalNamePlate(tier.amount, tier))
+            addLeft(paypalTiers)
+            strut()
+
+            /** Header for the [BodyPanel]. */
+            header("Supporters")
         }
     }
 
-    private fun parseSupporters(): ArrayList<Supporter> {
-        val supporters: ArrayList<Supporter> = ArrayList<Supporter>()
-        val reader = getBufferedReader("/text/supporters.txt", true)
-        var currentCurrency: String? = null
-        try {
-            while (reader.ready()) {
-                val line = reader.readLine().trim { it <= ' ' }
-                if (line.startsWith("=")) continue
-                else if (line.startsWith("#")) currentCurrency = getCurrencyType(line)
-                else if (line.isNotEmpty()) {
-                    if (currentCurrency == null) ZLogger.err("[Donation Panel] Currency not set!")
-                    else supporters.add(Supporter(line, currentCurrency))
-                }
-            }
-        } catch (e: IOException) {
-            throw RuntimeException(e)
-        }
-        Collections.sort(supporters)
-        return supporters
-    }
+    class BodyPanel : JPanel() {
+        init {
+            background = Color.GREEN
+            layout = BorderLayout()
 
-    private fun getCurrencyType(line: String): String? {
-        if (line.contains("T1")) return "Orb of Alchemy"
-        else if (line.contains("T2")) return "Chaos Orb"
-        else if (line.contains("T3")) return "Divine Orb"
-        else if (line.contains("PayPal")) return "Regal Orb"
-        else if (line.contains("Testers")) return "Blessed Orb"
-        ZLogger.err("[Donation Panel] Invalid currency line: " + line)
-        return null
-    }
+            val patreonSupporters = JPanel(FlowLayout())
+            for (patron in Supporters.patrons)
+                patreonSupporters.add(PatreonNamePlate(patron))
 
-    private class Supporter(val name: String, val currencyType: String) : Comparable<Supporter> {
-        override fun compareTo(other: Supporter): Int {
-            return name.compareTo(other.name)
-        }
+            val paypalSupporters = JPanel(FlowLayout())
+            for (patron in Supporters.paypal)
+                paypalSupporters.add(PayPalNamePlate(patron.name, patron.tier))
 
-        override fun toString(): String {
-            return name + " : " + currencyType
+            val boxPanel = JPanel()
+            boxPanel.layout = BoxLayout(boxPanel, BoxLayout.PAGE_AXIS)
+            boxPanel.add(patreonSupporters)
+            boxPanel.add(paypalSupporters)
+
+            add(boxPanel, BorderLayout.CENTER)
         }
     }
+
+    override fun updateUI() {
+        border = FlatBorder()
+    }
+
 }

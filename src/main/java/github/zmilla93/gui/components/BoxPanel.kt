@@ -12,7 +12,7 @@ import javax.swing.JSeparator
 import javax.swing.border.EmptyBorder
 import javax.swing.border.LineBorder
 
-open class BoxPanel(inset: Int = 10) : JPanel() {
+open class BoxPanel(inset: Int = 10, fill: Int = GridBagConstraints.HORIZONTAL) : JPanel() {
 
     val gc: GridBagConstraints = ZUtil.getGC()
     var strutSize = 16
@@ -30,16 +30,34 @@ open class BoxPanel(inset: Int = 10) : JPanel() {
         layout = GridBagLayout()
         gc.weightx = 1.0
         gc.weighty = 0.0
-        gc.fill = GridBagConstraints.HORIZONTAL
+        gc.fill = fill
         gc.insets.left = leftInset
 //        gc.anchor = GridBagConstraints.WEST
         border = EmptyBorder(inset, inset, inset, inset)
+    }
+
+    /** Shorthand to enable larger headers at a consistent size. */
+    fun largeHeaders() {
+        headerSize = 18
     }
 
     override fun add(comp: Component): Component {
         gc.insets.left = leftInset
         super.add(comp, gc)
         gc.gridy++
+        return comp
+    }
+
+    fun addLeft(comp: Component): Component {
+        gc.insets.left = leftInset
+        val prevFill = gc.fill
+        val prevAnchor = gc.anchor
+        gc.fill = GridBagConstraints.NONE
+        gc.anchor = GridBagConstraints.WEST
+        super.add(comp, gc)
+        gc.gridy++
+        gc.fill = prevFill
+        gc.anchor = prevAnchor
         return comp
     }
 

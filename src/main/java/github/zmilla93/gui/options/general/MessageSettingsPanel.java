@@ -129,7 +129,7 @@ public class MessageSettingsPanel extends JPanel implements ISavable {
 
     private void updatePanelVisibility() {
         fadePanel.setVisible(fadeCheckBox.isSelected());
-        FrameManager.optionsWindow.getHotkeyPanel().showHideChangeTabHotkeys(messageTabsCheckbox.isSelected());
+        FrameManager.optionsWindow.hotkeyPanel.showHideChangeTabHotkeys(messageTabsCheckbox.isSelected());
         collapseCheckBox.setVisible(!messageTabsCheckbox.isSelected());
         collapsePanel.setVisible(collapseCheckBox.isSelected() && !messageTabsCheckbox.isSelected());
     }

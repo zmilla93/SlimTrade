@@ -28,8 +28,8 @@ public class ItemIgnoreWindow extends CustomDialog {
 
     private void addListeners() {
         inputPanel.getIgnoreButton().addActionListener(e -> {
-            FrameManager.optionsWindow.getIgnorePanel().tryAddIgnoreItem(inputPanel.getIgnoreItem());
-            FrameManager.optionsWindow.getIgnorePanel().save();
+            FrameManager.optionsWindow.ignorePanel.tryAddIgnoreItem(inputPanel.getIgnoreItem());
+            FrameManager.optionsWindow.ignorePanel.save();
             SaveManager.ignoreSaveFile.saveToDisk();
             setVisible(false);
         });

@@ -53,9 +53,7 @@ object LaunchPopupManager {
                 tryShowNextPopup()
             }
 
-            override fun componentShown(e: ComponentEvent?) {
-                super.componentShown(e)
-                println("MARK:${popup.window()}")
+            override fun componentShown(e: ComponentEvent) {
                 popup.markAsSeen()
             }
         })

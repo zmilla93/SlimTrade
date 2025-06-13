@@ -7,6 +7,7 @@ import github.zmilla93.gui.components.BoxPanel
 import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
 import github.zmilla93.gui.components.HTMLLabel
+import github.zmilla93.gui.donate.PatreonTier
 import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.PanelExtensions.fitParentWidth
@@ -87,27 +88,31 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         val newFeatureIdeas = arrayOf(
             Entry("Rebrand with a new name & new focus on 'tool overlay' rather than just trading"),
             Entry("Mapping speedrun timer"),
-            Entry("Filter Manager - Drag & drop new filters, delete old filters, auto unzip"),
             Entry("URL Bookmarks"),
             Entry("Quick Search - Search common item names, open link to wiki, trade site, etc"),
+            Entry("Filter Manager (for people that don't use syncing)"),
 //            Entry("League specific tools"),
 //            Entry("Integration with other tools"),
 //            Entry("Feature Toggle - Hide unused features to free UI space"),
+            Entry("Updates to existing features"),
             Entry("Alert System for zone changes, npc/boss dialog, character progression"),
 //            Entry("UI Translations"),
+            Entry("League specific tools when applicable"),
             Entry("Betrayal cheat sheet maker (likely web based)"),
             Entry("Website (feature spotlight, downloads, FAQ, guides)"),
             Entry("Possible web api interaction?"),
+            Entry("UI reorganization"),
+            Entry("Native App (.exe, .dbn)"),
 //            Entry("Web API for dynamic info"),
 //            Entry("POE API integration"),
-            Entry("Native App (.exe, .dbn)"),
             Entry("... and more?"),
         )
 
         val beingWorkedOn = arrayOf(
-            Entry("QoL for many existing features"),
+            Entry("Converting Java to Kotlin (Faster development, less bugs)"),
+            Entry("QoL and reworks for many existing features"),
+            Entry("UI improvements"),
             Entry("Updating old code, fixing bugs"),
-            Entry("Converting Java to Kotlin (Faster development, less buggy)"),
         )
 
         init {
@@ -134,8 +139,8 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             // Progress Bar
             val patreonProgressBar = JProgressBar()
             patreonProgressBar.preferredSize = Dimension(0, 10)
-            patreonProgressBar.value = 8
-            patreonProgressBar.maximum = 500
+            patreonProgressBar.value = PatreonTier.PATRON_COUNT
+            patreonProgressBar.maximum = PatreonTier.PATRON_GOAL
             addCenter(JLabel("Patreon Goal: 8 / 500").bold())
             val insetX = 20
             val insetY = 2
@@ -163,10 +168,10 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             strut()
 
             /** Minor Features */
-            header("Improvement Ideas")
-            label("These are ideas, but will likely happen.").textColor(ThemeColorBlind.YELLOW)
-            addEntryGroup(improvementIdeas)
-            strut()
+//            header("Improvement Ideas")
+//            label("These are ideas, but will likely happen.").textColor(ThemeColorBlind.YELLOW)
+//            addEntryGroup(improvementIdeas)
+//            strut()
 
             /** New Features */
             header("New Ideas")
@@ -175,9 +180,9 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             strut()
 
 
-            header("Being Worked On")
+            header("Working on now")
             addEntryGroup(beingWorkedOn)
-            label("This may sound boring (it is), but allows for better future updates.").bold()
+            label("This may sound boring (it is), but is important prep work for future updates.").bold()
                 .textColor(ThemeColorBlind.YELLOW)
 
         }
