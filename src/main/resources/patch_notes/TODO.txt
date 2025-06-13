@@ -1,14 +1,34 @@
-- Patreon Panel
-    - Patreon Nameplace
-    - Paypal Nameplate
-- Roadmap Panel
+= Now
++ Donation Panel UI cleanup
++ Add a check to loading popups for all other popups not visible
+- First page of tutorial is glitchy
+- Linux Thing
 - Flat/Colored Buttons?
-- Build and run jar - patch notes are broken due to trying to iterate file
+- Theme Cleanup
+    - Font
+    - ThemeColor / ColorBlind
+    - ColorExtensions
+- Parser Timestamps
+    - Fix DND
 
-+ Get restarting when toggling poe1 on and off working
-+ Remove old parser events
-- DnD event?
-    - Need to add timestamping-
-+ Fix history reloading
-+ Disable forced parser restart
-+ Have EventBus emit from EDT by default
+== Cleanup
+    - Recheck LaunchWindows, extra listeners might be being added
+
+== Release
+    - Feedback Poll
+    - New install test
+    - Roadmap Buttons
+    - Roadmap Panel
+    - Support Panel
+    - New League Popups
+
+
+== Random
+- Hide Poe1/2 "Not Installed" checkbox if a valid path is set
+- Track new characters
+-- DND fix?
+-- Linux thing
+-- Chat scanner - ignore players
+
+== Bugs
+- MenuBar Visibility

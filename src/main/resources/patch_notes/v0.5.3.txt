@@ -1,0 +1,17 @@
+## Improvements
+- Created a roadmap
+- New loading splash
+
+## Bug Fixes
+- Fixed message hotkeys not working
+- Install folder no longer has name requirement
+- Fixed window layering bug
+
+## Technical
+- Began converting Java to Kotlin
+
+## How to Install
+- Make sure you have [Java](https://www.java.com) installed
+- Download and run 'SlimTrade.jar' from 'Assets' below
+
+*Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*
