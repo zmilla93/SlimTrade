@@ -39,12 +39,12 @@ class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
         val poe1ParserStateChange = didParserStateChange(
             chatParserPoe1,
             shouldOpenPoe1Parser,
-            SaveManager.settingsSaveFile.data.settingsPoe1.installFolder!!
+            SaveManager.settingsSaveFile.data.settingsPoe1.installFolder
         ) || forceRestart
         val poe2ParserStateChange = didParserStateChange(
             chatParserPoe2,
             shouldOpenPoe2Parser,
-            SaveManager.settingsSaveFile.data.settingsPoe2.installFolder!!
+            SaveManager.settingsSaveFile.data.settingsPoe2.installFolder
         ) || forceRestart
         // Return early if no parser state changes occur
         var parserChangedCount = 0
@@ -66,17 +66,21 @@ class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
     }
 
     /** Returns true if the chat parser is switching between on and off, or if already running but the client.txt path changed. */
-    private fun didParserStateChange(parser: ChatParser?, shouldOpen: Boolean, newPath: String): Boolean {
+    private fun didParserStateChange(parser: ChatParser?, shouldOpen: Boolean, newPath: String?): Boolean {
         val isRunning = parser != null && parser.isOpen
         val runningChanged = isRunning != shouldOpen
         var pathChanged = false
-        if (isRunning && shouldOpen) pathChanged = !parser.path!!.startsWith(newPath)
+        if (isRunning && shouldOpen) {
+            if (newPath == null) pathChanged = parser.path != null
+            else pathChanged = !parser.path!!.startsWith(newPath)
+        }
         return runningChanged || pathChanged
     }
 
     /** Returns true if a valid client.txt file exists. */
     private fun shouldParserOpen(settings: GameSettings): Boolean {
         if (settings.notInstalled) return false
+        if (settings.installFolder == null) return false
         if (!settings.doesClientLogExist()) return false
         return true
     }
@@ -120,5 +124,5 @@ class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
         parserLoadedCount++
         if (parserLoadedCount == expectedParserCount) App.parserEvent.post(ParserEventType.LOADED)
     }
-
+    
 }

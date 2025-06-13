@@ -1,5 +1,5 @@
 ## Bug Fixes
-- Added a crash report for GUI initialization errors
+- Fixed a crash on launch caused by only having both games installed
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed
