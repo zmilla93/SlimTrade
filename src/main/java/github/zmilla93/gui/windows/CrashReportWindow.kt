@@ -7,7 +7,6 @@ import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.gui.components.BoxPanel
 import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
-import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -27,8 +26,16 @@ class CrashReportWindow(error: Exception) : JFrame() {
         isAlwaysOnTop = true
         defaultCloseOperation = EXIT_ON_CLOSE
 
-        panel.header("SlimTrade crashed!")
-        panel.label("Report this bug on GitHub or Discord.")
+        if (App.updateManager.isUpdateAvailable) {
+            panel.header("Update available!")
+            panel.label("SlimTrade crashed, but there is a new update available.")
+            panel.addLeft(JButton("Install SlimTrade ${App.updateManager.latestRelease}").onClick {
+                App.updateManager.runUpdateProcessFromSwing()
+            })
+        } else {
+            panel.header("Crash Report")
+            panel.label("Report this bug on GitHub or Discord.")
+        }
 
         val southPanel = JPanel(BorderLayout())
         southPanel.add(copyReportButton, BorderLayout.WEST)
@@ -50,8 +57,6 @@ class CrashReportWindow(error: Exception) : JFrame() {
                 window.size = Dimension(620, 400)
                 window.isVisible = true
                 window.setLocationRelativeTo(null)
-                if (App.updateManager.isUpdateAvailable)
-                    FrameManager.displayUpdateAvailable(App.updateManager.getLatestReleaseTag())
             }
         }
 
