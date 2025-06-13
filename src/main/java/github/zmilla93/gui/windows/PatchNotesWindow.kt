@@ -24,7 +24,7 @@ import javax.swing.event.HyperlinkEvent
 
 class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
 
-    private val groupPatchNotes = false
+    private val groupPatchNotes = true
     private val byPatchCombo = LimitCombo<PatchNotesEntry>()
     private val byMinorCombo = LimitCombo<PatchNotesGroup>()
     private val currentCombo = if (groupPatchNotes) byMinorCombo else byPatchCombo

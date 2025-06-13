@@ -1,3 +1,6 @@
+= Bugs
+- Resetting UI doesn't affect message manager
+
 = Now
 - First page of tutorial is glitchy
 - Flat/Colored Buttons?

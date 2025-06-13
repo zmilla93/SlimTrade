@@ -19,6 +19,7 @@ import github.zmilla93.gui.managers.LaunchPopupManager;
 import github.zmilla93.gui.managers.SetupManager;
 import github.zmilla93.gui.managers.SystemTrayManager;
 import github.zmilla93.gui.pinning.PinManager;
+import github.zmilla93.gui.windows.CrashReportWindow;
 import github.zmilla93.gui.windows.LoadingSplashWindow;
 import github.zmilla93.modules.stopwatch.Stopwatch;
 import github.zmilla93.modules.theme.ThemeManager;
@@ -35,7 +36,6 @@ import javax.swing.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -154,8 +154,10 @@ public class App {
                 loadingSplashWindow.setVisible(true);
             });
             profileLaunch("ThemeManager");
-        } catch (InterruptedException | InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "", "", JOptionPane.ERROR_MESSAGE);
+            CrashReportWindow.Companion.showCrashReport(e);
         }
 
         /// Init Managers
@@ -184,10 +186,16 @@ public class App {
             SwingUtilities.invokeAndWait(() -> {
                 // Initialize GUI
                 SystemTrayManager.init();
-                FrameManager.createGUI();
+                try {
+                    FrameManager.createGUI();
+
+                } catch (Exception err) {
+                    CrashReportWindow.Companion.showCrashReport(err);
+
+                }
             });
             profileLaunch("UI Creation");
-        } catch (InterruptedException | InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
