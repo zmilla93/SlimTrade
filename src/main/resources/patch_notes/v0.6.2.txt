@@ -1,4 +1,4 @@
-## Bug Fixes
+## Hotfix
 - Disabled combined patch notes
 
 ## How to Install

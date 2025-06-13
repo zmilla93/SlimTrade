@@ -23,7 +23,6 @@ import github.zmilla93.gui.windows.CrashReportWindow;
 import github.zmilla93.gui.windows.LoadingSplashWindow;
 import github.zmilla93.modules.stopwatch.Stopwatch;
 import github.zmilla93.modules.theme.ThemeManager;
-import github.zmilla93.modules.updater.PatchNotesManager;
 import github.zmilla93.modules.updater.UpdateAction;
 import github.zmilla93.modules.updater.UpdateManager;
 import github.zmilla93.modules.updater.ZLogger;
@@ -125,9 +124,6 @@ public class App {
         // FIXME: is this correct spot for fresh? Or after UI init for callbacks? Or both? (maybe an alertBounds() function for after)
         POEWindow.forceGameBoundsRefresh();
         profileLaunch("Time to start update");
-
-        // FIXME : TEMP
-        PatchNotesManager.INSTANCE.patchNotesMyMinor();
 
         /// Update
         updateManager = new UpdateManager(References.AUTHOR, References.GITHUB_REPO, SaveManager.getSaveDirectory(), getAppInfo(), getAppInfo().appVersion.isPreRelease);

@@ -1,5 +1,5 @@
 ## Hotfix
-- Fixed a crash on launch caused by only having both games installed
+- Fixed additional patch notes crash, enabled combined patch notes again
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed

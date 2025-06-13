@@ -70,9 +70,10 @@ object PatchNotesManager {
                 patchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
             }
             println("Read local patch notes from disk (debug).")
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             // FIXME @important : This
-            System.err.println("Error reading local patch notes!")
+            ZLogger.err("Error reading local patch notes!")
+            ZLogger.log(e.stackTrace)
         }
     }
 
