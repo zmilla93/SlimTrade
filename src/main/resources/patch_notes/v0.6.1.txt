@@ -1,5 +1,6 @@
 ## Hotfix
 - Fixed a crash on launch caused by only having both games installed
+- Added a crash report popup for common crash types
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed

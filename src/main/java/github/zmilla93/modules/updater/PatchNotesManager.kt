@@ -48,7 +48,12 @@ object PatchNotesManager {
 //        readLocalPatchNotes()
         if (patchNotes.isEmpty()) {
             println("Reading local patch notes (jar)")
-            readLocalPatchNotesJar(patchNotesFolderName)
+            try {
+                readLocalPatchNotesJar(patchNotesFolderName)
+            } catch (e: Exception) {
+                ZLogger.err("Error reading patch notes from jar")
+                ZLogger.err(e.stackTrace)
+            }
             if (patchNotes.isEmpty()) {
                 println("Reading local patch notes (dev))")
                 readLocalPatchNotesDev()
@@ -94,12 +99,20 @@ object PatchNotesManager {
             System.err.println("Null patch notes resource: $path")
             return
         }
-        val jarPath = resourceUrl.path.substringAfter("file:").substringBefore("!")
+        // FIXME @important : This line causes an error for some users, currently caught one level up
+        val jarPath: String
+        try {
+            jarPath = resourceUrl.path.substringAfter("file:").substringBefore("!")
+        } catch (e: Exception) {
+            ZLogger.err("Failed to load resource: $resourceUrl")
+            ZLogger.err(e.stackTrace)
+            return
+        }
         val jarFile: JarFile
         try {
             jarFile = JarFile(jarPath)
         } catch (_: FileNotFoundException) {
-            System.err.println("Failed to read patch notes from jar file. This is normal when running in the editor.")
+            ZLogger.err("Failed to read patch notes from jar file. This is normal when running in the editor.")
             return
         }
         val entries = jarFile.entries()
