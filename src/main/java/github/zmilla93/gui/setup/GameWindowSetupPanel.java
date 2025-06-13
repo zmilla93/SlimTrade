@@ -5,12 +5,12 @@ import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.GameWindowMode;
 import github.zmilla93.core.utility.Platform;
 import github.zmilla93.core.utility.ZUtil;
-import github.zmilla93.gui.components.CardPanel;
 import github.zmilla93.gui.components.MonitorPicker;
 import github.zmilla93.gui.components.poe.ThemeLabel;
 import github.zmilla93.gui.components.poe.detection.GameDetectionButton;
 import github.zmilla93.gui.options.AbstractOptionPanel;
 import github.zmilla93.modules.theme.OLD_ThemeColor;
+import io.github.zmilla93.gui.components.cardpanel.CardPanel;
 
 import javax.swing.*;
 

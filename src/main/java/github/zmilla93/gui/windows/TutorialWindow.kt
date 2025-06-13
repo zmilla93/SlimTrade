@@ -28,7 +28,7 @@ class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
     private var activePanel = 1
 
     init {
-        pinButton.setVisible(false)
+        pinButton.isVisible = false
 
         contentPanel.setLayout(BorderLayout())
         val borderPanel = JPanel(BorderLayout())

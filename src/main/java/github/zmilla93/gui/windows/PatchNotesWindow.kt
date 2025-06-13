@@ -4,7 +4,6 @@ import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ZUtil
-import github.zmilla93.gui.components.CardPanel
 import github.zmilla93.gui.components.CenterPanel
 import github.zmilla93.gui.components.CustomScrollPane
 import github.zmilla93.gui.components.LimitCombo
@@ -15,6 +14,7 @@ import github.zmilla93.modules.updater.PatchNotesGroup
 import github.zmilla93.modules.updater.PatchNotesManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.italic
+import io.github.zmilla93.gui.components.cardpanel.CardPanel
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.GridBagConstraints

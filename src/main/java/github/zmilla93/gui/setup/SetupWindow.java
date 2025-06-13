@@ -7,9 +7,9 @@ import github.zmilla93.core.managers.SaveManager;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.utility.ZUtil;
 import github.zmilla93.gui.components.BufferPanel;
-import github.zmilla93.gui.components.CardPanel;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
 import github.zmilla93.gui.managers.SetupManager;
+import io.github.zmilla93.gui.components.cardpanel.CardPanel;
 
 import javax.swing.*;
 import java.awt.*;

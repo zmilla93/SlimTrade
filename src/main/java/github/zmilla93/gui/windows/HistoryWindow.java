@@ -5,10 +5,10 @@ import github.zmilla93.core.poe.Game;
 import github.zmilla93.core.poe.POEWindow;
 import github.zmilla93.core.trading.TradeOfferType;
 import github.zmilla93.gui.buttons.IconButton;
-import github.zmilla93.gui.components.CardPanel;
 import github.zmilla93.gui.components.ComponentPanel;
 import github.zmilla93.gui.history.HistoryPanel;
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation;
+import io.github.zmilla93.gui.components.cardpanel.CardPanel;
 
 import javax.swing.*;
 import java.awt.*;
