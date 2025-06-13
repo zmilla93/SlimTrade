@@ -31,7 +31,6 @@ jobs:
         with:
           name: SlimTrade ${{ env.VERSION }}
           tag: ${{ env.VERSION }}
-          prerelease: true
           bodyFile: src/main/resources/patch_notes/v${{ env.VERSION }}.txt
           artifacts: target/SlimTrade.jar
           token: ${{ secrets.GITHUB_TOKEN }}

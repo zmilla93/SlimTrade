@@ -46,17 +46,22 @@ object PatchNotesManager {
         }
 //        readLocalPatchNotes()
         if (patchNotes.isEmpty()) {
-            readLocalPatchNotesV2(patchNotesFolderName)
-            if (patchNotes.isEmpty()) readLocalPatchNotes()
+            println("Reading local patch notes (jar)")
+            readLocalPatchNotesJar(patchNotesFolderName)
+            if (patchNotes.isEmpty()) {
+                println("Reading local patch notes (dev))")
+                readLocalPatchNotesDev()
+            }
         }
         if (patchNotes.isEmpty()) {
+            println("Reading remote patch notes")
             patchNotes = App.updateManager.getPatchNotes(App.getAppInfo().appVersion)
         }
         return patchNotes
     }
 
     /** Load patch notes from resources into [patchNotes]*/
-    fun readLocalPatchNotes() {
+    fun readLocalPatchNotesDev() {
         try {
             val patchNotesResource = PatchNotesManager.javaClass.getResource("/$patchNotesFolderName")
             if (patchNotesResource == null) throw RuntimeException(" Resource folder '$patchNotesFolderName' not found.")
@@ -77,7 +82,7 @@ object PatchNotesManager {
         }
     }
 
-    fun readLocalPatchNotesV2(path: String) {
+    fun readLocalPatchNotesJar(path: String) {
         val resourceUrl = Thread.currentThread().contextClassLoader.getResource(path)
         if (resourceUrl == null) {
             System.err.println("Null patch notes resource: $path")
@@ -105,6 +110,7 @@ object PatchNotesManager {
                 }
             }
         }
+        ZLogger.log("Found ${foundVersions.size} patch note files.")
         var first = true
         foundVersions.sortedBy { it }.reversed().forEach {
             if (it.isPreRelease) return@forEach
@@ -113,6 +119,7 @@ object PatchNotesManager {
             patchNotes.add(PatchNotesEntry(it.toString(), cleanPatchNotes))
             first = false
         }
+        ZLogger.log("Patch notes count: ${patchNotes.size}")
     }
 
     /** Convert GitHub Markdown to HTML */
