@@ -6,26 +6,24 @@ import github.zmilla93.core.utility.ZUtil.addStrutsToBorderPanel
 import github.zmilla93.gui.components.ImageLabel
 import github.zmilla93.gui.components.TutorialPanel
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation
+import io.github.zmilla93.gui.components.cardpanel.CardPanel
 import java.awt.BorderLayout
-import java.awt.CardLayout
 import java.awt.Color
 import java.awt.GridBagLayout
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 import javax.swing.BorderFactory
 import javax.swing.JButton
 import javax.swing.JLabel
 import javax.swing.JPanel
 
 class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
-    private val cardLayout = CardLayout()
-    private val cardPanel = JPanel(cardLayout)
+    //    private val cardLayout = CardLayout()
+    private val cardPanel = CardPanel()
 
     private val previousButton = JButton("Previous")
     private val nextButton = JButton("Next")
     private val pageLabel = JLabel("Page 1/1")
 
-    private var activePanel = 1
+//    private var activePanel = 1
 
     init {
         pinButton.isVisible = false
@@ -35,13 +33,13 @@ class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
         addStrutsToBorderPanel(borderPanel, 10)
 
         // Tutorial Panels
-        cardPanel.add(createFeatureOverviewPanel(), index())
-        cardPanel.add(createTradeMessagePanel(), index())
-        cardPanel.add(createStashHelperPanel(), index())
-        cardPanel.add(createTradeHistoryPanel(), index())
-        cardPanel.add(createChatScannerPanel(), index())
-        cardPanel.add(createSearchPanel(), index())
-        cardPanel.add(createGettingStartedPanel(), index())
+        cardPanel.add(createFeatureOverviewPanel())
+        cardPanel.add(createTradeMessagePanel())
+        cardPanel.add(createStashHelperPanel())
+        cardPanel.add(createTradeHistoryPanel())
+        cardPanel.add(createChatScannerPanel())
+        cardPanel.add(createSearchPanel())
+        cardPanel.add(createGettingStartedPanel())
         if (App.debugUIBorders >= 1) cardPanel.setBorder(BorderFactory.createLineBorder(Color.YELLOW))
 
         // Button Panel
@@ -64,20 +62,16 @@ class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
     }
 
     private fun addListeners() {
-        previousButton.addActionListener(ActionListener { e: ActionEvent? ->
-            if (activePanel <= 1) return@ActionListener
-            activePanel--
-            cardLayout.show(cardPanel, activePanel.toString())
+        previousButton.addActionListener {
+            cardPanel.previous()
             updatePageLabel()
             updateButtons()
-        })
-        nextButton.addActionListener(ActionListener { e: ActionEvent? ->
-            if (activePanel >= cardPanel.componentCount) return@ActionListener
-            activePanel++
-            cardLayout.show(cardPanel, activePanel.toString())
+        }
+        nextButton.addActionListener {
+            cardPanel.next()
             updatePageLabel()
             updateButtons()
-        })
+        }
         // FIXME : Tutorial should probably reopen options, but only if called from the options
 //        closeButton.addActionListener(ActionListener { e: ActionEvent? ->
 //            FrameManager.optionsWindow.setVisible(true)
@@ -85,22 +79,23 @@ class TutorialWindow : CustomDialog("Tutorial"), IDefaultSizeAndLocation {
 //        })
     }
 
-    private fun index(): String {
-        return (cardPanel.getComponentCount() + 1).toString()
+    private fun activePanel(): Int {
+        return cardPanel.currentCardIndex + 1
     }
 
     private fun updatePageLabel() {
-        pageLabel.setText("Page " + activePanel + "/" + cardPanel.getComponentCount())
+        pageLabel.setText("Page " + activePanel() + "/" + cardPanel.getComponentCount())
     }
 
     private fun updateButtons() {
-        previousButton.setEnabled(activePanel > 1)
-        nextButton.setEnabled(activePanel < cardPanel.getComponentCount())
+        previousButton.setEnabled(activePanel() > 1)
+        nextButton.setEnabled(activePanel() < cardPanel.getComponentCount())
     }
 
     private fun showFirstPanel() {
-        activePanel = 1
-        cardLayout.show(cardPanel, "1")
+        cardPanel.showCard(0)
+//        activePanel = 1
+//        cardLayout.show(cardPanel, "1")
         updatePageLabel()
         updateButtons()
     }

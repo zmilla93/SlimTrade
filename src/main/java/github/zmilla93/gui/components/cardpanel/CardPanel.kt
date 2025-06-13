@@ -44,6 +44,13 @@ open class CardPanel() : JPanel() {
     }
 
     /**
+     * Shows a card by index. Will throw an error if the index is invalid.
+     */
+    fun showCard(index: Int) {
+        cardLayout.show(this, index.toString())
+    }
+
+    /**
      * Sets if previous() and next() will cause the card panel to wrap between the first and last panels.
      */
     fun setAllowWrapAround(allow: Boolean) {
