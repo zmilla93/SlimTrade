@@ -13,6 +13,7 @@ class DonationPopup() : AbstractLaunchPopup() {
 
     override fun shouldPopupBeShown(): Boolean {
         return SaveManager.appStateSaveFile.data.donatePopupVersion != AppStateSaveFile.LEAGUE_POPUP_VERSION
+
     }
 
     override fun markAsSeen() {
@@ -20,7 +21,11 @@ class DonationPopup() : AbstractLaunchPopup() {
     }
 
     override fun showPopup() {
-        FrameManager.optionsWindow.showDonationPanel()
+        println("ShowDonation: " + SaveManager.isNewInstall)
+        if (SaveManager.isNewInstall) {
+            FrameManager.optionsWindow.isVisible = true
+            markAsSeen()
+        } else FrameManager.optionsWindow.showDonationPanel()
     }
 
 }

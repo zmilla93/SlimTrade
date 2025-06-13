@@ -15,7 +15,7 @@ enum class PatreonTier(val amount: String, val background: Color, val foreground
 
         const val HEADER_TEXT = "Spare some currency?"
         const val INFO_TEXT =
-            "Software development is time consuming. An occasional dollar adds up when everyone does it. :)"
+            "Software development is time consuming. An occasional dollar adds up when everyone does it."
 
         const val PATRON_COUNT = 8
         const val PATRON_GOAL = 500

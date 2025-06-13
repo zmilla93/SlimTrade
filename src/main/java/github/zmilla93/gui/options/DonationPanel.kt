@@ -8,6 +8,9 @@ import github.zmilla93.gui.components.FlowPanel
 import github.zmilla93.gui.donate.*
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
+import github.zmilla93.modules.zswing.theme.ThemeColor
+import io.github.zmilla93.modules.theme.UIProperty.FontColorExtensions.textColor
+import io.github.zmilla93.modules.theme.UIProperty.FontSizeExtensions.fontSize
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.FlowLayout
@@ -59,6 +62,7 @@ class DonationPanel : JPanel() {
 
             /** Header for the [BodyPanel]. */
             header("Supporters")
+            addCenter(JLabel("Thank you! :)").fontSize(20).textColor(ThemeColor.PURPLE))
         }
     }
 

@@ -44,9 +44,17 @@ public class SaveManager {
     public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory().resolve("patch_notes.json"), PatchNotesSaveFile.class);
     public static SaveFile<LinuxSaveFile> linuxSaveFile = new SaveFile<>(getSaveDirectory().resolve("linux.json"), LinuxSaveFile.class);
 
+    public static boolean isNewInstall = false;
+
     public static void init() {
         // Load all save files from disk
         settingsSaveFile.loadFromDisk();
+        if (!settingsSaveFile.loadedExistingData()) {
+            System.out.println("new install!");
+            isNewInstall = true;
+        } else {
+            System.out.println("existing save found");
+        }
         appStateSaveFile.loadFromDisk();
         overlaySaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();

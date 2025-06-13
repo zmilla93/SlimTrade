@@ -129,11 +129,11 @@ public class FrameManager {
         // FIXME : Add all windows
         // FIXME: Check CheatSheet windows and StashSearch windows.
         // Arrays of windows that need to be shown/hidden during state changes
-        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menuBarIcon, menuBarDialog, stashHelperContainerPoe1, stashHelperContainerPoe2, tutorialWindow, patchNotesWindow};
+        Window[] runningWindows = new Window[]{messageManager, optionsWindow, historyWindow, chatScannerWindow, menuBarIcon, menuBarDialog, stashHelperContainerPoe1, stashHelperContainerPoe2, tutorialWindow, patchNotesWindow, roadMapWindow};
         Window[] stashWindows = new Window[]{stashGridWindow};
         Window[] setupWindows = new Window[]{setupWindow};
         Window[] overlayWindows = new Window[]{overlayInfoWindow, messageOverlay, menubarOverlay};
-        defaultSizeAndLocationWindows = new IDefaultSizeAndLocation[]{optionsWindow, historyWindow, chatScannerWindow, tutorialWindow, patchNotesWindow, setupWindow, overlayInfoWindow};
+        defaultSizeAndLocationWindows = new IDefaultSizeAndLocation[]{optionsWindow, historyWindow, chatScannerWindow, tutorialWindow, patchNotesWindow, setupWindow, overlayInfoWindow, roadMapWindow};
         // Matching boolean array so running remember previous visibility.
         Boolean[] runningWindowsVisibility = new Boolean[runningWindows.length];
         // Throw the data into maps for ease of use
@@ -158,7 +158,7 @@ public class FrameManager {
         if (App.showOptionsOnLaunch) optionsWindow.setVisible(true);
         if (App.showHistoryOnLaunch) historyWindow.setVisible(true);
         messageManager.setVisible(true);
-        roadMapWindow.setVisible(true);
+//        roadMapWindow.setVisible(true);
         updateMenubarVisibility();
     }
 

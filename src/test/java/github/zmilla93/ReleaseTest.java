@@ -3,6 +3,7 @@ package github.zmilla93;
 import github.zmilla93.core.References;
 import github.zmilla93.core.saving.legacy.SaveFilePatcherManager;
 import github.zmilla93.core.utility.NinjaInterface;
+import github.zmilla93.core.utility.Platform;
 import github.zmilla93.modules.updater.UpdateManager;
 import github.zmilla93.modules.updater.data.AppInfo;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,7 @@ public class ReleaseTest {
         assertFalse(App.showOptionsOnLaunch);
         assertFalse(App.showPatchNotesOnLaunch);
         assertFalse(App.forceSetup);
+        assertNull(Platform.Companion.getDebugOS());
         assertFalse(App.messageUITest);
         assertFalse(NinjaInterface.useLocalDatasets);
         assertFalse(App.themeDebugWindows);

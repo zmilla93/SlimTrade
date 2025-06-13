@@ -1,8 +1,5 @@
 = Now
-+ Donation Panel UI cleanup
-+ Add a check to loading popups for all other popups not visible
 - First page of tutorial is glitchy
-- Linux Thing
 - Flat/Colored Buttons?
 - Theme Cleanup
     - Font
@@ -13,15 +10,6 @@
 
 == Cleanup
     - Recheck LaunchPopups, extra listeners might be being added
-
-== Release
-    - Feedback Poll
-    - New install test
-    - Roadmap Buttons
-    - Roadmap Panel
-    - Support Panel
-    - New League Popups
-
 
 == Random
 - Hide Poe1/2 "Not Installed" checkbox if a valid path is set

@@ -8,6 +8,7 @@ import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
 import github.zmilla93.gui.components.HTMLLabel
 import github.zmilla93.gui.donate.PatreonTier
+import github.zmilla93.gui.listening.IDefaultSizeAndLocation
 import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.PanelExtensions.fitParentWidth
@@ -18,12 +19,15 @@ import io.github.zmilla93.modules.theme.UIProperty.FontSizeExtensions.fontSize
 import java.awt.*
 import javax.swing.*
 
-class RoadmapWindow : CustomDialog("Roadmap") {
+class RoadmapWindow : CustomDialog("Roadmap"), IDefaultSizeAndLocation {
+
+    val pollLink =
+        "https://docs.google.com/forms/d/e/1FAIpQLSfT3Q9eVN-P2dLCeld119HMPWKjGf0lyo0yCS_IBd1y7jCaEQ/viewform?usp=dialog"
 
     val defaultSize = Dimension(600, 840)
 
     val pollButton = JButton("Take Poll (8 Questions)").onClick {
-        System.err.println("TODO: poll button")
+        ZUtil.openLink(pollLink)
     }
 
     init {
@@ -68,9 +72,6 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         contentPanel.add(CustomScrollPane(wrapper), BorderLayout.CENTER)
         contentPanel.add(southPanel, BorderLayout.SOUTH)
         pack()
-        minimumSize = Dimension(size.width, 600)
-        size = defaultSize
-        POEWindow.centerWindow(this)
     }
 
     inner class HeaderPanel : BoxPanel() {
@@ -148,8 +149,8 @@ class RoadmapWindow : CustomDialog("Roadmap") {
 //                }
 //            }
 
-            header("Spare some currency?")
-            add(htmlLabel("Software development is time consuming. An occasional dollar adds up when everyone does it.").fitParentWidth())
+            header(PatreonTier.HEADER_TEXT)
+            add(htmlLabel(PatreonTier.INFO_TEXT).fitParentWidth())
             strut(4)
             // Progress Bar
             val patreonProgressBar = JProgressBar()
@@ -162,7 +163,11 @@ class RoadmapWindow : CustomDialog("Roadmap") {
             addWithInset(patreonProgressBar, Insets(insetY, insetX, insetY, insetX))
             add(patreonProgressBar)
             strut(4)
-            add(JButton("Support SlimTrade :)").onClick { FrameManager.optionsWindow.showDonationPanel() })
+            add(JButton("Support SlimTrade :)").onClick {
+                FrameManager.optionsWindow.showDonationPanel()
+                FrameManager.optionsWindow.isAlwaysOnTop = false
+                FrameManager.optionsWindow.isAlwaysOnTop = true
+            })
             strut()
 
             /** Road to 1.0.0. */
@@ -221,6 +226,13 @@ class RoadmapWindow : CustomDialog("Roadmap") {
         }
         super.setVisible(visible)
 
+    }
+
+    override fun applyDefaultSizeAndLocation() {
+        pack()
+        minimumSize = Dimension(size.width, 600)
+        size = defaultSize
+        POEWindow.centerWindow(this)
     }
 
     /** A class for displaying an entry, with possible subentries. */

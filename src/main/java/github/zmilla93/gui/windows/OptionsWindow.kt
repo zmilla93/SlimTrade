@@ -65,9 +65,9 @@ class OptionsWindow : CustomDialog("Options"), ISaveListener, IDefaultSizeAndLoc
         val stashSearch = OptionListPanel("POE Searching", StashSearchOptionPanel())
         val kalguurHelper = OptionListPanel("Kalguur Helper", KalguurOptionPanel())
         val debug = OptionListPanel("Debug", DebugOptionPanel())
-//        val linuxOrNull =
-        var panelList = arrayOf<OptionListPanel?>(
-            general, display, audio, hotkeys, pathOfExile, linux,
+        val linuxOrNull = if (Platform.current == Platform.LINUX) linux else null
+        var panelList = arrayOf(
+            general, display, audio, hotkeys, pathOfExile, linuxOrNull,
             OptionListPanel("Trading"),
             incomingMacros, outgoingMacros, stash, ignoreItems,
             OptionListPanel("Tools"),
