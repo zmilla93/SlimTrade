@@ -10,6 +10,7 @@ import github.zmilla93.modules.updater.PatchNotesManager.patchNotes
 import github.zmilla93.modules.updater.data.AppVersion
 import java.io.File
 import java.io.FileNotFoundException
+import java.net.URL
 import java.util.*
 import java.util.jar.JarFile
 
@@ -83,7 +84,12 @@ object PatchNotesManager {
     }
 
     fun readLocalPatchNotesJar(path: String) {
-        val resourceUrl = Thread.currentThread().contextClassLoader.getResource(path)
+        val resourceUrl: URL?
+        try {
+            resourceUrl = Thread.currentThread().contextClassLoader.getResource(path)
+        } catch (e: Exception) {
+            return
+        }
         if (resourceUrl == null) {
             System.err.println("Null patch notes resource: $path")
             return
