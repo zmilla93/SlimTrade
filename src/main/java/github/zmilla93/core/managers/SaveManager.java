@@ -42,6 +42,7 @@ public class SaveManager {
     public static SaveFile<PinSaveFile> pinSaveFile = new SaveFile<>(getSaveDirectory().resolve("pins.json"), PinSaveFile.class);
     public static SaveFile<ChatScannerSaveFile> chatScannerSaveFile = new SaveFile<>(getSaveDirectory().resolve("scanner.json"), ChatScannerSaveFile.class);
     public static SaveFile<PatchNotesSaveFile> patchNotesSaveFile = new SaveFile<>(getSaveDirectory().resolve("patch_notes.json"), PatchNotesSaveFile.class);
+    public static SaveFile<LinuxSaveFile> linuxSaveFile = new SaveFile<>(getSaveDirectory().resolve("linux.json"), LinuxSaveFile.class);
 
     public static void init() {
         // Load all save files from disk
@@ -53,6 +54,7 @@ public class SaveManager {
         pinSaveFile.loadFromDisk();
         chatScannerSaveFile.loadFromDisk();
         patchNotesSaveFile.loadFromDisk();
+        linuxSaveFile.loadFromDisk();
         // Build Caches
         settingsSaveFile.data.buildMacroCache();
         ignoreSaveFile.data.buildCache();

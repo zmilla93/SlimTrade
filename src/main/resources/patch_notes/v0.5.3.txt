@@ -9,6 +9,10 @@
 - Install folder no longer has name requirement
 - Fixed window layering bug
 
+## Linux
+- Fixed game focusing for Linux X11 using xdotool (by @nightah)
+- Options window now has a 'Linux' section for toggling this fix on
+
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed
 - Download and run 'SlimTrade.jar' from 'Assets' below

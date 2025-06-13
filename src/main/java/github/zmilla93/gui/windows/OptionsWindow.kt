@@ -4,6 +4,7 @@ import github.zmilla93.App
 import github.zmilla93.core.managers.HotkeyManager
 import github.zmilla93.core.managers.SaveManager
 import github.zmilla93.core.poe.POEWindow
+import github.zmilla93.core.utility.Platform
 import github.zmilla93.gui.components.StyledLabel
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation
 import github.zmilla93.gui.managers.FrameManager
@@ -54,6 +55,7 @@ class OptionsWindow : CustomDialog("Options"), ISaveListener, IDefaultSizeAndLoc
         val audio = OptionListPanel("Audio", AudioOptionPanel())
         val stash = OptionListPanel("Stash Tabs", StashOptionPanel())
         val pathOfExile = OptionListPanel("Path of Exile", PathOfExileOptionPanel())
+        val linux = OptionListPanel("Linux", LinuxOptionsPanel())
         val information = OptionListPanel("Information", InformationOptionPanel())
         val incomingMacros = OptionListPanel("Incoming Macros", incomingMacroPanel)
         val outgoingMacros = OptionListPanel("Outgoing Macros", outgoingMacroPanel)
@@ -63,8 +65,9 @@ class OptionsWindow : CustomDialog("Options"), ISaveListener, IDefaultSizeAndLoc
         val stashSearch = OptionListPanel("POE Searching", StashSearchOptionPanel())
         val kalguurHelper = OptionListPanel("Kalguur Helper", KalguurOptionPanel())
         val debug = OptionListPanel("Debug", DebugOptionPanel())
+//        val linuxOrNull =
         var panelList = arrayOf<OptionListPanel?>(
-            general, display, audio, hotkeys, pathOfExile,
+            general, display, audio, hotkeys, pathOfExile, linux,
             OptionListPanel("Trading"),
             incomingMacros, outgoingMacros, stash, ignoreItems,
             OptionListPanel("Tools"),
@@ -125,6 +128,7 @@ class OptionsWindow : CustomDialog("Options"), ISaveListener, IDefaultSizeAndLoc
         saveButton.addActionListener {
             SaveManager.settingsSaveFile.saveToDisk()
             SaveManager.ignoreSaveFile.saveToDisk()
+            if (Platform.current == Platform.LINUX) SaveManager.linuxSaveFile.saveToDisk()
             HotkeyManager.loadHotkeys()
             revalidate()
         }
@@ -140,7 +144,8 @@ class OptionsWindow : CustomDialog("Options"), ISaveListener, IDefaultSizeAndLoc
             val model = optionsList.getModel()
             for (i in 0..<model.size) {
                 val panel = model.getElementAt(i)
-                val panelTitle = if (panel!!.title == null) null else panel.title.lowercase(Locale.getDefault())
+                if (panel == null) continue
+                val panelTitle = panel.title?.lowercase(Locale.getDefault())
                 if (panelTitle != null && panelTitle == App.debugOptionPanelName) {
                     optionsList.setSelectedIndex(i)
                     break

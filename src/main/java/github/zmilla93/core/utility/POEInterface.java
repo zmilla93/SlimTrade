@@ -209,15 +209,17 @@ public class POEInterface {
                 break;
             case LINUX:
                 // Linux X11 using xdotool
-                for (String gameClass : linuxGameClasses) {
-                    ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool windowactivate --sync $(xdotool search --onlyvisible --class " + gameClass);
-                    try {
-                        Process process = processBuilder.start();
-                        int exitCode = process.waitFor();
-                        if (exitCode == 0) break;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        ZLogger.log(e.getStackTrace());
+                if (SaveManager.linuxSaveFile.data.getFocusUsingXDoTool()) {
+                    for (String gameClass : linuxGameClasses) {
+                        ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool windowactivate --sync $(xdotool search --onlyvisible --class " + gameClass);
+                        try {
+                            Process process = processBuilder.start();
+                            int exitCode = process.waitFor();
+                            if (exitCode == 0) break;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            ZLogger.log(e.getStackTrace());
+                        }
                     }
                 }
                 break;
@@ -244,13 +246,16 @@ public class POEInterface {
                 focusedWindowTitle = WindowUtils.getWindowTitle(focusedWindow);
                 break;
             case LINUX:
-                ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool getwindowname $(xdotool getwindowfocus)");
-                try {
-                    Process process = processBuilder.start();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    focusedWindowTitle = br.readLine();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (SaveManager.linuxSaveFile.data.getFocusUsingXDoTool()) {
+                    ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool getwindowname $(xdotool getwindowfocus)");
+                    try {
+                        Process process = processBuilder.start();
+                        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                        focusedWindowTitle = br.readLine();
+                    } catch (Exception e) {
+                        ZLogger.log(e.getStackTrace());
+                        e.printStackTrace();
+                    }
                 }
                 break;
             default:

@@ -26,6 +26,7 @@ public class OptionListPanelCellRenderer implements ListCellRenderer<OptionListP
     private final JLabel separatorLabel = new StyledLabel().bold();
     private final JPanel separatorTitlePanel = createSeparatorTitlePanel();
     private JSeparator titleSeparator;
+    private Component emptyPanel = Box.createHorizontalStrut(0);
 
     private JPanel createLabelPanel() {
         JPanel panel = new JPanel(new BorderLayout());
@@ -64,6 +65,7 @@ public class OptionListPanelCellRenderer implements ListCellRenderer<OptionListP
 
     @Override
     public Component getListCellRendererComponent(JList<? extends OptionListPanel> list, OptionListPanel value, int index, boolean isSelected, boolean cellHasFocus) {
+        if (value == null) return emptyPanel;
         if (value.isSeparator) {
             separatorLabel.setForeground(list.getForeground());
             plainSeparator.setForeground(list.getForeground());

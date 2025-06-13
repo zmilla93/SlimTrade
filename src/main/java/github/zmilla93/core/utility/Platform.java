@@ -13,12 +13,19 @@ public enum Platform {
 
     private final String name;
 
+
     static {
         currentOS = System.getProperty("os.name");
-        if (currentOS.startsWith("Windows")) current = WINDOWS;
-        else if (currentOS.startsWith("Mac")) current = MAC;
-        else if (currentOS.startsWith("Linux")) current = LINUX;
-        else current = UNKNOWN;
+        final Platform debugPlatform = LINUX;
+        if (debugPlatform != null) {
+            current = debugPlatform;
+        } else {
+            if (currentOS.startsWith("Windows")) current = WINDOWS;
+            else if (currentOS.startsWith("Mac")) current = MAC;
+            else if (currentOS.startsWith("Linux")) current = LINUX;
+            else current = UNKNOWN;
+        }
+
     }
 
     Platform() {
