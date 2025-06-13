@@ -12,7 +12,7 @@
     - Fix DND
 
 == Cleanup
-    - Recheck LaunchWindows, extra listeners might be being added
+    - Recheck LaunchPopups, extra listeners might be being added
 
 == Release
     - Feedback Poll

@@ -1,14 +1,13 @@
 ## Improvements
 - Created a roadmap
 - New loading splash
+- Technical improvements
+- Began converting Java to Kotlin (this is a buff)
 
 ## Bug Fixes
 - Fixed message hotkeys not working
 - Install folder no longer has name requirement
 - Fixed window layering bug
-
-## Technical
-- Began converting Java to Kotlin
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed
