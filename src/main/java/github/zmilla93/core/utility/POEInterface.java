@@ -208,14 +208,16 @@ public class POEInterface {
                 }
                 break;
             case LINUX:
+                // Linux X11 using xdotool
                 for (String gameClass : linuxGameClasses) {
-                    ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool windowactivate --sync $(xdotool search --onlyvisible --class %s)".formatted(gameClass));
+                    ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", "xdotool windowactivate --sync $(xdotool search --onlyvisible --class " + gameClass);
                     try {
                         Process process = processBuilder.start();
                         int exitCode = process.waitFor();
                         if (exitCode == 0) break;
                     } catch (Exception e) {
                         e.printStackTrace();
+                        ZLogger.log(e.getStackTrace());
                     }
                 }
                 break;
@@ -267,8 +269,8 @@ public class POEInterface {
                 NativePoeWindow.setPOEGameWindow(focusedWindow);
             }
             return true;
-       }
-       return false;
+        }
+        return false;
     }
 
     /**
