@@ -32,6 +32,10 @@ public class CurrencyType implements IIcon {
     // FIXME : This can just be public now that it is final.
     private final transient String path;
 
+    private CurrencyType() {
+        this(Game.PATH_OF_EXILE_1, "Chaos Orb");
+    }
+
     @Deprecated
     private CurrencyType(String line) {
         this(Game.PATH_OF_EXILE_1, line);

@@ -115,9 +115,16 @@ public class App {
         Runtime.getRuntime().addShutdownHook(new Thread(App::closeProgram));
 
         /// Reduce logging level for JNativeHook
-        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
-        logger.setLevel(Level.WARNING);
-        logger.setUseParentHandlers(false);
+        try {
+            Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+            logger.setLevel(Level.WARNING);
+            logger.setUseParentHandlers(false);
+        } catch (Exception e) {
+            ZLogger.log("Failed to disable JNativeHook logging.");
+            ZLogger.err(e.getMessage());
+            ZLogger.err(e.getStackTrace());
+        }
+
 
         /// Load save files & app info
         SaveManager.init();

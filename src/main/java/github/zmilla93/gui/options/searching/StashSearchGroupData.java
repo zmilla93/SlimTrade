@@ -13,6 +13,10 @@ public class StashSearchGroupData {
     public final HotkeyData hotkeyData;
     public final ArrayList<StashSearchTermData> terms;
 
+    public StashSearchGroupData() {
+        this(0, "", new HotkeyData(), new ArrayList<>());
+    }
+
     public StashSearchGroupData(int id, String title, HotkeyData hotkeyData, ArrayList<StashSearchTermData> terms) {
         this.id = id;
         this.title = title;

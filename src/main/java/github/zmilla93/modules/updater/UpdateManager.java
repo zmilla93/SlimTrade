@@ -13,6 +13,8 @@ import github.zmilla93.modules.updater.data.AppInfo;
 import github.zmilla93.modules.updater.data.AppVersion;
 import github.zmilla93.modules.updater.data.ReleaseVersion;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 import javax.swing.*;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -25,6 +27,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -283,14 +288,40 @@ public class UpdateManager {
      * @param url GitHub API endpoint
      * @return A JSON response, or null if request failed.
      */
-    private JsonElement fetchDataFromGitHub(String url) {
+    // FIXME : Needs to use a newer API
+    private JsonElement fetchDataFromGitHub(String url) throws RuntimeException {
         try {
-            HttpURLConnection httpConnection = (HttpURLConnection) (new URL(url).openConnection());
+            HttpsURLConnection httpConnection = (HttpsURLConnection) (new URL(url).openConnection());
+            httpConnection.setRequestProperty("User-Agent", "Mozilla/5.0");
+            // SSL Context
+            SSLContext sslContext;
+            try {
+                sslContext = SSLContext.getInstance("TLSv1.2");
+                sslContext.init(null, null, new SecureRandom());
+                httpConnection.setSSLSocketFactory(sslContext.getSocketFactory());
+            } catch (NoSuchAlgorithmException | KeyManagementException e) {
+                throw new RuntimeException(e);
+            }
             BufferedReader inputStream;
+
+
             try {
                 inputStream = new BufferedReader(new InputStreamReader(httpConnection.getInputStream(), StandardCharsets.UTF_8));
             } catch (IOException e) {
-                ZLogger.log("Failed to connect to GitHub. This is either a connection issue or the API rate limit has been exceeded.");
+                ZLogger.log("Failed to connect to GitHub: " + url);
+                try {
+                    ZLogger.log("Response code: " + httpConnection.getResponseCode());
+                } catch (IOException err) {
+                    ZLogger.err("Failed to get a response code: " + err.getMessage());
+                    ZLogger.err(err.getStackTrace());
+                }
+//                ZLogger.log("Response:" + httpConnection.getResponseMessage());
+                try {
+                    ZLogger.log("Response code: " + httpConnection.getResponseMessage());
+                } catch (IOException err) {
+                    ZLogger.err("Failed to get a message: " + err.getMessage());
+                    ZLogger.err(err.getStackTrace());
+                }
                 return null;
             }
             StringBuilder builder = new StringBuilder();
