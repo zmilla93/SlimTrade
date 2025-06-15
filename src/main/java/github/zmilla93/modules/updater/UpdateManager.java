@@ -255,9 +255,12 @@ public class UpdateManager {
     }
 
     public ArrayList<PatchNotesEntry> getPatchNotes(AppVersion currentVersion, boolean allowPreRelease) {
-        // Return local version if possible
-        if (currentVersion.equals(SaveManager.patchNotesSaveFile.data.getAppVersion()))
+        // Return a cached version if possible
+        if (currentVersion.equals(SaveManager.patchNotesSaveFile.data.getAppVersion())) {
+            ZLogger.log("Returning cached patch notes.");
             return SaveManager.patchNotesSaveFile.data.entries;
+        }
+        ZLogger.log("Fetching patch notes from GitHub...");
         // Fetch the latest patch notes from GitHub
         if (currentVersion.isPreRelease) allowPreRelease = true;
         JsonElement json = fetchDataFromGitHub(ALL_RELEASES_URL);

@@ -18,7 +18,7 @@ public class PatchNotesEntry {
         if (appVersion == null) appVersion = new AppVersion(versionString);
         return appVersion;
     }
-
+    
     @Override
     public String toString() {
         return getAppVersion().toString();

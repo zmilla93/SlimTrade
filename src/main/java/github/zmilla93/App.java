@@ -81,6 +81,8 @@ public class App {
     public static boolean messageUITest = false; // No flag: Creates a theme testing window (WARNING: takes a bit to load)
     public static final boolean debugProfileLaunch = false; // No flag: prints some profiling info during app launch
     public static String debugOptionPanelName = null; // No flag: prints some profiling info during app launch
+    public static boolean wip = false;
+    public static boolean experimental = false;
 
     public static EventBus parserEvent = new EventBus();
 
@@ -298,6 +300,8 @@ public class App {
             if (arg.equals("-d") || arg.equals("-debug")) debug = true;
             if (arg.equals("-o") || arg.equals("-options")) showOptionsOnLaunch = true;
             if (arg.equals("-h") || arg.equals("-history")) showHistoryOnLaunch = true;
+            if (arg.equals("-wip")) wip = true;
+            if (arg.equals("-experimental")) experimental = true;
             if (arg.equals("-patchnotes")) showPatchNotesOnLaunch = true;
             if (arg.startsWith("-o:") || arg.startsWith("-options:")) {
                 App.debugOptionPanelName = arg.replace("-options:", "").replaceFirst("-o:", "").toLowerCase();

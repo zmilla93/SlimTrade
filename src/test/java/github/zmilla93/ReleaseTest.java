@@ -37,6 +37,8 @@ public class ReleaseTest {
         assertFalse(App.showOptionsOnLaunch);
         assertFalse(App.showPatchNotesOnLaunch);
         assertFalse(App.forceSetup);
+        assertFalse(App.wip);
+        assertFalse(App.experimental);
         assertNull(Platform.Companion.getDebugOS());
         assertFalse(App.messageUITest);
         assertFalse(NinjaInterface.useLocalDatasets);

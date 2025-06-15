@@ -49,12 +49,7 @@ public class SaveManager {
     public static void init() {
         // Load all save files from disk
         settingsSaveFile.loadFromDisk();
-        if (!settingsSaveFile.loadedExistingData()) {
-            System.out.println("new install!");
-            isNewInstall = true;
-        } else {
-            System.out.println("existing save found");
-        }
+        if (!settingsSaveFile.loadedExistingData()) isNewInstall = true;
         appStateSaveFile.loadFromDisk();
         overlaySaveFile.loadFromDisk();
         stashSaveFile.loadFromDisk();
