@@ -1,5 +1,7 @@
 = Bugs
 - Resetting UI doesn't affect message manager
+- If your firewall blocks java by default the program crashes immediately trying to fetch the patch notes.
+- The patch notes are visually a mess and it's not parsed at all as markdown.
 
 = Now
 - First page of tutorial is glitchy
@@ -15,6 +17,7 @@
     - Recheck LaunchPopups, extra listeners might be being added
 
 == Random
+- You are still prompted to choose if you use stash tab folders for both games even if you only have Path of Exile 1.
 - Hide Poe1/2 "Not Installed" checkbox if a valid path is set
 - Track new characters
 -- DND fix?
