@@ -25,6 +25,11 @@ public class AppVersion implements Comparable<AppVersion> {
     public static final String matchString = "v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(-pre(?<pre>\\d+))?";
     private static final Pattern pattern = Pattern.compile(matchString);
 
+
+    public AppVersion() {
+        this("");
+    }
+
     public AppVersion(String tag) {
         Matcher matcher = null;
         if (tag != null) {

@@ -17,6 +17,7 @@ import javax.swing.*
  * A crash report window to show the user if an exception is encountered.
  * Includes a stack track and info on how to report.
  */
+// FIXME : A single window should handle multiple reports by appending current crash report log.
 class CrashReportWindow(error: Exception) : JFrame() {
 
     val panel = BoxPanel()

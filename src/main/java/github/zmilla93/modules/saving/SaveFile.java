@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import github.zmilla93.core.utility.ZUtil;
+import github.zmilla93.gui.windows.CrashReportWindow;
 import github.zmilla93.modules.listening.ListenManager;
 import github.zmilla93.modules.updater.ZLogger;
 
@@ -128,6 +129,8 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
                 }
             } catch (JsonSyntaxException ignore) {
                 ZLogger.err("Save file '" + path + "' is corrupted, creating new file.");
+            } catch (Exception e) {
+                CrashReportWindow.Companion.showCrashReport(e);
             }
         } else {
             ZLogger.log("Save file '" + path + "' doesn't exist, creating new file.");

@@ -25,6 +25,11 @@ public class Sound {
     private transient Path path;
     private transient URL url;
 
+    public Sound() {
+        this.name = "";
+        this.soundType = SoundType.INBUILT;
+    }
+
     /**
      * Acts as a reference to a .wav file.
      *

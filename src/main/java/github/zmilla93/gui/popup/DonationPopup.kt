@@ -21,7 +21,6 @@ class DonationPopup() : AbstractLaunchPopup() {
     }
 
     override fun showPopup() {
-        println("ShowDonation: " + SaveManager.isNewInstall)
         if (SaveManager.isNewInstall) {
             FrameManager.optionsWindow.isVisible = true
             markAsSeen()

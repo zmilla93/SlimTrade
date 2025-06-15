@@ -20,6 +20,16 @@ public class MonitorInfo {
     private static Rectangle[] cachedMonitorBoundsArray;
     private static final PointerInfo mousePointer = MouseInfo.getPointerInfo();
 
+    /**
+     * GSON constructor
+     */
+    private MonitorInfo() {
+        id = 0;
+        isFullScreenSupported = true;
+        bounds = new Rectangle();
+        refreshRate = 0;
+    }
+
     private MonitorInfo(GraphicsDevice device, int id) {
         this.id = id;
         DisplayMode displayMode = device.getDisplayMode();

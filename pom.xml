@@ -13,10 +13,14 @@
     <packaging>jar</packaging>
 
     <properties>
+        <java-version>17</java-version>
+        <vendor>zmilla93</vendor>
+        <main-class>github.zmilla93.App</main-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <kotlin.version>2.1.21</kotlin.version>
+        <output-dir>target</output-dir>
     </properties>
 
     <dependencies>
@@ -153,6 +157,7 @@
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.3.0</version>
                     <configuration>
+                        <outputDirectory>${output-dir}</outputDirectory>
                         <archive>
                             <manifest>
                                 <mainClass>github.zmilla93.App</mainClass>
@@ -200,7 +205,7 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.6.0</version>
                     <configuration>
-                        <outputDirectory>target</outputDirectory>
+                        <outputDirectory>${output-dir}</outputDirectory>
                         <finalName>SlimTrade</finalName>
                         <appendAssemblyId>false</appendAssemblyId>
                         <archive>
