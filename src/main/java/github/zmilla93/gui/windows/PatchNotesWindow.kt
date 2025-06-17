@@ -1,6 +1,5 @@
 package github.zmilla93.gui.windows
 
-import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ZUtil
@@ -50,7 +49,6 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
     init {
         pinButton.isVisible = false
         // FIXME : Combine local and remote
-        val remoteEntries = App.updateManager.getPatchNotes(App.getAppInfo().appVersion)
         val localEntries = PatchNotesManager.getPatchNotes()
         localEntries.forEach {
             byPatchCombo.addItem(it)
@@ -149,27 +147,11 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
             if (group != null) patchNotes = group.combinedPatchNotes
         } else {
             val entry = byPatchCombo.selectedItem as? PatchNotesEntry
-            if (entry != null) patchNotes = entry.text
+            if (entry != null) patchNotes = entry.html
         }
         textPane.text = patchNotes
         textPane.caretPosition = 0
     }
-
-    // FIXME : Move to manager
-//    private fun getCleanPatchNotes(version: AppVersion?, body: String, addExtraInfo: Boolean): String {
-//        val lines = body.split("(\\n|\\\\r\\\\n)".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-//        val builder = StringBuilder()
-//        builder.append("<h1>SlimTrade ").append(version).append("</h1>")
-//        if (addExtraInfo) builder.append(MarkdownParser.getHtmlFromMarkdown(PREFIX))
-//        for (s in lines) {
-//            if (s.lowercase(Locale.getDefault()).contains("how to install")) {
-//                break
-//            }
-//            builder.append(MarkdownParser.getHtmlFromMarkdown(s))
-//        }
-//        if (addExtraInfo) builder.append(MarkdownParser.getHtmlFromMarkdown(SUFFIX))
-//        return builder.toString()
-//    }
 
     override fun setVisible(visible: Boolean) {
         super.setVisible(visible)

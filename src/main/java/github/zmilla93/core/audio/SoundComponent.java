@@ -9,7 +9,7 @@ public class SoundComponent {
      * GSON Constructor
      */
     public SoundComponent() {
-
+        
     }
 
     public SoundComponent(Sound sound, int volume) {

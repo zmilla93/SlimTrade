@@ -3,7 +3,6 @@ package github.zmilla93.modules.updater
 import github.zmilla93.App
 import github.zmilla93.core.References
 import github.zmilla93.core.utility.FileUtil
-import github.zmilla93.core.utility.MarkdownParser
 import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.modules.data.HashMapList
 import github.zmilla93.modules.updater.PatchNotesManager.localPatchNotes
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileNotFoundException
 import java.net.URL
-import java.util.*
 import java.util.jar.JarFile
 
 object PatchNotesManager {
@@ -56,25 +54,32 @@ object PatchNotesManager {
     fun getPatchNotes(remote: Boolean = false): List<PatchNotesEntry> {
 //        if (true) return patchNotes
         if (remotePatchNotes.isEmpty()) {
-            logger.info("Reading remote patch notes.")
+            logger.info("Reading remote patch notes from GitHub.")
             remotePatchNotes = App.updateManager.getPatchNotes(App.getAppInfo().appVersion)
         }
-//        readLocalPatchNotes()
-        if (localPatchNotes.isEmpty()) {
-            println("Reading local patch notes (jar)")
-            try {
-                readLocalPatchNotesJar(patchNotesFolderName)
-            } catch (e: Exception) {
-                ZLogger.err("Error reading patch notes from jar")
-                ZLogger.err(e.stackTrace)
-            }
-            if (localPatchNotes.isEmpty()) {
-                println("Reading local patch notes (dev))")
-                readLocalPatchNotesDev()
-            }
-        }
+//        if (localPatchNotes.isEmpty() && remotePatchNotes.isNotEmpty()) {
+//            logger.info("Reading local patch notes.")
+//            readLocalPatchNotes()
+//        }
         return remotePatchNotes
     }
+
+    fun readLocalPatchNotes() {
+//        println("Reading: " + patchNotesEntry.appVersion)
+        var success = 0
+        remotePatchNotes.forEach {
+            val resourceName = "$patchNotesFolderName/v${it.appVersion}.txt"
+            try {
+                val data = ZUtil.readResourceFileAsString(resourceName)
+                localPatchNotes.add(PatchNotesEntry(it.appVersion.toString(), data))
+                success++
+            } catch (e: Exception) {
+                logger.error("Resource not found: $resourceName")
+            }
+        }
+
+    }
+
 
     /** Load patch notes from resources into [localPatchNotes]*/
     fun readLocalPatchNotesDev() {
@@ -87,8 +92,8 @@ object PatchNotesManager {
                 if (!version.valid) return
                 if (version.isPreRelease && !App.getAppInfo().appVersion.isPreRelease) return@forEachIndexed
                 val contents = FileUtil.resourceAsString("$patchNotesFolderName/${it.name}")
-                val cleanPatchNotes = getCleanPatchNotes(version, contents, i == 0)
-                localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension, cleanPatchNotes))
+//                val cleanPatchNotes = getCleanPatchNotes(version, contents, i == 0)
+                localPatchNotes.add(PatchNotesEntry(it.nameWithoutExtension, contents))
             }
             println("Read local patch notes from disk (debug).")
         } catch (e: Exception) {
@@ -144,23 +149,23 @@ object PatchNotesManager {
         foundVersions.sortedBy { it }.reversed().forEach {
             if (it.isPreRelease) return@forEach
             val text = ZUtil.readResourceFileAsString("$patchNotesFolderName/v$it.txt")
-            val cleanPatchNotes = getCleanPatchNotes(it, text, first)
-            localPatchNotes.add(PatchNotesEntry(it.toString(), cleanPatchNotes))
+//            val cleanPatchNotes = getCleanPatchNotes(it, text, first)
+            localPatchNotes.add(PatchNotesEntry(it.toString(), text))
             first = false
         }
         ZLogger.log("Patch notes count: ${localPatchNotes.size}")
     }
 
-    /** Convert GitHub Markdown to HTML */
-    private fun getCleanPatchNotes(version: AppVersion?, body: String, addExtraInfo: Boolean): String {
-        val lines = body.split("(\\n|\\\\r\\\\n)".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val builder = StringBuilder()
-        builder.append("<h1>SlimTrade ").append(version).append("</h1>")
-        for (s in lines) {
-            if (s.lowercase(Locale.getDefault()).contains("how to install")) break
-            builder.append(MarkdownParser.getHtmlFromMarkdown(s))
-        }
-        return builder.toString()
-    }
+//    /** Convert GitHub Markdown to HTML */
+//    private fun getCleanPatchNotes(version: AppVersion?, body: String, addExtraInfo: Boolean): String {
+//        val lines = body.split("(\\n|\\\\r\\\\n)".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+//        val builder = StringBuilder()
+//        builder.append("<h1>SlimTrade ").append(version).append("</h1>")
+//        for (s in lines) {
+//            if (s.lowercase(Locale.getDefault()).contains("how to install")) break
+//            builder.append(MarkdownParser.getHtmlFromMarkdown(s))
+//        }
+//        return builder.toString()
+//    }
 
 }

@@ -130,6 +130,9 @@ public class SaveFile<T extends AbstractSaveFile> extends ListenManager<ISaveLis
             } catch (JsonSyntaxException ignore) {
                 ZLogger.err("Save file '" + path + "' is corrupted, creating new file.");
             } catch (Exception e) {
+                ZLogger.err("Error loading json clas: " + classType);
+                ZLogger.err(e.getClass().getSimpleName());
+                ZLogger.err(e.getMessage());
                 CrashReportWindow.Companion.showCrashReport(e);
             }
         } else {

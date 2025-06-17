@@ -262,10 +262,10 @@ public class UpdateManager {
     public ArrayList<PatchNotesEntry> getPatchNotes(AppVersion currentVersion, boolean allowPreRelease) {
         // Return a cached version if possible
         if (currentVersion.equals(SaveManager.patchNotesSaveFile.data.getAppVersion())) {
-            ZLogger.log("Returning cached patch notes.");
+            ZLogger.log("Loading cached patch notes.");
             return SaveManager.patchNotesSaveFile.data.entries;
         }
-        ZLogger.log("Fetching patch notes from GitHub...");
+        ZLogger.log("Fetching latest patch notes from GitHub...");
         // Fetch the latest patch notes from GitHub
         if (currentVersion.isPreRelease) allowPreRelease = true;
         JsonElement json = fetchDataFromGitHub(ALL_RELEASES_URL);
@@ -306,8 +306,6 @@ public class UpdateManager {
                 throw new RuntimeException(e);
             }
             BufferedReader inputStream;
-
-
             try {
                 inputStream = new BufferedReader(new InputStreamReader(httpConnection.getInputStream(), StandardCharsets.UTF_8));
             } catch (IOException e) {
@@ -335,6 +333,9 @@ public class UpdateManager {
             ZLogger.log("Failed to fetch data from GitHub, bad URL: " + url);
         } catch (IOException e) {
             ZLogger.log("Failed to fetch data from GitHub.");
+        } catch (Exception e) {
+            // FIXME @important : Show warning.
+            ZLogger.log("Unexcepted exception " + e.getClass().getSimpleName() + " while trying to connect to GitHub.");
         }
         return null;
     }

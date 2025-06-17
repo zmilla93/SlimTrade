@@ -8,6 +8,7 @@ import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.gui.components.BoxPanel
 import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
+import github.zmilla93.modules.updater.ZLogger
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -18,10 +19,10 @@ import javax.swing.*
  * Includes a stack track and info on how to report.
  */
 // FIXME : A single window should handle multiple reports by appending current crash report log.
-class CrashReportWindow(error: Exception) : JFrame() {
+class CrashReportWindow(error: Exception, var additionalMessage: String? = null) : JFrame() {
 
     val panel = BoxPanel()
-    val crashReportText = crashReportText(error)
+    val crashReportText = crashReportText(error, additionalMessage)
     val textArea = JTextArea(crashReportText)
     val copyReportButton = JButton("Copy Crash Report").onClick { ClipboardManager.setContents(crashReportText) }
     val githubButton = JButton("GitHub").onClick { ZUtil.openLink(References.GITHUB_ISSUES_URL) }
@@ -55,10 +56,11 @@ class CrashReportWindow(error: Exception) : JFrame() {
     }
 
     /** Turns an [Exception] into a full crash report. */
-    fun crashReportText(e: Exception): String {
+    fun crashReportText(e: Exception, additionalMessage: String? = null): String {
         val builder = StringBuilder()
         builder.append("SlimTrade v${App.getAppInfo().appVersion} (${Platform.current})\n")
-        builder.append("Message: ${e.message}\n")
+        if (additionalMessage != null) builder.append("${additionalMessage}\n")
+        builder.append("${e.javaClass.simpleName} - ${e.message}\n")
         e.stackTrace.forEach { builder.append(it).append("\n") }
         return builder.toString()
     }
@@ -66,13 +68,16 @@ class CrashReportWindow(error: Exception) : JFrame() {
     companion object {
 
         /** Creates and shows a new crash report dialog. */
-        fun showCrashReport(e: Exception) {
+        @JvmOverloads
+        fun showCrashReport(e: Exception, additionalMessage: String? = null) {
             SwingUtilities.invokeLater {
-                val window = CrashReportWindow(e)
+                val window = CrashReportWindow(e, additionalMessage)
                 window.pack()
                 window.size = Dimension(620, 400)
                 window.isVisible = true
                 window.setLocationRelativeTo(null)
+                ZLogger.err(e.stackTrace)
+                e.printStackTrace()
             }
         }
 

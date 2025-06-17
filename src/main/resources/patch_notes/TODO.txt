@@ -1,9 +1,12 @@
-= Bugs
+= Now
++ The patch notes are visually a mess and it's not parsed at all as markdown.
+- Stash UI
 - Resetting UI doesn't affect message manager
 - If your firewall blocks java by default the program crashes immediately trying to fetch the patch notes.
-- The patch notes are visually a mess and it's not parsed at all as markdown.
+- New Icons & Translations
+- 'Report Bug' button?
 
-= Now
+== Low
 - First page of tutorial is glitchy
 - Flat/Colored Buttons?
 - Theme Cleanup
@@ -12,6 +15,7 @@
     - ColorExtensions
 - Parser Timestamps
     - Fix DND
+- Debug MenuBar Visibility
 
 == Cleanup
     - Recheck LaunchPopups, extra listeners might be being added
@@ -25,4 +29,3 @@
 -- Chat scanner - ignore players
 
 == Bugs
-- MenuBar Visibility

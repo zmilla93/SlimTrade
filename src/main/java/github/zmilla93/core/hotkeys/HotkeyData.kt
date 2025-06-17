@@ -53,4 +53,5 @@ class HotkeyData {
         result = 31 * result + modifiers
         return result
     }
+
 }
