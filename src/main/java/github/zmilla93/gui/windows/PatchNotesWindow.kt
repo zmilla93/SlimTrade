@@ -4,8 +4,11 @@ import github.zmilla93.core.References
 import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.core.utility.ZUtil
 import github.zmilla93.gui.components.CenterPanel
+import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
 import github.zmilla93.gui.components.LimitCombo
+import github.zmilla93.gui.donate.PatreonTier
+import github.zmilla93.gui.donate.Supporters
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation
 import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.updater.PatchNotesEntry
@@ -14,10 +17,7 @@ import github.zmilla93.modules.updater.PatchNotesManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.italic
 import io.github.zmilla93.gui.components.cardpanel.CardPanel
-import java.awt.BorderLayout
-import java.awt.Dimension
-import java.awt.GridBagConstraints
-import java.awt.GridBagLayout
+import java.awt.*
 import javax.swing.*
 import javax.swing.event.HyperlinkEvent
 
@@ -63,6 +63,11 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
         val scrollPane: JScrollPane = CustomScrollPane(textPane)
 
         // Button Panel
+        val donateButton = JButton("Donate").onClick {
+            FrameManager.optionsWindow.showDonationPanel()
+        }
+        val progressBar = JProgressBar(0, PatreonTier.PATRON_GOAL)
+        progressBar.value = Supporters.getCurrentPatreonCount()
 //        val buttonPanel = JPanel(BorderLayout())
 //        val githubWrapperPanel = JPanel(GridBagLayout())
 //        githubWrapperPanel.add(githubButton)
@@ -73,9 +78,18 @@ class PatchNotesWindow : CustomDialog("Patch Notes"), IDefaultSizeAndLocation {
 //        val buttonWrapperPanel = JPanel(BorderLayout())
 //        buttonWrapperPanel.add(buttonPanel, BorderLayout.EAST)
 
+        val progressWrapper = JPanel(GridBagLayout())
+        val progressGC = ZUtil.getGC()
+        progressGC.fill = GridBagConstraints.HORIZONTAL
+        progressGC.weightx = 1.0
+        val insetX = 10
+        progressGC.insets = Insets(0, insetX, 0, insetX)
+        progressWrapper.add(progressBar, progressGC)
+
         // Controls
         val controlsPanel = JPanel(BorderLayout())
-//        controlsPanel.add(buttonWrapperPanel, BorderLayout.WEST)
+        controlsPanel.add(ComponentPanel(donateButton, JLabel(PatreonTier.GOAL_TEXT)), BorderLayout.WEST)
+        controlsPanel.add(progressWrapper, BorderLayout.CENTER)
         controlsPanel.add(currentCombo, BorderLayout.EAST)
 
         // Build Panel

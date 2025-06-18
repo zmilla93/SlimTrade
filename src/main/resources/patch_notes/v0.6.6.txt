@@ -2,6 +2,7 @@
 ~ Icons and Translations
 - Disabled Kalguur window
 - Fixed patch notes krangling under certain circumstances
+- Updated donaters, patrons now also have a currency icon
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed

@@ -4,7 +4,7 @@ import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class BorderPanel(child: JComponent, constraint: String = BorderLayout.NORTH) : JPanel() {
+class BorderPanel(child: JComponent, constraint: String = BorderLayout.CENTER) : JPanel() {
 
     init {
         layout = BorderLayout()

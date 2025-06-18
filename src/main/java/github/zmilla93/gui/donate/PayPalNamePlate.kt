@@ -12,22 +12,28 @@ import javax.swing.JLabel
 
 class PayPalNamePlate(name: String, tier: PayPalTier) : RoundPanel() {
 
-    val fontSize = 14
-    val iconSize = 24
-    val insetX = 4
-    val insetY = 0
+
+    companion object {
+        const val fontSize = 14
+        val iconSize = 24
+        val insetX = 4
+        val insetY = 0
+    }
+
 
     init {
         // Label
 //        val icon = JLabel()
         val label = JLabel(name).bold()
+
 //        label.foreground = tier.foreground
 //        background = tier.background
 //        border = BorderFactory.createLineBorder(tier.foreground, 2)
         label.fontSize(fontSize)
         // FIXME : Switch to icon cache
 //        label.icon = ImageIcon(ImageUtil.scaledImage(tier.image, 75))
-        label.icon = IconManager.getIcon(tier.image, iconSize)
+        if (tier.image != null)
+            label.icon = IconManager.getIcon(tier.image, iconSize)
         // Add
         layout = GridBagLayout()
         val gc = ZUtil.getGC()

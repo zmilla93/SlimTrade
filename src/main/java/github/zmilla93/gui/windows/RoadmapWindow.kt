@@ -8,6 +8,7 @@ import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.CustomScrollPane
 import github.zmilla93.gui.components.HTMLLabel
 import github.zmilla93.gui.donate.PatreonTier
+import github.zmilla93.gui.donate.Supporters
 import github.zmilla93.gui.listening.IDefaultSizeAndLocation
 import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
@@ -155,7 +156,7 @@ class RoadmapWindow : CustomDialog("Roadmap"), IDefaultSizeAndLocation {
             // Progress Bar
             val patreonProgressBar = JProgressBar()
             patreonProgressBar.preferredSize = Dimension(0, 10)
-            patreonProgressBar.value = PatreonTier.PATRON_COUNT
+            patreonProgressBar.value = Supporters.getCurrentPatreonCount()
             patreonProgressBar.maximum = PatreonTier.PATRON_GOAL
             add(JLabel(PatreonTier.GOAL_TEXT).bold())
             val insetX = 20

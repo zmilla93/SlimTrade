@@ -3,9 +3,12 @@ package github.zmilla93.gui.options
 import com.formdev.flatlaf.ui.FlatBorder
 import github.zmilla93.core.References
 import github.zmilla93.core.utility.ZUtil.openLink
+import github.zmilla93.gui.components.BorderPanel
 import github.zmilla93.gui.components.BoxPanel
+import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.FlowPanel
 import github.zmilla93.gui.donate.*
+import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
 import github.zmilla93.modules.zswing.theme.ThemeColor
@@ -14,7 +17,10 @@ import io.github.zmilla93.modules.theme.UIProperty.FontSizeExtensions.fontSize
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.FlowLayout
-import javax.swing.*
+import javax.swing.JButton
+import javax.swing.JLabel
+import javax.swing.JPanel
+import javax.swing.JProgressBar
 
 class DonationPanel : JPanel() {
 
@@ -37,32 +43,40 @@ class DonationPanel : JPanel() {
             strutSmall()
             add(JLabel(PatreonTier.GOAL_TEXT).bold())
             val progressBar = JProgressBar()
-            progressBar.value = PatreonTier.PATRON_COUNT
+            progressBar.value = Supporters.getCurrentPatreonCount()
             progressBar.maximum = PatreonTier.PATRON_GOAL
             add(progressBar)
+            strutSmall()
+            addLeft(
+                ComponentPanel(
+                    JButton("Roadmap").onClick { FrameManager.roadMapWindow.isVisible = true },
+                    JButton("Patch Notes").onClick { FrameManager.patchNotesWindow.isVisible = true }
+                ))
             strut()
 
             /** Patreon Info */
             header("Donate")
-            val patreonTiers = FlowPanel()
-            patreonTiers.add(patreonButton)
+            val patreonTierPanel = FlowPanel()
+            patreonTierPanel.add(patreonButton)
             for (tier in PatreonTier.entries)
-                patreonTiers.add(PatreonNamePlate(PatreonSupporter(tier.amount, tier, true)))
-            addLeft(patreonTiers)
+                patreonTierPanel.add(PatreonNamePlate(PatreonSupporter(tier.amountText, tier, PayPalTier.ZERO)))
+            addLeft(patreonTierPanel)
 //            strut()
 
             /** PayPal Info */
 //            header("PayPal")
             val paypalTiers = JPanel(FlowLayout())
             paypalTiers.add(paypalButton)
-            for (tier in PayPalTier.entries)
-                paypalTiers.add(PayPalNamePlate(tier.amount, tier))
+            for (tier in PayPalTier.entries) {
+                if (tier.amount == 0) continue
+                paypalTiers.add(PayPalNamePlate("$" + tier.amount, tier))
+            }
             addLeft(paypalTiers)
             strut()
 
             /** Header for the [BodyPanel]. */
             header("Supporters")
-            addCenter(JLabel("Thank you! :)").fontSize(20).textColor(ThemeColor.PURPLE))
+            addCenter(JLabel("Thank you! :)").bold().fontSize(20).textColor(ThemeColor.GREEN))
         }
     }
 
@@ -71,20 +85,22 @@ class DonationPanel : JPanel() {
             background = Color.GREEN
             layout = BorderLayout()
 
-            val patreonSupporters = JPanel(FlowLayout())
-            for (patron in Supporters.patrons)
+            val patreonSupporters = JPanel(FlowLayout(FlowLayout.LEFT))
+            for (patron in Supporters.patreon)
                 patreonSupporters.add(PatreonNamePlate(patron))
 
             val paypalSupporters = JPanel(FlowLayout())
             for (patron in Supporters.paypal)
-                paypalSupporters.add(PayPalNamePlate(patron.name, patron.tier))
+                patreonSupporters.add(PayPalNamePlate(patron.name, patron.tier))
 
-            val boxPanel = JPanel()
-            boxPanel.layout = BoxLayout(boxPanel, BoxLayout.PAGE_AXIS)
-            boxPanel.add(patreonSupporters)
-            boxPanel.add(paypalSupporters)
+            val wrapPanel = BorderPanel(patreonSupporters, BorderLayout.CENTER)
 
-            add(boxPanel, BorderLayout.CENTER)
+//            val boxPanel = JPanel()
+//            boxPanel.layout = BoxLayout(boxPanel, BoxLayout.PAGE_AXIS)
+//            boxPanel.add(CustomScrollPane(wrapPanel))
+//            boxPanel.add(paypalSupporters)
+
+            add(patreonSupporters, BorderLayout.CENTER)
         }
     }
 

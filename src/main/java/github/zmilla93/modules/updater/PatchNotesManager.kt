@@ -54,7 +54,7 @@ object PatchNotesManager {
     fun getPatchNotes(remote: Boolean = false): List<PatchNotesEntry> {
 //        if (true) return patchNotes
         if (remotePatchNotes.isEmpty()) {
-            logger.info("Reading remote patch notes from GitHub.")
+//            logger.info("Reading remote patch notes from GitHub.")
             remotePatchNotes = App.updateManager.getPatchNotes(App.getAppInfo().appVersion)
         }
 //        if (localPatchNotes.isEmpty() && remotePatchNotes.isNotEmpty()) {

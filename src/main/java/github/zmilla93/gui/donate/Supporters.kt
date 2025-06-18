@@ -1,39 +1,46 @@
 package github.zmilla93.gui.donate
 
+import github.zmilla93.core.utility.ResourceUtil
+
+/**
+ * Handles reading supporter info from csvs.
+ */
 class Supporters {
 
     companion object {
 
-        val patrons = listOf(
-            PatreonSupporter("Alin Șerban", PatreonTier.ONE),
-            PatreonSupporter("Cani Glauss", PatreonTier.THREE, false),
-            PatreonSupporter("Casey Schaffer", PatreonTier.FIVE),
-            PatreonSupporter("ciXPence", PatreonTier.ONE, false),
-            PatreonSupporter("Deific", PatreonTier.THREE),
-            PatreonSupporter("G4MERLIN", PatreonTier.ONE, false),
-            PatreonSupporter("Jason Ballew", PatreonTier.THREE),
-            PatreonSupporter("Reynbow", PatreonTier.ONE),
-            PatreonSupporter("toughguy247", PatreonTier.ONE, false),
-        )
+        val patreon = ArrayList<PatreonSupporter>()
+        val paypal = ArrayList<PayPalSupporter>()
 
-        val paypal = listOf(
-            PayPalSupporter("Alex Ahnon Hansen", PayPalTier.TWENTY),
-            PayPalSupporter("Anthony Rampone", PayPalTier.ONE),
-            PayPalSupporter("Anton Oparienko", PayPalTier.ONE),
-            PayPalSupporter("casualbox", PayPalTier.TEN),
-            PayPalSupporter("David Stewart", PayPalTier.FIFTY),
-            PayPalSupporter("Ioan Petculescu", PayPalTier.ONE),
-            PayPalSupporter("Jason Foster", PayPalTier.TWENTY),
-            PayPalSupporter("Jordan Newman", PayPalTier.TWENTY),
-            PayPalSupporter("Jean-Yves Morvan", PayPalTier.FIVE),
-            PayPalSupporter("Lennart Marmeier", PayPalTier.FIVE),
-            PayPalSupporter("Midwest Invasion", PayPalTier.FIVE),
-            PayPalSupporter("Teresa Wise", PayPalTier.FIVE),
-            PayPalSupporter("Travis Thompson", PayPalTier.ONE),
-        )
+        init {
+            /** Read Patreon */
+            ResourceUtil.read("/csv/patreon.csv") {
+                if (it.isEmpty()) return@read
+                val values = it.trim().split(",")
+                PatreonSupporter(
+                    values[0],
+                    PatreonTier.fromAmount(values[1].toInt()),
+                    PayPalTier.fromAmount(values[2].toInt())
+                )
+                patreon += PatreonSupporter.fromCSV(it)
+            }
+            // FIXME : Should presort csv
+            patreon.sort()
+            /** Read PayPal */
+            ResourceUtil.read("/csv/paypal.csv") {
+                if (it.isEmpty()) return@read
+                val values = it.trim().split(",")
+                paypal += PayPalSupporter(values[0], PayPalTier.fromAmount(values[1].toInt()))
+            }
+        }
+
+        /** Returns the sum of all active patrons. */
+        fun getCurrentPatreonCount(): Int {
+            var amount = 0
+            patreon.forEach { amount += it.tier.amount }
+            return amount
+        }
+
     }
-
-//    class PatreonSupporter(val name: String, val tier: PatreonTier, val active: Boolean = true)
-//    class PayPalSupporter(val name: String, val tier: PayPalTier)
 
 }
