@@ -1,7 +1,6 @@
 package github.zmilla93;
 
 import github.zmilla93.core.References;
-import github.zmilla93.core.chatparser.ChatParser;
 import github.zmilla93.core.chatparser.CombinedChatParser;
 import github.zmilla93.core.enums.AppState;
 import github.zmilla93.core.enums.CurrencyType;
@@ -45,6 +44,11 @@ import java.util.logging.Logger;
 
 public class App {
 
+    ///  Global event bus
+    public static EventBus events = new EventBus();
+    ///  Game specific chat parser events
+    public static EventBus parserEvents = new EventBus();
+
     public static GlobalKeyboardListener globalKeyboardListener;
     public static GlobalMouseListener globalMouseListener;
     public static GlobalMouseWheelListener globalMouseWheelListener;
@@ -52,8 +56,6 @@ public class App {
     private static LockManager lockManager;
     public static UpdateManager updateManager;
 
-    public static ChatParser chatParserPoe1;
-    public static ChatParser chatParserPoe2;
     public static CombinedChatParser chatParser = new CombinedChatParser();
 
     private static AppInfo appInfo;
@@ -83,8 +85,6 @@ public class App {
     public static String debugOptionPanelName = null; // No flag: prints some profiling info during app launch
     public static boolean wip = false;
     public static boolean experimental = false;
-
-    public static EventBus parserEvent = new EventBus();
 
     public static void main(String[] args) {
         parseLaunchArgs(args);

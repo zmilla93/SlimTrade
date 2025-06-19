@@ -8,7 +8,7 @@ import java.awt.*;
 public class StashHelperContainerPoe2 extends StashHelperContainer {
 
     @Override
-    public void updateLocation() {
+    public void updateBounds() {
         ZUtil.invokeLater(() -> {
             Rectangle stashBounds = POEWindow.getPoe2StashBonds();
             if (stashBounds == null) return;

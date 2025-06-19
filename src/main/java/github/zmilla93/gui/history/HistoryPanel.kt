@@ -55,8 +55,8 @@ class HistoryPanel(val game: Game, tradeOfferType: TradeOfferType) : JPanel(), I
 
         // FIXME : Is this the best way to reload table?
         SaveManager.settingsSaveFile.addListener(this)
-        App.parserEvent.subscribe(TradeEvent::class.java) { onTrade(it) }
-        App.parserEvent.subscribe(ParserEventType::class.java) {
+        App.events.subscribe(TradeEvent::class.java) { onTrade(it) }
+        App.events.subscribe(ParserEventType::class.java) {
             if (it == ParserEventType.RESTART) clearAllRows()
             else if (it == ParserEventType.LOADED) reloadUI()
         }

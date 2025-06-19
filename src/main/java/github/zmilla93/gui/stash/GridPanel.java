@@ -45,4 +45,5 @@ public class GridPanel extends JPanel {
         Color c2 = UIManager.getColor("Label.foreground");
         lineColor = ThemeManager.getLighterColor(c1, c2);
     }
+
 }

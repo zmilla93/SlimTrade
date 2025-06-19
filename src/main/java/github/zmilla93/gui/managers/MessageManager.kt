@@ -115,9 +115,9 @@ class MessageManager : BasicDialog(), IFontChangeListener, ISaveListener {
         addListeners()
         ThemeManager.addFontListener(this)
         SaveManager.settingsSaveFile.addListener(this)
-        App.parserEvent.subscribe(TradeEvent::class.java) { handleTrade(it) }
-        App.parserEvent.subscribe(PlayerJoinedAreaEvent::class.java) { onJoinedArea(it) }
-        App.parserEvent.subscribe(ChatScannerEvent::class.java) { onScannerMessage(it) }
+        App.events.subscribe(TradeEvent::class.java) { handleTrade(it) }
+        App.events.subscribe(PlayerJoinedAreaEvent::class.java) { onJoinedArea(it) }
+        App.events.subscribe(ChatScannerEvent::class.java) { onScannerMessage(it) }
     }
 
     private fun addListeners() {

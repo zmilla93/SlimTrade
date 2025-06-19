@@ -2,6 +2,7 @@ package github.zmilla93.core.poe;
 
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.WinDef;
+import github.zmilla93.App;
 import github.zmilla93.core.data.MonitorInfo;
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.jna.CustomUser32;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class POEWindow {
 
     private static final Rectangle2D.Float POE_1_PERCENT_STASH_NO_FOLDERS = ScaledRect.getPercentRect(
-            new Rectangle(15, 133, 634, 634),
+            new Rectangle(15, 125, 634, 634),
             new Rectangle(0, 0, 1920, 1080));
 
     private static final Rectangle2D.Float POE_1_PERCENT_STASH_WITH_FOLDERS = ScaledRect.getPercentRect(
@@ -186,6 +187,32 @@ public class POEWindow {
             MonitorInfo.lockBoundsToCurrentMonitor(targetBounds);
         window.setLocation(targetBounds.getLocation());
     }
+
+    public static Rectangle getStashBounds() {
+        if (App.chatParser.getCurrentGame() == Game.PATH_OF_EXILE_1) return getPoe1StashBonds();
+        else return getPoe2StashBonds();
+    }
+
+    public static int getStashHelperOffset() {
+        if (App.chatParser.getCurrentGame() == Game.PATH_OF_EXILE_1) return getPoe1StashHelperOffset();
+        else return getPoe2StashHelperOffset();
+    }
+
+    public static Dimension getStashCellSize() {
+        if (App.chatParser.getCurrentGame() == Game.PATH_OF_EXILE_1) return poe1StashCellSize;
+        else return poe2StashCellSize;
+    }
+
+    public static Dimension getStashCellSizeQuad() {
+        if (App.chatParser.getCurrentGame() == Game.PATH_OF_EXILE_1) return poe1StashCellSizeQuad;
+        else return poe2StashCellSizeQuad;
+    }
+
+    public static int poeStashHelperOffset() {
+        if (App.chatParser.getCurrentGame() == Game.PATH_OF_EXILE_1) return getPoe1StashHelperOffset();
+        else return getPoe2StashHelperOffset();
+    }
+
 
     // Path of Exile UI Info Getters
     // FIXME : Switch to using Game parameter.

@@ -53,6 +53,7 @@ public class FrameManager {
     public static HashMap<String, CheatSheetWindow> cheatSheetWindows = new HashMap<>();
     public static HashMap<String, StashSearchWindow> searchWindows = new HashMap<>();
     public static StashSearchWindow combinedSearchWindow;
+    public static StashAlignmentPreviewWindow stashAlignmentPreviewWindow;
     public static SetupWindow setupWindow;
     //        public static UpdateProgressWindow updateProgressWindow;
     public static RoadmapWindow roadMapWindow;
@@ -71,6 +72,8 @@ public class FrameManager {
     public static StashGridWindow stashGridWindow;
     public static StashHelperContainer stashHelperContainerPoe1;
     public static StashHelperContainer stashHelperContainerPoe2;
+    public static StashHelperPreviewWindow stashHelperPreviewWindow;
+
 
     // Menu Bar
     public static MenubarButtonDialog menuBarIcon;
@@ -109,8 +112,10 @@ public class FrameManager {
         messageManager = new MessageManager();
         stashHelperContainerPoe1 = new StashHelperContainerPoe1();
         stashHelperContainerPoe2 = new StashHelperContainerPoe2();
+        stashHelperPreviewWindow = new StashHelperPreviewWindow();
         overlayInfoWindow = new OverlayInfoDialog();
         messageOverlay = new MessageOverlay();
+        stashAlignmentPreviewWindow = new StashAlignmentPreviewWindow();
         /// Dynamic windows
         rebuildCheatSheetWindows();
         rebuildSearchWindows();

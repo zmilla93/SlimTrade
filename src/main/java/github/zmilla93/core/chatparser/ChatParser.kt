@@ -7,6 +7,7 @@ import github.zmilla93.core.event.ChatScannerEvent
 import github.zmilla93.core.event.ParserEvent
 import github.zmilla93.core.event.PlayerJoinedAreaEvent
 import github.zmilla93.core.event.TradeEvent
+import github.zmilla93.core.events.ZoneChangedEvent
 import github.zmilla93.core.managers.AudioManager
 import github.zmilla93.core.managers.SaveManager
 import github.zmilla93.core.poe.Game
@@ -19,6 +20,8 @@ import github.zmilla93.modules.filetailing.FileTailer.Companion.createTailer
 import github.zmilla93.modules.filetailing.FileTailerListener
 import github.zmilla93.modules.updater.ZLogger
 import java.nio.file.Path
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.regex.Matcher
@@ -47,6 +50,9 @@ class ChatParser(private val game: Game) : FileTailerListener {
         // Compiled regex
         private val clientMessage = Pattern.compile(CLIENT_MESSAGE_REGEX)
         private val clientWhisper = Pattern.compile(CLIENT_WHISPER_REGEX)
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
+
     }
 
     private var tailer: FileTailer? = null
@@ -69,6 +75,8 @@ class ChatParser(private val game: Game) : FileTailerListener {
         private set
     private var dnd = false
     private var startTime: Long = 0
+    private val loaded get() = tailer!!.isLoaded
+
 
     @JvmOverloads
     fun open(path: Path?, isPathRelative: Boolean = false) {
@@ -110,12 +118,17 @@ class ChatParser(private val game: Game) : FileTailerListener {
         val date = fullClientMessage.group("date")
         val time = fullClientMessage.group("time")
         if (fullMessage == null || fullMessage.isEmpty()) return
-        val firstChar = fullMessage.get(0)
+        val firstChar = fullMessage[0]
+//        println("LOG $date $time - $fullMessage")
+//        val chatMessage = ChatMessage(date, time, fullMessage)
+        val timestamp = LocalDateTime.parse("$date $time", formatter)
         lineCount++
+        val chatMessage = ChatMessage(game, date, time, fullMessage)
+        App.events.post(chatMessage)
         // Meta stuff
         // FIXME : Switch to passing fullMessage to everything
         if (firstChar == ':') {
-            if (handleZoneChange(line)) return
+            if (handleZoneChange(timestamp, line)) return
             if (handleDndToggle(line)) return
             if (handlePlayerJoinedArea(line)) return
         }
@@ -203,7 +216,7 @@ class ChatParser(private val game: Game) : FileTailerListener {
                     }
                     if (!allow) continue
                     val playerMessage = PlayerMessage(player, message, isMetaText)
-                    App.parserEvent.post(ChatScannerEvent(entry, playerMessage, tailer!!.isLoaded))
+                    App.events.post(ChatScannerEvent(entry, playerMessage, loaded))
                     return true
                 }
             }
@@ -231,7 +244,7 @@ class ChatParser(private val game: Game) : FileTailerListener {
             }
         }
         // Handle trade
-        App.parserEvent.post(TradeEvent(offer, tailer!!.isLoaded, game))
+        App.events.post(TradeEvent(offer, loaded, game))
         return true
     }
 
@@ -244,12 +257,12 @@ class ChatParser(private val game: Game) : FileTailerListener {
             if (lang.dndOn == null || lang.dndOff == null) continue
             if (message.contains(lang.dndOn)) {
                 dnd = true
-                for (listener in dndListeners) listener.onDndToggle(dnd, tailer!!.isLoaded)
+                for (listener in dndListeners) listener.onDndToggle(dnd, loaded)
                 return true
             }
             if (message.contains(lang.dndOff)) {
                 dnd = false
-                for (listener in dndListeners) listener.onDndToggle(dnd, tailer!!.isLoaded)
+                for (listener in dndListeners) listener.onDndToggle(dnd, loaded)
                 return true
             }
         }
@@ -257,7 +270,7 @@ class ChatParser(private val game: Game) : FileTailerListener {
     }
 
     private fun handleIgnoreItem() {
-        if (tailer!!.isLoaded) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound)
+        if (loaded) AudioManager.playSoundComponent(SaveManager.settingsSaveFile.data.itemIgnoredSound)
     }
 
     private fun handlePlayerJoinedArea(line: String): Boolean {
@@ -269,20 +282,20 @@ class ChatParser(private val game: Game) : FileTailerListener {
 //                for (listener in playerJoinedAreaListeners) {
 //                    listener.onJoinedArea(playerName)
 //                }
-                App.parserEvent.post(PlayerJoinedAreaEvent(playerName, tailer!!.isLoaded))
+                App.events.post(PlayerJoinedAreaEvent(playerName, loaded))
                 return true
             }
         }
         return false
     }
 
-    private fun handleZoneChange(line: String): Boolean {
+    private fun handleZoneChange(time: LocalDateTime, line: String): Boolean {
         for (lang in LangRegex.entries) {
             if (lang.enteredArea == null) continue
             val matcher = lang.enteredAreaPattern.matcher(line)
             if (matcher.matches()) {
                 currentZone = matcher.group("zone")
-                App.chatParser.currentZone = currentZone
+                App.parserEvents.post(ZoneChangedEvent(time, loaded, currentZone))
                 return true
             }
         }
@@ -297,7 +310,7 @@ class ChatParser(private val game: Game) : FileTailerListener {
     // File Tailing
     override fun init(tailer: FileTailer) {
         for (listener in onInitListeners) listener.onParserRestart()
-        App.parserEvent.post(ParserEvent(ParserEvent.Type.RESTART, game.parser))
+        App.events.post(ParserEvent(ParserEvent.Type.RESTART, game.parser))
     }
 
     override fun fileNotFound() {

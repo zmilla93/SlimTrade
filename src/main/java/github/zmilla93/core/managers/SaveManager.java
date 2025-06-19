@@ -76,8 +76,8 @@ public class SaveManager {
             if (!FrameManager.hasBeenInitialized()) return;
             SwingUtilities.invokeLater(() -> {
                 FrameManager.messageManager.refreshFadeData();
-                FrameManager.stashHelperContainerPoe1.updateLocation();
-                FrameManager.stashHelperContainerPoe2.updateLocation();
+                FrameManager.stashHelperContainerPoe1.updateBounds();
+                FrameManager.stashHelperContainerPoe2.updateBounds();
                 ThemeManager.checkFontChange();
             });
         });

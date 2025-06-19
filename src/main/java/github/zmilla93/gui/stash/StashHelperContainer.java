@@ -33,18 +33,19 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
 
         setBackground(ThemeManager.TRANSPARENT);
         setVisible(true);
-        updateLocation();
+        updateBounds();
         ThemeManager.addThemeListener(this);
         SaveManager.stashSaveFile.addListener(this);
         POEWindow.addListener(this);
     }
 
-    public abstract void updateLocation();
+    public abstract void updateBounds();
 
     public Component addHelper(TradeOffer offer) {
         Component panel = new StashHelperPanel(offer);
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(panel, gc);
+        contentPanel.revalidate();
         pack();
         return panel;
     }
@@ -53,7 +54,7 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
         gc.gridx = contentPanel.getComponentCount();
         contentPanel.add(component, gc);
         pack();
-        updateLocation();
+        updateBounds();
     }
 
     public JPanel getContentPanel() {
@@ -83,7 +84,7 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
 
     @Override
     public void onGameBoundsChange() {
-        updateLocation();
+        updateBounds();
     }
 
 }

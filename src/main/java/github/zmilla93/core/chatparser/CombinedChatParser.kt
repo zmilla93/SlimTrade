@@ -2,10 +2,13 @@ package github.zmilla93.core.chatparser
 
 import github.zmilla93.App
 import github.zmilla93.core.event.ParserEventType
+import github.zmilla93.core.events.GameChangedEvent
+import github.zmilla93.core.events.ZoneChangedEvent
 import github.zmilla93.core.managers.SaveManager
 import github.zmilla93.core.poe.Game
 import github.zmilla93.core.poe.GameSettings
 import github.zmilla93.gui.managers.FrameManager
+import java.time.LocalDateTime
 
 /**
  * Runs a chat parser for each game.
@@ -18,19 +21,39 @@ class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
 
     // FIXME : Zone should be handled via listeners, quick fix for now
     /** The game with the most recent chat log timestamp. */
-    var currentGame: Game = Game.PATH_OF_EXILE_1
-        private set
+    val currentGame get() = latestChatMessage.game
+    private var latestChatMessage = ChatMessage(Game.PATH_OF_EXILE_1, LocalDateTime.MIN, "")
 
-    // FIXME : Use timestamp
     /** The last zone the player entered. */
-    var currentZone: String = "The Twilight Strand"
+    val currentZone get() = currentZoneEvent.currentZone
+    private var currentZoneEvent = ZoneChangedEvent(LocalDateTime.MIN, false, "The Twilight Strand")
 
     private var parserLoadedCount = 0 @Synchronized set
     var expectedParserCount = 0
 
+    /** Used to determine the order of messages between games.  */
+    private var mostRecentMessageTimestamp: LocalDateTime = LocalDateTime.MIN
+
+    init {
+        App.events.subscribe(ChatMessage::class.java) {
+            if (it.time < latestChatMessage.time) return@subscribe
+            val previousGame = latestChatMessage.game
+            latestChatMessage = it
+            if (previousGame != it.game) {
+//                println("Game changed: ${it.game}")
+                App.events.post(GameChangedEvent(it.game))
+            }
+        }
+        App.parserEvents.subscribe(ZoneChangedEvent::class.java) {
+            if (it.time < currentZoneEvent.time) return@subscribe
+            currentZoneEvent = it
+            App.events.post(it)
+        }
+    }
+
     /**
      *  Restarts chat parsers for both games only when required.
-     *  IMPORTANT: Parsers are multithreaded, so over of execution is vital here.
+     *  IMPORTANT: Parsers are multithreaded, so order of execution is vital here.
      */
     fun restartChatParsers(forceRestart: Boolean = false) {
         val shouldOpenPoe1Parser = shouldParserOpen(SaveManager.settingsSaveFile.data.settingsPoe1)
@@ -59,7 +82,7 @@ class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
         // If any parsers are going to be reset, post a restart event
         if (shouldOpenPoe1Parser) expectedParserCount++
         if (shouldOpenPoe2Parser) expectedParserCount++
-        App.parserEvent.post(ParserEventType.RESTART)
+        App.events.post(ParserEventType.RESTART)
         // Create new parsers
         if (shouldOpenPoe1Parser) chatParserPoe1 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe1)
         if (shouldOpenPoe2Parser) chatParserPoe2 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe2)
@@ -93,6 +116,7 @@ class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
         }
         val parser = ChatParser(settings.game)
         addParserListeners(settings, parser)
+        // FIXME : Move to event system
         parser.onInitListeners += this
         parser.onLoadListeners += this
 //        parser.tradeListeners.addAll(tradeListeners)
@@ -122,7 +146,7 @@ class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
     @Synchronized
     override fun onParserLoaded(dnd: Boolean) {
         parserLoadedCount++
-        if (parserLoadedCount == expectedParserCount) App.parserEvent.post(ParserEventType.LOADED)
+        if (parserLoadedCount == expectedParserCount) App.events.post(ParserEventType.LOADED)
     }
-    
+
 }

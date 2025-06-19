@@ -152,7 +152,7 @@ public class StashHelperPanel extends AdvancedButton {
         Container parent = getTopLevelAncestor();
         if (parent == null) return;
         if (parent instanceof StashHelperContainer) {
-            ((StashHelperContainer) parent).updateLocation();
+            ((StashHelperContainer) parent).updateBounds();
         }
     }
 
