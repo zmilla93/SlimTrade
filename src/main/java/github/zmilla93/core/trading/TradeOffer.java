@@ -195,6 +195,22 @@ public class TradeOffer extends ClientMessage {
         return getExampleTrade(type, Game.PATH_OF_EXILE_1);
     }
 
+    public static TradeOffer getAlignmentPreviewTradeMessage() {
+        TradeOffer exampleTrade = new TradeOffer();
+        exampleTrade.offerType = TradeOfferType.INCOMING_TRADE;
+        exampleTrade.game = Game.PATH_OF_EXILE_1;
+        exampleTrade.playerName = "ExamplePlayer123";
+        exampleTrade.itemName = "Example Item Helper";
+        exampleTrade.itemNameLower = exampleTrade.itemName.toLowerCase();
+        exampleTrade.priceName = "Chaos Orb";
+        exampleTrade.priceQuantity = 100;
+        exampleTrade.itemQuantity = 0;
+        exampleTrade.stashTabName = "[Tab Name]";
+        exampleTrade.stashTabX = 12;
+        exampleTrade.stashTabY = 12;
+        return exampleTrade;
+    }
+
     public static TradeOffer getExampleTrade(TradeOfferType type, Game game) {
         TradeOffer exampleTrade = new TradeOffer();
         exampleTrade.offerType = type;
@@ -232,7 +248,7 @@ public class TradeOffer extends ClientMessage {
         if (offerType == TradeOfferType.INCOMING_TRADE)
             return SaveManager.settingsSaveFile.data.incomingMacroButtons;
         else if (offerType == TradeOfferType.OUTGOING_TRADE)
-            return SaveManager.settingsSaveFile.data.outgoingBottomMacros;
+            return SaveManager.settingsSaveFile.data.outgoingMacroButtons;
         return null;
     }
 
