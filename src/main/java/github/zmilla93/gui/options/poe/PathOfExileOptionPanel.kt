@@ -46,8 +46,8 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
     // Game Specific
     private val usingStashFoldersPoe1Checkbox = JCheckBox("Using any stash folders")
     private val usingStashFoldersPoe2Checkbox = JCheckBox("Using any stash folders")
-    private val tradesInsideFoldersPoe1CheckBox = JCheckBox("Trades tabs are inside folders", true)
-    private val tradesInsideFoldersPoe2CheckBox = JCheckBox("Trades tabs are inside folders", true)
+    private val tradesInsideFoldersPoe1CheckBox = JCheckBox("Trade tabs are inside folders", true)
+    private val tradesInsideFoldersPoe2CheckBox = JCheckBox("Trade tabs are inside folders", true)
     private val poe1FolderPicker = POEFolderPicker(Game.PATH_OF_EXILE_1)
     private val poe2FolderPicker = POEFolderPicker(Game.PATH_OF_EXILE_2)
     private val poe1OptionPanel = AbstractOptionPanel(false, false)

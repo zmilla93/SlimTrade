@@ -1,15 +1,8 @@
 = Now
-- Create message testing via pasting into client.txt
-- Add new stash option to setup window
-+ Fix stash helper preview
-- Folders need more options
-    + Are you using any folders
-    + Are your trades inside folders? Yes, No, Mixed (Warn about having to add stash tabs)
-+ The patch notes are visually a mess and it's not parsed at all as markdown.
-- Stash UI
+- New Icons & Translations
+- Add hasClickedIdentify to requirements of window location setup?
 - Resetting UI doesn't affect message manager
 - If your firewall blocks java by default the program crashes immediately trying to fetch the patch notes.
-- New Icons & Translations
 - 'Report Bug' button?
 
 == Low

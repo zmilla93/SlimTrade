@@ -44,7 +44,7 @@ public class GameWindowSetupPanel extends AbstractSetupPanel {
         if (Platform.current == Platform.WINDOWS)
             addComponent(detectRadioButton);
         addComponent(monitorRadioButton);
-        addComponent(screenRegionRadioButton);
+//        addComponent(screenRegionRadioButton);
         addVerticalStrut();
 
         // Detect Panel
