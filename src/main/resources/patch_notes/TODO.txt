@@ -1,6 +1,7 @@
 = Now
+- Delete save, run app, save, font error (check preferred font)
 - Add game name to grid preview
-- New Icons & Translations, switch : to _
++ New Icons & Translations, switch : to _
 - Add hasClickedIdentify to requirements of window location setup?
 - Resetting UI doesn't affect message manager
 - If your firewall blocks java by default the program crashes immediately trying to fetch the patch notes.

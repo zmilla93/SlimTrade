@@ -27,7 +27,7 @@ object FontManager {
     const val USE_SYSTEM_DEFAULT: Boolean = false
 
     @JvmField
-    var DEFAULT_FONT: String = "Veranda"
+    var DEFAULT_FONT: String = "Arial"
 
     const val ENGLISH_EXAMPLE_TEXT: String = "English - Language Test"
     const val CHINESE_EXAMPLE_TEXT: String = "Chinese - 语言测试"

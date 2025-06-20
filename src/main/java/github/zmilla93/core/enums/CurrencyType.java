@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Acts as a reference to a specific currency type in either game.
@@ -21,6 +22,10 @@ public class CurrencyType implements IIcon {
     /// Static mapping of currency names in all languages to their respective CurrencyTypes.
     private static final HashMap<String, CurrencyType> currencyMapPoe1 = new HashMap<>();
     private static final HashMap<String, CurrencyType> currencyMapPoe2 = new HashMap<>();
+    // List of currency names, mainly for debugging
+    public static final ArrayList<String> currencyNamesPoe1 = new ArrayList<>();
+    public static final ArrayList<String> currencyNamesPoe2 = new ArrayList<>();
+    @Deprecated
     private static final HashMap<String, CurrencyType> currencyNameMap = new HashMap<>();
     private static final ArrayList<CurrencyType> commonCurrencyTypes = new ArrayList<>();
 
@@ -48,7 +53,7 @@ public class CurrencyType implements IIcon {
             words[i] = words[i].trim();
         }
         ID = words[0];
-        path = String.format("/%s/icons/%s.png", game.assetsFolderName, ID);
+        path = String.format("/%s/icons/%s.png", game.assetsFolderName, ID.replace(":", "_"));
     }
 
     /**
@@ -104,19 +109,20 @@ public class CurrencyType implements IIcon {
     }
 
     public static void createCurrencyMaps() {
-        createCurrencyMap(Game.PATH_OF_EXILE_1, currencyMapPoe1, Paths.get("/poe1/translations.csv"));
-        createCurrencyMap(Game.PATH_OF_EXILE_2, currencyMapPoe2, Paths.get("/poe2/translations.csv"));
+        createCurrencyMap(Game.PATH_OF_EXILE_1, currencyMapPoe1, currencyNamesPoe1, Paths.get("/poe1/translations.csv"));
+        createCurrencyMap(Game.PATH_OF_EXILE_2, currencyMapPoe2, currencyNamesPoe2, Paths.get("/poe2/translations.csv"));
     }
 
-    private static void createCurrencyMap(Game game, HashMap<String, CurrencyType> map, Path csvPath) {
+    private static void createCurrencyMap(Game game, HashMap<String, CurrencyType> map, List<String> list, Path csvPath) {
         map.clear();
         try {
             BufferedReader reader = ZUtil.getBufferedReader(csvPath, true);
             while (reader.ready()) {
                 String line = reader.readLine().trim();
                 if (line.startsWith("//")) continue;
+                if (line.startsWith("#")) continue;
                 if (line.isEmpty()) continue;
-                parseCsvLineIntoMap(game, map, line);
+                parseCsvLineIntoMap(game, map, list, line);
             }
             reader.close();
         } catch (IOException e) {
@@ -124,8 +130,9 @@ public class CurrencyType implements IIcon {
         }
     }
 
-    private static void parseCsvLineIntoMap(Game game, HashMap<String, CurrencyType> map, String line) {
+    private static void parseCsvLineIntoMap(Game game, HashMap<String, CurrencyType> map, List<String> list, String line) {
         CurrencyType currency = new CurrencyType(game, line);
+        list.add(currency.words[0]);
         for (String word : currency.words) {
             map.put(word, currency);
         }

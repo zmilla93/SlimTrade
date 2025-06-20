@@ -26,6 +26,7 @@ import github.zmilla93.gui.stash.StashHelperContainer;
 import github.zmilla93.gui.stash.StashHelperContainerPoe1;
 import github.zmilla93.gui.stash.StashHelperContainerPoe2;
 import github.zmilla93.gui.windows.*;
+import github.zmilla93.gui.windows.test.CurrencyWindow;
 import github.zmilla93.gui.windows.test.MessageTestWindow;
 import github.zmilla93.modules.theme.testing.UIColorKeyViewer;
 import github.zmilla93.modules.theme.testing.UIManagerInspectorWindow;
@@ -63,6 +64,7 @@ public class FrameManager {
     public static MessageTestWindow debugMessageWindow;
     public static UIManagerInspectorWindow uiManagerInspectorWindow;
     public static UIColorKeyViewer uiColorKeyViewer;
+    public static CurrencyWindow currencyWindow;
 
     // Overlays
     public static DummyWindow dummyWindow;
@@ -120,6 +122,7 @@ public class FrameManager {
         if (App.debug) {
             stashAlignmentDesignerWindow = new StashAlignmentDesignerWindow();
             designerConfigWindow = new DesignerConfigWindow();
+            currencyWindow = new CurrencyWindow();
         }
         if (App.themeDebugWindows) {
             uiManagerInspectorWindow = new UIManagerInspectorWindow();
@@ -161,6 +164,7 @@ public class FrameManager {
         if (App.showHistoryOnLaunch) historyWindow.setVisible(true);
         messageManager.setVisible(true);
 //        roadMapWindow.setVisible(true);
+        if (currencyWindow != null) currencyWindow.setVisible(true);
         updateMenubarVisibility();
     }
 

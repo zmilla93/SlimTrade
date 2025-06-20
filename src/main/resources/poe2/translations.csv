@@ -3,148 +3,261 @@
 # Append ".png" to the English name to resolve the image name. Language names resolve to flag icons the same way.
 English, French, German, Japanese, Portuguese, Russian, Spanish, Thai, Tag
 Orb of Transmutation, Orbe de transmutation, Umwandlungssphäre, 変成のオーブ, Orbe da Transmutação, Сфера превращения, Orbe de transmutación, Orb of Transmutation, transmute
-Distilled Ire, Distilled Ire, Destillierter Zorn, 蒸留された怒り, Distilled Ire, Distilled Ire, Ira destilada, สารกลั่นกริ้วโกรธ, distilled-ire
-Sibilant Catalyst, Catalyseur sibilant, Zischender Katalysator, 歯擦音のカタリスト, Catalisador Sibilante, Свистящий катализатор, Catalizador sibilante, Sibilant Catalyst, sibilant-catalyst
-Tul's Catalyst, Catalyseur de Tul, Tuls Katalysator, トゥルのカタリスト, Catalisador de Tul, Катализатор Тул, Catalizador de Tul, Tul's Catalyst, tuls-catalyst
-Adaptive Catalyst, Catalyseur neural, Anpassungsfähiger Katalysator, 適応のカタリスト, Catalisador Adaptável, Адаптивный катализатор, Catalizador adaptable, Adaptive Catalyst, adaptive-catalyst
-Glacial Rune, Rune de la Glace, Gletscherrune, 氷河のルーン, Núcleo D'alma Gélido, Руна ледника, Runa glacial, อักขระน้ำค้างแข็ง, glacial-rune
-Omen of Dextral Coronation, Présage de Couronnement dextre, Omen der Dextralen Krönung, 右側の戴冠のお告げ, Omen of Dextral Coronation, Omen of Dextral Coronation, Augurio de coronación izquierda, ลางบอกเหตุ Regal เสริมขวา, omen-of-dextral-coronation
-Divine Orb, Orbe divin, Göttliche Sphäre, 神のオーブ, Orbe Divino, Божественная сфера, Orbe divino, Divine Orb, divine
-Soul Core of Azcapa, Noyau d'âme d'Azcapa, Seelenkern von Azpaca, アズカパのソウルコア, Grande Núcleo D'alma de Azcapa, Ядро душ Азкапы, Núcleo de alma de Azcapa, แกนวิญญาณ แอซคาพา, soul-core-of-azcapa
+Serpent Talisman, Talisman du Serpent, Schlangen-Talisman, 蛇のタリスマン, Talismã da Serpente, Талисман змеи, Talismán de la serpiente, เครื่องราง งู, serpent-talisman
+Omen of Dextral Coronation, Présage de Couronnement dextre, Omen der Dextralen Krönung, 右側の戴冠のお告げ, Presságio da Coroação Destra  , Предзнаменование коронации правши, Augurio de coronación izquierda, ลางบอกเหตุ Regal เสริมขวา, omen-of-dextral-coronation
+Robust Rune, Rune de la Robustesse, Robuste Rune, 強固のルーン, Runa Robusta, Руна мощи, Runa robusta, อักขระกำยำ, robust-rune
+Talisman of Grold, Talisman of Grold, Talisman of Grold, Talisman of Grold, Talisman of Grold, Talisman of Grold, Talisman of Grold, Talisman of Grold, talisman-of-grold
+Soul Core of Azcapa, Noyau d'âme d'Azcapa, Seelenkern von Azpaca, アズカパのソウルコア, Núcleo D'alma de Azcapa, Ядро душ Азкапы, Núcleo de alma de Azcapa, แกนวิญญาณ แอซคาพา, soul-core-of-azcapa
 Exalted Orb, Orbe exalté, Erhabene Sphäre, 高貴なオーブ, Orbe Exaltado, Сфера возвышения, Orbe exaltado, Exalted Orb, exalted
-Inspiration Rune, Rune de l'Inspiration, Inspirationsrune, 鼓舞のルーン, Núcleo D'alma do Nirvana, Руна вдохновения, Runa de inspiración, อักขระแรงบันดาลใจ, inspiration-rune
-Flesh Catalyst, Catalyseur de chair, Fleisch-Katalysator, 肉体のカタリスト, Catalisador de Carne, Плотский катализатор, Catalizador de carne, Flesh Catalyst, flesh-catalyst
-Distilled Fear, Distilled Fear, Destillierte Angst, 蒸留された恐怖, Distilled Fear, Distilled Fear, Miedo destilado, สารกลั่นเกรงกลัว, distilled-fear
-Gemcutter's Prism, Prisme de lapidaire, Prisma des Gemmenschneiders, 宝石細工師のプリズム, Prisma do Lapidário, Призма камнереза, Prisma del tallador de gemas, Gemcutter's Prism, gcp
-Mind Rune, Rune de l'Esprit, Geistrune, 精神のルーン, Núcleo D'alma da Mente, Руна разума, Runa de la mente, อักขระจิต, mind-rune
-Soul Core of Ticaba, Noyau d'âme de Ticaba, Seelenkern von Ticaba, ティカバのソウルコア, Grande Núcleo D'alma de Ticaba, Ядро душ Тикабы, Núcleo de alma de Ticaba, แกนวิญญาณ ทีคาบา, soul-core-of-ticaba
-Transmutation Shard, Éclat de transmutation, Umwandlungsscherbe, 変成の欠片, Lasca de Transmutação, Осколок превращения, Esquirla de transmutación, เศษ Transmutation, transmutation-shard
-Essence of Ruin, Essence de la Ruine, Essenz des Verfalls, 破滅のエッセンス, Essência da Ruína, Сущность гибели, Esencia de ruina, เอสเซนส์ ย่อยยับ, essence-of-ruin
+Chance Shard, Éclat de chance, Scherbe der Möglichkeiten, 可能性の欠片, Fragmento de Chance, Осколок удачи, Esquirla aleatoria, เศษ Chance, chance-shard
 Uul-Netol's Catalyst, Catalyseur d'Uul-Netol, Uul-Netols Katalysator, ウール・ネトルのカタリスト, Catalisador de Uul-Netol, Катализатор Уул-Нетол, Catalizador de Uul-Netol, Uul-Netol's Catalyst, uul-netols-catalyst
-Distilled Envy, Distilled Envy, Destillierter Neid, 蒸留された嫉妬, Distilled Envy, Distilled Envy, Envidia destilada, สารกลั่นริษยา, distilled-envy
-Victorious Fate, Destin victorieux, Schicksal des Siegreichen, 勝利の運命, Destino Vitorioso, Victorious Fate, Destino victorioso, ชะตานำชัย, victorious-fate
-Greater Essence of Sorcery, Essence de la Sorcellerie majeure, Größere Essenz der Zauberei, 魔法のエッセンス（大）, Greater Essence of Sorcery, Большая сущность колдовства, Esencia de hechicería superior, เอสเซนส์ชั้นสูง มนตรา, greater-essence-of-sorcery
-Greater Essence of the Infinite, Essence de l'Infini majeure, Größere Essenz des Unendlichen, 無限のエッセンス（大）, Greater Essence of the Infinite, Большая сущность бесконечности, Esencia del infinito superior, เอสเซนส์ชั้นสูง อนันต์, greater-essence-of-the-infinite
-Greater Essence of Ruin, Essence de la Ruine majeure, Größere Essenz des Verfalls, 破滅のエッセンス（大）, Greater Essence of Ruin, Большая сущность гибели, Esencia de ruina superior, เอสเซนส์ชั้นสูง ย่อยยับ, greater-essence-of-ruin
+Victorious Fate, Destin victorieux, Schicksal des Siegreichen, 勝利の運命, Destino Vitorioso, Победный конец, Destino victorioso, ชะตานำชัย, victorious-fate
+Greater Essence of Sorcery, Essence de la Sorcellerie majeure, Größere Essenz der Zauberei, 魔法のエッセンス（大）, Essência Grandiosa da Feitiçaria  , Большая сущность колдовства, Esencia de hechicería superior, เอสเซนส์ชั้นสูง มนตรา, greater-essence-of-sorcery
+Greater Mind Rune, Rune de l'Esprit majeure, Große Gedanken-Rune, 精神のルーン（大）, Runa Maior da Mente  , Большая руна разума, Runa de la mente mayor, อักขระจิตชั้นสูง, greater-mind-rune
+Greater Essence of Ruin, Essence de la Ruine majeure, Größere Essenz des Verfalls, 破滅のエッセンス（大）, Essência Grandiosa da Ruína  , Большая сущность гибели, Esencia de ruina superior, เอสเซนส์ชั้นสูง ย่อยยับ, greater-essence-of-ruin
 Vaal Orb, Orbe vaal, Vaalsphäre, ヴァールオーブ, Orbe Vaal, Сфера ваал, Orbe vaal, Vaal Orb, vaal
 Chaos Orb, Orbe du chaos, Chaossphäre, 混沌のオーブ, Orbe do Caos, Сфера хаоса, Orbe de caos, Chaos Orb, chaos
-Vision Rune, Rune de la Vision, Visionsrune, 先見のルーン, Núcleo D'alma da Visão, Руна видения, Runa de visión, อักขระวิสัยทัศน์, vision-rune
-Soul Core of Tzamoto, Noyau d'âme de Tzamoto, Seelenkern von Tzamoto, ザモトのソウルコア, Grande Núcleo D'alma de Tzamoto, Ядро душ Цамото, Núcleo de alma de Tzamoto, แกนวิญญาณ ซาโมโท, soul-core-of-tzamoto
-Breach Precursor Tablet, Tablette des Prédécesseurs de Brèche, Riss-Wegbereitertafel, ブリーチの先人の石板, Tábua do Precursor da Fenda, Плитка Предтеч Разлома, Tablilla precursora de fisura, แผ่นหินผู้มาก่อนกาล บรีช, breach-precursor-tablet
-Artificer's Shard, Éclat d'artificier, Scherbe des Kunsthandwerkers, 熟練工の欠片, Artificer's Shard, Осколок астромантии, Esquirla del artesano, เศษ Artificer, artificers-shard
+Greater Jeweller's Orb, Orbe de joaillier majeur, Große Sphäre des Goldschmieds, 上級宝飾職人のオーブ, Orbe Maior do Joalheiro, Большая сфера златокузнеца, Orbe de joyero superior, Jeweller's Orb ชั้นสูง, greater-jewellers-orb
+Vision Rune, Rune de la Vision, Visionsrune, 先見のルーン, Runa da Visão, Руна видения, Runa de visión, อักขระวิสัยทัศน์, vision-rune
+Soul Core of Tzamoto, Noyau d'âme de Tzamoto, Seelenkern von Tzamoto, ザモトのソウルコア, Núcleo D'alma de Tzamoto, Ядро душ Цамото, Núcleo de alma de Tzamoto, แกนวิญญาณ ซาโมโท, soul-core-of-tzamoto
+Breach Precursor Tablet, Tablette des Prédécesseurs de Brèche, Riss-Wegbereitertafel, ブリーチの先人の石板, Tábua Precursora da Fenda, Плитка Предтеч Разлома, Tablilla precursora de fisura, แผ่นหินกลุ่มชนก่อนกาล บรีช, breach-precursor-tablet
+Cholotl's Soul Core of War, Cholotl's Soul Core of War, Cholotl's Soul Core of War, Cholotl's Soul Core of War, Cholotl's Soul Core of War, Cholotl's Soul Core of War, Cholotl's Soul Core of War, Cholotl's Soul Core of War, cholotls-soul-core-of-war
+Zalatl's Soul Core of Insulation, Zalatl's Soul Core of Insulation, Zalatl's Soul Core of Insulation, Zalatl's Soul Core of Insulation, Zalatl's Soul Core of Insulation, Zalatl's Soul Core of Insulation, Zalatl's Soul Core of Insulation, Zalatl's Soul Core of Insulation, zalatls-soul-core-of-insulation
 Breachstone, Pierre de Brèche, Riss-Stein, ブリーチストーン, Pedra de Fenda, Камень Разлома, Piedra de fisura, ศิลาบรีช, breachstone
-Soul Core of Opiloti, Noyau d'âme d'Opiloti, Seelenkern von Opilonti, オピロティのソウルコア, Grande Núcleo D'alma de Opiloti, Ядро душ Опилоти, Núcleo de alma de Opiloti, แกนวิญญาณ โอพิโลที, soul-core-of-opiloti
-Waystone (Tier 9), Pierre de téléportation (Palier 9), Wegstein (Level 9), ウェイストーン（ティア9）, Pedravia (Tier 9), Путевой камень (Ур. 9), Piedra guía (grado 9), ศิลานำทาง (ระดับ 9), waystone-9
-Waystone (Tier 7), Pierre de téléportation (Palier 7), Wegstein (Level 7), ウェイストーン（ティア7）, Pedravia (Tier 7), Путевой камень (Ур. 7), Piedra guía (grado 7), ศิลานำทาง (ระดับ 7), waystone-7
-Waystone (Tier 8), Pierre de téléportation (Palier 8), Wegstein (Level 8), ウェイストーン（ティア8）, Pedravia (Tier 8), Путевой камень (Ур. 8), Piedra guía (grado 8), ศิลานำทาง (ระดับ 8), waystone-8
-Omen of Sinistral Annulment, Présage d'Annulation sénestre, Omen der Sinistralen Annullierung, 右側の消去のお告げ, Presságio da Anulação Sinistra, Omen of Sinistral Annulment, Augurio de anulación izquierda, ลางบอกเหตุ Annulment ขจัดซ้าย, omen-of-sinistral-annulment
-Essence of Haste, Essence de la Hâte, Essenz der Hast, 迅速のエッセンス, Essência da Rapidez, Сущность спешки, Esencia de celeridad, เอสเซนส์ ว่องไว, essence-of-haste
-Distilled Isolation, Distilled Isolation, Destillierte Isolation, 蒸留された孤立感, Distilled Isolation, Distilled Isolation, Aislamiento destilado, สารกลั่นโดดเดี่ยว, distilled-isolation
-Stone Rune, Rune de la Pierre, Steinrune, 石のルーン, Núcleo D'alma de Pedra, Руна камня, Runa de piedra, อักขระศิลา, stone-rune
+Soul Core of Opiloti, Noyau d'âme d'Opiloti, Seelenkern von Opilonti, オピロティのソウルコア, Núcleo D'alma de Opiloti, Ядро душ Опилоти, Núcleo de alma de Opiloti, แกนวิญญาณ โอพิโลที, soul-core-of-opiloti
+Waystone (Tier 9), Pierre de téléportation (Palier 9), Wegstein (Level 9), ウェイストーン（ティア9）, Pedra Guia (Tier 9), Путевой камень (Ур. 9), Piedra guía (grado 9), ศิลานำทาง (ระดับ 9), waystone-9
+Waystone (Tier 7), Pierre de téléportation (Palier 7), Wegstein (Level 7), ウェイストーン（ティア7）, Pedra Guia (Tier 7), Путевой камень (Ур. 7), Piedra guía (grado 7), ศิลานำทาง (ระดับ 7), waystone-7
+Waystone (Tier 8), Pierre de téléportation (Palier 8), Wegstein (Level 8), ウェイストーン（ティア8）, Pedra Guia (Tier 8), Путевой камень (Ур. 8), Piedra guía (grado 8), ศิลานำทาง (ระดับ 8), waystone-8
+Talisman of Egrin, Talisman of Egrin, Talisman of Egrin, Talisman of Egrin, Talisman of Egrin, Talisman of Egrin, Talisman of Egrin, Talisman of Egrin, talisman-of-egrin
+Omen of Sinistral Annulment, Présage d'Annulation sénestre, Omen der Sinistralen Annullierung, 右側の消去のお告げ, Presságio da Anulação Sinistra, Предзнаменование очищения левши, Augurio de anulación izquierda, ลางบอกเหตุ Annulment ขจัดซ้าย, omen-of-sinistral-annulment
+Lesser Glacial Rune, Rune de la Glace mineure, Kleine Gletscher-Rune, 氷河のルーン（小）, Runa Menor Glacial  , Малая руна ледника, Runa glacial menor, อักขระน้ำค้างแข็งชั้นต่ำ, lesser-glacial-rune
+Fenumus' Rune of Draining, Fenumus' Rune of Draining, Fenumus' Rune of Draining, Fenumus' Rune of Draining, Fenumus' Rune of Draining, Fenumus' Rune of Draining, Fenumus' Rune of Draining, Fenumus' Rune of Draining, fenumus-rune-of-draining
 Xoph's Catalyst, Catalyseur de Xoph, Xophs Katalysator, ゾフのカタリスト, Catalisador de Xoph, Катализатор Ксофа, Catalizador de Xoph, Xoph's Catalyst, xophs-catalyst
+Thane Leld's Rune of Spring, Thane Leld's Rune of Spring, Thane Leld's Rune of Spring, Thane Leld's Rune of Spring, Thane Leld's Rune of Spring, Thane Leld's Rune of Spring, Thane Leld's Rune of Spring, Thane Leld's Rune of Spring, thane-lelds-rune-of-spring
+Ox Talisman, Talisman du Bœuf, Ochsen-Talisman, 牛のタリスマン, Talismã do Boi  , Талисман быка, Talismán del buey, เครื่องราง วัว, ox-talisman
+Talisman of Thruldana, Talisman of Thruldana, Talisman of Thruldana, Talisman of Thruldana, Talisman of Thruldana, Talisman of Thruldana, Talisman of Thruldana, Talisman of Thruldana, talisman-of-thruldana
+Boar Talisman, Talisman du Sanglier, Eber-Talisman, 猪のタリスマン, Talismã do Javali  , Талисман кабана, Talismán del jabalí, เครื่องราง หมูป่า, boar-talisman
 Omen of Greater Exaltation, Présage d'Exaltation majeure, Omen der Großen Erhabenheit, 偉大なる高貴なお告げ, Presságio da Exaltação Grandiosa, Предзнаменование великого возвышения, Augurio de exaltación superior, ลางบอกเหตุ Exalted เสริมซ้ำ, omen-of-greater-exaltation
 Essence of Torment, Essence du Tourment, Essenz der Pein, 苦痛のエッセンス, Essência do Tormento, Сущность мучения, Esencia de tormento, เอสเซนส์ ทรมาน, essence-of-torment
 Mirror of Kalandra, Miroir de Kalandra, Spiegel von Kalandra, カランドラの鏡, Espelho de Kalandra, Зеркало Каландры, Espejo de Kalandra, Mirror of Kalandra, mirror
-Storm Rune, Rune du Tonnerre, Sturmrune, 嵐のルーン, Núcleo D'alma Trovejante, Руна шторма, Runa de tormenta, อักขระพายุ, storm-rune
-Faded Crisis Fragment, Fragment de crise estompé, Verblichenes Krisenfragment, 色褪せた危機の断片, Fragmento Opaco da Crise, Faded Crisis Fragment, Fragmento de crisis descolorido, ชิ้นส่วนวิกฤตเลือนหาย, faded-crisis-fragment
-Omen of Whittling, Présage d'Amenuisement, Omen des Schnitzens, 削減のお告げ, Omen of Whittling, Omen of Whittling, Augurio de tallado, ลางบอกเหตุ Chaos คัดกรอง, omen-of-whittling
-Regal Shard, Éclat royal, Hoheitliche Scherbe, 王者の欠片, Lasca Régia, Осколок царей, Esquirla regia, เศษ Regal, regal-shard
-Glassblower's Bauble, Bulle de souffleur de verre, Kugel des Glasbläsers, ガラス吹きの飾り玉, Bolha do Vidreiro, Стекольная масса, Baratija de vidrio, Glassblower's Bauble, bauble
-Cowardly Fate, Destin lâche, Schicksal des Feiglings, 卑劣な運命, Destino Covarde, Cowardly Fate, Destino cobarde, ชะตาขี้ขลาด, cowardly-fate
-Armourer's Scrap, Ferraille d'armurier, Plattnerstück, 鎧鍛冶の端材, Sucata do Armeiro, Деталь доспеха, Restos de armaduras, Armourer's Scrap, scrap
-Greater Essence of Flames, Essence des Flammes majeure, Größere Essenz der Flammen, 火炎のエッセンス（大）, Greater Essence of Flames, Большая сущность пламени, Esencia de llamas superior, เอสเซนส์ชั้นสูง เพลิง, greater-essence-of-flames
+Talisman of Ralakesh, Talisman of Ralakesh, Talisman of Ralakesh, Talisman of Ralakesh, Talisman of Ralakesh, Talisman of Ralakesh, Talisman of Ralakesh, Talisman of Ralakesh, talisman-of-ralakesh
+Hayoxi's Soul Core of Heatproofing, Hayoxi's Soul Core of Heatproofing, Hayoxi's Soul Core of Heatproofing, Hayoxi's Soul Core of Heatproofing, Hayoxi's Soul Core of Heatproofing, Hayoxi's Soul Core of Heatproofing, Hayoxi's Soul Core of Heatproofing, Hayoxi's Soul Core of Heatproofing, hayoxis-soul-core-of-heatproofing
+Storm Rune, Rune de l'Orage, Sturmrune, 嵐のルーン, Runa da Tempestade, Руна шторма, Runa de tormenta, อักขระพายุ, storm-rune
+Faded Crisis Fragment, Fragment de Crise terni, Verblichenes Krisenfragment, 色褪せた危機の断片, Fragmento Opaco da Crise, Истёртый переломный фрагмент, Fragmento de crisis descolorido, ชิ้นส่วนวิกฤตเลือนหาย, faded-crisis-fragment
+Omen of Whittling, Présage d'Amenuisement, Omen des Schnitzens, 削減のお告げ, Presságio do Desgaste  , Предзнаменование оттачивания, Augurio de tallado, ลางบอกเหตุ Chaos คัดกรอง, omen-of-whittling
+Ritualistic Reliquary Key, Clé du Reliquaire ritualiste, Schlüssel zur Rituellen Reliquienkammer, 儀式的な聖廟の鍵, Chave do Relicário Ritualístico, Ключ от Ритуального Реликвария, Llave del Relicario ritualista, กุญแจคลังวัตถุโบราณพิธีกรรม, ritualistic-reliquary-key
+Greater Stone Rune, Rune de la Pierre majeure, Große Stein-Rune, 石のルーン（大）, Runa Maior de Pedra  , Большая руна камня, Runa de piedra mayor, อักขระศิลาชั้นสูง, greater-stone-rune
+Courtesan Mannan's Rune of Cruelty, Courtesan Mannan's Rune of Cruelty, Courtesan Mannan's Rune of Cruelty, Courtesan Mannan's Rune of Cruelty, Courtesan Mannan's Rune of Cruelty, Courtesan Mannan's Rune of Cruelty, Courtesan Mannan's Rune of Cruelty, Courtesan Mannan's Rune of Cruelty, courtesan-mannans-rune-of-cruelty
+Thane Grannell's Rune of Mastery, Thane Grannell's Rune of Mastery, Thane Grannell's Rune of Mastery, Thane Grannell's Rune of Mastery, Thane Grannell's Rune of Mastery, Thane Grannell's Rune of Mastery, Thane Grannell's Rune of Mastery, Thane Grannell's Rune of Mastery, thane-grannells-rune-of-mastery
+Atmohua's Soul Core of Retreat, Atmohua's Soul Core of Retreat, Atmohua's Soul Core of Retreat, Atmohua's Soul Core of Retreat, Atmohua's Soul Core of Retreat, Atmohua's Soul Core of Retreat, Atmohua's Soul Core of Retreat, Atmohua's Soul Core of Retreat, atmohuas-soul-core-of-retreat
+Zarokh's Reliquary Key: Sandstorm Visage, Clé du Reliquaire de Zarokh : Visage de la Tempête de sable, Schlüssel zur Reliquienkammer von Zarokh: Antlitz des Sandsturms, ザロクの聖廟の鍵：砂嵐の容貌, Chave do Relicário de Zarokh: Semblante da Tempestade de Areia, Ключ от Реликвария Зарока: Образ песчаной бури, Llave del Relicario de Zarokh: Máscara de tormenta de arena, กุญแจคลังวัตถุโบราณซาร็อกห์: Sandstorm Visage, sandstorm-visage
 Essence of Flames, Essence des Flammes, Essenz der Flammen, 火炎のエッセンス, Essência das Chamas, Сущность пламени, Esencia de llamas, เอสเซนส์ เพลิง, essence-of-flames
-Distilled Paranoia, Distilled Paranoia, Destillierte Paranoia, 蒸留された偏執症, Distilled Paranoia, Distilled Paranoia, Paranoia destilada, สารกลั่นหวาดระแวง, distilled-paranoia
-Omen of Sinistral Erasure, Présage d'Effacement sénestre, Omen der Sinistralen Auslöschung, 左側の抹消のお告げ, Omen of Sinistral Erasure, Omen of Sinistral Erasure, Augurio de borrado derecho, ลางบอกเหตุ Chaos สุ่มซ้าย, omen-of-sinistral-erasure
-Omen of Corruption, Présage de Corruption, Omen der Verderbtheit, 穢れのお告げ, Omen of Corruption, Omen of Corruption, Augurio de corrupción, ลางบอกเหตุ Vaal พลังมลทิน, omen-of-corruption
-Greater Essence of Torment, Essence du Tourment majeure, Größere Essenz der Pein, 苦痛のエッセンス（大）, Greater Essence of Torment, Большая сущность мучения, Esencia de tormento superior, เอสเซนส์ชั้นสูง ทรมาน, greater-essence-of-torment
-Soul Core of Citaqualotl, Noyau d'âme de Citaqualotl, Seelenkern von Citaqualotl, シアクラトルのソウルコア, Grande Núcleo D'alma de Citaqualotl, Ядро душ Ситаквалотля, Núcleo de alma de Citaqualotl, แกนวิญญาณ ซีทาคัวลอทัล, soul-core-of-citaqualotl
-Precursor Tablet, Tablette des Prédécesseurs, Vorläufertafel, 先人の石板, Tábua do Precursor, Плитка Предтеч, Tablilla precursora, แผ่นหินผู้มาก่อนกาล, precursor-tablet
-Black Scythe Artifact, Artéfact de la Faux noire, Artefakt der Schwarzen Sense, 黒い鎌のアーティファクト, Artefato da Foice Negra, Артефакт Чёрной косы, Artefacto de la Guadaña negra, โบราณวัตถุเคียวดำ, black-scythe-artifact
-Body Rune, Rune du Corps, Körperrune, 肉体のルーン, Núcleo D'alma do Corpo, Руна тела, Runa del cuerpo, อักขระกาย, body-rune
-Omen of Dextral Exaltation, Présage d'Exaltation dextre, Omen der Dextralen Erhabenheit, 右側の高貴なお告げ, Presságio da Exaltação Hábil, Omen of Dextral Exaltation, Augurio de exaltación derecha, ลางบอกเหตุ Exalted เสริมขวา, omen-of-dextral-exaltation
-Reaver Catalyst, Catalyseur de ravageur, Plündernder Katalysator, 強奪者のカタリスト, Catalisador Devastador, Разбойничий катализатор, Catalizador de desgarro, Reaver Catalyst, reaver-catalyst
+Essence of Hysteria, Essence de l'Hystérie, Essenz der Hysterie, ヒステリーのエッセンス, Essência da Histeria, Сущность истерии, Esencia de histeria, เอสเซนส์ ฮิสทีเรีย, essence-of-hysteria
+Distilled Paranoia, Paranoïa distillée, Destillierte Paranoia, 蒸留された偏執症, Paranoia Destilada, Очищенная паранойя, Paranoia destilada, สารกลั่น Paranoia, distilled-paranoia
+Thane Myrk's Rune of Summer, Thane Myrk's Rune of Summer, Thane Myrk's Rune of Summer, Thane Myrk's Rune of Summer, Thane Myrk's Rune of Summer, Thane Myrk's Rune of Summer, Thane Myrk's Rune of Summer, Thane Myrk's Rune of Summer, thane-myrks-rune-of-summer
+Resolve Rune, Rune de la Résolution, Entschlossenheit-Rune, 決意のルーン, Runa Resoluta, Руна решительности, Runa de resolución, อักขระมุ่งมั่น, resolve-rune
+Greater Essence of Torment, Essence du Tourment majeure, Größere Essenz der Pein, 苦痛のエッセンス（大）, Essência Grandiosa do Tormento  , Большая сущность мучения, Esencia de tormento superior, เอสเซนส์ชั้นสูง ทรมาน, greater-essence-of-torment
+Omen of the Hunt, Présage de la Chasse, Omen der Jagd, 狩りのお告げ, Presságio da Caçada, Предзнаменование охоты, Augurio de la cacería, ลางบอกเหตุการออกล่า, omen-of-the-hunt
+Zarokh's Reliquary Key: Blessed Bonds, Clé du Reliquaire de Zarokh : Liens bénis, Schlüssel zur Reliquienkammer von Zarokh: Gesegnete Verbindungen, ザロクの聖廟の鍵：祝福されし絆, Chave do Relicário de Zarokh: Vínculos Abençoados, Ключ от Реликвария Зарока: Благословенные узы, Llave del Relicario de Zarokh: Vínculos bendecidos, กุญแจคลังวัตถุโบราณซาร็อกห์: Blessed Bonds, blessed-bonds
+Omen of Dextral Exaltation, Présage d'Exaltation dextre, Omen der Dextralen Erhabenheit, 右側の高貴なお告げ, Presságio da Exaltação Hábil, Предзнаменование возвышения правши, Augurio de exaltación derecha, ลางบอกเหตุ Exalted เสริมขวา, omen-of-dextral-exaltation
+Citaqualotl's Soul Core of Foulness, Citaqualotl's Soul Core of Foulness, Citaqualotl's Soul Core of Foulness, Citaqualotl's Soul Core of Foulness, Citaqualotl's Soul Core of Foulness, Citaqualotl's Soul Core of Foulness, Citaqualotl's Soul Core of Foulness, Citaqualotl's Soul Core of Foulness, citaqualotls-soul-core-of-foulness
+Perfect Jeweller's Orb, Orbe de joaillier parfait, Perfekte Sphäre des Goldschmieds, 完璧な宝飾職人のオーブ, Orbe Perfeito do Joalheiro, Совершенная сфера златокузнеца, Orbe de joyero perfecto, Jeweller's Orb ไร้ที่ติ, perfect-jewellers-orb
+Zarokh's Reliquary Key: Temporalis, Clé du Reliquaire de Zarokh : Temporalis, Schlüssel zur Reliquienkammer von Zarokh: Temporalis, ザロクの聖廟の鍵：テンポラリス, Chave do Relicário de Zarokh: Temporalis, Ключ от Реликвария Зарока: Темпоралис, Llave del Relicario de Zarokh: Temporalis, กุญแจคลังวัตถุโบราณซาร็อกห์: Temporalis, temporalis
 Essence of the Mind, Essence de l'Esprit, Essenz des Geistes, 精神のエッセンス, Essência da Mente, Сущность разума, Esencia de la mente, เอสเซนส์ จิต, essence-of-the-mind
-Simulacrum Splinter, Esquille de Simulacre, Simulacrum-Splitter, シミュラクラムの破片, Lasca de Simulacro, Осколок Симулякра, Fragmento de Simulacro, สะเก็ดเมืองจำแลง, simulacrum-splinter
-Soul Core of Puhuarte, Noyau d'âme de Puhuarte, Seelenkern von Puhuarte, プフアーテのソウルコア, Grande Núcleo D'alma de Puhuarte, Ядро душ Пухварте, Núcleo de alma de Puhuarte, แกนวิญญาณ พูฮวาเท, soul-core-of-puhuarte
-Omen of Refreshment, Présage de Rafraîchissement, Omen der Erfrischung, 補給のお告げ, Omen of Refreshment, Omen of Refreshment, Augurio de reanimación, ลางบอกเหตุสดชื่น, omen-of-refreshment
-Essence of Electricity, Essence de l'Électricité, Essenz der Elektrizität, 電気のエッセンス, Essência da Eletricidade, Сущность электричества, Esencia de electricidad, เอสเซนส์ ไฟฟ้า, essence-of-electricity
-Artificer's Orb, Orbe d'artificier, Sphäre des Kunsthandwerkers, 熟練工のオーブ, Artificer's Orb, Сфера астромантии, Orbe del artesano, Artificer's Orb, artificers
-Soul Core of Zalatl, Noyau d'âme de Zalatl, Seelenkern von Zalatl, ザラトルのソウルコア, Grande Núcleo D'alma de Zalatl, Ядро душ Залатля, Núcleo de alma de Zalatl, แกนวิญญาณ ซาลาทัล, soul-core-of-zalatl
-An Audience with the King, Une Audience avec le Roi, Eine Audienz mit dem König, 王への謁見, Uma Audiência com o Rei, Встреча с Хозяином, Una audiencia ante el rey, เข้าเฝ้าราชัน, an-audience-with-the-king
-Greater Essence of Electricity, Essence de l'Électricité majeure, Größere Essenz der Elektrizität, 電気のエッセンス（大）, Greater Essence of Electricity, Большая сущность электричества, Esencia de electricidad superior, เอสเซนส์ชั้นสูง ไฟฟ้า, greater-essence-of-electricity
-Soul Core of Topotante, Noyau d'âme de Topotante, Seelenkern von Topotante, トポタンテのソウルコア, Grande Núcleo D'alma de Topotante, Ядро душ Топотанте, Núcleo de alma de Topotante, แกนวิญญาณ โทโปทันเท, soul-core-of-topotante
-Iron Rune, Rune du Fer, Eisenrune, 鉄のルーン, Núcleo D'alma Aprimorado, Руна железа, Runa de hierro, อักขระเหล็ก, iron-rune
-Carapace Catalyst, Catalyseur carapace, Panzerkatalysator, 甲羅のカタリスト, Catalisador da Carapaça, Панцирный катализатор, Catalizador de caparazón, Carapace Catalyst, carapace-catalyst
-Omen of Amelioration, Présage d'Amélioration, Omen der Genesung, 改善のお告げ, Omen of Amelioration, Omen of Amelioration, Augurio de mejora, ลางบอกเหตุสงเคราะห์, omen-of-amelioration
-Greater Essence of the Body, Essence du Corps majeure, Größere Essenz des Körpers, 肉体のエッセンス（大）, Greater Essence of the Body, Большая сущность тела, Esencia del cuerpo superior, เอสเซนส์ชั้นสูง กาย, greater-essence-of-the-body
-Soul Core of Atmohua, Noyau d'âme d'Atmohua, Seelenkern von Atmohua, アトモフアのソウルコア, Soul Core of Atmohua, Ядро душ Атмохвы, Núcleo de alma de Atmohua, แกนวิญญาณ แอตโมฮัว, soul-core-of-atmohua
-Sun Artifact, Artéfact du Soleil, Artefakt der Sonne, 太陽のアーティファクト, Artefato do Sol, Артефакт Солнца, Artefacto del Sol, โบราณวัตถุดวงตะวัน, sun-artifact
-Soul Core of Zantipi, Noyau d'âme de Zantipi, Seelenkern von Zantipi, ザンティーピのソウルコア, Soul Core of Zantipi, Ядро душ Зантипи, Núcleo de alma de Zantipi, แกนวิญญาณ ซานทีพี, soul-core-of-zantipi
-Weathered Crisis Fragment, Fragment de crise érodé, Verwittertes Krisenfragment, 風化した危機の断片, Fragmento Desgastado da Crise, Weathered Crisis Fragment, Fragmento de crisis desgastado, ชิ้นส่วนวิกฤตสึกกร่อน, weathered-crisis-fragment
-Soul Core of Jiquani, Noyau d'âme de Jiquani, Seelenkern von Jiquani, ヘクアニのソウルコア, Grande Núcleo D'alma de Jiquani, Ядро душ Джиквани, Núcleo de alma de Jiquani, แกนวิญญาณ ฮิคัวนี, soul-core-of-jiquani
-Ritual Precursor Tablet, Tablette des Prédécesseurs de Rituel, Ritual-Wegbereitertafel, リチュアルの先人の石板, Tábua do Precursor do Ritual, Плитка Предтеч Ритуала, Tablilla precursora de ritual, แผ่นหินผู้มาก่อนกาล พิธีกรรม, ritual-precursor-tablet
-Greater Essence of Ice, Essence de la Glace majeure, Größere Essenz des Eises, 氷晶のエッセンス（大）, Greater Essence of Ice, Большая сущность льда, Esencia de hielo superior, เอสเซนส์ชั้นสูง น้ำแข็ง, greater-essence-of-ice
-Omen of Greater Annulment, Présage d'Annulation majeure, Omen der Großen Annullierung, 偉大なる消去のお告げ, Presságio da Anulação Grandiosa, Omen of Greater Annulment, Augurio de anulación superior, ลางบอกเหตุ Annulment ขจัดซ้ำ, omen-of-greater-annulment
+Xopec's Soul Core of Power, Xopec's Soul Core of Power, Xopec's Soul Core of Power, Xopec's Soul Core of Power, Xopec's Soul Core of Power, Xopec's Soul Core of Power, Xopec's Soul Core of Power, Xopec's Soul Core of Power, xopecs-soul-core-of-power
+Xipocado's Soul Core of Dominion, Xipocado's Soul Core of Dominion, Xipocado's Soul Core of Dominion, Xipocado's Soul Core of Dominion, Xipocado's Soul Core of Dominion, Xipocado's Soul Core of Dominion, Xipocado's Soul Core of Dominion, Xipocado's Soul Core of Dominion, xipocados-soul-core-of-dominion
+Greater Adept Rune, Rune de l'Adepte majeure, Große Adept-Rune, 熟達のルーン（大）, Runa Adepta Superior, Большая руна искусности, Runa de habilidad mayor, อักขระช่ำชองชั้นสูง, greater-adept-rune
+Omen of Refreshment, Présage de Rafraîchissement, Omen der Erfrischung, 補給のお告げ, Presságio do Revigoramento  , Предзнаменование восполнения, Augurio de reanimación, ลางบอกเหตุสดชื่น, omen-of-refreshment
+Fenumus' Rune of Agony, Fenumus' Rune of Agony, Fenumus' Rune of Agony, Fenumus' Rune of Agony, Fenumus' Rune of Agony, Fenumus' Rune of Agony, Fenumus' Rune of Agony, Fenumus' Rune of Agony, fenumus-rune-of-agony
+The Greatwolf's Rune of Claws, The Greatwolf's Rune of Claws, The Greatwolf's Rune of Claws, The Greatwolf's Rune of Claws, The Greatwolf's Rune of Claws, The Greatwolf's Rune of Claws, The Greatwolf's Rune of Claws, The Greatwolf's Rune of Claws, the-greatwolfs-rune-of-claws
+Greater Vision Rune, Rune de la Vision majeure, Große Visions-Rune, 先見のルーン（大）, Runa Maior da Visão, Большая руна видения, Runa de visión mayor, อักขระวิสัยทัศน์ชั้นสูง, greater-vision-rune
+Lesser Storm Rune, Rune de l'Orage mineure, Kleine Sturm-Rune, 嵐のルーン（小）, Runa Menor da Tempestade  , Малая руна шторма, Runa de tormenta menor, อักขระพายุชั้นต่ำ, lesser-storm-rune
+An Audience with the King, Une Audience avec le Roi, Eine Audienz mit dem König, 王への謁見, Uma Audiência com o Rei, Встреча с Хозяином, Una audiencia con el rey, เข้าเฝ้าราชัน, an-audience-with-the-king
+Omen of Secret Compartments, Présage des compartiments secrets, Omen der Geheimfächer, 秘密の区画のお告げ, Presságio dos Compartimentos Secretos, Предзнаменование тайных отсеков, Augurio de compartimentos secretos, ลางบอกเหตุช่องเร้นลับ, omen-of-secret-compartments
+Wolf Talisman, Talisman du Loup, Wolf-Talisman, 狼のタリスマン, Talismã do Lobo  , Талисман волка, Talismán del lobo, เครื่องราง หมาป่า, wolf-talisman
+Greater Essence of Electricity, Essence de l'Électricité majeure, Größere Essenz der Elektrizität, 電気のエッセンス（大）, Essência Grandiosa da Eletricidade  , Большая сущность электричества, Esencia de electricidad superior, เอสเซนส์ชั้นสูง ไฟฟ้า, greater-essence-of-electricity
+Omen of Amelioration, Présage d'Amélioration, Omen der Genesung, 改善のお告げ, Presságio da Melhoria  , Предзнаменование избавления, Augurio de mejora, ลางบอกเหตุสงเคราะห์, omen-of-amelioration
+Greater Essence of the Body, Essence du Corps majeure, Größere Essenz des Körpers, 肉体のエッセンス（大）, Essência Grandiosa do Corpo  , Большая сущность тела, Esencia del cuerpo superior, เอสเซนส์ชั้นสูง กาย, greater-essence-of-the-body
+Quipolatl's Soul Core of Flow, Quipolatl's Soul Core of Flow, Quipolatl's Soul Core of Flow, Quipolatl's Soul Core of Flow, Quipolatl's Soul Core of Flow, Quipolatl's Soul Core of Flow, Quipolatl's Soul Core of Flow, Quipolatl's Soul Core of Flow, quipolatls-soul-core-of-flow
+Weathered Crisis Fragment, Fragment de Crise érodé, Verwittertes Krisenfragment, 風化した危機の断片, Fragmento Desgastado da Crise, Выцветший переломный фрагмент, Fragmento de crisis desgastado, ชิ้นส่วนวิกฤตสึกกร่อน, weathered-crisis-fragment
+Greater Iron Rune, Rune du Fer majeure, Große Eisen-Rune, 鉄のルーン（大）, Runa Maior de Ferro  , Большая руна железа, Runa de hierro mayor, อักขระเหล็กชั้นสูง, greater-iron-rune
+Greater Rune of Nobility, Rune majeure de Noblesse, Große Rune des Adels, 高潔なルーン（大）, Grande Runa da Nobreza, Большая руна дворянства, Runa de nobleza mayor, อักขระชั้นสูง สง่างาม, greater-rune-of-nobility
+Soul Core of Jiquani, Noyau d'âme de Jiquani, Seelenkern von Jiquani, ヘクアニのソウルコア, Núcleo D'alma de Jiquani, Ядро душ Джиквани, Núcleo de alma de Jiquani, แกนวิญญาณ ฮิคัวนี, soul-core-of-jiquani
+Zarokh's Reliquary Key: Sekhema's Resolve, Clé du Reliquaire de Zarokh : Détermination des Sekhemas, Schlüssel zur Reliquienkammer von Zarokh: Sekhemas Entschlossenheit, ザロクの聖廟の鍵：セケマの決意, Chave do Relicário de Zarokh: Determinação da Sekhema, Ключ от Реликвария Зарока: Решимость Сехемы, Llave del Relicario de Zarokh: Determinación de la sekhema, กุญแจคลังวัตถุโบราณซาร็อกห์: Sekhema's Resolve, sekhemas-resolve
+Greater Robust Rune, Rune de la Robustesse majeure, Große Robuste Rune, 強固のルーン（大）, Runa Robusta Superior, Большая руна мощи, Runa robusta mayor, อักขระกำยำชั้นสูง, greater-robust-rune
+Omen of Greater Annulment, Présage d'Annulation majeure, Omen der Großen Annullierung, 偉大なる消去のお告げ, Presságio da Anulação Grandiosa, Предзнаменование великого очищения, Augurio de anulación superior, ลางบอกเหตุ Annulment ขจัดซ้ำ, omen-of-greater-annulment
+Talisman of Maxarius, Talisman of Maxarius, Talisman of Maxarius, Talisman of Maxarius, Talisman of Maxarius, Talisman of Maxarius, Talisman of Maxarius, Talisman of Maxarius, talisman-of-maxarius
 Essence of the Body, Essence du Corps, Essenz des Körpers, 肉体のエッセンス, Essência do Corpo, Сущность тела, Esencia del cuerpo, เอสเซนส์ กาย, essence-of-the-body
-Omen of Resurgence, Présage de Résurgence, Omen des Wiederaufstiegs, 再生のお告げ, Omen of Resurgence, Omen of Resurgence, Augurio de resurgimiento, ลางบอกเหตุฟื้นคืน, omen-of-resurgence
-Omen of Sinistral Alchemy, Présage d'Alchimie sénestre, Omen der Sinistralen Alchemie, 左側の錬金術のお告げ, Omen of Sinistral Alchemy, Omen of Sinistral Alchemy, Augurio de alquimia derecho, ลางบอกเหตุ Alchemy เติมซ้าย, omen-of-sinistral-alchemy
-Distilled Greed, Distilled Greed, Destillierte Gier, 蒸留された貪欲, Distilled Greed, Distilled Greed, Codicia destilada, สารกลั่นโลภ, distilled-greed
-Deadly Fate, Destin mortel, Schicksal des Todes, 致死の運命, Destino Mortal, Deadly Fate, Destino mortal, ชะตาอันตราย, deadly-fate
+Omen of Sinistral Alchemy, Présage d'Alchimie sénestre, Omen der Sinistralen Alchemie, 左側の錬金術のお告げ, Presságio da Alquimia Sinistra  , Предзнаменование алхимии левши, Augurio de alquimia derecho, ลางบอกเหตุ Alchemy เติมซ้าย, omen-of-sinistral-alchemy
+Distilled Greed, Cupidité distillée, Destillierte Gier, 蒸留された貪欲, Ganância Destilada, Очищенная жадность, Codicia destilada, สารกลั่น Greed, distilled-greed
 Essence of Enhancement, Essence de la Valorisation, Essenz der Verstärkung, 強化のエッセンス, Essência do Aprimoramento, Сущность улучшения, Esencia de mejora, เอสเซนส์ เสริมสร้าง, essence-of-enhancement
 Orb of Augmentation, Orbe d'augmentation, Aufwertungssphäre, 増強のオーブ, Orbe Ampliador, Сфера усиления, Orbe de aumento, Orb of Augmentation, aug
-Orb of Annulment, Orbe d'annulation, Sphäre der Annullierung, 消去のオーブ, Orbe da Anulação, Сфера отмены, Orbe de anulación, Orb of Annulment, annul
 Breach Splinter, Esquille de Brèche, Riss-Splitter, ブリーチの破片, Fragmento de Fenda, Осколок Разлома, Astilla de fisura, สะเก็ดบรีช, breach-splinter
 Esh's Catalyst, Catalyseur d'Esh, Eshs Katalysator, エシュのカタリスト, Catalisador de Esh, Катализатор Иш, Catalizador de Esh, Esh's Catalyst, eshs-catalyst
-Soul Core of Cholotl, Noyau d'âme de Cholotl, Seelenkern von Cholotl, チョロトルのソウルコア, Soul Core of Cholotl, Ядро душ Чолотля, Núcleo de alma de Cholotl, แกนวิญญาณ โชโลทัล, soul-core-of-cholotl
-Omen of Dextral Annulment, Présage d'Annulation dextre, Omen der Dextralen Annullierung, 左側の消去のお告げ, Presságio da Anulação Hábil, Omen of Dextral Annulment, Augurio de anulación derecha, ลางบอกเหตุ Annulment ขจัดขวา, omen-of-dextral-annulment
-Chayula's Catalyst, Catalyseur de Chayula, Chayulas Katalysator, チャユラのカタリスト, Catalisador de Chayula, Катализатор Чаюлы, Catalizador de Chayula, Chayula's Catalyst, chayulas-catalyst
-Blacksmith's Whetstone, Pierre à aiguiser de forgeron, Schleifstein, 鍛冶屋の砥石, Amolador do Ferreiro, Точильный камень, Piedra de afilar, Blacksmith's Whetstone, whetstone
-Distilled Guilt, Distilled Guilt, Destillierte Schuld, 蒸留された罪悪感, Distilled Guilt, Distilled Guilt, Culpa destilada, สารกลั่นรู้ผิด, distilled-guilt
-Soul Core of Xopec, Noyau d'âme de Xopec, Seelenkern von Xopec, ゾペックのソウルコア, Grande Núcleo D'alma de Xopec, Ядро душ Шопека, Núcleo de alma de Xopec, แกนวิญญาณ โจเพค, soul-core-of-xopec
-Rebirth Rune, Rune de la Renaissance, Wiederbelebungsrune, 復活のルーン, Núcleo D'alma da Fênix, Руна перерождения, Runa de renacimiento, อักขระกำเนิดใหม่, rebirth-rune
-Omen of Dextral Alchemy, Présage d'Alchimie dextre, Omen der Dextralen Alchemie, 右側の錬金術のお告げ, Omen of Dextral Alchemy, Omen of Dextral Alchemy, Augurio de alquimia izquierdo, ลางบอกเหตุ Alchemy เติมขวา, omen-of-dextral-alchemy
+Soul Core of Cholotl, Noyau d'âme de Cholotl, Seelenkern von Cholotl, チョロトルのソウルコア, Núcleo D'alma de Cholotl, Ядро душ Чолотля, Núcleo de alma de Cholotl, แกนวิญญาณ โชโลทัล, soul-core-of-cholotl
+Chayula's Catalyst, ht, Chayulas Katalysator, チャユラのカタリスト, Catalisador de Chayula, Катализатор Чаюлы, Catalizador de Chayula, Chayula's Catalyst, chayulas-catalyst
+Saqawal's Rune of Erosion, Saqawal's Rune of Erosion, Saqawal's Rune of Erosion, Saqawal's Rune of Erosion, Saqawal's Rune of Erosion, Saqawal's Rune of Erosion, Saqawal's Rune of Erosion, Saqawal's Rune of Erosion, saqawals-rune-of-erosion
 Simulacrum, Simulacre, Simulacrum, シミュラクラム, Simulacrum, Симулякр, Simulacro, เมืองจำแลง, simulacrum
-Distilled Despair, Distilled Despair, Destillierte Verzweiflung, 蒸留された絶望, Distilled Despair, Distilled Despair, Desesperación destilada, สารกลั่นสิ้นหวัง, distilled-despair
-Delirium Precursor Tablet, Tablette des Prédécesseurs de Délire, Delirium-Wegbereitertafel, デリリウムの先人の石板, Tábua do Precursor do Delírio, Плитка Предтеч Делириума, Tablilla precursora de delirio, แผ่นหินผู้มาก่อนกาล เดลิเรียม, delirium-precursor-tablet
-Regal Orb, Orbe royal, Hoheitliche Sphäre, 王者のオーブ, Orbe Régio, Сфера царей, Orbe regio, Regal Orb, regal
-Broken Circle Artifact, Artéfact du Cercle brisé, Artefakt des Gebrochenen Zirkels, 断たれた円環のアーティファクト, Artefato do Círculo Quebrado, Артефакт Разомкнутого круга, Artefacto del Círculo roto, โบราณวัตถุสิ้นวัฏจักร, broken-circle-artifact
-Expedition Precursor Tablet, Tablette des Prédécesseurs d'Expédition, Expedition-Wegbereitertafel, エクスペディションの先人の石板, Tábua do Precursor da Expedição, Плитка Предтеч Экспедиции, Tablilla precursora de expedición, แผ่นหินผู้มาก่อนกาล กองสำรวจ, expedition-precursor-tablet
+Distilled Despair, Désespoir distillé, Destillierte Verzweiflung, 蒸留された絶望, Desespero Destilado, Очищенное отчаяние, Desesperación destilada, สารกลั่น Despair, distilled-despair
+Greater Desert Rune, Rune du Désert majeure, Große Wüsten-Rune, 砂漠のルーン（大）, Runa Maior do Deserto  , Большая руна пустыни, Runa desértica mayor, อักขระทะเลทรายชั้นสูง, greater-desert-rune
+Greater Rune of Alacrity, Rune majeure d'Alacrité, Große Rune der Gewissenhaftigkeit, 積極性のルーン（大）, Grande Runa da Alacridade, Большая руна стремления, Runa de celeridad mayor, อักขระชั้นสูง ฮึกเหิม, greater-rune-of-alacrity
+Essence of Horror, Essence de l'Horreur, Essenz des Horrors, 戦慄のエッセンス, Essência do Horror, Сущность ужаса, Esencia de horror, เอสเซนส์ สยองขวัญ, essence-of-horror
+Overseer Precursor Tablet, Tablette des Prédécesseurs du Superviseur, Aufseher-Wegbereitertafel, 監督者の先人の石板, Tábua Precursora do Supervisor, Плитка Предтеч Смотрителя, Tablilla precursora del capataz, แผ่นหินกลุ่มชนก่อนกาล ผู้คุม, overseer-precursor-tablet
+Expedition Precursor Tablet, Tablette des Prédécesseurs d'Expédition, Expedition-Wegbereitertafel, エクスペディションの先人の石板, Tábua Precursora da Expedição, Плитка Предтеч Экспедиции, Tablilla precursora de expedición, แผ่นหินกลุ่มชนก่อนกาล กองสำรวจ, expedition-precursor-tablet
 Scroll of Wisdom, Parchemin de sagesse, Identifikationsrolle, 叡智の巻物, Pergaminho da Sabedoria, Свиток мудрости, Pergamino de sabiduría, Scroll of Wisdom, wisdom
-Waystone (Tier 5), Pierre de téléportation (Palier 5), Wegstein (Level 5), ウェイストーン（ティア5）, Pedravia (Tier 5), Путевой камень (Ур. 5), Piedra guía (grado 5), ศิลานำทาง (ระดับ 5), waystone-5
-Order Artifact, Artéfact de l'Ordre, Artefakt des Ordens, 教団のアーティファクト, Artefato da Ordem, Артефакт Ордена, Artefacto de la Orden, โบราณวัตถุภาคี, order-artifact
-Waystone (Tier 6), Pierre de téléportation (Palier 6), Wegstein (Level 6), ウェイストーン（ティア6）, Pedravia (Tier 6), Путевой камень (Ур. 6), Piedra guía (grado 6), ศิลานำทาง (ระดับ 6), waystone-6
-Soul Core of Tacati, Noyau d'âme de Tacati, Seelenkern von Tacati, タカティのソウルコア, Grande Núcleo D'alma de Tacati, Ядро душ Такати, Núcleo de alma de Tacati, แกนวิญญาณ ทาคาที, soul-core-of-tacati
-Skittering Catalyst, Catalyseur grouillant, Huschender Katalysator, 軽快のカタリスト, Catalisador Rastejante, Шуршащий катализатор, Catalizador escurridizo, Skittering Catalyst, skittering-catalyst
-Waystone (Tier 3), Pierre de téléportation (Palier 3), Wegstein (Level 3), ウェイストーン（ティア3）, Pedravia (Tier 3), Путевой камень (Ур. 3), Piedra guía (grado 3), ศิลานำทาง (ระดับ 3), waystone-3
-Waystone (Tier 4), Pierre de téléportation (Palier 4), Wegstein (Level 4), ウェイストーン（ティア4）, Pedravia (Tier 4), Путевой камень (Ур. 4), Piedra guía (grado 4), ศิลานำทาง (ระดับ 4), waystone-4
-Waystone (Tier 1), Pierre de téléportation (Palier 1), Wegstein (Level 1), ウェイストーン（ティア1）, Pedravia (Tier 1), Путевой камень (Ур. 1), Piedra guía (grado 1), ศิลานำทาง (ระดับ 1), waystone-1
+Uromoti's Soul Core of Attenuation, Uromoti's Soul Core of Attenuation, Uromoti's Soul Core of Attenuation, Uromoti's Soul Core of Attenuation, Uromoti's Soul Core of Attenuation, Uromoti's Soul Core of Attenuation, Uromoti's Soul Core of Attenuation, Uromoti's Soul Core of Attenuation, uromotis-soul-core-of-attenuation
+Soul Core of Tacati, Noyau d'âme de Tacati, Seelenkern von Tacati, タカティのソウルコア, Núcleo D'alma de Tacati, Ядро душ Такати, Núcleo de alma de Tacati, แกนวิญญาณ ทาคาที, soul-core-of-tacati
 Essence of Battle, Essence de la Bataille, Essenz des Kampfes, 戦闘のエッセンス, Essência da Batalha, Сущность битвы, Esencia de batalla, เอสเซนส์ การศึก, essence-of-battle
 Essence of Sorcery, Essence de la Sorcellerie, Essenz der Zauberei, 魔法のエッセンス, Essência da Feitiçaria, Сущность колдовства, Esencia de hechicería, เอสเซนส์ มนตรา, essence-of-sorcery
-Waystone (Tier 2), Pierre de téléportation (Palier 2), Wegstein (Level 2), ウェイストーン（ティア2）, Pedravia (Tier 2), Путевой камень (Ур. 2), Piedra guía (grado 2), ศิลานำทาง (ระดับ 2), waystone-2
-Soul Core of Quipolatl, Noyau d'âme de Quipolatl, Seelenkern von Quipolatl, クイポラトルのソウルコア, Grande Núcleo D'alma de Quipolatl, Ядро душ Квиполатля, Núcleo de alma de Quipolatl, แกนวิญญาณ คุยโปลาทัล, soul-core-of-quipolatl
-Greater Essence of Enhancement, Essence de la Valorisation majeure, Größere Essenz der Verstärkung, 強化のエッセンス（大）, Greater Essence of Enhancement, Большая сущность улучшения, Esencia de mejora superior, เอสเซนส์ชั้นสูง เสริมสร้าง, greater-essence-of-enhancement
+Greater Rune of Leadership, Rune majeure de Direction, Große Rune der Führungsqualität, 統率力のルーン（大）, Grande Runa da Liderança, Большая руна лидерства, Runa de liderazgo mayor, อักขระชั้นสูง ภาวะผู้นำ, greater-rune-of-leadership
+Waystone (Tier 16), Pierre de téléportation (Palier 16), Wegstein (Level 16), ウェイストーン（ティア16）, Pedra Guia (Tier 16), Путевой камень (Ур. 16), Piedra guía (grado 16), ศิลานำทาง (ระดับ 16), waystone-16
+Farrul's Rune of Grace, Farrul's Rune of Grace, Farrul's Rune of Grace, Farrul's Rune of Grace, Farrul's Rune of Grace, Farrul's Rune of Grace, Farrul's Rune of Grace, Farrul's Rune of Grace, farruls-rune-of-grace
+Distilled Suffering, Souffrance distillée, Destilliertes Leiden, 蒸留された苦悩, Sofrimento Destilado, Очищенное страдание, Sufrimiento destilado, สารกลั่น Suffering, distilled-suffering
+Waystone (Tier 12), Pierre de téléportation (Palier 12), Wegstein (Level 12), ウェイストーン（ティア12）, Pedra Guia (Tier 12), Путевой камень (Ур. 12), Piedra guía (grado 12), ศิลานำทาง (ระดับ 12), waystone-12
+Waystone (Tier 13), Pierre de téléportation (Palier 13), Wegstein (Level 13), ウェイストーン（ティア13）, Pedra Guia (Tier 13), Путевой камень (Ур. 13), Piedra guía (grado 13), ศิลานำทาง (ระดับ 13), waystone-13
+Lesser Iron Rune, Rune du Fer mineure, Kleine Eisen-Rune, 鉄のルーン（小）, Runa Menor de Ferro  , Малая руна железа, Runa de hierro menor, อักขระเหล็กชั้นต่ำ, lesser-iron-rune
+Greater Rune of Tithing, Rune majeure de Dîme, Große Rune des Zehntels, 什一献金のルーン（大）, Grande Runa do Dízimo, Большая руна десятины, Runa de diezmo mayor, อักขระชั้นสูง เรียกอากร, greater-rune-of-tithing
+Distilled Disgust, Dégoût distillé, Destillierter Ekel, 蒸留された嫌悪, Desgosto Destilado, Очищенное отвращение, Disgusto destilado, สารกลั่น Disgust, distilled-disgust
+Waystone (Tier 14), Pierre de téléportation (Palier 14), Wegstein (Level 14), ウェイストーン（ティア14）, Pedra Guia (Tier 14), Путевой камень (Ур. 14), Piedra guía (grado 14), ศิลานำทาง (ระดับ 14), waystone-14
+Waystone (Tier 15), Pierre de téléportation (Palier 15), Wegstein (Level 15), ウェイストーン（ティア15）, Pedra Guia (Tier 15), Путевой камень (Ур. 15), Piedra guía (grado 15), ศิลานำทาง (ระดับ 15), waystone-15
+Essence of the Infinite, Essence de l'Infini, Essenz des Unendlichen, 無限のエッセンス, Essência do Infinito, Сущность бесконечности, Esencia del infinito, เอสเซนส์ อนันต์, essence-of-the-infinite
+Waystone (Tier 10), Pierre de téléportation (Palier 10), Wegstein (Level 10), ウェイストーン（ティア10）, Pedra Guia (Tier 10), Путевой камень (Ур. 10), Piedra guía (grado 10), ศิลานำทาง (ระดับ 10), waystone-10
+Greater Resolve Rune, Rune de la Résolution majeure, Große Entschlossenheit-Rune, 決意のルーン（大）, Runa Resoluta Superior, Большая руна решительности, Runa de resolución mayor, อักขระมุ่งมั่นชั้นสูง, greater-resolve-rune
+Waystone (Tier 11), Pierre de téléportation (Palier 11), Wegstein (Level 11), ウェイストーン（ティア11）, Pedra Guia (Tier 11), Путевой камень (Ур. 11), Piedra guía (grado 11), ศิลานำทาง (ระดับ 11), waystone-11
+Topotante's Soul Core of Dampening, Topotante's Soul Core of Dampening, Topotante's Soul Core of Dampening, Topotante's Soul Core of Dampening, Topotante's Soul Core of Dampening, Topotante's Soul Core of Dampening, Topotante's Soul Core of Dampening, Topotante's Soul Core of Dampening, topotantes-soul-core-of-dampening
+Greater Essence of Haste, Essence de la Hâte majeure, Größere Essenz der Hast, 迅速のエッセンス（大）, Essência Grandiosa da Pressa  , Большая сущность спешки, Esencia de celeridad superior, เอสเซนส์ชั้นสูง ว่องไว, greater-essence-of-haste
+Essence of Insanity, Essence de la Démence, Essenz des Irrsinns, 狂気のエッセンス, Essência da Insanidade, Сущность безумия, Esencia de demencia, เอสเซนส์ เสียสติ, essence-of-insanity
+Craiceann's Rune of Recovery, Craiceann's Rune of Recovery, Craiceann's Rune of Recovery, Craiceann's Rune of Recovery, Craiceann's Rune of Recovery, Craiceann's Rune of Recovery, Craiceann's Rune of Recovery, Craiceann's Rune of Recovery, craiceanns-rune-of-recovery
+Neural Catalyst, Catalyseur neural, Neuraler Katalysator, 神経のカタリスト, Catalisador Neural, Невральный катализатор, Catalizador de neuronas, Neural Catalyst, neural-catalyst
+Omen of Sinistral Exaltation, Présage d'Exaltation sénestre, Omen der Sinistralen Erhabenheit, 左側の高貴なお告げ, Presságio da Exaltação Sinistra, Предзнаменование возвышения левши, Augurio de exaltación izquierda, ลางบอกเหตุ Exalted เสริมซ้าย, omen-of-sinistral-exaltation
+Greater Glacial Rune, Rune de la Glace majeure, Große Gletscher-Rune, 氷河のルーン（大）, Runa Maior Glacial  , Большая руна ледника, Runa glacial mayor, อักขระน้ำค้างแข็งชั้นสูง, greater-glacial-rune
+Cat Talisman, Talisman du Chat, Katzen-Talisman, 猫のタリスマン, Talismã do Gato  , Талисман кошки, Talismán del gato, เครื่องราง แมว, cat-talisman
+Distilled Ire, Ire distillée, Destillierter Zorn, 蒸留された怒り, Ira Destilada, Очищенный гнев, Ira destilada, สารกลั่น Ire, distilled-ire
+Saqawal's Rune of Memory, Saqawal's Rune of Memory, Saqawal's Rune of Memory, Saqawal's Rune of Memory, Saqawal's Rune of Memory, Saqawal's Rune of Memory, Saqawal's Rune of Memory, Saqawal's Rune of Memory, saqawals-rune-of-memory
+Sibilant Catalyst, Catalyseur sibilant, Zischender Katalysator, 歯擦音のカタリスト, Catalisador Sibilante, Свистящий катализатор, Catalizador sibilante, Sibilant Catalyst, sibilant-catalyst
+Tul's Catalyst, Catalyseur de Tul, Tuls Katalysator, トゥルのカタリスト, Catalisador de Tul, Катализатор Тул, Catalizador de Tul, Tul's Catalyst, tuls-catalyst
+Adaptive Catalyst, Catalyseur neural, Anpassungsfähiger Katalysator, 適応のカタリスト, Catalisador Adaptável, Адаптивный катализатор, Catalizador adaptable, Adaptive Catalyst, adaptive-catalyst
+Glacial Rune, Rune de la Glace, Gletscherrune, 氷河のルーン, Runa Glacial, Руна ледника, Runa glacial, อักขระน้ำค้างแข็ง, glacial-rune
+Opiloti's Soul Core of Assault, Opiloti's Soul Core of Assault, Opiloti's Soul Core of Assault, Opiloti's Soul Core of Assault, Opiloti's Soul Core of Assault, Opiloti's Soul Core of Assault, Opiloti's Soul Core of Assault, Opiloti's Soul Core of Assault, opilotis-soul-core-of-assault
+Divine Orb, Orbe divin, Göttliche Sphäre, 神のオーブ, Orbe Divino, Божественная сфера, Orbe divino, Divine Orb, divine
+Greater Storm Rune, Rune de l'Orage majeure, Große Sturm-Rune, 嵐のルーン（大）, Runa Maior da Tempestade  , Большая руна шторма, Runa de tormenta mayor, อักขระพายุชั้นสูง, greater-storm-rune
+Tangmazu's Reliquary Key, Clé du Reliquaire de Tangmazu, Schlüssel zur Reliquienkammer von Tangmazu, タングマズーの聖廟の鍵, Chave do Relicário de Tangmazu, Ключ от Реликвария Тангмазу, Llave del Relicario de Tangmazu, กุญแจคลังวัตถุโบราณทังมาซู, tangmazus-reliquary-key
+Lesser Jeweller's Orb, Orbe de joaillier mineur, Kleine Sphäre des Goldschmieds, 下級宝飾職人のオーブ, Orbe do Joalheiro Menor, Малая сфера златокузнеца, Orbe de joyero menor, Jeweller's Orb ชั้นต่ำ, lesser-jewellers-orb
+Inspiration Rune, Rune de l'Inspiration, Inspirationsrune, 鼓舞のルーン, Runa da Inspiração, Руна вдохновения, Runa de inspiración, อักขระแรงบันดาลใจ, inspiration-rune
+Flesh Catalyst, Catalyseur de chair, Fleisch-Katalysator, 肉体のカタリスト, Catalisador de Carne, Плотский катализатор, Catalizador de carne, Flesh Catalyst, flesh-catalyst
+Twilight Reliquary Key, Clé du Reliquaire du Crépuscule, Schlüssel zur Zwielicht-Reliquienkammer, 黄昏の聖廟の鍵, Chave do Relicário do Crepúsculo, Ключ от Сумеречного Реликвария, Llave del Relicario del crepúsculo, กุญแจคลังวัตถุโบราณสนธยา, twilight-reliquary-key
+Distilled Fear, Peur distillée, Destillierte Angst, 蒸留された恐怖, Medo Destilado, Очищенный страх, Miedo destilado, สารกลั่น Fear, distilled-fear
+Gemcutter's Prism, Prisme de lapidaire, Prisma des Gemmenschneiders, 宝石細工師のプリズム, Prisma do Lapidário, Призма камнереза, Prisma del tallador de gemas, Gemcutter's Prism, gcp
+Mind Rune, Rune de l'Esprit, Geistrune, 精神のルーン, Runa da Mente, Руна разума, Runa de la mente, อักขระจิต, mind-rune
+Soul Core of Ticaba, Noyau d'âme de Ticaba, Seelenkern von Ticaba, ティカバのソウルコア, Núcleo D'alma de Ticaba, Ядро душ Тикабы, Núcleo de alma de Ticaba, แกนวิญญาณ ทีคาบา, soul-core-of-ticaba
+Transmutation Shard, Éclat de transmutation, Umwandlungsscherbe, 変成の欠片, Lasca de Transmutação, Осколок превращения, Esquirla de transmutación, เศษ Transmutation, transmutation-shard
+Essence of Ruin, Essence de la Ruine, Essenz des Verfalls, 破滅のエッセンス, Essência da Ruína, Сущность гибели, Esencia de ruina, เอสเซนส์ ย่อยยับ, essence-of-ruin
+Distilled Envy, Jalousie distillée, Destillierter Neid, 蒸留された嫉妬, Inveja Destilada, Очищенная зависть, Envidia destilada, สารกลั่น Envy, distilled-envy
+Lesser Robust Rune, Rune de la Robustesse mineure, Kleine Robuste Rune, 強固のルーン（小）, Runa Menor Robusta, Малая руна мощи, Runa robusta menor, อักขระกำยำชั้นต่ำ, lesser-robust-rune
+Fox Talisman, Talisman du Renard, Fuchs-Talisman, 狐のタリスマン, Talismã da Raposa, Талисман лисы, Talismán del zorro, เครื่องราง จิ้งจอก, fox-talisman
+The Greatwolf's Rune of Willpower, The Greatwolf's Rune of Willpower, The Greatwolf's Rune of Willpower, The Greatwolf's Rune of Willpower, The Greatwolf's Rune of Willpower, The Greatwolf's Rune of Willpower, The Greatwolf's Rune of Willpower, The Greatwolf's Rune of Willpower, the-greatwolfs-rune-of-willpower
+Greater Essence of the Infinite, Essence de l'Infini majeure, Größere Essenz des Unendlichen, 無限のエッセンス（大）, Essência Grandiosa do Infinito  , Большая сущность бесконечности, Esencia del infinito superior, เอสเซนส์ชั้นสูง อนันต์, greater-essence-of-the-infinite
+Lesser Body Rune, Rune du Corps mineure, Kleine Körper-Rune, 肉体のルーン（小）, Runa Menor do Corpo  , Малая руна тела, Runa del cuerpo menor, อักขระกายชั้นต่ำ, lesser-body-rune
+Artificer's Shard, Éclat d'artificier, Scherbe des Kunsthandwerkers, 熟練工の欠片, Fragmento do Artífice, Осколок астромантии, Esquirla del artesano, เศษ Artificer, artificers-shard
+Lesser Resolve Rune, Rune de la Résolution mineure, Kleine Entschlossenheit-Rune, 決意のルーン（小）, Runa Menor Resoluta, Малая руна решительности, Runa de resolución menor, อักขระมุ่งมั่นชั้นต่ำ, lesser-resolve-rune
+Lesser Vision Rune, Rune de la Vision mineure, Kleine Visions-Rune, 先見のルーン（小）, Runa Menor da Visão  , Малая руна видения, Runa de visión menor, อักขระวิสัยทัศน์ชั้นต่ำ, lesser-vision-rune
+Essence of Haste, Essence de la Hâte, Essenz der Hast, 迅速のエッセンス, Essência da Rapidez, Сущность спешки, Esencia de celeridad, เอสเซนส์ ว่องไว, essence-of-haste
+Distilled Isolation, Isolement distillé, Destillierte Isolation, 蒸留された孤立感, Isolamento Destilado, Очищенное отчуждение, Aislamiento destilado, สารกลั่น Isolation, distilled-isolation
+Stone Rune, Rune de la Pierre, Steinrune, 石のルーン, Runa de Pedra, Руна камня, Runa de piedra, อักขระศิลา, stone-rune
+Owl Talisman, Talisman du Hibou, Eulen-Talisman, 梟のタリスマン, Talismã da Coruja  , Талисман совы, Talismán del búho, เครื่องราง นกฮูก, owl-talisman
+Hedgewitch Assandra's Rune of Wisdom, Hedgewitch Assandra's Rune of Wisdom, Hedgewitch Assandra's Rune of Wisdom, Hedgewitch Assandra's Rune of Wisdom, Hedgewitch Assandra's Rune of Wisdom, Hedgewitch Assandra's Rune of Wisdom, Hedgewitch Assandra's Rune of Wisdom, Hedgewitch Assandra's Rune of Wisdom, hedgewitch-assandras-rune-of-wisdom
+Adept Rune, Rune de l'Adepte, Adept-Rune, 熟達のルーン, Runa Adepta, Руна искусности, Runa de habilidad, อักขระช่ำชอง, adept-rune
+Tacati's Soul Core of Affliction, Tacati's Soul Core of Affliction, Tacati's Soul Core of Affliction, Tacati's Soul Core of Affliction, Tacati's Soul Core of Affliction, Tacati's Soul Core of Affliction, Tacati's Soul Core of Affliction, Tacati's Soul Core of Affliction, tacatis-soul-core-of-affliction
+Thane Girt's Rune of Wildness, Thane Girt's Rune of Wildness, Thane Girt's Rune of Wildness, Thane Girt's Rune of Wildness, Thane Girt's Rune of Wildness, Thane Girt's Rune of Wildness, Thane Girt's Rune of Wildness, Thane Girt's Rune of Wildness, thane-girts-rune-of-wildness
+Regal Shard, Éclat royal, Hoheitliche Scherbe, 王者の欠片, Lasca Régia, Осколок царей, Esquirla regia, เศษ Regal, regal-shard
+Glassblower's Bauble, Bulle de souffleur de verre, Kugel des Glasbläsers, ガラス吹きの飾り玉, Bolha do Vidreiro, Стекольная масса, Baratija de vidrio, Glassblower's Bauble, bauble
+Cowardly Fate, Destin lâche, Schicksal des Feiglings, 卑劣な運命, Destino Covarde, Трусливый конец, Destino cobarde, ชะตาขี้ขลาด, cowardly-fate
+Greater Rebirth Rune, Rune de la Renaissance majeure, Große Wiedergeburt-Rune, 復活のルーン（大）, Runa Maior da Ressurreição  , Большая руна перерождения, Runa de renacimiento mayor, อักขระกำเนิดใหม่ชั้นสูง, greater-rebirth-rune
+Greater Inspiration Rune, Rune de l'Inspiration majeure, Große Inspirations-Rune, 鼓舞のルーン（大）, Runa Maior da Inspiração  , Большая руна вдохновения, Runa de inspiración mayor, อักขระแรงบันดาลใจชั้นสูง, greater-inspiration-rune
+Craiceann's Rune of Warding, Craiceann's Rune of Warding, Craiceann's Rune of Warding, Craiceann's Rune of Warding, Craiceann's Rune of Warding, Craiceann's Rune of Warding, Craiceann's Rune of Warding, Craiceann's Rune of Warding, craiceanns-rune-of-warding
+Armourer's Scrap, Ferraille d'armurier, Plattnerstück, 鎧鍛冶の端材, Sucata do Armeiro, Деталь доспеха, Restos de armaduras, Armourer's Scrap, scrap
+Greater Essence of Flames, Essence des Flammes majeure, Größere Essenz der Flammen, 火炎のエッセンス（大）, Essência Grandiosa das Chamas  , Большая сущность пламени, Esencia de llamas superior, เอสเซนส์ชั้นสูง เพลิง, greater-essence-of-flames
+Fenumus' Rune of Spinning, Fenumus' Rune of Spinning, Fenumus' Rune of Spinning, Fenumus' Rune of Spinning, Fenumus' Rune of Spinning, Fenumus' Rune of Spinning, Fenumus' Rune of Spinning, Fenumus' Rune of Spinning, fenumus-rune-of-spinning
+Stag Talisman, Talisman du Cerf, Hirsch-Talisman, 牡鹿のタリスマン, Talismã do Cervo  , Талисман оленя, Talismán del ciervo, เครื่องราง กวาง, stag-talisman
+Olroth's Reliquary Key, Clé du Reliquaire d'Olroth, Schlüssel zur Reliquienkammer von Olroth, オルロスの聖廟の鍵, Chave do Relicário de Olroth, Ключ от Реликвария Олрота, Llave del Relicario de Olroth, กุญแจคลังวัตถุโบราณออลรอธ, olroths-reliquary-key
+Omen of Reinforcements, Présage de Renforts, Omen der Verstärkung, 増援のお告げ, Presságio dos Reforços, Предзнаменование подкреплений, Augurio de refuerzos, ลางบอกเหตุกำลังเสริม, omen-of-reinforcements
+Omen of Sinistral Erasure, Présage d'Effacement sénestre, Omen der Sinistralen Auslöschung, 左側の抹消のお告げ, Presságio da Eliminação Sinistra  , Предзнаменование истирания левши, Augurio de borrado derecho, ลางบอกเหตุ Chaos สุ่มซ้าย, omen-of-sinistral-erasure
+Omen of Answered Prayers, Présage des Prières exaucées, Omen der erhörten Gebete, 成就のお告げ, Presságio das Orações Atendidas, Предзнаменование услышанных молитв, Augurio de plegarias respondidas, ลางบอกเหตุคำอธิษฐานที่เกิดผล, omen-of-answered-prayers
+Omen of Corruption, Présage de Corruption, Omen der Verderbtheit, 穢れのお告げ, Presságio da Corrupção  , Предзнаменование осквернения, Augurio de corrupción, ลางบอกเหตุ Vaal พลังมลทิน, omen-of-corruption
+Talisman of Eeshta, Talisman of Eeshta, Talisman of Eeshta, Talisman of Eeshta, Talisman of Eeshta, Talisman of Eeshta, Talisman of Eeshta, Talisman of Eeshta, talisman-of-eeshta
+Soul Core of Citaqualotl, Noyau d'âme de Citaqualotl, Seelenkern von Citaqualotl, シアクラトルのソウルコア, Núcleo D'alma de Citaqualotl, Ядро душ Ситаквалотля, Núcleo de alma de Citaqualotl, แกนวิญญาณ ซีทาคัวลอทัล, soul-core-of-citaqualotl
+Precursor Tablet, Tablette des Prédécesseurs, Wegbereitertafel, 先人の石板, Tábua Precursora, Плитка Предтеч, Tablilla precursora, แผ่นหินกลุ่มชนก่อนกาล, precursor-tablet
+Tzamoto's Soul Core of Ferocity, Tzamoto's Soul Core of Ferocity, Tzamoto's Soul Core of Ferocity, Tzamoto's Soul Core of Ferocity, Tzamoto's Soul Core of Ferocity, Tzamoto's Soul Core of Ferocity, Tzamoto's Soul Core of Ferocity, Tzamoto's Soul Core of Ferocity, tzamotos-soul-core-of-ferocity
+Farrul's Rune of the Chase, Farrul's Rune of the Chase, Farrul's Rune of the Chase, Farrul's Rune of the Chase, Farrul's Rune of the Chase, Farrul's Rune of the Chase, Farrul's Rune of the Chase, Farrul's Rune of the Chase, farruls-rune-of-the-chase
+Black Scythe Artifact, Artéfact de la Faux noire, Artefakt der Schwarzen Sense, 黒い鎌のアーティファクト, Artefato da Foice Negra, Артефакт Чёрной косы, Artefacto de la Guadaña negra, โบราณวัตถุเคียวดำ, black-scythe-artifact
+Body Rune, Rune du Corps, Körperrune, 肉体のルーン, Runa do Corpo, Руна тела, Runa del cuerpo, อักขระกาย, body-rune
+Lesser Desert Rune, Rune du Désert mineure, Kleine Wüsten-Rune, 砂漠のルーン（小）, Runa Menor do Deserto  , Малая руна пустыни, Runa desértica menor, อักขระทะเลทรายชั้นต่ำ, lesser-desert-rune
+Reaver Catalyst, Catalyseur de ravageur, Plündernder Katalysator, 強奪者のカタリスト, Catalisador Devastador, Разбойничий катализатор, Catalizador de desgarro, Reaver Catalyst, reaver-catalyst
+Lesser Inspiration Rune, Rune de l'Inspiration mineure, Kleine Inspirations-Rune, 鼓舞のルーン（小）, Runa Menor da Inspiração  , Малая руна вдохновения, Runa de inspiración menor, อักขระแรงบันดาลใจชั้นต่ำ, lesser-inspiration-rune
+Simulacrum Splinter, Esquille de Simulacre, Simulacrum-Splitter, シミュラクラムの破片, Lasca de Simulacro, Осколок Симулякра, Fragmento de Simulacro, สะเก็ดเมืองจำแลง, simulacrum-splinter
+Greater Body Rune, Rune du Corps majeure, Große Körper-Rune, 肉体のルーン（大）, Runa Maior do Corpo  , Большая руна тела, Runa del cuerpo mayor, อักขระกายชั้นสูง, greater-body-rune
+The Trialmaster's Reliquary Key, Clé du Reliquaire du Maître des Épreuves, Schlüssel zur Reliquienkammer des Prüfungsmeisters, トライアルマスターの聖廟の鍵, Chave do Relicário do Mestre das Provações, Ключ от Реликвария Мастера испытаний, Llave del Relicario del Maestro de pruebas, กุญแจคลังวัตถุโบราณผู้คุมบททดสอบ, the-trialmasters-reliquary-key
+Talisman of Sirrius, Talisman of Sirrius, Talisman of Sirrius, Talisman of Sirrius, Talisman of Sirrius, Talisman of Sirrius, Talisman of Sirrius, Talisman of Sirrius, talisman-of-sirrius
+Soul Core of Puhuarte, Noyau d'âme de Puhuarte, Seelenkern von Puhuarte, プフアーテのソウルコア, Núcleo D'alma de Puhuarte, Ядро душ Пухварте, Núcleo de alma de Puhuarte, แกนวิญญาณ พูฮวาเท, soul-core-of-puhuarte
+Essence of Electricity, Essence de l'Électricité, Essenz der Elektrizität, 電気のエッセンス, Essência da Eletricidade, Сущность электричества, Esencia de electricidad, เอสเซนส์ ไฟฟ้า, essence-of-electricity
+Fracturing Orb, Orbe fissurant, Brüchige Sphäre, フラクチャーオーブ, Orbe Talhador, Раскалывающая сфера, Orbe fracturante, Fracturing Orb, fracturing-orb
+Lesser Adept Rune, Rune de l'Adepte mineure, Kleine Adept-Rune, 熟達のルーン（小）, Runa Menor Adepta, Малая руна искусности, Runa de habilidad menor, อักขระช่ำชองชั้นต่ำ, lesser-adept-rune
+Artificer's Orb, Orbe d'artificier, Sphäre des Kunsthandwerkers, 熟練工のオーブ, Orbe do Artífice, Сфера астромантии, Orbe del artesano, Artificer's Orb, artificers
+The Arbiter's Reliquary Key, Clé du Reliquaire de l'Arbitre, Schlüssel zur Reliquienkammer des Richters, 裁定者の聖廟の鍵, Chave do Relicário do Árbitro, Ключ от Реликвария Арбитра, Llave del Relicario del Árbitro, กุญแจคลังวัตถุโบราณตุลาการ, the-arbiters-reliquary-key
+Lesser Rebirth Rune, Rune de la Renaissance mineure, Kleine Wiedergeburt-Rune, 復活のルーン（小）, Runa Menor da Ressurreição  , Малая руна перерождения, Runa de renacimiento menor, อักขระกำเนิดใหม่ชั้นต่ำ, lesser-rebirth-rune
+Soul Core of Zalatl, Noyau d'âme de Zalatl, Seelenkern von Zalatl, ザラトルのソウルコア, Núcleo D'alma de Zalatl, Ядро душ Залатля, Núcleo de alma de Zalatl, แกนวิญญาณ ซาลาทัล, soul-core-of-zalatl
+Soul Core of Topotante, Noyau d'âme de Topotante, Seelenkern von Topotante, トポタンテのソウルコア, Núcleo D'alma de Topotante, Ядро душ Топотанте, Núcleo de alma de Topotante, แกนวิญญาณ โทโปทันเท, soul-core-of-topotante
+Iron Rune, Rune du Fer, Eisenrune, 鉄のルーン, Runa de Ferro, Руна железа, Runa de hierro, อักขระเหล็ก, iron-rune
+Carapace Catalyst, Catalyseur carapace, Panzerkatalysator, 甲羅のカタリスト, Catalisador da Carapaça, Панцирный катализатор, Catalizador de caparazón, Carapace Catalyst, carapace-catalyst
+Estazunti's Soul Core of Convalescence, Estazunti's Soul Core of Convalescence, Estazunti's Soul Core of Convalescence, Estazunti's Soul Core of Convalescence, Estazunti's Soul Core of Convalescence, Estazunti's Soul Core of Convalescence, Estazunti's Soul Core of Convalescence, Estazunti's Soul Core of Convalescence, estazuntis-soul-core-of-convalescence
+Soul Core of Atmohua, Noyau d'âme d'Atmohua, Seelenkern von Atmohua, アトモフアのソウルコア, Núcleo D'alma de Atmohua, Ядро душ Атмохвы, Núcleo de alma de Atmohua, แกนวิญญาณ แอตโมฮัว, soul-core-of-atmohua
+Rabbit Talisman, Talisman du Lapin, Hasen-Talisman, 兎のタリスマン, Talismã do Coelho  , Талисман кролика, Talismán del conejo, เครื่องราง กระต่าย, rabbit-talisman
+Lady Hestra's Rune of Winter, Lady Hestra's Rune of Winter, Lady Hestra's Rune of Winter, Lady Hestra's Rune of Winter, Lady Hestra's Rune of Winter, Lady Hestra's Rune of Winter, Lady Hestra's Rune of Winter, Lady Hestra's Rune of Winter, lady-hestras-rune-of-winter
+Sun Artifact, Artéfact du Soleil, Artefakt der Sonne, 太陽のアーティファクト, Artefato do Sol, Артефакт Солнца, Artefacto del Sol, โบราณวัตถุดวงตะวัน, sun-artifact
+Bear Talisman, Talisman de l'Ours, Bären-Talisman, 熊のタリスマン, Talismã do Urso  , Талисман медведя, Talismán del oso, เครื่องราง หมี, bear-talisman
+Essence of Delirium, Essence du Délire, Essenz des Deliriums, 錯乱のエッセンス, Essência do Delírio, Сущность бреда, Esencia de delirio, เอสเซนส์ เดลิเรียม, essence-of-delirium
+Soul Core of Zantipi, Noyau d'âme de Zantipi, Seelenkern von Zantipi, ザンティーピのソウルコア, Núcleo D'alma de Zantipi, Ядро душ Зантипи, Núcleo de alma de Zantipi, แกนวิญญาณ ซานทีพี, soul-core-of-zantipi
+Countess Seske's Rune of Archery, Countess Seske's Rune of Archery, Countess Seske's Rune of Archery, Countess Seske's Rune of Archery, Countess Seske's Rune of Archery, Countess Seske's Rune of Archery, Countess Seske's Rune of Archery, Countess Seske's Rune of Archery, countess-seskes-rune-of-archery
+Ritual Precursor Tablet, Tablette des Prédécesseurs de Rituel, Ritual-Wegbereitertafel, リチュアルの先人の石板, Tábua Precursora do Ritual, Плитка Предтеч Ритуала, Tablilla precursora de ritual, แผ่นหินกลุ่มชนก่อนกาล พิธีกรรม, ritual-precursor-tablet
+Saqawal's Rune of the Sky, Saqawal's Rune of the Sky, Saqawal's Rune of the Sky, Saqawal's Rune of the Sky, Saqawal's Rune of the Sky, Saqawal's Rune of the Sky, Saqawal's Rune of the Sky, Saqawal's Rune of the Sky, saqawals-rune-of-the-sky
+Greater Essence of Ice, Essence de la Glace majeure, Größere Essenz des Eises, 氷晶のエッセンス（大）, Essência Grandiosa do Gelo  , Большая сущность льда, Esencia de hielo superior, เอสเซนส์ชั้นสูง น้ำแข็ง, greater-essence-of-ice
+Omen of Resurgence, Présage de Résurgence, Omen des Wiederaufstiegs, 再生のお告げ, Presságio do Ressurgimento  , Предзнаменование возрождения, Augurio de resurgimiento, ลางบอกเหตุฟื้นคืน, omen-of-resurgence
+Deadly Fate, Destin mortel, Schicksal des Todes, 致死の運命, Destino Mortal, Смертельный конец, Destino mortal, ชะตาอันตราย, deadly-fate
+Orb of Annulment, Orbe d'annulation, Sphäre der Annullierung, 消去のオーブ, Orbe da Anulação, Сфера отмены, Orbe de anulación, Orb of Annulment, annul
+Omen of Dextral Annulment, Présage d'Annulation dextre, Omen der Dextralen Annullierung, 左側の消去のお告げ, Presságio da Anulação Hábil, Предзнаменование очищения правши, Augurio de anulación derecha, ลางบอกเหตุ Annulment ขจัดขวา, omen-of-dextral-annulment
+Blacksmith's Whetstone, Pierre à aiguiser de forgeron, Schleifstein, 鍛冶屋の砥石, Amolador do Ferreiro, Точильный камень, Piedra de afilar, Blacksmith's Whetstone, whetstone
+Distilled Guilt, Culpabilité distillée, Destillierte Schuld, 蒸留された罪悪感, Culpa Destilada, Очищенная вина, Culpa destilada, สารกลั่น Guilt, distilled-guilt
+Soul Core of Xopec, Noyau d'âme de Xopec, Seelenkern von Xopec, ゾペックのソウルコア, Núcleo D'alma de Xopec, Ядро душ Шопека, Núcleo de alma de Xopec, แกนวิญญาณ โจเพค, soul-core-of-xopec
+Rebirth Rune, Rune de la Renaissance, Wiederbelebungsrune, 復活のルーン, Runa do Renascimento, Руна перерождения, Runa de renacimiento, อักขระกำเนิดใหม่, rebirth-rune
+Omen of Dextral Alchemy, Présage d'Alchimie dextre, Omen der Dextralen Alchemie, 右側の錬金術のお告げ, Presságio da Alquimia Destra  , Предзнаменование алхимии правши, Augurio de alquimia izquierdo, ลางบอกเหตุ Alchemy เติมขวา, omen-of-dextral-alchemy
+Guatelitzi's Soul Core of Endurance, Guatelitzi's Soul Core of Endurance, Guatelitzi's Soul Core of Endurance, Guatelitzi's Soul Core of Endurance, Guatelitzi's Soul Core of Endurance, Guatelitzi's Soul Core of Endurance, Guatelitzi's Soul Core of Endurance, Guatelitzi's Soul Core of Endurance, guatelitzis-soul-core-of-endurance
+Delirium Precursor Tablet, Tablette des Prédécesseurs de Délire, Delirium-Wegbereitertafel, デリリウムの先人の石板, Tábua Precursora do Delírio, Плитка Предтеч Делириума, Tablilla precursora de delirio, แผ่นหินกลุ่มชนก่อนกาล เดลิเรียม, delirium-precursor-tablet
+Regal Orb, Orbe royal, Hoheitliche Sphäre, 王者のオーブ, Orbe Régio, Сфера царей, Orbe regio, Regal Orb, regal
+Broken Circle Artifact, Artéfact du Cercle brisé, Artefakt des Gebrochenen Zirkels, 断たれた円環のアーティファクト, Artefato do Círculo Quebrado, Артефакт Разомкнутого круга, Artefacto del Círculo roto, โบราณวัตถุสิ้นวัฏจักร, broken-circle-artifact
+Lesser Stone Rune, Rune de la Pierre mineure, Kleine Stein-Rune, 石のルーン（小）, Runa Menor de Pedra  , Малая руна камня, Runa de piedra menor, อักขระศิลาชั้นต่ำ, lesser-stone-rune
+Waystone (Tier 5), Pierre de téléportation (Palier 5), Wegstein (Level 5), ウェイストーン（ティア5）, Pedra Guia (Tier 5), Путевой камень (Ур. 5), Piedra guía (grado 5), ศิลานำทาง (ระดับ 5), waystone-5
+Order Artifact, Artéfact de l'Ordre, Artefakt des Ordens, 教団のアーティファクト, Artefato da Ordem, Артефакт Ордена, Artefacto de la Orden, โบราณวัตถุภาคี, order-artifact
+Waystone (Tier 6), Pierre de téléportation (Palier 6), Wegstein (Level 6), ウェイストーン（ティア6）, Pedra Guia (Tier 6), Путевой камень (Ур. 6), Piedra guía (grado 6), ศิลานำทาง (ระดับ 6), waystone-6
+Skittering Catalyst, Catalyseur grouillant, Huschender Katalysator, 軽快のカタリスト, Catalisador Rastejante, Шуршащий катализатор, Catalizador escurridizo, Skittering Catalyst, skittering-catalyst
+Waystone (Tier 3), Pierre de téléportation (Palier 3), Wegstein (Level 3), ウェイストーン（ティア3）, Pedra Guia (Tier 3), Путевой камень (Ур. 3), Piedra guía (grado 3), ศิลานำทาง (ระดับ 3), waystone-3
+Waystone (Tier 4), Pierre de téléportation (Palier 4), Wegstein (Level 4), ウェイストーン（ティア4）, Pedra Guia (Tier 4), Путевой камень (Ур. 4), Piedra guía (grado 4), ศิลานำทาง (ระดับ 4), waystone-4
+Waystone (Tier 1), Pierre de téléportation (Palier 1), Wegstein (Level 1), ウェイストーン（ティア1）, Pedra Guia (Tier 1), Путевой камень (Ур. 1), Piedra guía (grado 1), ศิลานำทาง (ระดับ 1), waystone-1
+Waystone (Tier 2), Pierre de téléportation (Palier 2), Wegstein (Level 2), ウェイストーン（ティア2）, Pedra Guia (Tier 2), Путевой камень (Ур. 2), Piedra guía (grado 2), ศิลานำทาง (ระดับ 2), waystone-2
+Soul Core of Quipolatl, Noyau d'âme de Quipolatl, Seelenkern von Quipolatl, クイポラトルのソウルコア, Núcleo D'alma de Quipolatl, Ядро душ Квиполатля, Núcleo de alma de Quipolatl, แกนวิญญาณ คุยโปลาทัล, soul-core-of-quipolatl
+Greater Essence of Enhancement, Essence de la Valorisation majeure, Größere Essenz der Verstärkung, 強化のエッセンス（大）, Essência Grandiosa do Aprimoramento  , Большая сущность улучшения, Esencia de mejora superior, เอสเซนส์ชั้นสูง เสริมสร้าง, greater-essence-of-enhancement
 Exotic Coinage, Monnaie exotique, Ausländische Münzen, 異国のコイン, Moeda Exótica, Диковинные монеты, Acuñación exótica, เหรียญต่างแดน, exotic-coinage
-Waystone (Tier 16), Pierre de téléportation (Palier 16), Wegstein (Level 16), ウェイストーン（ティア16）, Pedravia (Tier 16), Путевой камень (Ур. 16), Piedra guía (grado 16), ศิลานำทาง (ระดับ 16), waystone-16
-Greater Essence of the Mind, Essence de l'Esprit majeure, Größere Essenz des Geistes, 精神のエッセンス（大）, Greater Essence of the Mind, Большая сущность разума, Esencia de la mente superior, เอสเซนส์ชั้นสูง จิต, greater-essence-of-the-mind
+Lesser Mind Rune, Rune de l'Esprit mineure, Kleine Gedanken-Rune, 精神のルーン（小）, Runa Menor da Mente  , Малая руна разума, Runa de la mente menor, อักขระจิตชั้นต่ำ, lesser-mind-rune
+Greater Essence of the Mind, Essence de l'Esprit majeure, Größere Essenz des Geistes, 精神のエッセンス（大）, Essência Grandiosa da Mente  , Большая сущность разума, Esencia de la mente superior, เอสเซนส์ชั้นสูง จิต, greater-essence-of-the-mind
 Orb of Chance, Orbe de chance, Sphäre der Möglichkeiten, 可能性のオーブ, Orbe da Chance, Сфера удачи, Orbe de azar, Orb of Chance, chance
 Essence of Ice, Essence de la Glace, Essenz des Eises, 氷晶のエッセンス, Essência do Gelo, Сущность льда, Esencia de hielo, เอสเซนส์ น้ำแข็ง, essence-of-ice
-Distilled Suffering, Distilled Suffering, Destilliertes Leiden, 蒸留された苦悩, Distilled Suffering, Distilled Suffering, Sufrimiento destilado, สารกลั่นทุกข์ระทม, distilled-suffering
-Waystone (Tier 12), Pierre de téléportation (Palier 12), Wegstein (Level 12), ウェイストーン（ティア12）, Pedravia (Tier 12), Путевой камень (Ур. 12), Piedra guía (grado 12), ศิลานำทาง (ระดับ 12), waystone-12
-Waystone (Tier 13), Pierre de téléportation (Palier 13), Wegstein (Level 13), ウェイストーン（ティア13）, Pedravia (Tier 13), Путевой камень (Ур. 13), Piedra guía (grado 13), ศิลานำทาง (ระดับ 13), waystone-13
-Distilled Disgust, Distilled Disgust, Destillierter Ekel, 蒸留された嫌悪, Distilled Disgust, Distilled Disgust, Disgusto destilado, สารกลั่นขยะแขยง, distilled-disgust
-Waystone (Tier 14), Pierre de téléportation (Palier 14), Wegstein (Level 14), ウェイストーン（ティア14）, Pedravia (Tier 14), Путевой камень (Ур. 14), Piedra guía (grado 14), ศิลานำทาง (ระดับ 14), waystone-14
-Waystone (Tier 15), Pierre de téléportation (Palier 15), Wegstein (Level 15), ウェイストーン（ティア15）, Pedravia (Tier 15), Путевой камень (Ур. 15), Piedra guía (grado 15), ศิลานำทาง (ระดับ 15), waystone-15
-Essence of the Infinite, Essence de l'Infini, Essenz des Unendlichen, 無限のエッセンス, Essência do Infinito, Сущность бесконечности, Esencia del infinito, เอสเซนส์ อนันต์, essence-of-the-infinite
-Omen of Dextral Erasure, Présage d'Effacement dextre, Omen der Dextralen Auslöschung, 右側の抹消のお告げ, Omen of Dextral Erasure, Omen of Dextral Erasure, Augurio de borrado izquierdo, ลางบอกเหตุ Chaos สุ่มขวา, omen-of-dextral-erasure
-Waystone (Tier 10), Pierre de téléportation (Palier 10), Wegstein (Level 10), ウェイストーン（ティア10）, Pedravia (Tier 10), Путевой камень (Ур. 10), Piedra guía (grado 10), ศิลานำทาง (ระดับ 10), waystone-10
-Arcanist's Etcher, Arcanist's Etcher, Arkanisten-Ätzer, 秘術師の彫刻針, Gravador do Arcanista, Arcanist's Etcher, Buril del arcanista, Arcanist's Etcher, etcher
-Waystone (Tier 11), Pierre de téléportation (Palier 11), Wegstein (Level 11), ウェイストーン（ティア11）, Pedravia (Tier 11), Путевой камень (Ур. 11), Piedra guía (grado 11), ศิลานำทาง (ระดับ 11), waystone-11
-Ancient Crisis Fragment, Fragment de crise antique, Uraltes Krisenfragment, 古代の危機の断片, Fragmento da Crise Ancestral, Древний переломный фрагмент, Fragmento de crisis antiguo, ชิ้นส่วนวิกฤตโบราณ, ancient-crisis-fragment
-Greater Essence of Battle, Essence de la Bataille majeure, Größere Essenz des Kampfes, 戦闘のエッセンス（大）, Greater Essence of Battle, Большая сущность битвы, Esencia de batalla superior, เอสเซนส์ชั้นสูง การศึก, greater-essence-of-battle
-Greater Essence of Haste, Essence de la Hâte majeure, Größere Essenz der Hast, 迅速のエッセンス（大）, Greater Essence of Haste, Большая сущность спешки, Esencia de celeridad superior, เอสเซนส์ชั้นสูง ว่องไว, greater-essence-of-haste
-Neural Catalyst, Catalyseur neural, Neuraler Katalysator, 神経のカタリスト, Catalisador Neural, Невральный катализатор, Catalizador de neuronas, Neural Catalyst, neural-catalyst
-Omen of Sinistral Coronation, Présage de Couronnement sénestre, Omen der Sinistralen Krönung, 左側の戴冠のお告げ, Omen of Sinistral Coronation, Omen of Sinistral Coronation, Augurio de coronación derecha, ลางบอกเหตุ Regal เสริมซ้าย, omen-of-sinistral-coronation
-Omen of Sinistral Exaltation, Présage d'Exaltation sénestre, Omen der Sinistralen Erhabenheit, 左側の高貴なお告げ, Presságio da Exaltação Sinistra, Omen of Sinistral Exaltation, Augurio de exaltación izquierda, ลางบอกเหตุ Exalted เสริมซ้าย, omen-of-sinistral-exaltation
+Zarokh's Reliquary Key: Against the Darkness, Clé du Reliquaire de Zarokh : Contre les Ténèbres, Schlüssel zur Reliquienkammer von Zarokh: Gegen die Dunkelheit, ザロクの聖廟の鍵：闇との対立, Chave do Relicário de Zarokh: Contra a Escuridão, Ключ от Реликвария Зарока: Противление тьме, Llave del Relicario de Zarokh: Contra la oscuridad, กุญแจคลังวัตถุโบราณซาร็อกห์: Against the Darkness, against-the-darkness
+Xesht's Reliquary Key, Clé du Reliquaire de Xesht, Schlüssel zur Reliquienkammer von Xesht, ゼシュトの聖廟の鍵, Chave do Relicário de Xesht, Ключ от Реликвария Ксешта, Llave del Relicario de Xesht, กุญแจคลังวัตถุโบราณเซ็ชท์, xeshts-reliquary-key
+Omen of Dextral Erasure, Présage d'Effacement dextre, Omen der Dextralen Auslöschung, 右側の抹消のお告げ, Presságio da Eliminação Destra  , Предзнаменование истирания правши, Augurio de borrado izquierdo, ลางบอกเหตุ Chaos สุ่มขวา, omen-of-dextral-erasure
+Arcanist's Etcher, Gravelet de l'arcaniste, Arkanisten-Ätzer, 秘術師の彫刻針, Gravador do Arcanista, Резец чародея, Buril del arcanista, Arcanist's Etcher, etcher
+Ancient Crisis Fragment, Fragment de Crise antique, Uraltes Krisenfragment, 古代の危機の断片, Fragmento da Crise Ancestral, Древний переломный фрагмент, Fragmento de crisis antiguo, ชิ้นส่วนวิกฤตโบราณ, ancient-crisis-fragment
+Farrul's Rune of the Hunt, Farrul's Rune of the Hunt, Farrul's Rune of the Hunt, Farrul's Rune of the Hunt, Farrul's Rune of the Hunt, Farrul's Rune of the Hunt, Farrul's Rune of the Hunt, Farrul's Rune of the Hunt, farruls-rune-of-the-hunt
+Greater Essence of Battle, Essence de la Bataille majeure, Größere Essenz des Kampfes, 戦闘のエッセンス（大）, Essência Grandiosa da Batalha  , Большая сущность битвы, Esencia de batalla superior, เอสเซนส์ชั้นสูง การศึก, greater-essence-of-battle
+Primate Talisman, Talisman du Singe, Primaten-Talisman, 霊長類のタリスマン, Talismã do Primata, Талисман примата, Talismán del primate, เครื่องราง ไพรเมต, primate-talisman
+Omen of Sinistral Coronation, Présage de Couronnement sénestre, Omen der Sinistralen Krönung, 左側の戴冠のお告げ, Presságio da Coroação Sinistra  , Предзнаменование коронации левши, Augurio de coronación derecha, ลางบอกเหตุ Regal เสริมซ้าย, omen-of-sinistral-coronation
 Orb of Alchemy, Orbe d'alchimie, Sphäre der Alchemie, 錬金術のオーブ, Orbe da Alquimia, Сфера алхимии, Orbe de alquimia, Orb of Alchemy, alch
-Desert Rune, Rune du Désert, Wüstenrune, 砂漠のルーン, Núcleo D'alma Flamejante, Руна пустыни, Runa desértica, อักขระทะเลทราย, desert-rune
+Desert Rune, Rune du Désert, Wüstenrune, 砂漠のルーン, Runa do Deserto, Руна пустыни, Runa desértica, อักขระทะเลทราย, desert-rune
