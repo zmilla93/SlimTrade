@@ -32,16 +32,15 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
     private val chatHotkeyButton = HotkeyButton()
     private val explanationButton = JButton("Install Folder Info")
     private val explanationPanel: JPanel = POEInstallFolderExplanationPanel(true, false)
-    private val previewStashButton = JButton("Test Stash Alignment").onClick {
-        FrameManager.stashAlignmentPreviewWindow.showPreview(FrameManager.optionsWindow)
-    }
     private var curPreviewGame = Game.PATH_OF_EXILE_1
     private val curGamePreviewButton =
         PoeButton().onGameChange {
             curPreviewGame = it.currentGame
             FrameManager.stashAlignmentPreviewWindow.updateBounds(it.currentGame)
         }
-
+    private val previewStashButton = JButton("Test Stash Alignment").onClick {
+        FrameManager.stashAlignmentPreviewWindow.showPreview(FrameManager.optionsWindow, curPreviewGame)
+    }
 
     // Game Specific
     private val usingStashFoldersPoe1Checkbox = JCheckBox("Using any stash folders")

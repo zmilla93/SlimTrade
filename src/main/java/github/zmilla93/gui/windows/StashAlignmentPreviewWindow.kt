@@ -29,7 +29,7 @@ class StashAlignmentPreviewWindow : BasicDialog() {
         App.events.subscribe(GameChangedEvent::class.java) { updateBounds(it.currentGame) }
     }
 
-    // FIXME : Just combine this with showPreview
+    // FIXME : Just combine this with showPreview?
     @JvmOverloads
     fun updateBounds(game: Game = App.chatParser.currentGame) {
         bounds = POEWindow.stashBounds(game)
@@ -41,8 +41,9 @@ class StashAlignmentPreviewWindow : BasicDialog() {
      * Optionally Pass in a window to force to top so that the
      * preview doesn't render on top of the window that showed it.
      */
-    fun showPreview(window: Window? = null) {
+    fun showPreview(window: Window? = null, game: Game = App.chatParser.currentGame) {
         isVisible = true
+        updateBounds(game)
         stashPreviewTimer.restart()
         if (window != null && window.isAlwaysOnTop) {
             window.isAlwaysOnTop = false
