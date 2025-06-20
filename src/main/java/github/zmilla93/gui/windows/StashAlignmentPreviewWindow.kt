@@ -34,7 +34,7 @@ class StashAlignmentPreviewWindow : BasicDialog() {
 
     @JvmOverloads
     fun updateBounds(game: Game = App.chatParser.currentGame) {
-        bounds = POEWindow.getStashBounds()
+        bounds = POEWindow.stashBounds
         stashHelperPreviewWindow.updateBounds()
     }
 

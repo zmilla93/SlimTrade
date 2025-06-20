@@ -15,8 +15,8 @@ class StashHelperPreviewWindow : StashHelperContainer() {
         contentPanel.revalidate()
         revalidate()
         pack()
-        val stashBounds = POEWindow.getStashBounds()
-        val helperY = POEWindow.getGameBounds().y + POEWindow.getStashHelperOffset() - getHeight();
+        val stashBounds = POEWindow.stashBounds
+        val helperY = POEWindow.gameBounds.y + POEWindow.stashHelperOffset - getHeight();
         setLocation(stashBounds.x, helperY)
     }
 
