@@ -35,8 +35,12 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
     private val previewStashButton = JButton("Test Stash Alignment").onClick {
         FrameManager.stashAlignmentPreviewWindow.showPreview(FrameManager.optionsWindow)
     }
+    private var curPreviewGame = Game.PATH_OF_EXILE_1
     private val curGamePreviewButton =
-        PoeButton().onGameChange { FrameManager.stashAlignmentPreviewWindow.updateBounds(it.currentGame) }
+        PoeButton().onGameChange {
+            curPreviewGame = it.currentGame
+            FrameManager.stashAlignmentPreviewWindow.updateBounds(it.currentGame)
+        }
 
 
     // Game Specific
@@ -149,7 +153,7 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
             tradesInsideFoldersPoe2CheckBox.isSelected
         FrameManager.stashHelperContainerPoe1.updateBounds()
         FrameManager.stashHelperContainerPoe2.updateBounds()
-        FrameManager.stashAlignmentPreviewWindow.updateBounds()
+        FrameManager.stashAlignmentPreviewWindow.updateBounds(curPreviewGame)
         App.chatParser.restartChatParsers(false)
         detectionButton.reset()
     }

@@ -5,14 +5,14 @@ import github.zmilla93.core.events.GameChangedEvent
 import github.zmilla93.core.poe.Game
 import javax.swing.JButton
 
-class PoeButton : JButton(Game.PATH_OF_EXILE_1.toString()) {
+class PoeButton : JButton(Game.PATH_OF_EXILE_1.explicitName) {
 
     private val listeners = ArrayList<GameChangeListener>()
 
     var game = Game.PATH_OF_EXILE_1
         set(value) {
             field = value
-            text = value.toString()
+            text = value.explicitName
             listeners.forEach { it.onGameChange(GameChangedEvent(field)) }
         }
 

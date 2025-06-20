@@ -14,6 +14,7 @@ import java.awt.Rectangle
 import java.awt.Window
 import java.awt.geom.Rectangle2D
 import javax.swing.SwingUtilities
+import kotlin.math.roundToInt
 
 /**
  * A platform independent representation for Path of Exile's game window.
@@ -24,7 +25,7 @@ import javax.swing.SwingUtilities
 // TODO : Could also add the option to manually define the game window region to support Mac/Linux users who play in windowed mode.
 object POEWindow {
 
-    private val POE_1_PERCENT_STASH_NO_FOLDERS: Rectangle2D.Float = ScaledRect.getPercentRect(
+    private val POE_1_PERCENT_STASH_NO_FOLDERS = ScaledRect.getPercentRect(
         Rectangle(15, 125, 634, 634),
         Rectangle(0, 0, 1920, 1080)
     )
@@ -55,7 +56,7 @@ object POEWindow {
     )
 
     private val POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS = ScaledInt.getPercentValue(90, 1080)
-    private val POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(98, 1080)
+    private val POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(96, 1080)
     private val POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS = ScaledInt.getPercentValue(86, 1080)
     private val POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(92, 1080)
 
@@ -205,24 +206,23 @@ object POEWindow {
     @JvmOverloads
     fun windowToCorner(window: Window, anchor: Anchor = Anchor.TOP_LEFT) {
         val targetBounds = window.bounds
-        targetBounds.location = gameBounds!!.location
-        if (anchor.isRightSide) targetBounds.x += gameBounds!!.width - window.getWidth()
-        if (anchor.isBottomSide) targetBounds.y += gameBounds!!.height - window.getHeight()
+        targetBounds.location = gameBounds.location
+        if (anchor.isRightSide) targetBounds.x += gameBounds.width - window.getWidth()
+        if (anchor.isBottomSide) targetBounds.y += gameBounds.height - window.getHeight()
         if (!MonitorInfo.isRectWithinAMonitor(targetBounds)) MonitorInfo.lockBoundsToCurrentMonitor(targetBounds)
-        window.location = targetBounds.getLocation()
+        window.location = targetBounds.location
     }
 
-    val stashBounds: Rectangle
-        get() {
-            if (App.chatParser.currentGame == Game.PATH_OF_EXILE_1) return poe1StashBonds
-            else return poe2StashBonds
-        }
+    fun stashBounds(game: Game = App.chatParser.currentGame): Rectangle {
+        if (game.isPoe1) return poe1StashBonds
+        else return poe2StashBonds
+    }
 
-    val stashHelperOffset: Int
-        get() {
-            if (App.chatParser.currentGame == Game.PATH_OF_EXILE_1) return poe1StashHelperOffset
-            else return poe2StashHelperOffset
-        }
+    // FIXME : Game param
+    fun stashHelperOffset(game: Game = App.chatParser.currentGame): Int {
+        if (game.isPoe1) return poe1StashHelperOffset
+        else return poe2StashHelperOffset
+    }
 
     val stashCellSize: Dimension?
         get() {
@@ -264,7 +264,8 @@ object POEWindow {
     val poe2StashBonds: Rectangle
         get() {
             if (SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder) {
-                return poe2StashBoundsWithFoldersInside
+                if (SaveManager.settingsSaveFile.data.settingsPoe2.tradesAreInsideFolders) return poe2StashBoundsWithFoldersInside
+                else return poe2StashBoundsWithFoldersOutside
             } else return poe2StashBoundsNoFolders
         }
 
@@ -277,37 +278,36 @@ object POEWindow {
         }
 
     private fun calculatePoe1UIData() {
-        poe1StashBoundsNoFolders = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_NO_FOLDERS, gameBounds)
-        poe1StashBoundsWithFoldersInside = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_WITH_FOLDERS_INSIDE, gameBounds)
+        poe1StashBoundsNoFolders = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_NO_FOLDERS)
+        poe1StashBoundsWithFoldersInside = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_WITH_FOLDERS_INSIDE)
         poe1StashBoundsWithFoldersOutside =
-            ScaledRect.getScaledRect(POE_1_PERCENT_STASH_WITH_FOLDERS_OUTSIDE, gameBounds)
-        val cellWidth = Math.round(poe1StashBoundsNoFolders!!.width / 12f)
-        val cellHeight = Math.round(poe1StashBoundsNoFolders!!.height / 12f)
+            ScaledRect.getScaledRect(POE_1_PERCENT_STASH_WITH_FOLDERS_OUTSIDE)
+        val cellWidth = (poe1StashBoundsNoFolders.width / 12f).roundToInt()
+        val cellHeight = (poe1StashBoundsNoFolders.height / 12f).roundToInt()
         poe1StashCellSize = Dimension(cellWidth, cellHeight)
-        val quadCellWidth = Math.round(poe1StashBoundsNoFolders!!.width / 24f)
-        val quadCellHeight = Math.round(poe1StashBoundsNoFolders!!.height / 24f)
+        val quadCellWidth = (poe1StashBoundsNoFolders.width / 24f).roundToInt()
+        val quadCellHeight = (poe1StashBoundsNoFolders.height / 24f).roundToInt()
         poe1StashCellSizeQuad = Dimension(quadCellWidth, quadCellHeight)
         poe1StashHelperOffsetWithFolders =
-            ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds!!.height)
+            ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds.height)
         poe1StashHelperOffsetNoFolders =
-            ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds!!.height)
+            ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds.height)
     }
 
     private fun calculatePoe2UIData() {
-        poe2StashBoundsNoFolders = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_NO_FOLDERS, gameBounds)
-        poe2StashBoundsWithFoldersInside = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_WITH_FOLDERS_INSIDE, gameBounds)
-        poe2StashBoundsWithFoldersOutside =
-            ScaledRect.getScaledRect(POE_2_PERCENT_STASH_WITH_FOLDERS_OUTSIDE, gameBounds)
-        val cellWidth = Math.round(poe2StashBoundsNoFolders!!.width / 12f)
-        val cellHeight = Math.round(poe2StashBoundsNoFolders!!.height / 12f)
+        poe2StashBoundsNoFolders = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_NO_FOLDERS)
+        poe2StashBoundsWithFoldersInside = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_WITH_FOLDERS_INSIDE)
+        poe2StashBoundsWithFoldersOutside = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_WITH_FOLDERS_OUTSIDE)
+        val cellWidth = (poe2StashBoundsNoFolders.width / 12f).roundToInt()
+        val cellHeight = (poe2StashBoundsNoFolders.height / 12f).roundToInt()
         poe2StashCellSize = Dimension(cellWidth, cellHeight)
-        val quadCellWidth = Math.round(poe2StashBoundsNoFolders!!.width / 24f)
-        val quadCellHeight = Math.round(poe2StashBoundsNoFolders!!.height / 24f)
+        val quadCellWidth = (poe2StashBoundsNoFolders.width / 24f).roundToInt()
+        val quadCellHeight = (poe2StashBoundsNoFolders.height / 24f).roundToInt()
         poe2StashCellSizeQuad = Dimension(quadCellWidth, quadCellHeight)
         poe2StashHelperOffsetWithFolders =
-            ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds!!.height)
+            ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds.height)
         poe2StashHelperOffsetNoFolders =
-            ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds!!.height)
+            ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds.height)
     }
 
     @JvmStatic
@@ -319,4 +319,5 @@ object POEWindow {
     fun removeListener(listener: POEWindowListener?) {
         listeners.remove(listener)
     }
+
 }

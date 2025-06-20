@@ -22,7 +22,7 @@ class StashAlignmentPreviewWindow : BasicDialog() {
         stashPreviewTimer.isRepeats = false
         // FIXME : Temp
 //        isVisible = true
-        updateBounds(Game.PATH_OF_EXILE_1)
+//        updateBounds(Game.PATH_OF_EXILE_1)
         layout = BorderLayout()
         background = ThemeManager.TRANSPARENT
         add(GridPanel(), BorderLayout.CENTER)
@@ -32,10 +32,11 @@ class StashAlignmentPreviewWindow : BasicDialog() {
         }
     }
 
+    // FIXME : Just combine this with showPreview
     @JvmOverloads
     fun updateBounds(game: Game = App.chatParser.currentGame) {
-        bounds = POEWindow.stashBounds
-        stashHelperPreviewWindow.updateBounds()
+        bounds = POEWindow.stashBounds(game)
+        stashHelperPreviewWindow.updateBounds(game)
     }
 
     /**
