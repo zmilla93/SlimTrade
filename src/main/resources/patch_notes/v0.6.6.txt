@@ -1,6 +1,7 @@
 ## Stash Alignment
-- Fixed POE1 stash alignment when not using folders
-- Added an option when using folders for if trade tabs are inside folders or not
+- Added a stash alignment preview
+- Added an option when using folders for having trade folders outside of folders
+- Fixed stash alignment when not using folders
 - **Please report any alignment issues!**
 
 ## Bug Fixes

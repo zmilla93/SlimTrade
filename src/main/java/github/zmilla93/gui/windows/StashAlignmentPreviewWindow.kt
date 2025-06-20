@@ -26,10 +26,7 @@ class StashAlignmentPreviewWindow : BasicDialog() {
         layout = BorderLayout()
         background = ThemeManager.TRANSPARENT
         add(GridPanel(), BorderLayout.CENTER)
-        App.events.subscribe(GameChangedEvent::class.java) {
-            println("GAME CHANGED: ${it.currentGame}")
-            updateBounds(it.currentGame)
-        }
+        App.events.subscribe(GameChangedEvent::class.java) { updateBounds(it.currentGame) }
     }
 
     // FIXME : Just combine this with showPreview
