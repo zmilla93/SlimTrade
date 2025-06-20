@@ -1,15 +1,15 @@
 ## Stash Alignment
 - Added a stash alignment preview *(Options > Path of Exile)*
-- Added "trades tabs inside folders" toggle when using folders
+- Added "trade tabs inside folders" toggle when using folders
 - Fixed stash alignment when not using folders
 
 ## Improvements
 - Updated icons and translations for POE 1 & 2
 - Fixed top row outgoing macro buttons not appearing
-- Fixed patch notes getting krangled under certain circumstances
+- Fixed patch notes sometimes getting krangled
 - Disabled Kalguur window
 - Updated donaters list - Thank you :)
-- Patrons now also have a currency icon for cumulative total
+- Patrons now also have a currency icon for ongoing total
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed
