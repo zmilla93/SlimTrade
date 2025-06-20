@@ -1,6 +1,7 @@
 package github.zmilla93.modules.zswing.extensions
 
 import java.awt.event.ActionListener
+import java.awt.event.ItemEvent
 import java.awt.event.MouseEvent
 import javax.swing.*
 import javax.swing.event.TreeSelectionEvent
@@ -12,8 +13,12 @@ object ActionExtensions {
     /**  */
 
     /** JCheckbox Toggle */
-    fun JCheckBox.onToggle(listener: ActionListener): JCheckBox {
-        addActionListener(listener)
+    fun JCheckBox.onToggle(callback: (Boolean) -> Unit): JCheckBox {
+        addItemListener {
+            if (it.stateChange == ItemEvent.SELECTED) callback(true)
+            else if (it.stateChange == ItemEvent.DESELECTED) callback(false)
+        }
+//        addActionListener(listener)
         return this
     }
 

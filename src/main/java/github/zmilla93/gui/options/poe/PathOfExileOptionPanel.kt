@@ -9,6 +9,7 @@ import github.zmilla93.core.poe.POEWindow
 import github.zmilla93.gui.components.ComponentPanel
 import github.zmilla93.gui.components.HotkeyButton
 import github.zmilla93.gui.components.MonitorPicker
+import github.zmilla93.gui.components.PoeButton
 import github.zmilla93.gui.components.poe.POEFolderPicker
 import github.zmilla93.gui.components.poe.POEInstallFolderExplanationPanel
 import github.zmilla93.gui.components.poe.detection.GameDetectionButton
@@ -16,6 +17,7 @@ import github.zmilla93.gui.managers.FrameManager
 import github.zmilla93.gui.options.AbstractOptionPanel
 import github.zmilla93.modules.saving.ISavable
 import github.zmilla93.modules.zswing.extensions.ActionExtensions.onClick
+import github.zmilla93.modules.zswing.extensions.ActionExtensions.onToggle
 import github.zmilla93.modules.zswing.extensions.StyleExtensions.bold
 import github.zmilla93.modules.zswing.theme.ThemeColorBlind
 import io.github.zmilla93.modules.theme.UIProperty.FontColorExtensions.textColor
@@ -33,10 +35,15 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
     private val previewStashButton = JButton("Test Stash Alignment").onClick {
         FrameManager.stashAlignmentPreviewWindow.showPreview(FrameManager.optionsWindow)
     }
+    private val curGamePreviewButton =
+        PoeButton().onGameChange { FrameManager.stashAlignmentPreviewWindow.updateBounds(it.currentGame) }
+
 
     // Game Specific
-    private val usingStashFoldersPoe1Checkbox = JCheckBox("Using Stash Folders")
-    private val usingStashFoldersPoe2Checkbox = JCheckBox("Using Stash Folders")
+    private val usingStashFoldersPoe1Checkbox = JCheckBox("Using any stash folders")
+    private val usingStashFoldersPoe2Checkbox = JCheckBox("Using any stash folders")
+    private val tradesInsideFoldersPoe1CheckBox = JCheckBox("Trades tabs are inside folders", true)
+    private val tradesInsideFoldersPoe2CheckBox = JCheckBox("Trades tabs are inside folders", true)
     private val poe1FolderPicker = POEFolderPicker(Game.PATH_OF_EXILE_1)
     private val poe2FolderPicker = POEFolderPicker(Game.PATH_OF_EXILE_2)
     private val poe1OptionPanel = AbstractOptionPanel(false, false)
@@ -46,7 +53,13 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
         windowModeCombo.addItem(GameWindowMode.DETECT)
         windowModeCombo.addItem(GameWindowMode.MONITOR)
 
-        addHeader("")
+        addHeader("Game Alignment")
+        addComponent(
+            JLabel("The settings below determine game UI alignment. Save before testing.")
+                .textColor(ThemeColorBlind.RED).bold()
+        )
+        addComponent(ComponentPanel(previewStashButton, curGamePreviewButton))
+        addVerticalStrut()
 
         /** Shared */
         addHeader("Path of Exile 1 & 2")
@@ -58,6 +71,7 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
 
         /** Path of Exile 1 */
         poe1OptionPanel.addComponent(usingStashFoldersPoe1Checkbox)
+        poe1OptionPanel.addComponent(tradesInsideFoldersPoe1CheckBox)
         addHeader(Game.PATH_OF_EXILE_1.explicitName)
         addComponent(poe1FolderPicker)
         addFullWidthComponent(poe1OptionPanel)
@@ -65,6 +79,7 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
 
         /** Path of Exile 2 */
         poe2OptionPanel.addComponent(usingStashFoldersPoe2Checkbox)
+        poe2OptionPanel.addComponent(tradesInsideFoldersPoe2CheckBox)
         addHeader(Game.PATH_OF_EXILE_2.toString())
         addComponent(poe2FolderPicker)
         addFullWidthComponent(poe2OptionPanel)
@@ -72,14 +87,13 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
 
         /** Explain Install Files */
         addHeader("More Info")
-        addComponent(
-            JLabel("The above settings determine game UI alignment.")
-                .textColor(ThemeColorBlind.RED).bold()
-        )
-        addComponent(previewStashButton)
+
         addComponent(explanationButton)
         addComponent(explanationPanel)
         addListeners()
+
+        tradesInsideFoldersPoe1CheckBox.isVisible = false
+        tradesInsideFoldersPoe2CheckBox.isVisible = false
     }
 
     // FIXME: This feels a little hacky?
@@ -96,6 +110,12 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
             val mode = windowModeCombo.selectedItem as GameWindowMode
             detectionButton.isVisible = mode == GameWindowMode.DETECT
             monitorPicker.isVisible = mode == GameWindowMode.MONITOR
+        }
+        usingStashFoldersPoe1Checkbox.onToggle {
+            tradesInsideFoldersPoe1CheckBox.isVisible = usingStashFoldersPoe1Checkbox.isSelected
+        }
+        usingStashFoldersPoe2Checkbox.onToggle {
+            tradesInsideFoldersPoe2CheckBox.isVisible = usingStashFoldersPoe2Checkbox.isSelected
         }
     }
 
@@ -123,6 +143,10 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
         SaveManager.settingsSaveFile.data.settingsPoe2.installFolder = poe2FolderPicker.getPathString()
         SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder = usingStashFoldersPoe1Checkbox.isSelected
         SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder = usingStashFoldersPoe2Checkbox.isSelected
+        SaveManager.settingsSaveFile.data.settingsPoe1.tradesAreInsideFolders =
+            tradesInsideFoldersPoe1CheckBox.isSelected
+        SaveManager.settingsSaveFile.data.settingsPoe2.tradesAreInsideFolders =
+            tradesInsideFoldersPoe2CheckBox.isSelected
         FrameManager.stashHelperContainerPoe1.updateBounds()
         FrameManager.stashHelperContainerPoe2.updateBounds()
         FrameManager.stashAlignmentPreviewWindow.updateBounds()
@@ -143,6 +167,10 @@ class PathOfExileOptionPanel : AbstractOptionPanel(), ISavable {
         poe2FolderPicker.setSelectedPath(SaveManager.settingsSaveFile.data.settingsPoe2.installFolder)
         usingStashFoldersPoe1Checkbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder)
         usingStashFoldersPoe2Checkbox.setSelected(SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder)
+        tradesInsideFoldersPoe1CheckBox.isSelected =
+            SaveManager.settingsSaveFile.data.settingsPoe1.tradesAreInsideFolders
+        tradesInsideFoldersPoe2CheckBox.isSelected =
+            SaveManager.settingsSaveFile.data.settingsPoe2.tradesAreInsideFolders
         refreshPanelVisibility()
         detectionButton.reset()
     }

@@ -17,6 +17,8 @@ abstract class GameSettings {
     @JvmField
     var usingStashFolder: Boolean = false
 
+    var tradesAreInsideFolders = true
+
     val clientPath: Path?
         get() {
             if (installFolder == null) return null

@@ -19,6 +19,7 @@ import java.awt.*;
  * @see StashHelperPanel
  * @see StashHelperBulkWrapper
  */
+// FIXME @important:
 public abstract class StashHelperContainer extends BasicDialog implements POEWindowListener, IThemeListener, ISaveListener {
 
     private static final int DEFAULT_OFFSET = 30;
@@ -41,12 +42,13 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
 
     public abstract void updateBounds();
 
-    public Component addHelper(TradeOffer offer) {
-        Component panel = new StashHelperPanel(offer);
-        gc.gridx = contentPanel.getComponentCount();
-        contentPanel.add(panel, gc);
-        contentPanel.revalidate();
-        pack();
+    public Component addHelperDebug(TradeOffer offer) {
+        Component panel = new StashHelperPanel(offer, false, false);
+        addHelper(panel);
+//        gc.gridx = contentPanel.getComponentCount();
+//        contentPanel.add(panel, gc);
+//        contentPanel.revalidate();
+//        pack();
         return panel;
     }
 

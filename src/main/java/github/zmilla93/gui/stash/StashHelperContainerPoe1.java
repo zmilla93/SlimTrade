@@ -13,8 +13,8 @@ public class StashHelperContainerPoe1 extends StashHelperContainer {
             Rectangle stashBounds = POEWindow.getPoe1StashBonds();
             if (stashBounds == null) return;
             pack();
-            int adjustedY = stashBounds.y - POEWindow.getPoe1StashHelperOffset() - getHeight();
-            setLocation(stashBounds.x, adjustedY);
+            int helperY = POEWindow.getGameBounds().y + POEWindow.getPoe1StashHelperOffset() - getHeight();
+            setLocation(stashBounds.x, helperY);
         });
     }
 

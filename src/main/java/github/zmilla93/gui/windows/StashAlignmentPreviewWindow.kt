@@ -13,9 +13,12 @@ import javax.swing.Timer
 
 class StashAlignmentPreviewWindow : BasicDialog() {
 
-    private val stashPreviewTimer = Timer(2500) { FrameManager.stashAlignmentPreviewWindow.isVisible = false }
+    val stashHelperPreviewWindow = StashHelperPreviewWindow()
+
+    private val stashPreviewTimer = Timer(3000) { FrameManager.stashAlignmentPreviewWindow.isVisible = false }
 
     init {
+        stashHelperPreviewWindow.isVisible = false
         stashPreviewTimer.isRepeats = false
         // FIXME : Temp
 //        isVisible = true
@@ -23,14 +26,16 @@ class StashAlignmentPreviewWindow : BasicDialog() {
         layout = BorderLayout()
         background = ThemeManager.TRANSPARENT
         add(GridPanel(), BorderLayout.CENTER)
-        App.events.subscribe(GameChangedEvent::class.java) { updateBounds(it.currentGame) }
+        App.events.subscribe(GameChangedEvent::class.java) {
+            println("GAME CHANGED: ${it.currentGame}")
+            updateBounds(it.currentGame)
+        }
     }
 
     @JvmOverloads
     fun updateBounds(game: Game = App.chatParser.currentGame) {
-        if (game == Game.PATH_OF_EXILE_1) bounds = POEWindow.getStashBounds()
-        else bounds = POEWindow.getPoe2StashBonds()
-        FrameManager.stashHelperPreviewWindow.updateBounds()
+        bounds = POEWindow.getStashBounds()
+        stashHelperPreviewWindow.updateBounds()
     }
 
     /**
@@ -49,7 +54,7 @@ class StashAlignmentPreviewWindow : BasicDialog() {
 
     override fun setVisible(visible: Boolean) {
         super.setVisible(visible)
-        FrameManager.stashHelperPreviewWindow.isVisible = visible
+        stashHelperPreviewWindow.isVisible = visible
     }
 
 }

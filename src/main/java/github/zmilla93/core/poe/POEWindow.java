@@ -15,7 +15,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
- * A platform independent representation of the Path of Exile game window.
+ * A platform independent representation for Path of Exile's game window.
  * Used to calculate the screen location of in game UI elements, or to pin things relative to the game window.
  * Bounds can be updated via different {@link GameWindowMode}s.
  * Attach a {@link POEWindowListener} to listen for events.
@@ -27,7 +27,12 @@ public class POEWindow {
             new Rectangle(15, 125, 634, 634),
             new Rectangle(0, 0, 1920, 1080));
 
-    private static final Rectangle2D.Float POE_1_PERCENT_STASH_WITH_FOLDERS = ScaledRect.getPercentRect(
+
+    private static final Rectangle2D.Float POE_1_PERCENT_STASH_WITH_FOLDERS_OUTSIDE = ScaledRect.getPercentRect(
+            new Rectangle(15, 133, 634, 634),
+            new Rectangle(0, 0, 1920, 1080));
+
+    private static final Rectangle2D.Float POE_1_PERCENT_STASH_WITH_FOLDERS_INSIDE = ScaledRect.getPercentRect(
             new Rectangle(15, 167, 634, 634),
             new Rectangle(0, 0, 1920, 1080));
 
@@ -35,14 +40,18 @@ public class POEWindow {
             new Rectangle(14, 117, 634, 634),
             new Rectangle(0, 0, 1920, 1080));
 
-    private static final Rectangle2D.Float POE_2_PERCENT_STASH_WITH_FOLDERS = ScaledRect.getPercentRect(
+    private static final Rectangle2D.Float POE_2_PERCENT_STASH_WITH_FOLDERS_OUTSIDE = ScaledRect.getPercentRect(
+            new Rectangle(14, 125, 634, 634),
+            new Rectangle(0, 0, 1920, 1080));
+
+    private static final Rectangle2D.Float POE_2_PERCENT_STASH_WITH_FOLDERS_INSIDE = ScaledRect.getPercentRect(
             new Rectangle(14, 160, 634, 634),
             new Rectangle(0, 0, 1920, 1080));
 
-    private static final float POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS = ScaledInt.getPercentValue(40, 1080);
-    private static final float POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(75, 1080);
-    private static final float POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS = ScaledInt.getPercentValue(40, 1080);
-    private static final float POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(75, 1080);
+    private static final float POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS = ScaledInt.getPercentValue(90, 1080);
+    private static final float POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(98, 1080);
+    private static final float POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS = ScaledInt.getPercentValue(86, 1080);
+    private static final float POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS = ScaledInt.getPercentValue(92, 1080);
 
     /// Currently set game bounds
     private static Rectangle gameBounds;
@@ -50,7 +59,8 @@ public class POEWindow {
 
     /// Calculated based on the current game bounds
     // Path of Exile 1
-    private static Rectangle poe1StashBoundsWithFolders;
+    private static Rectangle poe1StashBoundsWithFoldersInside;
+    private static Rectangle poe1StashBoundsWithFoldersOutside;
     private static Rectangle poe1StashBoundsNoFolders;
     private static Dimension poe1StashCellSize;
     private static Dimension poe1StashCellSizeQuad;
@@ -58,7 +68,8 @@ public class POEWindow {
     private static int poe1StashHelperOffsetNoFolders;
     // Path of Exile 2
     private static Rectangle poe2StashBoundsNoFolders;
-    private static Rectangle poe2StashBoundsWithFolders;
+    private static Rectangle poe2StashBoundsWithFoldersInside;
+    private static Rectangle poe2StashBoundsWithFoldersOutside;
     private static Dimension poe2StashCellSize;
     private static Dimension poe2StashCellSizeQuad;
     private static int poe2StashHelperOffsetWithFolders;
@@ -219,7 +230,9 @@ public class POEWindow {
     // FIXME : Should do this check in calculate, not getter. Same with helper offset, and ditto for POE2.
     public static Rectangle getPoe1StashBonds() {
         if (SaveManager.settingsSaveFile.data.settingsPoe1.usingStashFolder) {
-            return poe1StashBoundsWithFolders;
+            if (SaveManager.settingsSaveFile.data.settingsPoe1.getTradesAreInsideFolders())
+                return poe1StashBoundsWithFoldersInside;
+            else return poe1StashBoundsWithFoldersOutside;
         } else return poe1StashBoundsNoFolders;
     }
 
@@ -239,7 +252,7 @@ public class POEWindow {
 
     public static Rectangle getPoe2StashBonds() {
         if (SaveManager.settingsSaveFile.data.settingsPoe2.usingStashFolder) {
-            return poe2StashBoundsWithFolders;
+            return poe2StashBoundsWithFoldersInside;
         } else return poe2StashBoundsNoFolders;
     }
 
@@ -261,7 +274,8 @@ public class POEWindow {
 
     private static void calculatePoe1UIData() {
         POEWindow.poe1StashBoundsNoFolders = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_NO_FOLDERS, gameBounds);
-        POEWindow.poe1StashBoundsWithFolders = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_WITH_FOLDERS, gameBounds);
+        POEWindow.poe1StashBoundsWithFoldersInside = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_WITH_FOLDERS_INSIDE, gameBounds);
+        POEWindow.poe1StashBoundsWithFoldersOutside = ScaledRect.getScaledRect(POE_1_PERCENT_STASH_WITH_FOLDERS_OUTSIDE, gameBounds);
         int cellWidth = Math.round(poe1StashBoundsNoFolders.width / 12f);
         int cellHeight = Math.round(poe1StashBoundsNoFolders.height / 12f);
         poe1StashCellSize = new Dimension(cellWidth, cellHeight);
@@ -270,13 +284,12 @@ public class POEWindow {
         poe1StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
         poe1StashHelperOffsetWithFolders = ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds.height);
         poe1StashHelperOffsetNoFolders = ScaledInt.getScaledValue(POE_1_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds.height);
-//        if (App.debug)
-//            ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_POE_1, getPoe1StashBonds()));
     }
 
     private static void calculatePoe2UIData() {
         POEWindow.poe2StashBoundsNoFolders = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_NO_FOLDERS, gameBounds);
-        POEWindow.poe2StashBoundsWithFolders = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_WITH_FOLDERS, gameBounds);
+        POEWindow.poe2StashBoundsWithFoldersInside = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_WITH_FOLDERS_INSIDE, gameBounds);
+        POEWindow.poe2StashBoundsWithFoldersOutside = ScaledRect.getScaledRect(POE_2_PERCENT_STASH_WITH_FOLDERS_OUTSIDE, gameBounds);
         int cellWidth = Math.round(poe2StashBoundsNoFolders.width / 12f);
         int cellHeight = Math.round(poe2StashBoundsNoFolders.height / 12f);
         poe2StashCellSize = new Dimension(cellWidth, cellHeight);
@@ -285,8 +298,6 @@ public class POEWindow {
         poe2StashCellSizeQuad = new Dimension(quadCellWidth, quadCellHeight);
         poe2StashHelperOffsetWithFolders = ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_WITH_FOLDERS, gameBounds.height);
         poe2StashHelperOffsetNoFolders = ScaledInt.getScaledValue(POE_2_PERCENT_HELPER_OFFSET_NO_FOLDERS, gameBounds.height);
-//        if (App.debug)
-//            ZUtil.invokeLater(() -> DrawWindow.draw(DrawWindow.WindowId.STASH_BOUNDS_POE_2, getPoe2StashBonds(), Color.BLUE));
     }
 
     public static void addListener(POEWindowListener listener) {

@@ -147,7 +147,7 @@ public class TradeOffer extends ClientMessage {
         stashTabColor = StashTabColor.ZERO;
         if (stashTabName != null) {
             for (StashTabData data : SaveManager.settingsSaveFile.data.stashTabs) {
-                if (data.stashTabName == null || ZUtil.isEmptyString(data.stashTabName)) continue;
+                if (ZUtil.isEmptyString(data.stashTabName)) continue;
                 if (data.matchType == MatchType.EXACT_MATCH) {
                     if (stashTabName.equals(data.stashTabName)) {
                         stashTabColor = StashTabColor.values()[data.stashColorIndex];

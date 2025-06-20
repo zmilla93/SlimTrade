@@ -1,8 +1,15 @@
+## Stash Alignment
+- Fixed POE1 stash alignment when not using folders
+- Added an option when using folders for if trade tabs are inside folders or not
+- **Please report any alignment issues!**
+
 ## Bug Fixes
 ~ Icons and Translations
 - Disabled Kalguur window
-- Fixed patch notes krangling under certain circumstances
-- Updated donaters, patrons now also have a currency icon
+- Fixed top row outgoing macro buttons not appearing
+- Fixed patch notes getting krangled under certain circumstances
+- Patrons now also have a currency icon for cumulative total
+- Updated donaters list - Thank you :)
 
 ## How to Install
 - Make sure you have [Java](https://www.java.com) installed
