@@ -24,10 +24,10 @@ import javax.swing.UIManager
  */
 object FontManager {
     private var loaded = false
-    const val USE_SYSTEM_DEFAULT: Boolean = false
+    const val USE_SYSTEM_DEFAULT = false
 
     @JvmField
-    var DEFAULT_FONT: String = "Arial"
+    var DEFAULT_FONT = "Arial"
 
     const val ENGLISH_EXAMPLE_TEXT: String = "English - Language Test"
     const val CHINESE_EXAMPLE_TEXT: String = "Chinese - 语言测试"
@@ -58,8 +58,7 @@ object FontManager {
             if (value < MIN_FONT_SIZE) clampedValue = MIN_FONT_SIZE
             if (value > MAX_FONT_SIZE) clampedValue = MAX_FONT_SIZE
             if (clampedValue != previous) {
-//                println("SET FONT SIZE: $target")
-                field = value
+                field = clampedValue
                 ThemeManager.updateUIProperties()
             }
         }

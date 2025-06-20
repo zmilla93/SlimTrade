@@ -385,12 +385,10 @@ object ThemeManager {
     @JvmStatic
     fun setFontSize(size: Int) {
         if (size == FontManager.fontSize) return
-        return
         FontManager.fontSize = size
         fontSizeWasChanged = true
         // FIXME : listeners?
 //        updateUIProperties()
-
 //        refreshDefaultFonts()
 //        for (frame in frames) {
 //            setFontSizeRecursive(frame, size)

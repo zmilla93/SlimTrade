@@ -82,7 +82,8 @@ class OptionsWindow : CustomDialog("Options"), ISaveListener, IDefaultSizeAndLoc
             panelList = newList
         }
         optionsList = JList<OptionListPanel?>(panelList)
-        optionsList.setCellRenderer(OptionListPanelCellRenderer())
+        val listRenderer = OptionListPanelCellRenderer()
+        optionsList.setCellRenderer(listRenderer)
         optionsList.setSelectionModel(OptionListSelectionModel(panelList))
         val sidebar = createSidebar()
 

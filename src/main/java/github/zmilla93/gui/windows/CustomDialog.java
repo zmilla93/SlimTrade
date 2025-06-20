@@ -378,11 +378,6 @@ public abstract class CustomDialog extends VisibilityDialog implements IPinnable
     }
 
     @Override
-    public Container getContentPane() {
-        return contentPanel;
-    }
-
-    @Override
     public void setContentPane(Container contentPane) {
         ZLogger.err("The contentPane of a CustomDialog cannot be changed! Use the contentPanel variable or getContentPane() instead.");
     }

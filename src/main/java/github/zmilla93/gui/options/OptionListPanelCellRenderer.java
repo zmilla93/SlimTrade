@@ -6,7 +6,7 @@ import github.zmilla93.gui.components.StyledLabel;
 import javax.swing.*;
 import java.awt.*;
 
-public class OptionListPanelCellRenderer implements ListCellRenderer<OptionListPanel> {
+public class OptionListPanelCellRenderer extends JPanel implements ListCellRenderer<OptionListPanel> {
 
     public static final int TEXT_INSET_HORIZONTAL = 6;
     private static final int INSET_VERTICAL = 1;
@@ -85,6 +85,12 @@ public class OptionListPanelCellRenderer implements ListCellRenderer<OptionListP
             label.setForeground(list.getForeground());
         }
         return labelPanel;
+    }
+
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        if (label != null) label.setFont(font);
     }
 
 }

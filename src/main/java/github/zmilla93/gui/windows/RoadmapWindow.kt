@@ -35,7 +35,6 @@ class RoadmapWindow : CustomDialog("Roadmap"), IDefaultSizeAndLocation {
         pinButton.isVisible = false
         val roadmapPanel = RoadmapPanel()
         // Content Panel
-        val contentPanel = contentPane
         contentPanel.layout = BorderLayout()
 
         val southPanel = JPanel(GridBagLayout())

@@ -1,5 +1,6 @@
 = Now
-- Delete save, run app, save, font error (check preferred font)
++ Delete save, run app, save, font error (check preferred font)
+- Font size updating for options list, history, etc
 - Add game name to grid preview
 + New Icons & Translations, switch : to _
 - Add hasClickedIdentify to requirements of window location setup?
