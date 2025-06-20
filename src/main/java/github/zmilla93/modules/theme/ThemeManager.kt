@@ -371,11 +371,12 @@ object ThemeManager {
         }
     }
 
-    private fun changeComponentFont(component: Component, font: Font) {
-        val previousFont = component.getFont()
-        component.setFont(font.deriveFont(previousFont.getStyle(), previousFont.getSize().toFloat()))
-        if (component is Container) {
-            for (child in component.getComponents()) {
+    private fun changeComponentFont(comp: Component, font: Font) {
+        val previousFont = comp.getFont()
+        if (previousFont == null) return
+        comp.setFont(font.deriveFont(previousFont.getStyle(), previousFont.getSize().toFloat()))
+        if (comp is Container) {
+            for (child in comp.components) {
                 changeComponentFont(child, font)
             }
         }

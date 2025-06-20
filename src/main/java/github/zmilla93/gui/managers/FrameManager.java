@@ -122,7 +122,7 @@ public class FrameManager {
         if (App.debug) {
             stashAlignmentDesignerWindow = new StashAlignmentDesignerWindow();
             designerConfigWindow = new DesignerConfigWindow();
-            currencyWindow = new CurrencyWindow();
+//            currencyWindow = new CurrencyWindow();
         }
         if (App.themeDebugWindows) {
             uiManagerInspectorWindow = new UIManagerInspectorWindow();
