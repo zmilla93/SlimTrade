@@ -11,18 +11,18 @@ import javax.swing.JLabel
 
 class StashFolderSetupPanel : AbstractSetupPanel() {
 
-    private val poe1UsingFoldersCheckbox = JCheckBox("Using any stash folders")
-    private val poe1tradeTabsInsideFolder = JCheckBox("Trade tabs are in folders")
+    private val poe1UsingFoldersCheckbox = JCheckBox("Using stash subfolders")
+    private val poe1tradeTabsInsideFolder = JCheckBox("Trade tabs are in subfolders")
 
-    private val poe2UsingFoldersCheckbox = JCheckBox("Using any stash folders")
-    private val poe2tradeTabsInsideFolder = JCheckBox("Trade tabs are in folders")
+    private val poe2UsingFoldersCheckbox = JCheckBox("Using any subfolders")
+    private val poe2tradeTabsInsideFolder = JCheckBox("Trade tabs are in subfolders")
 
     init {
         poe1tradeTabsInsideFolder.isEnabled = false
         poe2tradeTabsInsideFolder.isEnabled = false
 
         addHeader("Stash Tab Folders")
-        addComponent(JLabel("Do you use stash tab folders? Doing so affects UI alignment."))
+        addComponent(JLabel("Do you use stash subfolders? Doing so affects UI alignment."))
         addComponent(JLabel("This settings needs to be updated manually if changed.").textColor(ThemeColorBlind.YELLOW))
         addVerticalStrut()
         addHeader(Game.PATH_OF_EXILE_1.explicitName)

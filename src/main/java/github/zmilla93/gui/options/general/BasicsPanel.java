@@ -12,7 +12,7 @@ import java.awt.*;
 public class BasicsPanel extends JPanel implements ISavable {
 
     private final JCheckBox showGuildName = new JCheckBox();
-    private final JCheckBox folderOffsetCheckbox = new JCheckBox("Using Stash Folders");
+    private final JCheckBox folderOffsetCheckbox = new JCheckBox("Using Stash Sub Folders");
     private final HotkeyButton quickPasteHotkey = new HotkeyButton();
     private final JButton editOverlayButton = new JButton("Edit Overlay Locations");
     private final JButton editStashLocationButton = new JButton("Edit Stash Location");
