@@ -26,12 +26,14 @@ class StashAlignmentPreviewWindow : BasicDialog() {
         layout = BorderLayout()
         background = ThemeManager.TRANSPARENT
         add(GridPanel(), BorderLayout.CENTER)
+        pack()
         App.events.subscribe(GameChangedEvent::class.java) { updateBounds(it.currentGame) }
     }
 
     // FIXME : Just combine this with showPreview?
     @JvmOverloads
     fun updateBounds(game: Game = App.chatParser.currentGame) {
+        pack()
         bounds = POEWindow.stashBounds(game)
         stashHelperPreviewWindow.updateBounds(game)
     }
