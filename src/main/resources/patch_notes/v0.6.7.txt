@@ -1,0 +1,15 @@
+## Stash Alignment (repeated)
+- Added a stash alignment preview *(Options > Path of Exile)*
+- Added additional toggle when using subfolders
+- Stash alignment is based on subfolder setting
+
+## Bug Fixes
+- Fixed cheatsheets not refreshing
+- Fixed notification visual glitch (I think)
+- Renamed new folder option to 'subfolder' for clarity
+
+## How to Install
+- Make sure you have [Java](https://www.java.com) installed
+- Download and run 'SlimTrade.jar' from 'Assets' below
+
+*Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*

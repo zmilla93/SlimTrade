@@ -34,6 +34,7 @@ public abstract class StashHelperContainer extends BasicDialog implements POEWin
 
         setBackground(ThemeManager.TRANSPARENT);
         setVisible(true);
+        pack();
         updateBounds();
         ThemeManager.addThemeListener(this);
         SaveManager.stashSaveFile.addListener(this);

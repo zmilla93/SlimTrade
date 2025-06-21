@@ -5,7 +5,7 @@ import java.io.File
 
 class CheatSheetData @JvmOverloads constructor(
     @JvmField val fileName: String,
-    @JvmField val hotkeyData: HotkeyData
+    @JvmField val hotkeyData: HotkeyData?
 ) {
 //    @JvmField
 //    val hotkeyData: HotkeyData
