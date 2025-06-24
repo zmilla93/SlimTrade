@@ -117,7 +117,7 @@ class ChatParser(private val game: Game) : FileTailerListener {
         val fullMessage = fullClientMessage.group("message")
         val date = fullClientMessage.group("date")
         val time = fullClientMessage.group("time")
-        if (fullMessage == null || fullMessage.isEmpty()) return
+        if (fullMessage == null || fullMessage.isEmpty() || date == null || time == null) return
         val firstChar = fullMessage[0]
 //        println("LOG $date $time - $fullMessage")
 //        val chatMessage = ChatMessage(date, time, fullMessage)
@@ -327,6 +327,12 @@ class ChatParser(private val game: Game) : FileTailerListener {
 
     override fun handle(line: String) {
         parseLine(line)
+//        try {
+//        } catch (e: Exception) {
+//            CrashReportWindow.showCrashReport(e)
+//            // Throw the error so that the parser stops
+//            throw e
+//        }
     }
 
 }

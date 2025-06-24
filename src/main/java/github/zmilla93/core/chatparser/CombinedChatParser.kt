@@ -8,6 +8,7 @@ import github.zmilla93.core.managers.SaveManager
 import github.zmilla93.core.poe.Game
 import github.zmilla93.core.poe.GameSettings
 import github.zmilla93.gui.managers.FrameManager
+import github.zmilla93.gui.windows.CrashReportWindow
 import java.time.LocalDateTime
 
 /**
@@ -83,9 +84,13 @@ class CombinedChatParser : ParserRestartListener, ParserLoadedListener {
         if (shouldOpenPoe1Parser) expectedParserCount++
         if (shouldOpenPoe2Parser) expectedParserCount++
         App.events.post(ParserEventType.RESTART)
-        // Create new parsers
-        if (shouldOpenPoe1Parser) chatParserPoe1 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe1)
-        if (shouldOpenPoe2Parser) chatParserPoe2 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe2)
+        // Create new parser
+        try {
+            if (shouldOpenPoe1Parser) chatParserPoe1 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe1)
+            if (shouldOpenPoe2Parser) chatParserPoe2 = createChatParser(SaveManager.settingsSaveFile.data.settingsPoe2)
+        } catch (e: Exception) {
+            CrashReportWindow.showCrashReport(e)
+        }
     }
 
     /** Returns true if the chat parser is switching between on and off, or if already running but the client.txt path changed. */
