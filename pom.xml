@@ -9,7 +9,7 @@
 
     <groupId>github.zmilla93</groupId>
     <artifactId>slimtrade</artifactId>
-    <version>0.6.7</version>
+    <version>0.6.8</version>
     <packaging>jar</packaging>
 
     <properties>

@@ -1,0 +1,9 @@
+## Bug Fixes
+- Fixed a chat parser crash
+- Added crash report popup for chat parser
+
+## How to Install
+- Make sure you have [Java](https://www.java.com) installed
+- Download and run 'SlimTrade.jar' from 'Assets' below
+
+*Having issues? Check the [troubleshooting guide](https://github.com/zmilla93/SlimTrade/wiki/Troubleshooting).*
