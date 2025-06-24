@@ -2,7 +2,6 @@ package github.zmilla93.core.utility;
 
 import github.zmilla93.core.enums.Anchor;
 import github.zmilla93.core.enums.ExpandDirection;
-import github.zmilla93.core.managers.AudioManager;
 
 import java.awt.*;
 import java.io.File;
@@ -21,35 +20,26 @@ public class TradeUtil {
         /// Static class
     }
 
-    /**
-     * Verify that a given path points to the Path of Exile 1 or 2's
-     * install directory by looking for a "logs" folder.
-     */
-    // FIXME : Move?
-    @Deprecated // FIXME : Switch
-//    public static boolean isValidPOEFolder(Path path) {
-//        if (path == null) return false;
-//        File logFolder = path.resolve(GameSettings.LOG_FOLDER_NAME).toFile();
-//        return logFolder.exists() && logFolder.isDirectory();
+
+//    public static String getFixedItemName(String item, double count, boolean paren) {
+//        String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");
+//        if (!fixedNum.equals("") && paren) {
+//            fixedNum = "(" + fixedNum + ")";
+//        }
+//        String fixedString = fixedNum.equals("") ? item : fixedNum + " " + item;
+//        return fixedString;
 //    }
 
-    public static String getFixedItemName(String item, double count, boolean paren) {
-        String fixedNum = count == 0 ? "" : String.valueOf(count).toString().replaceAll("[.,]0", "");
-        if (!fixedNum.equals("") && paren) {
-            fixedNum = "(" + fixedNum + ")";
-        }
-        String fixedString = fixedNum.equals("") ? item : fixedNum + " " + item;
-        return fixedString;
-    }
+//    public static String getFixedDouble(double num, boolean paren) {
+//        String fixedDouble = String.valueOf(num).replaceAll("[.,]0", "");
+//        if (paren) {
+//            fixedDouble = "(" + fixedDouble + ")";
+//        }
+//        return fixedDouble;
+//    }
 
-    public static String getFixedDouble(double num, boolean paren) {
-        String fixedDouble = String.valueOf(num).replaceAll("[.,]0", "");
-        if (paren) {
-            fixedDouble = "(" + fixedDouble + ")";
-        }
-        return fixedDouble;
-    }
 
+    // FIXME : Move to Anchor
     public static void applyAnchorPoint(Window window, Point point, Anchor anchor) {
         Point adjustedPoint = new Point(point.x, point.y);
         if (anchor == Anchor.TOP_RIGHT || anchor == Anchor.BOTTOM_RIGHT) adjustedPoint.x -= window.getWidth();
@@ -57,30 +47,36 @@ public class TradeUtil {
         window.setLocation(adjustedPoint);
     }
 
+    // FIXME : Move to ExpandDirection
     public static void applyAnchorPoint(Window window, Point point, ExpandDirection expandDirection) {
         Point adjustedPoint = new Point(point.x, point.y);
         if (expandDirection == ExpandDirection.UPWARDS) adjustedPoint.y -= window.getHeight();
         window.setLocation(adjustedPoint);
     }
 
-    public static int getAudioPercent(float f) {
-        f = f + AudioManager.RANGE - AudioManager.MAX_VOLUME;
-        int i = (int) ((f / AudioManager.RANGE) * 100);
-        return i;
-    }
+//    public static int getAudioPercent(float f) {
+//        f = f + AudioManager.RANGE - AudioManager.MAX_VOLUME;
+//        return (int) ((f / AudioManager.RANGE) * 100);
+//    }
 
-    public static float getAudioVolume(int i) {
-        float f = (float) ((AudioManager.RANGE / 100.0) * (float) (i));
-        return f - AudioManager.RANGE + AudioManager.MAX_VOLUME;
-    }
+//    public static float getAudioVolume(int i) {
+//        float f = (float) ((AudioManager.RANGE / 100.0) * (float) (i));
+//        return f - AudioManager.RANGE + AudioManager.MAX_VOLUME;
+//    }
 
+    /**
+     * Removes common modifiers from POE item names that
+     * cause issues when searching.
+     */
     public static String cleanItemName(String input) {
         if (input == null) return null;
-        String cleanString = input.replaceAll("(?i)superior( )?", "")
+        return input.replaceAll("(?i)superior( )?", "")
+                // Remove phrases in parentheses
                 .replaceAll("( )?\\(.+\\)", "")
-                .replaceAll(",", "");
-        if (cleanString.contains(" Map")) cleanString = cleanString.replaceFirst(" Map", "");
-        return cleanString;
+                // Remove Commas
+                .replaceAll(",", "")
+                // Remove " Map" suffix for map searching
+                .replaceFirst(" Map", "");
     }
 
     public static String fixCasing(String input) {

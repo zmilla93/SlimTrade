@@ -135,19 +135,19 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
         return components;
     }
 
-    private void handleResize() {
+    public void updateBounds() {
         pack();
         TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
     }
 
     @Override
     public void onFontChanged() {
-        handleResize();
+        updateBounds();
     }
 
     @Override
     public void onThemeChange() {
-        handleResize();
+        updateBounds();
     }
 
     private void updateDndButton() {
@@ -160,7 +160,7 @@ public class MenubarDialog extends BasicDialog implements ISaveListener, IFontCh
                 if (dnd) dndButton.setText(DND_ENABLED);
                 else dndButton.setText(DND_DISABLED);
             }
-            handleResize();
+            updateBounds();
         });
     }
 

@@ -1,4 +1,6 @@
 = Now
+- Fix 'Reset UI Alignment' for messages - overlay editor & system tray
+- Supporters
 + Delete save, run app, save, font error (check preferred font)
 - Font size updating for options list, history, etc
 - Add game name to grid preview

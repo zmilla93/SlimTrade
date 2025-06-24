@@ -31,6 +31,11 @@ public class MenubarButtonDialog extends BasicDialog implements IFontChangeListe
         });
     }
 
+    public void updateBounds() {
+        pack();
+        TradeUtil.applyAnchorPoint(this, SaveManager.overlaySaveFile.data.menubarLocation, SaveManager.overlaySaveFile.data.menubarAnchor);
+    }
+
     @Override
     public void onFontChanged() {
         pack();

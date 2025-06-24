@@ -278,6 +278,11 @@ public class FrameManager {
         }
     }
 
+    public static void updateMenubarLocation() {
+        menuBarDialog.updateBounds();
+        menuBarIcon.updateBounds();
+    }
+
     public static void updateMenubarVisibility() {
         SwingUtilities.invokeLater(() -> {
             boolean shouldHide = false;
